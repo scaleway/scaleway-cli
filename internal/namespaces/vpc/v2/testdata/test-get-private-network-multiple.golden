@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              7b879952-b084-4309-9f49-a84fdf5d22e2
-Name                            cli-pn-quizzical-keldysh
+ID                              628f589d-e4e9-4009-bc36-40d8fc2a2660
+Name                            cli-pn-frosty-black
 OrganizationID                  fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID                       fa1e3217-dc80-42ac-85c3-3f034b78b552
 Region                          fr-par
@@ -13,37 +13,37 @@ DefaultRoutePropagationEnabled  false
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-8c1acca6-c5e5-4446-986a-968ba2c8161b  few seconds ago  few seconds ago  172.16.64.0/22            fa1e3217-dc80-42ac-85c3-3f034b78b552  7b879952-b084-4309-9f49-a84fdf5d22e2  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
-ff3ff6f4-d6ef-4102-86e1-df82069da3b7  few seconds ago  few seconds ago  fd63:256c:45f7:3f93::/64  fa1e3217-dc80-42ac-85c3-3f034b78b552  7b879952-b084-4309-9f49-a84fdf5d22e2  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
+883017ad-b6e4-4c45-a669-8b8fef4bffc8  few seconds ago  few seconds ago  172.16.4.0/22             fa1e3217-dc80-42ac-85c3-3f034b78b552  628f589d-e4e9-4009-bc36-40d8fc2a2660  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
+1cc2536d-55c0-4f8f-9187-6e556ed25c78  few seconds ago  few seconds ago  fd63:256c:45f7:ed4d::/64  fa1e3217-dc80-42ac-85c3-3f034b78b552  628f589d-e4e9-4009-bc36-40d8fc2a2660  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
 
 Instance Servers:
-ID                                    NAME                 STATE     NIC ID                                MAC ADDRESS
-2cac90a4-0eb3-457b-99ca-52e95bb85f3b  cli-srv-nice-bartik  archived  6f86e794-6ac9-470b-bac3-564bbab7a298  02:00:00:1d:d3:f9
+ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
+91539de9-e2fa-4231-8b85-99bf40067b3e  cli-srv-stupefied-bose  archived  711dbb3e-38be-4d23-9914-410a784f6c09  02:00:00:15:cc:a5
 
 Load-Balancers:
 ID                                    NAME      STATE
-f0a73938-9b89-4808-b978-09ed249d5bdf  cli-test  ready
+d9e9f871-6413-4c22-91aa-1c67c44d92a0  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-e15ebaf8-c877-4ed9-aa9f-f21e55f1e980  cli-test  ready  05bf9b30-8547-450b-b4a3-f55690efc003
+99510c24-d28d-471f-b1d7-c63351e457d6  cli-test  ready  49aad90b-f6a0-449b-ae1a-531daa6f3fb9
 
 MongoDB Instances:
 ID                                    NAME            STATE  ENDPOINT ID
-9922b8ec-6468-4b14-93f6-0cd0662f3705  mongo-cli-test  ready  ee6d36a3-6c8f-42ac-8141-2bd4e6dd7d0a
+d63fdf06-e379-4fd2-a9b6-cffe48e565fc  mongo-cli-test  ready  b998aded-f889-4726-a6e4-41dfc3106d06
 
 IPAM IPs:
 ID                                    ADDRESS
-e507d52c-80c0-4133-b29d-446a685fa80c  172.16.64.5/22
-dc2dd833-c5ab-408c-8616-c4ba0f2718ab  fd63:256c:45f7:3f93:59a4:5cf:1028:8227/64
-27779077-f432-4f2b-9266-c37cfb46c7eb  172.16.64.4/22
-9e123ee3-28c5-4daa-a2fe-bae82ec9871d  172.16.64.3/22
-958d16d7-c5e9-49cf-9400-9da6143bde66  fd63:256c:45f7:3f93:5a1f:e3a2:d2da:e824/64
-cbc74681-cad5-4029-bdc6-9ea5e1829ac8  172.16.64.2/22
+33e5ffe6-914e-410c-a40a-7e7e85b3885c  172.16.4.5/22
+ca05be70-c56d-4ee1-acdc-8eb48c0a0297  fd63:256c:45f7:ed4d:a7af:badb:def0:c2a4/64
+756e62a6-bf8d-43ab-82b5-dce826e52cfc  172.16.4.4/22
+08d9e9a4-ecf9-4b48-b0a5-d421c07f3f7d  172.16.4.3/22
+1a1bfcef-571d-4b9e-9125-a053b4006938  fd63:256c:45f7:ed4d:d1ed:ff4d:a608:3eb5/64
+6fd645ca-8ba2-42fa-b715-8b655726f5f0  172.16.4.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "7b879952-b084-4309-9f49-a84fdf5d22e2",
-  "name": "cli-pn-quizzical-keldysh",
+  "id": "628f589d-e4e9-4009-bc36-40d8fc2a2660",
+  "name": "cli-pn-frosty-black",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "region": "fr-par",
@@ -52,21 +52,21 @@ cbc74681-cad5-4029-bdc6-9ea5e1829ac8  172.16.64.2/22
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "8c1acca6-c5e5-4446-986a-968ba2c8161b",
+      "id": "883017ad-b6e4-4c45-a669-8b8fef4bffc8",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.64.0/22",
+      "subnet": "172.16.4.0/22",
       "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "private_network_id": "7b879952-b084-4309-9f49-a84fdf5d22e2",
+      "private_network_id": "628f589d-e4e9-4009-bc36-40d8fc2a2660",
       "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"
     },
     {
-      "id": "ff3ff6f4-d6ef-4102-86e1-df82069da3b7",
+      "id": "1cc2536d-55c0-4f8f-9187-6e556ed25c78",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd63:256c:45f7:3f93::/64",
+      "subnet": "fd63:256c:45f7:ed4d::/64",
       "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "private_network_id": "7b879952-b084-4309-9f49-a84fdf5d22e2",
+      "private_network_id": "628f589d-e4e9-4009-bc36-40d8fc2a2660",
       "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"
     }
   ],
@@ -75,60 +75,60 @@ cbc74681-cad5-4029-bdc6-9ea5e1829ac8  172.16.64.2/22
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "2cac90a4-0eb3-457b-99ca-52e95bb85f3b",
-      "name": "cli-srv-nice-bartik",
+      "id": "91539de9-e2fa-4231-8b85-99bf40067b3e",
+      "name": "cli-srv-stupefied-bose",
       "state": "stopped",
-      "nic_id": "6f86e794-6ac9-470b-bac3-564bbab7a298",
-      "mac": "02:00:00:1d:d3:f9"
+      "nic_id": "711dbb3e-38be-4d23-9914-410a784f6c09",
+      "mac": "02:00:00:15:cc:a5"
     }
   ],
   "lbs": [
     {
-      "id": "f0a73938-9b89-4808-b978-09ed249d5bdf",
+      "id": "d9e9f871-6413-4c22-91aa-1c67c44d92a0",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "e15ebaf8-c877-4ed9-aa9f-f21e55f1e980",
+      "id": "99510c24-d28d-471f-b1d7-c63351e457d6",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "05bf9b30-8547-450b-b4a3-f55690efc003"
+      "endpoint_id": "49aad90b-f6a0-449b-ae1a-531daa6f3fb9"
     }
   ],
   "mongodb_instances": [
     {
-      "id": "9922b8ec-6468-4b14-93f6-0cd0662f3705",
+      "id": "d63fdf06-e379-4fd2-a9b6-cffe48e565fc",
       "name": "mongo-cli-test",
       "state": "ready",
-      "endpoint_id": "ee6d36a3-6c8f-42ac-8141-2bd4e6dd7d0a"
+      "endpoint_id": "b998aded-f889-4726-a6e4-41dfc3106d06"
     }
   ],
   "ipam_ips": [
     {
-      "id": "e507d52c-80c0-4133-b29d-446a685fa80c",
-      "address": "172.16.64.5/22"
+      "id": "33e5ffe6-914e-410c-a40a-7e7e85b3885c",
+      "address": "172.16.4.5/22"
     },
     {
-      "id": "dc2dd833-c5ab-408c-8616-c4ba0f2718ab",
-      "address": "fd63:256c:45f7:3f93:59a4:5cf:1028:8227/64"
+      "id": "ca05be70-c56d-4ee1-acdc-8eb48c0a0297",
+      "address": "fd63:256c:45f7:ed4d:a7af:badb:def0:c2a4/64"
     },
     {
-      "id": "27779077-f432-4f2b-9266-c37cfb46c7eb",
-      "address": "172.16.64.4/22"
+      "id": "756e62a6-bf8d-43ab-82b5-dce826e52cfc",
+      "address": "172.16.4.4/22"
     },
     {
-      "id": "9e123ee3-28c5-4daa-a2fe-bae82ec9871d",
-      "address": "172.16.64.3/22"
+      "id": "08d9e9a4-ecf9-4b48-b0a5-d421c07f3f7d",
+      "address": "172.16.4.3/22"
     },
     {
-      "id": "958d16d7-c5e9-49cf-9400-9da6143bde66",
-      "address": "fd63:256c:45f7:3f93:5a1f:e3a2:d2da:e824/64"
+      "id": "1a1bfcef-571d-4b9e-9125-a053b4006938",
+      "address": "fd63:256c:45f7:ed4d:d1ed:ff4d:a608:3eb5/64"
     },
     {
-      "id": "cbc74681-cad5-4029-bdc6-9ea5e1829ac8",
-      "address": "172.16.64.2/22"
+      "id": "6fd645ca-8ba2-42fa-b715-8b655726f5f0",
+      "address": "172.16.4.2/22"
     }
   ]
 }
