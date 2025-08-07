@@ -36,9 +36,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:42 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -46,10 +46,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - d41880f6-83e3-4ec6-a06c-5064b4f1820e
+                - c92c9ec0-8d31-4739-b7fe-4e3c1d4e9428
         status: 200 OK
         code: 200
-        duration: 355.010259ms
+        duration: 336.547735ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -85,9 +85,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:42 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -95,10 +95,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 74c36b3f-60bd-4731-b5c2-d0da62d5ebc9
+                - e4d8ca7b-77d0-41be-ad53-3090d7f3db7d
         status: 200 OK
         code: 200
-        duration: 143.592027ms
+        duration: 140.73276ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -134,9 +134,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:43 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -144,10 +144,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - fd50183e-3b76-426d-b6c1-8aa91f9dab4f
+                - 9f7cee80-3902-4502-8c03-b361d6545fa6
         status: 200 OK
         code: 200
-        duration: 155.438846ms
+        duration: 131.083818ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -183,9 +183,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:43 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -193,7 +193,7 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 8cdc2380-9474-448d-bd42-8990c4a818fa
+                - b9e18fb4-5187-43b3-b68d-f8767282e0a9
         status: 200 OK
         code: 200
-        duration: 164.201849ms
+        duration: 160.137492ms

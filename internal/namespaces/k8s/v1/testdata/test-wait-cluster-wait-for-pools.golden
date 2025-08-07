@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                1bb9c594-04d0-489c-83c7-5722321c0b69
+ID                b86b98b8-2e23-458c-889b-51479c3a239b
 Type              kapsule
 Name              cli-test-wait-cluster
 Status            ready
@@ -10,15 +10,15 @@ OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
 Cni               cilium
 Description       -
-ClusterURL        https://1bb9c594-04d0-489c-83c7-5722321c0b69.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.1bb9c594-04d0-489c-83c7-5722321c0b69.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://b86b98b8-2e23-458c-889b-51479c3a239b.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.b86b98b8-2e23-458c-889b-51479c3a239b.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 UpgradeAvailable  true
-PrivateNetworkID  bcf823a3-b7c7-4d1f-8939-b8eba6a964bc
+PrivateNetworkID  8cb4b3f9-312e-4659-bfcd-142a085e4928
 CommitmentEndsAt  few seconds ago
 ACLAvailable      true
-IamNodesGroupID   296bd2f7-4ed2-4faa-97d5-2850241745b6
+IamNodesGroupID   4d42fbe2-bcfa-4c5d-8352-9f2e6ce83356
 NewImagesEnabled  false
 PodCidr           -
 ServiceCidr       -
@@ -48,7 +48,7 @@ UsernamePrefix  -
 GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1bb9c594-04d0-489c-83c7-5722321c0b69",
+  "id": "b86b98b8-2e23-458c-889b-51479c3a239b",
   "type": "kapsule",
   "name": "cli-test-wait-cluster",
   "status": "ready",
@@ -59,8 +59,8 @@ GroupsPrefix    -
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://1bb9c594-04d0-489c-83c7-5722321c0b69.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.1bb9c594-04d0-489c-83c7-5722321c0b69.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://b86b98b8-2e23-458c-889b-51479c3a239b.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.b86b98b8-2e23-458c-889b-51479c3a239b.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -95,10 +95,10 @@ GroupsPrefix    -
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": "bcf823a3-b7c7-4d1f-8939-b8eba6a964bc",
+  "private_network_id": "8cb4b3f9-312e-4659-bfcd-142a085e4928",
   "commitment_ends_at": "1970-01-01T00:00:00.0Z",
   "acl_available": true,
-  "iam_nodes_group_id": "296bd2f7-4ed2-4faa-97d5-2850241745b6",
+  "iam_nodes_group_id": "4d42fbe2-bcfa-4c5d-8352-9f2e6ce83356",
   "new_images_enabled": false,
   "pod_cidr": "",
   "service_cidr": "",

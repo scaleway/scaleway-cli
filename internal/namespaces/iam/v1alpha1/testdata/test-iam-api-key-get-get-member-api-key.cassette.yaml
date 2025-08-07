@@ -36,9 +36,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:42 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -46,10 +46,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 8c2356f5-c25f-4010-a2e2-c915800f6101
+                - dc0909cc-f3f2-48d6-806d-1569b09fb7bf
         status: 200 OK
         code: 200
-        duration: 366.86377ms
+        duration: 341.182739ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -85,9 +85,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:42 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -95,10 +95,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - a532fb38-a44a-4eec-91ff-6be8c4e0acb0
+                - 876cab74-578f-446a-9376-e06d9840a4b8
         status: 200 OK
         code: 200
-        duration: 191.602549ms
+        duration: 132.720259ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -134,9 +134,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:43 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -144,10 +144,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - bdc80f54-a655-4c4e-8f95-18613f1e5af5
+                - eabd22a4-2244-478c-899c-389cae89aeb3
         status: 200 OK
         code: 200
-        duration: 149.884453ms
+        duration: 169.011694ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -183,9 +183,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:16 GMT
+                - Thu, 07 Aug 2025 09:56:43 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -193,10 +193,10 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 25a8f008-27f3-47b8-95f7-120c0657b415
+                - 2451e25a-fdb9-4ae0-b653-f7ec021d0803
         status: 200 OK
         code: 200
-        duration: 152.130957ms
+        duration: 164.399532ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -232,9 +232,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Wed, 06 Aug 2025 15:47:17 GMT
+                - Thu, 07 Aug 2025 09:56:43 GMT
             Server:
-                - Scaleway API Gateway (fr-par-1;edge03)
+                - Scaleway API Gateway (fr-par-3;edge02)
             Strict-Transport-Security:
                 - max-age=63072000
             X-Content-Type-Options:
@@ -242,7 +242,7 @@ interactions:
             X-Frame-Options:
                 - DENY
             X-Request-Id:
-                - 74dd4fe4-55f2-4edc-88e3-02094fa8914b
+                - 2cfb03b4-eaef-4259-a85d-dc1d4e05efb9
         status: 200 OK
         code: 200
-        duration: 144.724805ms
+        duration: 150.990403ms
