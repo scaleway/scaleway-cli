@@ -7,6 +7,8 @@ name: "CodeQL"
 
 permissions:
   contents: read
+  security-events: write
+  actions: read
 
 on:
   push:
