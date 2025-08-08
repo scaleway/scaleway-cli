@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name  CPU                  Memory  Disk    Stock       Minimum Lease Duration  CO2 (kg/day)  Water (m³/day)
-M4-S  Apple M4 (10 cores)  16 GB   256 GB  high stock  1 days                  0.014205732   1.3491717e-06
-M4-M  Apple M4 (10 cores)  32 GB   1.0 TB  high stock  1 days                  0.015271181   1.3491717e-06
-M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0.013547652   1.2453893e-06
+Name  CPU                  Memory  Disk    Stock       Minimum Lease Duration  CO2 (kg/hour)  Water (m³/hour)
+M4-S  Apple M4 (10 cores)  16 GB   256 GB  high stock  1 days                  0.014205732    1.3491717e-06
+M4-M  Apple M4 (10 cores)  32 GB   1.0 TB  high stock  1 days                  0.015271181    1.3491717e-06
+M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0.013547652    1.2453893e-06
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
