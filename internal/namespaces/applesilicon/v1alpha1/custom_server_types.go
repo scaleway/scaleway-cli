@@ -88,11 +88,11 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 				FieldName: "MinimumLeaseDuration",
 			},
 			{
-				Label:     "CO2 (kg/day)",
+				Label:     "CO2 (kg/hour)",
 				FieldName: "KgCo2Equivalent",
 			},
 			{
-				Label:     "Water (m³/day)",
+				Label:     "Water (m³/hour)",
 				FieldName: "M3WaterUsage",
 			},
 		},
