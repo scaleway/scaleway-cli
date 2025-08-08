@@ -78,8 +78,6 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 			{Label: "Options", FieldName: "Options"},
 			{Label: "Bandwidth", FieldName: "Bandwidth"},
 			{Label: "PrivateBandwidth", FieldName: "PrivateBandwidth"},
-			{Label: "CO2 (kg)", FieldName: "KgCo2Equivalent"},
-			{Label: "Water (m³)", FieldName: "M3WaterUsage"},
 		},
 	}
 
@@ -101,9 +99,22 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 			scw.WithAllPages(),
 		)
 
-		unitOfMeasure := productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
-		if req.SubscriptionPeriod == "month" {
+		var unitOfMeasure productcatalog.PublicCatalogProductUnitOfMeasureCountableUnit
+		//nbOfUnits := 1
+		if req.SubscriptionPeriod == "monthly" {
 			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitMonth
+			c.View.Fields = append(c.View.Fields, []*core.ViewField{
+				{Label: "CO2 per month (kg)", FieldName: "KgCo2Equivalent"},
+				{Label: "Water per month (m³)", FieldName: "M3WaterUsage"},
+				{Label: "Price per month", FieldName: "PricePerMonth"},
+			}...)
+		} else {
+			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
+			c.View.Fields = append(c.View.Fields, []*core.ViewField{
+				{Label: "CO2 per hour (kg)", FieldName: "KgCo2Equivalent"},
+				{Label: "Water per hour (m³)", FieldName: "M3WaterUsage"},
+				{Label: "Price per hour", FieldName: "PricePerHour"},
+			}...)
 		}
 
 		impactMap := make(map[string]*productcatalog.PublicCatalogProduct)
@@ -126,10 +137,12 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 				continue
 			}
+			KgCo2Equivalent := impact.EnvironmentalImpactEstimation.M3WaterUsage
+			M3WaterUsage := impact.EnvironmentalImpactEstimation.M3WaterUsage
 			customOfferRes = append(customOfferRes, customOffer{
 				Offer:           offer,
-				KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
-				M3WaterUsage:    impact.EnvironmentalImpactEstimation.M3WaterUsage,
+				KgCo2Equivalent: KgCo2Equivalent,
+				M3WaterUsage:    M3WaterUsage,
 			})
 		}
 
