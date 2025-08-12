@@ -54,8 +54,9 @@ func cassetteResponseFilter(i *cassette.Interaction) error {
 }
 
 const (
-	windowDockerEngine = "//./pipe/docker_engine"
-	unixDockerEngine   = "/var/run/docker.sock"
+	windowDockerEngine      = "//./pipe/docker_engine"
+	unixDockerEngine        = "/var/run/docker.sock"
+	escapedUnixDockerEngine = "%2Fvar%2Frun%2Fdocker.sock"
 )
 
 func cassetteMatcher(r *http.Request, i cassette.Request) bool {
@@ -124,6 +125,15 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 		actualURL.RawQuery == expectedURL.RawQuery
 }
 
+func unescapeDockerURL(i *cassette.Interaction) error {
+	i.Request.URL = regexp.MustCompile(`http://`+escapedUnixDockerEngine+`(.+)?`).
+		ReplaceAllString(
+			i.Request.URL,
+			"http://"+unixDockerEngine+"${1}")
+
+	return nil
+}
+
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
 // This cassette is then replayed whenever tests are executed again. This means that once the
 // requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
@@ -147,6 +157,10 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	if err != nil {
 		return nil, nil, err
 	}
+
+	// Starting with v3, go-vcr now calls net/url.Parse to build the interaction which results in an error for escaped
+	// Docker URLs on Test_Deploy (container), so we need to unescape these paths on this step.
+	r.AddHook(unescapeDockerURL, recorder.AfterCaptureHook)
 
 	// Add a filter which removes Authorization headers from all requests:
 	r.AddHook(cassetteRequestFilter, recorder.BeforeSaveHook)
