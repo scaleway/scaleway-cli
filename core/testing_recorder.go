@@ -86,6 +86,12 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 		return customS3Matcher(r, i)
 	}
 
+	// Specific handling of Docker URLs
+	// URLs are stored unescaped in the cassette but the matcher expects an escaped URL
+	if r.URL.Host == unixDockerEngine {
+		return customDockerMatcher(r, i)
+	}
+
 	return cassette.DefaultMatcher(r, i)
 }
 
@@ -123,6 +129,15 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 
 	return r.Method == i.Method && r.URL.Path == expectedURL.Path &&
 		actualURL.RawQuery == expectedURL.RawQuery
+}
+
+func customDockerMatcher(r *http.Request, i cassette.Request) bool {
+	escapedRecordedURL := regexp.MustCompile(`http://`+unixDockerEngine+`(.+)?`).
+		ReplaceAllString(
+			i.URL,
+			"http://"+escapedUnixDockerEngine+"${1}")
+
+	return r.URL.String() == escapedRecordedURL
 }
 
 func unescapeDockerURL(i *cassette.Interaction) error {
