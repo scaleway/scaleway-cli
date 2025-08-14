@@ -136,6 +136,7 @@ func customDockerMatcher(r *http.Request, i cassette.Request) bool {
 		ReplaceAllString(
 			i.URL,
 			"http://"+escapedUnixDockerEngine+"${1}")
+
 	return r.URL.String() == escapedRecordedURL
 }
 
