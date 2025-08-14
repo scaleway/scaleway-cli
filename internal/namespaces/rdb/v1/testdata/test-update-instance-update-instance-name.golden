@@ -2,25 +2,25 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 CreatedAt                   few seconds ago
 Region                      fr-par
-ID                          d08636c8-0696-44c3-b20b-e0c29a397106
+ID                          9219abc6-fe44-4d5e-8278-b687f414416a
 Name                        foo
-OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
+OrganizationID              fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                   fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status                      ready
-Engine                      PostgreSQL-15
+Engine                      PostgreSQL-16
 IsHaCluster                 false
 NodeType                    db-dev-s
-Endpoints.0.ID              c1419b65-cb75-4dee-8160-8ca0a7212318
-Endpoints.0.IP              195.154.69.220
-Endpoints.0.Port            10635
+Endpoints.0.ID              2c3f57f7-321e-4ef8-b2cc-6679644f4970
+Endpoints.0.IP              195.154.71.124
+Endpoints.0.Port            10062
 LogsPolicy.MaxAgeRetention  30
 BackupSameRegion            false
 Encryption.Enabled          false
 
 Endpoint:
-ID    c1419b65-cb75-4dee-8160-8ca0a7212318
-IP    195.154.69.220
-Port  10635
+ID    2c3f57f7-321e-4ef8-b2cc-6679644f4970
+IP    195.154.71.124
+Port  10062
 
 Volume:
 Type   lssd
@@ -50,17 +50,17 @@ work_mem                         4
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "d08636c8-0696-44c3-b20b-e0c29a397106",
+  "id": "9219abc6-fe44-4d5e-8278-b687f414416a",
   "name": "foo",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
-  "engine": "PostgreSQL-15",
+  "engine": "PostgreSQL-16",
   "upgradable_version": [],
   "endpoint": {
-    "id": "c1419b65-cb75-4dee-8160-8ca0a7212318",
-    "ip": "195.154.69.220",
-    "port": 10635,
+    "id": "2c3f57f7-321e-4ef8-b2cc-6679644f4970",
+    "ip": "195.154.71.124",
+    "port": 10062,
     "name": null,
     "load_balancer": {}
   },
@@ -103,9 +103,9 @@ work_mem                         4
   "init_settings": [],
   "endpoints": [
     {
-      "id": "c1419b65-cb75-4dee-8160-8ca0a7212318",
-      "ip": "195.154.69.220",
-      "port": 10635,
+      "id": "2c3f57f7-321e-4ef8-b2cc-6679644f4970",
+      "ip": "195.154.71.124",
+      "port": 10062,
       "name": null,
       "load_balancer": {}
     }

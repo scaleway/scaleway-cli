@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Policy:
-ID                a0ec7d54-6dc8-46f5-b808-84e1b728fe0a
+ID                d5078a28-1d00-45ab-b939-b1f9ec772fe3
 Name              test-cli-get-policy
 Description       -
-OrganizationID    951df375-e094-4d26-97c1-ba548eeb9c42
+OrganizationID    105bdce1-64c0-48ab-899d-868455867ecf
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 Editable          true
-Deletable         false
+Deletable         true
 Managed           false
 NbRules           1
 NbScopes          1
@@ -17,17 +17,17 @@ NoPrincipal       true
 
 Rules:
 ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-67cce713-1763-446e-8b05-4f520b925131  [IPAMReadOnly]        projects                    -          [54826627-c2b8-4bc1-baa8-ac2a78b02daf]  -                -
+eb7fb025-635d-4afc-82f9-163ea3b55cc3  [IPAMReadOnly]        projects                    -          [53376d20-8e44-422f-a1bd-ee30debc6ac9]  -                -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "a0ec7d54-6dc8-46f5-b808-84e1b728fe0a",
+  "id": "d5078a28-1d00-45ab-b939-b1f9ec772fe3",
   "name": "test-cli-get-policy",
   "description": "",
-  "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+  "organization_id": "105bdce1-64c0-48ab-899d-868455867ecf",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "editable": true,
-  "deletable": false,
+  "deletable": true,
   "managed": false,
   "nb_rules": 1,
   "nb_scopes": 1,
@@ -36,14 +36,14 @@ ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOP
   "no_principal": true,
   "Rules": [
     {
-      "id": "67cce713-1763-446e-8b05-4f520b925131",
+      "id": "eb7fb025-635d-4afc-82f9-163ea3b55cc3",
       "permission_set_names": [
         "IPAMReadOnly"
       ],
       "permission_sets_scope_type": "projects",
       "condition": "",
       "project_ids": [
-        "54826627-c2b8-4bc1-baa8-ac2a78b02daf"
+        "53376d20-8e44-422f-a1bd-ee30debc6ac9"
       ]
     }
   ]

@@ -1,27 +1,27 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Network:
-ID           0fc1c42f-050e-421e-86fc-54dcf154cf84
-Name         cli-network-jolly-thompson
+ID           e7a1fd06-1511-4195-8dc8-c5394b30ab99
+Name         cli-network-boring-lamport
 Type         sigfox
 Endpoint     sigfox.iot.fr-par.scw.cloud
-HubID        e50c1da4-3ade-4c67-9321-ce39d4bbe1ca
+HubID        7ce16c5e-015d-48af-8ed2-4de0e2e84ef6
 CreatedAt    few seconds ago
 TopicPrefix  foo
 
 WARNING: The secret below is displayed only once, we do not keep it. Make sure to store it securely
 
-Secret: eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9
+Secret: eyJOZXRJRCI6ImU3YTFmZDA2LTE1MTEtNDE5NS04ZGM4LWM1Mzk0YjMwYWI5OSIsIk5ldEtleSI6IjkwMmIzZGIzLWZjNGItNGIxOS04ZTk3LTVkYWY3NGJkMjMxZCJ9
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "network": {
-    "id": "0fc1c42f-050e-421e-86fc-54dcf154cf84",
-    "name": "cli-network-jolly-thompson",
+    "id": "e7a1fd06-1511-4195-8dc8-c5394b30ab99",
+    "name": "cli-network-boring-lamport",
     "type": "sigfox",
     "endpoint": "sigfox.iot.fr-par.scw.cloud",
-    "hub_id": "e50c1da4-3ade-4c67-9321-ce39d4bbe1ca",
+    "hub_id": "7ce16c5e-015d-48af-8ed2-4de0e2e84ef6",
     "created_at": "1970-01-01T00:00:00.0Z",
     "topic_prefix": "foo"
   },
-  "secret": "eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9"
+  "secret": "eyJOZXRJRCI6ImU3YTFmZDA2LTE1MTEtNDE5NS04ZGM4LWM1Mzk0YjMwYWI5OSIsIk5ldEtleSI6IjkwMmIzZGIzLWZjNGItNGIxOS04ZTk3LTVkYWY3NGJkMjMxZCJ9"
 }

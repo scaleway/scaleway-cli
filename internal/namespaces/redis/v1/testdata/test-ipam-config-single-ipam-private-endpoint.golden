@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           61099418-0242-49de-9d2e-b99257cbbebe
+ID           c0157269-cb3f-4527-b25a-296dbb144704
 Name         1-ipam-priv-endpoint
-ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
+ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status       ready
 Version      7.0.5
 NodeType     RED1-micro
@@ -15,32 +15,32 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-c5f161ec-09bf-4b63-9e90-ad7c9a434e2d  6379  [172.16.96.2]
+eb26830c-9371-41ac-b2a7-3a4fde9a0abe  6379  [172.16.32.2]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "61099418-0242-49de-9d2e-b99257cbbebe",
+  "id": "c0157269-cb3f-4527-b25a-296dbb144704",
   "name": "1-ipam-priv-endpoint",
-  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "version": "7.0.5",
   "endpoints": [
     {
       "port": 6379,
       "private_network": {
-        "id": "f31f3694-d06e-47ea-ab60-ff6958f39b30",
+        "id": "1fca56bf-4dc0-40af-b5de-124d3fdb733e",
         "service_ips": [
-          "172.16.96.2/22"
+          "172.16.32.2/22"
         ],
         "zone": "fr-par-1",
         "provisioning_mode": "ipam"
       },
       "ips": [
-        "172.16.96.2"
+        "172.16.32.2"
       ],
-      "id": "c5f161ec-09bf-4b63-9e90-ad7c9a434e2d"
+      "id": "eb26830c-9371-41ac-b2a7-3a4fde9a0abe"
     }
   ],
   "tags": [],
