@@ -78,8 +78,6 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 			{Label: "Options", FieldName: "Options"},
 			{Label: "Bandwidth", FieldName: "Bandwidth"},
 			{Label: "PrivateBandwidth", FieldName: "PrivateBandwidth"},
-			{Label: "CO2 (kg)", FieldName: "KgCo2Equivalent"},
-			{Label: "Water (m³)", FieldName: "M3WaterUsage"},
 		},
 	}
 
@@ -101,9 +99,21 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 			scw.WithAllPages(),
 		)
 
-		unitOfMeasure := productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
-		if req.SubscriptionPeriod == "month" {
+		var unitOfMeasure productcatalog.PublicCatalogProductUnitOfMeasureCountableUnit
+		if req.SubscriptionPeriod == "monthly" {
 			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitMonth
+			c.View.Fields = append(c.View.Fields, []*core.ViewField{
+				{Label: "CO2 (kg/month)", FieldName: "KgCo2Equivalent"},
+				{Label: "Water (m³/month)", FieldName: "M3WaterUsage"},
+				{Label: "Price per month", FieldName: "PricePerMonth"},
+			}...)
+		} else {
+			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
+			c.View.Fields = append(c.View.Fields, []*core.ViewField{
+				{Label: "CO2 (kg/hour)", FieldName: "KgCo2Equivalent"},
+				{Label: "Water (m³/hour)", FieldName: "M3WaterUsage"},
+				{Label: "Price per hour", FieldName: "PricePerHour"},
+			}...)
 		}
 
 		impactMap := make(map[string]*productcatalog.PublicCatalogProduct)
@@ -126,6 +136,7 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 				continue
 			}
+
 			customOfferRes = append(customOfferRes, customOffer{
 				Offer:           offer,
 				KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,

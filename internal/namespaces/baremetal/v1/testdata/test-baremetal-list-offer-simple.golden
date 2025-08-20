@@ -1,32 +1,32 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    Name           Stock      Disks  CPUs  Memories  Options  Bandwidth   PrivateBandwidth  CO2 (kg)     Water (m³)
-f7241870-c383-4fa2-bbca-5189600df5c4  EM-A115X-SSD   available  2      1     1         7        500000000   1000000000        0.016396677  1.330918e-06
-e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME  available  2      1     1         10       500000000   1000000000        -            -
-bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         7        1000000000  1000000000        0.020044472  1.6529143e-06
-6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         2        1000000000  1000000000        0.020230815  1.73878e-06
-5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   empty      2      1     1         8        1000000000  1000000000        0.019052466  1.5026494e-06
-c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         7        1000000000  1000000000        0.021611169  1.7173136e-06
-8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         6        1000000000  1000000000        0.029137727  2.5115712e-06
-a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         9        1000000000  1000000000        0.029708503  2.5115712e-06
-c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         9        1000000000  1000000000        0.030238569  2.361306e-06
-ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         9        1000000000  1000000000        0.033833902  2.7906347e-06
-206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME  available  2      1     1         14       1000000000  10000000000       -            -
-0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME  available  2      1     1         17       1000000000  25000000000       -            -
-a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         7        1000000000  1000000000        0.021611169  1.7173136e-06
-a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME  available  2      1     1         14       1000000000  10000000000       -            -
-d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME  available  2      1     1         14       1000000000  10000000000       -            -
-d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME  available  2      1     1         14       1000000000  10000000000       -            -
-fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME  available  2      1     1         17       1000000000  25000000000       -            -
-7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a  EM-I210E-NVME  available  2      1     1         14       1000000000  10000000000       -            -
-402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME  available  4      1     1         13       1000000000  10000000000       -            -
-66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME  available  2      1     1         17       1000000000  25000000000       -            -
-ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME  available  2      1     1         14       1000000000  10000000000       -            -
-18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME  low        4      1     1         13       1000000000  10000000000       -            -
-6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME  available  2      1     1         17       1000000000  25000000000       -            -
-b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1         17       1000000000  25000000000       -            -
-51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME  low        2      1     1         17       1000000000  25000000000       -            -
-49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME  empty      4      1     1         17       1000000000  25000000000       -            -
+ID                                    Name           Stock      Disks  CPUs  Memories  Options  Bandwidth   PrivateBandwidth  CO2 (kg/hour)  Water (m³/hour)  Price per hour
+f7241870-c383-4fa2-bbca-5189600df5c4  EM-A115X-SSD   available  2      1     1         7        500000000   1000000000        0.016396677    1.330918e-06     € 0.091
+e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME  available  2      1     1         10       500000000   1000000000        -              -                € 0.11
+bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         7        1000000000  1000000000        0.020044472    1.6529143e-06    € 0.122
+6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         2        1000000000  1000000000        0.020230815    1.73878e-06      € 0.153
+5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   empty      2      1     1         8        1000000000  1000000000        0.019052466    1.5026494e-06    € 0.153
+c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         7        1000000000  1000000000        0.021611169    1.7173136e-06    € 0.213
+8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         6        1000000000  1000000000        0.029137727    2.5115712e-06    € 0.263
+a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         9        1000000000  1000000000        0.029708503    2.5115712e-06    € 0.263
+c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         9        1000000000  1000000000        0.030238569    2.361306e-06     € 0.321
+ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         9        1000000000  1000000000        0.033833902    2.7906347e-06    € 0.321
+206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.333
+0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.356
+a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         7        1000000000  1000000000        0.021611169    1.7173136e-06    € 0.366
+a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.417
+d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.444
+d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.528
+fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.548
+7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a  EM-I210E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.667
+402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME  available  4      1     1         13       1000000000  10000000000       -              -                € 0.685
+66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.822
+ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.904
+18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME  low        4      1     1         13       1000000000  10000000000       -              -                € 1.014
+6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.096
+b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.37
+51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME  low        2      1     1         17       1000000000  25000000000       -              -                € 1.644
+49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME  empty      4      1     1         17       1000000000  25000000000       -              -                € 1.781
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
