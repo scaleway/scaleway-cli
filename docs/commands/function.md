@@ -498,7 +498,7 @@ scw function namespace create [arg=value ...]
 | secret-environment-variables.{index}.key |  |  |
 | secret-environment-variables.{index}.value |  |  |
 | tags.{index} |  | Tags of the Serverless Function Namespace |
-| activate-vpc-integration |  | Activate VPC integration for the namespace. |
+| ~~activate-vpc-integration~~ | Deprecated | [DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
