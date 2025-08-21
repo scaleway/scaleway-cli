@@ -4,6 +4,7 @@ import (
 	"bytes"
 	"os"
 	"path"
+	"regexp"
 	"runtime"
 	"testing"
 
@@ -79,7 +80,12 @@ func TestRegistryDockerHelperGetCommand(t *testing.T) {
 		Cmd:      "scw registry docker-helper get",
 		Stdin:    bytes.NewBufferString("rg.fr-par.scw.cloud\n"),
 		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
+			core.TestCheckGoldenAndReplacePatterns(
+				core.GoldenReplacement{
+					Pattern:     regexp.MustCompile(`"Secret":"[0-9a-f-]{36}"`),
+					Replacement: "11111111-1111-1111-1111-111111111111",
+				},
+			),
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: nil,

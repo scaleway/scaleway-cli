@@ -10,9 +10,9 @@ import (
 	"strings"
 	"testing"
 
-	"github.com/dnaeon/go-vcr/cassette"
-	"github.com/dnaeon/go-vcr/recorder"
 	"github.com/stretchr/testify/assert"
+	"gopkg.in/dnaeon/go-vcr.v3/cassette"
+	"gopkg.in/dnaeon/go-vcr.v3/recorder"
 )
 
 func cassetteRequestFilter(i *cassette.Interaction) error {
@@ -20,13 +20,17 @@ func cassetteRequestFilter(i *cassette.Interaction) error {
 	delete(i.Request.Headers, "X-Auth-Token")
 	orgIDRegex := regexp.MustCompile(`(.+)organization_id=[0-9a-f-]{36}(.+)`)
 	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
+	accessKeyRegex := regexp.MustCompile(`(.+)?SCW[0-9A-Z]{17}(.+)?`)
 
-	i.URL = orgIDRegex.ReplaceAllString(
-		i.URL,
+	i.Request.URL = orgIDRegex.ReplaceAllString(
+		i.Request.URL,
 		"${1}organization_id=11111111-1111-1111-1111-111111111111${2}")
-	i.URL = tokenRegex.ReplaceAllString(
-		i.URL,
+	i.Request.URL = tokenRegex.ReplaceAllString(
+		i.Request.URL,
 		"api.scaleway.com/account/v1/tokens/11111111-1111-1111-1111-111111111111")
+	i.Request.URL = accessKeyRegex.ReplaceAllString(
+		i.Request.URL,
+		"${1}SCWXXXXXXXXXXXXXXXXX${2}")
 
 	return nil
 }
@@ -36,10 +40,10 @@ func cassetteResponseFilter(i *cassette.Interaction) error {
 		ReplaceAllString(i.Response.Body, `"secret_key":"11111111-1111-1111-1111-111111111111"`)
 
 	// Buildpacks
-	i.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).
-		ReplaceAllString(i.URL, "pack.local%2Fbuilder%2F11111111111111111111")
-	i.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
-		ReplaceAllString(i.URL, "pack.local/builder/11111111111111111111")
+	i.Request.URL = regexp.MustCompile(`pack\.local%2Fbuilder%2F[0-9a-f]{20}`).
+		ReplaceAllString(i.Request.URL, "pack.local%2Fbuilder%2F11111111111111111111")
+	i.Request.URL = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
+		ReplaceAllString(i.Request.URL, "pack.local/builder/11111111111111111111")
 
 	i.Request.Body = regexp.MustCompile(`pack\.local/builder/[0-9a-f]{20}`).
 		ReplaceAllString(i.Response.Body, "pack.local/builder/11111111111111111111")
@@ -50,8 +54,9 @@ func cassetteResponseFilter(i *cassette.Interaction) error {
 }
 
 const (
-	windowDockerEngine = "//./pipe/docker_engine"
-	unixDockerEngine   = "/var/run/docker.sock"
+	windowDockerEngine      = "//./pipe/docker_engine"
+	unixDockerEngine        = "/var/run/docker.sock"
+	escapedUnixDockerEngine = "%2Fvar%2Frun%2Fdocker.sock"
 )
 
 func cassetteMatcher(r *http.Request, i cassette.Request) bool {
@@ -79,6 +84,12 @@ func cassetteMatcher(r *http.Request, i cassette.Request) bool {
 	// Url format is https://test-acc-scaleway-object-bucket-lifecycle-8445817190507446251.s3.fr-par.scw.cloud/?lifecycle=
 	if strings.HasSuffix(r.URL.Host, "scw.cloud") {
 		return customS3Matcher(r, i)
+	}
+
+	// Specific handling of Docker URLs
+	// URLs are stored unescaped in the cassette but the matcher expects an escaped URL
+	if r.URL.Host == unixDockerEngine {
+		return customDockerMatcher(r, i)
 	}
 
 	return cassette.DefaultMatcher(r, i)
@@ -120,6 +131,24 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 		actualURL.RawQuery == expectedURL.RawQuery
 }
 
+func customDockerMatcher(r *http.Request, i cassette.Request) bool {
+	escapedRecordedURL := regexp.MustCompile(`http://`+unixDockerEngine+`(.+)?`).
+		ReplaceAllString(
+			i.URL,
+			"http://"+escapedUnixDockerEngine+"${1}")
+
+	return r.URL.String() == escapedRecordedURL
+}
+
+func unescapeDockerURL(i *cassette.Interaction) error {
+	i.Request.URL = regexp.MustCompile(`http://`+escapedUnixDockerEngine+`(.+)?`).
+		ReplaceAllString(
+			i.Request.URL,
+			"http://"+unixDockerEngine+"${1}")
+
+	return nil
+}
+
 // getHTTPRecoder creates a new httpClient that records all HTTP requests in a cassette.
 // This cassette is then replayed whenever tests are executed again. This means that once the
 // requests are recorded in the cassette, no more real HTTP request must be made to run the tests.
@@ -128,26 +157,31 @@ func customS3Matcher(r *http.Request, i cassette.Request) bool {
 // closed and saved after the requests.
 func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup func(), err error) {
 	t.Helper()
-	recorderMode := recorder.ModeReplaying
+	recorderMode := recorder.ModeReplayOnly
 	if update {
-		recorderMode = recorder.ModeRecording
+		recorderMode = recorder.ModeRecordOnly
 	}
 
 	// Setup recorder and scw client
-	r, err := recorder.NewAsMode(
-		getTestFilePath(t, ".cassette"),
-		recorderMode,
-		&SocketPassthroughTransport{},
-	)
+	r, err := recorder.NewWithOptions(&recorder.Options{
+		CassetteName:       getTestFilePath(t, ".cassette"),
+		Mode:               recorderMode,
+		RealTransport:      &SocketPassthroughTransport{},
+		SkipRequestLatency: true,
+	})
 	if err != nil {
 		return nil, nil, err
 	}
 
+	// Starting with v3, go-vcr now calls net/url.Parse to build the interaction which results in an error for escaped
+	// Docker URLs on Test_Deploy (container), so we need to unescape these paths on this step.
+	r.AddHook(unescapeDockerURL, recorder.AfterCaptureHook)
+
 	// Add a filter which removes Authorization headers from all requests:
-	r.AddFilter(cassetteRequestFilter)
+	r.AddHook(cassetteRequestFilter, recorder.BeforeSaveHook)
 
 	// Remove secrets from response
-	r.AddSaveFilter(cassetteResponseFilter)
+	r.AddHook(cassetteResponseFilter, recorder.BeforeSaveHook)
 
 	r.SetMatcher(cassetteMatcher)
 

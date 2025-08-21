@@ -1,134 +1,134 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              4715b0f1-7db9-47e1-a857-c2d25c6734df
-Name                            cli-pn-elastic-jepsen
-OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID                              628f589d-e4e9-4009-bc36-40d8fc2a2660
+Name                            cli-pn-frosty-black
+OrganizationID                  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                       fa1e3217-dc80-42ac-85c3-3f034b78b552
 Region                          fr-par
 CreatedAt                       few seconds ago
 UpdatedAt                       few seconds ago
-VpcID                           086a5171-f7ab-4667-a231-840a81203f19
+VpcID                           1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-6f92b461-bd15-4766-a4d0-98431e2070e1  few seconds ago  few seconds ago  172.16.40.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19
-8ff8ba73-6cef-4745-9226-effcfed300e6  few seconds ago  few seconds ago  fd46:78ab:30b8:e2da::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19
+883017ad-b6e4-4c45-a669-8b8fef4bffc8  few seconds ago  few seconds ago  172.16.4.0/22             fa1e3217-dc80-42ac-85c3-3f034b78b552  628f589d-e4e9-4009-bc36-40d8fc2a2660  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
+1cc2536d-55c0-4f8f-9187-6e556ed25c78  few seconds ago  few seconds ago  fd63:256c:45f7:ed4d::/64  fa1e3217-dc80-42ac-85c3-3f034b78b552  628f589d-e4e9-4009-bc36-40d8fc2a2660  1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c
 
 Instance Servers:
-ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
-32ac2c08-28d6-4fbc-89ff-b196b3b6cdba  cli-srv-ecstatic-lamarr  archived  cad0684d-a799-4299-ab04-03af461ff4e2  02:00:00:1f:88:aa
+ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
+91539de9-e2fa-4231-8b85-99bf40067b3e  cli-srv-stupefied-bose  archived  711dbb3e-38be-4d23-9914-410a784f6c09  02:00:00:15:cc:a5
 
 Load-Balancers:
 ID                                    NAME      STATE
-687d73cc-64af-4dfe-ac3a-1038d13f2182  cli-test  ready
+d9e9f871-6413-4c22-91aa-1c67c44d92a0  cli-test  ready
 
 Rdb Instances:
 ID                                    NAME      STATE  ENDPOINT ID
-584f11f5-73e1-4699-a609-3fc0e2ae8d42  cli-test  ready  a06df612-6a9f-4d27-9ac0-351afcbb5700
+99510c24-d28d-471f-b1d7-c63351e457d6  cli-test  ready  49aad90b-f6a0-449b-ae1a-531daa6f3fb9
 
 MongoDB Instances:
 ID                                    NAME            STATE  ENDPOINT ID
-fe898c1a-5b18-4191-b0c2-7595b7de07fc  mongo-cli-test  ready  2b95ba69-cdb1-4b3e-a1a6-db215c596304
+d63fdf06-e379-4fd2-a9b6-cffe48e565fc  mongo-cli-test  ready  b998aded-f889-4726-a6e4-41dfc3106d06
 
 IPAM IPs:
 ID                                    ADDRESS
-dee76fae-cf05-4d12-9bb3-2018a0300697  172.16.40.5/22
-0db22feb-c537-4899-b0a3-4799580e3e6a  fd46:78ab:30b8:e2da:c844:9a1:e8c:c2a9/64
-8b430281-103d-4b32-90e1-6919b8aeab31  172.16.40.4/22
-bbaeb533-56f9-4c69-9318-239e96c56e60  172.16.40.3/22
-f546daa5-be42-4c48-a6c3-54771576a628  fd46:78ab:30b8:e2da:deca:54ba:ba68:5d10/64
-7e2baf00-2989-451e-a8c5-aaa1031b8b70  172.16.40.2/22
+33e5ffe6-914e-410c-a40a-7e7e85b3885c  172.16.4.5/22
+ca05be70-c56d-4ee1-acdc-8eb48c0a0297  fd63:256c:45f7:ed4d:a7af:badb:def0:c2a4/64
+756e62a6-bf8d-43ab-82b5-dce826e52cfc  172.16.4.4/22
+08d9e9a4-ecf9-4b48-b0a5-d421c07f3f7d  172.16.4.3/22
+1a1bfcef-571d-4b9e-9125-a053b4006938  fd63:256c:45f7:ed4d:d1ed:ff4d:a608:3eb5/64
+6fd645ca-8ba2-42fa-b715-8b655726f5f0  172.16.4.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4715b0f1-7db9-47e1-a857-c2d25c6734df",
-  "name": "cli-pn-elastic-jepsen",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "id": "628f589d-e4e9-4009-bc36-40d8fc2a2660",
+  "name": "cli-pn-frosty-black",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "6f92b461-bd15-4766-a4d0-98431e2070e1",
+      "id": "883017ad-b6e4-4c45-a669-8b8fef4bffc8",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.40.0/22",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "4715b0f1-7db9-47e1-a857-c2d25c6734df",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "172.16.4.0/22",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "private_network_id": "628f589d-e4e9-4009-bc36-40d8fc2a2660",
+      "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"
     },
     {
-      "id": "8ff8ba73-6cef-4745-9226-effcfed300e6",
+      "id": "1cc2536d-55c0-4f8f-9187-6e556ed25c78",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:e2da::/64",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "4715b0f1-7db9-47e1-a857-c2d25c6734df",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "subnet": "fd63:256c:45f7:ed4d::/64",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "private_network_id": "628f589d-e4e9-4009-bc36-40d8fc2a2660",
+      "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"
     }
   ],
-  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "vpc_id": "1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "instance_servers": [
     {
-      "id": "32ac2c08-28d6-4fbc-89ff-b196b3b6cdba",
-      "name": "cli-srv-ecstatic-lamarr",
+      "id": "91539de9-e2fa-4231-8b85-99bf40067b3e",
+      "name": "cli-srv-stupefied-bose",
       "state": "stopped",
-      "nic_id": "cad0684d-a799-4299-ab04-03af461ff4e2",
-      "mac": "02:00:00:1f:88:aa"
+      "nic_id": "711dbb3e-38be-4d23-9914-410a784f6c09",
+      "mac": "02:00:00:15:cc:a5"
     }
   ],
   "lbs": [
     {
-      "id": "687d73cc-64af-4dfe-ac3a-1038d13f2182",
+      "id": "d9e9f871-6413-4c22-91aa-1c67c44d92a0",
       "name": "cli-test",
       "state": "ready"
     }
   ],
   "rdb_instances": [
     {
-      "id": "584f11f5-73e1-4699-a609-3fc0e2ae8d42",
+      "id": "99510c24-d28d-471f-b1d7-c63351e457d6",
       "name": "cli-test",
       "state": "ready",
-      "endpoint_id": "a06df612-6a9f-4d27-9ac0-351afcbb5700"
+      "endpoint_id": "49aad90b-f6a0-449b-ae1a-531daa6f3fb9"
     }
   ],
   "mongodb_instances": [
     {
-      "id": "fe898c1a-5b18-4191-b0c2-7595b7de07fc",
+      "id": "d63fdf06-e379-4fd2-a9b6-cffe48e565fc",
       "name": "mongo-cli-test",
       "state": "ready",
-      "endpoint_id": "2b95ba69-cdb1-4b3e-a1a6-db215c596304"
+      "endpoint_id": "b998aded-f889-4726-a6e4-41dfc3106d06"
     }
   ],
   "ipam_ips": [
     {
-      "id": "dee76fae-cf05-4d12-9bb3-2018a0300697",
-      "address": "172.16.40.5/22"
+      "id": "33e5ffe6-914e-410c-a40a-7e7e85b3885c",
+      "address": "172.16.4.5/22"
     },
     {
-      "id": "0db22feb-c537-4899-b0a3-4799580e3e6a",
-      "address": "fd46:78ab:30b8:e2da:c844:9a1:e8c:c2a9/64"
+      "id": "ca05be70-c56d-4ee1-acdc-8eb48c0a0297",
+      "address": "fd63:256c:45f7:ed4d:a7af:badb:def0:c2a4/64"
     },
     {
-      "id": "8b430281-103d-4b32-90e1-6919b8aeab31",
-      "address": "172.16.40.4/22"
+      "id": "756e62a6-bf8d-43ab-82b5-dce826e52cfc",
+      "address": "172.16.4.4/22"
     },
     {
-      "id": "bbaeb533-56f9-4c69-9318-239e96c56e60",
-      "address": "172.16.40.3/22"
+      "id": "08d9e9a4-ecf9-4b48-b0a5-d421c07f3f7d",
+      "address": "172.16.4.3/22"
     },
     {
-      "id": "f546daa5-be42-4c48-a6c3-54771576a628",
-      "address": "fd46:78ab:30b8:e2da:deca:54ba:ba68:5d10/64"
+      "id": "1a1bfcef-571d-4b9e-9125-a053b4006938",
+      "address": "fd63:256c:45f7:ed4d:d1ed:ff4d:a608:3eb5/64"
     },
     {
-      "id": "7e2baf00-2989-451e-a8c5-aaa1031b8b70",
-      "address": "172.16.40.2/22"
+      "id": "6fd645ca-8ba2-42fa-b715-8b655726f5f0",
+      "address": "172.16.4.2/22"
     }
   ]
 }

@@ -1,0 +1,648 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    Name                                         Provider               Tags
+e6cc8a34-08f5-44a2-9090-c59a552861fc  deepseek/deepseek-r1-distill-llama-8b:bf16   deepseek               [instruct chat featured]
+edcc473d-b1d9-4315-ab2a-602015a5e99c  deepseek/deepseek-r1-distill-llama-8b:fp8    deepseek               [instruct chat featured]
+c24099e9-882b-435b-8024-13671b2bb4d6  deepseek/deepseek-r1-distill-llama-70b:bf16  deepseek               [instruct chat featured]
+1e0eab21-b12a-47ac-987e-11c3a3eee207  deepseek/deepseek-r1-distill-llama-70b:fp8   deepseek               [instruct chat featured]
+ca90eec6-c8b2-4814-8b00-8bb3bc803879  meta/llama-3.1-8b-instruct:bf16              meta                   [instruct chat]
+2abfd9d0-fb6a-4e9f-9b99-93eba6e941c7  qwen/qwen2.5-coder-32b-instruct:int8         qwen                   [instruct chat code featured]
+df692ecf-b871-4863-8b34-44e2d5536240  nvidia/llama-3.1-nemotron-70b-instruct:fp8   nvidia                 [instruct chat]
+956a8ab0-e442-4e86-8e21-b4573c77469f  allenai/molmo-72b-0924:fp8                   allenai                [instruct chat vision]
+d33fb5fd-75ca-4dfb-8952-8af8b8b28be5  meta/llama-3.1-8b-instruct:fp8               meta                   [instruct chat]
+6c68b256-ef4a-48d2-a794-9b63b5c6ba5d  meta/llama-3-8b-instruct:bf16                meta                   [instruct chat]
+46bf709c-ce13-4c61-8d7f-a68bd95bac5c  meta/llama-3-8b-instruct:fp8                 meta                   [instruct chat]
+ce89ccea-0c22-4cf1-99a9-81785b4cc207  meta/llama-3.3-70b-instruct:bf16             meta                   [instruct chat featured]
+6dda2623-9146-4348-89f5-a44aa753600c  meta/llama-3.3-70b-instruct:fp8              meta                   [instruct chat featured]
+ccd9cbcb-557d-4d84-ad96-9f340e0e9d03  meta/llama-3.1-70b-instruct:bf16             meta                   [instruct chat featured]
+35256b5c-a27f-48e8-8fd3-ca20a485735b  meta/llama-3.1-70b-instruct:fp8              meta                   [instruct chat featured]
+ecae3d7e-cd21-4e5d-8d18-f65506d1c2ad  kyutai/moshiko-0.1-8b:bf16                   kyutai                 [audio realtime labs]
+adbd4e22-3de2-4194-8b14-f02b94fc221c  kyutai/moshiko-0.1-8b:fp8                    kyutai                 [audio realtime labs]
+55cb01b0-c107-4757-8386-a53040ac2789  kyutai/moshika-0.1-8b:bf16                   kyutai                 [audio realtime labs featured]
+2b08e2db-cd7b-400e-a6fe-bda3263a41ac  kyutai/moshika-0.1-8b:fp8                    kyutai                 [audio realtime labs featured]
+d536b7da-0aa5-4b90-bad7-ee86ab54de9a  meta/llama-3-70b-instruct:fp8                meta                   [instruct chat]
+1a442e6f-cf81-4f33-a6c0-a79c7c555786  mistral/mistral-small-24b-instruct-2501:fp8  mistral                [instruct chat featured]
+88d8a41e-8f25-4bd1-b138-8c301ee81b33  mistral/pixtral-12b-2409:bf16                mistral                [vision chat featured]
+8519601b-1e51-44b4-a603-5622a31ce75a  mistral/mistral-7b-instruct-v0.3:bf16        mistral                [instruct chat]
+e0641204-2573-4af4-9286-c4dc95d91382  mistral/mistral-nemo-instruct-2407:fp8       mistral                [instruct chat featured]
+d035e33e-5e56-4dbf-a17d-20504f9a3bdd  mistral/mixtral-8x7b-instruct-v0.1:fp8       mistral                [instruct chat]
+0352efdf-04cf-46c2-83c9-ac0ec3ea05b6  mistral/mixtral-8x7b-instruct-v0.1:bf16      mistral                [instruct chat]
+305dddb9-828c-423b-bd76-be0a5b6c1c26  baai/bge-multilingual-gemma2:fp32            BAAI                   [embedding featured]
+4d834112-ed88-4394-9035-6eea562ec5f5  sentence-transformers/sentence-t5-xxl:fp32   sentence-transformers  [embedding]
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "e6cc8a34-08f5-44a2-9090-c59a552861fc",
+    "name": "deepseek/deepseek-r1-distill-llama-8b:bf16",
+    "project_id": "",
+    "provider": "deepseek",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 8B-param distilled model by DeepSeek, balancing performance and compactness.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "H100",
+      "L40S"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "edcc473d-b1d9-4315-ab2a-602015a5e99c",
+    "name": "deepseek/deepseek-r1-distill-llama-8b:fp8",
+    "project_id": "",
+    "provider": "deepseek",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 8B-param distilled model by DeepSeek, balancing performance and compactness.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "L40S",
+      "H100"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "c24099e9-882b-435b-8024-13671b2bb4d6",
+    "name": "deepseek/deepseek-r1-distill-llama-70b:bf16",
+    "project_id": "",
+    "provider": "deepseek",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 70B-param distilled model by DeepSeek, balancing performance and compactness.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100-2"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "1e0eab21-b12a-47ac-987e-11c3a3eee207",
+    "name": "deepseek/deepseek-r1-distill-llama-70b:fp8",
+    "project_id": "",
+    "provider": "deepseek",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 70B-param distilled model by DeepSeek, balancing performance and compactness.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "ca90eec6-c8b2-4814-8b00-8bb3bc803879",
+    "name": "meta/llama-3.1-8b-instruct:bf16",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "Efficient 8B-param model by Meta, optimized for multilingual dialogue.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "L4",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "2abfd9d0-fb6a-4e9f-9b99-93eba6e941c7",
+    "name": "qwen/qwen2.5-coder-32b-instruct:int8",
+    "project_id": "",
+    "provider": "qwen",
+    "tags": [
+      "instruct",
+      "chat",
+      "code",
+      "featured"
+    ],
+    "description": "Highly advanced coding model with a 128k context window, excelling in code generation, repairing, and reasoning.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "int8"
+  },
+  {
+    "id": "df692ecf-b871-4863-8b34-44e2d5536240",
+    "name": "nvidia/llama-3.1-nemotron-70b-instruct:fp8",
+    "project_id": "",
+    "provider": "nvidia",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "A large language model customized by NVIDIA in order to improve the helpfulness of generated responses.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "956a8ab0-e442-4e86-8e21-b4573c77469f",
+    "name": "allenai/molmo-72b-0924:fp8",
+    "project_id": "",
+    "provider": "allenai",
+    "tags": [
+      "instruct",
+      "chat",
+      "vision"
+    ],
+    "description": "Best-in-class vision language model by research lab Allen Institute for AI. Available under the Apache 2.0 license.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "d33fb5fd-75ca-4dfb-8952-8af8b8b28be5",
+    "name": "meta/llama-3.1-8b-instruct:fp8",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "Efficient 8B-param model by Meta, optimized for multilingual dialogue.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "L4",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "6c68b256-ef4a-48d2-a794-9b63b5c6ba5d",
+    "name": "meta/llama-3-8b-instruct:bf16",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "First generation of 8B-param model by Meta, fine-tuned for instruction and automation.",
+    "has_eula": true,
+    "created_at": "2024-03-14T00:00:00Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "H100",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "46bf709c-ce13-4c61-8d7f-a68bd95bac5c",
+    "name": "meta/llama-3-8b-instruct:fp8",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "First generation of 8B-param model by Meta, fine-tuned for instruction and automation.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "H100",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "ce89ccea-0c22-4cf1-99a9-81785b4cc207",
+    "name": "meta/llama-3.3-70b-instruct:bf16",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 70B-param model by Meta, optimized for multilingual dialogue.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100-2"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "6dda2623-9146-4348-89f5-a44aa753600c",
+    "name": "meta/llama-3.3-70b-instruct:fp8",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 70B-param model by Meta, optimized for multilingual dialogue.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "ccd9cbcb-557d-4d84-ad96-9f340e0e9d03",
+    "name": "meta/llama-3.1-70b-instruct:bf16",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 70B-param model by Meta, optimized for multilingual dialogue.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100-2"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "35256b5c-a27f-48e8-8fd3-ca20a485735b",
+    "name": "meta/llama-3.1-70b-instruct:fp8",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "Efficient 70B-param model by Meta, optimized for multilingual dialogue.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "ecae3d7e-cd21-4e5d-8d18-f65506d1c2ad",
+    "name": "kyutai/moshiko-0.1-8b:bf16",
+    "project_id": "",
+    "provider": "kyutai",
+    "tags": [
+      "audio",
+      "realtime",
+      "labs"
+    ],
+    "description": "8B-param male version of Moshi, an open experimental conversational AI by Kyutai Lab",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "adbd4e22-3de2-4194-8b14-f02b94fc221c",
+    "name": "kyutai/moshiko-0.1-8b:fp8",
+    "project_id": "",
+    "provider": "kyutai",
+    "tags": [
+      "audio",
+      "realtime",
+      "labs"
+    ],
+    "description": "8B-param male version of Moshi, an open experimental conversational AI by Kyutai Lab",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "H100"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "55cb01b0-c107-4757-8386-a53040ac2789",
+    "name": "kyutai/moshika-0.1-8b:bf16",
+    "project_id": "",
+    "provider": "kyutai",
+    "tags": [
+      "audio",
+      "realtime",
+      "labs",
+      "featured"
+    ],
+    "description": "8B-param female version of Moshi, an open experimental conversational AI by Kyutai Lab",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "2b08e2db-cd7b-400e-a6fe-bda3263a41ac",
+    "name": "kyutai/moshika-0.1-8b:fp8",
+    "project_id": "",
+    "provider": "kyutai",
+    "tags": [
+      "audio",
+      "realtime",
+      "labs",
+      "featured"
+    ],
+    "description": "8B-param female version of Moshi, an open experimental conversational AI by Kyutai Lab",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "H100"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "d536b7da-0aa5-4b90-bad7-ee86ab54de9a",
+    "name": "meta/llama-3-70b-instruct:fp8",
+    "project_id": "",
+    "provider": "meta",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "First generation of 70B-param model from Meta, fine-tuned for instruction and automation.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "1a442e6f-cf81-4f33-a6c0-a79c7c555786",
+    "name": "mistral/mistral-small-24b-instruct-2501:fp8",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "A state-of-the-art 24B model with a 32k context window, designed for multilingual chat and agentic applications.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L40S",
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "88d8a41e-8f25-4bd1-b138-8c301ee81b33",
+    "name": "mistral/pixtral-12b-2409:bf16",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "vision",
+      "chat",
+      "featured"
+    ],
+    "description": "Vision language model able to analyze images and offer insights without compromising on instruction following.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "8519601b-1e51-44b4-a603-5622a31ce75a",
+    "name": "mistral/mistral-7b-instruct-v0.3:bf16",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "A very efficient language model by Mistral AI, optimized for instruction-following tasks. Available under the Apache 2.0 license.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "H100",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "e0641204-2573-4af4-9286-c4dc95d91382",
+    "name": "mistral/mistral-nemo-instruct-2407:fp8",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "instruct",
+      "chat",
+      "featured"
+    ],
+    "description": "A state-of-the-art 12B model with a 128k context window, designed for multilingual chat applications.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2",
+      "L40S"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "d035e33e-5e56-4dbf-a17d-20504f9a3bdd",
+    "name": "mistral/mixtral-8x7b-instruct-v0.1:fp8",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "A high-quality Mixture of Experts (MoE) model with open weights by Mistral AI, licensed under Apache 2.0.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100",
+      "H100-2"
+    ],
+    "quantization_level": "fp8"
+  },
+  {
+    "id": "0352efdf-04cf-46c2-83c9-ac0ec3ea05b6",
+    "name": "mistral/mixtral-8x7b-instruct-v0.1:bf16",
+    "project_id": "",
+    "provider": "mistral",
+    "tags": [
+      "instruct",
+      "chat"
+    ],
+    "description": "A high-quality Mixture of Experts (MoE) model with open weights by Mistral AI, licensed under Apache 2.0.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "H100-2"
+    ],
+    "quantization_level": "bf16"
+  },
+  {
+    "id": "305dddb9-828c-423b-bd76-be0a5b6c1c26",
+    "name": "baai/bge-multilingual-gemma2:fp32",
+    "project_id": "",
+    "provider": "BAAI",
+    "tags": [
+      "embedding",
+      "featured"
+    ],
+    "description": "An embedding model spanning a broad range of languages and state-of-the-art results on multilingual benchmarks.",
+    "has_eula": true,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4",
+      "L40S"
+    ],
+    "quantization_level": "fp32"
+  },
+  {
+    "id": "4d834112-ed88-4394-9035-6eea562ec5f5",
+    "name": "sentence-transformers/sentence-t5-xxl:fp32",
+    "project_id": "",
+    "provider": "sentence-transformers",
+    "tags": [
+      "embedding"
+    ],
+    "description": "Model from pre-trained Text-to-Text sentence encode.",
+    "has_eula": false,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "region": "fr-par",
+    "is_public": true,
+    "compatible_node_types": [
+      "L4"
+    ],
+    "quantization_level": "fp32"
+  }
+]
