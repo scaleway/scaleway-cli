@@ -326,9 +326,9 @@ func functionNamespaceCreate() *core.Command {
 			},
 			{
 				Name:       "activate-vpc-integration",
-				Short:      `Activate VPC integration for the namespace.`,
+				Short:      `[DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			core.RegionArgSpec(
