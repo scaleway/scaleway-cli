@@ -771,7 +771,7 @@ func webhostingDomainCheckOwnership() *core.Command {
 		Namespace: "webhosting",
 		Resource:  "domain",
 		Verb:      "check-ownership",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(webhosting.DNSAPICheckUserOwnsDomainRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
