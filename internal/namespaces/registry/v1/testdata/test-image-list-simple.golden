@@ -1,102 +1,372 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    Full Name                                                                          Size    Visibility         Status  Created At       Updated At
-2d8149ff-2924-45b9-90e4-554315289d0d  rg.fr-par.scw.cloud/cli-public-namespace-1692550640656725191/visibility_public     849 kB  public             ready   few seconds ago  few seconds ago
-a59160cd-17ab-434f-9cc3-2e9be1bc7421  rg.fr-par.scw.cloud/cli-public-namespace-1692550640656725191/visibility_private    827 kB  private            ready   few seconds ago  few seconds ago
-1b47179b-f83a-48ef-9053-0d552835b515  rg.fr-par.scw.cloud/cli-public-namespace-1692550640656725191/visibility_inherit    782 kB  public (inherit)   ready   few seconds ago  few seconds ago
-3473aa94-af49-4894-baee-8a2989a4efe3  rg.fr-par.scw.cloud/cli-private-namespace-15460830706535999219/visibility_public   774 kB  private (inherit)  ready   few seconds ago  few seconds ago
-0503b229-8e2c-4637-92ed-265a0e300abb  rg.fr-par.scw.cloud/cli-private-namespace-15460830706535999219/visibility_private  773 kB  private (inherit)  ready   few seconds ago  few seconds ago
-dd7eb919-3c31-43d9-abb6-9360cdf1fdb6  rg.fr-par.scw.cloud/cli-private-namespace-15460830706535999219/visibility_inherit  717 kB  private (inherit)  ready   few seconds ago  few seconds ago
+9e89b480-4e30-448b-b241-3303912e6423  rg.fr-par.scw.cloud/kops/kops-controller                                           22 MB   public (inherit)   ready   few seconds ago  few seconds ago
+4b472aaa-94c0-4879-9f35-945538c3e6cd  rg.fr-par.scw.cloud/kops/kube-apiserver-healthcheck                                658 kB  public (inherit)   ready   few seconds ago  few seconds ago
+f1f4ebe3-81fc-48b2-8281-053fd079c78a  rg.fr-par.scw.cloud/kops/etcd-manager                                              232 MB  public (inherit)   ready   few seconds ago  few seconds ago
+f930eec1-4736-46e0-8e4f-b6e89092c04d  rg.fr-par.scw.cloud/kops/dns-controller                                            11 MB   public (inherit)   ready   few seconds ago  few seconds ago
+675ce41b-6e6c-4ff9-8464-712b6e71017e  rg.fr-par.scw.cloud/bidouille/testwhoami                                           4.2 MB  private (inherit)  ready   few seconds ago  few seconds ago
+1c054a44-fd75-4997-a3cf-bb80e339c51b  rg.fr-par.scw.cloud/bidouille/cowsay                                               71 MB   private (inherit)  ready   few seconds ago  few seconds ago
+144925b4-d835-439d-b21d-487f157ea067  rg.fr-par.scw.cloud/kops/scaleway-cloud-controller-manager                         53 MB   public (inherit)   ready   few seconds ago  few seconds ago
+acca025a-1cc2-4333-8cfc-f471a384bb95  rg.fr-par.scw.cloud/kops-testing/dns-controller                                    2.7 MB  public (inherit)   ready   few seconds ago  few seconds ago
+e01d9bc3-ca16-4107-b842-f6dc7150a19e  rg.fr-par.scw.cloud/kops-testing/kops-controller                                   3.5 MB  public (inherit)   ready   few seconds ago  few seconds ago
+56d65805-d413-4960-9346-2ad887308c8b  rg.fr-par.scw.cloud/kops-testing/kube-apiserver-healthcheck                        198 kB  public (inherit)   ready   few seconds ago  few seconds ago
+699d7939-d5b6-4e24-8338-97a46c9ed928  rg.fr-par.scw.cloud/kops/kops-utils-cp                                             54 kB   public (inherit)   ready   few seconds ago  few seconds ago
+e7b682d8-9a39-4c53-bb04-d99b5c03887b  rg.fr-par.scw.cloud/bidouille/nginx                                                73 MB   private (inherit)  ready   few seconds ago  few seconds ago
+8a4341f9-1fc0-4105-8f3f-ed0ca90712d6  rg.fr-par.scw.cloud/bidouille/my-cow-says-go                                       91 MB   private (inherit)  ready   few seconds ago  few seconds ago
+d4203a2c-6bf7-4cb6-94c4-cd5397a8a454  rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpdmrsxdcp/app-cli-t-ctnr-deploy-fp    25 MB   private (inherit)  ready   few seconds ago  few seconds ago
+2ce6d14c-32c1-4edf-a90e-e5ba2f75de84  rg.fr-par.scw.cloud/cli-public-namespace-7528399943970262977/visibility_public     762 kB  public             ready   few seconds ago  few seconds ago
+55105cd0-7bad-4e3b-9f80-35058668ad81  rg.fr-par.scw.cloud/cli-public-namespace-7528399943970262977/visibility_private    757 kB  private            ready   few seconds ago  few seconds ago
+1e9e16c6-63c3-435a-af6e-cf4f589dfe18  rg.fr-par.scw.cloud/cli-public-namespace-7528399943970262977/visibility_inherit    730 kB  public (inherit)   ready   few seconds ago  few seconds ago
+afee7477-71e7-42f2-a967-e06817a27b67  rg.fr-par.scw.cloud/cli-private-namespace-13134298541897450418/visibility_public   725 kB  private (inherit)  ready   few seconds ago  few seconds ago
+ff2e4b6a-9e21-41e4-a6d4-fa98964a8d0b  rg.fr-par.scw.cloud/cli-private-namespace-13134298541897450418/visibility_private  717 kB  private (inherit)  ready   few seconds ago  few seconds ago
+6ce0df7a-82fd-4d06-9faf-333157f0db7f  rg.fr-par.scw.cloud/funcscwclitestfunctiondeplozfn5yqio/cli-test-function-deploy   12 MB   private (inherit)  ready   few seconds ago  few seconds ago
+827834e4-35c1-4848-861b-e66fcbfd8bc8  rg.fr-par.scw.cloud/cli-private-namespace-13134298541897450418/visibility_inherit  701 kB  private (inherit)  ready   few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "2d8149ff-2924-45b9-90e4-554315289d0d",
+    "id": "9e89b480-4e30-448b-b241-3303912e6423",
+    "name": "kops-controller",
+    "namespace_id": "d4dcf1ed-fb5a-4196-ae9d-aaf2a9270aea",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 22484545,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-alpha.3",
+      "sha256-7a45da378227e84ec4f2dc8bb44ddb9b5beac458a21388e6bd85b2d697e181ee.sbom",
+      "sha256-dae69349bde3c9f7422d91e96a433ea0a4170515c7034fd99e18d38e3ae720f8.sbom",
+      "sha256-74e06e0bff20af6be636cb5fbf1bc5660d62cc26e8f3772939d4fbdea3fd230e.sbom",
+      "sha256-75a24ad59a05443f1bd8a9cf92027170f331653dedd9ca0e2bf2866a39328b91.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops/kops-controller"
+  },
+  {
+    "id": "4b472aaa-94c0-4879-9f35-945538c3e6cd",
+    "name": "kube-apiserver-healthcheck",
+    "namespace_id": "d4dcf1ed-fb5a-4196-ae9d-aaf2a9270aea",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 657519,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-alpha.3",
+      "sha256-7488e26f889748f2cfc0a34043f4debbf2617eab32b346a4a97ac20f73d2afe7.sbom",
+      "sha256-8a80bae6e7056a8f77872939ca7423b9d31de684acd15e2f28ab5ff931225261.sbom",
+      "sha256-24c3c030a639d90696a2bbed61e8f6c811416d5a5655e55e1be695c2b0e8b9db.sbom",
+      "sha256-1863b485e05729dde55388847e70d60723449a72e3de0976bd9869bf47a1ab36.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops/kube-apiserver-healthcheck"
+  },
+  {
+    "id": "f1f4ebe3-81fc-48b2-8281-053fd079c78a",
+    "name": "etcd-manager",
+    "namespace_id": "d4dcf1ed-fb5a-4196-ae9d-aaf2a9270aea",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 231495178,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest-arm64",
+      "latest-amd64"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops/etcd-manager"
+  },
+  {
+    "id": "f930eec1-4736-46e0-8e4f-b6e89092c04d",
+    "name": "dns-controller",
+    "namespace_id": "d4dcf1ed-fb5a-4196-ae9d-aaf2a9270aea",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 10721101,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-alpha.3",
+      "sha256-6a28c5965e1e6c3290e85ff08970576259012ee05b9d755bc0a0c19b7a959f0d.sbom",
+      "sha256-f464bfad79a232c068c5d25b598952dd541b681ee3a0f2e68ec41cd26719ca07.sbom",
+      "sha256-c474a9d1e33ac2ef0f2063b234c3d5a2ace5fb4200b5f5cab7131a2999411408.sbom",
+      "sha256-67a95b8d186775040ff2619b1f9fd98ffca21e69dc58d4b2659f8068d251c53c.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops/dns-controller"
+  },
+  {
+    "id": "675ce41b-6e6c-4ff9-8464-712b6e71017e",
+    "name": "testwhoami",
+    "namespace_id": "9bbf827e-6879-4998-914f-7409c9acf48d",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 4206728,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/bidouille/testwhoami"
+  },
+  {
+    "id": "1c054a44-fd75-4997-a3cf-bb80e339c51b",
+    "name": "cowsay",
+    "namespace_id": "9bbf827e-6879-4998-914f-7409c9acf48d",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 70801302,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/bidouille/cowsay"
+  },
+  {
+    "id": "144925b4-d835-439d-b21d-487f157ea067",
+    "name": "scaleway-cloud-controller-manager",
+    "namespace_id": "d4dcf1ed-fb5a-4196-ae9d-aaf2a9270aea",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 52808471,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest",
+      "test"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops/scaleway-cloud-controller-manager"
+  },
+  {
+    "id": "acca025a-1cc2-4333-8cfc-f471a384bb95",
+    "name": "dns-controller",
+    "namespace_id": "b43d9e50-e28c-4bc7-904a-f8a21138a7da",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 2729283,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-beta.1",
+      "sha256-3a3fed15665e7a172dd3998f6c1e4ca71979c4e6b0f1bf2d5971d192e436394e.sbom",
+      "sha256-ca50422cc0ff4f51f420801420951f1dbf3e950c5dd4fb7f12d34ccd990d1ff3.sbom",
+      "sha256-84b6d819f8b8fa1302cd9f11999b8992f7bb1a52e062565abf47f3a2fa0172ce.sbom",
+      "sha256-b791185676eaada992f7e1c95ee3b1add22118ada0ca8902e38a30a67fa62a08.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops-testing/dns-controller"
+  },
+  {
+    "id": "e01d9bc3-ca16-4107-b842-f6dc7150a19e",
+    "name": "kops-controller",
+    "namespace_id": "b43d9e50-e28c-4bc7-904a-f8a21138a7da",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 3470701,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-beta.1",
+      "sha256-0d88a3f5ae7fd051e813a28bcd53fe4454633108ae237af4d75064bb771c1eab.sbom",
+      "sha256-b81a1f3eb9cba0385a5a69e9c7b8316f1ec9da23ca80183c9fb2fffec76858ba.sbom",
+      "sha256-0c3d0138862e43a6f8ee317b098118f7339da95fc09c3be07ad164f96ebaedd0.sbom",
+      "sha256-26cc0b5ffb8291f01af2802a93bbd0c9a54e537770c8408b772fd639dde4c1fd.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops-testing/kops-controller"
+  },
+  {
+    "id": "56d65805-d413-4960-9346-2ad887308c8b",
+    "name": "kube-apiserver-healthcheck",
+    "namespace_id": "b43d9e50-e28c-4bc7-904a-f8a21138a7da",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 197510,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-beta.1",
+      "sha256-0e5b6d33d18bca61036d0638489ad4eebb44dc39c1e415eaab9f75dfbf9fd04f.sbom",
+      "sha256-ee969d883fc4429b3bf18746540a80a3a3a12d505a90992e9a4773272e46f0fe.sbom",
+      "sha256-c7ed7d19a303ecf61bec43b3d28b3b6be023bf0e7574eb3e6f300f0a8cb7b12e.sbom",
+      "sha256-444da4323c02d27cad7fe74ac4e0b6e586eb6d6eb20f71da4d471c92af26c034.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops-testing/kube-apiserver-healthcheck"
+  },
+  {
+    "id": "699d7939-d5b6-4e24-8338-97a46c9ed928",
+    "name": "kops-utils-cp",
+    "namespace_id": "d4dcf1ed-fb5a-4196-ae9d-aaf2a9270aea",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 53646,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "1.29.0-alpha.1",
+      "sha256-4cf8a1221a5990c13035b24663f6ba09a571abbf0f9bdaf30b4593e8f61acb98.sbom",
+      "sha256-0f6d497e6c093ce467cc8f6f4eebfb6c61e66aece4e1b5b871b3fdeaddf6f0e1.sbom",
+      "sha256-f87e2be53196b3e06010d1d4bf4a4e31fae6a7d9bbfeaa3ebf20fc52a8970b47.sbom",
+      "sha256-bc9bcea30b6eb7d2b626861c3845ece3b21e2ce344e947ed5a091d0712040d20.sbom"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/kops/kops-utils-cp"
+  },
+  {
+    "id": "e7b682d8-9a39-4c53-bb04-d99b5c03887b",
+    "name": "nginx",
+    "namespace_id": "9bbf827e-6879-4998-914f-7409c9acf48d",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 73107688,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/bidouille/nginx"
+  },
+  {
+    "id": "8a4341f9-1fc0-4105-8f3f-ed0ca90712d6",
+    "name": "my-cow-says-go",
+    "namespace_id": "9bbf827e-6879-4998-914f-7409c9acf48d",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 91045992,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/bidouille/my-cow-says-go"
+  },
+  {
+    "id": "d4203a2c-6bf7-4cb6-94c4-cd5397a8a454",
+    "name": "app-cli-t-ctnr-deploy-fp",
+    "namespace_id": "175e5989-90d6-4318-8412-87bd16792956",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 25122563,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "latest"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/funcscwappclitctnrdeployfpdmrsxdcp/app-cli-t-ctnr-deploy-fp"
+  },
+  {
+    "id": "2ce6d14c-32c1-4edf-a90e-e5ba2f75de84",
     "name": "visibility_public",
-    "namespace_id": "e739a7d5-9c31-466a-a296-1bfb8c99e73b",
+    "namespace_id": "b5067ef1-d0aa-4f1b-b4a6-10c50cfff621",
     "status": "ready",
     "status_message": "",
     "visibility": "public",
-    "size": 848871,
+    "size": 761949,
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
-    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace-1692550640656725191/visibility_public"
+    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace-7528399943970262977/visibility_public"
   },
   {
-    "id": "a59160cd-17ab-434f-9cc3-2e9be1bc7421",
+    "id": "55105cd0-7bad-4e3b-9f80-35058668ad81",
     "name": "visibility_private",
-    "namespace_id": "e739a7d5-9c31-466a-a296-1bfb8c99e73b",
+    "namespace_id": "b5067ef1-d0aa-4f1b-b4a6-10c50cfff621",
     "status": "ready",
     "status_message": "",
     "visibility": "private",
-    "size": 826573,
+    "size": 757309,
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
-    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace-1692550640656725191/visibility_private"
+    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace-7528399943970262977/visibility_private"
   },
   {
-    "id": "1b47179b-f83a-48ef-9053-0d552835b515",
+    "id": "1e9e16c6-63c3-435a-af6e-cf4f589dfe18",
     "name": "visibility_inherit",
-    "namespace_id": "e739a7d5-9c31-466a-a296-1bfb8c99e73b",
+    "namespace_id": "b5067ef1-d0aa-4f1b-b4a6-10c50cfff621",
     "status": "ready",
     "status_message": "",
     "visibility": "inherit",
-    "size": 781920,
+    "size": 729459,
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
-    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace-1692550640656725191/visibility_inherit"
+    "FullName": "rg.fr-par.scw.cloud/cli-public-namespace-7528399943970262977/visibility_inherit"
   },
   {
-    "id": "3473aa94-af49-4894-baee-8a2989a4efe3",
+    "id": "afee7477-71e7-42f2-a967-e06817a27b67",
     "name": "visibility_public",
-    "namespace_id": "3cea6e31-5689-4a3d-be81-6bcb486c1667",
+    "namespace_id": "6ee45134-bab8-439c-be6b-1e9b047684e8",
     "status": "ready",
     "status_message": "",
     "visibility": "inherit",
-    "size": 774338,
+    "size": 724643,
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
-    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace-15460830706535999219/visibility_public"
+    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace-13134298541897450418/visibility_public"
   },
   {
-    "id": "0503b229-8e2c-4637-92ed-265a0e300abb",
+    "id": "ff2e4b6a-9e21-41e4-a6d4-fa98964a8d0b",
     "name": "visibility_private",
-    "namespace_id": "3cea6e31-5689-4a3d-be81-6bcb486c1667",
+    "namespace_id": "6ee45134-bab8-439c-be6b-1e9b047684e8",
     "status": "ready",
     "status_message": "",
     "visibility": "inherit",
-    "size": 772733,
+    "size": 716793,
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
-    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace-15460830706535999219/visibility_private"
+    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace-13134298541897450418/visibility_private"
   },
   {
-    "id": "dd7eb919-3c31-43d9-abb6-9360cdf1fdb6",
-    "name": "visibility_inherit",
-    "namespace_id": "3cea6e31-5689-4a3d-be81-6bcb486c1667",
+    "id": "6ce0df7a-82fd-4d06-9faf-333157f0db7f",
+    "name": "cli-test-function-deploy",
+    "namespace_id": "fa70eb65-5566-48e8-8f35-0be8ff3410ec",
     "status": "ready",
     "status_message": "",
     "visibility": "inherit",
-    "size": 716797,
+    "size": 11888953,
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z",
+    "tags": [
+      "ydsp6vc"
+    ],
+    "FullName": "rg.fr-par.scw.cloud/funcscwclitestfunctiondeplozfn5yqio/cli-test-function-deploy"
+  },
+  {
+    "id": "827834e4-35c1-4848-861b-e66fcbfd8bc8",
+    "name": "visibility_inherit",
+    "namespace_id": "6ee45134-bab8-439c-be6b-1e9b047684e8",
+    "status": "ready",
+    "status_message": "",
+    "visibility": "inherit",
+    "size": 700750,
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [
       "latest"
     ],
-    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace-15460830706535999219/visibility_inherit"
+    "FullName": "rg.fr-par.scw.cloud/cli-private-namespace-13134298541897450418/visibility_inherit"
   }
 ]

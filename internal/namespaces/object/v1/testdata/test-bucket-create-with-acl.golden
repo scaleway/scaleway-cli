@@ -6,12 +6,12 @@ Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
 BucketEndpoint    https://cli-test-bucket-create-.s3.fr-par.scw.cloud
 EnableVersioning  false
-Owner             105bdce1-64c0-48ab-899d-868455867ecf
+Owner             fa1e3217-dc80-42ac-85c3-3f034b78b552
 
 Acl:
 GRANTEE                               PERMISSION
+fa1e3217-dc80-42ac-85c3-3f034b78b552  FULL_CONTROL
 AuthenticatedUsers                    READ
-105bdce1-64c0-48ab-899d-868455867ecf  FULL_CONTROL
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "SuccessResult": {
@@ -27,14 +27,14 @@ AuthenticatedUsers                    READ
     "Tags": null,
     "ACL": [
       {
-        "Grantee": "AuthenticatedUsers",
-        "Permission": "READ"
+        "Grantee": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "Permission": "FULL_CONTROL"
       },
       {
-        "Grantee": "105bdce1-64c0-48ab-899d-868455867ecf",
-        "Permission": "FULL_CONTROL"
+        "Grantee": "AuthenticatedUsers",
+        "Permission": "READ"
       }
     ],
-    "Owner": "105bdce1-64c0-48ab-899d-868455867ecf"
+    "Owner": "fa1e3217-dc80-42ac-85c3-3f034b78b552"
   }
 }
