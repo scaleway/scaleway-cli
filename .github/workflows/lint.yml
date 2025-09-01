@@ -12,7 +12,7 @@ jobs:
     name: Github Actions lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: Check workflow files
         uses: docker://rhysd/actionlint:latest
         with:
@@ -22,7 +22,7 @@ jobs:
     name: dockerfile-lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: dockerfile-lint
         run: docker build --check .
 
@@ -30,7 +30,7 @@ jobs:
     name: golangci-lint
     runs-on: ubuntu-latest
     steps:
-      - uses: actions/checkout@v4
+      - uses: actions/checkout@v5
       - name: golangci-lint
         uses: golangci/golangci-lint-action@v8
         with:
