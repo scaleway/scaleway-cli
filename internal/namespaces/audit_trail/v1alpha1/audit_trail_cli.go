@@ -99,9 +99,12 @@ func auditTrailEventList() *core.Command {
 					"account_organization",
 					"account_project",
 					"instance_server",
+					"instance_placement_group",
+					"instance_security_group",
 					"apple_silicon_server",
 					"baremetal_server",
 					"baremetal_setting",
+					"ipam_ip",
 				},
 			},
 			{

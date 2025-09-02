@@ -29,7 +29,7 @@ scw audit-trail event list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | (Optional) ID of the Project containing the Audit Trail events |
-| resource-type | One of: `unknown_type`, `secm_secret`, `secm_secret_version`, `kube_cluster`, `kube_pool`, `kube_node`, `kube_acl`, `keym_key`, `iam_user`, `iam_application`, `iam_group`, `iam_policy`, `iam_api_key`, `iam_ssh_key`, `iam_rule`, `secret_manager_secret`, `secret_manager_version`, `key_manager_key`, `account_user`, `account_organization`, `account_project`, `instance_server`, `apple_silicon_server`, `baremetal_server`, `baremetal_setting` | (Optional) Returns a paginated list of Scaleway resources' features |
+| resource-type | One of: `unknown_type`, `secm_secret`, `secm_secret_version`, `kube_cluster`, `kube_pool`, `kube_node`, `kube_acl`, `keym_key`, `iam_user`, `iam_application`, `iam_group`, `iam_policy`, `iam_api_key`, `iam_ssh_key`, `iam_rule`, `secret_manager_secret`, `secret_manager_version`, `key_manager_key`, `account_user`, `account_organization`, `account_project`, `instance_server`, `instance_placement_group`, `instance_security_group`, `apple_silicon_server`, `baremetal_server`, `baremetal_setting`, `ipam_ip` | (Optional) Returns a paginated list of Scaleway resources' features |
 | method-name |  | (Optional) Name of the method of the API call performed |
 | status |  | (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied |
 | recorded-after |  | (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default |
