@@ -649,7 +649,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 func keymanagerKeyEncrypt() *core.Command {
 	return &core.Command{
 		Short:     `Encrypt a payload`,
-		Long:      `Encrypt a payload using an existing key, specified by the ` + "`" + `key_id` + "`" + ` parameter. Only keys with a usage set to ` + "`" + `symmetric_encryption` + "`" + ` are supported by this method. The maximum payload size that can be encrypted is 64 KB of plaintext.`,
+		Long:      `Encrypt a payload using an existing key, specified by the ` + "`" + `key_id` + "`" + ` parameter. The maximum payload size that can be encrypted is 64 KB of plaintext.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "encrypt",
