@@ -788,6 +788,7 @@ scw baremetal server reboot <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to reboot |
 | boot-type | Default: `normal`<br />One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
+| ssh-key-ids.{index} |  | Additional SSH public key IDs to configure on rescue image |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -824,6 +825,7 @@ scw baremetal server start <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | ID of the server to start |
 | boot-type | One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
+| ssh-key-ids.{index} |  | Additional SSH public key IDs to configure on rescue image |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 

@@ -944,6 +944,13 @@ func baremetalServerReboot() *core.Command {
 					"rescue",
 				},
 			},
+			{
+				Name:       "ssh-key-ids.{index}",
+				Short:      `Additional SSH public key IDs to configure on rescue image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1002,6 +1009,13 @@ func baremetalServerStart() *core.Command {
 					"normal",
 					"rescue",
 				},
+			},
+			{
+				Name:       "ssh-key-ids.{index}",
+				Short:      `Additional SSH public key IDs to configure on rescue image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,

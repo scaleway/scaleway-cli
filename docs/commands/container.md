@@ -182,6 +182,9 @@ scw container container list [arg=value ...]
 
 Update the container associated with the specified ID.
 
+When updating a container, the container is automatically redeployed to apply the changes.
+This behavior can be changed by setting the `redeploy` field to `false` in the request.
+
 **Usage:**
 
 ```
