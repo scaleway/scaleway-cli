@@ -761,8 +761,11 @@ func functionFunctionCreate() *core.Command {
 
 func functionFunctionUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an existing function`,
-		Long:      `Update the function associated with the specified ID.`,
+		Short: `Update an existing function`,
+		Long: `Update the function associated with the specified ID.
+
+When updating a function, the function is automatically redeployed to apply the changes.
+This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field to ` + "`" + `false` + "`" + ` in the request.`,
 		Namespace: "function",
 		Resource:  "function",
 		Verb:      "update",

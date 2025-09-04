@@ -762,8 +762,11 @@ func containerContainerCreate() *core.Command {
 
 func containerContainerUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update an existing container`,
-		Long:      `Update the container associated with the specified ID.`,
+		Short: `Update an existing container`,
+		Long: `Update the container associated with the specified ID.
+
+When updating a container, the container is automatically redeployed to apply the changes.
+This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field to ` + "`" + `false` + "`" + ` in the request.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "update",
