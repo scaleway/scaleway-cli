@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                f1e8452c-2434-4cf8-a594-bf8f5abf44fb
+ID                b5122b96-b515-4089-9a5a-baaddaf8f660
 Type              kapsule
 Name              cli-test-get-cluster
 Status            creating
@@ -10,12 +10,12 @@ OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
 Cni               cilium
 Description       -
-ClusterURL        https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://b5122b96-b515-4089-9a5a-baaddaf8f660.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.b5122b96-b515-4089-9a5a-baaddaf8f660.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 UpgradeAvailable  true
-PrivateNetworkID  463a6351-e4e2-491c-bb76-aebc7aabf253
+PrivateNetworkID  c724e45c-8973-4b71-8177-1971a73ac2d7
 CommitmentEndsAt  few seconds ago
 ACLAvailable      true
 IamNodesGroupID   -
@@ -49,10 +49,10 @@ GroupsPrefix    -
 
 Pools:
 ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN SIZE  SIZE  MAX SIZE  AUTOSCALING  AUTOHEALING  ZONE
-c63e3bfd-7a81-4e1c-8182-faf02c53ebe9  default  scaling  1.32.3   dev1_m     0         1     1         false        false        fr-par-1
+560e1132-4456-45f0-ad28-ad0e57118933  default  scaling  1.32.3   dev1_m     0         1     1         false        false        fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "f1e8452c-2434-4cf8-a594-bf8f5abf44fb",
+  "id": "b5122b96-b515-4089-9a5a-baaddaf8f660",
   "type": "kapsule",
   "name": "cli-test-get-cluster",
   "status": "creating",
@@ -63,8 +63,8 @@ c63e3bfd-7a81-4e1c-8182-faf02c53ebe9  default  scaling  1.32.3   dev1_m     0   
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://b5122b96-b515-4089-9a5a-baaddaf8f660.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.b5122b96-b515-4089-9a5a-baaddaf8f660.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -99,7 +99,7 @@ c63e3bfd-7a81-4e1c-8182-faf02c53ebe9  default  scaling  1.32.3   dev1_m     0   
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": "463a6351-e4e2-491c-bb76-aebc7aabf253",
+  "private_network_id": "c724e45c-8973-4b71-8177-1971a73ac2d7",
   "commitment_ends_at": "1970-01-01T00:00:00.0Z",
   "acl_available": true,
   "iam_nodes_group_id": "",
@@ -109,7 +109,7 @@ c63e3bfd-7a81-4e1c-8182-faf02c53ebe9  default  scaling  1.32.3   dev1_m     0   
   "service_dns_ip": "",
   "pools": [
     {
-      "id": "c63e3bfd-7a81-4e1c-8182-faf02c53ebe9",
+      "id": "560e1132-4456-45f0-ad28-ad0e57118933",
       "name": "default",
       "status": "scaling",
       "version": "1.32.3",

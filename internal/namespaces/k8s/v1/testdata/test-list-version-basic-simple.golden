@@ -1,12 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAME    AVAILABLE CNIS             AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                                                                                             AVAILABLE ADMISSION PLUGINS                                  AVAILABLE KUBELET ARGS
-1.32.3  [cilium calico kilo none]  [containerd]                  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+NAME    AVAILABLE CNIS             AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                                                                                                                                            AVAILABLE ADMISSION PLUGINS                                  AVAILABLE KUBELET ARGS
+1.32.7  [cilium calico kilo none]  [containerd]                  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation PodLevelResources CPUManagerPolicyAlphaOptions]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -14,12 +17,15 @@ maxPods                      uint16
 registryBurst                int32
 registryPullQPS              int32
 serializeImagePulls          bool
-1.31.7  [cilium calico kilo none]  [containerd]  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+1.31.11  [cilium calico kilo none]  [containerd]  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers CPUManagerPolicyAlphaOptions]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -27,25 +33,15 @@ maxPods                      uint16
 registryBurst                int32
 registryPullQPS              int32
 serializeImagePulls          bool
-1.30.11  [cilium calico kilo none]  [containerd]  [HPAScaleToZero SidecarContainers InPlacePodVerticalScaling]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+1.30.14  [cilium calico kilo none]  [containerd]  [HPAScaleToZero SidecarContainers InPlacePodVerticalScaling CPUManagerPolicyAlphaOptions]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
-imageGCHighThresholdPercent  uint32
-imageGCLowThresholdPercent   uint32
-maxParallelImagePulls        int32
-maxPods                      uint16
-registryBurst                int32
-registryPullQPS              int32
-serializeImagePulls          bool
-1.29.15  [cilium calico kilo none]  [containerd]  [HPAScaleToZero SidecarContainers ValidatingAdmissionPolicy InPlacePodVerticalScaling]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
-containerLogMaxSize          quantity
-cpuCFSQuota                  bool
-cpuCFSQuotaPeriod            duration
-cpuManagerPolicy             enum:none|static
-enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -56,8 +52,8 @@ serializeImagePulls          bool
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "name": "1.32.3",
-    "label": "Kubernetes 1.32.3",
+    "name": "1.32.7",
+    "label": "Kubernetes 1.32.7",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
@@ -74,7 +70,9 @@ serializeImagePulls          bool
       "SidecarContainers",
       "DRAAdminAccess",
       "DRAResourceClaimDeviceStatus",
-      "DynamicResourceAllocation"
+      "DynamicResourceAllocation",
+      "PodLevelResources",
+      "CPUManagerPolicyAlphaOptions"
     ],
     "available_admission_plugins": [
       "AlwaysPullImages",
@@ -87,7 +85,10 @@ serializeImagePulls          bool
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
       "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
       "imageGCHighThresholdPercent": "uint32",
       "imageGCLowThresholdPercent": "uint32",
       "maxParallelImagePulls": "int32",
@@ -98,8 +99,8 @@ serializeImagePulls          bool
     }
   },
   {
-    "name": "1.31.7",
-    "label": "Kubernetes 1.31.7",
+    "name": "1.31.11",
+    "label": "Kubernetes 1.31.11",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
@@ -113,7 +114,8 @@ serializeImagePulls          bool
     "available_feature_gates": [
       "HPAScaleToZero",
       "InPlacePodVerticalScaling",
-      "SidecarContainers"
+      "SidecarContainers",
+      "CPUManagerPolicyAlphaOptions"
     ],
     "available_admission_plugins": [
       "AlwaysPullImages",
@@ -126,7 +128,10 @@ serializeImagePulls          bool
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
       "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
       "imageGCHighThresholdPercent": "uint32",
       "imageGCLowThresholdPercent": "uint32",
       "maxParallelImagePulls": "int32",
@@ -137,8 +142,8 @@ serializeImagePulls          bool
     }
   },
   {
-    "name": "1.30.11",
-    "label": "Kubernetes 1.30.11",
+    "name": "1.30.14",
+    "label": "Kubernetes 1.30.14",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
@@ -152,7 +157,8 @@ serializeImagePulls          bool
     "available_feature_gates": [
       "HPAScaleToZero",
       "SidecarContainers",
-      "InPlacePodVerticalScaling"
+      "InPlacePodVerticalScaling",
+      "CPUManagerPolicyAlphaOptions"
     ],
     "available_admission_plugins": [
       "AlwaysPullImages",
@@ -165,47 +171,10 @@ serializeImagePulls          bool
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
       "enableDebuggingHandlers": "bool",
-      "imageGCHighThresholdPercent": "uint32",
-      "imageGCLowThresholdPercent": "uint32",
-      "maxParallelImagePulls": "int32",
-      "maxPods": "uint16",
-      "registryBurst": "int32",
-      "registryPullQPS": "int32",
-      "serializeImagePulls": "bool"
-    }
-  },
-  {
-    "name": "1.29.15",
-    "label": "Kubernetes 1.29.15",
-    "region": "fr-par",
-    "available_cnis": [
-      "cilium",
-      "calico",
-      "kilo",
-      "none"
-    ],
-    "available_container_runtimes": [
-      "containerd"
-    ],
-    "available_feature_gates": [
-      "HPAScaleToZero",
-      "SidecarContainers",
-      "ValidatingAdmissionPolicy",
-      "InPlacePodVerticalScaling"
-    ],
-    "available_admission_plugins": [
-      "AlwaysPullImages",
-      "PodNodeSelector",
-      "PodTolerationRestriction"
-    ],
-    "available_kubelet_args": {
-      "containerLogMaxFiles": "uint16",
-      "containerLogMaxSize": "quantity",
-      "cpuCFSQuota": "bool",
-      "cpuCFSQuotaPeriod": "duration",
-      "cpuManagerPolicy": "enum:none|static",
-      "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
       "imageGCHighThresholdPercent": "uint32",
       "imageGCLowThresholdPercent": "uint32",
       "maxParallelImagePulls": "int32",

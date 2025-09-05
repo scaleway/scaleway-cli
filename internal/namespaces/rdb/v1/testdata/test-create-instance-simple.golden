@@ -1,26 +1,30 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-CreatedAt                   few seconds ago
-Region                      fr-par
-ID                          19fe63d7-3a09-4c5b-87ba-0db8206ea38d
-Name                        cli-test
-OrganizationID              5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID                   5ebc0159-7cb7-406c-9521-9347d1987fb2
-Status                      ready
-Engine                      PostgreSQL-15
-IsHaCluster                 false
-NodeType                    db-dev-s
-Endpoints.0.ID              4e6e7f82-a155-43c6-a364-925b6413e7c3
-Endpoints.0.IP              195.154.71.12
-Endpoints.0.Port            6467
-LogsPolicy.MaxAgeRetention  30
-BackupSameRegion            false
-Encryption.Enabled          false
+CreatedAt                         few seconds ago
+Region                            fr-par
+ID                                1032febc-8bb4-49a1-8cf6-4d6dd6adfea2
+Name                              cli-test
+OrganizationID                    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID                         fa1e3217-dc80-42ac-85c3-3f034b78b552
+Status                            ready
+Engine                            PostgreSQL-15
+UpgradableVersion.0.ID            1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d
+UpgradableVersion.0.Name          PostgreSQL-16
+UpgradableVersion.0.Version       16
+UpgradableVersion.0.MinorVersion  16.9
+IsHaCluster                       false
+NodeType                          db-dev-s
+Endpoints.0.ID                    903cfcfa-2953-49b7-9bce-2bc1b0091a16
+Endpoints.0.IP                    195.154.70.155
+Endpoints.0.Port                  12305
+LogsPolicy.MaxAgeRetention        30
+BackupSameRegion                  false
+Encryption.Enabled                false
 
 Endpoint:
-ID    4e6e7f82-a155-43c6-a364-925b6413e7c3
-IP    195.154.71.12
-Port  6467
+ID    903cfcfa-2953-49b7-9bce-2bc1b0091a16
+IP    195.154.70.155
+Port  12305
 
 Volume:
 Type   lssd
@@ -53,17 +57,24 @@ Password:
     "class": "lssd"
   },
   "region": "fr-par",
-  "id": "19fe63d7-3a09-4c5b-87ba-0db8206ea38d",
+  "id": "1032febc-8bb4-49a1-8cf6-4d6dd6adfea2",
   "name": "cli-test",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
   "engine": "PostgreSQL-15",
-  "upgradable_version": [],
+  "upgradable_version": [
+    {
+      "id": "1f94fa0f-ff3a-4727-81a2-3e75aa7bf98d",
+      "name": "PostgreSQL-16",
+      "version": "16",
+      "minor_version": "16.9"
+    }
+  ],
   "endpoint": {
-    "id": "4e6e7f82-a155-43c6-a364-925b6413e7c3",
-    "ip": "195.154.71.12",
-    "port": 6467,
+    "id": "903cfcfa-2953-49b7-9bce-2bc1b0091a16",
+    "ip": "195.154.70.155",
+    "port": 12305,
     "name": null,
     "load_balancer": {}
   },
@@ -106,9 +117,9 @@ Password:
   "init_settings": [],
   "endpoints": [
     {
-      "id": "4e6e7f82-a155-43c6-a364-925b6413e7c3",
-      "ip": "195.154.71.12",
-      "port": 6467,
+      "id": "903cfcfa-2953-49b7-9bce-2bc1b0091a16",
+      "ip": "195.154.70.155",
+      "port": 12305,
       "name": null,
       "load_balancer": {}
     }

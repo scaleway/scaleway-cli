@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                 5acaf45d-d60a-416b-9901-0598a7c6fc0d
-OrganizationID     564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID                 f4e6315b-ffa9-4c20-b291-abb5ce263bd2
+OrganizationID     fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID          fa1e3217-dc80-42ac-85c3-3f034b78b552
 CreatedAt          few seconds ago
 UpdatedAt          few seconds ago
 Type.Name          VPC-GW-S
 Type.Bandwidth     100000000
 Type.Zone          fr-par-1
 Status             running
-Name               cli-gw-compassionate-murdock
-Version            0.7.2
+Name               cli-gw-awesome-joliot
+Version            0.7.4
 BastionEnabled     false
 BastionPort        61000
 SMTPEnabled        false
@@ -19,24 +19,24 @@ IPMobilityEnabled  true
 Zone               fr-par-1
 
 IP:
-ID              f89e9296-419a-4cf5-90df-35fc24ad438a
-OrganizationID  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID              16cd9923-a511-4865-a7b0-07a03d3282d8
+OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
 CreatedAt       few seconds ago
 UpdatedAt       few seconds ago
-Address         51.158.101.65
-Reverse         65-101-158-51.instances.scw.cloud
-GatewayID       5acaf45d-d60a-416b-9901-0598a7c6fc0d
+Address         51.15.196.2
+Reverse         2-196-15-51.instances.scw.cloud
+GatewayID       f4e6315b-ffa9-4c20-b291-abb5ce263bd2
 Zone            fr-par-1
 
 GatewayNetworks:
-ID                                    CREATED AT       UPDATED AT       GATEWAY ID                            PRIVATE NETWORK ID                    MAC ADDRESS        ENABLE MASQUERADE  STATUS  ENABLE DHCP  ADDRESS         ZONE
-e08f8ff5-c00b-4cde-badd-a6c6a5dff911  few seconds ago  few seconds ago  5acaf45d-d60a-416b-9901-0598a7c6fc0d  8d2e6968-3376-405b-9d10-fb17941a44b2  02:00:00:1E:FA:2E  false              ready   true         172.16.60.2/22  fr-par-1
+ID                                    CREATED AT       UPDATED AT       GATEWAY ID                            PRIVATE NETWORK ID                    MAC ADDRESS        ENABLE MASQUERADE  STATUS  ENABLE DHCP  ADDRESS          ZONE
+f46943e5-5f8b-49dd-a266-cbfe503b0b75  few seconds ago  few seconds ago  f4e6315b-ffa9-4c20-b291-abb5ce263bd2  e1483c68-7620-4f79-979b-3d5cd9c2b654  02:00:00:1E:68:1B  false              ready   true         172.16.104.2/22  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "5acaf45d-d60a-416b-9901-0598a7c6fc0d",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "id": "f4e6315b-ffa9-4c20-b291-abb5ce263bd2",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "type": {
@@ -45,42 +45,42 @@ e08f8ff5-c00b-4cde-badd-a6c6a5dff911  few seconds ago  few seconds ago  5acaf45d
     "zone": "fr-par-1"
   },
   "status": "running",
-  "name": "cli-gw-compassionate-murdock",
+  "name": "cli-gw-awesome-joliot",
   "tags": [],
   "ip": {
-    "id": "f89e9296-419a-4cf5-90df-35fc24ad438a",
-    "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-    "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+    "id": "16cd9923-a511-4865-a7b0-07a03d3282d8",
+    "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "tags": [],
-    "address": "51.158.101.65",
-    "reverse": "65-101-158-51.instances.scw.cloud",
-    "gateway_id": "5acaf45d-d60a-416b-9901-0598a7c6fc0d",
+    "address": "51.15.196.2",
+    "reverse": "2-196-15-51.instances.scw.cloud",
+    "gateway_id": "f4e6315b-ffa9-4c20-b291-abb5ce263bd2",
     "zone": "fr-par-1"
   },
   "gateway_networks": [
     {
-      "id": "e08f8ff5-c00b-4cde-badd-a6c6a5dff911",
+      "id": "f46943e5-5f8b-49dd-a266-cbfe503b0b75",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "gateway_id": "5acaf45d-d60a-416b-9901-0598a7c6fc0d",
-      "private_network_id": "8d2e6968-3376-405b-9d10-fb17941a44b2",
-      "mac_address": "02:00:00:1E:FA:2E",
+      "gateway_id": "f4e6315b-ffa9-4c20-b291-abb5ce263bd2",
+      "private_network_id": "e1483c68-7620-4f79-979b-3d5cd9c2b654",
+      "mac_address": "02:00:00:1E:68:1B",
       "enable_masquerade": false,
       "status": "ready",
       "dhcp": null,
       "enable_dhcp": true,
-      "address": "172.16.60.2/22",
+      "address": "172.16.104.2/22",
       "ipam_config": {
         "push_default_route": true,
-        "ipam_ip_id": "48b053e5-e9db-4186-a215-0e3b13899b30"
+        "ipam_ip_id": "0e7d07d7-63e2-4b17-b722-2a988919b533"
       },
       "zone": "fr-par-1"
     }
   ],
   "upstream_dns_servers": [],
-  "version": "0.7.2",
+  "version": "0.7.4",
   "can_upgrade_to": null,
   "bastion_enabled": false,
   "bastion_port": 61000,
