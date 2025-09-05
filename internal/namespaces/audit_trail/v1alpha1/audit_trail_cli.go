@@ -72,7 +72,7 @@ func auditTrailEventList() *core.Command {
 			},
 			{
 				Name:       "resource-type",
-				Short:      `(Optional) Returns a paginated list of Scaleway resources' features`,
+				Short:      `(Optional) Type of the Scaleway resource`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -110,6 +110,13 @@ func auditTrailEventList() *core.Command {
 					"ipam_ip",
 					"sbs_volume",
 					"sbs_snapshot",
+					"load_balancer_lb",
+					"load_balancer_ip",
+					"load_balancer_frontend",
+					"load_balancer_backend",
+					"load_balancer_route",
+					"load_balancer_acl",
+					"load_balancer_certificate",
 				},
 			},
 			{
@@ -164,7 +171,7 @@ func auditTrailEventList() *core.Command {
 			},
 			{
 				Name:       "product-name",
-				Short:      `(Optional) Name of the Scaleway resource in a hyphenated format`,
+				Short:      `(Optional) Name of the Scaleway product in a hyphenated format`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -172,6 +179,13 @@ func auditTrailEventList() *core.Command {
 			{
 				Name:       "service-name",
 				Short:      `(Optional) Name of the service of the API call performed`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource-id",
+				Short:      `(Optional) ID of the Scaleway resource`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
