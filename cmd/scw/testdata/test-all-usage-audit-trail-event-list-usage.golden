@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [project-id]        (Optional) ID of the Project containing the Audit Trail events
-  [resource-type]     (Optional) Returns a paginated list of Scaleway resources' features (unknown_type | secm_secret | secm_secret_version | kube_cluster | kube_pool | kube_node | kube_acl | keym_key | iam_user | iam_application | iam_group | iam_policy | iam_api_key | iam_ssh_key | iam_rule | secret_manager_secret | secret_manager_version | key_manager_key | account_user | account_organization | account_project | instance_server | instance_placement_group | instance_security_group | instance_volume | instance_snapshot | instance_image | apple_silicon_server | baremetal_server | baremetal_setting | ipam_ip | sbs_volume | sbs_snapshot)
+  [resource-type]     (Optional) Type of the Scaleway resource (unknown_type | secm_secret | secm_secret_version | kube_cluster | kube_pool | kube_node | kube_acl | keym_key | iam_user | iam_application | iam_group | iam_policy | iam_api_key | iam_ssh_key | iam_rule | secret_manager_secret | secret_manager_version | key_manager_key | account_user | account_organization | account_project | instance_server | instance_placement_group | instance_security_group | instance_volume | instance_snapshot | instance_image | apple_silicon_server | baremetal_server | baremetal_setting | ipam_ip | sbs_volume | sbs_snapshot)
   [method-name]       (Optional) Name of the method of the API call performed
   [status]            (Optional) HTTP status code of the request. Returns either `200` if the request was successful or `403` if the permission was denied
   [recorded-after]    (Optional) The `recorded_after` parameter defines the earliest timestamp from which Audit Trail events are retrieved. Returns `one hour ago` by default
@@ -15,8 +15,9 @@ ARGS:
   [order-by]           (recorded_at_desc | recorded_at_asc)
   [page-size]         
   [page-token]        
-  [product-name]      (Optional) Name of the Scaleway resource in a hyphenated format
+  [product-name]      (Optional) Name of the Scaleway product in a hyphenated format
   [service-name]      (Optional) Name of the service of the API call performed
+  [resource-id]       (Optional) ID of the Scaleway resource
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
