@@ -308,6 +308,13 @@ func marketplaceLocalImageList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "arch",
+				Short:      `Filter local images available for this machine architecture`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "image-id",
 				Short:      `Filter by image id`,
 				Required:   false,
