@@ -139,6 +139,7 @@ scw marketplace local-image list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering to use |
 | zone |  | Filter local images available on this Availability Zone |
+| arch |  | Filter local images available for this machine architecture |
 | image-id |  | Filter by image id |
 | version-id |  | Filter by version id |
 | image-label |  | Filter by image label |
