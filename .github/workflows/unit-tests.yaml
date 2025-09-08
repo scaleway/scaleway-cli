@@ -32,7 +32,7 @@ jobs:
           go mod tidy
           git diff --exit-code
       - name: Run unit tests
-        run: go test ./...
+        run: go tool gotestsum --format github-actions
       - name: Execute main binary # Test the runtime for potential panics.
         run: go run cmd/scw/main.go -h
 
