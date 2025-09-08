@@ -110,6 +110,13 @@ func auditTrailEventList() *core.Command {
 					"ipam_ip",
 					"sbs_volume",
 					"sbs_snapshot",
+					"load_balancer_lb",
+					"load_balancer_ip",
+					"load_balancer_frontend",
+					"load_balancer_backend",
+					"load_balancer_route",
+					"load_balancer_acl",
+					"load_balancer_certificate",
 				},
 			},
 			{
