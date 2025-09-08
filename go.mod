@@ -10,7 +10,6 @@ require (
 	github.com/charmbracelet/bubbletea v1.3.7
 	github.com/chzyer/readline v1.5.1
 	github.com/containerd/console v1.0.5
-	github.com/dnaeon/go-vcr v1.2.0
 	github.com/docker/docker v27.5.1+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.18.0
@@ -32,6 +31,7 @@ require (
 	golang.org/x/sync v0.17.0
 	golang.org/x/term v0.34.0
 	golang.org/x/text v0.28.0
+	gopkg.in/dnaeon/go-vcr.v3 v3.2.0
 	gopkg.in/yaml.v3 v3.0.1
 )
 

@@ -1,11 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                     c14e0608-f8a2-46f5-9e8d-339028d116bd
+ID                     4ae55d62-008a-44d0-8802-1cbd8b5613ad
 Name                   cli-test-update
 Description            assigned
 Status                 ready
-OrganizationID         564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID              564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+OrganizationID         fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID              fa1e3217-dc80-42ac-85c3-3f034b78b552
 FrontendCount          0
 BackendCount           0
 Type                   lb-s
@@ -18,22 +18,22 @@ Region                 fr-par
 Zone                   fr-par-1
 
 IPs:
-ID                                    IP ADDRESS           ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                                                                              TAGS  REGION  ZONE
-573dbdad-7bc3-4f0c-85df-b68b06e52b14  51.159.24.8          564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  c14e0608-f8a2-46f5-9e8d-339028d116bd  51-159-24-8.lb.fr-par.scw.cloud                                                      []    fr-par  fr-par-1
-5d07b69a-d5e3-42ec-afdf-a3899eee67a2  2001:bc8:710:2402::  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  c14e0608-f8a2-46f5-9e8d-339028d116bd  0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.4.2.0.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
+ID                                    IP ADDRESS         ORGANIZATION ID                       PROJECT ID                            LB ID                                 REVERSE                                                                              TAGS  REGION  ZONE
+ed41b46a-0120-4740-9224-c2ac389885be  163.172.171.180    fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  4ae55d62-008a-44d0-8802-1cbd8b5613ad  163-172-171-180.lb.fr-par.scw.cloud                                                  []    fr-par  fr-par-1
+f2f676c8-f605-4cc8-b2cd-4a19965767db  2001:bc8:710:64::  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  4ae55d62-008a-44d0-8802-1cbd8b5613ad  0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.6.0.0.0.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud  []    fr-par  fr-par-1
 
 LB Instances:
 ID                                    STATUS   IP ADDRESS  CREATED AT       UPDATED AT       REGION  ZONE
-c1891251-d799-4fec-b04c-4b3fbd663063  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
+d6180c40-2cd5-4ae3-bf99-e9fb80c96a95  pending  -           few seconds ago  few seconds ago  fr-par  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "c14e0608-f8a2-46f5-9e8d-339028d116bd",
+  "id": "4ae55d62-008a-44d0-8802-1cbd8b5613ad",
   "name": "cli-test-update",
   "description": "assigned",
   "status": "ready",
   "instances": [
     {
-      "id": "c1891251-d799-4fec-b04c-4b3fbd663063",
+      "id": "d6180c40-2cd5-4ae3-bf99-e9fb80c96a95",
       "status": "pending",
       "ip_address": "",
       "created_at": "1970-01-01T00:00:00.0Z",
@@ -42,27 +42,27 @@ c1891251-d799-4fec-b04c-4b3fbd663063  pending  -           few seconds ago  few 
       "zone": "fr-par-1"
     }
   ],
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "ip": [
     {
-      "id": "573dbdad-7bc3-4f0c-85df-b68b06e52b14",
-      "ip_address": "51.159.24.8",
-      "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "lb_id": "c14e0608-f8a2-46f5-9e8d-339028d116bd",
-      "reverse": "51-159-24-8.lb.fr-par.scw.cloud",
+      "id": "ed41b46a-0120-4740-9224-c2ac389885be",
+      "ip_address": "163.172.171.180",
+      "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "lb_id": "4ae55d62-008a-44d0-8802-1cbd8b5613ad",
+      "reverse": "163-172-171-180.lb.fr-par.scw.cloud",
       "tags": [],
       "region": "fr-par",
       "zone": "fr-par-1"
     },
     {
-      "id": "5d07b69a-d5e3-42ec-afdf-a3899eee67a2",
-      "ip_address": "2001:bc8:710:2402::",
-      "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "lb_id": "c14e0608-f8a2-46f5-9e8d-339028d116bd",
-      "reverse": "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.2.0.4.2.0.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud",
+      "id": "f2f676c8-f605-4cc8-b2cd-4a19965767db",
+      "ip_address": "2001:bc8:710:64::",
+      "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "lb_id": "4ae55d62-008a-44d0-8802-1cbd8b5613ad",
+      "reverse": "0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.4.6.0.0.0.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud",
       "tags": [],
       "region": "fr-par",
       "zone": "fr-par-1"

@@ -1,177 +1,201 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
-    method: GET
-  response:
-    body: '{"details":[{"action":"read","resource":"api_key"}],"message":"insufficient
-      permissions","type":"permissions_denied"}'
-    headers:
-      Content-Length:
-      - "117"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 24 Apr 2023 14:38:55 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 3034897b-1e26-4b9d-83c1-594fd0682cfb
-    status: 403 Forbidden
-    code: 403
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"ssh_keys":[{"id":"8c522499-5fb5-40db-9e3e-da462c636d21","name":"key-angry-cori","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAADAQABAAABgQC5879tw+nxTLhH7u8FNuRoXFQpxpafuMiNUatkYtmJfpzDaj+KF71/2bcxEtSKGmppyQW/WiP5aam2fSrAUY93FAgCdjQ47XvNoYZi3H9NlSjYUdQvp7+1lfagVWttojbU/kqCVLo/qKsPcKsEiYwxQyg1K0xvpNT7FOOgGQ423MKiTU81nj3sxmgFnCkLMT6DoLRhia7EWvXc3zkMvdWMUAL8q+JEC2KtNvXg0lxCHuQXBbGvj/CEx+lkGXNGpk8OneGTzxgyBghENLmyfcYj7fgV7frtu/DzjtS7v/8YwEXM8vPyhBiSVN9lL5RYGKv4GmlJ596p7GubIYeTLDehjpy5PO0ivo8Cf+XGRDLd4VNNs464AWum4+nFYVu4aGA76otwpWv4t0CcygZoqjjFBTQguvCRK80Uxvbw8g+C6qafLcIA62d29KZWap0V/IPP1O8T0A7CSBJfjx3fOjGhQitwAyLdKDO5p+9WlFWutT/TTQ0Aaqsm3kZYVydi7ac=
-      julescasteran@fedora","fingerprint":"3072 MD5:9b:49:f8:06:04:c8:40:ab:75:6b:96:9c:f8:a8:bf:a8
-      julescasteran@fedora (ssh-rsa)","created_at":"2023-04-04T07:29:12.897933Z","updated_at":"2023-04-04T07:29:12.897933Z","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","disabled":false}],"total_count":1}'
-    headers:
-      Content-Length:
-      - "1005"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 24 Apr 2023 14:38:55 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 1f4134df-4a0d-4cc3-9d07-376594d11807
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"name":"key-amazing-mcnulty","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg
-      foobar@foobar","project_id":""}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
-    method: POST
-  response:
-    body: '{"details":[{"argument_name":"project_id","help_message":"value must be
-      a valid UUID","reason":"format"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
-    headers:
-      Content-Length:
-      - "165"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 24 Apr 2023 14:38:55 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - d7e2a561-f0e6-4f1c-b177-110604249253
-    status: 400 Bad Request
-    code: 400
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) scaleway-cli/0.0.0+test
-    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
-    method: GET
-  response:
-    body: '{"details":[{"action":"read","resource":"api_key"}],"message":"insufficient
-      permissions","type":"permissions_denied"}'
-    headers:
-      Content-Length:
-      - "117"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 24 Apr 2023 14:38:55 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - d65e731f-1d8a-4a73-a2b6-d710072fb6e9
-    status: 403 Forbidden
-    code: 403
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"ssh_keys":[{"id":"8c522499-5fb5-40db-9e3e-da462c636d21","name":"key-angry-cori","public_key":"ssh-rsa
-      AAAAB3NzaC1yc2EAAAADAQABAAABgQC5879tw+nxTLhH7u8FNuRoXFQpxpafuMiNUatkYtmJfpzDaj+KF71/2bcxEtSKGmppyQW/WiP5aam2fSrAUY93FAgCdjQ47XvNoYZi3H9NlSjYUdQvp7+1lfagVWttojbU/kqCVLo/qKsPcKsEiYwxQyg1K0xvpNT7FOOgGQ423MKiTU81nj3sxmgFnCkLMT6DoLRhia7EWvXc3zkMvdWMUAL8q+JEC2KtNvXg0lxCHuQXBbGvj/CEx+lkGXNGpk8OneGTzxgyBghENLmyfcYj7fgV7frtu/DzjtS7v/8YwEXM8vPyhBiSVN9lL5RYGKv4GmlJ596p7GubIYeTLDehjpy5PO0ivo8Cf+XGRDLd4VNNs464AWum4+nFYVu4aGA76otwpWv4t0CcygZoqjjFBTQguvCRK80Uxvbw8g+C6qafLcIA62d29KZWap0V/IPP1O8T0A7CSBJfjx3fOjGhQitwAyLdKDO5p+9WlFWutT/TTQ0Aaqsm3kZYVydi7ac=
-      julescasteran@fedora","fingerprint":"3072 MD5:9b:49:f8:06:04:c8:40:ab:75:6b:96:9c:f8:a8:bf:a8
-      julescasteran@fedora (ssh-rsa)","created_at":"2023-04-04T07:29:12.897933Z","updated_at":"2023-04-04T07:29:12.897933Z","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","disabled":false},{"id":"24720c9a-28d5-4a68-8400-498b20d8dff2","name":"test-cli-KeyRegistered","public_key":"ssh-ed25519
-      AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE foobar@foobar","fingerprint":"256
-      MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c foobar@foobar (ssh-ed25519)","created_at":"2023-04-24T14:38:55.845338Z","updated_at":"2023-04-24T14:38:55.845338Z","organization_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","project_id":"ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b","disabled":false}],"total_count":2}'
-    headers:
-      Content-Length:
-      - "1505"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 24 Apr 2023 14:38:55 GMT
-      Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 6fdab4bc-9b1c-468d-8fd1-2d7bb3fa097d
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"ssh_keys":[{"id":"128ffa96-b092-4b2c-ab8d-62e025c3da42", "name":"id_rsa used for kops testing", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDJ3lhaLGWT/YYhVMQFNo9YH1q4MGgO3qOX0dCU6bnTTchOHs0wByRuWhq7OnLt4H2JXSn3FEnjtnFDV9NvrTpg9fkovUdWJJCt7JYcEUcDSy5+G1LyO/PEDVyxuHmBiyek92JU+Kl9QCARaZRjvhYuvH4hCI0HaMYap/livITnUDyI+OM6hEbkXXjzHr6s+5Fwy/ztH4rgq8f+ZmejmjczpDD/6LQzsVtcrAF5SMaUvjuwfOhBpyWtwtwfi35k8ac0+CPBI/s6bnAGgtg6ylhC5Er2YFSKpg2S0hdR42pzjdlB3eXB1eKlU7IRAaEdrR56PSzUcrefOJ9DRsQ39PKaS5j/IJvrEUL9TOvF5PmIuWBW1fWh9BWAveivE/rhC9i96QiU7sFxVq2p6sR5tu9o0UEY9xLHaYbG2DfRDb7TXlPS3uBZ/yDRv7cJtH6cEEaAiGhCXBJ108xCpM0Dbva/jfzwW7rBRqJDRZsN1Kas2S2saTzPNHj4ANG6wKDWEc=", "fingerprint":"3072 MD5:ae:ea:e9:42:75:4b:cd:2a:0d:68:c8:5a:af:7c:b1:c4 (ssh-rsa)", "created_at":"2023-04-07T15:45:40.077228Z", "updated_at":"2023-04-07T15:45:40.077228Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"3ca903cd-2c75-4890-806c-4837fcbc3a71", "disabled":false}, {"id":"52300b79-c142-4ddd-a852-49f5b5b4fad6", "name":"leila@leila-ThinkPad-T14s-Gen-6", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-01-23T14:08:59.219677Z", "updated_at":"2025-01-23T14:27:42.023024Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"b2e0f03f-bd9c-4787-be3b-01f53f87a955", "name":"leila''s ed25519 ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-03-31T09:45:03.736495Z", "updated_at":"2025-03-31T09:45:03.736495Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"44693172-d6a3-49b0-b56f-011f492e4dfa", "disabled":false}, {"id":"3897941a-dc57-400d-8b05-5c6f5f9aa75c", "name":"test-cli-KeyRegistered", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:30.984199Z", "updated_at":"2025-06-03T16:07:30.984199Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"1d04468d-aa4e-4d59-b593-8c4829e7995e", "name":"key-heuristic-bell", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.070541Z", "updated_at":"2025-06-03T16:07:32.070541Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8c908f3d-091a-476d-9ad6-5dca09e7649b", "name":"key-cool-edison", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.083109Z", "updated_at":"2025-06-03T16:07:32.083109Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"708cc4a6-e684-461a-b253-d205298e8780", "name":"key-frosty-bardeen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.093360Z", "updated_at":"2025-06-03T16:07:32.093360Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"52c65d7e-88fc-4431-b9b1-7de10603b832", "name":"cli-key-blissful-allen", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.484560Z", "updated_at":"2025-06-03T16:07:32.484560Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8590f0d0-a2e0-441a-903b-3027c742bc66", "name":"cli-key-vibrant-lewin", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.542577Z", "updated_at":"2025-06-03T16:07:32.542577Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"799e34f3-6038-4470-ace7-8b7769c59876", "name":"test-acc-admin-pwd-encryption", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEEYrzDOZmhItdKaDAEqJQ4ORS2GyBMtBozYsK5kiXXX", "fingerprint":"256 MD5:94:db:c3:76:58:e4:37:0a:ce:30:ae:ad:7d:86:b1:f0 (ssh-ed25519)", "created_at":"2025-06-18T21:48:07.805718Z", "updated_at":"2025-06-18T21:48:07.805718Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "disabled":false}], "total_count":10}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) scaleway-cli/0.0.0+test
+        url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 5575
+        uncompressed: false
+        body: '{"ssh_keys":[{"id":"128ffa96-b092-4b2c-ab8d-62e025c3da42", "name":"id_rsa used for kops testing", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDJ3lhaLGWT/YYhVMQFNo9YH1q4MGgO3qOX0dCU6bnTTchOHs0wByRuWhq7OnLt4H2JXSn3FEnjtnFDV9NvrTpg9fkovUdWJJCt7JYcEUcDSy5+G1LyO/PEDVyxuHmBiyek92JU+Kl9QCARaZRjvhYuvH4hCI0HaMYap/livITnUDyI+OM6hEbkXXjzHr6s+5Fwy/ztH4rgq8f+ZmejmjczpDD/6LQzsVtcrAF5SMaUvjuwfOhBpyWtwtwfi35k8ac0+CPBI/s6bnAGgtg6ylhC5Er2YFSKpg2S0hdR42pzjdlB3eXB1eKlU7IRAaEdrR56PSzUcrefOJ9DRsQ39PKaS5j/IJvrEUL9TOvF5PmIuWBW1fWh9BWAveivE/rhC9i96QiU7sFxVq2p6sR5tu9o0UEY9xLHaYbG2DfRDb7TXlPS3uBZ/yDRv7cJtH6cEEaAiGhCXBJ108xCpM0Dbva/jfzwW7rBRqJDRZsN1Kas2S2saTzPNHj4ANG6wKDWEc=", "fingerprint":"3072 MD5:ae:ea:e9:42:75:4b:cd:2a:0d:68:c8:5a:af:7c:b1:c4 (ssh-rsa)", "created_at":"2023-04-07T15:45:40.077228Z", "updated_at":"2023-04-07T15:45:40.077228Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"3ca903cd-2c75-4890-806c-4837fcbc3a71", "disabled":false}, {"id":"52300b79-c142-4ddd-a852-49f5b5b4fad6", "name":"leila@leila-ThinkPad-T14s-Gen-6", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-01-23T14:08:59.219677Z", "updated_at":"2025-01-23T14:27:42.023024Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"b2e0f03f-bd9c-4787-be3b-01f53f87a955", "name":"leila''s ed25519 ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-03-31T09:45:03.736495Z", "updated_at":"2025-03-31T09:45:03.736495Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"44693172-d6a3-49b0-b56f-011f492e4dfa", "disabled":false}, {"id":"3897941a-dc57-400d-8b05-5c6f5f9aa75c", "name":"test-cli-KeyRegistered", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:30.984199Z", "updated_at":"2025-06-03T16:07:30.984199Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"1d04468d-aa4e-4d59-b593-8c4829e7995e", "name":"key-heuristic-bell", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.070541Z", "updated_at":"2025-06-03T16:07:32.070541Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8c908f3d-091a-476d-9ad6-5dca09e7649b", "name":"key-cool-edison", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.083109Z", "updated_at":"2025-06-03T16:07:32.083109Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"708cc4a6-e684-461a-b253-d205298e8780", "name":"key-frosty-bardeen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.093360Z", "updated_at":"2025-06-03T16:07:32.093360Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"52c65d7e-88fc-4431-b9b1-7de10603b832", "name":"cli-key-blissful-allen", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.484560Z", "updated_at":"2025-06-03T16:07:32.484560Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8590f0d0-a2e0-441a-903b-3027c742bc66", "name":"cli-key-vibrant-lewin", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.542577Z", "updated_at":"2025-06-03T16:07:32.542577Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"799e34f3-6038-4470-ace7-8b7769c59876", "name":"test-acc-admin-pwd-encryption", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEEYrzDOZmhItdKaDAEqJQ4ORS2GyBMtBozYsK5kiXXX", "fingerprint":"256 MD5:94:db:c3:76:58:e4:37:0a:ce:30:ae:ad:7d:86:b1:f0 (ssh-ed25519)", "created_at":"2025-06-18T21:48:07.805718Z", "updated_at":"2025-06-18T21:48:07.805718Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "disabled":false}], "total_count":10}'
+        headers:
+            Content-Length:
+                - "5575"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:31 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 54cecdf2-b0b6-4e46-a8f9-ab748a2c6fb9
+        status: 200 OK
+        code: 200
+        duration: 48.725208ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 192
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"id":"a86c19da-2fa0-415b-9e65-ef5c7e190f0c", "name":"key-heuristic-tharp", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-07-22T15:54:32.062841Z", "updated_at":"2025-07-22T15:54:32.062841Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}'
+        form: {}
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) scaleway-cli/0.0.0+test
+        url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 476
+        uncompressed: false
+        body: '{"id":"a86c19da-2fa0-415b-9e65-ef5c7e190f0c", "name":"key-heuristic-tharp", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-07-22T15:54:32.062841Z", "updated_at":"2025-07-22T15:54:32.062841Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}'
+        headers:
+            Content-Length:
+                - "476"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 0ea776c7-8f9c-4c69-8ff5-4cec5fcbf643
+        status: 200 OK
+        code: 200
+        duration: 151.087753ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"access_key":"SCWPB5A8ZHKGTSD2NHB0", "secret_key":null, "description":"Generated by the Scaleway CLI", "created_at":"2025-03-25T13:28:06.409480Z", "updated_at":"2025-03-25T13:28:06.409480Z", "expires_at":null, "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.9", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) scaleway-cli/0.0.0+test
+        url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWPB5A8ZHKGTSD2NHB0
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 402
+        uncompressed: false
+        body: '{"access_key":"SCWPB5A8ZHKGTSD2NHB0", "secret_key":null, "description":"Generated by the Scaleway CLI", "created_at":"2025-03-25T13:28:06.409480Z", "updated_at":"2025-03-25T13:28:06.409480Z", "expires_at":null, "default_project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.9", "user_id":"77e7fa85-f305-4ea2-afea-09571a039336"}'
+        headers:
+            Content-Length:
+                - "402"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 5853d7cc-2893-406e-a6d4-f3775eedf3de
+        status: 200 OK
+        code: 200
+        duration: 38.878436ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"ssh_keys":[{"id":"128ffa96-b092-4b2c-ab8d-62e025c3da42", "name":"id_rsa used for kops testing", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDJ3lhaLGWT/YYhVMQFNo9YH1q4MGgO3qOX0dCU6bnTTchOHs0wByRuWhq7OnLt4H2JXSn3FEnjtnFDV9NvrTpg9fkovUdWJJCt7JYcEUcDSy5+G1LyO/PEDVyxuHmBiyek92JU+Kl9QCARaZRjvhYuvH4hCI0HaMYap/livITnUDyI+OM6hEbkXXjzHr6s+5Fwy/ztH4rgq8f+ZmejmjczpDD/6LQzsVtcrAF5SMaUvjuwfOhBpyWtwtwfi35k8ac0+CPBI/s6bnAGgtg6ylhC5Er2YFSKpg2S0hdR42pzjdlB3eXB1eKlU7IRAaEdrR56PSzUcrefOJ9DRsQ39PKaS5j/IJvrEUL9TOvF5PmIuWBW1fWh9BWAveivE/rhC9i96QiU7sFxVq2p6sR5tu9o0UEY9xLHaYbG2DfRDb7TXlPS3uBZ/yDRv7cJtH6cEEaAiGhCXBJ108xCpM0Dbva/jfzwW7rBRqJDRZsN1Kas2S2saTzPNHj4ANG6wKDWEc=", "fingerprint":"3072 MD5:ae:ea:e9:42:75:4b:cd:2a:0d:68:c8:5a:af:7c:b1:c4 (ssh-rsa)", "created_at":"2023-04-07T15:45:40.077228Z", "updated_at":"2023-04-07T15:45:40.077228Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"3ca903cd-2c75-4890-806c-4837fcbc3a71", "disabled":false}, {"id":"52300b79-c142-4ddd-a852-49f5b5b4fad6", "name":"leila@leila-ThinkPad-T14s-Gen-6", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-01-23T14:08:59.219677Z", "updated_at":"2025-01-23T14:27:42.023024Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"b2e0f03f-bd9c-4787-be3b-01f53f87a955", "name":"leila''s ed25519 ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-03-31T09:45:03.736495Z", "updated_at":"2025-03-31T09:45:03.736495Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"44693172-d6a3-49b0-b56f-011f492e4dfa", "disabled":false}, {"id":"3897941a-dc57-400d-8b05-5c6f5f9aa75c", "name":"test-cli-KeyRegistered", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:30.984199Z", "updated_at":"2025-06-03T16:07:30.984199Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"1d04468d-aa4e-4d59-b593-8c4829e7995e", "name":"key-heuristic-bell", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.070541Z", "updated_at":"2025-06-03T16:07:32.070541Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8c908f3d-091a-476d-9ad6-5dca09e7649b", "name":"key-cool-edison", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.083109Z", "updated_at":"2025-06-03T16:07:32.083109Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"708cc4a6-e684-461a-b253-d205298e8780", "name":"key-frosty-bardeen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.093360Z", "updated_at":"2025-06-03T16:07:32.093360Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"52c65d7e-88fc-4431-b9b1-7de10603b832", "name":"cli-key-blissful-allen", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.484560Z", "updated_at":"2025-06-03T16:07:32.484560Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8590f0d0-a2e0-441a-903b-3027c742bc66", "name":"cli-key-vibrant-lewin", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.542577Z", "updated_at":"2025-06-03T16:07:32.542577Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"799e34f3-6038-4470-ace7-8b7769c59876", "name":"test-acc-admin-pwd-encryption", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEEYrzDOZmhItdKaDAEqJQ4ORS2GyBMtBozYsK5kiXXX", "fingerprint":"256 MD5:94:db:c3:76:58:e4:37:0a:ce:30:ae:ad:7d:86:b1:f0 (ssh-ed25519)", "created_at":"2025-06-18T21:48:07.805718Z", "updated_at":"2025-06-18T21:48:07.805718Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "disabled":false}, {"id":"49205098-cf28-40cc-aff4-249295f94fdc", "name":"test-cli-KeyRegistered", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-07-22T15:54:31.996915Z", "updated_at":"2025-07-22T15:54:31.996915Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"a86c19da-2fa0-415b-9e65-ef5c7e190f0c", "name":"key-heuristic-tharp", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-07-22T15:54:32.062841Z", "updated_at":"2025-07-22T15:54:32.062841Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"e3eed263-6a78-404e-baa1-af2eb879a275", "name":"key-happy-feistel", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-07-22T15:54:32.101195Z", "updated_at":"2025-07-22T15:54:32.101195Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}], "total_count":13}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/iam/v1alpha1/ssh-keys?order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 7010
+        uncompressed: false
+        body: '{"ssh_keys":[{"id":"128ffa96-b092-4b2c-ab8d-62e025c3da42", "name":"id_rsa used for kops testing", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAABgQDDJ3lhaLGWT/YYhVMQFNo9YH1q4MGgO3qOX0dCU6bnTTchOHs0wByRuWhq7OnLt4H2JXSn3FEnjtnFDV9NvrTpg9fkovUdWJJCt7JYcEUcDSy5+G1LyO/PEDVyxuHmBiyek92JU+Kl9QCARaZRjvhYuvH4hCI0HaMYap/livITnUDyI+OM6hEbkXXjzHr6s+5Fwy/ztH4rgq8f+ZmejmjczpDD/6LQzsVtcrAF5SMaUvjuwfOhBpyWtwtwfi35k8ac0+CPBI/s6bnAGgtg6ylhC5Er2YFSKpg2S0hdR42pzjdlB3eXB1eKlU7IRAaEdrR56PSzUcrefOJ9DRsQ39PKaS5j/IJvrEUL9TOvF5PmIuWBW1fWh9BWAveivE/rhC9i96QiU7sFxVq2p6sR5tu9o0UEY9xLHaYbG2DfRDb7TXlPS3uBZ/yDRv7cJtH6cEEaAiGhCXBJ108xCpM0Dbva/jfzwW7rBRqJDRZsN1Kas2S2saTzPNHj4ANG6wKDWEc=", "fingerprint":"3072 MD5:ae:ea:e9:42:75:4b:cd:2a:0d:68:c8:5a:af:7c:b1:c4 (ssh-rsa)", "created_at":"2023-04-07T15:45:40.077228Z", "updated_at":"2023-04-07T15:45:40.077228Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"3ca903cd-2c75-4890-806c-4837fcbc3a71", "disabled":false}, {"id":"52300b79-c142-4ddd-a852-49f5b5b4fad6", "name":"leila@leila-ThinkPad-T14s-Gen-6", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-01-23T14:08:59.219677Z", "updated_at":"2025-01-23T14:27:42.023024Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"b2e0f03f-bd9c-4787-be3b-01f53f87a955", "name":"leila''s ed25519 ssh-key", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIGbw5yW+J+uR533F5rjnY1VL/EUuXz13/kEf4W13q65j", "fingerprint":"256 MD5:5d:86:b8:a7:4b:67:64:2b:e3:54:72:aa:24:ab:84:05 (ssh-ed25519)", "created_at":"2025-03-31T09:45:03.736495Z", "updated_at":"2025-03-31T09:45:03.736495Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"44693172-d6a3-49b0-b56f-011f492e4dfa", "disabled":false}, {"id":"3897941a-dc57-400d-8b05-5c6f5f9aa75c", "name":"test-cli-KeyRegistered", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:30.984199Z", "updated_at":"2025-06-03T16:07:30.984199Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"1d04468d-aa4e-4d59-b593-8c4829e7995e", "name":"key-heuristic-bell", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.070541Z", "updated_at":"2025-06-03T16:07:32.070541Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8c908f3d-091a-476d-9ad6-5dca09e7649b", "name":"key-cool-edison", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.083109Z", "updated_at":"2025-06-03T16:07:32.083109Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"708cc4a6-e684-461a-b253-d205298e8780", "name":"key-frosty-bardeen", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-06-03T16:07:32.093360Z", "updated_at":"2025-06-03T16:07:32.093360Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"52c65d7e-88fc-4431-b9b1-7de10603b832", "name":"cli-key-blissful-allen", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.484560Z", "updated_at":"2025-06-03T16:07:32.484560Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"8590f0d0-a2e0-441a-903b-3027c742bc66", "name":"cli-key-vibrant-lewin", "public_key":"ssh-rsa AAAAB3NzaC1yc2EAAAADAQABAAAAgQCbJuYSOQc01zjHsMyn4OUsW61cqRvttKt3StJgbvt2WBuGpwi1/5RtSoMQpudYlZpdeivFb21S8QRas8zcOc+6WqgWa2nj/8yA+cauRlV6CMWY+hOTkkg39xaekstuQ+WR2/AP7O/9hjVx5735+9ZNIxxHsFjVYdBEuk9gEX+1Rw==", "fingerprint":"1024 MD5:da:0f:06:4c:de:fe:a1:c0:6c:e9:bb:78:e1:a4:e8:ce (ssh-rsa)", "created_at":"2025-06-03T16:07:32.542577Z", "updated_at":"2025-06-03T16:07:32.542577Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"799e34f3-6038-4470-ace7-8b7769c59876", "name":"test-acc-admin-pwd-encryption", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIEEYrzDOZmhItdKaDAEqJQ4ORS2GyBMtBozYsK5kiXXX", "fingerprint":"256 MD5:94:db:c3:76:58:e4:37:0a:ce:30:ae:ad:7d:86:b1:f0 (ssh-ed25519)", "created_at":"2025-06-18T21:48:07.805718Z", "updated_at":"2025-06-18T21:48:07.805718Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "disabled":false}, {"id":"49205098-cf28-40cc-aff4-249295f94fdc", "name":"test-cli-KeyRegistered", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAICd8ZxAm9mXQsRHhQ5iADEJuO+Ai8EbXMI7TIlsh9jbE", "fingerprint":"256 MD5:2e:c9:d3:87:1c:04:5f:c8:86:0c:08:4d:34:3f:ff:4c (ssh-ed25519)", "created_at":"2025-07-22T15:54:31.996915Z", "updated_at":"2025-07-22T15:54:31.996915Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"a86c19da-2fa0-415b-9e65-ef5c7e190f0c", "name":"key-heuristic-tharp", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-07-22T15:54:32.062841Z", "updated_at":"2025-07-22T15:54:32.062841Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}, {"id":"e3eed263-6a78-404e-baa1-af2eb879a275", "name":"key-happy-feistel", "public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIIQE67HxSRicWd4ol7ntM2jdeD/qEehPJxK/3thmMiZg", "fingerprint":"256 MD5:ea:c1:a1:82:4b:41:2b:65:26:9c:18:27:da:0d:bd:91 (ssh-ed25519)", "created_at":"2025-07-22T15:54:32.101195Z", "updated_at":"2025-07-22T15:54:32.101195Z", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "disabled":false}], "total_count":13}'
+        headers:
+            Content-Length:
+                - "7010"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:32 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge03)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 6a224fe1-b84a-4494-afc3-6bc9d215b0e7
+        status: 200 OK
+        code: 200
+        duration: 42.184382ms

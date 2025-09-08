@@ -1,5 +1,2682 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID   NAME  TYPE  STATE  ZONE  PUBLIC IP  PRIVATE IP  TAGS  IMAGE NAME  ROUTED IP ENABLED  MODIFICATION DATE  CREATION DATE  VOLUMES  PROTECTED  SECURITY GROUP NAME  SECURITY GROUP ID  STATE DETAIL  ARCH  IMAGE ID
+ID                                    NAME                          TYPE    STATE     ZONE      PUBLIC IP      PRIVATE IP  TAGS  IMAGE NAME                    ROUTED IP ENABLED  MODIFICATION DATE  CREATION DATE    VOLUMES  PROTECTED  SECURITY GROUP NAME     SECURITY GROUP ID                     STATE DETAIL    ARCH    IMAGE ID
+543a3145-f791-4b18-a84a-6461fa9c21db  cli-srv-elegant-pare          DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+2af5f71a-310c-47d5-8cd8-dd5b9ee06efb  cli-srv-frosty-goldwasser     DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+28f28123-40dc-4073-b52d-f603704900f5  cli-srv-funny-nightingale     DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+c74da9c7-c0b6-4741-9c40-a69b81e475e3  cli-srv-romantic-black        DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+0d2a7ef6-144e-4073-a2c2-8e64cd7278f5  cli-srv-wonderful-heyrovsky   DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+2fa6682a-959e-407a-9d7a-246204053ed0  cli-srv-suspicious-hoover     DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  3        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+cd2eb52b-3a58-4d90-860c-aa8ce4fca2ea  cli-srv-laughing-pasteur      DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+bb9dcfda-1cf3-4dda-9d56-131cc84b98f1  cli-srv-busy-minsky           DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+fcfae6d3-7ce6-48b1-ac33-7af99c9f5e6d  cli-srv-practical-antonelli   DEV1-S  archived  fr-par-1  51.158.70.199  -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+89beb143-044f-4f35-9aef-23ed0d856273  cli-srv-determined-agnesi     DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+e846094b-dd7e-4a7c-806a-54b31442bb7d  cli-srv-practical-ramanujan   DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+d1bd0dd8-1b42-4bc6-bbbd-d464e8dbcc76  cli-srv-loving-leavitt        DEV1-S  archived  fr-par-1  51.158.77.100  -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+0119773a-eae9-45a6-9b32-2102e21508ee  cli-srv-recursing-torvalds    DEV1-S  archived  fr-par-1  51.15.231.168  -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+e6013c81-2d9f-4aee-94a0-6daef23c55fb  cli-srv-thirsty-wiles         DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+04070c70-fbcc-4cc4-8fda-862fc2121380  cli-srv-inspiring-poitras     DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+2f64fa4c-ec26-4600-8254-556f5de61ecd  cli-srv-thirsty-wilbur        DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+c84db1f8-af1a-40b9-8ce0-6e08ab87f6bc  cli-srv-optimistic-yonath     DEV1-S  archived  fr-par-1  51.158.79.181  -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+0baf185a-1ccf-4883-8018-22da7d161722  cli-srv-frosty-borg           DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  3        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+36c2bcf7-fab3-43da-b804-2412be9ef7ac  cli-srv-vigorous-feistel      DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+c9941817-5dc9-486b-aef3-7147a723d424  cli-srv-pensive-payne         DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+c21a2b8e-0555-4749-aec4-34c74f18e2a8  cli-srv-dreamy-kalam          DEV1-S  running   fr-par-1  -              -           []    Ubuntu 20.04 Focal Fossa      true               few seconds ago    few seconds ago  2        false      Default security group  da505169-540e-4c2b-b0da-c854139224e0  booting kernel  x86_64  4a4d2994-e7e0-4b29-a760-36235e6ba258
+8712442d-b4df-442e-8637-60d636713318  cli-srv-kind-diffie           DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+36f4d2e9-854a-43e4-bc66-0fd59f1dc3ac  cli-srv-determined-dubinsky   DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+be6b7149-4fe5-4e99-a507-1f01a5e4b6e1  cli-srv-affectionate-buck     DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+7df2079e-10e6-4cef-8936-0d5311a95422  cli-srv-determined-ganguly    DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+061af96d-6f89-4cd3-995c-607faaece633  cli-srv-affectionate-feynman  DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
+5cbc61bf-bfaf-433c-9e08-96af952506f7  cli-srv-festive-beaver        DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  3        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+f3c7179e-c5dc-49ad-af93-b2a7bf23c41b  cli-srv-clever-banach         DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  5cf1c79e-46b5-40d7-8eaa-51f76f099837
+434951d3-74c5-42ee-817a-fc6e69b76642  cli-srv-modest-goldstine      DEV1-S  archived  fr-par-1  -              -           []    Ubuntu 22.04 Jammy Jellyfish  true               few seconds ago    few seconds ago  1        false      Default security group  2d7d322d-5ca8-4eea-9fdf-3885ed983d91  -               x86_64  a25cf4c9-6a59-47ed-87eb-dd8656b2fca9
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[]
+[
+  {
+    "id": "543a3145-f791-4b18-a84a-6461fa9c21db",
+    "name": "cli-srv-elegant-pare",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-elegant-pare",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c5:cb",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "bad9bca4-77e8-4cc7-b661-821b66d89708",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "2af5f71a-310c-47d5-8cd8-dd5b9ee06efb",
+    "name": "cli-srv-frosty-goldwasser",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-frosty-goldwasser",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c5:c9",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "5eb94cc8-d21c-4452-ba86-46677f534d0a",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "28f28123-40dc-4073-b52d-f603704900f5",
+    "name": "cli-srv-funny-nightingale",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-funny-nightingale",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c3:d5",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "6fdeaa93-947d-4c92-bc14-139e9038b3e5",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "3950cd51-15c7-46ec-9a87-b960b8e52dc5",
+        "server_id": "28f28123-40dc-4073-b52d-f603704900f5",
+        "private_network_id": "1d9e6e87-63da-4eea-aed0-1b38b92796fd",
+        "mac_address": "02:00:00:12:ea:ff",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "c74da9c7-c0b6-4741-9c40-a69b81e475e3",
+    "name": "cli-srv-romantic-black",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-romantic-black",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c3:d3",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "a69a2e1f-813e-47ee-a795-0b2a8acd2b8f",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "cca9514f-9e32-4c2f-baf7-54560081fc1c",
+        "server_id": "c74da9c7-c0b6-4741-9c40-a69b81e475e3",
+        "private_network_id": "ef44a47f-8f55-4e74-8cf1-69d30ac99a58",
+        "mac_address": "02:00:00:12:12:13",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "0d2a7ef6-144e-4073-a2c2-8e64cd7278f5",
+    "name": "cli-srv-wonderful-heyrovsky",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-wonderful-heyrovsky",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c3:d1",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "b4cb96fc-b30a-4f74-bbe0-e8449ba9e324",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "92a52bb3-6dc3-42ec-a579-bfa7bc8128d2",
+        "server_id": "0d2a7ef6-144e-4073-a2c2-8e64cd7278f5",
+        "private_network_id": "6f565bb8-0449-4284-a7af-3d429352d52e",
+        "mac_address": "02:00:00:18:4f:2b",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "2fa6682a-959e-407a-9d7a-246204053ed0",
+    "name": "cli-srv-suspicious-hoover",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-suspicious-hoover",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c3:ab",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "a74fba51-7087-4223-9931-0d6ef3639090",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "2fa6682a-959e-407a-9d7a-246204053ed0",
+          "name": "cli-srv-suspicious-hoover"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "1": {
+        "id": "6f0e6b77-c419-4d22-a479-445fd4a27d7c",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "2": {
+        "id": "3bc7f936-178d-40df-948d-5ae012d737e0",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "cd2eb52b-3a58-4d90-860c-aa8ce4fca2ea",
+    "name": "cli-srv-laughing-pasteur",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-laughing-pasteur",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c3:a9",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "21534a68-fd45-447f-9de2-f9d68acd8bbb",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "bb9dcfda-1cf3-4dda-9d56-131cc84b98f1",
+    "name": "cli-srv-busy-minsky",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-busy-minsky",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:c3:a7",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "79df7765-f30f-47c2-ad26-7d739b6cba57",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "bb9dcfda-1cf3-4dda-9d56-131cc84b98f1",
+          "name": "cli-srv-busy-minsky"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "fcfae6d3-7ce6-48b1-ac33-7af99c9f5e6d",
+    "name": "cli-srv-practical-antonelli",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": true,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-practical-antonelli",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "690c3fb8-1b60-4b8c-b61d-c30b62cdd314",
+      "address": "51.158.70.199",
+      "gateway": "62.210.0.1",
+      "netmask": "32",
+      "family": "inet",
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": [],
+      "ipam_id": "a2499382-1d09-474a-b9ce-72341b4660ad",
+      "state": "attached"
+    },
+    "public_ips": [
+      {
+        "id": "690c3fb8-1b60-4b8c-b61d-c30b62cdd314",
+        "address": "51.158.70.199",
+        "gateway": "62.210.0.1",
+        "netmask": "32",
+        "family": "inet",
+        "dynamic": false,
+        "provisioning_mode": "dhcp",
+        "tags": [],
+        "ipam_id": "a2499382-1d09-474a-b9ce-72341b4660ad",
+        "state": "attached"
+      }
+    ],
+    "mac_address": "de:00:00:c0:c3:1d",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "e79b18dc-b1c9-4218-ad4c-4408122c4a62",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "fcfae6d3-7ce6-48b1-ac33-7af99c9f5e6d",
+          "name": "cli-srv-practical-antonelli"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "89beb143-044f-4f35-9aef-23ed0d856273",
+    "name": "cli-srv-determined-agnesi",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-determined-agnesi",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b8:c7",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "16a1d30c-367a-4646-b04e-c7d6ac810bb6",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "e846094b-dd7e-4a7c-806a-54b31442bb7d",
+    "name": "cli-srv-practical-ramanujan",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-practical-ramanujan",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b8:c5",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "a23ebe2f-c232-45ed-b008-1488db0d591c",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "d1bd0dd8-1b42-4bc6-bbbd-d464e8dbcc76",
+    "name": "cli-srv-loving-leavitt",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": true,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-loving-leavitt",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "0e88974a-3004-425b-b392-409b36846022",
+      "address": "51.158.77.100",
+      "gateway": "62.210.0.1",
+      "netmask": "32",
+      "family": "inet",
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": [],
+      "ipam_id": "f27515b0-9f2b-40c8-bfba-750b6a918912",
+      "state": "attached"
+    },
+    "public_ips": [
+      {
+        "id": "0e88974a-3004-425b-b392-409b36846022",
+        "address": "51.158.77.100",
+        "gateway": "62.210.0.1",
+        "netmask": "32",
+        "family": "inet",
+        "dynamic": false,
+        "provisioning_mode": "dhcp",
+        "tags": [],
+        "ipam_id": "f27515b0-9f2b-40c8-bfba-750b6a918912",
+        "state": "attached"
+      }
+    ],
+    "mac_address": "de:00:00:c0:b8:ad",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "6b56c1e5-dc01-4d57-8a26-05b5538aa080",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "d1bd0dd8-1b42-4bc6-bbbd-d464e8dbcc76",
+          "name": "cli-srv-loving-leavitt"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "0119773a-eae9-45a6-9b32-2102e21508ee",
+    "name": "cli-srv-recursing-torvalds",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": true,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-recursing-torvalds",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "4edebbd5-3cf5-4456-a7bc-5740fd941af6",
+      "address": "51.15.231.168",
+      "gateway": "62.210.0.1",
+      "netmask": "32",
+      "family": "inet",
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": [],
+      "ipam_id": "ec87e0c5-50cd-4809-aa1e-1e4bda205576",
+      "state": "attached"
+    },
+    "public_ips": [
+      {
+        "id": "4edebbd5-3cf5-4456-a7bc-5740fd941af6",
+        "address": "51.15.231.168",
+        "gateway": "62.210.0.1",
+        "netmask": "32",
+        "family": "inet",
+        "dynamic": false,
+        "provisioning_mode": "dhcp",
+        "tags": [],
+        "ipam_id": "ec87e0c5-50cd-4809-aa1e-1e4bda205576",
+        "state": "attached"
+      }
+    ],
+    "mac_address": "de:00:00:c0:b8:ab",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "f273717c-efb3-4071-a22f-a56212396f97",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "0119773a-eae9-45a6-9b32-2102e21508ee",
+          "name": "cli-srv-recursing-torvalds"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "e6013c81-2d9f-4aee-94a0-6daef23c55fb",
+    "name": "cli-srv-thirsty-wiles",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-thirsty-wiles",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:e5",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "33bb862b-8619-44f1-a477-0782245dbcce",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "72c2ec1f-a0de-4a98-8e96-8c4401660558",
+        "server_id": "e6013c81-2d9f-4aee-94a0-6daef23c55fb",
+        "private_network_id": "d1c17e5f-8a4b-41c8-bd78-51d6cd198f67",
+        "mac_address": "02:00:00:1b:cb:2a",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "04070c70-fbcc-4cc4-8fda-862fc2121380",
+    "name": "cli-srv-inspiring-poitras",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-inspiring-poitras",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:e3",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "5063dc9a-022d-4ad7-a7e6-fce37ff24ed2",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "982e1b98-fb55-4aa8-87a3-572c1248cf2b",
+        "server_id": "04070c70-fbcc-4cc4-8fda-862fc2121380",
+        "private_network_id": "4e112977-bed0-4413-a71f-7dad38c75b8b",
+        "mac_address": "02:00:00:1f:21:fc",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "2f64fa4c-ec26-4600-8254-556f5de61ecd",
+    "name": "cli-srv-thirsty-wilbur",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-thirsty-wilbur",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:e1",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "7e78347d-9b9e-420c-8d6a-c4410077dd6f",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "843ec65d-0e7d-4c45-a8e5-d1a7d36d6746",
+        "server_id": "2f64fa4c-ec26-4600-8254-556f5de61ecd",
+        "private_network_id": "3119dcdb-74d6-42e2-a01b-b757bf3bbae6",
+        "mac_address": "02:00:00:15:7f:cb",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "c84db1f8-af1a-40b9-8ce0-6e08ab87f6bc",
+    "name": "cli-srv-optimistic-yonath",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": true,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-optimistic-yonath",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": {
+      "id": "a20b1bd8-f9bd-44c6-8d16-4326e8b079af",
+      "address": "51.158.79.181",
+      "gateway": "62.210.0.1",
+      "netmask": "32",
+      "family": "inet",
+      "dynamic": false,
+      "provisioning_mode": "dhcp",
+      "tags": [],
+      "ipam_id": "1964c1f6-ecfc-4913-b856-0f30e8f1c807",
+      "state": "attached"
+    },
+    "public_ips": [
+      {
+        "id": "a20b1bd8-f9bd-44c6-8d16-4326e8b079af",
+        "address": "51.158.79.181",
+        "gateway": "62.210.0.1",
+        "netmask": "32",
+        "family": "inet",
+        "dynamic": false,
+        "provisioning_mode": "dhcp",
+        "tags": [],
+        "ipam_id": "1964c1f6-ecfc-4913-b856-0f30e8f1c807",
+        "state": "attached"
+      }
+    ],
+    "mac_address": "de:00:00:c0:b6:d3",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "20a5c714-ba80-4584-816e-b7e2158128bc",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "c84db1f8-af1a-40b9-8ce0-6e08ab87f6bc",
+          "name": "cli-srv-optimistic-yonath"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "0baf185a-1ccf-4883-8018-22da7d161722",
+    "name": "cli-srv-frosty-borg",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-frosty-borg",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:cd",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "051151ea-fc98-49b6-837e-05776a94b3bd",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "0baf185a-1ccf-4883-8018-22da7d161722",
+          "name": "cli-srv-frosty-borg"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "1": {
+        "id": "9d648f96-9b73-4772-8092-f197e4997ffe",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "2": {
+        "id": "30dfc7b0-b5eb-4bef-b5c0-b13966c4d2e3",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "36c2bcf7-fab3-43da-b804-2412be9ef7ac",
+    "name": "cli-srv-vigorous-feistel",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-vigorous-feistel",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:c9",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "38551833-3e26-4b75-9856-0d59f551326f",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "36c2bcf7-fab3-43da-b804-2412be9ef7ac",
+          "name": "cli-srv-vigorous-feistel"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "c9941817-5dc9-486b-aef3-7147a723d424",
+    "name": "cli-srv-pensive-payne",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-pensive-payne",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:cb",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "9a9cb2d4-5b9a-4786-99ec-7c68fbe1b644",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "c21a2b8e-0555-4749-aec4-34c74f18e2a8",
+    "name": "cli-srv-dreamy-kalam",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "allowed_actions": [
+      "poweroff",
+      "terminate",
+      "reboot",
+      "stop_in_place",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-dreamy-kalam",
+    "image": {
+      "id": "4a4d2994-e7e0-4b29-a760-36235e6ba258",
+      "name": "Ubuntu 20.04 Focal Fossa",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "37000787-865a-4306-8ac4-5a0b2e2fcbbe",
+        "name": "Ubuntu 20.04 Focal Fossa",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:b6:ab",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "running",
+    "location": {
+      "cluster_id": "49",
+      "hypervisor_id": "304",
+      "node_id": "25",
+      "platform_id": "14",
+      "zone_id": "fr-par-1"
+    },
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "b69bf4d2-930d-452c-8df2-764e4ecae888",
+        "name": "Ubuntu 20.04 Focal Fossa",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "c21a2b8e-0555-4749-aec4-34c74f18e2a8",
+          "name": "cli-srv-dreamy-kalam"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "1": {
+        "id": "ad020a22-650c-4ac5-a9c8-56ff7b04f9ba",
+        "name": "cli-srv-dreamy-kalam-1",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "c21a2b8e-0555-4749-aec4-34c74f18e2a8",
+          "name": "cli-srv-dreamy-kalam"
+        },
+        "size": 10000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "da505169-540e-4c2b-b0da-c854139224e0",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "booting kernel",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "8712442d-b4df-442e-8637-60d636713318",
+    "name": "cli-srv-kind-diffie",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-kind-diffie",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:85:41",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "3d2b1566-918d-4ea3-b8d4-c4a512c8aa62",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "36f4d2e9-854a-43e4-bc66-0fd59f1dc3ac",
+    "name": "cli-srv-determined-dubinsky",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-determined-dubinsky",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:85:3f",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "c8e60f9b-7b7e-4c29-a71b-490ea0054e5b",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "be6b7149-4fe5-4e99-a507-1f01a5e4b6e1",
+    "name": "cli-srv-affectionate-buck",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-affectionate-buck",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:84:0b",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "0b1f7ce5-efa9-47fa-81a0-baf5fd6a99ec",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "578098a5-b3de-4d42-b729-c665c8cfac25",
+        "server_id": "be6b7149-4fe5-4e99-a507-1f01a5e4b6e1",
+        "private_network_id": "4f26ab92-5338-4cbb-8500-b8582bb16562",
+        "mac_address": "02:00:00:18:7a:e3",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "7df2079e-10e6-4cef-8936-0d5311a95422",
+    "name": "cli-srv-determined-ganguly",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-determined-ganguly",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:84:09",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "c5b7133e-8583-4fe6-bcfb-fdf5f5c82158",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "37669fb8-bea2-4bca-8572-8890204a847c",
+        "server_id": "7df2079e-10e6-4cef-8936-0d5311a95422",
+        "private_network_id": "34ec3dbd-6df5-475c-a36f-9eb371515fef",
+        "mac_address": "02:00:00:14:bb:f0",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "061af96d-6f89-4cd3-995c-607faaece633",
+    "name": "cli-srv-affectionate-feynman",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-affectionate-feynman",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:84:05",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "33f248f9-6bdc-445c-9a8c-becfa9ea199c",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [
+      {
+        "id": "86cf29f6-6dd5-495f-bff6-9581e6c3b7ec",
+        "server_id": "061af96d-6f89-4cd3-995c-607faaece633",
+        "private_network_id": "0d9e5a37-0a26-48ee-a7c9-4a6b2403d852",
+        "mac_address": "02:00:00:1f:6c:b1",
+        "state": "available",
+        "tags": []
+      }
+    ],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "5cbc61bf-bfaf-433c-9e08-96af952506f7",
+    "name": "cli-srv-festive-beaver",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-festive-beaver",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:83:df",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "62634a6b-a4bd-422c-a852-10ae9c209476",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "5cbc61bf-bfaf-433c-9e08-96af952506f7",
+          "name": "cli-srv-festive-beaver"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "1": {
+        "id": "ca5cb429-670e-4e7b-8cbb-3287eb50267a",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      },
+      "2": {
+        "id": "906c7a36-80ce-40f2-9554-81832756d635",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "f3c7179e-c5dc-49ad-af93-b2a7bf23c41b",
+    "name": "cli-srv-clever-banach",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-clever-banach",
+    "image": {
+      "id": "5cf1c79e-46b5-40d7-8eaa-51f76f099837",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "2973ed60-b18f-46a0-8be5-671a5345ee7b",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "size": 10000000000,
+        "volume_type": "l_ssd"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:83:d9",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "ce5d6396-bafb-44e9-bab2-aee4e2a433d0",
+        "name": "Ubuntu 22.04 Jammy Jellyfish",
+        "export_uri": null,
+        "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+        "server": {
+          "id": "f3c7179e-c5dc-49ad-af93-b2a7bf23c41b",
+          "name": "cli-srv-clever-banach"
+        },
+        "size": 20000000000,
+        "volume_type": "l_ssd",
+        "creation_date": "1970-01-01T00:00:00.0Z",
+        "modification_date": "1970-01-01T00:00:00.0Z",
+        "state": "available",
+        "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  },
+  {
+    "id": "434951d3-74c5-42ee-817a-fc6e69b76642",
+    "name": "cli-srv-modest-goldstine",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
+    "allowed_actions": [
+      "poweron",
+      "backup"
+    ],
+    "tags": [],
+    "commercial_type": "DEV1-S",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "dynamic_ip_required": false,
+    "routed_ip_enabled": true,
+    "enable_ipv6": false,
+    "hostname": "cli-srv-modest-goldstine",
+    "image": {
+      "id": "a25cf4c9-6a59-47ed-87eb-dd8656b2fca9",
+      "name": "Ubuntu 22.04 Jammy Jellyfish",
+      "arch": "x86_64",
+      "creation_date": "1970-01-01T00:00:00.0Z",
+      "modification_date": "1970-01-01T00:00:00.0Z",
+      "default_bootscript": null,
+      "extra_volumes": {},
+      "from_server": "",
+      "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "public": true,
+      "root_volume": {
+        "id": "8ce605f7-c1f9-4f32-a8c1-976d0a977ad2",
+        "name": "",
+        "size": 0,
+        "volume_type": "sbs_snapshot"
+      },
+      "state": "available",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "tags": [],
+      "zone": "fr-par-1"
+    },
+    "protected": false,
+    "private_ip": null,
+    "public_ip": null,
+    "public_ips": [],
+    "mac_address": "de:00:00:c0:83:d7",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "state": "stopped",
+    "location": null,
+    "ipv6": null,
+    "boot_type": "local",
+    "volumes": {
+      "0": {
+        "id": "09c59c22-9294-47c1-a6ea-a7720df031b9",
+        "name": null,
+        "export_uri": null,
+        "organization": null,
+        "server": null,
+        "size": null,
+        "volume_type": "sbs_volume",
+        "creation_date": null,
+        "modification_date": null,
+        "state": null,
+        "project": null,
+        "boot": false,
+        "zone": "fr-par-1"
+      }
+    },
+    "security_group": {
+      "id": "2d7d322d-5ca8-4eea-9fdf-3885ed983d91",
+      "name": "Default security group"
+    },
+    "maintenances": [],
+    "state_detail": "",
+    "arch": "x86_64",
+    "placement_group": null,
+    "private_nics": [],
+    "zone": "fr-par-1",
+    "admin_password_encryption_ssh_key_id": null,
+    "admin_password_encrypted_value": null,
+    "filesystems": [],
+    "end_of_service": false
+  }
+]

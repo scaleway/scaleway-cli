@@ -10,7 +10,10 @@ containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -26,7 +29,7 @@ Available Container Runtimes:
 [containerd]
 
 Available Feature Gates:
-[HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation]
+[HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation PodLevelResources CPUManagerPolicyAlphaOptions]
 
 Available Admission Plugins:
 [AlwaysPullImages PodNodeSelector PodTolerationRestriction]
@@ -50,7 +53,9 @@ Available Admission Plugins:
     "SidecarContainers",
     "DRAAdminAccess",
     "DRAResourceClaimDeviceStatus",
-    "DynamicResourceAllocation"
+    "DynamicResourceAllocation",
+    "PodLevelResources",
+    "CPUManagerPolicyAlphaOptions"
   ],
   "available_admission_plugins": [
     "AlwaysPullImages",
@@ -63,7 +68,10 @@ Available Admission Plugins:
     "cpuCFSQuota": "bool",
     "cpuCFSQuotaPeriod": "duration",
     "cpuManagerPolicy": "enum:none|static",
+    "cpuManagerPolicyOptions": "map[string]string",
     "enableDebuggingHandlers": "bool",
+    "evictionHard": "map[string]string",
+    "evictionMinimumReclaim": "map[string]string",
     "imageGCHighThresholdPercent": "uint32",
     "imageGCLowThresholdPercent": "uint32",
     "maxParallelImagePulls": "int32",

@@ -1,59 +1,52 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"total_count":4, "nats_accounts":[{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:48:46.687350Z", "updated_at":"2024-02-19T09:48:46.687350Z",
-      "id":"ABURI34PBZXAB7VDGHGK7LJX4SFBDA6PHUDR3Y2XU42QIOGHD3GKN6RS", "name":"cli-mnq-competent-moser",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:49:15.694622Z", "updated_at":"2024-02-19T09:49:15.694622Z",
-      "id":"ACQBLIGB4MNGFZ3RQJCI223YMJ6G3BLZ4TD32A6E56KKZT75XWEVJZKJ", "name":"cli-mnq-zealous-curie",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:24:39.062406Z", "updated_at":"2024-02-19T13:24:39.062406Z",
-      "id":"AAULS6BP6AZ3YFJOXBWYTCEMS35NTJ4K5GUMVKM5M4N764IJDP3SMKSS", "name":"cli-mnq-vibrant-gates",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:59:22.353551Z", "updated_at":"2024-02-19T13:59:22.353551Z",
-      "id":"AAMRPEMQWUCBKJ2HTGAESWJ7ITP4QFNSBYFVE5JPBLETC4TQAO3GOLKD", "name":"cli-mnq-keen-meninsky",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}]}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts?order_by=created_at_asc
-    method: GET
-  response:
-    body: '{"total_count":4, "nats_accounts":[{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:48:46.687350Z", "updated_at":"2024-02-19T09:48:46.687350Z",
-      "id":"ABURI34PBZXAB7VDGHGK7LJX4SFBDA6PHUDR3Y2XU42QIOGHD3GKN6RS", "name":"cli-mnq-competent-moser",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T09:49:15.694622Z", "updated_at":"2024-02-19T09:49:15.694622Z",
-      "id":"ACQBLIGB4MNGFZ3RQJCI223YMJ6G3BLZ4TD32A6E56KKZT75XWEVJZKJ", "name":"cli-mnq-zealous-curie",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:24:39.062406Z", "updated_at":"2024-02-19T13:24:39.062406Z",
-      "id":"AAULS6BP6AZ3YFJOXBWYTCEMS35NTJ4K5GUMVKM5M4N764IJDP3SMKSS", "name":"cli-mnq-vibrant-gates",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}, {"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
-      "region":"fr-par", "created_at":"2024-02-19T13:59:22.353551Z", "updated_at":"2024-02-19T13:59:22.353551Z",
-      "id":"AAMRPEMQWUCBKJ2HTGAESWJ7ITP4QFNSBYFVE5JPBLETC4TQAO3GOLKD", "name":"cli-mnq-keen-meninsky",
-      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}]}'
-    headers:
-      Content-Length:
-      - "1293"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:39 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - dfdaeee9-0098-451d-a44f-f07f5d65456e
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"total_count":0, "nats_accounts":[]}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts?order_by=created_at_asc
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 37
+        uncompressed: false
+        body: '{"total_count":0, "nats_accounts":[]}'
+        headers:
+            Content-Length:
+                - "37"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:35 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - 134ec589-5f93-4a53-ac41-bc8aa3566342
+        status: 200 OK
+        code: 200
+        duration: 52.917383ms

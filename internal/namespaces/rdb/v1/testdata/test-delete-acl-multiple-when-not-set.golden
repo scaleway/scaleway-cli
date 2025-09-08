@@ -2,21 +2,21 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 was not set.
 IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       10511  tcp       inbound    allow   Allow All
-192.168.1.0/32  10511  tcp       inbound    allow   Allow 192.168.1.0/32
+0.0.0.0/0       20819  tcp       inbound    allow   Allow All
+192.168.1.0/32  20819  tcp       inbound    allow   Allow 192.168.1.0/32
 ✅ ACL rule 192.168.1.0/32 successfully deleted.
 IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10511  tcp       inbound    allow   Allow All
+0.0.0.0/0  20819  tcp       inbound    allow   Allow All
 ✅ ACL rule 10.10.10.10/32 was not set.
 IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10511  tcp       inbound    allow   Allow All
+0.0.0.0/0  20819  tcp       inbound    allow   Allow All
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 10511,
+        "port": 20819,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -24,7 +24,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
       },
       {
         "ip": "192.168.1.0/32",
-        "port": 10511,
+        "port": 20819,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -40,7 +40,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 10511,
+        "port": 20819,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",
@@ -56,7 +56,7 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     "Rules": [
       {
         "ip": "0.0.0.0/0",
-        "port": 10511,
+        "port": 20819,
         "protocol": "tcp",
         "direction": "inbound",
         "action": "allow",

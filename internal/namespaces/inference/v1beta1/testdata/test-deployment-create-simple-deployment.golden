@@ -1,0 +1,44 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID         761b7898-3a20-45d6-b627-561870ad2dc9
+Name       cli-inference-bold-carson
+ProjectID  fa1e3217-dc80-42ac-85c3-3f034b78b552
+Status     creating
+NodeType   L4
+Size       0
+MinSize    1
+MaxSize    1
+ModelName  meta/llama-3-8b-instruct:bf16
+ModelID    6c68b256-ef4a-48d2-a794-9b63b5c6ba5d
+CreatedAt  few seconds ago
+Region     fr-par
+
+Endpoints:
+ID                                    URL                                                                   DISABLE AUTH
+e418e67c-93f0-4e47-84e9-321c144a62ac  https://761b7898-3a20-45d6-b627-561870ad2dc9.ifr.fr-par.scaleway.com  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "761b7898-3a20-45d6-b627-561870ad2dc9",
+  "name": "cli-inference-bold-carson",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "status": "creating",
+  "tags": [],
+  "node_type": "L4",
+  "endpoints": [
+    {
+      "id": "e418e67c-93f0-4e47-84e9-321c144a62ac",
+      "url": "https://761b7898-3a20-45d6-b627-561870ad2dc9.ifr.fr-par.scaleway.com",
+      "public_access": {},
+      "disable_auth": false
+    }
+  ],
+  "size": 0,
+  "min_size": 1,
+  "max_size": 1,
+  "error_message": null,
+  "model_name": "meta/llama-3-8b-instruct:bf16",
+  "model_id": "6c68b256-ef4a-48d2-a794-9b63b5c6ba5d",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": null,
+  "region": "fr-par"
+}

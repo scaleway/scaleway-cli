@@ -1,37 +1,52 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"details":[{"argument_name":"nats_account_id","help_message":"value length
-      must be 56 runes","reason":"constraint"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.5; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/Wrong-id
-    method: GET
-  response:
-    body: '{"details":[{"argument_name":"nats_account_id","help_message":"value length
-      must be 56 runes","reason":"constraint"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
-    headers:
-      Content-Length:
-      - "177"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 19 Feb 2024 15:12:39 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 7b4bd821-0e52-4e51-99ff-3cef37828c02
-    status: 400 Bad Request
-    code: 400
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        transfer_encoding: []
+        trailer: {}
+        host: api.scaleway.com
+        remote_addr: ""
+        request_uri: ""
+        body: '{"details":[{"argument_name":"nats_account_id","help_message":"value length must be 56 runes","reason":"constraint"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
+        form: {}
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/Wrong-id
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        transfer_encoding: []
+        trailer: {}
+        content_length: 177
+        uncompressed: false
+        body: '{"details":[{"argument_name":"nats_account_id","help_message":"value length must be 56 runes","reason":"constraint"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
+        headers:
+            Content-Length:
+                - "177"
+            Content-Security-Policy:
+                - default-src 'none'; frame-ancestors 'none'
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 22 Jul 2025 15:54:35 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge02)
+            Strict-Transport-Security:
+                - max-age=63072000
+            X-Content-Type-Options:
+                - nosniff
+            X-Frame-Options:
+                - DENY
+            X-Request-Id:
+                - b8a93e8d-9493-44d8-8ecd-1bda122d5ed3
+        status: 400 Bad Request
+        code: 400
+        duration: 19.699715ms
