@@ -118,6 +118,7 @@ func auditTrailEventList() *core.Command {
 					"load_balancer_acl",
 					"load_balancer_certificate",
 					"sfs_filesystem",
+					"vpc_private_network",
 				},
 			},
 			{
@@ -187,6 +188,20 @@ func auditTrailEventList() *core.Command {
 			{
 				Name:       "resource-id",
 				Short:      `(Optional) ID of the Scaleway resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "principal-id",
+				Short:      `(Optional) ID of the User or IAM application at the origin of the event`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source-ip",
+				Short:      `(Optional) IP address at the origin of the event`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
