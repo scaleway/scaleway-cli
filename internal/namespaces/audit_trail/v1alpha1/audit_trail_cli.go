@@ -118,6 +118,7 @@ func auditTrailEventList() *core.Command {
 					"load_balancer_acl",
 					"load_balancer_certificate",
 					"sfs_filesystem",
+					"vpc_private_network",
 				},
 			},
 			{
