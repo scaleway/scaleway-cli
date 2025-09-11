@@ -59,7 +59,7 @@ func keymanagerKey() *core.Command {
 func keymanagerKeyCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a key`,
-		Long:      `Create a key in a given region specified by the ` + "`" + `region` + "`" + ` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.`,
+		Long:      `Create a key in a given region specified by the ` + "`" + `region` + "`" + ` parameter. You can use keys to encrypt or decrypt arbitrary payloads, to sign and verify messages or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "create",
@@ -76,7 +76,7 @@ func keymanagerKeyCreate() *core.Command {
 			},
 			{
 				Name:       "usage.symmetric-encryption",
-				Short:      `Algorithm used to encrypt and decrypt arbitrary payloads.`,
+				Short:      `Encrypt and decrypt arbitrary payloads using a symmetric encryption algorithm.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -87,6 +87,7 @@ func keymanagerKeyCreate() *core.Command {
 			},
 			{
 				Name:       "usage.asymmetric-encryption",
+				Short:      `Encrypt and decrypt arbitrary payloads using an asymmetric encryption algorithm.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -99,6 +100,7 @@ func keymanagerKeyCreate() *core.Command {
 			},
 			{
 				Name:       "usage.asymmetric-signing",
+				Short:      `Sign and verify arbitrary messages using an asymmetric signing algorithm.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
