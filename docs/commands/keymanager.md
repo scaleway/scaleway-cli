@@ -27,7 +27,7 @@ Keys are logical containers which store cryptographic keys.
 
 ### Create a key
 
-Create a key in a given region specified by the `region` parameter. Keys only support symmetric encryption. You can use keys to encrypt or decrypt arbitrary payloads, or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
+Create a key in a given region specified by the `region` parameter. You can use keys to encrypt or decrypt arbitrary payloads, to sign and verify messages or to generate data encryption keys. **Data encryption keys are not stored in Key Manager**.
 
 **Usage:**
 
@@ -42,9 +42,9 @@ scw keymanager key create [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | (Optional) Name of the key |
-| usage.symmetric-encryption | One of: `unknown_symmetric_encryption`, `aes_256_gcm` | Algorithm used to encrypt and decrypt arbitrary payloads. |
-| usage.asymmetric-encryption | One of: `unknown_asymmetric_encryption`, `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256` |  |
-| usage.asymmetric-signing | One of: `unknown_asymmetric_signing`, `ec_p256_sha256`, `ec_p384_sha384`, `rsa_pss_2048_sha256`, `rsa_pss_3072_sha256`, `rsa_pss_4096_sha256`, `rsa_pkcs1_2048_sha256`, `rsa_pkcs1_3072_sha256`, `rsa_pkcs1_4096_sha256` |  |
+| usage.symmetric-encryption | One of: `unknown_symmetric_encryption`, `aes_256_gcm` | Encrypt and decrypt arbitrary payloads using a symmetric encryption algorithm. |
+| usage.asymmetric-encryption | One of: `unknown_asymmetric_encryption`, `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256` | Encrypt and decrypt arbitrary payloads using an asymmetric encryption algorithm. |
+| usage.asymmetric-signing | One of: `unknown_asymmetric_signing`, `ec_p256_sha256`, `ec_p384_sha384`, `rsa_pss_2048_sha256`, `rsa_pss_3072_sha256`, `rsa_pss_4096_sha256`, `rsa_pkcs1_2048_sha256`, `rsa_pkcs1_3072_sha256`, `rsa_pkcs1_4096_sha256` | Sign and verify arbitrary messages using an asymmetric signing algorithm. |
 | description |  | (Optional) Description of the key |
 | tags.{index} |  | (Optional) List of the key's tags |
 | rotation-policy.rotation-period |  | Rotation period |
