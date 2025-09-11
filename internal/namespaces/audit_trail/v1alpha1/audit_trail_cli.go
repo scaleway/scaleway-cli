@@ -192,6 +192,20 @@ func auditTrailEventList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "principal-id",
+				Short:      `(Optional) ID of the User or IAM application at the origin of the event`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source-ip",
+				Short:      `(Optional) IP address at the origin of the event`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(
 				scw.RegionFrPar,

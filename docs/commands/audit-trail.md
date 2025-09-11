@@ -40,6 +40,8 @@ scw audit-trail event list [arg=value ...]
 | product-name |  | (Optional) Name of the Scaleway product in a hyphenated format |
 | service-name |  | (Optional) Name of the service of the API call performed |
 | resource-id |  | (Optional) ID of the Scaleway resource |
+| principal-id |  | (Optional) ID of the User or IAM application at the origin of the event |
+| source-ip |  | (Optional) IP address at the origin of the event |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
