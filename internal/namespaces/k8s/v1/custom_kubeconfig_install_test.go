@@ -88,7 +88,6 @@ func Test_InstallKubeconfig(t *testing.T) {
 			"install-kubeconfig-simple",
 			"Cluster",
 			"Kubeconfig",
-			kapsuleVersion,
 		),
 		Cmd: "scw k8s kubeconfig install {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
@@ -125,7 +124,12 @@ func Test_InstallKubeconfig(t *testing.T) {
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigInFile(t, path.Join(os.TempDir(), "cli-merge-test"), "-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID, ctx.Meta["Kubeconfig"].(api.Config))
+				testIfKubeconfigInFile(
+					t,
+					path.Join(os.TempDir(), "cli-merge-test"),
+					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
+					ctx.Meta["Kubeconfig"].(api.Config),
+				)
 			},
 			core.TestCheckExitCode(0),
 		),

@@ -25,7 +25,7 @@ func k8sExecCredentialCommand() *core.Command {
 	}
 }
 
-func k8sExecCredentialRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
+func k8sExecCredentialRun(ctx context.Context, _ any) (i any, e error) {
 	token, err := SecretKey(ctx)
 	if err != nil {
 		return nil, err

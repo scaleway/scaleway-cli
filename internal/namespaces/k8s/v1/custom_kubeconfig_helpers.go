@@ -64,7 +64,7 @@ type KubeMapConfig struct {
 	users          map[string]api.AuthInfo
 	contexts       map[string]api.Context
 	CurrentContext string
-	extensions     map[string]interface{}
+	extensions     map[string]any
 }
 
 func NewKubeMapConfig() *KubeMapConfig {
@@ -72,7 +72,7 @@ func NewKubeMapConfig() *KubeMapConfig {
 		clusters:   map[string]api.Cluster{},
 		users:      map[string]api.AuthInfo{},
 		contexts:   map[string]api.Context{},
-		extensions: map[string]interface{}{},
+		extensions: map[string]any{},
 	}
 }
 
@@ -94,7 +94,7 @@ func LoadKubeMapConfig(ctx context.Context, kubeconfigPath string) (*KubeMapConf
 		users:          map[string]api.AuthInfo{},
 		contexts:       map[string]api.Context{},
 		CurrentContext: kubeconfig.CurrentContext,
-		extensions:     map[string]interface{}{},
+		extensions:     map[string]any{},
 	}
 
 	for _, namedCluster := range kubeconfig.Clusters {
@@ -118,11 +118,13 @@ func LoadKubeMapConfig(ctx context.Context, kubeconfigPath string) (*KubeMapConf
 
 		// Warn the user about its invalid kubeconfig
 		if _, ok := kubeMapConfig.clusters[namedContext.Context.Cluster]; !ok {
-			core.ExtractLogger(ctx).Warningf("context '%s' refers to cluster '%s' that does not exist", namedContext.Name, namedContext.Context.Cluster)
+			core.ExtractLogger(ctx).
+				Warningf("context '%s' refers to cluster '%s' that does not exist", namedContext.Name, namedContext.Context.Cluster)
 		}
 
 		if _, ok := kubeMapConfig.users[namedContext.Context.AuthInfo]; !ok {
-			core.ExtractLogger(ctx).Warningf("context '%s' refers to user '%s' that does not exist", namedContext.Name, namedContext.Context.AuthInfo)
+			core.ExtractLogger(ctx).
+				Warningf("context '%s' refers to user '%s' that does not exist", namedContext.Name, namedContext.Context.AuthInfo)
 		}
 
 		kubeMapConfig.contexts[namedContext.Name] = namedContext.Context
@@ -130,7 +132,10 @@ func LoadKubeMapConfig(ctx context.Context, kubeconfigPath string) (*KubeMapConf
 
 	for _, namedExtension := range kubeconfig.Extensions {
 		if _, ok := kubeMapConfig.extensions[namedExtension.Name]; ok {
-			return nil, fmt.Errorf("duplicated extension '%s' found in kubeconfig", namedExtension.Name)
+			return nil, fmt.Errorf(
+				"duplicated extension '%s' found in kubeconfig",
+				namedExtension.Name,
+			)
 		}
 		kubeMapConfig.extensions[namedExtension.Name] = namedExtension.Extension
 	}
@@ -142,6 +147,7 @@ func (c *KubeMapConfig) GetCluster(name string) (*api.NamedCluster, error) {
 	if cluster, ok := c.clusters[name]; ok {
 		return &api.NamedCluster{Name: name, Cluster: cluster}, nil
 	}
+
 	return nil, fmt.Errorf("cluster '%s' not found", name)
 }
 
@@ -161,11 +167,16 @@ func (c *KubeMapConfig) RemoveCluster(name string) error {
 
 	for contextName, contextValue := range c.contexts {
 		if contextValue.Cluster == name {
-			return fmt.Errorf("unable to remove cluster: cluster '%s' still referenced in context '%s'", name, contextName)
+			return fmt.Errorf(
+				"unable to remove cluster: cluster '%s' still referenced in context '%s'",
+				name,
+				contextName,
+			)
 		}
 	}
 
 	delete(c.clusters, name)
+
 	return nil
 }
 
@@ -173,6 +184,7 @@ func (c *KubeMapConfig) GetUser(name string) (*api.NamedAuthInfo, error) {
 	if user, ok := c.users[name]; ok {
 		return &api.NamedAuthInfo{Name: name, AuthInfo: user}, nil
 	}
+
 	return nil, fmt.Errorf("user '%s' not found", name)
 }
 
@@ -192,11 +204,16 @@ func (c *KubeMapConfig) RemoveUser(name string) error {
 
 	for contextName, contextValue := range c.contexts {
 		if contextValue.AuthInfo == name {
-			return fmt.Errorf("unable to remove user: user '%s' referenced in context '%s'", name, contextName)
+			return fmt.Errorf(
+				"unable to remove user: user '%s' referenced in context '%s'",
+				name,
+				contextName,
+			)
 		}
 	}
 
 	delete(c.users, name)
+
 	return nil
 }
 
@@ -204,6 +221,7 @@ func (c *KubeMapConfig) GetContext(name string) (*api.NamedContext, error) {
 	if kubeContext, ok := c.contexts[name]; ok {
 		return &api.NamedContext{Name: name, Context: kubeContext}, nil
 	}
+
 	return nil, fmt.Errorf("context '%s' not found", name)
 }
 
@@ -221,14 +239,17 @@ func (c *KubeMapConfig) SetContext(name string, context api.Context, overwrite b
 	}
 
 	c.contexts[name] = context
+
 	return nil
 }
 
 func (c *KubeMapConfig) RemoveContext(name string) error {
 	if _, ok := c.contexts[name]; ok {
 		delete(c.contexts, name)
+
 		return nil
 	}
+
 	return ErrNotFound
 }
 

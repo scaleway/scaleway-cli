@@ -15,7 +15,6 @@ func Test_GetKubeconfig(t *testing.T) {
 			"get-kubeconfig",
 			"Cluster",
 			"Kubeconfig",
-			kapsuleVersion,
 		),
 		Cmd: "scw k8s kubeconfig get {{ .Cluster.ID }}",
 		Check: core.TestCheckCombine(
@@ -32,9 +31,13 @@ func Test_GetKubeconfig(t *testing.T) {
 	}))
 
 	t.Run("legacy", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig("get-kubeconfig", "Cluster", "Kubeconfig", kapsuleVersion),
-		Cmd:        "scw k8s kubeconfig get {{ .Cluster.ID }} auth-method=legacy",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndKubeconfig(
+			"get-kubeconfig",
+			"Cluster",
+			"Kubeconfig",
+		),
+		Cmd: "scw k8s kubeconfig get {{ .Cluster.ID }} auth-method=legacy",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, _ *core.CheckFuncCtx) {
@@ -49,9 +52,13 @@ func Test_GetKubeconfig(t *testing.T) {
 	}))
 
 	t.Run("cli", core.Test(&core.TestConfig{
-		Commands:   k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig("get-kubeconfig", "Cluster", "Kubeconfig", kapsuleVersion),
-		Cmd:        "scw k8s kubeconfig get {{ .Cluster.ID }} auth-method=cli",
+		Commands: k8s.GetCommands(),
+		BeforeFunc: createClusterAndWaitAndKubeconfig(
+			"get-kubeconfig",
+			"Cluster",
+			"Kubeconfig",
+		),
+		Cmd: "scw k8s kubeconfig get {{ .Cluster.ID }} auth-method=cli",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, _ *core.CheckFuncCtx) {

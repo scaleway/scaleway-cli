@@ -66,10 +66,11 @@ func k8sKubeconfigGetCommand() *core.Command {
 func k8sKubeconfigGetRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigGetRequest)
 
-	apiKubeconfig, err := k8s.NewAPI(core.ExtractClient(ctx)).GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
-		Region:    request.Region,
-		ClusterID: request.ClusterID,
-	})
+	apiKubeconfig, err := k8s.NewAPI(core.ExtractClient(ctx)).
+		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+			Region:    request.Region,
+			ClusterID: request.ClusterID,
+		})
 	if err != nil {
 		return nil, err
 	}

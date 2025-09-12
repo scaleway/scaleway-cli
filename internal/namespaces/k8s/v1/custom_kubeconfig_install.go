@@ -73,10 +73,11 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigInstallRequest)
 
-	apiKubeconfigResp, err := k8s.NewAPI(core.ExtractClient(ctx)).GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
-		Region:    request.Region,
-		ClusterID: request.ClusterID,
-	})
+	apiKubeconfigResp, err := k8s.NewAPI(core.ExtractClient(ctx)).
+		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+			Region:    request.Region,
+			ClusterID: request.ClusterID,
+		})
 	if err != nil {
 		return nil, err
 	}
@@ -101,7 +102,12 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 	}
 
 	// insert
-	newNamedUser, err := buildAuthUser(ctx, clusterKubeconfig, request.ClusterID, request.AuthMethod)
+	newNamedUser, err := buildAuthUser(
+		ctx,
+		clusterKubeconfig,
+		request.ClusterID,
+		request.AuthMethod,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -117,7 +123,11 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 		return nil, err
 	}
 
-	err = kmc.SetContext(clusterNameWithID, api.Context{Cluster: clusterNameWithID, AuthInfo: newNamedUser.Name}, true)
+	err = kmc.SetContext(
+		clusterNameWithID,
+		api.Context{Cluster: clusterNameWithID, AuthInfo: newNamedUser.Name},
+		true,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -138,7 +148,12 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 	), nil
 }
 
-func buildAuthUser(ctx context.Context, config api.Config, clusterID string, met authMethods) (*api.NamedAuthInfo, error) {
+func buildAuthUser(
+	ctx context.Context,
+	config api.Config,
+	clusterID string,
+	met authMethods,
+) (*api.NamedAuthInfo, error) {
 	switch met {
 	case authMethodLegacy:
 		if config.AuthInfos[0].AuthInfo.Token == RedactedAuthInfoToken {
@@ -169,6 +184,7 @@ func buildAuthUser(ctx context.Context, config api.Config, clusterID string, met
 		}
 
 		configPathSum := crc32.ChecksumIEEE([]byte(configPath))
+
 		return &api.NamedAuthInfo{
 			Name: fmt.Sprintf("cli-%s-%08x", profileName, configPathSum),
 			AuthInfo: api.AuthInfo{
@@ -190,6 +206,7 @@ func buildAuthUser(ctx context.Context, config api.Config, clusterID string, met
 		}
 
 		tokenSum := crc32.ChecksumIEEE([]byte(token))
+
 		return &api.NamedAuthInfo{
 			Name: fmt.Sprintf("token-cli-%08x", tokenSum),
 			AuthInfo: api.AuthInfo{
@@ -197,5 +214,6 @@ func buildAuthUser(ctx context.Context, config api.Config, clusterID string, met
 			},
 		}, nil
 	}
+
 	return nil, errors.New("unknown auth method")
 }
