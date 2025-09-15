@@ -610,7 +610,7 @@ func cockpitDataSourceGet() *core.Command {
 				Short:      `ID of the relevant data source`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -644,7 +644,7 @@ func cockpitDataSourceDelete() *core.Command {
 				Short:      `ID of the data source to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -764,7 +764,7 @@ func cockpitDataSourceUpdate() *core.Command {
 				Short:      `ID of the data source to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -972,7 +972,7 @@ func cockpitTokenGet() *core.Command {
 				Short:      `Token ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -1006,7 +1006,7 @@ func cockpitTokenDelete() *core.Command {
 				Short:      `ID of the token to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,

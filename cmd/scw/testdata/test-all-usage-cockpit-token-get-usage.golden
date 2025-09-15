@@ -3,7 +3,7 @@
 Retrieve information about a given token, specified by the token ID. The token's information such as its scopes, is returned.
 
 USAGE:
-  scw cockpit token get [arg=value ...]
+  scw cockpit token get <token-id ...> [arg=value ...]
 
 ARGS:
   token-id          Token ID

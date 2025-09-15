@@ -3,7 +3,7 @@
 Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.
 
 USAGE:
-  scw cockpit data-source delete [arg=value ...]
+  scw cockpit data-source delete <data-source-id ...> [arg=value ...]
 
 ARGS:
   data-source-id    ID of the data source to delete

@@ -3,7 +3,7 @@
 Update a given data source attributes (name and/or retention_days).
 
 USAGE:
-  scw cockpit data-source update [arg=value ...]
+  scw cockpit data-source update <data-source-id ...> [arg=value ...]
 
 ARGS:
   data-source-id     ID of the data source to update
