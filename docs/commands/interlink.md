@@ -114,6 +114,8 @@ scw interlink link create [arg=value ...]
 | partner-id |  | If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth. |
 | peer-asn |  | For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned. |
 | vlan |  | For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned. |
+| routing-policy-v4-id |  | If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created. |
+| routing-policy-v6-id |  | If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -258,9 +260,9 @@ scw interlink link list [arg=value ...]
 | project-id |  | Project ID to filter for |
 | name |  | Link name to filter for |
 | tags.{index} |  | Tags to filter for |
-| status | One of: `unknown_link_status`, `configuring`, `failed`, `requested`, `refused`, `expired`, `provisioning`, `active`, `limited_connectivity`, `all_down`, `deprovisioning`, `deleted`, `locked` | Link status to filter for |
-| bgp-v4-status | One of: `unknown_bgp_status`, `up`, `down` | BGP IPv4 status to filter for |
-| bgp-v6-status | One of: `unknown_bgp_status`, `up`, `down` | BGP IPv6 status to filter for |
+| status | One of: `unknown_link_status`, `configuring`, `failed`, `requested`, `refused`, `expired`, `provisioning`, `active`, `limited_connectivity`, `all_down`, `deprovisioning`, `deleted`, `locked`, `ready` | Link status to filter for |
+| bgp-v4-status | One of: `unknown_bgp_status`, `up`, `down`, `disabled` | BGP IPv4 status to filter for |
+| bgp-v6-status | One of: `unknown_bgp_status`, `up`, `down`, `disabled` | BGP IPv6 status to filter for |
 | pop-id |  | Filter for links attached to this PoP (via connections) |
 | bandwidth-mbps |  | Filter for link bandwidth (in Mbps) |
 | partner-id |  | Filter for links hosted by this partner |

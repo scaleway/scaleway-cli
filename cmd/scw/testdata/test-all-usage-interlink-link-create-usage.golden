@@ -6,16 +6,18 @@ USAGE:
   scw interlink link create [arg=value ...]
 
 ARGS:
-  [project-id]      Project ID to use. If none is passed the default project ID will be used
-  name              Name of the link
-  [tags.{index}]    List of tags to apply to the link
-  pop-id            PoP (location) where the link will be created
-  bandwidth-mbps    Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection
-  [connection-id]   If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link.
-  [partner-id]      If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.
-  [peer-asn]        For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
-  [vlan]            For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [project-id]             Project ID to use. If none is passed the default project ID will be used
+  name                     Name of the link
+  [tags.{index}]           List of tags to apply to the link
+  pop-id                   PoP (location) where the link will be created
+  bandwidth-mbps           Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection
+  [connection-id]          If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link.
+  [partner-id]             If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.
+  [peer-asn]               For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.
+  [vlan]                   For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.
+  [routing-policy-v4-id]   If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created.
+  [routing-policy-v6-id]   If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created.
+  [region=fr-par]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help   help for create
