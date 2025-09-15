@@ -10,9 +10,9 @@ ARGS:
   [project-id]          Project ID to filter for
   [name]                Link name to filter for
   [tags.{index}]        Tags to filter for
-  [status]              Link status to filter for (unknown_link_status | configuring | failed | requested | refused | expired | provisioning | active | limited_connectivity | all_down | deprovisioning | deleted | locked)
-  [bgp-v4-status]       BGP IPv4 status to filter for (unknown_bgp_status | up | down)
-  [bgp-v6-status]       BGP IPv6 status to filter for (unknown_bgp_status | up | down)
+  [status]              Link status to filter for (unknown_link_status | configuring | failed | requested | refused | expired | provisioning | active | limited_connectivity | all_down | deprovisioning | deleted | locked | ready)
+  [bgp-v4-status]       BGP IPv4 status to filter for (unknown_bgp_status | up | down | disabled)
+  [bgp-v6-status]       BGP IPv6 status to filter for (unknown_bgp_status | up | down | disabled)
   [pop-id]              Filter for links attached to this PoP (via connections)
   [bandwidth-mbps]      Filter for link bandwidth (in Mbps)
   [partner-id]          Filter for links hosted by this partner
