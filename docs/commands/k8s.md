@@ -165,7 +165,7 @@ scw k8s cluster create [arg=value ...]
 | description |  | Cluster description |
 | tags.{index} |  | Tags associated with the cluster |
 | version | Required<br />Default: `latest` | Kubernetes version of the cluster |
-| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo`, `none` | Container Network Interface (CNI) plugin running in the cluster |
+| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo`, `none`, `cilium_native` | Container Network Interface (CNI) plugin running in the cluster |
 | pools.{index}.name |  | Name of the pool |
 | pools.{index}.node-type |  | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
 | pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances. |
