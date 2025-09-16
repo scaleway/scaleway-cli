@@ -217,7 +217,7 @@ Delete a given data source. Note that this action will permanently delete this d
 **Usage:**
 
 ```
-scw cockpit data-source delete [arg=value ...]
+scw cockpit data-source delete <data-source-id ...> [arg=value ...]
 ```
 
 
@@ -237,7 +237,7 @@ Retrieve information about a given data source, specified by the data source ID.
 **Usage:**
 
 ```
-scw cockpit data-source get [arg=value ...]
+scw cockpit data-source get <data-source-id ...> [arg=value ...]
 ```
 
 
@@ -280,7 +280,7 @@ Update a given data source attributes (name and/or retention_days).
 **Usage:**
 
 ```
-scw cockpit data-source update [arg=value ...]
+scw cockpit data-source update <data-source-id ...> [arg=value ...]
 ```
 
 
@@ -643,7 +643,7 @@ Delete a given token, specified by the token ID. Deleting a token is irreversibl
 **Usage:**
 
 ```
-scw cockpit token delete [arg=value ...]
+scw cockpit token delete <token-id ...> [arg=value ...]
 ```
 
 
@@ -663,7 +663,7 @@ Retrieve information about a given token, specified by the token ID. The token's
 **Usage:**
 
 ```
-scw cockpit token get [arg=value ...]
+scw cockpit token get <token-id ...> [arg=value ...]
 ```
 
 

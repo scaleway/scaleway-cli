@@ -3,7 +3,7 @@
 Delete a given token, specified by the token ID. Deleting a token is irreversible and cannot be undone.
 
 USAGE:
-  scw cockpit token delete [arg=value ...]
+  scw cockpit token delete <token-id ...> [arg=value ...]
 
 ARGS:
   token-id          ID of the token to delete

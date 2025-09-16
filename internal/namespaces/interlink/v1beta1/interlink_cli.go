@@ -373,6 +373,7 @@ func interlinkLinkList() *core.Command {
 					"deprovisioning",
 					"deleted",
 					"locked",
+					"ready",
 				},
 			},
 			{
@@ -385,6 +386,7 @@ func interlinkLinkList() *core.Command {
 					"unknown_bgp_status",
 					"up",
 					"down",
+					"disabled",
 				},
 			},
 			{
@@ -397,6 +399,7 @@ func interlinkLinkList() *core.Command {
 					"unknown_bgp_status",
 					"up",
 					"down",
+					"disabled",
 				},
 			},
 			{
@@ -590,6 +593,20 @@ func interlinkLinkCreate() *core.Command {
 			{
 				Name:       "vlan",
 				Short:      `For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "routing-policy-v4-id",
+				Short:      `If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "routing-policy-v6-id",
+				Short:      `If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

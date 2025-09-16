@@ -3,7 +3,7 @@
 Retrieve information about a given data source, specified by the data source ID. The data source's information such as its name, type, URL, origin, and retention period, is returned.
 
 USAGE:
-  scw cockpit data-source get [arg=value ...]
+  scw cockpit data-source get <data-source-id ...> [arg=value ...]
 
 ARGS:
   data-source-id    ID of the relevant data source
