@@ -46,13 +46,12 @@ func createClusterAndWaitAndKubeconfig(
 	clusterNameSuffix string,
 	metaKey string,
 	kubeconfigMetaKey string,
-	version string,
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
 			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
 			clusterNameSuffix,
-			version,
+			kapsuleVersion,
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		cluster := res.(*k8s.Cluster)
