@@ -346,6 +346,7 @@ func k8sClusterCreate() *core.Command {
 					"flannel",
 					"kilo",
 					"none",
+					"cilium_native",
 				},
 			},
 			{
