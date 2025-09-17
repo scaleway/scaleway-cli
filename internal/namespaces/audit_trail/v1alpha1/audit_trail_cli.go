@@ -92,6 +92,8 @@ func auditTrailEventList() *core.Command {
 					"iam_api_key",
 					"iam_ssh_key",
 					"iam_rule",
+					"iam_saml",
+					"iam_saml_certificate",
 					"secret_manager_secret",
 					"secret_manager_version",
 					"key_manager_key",
