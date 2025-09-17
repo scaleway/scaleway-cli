@@ -10,7 +10,7 @@ This API allows you to manage your Transactional Email services.
   - [Domain DNS check](#domain-dns-check)
   - [Register a domain in a project](#register-a-domain-in-a-project)
   - [Get information about a domain](#get-information-about-a-domain)
-  - [Display SPF and DKIM records status and potential errors](#display-spf-and-dkim-records-status-and-potential-errors)
+  - [Display SPF, DKIM, DMARC and MX records status and potential errors](#display-spf,-dkim,-dmarc-and-mx-records-status-and-potential-errors)
   - [List domains](#list-domains)
   - [Delete a domain](#delete-a-domain)
   - [Update a domain](#update-a-domain)
@@ -175,9 +175,9 @@ scw tem domain get <domain-id ...> [arg=value ...]
 
 
 
-### Display SPF and DKIM records status and potential errors
+### Display SPF, DKIM, DMARC and MX records status and potential errors
 
-Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.
+Display SPF, DKIM, DMARC and MX records status and potential errors, including the found records to make debugging easier.
 
 **Usage:**
 
@@ -190,7 +190,7 @@ scw tem domain get-last-status <domain-id ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| domain-id | Required | ID of the domain to delete |
+| domain-id | Required | ID of the domain to get records status |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 

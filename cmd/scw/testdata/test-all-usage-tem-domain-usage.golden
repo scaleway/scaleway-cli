@@ -9,7 +9,7 @@ AVAILABLE COMMANDS:
   check           Domain DNS check
   create          Register a domain in a project
   get             Get information about a domain
-  get-last-status Display SPF and DKIM records status and potential errors
+  get-last-status Display SPF, DKIM, DMARC and MX records status and potential errors
   list            List domains
   revoke          Delete a domain
   update          Update a domain

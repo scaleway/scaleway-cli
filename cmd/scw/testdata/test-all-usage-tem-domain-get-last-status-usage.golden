@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.
+Display SPF, DKIM, DMARC and MX records status and potential errors, including the found records to make debugging easier.
 
 USAGE:
   scw tem domain get-last-status <domain-id ...> [arg=value ...]
 
 ARGS:
-  domain-id         ID of the domain to delete
+  domain-id         ID of the domain to get records status
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
