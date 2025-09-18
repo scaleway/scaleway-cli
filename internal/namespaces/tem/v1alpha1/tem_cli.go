@@ -755,8 +755,8 @@ func temDomainCheck() *core.Command {
 
 func temDomainGetLastStatus() *core.Command {
 	return &core.Command{
-		Short:     `Display SPF and DKIM records status and potential errors`,
-		Long:      `Display SPF and DKIM records status and potential errors, including the found records to make debugging easier.`,
+		Short:     `Display SPF, DKIM, DMARC and MX records status and potential errors`,
+		Long:      `Display SPF, DKIM, DMARC and MX records status and potential errors, including the found records to make debugging easier.`,
 		Namespace: "tem",
 		Resource:  "domain",
 		Verb:      "get-last-status",
@@ -765,7 +765,7 @@ func temDomainGetLastStatus() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
-				Short:      `ID of the domain to delete`,
+				Short:      `ID of the domain to get records status`,
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
