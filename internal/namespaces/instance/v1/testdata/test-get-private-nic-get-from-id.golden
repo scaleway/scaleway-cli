@@ -5,6 +5,7 @@ PrivateNic.ServerID          6d3266fb-4f1b-476d-a546-4f86bbdd0da8
 PrivateNic.PrivateNetworkID  79ec26ef-4b48-4bd8-92e8-baf28aca6c5c
 PrivateNic.MacAddress        02:00:00:1d:0c:7f
 PrivateNic.State             available
+PrivateNic.CreationDate      few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "private_nic": {
@@ -13,6 +14,7 @@ PrivateNic.State             available
     "private_network_id": "79ec26ef-4b48-4bd8-92e8-baf28aca6c5c",
     "mac_address": "02:00:00:1d:0c:7f",
     "state": "available",
-    "tags": []
+    "tags": [],
+    "creation_date": "1970-01-01T00:00:00.0Z"
   }
 }
