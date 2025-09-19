@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        STATE      TAGS
-7a019c23-e156-4cfe-b0b1-0d5a8638b5a5  2db4796b-8280-4626-9924-81c9fba992a8  c3fafb4e-9ab2-4965-9cf1-429c799558a1  02:00:00:1e:ec:17  available  []
+ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        STATE      TAGS  CREATION DATE
+7a019c23-e156-4cfe-b0b1-0d5a8638b5a5  2db4796b-8280-4626-9924-81c9fba992a8  c3fafb4e-9ab2-4965-9cf1-429c799558a1  02:00:00:1e:ec:17  available  []    few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -10,6 +10,7 @@ ID                                    SERVER ID                             PRIV
     "private_network_id": "c3fafb4e-9ab2-4965-9cf1-429c799558a1",
     "mac_address": "02:00:00:1e:ec:17",
     "state": "available",
-    "tags": []
+    "tags": [],
+    "creation_date": "1970-01-01T00:00:00.0Z"
   }
 ]
