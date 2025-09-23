@@ -78,7 +78,7 @@ func Add[TaskArg any, TaskReturn any](
 				passedData, err = taskFunc(t, i.(TaskArg))
 			}
 
-			return
+			return passedData, err
 		},
 	})
 }
