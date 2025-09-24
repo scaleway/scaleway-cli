@@ -213,3 +213,9 @@ require (
 )
 
 tool gotest.tools/gotestsum
+
+ignore (
+	./docs
+	./scripts
+	./wasm
+)
