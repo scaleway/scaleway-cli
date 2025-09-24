@@ -71,57 +71,57 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 		g.Go(func() (err error) {
 			instanceServers, err = listCustomInstanceServers(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			baremetalServers, err = listCustomBaremetalServers(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			k8sClusters, err = listCustomK8sClusters(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			lbs, err = listCustomLBs(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			rdbs, err = listCustomRdbs(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			redisClusters, err = listCustomRedisClusters(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			gateways, err = listCustomGateways(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			appleSiliconServers, err = listCustomAppleSiliconServers(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			mongoDBs, err = listCustomMongoDBs(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			ipamIPs, err = listCustomIPAMIPs(groupCtx, client, pn)
 
-			return
+			return err
 		})
 		g.Go(func() (err error) {
 			inferenceDeployments, err = listCustomInferenceDeployments(groupCtx, client, pn)
 
-			return
+			return err
 		})
 
 		if err = g.Wait(); err != nil {
