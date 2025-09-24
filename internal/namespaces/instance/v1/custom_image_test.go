@@ -88,7 +88,7 @@ func Test_ImageDelete(t *testing.T) {
 				_, err := api.GetSnapshot(&instanceSDK.GetSnapshotRequest{
 					SnapshotID: snapshot.Snapshot.ID,
 				})
-				assert.ErrorIs(t, err, &scw.ResourceNotFoundError{})
+				assert.IsType(t, &scw.ResourceNotFoundError{}, err)
 			},
 		),
 		AfterFunc: deleteServer("Server"),

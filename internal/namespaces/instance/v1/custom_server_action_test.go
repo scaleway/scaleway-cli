@@ -74,7 +74,7 @@ func Test_ServerTerminate(t *testing.T) {
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
-				require.ErrorIs(t, err, &scw.PermissionsDeniedError{})
+				require.IsType(t, &scw.PermissionsDeniedError{}, err)
 			},
 		),
 		DisableParallel: true,
@@ -131,14 +131,14 @@ func Test_ServerTerminate(t *testing.T) {
 					VolumeID: rootVolume.ID,
 					Zone:     server.Zone,
 				})
-				require.ErrorIs(t, err, &scw.ResourceNotFoundError{})
+				require.IsType(t, &scw.ResourceNotFoundError{}, err)
 
 				additionalVolume := testhelpers.MapTValue(t, server.Volumes, "1")
 				_, err = api.GetVolume(&blockSDK.GetVolumeRequest{
 					VolumeID: additionalVolume.ID,
 					Zone:     server.Zone,
 				})
-				require.ErrorIs(t, err, &scw.ResourceNotFoundError{})
+				require.IsType(t, &scw.ResourceNotFoundError{}, err)
 			},
 		),
 		DisableParallel: true,
