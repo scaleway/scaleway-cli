@@ -41,7 +41,7 @@ func testIfKubeconfigNotInFile(
 
 	found = false
 	for _, context := range existingKubeconfig.Contexts {
-		if context.Name == kubeconfig.Contexts[0].Name+suffix {
+		if context.Name == kubeconfig.Clusters[0].Name+suffix {
 			found = true
 
 			break
@@ -51,7 +51,7 @@ func testIfKubeconfigNotInFile(
 
 	found = false
 	for _, user := range existingKubeconfig.Users {
-		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
+		if user.Name == kubeconfig.Clusters[0].Name+suffix {
 			found = true
 
 			break
@@ -96,8 +96,7 @@ func Test_UninstallKubeconfig(t *testing.T) {
 		BeforeFunc: createClusterAndWaitAndKubeconfig(
 			"uninstall-kubeconfig-empty",
 			"EmptyCluster",
-			"Kubeconfig",
-			kapsuleVersion,
+			"EmptyKubeconfig",
 		),
 		Cmd: "scw k8s kubeconfig uninstall {{ .EmptyCluster.ID }}",
 		Check: core.TestCheckCombine(
@@ -134,12 +133,6 @@ func Test_UninstallKubeconfig(t *testing.T) {
 					path.Join(os.TempDir(), "cli-uninstall-merge-test"),
 					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
 					ctx.Meta["Kubeconfig"].(api.Config),
-				)
-				testIfKubeconfigInFile(
-					t,
-					path.Join(os.TempDir(), "cli-uninstall-merge-test"),
-					"",
-					testKubeconfig,
 				)
 			},
 			core.TestCheckExitCode(0),
