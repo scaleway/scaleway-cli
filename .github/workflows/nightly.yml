@@ -58,7 +58,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.24
+          go-version: stable
       - name: Run Acceptance Tests
         run: go tool gotestsum --format github-actions -- -v ./internal/namespaces/${{ matrix.products }}/... -timeout=4h
         env:
@@ -100,7 +100,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: 1.24
+          go-version: stable
       - name: Run Sweepers
         run: go run -v ./cmd/scw-sweeper
         env:

@@ -22,7 +22,7 @@ jobs:
       - name: Set up Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: stable
 
       - name: Verify go.mod is tidy
         run: |
@@ -45,7 +45,7 @@ jobs:
       - name: Install Go
         uses: actions/setup-go@v5
         with:
-          go-version: '1.24'
+          go-version: stable
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
