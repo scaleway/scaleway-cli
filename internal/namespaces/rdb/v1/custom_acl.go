@@ -19,10 +19,9 @@ var aclRuleActionMarshalSpecs = human.EnumMarshalSpecs{
 }
 
 type rdbACLCustomArgs struct {
-	Region      scw.Region
-	InstanceID  string
-	ACLRuleIPs  scw.IPNet
-	Description string
+	Region     scw.Region
+	InstanceID string
+	ACLRuleIPs []scw.IPNet
 }
 
 type CustomACLResult struct {
@@ -45,14 +44,8 @@ func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, erro
 }
 
 func aclAddBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLCustomArgs{})
+	c.ArgsType = reflect.TypeOf(rdb.AddInstanceACLRulesRequest{})
 	c.ArgSpecs = core.ArgSpecs{
-		{
-			Name:       "acl-rule-ips",
-			Short:      "IP addresses defined in the ACL rules of the Database Instance",
-			Required:   true,
-			Positional: true,
-		},
 		{
 			Name:       "instance-id",
 			Short:      "ID of the Database Instance",
@@ -60,13 +53,20 @@ func aclAddBuilder(c *core.Command) *core.Command {
 			Positional: false,
 		},
 		{
-			Name:       "description",
-			Short:      "Description of the ACL rule. Indexes are not yet supported so the description will be applied to all the rules of the command.",
+			Name:       "rules.{index}.ip",
+			Short:      "IP addresses defined in the ACL rules of the Database Instance",
+			Required:   false,
+			Positional: false,
+		},
+		{
+			Name:       "rules.{index}.description",
+			Short:      "Description of the ACL rule. Use rules.0.description, rules.1.description, etc. to specify individual descriptions for each rule.",
 			Required:   false,
 			Positional: false,
 		},
 		core.RegionArgSpec(),
 	}
+	c.AcceptMultiplePositionalArgs = true
 
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		respI, err := runner(ctx, argsI)
@@ -78,39 +78,40 @@ func aclAddBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
-		args := argsI.(*rdbACLCustomArgs)
+		args := argsI.(*rdb.AddInstanceACLRulesRequest)
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 
-		description := args.Description
-		if description == "" {
-			description = "Allow " + args.ACLRuleIPs.String()
+		// Set default descriptions for rules that don't have one
+		for i, rule := range args.Rules {
+			if rule.Description == "" {
+				args.Rules[i].Description = "Allow " + rule.IP.String()
+			}
 		}
 
-		rule, err := api.AddInstanceACLRules(&rdb.AddInstanceACLRulesRequest{
-			Region:     args.Region,
-			InstanceID: args.InstanceID,
-			Rules: []*rdb.ACLRuleRequest{
-				{
-					IP:          args.ACLRuleIPs,
-					Description: description,
-				},
-			},
-		}, scw.WithContext(ctx))
+		rule, err := api.AddInstanceACLRules(args, scw.WithContext(ctx))
 		if err != nil {
 			return nil, fmt.Errorf("failed to add ACL rule: %w", err)
+		}
+
+		// Create success message
+		var message string
+		if len(args.Rules) == 1 {
+			message = fmt.Sprintf("ACL rule %s successfully added", args.Rules[0].IP.String())
+		} else {
+			message = fmt.Sprintf("%d ACL rules successfully added", len(args.Rules))
 		}
 
 		return &CustomACLResult{
 			Rules: rule.Rules,
 			Success: core.SuccessResult{
-				Message: fmt.Sprintf("ACL rule %s successfully added", args.ACLRuleIPs.String()),
+				Message: message,
 			},
 		}, nil
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
-		args := argsI.(*rdbACLCustomArgs)
+		args := argsI.(*rdb.AddInstanceACLRulesRequest)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
@@ -146,6 +147,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		},
 		core.RegionArgSpec(),
 	}
+	c.AcceptMultiplePositionalArgs = true
 
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		respI, err := runner(ctx, argsI)
@@ -175,7 +177,6 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 
 		// The API returns 200 OK even if the rule was not set in the first place, so we have to check if the rule was present
 		// before deleting it to warn them if nothing was done
-		ruleWasSet := false
 		rules, err := api.ListInstanceACLRules(&rdb.ListInstanceACLRulesRequest{
 			Region:     args.Region,
 			InstanceID: args.InstanceID,
@@ -183,26 +184,48 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			return nil, fmt.Errorf("failed to list ACL rules: %w", err)
 		}
+
+		// Check which rules were actually set
+		existingIPs := make(map[string]bool)
 		for _, rule := range rules.Rules {
-			if rule.IP.String() == args.ACLRuleIPs.String() {
-				ruleWasSet = true
-			}
+			existingIPs[rule.IP.String()] = true
+		}
+
+		// Convert IPs to strings for deletion
+		ipStrings := make([]string, len(args.ACLRuleIPs))
+		for i, ip := range args.ACLRuleIPs {
+			ipStrings[i] = ip.String()
 		}
 
 		_, err = api.DeleteInstanceACLRules(&rdb.DeleteInstanceACLRulesRequest{
 			Region:     args.Region,
 			InstanceID: args.InstanceID,
-			ACLRuleIPs: []string{args.ACLRuleIPs.String()},
+			ACLRuleIPs: ipStrings,
 		}, scw.WithContext(ctx))
 		if err != nil {
-			return nil, fmt.Errorf("failed to remove ACL rule: %w", err)
+			return nil, fmt.Errorf("failed to remove ACL rules: %w", err)
+		}
+
+		// Count how many rules were actually deleted
+		deletedCount := 0
+		for _, ip := range args.ACLRuleIPs {
+			if existingIPs[ip.String()] {
+				deletedCount++
+			}
 		}
 
 		var message string
-		if ruleWasSet {
-			message = fmt.Sprintf("ACL rule %s successfully deleted", args.ACLRuleIPs.String())
+		if len(args.ACLRuleIPs) == 1 {
+			if deletedCount > 0 {
+				message = fmt.Sprintf("ACL rule %s successfully deleted", args.ACLRuleIPs[0].String())
+			} else {
+				message = fmt.Sprintf("ACL rule %s was not set", args.ACLRuleIPs[0].String())
+			}
 		} else {
-			message = fmt.Sprintf("ACL rule %s was not set", args.ACLRuleIPs.String())
+			message = fmt.Sprintf("%d ACL rules successfully deleted", deletedCount)
+			if deletedCount < len(args.ACLRuleIPs) {
+				message += fmt.Sprintf(" (%d were not set)", len(args.ACLRuleIPs)-deletedCount)
+			}
 		}
 
 		return &CustomACLResult{
