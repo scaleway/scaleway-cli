@@ -24,14 +24,6 @@ type rdbACLCustomArgs struct {
 	ACLRuleIPs []scw.IPNet
 }
 
-type rdbACLAddCustomArgs struct {
-	Region       scw.Region
-	InstanceID   string
-	ACLRuleIPs   []scw.IPNet
-	Description  string
-	Descriptions []string
-}
-
 type rdbACLAddPosArgs struct {
 	Region      scw.Region
 	InstanceID  string
@@ -234,7 +226,10 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		var message string
 		if len(args.ACLRuleIPs) == 1 {
 			if deletedCount > 0 {
-				message = fmt.Sprintf("ACL rule %s successfully deleted", args.ACLRuleIPs[0].String())
+				message = fmt.Sprintf(
+					"ACL rule %s successfully deleted",
+					args.ACLRuleIPs[0].String(),
+				)
 			} else {
 				message = fmt.Sprintf("ACL rule %s was not set", args.ACLRuleIPs[0].String())
 			}
