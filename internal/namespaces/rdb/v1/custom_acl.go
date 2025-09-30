@@ -24,6 +24,21 @@ type rdbACLCustomArgs struct {
 	ACLRuleIPs []scw.IPNet
 }
 
+type rdbACLAddCustomArgs struct {
+	Region       scw.Region
+	InstanceID   string
+	ACLRuleIPs   []scw.IPNet
+	Description  string
+	Descriptions []string
+}
+
+type rdbACLAddPosArgs struct {
+	Region      scw.Region
+	InstanceID  string
+	ACLRuleIPs  scw.IPNet
+	Description string
+}
+
 type CustomACLResult struct {
 	Rules   []*rdb.ACLRule
 	Success core.SuccessResult
@@ -44,8 +59,14 @@ func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, erro
 }
 
 func aclAddBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdb.AddInstanceACLRulesRequest{})
+	c.ArgsType = reflect.TypeOf(rdbACLAddPosArgs{})
 	c.ArgSpecs = core.ArgSpecs{
+		{
+			Name:       "acl-rule-ips",
+			Short:      "IP addresses defined in the ACL rules of the Database Instance",
+			Required:   false,
+			Positional: true,
+		},
 		{
 			Name:       "instance-id",
 			Short:      "ID of the Database Instance",
@@ -53,20 +74,15 @@ func aclAddBuilder(c *core.Command) *core.Command {
 			Positional: false,
 		},
 		{
-			Name:       "rules.{index}.ip",
-			Short:      "IP addresses defined in the ACL rules of the Database Instance",
-			Required:   false,
-			Positional: false,
-		},
-		{
-			Name:       "rules.{index}.description",
-			Short:      "Description of the ACL rule. Use rules.0.description, rules.1.description, etc. to specify individual descriptions for each rule.",
+			Name:       "description",
+			Short:      "Description of the ACL rule. Indexes are not yet supported so the description will be applied to all the rules of the command.",
 			Required:   false,
 			Positional: false,
 		},
 		core.RegionArgSpec(),
 	}
-	c.AcceptMultiplePositionalArgs = true
+	// Keep legacy behavior: one positional per run; multiple IPs trigger multiple runs
+	// Do not enable AcceptMultiplePositionalArgs so cobra will run once per positional
 
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		respI, err := runner(ctx, argsI)
@@ -78,29 +94,30 @@ func aclAddBuilder(c *core.Command) *core.Command {
 	}
 
 	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
-		args := argsI.(*rdb.AddInstanceACLRulesRequest)
+		args := argsI.(*rdbACLAddPosArgs)
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 
-		// Set default descriptions for rules that don't have one
-		for i, rule := range args.Rules {
-			if rule.Description == "" {
-				args.Rules[i].Description = "Allow " + rule.IP.String()
-			}
+		desc := args.Description
+		if desc == "" {
+			desc = "Allow " + args.ACLRuleIPs.String()
 		}
 
-		rule, err := api.AddInstanceACLRules(args, scw.WithContext(ctx))
+		rule, err := api.AddInstanceACLRules(&rdb.AddInstanceACLRulesRequest{
+			Region:     args.Region,
+			InstanceID: args.InstanceID,
+			Rules: []*rdb.ACLRuleRequest{{
+				IP:          args.ACLRuleIPs,
+				Description: desc,
+			}},
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return nil, fmt.Errorf("failed to add ACL rule: %w", err)
 		}
 
 		// Create success message
 		var message string
-		if len(args.Rules) == 1 {
-			message = fmt.Sprintf("ACL rule %s successfully added", args.Rules[0].IP.String())
-		} else {
-			message = fmt.Sprintf("%d ACL rules successfully added", len(args.Rules))
-		}
+		message = fmt.Sprintf("ACL rule %s successfully added", args.ACLRuleIPs.String())
 
 		return &CustomACLResult{
 			Rules: rule.Rules,
@@ -111,7 +128,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 	}
 
 	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
-		args := argsI.(*rdb.AddInstanceACLRulesRequest)
+		args := argsI.(*rdbACLAddPosArgs)
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
