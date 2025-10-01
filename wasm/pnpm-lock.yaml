@@ -16,7 +16,7 @@ importers:
         version: 3.6.2
       typescript:
         specifier: ^5.8.3
-        version: 5.9.2
+        version: 5.9.3
       vitest:
         specifier: ^3.2.4
         version: 3.2.4(@types/node@24.0.8)(@vitest/browser@3.2.4)
@@ -567,8 +567,8 @@ packages:
     resolution: {integrity: sha512-sf4i37nQ2LBx4m3wB74y+ubopq6W/dIzXg0FDGjsYnZHVa1Da8FH853wlL2gtUhg+xJXjfk3kUZS3BRoQeoQBQ==}
     engines: {node: '>=6'}
 
-  typescript@5.9.2:
-    resolution: {integrity: sha512-CWBzXQrc/qOkhidw1OzBTQuYRbfyxDXJMVJ1XNwUHGROVmuaeiEm3OslpZ1RV96d7SKKjZKrSJu3+t/xlw3R9A==}
+  typescript@5.9.3:
+    resolution: {integrity: sha512-jl1vZzPDinLr9eUt3J/t7V6FgNEw9QjvBPdysz9KfQDD41fQrC2Y4vKQdiaUpFT4bXlb1RHhLpp8wtm6M5TgSw==}
     engines: {node: '>=14.17'}
     hasBin: true
 
@@ -1104,7 +1104,7 @@ snapshots:
 
   totalist@3.0.1: {}
 
-  typescript@5.9.2: {}
+  typescript@5.9.3: {}
 
   undici-types@7.8.0:
     optional: true
