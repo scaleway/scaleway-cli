@@ -3478,7 +3478,6 @@ func dediboxRpnV1Leave() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			core.ProjectIDArgSpec(),
 			{
 				Name:       "member-ids.{index}",
 				Short:      `A collection of rpn v1 group members IDs`,
