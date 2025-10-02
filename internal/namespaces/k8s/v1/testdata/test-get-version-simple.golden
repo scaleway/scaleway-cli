@@ -71,5 +71,7 @@ Available Admission Plugins:
     "registryBurst": "int32",
     "registryPullQPS": "int32",
     "serializeImagePulls": "bool"
-  }
+  },
+  "deprecated_at": null,
+  "end_of_life_at": null
 }
