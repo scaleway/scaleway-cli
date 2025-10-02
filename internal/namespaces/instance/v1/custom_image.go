@@ -37,7 +37,6 @@ func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 		ID               string
 		Name             string
 		State            instance.ImageState
-		Public           bool
 		Zone             scw.Zone
 		Volumes          []scw.Size
 		ServerName       string
@@ -72,7 +71,6 @@ func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 			ID:               image.ID,
 			Name:             image.Name,
 			State:            image.State,
-			Public:           image.Public,
 			Zone:             image.Zone,
 			Volumes:          volumes,
 			ServerName:       image.ServerName,
@@ -167,13 +165,19 @@ type imageListItem struct {
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
 func imageListBuilder(c *core.Command) *core.Command {
 	type customListImageRequest struct {
-		*instance.ListImagesRequest
+		Zone           scw.Zone `json:"-"`
+		PerPage        *uint32  `json:"-"`
+		Page           *int32   `json:"-"`
+		Name           *string  `json:"-"`
+		Arch           *string  `json:"-"`
+		Tags           *string  `json:"-"`
 		OrganizationID *string
 		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
+	c.ArgSpecs.DeleteByName("public")
 
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
@@ -181,11 +185,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		// Get images
 		args := argsI.(*customListImageRequest)
 
-		if args.ListImagesRequest == nil {
-			args.ListImagesRequest = &instance.ListImagesRequest{}
-		}
-
-		req := args.ListImagesRequest
+		req := &instance.ListImagesRequest{}
 		req.Organization = args.OrganizationID
 		req.Project = args.ProjectID
 		req.Public = scw.BoolPtr(false)
