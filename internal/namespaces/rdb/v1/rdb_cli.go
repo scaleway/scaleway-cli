@@ -2418,6 +2418,13 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "skip-size-retrieval",
+				Short:      `Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,

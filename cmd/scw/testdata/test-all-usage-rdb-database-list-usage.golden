@@ -6,12 +6,13 @@ USAGE:
   scw rdb database list [arg=value ...]
 
 ARGS:
-  [name]            Name of the database
-  [managed]         Defines whether or not the database is managed
-  [owner]           User that owns this database
-  [order-by]        Criteria to use when ordering database listing (name_asc | name_desc | size_asc | size_desc)
-  instance-id       UUID of the Database Instance to list the databases of
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [name]                  Name of the database
+  [managed]               Defines whether or not the database is managed
+  [owner]                 User that owns this database
+  [order-by]              Criteria to use when ordering database listing (name_asc | name_desc | size_asc | size_desc)
+  instance-id             UUID of the Database Instance to list the databases of
+  [skip-size-retrieval]   Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0
+  [region=fr-par]         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list
