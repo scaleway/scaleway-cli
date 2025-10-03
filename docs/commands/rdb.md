@@ -501,6 +501,7 @@ scw rdb database list [arg=value ...]
 | owner |  | User that owns this database |
 | order-by | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc` | Criteria to use when ordering database listing |
 | instance-id | Required | UUID of the Database Instance to list the databases of |
+| skip-size-retrieval |  | Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0 |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 

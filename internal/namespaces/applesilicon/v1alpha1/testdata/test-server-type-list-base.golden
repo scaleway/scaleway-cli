@@ -10,7 +10,9 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
     "cpu": {
       "name": "Apple M4",
       "core_count": 10,
-      "frequency": 4400000000
+      "frequency": 4400000000,
+      "sockets": 0,
+      "threads_per_core": 0
     },
     "disk": {
       "capacity": 256000000000,
@@ -30,7 +32,8 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
       "public_bandwidth_bps": 1000000000,
       "supported_bandwidth": [
         1000000000
-      ]
+      ],
+      "default_public_bandwidth": 0
     },
     "default_os": {
       "id": "87135053-e968-4a38-8735-86901accc6f5",
@@ -49,8 +52,13 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
         "M4-XL",
         "M4-M",
         "M4-S"
-      ]
+      ],
+      "release_notes_url": "",
+      "description": "",
+      "tags": null,
+      "supported_server_types": null
     },
+    "npu": null,
     "kg_co2_equivalent": 0.014205732,
     "m3_water_usage": 0.0000013491717
   },
@@ -58,7 +66,9 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
     "cpu": {
       "name": "Apple M4",
       "core_count": 10,
-      "frequency": 4400000000
+      "frequency": 4400000000,
+      "sockets": 0,
+      "threads_per_core": 0
     },
     "disk": {
       "capacity": 1024000000000,
@@ -87,7 +97,8 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
         8000000000,
         9000000000,
         10000000000
-      ]
+      ],
+      "default_public_bandwidth": 0
     },
     "default_os": {
       "id": "87135053-e968-4a38-8735-86901accc6f5",
@@ -106,8 +117,13 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
         "M4-XL",
         "M4-M",
         "M4-S"
-      ]
+      ],
+      "release_notes_url": "",
+      "description": "",
+      "tags": null,
+      "supported_server_types": null
     },
+    "npu": null,
     "kg_co2_equivalent": 0.015271181,
     "m3_water_usage": 0.0000013491717
   },
@@ -115,7 +131,9 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
     "cpu": {
       "name": "Apple M2",
       "core_count": 8,
-      "frequency": 3500000000
+      "frequency": 3500000000,
+      "sockets": 0,
+      "threads_per_core": 0
     },
     "disk": {
       "capacity": 256000000000,
@@ -135,7 +153,8 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
       "public_bandwidth_bps": 1000000000,
       "supported_bandwidth": [
         1000000000
-      ]
+      ],
+      "default_public_bandwidth": 0
     },
     "default_os": {
       "id": "367b9c18-d57f-4c9a-bcea-9e1fda66fc70",
@@ -151,8 +170,13 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
         "M2-M",
         "M2-L",
         "M4-S"
-      ]
+      ],
+      "release_notes_url": "",
+      "description": "",
+      "tags": null,
+      "supported_server_types": null
     },
+    "npu": null,
     "kg_co2_equivalent": 0.013547652,
     "m3_water_usage": 0.0000012453893
   }

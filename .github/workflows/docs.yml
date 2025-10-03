@@ -13,9 +13,9 @@ jobs:
     steps:
       # Checkout should always be before setup-go to ensure caching is working
       - uses: actions/checkout@v5
-      - uses: actions/setup-go@v5
+      - uses: actions/setup-go@v6
         with:
-          go-version: '1.24'
+          go-version: stable
       - name: Generate code
         run: go run ./cmd/scw-doc-gen
         env:

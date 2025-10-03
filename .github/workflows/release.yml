@@ -20,9 +20,9 @@ jobs:
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Set up Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: '1.24'
+          go-version: stable
 
       - name: Verify go.mod is tidy
         run: |
@@ -43,9 +43,9 @@ jobs:
       - goreleaser
     steps:
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@v6
         with:
-          go-version: '1.24'
+          go-version: stable
       - name: Install pnpm
         uses: pnpm/action-setup@v4
         with:
