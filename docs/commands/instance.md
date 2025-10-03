@@ -249,7 +249,6 @@ scw instance image list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name |  |  |
-| public |  |  |
 | arch |  |  |
 | project-id |  |  |
 | tags |  |  |

@@ -1,0 +1,106 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    NAME                       STATE      PUBLIC  ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+9222e26a-8915-44e3-970f-bedd934a34dd  cli-img-relaxed-clarke     available  true    fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+fff15cb3-db7f-41f5-8a42-257c30ae789b  cli-img-distracted-colden  available  true    fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+9cd03e9a-35b8-4087-a6b7-ae606deae2dc  cli-img-sharp-hodgkin      available  true    fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+6a0cf29b-dc88-4976-b8d8-52d8af88efd0  cli-img-cranky-wiles       available  true    fr-par-1  20 GB    -            -          arm     fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "9222e26a-8915-44e3-970f-bedd934a34dd",
+    "name": "cli-img-relaxed-clarke",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": true,
+    "root_volume": {
+      "id": "53114199-f318-4b31-8ff0-f86c68b23a65",
+      "name": "cli-snp-dazzling-swanson",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "fff15cb3-db7f-41f5-8a42-257c30ae789b",
+    "name": "cli-img-distracted-colden",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": true,
+    "root_volume": {
+      "id": "7c33481f-757b-4fb9-b4a4-b6762494b260",
+      "name": "cli-snp-relaxed-shockley",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "9cd03e9a-35b8-4087-a6b7-ae606deae2dc",
+    "name": "cli-img-sharp-hodgkin",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": true,
+    "root_volume": {
+      "id": "0995f721-06a3-412a-9b6b-4e31a8299d50",
+      "name": "cli-snp-wizardly-lumiere",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "6a0cf29b-dc88-4976-b8d8-52d8af88efd0",
+    "name": "cli-img-cranky-wiles",
+    "arch": "arm",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": true,
+    "root_volume": {
+      "id": "e06bbd25-55da-4011-a26f-8e4f1d0b973a",
+      "name": "tf-snap-cranky-khorana",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  }
+]
