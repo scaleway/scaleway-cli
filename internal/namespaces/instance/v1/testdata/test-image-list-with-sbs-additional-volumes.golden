@@ -1,19 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                       STATE      PUBLIC  ZONE      VOLUMES              SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
-54092d38-1e6a-4c1c-85bc-601b0bab6f47  cli-img-optimistic-joliot  available  false   fr-par-1  20 GB, 10 GB, 15 GB  -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+ID                                    NAME                                        STATE      ZONE      VOLUMES              SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+4c0b3548-ff80-4fbe-aa33-243c881fa953  cli-img-cool-keldysh                        available  fr-par-1  20 GB, 10 GB, 15 GB  -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+b136f28a-e330-43ab-a236-d114c136f4d1  test default orga defined but profile=side  available  fr-par-1  10 GB                -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  44693172-d6a3-49b0-b56f-011f492e4dfa  few seconds ago  few seconds ago
+88982b39-5916-434b-ab05-e38a25c6fcb7  basic build                                 available  fr-par-1  10 GB                -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  44693172-d6a3-49b0-b56f-011f492e4dfa  few seconds ago  few seconds ago
+6f50550d-39d6-4f72-8f66-9d87277c626b  cli-img-angry-buck                          available  fr-par-1  20 GB                -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+942bb563-f079-4d9b-a881-3f060d559e3b  img-mystifying-rosalind                     available  fr-par-1  20 GB                -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  19a4819b-24bf-4d44-969f-935ef0061b71  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "54092d38-1e6a-4c1c-85bc-601b0bab6f47",
-    "name": "cli-img-optimistic-joliot",
+    "id": "4c0b3548-ff80-4fbe-aa33-243c881fa953",
+    "name": "cli-img-cool-keldysh",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {
       "1": {
-        "id": "908ce9c6-6c9f-4d74-be35-4371dd67f48a",
+        "id": "c538f487-6ccd-44b7-95a0-803894351249",
         "name": "",
         "export_uri": null,
         "size": 10000000000,
@@ -28,7 +32,7 @@ ID                                    NAME                       STATE      PUBL
         "zone": ""
       },
       "2": {
-        "id": "08af1e24-3935-460d-a252-63bee7693554",
+        "id": "f940570b-4d3b-4ea0-9a14-89993979d13b",
         "name": "",
         "export_uri": null,
         "size": 15000000000,
@@ -47,13 +51,115 @@ ID                                    NAME                       STATE      PUBL
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "80418a4a-46f8-4e0c-8a1a-870c04552d86",
-      "name": "cli-snp-blissful-clarke",
+      "id": "09ba6838-2a90-4e27-bb78-631c905b0c23",
+      "name": "cli-snp-pedantic-borg",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
     "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "b136f28a-e330-43ab-a236-d114c136f4d1",
+    "name": "test default orga defined but profile=side",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "ad155794-d84c-434d-8739-64ec76f04f24",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "c695ca9a-0c66-4fbd-b97e-23b750083019",
+      "name": "",
+      "size": 10000000000,
+      "volume_type": "sbs_snapshot"
+    },
+    "state": "available",
+    "project": "44693172-d6a3-49b0-b56f-011f492e4dfa",
+    "tags": [
+      "foo",
+      "bar"
+    ],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": "-"
+  },
+  {
+    "id": "88982b39-5916-434b-ab05-e38a25c6fcb7",
+    "name": "basic build",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "8e5c5b75-7a0d-4375-b544-366538d42dde",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "e567f58f-0a10-486a-940d-2e87299656f0",
+      "name": "",
+      "size": 10000000000,
+      "volume_type": "sbs_snapshot"
+    },
+    "state": "available",
+    "project": "44693172-d6a3-49b0-b56f-011f492e4dfa",
+    "tags": [
+      "foo",
+      "bar"
+    ],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": "-"
+  },
+  {
+    "id": "6f50550d-39d6-4f72-8f66-9d87277c626b",
+    "name": "cli-img-angry-buck",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "439ab483-67b2-4ff3-83ca-aa47d59386f1",
+      "name": "tf-snap-sweet-cori",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "zone": "fr-par-1",
+    "server_id": "",
+    "server_name": ""
+  },
+  {
+    "id": "942bb563-f079-4d9b-a881-3f060d559e3b",
+    "name": "img-mystifying-rosalind",
+    "arch": "x86_64",
+    "creation_date": "1970-01-01T00:00:00.0Z",
+    "modification_date": "1970-01-01T00:00:00.0Z",
+    "default_bootscript": null,
+    "extra_volumes": {},
+    "from_server": "",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "public": false,
+    "root_volume": {
+      "id": "e06bbd25-55da-4011-a26f-8e4f1d0b973a",
+      "name": "tf-snap-cranky-khorana",
+      "size": 20000000000,
+      "volume_type": "l_ssd"
+    },
+    "state": "available",
+    "project": "19a4819b-24bf-4d44-969f-935ef0061b71",
     "tags": [],
     "zone": "fr-par-1",
     "server_id": "",

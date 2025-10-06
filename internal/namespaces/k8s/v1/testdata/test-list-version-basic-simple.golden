@@ -95,7 +95,9 @@ serializeImagePulls          bool
       "registryBurst": "int32",
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
-    }
+    },
+    "deprecated_at": null,
+    "end_of_life_at": null
   },
   {
     "name": "1.31.7",
@@ -134,7 +136,9 @@ serializeImagePulls          bool
       "registryBurst": "int32",
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
-    }
+    },
+    "deprecated_at": null,
+    "end_of_life_at": null
   },
   {
     "name": "1.30.11",
@@ -173,7 +177,9 @@ serializeImagePulls          bool
       "registryBurst": "int32",
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
-    }
+    },
+    "deprecated_at": null,
+    "end_of_life_at": null
   },
   {
     "name": "1.29.15",
@@ -213,6 +219,8 @@ serializeImagePulls          bool
       "registryBurst": "int32",
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
-    }
+    },
+    "deprecated_at": null,
+    "end_of_life_at": null
   }
 ]
