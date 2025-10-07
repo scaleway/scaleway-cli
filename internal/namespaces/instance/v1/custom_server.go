@@ -380,13 +380,71 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func volumeIsFromSBS(api *block.API, zone scw.Zone, volumeID string) bool {
-	_, err := api.GetVolume(&block.GetVolumeRequest{
-		Zone:     zone,
-		VolumeID: volumeID,
-	})
+// customServer is a copy of instance.Server without the fields that are deprecated or duplicated in another section.
+// It is used by the `instance server get` command.
+type customServer struct {
+	ID                              string                         `json:"id"`
+	Name                            string                         `json:"name"`
+	Organization                    string                         `json:"organization"`
+	Project                         string                         `json:"project"`
+	AllowedActions                  []instance.ServerAction        `json:"allowed_actions"`
+	Tags                            []string                       `json:"tags"`
+	CommercialType                  string                         `json:"commercial_type"`
+	CreationDate                    *time.Time                     `json:"creation_date"`
+	DynamicIPRequired               bool                           `json:"dynamic_ip_required"`
+	RoutedIPEnabled                 *bool                          `json:"routed_ip_enabled"`
+	Hostname                        string                         `json:"hostname"`
+	Image                           *instance.Image                `json:"image"`
+	Protected                       bool                           `json:"protected"`
+	PrivateIP                       *string                        `json:"private_ip"`
+	PublicIPs                       []*instance.ServerIP           `json:"public_ips"`
+	MacAddress                      string                         `json:"mac_address"`
+	ModificationDate                *time.Time                     `json:"modification_date"`
+	State                           instance.ServerState           `json:"state"`
+	StateDetail                     string                         `json:"state_detail"`
+	IPv6                            *instance.ServerIPv6           `json:"ipv6"`
+	BootType                        instance.BootType              `json:"boot_type"`
+	SecurityGroup                   *instance.SecurityGroupSummary `json:"security_group"`
+	Arch                            instance.Arch                  `json:"arch"`
+	PlacementGroup                  *instance.PlacementGroup       `json:"placement_group"`
+	Zone                            scw.Zone                       `json:"zone"`
+	AdminPasswordEncryptionSSHKeyID *string                        `json:"admin_password_encryption_ssh_key_id"`
+	AdminPasswordEncryptedValue     *string                        `json:"admin_password_encrypted_value"`
+	Filesystems                     []*instance.ServerFilesystem   `json:"filesystems"`
+	EndOfService                    bool                           `json:"end_of_service"`
+}
 
-	return err == nil
+func customServerFromInstanceServer(server *instance.Server) *customServer {
+	return &customServer{
+		ID:                              server.ID,
+		Name:                            server.Name,
+		Organization:                    server.Organization,
+		Project:                         server.Project,
+		AllowedActions:                  server.AllowedActions,
+		Tags:                            server.Tags,
+		CommercialType:                  server.CommercialType,
+		CreationDate:                    server.CreationDate,
+		DynamicIPRequired:               server.DynamicIPRequired,
+		RoutedIPEnabled:                 server.RoutedIPEnabled,
+		Hostname:                        server.Hostname,
+		Image:                           server.Image,
+		Protected:                       server.Protected,
+		PrivateIP:                       server.PrivateIP,
+		PublicIPs:                       server.PublicIPs,
+		MacAddress:                      server.MacAddress,
+		ModificationDate:                server.ModificationDate,
+		State:                           server.State,
+		StateDetail:                     server.StateDetail,
+		BootType:                        server.BootType,
+		SecurityGroup:                   server.SecurityGroup,
+		Arch:                            server.Arch,
+		PlacementGroup:                  server.PlacementGroup,
+		Zone:                            server.Zone,
+		AdminPasswordEncryptionSSHKeyID: server.AdminPasswordEncryptionSSHKeyID,
+		AdminPasswordEncryptedValue:     server.AdminPasswordEncryptedValue,
+		Filesystems:                     server.Filesystems,
+		EndOfService:                    server.EndOfService,
+	}
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
@@ -506,12 +564,12 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		}
 
 		return &struct {
-			*instance.Server
+			*customServer
 			Volumes     []*customVolume
 			PrivateNics []customNICs `json:"private_nics"`
 			Warnings    []string     `json:"warnings"`
 		}{
-			server,
+			customServerFromInstanceServer(server),
 			orderVolumes(volumes),
 			nics,
 			warnings,
@@ -535,10 +593,6 @@ func serverGetBuilder(c *core.Command) *core.Command {
 			{
 				Title:     "Public IPs",
 				FieldName: "PublicIPs",
-			},
-			{
-				Title:     "IPv6",
-				FieldName: "IPv6",
 			},
 			{
 				FieldName: "PrivateNics",
