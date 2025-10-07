@@ -15,10 +15,6 @@ func eventListBuilder(c *core.Command) *core.Command {
 				FieldName: "RecordedAt",
 			},
 			{
-				Label:     "Name",
-				FieldName: "Resource.Name",
-			},
-			{
 				Label:     "StatusCode",
 				FieldName: "StatusCode",
 			},
@@ -61,22 +57,6 @@ func eventListBuilder(c *core.Command) *core.Command {
 			{
 				Label:     "ServiceName",
 				FieldName: "ServiceName",
-			},
-			{
-				Label:     "Type",
-				FieldName: "Resource.Type",
-			},
-			{
-				Label:     "ResourceID",
-				FieldName: "Resource.ID",
-			},
-			{
-				Label:     "Resource Created At",
-				FieldName: "Resource.CreatedAt",
-			},
-			{
-				Label:     "Resource Updated At",
-				FieldName: "Resource.UpdatedAt",
 			},
 		},
 	}

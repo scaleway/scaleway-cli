@@ -1,0 +1,471 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Products.0.Title                  Account
+Products.0.Name                   account
+Products.0.Services.0.Name        scaleway.account.v2.GDPRApi
+Products.0.Services.0.Methods.0   CreateGDPRRequest
+Products.0.Services.0.Methods.1   DownloadGDPRExport
+Products.0.Services.1.Name        scaleway.account.v3.OrganizationApi
+Products.0.Services.1.Methods.0   ChangeSupportPlan
+Products.0.Services.1.Methods.1   CloseOrganization
+Products.0.Services.1.Methods.2   SetPicture
+Products.0.Services.2.Name        scaleway.account.v3.UserApi
+Products.0.Services.2.Methods.0   ChangeUserEmail
+Products.0.Services.2.Methods.1   ChangeUserPassword
+Products.0.Services.2.Methods.2   ConfirmPhoneValidation
+Products.0.Services.2.Methods.3   CreateMFAOTP
+Products.0.Services.2.Methods.4   DeleteMFAOTP
+Products.0.Services.2.Methods.5   SendPhoneValidation
+Products.0.Services.2.Methods.6   UpdateUser
+Products.0.Services.2.Methods.7   UpdateUserPreferences
+Products.0.Services.2.Methods.8   ValidateMFAOTP
+Products.1.Title                  Apple Silicon
+Products.1.Name                   apple-silicon
+Products.1.Services.0.Name        scaleway.apple_silicon.v1alpha1.Api
+Products.1.Services.0.Methods.0   BatchCreateServers
+Products.1.Services.0.Methods.1   CreateServer
+Products.1.Services.0.Methods.2   DeleteServer
+Products.1.Services.0.Methods.3   RebootServer
+Products.1.Services.0.Methods.4   ReinstallServer
+Products.1.Services.0.Methods.5   UpdateServer
+Products.2.Title                  Elastic Metal
+Products.2.Name                   baremetal
+Products.2.Services.0.Name        scaleway.baremetal.v1.Api
+Products.2.Services.0.Methods.0   AddOptionServer
+Products.2.Services.0.Methods.1   CreateServer
+Products.2.Services.0.Methods.2   DeleteOptionServer
+Products.2.Services.0.Methods.3   DeleteServer
+Products.2.Services.0.Methods.4   InstallServer
+Products.2.Services.0.Methods.5   MigrateServerToMonthlyOffer
+Products.2.Services.0.Methods.6   RebootServer
+Products.2.Services.0.Methods.7   StartBMCAccess
+Products.2.Services.0.Methods.8   StartServer
+Products.2.Services.0.Methods.9   StopBMCAccess
+Products.2.Services.0.Methods.10  StopServer
+Products.2.Services.0.Methods.11  UpdateIP
+Products.2.Services.0.Methods.12  UpdateServer
+Products.2.Services.0.Methods.13  UpdateSetting
+Products.3.Title                  IAM
+Products.3.Name                   iam
+Products.3.Services.0.Name        scaleway.iam.v1alpha1.Api
+Products.3.Services.0.Methods.0   AddGroupMember
+Products.3.Services.0.Methods.1   AddGroupMembers
+Products.3.Services.0.Methods.2   AddSamlCertificate
+Products.3.Services.0.Methods.3   ClonePolicy
+Products.3.Services.0.Methods.4   CreateAPIKey
+Products.3.Services.0.Methods.5   CreateApplication
+Products.3.Services.0.Methods.6   CreateGroup
+Products.3.Services.0.Methods.7   CreateJWT
+Products.3.Services.0.Methods.8   CreatePolicy
+Products.3.Services.0.Methods.9   CreateSSHKey
+Products.3.Services.0.Methods.10  CreateUser
+Products.3.Services.0.Methods.11  CreateUserMFAOTP
+Products.3.Services.0.Methods.12  DeleteAPIKey
+Products.3.Services.0.Methods.13  DeleteApplication
+Products.3.Services.0.Methods.14  DeleteGroup
+Products.3.Services.0.Methods.15  DeleteJWT
+Products.3.Services.0.Methods.16  DeletePolicy
+Products.3.Services.0.Methods.17  DeleteSSHKey
+Products.3.Services.0.Methods.18  DeleteSaml
+Products.3.Services.0.Methods.19  DeleteSamlCertificate
+Products.3.Services.0.Methods.20  DeleteUser
+Products.3.Services.0.Methods.21  DeleteUserMFAOTP
+Products.3.Services.0.Methods.22  EnableOrganizationSaml
+Products.3.Services.0.Methods.23  LockUser
+Products.3.Services.0.Methods.24  RemoveGroupMember
+Products.3.Services.0.Methods.25  SetGroupMembers
+Products.3.Services.0.Methods.26  SetRules
+Products.3.Services.0.Methods.27  UnlockUser
+Products.3.Services.0.Methods.28  UpdateAPIKey
+Products.3.Services.0.Methods.29  UpdateApplication
+Products.3.Services.0.Methods.30  UpdateGroup
+Products.3.Services.0.Methods.31  UpdateOrganizationSecuritySettings
+Products.3.Services.0.Methods.32  UpdatePolicy
+Products.3.Services.0.Methods.33  UpdateSSHKey
+Products.3.Services.0.Methods.34  UpdateSaml
+Products.3.Services.0.Methods.35  UpdateUser
+Products.3.Services.0.Methods.36  UpdateUserPassword
+Products.3.Services.0.Methods.37  UpdateUserUsername
+Products.3.Services.0.Methods.38  ValidateUserMFAOTP
+Products.3.Services.1.Name        scaleway.iam.v1alpha1.UnauthenticatedApi
+Products.3.Services.1.Methods.0   CheckLoginMFAOTP
+Products.3.Services.1.Methods.1   CommitLogin
+Products.3.Services.1.Methods.2   CreateMagicCodeLogin
+Products.3.Services.1.Methods.3   CreateOAuth2Login
+Products.3.Services.1.Methods.4   CreatePasswordLogin
+Products.3.Services.1.Methods.5   CreateSamlLogin
+Products.3.Services.1.Methods.6   InitiateMagicCodeLogin
+Products.3.Services.1.Methods.7   InitiateOAuth2Login
+Products.3.Services.1.Methods.8   InitiateSamlLogin
+Products.3.Services.1.Methods.9   RenewJWT
+Products.4.Title                  Key Manager
+Products.4.Name                   key-manager
+Products.4.Services.0.Name        scaleway.key_manager.v1alpha1.Api
+Products.4.Services.0.Methods.0   CreateKey
+Products.4.Services.0.Methods.1   DeleteKey
+Products.4.Services.0.Methods.2   DeleteKeyMaterial
+Products.4.Services.0.Methods.3   DisableKey
+Products.4.Services.0.Methods.4   EnableKey
+Products.4.Services.0.Methods.5   ImportKeyMaterial
+Products.4.Services.0.Methods.6   ProtectKey
+Products.4.Services.0.Methods.7   RestoreKey
+Products.4.Services.0.Methods.8   RotateKey
+Products.4.Services.0.Methods.9   UnprotectKey
+Products.4.Services.0.Methods.10  UpdateKey
+Products.5.Title                  Kubernetes
+Products.5.Name                   kubernetes
+Products.5.Services.0.Name        scaleway.k8s.v1.Api
+Products.5.Services.0.Methods.0   AddClusterACLRules
+Products.5.Services.0.Methods.1   CreateCluster
+Products.5.Services.0.Methods.2   CreateExternalNode
+Products.5.Services.0.Methods.3   CreatePool
+Products.5.Services.0.Methods.4   DeleteACLRule
+Products.5.Services.0.Methods.5   DeleteCluster
+Products.5.Services.0.Methods.6   DeleteNode
+Products.5.Services.0.Methods.7   DeletePool
+Products.5.Services.0.Methods.8   MigrateClusterToSBSCSI
+Products.5.Services.0.Methods.9   RebootNode
+Products.5.Services.0.Methods.10  ReplaceNode
+Products.5.Services.0.Methods.11  ResetClusterAdminToken
+Products.5.Services.0.Methods.12  SetClusterACLRules
+Products.5.Services.0.Methods.13  SetClusterType
+Products.5.Services.0.Methods.14  UpdateCluster
+Products.5.Services.0.Methods.15  UpdatePool
+Products.5.Services.0.Methods.16  UpgradeCluster
+Products.5.Services.0.Methods.17  UpgradePool
+Products.6.Title                  Load Balancer
+Products.6.Name                   load-balancer
+Products.6.Services.0.Name        scaleway.lb.v1.ZonedApi
+Products.6.Services.0.Methods.0   AddBackendServers
+Products.6.Services.0.Methods.1   CreateAcl
+Products.6.Services.0.Methods.2   CreateBackend
+Products.6.Services.0.Methods.3   CreateCertificate
+Products.6.Services.0.Methods.4   CreateFrontend
+Products.6.Services.0.Methods.5   CreateIp
+Products.6.Services.0.Methods.6   CreateLb
+Products.6.Services.0.Methods.7   CreateRoute
+Products.6.Services.0.Methods.8   DeleteAcl
+Products.6.Services.0.Methods.9   DeleteBackend
+Products.6.Services.0.Methods.10  DeleteCertificate
+Products.6.Services.0.Methods.11  DeleteFrontend
+Products.6.Services.0.Methods.12  DeleteLb
+Products.6.Services.0.Methods.13  DeleteRoute
+Products.6.Services.0.Methods.14  MigrateLb
+Products.6.Services.0.Methods.15  ReleaseIp
+Products.6.Services.0.Methods.16  RemoveBackendServers
+Products.6.Services.0.Methods.17  SetAcls
+Products.6.Services.0.Methods.18  SetBackendServers
+Products.6.Services.0.Methods.19  UpdateAcl
+Products.6.Services.0.Methods.20  UpdateBackend
+Products.6.Services.0.Methods.21  UpdateCertificate
+Products.6.Services.0.Methods.22  UpdateFrontend
+Products.6.Services.0.Methods.23  UpdateHealthCheck
+Products.6.Services.0.Methods.24  UpdateIp
+Products.6.Services.0.Methods.25  UpdateLb
+Products.6.Services.0.Methods.26  UpdateRoute
+Products.7.Title                  Secret Manager
+Products.7.Name                   secret-manager
+Products.7.Services.0.Name        scaleway.secret_manager.v1alpha1.Api
+Products.7.Services.0.Methods.0   AddSecretOwner
+Products.7.Services.0.Methods.1   CreateSecret
+Products.7.Services.0.Methods.2   CreateSecretVersion
+Products.7.Services.0.Methods.3   DeleteSecret
+Products.7.Services.0.Methods.4   DestroySecretVersion
+Products.7.Services.0.Methods.5   DisableSecretVersion
+Products.7.Services.0.Methods.6   EnableSecretVersion
+Products.7.Services.0.Methods.7   ProtectSecret
+Products.7.Services.0.Methods.8   UnprotectSecret
+Products.7.Services.0.Methods.9   UpdateSecret
+Products.7.Services.0.Methods.10  UpdateSecretVersion
+Products.7.Services.1.Name        scaleway.secret_manager.v1beta1.Api
+Products.7.Services.1.Methods.0   AddSecretOwner
+Products.7.Services.1.Methods.1   CreateSecret
+Products.7.Services.1.Methods.2   CreateSecretVersion
+Products.7.Services.1.Methods.3   DeleteSecret
+Products.7.Services.1.Methods.4   DeleteSecretVersion
+Products.7.Services.1.Methods.5   DisableSecretVersion
+Products.7.Services.1.Methods.6   EnableSecretVersion
+Products.7.Services.1.Methods.7   ProtectSecret
+Products.7.Services.1.Methods.8   RestoreSecret
+Products.7.Services.1.Methods.9   RestoreSecretVersion
+Products.7.Services.1.Methods.10  UnprotectSecret
+Products.7.Services.1.Methods.11  UpdateSecret
+Products.7.Services.1.Methods.12  UpdateSecretVersion
+TotalCount                        8
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "products": [
+    {
+      "title": "Account",
+      "name": "account",
+      "services": [
+        {
+          "name": "scaleway.account.v2.GDPRApi",
+          "methods": [
+            "CreateGDPRRequest",
+            "DownloadGDPRExport"
+          ]
+        },
+        {
+          "name": "scaleway.account.v3.OrganizationApi",
+          "methods": [
+            "ChangeSupportPlan",
+            "CloseOrganization",
+            "SetPicture"
+          ]
+        },
+        {
+          "name": "scaleway.account.v3.UserApi",
+          "methods": [
+            "ChangeUserEmail",
+            "ChangeUserPassword",
+            "ConfirmPhoneValidation",
+            "CreateMFAOTP",
+            "DeleteMFAOTP",
+            "SendPhoneValidation",
+            "UpdateUser",
+            "UpdateUserPreferences",
+            "ValidateMFAOTP"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Apple Silicon",
+      "name": "apple-silicon",
+      "services": [
+        {
+          "name": "scaleway.apple_silicon.v1alpha1.Api",
+          "methods": [
+            "BatchCreateServers",
+            "CreateServer",
+            "DeleteServer",
+            "RebootServer",
+            "ReinstallServer",
+            "UpdateServer"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Elastic Metal",
+      "name": "baremetal",
+      "services": [
+        {
+          "name": "scaleway.baremetal.v1.Api",
+          "methods": [
+            "AddOptionServer",
+            "CreateServer",
+            "DeleteOptionServer",
+            "DeleteServer",
+            "InstallServer",
+            "MigrateServerToMonthlyOffer",
+            "RebootServer",
+            "StartBMCAccess",
+            "StartServer",
+            "StopBMCAccess",
+            "StopServer",
+            "UpdateIP",
+            "UpdateServer",
+            "UpdateSetting"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "IAM",
+      "name": "iam",
+      "services": [
+        {
+          "name": "scaleway.iam.v1alpha1.Api",
+          "methods": [
+            "AddGroupMember",
+            "AddGroupMembers",
+            "AddSamlCertificate",
+            "ClonePolicy",
+            "CreateAPIKey",
+            "CreateApplication",
+            "CreateGroup",
+            "CreateJWT",
+            "CreatePolicy",
+            "CreateSSHKey",
+            "CreateUser",
+            "CreateUserMFAOTP",
+            "DeleteAPIKey",
+            "DeleteApplication",
+            "DeleteGroup",
+            "DeleteJWT",
+            "DeletePolicy",
+            "DeleteSSHKey",
+            "DeleteSaml",
+            "DeleteSamlCertificate",
+            "DeleteUser",
+            "DeleteUserMFAOTP",
+            "EnableOrganizationSaml",
+            "LockUser",
+            "RemoveGroupMember",
+            "SetGroupMembers",
+            "SetRules",
+            "UnlockUser",
+            "UpdateAPIKey",
+            "UpdateApplication",
+            "UpdateGroup",
+            "UpdateOrganizationSecuritySettings",
+            "UpdatePolicy",
+            "UpdateSSHKey",
+            "UpdateSaml",
+            "UpdateUser",
+            "UpdateUserPassword",
+            "UpdateUserUsername",
+            "ValidateUserMFAOTP"
+          ]
+        },
+        {
+          "name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+          "methods": [
+            "CheckLoginMFAOTP",
+            "CommitLogin",
+            "CreateMagicCodeLogin",
+            "CreateOAuth2Login",
+            "CreatePasswordLogin",
+            "CreateSamlLogin",
+            "InitiateMagicCodeLogin",
+            "InitiateOAuth2Login",
+            "InitiateSamlLogin",
+            "RenewJWT"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Key Manager",
+      "name": "key-manager",
+      "services": [
+        {
+          "name": "scaleway.key_manager.v1alpha1.Api",
+          "methods": [
+            "CreateKey",
+            "DeleteKey",
+            "DeleteKeyMaterial",
+            "DisableKey",
+            "EnableKey",
+            "ImportKeyMaterial",
+            "ProtectKey",
+            "RestoreKey",
+            "RotateKey",
+            "UnprotectKey",
+            "UpdateKey"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Kubernetes",
+      "name": "kubernetes",
+      "services": [
+        {
+          "name": "scaleway.k8s.v1.Api",
+          "methods": [
+            "AddClusterACLRules",
+            "CreateCluster",
+            "CreateExternalNode",
+            "CreatePool",
+            "DeleteACLRule",
+            "DeleteCluster",
+            "DeleteNode",
+            "DeletePool",
+            "MigrateClusterToSBSCSI",
+            "RebootNode",
+            "ReplaceNode",
+            "ResetClusterAdminToken",
+            "SetClusterACLRules",
+            "SetClusterType",
+            "UpdateCluster",
+            "UpdatePool",
+            "UpgradeCluster",
+            "UpgradePool"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Load Balancer",
+      "name": "load-balancer",
+      "services": [
+        {
+          "name": "scaleway.lb.v1.ZonedApi",
+          "methods": [
+            "AddBackendServers",
+            "CreateAcl",
+            "CreateBackend",
+            "CreateCertificate",
+            "CreateFrontend",
+            "CreateIp",
+            "CreateLb",
+            "CreateRoute",
+            "DeleteAcl",
+            "DeleteBackend",
+            "DeleteCertificate",
+            "DeleteFrontend",
+            "DeleteLb",
+            "DeleteRoute",
+            "MigrateLb",
+            "ReleaseIp",
+            "RemoveBackendServers",
+            "SetAcls",
+            "SetBackendServers",
+            "UpdateAcl",
+            "UpdateBackend",
+            "UpdateCertificate",
+            "UpdateFrontend",
+            "UpdateHealthCheck",
+            "UpdateIp",
+            "UpdateLb",
+            "UpdateRoute"
+          ]
+        }
+      ]
+    },
+    {
+      "title": "Secret Manager",
+      "name": "secret-manager",
+      "services": [
+        {
+          "name": "scaleway.secret_manager.v1alpha1.Api",
+          "methods": [
+            "AddSecretOwner",
+            "CreateSecret",
+            "CreateSecretVersion",
+            "DeleteSecret",
+            "DestroySecretVersion",
+            "DisableSecretVersion",
+            "EnableSecretVersion",
+            "ProtectSecret",
+            "UnprotectSecret",
+            "UpdateSecret",
+            "UpdateSecretVersion"
+          ]
+        },
+        {
+          "name": "scaleway.secret_manager.v1beta1.Api",
+          "methods": [
+            "AddSecretOwner",
+            "CreateSecret",
+            "CreateSecretVersion",
+            "DeleteSecret",
+            "DeleteSecretVersion",
+            "DisableSecretVersion",
+            "EnableSecretVersion",
+            "ProtectSecret",
+            "RestoreSecret",
+            "RestoreSecretVersion",
+            "UnprotectSecret",
+            "UpdateSecret",
+            "UpdateSecretVersion"
+          ]
+        }
+      ]
+    }
+  ],
+  "total_count": 8
+}
