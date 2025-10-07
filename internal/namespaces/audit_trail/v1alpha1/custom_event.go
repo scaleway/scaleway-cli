@@ -58,6 +58,10 @@ func eventListBuilder(c *core.Command) *core.Command {
 				Label:     "ServiceName",
 				FieldName: "ServiceName",
 			},
+			{
+				Label:     "Locality",
+				FieldName: "Locality",
+			},
 		},
 	}
 
