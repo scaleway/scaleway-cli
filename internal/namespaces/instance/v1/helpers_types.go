@@ -9,6 +9,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -49,6 +50,15 @@ func SizeValue(s *scw.Size) scw.Size {
 	}
 
 	return 0
+}
+
+func volumeIsFromSBS(api *block.API, zone scw.Zone, volumeID string) bool {
+	_, err := api.GetVolume(&block.GetVolumeRequest{
+		Zone:     zone,
+		VolumeID: volumeID,
+	})
+
+	return err == nil
 }
 
 func warningServerTypeDeprecated(

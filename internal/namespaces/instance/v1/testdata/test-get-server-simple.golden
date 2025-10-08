@@ -1,29 +1,28 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                  1def9ced-d905-4b74-a7c9-a1eef1c457c3
-Name                cli-srv-naughty-tharp
+ID                  bb8b925a-1206-432a-835f-e829bc067374
+Name                cli-srv-beautiful-tesla
 Organization        fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project             fa1e3217-dc80-42ac-85c3-3f034b78b552
 CommercialType      DEV1-S
 CreationDate        few seconds ago
 DynamicIPRequired   false
 RoutedIPEnabled     true
-EnableIPv6          false
-Hostname            cli-srv-naughty-tharp
+Hostname            cli-srv-beautiful-tesla
 Protected           false
-MacAddress          de:00:00:b0:1a:67
+MacAddress          de:00:00:cc:26:b3
 ModificationDate    few seconds ago
 State               archived
-BootType            local
-SecurityGroup.ID    dccbeacb-b588-4c47-8eaf-b05d1469d3cb
-SecurityGroup.Name  Default security group
 StateDetail         -
+BootType            local
+SecurityGroup.ID    da505169-540e-4c2b-b0da-c854139224e0
+SecurityGroup.Name  Default security group
 Arch                x86_64
 Zone                fr-par-1
 EndOfService        false
 
 Server Image:
-ID                63d40353-5519-46d0-9172-ccf4885954e1
+ID                6d3c053e-c728-4294-b23a-560b62a4d592
 Name              Ubuntu 22.04 Jammy Jellyfish
 Arch              x86_64
 CreationDate      few seconds ago
@@ -32,7 +31,7 @@ ExtraVolumes      0
 FromServer        -
 Organization      51b656e3-4865-41e8-adbc-0c45bdd780db
 Public            true
-RootVolume        905845fc-a6eb-4401-8e9d-5810071b7119
+RootVolume        36b4ce54-c67a-4f68-ab74-839515834352
 State             available
 Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Zone              fr-par-1
@@ -42,13 +41,10 @@ Allowed Actions:
 
 Volumes:
 ID                                    NAME                                       SIZE   VOLUME TYPE  IOPS  STATE   CREATION DATE    MODIFICATION DATE  BOOT   ZONE
-2ba3c2be-c029-4c2b-9e0e-9287ed6dc012  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
+8001178f-860a-4fd2-bf62-fc086304b9de  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
 
 Public IPs:
 ID   ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
-
-IPv6:
--
 
 Private NICs:
 ID   MAC ADDRESS  PRIVATE NETWORK NAME  PRIVATE NETWORK ID
@@ -57,8 +53,8 @@ Server Filesystems:
 FILESYSTEM ID  STATE
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1def9ced-d905-4b74-a7c9-a1eef1c457c3",
-  "name": "cli-srv-naughty-tharp",
+  "id": "bb8b925a-1206-432a-835f-e829bc067374",
+  "name": "cli-srv-beautiful-tesla",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -70,10 +66,9 @@ FILESYSTEM ID  STATE
   "creation_date": "1970-01-01T00:00:00.0Z",
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
-  "enable_ipv6": false,
-  "hostname": "cli-srv-naughty-tharp",
+  "hostname": "cli-srv-beautiful-tesla",
   "image": {
-    "id": "63d40353-5519-46d0-9172-ccf4885954e1",
+    "id": "6d3c053e-c728-4294-b23a-560b62a4d592",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
@@ -84,7 +79,7 @@ FILESYSTEM ID  STATE
     "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
     "public": true,
     "root_volume": {
-      "id": "905845fc-a6eb-4401-8e9d-5810071b7119",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352",
       "name": "",
       "size": 0,
       "volume_type": "sbs_snapshot"
@@ -96,37 +91,17 @@ FILESYSTEM ID  STATE
   },
   "protected": false,
   "private_ip": null,
-  "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:b0:1a:67",
+  "mac_address": "de:00:00:cc:26:b3",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
-  "location": null,
+  "state_detail": "",
   "ipv6": null,
   "boot_type": "local",
-  "volumes": {
-    "0": {
-      "id": "2ba3c2be-c029-4c2b-9e0e-9287ed6dc012",
-      "name": null,
-      "export_uri": null,
-      "organization": null,
-      "server": null,
-      "size": null,
-      "volume_type": "sbs_volume",
-      "creation_date": null,
-      "modification_date": null,
-      "state": null,
-      "project": null,
-      "boot": false,
-      "zone": "fr-par-1"
-    }
-  },
   "security_group": {
-    "id": "dccbeacb-b588-4c47-8eaf-b05d1469d3cb",
+    "id": "da505169-540e-4c2b-b0da-c854139224e0",
     "name": "Default security group"
   },
-  "maintenances": [],
-  "state_detail": "",
   "arch": "x86_64",
   "placement_group": null,
   "zone": "fr-par-1",
@@ -136,7 +111,7 @@ FILESYSTEM ID  STATE
   "end_of_service": false,
   "Volumes": [
     {
-      "id": "2ba3c2be-c029-4c2b-9e0e-9287ed6dc012",
+      "id": "8001178f-860a-4fd2-bf62-fc086304b9de",
       "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
       "size": 10000000000,
       "volume_type": "sbs_5k",
