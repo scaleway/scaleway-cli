@@ -20,8 +20,14 @@ func GetCommands() *core.Commands {
 		iot.DeviceStatus(""),
 		human.EnumMarshalFunc(deviceStatusMarshalSpecs),
 	)
-	human.RegisterMarshalerFunc(iot.CreateNetworkResponse{}, iotNetworkCreateResponsedMarshalerFunc)
-	human.RegisterMarshalerFunc(iot.CreateDeviceResponse{}, iotDeviceCreateResponsedMarshalerFunc)
+	human.RegisterMarshalerFunc(
+		&iot.CreateNetworkResponse{},
+		iotNetworkCreateResponsedMarshalerFunc,
+	)
+	human.RegisterMarshalerFunc(
+		&iot.CreateDeviceResponse{},
+		iotDeviceCreateResponsedMarshalerFunc,
+	)
 
 	cmds.MustFind("iot", "hub", "create").Override(hubCreateBuilder)
 

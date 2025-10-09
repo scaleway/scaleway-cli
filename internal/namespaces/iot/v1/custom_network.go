@@ -11,7 +11,7 @@ import (
 
 func iotNetworkCreateResponsedMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp iot.CreateNetworkResponse
-	networkCreateResponse := tmp(i.(iot.CreateNetworkResponse))
+	networkCreateResponse := tmp(*i.(*iot.CreateNetworkResponse))
 
 	networkContent, err := human.Marshal(networkCreateResponse.Network, opt)
 	if err != nil {
