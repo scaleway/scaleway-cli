@@ -33,7 +33,7 @@ var (
 
 func iotDeviceCreateResponsedMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp iot.CreateDeviceResponse
-	deviceCreateResponse := tmp(i.(iot.CreateDeviceResponse))
+	deviceCreateResponse := tmp(*i.(*iot.CreateDeviceResponse))
 
 	deviceContent, err := human.Marshal(deviceCreateResponse.Device, opt)
 	if err != nil {
