@@ -24,9 +24,14 @@ func Test_CreateBackup(t *testing.T) {
 				},
 			),
 		),
-		Cmd:           "scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
-		Check:         core.TestCheckGolden(),
-		AfterFunc:     deleteInstance(),
+		Cmd:   "scw rdb backup create name=foobar expires-at=2032-01-02T15:04:05-07:00 instance-id={{ .Instance.ID }} database-name=rdb --wait",
+		Check: core.TestCheckGolden(),
+		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				core.ExecAfterCmd("scw rdb backup delete {{ .CmdResult.ID }}"),
+			),
+			deleteInstance(),
+		),
 		DefaultRegion: scw.RegionNlAms,
 	}))
 }
@@ -54,7 +59,12 @@ func Test_RestoreBackup(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteInstance(),
+		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				core.ExecAfterCmd("scw rdb backup delete {{ .Backup.ID }}"),
+			),
+			deleteInstance(),
+		),
 	}))
 }
 
@@ -81,7 +91,12 @@ func Test_ExportBackup(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteInstance(),
+		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				core.ExecAfterCmd("scw rdb backup delete {{ .Backup.ID }}"),
+			),
+			deleteInstance(),
+		),
 	}))
 }
 
@@ -105,6 +120,9 @@ func Test_DownloadBackup(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				core.ExecAfterCmd("scw rdb backup delete {{ .Backup.ID }}"),
+			),
 			deleteInstance(),
 			func(_ *core.AfterFuncCtx) error {
 				err := os.Remove("simple_dump")
@@ -131,6 +149,9 @@ func Test_DownloadBackup(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				core.ExecAfterCmd("scw rdb backup delete {{ .Backup.ID }}"),
+			),
 			deleteInstance(),
 			func(_ *core.AfterFuncCtx) error {
 				err := os.Remove("no_previous_export_dump")
@@ -169,6 +190,14 @@ func Test_ListBackup(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteInstance(),
+		AfterFunc: core.AfterFuncCombine(
+			core.AfterFuncWhenUpdatingCassette(
+				core.AfterFuncCombine(
+					core.ExecAfterCmd("scw rdb backup delete {{ .BackupA.ID }}"),
+					core.ExecAfterCmd("scw rdb backup delete {{ .BackupB.ID }}"),
+				),
+			),
+			deleteInstance(),
+		),
 	}))
 }
