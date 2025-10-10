@@ -72,10 +72,9 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 			if customEndpoint.PrivateNetwork == nil {
 				continue
 			}
-			ipamConfig := &redis.EndpointSpecPrivateNetworkSpecIpamConfig{}
-			if !customEndpoint.PrivateNetwork.EnableIpam ||
-				len(customEndpoint.PrivateNetwork.ServiceIPs) > 0 {
-				ipamConfig = nil
+			var ipamConfig *redis.EndpointSpecPrivateNetworkSpecIpamConfig
+			if customEndpoint.PrivateNetwork.EnableIpam {
+				ipamConfig = &redis.EndpointSpecPrivateNetworkSpecIpamConfig{}
 			}
 			createClusterRequest.Endpoints = append(
 				createClusterRequest.Endpoints,
