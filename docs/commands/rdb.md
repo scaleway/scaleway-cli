@@ -95,7 +95,7 @@ Add an additional ACL rule to a Database Instance.
 **Usage:**
 
 ```
-scw rdb acl add <acl-rule-ips ...> [arg=value ...]
+scw rdb acl add [arg=value ...]
 ```
 
 
@@ -103,9 +103,9 @@ scw rdb acl add <acl-rule-ips ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| acl-rule-ips | Required | IP addresses defined in the ACL rules of the Database Instance |
 | instance-id | Required | ID of the Database Instance |
-| description |  | Description of the ACL rule. Indexes are not yet supported so the description will be applied to all the rules of the command. |
+| rules.{index}.ip |  | IP addresses defined in the ACL rules of the Database Instance |
+| rules.{index}.description |  | Description of the ACL rule. Use rules.0.description, rules.1.description, etc. to specify individual descriptions for each rule. |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
