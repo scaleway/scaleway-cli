@@ -185,10 +185,15 @@ func imageListBuilder(c *core.Command) *core.Command {
 		// Get images
 		args := argsI.(*customListImageRequest)
 
-		req := &instance.ListImagesRequest{}
-		req.Organization = args.OrganizationID
-		req.Project = args.ProjectID
-		req.Public = scw.BoolPtr(false)
+		req := &instance.ListImagesRequest{
+			Organization: args.OrganizationID,
+			Name:         args.Name,
+			Public:       scw.BoolPtr(false),
+			Arch:         args.Arch,
+			Project:      args.ProjectID,
+			Tags:         args.Tags,
+		}
+
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
 		blockAPI := block.NewAPI(client)
