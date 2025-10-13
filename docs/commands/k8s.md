@@ -640,6 +640,7 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
+| auth-method | Default: `cli`<br />One of: `cli`, `copy-cli-token`, `legacy` | Which method to use to authenticate using kubelet |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -649,6 +650,16 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 Get the kubeconfig for a given cluster
 ```
 scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111
+```
+
+Get the kubeconfig for a given cluster by copying current secret_key to it
+```
+scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111 auth-method=copy-cli-token
+```
+
+Get the kubeconfig for a given cluster and use legacy authentication
+```
+scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111 auth-method=legacy
 ```
 
 
@@ -671,6 +682,7 @@ scw k8s kubeconfig install <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
+| auth-method | Default: `cli`<br />One of: `cli`, `copy-cli-token`, `legacy` | Which method to use to authenticate using kubelet |
 | keep-current-context |  | Whether or not to keep the current kubeconfig context unmodified |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -681,6 +693,16 @@ scw k8s kubeconfig install <cluster-id ...> [arg=value ...]
 Install the kubeconfig for a given cluster and using the new context
 ```
 scw k8s kubeconfig install 11111111-1111-1111-1111-111111111111
+```
+
+Get the kubeconfig for a given cluster by copying current secret_key to it
+```
+scw k8s kubeconfig install 11111111-1111-1111-1111-111111111111 auth-method=copy-cli-token
+```
+
+Get the kubeconfig for a given cluster and use legacy authentication
+```
+scw k8s kubeconfig install 11111111-1111-1111-1111-111111111111 auth-method=legacy
 ```
 
 
