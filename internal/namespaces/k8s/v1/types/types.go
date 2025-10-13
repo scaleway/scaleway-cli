@@ -204,15 +204,15 @@ type AuthProviderConfig struct {
 // and output format
 type ExecConfig struct {
 	// Command to execute.
-	Command string `json:"command"`
+	Command string `json:"command,omitempty"`
 	// Arguments to pass to the command when executing it.
 	// +optional
-	Args []string `json:"args"`
+	Args []string `json:"args,omitempty"`
 	// Env defines additional environment variables to expose to the process. These
 	// are unioned with the host's environment, as well as variables client-go uses
 	// to pass argument to the plugin.
 	// +optional
-	Env []ExecEnvVar `json:"env"`
+	Env []ExecEnvVar `json:"env,omitempty"`
 
 	// Preferred input version of the ExecInfo. The returned ExecCredentials MUST use
 	// the same encoding version as the input.
@@ -228,7 +228,7 @@ type ExecConfig struct {
 	// part of the KUBERNETES_EXEC_INFO environment variable. By default, it is set
 	// to false. Package k8s.io/client-go/tools/auth/exec provides helper methods for
 	// reading this environment variable.
-	ProvideClusterInfo bool `json:"provideClusterInfo"`
+	ProvideClusterInfo bool `json:"provideClusterInfo,omitempty"`
 
 	// InteractiveMode determines this plugin's relationship with standard input. Valid
 	// values are "Never" (this exec plugin never uses standard input), "IfAvailable" (this

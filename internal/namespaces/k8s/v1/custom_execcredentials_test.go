@@ -20,7 +20,9 @@ const (
 )
 
 func Test_ExecCredential(t *testing.T) {
-	// expect to return default secret_key
+	////
+	// Simple expect to return current secret_key
+	////
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -37,7 +39,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return 66666666-6666-6666-6666-666666666666
+	////
 	t.Run("with scw_secret_key env", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -53,7 +57,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return p2 secret_key
+	////
 	t.Run("with profile env", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -71,7 +77,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return p3 secret_key
+	////
 	t.Run("with profile flag", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -88,7 +96,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return p3 secret_key
+	////
 	t.Run("with profile env and flag", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -111,12 +121,16 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		scwDir := path.Join(homeDir, ".config", "scw")
-		err := os.MkdirAll(scwDir, 0o0755)
-		if err != nil {
+		if err := os.MkdirAll(scwDir, 0o0755); err != nil {
 			return err
 		}
 
-		return c.SaveTo(path.Join(scwDir, "config.yaml"))
+		scwPath := path.Join(scwDir, "config.yaml")
+		if err := c.SaveTo(scwPath); err != nil {
+			return err
+		}
+
+		return nil
 	}
 }
 
