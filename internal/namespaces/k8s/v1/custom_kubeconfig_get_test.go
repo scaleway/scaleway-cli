@@ -17,11 +17,11 @@ func Test_GetKubeconfig(t *testing.T) {
 	////
 	// Simple use case
 	////
-
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"get-kubeconfig-simple",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("get-kubeconfig-simple", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s kubeconfig get {{ ." + clusterMetaKey + ".ID }}",
 		OverrideEnv: map[string]string{
@@ -81,8 +81,9 @@ func Test_GetKubeconfig(t *testing.T) {
 	////
 	t.Run("with_flags", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"get-kubeconfig-with-flags",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("get-kubeconfig-with-flags", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s --profile=default kubeconfig get {{ ." + clusterMetaKey + ".ID }}",
 		OverrideEnv: map[string]string{
@@ -147,8 +148,9 @@ func Test_GetKubeconfig(t *testing.T) {
 
 	t.Run("with_envs", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"get-kubeconfig-with-envs",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("get-kubeconfig-with-envs", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s kubeconfig get {{ ." + clusterMetaKey + ".ID }}",
 		OverrideEnv: map[string]string{
@@ -212,8 +214,9 @@ func Test_GetKubeconfig(t *testing.T) {
 	////
 	t.Run("with_flags_and_envs", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"get-kubeconfig-with-flags-and-envs",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("get-kubeconfig-with-flags-and-envs", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw --profile=default k8s kubeconfig get {{ ." + clusterMetaKey + ".ID }}",
 		OverrideEnv: map[string]string{
@@ -283,10 +286,12 @@ func Test_GetKubeconfig(t *testing.T) {
 	t.Run("legacy", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
 		Cmd:      "scw k8s kubeconfig get {{ ." + clusterMetaKey + ".ID }} auth-method=legacy",
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"get-kubeconfig-legacy",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("get-kubeconfig-legacy", true),
+			fetchClusterKubeconfigMetadata(false),
 		),
 		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
@@ -304,8 +309,9 @@ func Test_GetKubeconfig(t *testing.T) {
 	////
 	t.Run("copy_cli_token", core.Test(&core.TestConfig{
 		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"get-kubeconfig-copy-cli-token",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("get-kubeconfig-copy-cli-token", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s kubeconfig get {{ ." + clusterMetaKey + ".ID }} auth-method=copy-cli-token",
 		OverrideEnv: map[string]string{

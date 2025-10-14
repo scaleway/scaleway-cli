@@ -1,7 +1,6 @@
 package k8s_test
 
 import (
-	"errors"
 	"os"
 	"path"
 	"strings"
@@ -203,24 +202,11 @@ func Test_UninstallKubeconfig(t *testing.T) {
 	t.Run("uninstall_real_merge", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
-		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
-			bfunc := populateKubeconfigAndCreateCluster(
-				[]byte(uninstallKubeconfig),
-				"uninstall-kubeconfig-merge",
-			)
-			if err := bfunc(ctx); err != nil {
-				return err
-			}
-
-			cluster := ctx.Meta[clusterMetaKey].(*k8sSDK.Cluster)
-			cmd := "scw k8s kubeconfig install " + cluster.ID
-			installOut := ctx.ExecuteCmd(strings.Split(cmd, " "))
-			if !strings.Contains(installOut.(string), "successfully written") {
-				return errors.New("kubeconfig install failed")
-			}
-
-			return nil
-		},
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("uninstall-kubeconfig-merge", true),
+			fetchClusterKubeconfigMetadata(true),
+			cliInstallKubeconfig(),
+		),
 		Cmd: "scw k8s kubeconfig uninstall {{ ." + clusterMetaKey + ".ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific

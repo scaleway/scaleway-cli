@@ -48,8 +48,9 @@ func Test_InstallKubeconfig(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"install-kubeconfig-simple",
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("install-kubeconfig-simple", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }}",
 		Check: core.TestCheckCombine(
@@ -101,9 +102,10 @@ func Test_InstallKubeconfig(t *testing.T) {
 	t.Run("merge", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
-		BeforeFunc: populateKubeconfigAndCreateCluster(
-			[]byte(existingKubeconfig),
-			"install-kubeconfig-merge",
+		BeforeFunc: core.BeforeFuncCombine(
+			writeKubeconfigFile([]byte(existingKubeconfig)),
+			createCluster("install-kubeconfig-merge", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }}",
 		Check: core.TestCheckCombine(
@@ -165,9 +167,10 @@ func Test_InstallKubeconfig(t *testing.T) {
 	t.Run("merge-keep", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
-		BeforeFunc: populateKubeconfigAndCreateCluster(
-			[]byte(existingKubeconfig),
-			"install-kubeconfig-merge-keep",
+		BeforeFunc: core.BeforeFuncCombine(
+			writeKubeconfigFile([]byte(existingKubeconfig)),
+			createCluster("install-kubeconfig-merge-keep", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
 		Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }} keep-current-context=true",
 		Check: core.TestCheckCombine(
@@ -241,9 +244,10 @@ func Test_InstallKubeconfig(t *testing.T) {
 		testConfig := &core.TestConfig{
 			Commands:   k8s.GetCommands(),
 			TmpHomeDir: true,
-			BeforeFunc: populateKubeconfigAndCreateCluster(
-				[]byte(existingKubeconfig),
-				"install-kubeconfig-merge-kubeconfig",
+			BeforeFunc: core.BeforeFuncCombine(
+				writeKubeconfigFile([]byte(existingKubeconfig)),
+				createCluster("install-kubeconfig-merge-kubeconfig", true),
+				fetchClusterKubeconfigMetadata(true),
 			),
 			Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }}",
 			Check: core.TestCheckCombine(
