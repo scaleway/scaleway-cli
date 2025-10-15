@@ -8,21 +8,22 @@ CommercialRange      lithium
 PricePerHour         € 0.213
 Enable               true
 QuotaName            EM_L105X_SATA
-IncompatibleOsIDs.0  69e740ab-9f0e-4107-8516-16470000729c
-IncompatibleOsIDs.1  bc7e4ca2-bf32-407f-a04b-72ad6455beb2
-IncompatibleOsIDs.2  2e06fa49-4677-4bd7-8bf5-b1c490d8a966
-IncompatibleOsIDs.3  fa29896b-6b49-468d-a787-966559a55c12
-IncompatibleOsIDs.4  a5cec64e-d7b0-4c6e-a819-60139d30a76c
-IncompatibleOsIDs.5  847bb37a-dc13-4536-9f07-023d38dba98d
+IncompatibleOsIDs.0  847bb37a-dc13-4536-9f07-023d38dba98d
+IncompatibleOsIDs.1  69e740ab-9f0e-4107-8516-16470000729c
+IncompatibleOsIDs.2  fd771862-4b75-46a7-ab42-73c46c0ac2db
+IncompatibleOsIDs.3  6aa3f876-1c83-4434-8cc4-a2dbc94216db
+IncompatibleOsIDs.4  2e06fa49-4677-4bd7-8bf5-b1c490d8a966
+IncompatibleOsIDs.5  fa29896b-6b49-468d-a787-966559a55c12
 IncompatibleOsIDs.6  1c376d8a-f237-438d-9cd9-47902050ffd3
 IncompatibleOsIDs.7  93fb3e11-e02e-47d9-aa3a-f77a2f7a7129
-IncompatibleOsIDs.8  fd771862-4b75-46a7-ab42-73c46c0ac2db
-IncompatibleOsIDs.9  6aa3f876-1c83-4434-8cc4-a2dbc94216db
+IncompatibleOsIDs.8  a5cec64e-d7b0-4c6e-a819-60139d30a76c
+IncompatibleOsIDs.9  bc7e4ca2-bf32-407f-a04b-72ad6455beb2
 SubscriptionPeriod   hourly
 OperationPath        -
 Fee                  € 0.00
 SharedBandwidth      true
 MonthlyOfferID       3b36516b-34e5-4ab1-8b05-0cda2adbc84c
+Zone                 
 
 Disks:
 CAPACITY  TYPE
@@ -108,16 +109,16 @@ PrivateBandwidth(Mbit/s):
   "persistent_memories": [],
   "raid_controllers": [],
   "incompatible_os_ids": [
+    "847bb37a-dc13-4536-9f07-023d38dba98d",
     "69e740ab-9f0e-4107-8516-16470000729c",
-    "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+    "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+    "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
     "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
     "fa29896b-6b49-468d-a787-966559a55c12",
-    "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-    "847bb37a-dc13-4536-9f07-023d38dba98d",
     "1c376d8a-f237-438d-9cd9-47902050ffd3",
     "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-    "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-    "6aa3f876-1c83-4434-8cc4-a2dbc94216db"
+    "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+    "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
   ],
   "subscription_period": "hourly",
   "operation_path": "",
@@ -240,5 +241,6 @@ PrivateBandwidth(Mbit/s):
   "shared_bandwidth": true,
   "tags": [],
   "gpus": [],
-  "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c"
+  "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
+  "zone": ""
 }

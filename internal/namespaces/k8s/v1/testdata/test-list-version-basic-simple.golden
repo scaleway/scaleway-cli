@@ -1,12 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAME    AVAILABLE CNIS             AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                                                                                             AVAILABLE ADMISSION PLUGINS                                  AVAILABLE KUBELET ARGS
-1.32.3  [cilium calico kilo none]  [containerd]                  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+NAME    AVAILABLE CNIS                           AVAILABLE CONTAINER RUNTIMES  AVAILABLE FEATURE GATES                                    AVAILABLE ADMISSION PLUGINS                                  AVAILABLE KUBELET ARGS
+1.34.1  [cilium cilium_native calico kilo none]  [containerd]                  [HPAScaleToZero CPUManagerPolicyAlphaOptions ImageVolume]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -14,12 +17,15 @@ maxPods                      uint16
 registryBurst                int32
 registryPullQPS              int32
 serializeImagePulls          bool
-1.31.7  [cilium calico kilo none]  [containerd]  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+1.33.4  [cilium calico kilo none]  [containerd]  [HPAScaleToZero DRAAdminAccess DynamicResourceAllocation PodLevelResources CPUManagerPolicyAlphaOptions ImageVolume]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -27,12 +33,15 @@ maxPods                      uint16
 registryBurst                int32
 registryPullQPS              int32
 serializeImagePulls          bool
-1.30.11  [cilium calico kilo none]  [containerd]  [HPAScaleToZero SidecarContainers InPlacePodVerticalScaling]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+1.32.8  [cilium calico kilo none]  [containerd]  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation PodLevelResources CPUManagerPolicyAlphaOptions ImageVolume]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -40,12 +49,31 @@ maxPods                      uint16
 registryBurst                int32
 registryPullQPS              int32
 serializeImagePulls          bool
-1.29.15  [cilium calico kilo none]  [containerd]  [HPAScaleToZero SidecarContainers ValidatingAdmissionPolicy InPlacePodVerticalScaling]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+1.31.12  [cilium calico kilo none]  [containerd]  [HPAScaleToZero InPlacePodVerticalScaling SidecarContainers CPUManagerPolicyAlphaOptions ImageVolume]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
 containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
+imageGCHighThresholdPercent  uint32
+imageGCLowThresholdPercent   uint32
+maxParallelImagePulls        int32
+maxPods                      uint16
+registryBurst                int32
+registryPullQPS              int32
+serializeImagePulls          bool
+1.30.14  [cilium calico kilo none]  [containerd]  [HPAScaleToZero SidecarContainers InPlacePodVerticalScaling CPUManagerPolicyAlphaOptions]  [AlwaysPullImages PodNodeSelector PodTolerationRestriction]  containerLogMaxFiles         uint16
+containerLogMaxSize          quantity
+cpuCFSQuota                  bool
+cpuCFSQuotaPeriod            duration
+cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
+enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -56,8 +84,102 @@ serializeImagePulls          bool
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "name": "1.32.3",
-    "label": "Kubernetes 1.32.3",
+    "name": "1.34.1",
+    "label": "Kubernetes 1.34.1",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "cilium_native",
+      "calico",
+      "kilo",
+      "none"
+    ],
+    "available_container_runtimes": [
+      "containerd"
+    ],
+    "available_feature_gates": [
+      "HPAScaleToZero",
+      "CPUManagerPolicyAlphaOptions",
+      "ImageVolume"
+    ],
+    "available_admission_plugins": [
+      "AlwaysPullImages",
+      "PodNodeSelector",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
+      "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
+      "maxParallelImagePulls": "int32",
+      "maxPods": "uint16",
+      "registryBurst": "int32",
+      "registryPullQPS": "int32",
+      "serializeImagePulls": "bool"
+    },
+    "deprecated_at": "2026-09-29T00:00:00Z",
+    "end_of_life_at": "2026-11-29T00:00:00Z",
+    "released_at": null
+  },
+  {
+    "name": "1.33.4",
+    "label": "Kubernetes 1.33.4",
+    "region": "fr-par",
+    "available_cnis": [
+      "cilium",
+      "calico",
+      "kilo",
+      "none"
+    ],
+    "available_container_runtimes": [
+      "containerd"
+    ],
+    "available_feature_gates": [
+      "HPAScaleToZero",
+      "DRAAdminAccess",
+      "DynamicResourceAllocation",
+      "PodLevelResources",
+      "CPUManagerPolicyAlphaOptions",
+      "ImageVolume"
+    ],
+    "available_admission_plugins": [
+      "AlwaysPullImages",
+      "PodNodeSelector",
+      "PodTolerationRestriction"
+    ],
+    "available_kubelet_args": {
+      "containerLogMaxFiles": "uint16",
+      "containerLogMaxSize": "quantity",
+      "cpuCFSQuota": "bool",
+      "cpuCFSQuotaPeriod": "duration",
+      "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
+      "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
+      "imageGCHighThresholdPercent": "uint32",
+      "imageGCLowThresholdPercent": "uint32",
+      "maxParallelImagePulls": "int32",
+      "maxPods": "uint16",
+      "registryBurst": "int32",
+      "registryPullQPS": "int32",
+      "serializeImagePulls": "bool"
+    },
+    "deprecated_at": "2026-09-04T00:00:00Z",
+    "end_of_life_at": "2026-11-04T00:00:00Z",
+    "released_at": null
+  },
+  {
+    "name": "1.32.8",
+    "label": "Kubernetes 1.32.8",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
@@ -74,7 +196,10 @@ serializeImagePulls          bool
       "SidecarContainers",
       "DRAAdminAccess",
       "DRAResourceClaimDeviceStatus",
-      "DynamicResourceAllocation"
+      "DynamicResourceAllocation",
+      "PodLevelResources",
+      "CPUManagerPolicyAlphaOptions",
+      "ImageVolume"
     ],
     "available_admission_plugins": [
       "AlwaysPullImages",
@@ -87,7 +212,10 @@ serializeImagePulls          bool
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
       "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
       "imageGCHighThresholdPercent": "uint32",
       "imageGCLowThresholdPercent": "uint32",
       "maxParallelImagePulls": "int32",
@@ -96,12 +224,13 @@ serializeImagePulls          bool
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
     },
-    "deprecated_at": null,
-    "end_of_life_at": null
+    "deprecated_at": "2026-03-24T00:00:00Z",
+    "end_of_life_at": "2025-05-24T00:00:00Z",
+    "released_at": null
   },
   {
-    "name": "1.31.7",
-    "label": "Kubernetes 1.31.7",
+    "name": "1.31.12",
+    "label": "Kubernetes 1.31.12",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
@@ -115,7 +244,9 @@ serializeImagePulls          bool
     "available_feature_gates": [
       "HPAScaleToZero",
       "InPlacePodVerticalScaling",
-      "SidecarContainers"
+      "SidecarContainers",
+      "CPUManagerPolicyAlphaOptions",
+      "ImageVolume"
     ],
     "available_admission_plugins": [
       "AlwaysPullImages",
@@ -128,7 +259,10 @@ serializeImagePulls          bool
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
       "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
       "imageGCHighThresholdPercent": "uint32",
       "imageGCLowThresholdPercent": "uint32",
       "maxParallelImagePulls": "int32",
@@ -137,12 +271,13 @@ serializeImagePulls          bool
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
     },
-    "deprecated_at": null,
-    "end_of_life_at": null
+    "deprecated_at": "2025-12-02T00:00:00Z",
+    "end_of_life_at": "2026-02-02T00:00:00Z",
+    "released_at": null
   },
   {
-    "name": "1.30.11",
-    "label": "Kubernetes 1.30.11",
+    "name": "1.30.14",
+    "label": "Kubernetes 1.30.14",
     "region": "fr-par",
     "available_cnis": [
       "cilium",
@@ -156,7 +291,8 @@ serializeImagePulls          bool
     "available_feature_gates": [
       "HPAScaleToZero",
       "SidecarContainers",
-      "InPlacePodVerticalScaling"
+      "InPlacePodVerticalScaling",
+      "CPUManagerPolicyAlphaOptions"
     ],
     "available_admission_plugins": [
       "AlwaysPullImages",
@@ -169,7 +305,10 @@ serializeImagePulls          bool
       "cpuCFSQuota": "bool",
       "cpuCFSQuotaPeriod": "duration",
       "cpuManagerPolicy": "enum:none|static",
+      "cpuManagerPolicyOptions": "map[string]string",
       "enableDebuggingHandlers": "bool",
+      "evictionHard": "map[string]string",
+      "evictionMinimumReclaim": "map[string]string",
       "imageGCHighThresholdPercent": "uint32",
       "imageGCLowThresholdPercent": "uint32",
       "maxParallelImagePulls": "int32",
@@ -178,49 +317,8 @@ serializeImagePulls          bool
       "registryPullQPS": "int32",
       "serializeImagePulls": "bool"
     },
-    "deprecated_at": null,
-    "end_of_life_at": null
-  },
-  {
-    "name": "1.29.15",
-    "label": "Kubernetes 1.29.15",
-    "region": "fr-par",
-    "available_cnis": [
-      "cilium",
-      "calico",
-      "kilo",
-      "none"
-    ],
-    "available_container_runtimes": [
-      "containerd"
-    ],
-    "available_feature_gates": [
-      "HPAScaleToZero",
-      "SidecarContainers",
-      "ValidatingAdmissionPolicy",
-      "InPlacePodVerticalScaling"
-    ],
-    "available_admission_plugins": [
-      "AlwaysPullImages",
-      "PodNodeSelector",
-      "PodTolerationRestriction"
-    ],
-    "available_kubelet_args": {
-      "containerLogMaxFiles": "uint16",
-      "containerLogMaxSize": "quantity",
-      "cpuCFSQuota": "bool",
-      "cpuCFSQuotaPeriod": "duration",
-      "cpuManagerPolicy": "enum:none|static",
-      "enableDebuggingHandlers": "bool",
-      "imageGCHighThresholdPercent": "uint32",
-      "imageGCLowThresholdPercent": "uint32",
-      "maxParallelImagePulls": "int32",
-      "maxPods": "uint16",
-      "registryBurst": "int32",
-      "registryPullQPS": "int32",
-      "serializeImagePulls": "bool"
-    },
-    "deprecated_at": null,
-    "end_of_life_at": null
+    "deprecated_at": "2025-07-25T00:00:00Z",
+    "end_of_life_at": "2025-09-09T00:00:00Z",
+    "released_at": null
   }
 ]

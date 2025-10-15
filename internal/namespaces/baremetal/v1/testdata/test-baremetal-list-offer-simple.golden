@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    Name           Stock      Disks  CPUs  Memories  Options  Bandwidth   PrivateBandwidth  CO2 (kg/hour)  Water (m³/hour)  Price per hour
-f7241870-c383-4fa2-bbca-5189600df5c4  EM-A115X-SSD   available  2      1     1         7        500000000   1000000000        0.016396677    1.330918e-06     € 0.091
+8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7  EM-A116X-SSD   available  2      1     1         3        500000000   1000000000        0.012079473    6.0804024e-07    € 0.077
 e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME  available  2      1     1         10       500000000   1000000000        -              -                € 0.11
-bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         7        1000000000  1000000000        0.020044472    1.6529143e-06    € 0.122
-6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         2        1000000000  1000000000        0.020230815    1.73878e-06      € 0.153
-5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   empty      2      1     1         8        1000000000  1000000000        0.019052466    1.5026494e-06    € 0.153
-c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         7        1000000000  1000000000        0.021611169    1.7173136e-06    € 0.213
-8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         6        1000000000  1000000000        0.029137727    2.5115712e-06    € 0.263
-a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         9        1000000000  1000000000        0.029708503    2.5115712e-06    € 0.263
-c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         9        1000000000  1000000000        0.030238569    2.361306e-06     € 0.321
-ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         9        1000000000  1000000000        0.033833902    2.7906347e-06    € 0.321
+bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         7        1000000000  1000000000        0.014682782    7.551468e-07     € 0.122
+6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         2        1000000000  1000000000        0.014590595    7.943752e-07     € 0.153
+5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   available  2      1     1         8        1000000000  1000000000        0.014178203    6.8649706e-07    € 0.153
+c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         7        1000000000  1000000000        0.016040582    7.845681e-07     € 0.213
+8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         6        1000000000  1000000000        0.021371262    1.1474308e-06    € 0.263
+a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         9        1000000000  1000000000        0.02156152     1.1474308e-06    € 0.263
+c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         9        1000000000  1000000000        0.02295953     1.0787811e-06    € 0.321
+ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         9        1000000000  1000000000        0.024971958    1.2749231e-06    € 0.321
 206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.333
 0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.356
-a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         7        1000000000  1000000000        0.021611169    1.7173136e-06    € 0.366
-a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.417
+a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         7        1000000000  1000000000        0.016040582    7.845681e-07     € 0.366
+a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME  empty      2      1     1         14       1000000000  10000000000       -              -                € 0.417
 d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.444
 d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.528
 fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.548
@@ -22,16 +22,16 @@ fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME  available  2      1     1  
 402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME  available  4      1     1         13       1000000000  10000000000       -              -                € 0.685
 66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.822
 ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.904
-18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME  low        4      1     1         13       1000000000  10000000000       -              -                € 1.014
+18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME  empty      4      1     1         13       1000000000  10000000000       -              -                € 1.014
 6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.096
 b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.37
-51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME  low        2      1     1         17       1000000000  25000000000       -              -                € 1.644
+51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.644
 49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME  empty      4      1     1         17       1000000000  25000000000       -              -                € 1.781
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "f7241870-c383-4fa2-bbca-5189600df5c4",
-    "name": "EM-A115X-SSD",
+    "id": "8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7",
+    "name": "EM-A116X-SSD",
     "stock": "available",
     "bandwidth": 500000000,
     "max_bandwidth": 1000000000,
@@ -39,7 +39,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "price_per_hour": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 91000000
+      "nanos": 77000000
     },
     "price_per_month": null,
     "disks": [
@@ -70,29 +70,30 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "is_ecc": true
       }
     ],
-    "quota_name": "EM_A115X_SSD",
+    "quota_name": "EM_A116X_SSD",
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "bf705b90-1548-4368-98ca-d17dbd8dd860",
-      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
-      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
       "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
       "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "58bf948f-8b9b-45c2-9ad6-582c26133f9e",
+      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "fa29896b-6b49-468d-a787-966559a55c12"
     ],
     "subscription_period": "hourly",
@@ -103,22 +104,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
       "nanos": 0
     },
     "options": [
-      {
-        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
-        "name": "Windows 2022 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
-        "license": {
-          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
-        }
-      },
       {
         "id": "9ce714f1-ed03-4e3b-8c69-d46957ab0ebb",
         "name": "Public Bandwidth 1Gbps",
@@ -136,38 +121,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
-        "name": "Private Network",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 30000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "private_network": {
-          "bandwidth_in_bps": 1000000000
-        }
-      },
-      {
-        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
-        "name": "Windows 2019 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 168,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-        "license": {
-          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
-        }
-      },
-      {
         "id": "931df052-d713-4674-8b58-96a63244c8e2",
         "name": "Remote Access",
         "enabled": false,
@@ -182,35 +135,19 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "remote_access": {}
       },
       {
-        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
-        "name": "Windows 2022 datacenter",
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
         "enabled": false,
-        "subscription_period": "monthly",
+        "subscription_period": "hourly",
         "price": {
           "currency_code": "EUR",
-          "units": 168,
-          "nanos": 0
+          "units": 0,
+          "nanos": 30000000
         },
-        "manageable": false,
-        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-        "license": {
-          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
-        }
-      },
-      {
-        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
-        "name": "Windows 2019 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-        "license": {
-          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
         }
       }
     ],
@@ -220,9 +157,10 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
       "install-system-v2"
     ],
     "gpus": [],
-    "monthly_offer_id": "f1322af3-53dd-473b-8749-83661fbb73d8",
-    "kg_co2_equivalent": 0.016396677,
-    "m3_water_usage": 0.000001330918
+    "monthly_offer_id": "7b3dae29-0658-4351-b8a7-7b97aef6efc2",
+    "zone": "",
+    "kg_co2_equivalent": 0.012079473,
+    "m3_water_usage": 6.0804024e-7
   },
   {
     "id": "e1680dec-52aa-4cbc-b70c-ef32d863fdb0",
@@ -269,30 +207,30 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "fa29896b-6b49-468d-a787-966559a55c12",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
       "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "3ea52186-1e57-499e-8146-ab38051a5c10",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
       "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
       "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "3ea52186-1e57-499e-8146-ab38051a5c10",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
       "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db"
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "69e740ab-9f0e-4107-8516-16470000729c"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -319,6 +257,20 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
         "name": "Windows 2025 standard",
         "enabled": false,
@@ -333,20 +285,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "license": {
           "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
         }
-      },
-      {
-        "id": "931df052-d713-4674-8b58-96a63244c8e2",
-        "name": "Remote Access",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 990000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
       },
       {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
@@ -467,6 +405,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "60bfff09-7b6e-4004-9b74-1957f26bf070",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -515,16 +454,16 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
       "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "69e740ab-9f0e-4107-8516-16470000729c"
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -534,22 +473,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
       "nanos": 0
     },
     "options": [
-      {
-        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
-        "name": "Windows 2019 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-        "license": {
-          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
-        }
-      },
       {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
         "name": "Windows 2019 datacenter",
@@ -564,6 +487,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
         "license": {
           "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
         }
       },
       {
@@ -648,8 +587,9 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": "1b067ec1-e383-4756-bbc2-d2ba5a76aa08",
-    "kg_co2_equivalent": 0.020044472,
-    "m3_water_usage": 0.0000016529143
+    "zone": "",
+    "kg_co2_equivalent": 0.014682782,
+    "m3_water_usage": 7.551468e-7
   },
   {
     "id": "6ec5bbb2-8267-41cd-aaf6-d43ea1b59372",
@@ -696,29 +636,30 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "3ea52186-1e57-499e-8146-ab38051a5c10",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "bf705b90-1548-4368-98ca-d17dbd8dd860",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
       "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "7e865c16-1a63-4dc7-8181-dabc020fc21b",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553"
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "3ea52186-1e57-499e-8146-ab38051a5c10",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "58bf948f-8b9b-45c2-9ad6-582c26133f9e",
+      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
+      "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -764,13 +705,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": "6b91e989-5251-4d89-b366-0f5565339fdc",
-    "kg_co2_equivalent": 0.020230815,
-    "m3_water_usage": 0.00000173878
+    "zone": "",
+    "kg_co2_equivalent": 0.014590595,
+    "m3_water_usage": 7.943752e-7
   },
   {
     "id": "5a505e81-5f6a-42bd-acec-0b290be92697",
     "name": "EM-A410X-SSD",
-    "stock": "empty",
+    "stock": "available",
     "bandwidth": 1000000000,
     "max_bandwidth": 1000000000,
     "commercial_range": "aluminium",
@@ -812,23 +754,24 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
       "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "bf705b90-1548-4368-98ca-d17dbd8dd860",
       "3422ae02-d6d7-4980-8a00-eb38c262fb41",
       "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
       "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
-      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "7e865c16-1a63-4dc7-8181-dabc020fc21b",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "a5c00c1b-95b1-4c08-8a33-79cc079f9dac",
       "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "fa29896b-6b49-468d-a787-966559a55c12"
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "bf705b90-1548-4368-98ca-d17dbd8dd860",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "58bf948f-8b9b-45c2-9ad6-582c26133f9e"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -970,8 +913,9 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": "7adc4a66-da70-40e3-856b-7b952b77fbf9",
-    "kg_co2_equivalent": 0.019052466,
-    "m3_water_usage": 0.0000015026494
+    "zone": "",
+    "kg_co2_equivalent": 0.014178203,
+    "m3_water_usage": 6.8649706e-7
   },
   {
     "id": "c5853302-63e4-40c7-a711-4a91629565c8",
@@ -1028,14 +972,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "incompatible_os_ids": [
       "847bb37a-dc13-4536-9f07-023d38dba98d",
       "69e740ab-9f0e-4107-8516-16470000729c",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "fa29896b-6b49-468d-a787-966559a55c12"
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -1073,6 +1017,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "private_network": {
           "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
         }
       },
       {
@@ -1136,22 +1096,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "license": {
           "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
         }
-      },
-      {
-        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
-        "name": "Windows 2022 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
-        "license": {
-          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
-        }
       }
     ],
     "private_bandwidth": 1000000000,
@@ -1159,8 +1103,9 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
-    "kg_co2_equivalent": 0.021611169,
-    "m3_water_usage": 0.0000017173136
+    "zone": "",
+    "kg_co2_equivalent": 0.016040582,
+    "m3_water_usage": 7.845681e-7
   },
   {
     "id": "8c2cf291-a3d3-4dc5-967f-f498a088411d",
@@ -1322,8 +1267,9 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": null,
-    "kg_co2_equivalent": 0.029137727,
-    "m3_water_usage": 0.0000025115712
+    "zone": "",
+    "kg_co2_equivalent": 0.021371262,
+    "m3_water_usage": 0.0000011474308
   },
   {
     "id": "a5065ba4-dde2-45f3-adec-1ebbb27b766b",
@@ -1377,21 +1323,21 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fa29896b-6b49-468d-a787-966559a55c12",
       "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
       "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
       "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "69e740ab-9f0e-4107-8516-16470000729c",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "7e865c16-1a63-4dc7-8181-dabc020fc21b",
       "bf705b90-1548-4368-98ca-d17dbd8dd860",
       "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129"
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "847bb37a-dc13-4536-9f07-023d38dba98d"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -1462,22 +1408,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "certification": {}
       },
       {
-        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
-        "name": "Private Network",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 30000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "private_network": {
-          "bandwidth_in_bps": 1000000000
-        }
-      },
-      {
         "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
         "name": "Windows 2022 standard",
         "enabled": false,
@@ -1526,6 +1456,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 30000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
         "name": "Windows 2019 datacenter",
         "enabled": false,
@@ -1546,9 +1492,10 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "shared_bandwidth": true,
     "tags": [],
     "gpus": [],
-    "monthly_offer_id": null,
-    "kg_co2_equivalent": 0.029708503,
-    "m3_water_usage": 0.0000025115712
+    "monthly_offer_id": "3032af6b-d3ad-424c-b986-58b9dce1f6ee",
+    "zone": "",
+    "kg_co2_equivalent": 0.02156152,
+    "m3_water_usage": 0.0000011474308
   },
   {
     "id": "c753f736-fbb4-4689-ae93-623f9d08dce5",
@@ -1576,17 +1523,17 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "enable": true,
     "cpus": [
       {
-        "name": "Intel Xeon E5 2600 or equivalent",
+        "name": "Intel Xeon E5 2620 or equivalent",
         "core_count": 8,
         "thread_count": 16,
-        "frequency": 2600,
+        "frequency": 2100,
         "benchmark": "5295"
       },
       {
-        "name": "Intel Xeon E5 2600 or equivalent",
+        "name": "Intel Xeon E5 2620 or equivalent",
         "core_count": 8,
         "thread_count": 16,
-        "frequency": 2600,
+        "frequency": 2100,
         "benchmark": "5295"
       }
     ],
@@ -1602,14 +1549,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
       "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "fa29896b-6b49-468d-a787-966559a55c12",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "69e740ab-9f0e-4107-8516-16470000729c"
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -1764,9 +1711,10 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "shared_bandwidth": true,
     "tags": [],
     "gpus": [],
-    "monthly_offer_id": null,
-    "kg_co2_equivalent": 0.030238569,
-    "m3_water_usage": 0.000002361306
+    "monthly_offer_id": "3cd02255-ec70-4890-9ea4-680a383bb066",
+    "zone": "",
+    "kg_co2_equivalent": 0.02295953,
+    "m3_water_usage": 0.0000010787811
   },
   {
     "id": "ddaf8ba6-b2b2-4279-8af3-51930fb602f8",
@@ -1794,17 +1742,17 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "enable": true,
     "cpus": [
       {
-        "name": "Intel Xeon E5 2600 or equivalent",
+        "name": "Intel Xeon E5 2620 or equivalent",
         "core_count": 8,
         "thread_count": 16,
-        "frequency": 2600,
+        "frequency": 2100,
         "benchmark": "5295"
       },
       {
-        "name": "Intel Xeon E5 2600 or equivalent",
+        "name": "Intel Xeon E5 2620 or equivalent",
         "core_count": 8,
         "thread_count": 16,
-        "frequency": 2600,
+        "frequency": 2100,
         "benchmark": "5295"
       }
     ],
@@ -1820,14 +1768,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
       "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "69e740ab-9f0e-4107-8516-16470000729c",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129"
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "fa29896b-6b49-468d-a787-966559a55c12"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -1854,22 +1802,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
-        "name": "Windows 2025 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 336,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-        "license": {
-          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
-        }
-      },
-      {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
         "name": "Private Network",
         "enabled": false,
@@ -1883,6 +1815,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "private_network": {
           "bandwidth_in_bps": 1000000000
+        }
+      },
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 336,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
         }
       },
       {
@@ -1982,9 +1930,10 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "shared_bandwidth": true,
     "tags": [],
     "gpus": [],
-    "monthly_offer_id": null,
-    "kg_co2_equivalent": 0.033833902,
-    "m3_water_usage": 0.0000027906347
+    "monthly_offer_id": "36c45e64-aaec-4823-9182-a9a05c497c01",
+    "zone": "",
+    "kg_co2_equivalent": 0.024971958,
+    "m3_water_usage": 0.0000012749231
   },
   {
     "id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
@@ -2031,28 +1980,28 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
       "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
       "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
       "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
       "d859aa89-8b4a-4551-af42-ff7c0c27260a",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
       "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "0058e276-66ef-4883-ad83-0e48536f635c",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
       "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db"
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -2079,22 +2028,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
-        "name": "Windows 2022 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
-        "license": {
-          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
-        }
-      },
-      {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
         "name": "Windows 2019 datacenter",
         "enabled": false,
@@ -2108,6 +2041,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
         "license": {
           "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
         }
       },
       {
@@ -2187,22 +2136,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
-        "name": "Windows 2025 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-        "license": {
-          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
-        }
-      },
-      {
         "id": "b92d36c0-9754-4678-9efd-096e4244e798",
         "name": "Public Bandwidth 2Gbps",
         "enabled": false,
@@ -2216,6 +2149,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
           "bandwidth_in_bps": 2000000000
+        }
+      },
+      {
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
         }
       },
       {
@@ -2290,6 +2239,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "8852ff25-c867-4d58-a1f8-40b9968119b7",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -2338,33 +2288,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
       "69e740ab-9f0e-4107-8516-16470000729c",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
       "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
       "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "847bb37a-dc13-4536-9f07-023d38dba98d"
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -2487,6 +2437,20 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
         "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
         "name": "Public Bandwidth 4Gbps",
         "enabled": false,
@@ -2503,18 +2467,36 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
-        "name": "HDS",
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
           "currency_code": "EUR",
-          "units": 15,
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+        }
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 168,
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -2597,38 +2579,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
-        "name": "Windows 2025 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
-        "license": {
-          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
-        }
-      },
-      {
-        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
-        "name": "Windows 2022 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 168,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-        "license": {
-          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
-        }
-      },
-      {
         "id": "931df052-d713-4674-8b58-96a63244c8e2",
         "name": "Remote Access",
         "enabled": false,
@@ -2651,6 +2601,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "5e226c64-3ceb-470e-a9bb-d01aff3dc335",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -2707,16 +2658,16 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+      "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
       "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+      "fa29896b-6b49-468d-a787-966559a55c12"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -2840,13 +2791,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": "0ca85e34-d35a-494b-9077-70589cf7a6c8",
-    "kg_co2_equivalent": 0.021611169,
-    "m3_water_usage": 0.0000017173136
+    "zone": "",
+    "kg_co2_equivalent": 0.016040582,
+    "m3_water_usage": 7.845681e-7
   },
   {
     "id": "a60ae97c-268c-40cb-af5f-dd276e917ed7",
     "name": "EM-B320E-NVME",
-    "stock": "available",
+    "stock": "empty",
     "bandwidth": 1000000000,
     "max_bandwidth": 10000000000,
     "commercial_range": "beryllium",
@@ -2888,28 +2840,28 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
       "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "fa29896b-6b49-468d-a787-966559a55c12",
       "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711"
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "0058e276-66ef-4883-ad83-0e48536f635c"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -2936,36 +2888,18 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
-        "name": "Windows 2019 datacenter",
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
           "currency_code": "EUR",
-          "units": 168,
+          "units": 15,
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-        "license": {
-          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
-        }
-      },
-      {
-        "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
-        "name": "Public Bandwidth 5Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 685000000
-        },
-        "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 5000000000
-        }
+        "certification": {}
       },
       {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
@@ -3000,33 +2934,19 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
-        "name": "HDS",
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
           "currency_code": "EUR",
-          "units": 15,
+          "units": 168,
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
-      },
-      {
-        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
-        "name": "Windows 2022 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
         "license": {
-          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
         }
       },
       {
@@ -3043,6 +2963,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
         "license": {
           "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "31f5cddb-8217-4eb0-ac6a-96dbcb080b88",
+        "name": "Public Bandwidth 10Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 233000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 10000000000
         }
       },
       {
@@ -3076,19 +3012,35 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "31f5cddb-8217-4eb0-ac6a-96dbcb080b88",
-        "name": "Public Bandwidth 10Gbps",
+        "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
+        "name": "Public Bandwidth 5Gbps",
         "enabled": false,
         "subscription_period": "hourly",
         "price": {
           "currency_code": "EUR",
-          "units": 1,
-          "nanos": 233000000
+          "units": 0,
+          "nanos": 685000000
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
-          "bandwidth_in_bps": 10000000000
+          "bandwidth_in_bps": 5000000000
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
+        "license": {
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
         }
       },
       {
@@ -3147,6 +3099,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "ffbd2be3-076a-4940-b77d-d8b333f9723e",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -3195,28 +3148,28 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
       "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
       "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a"
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "39176c6e-509d-4e6c-8e42-417d103f4579"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -3351,22 +3304,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
-        "name": "Windows 2022 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 252,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-        "license": {
-          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
-        }
-      },
-      {
         "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
         "name": "Windows 2019 standard",
         "enabled": false,
@@ -3380,6 +3317,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
         "license": {
           "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 252,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
         }
       },
       {
@@ -3454,6 +3407,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "8511a555-b488-458d-bdf2-b74716b8c1cb",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -3502,28 +3456,28 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
       "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
       "d859aa89-8b4a-4551-af42-ff7c0c27260a",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "69e740ab-9f0e-4107-8516-16470000729c",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966"
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "fa29896b-6b49-468d-a787-966559a55c12"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -3550,22 +3504,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
-        "name": "Windows 2025 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 252,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
-        "license": {
-          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
-        }
-      },
-      {
         "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
         "name": "Windows 2025 standard",
         "enabled": false,
@@ -3579,6 +3517,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
         "license": {
           "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+        }
+      },
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 252,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
         }
       },
       {
@@ -3761,6 +3715,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "2cc8ffd7-c25d-4c02-aa8b-b695bebe6213",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -3809,33 +3764,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
       "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553"
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -4122,6 +4077,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "293cc6d1-0ac8-4bc4-a5a1-8ed2096b045c",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -4170,16 +4126,16 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "fa29896b-6b49-468d-a787-966559a55c12",
       "d17d6872-0412-45d9-a198-af82c34d3c5c",
       "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
       "69e740ab-9f0e-4107-8516-16470000729c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966"
     ],
     "subscription_period": "hourly",
@@ -4221,6 +4177,20 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "license": {
           "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
         }
+      },
+      {
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
       },
       {
         "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
@@ -4317,22 +4287,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
-        "name": "Windows 2019 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 50,
-          "nanos": 400000000
-        },
-        "manageable": false,
-        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-        "license": {
-          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
-        }
-      },
-      {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
         "name": "Windows 2019 datacenter",
         "enabled": false,
@@ -4365,20 +4319,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "931df052-d713-4674-8b58-96a63244c8e2",
-        "name": "Remote Access",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 990000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
-      },
-      {
         "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
         "name": "Public Bandwidth 5Gbps",
         "enabled": false,
@@ -4392,6 +4332,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
           "bandwidth_in_bps": 5000000000
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 50,
+          "nanos": 400000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
         }
       },
       {
@@ -4416,6 +4372,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "tags": [],
     "gpus": [],
     "monthly_offer_id": "f46f16bd-ce65-4a6c-9e15-1d35b52e9e5e",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -4472,28 +4429,28 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
       "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
       "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
       "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "fa29896b-6b49-468d-a787-966559a55c12"
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "69e740ab-9f0e-4107-8516-16470000729c"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -4582,6 +4539,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
+        "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
+        "name": "Public Bandwidth 4Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 548000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 4000000000
+        }
+      },
+      {
         "id": "a905e3e8-690a-4822-9c90-21418a44aa76",
         "name": "Public Bandwidth 3Gbps",
         "enabled": false,
@@ -4611,22 +4584,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
           "bandwidth_in_bps": 10000000000
-        }
-      },
-      {
-        "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
-        "name": "Public Bandwidth 4Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 548000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 4000000000
         }
       },
       {
@@ -4662,6 +4619,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 25,
+          "nanos": 200000000
+        },
+        "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
         "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
         "name": "Windows 2019 datacenter",
         "enabled": false,
@@ -4692,22 +4665,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "license": {
           "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
         }
-      },
-      {
-        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
-        "name": "Windows 2019 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 25,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-        "license": {
-          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
-        }
       }
     ],
     "private_bandwidth": 10000000000,
@@ -4717,6 +4674,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "da1aff24-a8c5-445d-ae61-a1165e8dd636",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -4765,33 +4723,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
       "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
       "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
       "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a"
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -4815,38 +4773,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
           "bandwidth_in_bps": 4000000000
-        }
-      },
-      {
-        "id": "a905e3e8-690a-4822-9c90-21418a44aa76",
-        "name": "Public Bandwidth 3Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 411000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 3000000000
-        }
-      },
-      {
-        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
-        "name": "Windows 2019 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 75,
-          "nanos": 600000000
-        },
-        "manageable": false,
-        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-        "license": {
-          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
         }
       },
       {
@@ -4896,8 +4822,24 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
-        "name": "Windows 2025 standard",
+        "id": "a905e3e8-690a-4822-9c90-21418a44aa76",
+        "name": "Public Bandwidth 3Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 411000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 3000000000
+        }
+      },
+      {
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
@@ -4906,9 +4848,9 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
           "nanos": 600000000
         },
         "manageable": false,
-        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
         "license": {
-          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
         }
       },
       {
@@ -4925,6 +4867,22 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "private_network": {
           "bandwidth_in_bps": 25000000000
+        }
+      },
+      {
+        "id": "4b5723e9-5dcc-42e9-afbb-7ee556027051",
+        "name": "Windows 2025 standard",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 75,
+          "nanos": 600000000
+        },
+        "manageable": false,
+        "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c",
+        "license": {
+          "os_id": "a5cec64e-d7b0-4c6e-a819-60139d30a76c"
         }
       },
       {
@@ -5078,6 +5036,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "db96a346-53e8-41ab-838b-b0a349abbb66",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -5126,33 +5085,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "58bf948f-8b9b-45c2-9ad6-582c26133f9e",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "58bf948f-8b9b-45c2-9ad6-582c26133f9e",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "ac5cc157-caee-406a-ae0a-a28d7c30389a",
       "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
       "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621"
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -5390,13 +5349,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "44890f67-212b-4610-9170-4c199644525e",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
   {
     "id": "18137894-b9a7-4e7b-b026-518ab8a3e41e",
     "name": "EM-L420E-NVME",
-    "stock": "low",
+    "stock": "empty",
     "bandwidth": 1000000000,
     "max_bandwidth": 10000000000,
     "commercial_range": "lithium",
@@ -5446,28 +5406,28 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
       "fa29896b-6b49-468d-a787-966559a55c12",
       "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
       "1c376d8a-f237-438d-9cd9-47902050ffd3",
       "69e740ab-9f0e-4107-8516-16470000729c",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
       "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a"
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -5691,6 +5651,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "d6cc24a7-b7a3-4dbf-808c-0e92be840f11",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -5739,33 +5700,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
       "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "69e740ab-9f0e-4107-8516-16470000729c",
       "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
       "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
       "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
       "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
       "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "847bb37a-dc13-4536-9f07-023d38dba98d"
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -5776,8 +5737,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     },
     "options": [
       {
-        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
-        "name": "Windows 2025 datacenter",
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
@@ -5786,71 +5747,9 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
           "nanos": 0
         },
         "manageable": false,
-        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
         "license": {
-          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
-        }
-      },
-      {
-        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
-        "name": "HDS",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 15,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
-      },
-      {
-        "id": "ad1b86f2-4ae4-49f9-a826-a782e8d492f3",
-        "name": "Public Bandwidth 25Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 2,
-          "nanos": 55000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 25000000000
-        }
-      },
-      {
-        "id": "4ce8bd16-0c16-479d-83bb-492b5f9072fa",
-        "name": "Public Bandwidth 15Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 644000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 15000000000
-        }
-      },
-      {
-        "id": "b92d36c0-9754-4678-9efd-096e4244e798",
-        "name": "Public Bandwidth 2Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 274000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 2000000000
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
         }
       },
       {
@@ -5870,19 +5769,19 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
-        "name": "Windows 2022 datacenter",
+        "id": "31f5cddb-8217-4eb0-ac6a-96dbcb080b88",
+        "name": "Public Bandwidth 10Gbps",
         "enabled": false,
-        "subscription_period": "monthly",
+        "subscription_period": "hourly",
         "price": {
           "currency_code": "EUR",
-          "units": 672,
-          "nanos": 0
+          "units": 1,
+          "nanos": 233000000
         },
-        "manageable": false,
-        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-        "license": {
-          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 10000000000
         }
       },
       {
@@ -5902,19 +5801,35 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
-        "name": "Private Network",
+        "id": "ad1b86f2-4ae4-49f9-a826-a782e8d492f3",
+        "name": "Public Bandwidth 25Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 55000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 25000000000
+        }
+      },
+      {
+        "id": "b92d36c0-9754-4678-9efd-096e4244e798",
+        "name": "Public Bandwidth 2Gbps",
         "enabled": false,
         "subscription_period": "hourly",
         "price": {
           "currency_code": "EUR",
           "units": 0,
-          "nanos": 90000000
+          "nanos": 274000000
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "private_network": {
-          "bandwidth_in_bps": 25000000000
+        "public_bandwidth": {
+          "bandwidth_in_bps": 2000000000
         }
       },
       {
@@ -5950,19 +5865,65 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "31f5cddb-8217-4eb0-ac6a-96dbcb080b88",
-        "name": "Public Bandwidth 10Gbps",
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 90000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "private_network": {
+          "bandwidth_in_bps": 25000000000
+        }
+      },
+      {
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 15,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "certification": {}
+      },
+      {
+        "id": "4ce8bd16-0c16-479d-83bb-492b5f9072fa",
+        "name": "Public Bandwidth 15Gbps",
         "enabled": false,
         "subscription_period": "hourly",
         "price": {
           "currency_code": "EUR",
           "units": 1,
-          "nanos": 233000000
+          "nanos": 644000000
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
-          "bandwidth_in_bps": 10000000000
+          "bandwidth_in_bps": 15000000000
+        }
+      },
+      {
+        "id": "9e3498b1-45ef-4c55-b699-efd66d658cca",
+        "name": "Windows 2025 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 672,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2",
+        "license": {
+          "os_id": "bc7e4ca2-bf32-407f-a04b-72ad6455beb2"
         }
       },
       {
@@ -6052,6 +6013,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "1d6a7465-696d-408b-91d1-ccf1f90fd887",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -6100,33 +6062,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "7fb86682-316e-4f6e-a845-de9b230cdd29",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
-      "69e740ab-9f0e-4107-8516-16470000729c",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "69e740ab-9f0e-4107-8516-16470000729c",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
+      "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "5dfefb70-053e-4ba8-9d76-537b230db94e",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
       "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
       "fa29896b-6b49-468d-a787-966559a55c12",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
       "0058e276-66ef-4883-ad83-0e48536f635c",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
       "d859aa89-8b4a-4551-af42-ff7c0c27260a",
       "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "7fb86682-316e-4f6e-a845-de9b230cdd29",
       "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f"
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -6201,19 +6163,19 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
-        "name": "Public Bandwidth 5Gbps",
+        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+        "name": "Private Network",
         "enabled": false,
         "subscription_period": "hourly",
         "price": {
           "currency_code": "EUR",
           "units": 0,
-          "nanos": 685000000
+          "nanos": 90000000
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 5000000000
+        "private_network": {
+          "bandwidth_in_bps": 25000000000
         }
       },
       {
@@ -6233,8 +6195,54 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
-        "name": "Windows 2019 standard",
+        "id": "931df052-d713-4674-8b58-96a63244c8e2",
+        "name": "Remote Access",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 990000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "remote_access": {}
+      },
+      {
+        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
+        "name": "Windows 2019 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1008,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+        "license": {
+          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
+        }
+      },
+      {
+        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
+        "name": "Windows 2022 datacenter",
+        "enabled": false,
+        "subscription_period": "monthly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1008,
+          "nanos": 0
+        },
+        "manageable": false,
+        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
+        "license": {
+          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
+        }
+      },
+      {
+        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
+        "name": "Windows 2022 standard",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
@@ -6243,26 +6251,24 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
           "nanos": 200000000
         },
         "manageable": false,
-        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
         "license": {
-          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
         }
       },
       {
-        "id": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
-        "name": "Private Network",
+        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
+        "name": "HDS",
         "enabled": false,
-        "subscription_period": "hourly",
+        "subscription_period": "monthly",
         "price": {
           "currency_code": "EUR",
-          "units": 0,
-          "nanos": 90000000
+          "units": 15,
+          "nanos": 0
         },
-        "manageable": true,
+        "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "private_network": {
-          "bandwidth_in_bps": 25000000000
-        }
+        "certification": {}
       },
       {
         "id": "b0a352ae-8aa0-4397-b702-ecfe9563b47b",
@@ -6297,18 +6303,36 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "31f78309-e6e0-4005-99b3-b3de3958ca7d",
-        "name": "HDS",
+        "id": "f42a040b-6c91-4b11-beb0-b0b21e641fda",
+        "name": "Windows 2019 standard",
         "enabled": false,
         "subscription_period": "monthly",
         "price": {
           "currency_code": "EUR",
-          "units": 15,
-          "nanos": 0
+          "units": 151,
+          "nanos": 200000000
         },
         "manageable": false,
+        "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+        "license": {
+          "os_id": "7c70ff80-dbfa-4e07-be73-1de0e60fe175"
+        }
+      },
+      {
+        "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
+        "name": "Public Bandwidth 5Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 685000000
+        },
+        "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {}
+        "public_bandwidth": {
+          "bandwidth_in_bps": 5000000000
+        }
       },
       {
         "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
@@ -6341,68 +6365,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "public_bandwidth": {
           "bandwidth_in_bps": 3000000000
         }
-      },
-      {
-        "id": "83a8fb91-47b4-4c20-82f9-84c31d79bfd8",
-        "name": "Windows 2022 standard",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 151,
-          "nanos": 200000000
-        },
-        "manageable": false,
-        "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860",
-        "license": {
-          "os_id": "bf705b90-1548-4368-98ca-d17dbd8dd860"
-        }
-      },
-      {
-        "id": "931df052-d713-4674-8b58-96a63244c8e2",
-        "name": "Remote Access",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 990000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {}
-      },
-      {
-        "id": "c498071f-4f8d-49f3-bc52-afc219a48fe0",
-        "name": "Windows 2022 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1008,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41",
-        "license": {
-          "os_id": "3422ae02-d6d7-4980-8a00-eb38c262fb41"
-        }
-      },
-      {
-        "id": "f74a6322-070e-41dd-a13f-8165ea63aca8",
-        "name": "Windows 2019 datacenter",
-        "enabled": false,
-        "subscription_period": "monthly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1008,
-          "nanos": 0
-        },
-        "manageable": false,
-        "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-        "license": {
-          "os_id": "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a"
-        }
       }
     ],
     "private_bandwidth": 25000000000,
@@ -6413,13 +6375,14 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "5d7ced21-ce80-4bf8-ba7a-57195d56e2e8",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
   {
     "id": "51131a3a-7a9b-44c7-8228-2c071c185b77",
     "name": "EM-I620E-NVME",
-    "stock": "low",
+    "stock": "available",
     "bandwidth": 1000000000,
     "max_bandwidth": 25000000000,
     "commercial_range": "iridium",
@@ -6461,33 +6424,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
       "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
       "69e740ab-9f0e-4107-8516-16470000729c",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
       "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
       "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
       "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "b4816d13-8585-4005-a7c7-54a031dd933b",
+      "fa29896b-6b49-468d-a787-966559a55c12",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
       "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db"
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -6656,22 +6619,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         }
       },
       {
-        "id": "b92d36c0-9754-4678-9efd-096e4244e798",
-        "name": "Public Bandwidth 2Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 274000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 2000000000
-        }
-      },
-      {
         "id": "e0063872-115b-413e-bbf9-fff7eeca1065",
         "name": "Public Bandwidth 5Gbps",
         "enabled": false,
@@ -6685,22 +6632,6 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
           "bandwidth_in_bps": 5000000000
-        }
-      },
-      {
-        "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
-        "name": "Public Bandwidth 4Gbps",
-        "enabled": false,
-        "subscription_period": "hourly",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 548000000
-        },
-        "manageable": true,
-        "os_id": "00000000-0000-0000-0000-000000000000",
-        "public_bandwidth": {
-          "bandwidth_in_bps": 4000000000
         }
       },
       {
@@ -6733,6 +6664,38 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
         "os_id": "00000000-0000-0000-0000-000000000000",
         "public_bandwidth": {
           "bandwidth_in_bps": 10000000000
+        }
+      },
+      {
+        "id": "b92d36c0-9754-4678-9efd-096e4244e798",
+        "name": "Public Bandwidth 2Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 274000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 2000000000
+        }
+      },
+      {
+        "id": "b37af8cf-8b18-4349-a063-64e9c3d50124",
+        "name": "Public Bandwidth 4Gbps",
+        "enabled": false,
+        "subscription_period": "hourly",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 548000000
+        },
+        "manageable": true,
+        "os_id": "00000000-0000-0000-0000-000000000000",
+        "public_bandwidth": {
+          "bandwidth_in_bps": 4000000000
         }
       },
       {
@@ -6774,6 +6737,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "cda8bdd6-40bc-4352-a1c4-e78941d9243f",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   },
@@ -6830,33 +6794,33 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "persistent_memories": [],
     "raid_controllers": [],
     "incompatible_os_ids": [
-      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
-      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
-      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
+      "d17d6872-0412-45d9-a198-af82c34d3c5c",
+      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
+      "1c376d8a-f237-438d-9cd9-47902050ffd3",
+      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
+      "0058e276-66ef-4883-ad83-0e48536f635c",
+      "87a6472b-1bb4-4618-bb91-936d7de1966d",
       "69e740ab-9f0e-4107-8516-16470000729c",
-      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
-      "6aa3f876-1c83-4434-8cc4-a2dbc94216db",
       "ac5cc157-caee-406a-ae0a-a28d7c30389a",
+      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
+      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
+      "fd771862-4b75-46a7-ab42-73c46c0ac2db",
+      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
+      "fa29896b-6b49-468d-a787-966559a55c12",
+      "e04414b9-16d4-4ffb-8ba1-6b80704c7d2a",
+      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c",
+      "847bb37a-dc13-4536-9f07-023d38dba98d",
+      "93fb3e11-e02e-47d9-aa3a-f77a2f7a7129",
+      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
+      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
       "7fb86682-316e-4f6e-a845-de9b230cdd29",
       "b4816d13-8585-4005-a7c7-54a031dd933b",
-      "87a6472b-1bb4-4618-bb91-936d7de1966d",
-      "d17d6872-0412-45d9-a198-af82c34d3c5c",
-      "f2aeab5d-6015-4b7c-b4ed-d76e89093621",
-      "1c376d8a-f237-438d-9cd9-47902050ffd3",
-      "39176c6e-509d-4e6c-8e42-417d103f4579",
-      "7c70ff80-dbfa-4e07-be73-1de0e60fe175",
-      "8a83777f-6dc1-476a-8d0c-d8b7594ecb6f",
-      "2e06fa49-4677-4bd7-8bf5-b1c490d8a966",
-      "c2f3e970-63f0-4f48-aa84-3455e4e13802",
-      "d859aa89-8b4a-4551-af42-ff7c0c27260a",
-      "847bb37a-dc13-4536-9f07-023d38dba98d",
-      "fa29896b-6b49-468d-a787-966559a55c12",
-      "bd17a2bb-e686-486a-aacf-44fa8ce6e553",
       "4aff4d9d-b1f4-44b0-ab6f-e4711ac11711",
+      "39176c6e-509d-4e6c-8e42-417d103f4579",
       "5dfefb70-053e-4ba8-9d76-537b230db94e",
-      "5a7210ac-9d87-4f4a-b596-cc7f43a89b21",
-      "0058e276-66ef-4883-ad83-0e48536f635c",
-      "86fd5e3a-b023-4fa8-a3ae-1a194d8cd68c"
+      "3bc196f5-4b7d-4f60-9dc5-86d4bcf36e1a",
+      "6aa3f876-1c83-4434-8cc4-a2dbc94216db"
     ],
     "subscription_period": "hourly",
     "operation_path": "",
@@ -7143,6 +7107,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     ],
     "gpus": [],
     "monthly_offer_id": "fc10fde7-336e-430a-aa58-0f70669e9fab",
+    "zone": "",
     "kg_co2_equivalent": null,
     "m3_water_usage": null
   }
