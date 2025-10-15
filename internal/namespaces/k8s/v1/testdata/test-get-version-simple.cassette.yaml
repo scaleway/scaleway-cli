@@ -5,39 +5,47 @@ interactions:
     body: '{"region":"fr-par", "name":"1.32.3", "label":"Kubernetes 1.32.3", "available_cnis":["cilium",
       "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
       "InPlacePodVerticalScaling", "SidecarContainers", "DRAAdminAccess", "DRAResourceClaimDeviceStatus",
-      "DynamicResourceAllocation"], "available_admission_plugins":["AlwaysPullImages",
-      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
+      "DynamicResourceAllocation", "PodLevelResources", "CPUManagerPolicyAlphaOptions",
+      "ImageVolume"], "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector",
+      "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
       "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
-      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
-      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
-      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}}'
+      "cpuManagerPolicy":"enum:none|static", "cpuManagerPolicyOptions":"map[string]string",
+      "enableDebuggingHandlers":"bool", "evictionHard":"map[string]string", "evictionMinimumReclaim":"map[string]string",
+      "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
+      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
+      "registryPullQPS":"int32", "serializeImagePulls":"bool"}, "deprecated_at":"2026-03-24T00:00:00Z",
+      "end_of_life_at":"2025-05-24T00:00:00Z"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; arm64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/k8s/v1/regions/fr-par/versions/1.32.3
     method: GET
   response:
     body: '{"region":"fr-par", "name":"1.32.3", "label":"Kubernetes 1.32.3", "available_cnis":["cilium",
       "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
       "InPlacePodVerticalScaling", "SidecarContainers", "DRAAdminAccess", "DRAResourceClaimDeviceStatus",
-      "DynamicResourceAllocation"], "available_admission_plugins":["AlwaysPullImages",
-      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
+      "DynamicResourceAllocation", "PodLevelResources", "CPUManagerPolicyAlphaOptions",
+      "ImageVolume"], "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector",
+      "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
       "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
-      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
-      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
-      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}}'
+      "cpuManagerPolicy":"enum:none|static", "cpuManagerPolicyOptions":"map[string]string",
+      "enableDebuggingHandlers":"bool", "evictionHard":"map[string]string", "evictionMinimumReclaim":"map[string]string",
+      "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
+      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
+      "registryPullQPS":"int32", "serializeImagePulls":"bool"}, "deprecated_at":"2026-03-24T00:00:00Z",
+      "end_of_life_at":"2025-05-24T00:00:00Z"}'
     headers:
       Content-Length:
-      - "876"
+      - "1154"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 14 May 2025 12:01:24 GMT
+      - Wed, 15 Oct 2025 10:06:04 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -45,7 +53,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 041ee74d-e83f-4b61-9dfb-6b016f63600f
+      - 0e36ac78-691e-430a-8876-32b35817c786
     status: 200 OK
     code: 200
     duration: ""

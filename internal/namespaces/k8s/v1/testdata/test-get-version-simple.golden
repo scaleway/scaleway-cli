@@ -1,8 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name    1.32.3
-Label   Kubernetes 1.32.3
-Region  fr-par
+Name          1.32.3
+Label         Kubernetes 1.32.3
+Region        fr-par
+DeprecatedAt  few seconds ago
+EndOfLifeAt   few seconds ago
 
 Available Kubelet Arguments:
 containerLogMaxFiles         uint16
@@ -10,7 +12,10 @@ containerLogMaxSize          quantity
 cpuCFSQuota                  bool
 cpuCFSQuotaPeriod            duration
 cpuManagerPolicy             enum:none|static
+cpuManagerPolicyOptions      map[string]string
 enableDebuggingHandlers      bool
+evictionHard                 map[string]string
+evictionMinimumReclaim       map[string]string
 imageGCHighThresholdPercent  uint32
 imageGCLowThresholdPercent   uint32
 maxParallelImagePulls        int32
@@ -26,7 +31,7 @@ Available Container Runtimes:
 [containerd]
 
 Available Feature Gates:
-[HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation]
+[HPAScaleToZero InPlacePodVerticalScaling SidecarContainers DRAAdminAccess DRAResourceClaimDeviceStatus DynamicResourceAllocation PodLevelResources CPUManagerPolicyAlphaOptions ImageVolume]
 
 Available Admission Plugins:
 [AlwaysPullImages PodNodeSelector PodTolerationRestriction]
@@ -50,7 +55,10 @@ Available Admission Plugins:
     "SidecarContainers",
     "DRAAdminAccess",
     "DRAResourceClaimDeviceStatus",
-    "DynamicResourceAllocation"
+    "DynamicResourceAllocation",
+    "PodLevelResources",
+    "CPUManagerPolicyAlphaOptions",
+    "ImageVolume"
   ],
   "available_admission_plugins": [
     "AlwaysPullImages",
@@ -63,7 +71,10 @@ Available Admission Plugins:
     "cpuCFSQuota": "bool",
     "cpuCFSQuotaPeriod": "duration",
     "cpuManagerPolicy": "enum:none|static",
+    "cpuManagerPolicyOptions": "map[string]string",
     "enableDebuggingHandlers": "bool",
+    "evictionHard": "map[string]string",
+    "evictionMinimumReclaim": "map[string]string",
     "imageGCHighThresholdPercent": "uint32",
     "imageGCLowThresholdPercent": "uint32",
     "maxParallelImagePulls": "int32",
@@ -72,6 +83,7 @@ Available Admission Plugins:
     "registryPullQPS": "int32",
     "serializeImagePulls": "bool"
   },
-  "deprecated_at": null,
-  "end_of_life_at": null
+  "deprecated_at": "2026-03-24T00:00:00Z",
+  "end_of_life_at": "2025-05-24T00:00:00Z",
+  "released_at": null
 }
