@@ -86,6 +86,9 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 			Region:    request.Region,
 			ClusterID: request.ClusterID,
+			Redacted: scw.BoolPtr(
+				request.AuthMethod != authMethodLegacy,
+			), // put true after legacy deprecation
 		})
 	if err != nil {
 		return nil, err

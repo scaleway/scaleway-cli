@@ -1,6 +1,7 @@
 package k8s_test
 
 import (
+	"errors"
 	"fmt"
 	"os"
 	"path"
@@ -10,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	go_api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -26,40 +28,35 @@ const (
 // register it in the context Meta at metaKey.
 func createCluster(
 	clusterNameSuffix string,
-	poolSize int,
-	nodeType string,
+	wait bool,
 ) core.BeforeFunc {
+	format := "scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default"
+	if wait {
+		format += " --wait"
+	}
+
 	return core.ExecStoreBeforeCmd(
 		clusterMetaKey,
 		fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=%s pools.0.size=%d pools.0.name=default",
+			format,
 			clusterNameSuffix,
 			kapsuleVersion,
-			nodeType,
-			poolSize,
 		),
 	)
 }
 
-// createClusterAndWaitAndKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
-// register it in the context Meta at metaKey.
-func createClusterAndWaitAndKubeconfig(
-	clusterNameSuffix string,
+// fetchClusterKubeconfigMetadata fetch kubeconfig of previously created cluster.
+func fetchClusterKubeconfigMetadata(
+	redacted bool,
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
-			clusterNameSuffix,
-			kapsuleVersion,
-		)
-		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		cluster := res.(*k8s.Cluster)
-		ctx.Meta[clusterMetaKey] = cluster
+		cluster := ctx.Meta[clusterMetaKey].(*k8s.Cluster)
 
 		apiKubeconfig, err := k8s.NewAPI(ctx.Client).
 			GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 				Region:    cluster.Region,
 				ClusterID: cluster.ID,
+				Redacted:  scw.BoolPtr(redacted),
 			})
 		if err != nil {
 			return err
@@ -75,10 +72,7 @@ func createClusterAndWaitAndKubeconfig(
 	}
 }
 
-func populateKubeconfigAndCreateCluster(
-	kubeconfigRaw []byte,
-	clusterNameSuffix string,
-) core.BeforeFunc {
+func writeKubeconfigFile(kubeconfigRaw []byte) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		// Populate $HOME/.kube/config with existing data
 		kubeconfigPath := path.Join(ctx.Meta["HOME"].(string), ".kube", "config")
@@ -86,14 +80,20 @@ func populateKubeconfigAndCreateCluster(
 			return err
 		}
 
-		if err := os.WriteFile(kubeconfigPath, kubeconfigRaw, 0o600); err != nil {
-			return err
+		return os.WriteFile(kubeconfigPath, kubeconfigRaw, 0o600)
+	}
+}
+
+func cliInstallKubeconfig() core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cluster := ctx.Meta[clusterMetaKey].(*k8s.Cluster)
+		cmd := "scw k8s kubeconfig install " + cluster.ID
+		installOut := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		if !strings.Contains(installOut.(string), "successfully written") {
+			return errors.New("kubeconfig install failed")
 		}
 
-		// Then create a cluster
-		return createClusterAndWaitAndKubeconfig(
-			clusterNameSuffix,
-		)(ctx)
+		return nil
 	}
 }
 
