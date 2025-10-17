@@ -574,35 +574,6 @@ func appleSiliconServerReinstall() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "runner-configuration.name",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "runner-configuration.url",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "runner-configuration.token",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "runner-configuration.provider",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"unknown_provider",
-					"github",
-					"gitlab",
-				},
-			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
