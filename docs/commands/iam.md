@@ -32,6 +32,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Get a log](#get-a-log)
   - [List logs](#list-logs)
 - [Organization-wide management commands](#organization-wide-management-commands)
+  - [Enable SAML Identity Provider for an Organization](#enable-saml-identity-provider-for-an-organization)
+  - [Get SAML Identity Provider configuration of an Organization](#get-saml-identity-provider-configuration-of-an-organization)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -46,6 +48,13 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Delete a rule for a specific IAM policy](#delete-a-rule-for-a-specific-iam-policy)
   - [List rules of a given policy](#list-rules-of-a-given-policy)
   - [Set rules of a given policy](#set-rules-of-a-given-policy)
+- [SAML management commands](#saml-management-commands)
+  - [Disable SAML Identity Provider for an Organization](#disable-saml-identity-provider-for-an-organization)
+  - [Update SAML Identity Provider configuration](#update-saml-identity-provider-configuration)
+- [SAML Certificates management commands](#saml-certificates-management-commands)
+  - [Add a SAML certificate](#add-a-saml-certificate)
+  - [Delete a SAML certificate](#delete-a-saml-certificate)
+  - [List SAML certificates](#list-saml-certificates)
 - [SSH keys management commands](#ssh-keys-management-commands)
   - [Create an SSH key](#create-an-ssh-key)
   - [Delete an SSH key](#delete-an-ssh-key)
@@ -634,13 +643,42 @@ scw iam log list [arg=value ...]
 
 Organization-wide management commands.
 
-Organization-wide management commands.
+
+### Enable SAML Identity Provider for an Organization
+
+Enable SAML Identity Provider for an Organization.
 
 **Usage:**
 
 ```
-scw iam organization
+scw iam organization enable-saml [arg=value ...]
 ```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+### Get SAML Identity Provider configuration of an Organization
+
+Get SAML Identity Provider configuration of an Organization.
+
+**Usage:**
+
+```
+scw iam organization get-saml [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -914,6 +952,115 @@ scw iam rule update <policy-id ...> [arg=value ...]
 
 
 
+## SAML management commands
+
+SAML management commands.
+
+
+### Disable SAML Identity Provider for an Organization
+
+Disable SAML Identity Provider for an Organization.
+
+**Usage:**
+
+```
+scw iam saml delete <saml-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| saml-id | Required | ID of the SAML configuration |
+
+
+
+### Update SAML Identity Provider configuration
+
+Update SAML Identity Provider configuration.
+
+**Usage:**
+
+```
+scw iam saml update <saml-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| saml-id | Required | ID of the SAML configuration |
+| entity-id |  | Entity ID of the SAML Identity Provider |
+| single-sign-on-url |  | Single Sign-On URL of the SAML Identity Provider |
+
+
+
+## SAML Certificates management commands
+
+SAML Certificates management commands.
+
+
+### Add a SAML certificate
+
+Add a SAML certificate.
+
+**Usage:**
+
+```
+scw iam saml-certificates add <saml-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| saml-id | Required | ID of the SAML configuration |
+| type | Required<br />One of: `unknown_certificate_type`, `signing`, `encryption` | Type of the SAML certificate |
+| content | Required | Content of the SAML certificate |
+
+
+
+### Delete a SAML certificate
+
+Delete a SAML certificate.
+
+**Usage:**
+
+```
+scw iam saml-certificates delete <certificate-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| certificate-id | Required | ID of the certificate to delete |
+
+
+
+### List SAML certificates
+
+List SAML certificates.
+
+**Usage:**
+
+```
+scw iam saml-certificates list <saml-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| saml-id | Required | ID of the SAML configuration |
+
+
+
 ## SSH keys management commands
 
 SSH keys management commands.
@@ -1146,7 +1293,7 @@ scw iam user list [arg=value ...]
 | user-ids.{index} |  | Filter by list of IDs |
 | mfa |  | Filter by MFA status |
 | tag |  | Filter by tags containing a given string |
-| type | One of: `unknown_type`, `guest`, `owner`, `member` | Filter by user type |
+| type | One of: `unknown_type`, `owner`, `member` | Filter by user type |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
 
 
