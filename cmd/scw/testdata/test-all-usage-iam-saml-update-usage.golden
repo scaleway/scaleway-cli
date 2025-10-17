@@ -1,21 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Organization-wide management commands.
+Update SAML Identity Provider configuration.
 
 USAGE:
-  scw iam organization <command>
+  scw iam saml update <saml-id ...> [arg=value ...]
 
-AVAILABLE COMMANDS:
-  enable-saml Enable SAML Identity Provider for an Organization
-  get-saml    Get SAML Identity Provider configuration of an Organization
+ARGS:
+  saml-id                ID of the SAML configuration
+  [entity-id]            Entity ID of the SAML Identity Provider
+  [single-sign-on-url]   Single Sign-On URL of the SAML Identity Provider
 
 FLAGS:
-  -h, --help   help for organization
+  -h, --help   help for update
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw iam organization [command] --help" for more information about a command.
