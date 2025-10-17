@@ -31,6 +31,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwt(),
 		iamLog(),
 		iamOrganization(),
+		iamSaml(),
+		iamSamlCertificates(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -76,6 +78,13 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwtDelete(),
 		iamLogList(),
 		iamLogGet(),
+		iamOrganizationGetSaml(),
+		iamOrganizationEnableSaml(),
+		iamSamlUpdate(),
+		iamSamlDelete(),
+		iamSamlCertificatesList(),
+		iamSamlCertificatesAdd(),
+		iamSamlCertificatesDelete(),
 	)
 }
 
@@ -183,6 +192,24 @@ func iamOrganization() *core.Command {
 		Long:      `Organization-wide management commands.`,
 		Namespace: "iam",
 		Resource:  "organization",
+	}
+}
+
+func iamSaml() *core.Command {
+	return &core.Command{
+		Short:     `SAML management commands`,
+		Long:      `SAML management commands.`,
+		Namespace: "iam",
+		Resource:  "saml",
+	}
+}
+
+func iamSamlCertificates() *core.Command {
+	return &core.Command{
+		Short:     `SAML Certificates management commands`,
+		Long:      `SAML Certificates management commands.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
 	}
 }
 
@@ -512,7 +539,6 @@ func iamUserList() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_type",
-					"guest",
 					"owner",
 					"member",
 				},
@@ -2633,6 +2659,244 @@ func iamLogGet() *core.Command {
 			api := iam.NewAPI(client)
 
 			return api.GetLog(request)
+		},
+	}
+}
+
+func iamOrganizationGetSaml() *core.Command {
+	return &core.Command{
+		Short:     `Get SAML Identity Provider configuration of an Organization`,
+		Long:      `Get SAML Identity Provider configuration of an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "get-saml",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.GetOrganizationSamlRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.GetOrganizationSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.GetOrganizationSaml(request)
+		},
+	}
+}
+
+func iamOrganizationEnableSaml() *core.Command {
+	return &core.Command{
+		Short:     `Enable SAML Identity Provider for an Organization`,
+		Long:      `Enable SAML Identity Provider for an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "enable-saml",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.EnableOrganizationSamlRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.EnableOrganizationSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.EnableOrganizationSaml(request)
+		},
+	}
+}
+
+func iamSamlUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update SAML Identity Provider configuration`,
+		Long:      `Update SAML Identity Provider configuration.`,
+		Namespace: "iam",
+		Resource:  "saml",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateSamlRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "entity-id",
+				Short:      `Entity ID of the SAML Identity Provider`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "single-sign-on-url",
+				Short:      `Single Sign-On URL of the SAML Identity Provider`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.UpdateSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.UpdateSaml(request)
+		},
+	}
+}
+
+func iamSamlDelete() *core.Command {
+	return &core.Command{
+		Short:     `Disable SAML Identity Provider for an Organization`,
+		Long:      `Disable SAML Identity Provider for an Organization.`,
+		Namespace: "iam",
+		Resource:  "saml",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.DeleteSamlRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteSaml(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "saml",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func iamSamlCertificatesList() *core.Command {
+	return &core.Command{
+		Short:     `List SAML certificates`,
+		Long:      `List SAML certificates.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.ListSamlCertificatesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.ListSamlCertificatesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.ListSamlCertificates(request)
+		},
+	}
+}
+
+func iamSamlCertificatesAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add a SAML certificate`,
+		Long:      `Add a SAML certificate.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.AddSamlCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of the SAML certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_certificate_type",
+					"signing",
+					"encryption",
+				},
+			},
+			{
+				Name:       "content",
+				Short:      `Content of the SAML certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.AddSamlCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.AddSamlCertificate(request)
+		},
+	}
+}
+
+func iamSamlCertificatesDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a SAML certificate`,
+		Long:      `Delete a SAML certificate.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.DeleteSamlCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "certificate-id",
+				Short:      `ID of the certificate to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteSamlCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteSamlCertificate(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "saml-certificates",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
