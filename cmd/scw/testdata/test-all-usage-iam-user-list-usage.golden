@@ -10,7 +10,7 @@ ARGS:
   [user-ids.{index}]                        Filter by list of IDs
   [mfa]                                     Filter by MFA status
   [tag]                                     Filter by tags containing a given string
-  [type]                                    Filter by user type (unknown_type | guest | owner | member)
+  [type]                                    Filter by user type (unknown_type | owner | member)
   organization-id=<retrieved from config>   ID of the Organization to filter
 
 FLAGS:

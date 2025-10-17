@@ -6,17 +6,19 @@ USAGE:
   scw iam <command>
 
 AVAILABLE COMMANDS:
-  api-key        API keys management commands
-  application    Applications management commands
-  group          Groups management commands
-  jwt            JWTs management commands
-  log            Log management commands
-  organization   Organization-wide management commands
-  permission-set Permission sets management commands
-  policy         Policies management commands
-  rule           Rules management commands
-  ssh-key        SSH keys management commands
-  user           Users management commands
+  api-key           API keys management commands
+  application       Applications management commands
+  group             Groups management commands
+  jwt               JWTs management commands
+  log               Log management commands
+  organization      Organization-wide management commands
+  permission-set    Permission sets management commands
+  policy            Policies management commands
+  rule              Rules management commands
+  saml              SAML management commands
+  saml-certificates SAML Certificates management commands
+  ssh-key           SSH keys management commands
+  user              Users management commands
 
 FLAGS:
   -h, --help   help for iam
