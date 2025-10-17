@@ -146,6 +146,7 @@ scw object config get [arg=value ...]
 |------|---|-------------|
 | type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
 | name | Default: `scaleway` | Name of the s3 remote you want to generate |
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
@@ -187,6 +188,7 @@ scw object config install [arg=value ...]
 |------|---|-------------|
 | type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
 | name | Default: `scaleway` | Name of the s3 remote you want to generate |
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 

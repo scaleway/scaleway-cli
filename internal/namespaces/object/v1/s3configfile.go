@@ -37,6 +37,7 @@ type s3config struct {
 	Region    scw.Region
 	Name      string
 	ctx       context.Context
+	ProjectID string
 }
 
 const (
@@ -71,7 +72,7 @@ type = s3
 provider = Scaleway
 env_auth = false
 endpoint = s3.{{ .Region }}.scw.cloud
-access_key_id = {{ .AccessKey }}
+access_key_id = {{ .AccessKey }}@{{ .ProjectID }}
 secret_access_key = {{ .SecretKey }}
 region = {{ .Region }}
 location_constraint =
@@ -87,10 +88,20 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	if !accessExists {
 		return s3config{}, errors.New("no access key found")
 	}
+
 	secretKey, secretExists := client.GetSecretKey()
 	if !secretExists {
 		return s3config{}, errors.New("no secret key found")
 	}
+
+	projectID, exists := client.GetDefaultProjectID()
+	if !exists {
+		return s3config{}, errors.New("no project ID found")
+	}
+
+        if projectID != "" {
+                accessKey+="@"+projectID
+        }
 	config := s3config{
 		AccessKey: accessKey,
 		SecretKey: secretKey,
@@ -144,6 +155,7 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 			AccessKey string `json:"accessKey"`
 			SecretKey string `json:"secretKey"`
 			API       string `json:"api"`
+			ProjectID string `json:"projectID"`
 		}
 		m := struct {
 			Version string                `json:"version"`
@@ -153,7 +165,7 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 			Hosts: map[string]hostconfig{
 				c.Name: {
 					URL:       "https://s3." + c.Region.String() + ".scw.cloud",
-					AccessKey: c.AccessKey,
+					AccessKey: c.AccessKey + "@" + c.ProjectID,
 					SecretKey: c.SecretKey,
 					API:       "S3v4",
 				},
