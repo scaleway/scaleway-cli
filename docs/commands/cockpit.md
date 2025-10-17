@@ -25,8 +25,6 @@ This API allows you to manage your Scaleway Cockpit, for storing and visualizing
   - [List Grafana users](#list-grafana-users)
   - [Reset a Grafana user password](#reset-a-grafana-user-password)
 - [Managed alerts management commands](#managed-alerts-management-commands)
-  - [Disable managed alerts](#disable-managed-alerts)
-  - [Enable managed alerts](#enable-managed-alerts)
 - [Pricing plans management commands](#pricing-plans-management-commands)
   - [Get current plan](#get-current-plan)
   - [List plan types](#list-plan-types)
@@ -431,44 +429,13 @@ scw cockpit grafana-user reset-password [arg=value ...]
 
 Managed alerts management commands.
 
-
-### Disable managed alerts
-
-Disable the sending of managed alerts for the specified Project.
+Managed alerts management commands.
 
 **Usage:**
 
 ```
-scw cockpit managed-alerts disable [arg=value ...]
+scw cockpit managed-alerts
 ```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Enable managed alerts
-
-Enable the sending of managed alerts for the specified Project. Managed alerts are predefined alerts that apply to Scaleway recources integrated with Cockpit by default.
-
-**Usage:**
-
-```
-scw cockpit managed-alerts enable [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
