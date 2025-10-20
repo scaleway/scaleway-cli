@@ -2605,8 +2605,8 @@ func dediboxIPv6BlockCreate() *core.Command {
 
 func dediboxIPv6BlockGet() *core.Command {
 	return &core.Command{
-		Short:     `Get a specific IPv6 block`,
-		Long:      `Get the IPv6 block associated with the given ID.`,
+		Short:     `Get first IPv6 block`,
+		Long:      `Get the first IPv6 block associated with the given project ID.`,
 		Namespace: "dedibox",
 		Resource:  "ipv6-block",
 		Verb:      "get",

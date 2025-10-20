@@ -58,8 +58,6 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitContactPointCreate(),
 		cockpitContactPointList(),
 		cockpitContactPointDelete(),
-		cockpitManagedAlertsEnable(),
-		cockpitManagedAlertsDisable(),
 		cockpitTestAlertTrigger(),
 	)
 }
@@ -1235,62 +1233,6 @@ func cockpitContactPointDelete() *core.Command {
 				Resource: "contact-point",
 				Verb:     "delete",
 			}, nil
-		},
-	}
-}
-
-func cockpitManagedAlertsEnable() *core.Command {
-	return &core.Command{
-		Short:     `Enable managed alerts`,
-		Long:      `Enable the sending of managed alerts for the specified Project. Managed alerts are predefined alerts that apply to Scaleway recources integrated with Cockpit by default.`,
-		Namespace: "cockpit",
-		Resource:  "managed-alerts",
-		Verb:      "enable",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIEnableManagedAlertsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.RegionNlAms,
-				scw.RegionPlWaw,
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*cockpit.RegionalAPIEnableManagedAlertsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := cockpit.NewRegionalAPI(client)
-
-			return api.EnableManagedAlerts(request)
-		},
-	}
-}
-
-func cockpitManagedAlertsDisable() *core.Command {
-	return &core.Command{
-		Short:     `Disable managed alerts`,
-		Long:      `Disable the sending of managed alerts for the specified Project.`,
-		Namespace: "cockpit",
-		Resource:  "managed-alerts",
-		Verb:      "disable",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDisableManagedAlertsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.RegionNlAms,
-				scw.RegionPlWaw,
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*cockpit.RegionalAPIDisableManagedAlertsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := cockpit.NewRegionalAPI(client)
-
-			return api.DisableManagedAlerts(request)
 		},
 	}
 }
