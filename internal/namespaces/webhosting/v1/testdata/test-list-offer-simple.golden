@@ -1,158 +1,24 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME          BILLING OPERATION PATH                 OPTIONS  PRICE    AVAILABLE  CONTROL PANEL NAME  END OF LIFE  QUOTA WARNING
-4d5b119e-8ec9-11ee-b9d1-0242ac120002  lite          /webhosting/plesk-lite/fr-par          9        € 5.99   true       plesk               false        unknown_warning
-f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par                9        € 5.99   true       cpanel              false        unknown_warning
-d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par            9        € 9.99   true       cpanel              false        unknown_warning
-3d4ead38-8ec9-11ee-b9d1-0242ac120002  personal      /webhosting/plesk-personal/fr-par      9        € 9.99   true       plesk               false        unknown_warning
-41da9100-8ec9-11ee-b9d1-0242ac120002  professional  /webhosting/plesk-professional/fr-par  9        € 18.99  true       plesk               false        unknown_warning
-de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par        9        € 18.99  true       cpanel              false        unknown_warning
-e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par           9        € 29.99  true       cpanel              false        unknown_warning
-4626320a-8ec9-11ee-b9d1-0242ac120002  ecommerce     /webhosting/plesk-ecommerce/fr-par     9        € 29.99  true       plesk               false        unknown_warning
+ID                                    NAME          BILLING OPERATION PATH           OPTIONS  PRICE    AVAILABLE  CONTROL PANEL NAME  END OF LIFE  QUOTA WARNING    REGION
+f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par          10       € 5.99   true       cpanel              false        unknown_warning  
+525098b0-c4bc-4e96-b656-8d6f68d8f52f  lite          /webhosting/lite/fr-par          10       € 5.99   true       wordpress           false        unknown_warning  
+d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par      10       € 9.99   true       cpanel              false        unknown_warning  
+4651a634-070f-47a3-8bf8-2c22ace80b9b  personal      /webhosting/personal/fr-par      10       € 9.99   true       wordpress           false        unknown_warning  
+de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par  10       € 18.99  true       cpanel              false        unknown_warning  
+97b9988d-6551-4f91-ab3e-c2265d4abcba  professional  /webhosting/professional/fr-par  10       € 18.99  true       wordpress           false        unknown_warning  
+e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       cpanel              false        unknown_warning  
+f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       wordpress           false        unknown_warning  
+f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par          10       € 5.99   true       cpanel              false        unknown_warning  
+525098b0-c4bc-4e96-b656-8d6f68d8f52f  lite          /webhosting/lite/fr-par          10       € 5.99   true       wordpress           false        unknown_warning  
+d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par      10       € 9.99   true       cpanel              false        unknown_warning  
+4651a634-070f-47a3-8bf8-2c22ace80b9b  personal      /webhosting/personal/fr-par      10       € 9.99   true       wordpress           false        unknown_warning  
+de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par  10       € 18.99  true       cpanel              false        unknown_warning  
+97b9988d-6551-4f91-ab3e-c2265d4abcba  professional  /webhosting/professional/fr-par  10       € 18.99  true       wordpress           false        unknown_warning  
+e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       cpanel              false        unknown_warning  
+f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       wordpress           false        unknown_warning
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
-  {
-    "id": "4d5b119e-8ec9-11ee-b9d1-0242ac120002",
-    "name": "lite",
-    "billing_operation_path": "/webhosting/plesk-lite/fr-par",
-    "options": [
-      {
-        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
-        "name": "email_count",
-        "billing_operation_path": "",
-        "min_value": 1,
-        "current_value": 0,
-        "max_value": 1000,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 0
-        }
-      },
-      {
-        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
-        "name": "vcpu_count",
-        "billing_operation_path": "",
-        "min_value": 1,
-        "current_value": 0,
-        "max_value": 8,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 0
-        }
-      },
-      {
-        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
-        "name": "ram_gb",
-        "billing_operation_path": "",
-        "min_value": 1,
-        "current_value": 0,
-        "max_value": 16,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 0
-        }
-      },
-      {
-        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
-        "name": "storage_gb",
-        "billing_operation_path": "",
-        "min_value": 10,
-        "current_value": 0,
-        "max_value": 500,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 150000000
-        }
-      },
-      {
-        "id": "4931090c-8ec9-11ee-b9d1-0242ac120002",
-        "name": "backup",
-        "billing_operation_path": "/webhosting/plesk-backup/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 2,
-          "nanos": 990000000
-        }
-      },
-      {
-        "id": "b5331822-51c7-46fc-8125-6cf238189e34",
-        "name": "dedicated_ip",
-        "billing_operation_path": "/webhosting/plesk-dedicated-ip/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 4,
-          "nanos": 990000000
-        }
-      },
-      {
-        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
-        "name": "domain_count",
-        "billing_operation_path": "",
-        "min_value": 1,
-        "current_value": 0,
-        "max_value": 1000,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 500000000
-        }
-      },
-      {
-        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
-        "name": "email_storage_gb",
-        "billing_operation_path": "",
-        "min_value": 5,
-        "current_value": 0,
-        "max_value": 12,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 150000000
-        }
-      },
-      {
-        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
-        "name": "support",
-        "billing_operation_path": "",
-        "min_value": 1,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 0
-        }
-      }
-    ],
-    "price": {
-      "currency_code": "EUR",
-      "units": 5,
-      "nanos": 990000000
-    },
-    "available": true,
-    "control_panel_name": "plesk",
-    "end_of_life": false,
-    "quota_warning": "unknown_warning"
-  },
   {
     "id": "f5c2ae8f-7625-4bca-b711-b44bb3d08694",
     "name": "lite",
@@ -283,6 +149,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "units": 0,
           "nanos": 0
         }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
       }
     ],
     "price": {
@@ -293,7 +173,165 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
     "available": true,
     "control_panel_name": "cpanel",
     "end_of_life": false,
-    "quota_warning": "unknown_warning"
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "525098b0-c4bc-4e96-b656-8d6f68d8f52f",
+    "name": "lite",
+    "billing_operation_path": "/webhosting/lite/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 10,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 5,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
   },
   {
     "id": "d86c61a0-a9e9-11ec-b909-0242ac120002",
@@ -425,6 +463,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "units": 0,
           "nanos": 0
         }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
       }
     ],
     "price": {
@@ -435,13 +487,28 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
     "available": true,
     "control_panel_name": "cpanel",
     "end_of_life": false,
-    "quota_warning": "unknown_warning"
+    "quota_warning": "unknown_warning",
+    "region": ""
   },
   {
-    "id": "3d4ead38-8ec9-11ee-b9d1-0242ac120002",
+    "id": "4651a634-070f-47a3-8bf8-2c22ace80b9b",
     "name": "personal",
-    "billing_operation_path": "/webhosting/plesk-personal/fr-par",
+    "billing_operation_path": "/webhosting/personal/fr-par",
     "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
       {
         "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
         "name": "email_count",
@@ -454,6 +521,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "currency_code": "EUR",
           "units": 1,
           "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
         }
       },
       {
@@ -499,23 +580,9 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
         }
       },
       {
-        "id": "4931090c-8ec9-11ee-b9d1-0242ac120002",
-        "name": "backup",
-        "billing_operation_path": "/webhosting/plesk-backup/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 2,
-          "nanos": 990000000
-        }
-      },
-      {
-        "id": "b5331822-51c7-46fc-8125-6cf238189e34",
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
         "name": "dedicated_ip",
-        "billing_operation_path": "/webhosting/plesk-dedicated-ip/fr-par",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
         "min_value": 0,
         "current_value": 0,
         "max_value": 1,
@@ -527,31 +594,17 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
         }
       },
       {
-        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
-        "name": "domain_count",
-        "billing_operation_path": "",
-        "min_value": 2,
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
         "current_value": 0,
-        "max_value": 1000,
+        "max_value": 1,
         "quota_warning": "unknown_warning",
         "price": {
           "currency_code": "EUR",
-          "units": 0,
-          "nanos": 500000000
-        }
-      },
-      {
-        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
-        "name": "email_storage_gb",
-        "billing_operation_path": "",
-        "min_value": 5,
-        "current_value": 0,
-        "max_value": 12,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 150000000
+          "units": 2,
+          "nanos": 990000000
         }
       },
       {
@@ -561,6 +614,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
         "min_value": 1,
         "current_value": 0,
         "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
         "quota_warning": "unknown_warning",
         "price": {
           "currency_code": "EUR",
@@ -575,151 +642,10 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
       "nanos": 990000000
     },
     "available": true,
-    "control_panel_name": "plesk",
+    "control_panel_name": "wordpress",
     "end_of_life": false,
-    "quota_warning": "unknown_warning"
-  },
-  {
-    "id": "41da9100-8ec9-11ee-b9d1-0242ac120002",
-    "name": "professional",
-    "billing_operation_path": "/webhosting/plesk-professional/fr-par",
-    "options": [
-      {
-        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
-        "name": "email_count",
-        "billing_operation_path": "",
-        "min_value": 10,
-        "current_value": 0,
-        "max_value": 1000,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 0
-        }
-      },
-      {
-        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
-        "name": "storage_gb",
-        "billing_operation_path": "",
-        "min_value": 100,
-        "current_value": 0,
-        "max_value": 500,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 150000000
-        }
-      },
-      {
-        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
-        "name": "vcpu_count",
-        "billing_operation_path": "",
-        "min_value": 4,
-        "current_value": 0,
-        "max_value": 8,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 0
-        }
-      },
-      {
-        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
-        "name": "ram_gb",
-        "billing_operation_path": "",
-        "min_value": 2,
-        "current_value": 0,
-        "max_value": 16,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 1,
-          "nanos": 0
-        }
-      },
-      {
-        "id": "4931090c-8ec9-11ee-b9d1-0242ac120002",
-        "name": "backup",
-        "billing_operation_path": "/webhosting/plesk-backup/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 2,
-          "nanos": 990000000
-        }
-      },
-      {
-        "id": "b5331822-51c7-46fc-8125-6cf238189e34",
-        "name": "dedicated_ip",
-        "billing_operation_path": "/webhosting/plesk-dedicated-ip/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 4,
-          "nanos": 990000000
-        }
-      },
-      {
-        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
-        "name": "domain_count",
-        "billing_operation_path": "",
-        "min_value": 5,
-        "current_value": 0,
-        "max_value": 1000,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 500000000
-        }
-      },
-      {
-        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
-        "name": "email_storage_gb",
-        "billing_operation_path": "",
-        "min_value": 5,
-        "current_value": 0,
-        "max_value": 12,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 150000000
-        }
-      },
-      {
-        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
-        "name": "support",
-        "billing_operation_path": "",
-        "min_value": 1,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 0,
-          "nanos": 0
-        }
-      }
-    ],
-    "price": {
-      "currency_code": "EUR",
-      "units": 18,
-      "nanos": 990000000
-    },
-    "available": true,
-    "control_panel_name": "plesk",
-    "end_of_life": false,
-    "quota_warning": "unknown_warning"
+    "quota_warning": "unknown_warning",
+    "region": ""
   },
   {
     "id": "de2426b4-a9e9-11ec-b909-0242ac120002",
@@ -851,6 +777,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "units": 0,
           "nanos": 0
         }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
       }
     ],
     "price": {
@@ -861,7 +801,165 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
     "available": true,
     "control_panel_name": "cpanel",
     "end_of_life": false,
-    "quota_warning": "unknown_warning"
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "97b9988d-6551-4f91-ab3e-c2265d4abcba",
+    "name": "professional",
+    "billing_operation_path": "/webhosting/professional/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 10,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 100,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 4,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 18,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
   },
   {
     "id": "e1c1e6c6-a9e9-11ec-b909-0242ac120002",
@@ -993,6 +1091,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "units": 0,
           "nanos": 0
         }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
       }
     ],
     "price": {
@@ -1003,12 +1115,1112 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
     "available": true,
     "control_panel_name": "cpanel",
     "end_of_life": false,
-    "quota_warning": "unknown_warning"
+    "quota_warning": "unknown_warning",
+    "region": ""
   },
   {
-    "id": "4626320a-8ec9-11ee-b9d1-0242ac120002",
+    "id": "f328bb60-18be-4e5a-9130-e199c660e74e",
     "name": "ecommerce",
-    "billing_operation_path": "/webhosting/plesk-ecommerce/fr-par",
+    "billing_operation_path": "/webhosting/ecommerce/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 25,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 250,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 8,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 8,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 29,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "f5c2ae8f-7625-4bca-b711-b44bb3d08694",
+    "name": "lite",
+    "billing_operation_path": "/webhosting/lite/fr-par",
+    "options": [
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 10,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 5,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "cpanel",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "525098b0-c4bc-4e96-b656-8d6f68d8f52f",
+    "name": "lite",
+    "billing_operation_path": "/webhosting/lite/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 10,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 5,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "d86c61a0-a9e9-11ec-b909-0242ac120002",
+    "name": "personal",
+    "billing_operation_path": "/webhosting/personal/fr-par",
+    "options": [
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 50,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 9,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "cpanel",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "4651a634-070f-47a3-8bf8-2c22ace80b9b",
+    "name": "personal",
+    "billing_operation_path": "/webhosting/personal/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 50,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 9,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "de2426b4-a9e9-11ec-b909-0242ac120002",
+    "name": "professional",
+    "billing_operation_path": "/webhosting/professional/fr-par",
+    "options": [
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 10,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 100,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 4,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 18,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "cpanel",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "97b9988d-6551-4f91-ab3e-c2265d4abcba",
+    "name": "professional",
+    "billing_operation_path": "/webhosting/professional/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 10,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 100,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 4,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 2,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 18,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "e1c1e6c6-a9e9-11ec-b909-0242ac120002",
+    "name": "ecommerce",
+    "billing_operation_path": "/webhosting/ecommerce/fr-par",
     "options": [
       {
         "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
@@ -1067,34 +2279,6 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
         }
       },
       {
-        "id": "4931090c-8ec9-11ee-b9d1-0242ac120002",
-        "name": "backup",
-        "billing_operation_path": "/webhosting/plesk-backup/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 2,
-          "nanos": 990000000
-        }
-      },
-      {
-        "id": "b5331822-51c7-46fc-8125-6cf238189e34",
-        "name": "dedicated_ip",
-        "billing_operation_path": "/webhosting/plesk-dedicated-ip/fr-par",
-        "min_value": 0,
-        "current_value": 0,
-        "max_value": 1,
-        "quota_warning": "unknown_warning",
-        "price": {
-          "currency_code": "EUR",
-          "units": 4,
-          "nanos": 990000000
-        }
-      },
-      {
         "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
         "name": "domain_count",
         "billing_operation_path": "",
@@ -1106,6 +2290,34 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "currency_code": "EUR",
           "units": 0,
           "nanos": 500000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
         }
       },
       {
@@ -1135,6 +2347,20 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
           "units": 0,
           "nanos": 0
         }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
       }
     ],
     "price": {
@@ -1143,8 +2369,166 @@ e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par
       "nanos": 990000000
     },
     "available": true,
-    "control_panel_name": "plesk",
+    "control_panel_name": "cpanel",
     "end_of_life": false,
-    "quota_warning": "unknown_warning"
+    "quota_warning": "unknown_warning",
+    "region": ""
+  },
+  {
+    "id": "f328bb60-18be-4e5a-9130-e199c660e74e",
+    "name": "ecommerce",
+    "billing_operation_path": "/webhosting/ecommerce/fr-par",
+    "options": [
+      {
+        "id": "0c9ee1a0-1495-4ac8-8e7a-bc322ee45370",
+        "name": "domain_count",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 500000000
+        }
+      },
+      {
+        "id": "c4ac6ef1-b6ff-4b49-b429-f7662f600ea2",
+        "name": "email_count",
+        "billing_operation_path": "",
+        "min_value": 25,
+        "current_value": 0,
+        "max_value": 1000,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "e6419570-47e2-45cc-b2fa-dd149cdd4887",
+        "name": "email_storage_gb",
+        "billing_operation_path": "",
+        "min_value": 5,
+        "current_value": 0,
+        "max_value": 12,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "226bd895-6167-4256-8c63-53c2d3f2391e",
+        "name": "storage_gb",
+        "billing_operation_path": "",
+        "min_value": 250,
+        "current_value": 0,
+        "max_value": 500,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 150000000
+        }
+      },
+      {
+        "id": "0262a5ad-9758-4c85-bc01-fc094f04376b",
+        "name": "vcpu_count",
+        "billing_operation_path": "",
+        "min_value": 8,
+        "current_value": 0,
+        "max_value": 8,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "d55130d5-33b0-4bd5-9e62-ca7cb91e04cb",
+        "name": "ram_gb",
+        "billing_operation_path": "",
+        "min_value": 8,
+        "current_value": 0,
+        "max_value": 16,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 1,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "a8f6702e-6d8c-11ee-b962-0242ac120002",
+        "name": "dedicated_ip",
+        "billing_operation_path": "/webhosting/dedicated-ip/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 4,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "e500237a-a9e9-11ec-b909-0242ac120002",
+        "name": "backup",
+        "billing_operation_path": "/webhosting/backup/fr-par",
+        "min_value": 0,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 2,
+          "nanos": 990000000
+        }
+      },
+      {
+        "id": "d75904fc-0e0a-46d3-a097-92ca0200e7ea",
+        "name": "support",
+        "billing_operation_path": "",
+        "min_value": 1,
+        "current_value": 0,
+        "max_value": 1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      },
+      {
+        "id": "c217f2bc-46d4-11f0-84ae-024264400106",
+        "name": "database_count",
+        "billing_operation_path": "",
+        "min_value": -1,
+        "current_value": 0,
+        "max_value": -1,
+        "quota_warning": "unknown_warning",
+        "price": {
+          "currency_code": "EUR",
+          "units": 0,
+          "nanos": 0
+        }
+      }
+    ],
+    "price": {
+      "currency_code": "EUR",
+      "units": 29,
+      "nanos": 990000000
+    },
+    "available": true,
+    "control_panel_name": "wordpress",
+    "end_of_life": false,
+    "quota_warning": "unknown_warning",
+    "region": ""
   }
 ]

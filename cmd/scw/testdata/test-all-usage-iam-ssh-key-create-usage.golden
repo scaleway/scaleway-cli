@@ -11,7 +11,7 @@ EXAMPLES:
 
 ARGS:
   name=<generated>   Name of the SSH key. Max length is 1000
-  public-key         SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000
+  public-key         SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 (Support file loading with @/path/to/file)
   [project-id]       Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:

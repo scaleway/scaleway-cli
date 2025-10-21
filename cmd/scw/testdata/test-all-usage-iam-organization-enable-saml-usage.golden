@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Enable SAML Identity Provider for an Organization.
+
+USAGE:
+  scw iam organization enable-saml [arg=value ...]
+
+ARGS:
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help   help for enable-saml
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

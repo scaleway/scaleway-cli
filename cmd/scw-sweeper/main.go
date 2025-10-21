@@ -14,7 +14,7 @@ import (
 	flexibleipSweeper "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1/sweepers"
 	functionSweeper "github.com/scaleway/scaleway-sdk-go/api/function/v1beta1/sweepers"
 	iamSweeper "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1/sweepers"
-	inferenceSweeper "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1/sweepers"
+	inferenceSweeper "github.com/scaleway/scaleway-sdk-go/api/inference/v1/sweepers"
 	instanceSweeper "github.com/scaleway/scaleway-sdk-go/api/instance/v1/sweepers"
 	iotSweeper "github.com/scaleway/scaleway-sdk-go/api/iot/v1/sweepers"
 	ipamSweeper "github.com/scaleway/scaleway-sdk-go/api/ipam/v1/sweepers"

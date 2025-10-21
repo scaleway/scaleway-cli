@@ -12,8 +12,9 @@ import (
 )
 
 type k8sKubeconfigGetRequest struct {
-	ClusterID string
-	Region    scw.Region
+	ClusterID  string
+	Region     scw.Region
+	AuthMethod authMethods
 }
 
 func k8sKubeconfigGetCommand() *core.Command {
@@ -31,6 +32,12 @@ func k8sKubeconfigGetCommand() *core.Command {
 				Required:   true,
 				Positional: true,
 			},
+			{
+				Name:       "auth-method",
+				Short:      `Which method to use to authenticate using kubelet`,
+				Default:    core.DefaultValueSetter(defaultAuthMethod),
+				EnumValues: enumAuthMethods,
+			},
 			core.RegionArgSpec(),
 		},
 		Run: k8sKubeconfigGetRun,
@@ -38,6 +45,15 @@ func k8sKubeconfigGetCommand() *core.Command {
 			{
 				Short:    "Get the kubeconfig for a given cluster",
 				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Get the kubeconfig for a given cluster by copying current secret_key to it",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111", "auth_method": "copy-cli-token"}`,
+			},
+
+			{
+				Short:    "Get the kubeconfig for a given cluster and use legacy authentication",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111", "auth_method": "legacy"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -52,24 +68,30 @@ func k8sKubeconfigGetCommand() *core.Command {
 func k8sKubeconfigGetRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigGetRequest)
 
-	kubeconfigRequest := &k8s.GetClusterKubeConfigRequest{
-		Region:    request.Region,
-		ClusterID: request.ClusterID,
-	}
-
-	client := core.ExtractClient(ctx)
-	apiK8s := k8s.NewAPI(client)
-
-	apiKubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
+	apiKubeconfig, err := k8s.NewAPI(core.ExtractClient(ctx)).
+		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+			Region:    request.Region,
+			ClusterID: request.ClusterID,
+			Redacted: scw.BoolPtr(
+				request.AuthMethod != authMethodLegacy,
+			), // put true after legacy deprecation
+		})
 	if err != nil {
 		return nil, err
 	}
 
 	var kubeconfig api.Config
-
-	err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
-	if err != nil {
+	if err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig); err != nil {
 		return nil, err
+	}
+
+	if request.AuthMethod != authMethodLegacy {
+		namedAuthInfo, err := generateNamedAuthInfo(ctx, request.AuthMethod)
+		if err != nil {
+			return nil, err
+		}
+		kubeconfig.AuthInfos[0] = *namedAuthInfo
+		kubeconfig.Contexts[0].Context.AuthInfo = namedAuthInfo.Name
 	}
 
 	config, err := yaml.Marshal(kubeconfig)

@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update SAML Identity Provider configuration.
+
+USAGE:
+  scw iam saml update <saml-id ...> [arg=value ...]
+
+ARGS:
+  saml-id                ID of the SAML configuration
+  [entity-id]            Entity ID of the SAML Identity Provider
+  [single-sign-on-url]   Single Sign-On URL of the SAML Identity Provider
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

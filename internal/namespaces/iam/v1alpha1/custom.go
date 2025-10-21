@@ -52,6 +52,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("iam", "policy", "create").Override(iamPolicyCreateBuilder)
 	cmds.MustFind("iam", "policy", "get").Override(iamPolicyGetBuilder)
 
+	cmds.MustFind("iam", "ssh-key", "create").ArgSpecs.GetByName("public-key").CanLoadFile = true
+
 	iamCmd := cmds.MustFind("iam", "api-key", "get")
 	iamCmd.ArgsType = iamApiKeyCustomBuilder.argType
 	iamCmd.ArgSpecs = iamApiKeyCustomBuilder.argSpecs

@@ -4,7 +4,6 @@ import (
 	"context"
 	"fmt"
 	"os"
-	"path"
 	"reflect"
 
 	"github.com/ghodss/yaml"
@@ -15,14 +14,13 @@ import (
 )
 
 const (
-	kubeLocationDir      = ".kube"
-	KubeconfigAPIVersion = "v1"
-	KubeconfigKind       = "Config"
+	kubeLocationDir = ".kube"
 )
 
 type k8sKubeconfigInstallRequest struct {
 	ClusterID          string
 	Region             scw.Region
+	AuthMethod         authMethods
 	KeepCurrentContext bool
 }
 
@@ -43,6 +41,12 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 				Positional: true,
 			},
 			{
+				Name:       "auth-method",
+				Short:      `Which method to use to authenticate using kubelet`,
+				Default:    core.DefaultValueSetter(defaultAuthMethod),
+				EnumValues: enumAuthMethods,
+			},
+			{
 				Name:  "keep-current-context",
 				Short: "Whether or not to keep the current kubeconfig context unmodified",
 			},
@@ -53,6 +57,15 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 			{
 				Short:    "Install the kubeconfig for a given cluster and using the new context",
 				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Get the kubeconfig for a given cluster by copying current secret_key to it",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111", "auth_method": "copy-cli-token"}`,
+			},
+
+			{
+				Short:    "Get the kubeconfig for a given cluster and use legacy authentication",
+				ArgsJSON: `{"cluster_id": "11111111-1111-1111-1111-111111111111", "auth_method": "legacy"}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -66,124 +79,73 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 
 func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigInstallRequest)
+	kubeconfigPath := getKubeconfigPath(ctx)
 
-	kubeconfigRequest := &k8s.GetClusterKubeConfigRequest{
-		Region:    request.Region,
-		ClusterID: request.ClusterID,
-	}
-
-	client := core.ExtractClient(ctx)
-	apiK8s := k8s.NewAPI(client)
-
-	// get the wanted kubeconfig
-	apiKubeconfig, err := apiK8s.GetClusterKubeConfig(kubeconfigRequest)
-	if err != nil {
-		return nil, err
-	}
-	var kubeconfig api.Config
-
-	err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
+	// get cluster kubeconfig
+	apiKubeconfig, err := k8s.NewAPI(core.ExtractClient(ctx)).
+		GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+			Region:    request.Region,
+			ClusterID: request.ClusterID,
+			Redacted: scw.BoolPtr(
+				request.AuthMethod != authMethodLegacy,
+			), // put true after legacy deprecation
+		})
 	if err != nil {
 		return nil, err
 	}
 
-	kubeconfigPath, err := getKubeconfigPath(ctx)
-	if err != nil {
+	var clusterKubeconfig api.Config
+	if err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &clusterKubeconfig); err != nil {
 		return nil, err
 	}
 
-	// create the kubeconfig file if it does not exist
-	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
-		// make sure the directory exists
-		err = os.MkdirAll(path.Dir(kubeconfigPath), 0o755)
+	namedAuthInfo := clusterKubeconfig.AuthInfos[0]
+	namedAuthInfo.Name = fmt.Sprintf("%s-%s", clusterKubeconfig.Clusters[0].Name, request.ClusterID)
+	if request.AuthMethod != authMethodLegacy {
+		namedAuthInfoPtr, err := generateNamedAuthInfo(ctx, request.AuthMethod)
 		if err != nil {
 			return nil, err
 		}
+		namedAuthInfo = *namedAuthInfoPtr
+	}
 
-		// create the file
-		f, err := os.OpenFile(kubeconfigPath, os.O_CREATE, 0o600)
+	kubeconfigManager := NewKubeMapConfig()
+	if _, err := os.Stat(kubeconfigPath); err == nil {
+		kubeconfigManager, err = LoadKubeMapConfig(ctx, kubeconfigPath)
 		if err != nil {
 			return nil, err
 		}
-		f.Close()
 	}
 
-	existingKubeconfig, err := openAndUnmarshalKubeconfig(kubeconfigPath)
+	err = kubeconfigManager.SetUser(namedAuthInfo.Name, namedAuthInfo.AuthInfo, true)
 	if err != nil {
 		return nil, err
 	}
 
-	// loop through all clusters and insert the wanted one if it does not exist
-	clusterFoundInExistingKubeconfig := false
-	for _, cluster := range existingKubeconfig.Clusters {
-		if cluster.Name == kubeconfig.Clusters[0].Name+"-"+request.ClusterID {
-			clusterFoundInExistingKubeconfig = true
-			cluster.Cluster = kubeconfig.Clusters[0].Cluster
-
-			break
-		}
-	}
-	if !clusterFoundInExistingKubeconfig {
-		existingKubeconfig.Clusters = append(existingKubeconfig.Clusters, api.NamedCluster{
-			Name:    kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
-			Cluster: kubeconfig.Clusters[0].Cluster,
-		})
+	clusterNameWithID := fmt.Sprintf("%s-%s", clusterKubeconfig.Clusters[0].Name, request.ClusterID)
+	err = kubeconfigManager.SetCluster(
+		clusterNameWithID,
+		clusterKubeconfig.Clusters[0].Cluster,
+		true,
+	)
+	if err != nil {
+		return nil, err
 	}
 
-	// loop through all contexts and insert the wanted one if it does not exist
-	contextFoundInExistingKubeconfig := false
-	for _, kubeconfigContext := range existingKubeconfig.Contexts {
-		if kubeconfigContext.Name == kubeconfig.Contexts[0].Name+"-"+request.ClusterID {
-			contextFoundInExistingKubeconfig = true
-			kubeconfigContext.Context = api.Context{
-				Cluster:  kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
-				AuthInfo: kubeconfig.AuthInfos[0].Name,
-			}
-
-			break
-		}
-	}
-	if !contextFoundInExistingKubeconfig {
-		existingKubeconfig.Contexts = append(existingKubeconfig.Contexts, api.NamedContext{
-			Name: kubeconfig.Contexts[0].Name + "-" + request.ClusterID,
-			Context: api.Context{
-				Cluster:  kubeconfig.Clusters[0].Name + "-" + request.ClusterID,
-				AuthInfo: kubeconfig.AuthInfos[0].Name + "-" + request.ClusterID,
-			},
-		})
+	err = kubeconfigManager.SetContext(
+		clusterNameWithID,
+		api.Context{Cluster: clusterNameWithID, AuthInfo: namedAuthInfo.Name},
+		true,
+	)
+	if err != nil {
+		return nil, err
 	}
 
-	// loop through all users and insert the wanted one if it does not exist
-	userFoundInExistingKubeconfig := false
-	for _, user := range existingKubeconfig.AuthInfos {
-		if user.Name == kubeconfig.AuthInfos[0].Name+"-"+request.ClusterID {
-			userFoundInExistingKubeconfig = true
-			user.AuthInfo = kubeconfig.AuthInfos[0].AuthInfo
-
-			break
-		}
-	}
-	if !userFoundInExistingKubeconfig {
-		existingKubeconfig.AuthInfos = append(existingKubeconfig.AuthInfos, api.NamedAuthInfo{
-			Name:     kubeconfig.AuthInfos[0].Name + "-" + request.ClusterID,
-			AuthInfo: kubeconfig.AuthInfos[0].AuthInfo,
-		})
-	}
-
-	// set the current context to the new one
 	if !request.KeepCurrentContext {
-		existingKubeconfig.CurrentContext = kubeconfig.Contexts[0].Name + "-" + request.ClusterID
+		kubeconfigManager.CurrentContext = clusterNameWithID
 	}
 
-	// if it's a new file, set the correct config in the file
-	if existingKubeconfig.APIVersion == "" {
-		existingKubeconfig.APIVersion = KubeconfigAPIVersion
-	}
-	if existingKubeconfig.Kind == "" {
-		existingKubeconfig.Kind = KubeconfigKind
-	}
-
-	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)
+	err = kubeconfigManager.Save(kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}
