@@ -1,0 +1,197 @@
+codecov:
+  branch: master
+
+component_management:
+  individual_components:
+    - component_id: account
+      name: account
+      paths:
+        - internal/namespaces/account/**
+    - component_id: alias
+      name: alias
+      paths:
+        - internal/namespaces/alias/**
+    - component_id: applesilicon
+      name: applesilicon
+      paths:
+        - internal/namespaces/applesilicon/**
+    - component_id: audit_trail
+      name: audit_trail
+      paths:
+        - internal/namespaces/audit_trail/**
+    - component_id: autocomplete
+      name: autocomplete
+      paths:
+        - internal/namespaces/autocomplete/**
+    - component_id: baremetal
+      name: baremetal
+      paths:
+        - internal/namespaces/baremetal/**
+    - component_id: billing
+      name: billing
+      paths:
+        - internal/namespaces/billing/**
+    - component_id: block
+      name: block
+      paths:
+        - internal/namespaces/block/**
+    - component_id: cockpit
+      name: cockpit
+      paths:
+        - internal/namespaces/cockpit/**
+    - component_id: config
+      name: config
+      paths:
+        - internal/namespaces/config/**
+    - component_id: container
+      name: container
+      paths:
+        - internal/namespaces/container/**
+    - component_id: dedibox
+      name: dedibox
+      paths:
+        - internal/namespaces/dedibox/**
+    - component_id: domain
+      name: domain
+      paths:
+        - internal/namespaces/domain/**
+    - component_id: edge_services
+      name: edge_services
+      paths:
+        - internal/namespaces/edge_services/**
+    - component_id: feedback
+      name: feedback
+      paths:
+        - internal/namespaces/feedback/**
+    - component_id: file
+      name: file
+      paths:
+        - internal/namespaces/file/**
+    - component_id: flexibleip
+      name: flexibleip
+      paths:
+        - internal/namespaces/flexibleip/**
+    - component_id: function
+      name: function
+      paths:
+        - internal/namespaces/function/**
+    - component_id: help
+      name: help
+      paths:
+        - internal/namespaces/help/**
+    - component_id: iam
+      name: iam
+      paths:
+        - internal/namespaces/iam/**
+    - component_id: inference
+      name: inference
+      paths:
+        - internal/namespaces/inference/**
+    - component_id: info
+      name: info
+      paths:
+        - internal/namespaces/info/**
+    - component_id: init
+      name: init
+      paths:
+        - internal/namespaces/init/**
+    - component_id: instance
+      name: instance
+      paths:
+        - internal/namespaces/instance/**
+    - component_id: interlink
+      name: interlink
+      paths:
+        - internal/namespaces/interlink/**
+    - component_id: iot
+      name: iot
+      paths:
+        - internal/namespaces/iot/**
+    - component_id: ipam
+      name: ipam
+      paths:
+        - internal/namespaces/ipam/**
+    - component_id: jobs
+      name: jobs
+      paths:
+        - internal/namespaces/jobs/**
+    - component_id: k8s
+      name: k8s
+      paths:
+        - internal/namespaces/k8s/**
+    - component_id: key_manager
+      name: key_manager
+      paths:
+        - internal/namespaces/key_manager/**
+    - component_id: lb
+      name: lb
+      paths:
+        - internal/namespaces/lb/**
+    - component_id: login
+      name: login
+      paths:
+        - internal/namespaces/login/**
+    - component_id: marketplace
+      name: marketplace
+      paths:
+        - internal/namespaces/marketplace/**
+    - component_id: mnq
+      name: mnq
+      paths:
+        - internal/namespaces/mnq/**
+    - component_id: mongodb
+      name: mongodb
+      paths:
+        - internal/namespaces/mongodb/**
+    - component_id: object
+      name: object
+      paths:
+        - internal/namespaces/object/**
+    - component_id: rdb
+      name: rdb
+      paths:
+        - internal/namespaces/rdb/**
+    - component_id: redis
+      name: redis
+      paths:
+        - internal/namespaces/redis/**
+    - component_id: registry
+      name: registry
+      paths:
+        - internal/namespaces/registry/**
+    - component_id: secret
+      name: secret
+      paths:
+        - internal/namespaces/secret/**
+    - component_id: serverless_sqldb
+      name: serverless_sqldb
+      paths:
+        - internal/namespaces/serverless_sqldb/**
+    - component_id: shell
+      name: shell
+      paths:
+        - internal/namespaces/shell/**
+    - component_id: tem
+      name: tem
+      paths:
+        - internal/namespaces/tem/**
+    - component_id: test
+      name: test
+      paths:
+        - internal/namespaces/test/**
+    - component_id: version
+      name: version
+      paths:
+        - internal/namespaces/version/**
+    - component_id: vpc
+      name: vpc
+      paths:
+        - internal/namespaces/vpc/**
+    - component_id: vpcgw
+      name: vpcgw
+      paths:
+        - internal/namespaces/vpcgw/**
+    - component_id: webhosting
+      name: webhosting
+      paths:
+        - internal/namespaces/webhosting/**
