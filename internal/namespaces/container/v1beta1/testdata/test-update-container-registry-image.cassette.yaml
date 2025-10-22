@@ -1,0 +1,1329 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "name":"cli-test-ctn-update-rg-img-flamboyant-keller",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":0, "created_at":"2025-10-23T09:10:46.920335214Z",
+      "updated_at":"2025-10-23T09:10:46.920335214Z", "image_count":0, "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "name":"cli-test-ctn-update-rg-img-flamboyant-keller",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":0, "created_at":"2025-10-23T09:10:46.920335214Z",
+      "updated_at":"2025-10-23T09:10:46.920335214Z", "image_count":0, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "506"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:10:46 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 90ab01ef-9450-49da-a506-bb4e9c0a84f2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"images":[{"id":"b458ca01-0371-471b-a421-182f2bb15bf1", "name":"nginx-1-28-0-alpine",
+      "namespace_id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":21002833, "created_at":"2025-10-23T09:11:03.325909Z",
+      "updated_at":"2025-10-23T09:11:03.810117Z", "tags":["latest"]}], "total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=nginx-1-28-0-alpine&namespace_id=03116f81-a73d-42a8-8eb1-8e334e954a09&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"b458ca01-0371-471b-a421-182f2bb15bf1", "name":"nginx-1-28-0-alpine",
+      "namespace_id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":21002833, "created_at":"2025-10-23T09:11:03.325909Z",
+      "updated_at":"2025-10-23T09:11:03.810117Z", "tags":["latest"]}], "total_count":1}'
+    headers:
+      Content-Length:
+      - "347"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0291c1b5-5f13-4ad9-86f3-4465580d27ad
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":121465369,
+      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-21T11:47:43.913707Z",
+      "image_count":4, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
+      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
+      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
+      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
+      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
+      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
+      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
+      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
+      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
+      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
+      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
+      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
+      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
+      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
+      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
+      "image_count":0, "region":"fr-par"}, {"id":"03116f81-a73d-42a8-8eb1-8e334e954a09",
+      "name":"cli-test-ctn-update-rg-img-flamboyant-keller", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T09:10:46.920335Z",
+      "updated_at":"2025-10-23T09:11:22.190329Z", "image_count":2, "region":"fr-par"}],
+      "total_count":8}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":121465369,
+      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-21T11:47:43.913707Z",
+      "image_count":4, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
+      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
+      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
+      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
+      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
+      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
+      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
+      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
+      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
+      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
+      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
+      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
+      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
+      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
+      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
+      "image_count":0, "region":"fr-par"}, {"id":"03116f81-a73d-42a8-8eb1-8e334e954a09",
+      "name":"cli-test-ctn-update-rg-img-flamboyant-keller", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T09:10:46.920335Z",
+      "updated_at":"2025-10-23T09:11:22.190329Z", "image_count":2, "region":"fr-par"}],
+      "total_count":8}'
+    headers:
+      Content-Length:
+      - "3958"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d27b5641-3937-4e0a-874a-220b9810c6a8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"images":[{"id":"d7b72718-75b8-47c1-9c0e-c38d509ac840", "name":"nginx-1-29-2-alpine",
+      "namespace_id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":22583979, "created_at":"2025-10-23T09:11:21.734372Z",
+      "updated_at":"2025-10-23T09:11:22.175986Z", "tags":["latest"]}], "total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=nginx-1-29-2-alpine&namespace_id=03116f81-a73d-42a8-8eb1-8e334e954a09&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"d7b72718-75b8-47c1-9c0e-c38d509ac840", "name":"nginx-1-29-2-alpine",
+      "namespace_id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":22583979, "created_at":"2025-10-23T09:11:21.734372Z",
+      "updated_at":"2025-10-23T09:11:22.175986Z", "tags":["latest"]}], "total_count":1}'
+    headers:
+      Content-Length:
+      - "347"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2f50d6c2-6f5b-445a-8a80-9b50b31e4d7a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":121465369,
+      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-21T11:47:43.913707Z",
+      "image_count":4, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
+      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
+      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
+      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
+      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
+      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
+      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
+      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
+      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
+      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
+      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
+      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
+      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
+      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
+      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
+      "image_count":0, "region":"fr-par"}, {"id":"03116f81-a73d-42a8-8eb1-8e334e954a09",
+      "name":"cli-test-ctn-update-rg-img-flamboyant-keller", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T09:10:46.920335Z",
+      "updated_at":"2025-10-23T09:11:22.190329Z", "image_count":2, "region":"fr-par"}],
+      "total_count":8}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":121465369,
+      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-21T11:47:43.913707Z",
+      "image_count":4, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
+      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
+      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
+      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
+      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
+      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
+      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
+      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
+      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
+      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
+      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
+      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
+      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
+      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
+      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
+      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
+      "image_count":0, "region":"fr-par"}, {"id":"03116f81-a73d-42a8-8eb1-8e334e954a09",
+      "name":"cli-test-ctn-update-rg-img-flamboyant-keller", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T09:10:46.920335Z",
+      "updated_at":"2025-10-23T09:11:22.190329Z", "image_count":2, "region":"fr-par"}],
+      "total_count":8}'
+    headers:
+      Content-Length:
+      - "3958"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cb4fcde5-53e5-4877-abde-532f2a76ab6d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T09:11:25.111301185Z", "updated_at":"2025-10-23T09:11:25.111301185Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T09:11:25.111301185Z", "updated_at":"2025-10-23T09:11:25.111301185Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "524"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:25 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8fa32d40-bfb8-4348-a6ca-3f3dcf86de03
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T09:11:25.111301Z", "updated_at":"2025-10-23T09:11:25.111301Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/10fb6bd1-4846-41c0-b888-64765a9d8242
+    method: GET
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T09:11:25.111301Z", "updated_at":"2025-10-23T09:11:25.111301Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "518"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:25 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ef623897-88a9-4f5d-b916-7c547de86f1e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:27.326529Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/10fb6bd1-4846-41c0-b888-64765a9d8242
+    method: GET
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:27.326529Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "609"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:30 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 24e49995-e111-42bf-9330-b2a9d45c4292
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:27.326529Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/10fb6bd1-4846-41c0-b888-64765a9d8242
+    method: GET
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:27.326529Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "609"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 75c933ac-e39a-4549-8b9a-26da742ca9f3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:27.326529Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/10fb6bd1-4846-41c0-b888-64765a9d8242
+    method: GET
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:27.326529Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "609"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:40 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b5f64ea2-62b9-4945-a1ae-fae18294704b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:42.854709Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/10fb6bd1-4846-41c0-b888-64765a9d8242
+    method: GET
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:11:42.854709Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "607"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:45 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 586ff202-f637-486d-b4e7-76713e7141c3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"created", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977400Z", "updated_at":"2025-10-23T09:11:45.636977400Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers
+    method: POST
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"created", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977400Z", "updated_at":"2025-10-23T09:11:45.636977400Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1012"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:45 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3ee749e9-7468-45d8-9d4c-5571d5ce55a8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:45.721573455Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc/deploy
+    method: POST
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:45.721573455Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1009"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:45 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 76c5e5b3-5983-4915-bd57-35325ff3448b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:45.721573Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:45.721573Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1006"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:45 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c02c0107-877d-4ffe-bb24-8c13f1dc9946
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:46.032967Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:46.032967Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1006"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:50 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b5f1e819-6c89-4c1f-9e4c-37993a010ada
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:46.032967Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:46.032967Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1006"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:11:55 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9deb638c-9b67-4da3-9e7b-1d28c42a4f6b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:46.032967Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:11:46.032967Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1006"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:00 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2790334d-3a05-4abe-bb06-be590e0d1ffd
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"ready", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:04.124009Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"ready", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-28-0-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:04.124009Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1029"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e03a4c10-cb96-4d85-bde5-33d9064b7fe1
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200295770Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: PATCH
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200295770Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1034"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5c9e887b-8356-40ee-9ee1-cd2505a96de9
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200296Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200296Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1031"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6448357f-0db8-4bdc-8c1b-dab3f9dedd70
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200296Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200296Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1031"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:11 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cd9efdbc-11ef-416b-9ac8-08cc98973b58
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200296Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:06.200296Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1031"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:16 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e6f1ad4f-be0f-4e66-9a6b-50422b45e74f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"ready", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:17.832669Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/1dd62e61-1739-45c2-b8e0-a977245ea1dc
+    method: GET
+  response:
+    body: '{"id":"1dd62e61-1739-45c2-b8e0-a977245ea1dc", "name":"cli-test-sharp-bouman",
+      "namespace_id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "status":"ready", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+      "max_concurrency":50, "domain_name":"clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T09:11:45.636977Z", "updated_at":"2025-10-23T09:12:17.832669Z",
+      "ready_at":"2025-10-23T09:12:04.117284Z", "health_check":{"failure_threshold":30,
+      "interval":"10s", "tcp":{}}, "tags":[], "private_network_id":null, "command":[],
+      "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1029"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - dbc57d32-d75a-4ef9-a2f7-f0c6c4b7661e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:12:21.519324384Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/10fb6bd1-4846-41c0-b888-64765a9d8242
+    method: DELETE
+  response:
+    body: '{"id":"10fb6bd1-4846-41c0-b888-64765a9d8242", "name":"cli-cns-vibrant-neumann",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "registry_namespace_id":"daf5e066-ebb4-49b7-98ed-1f02942185b1",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsvibrantneumannboscmces",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T09:11:25.111301Z",
+      "updated_at":"2025-10-23T09:12:21.519324384Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "613"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ca223f50-b8ca-4898-9f5e-f8b7ffca928d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "name":"cli-test-ctn-update-rg-img-flamboyant-keller",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T09:10:46.920335Z",
+      "updated_at":"2025-10-23T09:12:21.731991061Z", "image_count":2, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/03116f81-a73d-42a8-8eb1-8e334e954a09
+    method: DELETE
+  response:
+    body: '{"id":"03116f81-a73d-42a8-8eb1-8e334e954a09", "name":"cli-test-ctn-update-rg-img-flamboyant-keller",
+      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller",
+      "is_public":false, "size":43586812, "created_at":"2025-10-23T09:10:46.920335Z",
+      "updated_at":"2025-10-23T09:12:21.731991061Z", "image_count":2, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "513"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 09:12:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 858b5ac8-5727-4d86-b11e-c890a1949d55
+    status: 200 OK
+    code: 200
+    duration: ""
