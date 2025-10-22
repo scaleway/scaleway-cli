@@ -1,0 +1,77 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"35d4a543-ba4f-46b8-94a1-3e7d1caeccb9", "name":"foobar2", "public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIHoWVcE8ItB7WPbmanQY/GhMWqU2XKQthfoAv51IE4OAgnnMWo7RHf1grLdiRZ4MxIwW2SaDBGIDminJCw1OMo=",
+      "fingerprint":"256 MD5:a5:b1:5a:ff:d2:71:ed:53:d7:8c:fb:b0:ec:12:10:de (ecdsa-sha2-nistp256)",
+      "created_at":"2025-10-21T10:06:35.771313Z", "updated_at":"2025-10-21T10:06:35.771313Z",
+      "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "disabled":false}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys
+    method: POST
+  response:
+    body: '{"id":"35d4a543-ba4f-46b8-94a1-3e7d1caeccb9", "name":"foobar2", "public_key":"ecdsa-sha2-nistp256
+      AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIHoWVcE8ItB7WPbmanQY/GhMWqU2XKQthfoAv51IE4OAgnnMWo7RHf1grLdiRZ4MxIwW2SaDBGIDminJCw1OMo=",
+      "fingerprint":"256 MD5:a5:b1:5a:ff:d2:71:ed:53:d7:8c:fb:b0:ec:12:10:de (ecdsa-sha2-nistp256)",
+      "created_at":"2025-10-21T10:06:35.771313Z", "updated_at":"2025-10-21T10:06:35.771313Z",
+      "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "disabled":false}'
+    headers:
+      Content-Length:
+      - "552"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 21 Oct 2025 10:06:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 686dc9c2-3fe0-42ca-92fa-9a3ff0b60e1e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/ssh-keys/35d4a543-ba4f-46b8-94a1-3e7d1caeccb9
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 21 Oct 2025 10:06:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - bc788029-3879-4eff-a462-68b6adbddcb7
+    status: 204 No Content
+    code: 204
+    duration: ""
