@@ -107,19 +107,21 @@ func Test_Update(t *testing.T) {
 				),
 			),
 			core.BeforeFuncWhenUpdatingCassette(
-				core.ExecBeforeCmd("scw registry login"),
-			),
-			testhelpers.PushRegistryImage(
-				"nginx:1.28.0-alpine",
-				"RegistryNamespace",
-				"nginx-1-28-0-alpine",
-				"RegistryImageNginx28",
-			),
-			testhelpers.PushRegistryImage(
-				"nginx:1.29.2-alpine",
-				"RegistryNamespace",
-				"nginx-1-29-2-alpine",
-				"RegistryImageNginx29",
+				core.BeforeFuncCombine(
+					core.ExecBeforeCmd("scw registry login"),
+					testhelpers.PushRegistryImage(
+						"nginx:1.28.0-alpine",
+						"RegistryNamespace",
+						"nginx-1-28-0-alpine",
+						"RegistryImageNginx28",
+					),
+					testhelpers.PushRegistryImage(
+						"nginx:1.29.2-alpine",
+						"RegistryNamespace",
+						"nginx-1-29-2-alpine",
+						"RegistryImageNginx29",
+					),
+				),
 			),
 			createNamespace("ContainerNamespace"),
 			createContainerWithImage("Container", "RegistryImageNginx28"),
