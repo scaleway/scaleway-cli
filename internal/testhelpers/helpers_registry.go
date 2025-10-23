@@ -25,6 +25,11 @@ func StoreImageInMeta(metaKey, namespaceMetaKey, imageName string) core.BeforeFu
 	return func(ctx *core.BeforeFuncCtx) error {
 		namespaceID := ctx.Meta.Render(fmt.Sprintf("{{ .%s.ID }}", namespaceMetaKey))
 
-		return core.ExecStoreBeforeCmd(metaKey, fmt.Sprintf("scw registry image list namespace-id=%s name=%s", namespaceID, imageName))(ctx)
+		return core.ExecStoreBeforeCmd(
+			metaKey,
+			fmt.Sprintf("scw registry image list namespace-id=%s name=%s", namespaceID, imageName),
+		)(
+			ctx,
+		)
 	}
 }

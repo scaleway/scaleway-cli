@@ -122,8 +122,16 @@ func Test_UpdateContainer(t *testing.T) {
 				),
 			),
 			core.BeforeFuncCombine(
-				testhelpers.StoreImageInMeta("RegistryImageNginx28", "RegistryNamespace", "nginx-1-28-0-alpine"),
-				testhelpers.StoreImageInMeta("RegistryImageNginx29", "RegistryNamespace", "nginx-1-29-2-alpine"),
+				testhelpers.StoreImageInMeta(
+					"RegistryImageNginx28",
+					"RegistryNamespace",
+					"nginx-1-28-0-alpine",
+				),
+				testhelpers.StoreImageInMeta(
+					"RegistryImageNginx29",
+					"RegistryNamespace",
+					"nginx-1-29-2-alpine",
+				),
 			),
 			createNamespace("ContainerNamespace"),
 			createContainerWithImage("Container", "RegistryImageNginx28"),
