@@ -9,6 +9,8 @@ import (
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	iamsdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_initWithSSHKeyCommand(t *testing.T) {
@@ -43,11 +45,11 @@ func Test_initWithSSHKeyCommand(t *testing.T) {
 }
 
 func Test_SSHKeyCreateCommand(t *testing.T) {
-	key := `ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar`
+	key1 := `ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBBieay3nO9wViPkuvFVgGGaA1IRlkFrr946yqvg9LxZIRhsnZ61yLCPmIOhvUAZ/gTxZGmhgtMDxkenSUTsG3F0= foobar@foobar`
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands: iam.GetCommands(),
 		Args: []string{
-			"scw", "iam", "ssh-key", "create", "name=foobar", "public-key=" + key,
+			"scw", "iam", "ssh-key", "create", "name=foobar", "public-key=" + key1,
 		},
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
@@ -62,6 +64,44 @@ func Test_SSHKeyCreateCommand(t *testing.T) {
 			})
 		},
 	}))
+
+	////
+	// File import will test the @/path/file import functionality
+	////
+	key2 := "ecdsa-sha2-nistp256 AAAAE2VjZHNhLXNoYTItbmlzdHAyNTYAAAAIbmlzdHAyNTYAAABBBIHoWVcE8ItB7WPbmanQY/GhMWqU2XKQthfoAv51IE4OAgnnMWo7RHf1grLdiRZ4MxIwW2SaDBGIDminJCw1OMo= foobar@foobar2"
+	t.Run("file_import", func(t *testing.T) {
+		f, err := os.CreateTemp(t.TempDir(), "ssh.pub")
+		require.NoError(t, err)
+		assert.NotNil(t, f)
+		defer os.Remove(f.Name()) // clean up
+
+		_, err = f.WriteString(key2)
+		require.NoError(t, err)
+		t.Logf("public key written on %s (will be deleted at the end of the test)", f.Name())
+
+		err = f.Close()
+		require.NoError(t, err)
+
+		testConfig := &core.TestConfig{
+			Commands: iam.GetCommands(),
+			Args: []string{
+				"scw", "iam", "ssh-key", "create", "name=foobar2", "public-key=@" + f.Name(),
+			},
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: func(ctx *core.AfterFuncCtx) error {
+				api := iamsdk.NewAPI(ctx.Client)
+				key := testhelpers.Value[*iamsdk.SSHKey](t, ctx.CmdResult)
+
+				return api.DeleteSSHKey(&iamsdk.DeleteSSHKeyRequest{
+					SSHKeyID: key.ID,
+				})
+			},
+		}
+		core.Test(testConfig)(t)
+	})
 }
 
 func Test_SSHKeyRemoveCommand(t *testing.T) {
