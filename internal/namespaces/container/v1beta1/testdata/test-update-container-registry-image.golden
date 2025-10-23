@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         1c72d1fa-ea2d-41b7-b289-1bcf98576999
-Name                                       cli-test-stupefied-burnell
-NamespaceID                                69ef4ba6-ae2d-4016-8432-b9c7ca5d41fb
-Status                                     pending
+ID                                         1dd62e61-1739-45c2-b8e0-a977245ea1dc
+Name                                       cli-test-sharp-bouman
+NamespaceID                                10fb6bd1-4846-41c0-b888-64765a9d8242
+Status                                     ready
 MinScale                                   0
 MaxScale                                   5
 MemoryLimit                                2048
-CPULimit                                   1500
+CPULimit                                   1000
 Timeout                                    5 minutes
 Privacy                                    public
 Description                                -
-RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnscockyteslarzbhitkg/cli-test-stupefied-burnell:latest
+RegistryImage                              rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest
 MaxConcurrency                             50
-DomainName                                 clicnscockyteslarzbhitkg-cli-test-stupefied-burnell.functions.fnc.fr-par.scw.cloud
+DomainName                                 clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud
 Protocol                                   http1
 Port                                       80
 HTTPOption                                 enabled
@@ -24,26 +24,26 @@ HealthCheck.FailureThreshold               30
 HealthCheck.Interval                       10 seconds
 CreatedAt                                  few seconds ago
 UpdatedAt                                  few seconds ago
+ReadyAt                                    few seconds ago
 Region                                     fr-par
-Tags.0                                     new_tag
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1c72d1fa-ea2d-41b7-b289-1bcf98576999",
-  "name": "cli-test-stupefied-burnell",
-  "namespace_id": "69ef4ba6-ae2d-4016-8432-b9c7ca5d41fb",
-  "status": "pending",
+  "id": "1dd62e61-1739-45c2-b8e0-a977245ea1dc",
+  "name": "cli-test-sharp-bouman",
+  "namespace_id": "10fb6bd1-4846-41c0-b888-64765a9d8242",
+  "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
   "max_scale": 5,
   "memory_limit": 2048,
-  "cpu_limit": 1500,
+  "cpu_limit": 1000,
   "timeout": "300.000000000s",
   "error_message": null,
   "privacy": "public",
   "description": "",
-  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnscockyteslarzbhitkg/cli-test-stupefied-burnell:latest",
+  "registry_image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
   "max_concurrency": 50,
-  "domain_name": "clicnscockyteslarzbhitkg-cli-test-stupefied-burnell.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
   "protocol": "http1",
   "port": 80,
   "secret_environment_variables": [],
@@ -60,11 +60,9 @@ Tags.0                                     new_tag
   },
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
-  "ready_at": null,
+  "ready_at": "1970-01-01T00:00:00.0Z",
   "region": "fr-par",
-  "tags": [
-    "new_tag"
-  ],
+  "tags": [],
   "private_network_id": null,
   "command": [],
   "args": []

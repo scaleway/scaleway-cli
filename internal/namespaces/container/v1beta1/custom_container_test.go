@@ -22,7 +22,7 @@ func deleteNamespace(metaKey string) core.AfterFunc {
 	}
 }
 
-func Test_Create(t *testing.T) {
+func Test_CreateContainer(t *testing.T) {
 	commands := container.GetCommands()
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -70,7 +70,7 @@ func deleteRegistryNamespace(metaKey string) core.AfterFunc {
 	}
 }
 
-func Test_Update(t *testing.T) {
+func Test_UpdateContainer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: container.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
@@ -121,10 +121,10 @@ func Test_Update(t *testing.T) {
 					),
 				),
 			),
-			//core.BeforeFuncCombine(
-			testhelpers.StoreImageInMeta("RegistryImageNginx28", "RegistryNamespace", "nginx-1-28-0-alpine"),
-			testhelpers.StoreImageInMeta("RegistryImageNginx29", "RegistryNamespace", "nginx-1-29-0-alpine"),
-			//),
+			core.BeforeFuncCombine(
+				testhelpers.StoreImageInMeta("RegistryImageNginx28", "RegistryNamespace", "nginx-1-28-0-alpine"),
+				testhelpers.StoreImageInMeta("RegistryImageNginx29", "RegistryNamespace", "nginx-1-29-2-alpine"),
+			),
 			createNamespace("ContainerNamespace"),
 			createContainerWithImage("Container", "RegistryImageNginx28"),
 		),
