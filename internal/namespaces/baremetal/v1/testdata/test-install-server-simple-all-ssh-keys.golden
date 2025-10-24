@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              94f3192e-3a74-4a78-8d78-33047c5aa28c
-OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Name            cli-bm-upbeat-sammet
+ID              db68aaf1-853b-47f9-a511-405c84411b9c
+OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name            cli-bm-infallible-lewin
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
 OfferName       EM-I215E-NVME
-Domain          94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud
+Domain          db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
@@ -18,8 +18,8 @@ Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-aa2b0972-e43f-44ad-b828-fc5353413bec  195.154.100.23                         94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud  IPv4     active          -
-becd9b42-26b6-436c-a923-ee1c80b68e2b  2001:bc8:1201:a17:b683:51ff:fe0f:6e00  94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud  IPv6     active          -
+09b54f1e-4b6a-4b94-b096-7163846c12b7  195.154.100.198                        db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+f9c31c6e-6b3a-46e3-ab62-1f3f0de770d4  2001:bc8:1201:a22:b683:51ff:fe0f:60fc  db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud  IPv6     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -27,22 +27,12 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   1b61e6be-872a-43f1-9b38-750895c3d986
-SSHKeyIDs.1                                                   17dda325-fd6c-4b71-9d71-9e29b9577b7a
-SSHKeyIDs.2                                                   c2527c40-9b02-4b5e-8682-99ebcdb60abf
-SSHKeyIDs.3                                                   dc7ae0fd-96aa-4e83-83e1-374f16239ab9
-SSHKeyIDs.4                                                   6a5f22bf-c7d7-459a-919f-131b625d8ef6
-SSHKeyIDs.5                                                   96f53bad-3d06-4510-861a-d15840a80424
-SSHKeyIDs.6                                                   7a36e7d9-4bc1-4d68-97e4-164639e6b2dd
-SSHKeyIDs.7                                                   857bf0f1-55b8-46ca-8a96-546bf35c3e09
-SSHKeyIDs.8                                                   e0514ba5-2853-4270-9eaa-97654c9a1f03
-SSHKeyIDs.9                                                   76bec1e4-9a53-4962-8308-8b02765d8a53
-SSHKeyIDs.10                                                  af8cd214-8fdd-4183-aeda-1b28fa537f5d
-SSHKeyIDs.11                                                  b5f74e14-7ede-420e-b3e4-203db50b7210
-SSHKeyIDs.12                                                  efc3932d-fb91-44d5-9b2a-f9a1476c11cb
-SSHKeyIDs.13                                                  64a411eb-5a18-42fd-ad68-7e06dfced66b
-SSHKeyIDs.14                                                  736ffc7e-8e4a-443b-98a8-08afe5f6ce51
-SSHKeyIDs.15                                                  54ba9d3d-732f-455f-b316-5b88afb7caab
+SSHKeyIDs.0                                                   3ab0be8a-e59d-4c0b-a079-abb9672aff40
+SSHKeyIDs.1                                                   348ed8cb-6181-4234-a6c9-0593426492aa
+SSHKeyIDs.2                                                   162ae3fb-a711-48a1-8a5c-620fcc8df4b4
+SSHKeyIDs.3                                                   b2d28dc5-4189-4a1b-bb7c-bdfaafc2481b
+SSHKeyIDs.4                                                   75339543-ccc9-4cda-b750-dd5eead444e2
+SSHKeyIDs.5                                                   516cdd3c-1462-460a-927f-e5eeee1da2b8
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -96,10 +86,10 @@ PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "94f3192e-3a74-4a78-8d78-33047c5aa28c",
-  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "name": "cli-bm-upbeat-sammet",
+  "id": "db68aaf1-853b-47f9-a511-405c84411b9c",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-bm-infallible-lewin",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -109,45 +99,35 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   "tags": [],
   "ips": [
     {
-      "id": "aa2b0972-e43f-44ad-b828-fc5353413bec",
-      "address": "195.154.100.23",
-      "reverse": "94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud",
+      "id": "09b54f1e-4b6a-4b94-b096-7163846c12b7",
+      "address": "195.154.100.198",
+      "reverse": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
       "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "becd9b42-26b6-436c-a923-ee1c80b68e2b",
-      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:6e00",
-      "reverse": "94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud",
+      "id": "f9c31c6e-6b3a-46e3-ab62-1f3f0de770d4",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:60fc",
+      "reverse": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
       "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "94f3192e-3a74-4a78-8d78-33047c5aa28c.fr-par-2.baremetal.scw.cloud",
+  "domain": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "1b61e6be-872a-43f1-9b38-750895c3d986",
-      "17dda325-fd6c-4b71-9d71-9e29b9577b7a",
-      "c2527c40-9b02-4b5e-8682-99ebcdb60abf",
-      "dc7ae0fd-96aa-4e83-83e1-374f16239ab9",
-      "6a5f22bf-c7d7-459a-919f-131b625d8ef6",
-      "96f53bad-3d06-4510-861a-d15840a80424",
-      "7a36e7d9-4bc1-4d68-97e4-164639e6b2dd",
-      "857bf0f1-55b8-46ca-8a96-546bf35c3e09",
-      "e0514ba5-2853-4270-9eaa-97654c9a1f03",
-      "76bec1e4-9a53-4962-8308-8b02765d8a53",
-      "af8cd214-8fdd-4183-aeda-1b28fa537f5d",
-      "b5f74e14-7ede-420e-b3e4-203db50b7210",
-      "efc3932d-fb91-44d5-9b2a-f9a1476c11cb",
-      "64a411eb-5a18-42fd-ad68-7e06dfced66b",
-      "736ffc7e-8e4a-443b-98a8-08afe5f6ce51",
-      "54ba9d3d-732f-455f-b316-5b88afb7caab"
+      "3ab0be8a-e59d-4c0b-a079-abb9672aff40",
+      "348ed8cb-6181-4234-a6c9-0593426492aa",
+      "162ae3fb-a711-48a1-8a5c-620fcc8df4b4",
+      "b2d28dc5-4189-4a1b-bb7c-bdfaafc2481b",
+      "75339543-ccc9-4cda-b750-dd5eead444e2",
+      "516cdd3c-1462-460a-927f-e5eeee1da2b8"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -251,5 +231,6 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   "ping_status": "ping_status_unknown",
   "options": [],
   "rescue_server": null,
-  "protected": false
+  "protected": false,
+  "user_data": null
 }

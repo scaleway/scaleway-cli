@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              4741beac-6994-4ae2-8ced-bb8a05790a06
-OrganizationID  d3520a52-2c75-4ba0-bda8-82dd087f07f2
-ProjectID       d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Name            cli-bm-frosty-sinoussi
+ID              cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc
+OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name            cli-bm-inspiring-jennings
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
 OfferName       EM-I215E-NVME
-Domain          4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud
+Domain          cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
@@ -18,8 +18,8 @@ Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-4df480c5-5b28-4aef-b0c0-a28a5373647e  2001:bc8:1201:a22:b683:51ff:fe0f:6d68  4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud  IPv6     active          -
-8de17f5b-c819-4ff8-8b49-4a58122a748b  195.154.100.174                        4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+2f4d7278-1dfe-462f-aabe-aa8ff4a09f9e  195.154.100.192                        cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+6cf367bd-0b2a-47cd-8957-3e9dee2d1d7f  2001:bc8:1201:a22:b683:51ff:fe0f:6bbc  cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud  IPv6     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -27,7 +27,7 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   54ba9d3d-732f-455f-b316-5b88afb7caab
+SSHKeyIDs.0                                                   e115bb5d-59c8-45af-a596-71200e31c5f9
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -81,10 +81,10 @@ PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4741beac-6994-4ae2-8ced-bb8a05790a06",
-  "organization_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "name": "cli-bm-frosty-sinoussi",
+  "id": "cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-bm-inspiring-jennings",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -94,30 +94,30 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   "tags": [],
   "ips": [
     {
-      "id": "4df480c5-5b28-4aef-b0c0-a28a5373647e",
-      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6d68",
-      "reverse": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
-      "version": "IPv6",
+      "id": "2f4d7278-1dfe-462f-aabe-aa8ff4a09f9e",
+      "address": "195.154.100.192",
+      "reverse": "cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "8de17f5b-c819-4ff8-8b49-4a58122a748b",
-      "address": "195.154.100.174",
-      "reverse": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
-      "version": "IPv4",
+      "id": "6cf367bd-0b2a-47cd-8957-3e9dee2d1d7f",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6bbc",
+      "reverse": "cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "4741beac-6994-4ae2-8ced-bb8a05790a06.fr-par-2.baremetal.scw.cloud",
+  "domain": "cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "54ba9d3d-732f-455f-b316-5b88afb7caab"
+      "e115bb5d-59c8-45af-a596-71200e31c5f9"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -221,5 +221,6 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   "ping_status": "ping_status_unknown",
   "options": [],
   "rescue_server": null,
-  "protected": false
+  "protected": false,
+  "user_data": null
 }
