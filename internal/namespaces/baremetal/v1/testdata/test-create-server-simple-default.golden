@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              90ecba23-d1f5-4782-a085-a27e2e6f8d3d
+ID              d362d0be-744e-4550-a4ce-45ef438bc1ba
 OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name            cli-bm-eloquent-cartwright
+Name            cli-bm-jovial-fermi
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
@@ -18,17 +18,17 @@ Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-80740da6-4592-4474-bffe-f5010ef564f8  2001:bc8:1201:a22:b683:51ff:fe0f:6bbc  -        IPv6     unknown         -
-eaa34473-d2bb-4313-9eaa-74d345bd96e7  195.154.100.192                        -        IPv4     unknown         -
+df5477be-5c6c-4182-86cd-97604b3ddc0c  2001:bc8:1201:a17:b683:51ff:fe0f:60e4  -        IPv6     unknown         -
+e04103af-07c1-457b-98af-39814fea648d  195.154.100.41                         -        IPv4     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "90ecba23-d1f5-4782-a085-a27e2e6f8d3d",
+  "id": "d362d0be-744e-4550-a4ce-45ef438bc1ba",
   "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-bm-eloquent-cartwright",
+  "name": "cli-bm-jovial-fermi",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -38,16 +38,16 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "tags": [],
   "ips": [
     {
-      "id": "80740da6-4592-4474-bffe-f5010ef564f8",
-      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:6bbc",
+      "id": "df5477be-5c6c-4182-86cd-97604b3ddc0c",
+      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:60e4",
       "reverse": "",
       "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "eaa34473-d2bb-4313-9eaa-74d345bd96e7",
-      "address": "195.154.100.192",
+      "id": "e04103af-07c1-457b-98af-39814fea648d",
+      "address": "195.154.100.41",
       "reverse": "",
       "version": "IPv4",
       "reverse_status": "unknown",
@@ -61,5 +61,6 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "ping_status": "ping_status_unknown",
   "options": [],
   "rescue_server": null,
-  "protected": false
+  "protected": false,
+  "user_data": null
 }
