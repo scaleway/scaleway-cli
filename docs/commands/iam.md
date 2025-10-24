@@ -196,6 +196,7 @@ scw iam api-key update <access-key ...> [arg=value ...]
 | access-key | Required | Access key to update |
 | default-project-id |  | New default Project ID to set |
 | description |  | New description to update |
+| expires-at |  | New expiration date of the API key |
 
 
 
