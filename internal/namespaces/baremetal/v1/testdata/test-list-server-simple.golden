@@ -43,6 +43,7 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
     "options": [],
     "rescue_server": null,
     "protected": false,
+    "user_data": null,
     "offer_name": "EM-I215E-NVME"
   },
   {
@@ -195,6 +196,7 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
     "options": [],
     "rescue_server": null,
     "protected": false,
+    "user_data": null,
     "offer_name": "EM-I215E-NVME"
   },
   {
@@ -338,6 +340,7 @@ e54658ca-e08d-473a-aad1-d3f31a8a5551  cli-bm-friendly-brahmagupta  EM-I215E-NVME
     "options": [],
     "rescue_server": null,
     "protected": false,
+    "user_data": null,
     "offer_name": "EM-I215E-NVME"
   }
 ]
