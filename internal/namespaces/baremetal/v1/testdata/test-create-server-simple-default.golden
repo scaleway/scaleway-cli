@@ -61,5 +61,6 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "ping_status": "ping_status_unknown",
   "options": [],
   "rescue_server": null,
-  "protected": false
+  "protected": false,
+  "user_data": null
 }
