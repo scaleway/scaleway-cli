@@ -4,38 +4,39 @@ Entity Type:
 application
 
 Api Key:
-AccessKey         SCW2NSMT7HPTHMJBWP0S
-ApplicationID     370d4bad-80b5-4602-8def-f2a34b7581de
-Description       -
+AccessKey         SCWW3T9S86AVRK3Z0WM9
+ApplicationID     fecc73d6-cb99-4fd5-8f3f-95870cb57228
+Description       test-cli-iam-application-api-key
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-DefaultProjectID  6867048b-fe12-4e96-835e-41c79a39604b
+ExpiresAt         few seconds ago
+DefaultProjectID  57a1e028-d7d3-4a4e-80cf-52cef8fd0d3e
 Editable          true
 Deletable         true
 Managed           false
-CreationIP        51.159.46.153
+CreationIP        51.159.73.145
 
 Policies:
-Copy of Editors (4feb1f44-1726-4373-bf9b-01c828ddb0ca)  AllProductsFullAccess OrganizationReadOnly ProjectManager SupportTicketReadOnly
+Copy of Copy of Group - Editors (e8a8bacc-d77a-4bdd-8b37-e63409000e62)  AllProductsFullAccess OrganizationReadOnly ProjectManager SupportTicketReadOnly
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
-    "access_key": "SCW2NSMT7HPTHMJBWP0S",
+    "access_key": "SCWW3T9S86AVRK3Z0WM9",
     "secret_key": null,
-    "application_id": "370d4bad-80b5-4602-8def-f2a34b7581de",
-    "description": "",
+    "application_id": "fecc73d6-cb99-4fd5-8f3f-95870cb57228",
+    "description": "test-cli-iam-application-api-key",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
-    "expires_at": null,
-    "default_project_id": "6867048b-fe12-4e96-835e-41c79a39604b",
+    "expires_at": "1970-01-01T00:00:00.0Z",
+    "default_project_id": "57a1e028-d7d3-4a4e-80cf-52cef8fd0d3e",
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.46.153"
+    "creation_ip": "51.159.73.145"
   },
   "entity_type": "application",
   "policies": {
-    "Copy of Editors (4feb1f44-1726-4373-bf9b-01c828ddb0ca)": [
+    "Copy of Copy of Group - Editors (e8a8bacc-d77a-4bdd-8b37-e63409000e62)": [
       "AllProductsFullAccess",
       "OrganizationReadOnly",
       "ProjectManager",
