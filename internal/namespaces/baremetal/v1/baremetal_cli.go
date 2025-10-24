@@ -506,6 +506,13 @@ func baremetalServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "user-data",
+				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -574,6 +581,13 @@ func baremetalServerUpdate() *core.Command {
 			{
 				Name:       "protected",
 				Short:      `If enabled, the server can not be deleted`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-data",
+				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -793,6 +807,24 @@ func baremetalServerInstall() *core.Command {
 				Name:       "partitioning-schema.zfs.pools.{index}.filesystem-options.{index}",
 				Required:   false,
 				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-data.name",
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "user-data.content-type",
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "user-data.content",
+				Required:   false,
+				Deprecated: true,
 				Positional: false,
 			},
 			core.ZoneArgSpec(
