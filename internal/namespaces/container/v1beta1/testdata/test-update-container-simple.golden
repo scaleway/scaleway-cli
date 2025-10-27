@@ -1,21 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         a2844e21-3cf0-42a3-bab0-194ff3ddcae4
-Name                                       cli-test-quirky-northcutt
-NamespaceID                                213fb58c-6b93-4713-94db-f747a8b2e400
+ID                                         53c229f3-ac9a-48c4-8021-aec9c98b0092
+Name                                       cli-test-awesome-kirch
+NamespaceID                                d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4
 Status                                     pending
 MinScale                                   0
 MaxScale                                   5
 MemoryLimit                                2048
-CPULimit                                   1000
+CPULimit                                   1500
 Timeout                                    5 minutes
 Privacy                                    public
 Description                                -
-RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest
+RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest
 MaxConcurrency                             50
-DomainName                                 clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud
+DomainName                                 clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud
 Protocol                                   http1
-Port                                       8080
+Port                                       80
 HTTPOption                                 enabled
 Sandbox                                    v2
 LocalStorageLimit                          1000
@@ -25,26 +25,27 @@ HealthCheck.Interval                       10 seconds
 CreatedAt                                  few seconds ago
 UpdatedAt                                  few seconds ago
 Region                                     fr-par
+Tags.0                                     new_tag
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "a2844e21-3cf0-42a3-bab0-194ff3ddcae4",
-  "name": "cli-test-quirky-northcutt",
-  "namespace_id": "213fb58c-6b93-4713-94db-f747a8b2e400",
+  "id": "53c229f3-ac9a-48c4-8021-aec9c98b0092",
+  "name": "cli-test-awesome-kirch",
+  "namespace_id": "d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4",
   "status": "pending",
   "environment_variables": {},
   "min_scale": 0,
   "max_scale": 5,
   "memory_limit": 2048,
-  "cpu_limit": 1000,
+  "cpu_limit": 1500,
   "timeout": "300.000000000s",
   "error_message": null,
   "privacy": "public",
   "description": "",
-  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsgifteddarwinplhkllu4/cli-test-quirky-northcutt:latest",
+  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
   "max_concurrency": 50,
-  "domain_name": "clicnsgifteddarwinplhkllu4-cli-test-quirky-northcutt.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
   "protocol": "http1",
-  "port": 8080,
+  "port": 80,
   "secret_environment_variables": [],
   "http_option": "enabled",
   "sandbox": "v2",
@@ -61,8 +62,10 @@ Region                                     fr-par
   "updated_at": "1970-01-01T00:00:00.0Z",
   "ready_at": null,
   "region": "fr-par",
-  "tags": [],
+  "tags": [
+    "new_tag"
+  ],
   "private_network_id": null,
-  "command": null,
-  "args": null
+  "command": [],
+  "args": []
 }
