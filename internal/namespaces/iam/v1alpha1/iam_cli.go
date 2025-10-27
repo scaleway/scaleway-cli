@@ -2361,6 +2361,13 @@ func iamAPIKeyUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "expires-at",
+				Short:      `New expiration date of the API key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateAPIKeyRequest)
