@@ -50,32 +50,15 @@ func Test_CreateContainer(t *testing.T) {
 	}))
 }
 
-func createContainer(metaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, fmt.Sprintf(
-		"scw container container create namespace-id={{ .Namespace.ID }} name=%s deploy=true -w",
-		core.GetRandomName("test")))
-}
-
-func createContainerWithImage(metaKey string, registryImageMetaKey string) core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(metaKey, fmt.Sprintf(
-		"scw container container create namespace-id={{ .ContainerNamespace.ID }} name=%s registry-image={{ (index .%s 0).FullName }}:latest port=80 deploy=true -w",
-		core.GetRandomName("test"),
-		registryImageMetaKey,
-	))
-}
-
-func deleteRegistryNamespace(metaKey string) core.AfterFunc {
-	return func(ctx *core.AfterFuncCtx) error {
-		return core.ExecAfterCmd("scw registry namespace delete {{ ." + metaKey + ".ID }}")(ctx)
-	}
-}
-
 func Test_UpdateContainer(t *testing.T) {
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: container.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createNamespace("Namespace"),
-			createContainer("Container"),
+			core.ExecStoreBeforeCmd("Container", fmt.Sprintf(
+				"scw container container create namespace-id={{ .Namespace.ID }} name=%s deploy=true -w",
+				core.GetRandomName("test"),
+			)),
 		),
 		Cmd: "scw container container update {{ .Container.ID }} tags.0=new_tag port=80 cpu-limit=1500",
 		Check: core.TestCheckCombine(
@@ -94,6 +77,14 @@ func Test_UpdateContainer(t *testing.T) {
 		),
 	}))
 
+	lighttpdImage := "sebp/lighttpd:latest"
+	nginxImage := "nginx:1.29.2-alpine"
+	lighttpdImageMetaKey := "LighttpdImage"
+	nginxImageMetaKey := "NginxImage"
+	registryNamespaceMetaKey := "RegistryNamespace"
+	containerNamespaceMetaKey := "ContainerNamespace"
+	containerMetaKey := "Container"
+
 	t.Run("RegistryImage", core.Test(&core.TestConfig{
 		Commands: core.NewCommandsMerge(
 			container.GetCommands(),
@@ -101,7 +92,7 @@ func Test_UpdateContainer(t *testing.T) {
 		),
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
-				"RegistryNamespace",
+				registryNamespaceMetaKey,
 				fmt.Sprintf("scw registry namespace create name=%s is-public=false",
 					core.GetRandomName("test-ctn-update-rg-img"),
 				),
@@ -109,45 +100,41 @@ func Test_UpdateContainer(t *testing.T) {
 			core.BeforeFuncWhenUpdatingCassette(
 				core.BeforeFuncCombine(
 					core.ExecBeforeCmd("scw registry login"),
-					testhelpers.PushRegistryImage(
-						"nginx:1.28.0-alpine",
-						"RegistryNamespace",
-						"nginx-1-28-0-alpine",
-					),
-					testhelpers.PushRegistryImage(
-						"nginx:1.29.2-alpine",
-						"RegistryNamespace",
-						"nginx-1-29-2-alpine",
-					),
+					testhelpers.PushRegistryImage(lighttpdImage, registryNamespaceMetaKey),
+					testhelpers.PushRegistryImage(nginxImage, registryNamespaceMetaKey),
 				),
 			),
-			core.BeforeFuncCombine(
-				testhelpers.StoreImageInMeta(
-					"RegistryImageNginx28",
-					"RegistryNamespace",
-					"nginx-1-28-0-alpine",
-				),
-				testhelpers.StoreImageInMeta(
-					"RegistryImageNginx29",
-					"RegistryNamespace",
-					"nginx-1-29-2-alpine",
-				),
+			testhelpers.StoreImageIdentifierInMeta(
+				registryNamespaceMetaKey,
+				lighttpdImage,
+				lighttpdImageMetaKey,
 			),
-			createNamespace("ContainerNamespace"),
-			createContainerWithImage("Container", "RegistryImageNginx28"),
+			testhelpers.StoreImageIdentifierInMeta(
+				registryNamespaceMetaKey,
+				nginxImage,
+				nginxImageMetaKey,
+			),
+			createNamespace(containerNamespaceMetaKey),
+			core.ExecStoreBeforeCmd(containerMetaKey, fmt.Sprintf(
+				"scw container container create namespace-id={{ .%s.ID }} name=%s registry-image={{ .%s }} port=80 deploy=true -w",
+				containerNamespaceMetaKey,
+				core.GetRandomName("test"),
+				lighttpdImageMetaKey,
+			)),
+			// NB: after this step, the container with the sebp/lighttpd image will deploy but stay in error state because it has no content to serve
 		),
-		Cmd: "scw container container update {{ .Container.ID }} registry-image={{ (index .RegistryImageNginx29 0).FullName }}:latest port=80 redeploy=true -w",
+		Cmd: fmt.Sprintf(
+			"scw container container update {{ .%s.ID }} registry-image={{ .%s }} port=80 redeploy=true -w",
+			containerMetaKey,
+			nginxImageMetaKey,
+		),
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				c := ctx.Result.(*containerSDK.Container)
-
 				// Check image
-				expectedImageName := ctx.Meta.Render(
-					"{{ (index .RegistryImageNginx29 0).FullName }}:latest",
-				)
+				expectedImageName := ctx.Meta.Render(fmt.Sprintf("{{ .%s }}", nginxImageMetaKey))
 				assert.Equal(t, expectedImageName, c.RegistryImage)
-
 				// Check status
 				assert.Equal(t, containerSDK.ContainerStatusReady, c.Status)
 			},
@@ -155,8 +142,17 @@ func Test_UpdateContainer(t *testing.T) {
 			core.TestCheckGolden(),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			deleteNamespace("ContainerNamespace"),
-			deleteRegistryNamespace("RegistryNamespace"),
+			deleteNamespace(containerNamespaceMetaKey),
+			func(ctx *core.AfterFuncCtx) error {
+				return core.ExecAfterCmd(
+					fmt.Sprintf(
+						"scw registry namespace delete {{ .%s.ID }}",
+						registryNamespaceMetaKey,
+					),
+				)(
+					ctx,
+				)
+			},
 		),
 	}))
 }

@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         1dd62e61-1739-45c2-b8e0-a977245ea1dc
-Name                                       cli-test-sharp-bouman
-NamespaceID                                10fb6bd1-4846-41c0-b888-64765a9d8242
+ID                                         6d2eea3a-29ac-4bd8-983a-8f4a8400bc35
+Name                                       cli-test-boring-margulis
+NamespaceID                                7bc2181b-12ca-4497-8714-248420baa927
 Status                                     ready
 MinScale                                   0
 MaxScale                                   5
@@ -11,9 +11,9 @@ CPULimit                                   1000
 Timeout                                    5 minutes
 Privacy                                    public
 Description                                -
-RegistryImage                              rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest
+RegistryImage                              rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-hardcore-banzai/nginx:1.29.2-alpine
 MaxConcurrency                             50
-DomainName                                 clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud
+DomainName                                 clicnsupbeatkilbyj4rddccg-cli-test-boring-margulis.functions.fnc.fr-par.scw.cloud
 Protocol                                   http1
 Port                                       80
 HTTPOption                                 enabled
@@ -28,9 +28,9 @@ ReadyAt                                    few seconds ago
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1dd62e61-1739-45c2-b8e0-a977245ea1dc",
-  "name": "cli-test-sharp-bouman",
-  "namespace_id": "10fb6bd1-4846-41c0-b888-64765a9d8242",
+  "id": "6d2eea3a-29ac-4bd8-983a-8f4a8400bc35",
+  "name": "cli-test-boring-margulis",
+  "namespace_id": "7bc2181b-12ca-4497-8714-248420baa927",
   "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
@@ -41,9 +41,9 @@ Region                                     fr-par
   "error_message": null,
   "privacy": "public",
   "description": "",
-  "registry_image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-flamboyant-keller/nginx-1-29-2-alpine:latest",
+  "registry_image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-hardcore-banzai/nginx:1.29.2-alpine",
   "max_concurrency": 50,
-  "domain_name": "clicnsvibrantneumannboscmces-cli-test-sharp-bouman.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clicnsupbeatkilbyj4rddccg-cli-test-boring-margulis.functions.fnc.fr-par.scw.cloud",
   "protocol": "http1",
   "port": 80,
   "secret_environment_variables": [],
