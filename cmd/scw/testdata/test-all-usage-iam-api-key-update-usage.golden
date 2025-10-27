@@ -9,6 +9,7 @@ ARGS:
   access-key             Access key to update
   [default-project-id]   New default Project ID to set
   [description]          New description to update
+  [expires-at]           New expiration date of the API key
 
 FLAGS:
   -h, --help   help for update
