@@ -44,7 +44,7 @@ scw secret secret add-owner <secret-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | secret-id | Required | ID of the secret |
-| product | One of: `unknown_product`, `edge_services` | ID of the product to add |
+| product | One of: `unknown_product`, `edge_services`, `s2s_vpn` | ID of the product to add |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

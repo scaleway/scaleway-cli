@@ -577,6 +577,7 @@ func secretSecretAddOwner() *core.Command {
 				EnumValues: []string{
 					"unknown_product",
 					"edge_services",
+					"s2s_vpn",
 				},
 			},
 			core.RegionArgSpec(
