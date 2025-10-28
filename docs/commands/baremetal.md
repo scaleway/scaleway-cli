@@ -565,6 +565,7 @@ scw baremetal server create [arg=value ...]
 | install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
 | option-ids.{index} |  | IDs of options to enable on server |
 | protected |  | If enabled, the server can not be deleted |
+| user-data |  | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
@@ -700,6 +701,9 @@ scw baremetal server install <server-id ...> [arg=value ...]
 | partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
 | partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
 | partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
+| ~~user-data.name~~ | Deprecated |  |
+| ~~user-data.content-type~~ | Deprecated |  |
+| ~~user-data.content~~ | Deprecated |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -895,6 +899,7 @@ scw baremetal server update <server-id ...> [arg=value ...]
 | description |  | Description associated with the server, max 255 characters, not updated if null |
 | tags.{index} |  | Tags associated with the server, not updated if null |
 | protected |  | If enabled, the server can not be deleted |
+| user-data |  | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
