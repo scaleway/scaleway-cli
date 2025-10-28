@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           89ee8049-b2db-4204-96f0-4a1e69f87e45
+ID           0dc62cf1-e394-405f-98ed-73902b5f883f
 Name         2-static-priv-endpoints
-ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
 Status       ready
-Version      7.0.5
+Version      7.2.11
 NodeType     RED1-micro
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
@@ -15,38 +15,23 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-13199053-663b-40e8-bf06-56161d32271b  6379  [172.16.4.1]
-1ede35c6-c45a-4a24-b34b-0486a33c01f8  6379  [10.16.4.1]
+87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a  6379  [10.16.4.1]
+e0a39297-5213-4d9c-a550-a2c53c706f50  6379  [172.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "89ee8049-b2db-4204-96f0-4a1e69f87e45",
+  "id": "0dc62cf1-e394-405f-98ed-73902b5f883f",
   "name": "2-static-priv-endpoints",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
   "status": "ready",
-  "version": "7.0.5",
+  "version": "7.2.11",
   "endpoints": [
     {
       "port": 6379,
       "private_network": {
-        "id": "7d5d5e13-7f07-44df-962d-5edad547ee62",
-        "service_ips": [
-          "172.16.4.1/22"
-        ],
-        "zone": "fr-par-1",
-        "provisioning_mode": "static"
-      },
-      "ips": [
-        "172.16.4.1"
-      ],
-      "id": "13199053-663b-40e8-bf06-56161d32271b"
-    },
-    {
-      "port": 6379,
-      "private_network": {
-        "id": "f8ecd537-56c8-49a6-9da0-e4e0ba6d2c12",
+        "id": "24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
         "service_ips": [
           "10.16.4.1/22"
         ],
@@ -56,7 +41,22 @@ ID   IP CIDR  DESCRIPTION
       "ips": [
         "10.16.4.1"
       ],
-      "id": "1ede35c6-c45a-4a24-b34b-0486a33c01f8"
+      "id": "87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"
+    },
+    {
+      "port": 6379,
+      "private_network": {
+        "id": "5016c024-9aa4-42de-bc16-0981f419889b",
+        "service_ips": [
+          "172.16.4.1/22"
+        ],
+        "zone": "fr-par-1",
+        "provisioning_mode": "static"
+      },
+      "ips": [
+        "172.16.4.1"
+      ],
+      "id": "e0a39297-5213-4d9c-a550-a2c53c706f50"
     }
   ],
   "tags": [],
