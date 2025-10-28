@@ -1,39 +1,171 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    ADDRESS          PREFIX  TYPE  REVERSE  PROJECT                               SERVER ID                             SERVER NAME      TAGS  ZONE      ORGANIZATION
-58542407-77e1-444b-9fa3-30c4a0d9d7fb  163.172.170.102  -       nat   -        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b  c66fe648-06c8-4cab-83d4-d963bf0ef8df  kubetest-runner  []    fr-par-1  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-647be9ab-3627-4f02-b205-2ae3fe896c5d  51.15.214.148    -       nat   -        ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b                                                         []    fr-par-1  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID                                    ADDRESS         PREFIX                  TYPE         REVERSE  PROJECT                               SERVER ID  SERVER NAME  TAGS  ZONE      ORGANIZATION
+5518b669-2712-486d-a79f-447c7dea27db  -               2001:bc8:710:7074::/64  routed_ipv6  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+a81b021c-d607-4479-aa5b-816afdadec9f  -               2001:bc8:710:3c3b::/64  routed_ipv6  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+f80e5386-98f0-4e2f-98b2-3744ebb1dfb2  51.158.105.246  -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+e0bcadc9-914f-429e-82af-e2bffda353d4  51.158.98.0     -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+9ff6f7a8-d4b1-44c9-a51e-636185d6e60d  51.158.97.101   -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+d552540d-6df4-46c3-8d5e-c9cae7b31b2a  51.158.96.95    -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+a20b1bd8-f9bd-44c6-8d16-4326e8b079af  51.158.79.181   -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ff232dd5-0b36-4400-860d-a2d4f590a9e5  51.15.254.114   -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+9918ae90-cd48-408f-97af-bcf3bc77afbc  51.15.229.243   -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+df7bdd97-22d7-4a4b-a0f1-6abc3519f5e8  51.15.129.186   -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
+fe3afc1e-a1ea-48d8-8df4-663952b362a7  51.15.129.35    -                       routed_ipv4  -        fa1e3217-dc80-42ac-85c3-3f034b78b552                          []    fr-par-1  fa1e3217-dc80-42ac-85c3-3f034b78b552
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "58542407-77e1-444b-9fa3-30c4a0d9d7fb",
-    "address": "163.172.170.102",
+    "id": "5518b669-2712-486d-a79f-447c7dea27db",
+    "address": "",
     "reverse": null,
-    "server": {
-      "id": "c66fe648-06c8-4cab-83d4-d963bf0ef8df",
-      "name": "kubetest-runner"
-    },
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "type": "nat",
-    "state": "attached",
-    "prefix": "",
-    "ipam_id": "",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv6",
+    "state": "detached",
+    "prefix": "2001:bc8:710:7074::/64",
+    "ipam_id": "3aef1c94-7c9a-47b6-aa8d-eb4b13f1061d",
     "zone": "fr-par-1"
   },
   {
-    "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
-    "address": "51.15.214.148",
+    "id": "a81b021c-d607-4479-aa5b-816afdadec9f",
+    "address": "",
     "reverse": null,
     "server": null,
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "type": "nat",
-    "state": "attached",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv6",
+    "state": "detached",
+    "prefix": "2001:bc8:710:3c3b::/64",
+    "ipam_id": "43109af9-b8c3-43f0-9f5e-ae0cd918d62a",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "f80e5386-98f0-4e2f-98b2-3744ebb1dfb2",
+    "address": "51.158.105.246",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
     "prefix": "",
-    "ipam_id": "",
+    "ipam_id": "6709aef6-8c1a-4d37-b692-8213e48d82c5",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "e0bcadc9-914f-429e-82af-e2bffda353d4",
+    "address": "51.158.98.0",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "89b18ec5-a28e-4738-8c41-1b163c16b956",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "9ff6f7a8-d4b1-44c9-a51e-636185d6e60d",
+    "address": "51.158.97.101",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "6ca13e24-a51e-49d2-bab1-6f7157d6090b",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "d552540d-6df4-46c3-8d5e-c9cae7b31b2a",
+    "address": "51.158.96.95",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "1aea1ce3-7e6f-43c8-b593-6f4245f0b062",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "a20b1bd8-f9bd-44c6-8d16-4326e8b079af",
+    "address": "51.158.79.181",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "1e78b162-4939-4095-82d1-39b8ea5076e7",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "ff232dd5-0b36-4400-860d-a2d4f590a9e5",
+    "address": "51.15.254.114",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "3d302bfa-dba6-413a-b10a-d1f6b8bf2444",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "9918ae90-cd48-408f-97af-bcf3bc77afbc",
+    "address": "51.15.229.243",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "1ba8c3d6-3f76-4f1f-a91d-421dccb08739",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "df7bdd97-22d7-4a4b-a0f1-6abc3519f5e8",
+    "address": "51.15.129.186",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "73c2c874-da84-40bc-b461-7fb8749fca8c",
+    "zone": "fr-par-1"
+  },
+  {
+    "id": "fe3afc1e-a1ea-48d8-8df4-663952b362a7",
+    "address": "51.15.129.35",
+    "reverse": null,
+    "server": null,
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "tags": [],
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
+    "prefix": "",
+    "ipam_id": "d234890d-9789-4494-b2a9-feb45c741f81",
     "zone": "fr-par-1"
   }
 ]

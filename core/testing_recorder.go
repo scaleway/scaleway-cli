@@ -12,6 +12,7 @@ import (
 
 	"github.com/dnaeon/go-vcr/cassette"
 	"github.com/dnaeon/go-vcr/recorder"
+	"github.com/scaleway/scaleway-sdk-go/vcr"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -150,6 +151,19 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	r.AddSaveFilter(cassetteResponseFilter)
 
 	r.SetMatcher(cassetteMatcher)
+
+	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
+		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
+	}, nil
+}
+
+func newHTTPRecorder(t *testing.T, folder string, update bool) (*http.Client, func(), error) {
+	t.Helper()
+
+	r, err := vcr.NewHTTPRecorder(t, folder, update, &SocketPassthroughTransport{})
+	if err != nil {
+		return nil, nil, err
+	}
 
 	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
