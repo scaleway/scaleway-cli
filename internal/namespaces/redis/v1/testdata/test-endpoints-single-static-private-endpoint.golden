@@ -1,10 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           62e071a3-e206-471b-afdb-1bc013b7c426
+ID           faef57d3-929c-4a9e-8e7c-2bc97ff93812
 Name         1-static-priv-endpoint
-ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
 Status       ready
-Version      7.0.5
+Version      7.2.11
 NodeType     RED1-micro
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
@@ -15,22 +15,22 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-a56f3126-4e97-46cf-89c6-f179359f96e9  6379  [172.16.4.1]
+b504689f-8e33-4eca-a01d-29d9c01105c5  6379  [172.16.4.1]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "62e071a3-e206-471b-afdb-1bc013b7c426",
+  "id": "faef57d3-929c-4a9e-8e7c-2bc97ff93812",
   "name": "1-static-priv-endpoint",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
   "status": "ready",
-  "version": "7.0.5",
+  "version": "7.2.11",
   "endpoints": [
     {
       "port": 6379,
       "private_network": {
-        "id": "9104c8f2-09a7-4124-a44c-26a699d143cc",
+        "id": "412f480b-9a41-42a5-ae6e-18372017b507",
         "service_ips": [
           "172.16.4.1/22"
         ],
@@ -40,7 +40,7 @@ ID   IP CIDR  DESCRIPTION
       "ips": [
         "172.16.4.1"
       ],
-      "id": "a56f3126-4e97-46cf-89c6-f179359f96e9"
+      "id": "b504689f-8e33-4eca-a01d-29d9c01105c5"
     }
   ],
   "tags": [],

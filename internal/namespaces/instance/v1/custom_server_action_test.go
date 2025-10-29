@@ -74,7 +74,7 @@ func Test_ServerTerminate(t *testing.T) {
 				_, err := api.GetIP(&instanceSDK.GetIPRequest{
 					IP: server.PublicIP.ID,
 				})
-				require.ErrorAs(t, err, new(*scw.PermissionsDeniedError))
+				require.ErrorAs(t, err, new(*scw.ResourceNotFoundError))
 			},
 		),
 		DisableParallel: true,

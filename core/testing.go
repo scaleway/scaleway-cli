@@ -306,6 +306,23 @@ func createTestClient(
 // because they will be executed without waiting.
 var DefaultRetryInterval *time.Duration
 
+var foldersUsingVCRv4 = []string{
+	"instance",
+}
+
+func folderUsesVCRv4(fullFolderPath string) bool {
+	fullPathSplit := strings.Split(fullFolderPath, "/")
+
+	folder := fullPathSplit[len(fullPathSplit)-1]
+	for _, migratedFolder := range foldersUsingVCRv4 {
+		if migratedFolder == folder {
+			return true
+		}
+	}
+
+	return false
+}
+
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -348,7 +365,23 @@ func Test(config *TestConfig) func(t *testing.T) {
 			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
 		}
 
-		httpClient, cleanup, err := getHTTPRecoder(t, *UpdateCassettes)
+		folder, err := os.Getwd()
+		if err != nil {
+			t.Fatalf("cannot detect working directory for testing")
+		}
+
+		// Create an HTTP client with recording capabilities
+		var (
+			httpClient *http.Client
+			cleanup    func()
+		)
+
+		if folderUsesVCRv4(folder) {
+			httpClient, cleanup, err = newHTTPRecorder(t, folder, *UpdateCassettes)
+		} else {
+			httpClient, cleanup, err = getHTTPRecoder(t, *UpdateCassettes)
+		}
+
 		require.NoError(t, err)
 		defer cleanup()
 
