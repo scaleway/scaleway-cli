@@ -219,7 +219,7 @@ func Test_SetACL(t *testing.T) {
 			fetchLatestEngine("PostgreSQL"),
 			createInstance("{{.latestEngine}}"),
 		),
-		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.2=third --wait",
+		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.1=second descriptions.2=third --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
@@ -236,7 +236,7 @@ func Test_SetACL(t *testing.T) {
 			fetchLatestEngine("PostgreSQL"),
 			createInstance("{{.latestEngine}}"),
 		),
-		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} description=default descriptions.1=second --wait",
+		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} description=default descriptions.0=first descriptions.1=second --wait",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
