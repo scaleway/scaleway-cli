@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID               d9987d23-f5f7-4b8e-9b99-144cdc36c81f
-Name             cli-pg-nice-hoover
-Organization     ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project          ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID               9e06c469-42ae-45f4-9bca-274b503a2910
+Name             cli-pg-affectionate-mclaren
+Organization     fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project          fa1e3217-dc80-42ac-85c3-3f034b78b552
 PolicyMode       optional
 PolicyType       max_availability
 PolicyRespected  true
 Zone             fr-par-1
 
 Placement Group:
-ID               d9987d23-f5f7-4b8e-9b99-144cdc36c81f
-Name             cli-pg-nice-hoover
-Organization     ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project          ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID               9e06c469-42ae-45f4-9bca-274b503a2910
+Name             cli-pg-affectionate-mclaren
+Organization     fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project          fa1e3217-dc80-42ac-85c3-3f034b78b552
 PolicyMode       optional
 PolicyType       max_availability
 PolicyRespected  true
@@ -21,13 +21,13 @@ Zone             fr-par-1
 
 Servers:
 ID                                    NAME                        POLICY RESPECTED
-31a58329-348f-4fe8-9cf1-4b3d0c888818  cli-srv-infallible-murdock  true
+4d6ffda3-49c7-4b48-9e3f-0fbe03fcde90  cli-srv-heuristic-brattain  true
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d9987d23-f5f7-4b8e-9b99-144cdc36c81f",
-  "name": "cli-pg-nice-hoover",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "9e06c469-42ae-45f4-9bca-274b503a2910",
+  "name": "cli-pg-affectionate-mclaren",
+  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "tags": [],
   "policy_mode": "optional",
   "policy_type": "max_availability",
@@ -35,8 +35,8 @@ ID                                    NAME                        POLICY RESPECT
   "zone": "fr-par-1",
   "servers": [
     {
-      "id": "31a58329-348f-4fe8-9cf1-4b3d0c888818",
-      "name": "cli-srv-infallible-murdock",
+      "id": "4d6ffda3-49c7-4b48-9e3f-0fbe03fcde90",
+      "name": "cli-srv-heuristic-brattain",
       "policy_respected": true
     }
   ]

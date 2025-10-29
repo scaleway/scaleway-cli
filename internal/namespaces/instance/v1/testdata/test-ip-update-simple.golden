@@ -1,28 +1,28 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            647be9ab-3627-4f02-b205-2ae3fe896c5d
-IP.Address       51.15.214.148
-IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Type          nat
-IP.State         attached
+IP.ID            e0bcadc9-914f-429e-82af-e2bffda353d4
+IP.Address       51.158.98.0
+IP.Organization  fa1e3217-dc80-42ac-85c3-3f034b78b552
+IP.Project       fa1e3217-dc80-42ac-85c3-3f034b78b552
+IP.Type          routed_ipv4
+IP.State         detached
 IP.Prefix        -
-IP.IpamID        -
+IP.IpamID        f6005819-8019-40f8-a891-cc49a1b1c93c
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "647be9ab-3627-4f02-b205-2ae3fe896c5d",
-    "address": "51.15.214.148",
+    "id": "e0bcadc9-914f-429e-82af-e2bffda353d4",
+    "address": "51.158.98.0",
     "reverse": null,
     "server": null,
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-    "type": "nat",
-    "state": "attached",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "type": "routed_ipv4",
+    "state": "detached",
     "prefix": "",
-    "ipam_id": "",
+    "ipam_id": "f6005819-8019-40f8-a891-cc49a1b1c93c",
     "zone": "fr-par-1"
   }
 }

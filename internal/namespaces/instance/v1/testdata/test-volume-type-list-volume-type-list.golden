@@ -1,21 +1,10 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Type   Name               Snapshot  Min     Max
-b_ssd  Block Storage SSD  true      1.0 GB  10 TB
-l_ssd  Local SSD          true      1.0 GB  800 GB
+Type     Name             Snapshot  Min     Max
+l_ssd    Local SSD        true      1.0 GB  800 GB
+scratch  Scratch Storage  false     1.0 GB  60 TB
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
-  {
-    "type": "b_ssd",
-    "display_name": "Block Storage SSD",
-    "capabilities": {
-      "snapshot": true
-    },
-    "constraints": {
-      "min": 1000000000,
-      "max": 10000000000000
-    }
-  },
   {
     "type": "l_ssd",
     "display_name": "Local SSD",
@@ -25,6 +14,17 @@ l_ssd  Local SSD          true      1.0 GB  800 GB
     "constraints": {
       "min": 1000000000,
       "max": 800000000000
+    }
+  },
+  {
+    "type": "scratch",
+    "display_name": "Scratch Storage",
+    "capabilities": {
+      "snapshot": false
+    },
+    "constraints": {
+      "min": 1000000000,
+      "max": 60000000000000
     }
   }
 ]
