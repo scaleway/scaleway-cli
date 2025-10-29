@@ -1,0 +1,68 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                         a5c124fd-b498-467a-a1d6-2c6f75b575ac
+Name                                       cli-test-bold-ishizaka
+NamespaceID                                f29e7425-baaf-4d5e-9fde-807f822c4f9b
+Status                                     pending
+MinScale                                   0
+MaxScale                                   5
+MemoryLimit                                2048
+CPULimit                                   1000
+Timeout                                    5 minutes
+Privacy                                    public
+Description                                -
+RegistryImage                              rg.fr-par.scw.cloud/funcscwclicnsmodestboothuodegdpe/cli-test-bold-ishizaka:latest
+MaxConcurrency                             50
+DomainName                                 clicnsmodestboothuodegdpe-cli-test-bold-ishizaka.functions.fnc.fr-par.scw.cloud
+Protocol                                   http1
+Port                                       8080
+HTTPOption                                 enabled
+Sandbox                                    v2
+LocalStorageLimit                          1000
+ScalingOption.ConcurrentRequestsThreshold  50
+HealthCheck.FailureThreshold               30
+HealthCheck.Interval                       10 seconds
+CreatedAt                                  few seconds ago
+UpdatedAt                                  few seconds ago
+Region                                     fr-par
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "a5c124fd-b498-467a-a1d6-2c6f75b575ac",
+  "name": "cli-test-bold-ishizaka",
+  "namespace_id": "f29e7425-baaf-4d5e-9fde-807f822c4f9b",
+  "status": "pending",
+  "environment_variables": {},
+  "min_scale": 0,
+  "max_scale": 5,
+  "memory_limit": 2048,
+  "cpu_limit": 1000,
+  "timeout": "300.000000000s",
+  "error_message": null,
+  "privacy": "public",
+  "description": "",
+  "registry_image": "rg.fr-par.scw.cloud/funcscwclicnsmodestboothuodegdpe/cli-test-bold-ishizaka:latest",
+  "max_concurrency": 50,
+  "domain_name": "clicnsmodestboothuodegdpe-cli-test-bold-ishizaka.functions.fnc.fr-par.scw.cloud",
+  "protocol": "http1",
+  "port": 8080,
+  "secret_environment_variables": [],
+  "http_option": "enabled",
+  "sandbox": "v2",
+  "local_storage_limit": 1000,
+  "scaling_option": {
+    "concurrent_requests_threshold": 50
+  },
+  "health_check": {
+    "tcp": {},
+    "failure_threshold": 30,
+    "interval": "10.000000000s"
+  },
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "ready_at": null,
+  "region": "fr-par",
+  "tags": [],
+  "private_network_id": null,
+  "command": [],
+  "args": []
+}

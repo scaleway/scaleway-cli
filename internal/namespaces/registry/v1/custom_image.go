@@ -25,7 +25,7 @@ var (
 	}
 )
 
-type customImage struct {
+type CustomImage struct {
 	registry.Image
 	FullName           string
 	ExplicitVisibility string `json:"-"`
@@ -49,7 +49,7 @@ func imageGetBuilder(c *core.Command) *core.Command {
 			return getImageResp, err
 		}
 
-		res := customImage{
+		res := CustomImage{
 			Image:    *image,
 			FullName: fmt.Sprintf("%s/%s", namespace.Endpoint, image.Name),
 		}
@@ -120,9 +120,9 @@ func imageListBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		var customRes []customImage
+		var customRes []CustomImage
 		for _, image := range listImage {
-			img := customImage{
+			img := CustomImage{
 				Image: *image,
 				FullName: fmt.Sprintf(
 					"%s/%s",

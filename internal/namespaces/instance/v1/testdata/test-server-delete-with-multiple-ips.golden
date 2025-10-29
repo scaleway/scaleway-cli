@@ -2,8 +2,8 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-successfully deleted ip 51.15.210.241
-successfully deleted ip 2001:bc8:710:d:dc00:ff:fe90:9df5
+successfully deleted ip 51.158.98.0
+successfully deleted ip 2001:bc8:710:cdb6:dc00:ff:fed0:50b
 successfully deleted volume  (- sbs_volume)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {

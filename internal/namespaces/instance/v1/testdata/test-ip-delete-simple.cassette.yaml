@@ -2,40 +2,44 @@
 version: 1
 interactions:
 - request:
-    body: '{"organization":"951df375-e094-4d26-97c1-ba548eeb9c42"}'
+    body: '{"ip": {"id": "e0bcadc9-914f-429e-82af-e2bffda353d4", "address": "51.158.98.0",
+      "prefix": null, "reverse": null, "server": null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "zone": "fr-par-1", "type":
+      "routed_ipv4", "state": "detached", "tags": [], "ipam_id": "eb79c339-386e-411d-9542-234ec82abb25"}}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips
     method: POST
   response:
-    body: '{"ip": {"id": "10d0c80b-25a4-4cfd-b71f-9e6c196ada1b", "address": "51.15.248.118",
-      "reverse": null, "server": null, "organization": "951df375-e094-4d26-97c1-ba548eeb9c42",
-      "zone": "fr-par-1", "tags": []}}'
+    body: '{"ip": {"id": "e0bcadc9-914f-429e-82af-e2bffda353d4", "address": "51.158.98.0",
+      "prefix": null, "reverse": null, "server": null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "zone": "fr-par-1", "type":
+      "routed_ipv4", "state": "detached", "tags": [], "ipam_id": "eb79c339-386e-411d-9542-234ec82abb25"}}'
     headers:
-      Cache-Control:
-      - no-cache
       Content-Length:
-      - "203"
+      - "363"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 10:17:37 GMT
+      - Tue, 28 Oct 2025 16:53:58 GMT
       Location:
-      - https://cp-par1.scaleway.com/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+      - https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/e0bcadc9-914f-429e-82af-e2bffda353d4
       Server:
-      - scaleway_api
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      X-Request-Id:
+      - 34595a61-d9f9-44d2-a0e0-2303ab03c269
     status: 201 Created
     code: 201
     duration: ""
@@ -44,28 +48,28 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/10d0c80b-25a4-4cfd-b71f-9e6c196ada1b
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/e0bcadc9-914f-429e-82af-e2bffda353d4
     method: DELETE
   response:
     body: ""
     headers:
-      Cache-Control:
-      - no-cache
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 18 Mar 2020 10:17:37 GMT
+      - Tue, 28 Oct 2025 16:53:58 GMT
       Server:
-      - scaleway_api
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      X-Request-Id:
+      - b8ea0edc-8a6c-4047-861e-4c8a855e30cc
     status: 204 No Content
     code: 204
     duration: ""

@@ -2,28 +2,1364 @@
 version: 1
 interactions:
 - request:
-    body: '{"servers": []}'
+    body: '{"servers": [{"id": "3e9af520-c49c-4879-aa54-dcd3cda71ab7", "name": "cli-srv-stupefied-jepsen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-stupefied-jepsen", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "9af03917-da0a-4f48-b0fc-fcc86a2b4492", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:05:21",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:53:38.455124+00:00",
+      "modification_date": "2025-10-28T16:53:38.455124+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "53edc406-ec9e-4639-8f63-3e632349c65f",
+      "name": "cli-srv-quizzical-neumann", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-quizzical-neumann",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "d19a1cc9-cbfc-49a2-af36-fc4204689d50",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:05:1f", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:53:37.392114+00:00", "modification_date":
+      "2025-10-28T16:53:37.392114+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "4fe37002-b605-44dc-9d05-9a3527a3e048", "name": "cli-srv-upbeat-hugle",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-upbeat-hugle", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "a76308de-b332-4394-87c4-5fc0c992336b", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:04:11",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:41:15.976667+00:00",
+      "modification_date": "2025-10-28T16:41:15.976667+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [{"id": "40400678-aac9-41a7-b4ef-b8192397ba76",
+      "private_network_id": "8e6662a1-26e5-4589-96da-f732f8f42c3a", "server_id": "4fe37002-b605-44dc-9d05-9a3527a3e048",
+      "mac_address": "02:00:00:10:14:68", "state": "available", "creation_date": "2025-10-28T16:41:16.340855+00:00",
+      "modification_date": "2025-10-28T16:41:16.452787+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["03b17007-7068-4fdf-b78c-42e49ef19f76", "cbe05c40-a785-44d2-bbae-2f006b357b38"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "ed3b119d-5cdb-453f-8a54-78d8569eeead",
+      "name": "cli-srv-stupefied-rosalind", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-stupefied-rosalind",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "a910a560-c60f-4e30-8609-139794254d78",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:04:0f", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:41:15.814828+00:00", "modification_date":
+      "2025-10-28T16:41:15.814828+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "f1f386ef-59e2-4aee-ad26-b96819eebe53", "private_network_id":
+      "9ca5500d-9a17-4a83-b7f4-862d959ccdfd", "server_id": "ed3b119d-5cdb-453f-8a54-78d8569eeead",
+      "mac_address": "02:00:00:18:59:4a", "state": "available", "creation_date": "2025-10-28T16:41:16.216551+00:00",
+      "modification_date": "2025-10-28T16:41:16.338641+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["5cacaf89-17b1-40c3-a340-1ded006944e8", "7056138c-3a1d-4fba-a13e-3f6b26b4ef10"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "3aaee23a-80cf-43e8-9e72-fd6ce8a9b3aa",
+      "name": "cli-srv-hungry-shaw", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-hungry-shaw",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "12fa6988-40ee-456c-a68b-cc71e58c0037",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:04:0d", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:41:13.547282+00:00", "modification_date":
+      "2025-10-28T16:41:13.547282+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "4187bb19-85db-4d16-97b5-14fafc65d1a6", "private_network_id":
+      "f03e3a42-214b-4c09-92e7-519be44f6b19", "server_id": "3aaee23a-80cf-43e8-9e72-fd6ce8a9b3aa",
+      "mac_address": "02:00:00:13:3e:72", "state": "available", "creation_date": "2025-10-28T16:41:13.934966+00:00",
+      "modification_date": "2025-10-28T16:41:14.129259+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["eb0549b8-c5a6-497f-a24e-d26282f71bde", "850fc892-9f77-4e66-8605-71a42677f0c7"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "d90412a1-a8e6-4719-afc5-4491e563f2d7",
+      "name": "cli-srv-naughty-ritchie", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-naughty-ritchie",
+      "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "3f4e66e8-480d-462d-a6fa-8cd0191ccefd",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "d90412a1-a8e6-4719-afc5-4491e563f2d7", "name": "cli-srv-naughty-ritchie"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:40:24.535005+00:00",
+      "modification_date": "2025-10-28T16:40:24.535005+00:00", "tags": [], "zone":
+      "fr-par-1"}, "1": {"boot": false, "volume_type": "sbs_volume", "id": "821c4164-63ad-4bf4-8009-d71989e74b0c",
+      "state": "available", "zone": "fr-par-1"}, "2": {"boot": false, "volume_type":
+      "sbs_volume", "id": "5e2584c8-bd65-43cf-8d47-279c9f07b96e", "state": "available",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:03:fd",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:40:24.535005+00:00",
+      "modification_date": "2025-10-28T16:40:24.535005+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "2526d4e1-e4fb-46f7-9670-a249cdbde8a6",
+      "name": "cli-srv-wonderful-payne", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-wonderful-payne",
+      "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "84fcc4e7-d1e1-4b8e-a50f-7c10680076f0",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "2526d4e1-e4fb-46f7-9670-a249cdbde8a6", "name": "cli-srv-wonderful-payne"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:40:23.973122+00:00",
+      "modification_date": "2025-10-28T16:40:23.973122+00:00", "tags": [], "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:03:f7",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:40:23.973122+00:00",
+      "modification_date": "2025-10-28T16:40:23.973122+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "f66b1a77-e5e5-4aa7-b019-8bee1393d774",
+      "name": "cli-srv-fervent-borg", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-fervent-borg",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "bdd86405-c962-4bbc-a14a-c04f3fd28a12",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:03:f9", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:40:23.964555+00:00", "modification_date":
+      "2025-10-28T16:40:23.964555+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "45bc1374-f38a-4f4d-b085-1675c0b4435f", "name": "cli-srv-magical-wright",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-magical-wright", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "7e29ee8a-4493-42c2-b2d8-50ad3ee68724", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:02:97",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:20:04.984271+00:00",
+      "modification_date": "2025-10-28T16:20:04.984271+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "0c498c14-d87d-491e-a433-daa967c37d72",
+      "name": "cli-srv-vibrant-gagarin", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-vibrant-gagarin",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "47a5769c-9914-4ec2-bc71-c41cc04bc6d9",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:02:95", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:20:04.000464+00:00", "modification_date":
+      "2025-10-28T16:20:04.000464+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "baab5405-714f-449a-8ddf-8b24860354f5", "name": "cli-srv-confident-goldstine",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-confident-goldstine", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "6ed88532-084c-469c-95b7-b59f8e02169f", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:01:87",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:08:49.087075+00:00",
+      "modification_date": "2025-10-28T16:08:49.087075+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [{"id": "6c3972f8-c03b-453a-b9f5-91dbcf59b169",
+      "private_network_id": "7ef0cd32-8a41-4e1f-ac4f-03d07e60bf02", "server_id": "baab5405-714f-449a-8ddf-8b24860354f5",
+      "mac_address": "02:00:00:10:2d:cb", "state": "available", "creation_date": "2025-10-28T16:08:49.509394+00:00",
+      "modification_date": "2025-10-28T16:08:49.643814+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["6734bf57-7676-49c7-8cfb-3229d775b0ce", "7ac97e68-1703-4361-9550-852d56cad4db"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "2b92696f-b3fe-4da5-946c-b643eb65307a",
+      "name": "cli-srv-determined-northcutt", "arch": "x86_64", "commercial_type":
+      "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-determined-northcutt",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "a81b56f6-9af0-4ecb-94b2-77d2b839c738",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:01:85", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:08:49.042385+00:00", "modification_date":
+      "2025-10-28T16:08:49.042385+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "53ccf4c5-ea37-47e4-91cd-bad75a2bf552", "private_network_id":
+      "8199aeb3-56d7-404e-ad62-e707d0ae1308", "server_id": "2b92696f-b3fe-4da5-946c-b643eb65307a",
+      "mac_address": "02:00:00:12:27:fa", "state": "available", "creation_date": "2025-10-28T16:08:49.691409+00:00",
+      "modification_date": "2025-10-28T16:08:49.823115+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["4256c831-24a9-4119-82f5-0fbc8ab23bdd", "91f29374-31f2-452c-ba42-79c353c42e22"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "07a9345f-7228-4a15-8ba5-ed21da4b49d7",
+      "name": "cli-srv-thirsty-pike", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-thirsty-pike",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "ccedf14b-8912-45c8-a21e-f78d4225c4e6",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:01:83", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:08:46.890862+00:00", "modification_date":
+      "2025-10-28T16:08:46.890862+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "baab4017-6d70-42a6-b6a1-8f3e6eb0bb23", "private_network_id":
+      "0d08e68e-45b4-4b32-8fcc-e4acce9b89c1", "server_id": "07a9345f-7228-4a15-8ba5-ed21da4b49d7",
+      "mac_address": "02:00:00:10:1f:24", "state": "available", "creation_date": "2025-10-28T16:08:47.345596+00:00",
+      "modification_date": "2025-10-28T16:08:47.475894+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["055c9f64-137b-4a1d-99d0-e5d3bc7087f0", "702c0052-55d9-4ecd-8bef-7fc5b2cd4530"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "86c02d7c-f5af-4cb9-a7e0-ee3fe23fabb5",
+      "name": "cli-srv-funny-poincare", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-funny-poincare",
+      "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "e490f818-8ff6-49d1-bbd2-4a5bc98c1991",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "86c02d7c-f5af-4cb9-a7e0-ee3fe23fabb5", "name": "cli-srv-funny-poincare"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:07:56.927390+00:00",
+      "modification_date": "2025-10-28T16:07:56.927390+00:00", "tags": [], "zone":
+      "fr-par-1"}, "1": {"boot": false, "volume_type": "sbs_volume", "id": "8d87ff6a-049f-485f-a5a6-803e9f7fae6b",
+      "state": "available", "zone": "fr-par-1"}, "2": {"boot": false, "volume_type":
+      "sbs_volume", "id": "2b949687-c983-4fb9-89f0-812f51c64be9", "state": "available",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:01:69",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:07:56.927390+00:00",
+      "modification_date": "2025-10-28T16:07:56.927390+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "6948fc6c-385f-4ad6-b0d1-0ae1c5fb9cf2",
+      "name": "cli-srv-boring-tu", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-boring-tu",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "c3f7c216-0a0b-48ad-b0df-160b4b594f2c",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:01:67", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:07:56.273705+00:00", "modification_date":
+      "2025-10-28T16:07:56.273705+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "effd245c-d9ee-464a-872b-0b3207832193", "name": "cli-srv-reverent-lumiere",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-reverent-lumiere", "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "52060418-503c-4696-976e-badb6e41279c",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "effd245c-d9ee-464a-872b-0b3207832193", "name": "cli-srv-reverent-lumiere"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:07:56.218640+00:00",
+      "modification_date": "2025-10-28T16:07:56.218640+00:00", "tags": [], "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:01:65",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:07:56.218640+00:00",
+      "modification_date": "2025-10-28T16:07:56.218640+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "a10bb731-194e-4fec-a21a-4b970f9d9e97",
+      "name": "scw-mgmt-07", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-07", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "c57fce38-e880-407e-b5fa-556cd110d681", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:85",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:50.588433+00:00",
+      "modification_date": "2025-10-28T10:50:01.433153+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "70", "hypervisor_id": "101", "node_id": "13"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "490adec1-0e6f-40c6-a458-3ff12ad78f68",
+      "name": "scw-mgmt-09", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-09", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "555af75d-243d-401d-a1e4-5d82ef76ac19", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:83",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:50.320194+00:00",
+      "modification_date": "2025-10-28T10:50:00.140714+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "68", "hypervisor_id": "901", "node_id": "16"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "1854345a-8604-4716-be9a-5ab68757222e",
+      "name": "scw-mgmt-06", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-06", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "d9c2210b-b02c-4d98-9da6-a69cadf2bf75", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:81",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:49.892102+00:00",
+      "modification_date": "2025-10-28T10:50:02.454981+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "62", "hypervisor_id": "401", "node_id": "19"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "d74b9468-4c2e-48d6-89fe-47ff736d94df",
+      "name": "scw-mgmt-04", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-04", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "5d467ab7-c9d2-4c16-a8eb-cd705f041987", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:7b",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.377025+00:00",
+      "modification_date": "2025-10-28T10:50:01.309512+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "70", "hypervisor_id": "801", "node_id": "2"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "bd3c5b17-e3a1-4c9c-bf6f-c4dc46667ffd",
+      "name": "scw-mgmt-03", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-03", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "6747a46e-9aa8-4224-8a0c-8cdef510c8e2", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:73",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.212655+00:00",
+      "modification_date": "2025-10-28T10:50:00.091906+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "62", "hypervisor_id": "901", "node_id": "18"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "acc3df03-2620-4c7c-ba0a-50cec2c4d96a",
+      "name": "scw-mgmt-01", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-01", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "dea682c9-eb52-48fc-96cf-226463016347", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:69",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.116332+00:00",
+      "modification_date": "2025-10-28T10:50:01.400988+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "63", "hypervisor_id": "901", "node_id": "6"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "7b4bdc89-a402-4eff-b4e2-ba4f6e695639",
+      "name": "scw-mgmt-08", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-08", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "b3f9ffa9-f555-40e6-89f9-8e28f5d7f7ba", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:5d",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.000791+00:00",
+      "modification_date": "2025-10-28T10:50:00.116206+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "18", "hypervisor_id": "901", "node_id": "11"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "7d4593aa-aac1-4052-ad23-06737df11d48",
+      "name": "scw-mgmt-10", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-10", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "68017e05-d193-4cf7-a26d-8282e507e21c", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:57",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:46.932531+00:00",
+      "modification_date": "2025-10-28T10:50:01.267620+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "62", "hypervisor_id": "201", "node_id": "8"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "5ddbccbd-3d26-4ebd-a789-550a6734c8aa",
+      "name": "scw-mgmt-02", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-02", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "a356ec05-4bfa-4cb2-9fe9-e4dc9da75192", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:4f",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:46.857364+00:00",
+      "modification_date": "2025-10-28T10:50:01.244976+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "66", "hypervisor_id": "601", "node_id": "12"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "01b2388f-5835-4ac8-a6e8-4168085a07a8",
+      "name": "scw-mgmt-05", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-05", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "65fb2854-5d5e-4c79-9985-af32b32e045d", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:47",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:46.551829+00:00",
+      "modification_date": "2025-10-28T10:50:00.065486+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "67", "hypervisor_id": "601", "node_id": "5"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985",
+      "name": "tf-srv-naughty-colden", "arch": "x86_64", "commercial_type": "POP2-2C-8G-WIN",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "tf-srv-naughty-colden",
+      "image": {"id": "5d355a7d-8abb-4418-9599-e26621bf7ca8", "name": "Windows Server
+      2022", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "de729856-029a-44a0-8737-5ec5227304fe",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-07-25T14:07:31.902597+00:00", "modification_date": "2025-07-25T14:07:31.902597+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "425394e3-34de-4afc-9fd2-461c3fc5b8a7", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cd:83:35",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-14T16:47:25.152354+00:00",
+      "modification_date": "2025-10-14T17:19:17.615971+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "6ffbe4b0-3cf0-407e-8e87-2c67defd8897",
+      "name": "tf-tests-instance-block-external-root-volume", "arch": "x86_64", "commercial_type":
+      "PLAY2-PICO", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "44693172-d6a3-49b0-b56f-011f492e4dfa", "hostname": "tf-tests-instance-block-external-root-volume",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "2a83e34f-4f40-4b93-bca0-8f1c2a3d8222",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:cc:76:99", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-08T23:05:08.758218+00:00", "modification_date":
+      "2025-10-08T23:05:08.758218+00:00", "bootscript": null, "security_group": {"id":
+      "c30bff3f-a276-4c5b-bb3e-92ecab6e962e", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}]}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers?order=creation_date_desc&page=1
     method: GET
   response:
-    body: '{"servers": []}'
+    body: '{"servers": [{"id": "3e9af520-c49c-4879-aa54-dcd3cda71ab7", "name": "cli-srv-stupefied-jepsen",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-stupefied-jepsen", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "9af03917-da0a-4f48-b0fc-fcc86a2b4492", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:05:21",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:53:38.455124+00:00",
+      "modification_date": "2025-10-28T16:53:38.455124+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "53edc406-ec9e-4639-8f63-3e632349c65f",
+      "name": "cli-srv-quizzical-neumann", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-quizzical-neumann",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "d19a1cc9-cbfc-49a2-af36-fc4204689d50",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:05:1f", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:53:37.392114+00:00", "modification_date":
+      "2025-10-28T16:53:37.392114+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "4fe37002-b605-44dc-9d05-9a3527a3e048", "name": "cli-srv-upbeat-hugle",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-upbeat-hugle", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "a76308de-b332-4394-87c4-5fc0c992336b", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:04:11",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:41:15.976667+00:00",
+      "modification_date": "2025-10-28T16:41:15.976667+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [{"id": "40400678-aac9-41a7-b4ef-b8192397ba76",
+      "private_network_id": "8e6662a1-26e5-4589-96da-f732f8f42c3a", "server_id": "4fe37002-b605-44dc-9d05-9a3527a3e048",
+      "mac_address": "02:00:00:10:14:68", "state": "available", "creation_date": "2025-10-28T16:41:16.340855+00:00",
+      "modification_date": "2025-10-28T16:41:16.452787+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["03b17007-7068-4fdf-b78c-42e49ef19f76", "cbe05c40-a785-44d2-bbae-2f006b357b38"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "ed3b119d-5cdb-453f-8a54-78d8569eeead",
+      "name": "cli-srv-stupefied-rosalind", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-stupefied-rosalind",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "a910a560-c60f-4e30-8609-139794254d78",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:04:0f", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:41:15.814828+00:00", "modification_date":
+      "2025-10-28T16:41:15.814828+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "f1f386ef-59e2-4aee-ad26-b96819eebe53", "private_network_id":
+      "9ca5500d-9a17-4a83-b7f4-862d959ccdfd", "server_id": "ed3b119d-5cdb-453f-8a54-78d8569eeead",
+      "mac_address": "02:00:00:18:59:4a", "state": "available", "creation_date": "2025-10-28T16:41:16.216551+00:00",
+      "modification_date": "2025-10-28T16:41:16.338641+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["5cacaf89-17b1-40c3-a340-1ded006944e8", "7056138c-3a1d-4fba-a13e-3f6b26b4ef10"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "3aaee23a-80cf-43e8-9e72-fd6ce8a9b3aa",
+      "name": "cli-srv-hungry-shaw", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-hungry-shaw",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "12fa6988-40ee-456c-a68b-cc71e58c0037",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:04:0d", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:41:13.547282+00:00", "modification_date":
+      "2025-10-28T16:41:13.547282+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "4187bb19-85db-4d16-97b5-14fafc65d1a6", "private_network_id":
+      "f03e3a42-214b-4c09-92e7-519be44f6b19", "server_id": "3aaee23a-80cf-43e8-9e72-fd6ce8a9b3aa",
+      "mac_address": "02:00:00:13:3e:72", "state": "available", "creation_date": "2025-10-28T16:41:13.934966+00:00",
+      "modification_date": "2025-10-28T16:41:14.129259+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["eb0549b8-c5a6-497f-a24e-d26282f71bde", "850fc892-9f77-4e66-8605-71a42677f0c7"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "d90412a1-a8e6-4719-afc5-4491e563f2d7",
+      "name": "cli-srv-naughty-ritchie", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-naughty-ritchie",
+      "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "3f4e66e8-480d-462d-a6fa-8cd0191ccefd",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "d90412a1-a8e6-4719-afc5-4491e563f2d7", "name": "cli-srv-naughty-ritchie"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:40:24.535005+00:00",
+      "modification_date": "2025-10-28T16:40:24.535005+00:00", "tags": [], "zone":
+      "fr-par-1"}, "1": {"boot": false, "volume_type": "sbs_volume", "id": "821c4164-63ad-4bf4-8009-d71989e74b0c",
+      "state": "available", "zone": "fr-par-1"}, "2": {"boot": false, "volume_type":
+      "sbs_volume", "id": "5e2584c8-bd65-43cf-8d47-279c9f07b96e", "state": "available",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:03:fd",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:40:24.535005+00:00",
+      "modification_date": "2025-10-28T16:40:24.535005+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "2526d4e1-e4fb-46f7-9670-a249cdbde8a6",
+      "name": "cli-srv-wonderful-payne", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-wonderful-payne",
+      "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "84fcc4e7-d1e1-4b8e-a50f-7c10680076f0",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "2526d4e1-e4fb-46f7-9670-a249cdbde8a6", "name": "cli-srv-wonderful-payne"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:40:23.973122+00:00",
+      "modification_date": "2025-10-28T16:40:23.973122+00:00", "tags": [], "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:03:f7",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:40:23.973122+00:00",
+      "modification_date": "2025-10-28T16:40:23.973122+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "f66b1a77-e5e5-4aa7-b019-8bee1393d774",
+      "name": "cli-srv-fervent-borg", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-fervent-borg",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "bdd86405-c962-4bbc-a14a-c04f3fd28a12",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:03:f9", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:40:23.964555+00:00", "modification_date":
+      "2025-10-28T16:40:23.964555+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "45bc1374-f38a-4f4d-b085-1675c0b4435f", "name": "cli-srv-magical-wright",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-magical-wright", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "7e29ee8a-4493-42c2-b2d8-50ad3ee68724", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:02:97",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:20:04.984271+00:00",
+      "modification_date": "2025-10-28T16:20:04.984271+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "0c498c14-d87d-491e-a433-daa967c37d72",
+      "name": "cli-srv-vibrant-gagarin", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-vibrant-gagarin",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "47a5769c-9914-4ec2-bc71-c41cc04bc6d9",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:02:95", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:20:04.000464+00:00", "modification_date":
+      "2025-10-28T16:20:04.000464+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "baab5405-714f-449a-8ddf-8b24860354f5", "name": "cli-srv-confident-goldstine",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-confident-goldstine", "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type":
+      "sbs_snapshot", "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name":
+      ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date":
+      "2025-09-12T09:11:41.420846+00:00", "modification_date": "2025-09-12T09:11:41.420846+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "6ed88532-084c-469c-95b7-b59f8e02169f", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:01:87",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:08:49.087075+00:00",
+      "modification_date": "2025-10-28T16:08:49.087075+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [{"id": "6c3972f8-c03b-453a-b9f5-91dbcf59b169",
+      "private_network_id": "7ef0cd32-8a41-4e1f-ac4f-03d07e60bf02", "server_id": "baab5405-714f-449a-8ddf-8b24860354f5",
+      "mac_address": "02:00:00:10:2d:cb", "state": "available", "creation_date": "2025-10-28T16:08:49.509394+00:00",
+      "modification_date": "2025-10-28T16:08:49.643814+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["6734bf57-7676-49c7-8cfb-3229d775b0ce", "7ac97e68-1703-4361-9550-852d56cad4db"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "2b92696f-b3fe-4da5-946c-b643eb65307a",
+      "name": "cli-srv-determined-northcutt", "arch": "x86_64", "commercial_type":
+      "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-determined-northcutt",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "a81b56f6-9af0-4ecb-94b2-77d2b839c738",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:01:85", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:08:49.042385+00:00", "modification_date":
+      "2025-10-28T16:08:49.042385+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "53ccf4c5-ea37-47e4-91cd-bad75a2bf552", "private_network_id":
+      "8199aeb3-56d7-404e-ad62-e707d0ae1308", "server_id": "2b92696f-b3fe-4da5-946c-b643eb65307a",
+      "mac_address": "02:00:00:12:27:fa", "state": "available", "creation_date": "2025-10-28T16:08:49.691409+00:00",
+      "modification_date": "2025-10-28T16:08:49.823115+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["4256c831-24a9-4119-82f5-0fbc8ab23bdd", "91f29374-31f2-452c-ba42-79c353c42e22"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "07a9345f-7228-4a15-8ba5-ed21da4b49d7",
+      "name": "cli-srv-thirsty-pike", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-thirsty-pike",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "ccedf14b-8912-45c8-a21e-f78d4225c4e6",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:01:83", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:08:46.890862+00:00", "modification_date":
+      "2025-10-28T16:08:46.890862+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [{"id": "baab4017-6d70-42a6-b6a1-8f3e6eb0bb23", "private_network_id":
+      "0d08e68e-45b4-4b32-8fcc-e4acce9b89c1", "server_id": "07a9345f-7228-4a15-8ba5-ed21da4b49d7",
+      "mac_address": "02:00:00:10:1f:24", "state": "available", "creation_date": "2025-10-28T16:08:47.345596+00:00",
+      "modification_date": "2025-10-28T16:08:47.475894+00:00", "zone": "fr-par-1",
+      "tags": [], "ipam_ip_ids": ["055c9f64-137b-4a1d-99d0-e5d3bc7087f0", "702c0052-55d9-4ecd-8bef-7fc5b2cd4530"]}],
+      "zone": "fr-par-1", "filesystems": [], "end_of_service": false}, {"id": "86c02d7c-f5af-4cb9-a7e0-ee3fe23fabb5",
+      "name": "cli-srv-funny-poincare", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-funny-poincare",
+      "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "e490f818-8ff6-49d1-bbd2-4a5bc98c1991",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "86c02d7c-f5af-4cb9-a7e0-ee3fe23fabb5", "name": "cli-srv-funny-poincare"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:07:56.927390+00:00",
+      "modification_date": "2025-10-28T16:07:56.927390+00:00", "tags": [], "zone":
+      "fr-par-1"}, "1": {"boot": false, "volume_type": "sbs_volume", "id": "8d87ff6a-049f-485f-a5a6-803e9f7fae6b",
+      "state": "available", "zone": "fr-par-1"}, "2": {"boot": false, "volume_type":
+      "sbs_volume", "id": "2b949687-c983-4fb9-89f0-812f51c64be9", "state": "available",
+      "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:01:69",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:07:56.927390+00:00",
+      "modification_date": "2025-10-28T16:07:56.927390+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "6948fc6c-385f-4ad6-b0d1-0ae1c5fb9cf2",
+      "name": "cli-srv-boring-tu", "arch": "x86_64", "commercial_type": "DEV1-S",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-boring-tu",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "c3f7c216-0a0b-48ad-b0df-160b4b594f2c",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:d0:01:67", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-28T16:07:56.273705+00:00", "modification_date":
+      "2025-10-28T16:07:56.273705+00:00", "bootscript": null, "security_group": {"id":
+      "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}, {"id": "effd245c-d9ee-464a-872b-0b3207832193", "name": "cli-srv-reverent-lumiere",
+      "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "hostname": "cli-srv-reverent-lumiere", "image": {"id": "ec31d73d-ca36-4536-adf4-0feb76d30379",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"id": "1973043b-32c4-4d52-baf4-5c99b42b4e39",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "size": 10000000000},
+      "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:46.109401+00:00",
+      "modification_date": "2025-09-12T09:11:46.109401+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "id": "52060418-503c-4696-976e-badb6e41279c",
+      "name": "Ubuntu 22.04 Jammy Jellyfish", "volume_type": "l_ssd", "export_uri":
+      null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "server": {"id": "effd245c-d9ee-464a-872b-0b3207832193", "name": "cli-srv-reverent-lumiere"},
+      "size": 20000000000, "state": "available", "creation_date": "2025-10-28T16:07:56.218640+00:00",
+      "modification_date": "2025-10-28T16:07:56.218640+00:00", "tags": [], "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:d0:01:65",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T16:07:56.218640+00:00",
+      "modification_date": "2025-10-28T16:07:56.218640+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "a10bb731-194e-4fec-a21a-4b970f9d9e97",
+      "name": "scw-mgmt-07", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-07", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "c57fce38-e880-407e-b5fa-556cd110d681", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:85",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:50.588433+00:00",
+      "modification_date": "2025-10-28T10:50:01.433153+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "70", "hypervisor_id": "101", "node_id": "13"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "490adec1-0e6f-40c6-a458-3ff12ad78f68",
+      "name": "scw-mgmt-09", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-09", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "555af75d-243d-401d-a1e4-5d82ef76ac19", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:83",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:50.320194+00:00",
+      "modification_date": "2025-10-28T10:50:00.140714+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "68", "hypervisor_id": "901", "node_id": "16"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "1854345a-8604-4716-be9a-5ab68757222e",
+      "name": "scw-mgmt-06", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-06", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "d9c2210b-b02c-4d98-9da6-a69cadf2bf75", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:81",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:49.892102+00:00",
+      "modification_date": "2025-10-28T10:50:02.454981+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "62", "hypervisor_id": "401", "node_id": "19"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "d74b9468-4c2e-48d6-89fe-47ff736d94df",
+      "name": "scw-mgmt-04", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-04", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "5d467ab7-c9d2-4c16-a8eb-cd705f041987", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:7b",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.377025+00:00",
+      "modification_date": "2025-10-28T10:50:01.309512+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "70", "hypervisor_id": "801", "node_id": "2"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "bd3c5b17-e3a1-4c9c-bf6f-c4dc46667ffd",
+      "name": "scw-mgmt-03", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-03", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "6747a46e-9aa8-4224-8a0c-8cdef510c8e2", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:73",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.212655+00:00",
+      "modification_date": "2025-10-28T10:50:00.091906+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "62", "hypervisor_id": "901", "node_id": "18"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "acc3df03-2620-4c7c-ba0a-50cec2c4d96a",
+      "name": "scw-mgmt-01", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-01", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "dea682c9-eb52-48fc-96cf-226463016347", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:69",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.116332+00:00",
+      "modification_date": "2025-10-28T10:50:01.400988+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "63", "hypervisor_id": "901", "node_id": "6"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "7b4bdc89-a402-4eff-b4e2-ba4f6e695639",
+      "name": "scw-mgmt-08", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-08", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "b3f9ffa9-f555-40e6-89f9-8e28f5d7f7ba", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:5d",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:47.000791+00:00",
+      "modification_date": "2025-10-28T10:50:00.116206+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "18", "hypervisor_id": "901", "node_id": "11"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "7d4593aa-aac1-4052-ad23-06737df11d48",
+      "name": "scw-mgmt-10", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-10", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "68017e05-d193-4cf7-a26d-8282e507e21c", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:57",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:46.932531+00:00",
+      "modification_date": "2025-10-28T10:50:01.267620+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "62", "hypervisor_id": "201", "node_id": "8"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "5ddbccbd-3d26-4ebd-a789-550a6734c8aa",
+      "name": "scw-mgmt-02", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-02", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "a356ec05-4bfa-4cb2-9fe9-e4dc9da75192", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:4f",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:46.857364+00:00",
+      "modification_date": "2025-10-28T10:50:01.244976+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "66", "hypervisor_id": "601", "node_id": "12"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "01b2388f-5835-4ac8-a6e8-4168085a07a8",
+      "name": "scw-mgmt-05", "arch": "x86_64", "commercial_type": "POP2-2C-8G", "boot_type":
+      "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project":
+      "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "scw-mgmt-05", "image":
+      {"id": "942c58b9-89fb-48cc-be8b-126c9187794d", "name": "Debian Bullseye", "organization":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "8bb9a008-9121-4150-84a3-1e64c459d3f4",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-09-12T11:24:50.001905+00:00", "modification_date": "2025-09-12T11:24:50.001905+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "65fb2854-5d5e-4c79-9985-af32b32e045d", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped in place", "protected": false, "state_detail":
+      "stopped in place", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:ee:47",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-28T10:34:46.551829+00:00",
+      "modification_date": "2025-10-28T10:50:00.065486+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": {"zone_id": "fr-par-1", "platform_id": "14", "cluster_id":
+      "67", "hypervisor_id": "601", "node_id": "5"}, "maintenances": [], "allowed_actions":
+      ["poweron", "poweroff", "terminate", "reboot", "backup"], "placement_group":
+      {"id": "5df46f31-5db6-4b0f-8afb-0a67385b1bc5", "name": "old-placement-group",
+      "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "policy_mode": "optional", "policy_type": "max_availability", "policy_respected":
+      false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985",
+      "name": "tf-srv-naughty-colden", "arch": "x86_64", "commercial_type": "POP2-2C-8G-WIN",
+      "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "tf-srv-naughty-colden",
+      "image": {"id": "5d355a7d-8abb-4418-9599-e26621bf7ca8", "name": "Windows Server
+      2022", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db",
+      "root_volume": {"volume_type": "sbs_snapshot", "id": "de729856-029a-44a0-8737-5ec5227304fe",
+      "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64",
+      "creation_date": "2025-07-25T14:07:31.902597+00:00", "modification_date": "2025-07-25T14:07:31.902597+00:00",
+      "default_bootscript": null, "from_server": "", "state": "available", "tags":
+      [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume",
+      "id": "425394e3-34de-4afc-9fd2-461c3fc5b8a7", "state": "available", "zone":
+      "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail":
+      "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cd:83:35",
+      "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required":
+      false, "enable_ipv6": false, "private_ip": null, "creation_date": "2025-10-14T16:47:25.152354+00:00",
+      "modification_date": "2025-10-14T17:19:17.615971+00:00", "bootscript": null,
+      "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default
+      security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron",
+      "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1",
+      "filesystems": [], "end_of_service": false}, {"id": "6ffbe4b0-3cf0-407e-8e87-2c67defd8897",
+      "name": "tf-tests-instance-block-external-root-volume", "arch": "x86_64", "commercial_type":
+      "PLAY2-PICO", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project": "44693172-d6a3-49b0-b56f-011f492e4dfa", "hostname": "tf-tests-instance-block-external-root-volume",
+      "image": {"id": "6d3c053e-c728-4294-b23a-560b62a4d592", "name": "Ubuntu 22.04
+      Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project":
+      "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot",
+      "id": "36b4ce54-c67a-4f68-ab74-839515834352", "size": 0, "name": ""}, "extra_volumes":
+      {}, "public": true, "arch": "x86_64", "creation_date": "2025-09-12T09:11:41.420846+00:00",
+      "modification_date": "2025-09-12T09:11:41.420846+00:00", "default_bootscript":
+      null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"},
+      "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "2a83e34f-4f40-4b93-bca0-8f1c2a3d8222",
+      "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped",
+      "protected": false, "state_detail": "", "public_ip": null, "public_ips": [],
+      "mac_address": "de:00:00:cc:76:99", "routed_ip_enabled": true, "ipv6": null,
+      "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip":
+      null, "creation_date": "2025-10-08T23:05:08.758218+00:00", "modification_date":
+      "2025-10-08T23:05:08.758218+00:00", "bootscript": null, "security_group": {"id":
+      "c30bff3f-a276-4c5b-bb3e-92ecab6e962e", "name": "Default security group"}, "location":
+      null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group":
+      null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service":
+      false}]}'
     headers:
       Content-Length:
-      - "15"
+      - "57958"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 12 Dec 2023 08:44:54 GMT
+      - Tue, 28 Oct 2025 16:53:39 GMT
       Link:
-      - </servers?page=0&per_page=50&order=creation_date_desc>; rel="last"
+      - </servers?page=1&per_page=50&order=creation_date_desc>; rel="last"
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge01)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -31,9 +1367,9 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b21eef2c-3ce1-434d-b320-855cf93bf8e2
+      - 02c89098-a65f-41f7-a774-49f8de7aa727
       X-Total-Count:
-      - "0"
+      - "28"
     status: 200 OK
     code: 200
     duration: ""

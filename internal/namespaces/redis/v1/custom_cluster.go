@@ -68,24 +68,33 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*redisCreateClusterRequestCustom)
 		createClusterRequest := customRequest.CreateClusterRequest
 
-		for _, customEndpoint := range customRequest.Endpoints {
-			if customEndpoint.PrivateNetwork == nil {
-				continue
-			}
-			var ipamConfig *redis.EndpointSpecPrivateNetworkSpecIpamConfig
-			if customEndpoint.PrivateNetwork.EnableIpam {
-				ipamConfig = &redis.EndpointSpecPrivateNetworkSpecIpamConfig{}
-			}
+		if len(customRequest.Endpoints) == 0 {
 			createClusterRequest.Endpoints = append(
 				createClusterRequest.Endpoints,
 				&redis.EndpointSpec{
-					PrivateNetwork: &redis.EndpointSpecPrivateNetworkSpec{
-						ID:         customEndpoint.PrivateNetwork.ID,
-						ServiceIPs: customEndpoint.PrivateNetwork.ServiceIPs,
-						IpamConfig: ipamConfig,
-					},
+					PublicNetwork: &redis.EndpointSpecPublicNetworkSpec{},
 				},
 			)
+		} else {
+			for _, customEndpoint := range customRequest.Endpoints {
+				if customEndpoint.PrivateNetwork == nil {
+					continue
+				}
+				var ipamConfig *redis.EndpointSpecPrivateNetworkSpecIpamConfig
+				if customEndpoint.PrivateNetwork.EnableIpam {
+					ipamConfig = &redis.EndpointSpecPrivateNetworkSpecIpamConfig{}
+				}
+				createClusterRequest.Endpoints = append(
+					createClusterRequest.Endpoints,
+					&redis.EndpointSpec{
+						PrivateNetwork: &redis.EndpointSpecPrivateNetworkSpec{
+							ID:         customEndpoint.PrivateNetwork.ID,
+							ServiceIPs: customEndpoint.PrivateNetwork.ServiceIPs,
+							IpamConfig: ipamConfig,
+						},
+					},
+				)
+			}
 		}
 
 		cluster, err := api.CreateCluster(createClusterRequest)

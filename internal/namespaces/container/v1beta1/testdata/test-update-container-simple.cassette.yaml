@@ -1,0 +1,485 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T08:58:51.395710306Z", "updated_at":"2025-10-23T08:58:51.395710306Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T08:58:51.395710306Z", "updated_at":"2025-10-23T08:58:51.395710306Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "525"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:58:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c8b60bf9-7c45-423c-bf96-e346c8f0a7ee
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T08:58:51.395710Z", "updated_at":"2025-10-23T08:58:51.395710Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4
+    method: GET
+  response:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"pending", "registry_namespace_id":"",
+      "error_message":null, "registry_endpoint":"", "description":"", "secret_environment_variables":[],
+      "tags":[], "created_at":"2025-10-23T08:58:51.395710Z", "updated_at":"2025-10-23T08:58:51.395710Z",
+      "vpc_integration_activated":false, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "519"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:58:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8acc07f1-f9b4-4a25-b72d-10f60067b1a2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "registry_namespace_id":"260279b3-f7a5-43a8-ba09-ee93319d183e",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T08:58:51.395710Z",
+      "updated_at":"2025-10-23T08:58:53.448004Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4
+    method: GET
+  response:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "registry_namespace_id":"260279b3-f7a5-43a8-ba09-ee93319d183e",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T08:58:51.395710Z",
+      "updated_at":"2025-10-23T08:58:53.448004Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "608"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:58:56 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6db92252-bd73-4ed0-bf3a-89f2a0823214
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"created", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699307Z", "updated_at":"2025-10-23T08:58:56.775699307Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers
+    method: POST
+  response:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"created", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699307Z", "updated_at":"2025-10-23T08:58:56.775699307Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1010"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:58:56 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 30e2a530-7f79-4c91-aa65-735e389f656e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:58:56.900021079Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/53c229f3-ac9a-48c4-8021-aec9c98b0092/deploy
+    method: POST
+  response:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:58:56.900021079Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1007"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:58:56 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 299f7a5e-96e5-4ff5-9b05-755abc01b058
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:58:56.900021Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/53c229f3-ac9a-48c4-8021-aec9c98b0092
+    method: GET
+  response:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:58:56.900021Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1004"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:58:56 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 25b9ade7-5e9e-4892-8cfd-477635980679
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:58:57.137906Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/53c229f3-ac9a-48c4-8021-aec9c98b0092
+    method: GET
+  response:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:58:57.137906Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1004"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:59:02 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d7fe0472-2688-4a3a-a421-0b583fa7fbe4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"error", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":"Image was not found in container registry.", "privacy":"public",
+      "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:59:03.697359Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/53c229f3-ac9a-48c4-8021-aec9c98b0092
+    method: GET
+  response:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"error", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1000, "timeout":"300s",
+      "error_message":"Image was not found in container registry.", "privacy":"public",
+      "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":8080, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:59:03.697359Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":[], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1042"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:59:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d1074898-76fa-427b-8288-f9be89077d68
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1500, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:59:07.331556604Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":["new_tag"], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/containers/53c229f3-ac9a-48c4-8021-aec9c98b0092
+    method: PATCH
+  response:
+    body: '{"id":"53c229f3-ac9a-48c4-8021-aec9c98b0092", "name":"cli-test-awesome-kirch",
+      "namespace_id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "status":"pending", "environment_variables":{},
+      "min_scale":0, "max_scale":5, "memory_limit":2048, "cpu_limit":1500, "timeout":"300s",
+      "error_message":null, "privacy":"public", "description":"", "registry_image":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq/cli-test-awesome-kirch:latest",
+      "max_concurrency":50, "domain_name":"clicnsoptimisticpaynenzkzzsq-cli-test-awesome-kirch.functions.fnc.fr-par.scw.cloud",
+      "protocol":"http1", "port":80, "secret_environment_variables":[], "http_option":"enabled",
+      "sandbox":"v2", "local_storage_limit":1000, "scaling_option":{"concurrent_requests_threshold":50},
+      "created_at":"2025-10-23T08:58:56.775699Z", "updated_at":"2025-10-23T08:59:07.331556604Z",
+      "ready_at":null, "health_check":{"failure_threshold":30, "interval":"10s", "tcp":{}},
+      "tags":["new_tag"], "private_network_id":null, "command":[], "args":[], "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1014"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:59:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ad88881b-2203-46af-8eab-3155e06ac476
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "registry_namespace_id":"260279b3-f7a5-43a8-ba09-ee93319d183e",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T08:58:51.395710Z",
+      "updated_at":"2025-10-23T08:59:07.409536210Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1beta1/regions/fr-par/namespaces/d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4
+    method: DELETE
+  response:
+    body: '{"id":"d65b72e6-05ef-4c4d-a3c0-34099ffbbbd4", "name":"cli-cns-optimistic-payne",
+      "environment_variables":{}, "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "registry_namespace_id":"260279b3-f7a5-43a8-ba09-ee93319d183e",
+      "error_message":null, "registry_endpoint":"rg.fr-par.scw.cloud/funcscwclicnsoptimisticpaynenzkzzsq",
+      "description":"", "secret_environment_variables":[], "tags":[], "created_at":"2025-10-23T08:58:51.395710Z",
+      "updated_at":"2025-10-23T08:59:07.409536210Z", "vpc_integration_activated":false,
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "614"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 23 Oct 2025 08:59:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 70b8ee98-a4e7-42b2-8be9-51fac69c6e21
+    status: 200 OK
+    code: 200
+    duration: ""
