@@ -32,13 +32,6 @@ type rdbACLAddCustomArgs struct {
 	Descriptions []string
 }
 
-type rdbACLAddPosArgs struct {
-	Region      scw.Region
-	InstanceID  string
-	ACLRuleIPs  scw.IPNet
-	Description string
-}
-
 type CustomACLResult struct {
 	Rules   []*rdb.ACLRule
 	Success core.SuccessResult
