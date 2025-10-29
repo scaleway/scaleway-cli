@@ -7,11 +7,13 @@ import (
 	"hash/crc32"
 	"os"
 	"path"
+	"path/filepath"
 	"runtime"
 	"strings"
 
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -87,13 +89,27 @@ func openAndUnmarshalKubeconfig(kubeconfigPath string) (*api.Config, error) {
 	return &kubeconfig, nil
 }
 
-func marshalAndWriteKubeconfig(kubeconfig *api.Config, kubeconfigPath string) error {
+func marshalAndWriteKubeconfig(ctx context.Context, kubeconfig *api.Config, kubeconfigPath string) error {
 	newKubeconfig, err := yaml.Marshal(*kubeconfig)
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(kubeconfigPath, newKubeconfig, 0o600)
+	homeDir := core.ExtractUserHomeDir(ctx)
+	relPath, err := filepath.Rel(homeDir, kubeconfigPath)
+	if err != nil {
+		return err
+	}
+
+	// Get current content of the file if it exists
+
+	opts := &localfiles.WriteUserFileOptions{
+		Confirm: true,
+	}
+
+	fullPath := filepath.Join(homeDir, relPath)
+
+	return localfiles.WriteUserFile(ctx, fullPath, newKubeconfig, opts)
 }
 
 func generateNamedAuthInfo(ctx context.Context, method authMethods) (*api.NamedAuthInfo, error) {
@@ -417,7 +433,7 @@ func (c *KubeMapConfig) Kubeconfig() api.Config {
 	return resultingKubeconfig
 }
 
-func (c *KubeMapConfig) Save(kubeconfigPath string) error {
+func (c *KubeMapConfig) Save(ctx context.Context, kubeconfigPath string) error {
 	kubeconfigStruct := c.Kubeconfig()
 
 	kubeconfigBytes, err := yaml.Marshal(kubeconfigStruct)
@@ -425,14 +441,19 @@ func (c *KubeMapConfig) Save(kubeconfigPath string) error {
 		return err
 	}
 
-	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {
-		// make sure the directory exists
-		err = os.MkdirAll(path.Dir(kubeconfigPath), 0o755)
-		if err != nil {
-			return err
-		}
+	homeDir := core.ExtractUserHomeDir(ctx)
+	relPath, err := filepath.Rel(homeDir, kubeconfigPath)
+	if err != nil {
+		return err
 	}
 
-	// create the file
-	return os.WriteFile(kubeconfigPath, kubeconfigBytes, 0o600)
+	// Create options for WriteUserFile
+	opts := &localfiles.WriteUserFileOptions{
+		Confirm: true,
+	}
+
+	// Construct the full path
+	fullPath := filepath.Join(homeDir, relPath)
+
+	return localfiles.WriteUserFile(ctx, fullPath, kubeconfigBytes, opts)
 }

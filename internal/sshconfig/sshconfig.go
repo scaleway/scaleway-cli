@@ -3,12 +3,15 @@ package sshconfig
 import (
 	"bufio"
 	"bytes"
+	"context"
 	"errors"
 	"fmt"
 	"io"
 	"os"
 	"path/filepath"
 	"strings"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
 )
 
 var (
@@ -48,29 +51,19 @@ func ConfigFilePath(homeDir string) string {
 	return configFile
 }
 
-func Save(homeDir string, hosts []Host) error {
+func Save(ctx context.Context, homeDir string, hosts []Host) error {
 	cfg, err := Generate(hosts)
 	if err != nil {
 		return err
 	}
 
-	configFile := ConfigFilePath(homeDir)
-
-	err = os.WriteFile(configFile, cfg, sshConfigFileMode)
-	if err != nil {
-		if os.IsNotExist(err) {
-			err := os.Mkdir(sshConfigFolder(homeDir), sshConfigFolderMode)
-			if err != nil {
-				return fmt.Errorf("failed to create ssh config folder: %w", err)
-			}
-
-			return os.WriteFile(configFile, cfg, sshConfigFileMode)
-		}
-
-		return err
+	// Create options for WriteUserFile
+	opts := &localfiles.WriteUserFileOptions{
+		Confirm:  true,
+		FileMode: &sshConfigFileMode,
 	}
 
-	return nil
+	return localfiles.WriteUserFile(ctx, ConfigFilePath(homeDir), cfg, opts)
 }
 
 func sshConfigFolder(homeDir string) string {
@@ -129,7 +122,7 @@ func ConfigIsIncluded(homeDir string) (bool, error) {
 
 // IncludeConfigFile edit default ssh config to include this package generated file
 // ~/.ssh/config will be prepended with "Include scaleway.config"
-func IncludeConfigFile(homeDir string) error {
+func IncludeConfigFile(ctx context.Context, homeDir string) error {
 	configFileMode := sshConfigFileMode
 	fileContent := []byte(nil)
 
@@ -161,13 +154,11 @@ func IncludeConfigFile(homeDir string) error {
 	// Prepend config file with Include line
 	fileContent = append([]byte(includeLine()+"\n"), fileContent...)
 
-	configFolder := sshConfigFolder(homeDir)
-	configFilePath := filepath.Join(configFolder, sshDefaultConfigFileName)
-
-	err = os.WriteFile(configFilePath, fileContent, configFileMode)
-	if err != nil {
-		return fmt.Errorf("failed to write config file %s: %w", configFilePath, err)
+	// Create options for WriteUserFile
+	opts := &localfiles.WriteUserFileOptions{
+		Confirm:  true,
+		FileMode: &configFileMode,
 	}
 
-	return nil
+	return localfiles.WriteUserFile(ctx, DefaultConfigFilePath(homeDir), fileContent, opts)
 }

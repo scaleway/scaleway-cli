@@ -107,7 +107,7 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 		return nil, errors.New("installation cancelled")
 	}
 
-	err = writeHelperScript(helperScriptPath, helperScriptContent)
+	err = writeHelperScript(ctx, helperScriptPath, helperScriptContent)
 	if err != nil {
 		return nil, fmt.Errorf("failed to write helper script: %s", err)
 	}

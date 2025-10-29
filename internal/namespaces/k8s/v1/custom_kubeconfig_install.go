@@ -27,7 +27,7 @@ type k8sKubeconfigInstallRequest struct {
 func k8sKubeconfigInstallCommand() *core.Command {
 	return &core.Command{
 		Short: `Install a kubeconfig`,
-		Long: `Retrieve the kubeconfig for a specified cluster and write it on disk. 
+		Long: `Retrieve the kubeconfig for a specified cluster and write it on disk.
 It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable. If empty it will default to $HOME/.kube/config.`,
 		Namespace: "k8s",
 		Verb:      "install",
@@ -145,7 +145,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 		kubeconfigManager.CurrentContext = clusterNameWithID
 	}
 
-	err = kubeconfigManager.Save(kubeconfigPath)
+	err = kubeconfigManager.Save(ctx, kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}

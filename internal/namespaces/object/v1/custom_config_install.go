@@ -4,13 +4,11 @@ package object
 
 import (
 	"context"
-	"errors"
-	"os"
 	"path/filepath"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -80,29 +78,23 @@ func configInstallCommand() *core.Command {
 				return "", err
 			}
 
-			// Ask whether to remove previous configuration file if it exists
-			if _, err := os.Stat(configPath); err == nil {
-				doIt, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-					Ctx:          ctx,
-					Prompt:       "Do you want to overwrite the existing configuration file (" + configPath + ")?",
-					DefaultValue: false,
-				})
-				if err != nil {
-					return nil, err
-				}
-				if !doIt {
-					return nil, errors.New("installation aborted by user")
-				}
-			}
-
-			// Ensure the subfolders for the configuration files are all created
-			err = os.MkdirAll(filepath.Dir(configPath), 0o755)
+			// Extract the home directory and relative path
+			homeDir := core.ExtractUserHomeDir(ctx)
+			relPath, err := filepath.Rel(homeDir, configPath)
 			if err != nil {
 				return "", err
 			}
 
-			// Write the configuration file
-			err = os.WriteFile(configPath, []byte(newConfig), 0o600)
+			// Create options for WriteUserFile
+			opts := &localfiles.WriteUserFileOptions{
+				Confirm: true,
+			}
+
+			// Construct the full path
+			fullPath := filepath.Join(homeDir, relPath)
+
+			// Write the configuration file using the utility function
+			err = localfiles.WriteUserFile(ctx, fullPath, []byte(newConfig), opts)
 			if err != nil {
 				return "", err
 			}

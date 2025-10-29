@@ -2,6 +2,7 @@ package config
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -9,6 +10,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
+	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"gopkg.in/yaml.v3"
 )
@@ -90,7 +92,7 @@ func LoadConfig(configPath string) (*Config, error) {
 	return config, nil
 }
 
-// Save marshal config to config file
+// Save marshal config to config file without confirmation
 func (c *Config) Save() error {
 	if runtime.GOARCH == "wasm" {
 		return nil
@@ -101,12 +103,52 @@ func (c *Config) Save() error {
 		return err
 	}
 
-	err = os.MkdirAll(filepath.Dir(c.path), 0o700)
+	// Get the Scaleway config directory path
+	configDir, err := scw.GetScwConfigDir()
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(c.path, []byte(file), defaultConfigPermission)
+	// Extract the relative path from the config directory
+	relPath, err := filepath.Rel(configDir, c.path)
+	if err != nil {
+		return err
+	}
+
+	// Write the file without confirmation
+	return os.WriteFile(filepath.Join(configDir, relPath), []byte(file), defaultConfigPermission)
+}
+
+// SaveWithConfirmation marshal config to config file with diff and confirmation
+func (c *Config) SaveWithConfirmation(ctx context.Context) error {
+	if runtime.GOARCH == "wasm" {
+		return nil
+	}
+
+	file, err := c.HumanConfig()
+	if err != nil {
+		return err
+	}
+
+	// Get the Scaleway config directory path
+	configDir, err := scw.GetScwConfigDir()
+	if err != nil {
+		return err
+	}
+
+	// Extract the relative path from the config directory
+	relPath, err := filepath.Rel(configDir, c.path)
+	if err != nil {
+		return err
+	}
+
+	// Create options for WriteUserFile
+	opts := &localfiles.WriteUserFileOptions{
+		Confirm: true,
+	}
+
+	fullPath := filepath.Join(configDir, relPath)
+	return localfiles.WriteUserFile(ctx, fullPath, []byte(file), opts)
 }
 
 // HumanConfig will generate a config file with documented arguments
