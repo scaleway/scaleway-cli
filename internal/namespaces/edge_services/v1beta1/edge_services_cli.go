@@ -1250,6 +1250,13 @@ func edgeServicesBackendStageCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "scaleway-lb.lbs.{index}.has-websocket",
+				Short:      `Defines whether to forward websocket requests to the load balancer`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "pipeline-id",
 				Short:      `Pipeline ID the Backend stage belongs to`,
 				Required:   true,
@@ -1366,6 +1373,13 @@ func edgeServicesBackendStageUpdate() *core.Command {
 			{
 				Name:       "scaleway-lb.lbs.{index}.domain-name",
 				Short:      `Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-lb.lbs.{index}.has-websocket",
+				Short:      `Defines whether to forward websocket requests to the load balancer`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

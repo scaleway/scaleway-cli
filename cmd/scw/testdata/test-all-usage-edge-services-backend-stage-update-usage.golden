@@ -6,16 +6,17 @@ USAGE:
   scw edge-services backend-stage update <backend-stage-id ...> [arg=value ...]
 
 ARGS:
-  backend-stage-id                        ID of the backend stage to update
-  [scaleway-s3.bucket-name]               Name of the Bucket
-  [scaleway-s3.bucket-region]             Region of the Bucket
-  [scaleway-s3.is-website]                Defines whether the bucket website feature is enabled
-  [scaleway-lb.lbs.{index}.id]            ID of the Load Balancer
-  [scaleway-lb.lbs.{index}.zone]          Zone of the Load Balancer
-  [scaleway-lb.lbs.{index}.frontend-id]   ID of the frontend linked to the Load Balancer
-  [scaleway-lb.lbs.{index}.is-ssl]        Defines whether the Load Balancer's frontend handles SSL connections
-  [scaleway-lb.lbs.{index}.domain-name]   Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer
-  [pipeline-id]                           Pipeline ID the Backend stage belongs to
+  backend-stage-id                          ID of the backend stage to update
+  [scaleway-s3.bucket-name]                 Name of the Bucket
+  [scaleway-s3.bucket-region]               Region of the Bucket
+  [scaleway-s3.is-website]                  Defines whether the bucket website feature is enabled
+  [scaleway-lb.lbs.{index}.id]              ID of the Load Balancer
+  [scaleway-lb.lbs.{index}.zone]            Zone of the Load Balancer
+  [scaleway-lb.lbs.{index}.frontend-id]     ID of the frontend linked to the Load Balancer
+  [scaleway-lb.lbs.{index}.is-ssl]          Defines whether the Load Balancer's frontend handles SSL connections
+  [scaleway-lb.lbs.{index}.domain-name]     Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer
+  [scaleway-lb.lbs.{index}.has-websocket]   Defines whether to forward websocket requests to the load balancer
+  [pipeline-id]                             Pipeline ID the Backend stage belongs to
 
 FLAGS:
   -h, --help   help for update
