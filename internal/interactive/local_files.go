@@ -1,4 +1,4 @@
-package localfiles
+package interactive
 
 import (
 	"context"
@@ -6,12 +6,11 @@ import (
 	"os"
 	"path/filepath"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/sergi/go-diff/diffmatchpatch"
 )
 
-// WriteUserFileOptions contains options for writing user files
-type WriteUserFileOptions struct {
+// WriteFileOptions contains options for writing user files
+type WriteFileOptions struct {
 	// Confirm enables interactive confirmation before writing files
 	Confirm bool
 	// FileMode specifies the file permissions to use when writing the file
@@ -19,11 +18,16 @@ type WriteUserFileOptions struct {
 	FileMode *os.FileMode
 }
 
-// WriteUserFile writes data to a file in the user's home directory.
+// WriteFile writes data to a file in the user's home directory.
 // It ensures the parent directory exists before writing the file.
 // The function takes a homeDir parameter to specify the user's home directory,
 // a filePath that is relative to the home directory, and the data and file permissions to write.
-func WriteUserFile(ctx context.Context, path string, data []byte, opts *WriteUserFileOptions) error {
+func WriteFile(
+	ctx context.Context,
+	path string,
+	data []byte,
+	opts *WriteFileOptions,
+) error {
 	// Use the provided path directly
 	fullPath := path
 
@@ -47,35 +51,48 @@ func WriteUserFile(ctx context.Context, path string, data []byte, opts *WriteUse
 
 	// If no changes, return early
 	if string(existingContent) == string(data) {
-		interactive.Println("File %s is already with an identical config", path)
+		Printf("File %s is already with an identical config\n", path)
 
 		return nil
 	}
 
 	// If confirmation is requested, show diff and ask for confirmation
 	if opts != nil && opts.Confirm && ctx != nil {
-
 		// Create diff
 		dmp := diffmatchpatch.New()
-		diffs := dmp.DiffMain(string(existingContent), string(data), false)
+
+		// Encode texts into runes representing unique lines
+		existingContentTokens, dataTokens, lineArray := dmp.DiffLinesToChars(string(existingContent), string(data))
+
+		// Run diff on the tokenized version
+		diffs := dmp.DiffMain(existingContentTokens, dataTokens, false)
+
+		// Optional cleanup for nicer output
+		dmp.DiffCleanupSemantic(diffs)
+
+		// Convert back to text form
+		diffs = dmp.DiffCharsToLines(diffs, lineArray)
 
 		// Format diff
 		// Format and show diff using interactive package
-		interactive.Printf("Differences in %s:\n", path)
-		interactive.Print(dmp.DiffPrettyText(diffs))
-		interactive.Print("\n")
+		Printf("Differences in %s:\n", path)
+		Print(dmp.DiffPrettyText(diffs))
+		Print("\n")
 
 		// Ask for confirmation
-		confirmed, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-			Ctx:          ctx,
-			Prompt:       fmt.Sprintf("Write changes to %s?", path),
-			DefaultValue: true,
+		confirmed, err := PromptBoolWithConfig(&PromptBoolConfig{
+			Ctx: ctx,
+			Prompt: fmt.Sprintf(
+				"Do you want to overwrite the existing configuration file (%s)?",
+				path,
+			),
+			DefaultValue: false,
 		})
 		if err != nil {
 			return err
 		}
 		if !confirmed {
-			return fmt.Errorf("user declined to write file")
+			return fmt.Errorf("user declined to write file %s", path)
 		}
 	}
 
@@ -92,18 +109,3 @@ func WriteUserFile(ctx context.Context, path string, data []byte, opts *WriteUse
 
 	return nil
 }
-
-// Ask whether to remove previous configuration file if it exists
-//	if _, err := os.Stat(configPath); err == nil {
-//	doIt, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-//	Ctx:          ctx,
-//		Prompt:       "Do you want to overwrite the existing configuration file (" + configPath + ")?",
-//		DefaultValue: false,
-//	})
-//	if err != nil {
-//		return nil, err
-//	}
-//	if !doIt {
-//		return nil, errors.New("installation aborted by user")
-//	}
-//}

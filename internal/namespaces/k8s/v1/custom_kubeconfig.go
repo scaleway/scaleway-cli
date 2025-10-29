@@ -13,7 +13,7 @@ import (
 
 	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -89,7 +89,11 @@ func openAndUnmarshalKubeconfig(kubeconfigPath string) (*api.Config, error) {
 	return &kubeconfig, nil
 }
 
-func marshalAndWriteKubeconfig(ctx context.Context, kubeconfig *api.Config, kubeconfigPath string) error {
+func marshalAndWriteKubeconfig(
+	ctx context.Context,
+	kubeconfig *api.Config,
+	kubeconfigPath string,
+) error {
 	newKubeconfig, err := yaml.Marshal(*kubeconfig)
 	if err != nil {
 		return err
@@ -103,13 +107,13 @@ func marshalAndWriteKubeconfig(ctx context.Context, kubeconfig *api.Config, kube
 
 	// Get current content of the file if it exists
 
-	opts := &localfiles.WriteUserFileOptions{
+	opts := &interactive.WriteFileOptions{
 		Confirm: true,
 	}
 
 	fullPath := filepath.Join(homeDir, relPath)
 
-	return localfiles.WriteUserFile(ctx, fullPath, newKubeconfig, opts)
+	return interactive.WriteFile(ctx, fullPath, newKubeconfig, opts)
 }
 
 func generateNamedAuthInfo(ctx context.Context, method authMethods) (*api.NamedAuthInfo, error) {
@@ -447,13 +451,13 @@ func (c *KubeMapConfig) Save(ctx context.Context, kubeconfigPath string) error {
 		return err
 	}
 
-	// Create options for WriteUserFile
-	opts := &localfiles.WriteUserFileOptions{
+	// Create options for WriteFile
+	opts := &interactive.WriteFileOptions{
 		Confirm: true,
 	}
 
 	// Construct the full path
 	fullPath := filepath.Join(homeDir, relPath)
 
-	return localfiles.WriteUserFile(ctx, fullPath, kubeconfigBytes, opts)
+	return interactive.WriteFile(ctx, fullPath, kubeconfigBytes, opts)
 }

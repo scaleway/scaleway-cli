@@ -11,7 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
-	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 )
 
 var (
@@ -21,8 +21,7 @@ var (
 	sshDefaultConfigFileName = "config"
 	sshConfigFolderHomePath  = ".ssh"
 
-	sshConfigFileMode   = os.FileMode(0o600)
-	sshConfigFolderMode = os.FileMode(0o700)
+	sshConfigFileMode = os.FileMode(0o600)
 
 	ErrFileNotFound = errors.New("file not found")
 )
@@ -57,13 +56,13 @@ func Save(ctx context.Context, homeDir string, hosts []Host) error {
 		return err
 	}
 
-	// Create options for WriteUserFile
-	opts := &localfiles.WriteUserFileOptions{
+	// Create options for WriteFile
+	opts := &interactive.WriteFileOptions{
 		Confirm:  true,
 		FileMode: &sshConfigFileMode,
 	}
 
-	return localfiles.WriteUserFile(ctx, ConfigFilePath(homeDir), cfg, opts)
+	return interactive.WriteFile(ctx, ConfigFilePath(homeDir), cfg, opts)
 }
 
 func sshConfigFolder(homeDir string) string {
@@ -154,11 +153,11 @@ func IncludeConfigFile(ctx context.Context, homeDir string) error {
 	// Prepend config file with Include line
 	fileContent = append([]byte(includeLine()+"\n"), fileContent...)
 
-	// Create options for WriteUserFile
-	opts := &localfiles.WriteUserFileOptions{
+	// Create options for WriteFile
+	opts := &interactive.WriteFileOptions{
 		Confirm:  true,
 		FileMode: &configFileMode,
 	}
 
-	return localfiles.WriteUserFile(ctx, DefaultConfigFilePath(homeDir), fileContent, opts)
+	return interactive.WriteFile(ctx, DefaultConfigFilePath(homeDir), fileContent, opts)
 }

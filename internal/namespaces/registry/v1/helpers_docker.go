@@ -12,7 +12,7 @@ import (
 	"path/filepath"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -38,16 +38,16 @@ func writeHelperScript(ctx context.Context, scriptPath string, scriptContent str
 	}
 	defer f.Close()
 
-	// Use WriteUserFile to write the script content
+	// Use WriteFile to write the script content
 	homeDir := core.ExtractUserHomeDir(ctx)
 	relPath, err := filepath.Rel(homeDir, scriptPath)
 	if err != nil {
 		return err
 	}
 
-	// Create options for WriteUserFile
+	// Create options for WriteFile
 	fileMode := os.FileMode(0o755)
-	opts := &localfiles.WriteUserFileOptions{
+	opts := &interactive.WriteFileOptions{
 		Confirm:  true,
 		FileMode: &fileMode,
 	}
@@ -55,7 +55,7 @@ func writeHelperScript(ctx context.Context, scriptPath string, scriptContent str
 	// Construct the full path
 	fullPath := filepath.Join(homeDir, relPath)
 
-	return localfiles.WriteUserFile(ctx, fullPath, []byte(scriptContent), opts)
+	return interactive.WriteFile(ctx, fullPath, []byte(scriptContent), opts)
 }
 
 func setupDockerConfigFile(ctx context.Context, registries []string, binaryName string) error {
@@ -117,15 +117,15 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 		return err
 	}
 
-	// Use WriteUserFile to write the docker config
+	// Use WriteFile to write the docker config
 	relPath, err := filepath.Rel(homeDir, dockerConfigFilePath)
 	if err != nil {
 		return err
 	}
 
-	// Create options for WriteUserFile
+	// Create options for WriteFile
 	fileMode := os.FileMode(0o600)
-	opts := &localfiles.WriteUserFileOptions{
+	opts := &interactive.WriteFileOptions{
 		Confirm:  true,
 		FileMode: &fileMode,
 	}
@@ -133,7 +133,7 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 	// Construct the full path
 	fullPath := filepath.Join(homeDir, relPath)
 
-	return localfiles.WriteUserFile(ctx, fullPath, buf.Bytes(), opts)
+	return interactive.WriteFile(ctx, fullPath, buf.Bytes(), opts)
 }
 
 func getRegistryEndpoint(region scw.Region) string {

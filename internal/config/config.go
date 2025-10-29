@@ -10,7 +10,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
-	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"gopkg.in/yaml.v3"
 )
@@ -142,13 +142,14 @@ func (c *Config) SaveWithConfirmation(ctx context.Context) error {
 		return err
 	}
 
-	// Create options for WriteUserFile
-	opts := &localfiles.WriteUserFileOptions{
+	// Create options for WriteFile
+	opts := &interactive.WriteFileOptions{
 		Confirm: true,
 	}
 
 	fullPath := filepath.Join(configDir, relPath)
-	return localfiles.WriteUserFile(ctx, fullPath, []byte(file), opts)
+
+	return interactive.WriteFile(ctx, fullPath, []byte(file), opts)
 }
 
 // HumanConfig will generate a config file with documented arguments

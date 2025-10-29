@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/localfiles"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -85,8 +85,8 @@ func configInstallCommand() *core.Command {
 				return "", err
 			}
 
-			// Create options for WriteUserFile
-			opts := &localfiles.WriteUserFileOptions{
+			// Create options for WriteFile
+			opts := &interactive.WriteFileOptions{
 				Confirm: true,
 			}
 
@@ -94,7 +94,7 @@ func configInstallCommand() *core.Command {
 			fullPath := filepath.Join(homeDir, relPath)
 
 			// Write the configuration file using the utility function
-			err = localfiles.WriteUserFile(ctx, fullPath, []byte(newConfig), opts)
+			err = interactive.WriteFile(ctx, fullPath, []byte(newConfig), opts)
 			if err != nil {
 				return "", err
 			}
