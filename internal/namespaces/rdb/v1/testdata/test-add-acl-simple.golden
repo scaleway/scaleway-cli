@@ -2,14 +2,14 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully added.
 IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   10914  tcp       inbound    allow   Allow All
-1.2.3.4/32  10914  tcp       inbound    allow   Allow 1.2.3.4/32
+0.0.0.0/0   27078  tcp       inbound    allow   Allow All
+1.2.3.4/32  27078  tcp       inbound    allow   Allow 1.2.3.4/32
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "0.0.0.0/0",
-      "port": 10914,
+      "port": 27078,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
@@ -17,7 +17,7 @@ IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     },
     {
       "ip": "1.2.3.4/32",
-      "port": 10914,
+      "port": 27078,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",

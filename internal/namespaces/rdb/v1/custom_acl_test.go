@@ -195,6 +195,57 @@ func Test_SetACL(t *testing.T) {
 		),
 		AfterFunc: deleteInstance(),
 	}))
+
+	t.Run("Multiple with individual descriptions", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.1=second descriptions.2=third --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/32"})
+			},
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Multiple with partial descriptions", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} descriptions.0=first descriptions.1=second descriptions.2=third --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/32"})
+			},
+		),
+		AfterFunc: deleteInstance(),
+	}))
+
+	t.Run("Multiple with general description and specific descriptions", core.Test(&core.TestConfig{
+		Commands: rdb.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			fetchLatestEngine("PostgreSQL"),
+			createInstance("{{.latestEngine}}"),
+		),
+		Cmd: "scw rdb acl add 1.1.1.1 2.2.2.2 3.3.3.3 instance-id={{ .Instance.ID }} description=default descriptions.0=first descriptions.1=second --wait",
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				verifyACL(t, ctx, []string{"0.0.0.0/0", "1.1.1.1/32", "2.2.2.2/32", "3.3.3.3/32"})
+			},
+		),
+		AfterFunc: deleteInstance(),
+	}))
 }
 
 func verifyACLCustomResponse(t *testing.T, res *rdb.CustomACLResult, expectedRules []string) {

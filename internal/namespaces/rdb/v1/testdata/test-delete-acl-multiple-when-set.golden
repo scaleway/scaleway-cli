@@ -1,89 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ ACL rule 1.2.3.4/32 successfully deleted.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       10411  tcp       inbound    allow   Allow All
-10.10.10.10/32  10411  tcp       inbound    allow   Allow 10.10.10.10/32
-192.168.1.0/32  10411  tcp       inbound    allow   Allow 192.168.1.0/32
-✅ ACL rule 192.168.1.0/32 successfully deleted.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       10411  tcp       inbound    allow   Allow All
-10.10.10.10/32  10411  tcp       inbound    allow   Allow 10.10.10.10/32
-✅ ACL rule 10.10.10.10/32 successfully deleted.
+✅ 3 ACL rules successfully deleted.
 IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10411  tcp       inbound    allow   Allow All
+0.0.0.0/0  27884  tcp       inbound    allow   Allow All
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 10411,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      },
-      {
-        "ip": "10.10.10.10/32",
-        "port": 10411,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 10.10.10.10/32"
-      },
-      {
-        "ip": "192.168.1.0/32",
-        "port": 10411,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 192.168.1.0/32"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 1.2.3.4/32 successfully deleted",
-      "details": ""
+{
+  "Rules": [
+    {
+      "ip": "0.0.0.0/0",
+      "port": 27884,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow All"
     }
-  },
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 10411,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      },
-      {
-        "ip": "10.10.10.10/32",
-        "port": 10411,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 10.10.10.10/32"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 192.168.1.0/32 successfully deleted",
-      "details": ""
-    }
-  },
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 10411,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 10.10.10.10/32 successfully deleted",
-      "details": ""
-    }
+  ],
+  "Success": {
+    "message": "3 ACL rules successfully deleted",
+    "details": ""
   }
-]
+}
