@@ -26,7 +26,7 @@ ARGS:
   [max-size]                         Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [container-runtime]                Customization of the container runtime is available for each pool (unknown_runtime | docker | containerd | crio)
   [autohealing]                      Defines whether the autohealing feature is enabled for the pool
-  [tags.{index}]                     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags)
+  [tags.{index}]                     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)
   [kubelet-args.{key}]               Kubelet arguments to be used by this pool. Note that this feature is experimental
   [upgrade-policy.max-unavailable]   
   [upgrade-policy.max-surge]         
