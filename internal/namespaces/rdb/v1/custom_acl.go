@@ -163,7 +163,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		{
 			Name:       "acl-rule-ips",
 			Short:      "IP addresses defined in the ACL rules of the Database Instance",
-			Required:   true,
+			Required:   false,
 			Positional: true,
 		},
 		{
