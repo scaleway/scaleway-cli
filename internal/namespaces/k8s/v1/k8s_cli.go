@@ -100,7 +100,7 @@ func k8sVersion() *core.Command {
 	return &core.Command{
 		Short: `Available Kubernetes versions commands`,
 		Long: `A version is a vanilla Kubernetes version like ` + "`" + `x.y.z` + "`" + `
-It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).`,
+It comprises a major version ` + "`" + `x` + "`" + `, a minor version ` + "`" + `y` + "`" + `, and a patch version ` + "`" + `z` + "`" + `. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/kubernetes/reference-content/version-support-policy/).`,
 		Namespace: "k8s",
 		Resource:  "version",
 	}
@@ -420,7 +420,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.tags.{index}",
-				Short:      `Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags)`,
+				Short:      `Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1771,7 +1771,7 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags)`,
+				Short:      `Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

@@ -175,7 +175,7 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool |
 | pools.{index}.autohealing |  | Defines whether the autohealing feature is enabled for the pool |
-| pools.{index}.tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags) |
+| pools.{index}.tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags) |
 | pools.{index}.kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
 | pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
 | pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
@@ -1006,7 +1006,7 @@ scw k8s pool create [arg=value ...]
 | max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
 | container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool |
 | autohealing |  | Defines whether the autohealing feature is enabled for the pool |
-| tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags) |
+| tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags) |
 | kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
@@ -1303,7 +1303,7 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 ## Available Kubernetes versions commands
 
 A version is a vanilla Kubernetes version like `x.y.z`
-It comprises a major version `x`, a minor version `y`, and a patch version `z`. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/containers/kubernetes/reference-content/version-support-policy/).
+It comprises a major version `x`, a minor version `y`, and a patch version `z`. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/kubernetes/reference-content/version-support-policy/).
 
 
 ### Get a Version
