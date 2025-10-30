@@ -59,8 +59,8 @@ func Save(ctx context.Context, homeDir string, hosts []Host) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm:  core.ExtractYesMode(ctx),
-		FileMode: &sshConfigFileMode,
+		Confirmed: core.ExtractYesMode(ctx),
+		FileMode:  &sshConfigFileMode,
 	}
 
 	return interactive.WriteFile(ctx, ConfigFilePath(homeDir), cfg, opts)
@@ -156,8 +156,8 @@ func IncludeConfigFile(ctx context.Context, homeDir string) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm:  core.ExtractYesMode(ctx),
-		FileMode: &configFileMode,
+		Confirmed: core.ExtractYesMode(ctx),
+		FileMode:  &configFileMode,
 	}
 
 	return interactive.WriteFile(ctx, DefaultConfigFilePath(homeDir), fileContent, opts)

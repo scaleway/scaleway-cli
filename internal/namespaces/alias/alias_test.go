@@ -14,8 +14,8 @@ import (
 func Test_Alias(t *testing.T) {
 	t.Run("Multiple words", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create i command=instance"),
-			core.ExecBeforeCmdArgs([]string{"scw", "alias", "create", "sl", "command=server list"}),
+			core.ExecBeforeCmd("scw alias create i command=instance --yes"),
+			core.ExecBeforeCmdArgs([]string{"scw", "alias", "create", "sl", "command=server list", "--yes"}),
 		),
 		Commands:      commands.GetCommands(),
 		Cmd:           "scw i sl -h",
@@ -32,9 +32,9 @@ func Test_Alias(t *testing.T) {
 
 	t.Run("one word aliases", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create i command=instance"),
-			core.ExecBeforeCmd("scw alias create s command=server"),
-			core.ExecBeforeCmd("scw alias create l command=list"),
+			core.ExecBeforeCmd("scw alias create i command=instance --yes"),
+			core.ExecBeforeCmd("scw alias create s command=server --yes"),
+			core.ExecBeforeCmd("scw alias create l command=list --yes"),
 		),
 		Commands:      commands.GetCommands(),
 		Cmd:           "scw i s l -h",
@@ -51,7 +51,7 @@ func Test_Alias(t *testing.T) {
 
 	t.Run("list aliases", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create myalias command=iam"),
+			core.ExecBeforeCmd("scw alias create myalias command=iam --yes"),
 		),
 		Commands:      commands.GetCommands(),
 		Cmd:           "scw alias list",
@@ -69,10 +69,10 @@ func Test_Alias(t *testing.T) {
 
 	t.Run("delete alias", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecBeforeCmd("scw alias create i command=instance"),
+			core.ExecBeforeCmd("scw alias create i command=instance --yes"),
 		),
 		Commands:      commands.GetCommands(),
-		Cmd:           "scw alias delete i",
+		Cmd:           "scw alias delete i --yes",
 		EnableAliases: true,
 		AfterFunc: core.AfterFuncCombine(
 			func(ctx *core.AfterFuncCtx) error {

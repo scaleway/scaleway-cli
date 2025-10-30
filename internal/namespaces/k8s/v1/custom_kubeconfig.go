@@ -108,7 +108,7 @@ func marshalAndWriteKubeconfig(
 	// Get current content of the file if it exists
 
 	opts := &interactive.WriteFileOptions{
-		Confirm: core.ExtractYesMode(ctx),
+		Confirmed: core.ExtractYesMode(ctx),
 	}
 
 	fullPath := filepath.Join(homeDir, relPath)
@@ -453,7 +453,7 @@ func (c *KubeMapConfig) Save(ctx context.Context, kubeconfigPath string) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm: core.ExtractYesMode(ctx),
+		Confirmed: core.ExtractYesMode(ctx),
 	}
 
 	// Construct the full path

@@ -19,7 +19,7 @@ const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
 	DefaultConfigFileName   = "cli.yaml"
-	defaultConfigPermission = 0o644
+	defaultConfigPermission = os.FileMode(0o644)
 
 	DefaultOutput      = "human"
 	configFileTemplate = `# Scaleway CLI config file
@@ -93,7 +93,7 @@ func LoadConfig(configPath string) (*Config, error) {
 }
 
 // Save marshal config to config file
-func (c *Config) Save() error {
+func (c *Config) Save(ctx context.Context) error {
 	if runtime.GOARCH == "wasm" {
 		return nil
 	}
@@ -115,8 +115,13 @@ func (c *Config) Save() error {
 		return err
 	}
 
-	// Write the file without confirmation
-	return os.WriteFile(filepath.Join(configDir, relPath), []byte(file), defaultConfigPermission)
+	fileMode := defaultConfigPermission
+	writeOptions := &interactive.WriteFileOptions{
+		Confirmed: ExtractYesMode(ctx),
+		FileMode:  &fileMode,
+	}
+
+	return interactive.WriteFile(ctx, filepath.Join(configDir, relPath), []byte(file), writeOptions)
 }
 
 // SaveWithConfirmation marshal config to config file with diff and confirmation
@@ -144,7 +149,7 @@ func (c *Config) SaveWithConfirmation(ctx context.Context) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm: ExtractYesMode(ctx),
+		Confirmed: ExtractYesMode(ctx),
 	}
 
 	fullPath := filepath.Join(configDir, relPath)

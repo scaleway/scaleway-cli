@@ -11,8 +11,8 @@ import (
 
 // WriteFileOptions contains options for writing user files
 type WriteFileOptions struct {
-	// Confirm enables interactive confirmation before writing files
-	Confirm bool
+	// Confirmed enables interactive confirmation before writing files
+	Confirmed bool
 	// FileMode specifies the file permissions to use when writing the file
 	// If nil, defaults to 0o600
 	FileMode *os.FileMode
@@ -56,8 +56,8 @@ func WriteFile(
 		return nil
 	}
 
-	// If confirmation is requested, show diff and ask for confirmation
-	if opts != nil && opts.Confirm && ctx != nil {
+	// If the command is not confirmed (for instance by using the --yes flag), show diff and ask for confirmation
+	if opts != nil && !opts.Confirmed && ctx != nil {
 		dmp := diffmatchpatch.New()
 
 		// Encode texts into runes representing unique lines
