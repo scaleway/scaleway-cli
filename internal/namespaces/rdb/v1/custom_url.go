@@ -116,22 +116,7 @@ func generateURL(ctx context.Context, argsI any) (any, error) {
 
 	// Finally we add the database if it was given
 	if args.Db != "" {
-		databases, err := api.ListDatabases(&rdb.ListDatabasesRequest{
-			Region:     args.Region,
-			InstanceID: args.InstanceID,
-			Name:       &args.Db,
-		}, scw.WithContext(ctx), scw.WithAllPages())
-		if err != nil {
-			return nil, fmt.Errorf("failed to list databases for instance %q", args.InstanceID)
-		}
-		if databases.TotalCount != 1 {
-			return nil, fmt.Errorf(
-				"expected 1 database with the name %q, got %d",
-				args.Db,
-				databases.TotalCount,
-			)
-		}
-		u = u.JoinPath(databases.Databases[0].Name)
+		u = u.JoinPath(args.Db)
 	}
 
 	return u.String(), nil

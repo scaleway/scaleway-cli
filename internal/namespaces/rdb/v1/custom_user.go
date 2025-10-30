@@ -119,6 +119,24 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*rdbCreateUserRequestCustom)
 		createUserRequest := customRequest.CreateUserRequest
 
+		// Idempotency: if user already exists, return the existing user
+		if createUserRequest != nil && createUserRequest.Name != "" {
+			name := createUserRequest.Name
+			users, err := api.ListUsers(&rdb.ListUsersRequest{
+				Region:     createUserRequest.Region,
+				InstanceID: createUserRequest.InstanceID,
+				Name:       &name,
+			}, scw.WithAllPages())
+			if err == nil && users.TotalCount > 0 {
+				// Return existing user object to maintain compatibility
+				result := rdbCreateUserResponseCustom{
+					User:     users.Users[0],
+					Password: "", // no password for existing user
+				}
+				return result, nil
+			}
+		}
+
 		var err error
 		if customRequest.GeneratePassword && customRequest.Password == "" {
 			createUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
