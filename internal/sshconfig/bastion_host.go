@@ -14,7 +14,7 @@ type BastionHost struct {
 }
 
 func (b BastionHost) Config() string {
-	bastionConfig := make([]string, 0, len(b.Hosts)+1)
+	bastionConfig := make([]string, 1, len(b.Hosts)+1)
 	bastionConfig[0] = fmt.Sprintf(`Host %s
   ProxyJump bastion@%s
 `,

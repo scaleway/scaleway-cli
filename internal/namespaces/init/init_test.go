@@ -27,7 +27,7 @@ func checkConfig(
 }
 
 func appendArgs(prefix string, args map[string]string) string {
-	cmd := make([]string, 0, len(args)+1)
+	cmd := make([]string, 1, len(args)+1)
 	cmd[0] = prefix
 	for k, v := range args {
 		cmd = append(cmd, fmt.Sprintf("%s=%s", k, v))
