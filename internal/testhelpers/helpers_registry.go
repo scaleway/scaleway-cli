@@ -30,15 +30,11 @@ func StoreImageIdentifierInMeta(
 		// List images
 		imageName := strings.Split(dockerImageName, ":")[0]
 		namespaceID := ctx.Meta.Render(fmt.Sprintf("{{ .%s.ID }}", namespaceMetaKey))
-		args := strings.Split(
-			fmt.Sprintf(
-				"scw registry image list namespace-id=%s name=%s",
-				namespaceID,
-				imageName,
-			),
-			" ",
-		)
-		imageListResult := ctx.ExecuteCmd(args)
+		imageListResult := core.ExecBeforeCmdWithResult(ctx, fmt.Sprintf(
+			"scw registry image list namespace-id=%s name=%s",
+			namespaceID,
+			imageName,
+		))
 
 		// Select the image
 		imageList, ok := imageListResult.([]registry.CustomImage)
