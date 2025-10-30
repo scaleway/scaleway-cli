@@ -1,0 +1,2321 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Recorded At      StatusCode  MethodName              Principal                             SourceIP         ProjectID                             ProductName     RequestBody                                                                                                                                                                                                                                                                                                                                                                                                                                      RequestID                             User-Agent                                                                                                                         ID                                    ServiceName                               Locality
+few seconds ago  200         RenewJWT                                                      51.159.73.145    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          6c0e8385-75d7-487e-8a17-3e61d68283bd  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36              0199b898-3b6f-72e4-9923-a63f5a3f66be  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         RenewJWT                                                      51.159.46.153    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          dc02c7f3-3efa-4704-8386-f08690d9009b  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36              0199aac5-4c79-75e0-8777-65646fc47162  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         RenewJWT                                                      51.159.73.145    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          00d736ec-3c43-4d7d-8f89-cfad3bdc3a01  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36              0199a9f6-80d5-7be4-82d4-d1d8f2ac3d58  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         RenewJWT                                                      51.159.73.145    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          703a53ff-41a0-416a-9ae8-c93f3ebfde18  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999b30-52b0-7a16-bc14-65b0f81bb84d  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         RenewJWT                                                      51.159.73.145    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          c330168a-1715-47d6-a0f4-831b78c23ddb  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999af9-2f6f-7c45-b855-4a42a1e52a87  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         DeleteCluster           b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"cluster_id":"4397d484-905d-4744-a995-d137a28948a2"}                                                                                                                                                                                                                                                                                                                                                                                            11a3a920-bc72-42aa-939f-6dca0452ef14  -                                                                                                                                  01999af4-5d2e-72c5-9fda-1871c0073928  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         DeletePool              b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"pool_id":"c137fd10-844e-4f8e-a1d0-81a227912373"}                                                                                                                                                                                                                                                                                                                                                                                               87321e49-f3b9-454b-9658-5bac254a07b0  -                                                                                                                                  01999af0-598c-7766-929c-314a2f19ace0  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         CreatePool              b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"autohealing":true,"autoscaling":true,"cluster_id":"4397d484-905d-4744-a995-d137a28948a2","container_runtime":2,"max_size":{"value":1},"min_size":{"value":1},"name":"default","node_type":"pro2_xxs","size":1,"zone":"fr-par-1"}                                                                                                                                                                                                               40bef700-1657-413c-a8f9-1b08093d13f4  -                                                                                                                                  01999aec-635f-7417-921a-f9d4fdb075e5  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         CreateCluster           b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"ProjectIdentifier":{"ProjectId":"951df375-e094-4d26-97c1-ba548eeb9c42"},"autoscaler_config":{"expendable_pods_priority_cutoff":{},"max_graceful_termination_sec":{}},"cni":1,"name":"tf-cluster-basic","private_network_id":{"value":"de7796cb-5c2f-4bd2-b51a-5e0ee2fcf579"},"tags":["terraform-test","data_scaleway_k8s_cluster","basic"],"version":"1.34.1"}                                                                                 a2557c0e-3a89-44be-8f2d-8e702c7cd514  -                                                                                                                                  01999aec-4da0-7461-87f2-165b80869cda  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         DeleteCluster           b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"cluster_id":"ee5b1009-eda5-418b-9c63-4eabe913c73e","with_additional_resources":true}                                                                                                                                                                                                                                                                                                                                                           54afd046-35c4-45b1-9762-296f44bf1514  -                                                                                                                                  01999aec-0569-7944-abf2-e75bf810e527  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         CreatePool              b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"autohealing":true,"autoscaling":true,"cluster_id":"ee5b1009-eda5-418b-9c63-4eabe913c73e","container_runtime":2,"max_size":{"value":1},"min_size":{"value":1},"name":"default","node_type":"pro2_xxs","size":1,"zone":"fr-par-1"}                                                                                                                                                                                                               f45571aa-b9b6-46bb-b9ec-83bead93814e  -                                                                                                                                  01999aea-a79e-7390-a7b4-3d57afa41ed8  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         CreateCluster           b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"ProjectIdentifier":{"ProjectId":"951df375-e094-4d26-97c1-ba548eeb9c42"},"autoscaler_config":{"expendable_pods_priority_cutoff":{},"max_graceful_termination_sec":{}},"cni":1,"name":"tf-cluster-basic","private_network_id":{"value":"a0cedc60-729e-4fc4-8116-39b976fed0fa"},"tags":["terraform-test","data_scaleway_k8s_cluster","basic"],"version":"1.34.1"}                                                                                 b483a614-9e09-4d2a-96ed-3c8af8750f25  -                                                                                                                                  01999aea-9205-7cfa-909e-62ddf6e9a9c6  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         RenewJWT                                                      51.159.73.145    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          efc3c90e-4f5d-4529-a797-5202e9d11843  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999ab7-d458-769b-bdbd-8a76fdb5d2b2  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         DeleteServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"serverId":"2c6b91c4-8a87-4023-8426-ca0badee1d95"}                                                                                                                                                                                                                                                                                                                                                                                              eb6bbec9-ee6b-4281-b913-30c16079c660  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-e0f4-7714-ae3a-403b1cb4e474  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         DeleteServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"serverId":"89914931-e7c7-49af-940e-b622367ce2c7"}                                                                                                                                                                                                                                                                                                                                                                                              a22d4939-24b8-47f8-9936-bdd60c15a8e8  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-e0da-7d49-a874-7bbf685c30bb  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         DeleteServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"serverId":"0711aa55-b147-4296-a27a-68521ecd096d"}                                                                                                                                                                                                                                                                                                                                                                                              6177c5c2-ec3a-473e-9e99-496149fef1d3  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-e0d5-71a3-81e5-4f01e21790e0  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         DeleteServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"serverId":"ea82e9bf-b7bb-4f31-bf02-3ed179f973a2"}                                                                                                                                                                                                                                                                                                                                                                                              768275e5-9ceb-4465-821b-0eb2f9388562  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-e0d5-72b0-8647-d369ff03a493  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         DeleteSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"ssh_key_id":"1901a767-48f6-459b-a1be-635cd5f33b82"}                                                                                                                                                                                                                                                                                                                                                                                            c5c1e344-69ff-474b-912e-bafb3a23de49  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-54dc-7d3f-94d6-008e2aed449c  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"ssh_key_id":"7588b73c-8cf2-478c-a1cc-2f5ebf7eeb29"}                                                                                                                                                                                                                                                                                                                                                                                            d1e0349e-9881-4b75-a663-f6d7a93ebd06  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-3b4b-7edf-aeed-230910ff3de2  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"ssh_key_id":"0e5995ff-311b-42ff-8ab9-604ad4f2a1ce"}                                                                                                                                                                                                                                                                                                                                                                                            45180450-15d1-426f-af95-ec7963bf0b17  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-3b48-7cca-b73b-edf6e7ea2542  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"ssh_key_id":"895b2d46-a67d-46f1-9cdc-3b809db7e825"}                                                                                                                                                                                                                                                                                                                                                                                            12e4e689-7bd8-42b8-b044-808d439c43f9  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-3b47-7aef-8727-b0f7fd48c316  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"ssh_key_id":"187a1c0b-b6cd-4a4f-a379-1eb8e2a8fc1f"}                                                                                                                                                                                                                                                                                                                                                                                            16ee9cbe-237c-4196-a65a-23652237fb32  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a1a-3b4b-7117-8d80-732113eb6add  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"secret_id":"81046b09-e76b-4a07-b740-dc22c7c2905d"}                                                                                                                                                                                                                                                                                                                                                                                             96fe0518-a3cc-4daf-ac14-b65edd937b03  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a19-629b-7aed-adf1-ab33d420dd95  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         DeleteSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"secret_id":"fe152bdb-4205-4dc6-b2b3-cb69c97e6d59"}                                                                                                                                                                                                                                                                                                                                                                                             be3614b3-1187-482e-b90f-a7f126f47118  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01999a19-628a-7a1c-abdd-fc8551d86e14  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         CreateServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"description":"","name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","offerId":"ddb09834-8680-4339-b5e3-19ca5205fa1f","optionIds":[],"projectId":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[]}                                                                                                                                                                                                                 e547494d-8b7d-446c-b942-8ac7100dd439  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be8-70e2-7510-a36c-5bc8683fa0e8  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         CreateSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"}                                                                                                                                                                                                     ee3cc178-3c2d-4770-9a95-5594bf2e0c76  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be8-6a54-7264-9e4f-f04b315cec45  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"description":"","name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","offerId":"ddb09834-8680-4339-b5e3-19ca5205fa1f","optionIds":[],"projectId":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[]}                                                                                                                                                                                                                 be6b7a35-3148-4102-ad67-a4c7c2a83621  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be6-e1fd-790c-aceb-0237a811466a  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         CreateSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"}                                                                                                                                                                                                     912cd58d-158a-4854-b55a-f671957b0084  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be6-db2f-7c83-be71-5719bd36056c  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"description":"","name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","offerId":"ddb09834-8680-4339-b5e3-19ca5205fa1f","optionIds":[],"projectId":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[]}                                                                                                                                                                                                                 4d70cd8a-050f-4145-99cc-d5d2694afd2f  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be6-4b5d-78ef-8ecc-c3e03f7dca3a  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         CreateSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"}                                                                                                                                                                                                     79ef3bc1-cb21-4c31-be8f-e7bb3c406e66  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be6-44c6-7c3b-91bc-d325ac82c5e6  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"description":"","name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","offerId":"ddb09834-8680-4339-b5e3-19ca5205fa1f","optionIds":[],"projectId":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[]}                                                                                                                                                                                                                 302741ff-e42f-4066-a12c-5f72026566e0  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be5-d17a-7358-bb08-5fadb57f00d1  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         CreateSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"}                                                                                                                                                                                                     aba82c46-5b47-400b-92b1-1749e7524c74  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01997be5-cac2-7f3f-9a05-8f17b828ca12  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         RenewJWT                                                      51.159.73.145    -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          ddeff06b-0d2a-44d0-9a88-c08a07df43d2  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01997bb7-1d8d-7dff-aa62-ee526ea15b73  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         RenewJWT                                                      88.187.150.117   -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          e89e86da-bbbd-4660-8b57-bd28d3663fb6  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01997287-13ca-7970-95de-99d433465806  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         RenewJWT                                                      130.180.219.188  -                                     iam             {"jti":"283e8338-6571-4c9c-8848-cefd1e5715f9","renew_token":"REDACTED"}                                                                                                                                                                                                                                                                                                                                                                          5d64abfd-2480-47dc-a9f5-9a300dbed456  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019971b6-20bf-7051-9413-e055e51f63c1  scaleway.iam.v1alpha1.UnauthenticatedApi  global
+few seconds ago  200         UpdateUserPreferences   b49d82c1-ce3a-473f-9cef-420acc5256bf  130.180.219.188  -                                     account         {"console_theme":"unknown_console_theme","pinned_products":{"value":["generativeApi"]},"user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}                                                                                                                                                                                                                                                                                                         796b0cd7-1380-4237-9390-4f9c374d69a9  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01997128-929f-77be-af7b-4dd98ef1ed6e  scaleway.account.v3.UserApi               fr-par
+few seconds ago  200         UpdateUserPreferences   b49d82c1-ce3a-473f-9cef-420acc5256bf  130.180.219.188  -                                     account         {"console_theme":"unknown_console_theme","pinned_products":{"value":[]},"user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}                                                                                                                                                                                                                                                                                                                        2d85d18e-85ba-49a1-a677-99ed81571a57  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01997128-8e67-71a2-b115-ed2eae084cf0  scaleway.account.v3.UserApi               fr-par
+few seconds ago  200         DeleteSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"ssh_key_id":"5777fea0-75ce-4196-9a1c-7462545f28b9"}                                                                                                                                                                                                                                                                                                                                                                                            fe7a9be4-f621-483b-9be9-8eb7666c8b6a  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01995da6-2ff1-74af-91d4-6a219cfc1e87  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"serverId":"1fe49ab3-0626-4c34-af12-6cc22fd7d56f"}                                                                                                                                                                                                                                                                                                                                                                                              3c878be2-6ace-4343-a8d7-f300242e73f0  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01995da6-1b5d-7543-abf0-89543647a50f  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         AddOptionServer         b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"optionId":"cd4158d7-2d65-49be-8803-c4b8ab6f760c","serverId":"1fe49ab3-0626-4c34-af12-6cc22fd7d56f"}                                                                                                                                                                                                                                                                                                                                            21cb8ee1-0886-4283-932f-7518ed4d2c0d  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01995da5-afb4-7dd9-8dc9-d759e6057452  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         CreateServer            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  baremetal       {"description":"","name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","offerId":"ddb09834-8680-4339-b5e3-19ca5205fa1f","optionIds":[],"projectId":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[]}                                                                                                                                                                                                                 a0e31a74-fe4f-4baa-849d-d824747af581  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01995d9f-2cc6-7d97-b2a9-5df698486d10  scaleway.baremetal.v1.Api                 fr-par-2
+few seconds ago  200         CreateSSHKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  iam             {"name":"TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","public_key":"ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"}                                                                                                                                                                                                     009605bb-4c41-4d82-b2e6-a6197b3aa2a4  scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests                   01995d9f-25cf-76b9-a5da-73584ce219f2  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeletePolicy            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"policy_id":"0e1b2cb8-bbf9-438d-89ca-2bc46d8b6753"}                                                                                                                                                                                                                                                                                                                                                                                             e15a0305-0fae-436c-9c55-e14c37aea5d6  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01994db0-1807-7e35-bbcf-cfd0bfa5e113  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateApplication       b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"name":"mcp-server","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}                                                                                                                                                                                                                                                                                                                                                                   8beea29c-863c-4be4-b8b1-e0bbbe2c3af6  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01994daf-f7bb-7d6e-86f2-e9792bcc75a4  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteApplication       b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"application_id":"8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3"}                                                                                                                                                                                                                                                                                                                                                                                        60e92ccb-796b-4760-a149-3381553beee3  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01994daf-cab6-7257-92df-cb81582dd64c  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"name":"bar","path":"/","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[],"type":"opaque"}                                                                                                                                                                                                                                                                                                                        298dad99-90ea-473c-be25-fc46468d5953  scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.60.0 terraform/1.13.2  01994d87-8f35-7bef-94f6-35cb22940276  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         CreateSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"name":"foo","path":"/","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","protected":false,"tags":[],"type":"opaque"}                                                                                                                                                                                                                                                                                                                        37b5de29-8732-4368-b0b4-19fd7f29dfa0  scaleway-sdk-go/v1.0.0-beta.32.0.20250306092204-9c7eed199df5 (go1.24.0; darwin; arm64) terraform-provider/2.51.0 terraform/1.13.2  01994d79-44d9-791f-91dc-3403e5e79dbb  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         DeleteCluster           b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"cluster_id":"e196300b-8a44-44c0-b52d-464502404f92","with_additional_resources":true}                                                                                                                                                                                                                                                                                                                                                           c6c089eb-ccfc-437d-a078-0a31d903f3dc  -                                                                                                                                  019929ee-8b29-7b98-a648-cf3251589281  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         UpdateAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"access_key":"SCW363CZ5SRN5YHQBGXY","default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","description":"rleone-macbook"}                                                                                                                                                                                                                                                                                                                 ae846319-5298-4a9b-969a-239bfd503ef7  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929eb-1647-7692-9dab-cacee37c7bc0  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         UpdateAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"access_key":"SCW7PSQH7FXMW07E9A4H","default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","description":"admin"}                                                                                                                                                                                                                                                                                                                          e7c815c5-15db-4cf9-bd9a-2be22cca7706  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929ea-fe73-7332-9d43-ba26c4f95474  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"access_key":"SCWZ42YVF5P6S81FSA9Z"}                                                                                                                                                                                                                                                                                                                                                                                                            a3eef2a8-3472-4694-8b45-590749332a74  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929ea-4f1b-7918-b0b9-7671d368f518  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    -                                     iam             {"access_key":"SCW2AY7ADS8N9EC05CE5"}                                                                                                                                                                                                                                                                                                                                                                                                            dd04add4-17c0-4b56-be2a-b931f5b4d78a  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929ea-2489-7cbd-bb74-6df778ada0f3  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         DeleteKey               b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  key-manager     {"key_id":"e434061d-075c-4868-839e-bbf89d63707a"}                                                                                                                                                                                                                                                                                                                                                                                                16e4cadd-f5f9-4b40-af5d-860d30e2a7c2  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e9-6e2d-7a0c-9e6f-4eab7a146210  scaleway.key_manager.v1alpha1.Api         fr-par
+few seconds ago  200         DeleteKey               b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  key-manager     {"key_id":"2065c978-4fe5-4dd9-923d-e29e355952ac"}                                                                                                                                                                                                                                                                                                                                                                                                ddd06a95-4032-4ffb-b2c7-09341f662d87  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e9-6e28-788d-ba73-4193c85946b7  scaleway.key_manager.v1alpha1.Api         fr-par
+few seconds ago  200         UnprotectKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  key-manager     {"key_id":"2065c978-4fe5-4dd9-923d-e29e355952ac"}                                                                                                                                                                                                                                                                                                                                                                                                58038a8f-b8ff-4b1f-9fe1-299de09dc8cb  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e9-4f70-7168-aba2-51d3f9ee81c0  scaleway.key_manager.v1alpha1.Api         fr-par
+few seconds ago  200         UnprotectKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  key-manager     {"key_id":"e434061d-075c-4868-839e-bbf89d63707a"}                                                                                                                                                                                                                                                                                                                                                                                                7f6f9935-3a01-45b3-83d5-807541260dc6  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e9-32b4-7aa9-b19b-856c01feb306  scaleway.key_manager.v1alpha1.Api         fr-par
+few seconds ago  200         DeleteSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"secret_id":"a9bb75b1-d373-4cf3-a8c5-79d751101ade"}                                                                                                                                                                                                                                                                                                                                                                                             efdc47d3-ff1c-4b55-8b97-0543534b73f8  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e8-fb8a-7e5c-8729-97bbe4f35841  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         DeleteSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"secret_id":"2d5f7089-4739-4b3a-85e3-939fae2222b6"}                                                                                                                                                                                                                                                                                                                                                                                             d0f8321f-3c92-4d40-bbe9-77e243014a4f  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e8-fb82-72e2-948e-e9e44df91d3d  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         DeleteSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"secret_id":"197f3580-9127-41fd-8798-a7339582e88f"}                                                                                                                                                                                                                                                                                                                                                                                             1aa9bc92-3944-410e-9fd4-2e5a0c29c658  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e8-fb7f-7ec8-8322-90bab440c2ac  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         DeleteSecret            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.46.153    951df375-e094-4d26-97c1-ba548eeb9c42  secret-manager  {"secret_id":"50df9b90-0809-446b-84ee-1e7bea912401"}                                                                                                                                                                                                                                                                                                                                                                                             def5e711-abee-4820-94ae-4bb55eb919dd  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              019929e8-fb76-77b3-91ad-8d9af54758e3  scaleway.secret_manager.v1beta1.Api       fr-par
+few seconds ago  200         DeleteAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  130.180.219.188  -                                     iam             {"access_key":"SCWK02FF4J48WDEF808X"}                                                                                                                                                                                                                                                                                                                                                                                                            b5234669-def7-4dcb-afb1-390df764de1d  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01990fd8-1ef1-7358-a1ae-76671079cbe6  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  130.180.219.188  -                                     iam             {"default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}                                                                                                                                                                                                                                                                                                                                   1a50ea32-61ce-480e-aa1b-4d9b0cca2eb0  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36              01990f6c-e777-7b26-8c50-0ee2cef98184  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         ProtectKey              b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  key-manager     {"key_id":"e434061d-075c-4868-839e-bbf89d63707a"}                                                                                                                                                                                                                                                                                                                                                                                                bdc175ce-67d4-46c8-b7d3-a2ec4da81333  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36              01990594-5dc7-7755-ab0a-a984a45c65ff  scaleway.key_manager.v1alpha1.Api         fr-par
+few seconds ago  200         CreateKey               b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.145    951df375-e094-4d26-97c1-ba548eeb9c42  key-manager     {"description":"","name":"key-blissful-wiles","origin":"unknown_origin","project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","tags":[],"unprotected":false,"usage":{"symmetric_encryption":"aes_256_gcm"}}                                                                                                                                                                                                                                        7063f328-197c-4801-a610-c3274effc200  Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36              01990594-5d74-766f-aecc-f1add10b3dd8  scaleway.key_manager.v1alpha1.Api         fr-par
+few seconds ago  200         CreatePolicy            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.9      -                                     iam             {"application_id":"8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3","name":"value-from-terraform","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42","rules":[{"permission_set_names":{"value":["ServerlessSQLDatabaseFullAccess","ServerlessSQLDatabaseReadWrite"]},"project_ids":{"value":["951df375-e094-4d26-97c1-ba548eeb9c42"]}}]}                                                                                                              40ded97c-9b15-4732-a3de-f3c1c27eefbe  scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.59.0 terraform/1.13.0  0198ec08-80fe-7436-81b3-012624f69dca  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateAPIKey            b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.9      -                                     iam             {"application_id":"8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3"}                                                                                                                                                                                                                                                                                                                                                                                        61dc11cc-3bf1-4f56-84e4-18f5b949fd7d  scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.59.0 terraform/1.13.0  0198ec08-8058-7697-a197-811395cc3835  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         CreateApplication       b49d82c1-ce3a-473f-9cef-420acc5256bf  51.159.73.9      -                                     iam             {"name":"value-from-terraform","organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42"}                                                                                                                                                                                                                                                                                                                                                         74f3f7b3-26c5-4959-9f70-cf03e90066fc  scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.59.0 terraform/1.13.0  0198ec08-7f62-77ce-bd6a-21ea048ca165  scaleway.iam.v1alpha1.Api                 global
+few seconds ago  200         ResetClusterAdminToken  b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"cluster_id":"e196300b-8a44-44c0-b52d-464502404f92"}                                                                                                                                                                                                                                                                                                                                                                                            854b3b89-1aeb-4043-bd3c-ce2785e51a7b  -                                                                                                                                  0198e07f-4324-7d51-a33f-f5e8ac146b4d  scaleway.k8s.v1.Api                       fr-par
+few seconds ago  200         CreateCluster           b49d82c1-ce3a-473f-9cef-420acc5256bf  -                951df375-e094-4d26-97c1-ba548eeb9c42  kubernetes      {"ProjectIdentifier":{"ProjectId":"951df375-e094-4d26-97c1-ba548eeb9c42"},"name":"k8s-par-cool-robinson","pools":[{"autohealing":true,"max_size":{"value":3},"min_size":{"value":3},"name":"pool-par-1-sleepy-hugle","node_type":"DEV1-M","root_volume_size":{"value":20000000000},"root_volume_type":3,"size":3,"zone":"fr-par-1"}],"private_network_id":{"value":"e488295c-5392-44a2-a59c-b3723cb4dec4"},"type":"kapsule","version":"1.32.7"}  bce73631-18d7-40ac-bdb7-cd60accdea59  -                                                                                                                                  0198d27c-8499-772c-9101-797919532f12  scaleway.k8s.v1.Api                       fr-par
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "0199b898-3b6f-72e4-9923-a63f5a3f66be",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "6c0e8385-75d7-487e-8a17-3e61d68283bd",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0199aac5-4c79-75e0-8777-65646fc47162",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "dc02c7f3-3efa-4704-8386-f08690d9009b",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0199a9f6-80d5-7be4-82d4-d1d8f2ac3d58",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/141.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "00d736ec-3c43-4d7d-8f89-cfad3bdc3a01",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999b30-52b0-7a16-bc14-65b0f81bb84d",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "703a53ff-41a0-416a-9ae8-c93f3ebfde18",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999af9-2f6f-7c45-b855-4a42a1e52a87",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "c330168a-1715-47d6-a0f4-831b78c23ddb",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999af4-5d2e-72c5-9fda-1871c0073928",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "DeleteCluster",
+    "resources": [
+      {
+        "id": "4397d484-905d-4744-a995-d137a28948a2",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "11a3a920-bc72-42aa-939f-6dca0452ef14",
+    "request_body": {
+      "cluster_id": "4397d484-905d-4744-a995-d137a28948a2"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999af0-598c-7766-929c-314a2f19ace0",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "DeletePool",
+    "resources": [
+      {
+        "id": "4397d484-905d-4744-a995-d137a28948a2",
+        "type": "kube_pool",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_pool_info": {
+          "id": "c137fd10-844e-4f8e-a1d0-81a227912373",
+          "name": "default"
+        }
+      }
+    ],
+    "request_id": "87321e49-f3b9-454b-9658-5bac254a07b0",
+    "request_body": {
+      "pool_id": "c137fd10-844e-4f8e-a1d0-81a227912373"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999aec-635f-7417-921a-f9d4fdb075e5",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "CreatePool",
+    "resources": [
+      {
+        "id": "4397d484-905d-4744-a995-d137a28948a2",
+        "type": "kube_pool",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_pool_info": {
+          "id": "c137fd10-844e-4f8e-a1d0-81a227912373",
+          "name": "default"
+        }
+      }
+    ],
+    "request_id": "40bef700-1657-413c-a8f9-1b08093d13f4",
+    "request_body": {
+      "autohealing": true,
+      "autoscaling": true,
+      "cluster_id": "4397d484-905d-4744-a995-d137a28948a2",
+      "container_runtime": 2,
+      "max_size": {
+        "value": 1
+      },
+      "min_size": {
+        "value": 1
+      },
+      "name": "default",
+      "node_type": "pro2_xxs",
+      "size": 1,
+      "zone": "fr-par-1"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999aec-4da0-7461-87f2-165b80869cda",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "CreateCluster",
+    "resources": [
+      {
+        "id": "4397d484-905d-4744-a995-d137a28948a2",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "a2557c0e-3a89-44be-8f2d-8e702c7cd514",
+    "request_body": {
+      "ProjectIdentifier": {
+        "ProjectId": "951df375-e094-4d26-97c1-ba548eeb9c42"
+      },
+      "autoscaler_config": {
+        "expendable_pods_priority_cutoff": {},
+        "max_graceful_termination_sec": {}
+      },
+      "cni": 1,
+      "name": "tf-cluster-basic",
+      "private_network_id": {
+        "value": "de7796cb-5c2f-4bd2-b51a-5e0ee2fcf579"
+      },
+      "tags": [
+        "terraform-test",
+        "data_scaleway_k8s_cluster",
+        "basic"
+      ],
+      "version": "1.34.1"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999aec-0569-7944-abf2-e75bf810e527",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "DeleteCluster",
+    "resources": [
+      {
+        "id": "ee5b1009-eda5-418b-9c63-4eabe913c73e",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "54afd046-35c4-45b1-9762-296f44bf1514",
+    "request_body": {
+      "cluster_id": "ee5b1009-eda5-418b-9c63-4eabe913c73e",
+      "with_additional_resources": true
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999aea-a79e-7390-a7b4-3d57afa41ed8",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "CreatePool",
+    "resources": [
+      {
+        "id": "ee5b1009-eda5-418b-9c63-4eabe913c73e",
+        "type": "kube_pool",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_pool_info": {
+          "id": "3ec4448a-2e78-47ab-9685-fd0549fa4fec",
+          "name": "default"
+        }
+      }
+    ],
+    "request_id": "f45571aa-b9b6-46bb-b9ec-83bead93814e",
+    "request_body": {
+      "autohealing": true,
+      "autoscaling": true,
+      "cluster_id": "ee5b1009-eda5-418b-9c63-4eabe913c73e",
+      "container_runtime": 2,
+      "max_size": {
+        "value": 1
+      },
+      "min_size": {
+        "value": 1
+      },
+      "name": "default",
+      "node_type": "pro2_xxs",
+      "size": 1,
+      "zone": "fr-par-1"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999aea-9205-7cfa-909e-62ddf6e9a9c6",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "CreateCluster",
+    "resources": [
+      {
+        "id": "ee5b1009-eda5-418b-9c63-4eabe913c73e",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "tf-cluster-basic",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "b483a614-9e09-4d2a-96ed-3c8af8750f25",
+    "request_body": {
+      "ProjectIdentifier": {
+        "ProjectId": "951df375-e094-4d26-97c1-ba548eeb9c42"
+      },
+      "autoscaler_config": {
+        "expendable_pods_priority_cutoff": {},
+        "max_graceful_termination_sec": {}
+      },
+      "cni": 1,
+      "name": "tf-cluster-basic",
+      "private_network_id": {
+        "value": "a0cedc60-729e-4fc4-8116-39b976fed0fa"
+      },
+      "tags": [
+        "terraform-test",
+        "data_scaleway_k8s_cluster",
+        "basic"
+      ],
+      "version": "1.34.1"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999ab7-d458-769b-bdbd-8a76fdb5d2b2",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "efc3c90e-4f5d-4529-a797-5202e9d11843",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-e0f4-7714-ae3a-403b1cb4e474",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "DeleteServer",
+    "resources": [
+      {
+        "id": "2c6b91c4-8a87-4023-8426-ca0badee1d95",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "eb6bbec9-ee6b-4281-b913-30c16079c660",
+    "request_body": {
+      "serverId": "2c6b91c4-8a87-4023-8426-ca0badee1d95"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-e0da-7d49-a874-7bbf685c30bb",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "DeleteServer",
+    "resources": [
+      {
+        "id": "89914931-e7c7-49af-940e-b622367ce2c7",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "a22d4939-24b8-47f8-9936-bdd60c15a8e8",
+    "request_body": {
+      "serverId": "89914931-e7c7-49af-940e-b622367ce2c7"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-e0d5-71a3-81e5-4f01e21790e0",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "DeleteServer",
+    "resources": [
+      {
+        "id": "0711aa55-b147-4296-a27a-68521ecd096d",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "6177c5c2-ec3a-473e-9e99-496149fef1d3",
+    "request_body": {
+      "serverId": "0711aa55-b147-4296-a27a-68521ecd096d"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-e0d5-72b0-8647-d369ff03a493",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "DeleteServer",
+    "resources": [
+      {
+        "id": "ea82e9bf-b7bb-4f31-bf02-3ed179f973a2",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "768275e5-9ceb-4465-821b-0eb2f9388562",
+    "request_body": {
+      "serverId": "ea82e9bf-b7bb-4f31-bf02-3ed179f973a2"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-54dc-7d3f-94d6-008e2aed449c",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteSSHKey",
+    "resources": [],
+    "request_id": "c5c1e344-69ff-474b-912e-bafb3a23de49",
+    "request_body": {
+      "ssh_key_id": "1901a767-48f6-459b-a1be-635cd5f33b82"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-3b4b-7edf-aeed-230910ff3de2",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteSSHKey",
+    "resources": [],
+    "request_id": "d1e0349e-9881-4b75-a663-f6d7a93ebd06",
+    "request_body": {
+      "ssh_key_id": "7588b73c-8cf2-478c-a1cc-2f5ebf7eeb29"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-3b48-7cca-b73b-edf6e7ea2542",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteSSHKey",
+    "resources": [],
+    "request_id": "45180450-15d1-426f-af95-ec7963bf0b17",
+    "request_body": {
+      "ssh_key_id": "0e5995ff-311b-42ff-8ab9-604ad4f2a1ce"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-3b47-7aef-8727-b0f7fd48c316",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteSSHKey",
+    "resources": [],
+    "request_id": "12e4e689-7bd8-42b8-b044-808d439c43f9",
+    "request_body": {
+      "ssh_key_id": "895b2d46-a67d-46f1-9cdc-3b809db7e825"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a1a-3b4b-7117-8d80-732113eb6add",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteSSHKey",
+    "resources": [],
+    "request_id": "16ee9cbe-237c-4196-a65a-23652237fb32",
+    "request_body": {
+      "ssh_key_id": "187a1c0b-b6cd-4a4f-a379-1eb8e2a8fc1f"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a19-629b-7aed-adf1-ab33d420dd95",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "DeleteSecret",
+    "resources": [
+      {
+        "id": "81046b09-e76b-4a07-b740-dc22c7c2905d",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "foo",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": null
+        }
+      }
+    ],
+    "request_id": "96fe0518-a3cc-4daf-ac14-b65edd937b03",
+    "request_body": {
+      "secret_id": "81046b09-e76b-4a07-b740-dc22c7c2905d"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01999a19-628a-7a1c-abdd-fc8551d86e14",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "DeleteSecret",
+    "resources": [
+      {
+        "id": "fe152bdb-4205-4dc6-b2b3-cb69c97e6d59",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "bar",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": null
+        }
+      }
+    ],
+    "request_id": "be3614b3-1187-482e-b90f-a7f126f47118",
+    "request_body": {
+      "secret_id": "fe152bdb-4205-4dc6-b2b3-cb69c97e6d59"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be8-70e2-7510-a36c-5bc8683fa0e8",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "CreateServer",
+    "resources": [
+      {
+        "id": "ea82e9bf-b7bb-4f31-bf02-3ed179f973a2",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "e547494d-8b7d-446c-b942-8ac7100dd439",
+    "request_body": {
+      "description": "",
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "offerId": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+      "optionIds": [],
+      "projectId": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": []
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be8-6a54-7264-9e4f-f04b315cec45",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateSSHKey",
+    "resources": [
+      {
+        "id": "0e5995ff-311b-42ff-8ab9-604ad4f2a1ce",
+        "type": "iam_ssh_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "ee3cc178-3c2d-4770-9a95-5594bf2e0c76",
+    "request_body": {
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be6-e1fd-790c-aceb-0237a811466a",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "CreateServer",
+    "resources": [
+      {
+        "id": "0711aa55-b147-4296-a27a-68521ecd096d",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "be6b7a35-3148-4102-ad67-a4c7c2a83621",
+    "request_body": {
+      "description": "",
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "offerId": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+      "optionIds": [],
+      "projectId": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": []
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be6-db2f-7c83-be71-5719bd36056c",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateSSHKey",
+    "resources": [
+      {
+        "id": "187a1c0b-b6cd-4a4f-a379-1eb8e2a8fc1f",
+        "type": "iam_ssh_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "912cd58d-158a-4854-b55a-f671957b0084",
+    "request_body": {
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be6-4b5d-78ef-8ecc-c3e03f7dca3a",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "CreateServer",
+    "resources": [
+      {
+        "id": "2c6b91c4-8a87-4023-8426-ca0badee1d95",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "4d70cd8a-050f-4145-99cc-d5d2694afd2f",
+    "request_body": {
+      "description": "",
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "offerId": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+      "optionIds": [],
+      "projectId": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": []
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be6-44c6-7c3b-91bc-d325ac82c5e6",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateSSHKey",
+    "resources": [
+      {
+        "id": "7588b73c-8cf2-478c-a1cc-2f5ebf7eeb29",
+        "type": "iam_ssh_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "79ef3bc1-cb21-4c31-be8f-e7bb3c406e66",
+    "request_body": {
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be5-d17a-7358-bb08-5fadb57f00d1",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "CreateServer",
+    "resources": [
+      {
+        "id": "89914931-e7c7-49af-940e-b622367ce2c7",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "302741ff-e42f-4066-a12c-5f72026566e0",
+    "request_body": {
+      "description": "",
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "offerId": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+      "optionIds": [],
+      "projectId": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": []
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997be5-cac2-7f3f-9a05-8f17b828ca12",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateSSHKey",
+    "resources": [
+      {
+        "id": "895b2d46-a67d-46f1-9cdc-3b809db7e825",
+        "type": "iam_ssh_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "aba82c46-5b47-400b-92b1-1749e7524c74",
+    "request_body": {
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997bb7-1d8d-7dff-aa62-ee526ea15b73",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "ddeff06b-0d2a-44d0-9a88-c08a07df43d2",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997287-13ca-7970-95de-99d433465806",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "88.187.150.117",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "e89e86da-bbbd-4660-8b57-bd28d3663fb6",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019971b6-20bf-7051-9413-e055e51f63c1",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "130.180.219.188",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.UnauthenticatedApi",
+    "method_name": "RenewJWT",
+    "resources": [
+      {
+        "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf",
+        "type": "iam_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com"
+      }
+    ],
+    "request_id": "5d64abfd-2480-47dc-a9f5-9a300dbed456",
+    "request_body": {
+      "jti": "283e8338-6571-4c9c-8848-cefd1e5715f9",
+      "renew_token": "REDACTED"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997128-929f-77be-af7b-4dd98ef1ed6e",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "130.180.219.188",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "account",
+    "service_name": "scaleway.account.v3.UserApi",
+    "method_name": "UpdateUserPreferences",
+    "resources": [
+      {
+        "id": "721f2fde-1a01-4854-822b-fcca5638d73e",
+        "type": "account_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com",
+        "account_user_info": {
+          "email": "rleone@scaleway.com",
+          "phone_number": null
+        }
+      }
+    ],
+    "request_id": "796b0cd7-1380-4237-9390-4f9c374d69a9",
+    "request_body": {
+      "console_theme": "unknown_console_theme",
+      "pinned_products": {
+        "value": [
+          "generativeApi"
+        ]
+      },
+      "user_id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01997128-8e67-71a2-b115-ed2eae084cf0",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "130.180.219.188",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "account",
+    "service_name": "scaleway.account.v3.UserApi",
+    "method_name": "UpdateUserPreferences",
+    "resources": [
+      {
+        "id": "721f2fde-1a01-4854-822b-fcca5638d73e",
+        "type": "account_user",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "rleone@scaleway.com",
+        "account_user_info": {
+          "email": "rleone@scaleway.com",
+          "phone_number": null
+        }
+      }
+    ],
+    "request_id": "2d85d18e-85ba-49a1-a677-99ed81571a57",
+    "request_body": {
+      "console_theme": "unknown_console_theme",
+      "pinned_products": {
+        "value": []
+      },
+      "user_id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01995da6-2ff1-74af-91d4-6a219cfc1e87",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteSSHKey",
+    "resources": [],
+    "request_id": "fe7a9be4-f621-483b-9be9-8eb7666c8b6a",
+    "request_body": {
+      "ssh_key_id": "5777fea0-75ce-4196-9a1c-7462545f28b9"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01995da6-1b5d-7543-abf0-89543647a50f",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "DeleteServer",
+    "resources": [
+      {
+        "id": "1fe49ab3-0626-4c34-af12-6cc22fd7d56f",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": [
+            "PrivateNetwork"
+          ]
+        }
+      }
+    ],
+    "request_id": "3c878be2-6ace-4343-a8d7-f300242e73f0",
+    "request_body": {
+      "serverId": "1fe49ab3-0626-4c34-af12-6cc22fd7d56f"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01995da5-afb4-7dd9-8dc9-d759e6057452",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "AddOptionServer",
+    "resources": [
+      {
+        "id": "1fe49ab3-0626-4c34-af12-6cc22fd7d56f",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "21cb8ee1-0886-4283-932f-7518ed4d2c0d",
+    "request_body": {
+      "optionId": "cd4158d7-2d65-49be-8803-c4b8ab6f760c",
+      "serverId": "1fe49ab3-0626-4c34-af12-6cc22fd7d56f"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01995d9f-2cc6-7d97-b2a9-5df698486d10",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par-2",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "baremetal",
+    "service_name": "scaleway.baremetal.v1.Api",
+    "method_name": "CreateServer",
+    "resources": [
+      {
+        "id": "1fe49ab3-0626-4c34-af12-6cc22fd7d56f",
+        "type": "baremetal_server",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+        "baremetal_server_info": {
+          "description": "",
+          "tags": []
+        }
+      }
+    ],
+    "request_id": "a0e31a74-fe4f-4baa-849d-d824747af581",
+    "request_body": {
+      "description": "",
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "offerId": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+      "optionIds": [],
+      "projectId": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": []
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01995d9f-25cf-76b9-a5da-73584ce219f2",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) terraform-provider/develop terraform/terraform-tests",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateSSHKey",
+    "resources": [
+      {
+        "id": "5777fea0-75ce-4196-9a1c-7462545f28b9",
+        "type": "iam_ssh_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "009605bb-4c41-4d82-b2e6-a6197b3aa2a4",
+    "request_body": {
+      "name": "TestAccScalewayBaremetalServer_WithIPAMPrivateNetwork",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "public_key": "ssh-ed25519 AAAAC3NzaC1lZDI1NTE5AAAAIM7HUxRyQtB2rnlhQUcbDGCZcTJg7OvoznOiyC9W6IxH opensource@scaleway.com"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01994db0-1807-7e35-bbcf-cfd0bfa5e113",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeletePolicy",
+    "resources": [],
+    "request_id": "e15a0305-0fae-436c-9c55-e14c37aea5d6",
+    "request_body": {
+      "policy_id": "0e1b2cb8-bbf9-438d-89ca-2bc46d8b6753"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01994daf-f7bb-7d6e-86f2-e9792bcc75a4",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateApplication",
+    "resources": [
+      {
+        "id": "ae6c3ee1-2799-44ab-9719-5acb3cbe1f5a",
+        "type": "iam_application",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "mcp-server"
+      }
+    ],
+    "request_id": "8beea29c-863c-4be4-b8b1-e0bbbe2c3af6",
+    "request_body": {
+      "name": "mcp-server",
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01994daf-cab6-7257-92df-cb81582dd64c",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteApplication",
+    "resources": [],
+    "request_id": "60e92ccb-796b-4760-a149-3381553beee3",
+    "request_body": {
+      "application_id": "8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01994d87-8f35-7bef-94f6-35cb22940276",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.60.0 terraform/1.13.2",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "CreateSecret",
+    "resources": [
+      {
+        "id": "fe152bdb-4205-4dc6-b2b3-cb69c97e6d59",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "bar",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": null
+        }
+      }
+    ],
+    "request_id": "298dad99-90ea-473c-be25-fc46468d5953",
+    "request_body": {
+      "name": "bar",
+      "path": "/",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": [],
+      "type": "opaque"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01994d79-44d9-791f-91dc-3403e5e79dbb",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.32.0.20250306092204-9c7eed199df5 (go1.24.0; darwin; arm64) terraform-provider/2.51.0 terraform/1.13.2",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "CreateSecret",
+    "resources": [
+      {
+        "id": "81046b09-e76b-4a07-b740-dc22c7c2905d",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "foo",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": null
+        }
+      }
+    ],
+    "request_id": "37b5de29-8732-4368-b0b4-19fd7f29dfa0",
+    "request_body": {
+      "name": "foo",
+      "path": "/",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "protected": false,
+      "tags": [],
+      "type": "opaque"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929ee-8b29-7b98-a648-cf3251589281",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "DeleteCluster",
+    "resources": [
+      {
+        "id": "e196300b-8a44-44c0-b52d-464502404f92",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "k8s-par-cool-robinson",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "c6c089eb-ccfc-437d-a078-0a31d903f3dc",
+    "request_body": {
+      "cluster_id": "e196300b-8a44-44c0-b52d-464502404f92",
+      "with_additional_resources": true
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929eb-1647-7692-9dab-cacee37c7bc0",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "UpdateAPIKey",
+    "resources": [
+      {
+        "id": "SCW363CZ5SRN5YHQBGXY",
+        "type": "iam_api_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "ae846319-5298-4a9b-969a-239bfd503ef7",
+    "request_body": {
+      "access_key": "SCW363CZ5SRN5YHQBGXY",
+      "default_project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "description": "rleone-macbook"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929ea-fe73-7332-9d43-ba26c4f95474",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "UpdateAPIKey",
+    "resources": [
+      {
+        "id": "SCW7PSQH7FXMW07E9A4H",
+        "type": "iam_api_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "e7c815c5-15db-4cf9-bd9a-2be22cca7706",
+    "request_body": {
+      "access_key": "SCW7PSQH7FXMW07E9A4H",
+      "default_project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "description": "admin"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929ea-4f1b-7918-b0b9-7671d368f518",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteAPIKey",
+    "resources": [],
+    "request_id": "a3eef2a8-3472-4694-8b45-590749332a74",
+    "request_body": {
+      "access_key": "SCWZ42YVF5P6S81FSA9Z"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929ea-2489-7cbd-bb74-6df778ada0f3",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteAPIKey",
+    "resources": [],
+    "request_id": "dd04add4-17c0-4b56-be2a-b931f5b4d78a",
+    "request_body": {
+      "access_key": "SCW2AY7ADS8N9EC05CE5"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e9-6e2d-7a0c-9e6f-4eab7a146210",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "key-manager",
+    "service_name": "scaleway.key_manager.v1alpha1.Api",
+    "method_name": "DeleteKey",
+    "resources": [
+      {
+        "id": "e434061d-075c-4868-839e-bbf89d63707a",
+        "type": "key_manager_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "key-blissful-wiles",
+        "key_manager_key_info": {}
+      }
+    ],
+    "request_id": "16e4cadd-f5f9-4b40-af5d-860d30e2a7c2",
+    "request_body": {
+      "key_id": "e434061d-075c-4868-839e-bbf89d63707a"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e9-6e28-788d-ba73-4193c85946b7",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "key-manager",
+    "service_name": "scaleway.key_manager.v1alpha1.Api",
+    "method_name": "DeleteKey",
+    "resources": [
+      {
+        "id": "2065c978-4fe5-4dd9-923d-e29e355952ac",
+        "type": "key_manager_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "key_2065c978-4fe5-4dd9-923d-e29e355952ac",
+        "key_manager_key_info": {}
+      }
+    ],
+    "request_id": "ddd06a95-4032-4ffb-b2c7-09341f662d87",
+    "request_body": {
+      "key_id": "2065c978-4fe5-4dd9-923d-e29e355952ac"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e9-4f70-7168-aba2-51d3f9ee81c0",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "key-manager",
+    "service_name": "scaleway.key_manager.v1alpha1.Api",
+    "method_name": "UnprotectKey",
+    "resources": [
+      {
+        "id": "2065c978-4fe5-4dd9-923d-e29e355952ac",
+        "type": "key_manager_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "key_2065c978-4fe5-4dd9-923d-e29e355952ac",
+        "key_manager_key_info": {}
+      }
+    ],
+    "request_id": "58038a8f-b8ff-4b1f-9fe1-299de09dc8cb",
+    "request_body": {
+      "key_id": "2065c978-4fe5-4dd9-923d-e29e355952ac"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e9-32b4-7aa9-b19b-856c01feb306",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "key-manager",
+    "service_name": "scaleway.key_manager.v1alpha1.Api",
+    "method_name": "UnprotectKey",
+    "resources": [
+      {
+        "id": "e434061d-075c-4868-839e-bbf89d63707a",
+        "type": "key_manager_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "key-blissful-wiles",
+        "key_manager_key_info": {}
+      }
+    ],
+    "request_id": "7f6f9935-3a01-45b3-83d5-807541260dc6",
+    "request_body": {
+      "key_id": "e434061d-075c-4868-839e-bbf89d63707a"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e8-fb8a-7e5c-8729-97bbe4f35841",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "DeleteSecret",
+    "resources": [
+      {
+        "id": "a9bb75b1-d373-4cf3-a8c5-79d751101ade",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "pouetpouet",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": "e8facd60-a041-41e0-9e7f-54df6e8308f4"
+        }
+      }
+    ],
+    "request_id": "efdc47d3-ff1c-4b55-8b97-0543534b73f8",
+    "request_body": {
+      "secret_id": "a9bb75b1-d373-4cf3-a8c5-79d751101ade"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e8-fb82-72e2-948e-e9e44df91d3d",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "DeleteSecret",
+    "resources": [
+      {
+        "id": "2d5f7089-4739-4b3a-85e3-939fae2222b6",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "pouet",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": null
+        }
+      }
+    ],
+    "request_id": "d0f8321f-3c92-4d40-bbe9-77e243014a4f",
+    "request_body": {
+      "secret_id": "2d5f7089-4739-4b3a-85e3-939fae2222b6"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e8-fb7f-7ec8-8322-90bab440c2ac",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "DeleteSecret",
+    "resources": [
+      {
+        "id": "197f3580-9127-41fd-8798-a7339582e88f",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "secret-sweet-spence",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": "7c3153c8-7e58-49fa-bef4-c5d2e9c11e95"
+        }
+      }
+    ],
+    "request_id": "1aa9bc92-3944-410e-9fd4-2e5a0c29c658",
+    "request_body": {
+      "secret_id": "197f3580-9127-41fd-8798-a7339582e88f"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "019929e8-fb76-77b3-91ad-8d9af54758e3",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.46.153",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "secret-manager",
+    "service_name": "scaleway.secret_manager.v1beta1.Api",
+    "method_name": "DeleteSecret",
+    "resources": [
+      {
+        "id": "50df9b90-0809-446b-84ee-1e7bea912401",
+        "type": "secret_manager_secret",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": "1970-01-01T00:00:00.0Z",
+        "name": "secret-compassionate-albattani",
+        "secret_manager_secret_info": {
+          "path": "/",
+          "key_id": "514d6551-fe1f-4aff-8a4e-0b031ac99607"
+        }
+      }
+    ],
+    "request_id": "def5e711-abee-4820-94ae-4bb55eb919dd",
+    "request_body": {
+      "secret_id": "50df9b90-0809-446b-84ee-1e7bea912401"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01990fd8-1ef1-7358-a1ae-76671079cbe6",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "130.180.219.188",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "DeleteAPIKey",
+    "resources": [],
+    "request_id": "b5234669-def7-4dcb-afb1-390df764de1d",
+    "request_body": {
+      "access_key": "SCWK02FF4J48WDEF808X"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01990f6c-e777-7b26-8c50-0ee2cef98184",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "130.180.219.188",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/140.0.0.0 Safari/537.36",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateAPIKey",
+    "resources": [
+      {
+        "id": "SCWK02FF4J48WDEF808X",
+        "type": "iam_api_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "1a50ea32-61ce-480e-aa1b-4d9b0cca2eb0",
+    "request_body": {
+      "default_project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "user_id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01990594-5dc7-7755-ab0a-a984a45c65ff",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+    "product_name": "key-manager",
+    "service_name": "scaleway.key_manager.v1alpha1.Api",
+    "method_name": "ProtectKey",
+    "resources": [
+      {
+        "id": "e434061d-075c-4868-839e-bbf89d63707a",
+        "type": "key_manager_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "key-blissful-wiles",
+        "key_manager_key_info": {}
+      }
+    ],
+    "request_id": "bdc175ce-67d4-46c8-b7d3-a2ec4da81333",
+    "request_body": {
+      "key_id": "e434061d-075c-4868-839e-bbf89d63707a"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "01990594-5d74-766f-aecc-f1add10b3dd8",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "51.159.73.145",
+    "user_agent": "Mozilla/5.0 (Macintosh; Intel Mac OS X 10_15_7) AppleWebKit/537.36 (KHTML, like Gecko) Chrome/139.0.0.0 Safari/537.36",
+    "product_name": "key-manager",
+    "service_name": "scaleway.key_manager.v1alpha1.Api",
+    "method_name": "CreateKey",
+    "resources": [
+      {
+        "id": "e434061d-075c-4868-839e-bbf89d63707a",
+        "type": "key_manager_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "key-blissful-wiles",
+        "key_manager_key_info": {}
+      }
+    ],
+    "request_id": "7063f328-197c-4801-a610-c3274effc200",
+    "request_body": {
+      "description": "",
+      "name": "key-blissful-wiles",
+      "origin": "unknown_origin",
+      "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "tags": [],
+      "unprotected": false,
+      "usage": {
+        "symmetric_encryption": "aes_256_gcm"
+      }
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0198ec08-80fe-7436-81b3-012624f69dca",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.9",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.59.0 terraform/1.13.0",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreatePolicy",
+    "resources": [
+      {
+        "id": "0e1b2cb8-bbf9-438d-89ca-2bc46d8b6753",
+        "type": "iam_policy",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "value-from-terraform"
+      }
+    ],
+    "request_id": "40ded97c-9b15-4732-a3de-f3c1c27eefbe",
+    "request_body": {
+      "application_id": "8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3",
+      "name": "value-from-terraform",
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+      "rules": [
+        {
+          "permission_set_names": {
+            "value": [
+              "ServerlessSQLDatabaseFullAccess",
+              "ServerlessSQLDatabaseReadWrite"
+            ]
+          },
+          "project_ids": {
+            "value": [
+              "951df375-e094-4d26-97c1-ba548eeb9c42"
+            ]
+          }
+        }
+      ]
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0198ec08-8058-7697-a197-811395cc3835",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.9",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.59.0 terraform/1.13.0",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateAPIKey",
+    "resources": [
+      {
+        "id": "SCWZ42YVF5P6S81FSA9Z",
+        "type": "iam_api_key",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": null
+      }
+    ],
+    "request_id": "61dc11cc-3bf1-4f56-84e4-18f5b949fd7d",
+    "request_body": {
+      "application_id": "8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0198ec08-7f62-77ce-bd6a-21ea048ca165",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "global",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": null,
+    "source_ip": "51.159.73.9",
+    "user_agent": "scaleway-sdk-go/v1.0.0-beta.34.0.20250721082157-a9b7a7bd9686 (go1.24.0; darwin; arm64) terraform-provider/2.59.0 terraform/1.13.0",
+    "product_name": "iam",
+    "service_name": "scaleway.iam.v1alpha1.Api",
+    "method_name": "CreateApplication",
+    "resources": [
+      {
+        "id": "8bcb5130-72a9-4c82-bd3a-8c69c36ff0e3",
+        "type": "iam_application",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "value-from-terraform"
+      }
+    ],
+    "request_id": "74f3f7b3-26c5-4959-9f70-cf03e90066fc",
+    "request_body": {
+      "name": "value-from-terraform",
+      "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0198e07f-4324-7d51-a33f-f5e8ac146b4d",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "ResetClusterAdminToken",
+    "resources": [
+      {
+        "id": "e196300b-8a44-44c0-b52d-464502404f92",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "k8s-par-cool-robinson",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "854b3b89-1aeb-4043-bd3c-ce2785e51a7b",
+    "request_body": {
+      "cluster_id": "e196300b-8a44-44c0-b52d-464502404f92"
+    },
+    "status_code": 200
+  },
+  {
+    "id": "0198d27c-8499-772c-9101-797919532f12",
+    "recorded_at": "1970-01-01T00:00:00.0Z",
+    "locality": "fr-par",
+    "principal": {
+      "id": "b49d82c1-ce3a-473f-9cef-420acc5256bf"
+    },
+    "organization_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "project_id": "951df375-e094-4d26-97c1-ba548eeb9c42",
+    "source_ip": "",
+    "user_agent": null,
+    "product_name": "kubernetes",
+    "service_name": "scaleway.k8s.v1.Api",
+    "method_name": "CreateCluster",
+    "resources": [
+      {
+        "id": "e196300b-8a44-44c0-b52d-464502404f92",
+        "type": "kube_cluster",
+        "created_at": "1970-01-01T00:00:00.0Z",
+        "updated_at": "1970-01-01T00:00:00.0Z",
+        "deleted_at": null,
+        "name": "k8s-par-cool-robinson",
+        "kube_cluster_info": {}
+      }
+    ],
+    "request_id": "bce73631-18d7-40ac-bdb7-cd60accdea59",
+    "request_body": {
+      "ProjectIdentifier": {
+        "ProjectId": "951df375-e094-4d26-97c1-ba548eeb9c42"
+      },
+      "name": "k8s-par-cool-robinson",
+      "pools": [
+        {
+          "autohealing": true,
+          "max_size": {
+            "value": 3
+          },
+          "min_size": {
+            "value": 3
+          },
+          "name": "pool-par-1-sleepy-hugle",
+          "node_type": "DEV1-M",
+          "root_volume_size": {
+            "value": 20000000000
+          },
+          "root_volume_type": 3,
+          "size": 3,
+          "zone": "fr-par-1"
+        }
+      ],
+      "private_network_id": {
+        "value": "e488295c-5392-44a2-a59c-b3723cb4dec4"
+      },
+      "type": "kapsule",
+      "version": "1.32.7"
+    },
+    "status_code": 200
+  }
+]
