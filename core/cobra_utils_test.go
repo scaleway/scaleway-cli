@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -84,16 +85,16 @@ func testGetCommands() *core.Commands {
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, argsI any) (i any, e error) {
-				res := ""
 				rawArgs := *argsI.(*args.RawArgs)
+				var builder strings.Builder
 				for i, arg := range rawArgs {
-					res += arg
+					builder.WriteString(arg)
 					if i != len(rawArgs)-1 {
-						res += " "
+						builder.WriteString(" ")
 					}
 				}
 
-				return res, nil
+				return builder.String(), nil
 			},
 		},
 		&core.Command{
