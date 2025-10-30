@@ -2,11 +2,11 @@
 version: 1
 interactions:
 - request:
-    body: '{"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "name":"cli-test-rg-tag-delete-cocky-moser",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":0, "created_at":"2025-10-29T21:48:02.043937976Z", "updated_at":"2025-10-29T21:48:02.043937976Z",
+    body: '{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":0, "created_at":"2025-10-30T14:49:49.260644842Z", "updated_at":"2025-10-30T14:49:49.260644842Z",
       "image_count":0, "region":"fr-par"}'
     form: {}
     headers:
@@ -17,23 +17,23 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
     method: POST
   response:
-    body: '{"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "name":"cli-test-rg-tag-delete-cocky-moser",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":0, "created_at":"2025-10-29T21:48:02.043937976Z", "updated_at":"2025-10-29T21:48:02.043937976Z",
+    body: '{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":0, "created_at":"2025-10-30T14:49:49.260644842Z", "updated_at":"2025-10-30T14:49:49.260644842Z",
       "image_count":0, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "486"
+      - "492"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:02 GMT
+      - Thu, 30 Oct 2025 14:49:49 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -41,26 +41,26 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7d742d1e-f4eb-41e8-8f5b-385ab9d11486
+      - 0d126adf-3c52-46aa-b76d-9288378a4840
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"images":[{"id":"8f8ff853-9717-449d-b15c-706f53779fbf", "name":"hello-world",
-      "namespace_id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-10-29T21:48:08.753105Z",
-      "updated_at":"2025-10-29T21:48:08.988747Z", "tags":["latest"]}], "total_count":1}'
+    body: '{"images":[{"id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "name":"hello-world",
+      "namespace_id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-10-30T14:49:57.136503Z",
+      "updated_at":"2025-10-30T14:49:57.695741Z", "tags":["latest"]}], "total_count":1}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=f69c41c3-5b3f-43ed-bdf2-fffb8762a141&order_by=created_at_asc&page=1
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=bf784387-bf20-4c28-b6d8-060ddf1c2385&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"images":[{"id":"8f8ff853-9717-449d-b15c-706f53779fbf", "name":"hello-world",
-      "namespace_id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-10-29T21:48:08.753105Z",
-      "updated_at":"2025-10-29T21:48:08.988747Z", "tags":["latest"]}], "total_count":1}'
+    body: '{"images":[{"id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "name":"hello-world",
+      "namespace_id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-10-30T14:49:57.136503Z",
+      "updated_at":"2025-10-30T14:49:57.695741Z", "tags":["latest"]}], "total_count":1}'
     headers:
       Content-Length:
       - "335"
@@ -69,9 +69,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:09 GMT
+      - Thu, 30 Oct 2025 14:49:57 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -79,81 +79,22 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 3a0cb864-f987-419e-a668-6f9bc37d2840
+      - 23c65b30-2de8-49ce-93cd-0965ed987273
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":125904904,
-      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-29T19:30:05.641334Z",
-      "image_count":6, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
-      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
-      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
-      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
-      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
-      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
-      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
-      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
-      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
-      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
-      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
-      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
-      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
-      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
-      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
-      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
-      "image_count":0, "region":"fr-par"}, {"id":"f7381e34-2bad-4550-90ad-d76f9ade837c",
-      "name":"cli-test-ctn-update-rg-img-pensive-neumann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-pensive-neumann",
-      "is_public":false, "size":27020587, "created_at":"2025-10-27T14:11:06.241056Z",
-      "updated_at":"2025-10-27T14:11:32.437930Z", "image_count":2, "region":"fr-par"},
-      {"id":"407f591c-dace-443a-b65a-ecd8b93043e9", "name":"cli-test-rg-tag-delete-adoring-lumiere",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-adoring-lumiere", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:19:03.659727Z", "updated_at":"2025-10-29T20:19:10.410169Z",
-      "image_count":1, "region":"fr-par"}, {"id":"c392684b-4948-446a-ad91-9816ebdc072f",
-      "name":"cli-test-rg-tag-delete-vigilant-lehmann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-vigilant-lehmann", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:20:52.935495Z", "updated_at":"2025-10-29T20:20:58.826143Z",
-      "image_count":1, "region":"fr-par"}, {"id":"605ec591-f8cc-4043-8885-b370f7168c49",
-      "name":"cli-test-rg-tag-delete-elastic-dirac", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-elastic-dirac", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:24:30.548869Z", "updated_at":"2025-10-29T20:24:36.007478Z",
-      "image_count":1, "region":"fr-par"}, {"id":"d6046d28-4ad9-4016-bdf1-f7b7ab0c9edb",
-      "name":"cli-test-rg-tag-delete-keen-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-keen-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:26:34.952501Z", "updated_at":"2025-10-29T20:26:41.162205Z",
-      "image_count":1, "region":"fr-par"}, {"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141",
-      "name":"cli-test-rg-tag-delete-cocky-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:08.998052Z",
-      "image_count":1, "region":"fr-par"}], "total_count":13}'
+    body: '{"namespaces":[{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:57.703222Z",
+      "image_count":1, "region":"fr-par"}, {"id":"296a564d-b63d-42fa-818a-1422b2298021",
+      "name":"cli-test-rg-tag-delete-naughty-villani", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-naughty-villani", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.265657Z", "updated_at":"2025-10-30T14:49:57.375667Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
     form: {}
     headers:
       User-Agent:
@@ -161,87 +102,28 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":125904904,
-      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-29T19:30:05.641334Z",
-      "image_count":6, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
-      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
-      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
-      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
-      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
-      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
-      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
-      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
-      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
-      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
-      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
-      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
-      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
-      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
-      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
-      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
-      "image_count":0, "region":"fr-par"}, {"id":"f7381e34-2bad-4550-90ad-d76f9ade837c",
-      "name":"cli-test-ctn-update-rg-img-pensive-neumann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-pensive-neumann",
-      "is_public":false, "size":27020587, "created_at":"2025-10-27T14:11:06.241056Z",
-      "updated_at":"2025-10-27T14:11:32.437930Z", "image_count":2, "region":"fr-par"},
-      {"id":"407f591c-dace-443a-b65a-ecd8b93043e9", "name":"cli-test-rg-tag-delete-adoring-lumiere",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-adoring-lumiere", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:19:03.659727Z", "updated_at":"2025-10-29T20:19:10.410169Z",
-      "image_count":1, "region":"fr-par"}, {"id":"c392684b-4948-446a-ad91-9816ebdc072f",
-      "name":"cli-test-rg-tag-delete-vigilant-lehmann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-vigilant-lehmann", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:20:52.935495Z", "updated_at":"2025-10-29T20:20:58.826143Z",
-      "image_count":1, "region":"fr-par"}, {"id":"605ec591-f8cc-4043-8885-b370f7168c49",
-      "name":"cli-test-rg-tag-delete-elastic-dirac", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-elastic-dirac", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:24:30.548869Z", "updated_at":"2025-10-29T20:24:36.007478Z",
-      "image_count":1, "region":"fr-par"}, {"id":"d6046d28-4ad9-4016-bdf1-f7b7ab0c9edb",
-      "name":"cli-test-rg-tag-delete-keen-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-keen-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:26:34.952501Z", "updated_at":"2025-10-29T20:26:41.162205Z",
-      "image_count":1, "region":"fr-par"}, {"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141",
-      "name":"cli-test-rg-tag-delete-cocky-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:08.998052Z",
-      "image_count":1, "region":"fr-par"}], "total_count":13}'
+    body: '{"namespaces":[{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:57.703222Z",
+      "image_count":1, "region":"fr-par"}, {"id":"296a564d-b63d-42fa-818a-1422b2298021",
+      "name":"cli-test-rg-tag-delete-naughty-villani", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-naughty-villani", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.265657Z", "updated_at":"2025-10-30T14:49:57.375667Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
     headers:
       Content-Length:
-      - "6400"
+      - "1016"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:09 GMT
+      - Thu, 30 Oct 2025 14:49:58 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -249,26 +131,26 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b505de82-879e-4687-9f78-48b2ee7ef0a8
+      - 7aa8704b-3b1a-4ec3-9a26-20683344aa9a
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"images":[{"id":"8f8ff853-9717-449d-b15c-706f53779fbf", "name":"hello-world",
-      "namespace_id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-10-29T21:48:08.753105Z",
-      "updated_at":"2025-10-29T21:48:08.988747Z", "tags":["latest"]}], "total_count":1}'
+    body: '{"images":[{"id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "name":"hello-world",
+      "namespace_id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-10-30T14:49:57.136503Z",
+      "updated_at":"2025-10-30T14:49:57.695741Z", "tags":["latest"]}], "total_count":1}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=f69c41c3-5b3f-43ed-bdf2-fffb8762a141&order_by=created_at_asc&page=1
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=bf784387-bf20-4c28-b6d8-060ddf1c2385&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"images":[{"id":"8f8ff853-9717-449d-b15c-706f53779fbf", "name":"hello-world",
-      "namespace_id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "status":"ready", "status_message":"",
-      "visibility":"inherit", "size":2927, "created_at":"2025-10-29T21:48:08.753105Z",
-      "updated_at":"2025-10-29T21:48:08.988747Z", "tags":["latest"]}], "total_count":1}'
+    body: '{"images":[{"id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "name":"hello-world",
+      "namespace_id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-10-30T14:49:57.136503Z",
+      "updated_at":"2025-10-30T14:49:57.695741Z", "tags":["latest"]}], "total_count":1}'
     headers:
       Content-Length:
       - "335"
@@ -277,9 +159,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:51 GMT
+      - Thu, 30 Oct 2025 14:49:58 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -287,81 +169,22 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - a081120a-abb9-429c-ac37-e8525da6ce79
+      - 7c91b2e0-31a3-4739-9c92-eba35282466d
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":125904904,
-      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-29T19:30:05.641334Z",
-      "image_count":6, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
-      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
-      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
-      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
-      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
-      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
-      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
-      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
-      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
-      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
-      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
-      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
-      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
-      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
-      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
-      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
-      "image_count":0, "region":"fr-par"}, {"id":"f7381e34-2bad-4550-90ad-d76f9ade837c",
-      "name":"cli-test-ctn-update-rg-img-pensive-neumann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-pensive-neumann",
-      "is_public":false, "size":27020587, "created_at":"2025-10-27T14:11:06.241056Z",
-      "updated_at":"2025-10-27T14:11:32.437930Z", "image_count":2, "region":"fr-par"},
-      {"id":"407f591c-dace-443a-b65a-ecd8b93043e9", "name":"cli-test-rg-tag-delete-adoring-lumiere",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-adoring-lumiere", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:19:03.659727Z", "updated_at":"2025-10-29T20:19:10.410169Z",
-      "image_count":1, "region":"fr-par"}, {"id":"c392684b-4948-446a-ad91-9816ebdc072f",
-      "name":"cli-test-rg-tag-delete-vigilant-lehmann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-vigilant-lehmann", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:20:52.935495Z", "updated_at":"2025-10-29T20:20:58.826143Z",
-      "image_count":1, "region":"fr-par"}, {"id":"605ec591-f8cc-4043-8885-b370f7168c49",
-      "name":"cli-test-rg-tag-delete-elastic-dirac", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-elastic-dirac", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:24:30.548869Z", "updated_at":"2025-10-29T20:24:36.007478Z",
-      "image_count":1, "region":"fr-par"}, {"id":"d6046d28-4ad9-4016-bdf1-f7b7ab0c9edb",
-      "name":"cli-test-rg-tag-delete-keen-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-keen-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:26:34.952501Z", "updated_at":"2025-10-29T20:26:41.162205Z",
-      "image_count":1, "region":"fr-par"}, {"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141",
-      "name":"cli-test-rg-tag-delete-cocky-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:08.998052Z",
-      "image_count":1, "region":"fr-par"}], "total_count":13}'
+    body: '{"namespaces":[{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:57.703222Z",
+      "image_count":1, "region":"fr-par"}, {"id":"296a564d-b63d-42fa-818a-1422b2298021",
+      "name":"cli-test-rg-tag-delete-naughty-villani", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-naughty-villani", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.265657Z", "updated_at":"2025-10-30T14:49:57.375667Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
     form: {}
     headers:
       User-Agent:
@@ -369,87 +192,28 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad", "name":"bidouille",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/bidouille", "is_public":false, "size":125904904,
-      "created_at":"2025-10-13T14:51:28.239376Z", "updated_at":"2025-10-29T19:30:05.641334Z",
-      "image_count":6, "region":"fr-par"}, {"id":"fa6b9795-60d2-4601-9f3d-cc13aade7abc",
-      "name":"cli-test-ctn-update-rg-img-dreamy-dijkstra", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-dreamy-dijkstra",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T15:20:08.990250Z",
-      "updated_at":"2025-10-22T15:20:36.995065Z", "image_count":2, "region":"fr-par"},
-      {"id":"d43db03d-1074-4ca5-aefb-ea14c69f13ec", "name":"funcscwclicnsinterestinglamjl0oscie",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsinterestinglamjl0oscie", "is_public":false,
-      "size":0, "created_at":"2025-10-22T15:20:40.098796Z", "updated_at":"2025-10-22T15:20:40.098796Z",
-      "image_count":0, "region":"fr-par"}, {"id":"45655c7b-d04d-4222-a22f-d8a48f34e6f1",
-      "name":"cli-test-ctn-update-rg-img-blissful-sutherland", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-blissful-sutherland",
-      "is_public":false, "size":43586812, "created_at":"2025-10-22T16:16:08.288221Z",
-      "updated_at":"2025-10-22T16:16:24.227958Z", "image_count":2, "region":"fr-par"},
-      {"id":"3e2e8679-1812-4b46-a95c-08410c1dd17e", "name":"funcscwclicnsserenebardeenkbin7tx5",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnsserenebardeenkbin7tx5", "is_public":false,
-      "size":0, "created_at":"2025-10-22T16:16:28.198044Z", "updated_at":"2025-10-22T16:16:28.198044Z",
-      "image_count":0, "region":"fr-par"}, {"id":"fb838f51-f302-48ab-aaf7-9b0c71ac0ae1",
-      "name":"cli-test-ctn-update-rg-img-youthful-blackwell", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-youthful-blackwell",
-      "is_public":false, "size":43586812, "created_at":"2025-10-23T08:26:00.627656Z",
-      "updated_at":"2025-10-23T08:26:21.357262Z", "image_count":2, "region":"fr-par"},
-      {"id":"82239a87-8b38-49ca-9ba2-7c7127a90f63", "name":"funcscwclicnseagerdijkstraolqlxhgb",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"19a4819b-24bf-4d44-969f-935ef0061b71", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/funcscwclicnseagerdijkstraolqlxhgb", "is_public":false,
-      "size":0, "created_at":"2025-10-23T08:26:25.794789Z", "updated_at":"2025-10-23T08:26:25.794789Z",
-      "image_count":0, "region":"fr-par"}, {"id":"f7381e34-2bad-4550-90ad-d76f9ade837c",
-      "name":"cli-test-ctn-update-rg-img-pensive-neumann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-pensive-neumann",
-      "is_public":false, "size":27020587, "created_at":"2025-10-27T14:11:06.241056Z",
-      "updated_at":"2025-10-27T14:11:32.437930Z", "image_count":2, "region":"fr-par"},
-      {"id":"407f591c-dace-443a-b65a-ecd8b93043e9", "name":"cli-test-rg-tag-delete-adoring-lumiere",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-adoring-lumiere", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:19:03.659727Z", "updated_at":"2025-10-29T20:19:10.410169Z",
-      "image_count":1, "region":"fr-par"}, {"id":"c392684b-4948-446a-ad91-9816ebdc072f",
-      "name":"cli-test-rg-tag-delete-vigilant-lehmann", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-vigilant-lehmann", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:20:52.935495Z", "updated_at":"2025-10-29T20:20:58.826143Z",
-      "image_count":1, "region":"fr-par"}, {"id":"605ec591-f8cc-4043-8885-b370f7168c49",
-      "name":"cli-test-rg-tag-delete-elastic-dirac", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-elastic-dirac", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:24:30.548869Z", "updated_at":"2025-10-29T20:24:36.007478Z",
-      "image_count":1, "region":"fr-par"}, {"id":"d6046d28-4ad9-4016-bdf1-f7b7ab0c9edb",
-      "name":"cli-test-rg-tag-delete-keen-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-keen-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T20:26:34.952501Z", "updated_at":"2025-10-29T20:26:41.162205Z",
-      "image_count":1, "region":"fr-par"}, {"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141",
-      "name":"cli-test-rg-tag-delete-cocky-moser", "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:08.998052Z",
-      "image_count":1, "region":"fr-par"}], "total_count":13}'
+    body: '{"namespaces":[{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:57.703222Z",
+      "image_count":1, "region":"fr-par"}, {"id":"296a564d-b63d-42fa-818a-1422b2298021",
+      "name":"cli-test-rg-tag-delete-naughty-villani", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-naughty-villani", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.265657Z", "updated_at":"2025-10-30T14:49:57.375667Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
     headers:
       Content-Length:
-      - "6400"
+      - "1016"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:51 GMT
+      - Thu, 30 Oct 2025 14:49:58 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -457,25 +221,25 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 31c329ae-80eb-4cd1-9830-7860d18ee196
+      - 60265f9f-e8d1-4151-98f2-17e83992d72b
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"tags":[{"id":"fd00936c-1306-4f4d-8973-2db87eba7138", "name":"latest",
-      "image_id":"8f8ff853-9717-449d-b15c-706f53779fbf", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
-      "created_at":"2025-10-29T21:48:08.783325Z", "updated_at":"2025-10-29T21:48:09.011171Z"}],
+    body: '{"tags":[{"id":"24b970d0-e716-4a18-9741-ea1622951c97", "name":"latest",
+      "image_id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-10-30T14:49:57.157170Z", "updated_at":"2025-10-30T14:49:57.712466Z"}],
       "total_count":1}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/8f8ff853-9717-449d-b15c-706f53779fbf/tags?name=latest&order_by=created_at_asc&page=1
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/1a2ffb81-1fc2-48f4-aaa5-98819150071b/tags?name=latest&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"tags":[{"id":"fd00936c-1306-4f4d-8973-2db87eba7138", "name":"latest",
-      "image_id":"8f8ff853-9717-449d-b15c-706f53779fbf", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
-      "created_at":"2025-10-29T21:48:08.783325Z", "updated_at":"2025-10-29T21:48:09.011171Z"}],
+    body: '{"tags":[{"id":"24b970d0-e716-4a18-9741-ea1622951c97", "name":"latest",
+      "image_id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-10-30T14:49:57.157170Z", "updated_at":"2025-10-30T14:49:57.712466Z"}],
       "total_count":1}'
     headers:
       Content-Length:
@@ -485,9 +249,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:51 GMT
+      - Thu, 30 Oct 2025 14:49:58 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -495,25 +259,25 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 81a3104b-c6e5-40c1-801a-632314a14062
+      - b70c48cb-0441-40dd-9cdc-48c67f5934ef
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"8f8ff853-9717-449d-b15c-706f53779fbf", "name":"hello-world", "namespace_id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141",
+    body: '{"id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "name":"hello-world", "namespace_id":"bf784387-bf20-4c28-b6d8-060ddf1c2385",
       "status":"ready", "status_message":"", "visibility":"inherit", "size":2927,
-      "created_at":"2025-10-29T21:48:08.753105Z", "updated_at":"2025-10-29T21:48:08.988747Z",
+      "created_at":"2025-10-30T14:49:57.136503Z", "updated_at":"2025-10-30T14:49:57.695741Z",
       "tags":["latest"]}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/8f8ff853-9717-449d-b15c-706f53779fbf
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/1a2ffb81-1fc2-48f4-aaa5-98819150071b
     method: GET
   response:
-    body: '{"id":"8f8ff853-9717-449d-b15c-706f53779fbf", "name":"hello-world", "namespace_id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141",
+    body: '{"id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b", "name":"hello-world", "namespace_id":"bf784387-bf20-4c28-b6d8-060ddf1c2385",
       "status":"ready", "status_message":"", "visibility":"inherit", "size":2927,
-      "created_at":"2025-10-29T21:48:08.753105Z", "updated_at":"2025-10-29T21:48:08.988747Z",
+      "created_at":"2025-10-30T14:49:57.136503Z", "updated_at":"2025-10-30T14:49:57.695741Z",
       "tags":["latest"]}'
     headers:
       Content-Length:
@@ -523,9 +287,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:51 GMT
+      - Thu, 30 Oct 2025 14:49:58 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -533,71 +297,29 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5f677142-a1e7-490a-9772-3f920ef0997d
+      - c7204d97-4cf7-46c7-a603-3d2f11cad979
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "name":"cli-test-rg-tag-delete-cocky-moser",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:08.998052Z",
+    body: '{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:57.703222Z",
       "image_count":1, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/f69c41c3-5b3f-43ed-bdf2-fffb8762a141
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/bf784387-bf20-4c28-b6d8-060ddf1c2385
     method: GET
   response:
-    body: '{"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "name":"cli-test-rg-tag-delete-cocky-moser",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:08.998052Z",
-      "image_count":1, "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "483"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 29 Oct 2025 21:48:51 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 9ac15ebe-54d0-4f39-af19-5459904f00b0
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "name":"cli-test-rg-tag-delete-cocky-moser",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:52.013026845Z",
-      "image_count":1, "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/f69c41c3-5b3f-43ed-bdf2-fffb8762a141
-    method: DELETE
-  response:
-    body: '{"id":"f69c41c3-5b3f-43ed-bdf2-fffb8762a141", "name":"cli-test-rg-tag-delete-cocky-moser",
-      "description":"", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-cocky-moser", "is_public":false,
-      "size":2927, "created_at":"2025-10-29T21:48:02.043938Z", "updated_at":"2025-10-29T21:48:52.013026845Z",
+    body: '{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":2927, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:57.703222Z",
       "image_count":1, "region":"fr-par"}'
     headers:
       Content-Length:
@@ -607,9 +329,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 29 Oct 2025 21:48:52 GMT
+      - Thu, 30 Oct 2025 14:49:58 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -617,7 +339,85 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0b6b1136-2920-4d10-9bc9-e81e48d69f96
+      - 7ac4399d-e450-46aa-b113-755f59d61d82
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"24b970d0-e716-4a18-9741-ea1622951c97", "name":"latest", "image_id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b",
+      "status":"deleting", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-10-30T14:49:57.157170Z", "updated_at":"2025-10-30T14:49:58.804261854Z"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/tags/24b970d0-e716-4a18-9741-ea1622951c97
+    method: DELETE
+  response:
+    body: '{"id":"24b970d0-e716-4a18-9741-ea1622951c97", "name":"latest", "image_id":"1a2ffb81-1fc2-48f4-aaa5-98819150071b",
+      "status":"deleting", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-10-30T14:49:57.157170Z", "updated_at":"2025-10-30T14:49:58.804261854Z"}'
+    headers:
+      Content-Length:
+      - "309"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 30 Oct 2025 14:49:58 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - eafbce93-d834-4515-a517-2c056abf4580
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"deleting", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":0, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:59.034113336Z",
+      "image_count":1, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/bf784387-bf20-4c28-b6d8-060ddf1c2385
+    method: DELETE
+  response:
+    body: '{"id":"bf784387-bf20-4c28-b6d8-060ddf1c2385", "name":"cli-test-rg-tag-delete-trusting-dirac",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"deleting", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-trusting-dirac", "is_public":false,
+      "size":0, "created_at":"2025-10-30T14:49:49.260645Z", "updated_at":"2025-10-30T14:49:59.034113336Z",
+      "image_count":1, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "492"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 30 Oct 2025 14:49:59 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 243b87a7-9b7d-4e9a-951d-fc415413605b
     status: 200 OK
     code: 200
     duration: ""

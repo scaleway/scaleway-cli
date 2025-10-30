@@ -11,6 +11,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 //
@@ -133,8 +134,8 @@ func tagListBuilder(c *core.Command) *core.Command {
 }
 
 type customTagDeleteArgs struct {
-	*registry.DeleteTagRequest
-	timeout time.Duration
+	registry.DeleteTagRequest
+	Timeout *string
 }
 
 func tagDeleteBuilder(c *core.Command) *core.Command {
@@ -146,13 +147,24 @@ func tagDeleteBuilder(c *core.Command) *core.Command {
 		Positional: false,
 	})
 
-	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		client := core.ExtractClient(ctx)
+		api := registry.NewAPI(client)
 		args := argsI.(*customTagDeleteArgs)
 
-		ctxWithTimeout, cancel := context.WithTimeout(ctx, args.timeout)
+		if args.Timeout == nil {
+			return api.DeleteTag(&args.DeleteTagRequest, scw.WithContext(ctx))
+		}
+
+		timeout, err := time.ParseDuration(*args.Timeout)
+		if err != nil {
+			return nil, err
+		}
+
+		ctxWithTimeout, cancel := context.WithTimeout(ctx, timeout)
 		defer cancel()
 
-		return runner(ctxWithTimeout, args.DeleteTagRequest)
+		return api.DeleteTag(&args.DeleteTagRequest, scw.WithContext(ctxWithTimeout))
 	}
 
 	return c
