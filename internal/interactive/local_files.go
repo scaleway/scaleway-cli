@@ -58,7 +58,6 @@ func WriteFile(
 
 	// If confirmation is requested, show diff and ask for confirmation
 	if opts != nil && opts.Confirm && ctx != nil {
-		// Create diff
 		dmp := diffmatchpatch.New()
 
 		// Encode texts into runes representing unique lines

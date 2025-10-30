@@ -124,10 +124,8 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 	}
 
 	// Create options for WriteFile
-	fileMode := os.FileMode(0o600)
 	opts := &interactive.WriteFileOptions{
-		Confirm:  core.ExtractYesMode(ctx),
-		FileMode: &fileMode,
+		Confirm: core.ExtractYesMode(ctx),
 	}
 
 	// Construct the full path
