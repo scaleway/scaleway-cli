@@ -232,3 +232,7 @@ func (c *Command) getPath() string {
 
 	return c.path
 }
+
+func (c *Command) DebugString() string {
+	return c.path
+}

@@ -133,6 +133,10 @@ func (a *ArgSpec) ConflictWith(b *ArgSpec) bool {
 		(a.OneOfGroup == b.OneOfGroup)
 }
 
+func (a *ArgSpec) DebugString() string {
+	return a.Name
+}
+
 type DefaultFunc func(ctx context.Context) (value string, doc string)
 
 func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
