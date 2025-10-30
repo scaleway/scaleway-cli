@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -26,12 +27,13 @@ func checkConfig(
 }
 
 func appendArgs(prefix string, args map[string]string) string {
-	cmd := prefix
+	parts := make([]string, 0, len(args)+1)
+	parts = append(parts, prefix)
 	for k, v := range args {
-		cmd += fmt.Sprintf(" %s=%s", k, v)
+		parts = append(parts, fmt.Sprintf("%s=%s", k, v))
 	}
 
-	return cmd
+	return strings.Join(parts, " ")
 }
 
 func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {

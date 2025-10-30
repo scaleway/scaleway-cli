@@ -1,6 +1,9 @@
 package sshconfig
 
-import "fmt"
+import (
+	"fmt"
+	"strings"
+)
 
 type BastionHost struct {
 	Name    string
@@ -11,22 +14,23 @@ type BastionHost struct {
 }
 
 func (b BastionHost) Config() string {
-	bastionConfig := fmt.Sprintf(`Host %s
+	parts := make([]string, 0, len(b.Hosts)+1)
+	parts = append(parts, fmt.Sprintf(`Host %s
   ProxyJump bastion@%s
 `,
 		b.name(),
-		b.address())
+		b.address()))
 
 	for _, host := range b.Hosts {
 		host.Name = fmt.Sprintf("%s.%s", host.Name, b.Name)
-		bastionConfig += fmt.Sprintf(`Host %s
+		parts = append(parts, fmt.Sprintf(`Host %s
   User %s
 `,
 			host.name(),
-			host.user())
+			host.user()))
 	}
 
-	return bastionConfig
+	return strings.Join(parts, "")
 }
 
 func (b BastionHost) name() string {

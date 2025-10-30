@@ -72,10 +72,5 @@ func RemoveIndent(str string) string {
 }
 
 func makeStr(char string, length int) string {
-	str := ""
-	for range length {
-		str += char
-	}
-
-	return str
+	return strings.Repeat(char, length)
 }
