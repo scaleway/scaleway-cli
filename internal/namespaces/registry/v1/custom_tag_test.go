@@ -7,6 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
+	"github.com/stretchr/testify/assert"
 )
 
 func Test_RegistryTagDelete(t *testing.T) {
@@ -41,6 +42,49 @@ func Test_RegistryTagDelete(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
+		),
+		AfterFunc: func(ctx *core.AfterFuncCtx) error {
+			return core.ExecAfterCmd(
+				fmt.Sprintf(
+					"scw registry namespace delete {{ .%s.ID }}",
+					registryNamespaceMetaKey,
+				),
+			)(
+				ctx,
+			)
+		},
+	}))
+
+	t.Run("timeout-too-short", core.Test(&core.TestConfig{
+		Commands: registry.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd(
+				registryNamespaceMetaKey,
+				fmt.Sprintf("scw registry namespace create name=%s is-public=false",
+					core.GetRandomName("test-rg-tag-delete"),
+				),
+			),
+			core.BeforeFuncWhenUpdatingCassette(
+				core.BeforeFuncCombine(
+					core.ExecBeforeCmd("scw registry login"),
+					testhelpers.PushRegistryImage(helloWorldImage, registryNamespaceMetaKey),
+				),
+			),
+			testhelpers.StoreImageIdentifierInMeta(
+				registryNamespaceMetaKey,
+				helloWorldImage,
+				helloWorldImageMetaKey,
+			),
+			testhelpers.StoreTagIDInMeta(registryNamespaceMetaKey, helloWorldImage, tagIDMetaKey),
+		),
+		Cmd: fmt.Sprintf("scw registry tag delete {{ .%s }} timeout=1µs", tagIDMetaKey),
+		Check: core.TestCheckCombine(
+			core.TestCheckGolden(),
+			core.TestCheckExitCode(1),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				assert.Contains(t, string(ctx.Stderr), "context deadline exceeded")
+			},
 		),
 		AfterFunc: func(ctx *core.AfterFuncCtx) error {
 			return core.ExecAfterCmd(
