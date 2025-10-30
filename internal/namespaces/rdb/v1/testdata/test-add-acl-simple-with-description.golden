@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rule 1.2.3.4/32 successfully added.
-IP          PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   3816  tcp       inbound    allow   Allow All
-1.2.3.4/32  3816  tcp       inbound    allow   some-unique-description
+IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
+0.0.0.0/0   11942  tcp       inbound    allow   Allow All
+1.2.3.4/32  11942  tcp       inbound    allow   some-unique-description
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "0.0.0.0/0",
-      "port": 3816,
+      "port": 11942,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
@@ -17,7 +17,7 @@ IP          PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
     },
     {
       "ip": "1.2.3.4/32",
-      "port": 3816,
+      "port": 11942,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",

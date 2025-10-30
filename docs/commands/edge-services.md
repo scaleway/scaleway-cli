@@ -82,6 +82,7 @@ scw edge-services backend-stage create [arg=value ...]
 | scaleway-lb.lbs.{index}.frontend-id |  | ID of the frontend linked to the Load Balancer |
 | scaleway-lb.lbs.{index}.is-ssl |  | Defines whether the Load Balancer's frontend handles SSL connections |
 | scaleway-lb.lbs.{index}.domain-name |  | Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer |
+| scaleway-lb.lbs.{index}.has-websocket |  | Defines whether to forward websocket requests to the load balancer |
 | pipeline-id | Required | Pipeline ID the Backend stage belongs to |
 
 
@@ -171,6 +172,7 @@ scw edge-services backend-stage update <backend-stage-id ...> [arg=value ...]
 | scaleway-lb.lbs.{index}.frontend-id |  | ID of the frontend linked to the Load Balancer |
 | scaleway-lb.lbs.{index}.is-ssl |  | Defines whether the Load Balancer's frontend handles SSL connections |
 | scaleway-lb.lbs.{index}.domain-name |  | Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer |
+| scaleway-lb.lbs.{index}.has-websocket |  | Defines whether to forward websocket requests to the load balancer |
 | pipeline-id |  | Pipeline ID the Backend stage belongs to |
 
 

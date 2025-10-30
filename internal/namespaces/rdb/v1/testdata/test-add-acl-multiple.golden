@@ -1,116 +1,49 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ ACL rule 1.2.3.4/32 successfully added.
-IP          PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0   23007  tcp       inbound    allow   Allow All
-1.2.3.4/32  23007  tcp       inbound    allow   Allow 1.2.3.4/32
-✅ ACL rule 192.168.1.0/30 successfully added.
+✅ 3 ACL rules successfully added.
 IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       23007  tcp       inbound    allow   Allow All
-1.2.3.4/32      23007  tcp       inbound    allow   Allow 1.2.3.4/32
-192.168.1.0/30  23007  tcp       inbound    allow   Allow 192.168.1.0/30
-✅ ACL rule 10.10.10.10/32 successfully added.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       23007  tcp       inbound    allow   Allow All
-1.2.3.4/32      23007  tcp       inbound    allow   Allow 1.2.3.4/32
-10.10.10.10/32  23007  tcp       inbound    allow   Allow 10.10.10.10/32
-192.168.1.0/30  23007  tcp       inbound    allow   Allow 192.168.1.0/30
+0.0.0.0/0       29920  tcp       inbound    allow   Allow All
+1.2.3.4/32      29920  tcp       inbound    allow   Allow 1.2.3.4/32
+10.10.10.10/32  29920  tcp       inbound    allow   Allow 10.10.10.10/32
+192.168.1.0/30  29920  tcp       inbound    allow   Allow 192.168.1.0/30
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      },
-      {
-        "ip": "1.2.3.4/32",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 1.2.3.4/32"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 1.2.3.4/32 successfully added",
-      "details": ""
+{
+  "Rules": [
+    {
+      "ip": "0.0.0.0/0",
+      "port": 29920,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow All"
+    },
+    {
+      "ip": "1.2.3.4/32",
+      "port": 29920,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow 1.2.3.4/32"
+    },
+    {
+      "ip": "10.10.10.10/32",
+      "port": 29920,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow 10.10.10.10/32"
+    },
+    {
+      "ip": "192.168.1.0/30",
+      "port": 29920,
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow 192.168.1.0/30"
     }
-  },
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      },
-      {
-        "ip": "1.2.3.4/32",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 1.2.3.4/32"
-      },
-      {
-        "ip": "192.168.1.0/30",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 192.168.1.0/30"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 192.168.1.0/30 successfully added",
-      "details": ""
-    }
-  },
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      },
-      {
-        "ip": "1.2.3.4/32",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 1.2.3.4/32"
-      },
-      {
-        "ip": "10.10.10.10/32",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 10.10.10.10/32"
-      },
-      {
-        "ip": "192.168.1.0/30",
-        "port": 23007,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 192.168.1.0/30"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 10.10.10.10/32 successfully added",
-      "details": ""
-    }
+  ],
+  "Success": {
+    "message": "3 ACL rules successfully added",
+    "details": ""
   }
-]
+}
