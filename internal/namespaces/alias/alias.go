@@ -106,7 +106,7 @@ func aliasCreateCommand() *core.Command {
 				response.Alias = "created"
 			}
 
-			err = cfg.Save()
+			err = cfg.Save(ctx)
 			if err != nil {
 				return nil, fmt.Errorf("failed to save aliases: %w", err)
 			}
@@ -239,7 +239,7 @@ func aliasDeleteCommand() *core.Command {
 
 			deleted := cfg.Alias.DeleteAlias(args.Alias)
 
-			err := cfg.Save()
+			err := cfg.Save(ctx)
 			if err != nil {
 				return nil, fmt.Errorf("failed to save aliases: %w", err)
 			}

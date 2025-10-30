@@ -1,7 +1,8 @@
-package config
+package core
 
 import (
 	"bytes"
+	"context"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -9,6 +10,7 @@ import (
 	"text/template"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"gopkg.in/yaml.v3"
 )
@@ -17,7 +19,7 @@ const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
 	DefaultConfigFileName   = "cli.yaml"
-	defaultConfigPermission = 0o644
+	defaultConfigPermission = os.FileMode(0o644)
 
 	DefaultOutput      = "human"
 	configFileTemplate = `# Scaleway CLI config file
@@ -91,7 +93,7 @@ func LoadConfig(configPath string) (*Config, error) {
 }
 
 // Save marshal config to config file
-func (c *Config) Save() error {
+func (c *Config) Save(ctx context.Context) error {
 	if runtime.GOARCH == "wasm" {
 		return nil
 	}
@@ -101,12 +103,58 @@ func (c *Config) Save() error {
 		return err
 	}
 
-	err = os.MkdirAll(filepath.Dir(c.path), 0o700)
+	// Get the Scaleway config directory path
+	configDir, err := scw.GetScwConfigDir()
 	if err != nil {
 		return err
 	}
 
-	return os.WriteFile(c.path, []byte(file), defaultConfigPermission)
+	// Extract the relative path from the config directory
+	relPath, err := filepath.Rel(configDir, c.path)
+	if err != nil {
+		return err
+	}
+
+	fileMode := defaultConfigPermission
+	writeOptions := &interactive.WriteFileOptions{
+		Confirmed: ExtractYesMode(ctx),
+		FileMode:  &fileMode,
+	}
+
+	return interactive.WriteFile(ctx, filepath.Join(configDir, relPath), []byte(file), writeOptions)
+}
+
+// SaveWithConfirmation marshal config to config file with diff and confirmation
+func (c *Config) SaveWithConfirmation(ctx context.Context) error {
+	if runtime.GOARCH == "wasm" {
+		return nil
+	}
+
+	file, err := c.HumanConfig()
+	if err != nil {
+		return err
+	}
+
+	// Get the Scaleway config directory path
+	configDir, err := scw.GetScwConfigDir()
+	if err != nil {
+		return err
+	}
+
+	// Extract the relative path from the config directory
+	relPath, err := filepath.Rel(configDir, c.path)
+	if err != nil {
+		return err
+	}
+
+	// Create options for WriteFile
+	opts := &interactive.WriteFileOptions{
+		Confirmed: ExtractYesMode(ctx),
+	}
+
+	fullPath := filepath.Join(configDir, relPath)
+
+	return interactive.WriteFile(ctx, fullPath, []byte(file), opts)
 }
 
 // HumanConfig will generate a config file with documented arguments

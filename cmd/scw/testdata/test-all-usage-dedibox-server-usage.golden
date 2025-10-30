@@ -6,20 +6,23 @@ USAGE:
   scw dedibox server <command>
 
 AVAILABLE COMMANDS:
-  cancel-install   Cancels the current (running) server installation
-  create           Create a baremetal server
-  delete           Delete a baremetal server
-  get              Get a specific baremetal server
-  get-install      Get a specific server installation status
-  get-partitioning Get server default partitioning
-  install          Install a baremetal server
-  list             List baremetal servers for project
-  list-disks       List server disks
-  list-events      List server events
-  reboot           Reboot a baremetal server
-  start            Start a baremetal server
-  stop             Stop a baremetal server
-  update           Update a baremetal server
+  cancel-install    Cancels the current (running) server installation
+  create            Create a baremetal server
+  delete            Delete a baremetal server
+  get               Get a specific baremetal server
+  get-install       Get a specific server installation status
+  get-partitioning  Get server default partitioning
+  install           Install a baremetal server
+  list              List baremetal servers for project
+  list-disks        List server disks
+  list-events       List server events
+  list-options      List subscribable server options
+  reboot            Reboot a baremetal server
+  start             Start a baremetal server
+  stop              Stop a baremetal server
+  subscribe-option  Subscribe server option
+  subscribe-storage Subscribe storage server option
+  update            Update a baremetal server
 
 FLAGS:
   -h, --help   help for server
@@ -29,5 +32,6 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+  -y, --yes              Automatically confirm all interactive prompts
 
 Use "scw dedibox server [command] --help" for more information about a command.

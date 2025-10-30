@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the IPv6 block associated with the given ID.
+Get the first IPv6 block associated with the given project ID.
 
 USAGE:
   scw dedibox ipv6-block get [arg=value ...]
@@ -16,3 +16,4 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+  -y, --yes              Automatically confirm all interactive prompts

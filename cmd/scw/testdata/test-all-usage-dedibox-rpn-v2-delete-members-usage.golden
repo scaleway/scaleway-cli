@@ -3,7 +3,7 @@
 Delete-members dedibox resources.
 
 USAGE:
-  scw dedibox rpn-v2 delete-members [arg=value ...]
+  scw dedibox rpn-v2 delete-members <group-id ...> [arg=value ...]
 
 ARGS:
   group-id             RPN V2 group ID
@@ -17,3 +17,4 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+  -y, --yes              Automatically confirm all interactive prompts

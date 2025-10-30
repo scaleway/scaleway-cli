@@ -1,6 +1,7 @@
 package registry
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -8,8 +9,10 @@ import (
 	"io"
 	"os"
 	"path"
+	"path/filepath"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -19,7 +22,7 @@ const (
 	dockerCredHelpersKey = "credHelpers"
 )
 
-func writeHelperScript(scriptPath string, scriptContent string) error {
+func writeHelperScript(ctx context.Context, scriptPath string, scriptContent string) error {
 	scriptDir := path.Dir(scriptPath)
 	stats, err := os.Stat(scriptDir)
 	if err != nil {
@@ -35,12 +38,24 @@ func writeHelperScript(scriptPath string, scriptContent string) error {
 	}
 	defer f.Close()
 
-	_, err = f.WriteString(scriptContent)
+	// Use WriteFile to write the script content
+	homeDir := core.ExtractUserHomeDir(ctx)
+	relPath, err := filepath.Rel(homeDir, scriptPath)
 	if err != nil {
 		return err
 	}
 
-	return nil
+	// Create options for WriteFile
+	fileMode := os.FileMode(0o755)
+	opts := &interactive.WriteFileOptions{
+		Confirmed: core.ExtractYesMode(ctx),
+		FileMode:  &fileMode,
+	}
+
+	// Construct the full path
+	fullPath := filepath.Join(homeDir, relPath)
+
+	return interactive.WriteFile(ctx, fullPath, []byte(scriptContent), opts)
 }
 
 func setupDockerConfigFile(ctx context.Context, registries []string, binaryName string) error {
@@ -93,19 +108,30 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 	if err != nil {
 		return err
 	}
-	_, err = f.Seek(0, 0)
-	if err != nil {
-		return err
-	}
-
-	encoder := json.NewEncoder(f)
+	// Encode the JSON to a buffer first
+	var buf bytes.Buffer
+	encoder := json.NewEncoder(&buf)
 	encoder.SetIndent("", "  ")
 	err = encoder.Encode(dockerConfig)
 	if err != nil {
 		return err
 	}
 
-	return nil
+	// Use WriteFile to write the docker config
+	relPath, err := filepath.Rel(homeDir, dockerConfigFilePath)
+	if err != nil {
+		return err
+	}
+
+	// Create options for WriteFile
+	opts := &interactive.WriteFileOptions{
+		Confirmed: core.ExtractYesMode(ctx),
+	}
+
+	// Construct the full path
+	fullPath := filepath.Join(homeDir, relPath)
+
+	return interactive.WriteFile(ctx, fullPath, buf.Bytes(), opts)
 }
 
 func getRegistryEndpoint(region scw.Region) string {

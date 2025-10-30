@@ -8,7 +8,6 @@ import (
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/account"
-	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/logger"
@@ -80,6 +79,7 @@ type BootstrapConfig struct {
 func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Handles Flags
 	var debug bool
+	var yes bool
 	var profileFlag string
 	var configPathFlag string
 	var outputFlag string
@@ -91,10 +91,11 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 		&outputFlag,
 		"output",
 		"o",
-		cliConfig.DefaultOutput,
+		DefaultOutput,
 		"Output format: json or human",
 	)
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
+	flags.BoolVarP(&yes, "yes", "y", false, "Automatically confirm all interactive prompts")
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
 	// Make sure usage is never print by the parse method. (It should only be print by cobra)
@@ -110,7 +111,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
-	if outputFlag != cliConfig.DefaultOutput {
+	if outputFlag != DefaultOutput {
 		logLevel = logger.LogLevelError
 	}
 
@@ -190,6 +191,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 		httpClient:                  httpClient,
 		isClientFromBootstrapConfig: isClientFromBootstrapConfig,
 		BetaMode:                    config.BetaMode,
+		YesMode:                     yes,
 	}
 	// We make sure OverrideEnv is never nil in meta.
 	if meta.OverrideEnv == nil {
@@ -209,7 +211,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	ctx = InjectMeta(ctx, meta)
 
 	// Load CLI config
-	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))
+	cliCfg, err := LoadConfig(ExtractCliConfigPath(ctx))
 	if err != nil {
 		printErr := printer.Print(err, nil)
 		if printErr != nil {
@@ -219,7 +221,7 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 		return 1, nil, err
 	}
 	meta.CliConfig = cliCfg
-	if cliCfg.Output != cliConfig.DefaultOutput {
+	if cliCfg.Output != DefaultOutput {
 		outputFlag = cliCfg.Output
 		printer, err = NewPrinter(&PrinterConfig{
 			OutputFlag: outputFlag,
@@ -272,8 +274,9 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	rootCmd.PersistentFlags().
 		StringVarP(&configPathFlag, "config", "c", "", "The path to the config file")
 	rootCmd.PersistentFlags().
-		StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
+		StringVarP(&outputFlag, "output", "o", DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	rootCmd.PersistentFlags().BoolVarP(&yes, "yes", "y", false, "Automatically confirm all interactive prompts")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()

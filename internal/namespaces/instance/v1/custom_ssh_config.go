@@ -101,7 +101,7 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 			}
 			hosts = append(hosts, bastionHosts...)
 
-			err = sshconfig.Save(homeDir, hosts)
+			err = sshconfig.Save(ctx, homeDir, hosts)
 			if err != nil {
 				return nil, fmt.Errorf("failed to save config file: %w", err)
 			}
@@ -150,7 +150,7 @@ Do you want the include statement to be added at the beginning of your file ?`,
 			}
 
 			if shouldIncludeConfig {
-				err := sshconfig.IncludeConfigFile(homeDir)
+				err := sshconfig.IncludeConfigFile(ctx, homeDir)
 				if err != nil {
 					return nil, fmt.Errorf("failed to add include statement: %w", err)
 				}

@@ -98,7 +98,7 @@ func k8sKubeconfigUninstallRun(ctx context.Context, argsI any) (i any, e error) 
 	existingKubeconfig.Contexts = newContexts
 	existingKubeconfig.AuthInfos = newUsers
 
-	err = marshalAndWriteKubeconfig(existingKubeconfig, kubeconfigPath)
+	err = marshalAndWriteKubeconfig(ctx, existingKubeconfig, kubeconfigPath)
 	if err != nil {
 		return nil, err
 	}

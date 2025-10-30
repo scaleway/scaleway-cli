@@ -667,7 +667,7 @@ scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111 auth-method=legacy
 
 ### Install a kubeconfig
 
-Retrieve the kubeconfig for a specified cluster and write it on disk. 
+Retrieve the kubeconfig for a specified cluster and write it on disk.
 It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable. If empty it will default to $HOME/.kube/config.
 
 **Usage:**

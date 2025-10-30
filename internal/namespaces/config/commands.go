@@ -12,7 +12,7 @@ import (
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/config"
+	"github.com/scaleway/scaleway-cli/v2/internal/editor"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -786,7 +786,7 @@ func configEditCommand() *core.Command {
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 
-			defaultEditor := config.GetDefaultEditor()
+			defaultEditor := editor.GetDefaultEditor()
 			args := []string{configPath}
 
 			cmd := exec.Command(defaultEditor, args...)

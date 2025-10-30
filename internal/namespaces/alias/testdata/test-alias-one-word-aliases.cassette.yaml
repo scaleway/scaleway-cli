@@ -1,0 +1,43 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"access_key":"SCW363CZ5SRN5YHQBGXY", "secret_key":null, "description":"rleone-macbook",
+      "created_at":"2023-03-28T09:41:12.847132Z", "updated_at":"2025-09-08T15:21:36.563446Z",
+      "expires_at":null, "default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.9",
+      "user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCW363CZ5SRN5YHQBGXY
+    method: GET
+  response:
+    body: '{"access_key":"SCW363CZ5SRN5YHQBGXY", "secret_key":null, "description":"rleone-macbook",
+      "created_at":"2023-03-28T09:41:12.847132Z", "updated_at":"2025-09-08T15:21:36.563446Z",
+      "expires_at":null, "default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.9",
+      "user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}'
+    headers:
+      Content-Length:
+      - "387"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 30 Oct 2025 16:55:58 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 173250a0-575a-4f5a-a988-566a05c207b3
+    status: 200 OK
+    code: 200
+    duration: ""
