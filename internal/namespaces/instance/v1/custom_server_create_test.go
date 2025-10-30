@@ -636,7 +636,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid image UUID", core.Test(&core.TestConfig{
@@ -646,7 +645,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	////
@@ -659,7 +657,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	////
@@ -672,7 +669,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 2", core.Test(&core.TestConfig{
@@ -684,7 +680,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
@@ -695,7 +690,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 1", core.Test(&core.TestConfig{
@@ -707,7 +701,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 2", core.Test(&core.TestConfig{
@@ -717,7 +710,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
@@ -730,8 +722,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
-		DisableParallel: true,
+		AfterFunc: deleteVolume("Volume"),
 	}))
 
 	t.Run("Error: invalid root volume size", core.Test(&core.TestConfig{
@@ -743,7 +734,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
@@ -754,8 +744,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
-		DisableParallel: true,
+		AfterFunc: deleteVolume("Volume"),
 	}))
 
 	t.Run("Error: invalid root volume ID", core.Test(&core.TestConfig{
@@ -767,7 +756,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: already attached additional volume ID", core.Test(&core.TestConfig{
@@ -785,8 +773,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteServer("Server"),
-		DisableParallel: true,
+		AfterFunc: deleteServer("Server"),
 	}))
 
 	t.Run("Error: invalid root volume format", core.Test(&core.TestConfig{
@@ -796,7 +783,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid root volume snapshot ID", core.Test(&core.TestConfig{
@@ -808,7 +794,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	t.Run("Error: invalid additional volume snapshot ID", core.Test(&core.TestConfig{
@@ -820,7 +805,6 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		DisableParallel: true,
 	}))
 
 	////
@@ -906,7 +890,6 @@ func Test_CreateServerScratchStorage(t *testing.T) {
 		AfterFunc: core.ExecAfterCmd(
 			"scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true",
 		),
-		DisableParallel: true,
 	}))
 }
 
@@ -940,6 +923,5 @@ func Test_AttachFilesystem(t *testing.T) {
 				"scw file filesystem delete {{ .FileSystem.ID }}",
 			),
 		),
-		DisableParallel: true,
 	}))
 }
