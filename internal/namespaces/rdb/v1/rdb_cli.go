@@ -1367,12 +1367,12 @@ func rdbInstanceRenewCertificate() *core.Command {
 
 func rdbInstanceGetMetrics() *core.Command {
 	return &core.Command{
-		Short:     `Get Database Instance metrics`,
-		Long:      `Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + `.`,
+		Short:     `[deprecated] Get Database Instance metrics`,
+		Long:      `Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + `. This method is deprecated and will be removed in a future version.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "get-metrics",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
