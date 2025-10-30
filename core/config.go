@@ -92,7 +92,7 @@ func LoadConfig(configPath string) (*Config, error) {
 	return config, nil
 }
 
-// Save marshal config to config file without confirmation
+// Save marshal config to config file
 func (c *Config) Save() error {
 	if runtime.GOARCH == "wasm" {
 		return nil
