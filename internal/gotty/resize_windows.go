@@ -1,6 +1,3 @@
-//go:build windows
-// +build windows
-
 package gotty
 
 func subscribeToResize(resizeChan chan bool) func() {

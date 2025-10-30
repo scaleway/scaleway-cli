@@ -72,10 +72,10 @@ func RemoveIndent(str string) string {
 }
 
 func makeStr(char string, length int) string {
-	str := ""
+	chars := make([]string, 0, length)
 	for range length {
-		str += char
+		chars = append(chars, char)
 	}
 
-	return str
+	return strings.Join(chars, "")
 }
