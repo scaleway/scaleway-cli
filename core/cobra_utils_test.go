@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -84,16 +85,16 @@ func testGetCommands() *core.Commands {
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, argsI any) (i any, e error) {
-				res := ""
 				rawArgs := *argsI.(*args.RawArgs)
+				res := make([]string, 0, len(rawArgs))
 				for i, arg := range rawArgs {
-					res += arg
+					res = append(res, arg)
 					if i != len(rawArgs)-1 {
-						res += " "
+						res = append(res, " ")
 					}
 				}
 
-				return res, nil
+				return strings.Join(res, ""), nil
 			},
 		},
 		&core.Command{
