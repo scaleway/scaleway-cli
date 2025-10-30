@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+scaleway-sdk-go: error executing request: Delete "https://api.scaleway.com/registry/v1/regions/fr-par/tags/088861a8-4571-44ef-b171-111b757337c1": context deadline exceeded
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "scaleway-sdk-go: error executing request: Delete \"https://api.scaleway.com/registry/v1/regions/fr-par/tags/088861a8-4571-44ef-b171-111b757337c1\": context deadline exceeded"
+}

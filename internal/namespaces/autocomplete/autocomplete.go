@@ -450,14 +450,14 @@ func autocompleteScriptCommand() *core.Command {
 
 func TrimText(str string) string {
 	foundFirstNonEmptyLine := false
-	strToRemove := ""
+	toRemove := []string(nil)
 	lines := strings.Split(str, "\n")
 	for i, line := range lines {
 		if !foundFirstNonEmptyLine {
 			if len(line) > 0 {
 				for _, c := range line {
 					if c == ' ' || c == '\t' {
-						strToRemove += string(c)
+						toRemove = append(toRemove, string(c))
 
 						continue
 					}
@@ -467,7 +467,7 @@ func TrimText(str string) string {
 				foundFirstNonEmptyLine = true
 			}
 		}
-		for _, c := range strToRemove {
+		for _, c := range strings.Join(toRemove, "") {
 			lines[i] = strings.Replace(lines[i], string(c), "", 1)
 		}
 	}
