@@ -443,6 +443,131 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
+	// Make upgrade idempotent: if requested spec already matches the instance, return a success message
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		req := argsI.(*rdbSDK.UpgradeInstanceRequest)
+
+		client := core.ExtractClient(ctx)
+		api := rdbSDK.NewAPI(client)
+
+		current, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
+			Region:     req.Region,
+			InstanceID: req.InstanceID,
+		})
+		if err != nil {
+			return nil, err
+		}
+
+		changeRequested := false
+
+		// NodeType (handle string or *string)
+		rv := reflect.ValueOf(req).Elem()
+		if f := rv.FieldByName("NodeType"); f.IsValid() {
+			switch v := f.Interface().(type) {
+			case string:
+				if v != "" && strings.ToLower(current.NodeType) != strings.ToLower(v) {
+					changeRequested = true
+				}
+			case *string:
+				if v != nil && strings.ToLower(current.NodeType) != strings.ToLower(*v) {
+					changeRequested = true
+				}
+			}
+		}
+
+		// EnableHa (bool or *bool). Only enabling is allowed
+		if f := rv.FieldByName("EnableHa"); f.IsValid() {
+			switch v := f.Interface().(type) {
+			case bool:
+				if v && !current.IsHaCluster {
+					changeRequested = true
+				}
+			case *bool:
+				if v != nil && *v && !current.IsHaCluster {
+					changeRequested = true
+				}
+			}
+		}
+
+		// VolumeType (enum or *enum). Compare string value.
+		if f := rv.FieldByName("VolumeType"); f.IsValid() && current.Volume != nil {
+			desired := ""
+			switch v := f.Interface().(type) {
+			case string:
+				desired = v
+			case *string:
+				if v != nil {
+					desired = *v
+				}
+			default:
+				desired = fmt.Sprint(f.Interface())
+			}
+			if desired != "" && fmt.Sprint(current.Volume.Type) != desired {
+				changeRequested = true
+			}
+		}
+
+		// VolumeSize (*uint64 most likely) compared against current.Volume.Size (scw.Size)
+		if current.Volume != nil {
+			if f := rv.FieldByName("VolumeSize"); f.IsValid() {
+				switch v := f.Interface().(type) {
+				case uint64:
+					if v > uint64(current.Volume.Size) {
+						changeRequested = true
+					} else if v < uint64(current.Volume.Size) {
+						return nil, fmt.Errorf("volume_size cannot be decreased (current=%d, requested=%d)", uint64(current.Volume.Size), v)
+					}
+				case *uint64:
+					if v != nil {
+						if *v > uint64(current.Volume.Size) {
+							changeRequested = true
+						} else if *v < uint64(current.Volume.Size) {
+							return nil, fmt.Errorf("volume_size cannot be decreased (current=%d, requested=%d)", uint64(current.Volume.Size), *v)
+						}
+					}
+				}
+			}
+		}
+
+		// Engine upgrade fields -> always a change if provided
+		if f := rv.FieldByName("UpgradableVersionID"); f.IsValid() {
+			switch v := f.Interface().(type) {
+			case string:
+				if v != "" {
+					changeRequested = true
+				}
+			case *string:
+				if v != nil && *v != "" {
+					changeRequested = true
+				}
+			}
+		}
+		if f := rv.FieldByName("MajorUpgradeWorkflow"); f.IsValid() && !f.IsZero() {
+			wf := f
+			if wf.Kind() == reflect.Ptr && !wf.IsNil() {
+				wf = wf.Elem()
+			}
+			if uv := wf.FieldByName("UpgradableVersionID"); uv.IsValid() {
+				switch v := uv.Interface().(type) {
+				case string:
+					if v != "" {
+						changeRequested = true
+					}
+				case *string:
+					if v != nil && *v != "" {
+						changeRequested = true
+					}
+				}
+			}
+		}
+
+		if !changeRequested {
+			return &core.SuccessResult{Message: "Nothing to do!"}, nil
+		}
+
+		return runner(ctx, argsI)
+	}
+
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 

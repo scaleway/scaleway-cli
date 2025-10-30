@@ -129,6 +129,19 @@ func userCreateBuilder(c *core.Command) *core.Command {
 			fmt.Printf("\n")
 		}
 
+		// Idempotency: if user already exists, return a success without error
+		if createUserRequest != nil && createUserRequest.Name != "" {
+			name := createUserRequest.Name
+			users, err := api.ListUsers(&rdb.ListUsersRequest{
+				Region:     createUserRequest.Region,
+				InstanceID: createUserRequest.InstanceID,
+				Name:       &name,
+			}, scw.WithAllPages())
+			if err == nil && users.TotalCount > 0 {
+				return &core.SuccessResult{Message: "User already exists"}, nil
+			}
+		}
+
 		user, err := api.CreateUser(createUserRequest)
 		if err != nil {
 			return nil, err
