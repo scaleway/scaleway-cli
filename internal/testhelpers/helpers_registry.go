@@ -70,10 +70,12 @@ func StoreTagIDInMeta(namespaceMetaKey, dockerImageName, tagMetaKey string) core
 		dockerImageNameSplit := strings.Split(dockerImageName, ":")
 		imageName := dockerImageNameSplit[0]
 		namespaceID := ctx.Meta.Render(fmt.Sprintf("{{ .%s.ID }}", namespaceMetaKey))
-		imageListResult := core.ExecBeforeCmdWithResult(ctx, fmt.Sprintf("scw registry image list namespace-id=%s name=%s",
-			namespaceID,
-			imageName,
-		),
+		imageListResult := core.ExecBeforeCmdWithResult(
+			ctx,
+			fmt.Sprintf("scw registry image list namespace-id=%s name=%s",
+				namespaceID,
+				imageName,
+			),
 		)
 
 		// Select the image

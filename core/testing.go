@@ -678,6 +678,7 @@ func ExecBeforeCmdArgs(args []string) BeforeFunc {
 func ExecBeforeCmdWithResult(ctx *BeforeFuncCtx, cmd string) any {
 	args := cmdToArgs(ctx.Meta, cmd)
 	ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
+
 	return ctx.ExecuteCmd(args)
 }
 
