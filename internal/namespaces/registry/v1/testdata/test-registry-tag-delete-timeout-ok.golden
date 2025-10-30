@@ -1,0 +1,12 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Unknown argument 'timeout'
+
+Hint:
+Valid arguments are: tag-id, timeout, region
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "unknown argument 'timeout'",
+  "error": {},
+  "hint": "Valid arguments are: tag-id, timeout, region"
+}

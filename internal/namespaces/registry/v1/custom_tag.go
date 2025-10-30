@@ -3,6 +3,8 @@ package registry
 import (
 	"context"
 	"fmt"
+	"reflect"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -25,7 +27,7 @@ var (
 	}
 )
 
-type customTag struct {
+type CustomTag struct {
 	registry.Tag
 	FullName string
 }
@@ -59,7 +61,7 @@ func tagGetBuilder(c *core.Command) *core.Command {
 			return getTagResp, nil
 		}
 
-		res := customTag{
+		res := CustomTag{
 			Tag:      *tag,
 			FullName: fmt.Sprintf("%s/%s:%s", namespace.Endpoint, image.Name, tag.Name),
 		}
@@ -112,9 +114,9 @@ func tagListBuilder(c *core.Command) *core.Command {
 			return listTagResp, err
 		}
 
-		var customRes []customTag
+		var customRes []CustomTag
 		for _, tag := range listTagResp.([]*registry.Tag) {
-			customRes = append(customRes, customTag{
+			customRes = append(customRes, CustomTag{
 				Tag: *tag,
 				FullName: fmt.Sprintf("%s/%s:%s",
 					namespace.Endpoint,
@@ -125,6 +127,32 @@ func tagListBuilder(c *core.Command) *core.Command {
 		}
 
 		return customRes, nil
+	}
+
+	return c
+}
+
+type customTagDeleteArgs struct {
+	*registry.DeleteTagRequest
+	timeout time.Duration
+}
+
+func tagDeleteBuilder(c *core.Command) *core.Command {
+	c.ArgsType = reflect.TypeOf(customTagDeleteArgs{})
+	c.ArgSpecs.AddBefore("force", &core.ArgSpec{
+		Name:       "timeout",
+		Short:      "Maximum time to handle the request",
+		Required:   false,
+		Positional: false,
+	})
+
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		args := argsI.(*customTagDeleteArgs)
+
+		ctxWithTimeout, cancel := context.WithTimeout(ctx, args.timeout)
+		defer cancel()
+
+		return runner(ctxWithTimeout, args.DeleteTagRequest)
 	}
 
 	return c
