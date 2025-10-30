@@ -87,7 +87,7 @@ func configInstallCommand() *core.Command {
 
 			// Create options for WriteFile
 			opts := &interactive.WriteFileOptions{
-				Confirm: true,
+				Confirm: core.ExtractYesMode(ctx),
 			}
 
 			// Construct the full path

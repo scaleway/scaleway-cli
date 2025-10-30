@@ -11,6 +11,7 @@ import (
 	"path/filepath"
 	"strings"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 )
 
@@ -58,7 +59,7 @@ func Save(ctx context.Context, homeDir string, hosts []Host) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm:  true,
+		Confirm:  core.ExtractYesMode(ctx),
 		FileMode: &sshConfigFileMode,
 	}
 
@@ -155,7 +156,7 @@ func IncludeConfigFile(ctx context.Context, homeDir string) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm:  true,
+		Confirm:  core.ExtractYesMode(ctx),
 		FileMode: &configFileMode,
 	}
 

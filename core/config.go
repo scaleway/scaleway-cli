@@ -1,4 +1,4 @@
-package config
+package core
 
 import (
 	"bytes"
@@ -144,7 +144,7 @@ func (c *Config) SaveWithConfirmation(ctx context.Context) error {
 
 	// Create options for WriteFile
 	opts := &interactive.WriteFileOptions{
-		Confirm: true,
+		Confirm: ExtractYesMode(ctx),
 	}
 
 	fullPath := filepath.Join(configDir, relPath)

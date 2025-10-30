@@ -48,7 +48,7 @@ func writeHelperScript(ctx context.Context, scriptPath string, scriptContent str
 	// Create options for WriteFile
 	fileMode := os.FileMode(0o755)
 	opts := &interactive.WriteFileOptions{
-		Confirm:  true,
+		Confirm:  core.ExtractYesMode(ctx),
 		FileMode: &fileMode,
 	}
 
@@ -126,7 +126,7 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 	// Create options for WriteFile
 	fileMode := os.FileMode(0o600)
 	opts := &interactive.WriteFileOptions{
-		Confirm:  true,
+		Confirm:  core.ExtractYesMode(ctx),
 		FileMode: &fileMode,
 	}
 

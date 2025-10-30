@@ -8,7 +8,6 @@ import (
 	"path"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
-	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -26,7 +25,7 @@ type Meta struct {
 	Commands     *Commands
 	OverrideEnv  map[string]string
 	OverrideExec OverrideExecFunc
-	CliConfig    *cliConfig.Config
+	CliConfig    *Config
 	Platform     platform.Platform
 
 	command                     *Command
@@ -37,6 +36,7 @@ type Meta struct {
 	httpClient                  *http.Client
 	isClientFromBootstrapConfig bool
 	BetaMode                    bool
+	YesMode                     bool
 }
 
 type contextKey int
@@ -73,7 +73,7 @@ func ExtractCommands(ctx context.Context) *Commands {
 	return extractMeta(ctx).Commands
 }
 
-func ExtractCliConfig(ctx context.Context) *cliConfig.Config {
+func ExtractCliConfig(ctx context.Context) *Config {
 	return extractMeta(ctx).CliConfig
 }
 
@@ -109,6 +109,10 @@ func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 
 func ExtractBetaMode(ctx context.Context) bool {
 	return extractMeta(ctx).BetaMode
+}
+
+func ExtractYesMode(ctx context.Context) bool {
+	return extractMeta(ctx).YesMode
 }
 
 func ExtractEnv(ctx context.Context, envKey string) string {
@@ -190,9 +194,9 @@ func ExtractCliConfigPath(ctx context.Context) string {
 	meta := extractMeta(ctx)
 	// This is only useful for test when we override home environment variable
 	if home := meta.OverrideEnv["HOME"]; home != "" {
-		return path.Join(home, ".config", "scw", cliConfig.DefaultConfigFileName)
+		return path.Join(home, ".config", "scw", DefaultConfigFileName)
 	}
-	configPath, _ := cliConfig.FilePath()
+	configPath, _ := FilePath()
 
 	return configPath
 }

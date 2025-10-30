@@ -5,8 +5,6 @@ import (
 	"os"
 	"os/exec"
 	"strings"
-
-	"github.com/scaleway/scaleway-cli/v2/internal/config"
 )
 
 var (
@@ -38,7 +36,7 @@ type (
 )
 
 func editorPathAndArgs(fileName string) (string, []string) {
-	defaultEditor := config.GetDefaultEditor()
+	defaultEditor := GetDefaultEditor()
 	editorAndArguments := strings.Fields(defaultEditor)
 	args := []string{fileName}
 
