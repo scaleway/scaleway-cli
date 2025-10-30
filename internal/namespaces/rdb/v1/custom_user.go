@@ -119,17 +119,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		customRequest := argsI.(*rdbCreateUserRequestCustom)
 		createUserRequest := customRequest.CreateUserRequest
 
-		var err error
-		if customRequest.GeneratePassword && customRequest.Password == "" {
-			createUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
-			if err != nil {
-				return nil, err
-			}
-			fmt.Printf("Your generated password is %s \n", createUserRequest.Password)
-			fmt.Printf("\n")
-		}
-
-		// Idempotency: if user already exists, return a success without error
+		// Idempotency: if user already exists, return the existing user
 		if createUserRequest != nil && createUserRequest.Name != "" {
 			name := createUserRequest.Name
 			users, err := api.ListUsers(&rdb.ListUsersRequest{
@@ -138,8 +128,23 @@ func userCreateBuilder(c *core.Command) *core.Command {
 				Name:       &name,
 			}, scw.WithAllPages())
 			if err == nil && users.TotalCount > 0 {
-				return &core.SuccessResult{Message: "User already exists"}, nil
+				// Return existing user object to maintain compatibility
+				result := rdbCreateUserResponseCustom{
+					User:     users.Users[0],
+					Password: "", // no password for existing user
+				}
+				return result, nil
 			}
+		}
+
+		var err error
+		if customRequest.GeneratePassword && customRequest.Password == "" {
+			createUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			if err != nil {
+				return nil, err
+			}
+			fmt.Printf("Your generated password is %s \n", createUserRequest.Password)
+			fmt.Printf("\n")
 		}
 
 		user, err := api.CreateUser(createUserRequest)

@@ -20,7 +20,9 @@ func databaseCreateBuilder(c *core.Command) *core.Command {
 				Name:       &name,
 			}, scw.WithAllPages())
 			if err == nil && list.TotalCount > 0 {
-				return &core.SuccessResult{Message: "Database already exists"}, nil
+				// Return the existing database to maintain compatibility with workflows
+				// that expect database object (not just SuccessResult)
+				return list.Databases[0], nil
 			}
 		}
 
