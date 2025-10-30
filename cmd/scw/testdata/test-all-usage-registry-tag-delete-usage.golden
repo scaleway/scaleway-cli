@@ -7,6 +7,7 @@ USAGE:
 
 ARGS:
   tag-id            UUID of the tag
+  [timeout]         Maximum time to handle the request
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
