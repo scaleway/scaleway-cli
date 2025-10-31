@@ -16,7 +16,7 @@ AVAILABLE COMMANDS:
   delete            Delete a Database Instance
   get               Get a Database Instance
   get-certificate   Get the TLS certificate of a Database Instance
-  get-metrics       Get Database Instance metrics
+  get-metrics       [deprecated] Get Database Instance metrics
   list              List Database Instances
   renew-certificate Renew the TLS certificate of a Database Instance
   restart           Restart Database Instance
