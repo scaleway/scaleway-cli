@@ -88,6 +88,34 @@ scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -
 scw rdb backup list -ojson | jq --arg d "$(date -d "7 days ago" --utc --iso-8601=ns)" '.[] | select (.created_at < $d)'
 ```
 
+### Restore a backup from another Database Instance (even with different version)
+
+You can restore a backup from one Database Instance to another, even if they have different PostgreSQL/MySQL versions (e.g., PostgreSQL-15 to PostgreSQL-16). The restore operation works within the same region.
+
+```bash
+# Step 1: Create a backup from the source instance
+scw rdb backup create instance-id=<source-instance-id> database-name=<db-name> name=cross-instance-backup region=<region> -w
+
+# Step 2: Get the backup ID
+BACKUP_ID=$(scw rdb backup list instance-id=<source-instance-id> region=<region> -ojson | jq -r '.[0].id')
+
+# Step 3: Create the target database on the destination instance (if it doesn't exist)
+scw rdb database create instance-id=<target-instance-id> name=<db-name> region=<region>
+
+# Step 4: Restore the backup to the target instance
+scw rdb backup restore $BACKUP_ID instance-id=<target-instance-id> region=<region> -w
+
+# Example: Restore from PostgreSQL-15 to PostgreSQL-16
+SOURCE_ID="325fd68a-a286-4f5c-b56b-3b8d66fcd13d"  # PG-15 instance
+TARGET_ID="70644724-60c9-411c-a3e2-5276f1cefff1"  # PG-16 instance
+scw rdb backup create instance-id=$SOURCE_ID database-name=mydb name=upgrade-backup region=fr-par -w
+BACKUP_ID=$(scw rdb backup list instance-id=$SOURCE_ID region=fr-par -ojson | jq -r '.[0].id')
+scw rdb database create instance-id=$TARGET_ID name=mydb region=fr-par
+scw rdb backup restore $BACKUP_ID instance-id=$TARGET_ID region=fr-par -w
+```
+
+**Note:** This method only works within the same region. For cross-region migrations, see the "Migrate a managed database to another region" section.
+
 ## IPAM
 
 ### Find resource ipv4 with exact name using jq
