@@ -88,6 +88,69 @@ scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -
 scw rdb backup list -ojson | jq --arg d "$(date -d "7 days ago" --utc --iso-8601=ns)" '.[] | select (.created_at < $d)'
 ```
 
+### Configure password storage for rdb connect
+
+The `scw rdb instance connect` command can automatically use stored credentials to avoid typing passwords manually. Here's how to configure it for PostgreSQL and MySQL.
+
+#### PostgreSQL - Using .pgpass file
+
+Create a password file to store your connection credentials securely:
+
+```bash
+# Linux/macOS: Create ~/.pgpass
+cat > ~/.pgpass << 'EOF'
+# Format: hostname:port:database:username:password
+51.159.25.206:13917:rdb:myuser:mypassword
+# You can use * as wildcard
+*:*:*:myuser:mypassword
+EOF
+chmod 600 ~/.pgpass
+
+# Windows: Create %APPDATA%\postgresql\pgpass.conf
+# Same format as above
+```
+
+Then connect without password prompt:
+```bash
+scw rdb instance connect <instance-id> username=myuser
+```
+
+**Documentation:** https://www.postgresql.org/docs/current/libpq-pgpass.html
+
+#### MySQL - Using mysql_config_editor
+
+MySQL provides `mysql_config_editor` for secure, obfuscated password storage:
+
+```bash
+# Configure credentials for a login path
+mysql_config_editor set --login-path=scw \
+  --host=195.154.69.163 \
+  --port=12210 \
+  --user=myuser \
+  --password
+# You'll be prompted to enter the password securely
+
+# Verify configuration (password will be masked)
+mysql_config_editor print --login-path=scw
+
+# Connect using the login path
+mysql --login-path=scw --database=rdb
+```
+
+The credentials are stored in `~/.mylogin.cnf` (Linux/macOS) or `%APPDATA%\MySQL\.mylogin.cnf` (Windows).
+
+**Alternative:** You can also use `~/.my.cnf` for plain-text storage (less secure):
+```bash
+cat > ~/.my.cnf << 'EOF'
+[client]
+user=myuser
+password=mypassword
+EOF
+chmod 600 ~/.my.cnf
+```
+
+**Documentation:** https://dev.mysql.com/doc/refman/8.0/en/mysql-config-editor.html
+
 ## IPAM
 
 ### Find resource ipv4 with exact name using jq
