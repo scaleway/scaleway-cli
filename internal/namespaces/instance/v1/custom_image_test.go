@@ -171,7 +171,10 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteImage("Image"),
+		AfterFunc: core.AfterFuncCombine(
+			deleteImage("Image"),
+			deleteServer("Server"),
+		),
 	}))
 
 	t.Run("With SBS root volume", core.Test(&core.TestConfig{
@@ -185,7 +188,10 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteImage("ImageSBSRoot"),
+		AfterFunc: core.AfterFuncCombine(
+			deleteImage("ImageSBSRoot"),
+			deleteServer("Server"),
+		),
 	}))
 
 	t.Run("With SBS additional volumes", core.Test(&core.TestConfig{
@@ -199,7 +205,10 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteImage("ImageSBSAdditional"),
+		AfterFunc: core.AfterFuncCombine(
+			deleteImage("ImageSBSAdditional"),
+			deleteServer("Server"),
+		),
 	}))
 }
 
