@@ -455,15 +455,17 @@ func TrimText(str string) string {
 	for i, line := range lines {
 		if !foundFirstNonEmptyLine {
 			if len(line) > 0 {
+				var builder strings.Builder
 				for _, c := range line {
 					if c == ' ' || c == '\t' {
-						strToRemove += string(c)
+						builder.WriteRune(c)
 
 						continue
 					}
 
 					break
 				}
+				strToRemove = builder.String()
 				foundFirstNonEmptyLine = true
 			}
 		}

@@ -42,7 +42,7 @@ func Printf(format string, a ...any) (int, error) {
 }
 
 func Line(char string) string {
-	return makeStr(char, terminal.GetWidth())
+	return strings.Repeat(char, terminal.GetWidth())
 }
 
 func Center(str string) string {
@@ -56,7 +56,7 @@ func Center(str string) string {
 }
 
 func Indent(str string, indent int) string {
-	padding := makeStr(" ", indent)
+	padding := strings.Repeat(" ", indent)
 	lines := strings.Split(str, "\n")
 	for i, line := range lines {
 		if line != "" {
@@ -69,13 +69,4 @@ func Indent(str string, indent int) string {
 
 func RemoveIndent(str string) string {
 	return strings.Trim(regexp.MustCompile("\n[ \t]*").ReplaceAllString(str, "\n"), "\n")
-}
-
-func makeStr(char string, length int) string {
-	str := ""
-	for range length {
-		str += char
-	}
-
-	return str
 }
