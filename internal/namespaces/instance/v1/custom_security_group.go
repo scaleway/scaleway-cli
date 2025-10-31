@@ -314,19 +314,19 @@ func securityGroupDeleteBuilder(c *core.Command) *core.Command {
 				}
 
 				// Create detail message.
-				lines := make([]string, 0, len(sg.SecurityGroup.Servers)+1)
-				lines = append(
-					lines,
+				var hintBuilder strings.Builder
+				hintBuilder.WriteString(
 					"Attach all these instances to another security-group before deleting this one:",
 				)
 				for _, s := range sg.SecurityGroup.Servers {
-					lines = append(
-						lines,
-						"scw instance server update "+s.ID+" security-group.id=$NEW_SECURITY_GROUP_ID",
+					fmt.Fprintf(
+						&hintBuilder,
+						"\nscw instance server update %s security-group.id=$NEW_SECURITY_GROUP_ID",
+						s.ID,
 					)
 				}
 
-				newError.Hint = strings.Join(lines, "\n")
+				newError.Hint = hintBuilder.String()
 
 				return nil, newError
 			}

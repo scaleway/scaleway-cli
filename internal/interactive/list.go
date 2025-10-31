@@ -60,8 +60,7 @@ func (m *ListPrompt) View() string {
 		if m.cursor == i {
 			fmt.Fprintf(&builder, "> %s\n", choice)
 		} else {
-			builder.WriteString(choice)
-			builder.WriteByte('\n')
+			builder.WriteString(choice + "\n")
 		}
 	}
 

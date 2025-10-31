@@ -27,13 +27,13 @@ func checkConfig(
 }
 
 func appendArgs(prefix string, args map[string]string) string {
-	parts := make([]string, 0, len(args)+1)
-	parts = append(parts, prefix)
+	var builder strings.Builder
+	builder.WriteString(prefix)
 	for k, v := range args {
-		parts = append(parts, fmt.Sprintf("%s=%s", k, v))
+		fmt.Fprintf(&builder, " %s=%s", k, v)
 	}
 
-	return strings.Join(parts, " ")
+	return builder.String()
 }
 
 func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {

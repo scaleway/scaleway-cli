@@ -14,23 +14,23 @@ type BastionHost struct {
 }
 
 func (b BastionHost) Config() string {
-	parts := make([]string, 0, len(b.Hosts)+1)
-	parts = append(parts, fmt.Sprintf(`Host %s
+	var builder strings.Builder
+	fmt.Fprintf(&builder, `Host %s
   ProxyJump bastion@%s
 `,
 		b.name(),
-		b.address()))
+		b.address())
 
 	for _, host := range b.Hosts {
 		host.Name = fmt.Sprintf("%s.%s", host.Name, b.Name)
-		parts = append(parts, fmt.Sprintf(`Host %s
+		fmt.Fprintf(&builder, `Host %s
   User %s
 `,
 			host.name(),
-			host.user()))
+			host.user())
 	}
 
-	return strings.Join(parts, "")
+	return builder.String()
 }
 
 func (b BastionHost) name() string {
