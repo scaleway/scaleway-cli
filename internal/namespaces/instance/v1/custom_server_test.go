@@ -366,7 +366,7 @@ func Test_ServerDelete(t *testing.T) {
 		),
 		BeforeFunc: core.ExecStoreBeforeCmd(
 			"Server",
-			testServerCommand("stopped=true additional-volumes.0=block:10G"),
+			testServerCommand("stopped=true root-volume=l:20G additional-volumes.0=block:10G"),
 		),
 		Cmd: `scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local`,
 		Check: core.TestCheckCombine(

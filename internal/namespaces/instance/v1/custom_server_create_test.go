@@ -695,6 +695,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		AfterFunc:       deleteVolume("Volume"),
 		DisableParallel: true,
 	}))
 
