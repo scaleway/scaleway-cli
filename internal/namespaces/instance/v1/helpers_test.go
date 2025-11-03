@@ -236,13 +236,6 @@ func deleteBlockSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw block snapshot delete {{ ." + metaKey + ".ID }}")
 }
 
-func createPN() core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(
-		"PN",
-		"scw vpc private-network create",
-	)
-}
-
 func createNIC() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"NIC",
