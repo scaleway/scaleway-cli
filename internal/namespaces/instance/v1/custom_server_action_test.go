@@ -166,7 +166,7 @@ func Test_ServerBackup(t *testing.T) {
 				"scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true",
 			),
 			core.ExecAfterCmd(
-				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local",
+				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all",
 			),
 		),
 	}))
@@ -189,7 +189,7 @@ func Test_ServerBackup(t *testing.T) {
 				"scw instance image delete {{ .CmdResult.Image.ID }} with-snapshots=true",
 			),
 			core.ExecAfterCmd(
-				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local",
+				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all",
 			),
 		),
 	}))
@@ -224,7 +224,7 @@ func Test_ServerAction(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			core.ExecAfterCmd(
-				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=local force-shutdown=true",
+				"scw instance server delete {{ .Server.ID }} with-ip=true with-volumes=all force-shutdown=true",
 			),
 		),
 	}))

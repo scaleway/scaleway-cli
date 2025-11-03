@@ -147,7 +147,9 @@ func Test_ServerGetRdpPassword(t *testing.T) {
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
-			core.ExecAfterCmd("scw instance server terminate {{.Server.ID}}"),
+			core.ExecAfterCmd(
+				"scw instance server terminate {{.Server.ID}} with-ip=true with-block=true",
+			),
 			core.ExecAfterCmd("scw iam ssh-key delete {{.SSHKey.ID}}"),
 		),
 		TmpHomeDir: true,
