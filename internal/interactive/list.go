@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -52,19 +53,20 @@ func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *ListPrompt) View() string {
-	s := m.Prompt + "\n\n"
+	var builder strings.Builder
+	builder.WriteString(m.Prompt + "\n\n")
 
 	for i, choice := range m.Choices {
 		if m.cursor == i {
-			s += fmt.Sprintf("> %s\n", choice)
+			fmt.Fprintf(&builder, "> %s\n", choice)
 		} else {
-			s += choice + "\n"
+			builder.WriteString(choice + "\n")
 		}
 	}
 
-	s += "\nPress enter or space for select.\n"
+	builder.WriteString("\nPress enter or space for select.\n")
 
-	return s
+	return builder.String()
 }
 
 // Execute start the prompt and return the selected index
