@@ -223,6 +223,10 @@ type TestConfig struct {
 	EnableAliases bool
 }
 
+func (config *TestConfig) DebugString() string {
+	return config.Cmd
+}
+
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
 func getTestFilePath(t *testing.T, suffix string) string {
 	t.Helper()
@@ -308,6 +312,7 @@ var DefaultRetryInterval *time.Duration
 
 var foldersUsingVCRv4 = []string{
 	"instance",
+	"k8s",
 }
 
 func folderUsesVCRv4(fullFolderPath string) bool {
