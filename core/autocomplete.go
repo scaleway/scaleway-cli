@@ -169,6 +169,10 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 	return nil, false
 }
 
+func (node *AutoCompleteNode) DebugString() string {
+	return node.Name
+}
+
 func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
 	for i := range flags {
 		flag := &flags[i]
