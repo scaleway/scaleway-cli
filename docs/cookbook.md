@@ -88,6 +88,49 @@ scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -
 scw rdb backup list -ojson | jq --arg d "$(date -d "7 days ago" --utc --iso-8601=ns)" '.[] | select (.created_at < $d)'
 ```
 
+## Database (continued)
+
+### Migrate a managed database to another region
+
+**Important:** `scw rdb backup restore` cannot restore backups across different regions (API limitation). Logical backups and snapshots can only be restored within the same region. For cross-region migration, you must export the backup, download it, and manually restore it using database client tools (psql/mysql).
+
+```bash
+# Method 1: Manual migration via backup export (for cross-region migration)
+
+# Step 1: Create a backup of the source database
+scw rdb backup create instance-id=<source-instance-id> database-name=<db-name> name=migration-backup region=<source-region> -w
+
+# Step 2: Export and download the backup
+BACKUP_ID=$(scw rdb backup list instance-id=<source-instance-id> region=<source-region> -ojson | jq -r '.[0].id')
+scw rdb backup export $BACKUP_ID region=<source-region> -w
+scw rdb backup download $BACKUP_ID region=<source-region> output=./backup.sql
+
+# Step 3: Create a new Database Instance in the target region
+scw rdb instance create name=<new-instance-name> engine=<engine-version> user-name=<username> password=<password> node-type=<node-type> region=<target-region> -w
+
+# Step 4: Get connection details for the new instance
+NEW_INSTANCE_ID=$(scw rdb instance list name=<new-instance-name> region=<target-region> -ojson | jq -r '.[0].id')
+ENDPOINT=$(scw rdb instance get $NEW_INSTANCE_ID region=<target-region> -ojson | jq -r '.endpoints[0].ip + ":" + (.endpoints[0].port | tostring)')
+
+# Step 5: Manually restore the backup using database client
+# For PostgreSQL:
+psql -h <endpoint-host> -p <endpoint-port> -U <username> -d postgres -f backup.sql
+# For MySQL:
+mysql -h <endpoint-host> -P <endpoint-port> -u <username> -p < backup.sql
+
+# Method 2: Same-region backup restore (for migration within the same region)
+
+# Step 1: Create a backup
+scw rdb backup create instance-id=<source-instance-id> database-name=<db-name> name=same-region-backup region=<region> -w
+
+# Step 2: Create a database in the target instance
+scw rdb database create instance-id=<target-instance-id> name=<db-name> region=<region>
+
+# Step 3: Restore the backup
+BACKUP_ID=$(scw rdb backup list instance-id=<source-instance-id> region=<region> -ojson | jq -r '.[0].id')
+scw rdb backup restore $BACKUP_ID instance-id=<target-instance-id> region=<region> -w
+```
+
 ## IPAM
 
 ### Find resource ipv4 with exact name using jq
