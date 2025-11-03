@@ -182,6 +182,10 @@ func (c *Command) Copy() *Command {
 	return &newCommand
 }
 
+func (c *Command) DebugString() string {
+	return c.getPath()
+}
+
 // get a signature to sort commands
 func (c *Command) signature() string {
 	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short

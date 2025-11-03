@@ -6,6 +6,7 @@ import (
 	"io"
 	"net/http"
 	"os"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/internal/account"
 	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
@@ -301,4 +302,8 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	}
 
 	return 0, meta.result, nil
+}
+
+func (config *BootstrapConfig) DebugString() string {
+	return strings.Join(config.Args, " ")
 }
