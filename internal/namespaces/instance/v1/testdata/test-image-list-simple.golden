@@ -1,13 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME                        STATE      ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
-9aa1b71b-7a4d-4820-ba59-8d70c52159f1  cli-img-distracted-lamport  available  fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
-210ff65e-1e33-48c3-987c-78beb3e0fdf3  packer-e2e-simple           available  fr-par-1  10 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+ID                                    NAME                    STATE      ZONE      VOLUMES  SERVER NAME  SERVER ID  ARCH    ORGANIZATION ID                       PROJECT ID                            CREATION DATE    MODIFICATION DATE
+1d70771d-6ba3-4669-b581-086418171c56  cli-img-ecstatic-gould  available  fr-par-1  20 GB    -            -          x86_64  fa1e3217-dc80-42ac-85c3-3f034b78b552  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "9aa1b71b-7a4d-4820-ba59-8d70c52159f1",
-    "name": "cli-img-distracted-lamport",
+    "id": "1d70771d-6ba3-4669-b581-086418171c56",
+    "name": "cli-img-ecstatic-gould",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
@@ -17,8 +16,8 @@ ID                                    NAME                        STATE      ZON
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "090f6461-6251-482b-a2a5-c66d73f28abd",
-      "name": "cli-snp-distracted-hawking",
+      "id": "7987cd6d-7686-4c6f-82fe-e70af337104f",
+      "name": "cli-snp-sad-ardinghelli",
       "size": 20000000000,
       "volume_type": "l_ssd"
     },
@@ -28,33 +27,5 @@ ID                                    NAME                        STATE      ZON
     "zone": "fr-par-1",
     "server_id": "",
     "server_name": ""
-  },
-  {
-    "id": "210ff65e-1e33-48c3-987c-78beb3e0fdf3",
-    "name": "packer-e2e-simple",
-    "arch": "x86_64",
-    "creation_date": "1970-01-01T00:00:00.0Z",
-    "modification_date": "1970-01-01T00:00:00.0Z",
-    "default_bootscript": null,
-    "extra_volumes": {},
-    "from_server": "72a97d52-2b08-4564-9bfc-0b748bf8c96b",
-    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-    "public": false,
-    "root_volume": {
-      "id": "dfdb24ea-4691-4156-9ad4-bb03109fa015",
-      "name": "",
-      "size": 10000000000,
-      "volume_type": "sbs_snapshot"
-    },
-    "state": "available",
-    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-    "tags": [
-      "devtools",
-      "provider",
-      "packer"
-    ],
-    "zone": "fr-par-1",
-    "server_id": "",
-    "server_name": "-"
   }
 ]
