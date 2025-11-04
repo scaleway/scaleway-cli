@@ -318,7 +318,7 @@ var foldersUsingVCRv4 = []string{
 func folderUsesVCRv4(fullFolderPath string) bool {
 	fullPathSplit := strings.Split(fullFolderPath, "/")
 
-	folder := fullPathSplit[len(fullPathSplit)-1]
+	folder := fullPathSplit[len(fullPathSplit)-2]
 	for _, migratedFolder := range foldersUsingVCRv4 {
 		if migratedFolder == folder {
 			return true
