@@ -55,7 +55,7 @@ type runeTokenClass int
 // the internal state used by the lexer state machine
 type lexerState int
 
-// Token is a (type, value) pair representing a lexographical token.
+// Token is a (type, value) pair representing a lexicographical token.
 type Token struct {
 	tokenType TokenType
 	value     string
@@ -95,7 +95,7 @@ const (
 	eofRuneClass
 )
 
-// Classes of lexographic token
+// Classes of lexicographic token
 const (
 	UnknownToken TokenType = iota
 	WordToken

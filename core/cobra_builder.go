@@ -184,7 +184,7 @@ func (b *cobraBuilder) hydrateCobra(
 	}
 
 	if commandHasWeb(cmd) {
-		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current ressource")
+		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current resource")
 	}
 }
 
