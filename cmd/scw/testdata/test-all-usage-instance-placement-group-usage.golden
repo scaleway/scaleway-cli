@@ -35,7 +35,7 @@ AVAILABLE COMMANDS:
 
 FLAGS:
   -h, --help   help for placement-group
-      --web    open console page for the current ressource
+      --web    open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

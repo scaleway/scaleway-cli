@@ -1,6 +1,6 @@
 [files]
 extend-exclude = [
-  "**.cassette.yaml",
+    "**.cassette.yaml",
     "**.golden",
     "go.mod",
     "go.sum",
