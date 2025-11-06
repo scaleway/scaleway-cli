@@ -200,10 +200,10 @@ scw function domain create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description                                                                 |
-|------|---|-----------------------------------------------------------------------------|
-| hostname |  | Hostname to create                                                          |
-| function-id |  | UUID of the function to associate the domain with                           |
+| Name |   | Description |
+|------|---|-------------|
+| hostname |  | Hostname to create |
+| function-id |  | UUID of the function to associate the domain with |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
