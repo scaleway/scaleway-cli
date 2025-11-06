@@ -1471,7 +1471,7 @@ func functionDomainCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hostname",
-				Short:      `Hostame to create`,
+				Short:      `Hostname to create`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

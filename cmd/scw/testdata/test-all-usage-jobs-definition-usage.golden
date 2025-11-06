@@ -5,7 +5,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   create      Create a new job definition in a specified Project
-  delete      Delete an exsisting job definition by its unique identifier
+  delete      Delete an existing job definition by its unique identifier
   get         Get a job definition by its unique identifier
   list        List all your job definitions with filters
   start       Run an existing job definition by its unique identifier. This will create a new job run

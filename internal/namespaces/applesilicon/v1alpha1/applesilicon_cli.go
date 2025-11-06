@@ -553,7 +553,7 @@ func appleSiliconServerReboot() *core.Command {
 func appleSiliconServerReinstall() *core.Command {
 	return &core.Command{
 		Short:     `Reinstall a server`,
-		Long:      `Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).`,
+		Long:      `Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the default configuration values of the image (OS).`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "reinstall",

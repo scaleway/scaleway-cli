@@ -1384,7 +1384,7 @@ func dnsVersionRestore() *core.Command {
 func dnsCertificateGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a DNS zone's TLS certificate`,
-		Long:      `Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns ` + "`" + `no certificate found` + "`" + `.`,
+		Long:      `Get the DNS zone's TLS certificate. If you do not have a certificate, the output returns ` + "`" + `no certificate found` + "`" + `.`,
 		Namespace: "dns",
 		Resource:  "certificate",
 		Verb:      "get",

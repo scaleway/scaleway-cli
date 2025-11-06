@@ -111,7 +111,7 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	case "":
 	default:
 		return fmt.Errorf(
-			"invalid option %s for json outout. Valid options are: %s",
+			"invalid option %s for json output. Valid options are: %s",
 			opts,
 			PrinterOptJSONPretty,
 		)

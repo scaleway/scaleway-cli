@@ -289,7 +289,7 @@ scw apple-silicon server reboot <server-id ...> [arg=value ...]
 
 ### Reinstall a server
 
-Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).
+Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the default configuration values of the image (OS).
 
 **Usage:**
 
