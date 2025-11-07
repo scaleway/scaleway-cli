@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete an exsisting job definition by its unique identifier.
+Delete an existing job definition by its unique identifier.
 
 USAGE:
   scw jobs definition delete <job-definition-id ...> [arg=value ...]

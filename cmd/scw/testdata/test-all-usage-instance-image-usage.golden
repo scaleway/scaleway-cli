@@ -19,7 +19,7 @@ WORKFLOW COMMANDS:
 
 FLAGS:
   -h, --help   help for image
-      --web    open console page for the current ressource
+      --web    open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

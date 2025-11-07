@@ -36,13 +36,13 @@ type Config struct {
 	// +k8s:conversion-gen=false
 	// +optional
 	APIVersion string `json:"apiVersion,omitempty"`
-	// Preferences holds general information to be use for cli interactions
+	// Preferences holds general information to be used for cli interactions
 	Preferences Preferences `json:"preferences"`
-	// Clusters is a map of referencable names to cluster configs
+	// Clusters is a map of referenceable names to cluster configs
 	Clusters []NamedCluster `json:"clusters"`
-	// AuthInfos is a map of referencable names to user configs
+	// AuthInfos is a map of referenceable names to user configs
 	AuthInfos []NamedAuthInfo `json:"users"`
-	// Contexts is a map of referencable names to context configs
+	// Contexts is a map of referenceable names to context configs
 	Contexts []NamedContext `json:"contexts"`
 	// CurrentContext is the name of the context that you would like to use by default
 	CurrentContext string `json:"current-context"`

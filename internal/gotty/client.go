@@ -75,7 +75,7 @@ func (c *Client) Connect() error {
 	defer cns.Reset() //nolint:errcheck
 	defer cns.Close()
 
-	// Create a chanel that will receive all resizes signals
+	// Create a channel that will receive all resizes signals
 	resizeChan := make(chan bool, 1)
 	unsubscribe := subscribeToResize(resizeChan)
 	defer unsubscribe()

@@ -64,7 +64,7 @@ do
       OPT_FLAGS+=" -v" ;;
 
     *)
-      color red "Unkown argument '$1'"
+      color red "Unknown argument '$1'"
       echo
       usage 1 ;;
   esac
