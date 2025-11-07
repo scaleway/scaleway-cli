@@ -311,8 +311,8 @@ func createTestClient(
 var DefaultRetryInterval *time.Duration
 
 var foldersUsingVCRv4 = []string{
-	"instance",
-	"k8s",
+	//"instance", 	// skip until we can merge #5119
+	//"k8s",		// skip until we can merge #5119
 	"marketplace",
 }
 
