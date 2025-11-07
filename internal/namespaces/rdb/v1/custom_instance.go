@@ -710,11 +710,15 @@ const (
 	PostgreSQL     = engineFamily("PostgreSQL")
 	MySQL          = engineFamily("MySQL")
 	postgreSQLHint = `
-psql supports password file to avoid typing your password manually.
+psql supports password file (.pgpass) to avoid typing your password manually.
+Create ~/.pgpass (Linux/macOS) or %APPDATA%\postgresql\pgpass.conf (Windows) with:
+  hostname:port:database:username:password
 Learn more at: https://www.postgresql.org/docs/current/libpq-pgpass.html`
 	mySQLHint = `
-mysql supports loading your password from a file to avoid typing them manually.
-Learn more at: https://dev.mysql.com/doc/refman/8.0/en/option-files.html`
+mysql supports mysql_config_editor for secure password storage.
+Use: mysql_config_editor set --login-path=scw --host=HOST --user=USER --password
+Or create ~/.mylogin.cnf with connection credentials.
+Learn more at: https://dev.mysql.com/doc/refman/8.0/en/mysql-config-editor.html`
 )
 
 func passwordFileExist(ctx context.Context, family engineFamily) bool {

@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                      7c6798c5-5058-442f-9df1-2a418e17cc90
-Name                    cli-srv-infallible-mahavira
+ID                      7eab5e8b-3347-4b1a-8e5c-308e9c4e2277
+Name                    cli-srv-hungry-ardinghelli
 Organization            fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project                 fa1e3217-dc80-42ac-85c3-3f034b78b552
 AllowedActions.0        poweroff
@@ -14,7 +14,7 @@ CreationDate            few seconds ago
 DynamicIPRequired       false
 RoutedIPEnabled         true
 EnableIPv6              false
-Hostname                cli-srv-infallible-mahavira
+Hostname                cli-srv-hungry-ardinghelli
 Image.ID                6d3c053e-c728-4294-b23a-560b62a4d592
 Image.Name              Ubuntu 22.04 Jammy Jellyfish
 Image.Arch              x86_64
@@ -29,12 +29,12 @@ Image.State             available
 Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone              fr-par-1
 Protected               false
-MacAddress              de:00:00:d0:04:41
+MacAddress              de:00:00:d0:a9:95
 ModificationDate        few seconds ago
 State                   running
 Location                fr-par-1
 BootType                local
-Volumes.0.ID            c6fa8f00-aa95-41f5-9ed3-61b62a8338a8
+Volumes.0.ID            8d9ca8bf-b652-45c5-9dae-fec7cf7808ed
 Volumes.0.VolumeType    sbs_volume
 Volumes.0.State         available
 Volumes.0.Boot          false
@@ -47,8 +47,8 @@ Zone                    fr-par-1
 EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "7c6798c5-5058-442f-9df1-2a418e17cc90",
-  "name": "cli-srv-infallible-mahavira",
+  "id": "7eab5e8b-3347-4b1a-8e5c-308e9c4e2277",
+  "name": "cli-srv-hungry-ardinghelli",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -64,7 +64,7 @@ EndOfService            false
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-infallible-mahavira",
+  "hostname": "cli-srv-hungry-ardinghelli",
   "image": {
     "id": "6d3c053e-c728-4294-b23a-560b62a4d592",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -91,13 +91,13 @@ EndOfService            false
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:d0:04:41",
+  "mac_address": "de:00:00:d0:a9:95",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "running",
   "location": {
-    "cluster_id": "43",
-    "hypervisor_id": "104",
-    "node_id": "36",
+    "cluster_id": "94",
+    "hypervisor_id": "203",
+    "node_id": "30",
     "platform_id": "14",
     "zone_id": "fr-par-1"
   },
@@ -105,7 +105,7 @@ EndOfService            false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "c6fa8f00-aa95-41f5-9ed3-61b62a8338a8",
+      "id": "8d9ca8bf-b652-45c5-9dae-fec7cf7808ed",
       "name": null,
       "export_uri": null,
       "organization": null,

@@ -612,11 +612,11 @@ func configInfoCommand() *core.Command {
 
 			// Search for env variable that will override profile
 			// Will be used to display them
-			overridedVariables := []string(nil)
+			overriddenVariables := []string(nil)
 			for _, key := range getProfileKeys() {
 				value, err := getProfileField(profileEnv, key)
 				if err == nil && !value.IsZero() {
-					overridedVariables = append(overridedVariables, key)
+					overriddenVariables = append(overriddenVariables, key)
 				}
 			}
 
@@ -637,9 +637,9 @@ func configInfoCommand() *core.Command {
 				}
 			}
 
-			if len(overridedVariables) > 0 {
+			if len(overriddenVariables) > 0 {
 				msg := "Some variables are overridden by the environment: " + strings.Join(
-					overridedVariables,
+					overriddenVariables,
 					", ",
 				)
 				fmt.Println(terminal.Style(msg, color.FgRed))

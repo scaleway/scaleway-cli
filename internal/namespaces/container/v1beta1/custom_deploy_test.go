@@ -60,7 +60,7 @@ func mkdirAllBeforeFunc(path string) func(ctx *core.BeforeFuncCtx) error {
 
 func Test_Deploy(t *testing.T) {
 	if runtime.GOOS == "windows" {
-		t.Skip("Skipping test on Windows because of flakyness")
+		t.Skip("Skipping test on Windows because of flakiness")
 	}
 	appName := "cli-t-ctnr-deploy"
 	path := t.TempDir()

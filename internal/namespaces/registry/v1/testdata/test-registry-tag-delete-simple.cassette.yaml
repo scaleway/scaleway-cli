@@ -1,0 +1,423 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":0, "created_at":"2025-11-03T15:54:55.468188474Z", "updated_at":"2025-11-03T15:54:55.468188474Z",
+      "image_count":0, "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":0, "created_at":"2025-11-03T15:54:55.468188474Z", "updated_at":"2025-11-03T15:54:55.468188474Z",
+      "image_count":0, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "496"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:54:55 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 881b2fda-cf2a-484a-8ae9-24b6aca28108
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"images":[{"id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "name":"hello-world",
+      "namespace_id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.541236Z",
+      "updated_at":"2025-11-03T15:55:05.164976Z", "tags":["latest"]}], "total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=389afd74-a9de-4a44-a3f2-4e407e0a2040&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "name":"hello-world",
+      "namespace_id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.541236Z",
+      "updated_at":"2025-11-03T15:55:05.164976Z", "tags":["latest"]}], "total_count":1}'
+    headers:
+      Content-Length:
+      - "335"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:05 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3440c2ec-616b-4a7e-8342-fa8ebab6a749
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
+      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
+      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
+      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
+      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
+    headers:
+      Content-Length:
+      - "1016"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:05 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 798e6720-a528-4c97-a55e-7b4ef97faeef
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"images":[{"id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "name":"hello-world",
+      "namespace_id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.541236Z",
+      "updated_at":"2025-11-03T15:55:05.164976Z", "tags":["latest"]}], "total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=hello-world&namespace_id=389afd74-a9de-4a44-a3f2-4e407e0a2040&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "name":"hello-world",
+      "namespace_id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "status":"ready", "status_message":"",
+      "visibility":"inherit", "size":2927, "created_at":"2025-11-03T15:55:04.541236Z",
+      "updated_at":"2025-11-03T15:55:05.164976Z", "tags":["latest"]}], "total_count":1}'
+    headers:
+      Content-Length:
+      - "335"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:05 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2e651c4a-df52-475a-a223-733851c0e91f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
+      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
+      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
+      "image_count":1, "region":"fr-par"}, {"id":"2dcbc03b-4372-4acb-bb4c-b73ff3e77536",
+      "name":"cli-test-rg-tag-delete-sweet-feynman", "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-sweet-feynman", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.475454Z", "updated_at":"2025-11-03T15:55:05.149587Z",
+      "image_count":1, "region":"fr-par"}], "total_count":2}'
+    headers:
+      Content-Length:
+      - "1016"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:05 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 163543c4-a52f-4625-89ea-2b5825cb8ffc
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"tags":[{"id":"0bd7b99b-a1f2-4ba0-9099-5661073f8ad9", "name":"latest",
+      "image_id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-11-03T15:55:04.567050Z", "updated_at":"2025-11-03T15:55:05.201593Z"}],
+      "total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/320fc700-c3fa-4c65-9a0a-427df20781ca/tags?name=latest&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"tags":[{"id":"0bd7b99b-a1f2-4ba0-9099-5661073f8ad9", "name":"latest",
+      "image_id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "status":"ready", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-11-03T15:55:04.567050Z", "updated_at":"2025-11-03T15:55:05.201593Z"}],
+      "total_count":1}'
+    headers:
+      Content-Length:
+      - "331"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8a3fd9bd-9918-4549-929b-85a627089735
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "name":"hello-world", "namespace_id":"389afd74-a9de-4a44-a3f2-4e407e0a2040",
+      "status":"ready", "status_message":"", "visibility":"inherit", "size":2927,
+      "created_at":"2025-11-03T15:55:04.541236Z", "updated_at":"2025-11-03T15:55:05.164976Z",
+      "tags":["latest"]}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images/320fc700-c3fa-4c65-9a0a-427df20781ca
+    method: GET
+  response:
+    body: '{"id":"320fc700-c3fa-4c65-9a0a-427df20781ca", "name":"hello-world", "namespace_id":"389afd74-a9de-4a44-a3f2-4e407e0a2040",
+      "status":"ready", "status_message":"", "visibility":"inherit", "size":2927,
+      "created_at":"2025-11-03T15:55:04.541236Z", "updated_at":"2025-11-03T15:55:05.164976Z",
+      "tags":["latest"]}'
+    headers:
+      Content-Length:
+      - "305"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e6bd94b2-d670-4ec3-9719-f9d30e29a782
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
+      "image_count":1, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/389afd74-a9de-4a44-a3f2-4e407e0a2040
+    method: GET
+  response:
+    body: '{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"ready", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":2927, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:05.182249Z",
+      "image_count":1, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "493"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 9c0eff70-4aab-4e60-a389-0874f9716381
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"0bd7b99b-a1f2-4ba0-9099-5661073f8ad9", "name":"latest", "image_id":"320fc700-c3fa-4c65-9a0a-427df20781ca",
+      "status":"deleting", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-11-03T15:55:04.567050Z", "updated_at":"2025-11-03T15:55:06.368642110Z"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/tags/0bd7b99b-a1f2-4ba0-9099-5661073f8ad9
+    method: DELETE
+  response:
+    body: '{"id":"0bd7b99b-a1f2-4ba0-9099-5661073f8ad9", "name":"latest", "image_id":"320fc700-c3fa-4c65-9a0a-427df20781ca",
+      "status":"deleting", "digest":"sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+      "created_at":"2025-11-03T15:55:04.567050Z", "updated_at":"2025-11-03T15:55:06.368642110Z"}'
+    headers:
+      Content-Length:
+      - "309"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - eb06634e-f2b2-49aa-afee-92d2c4e5456a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"deleting", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":0, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:06.645629012Z",
+      "image_count":1, "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/389afd74-a9de-4a44-a3f2-4e407e0a2040
+    method: DELETE
+  response:
+    body: '{"id":"389afd74-a9de-4a44-a3f2-4e407e0a2040", "name":"cli-test-rg-tag-delete-recursing-wilbur",
+      "description":"", "organization_id":"105bdce1-64c0-48ab-899d-868455867ecf",
+      "project_id":"105bdce1-64c0-48ab-899d-868455867ecf", "status":"deleting", "status_message":"",
+      "endpoint":"rg.fr-par.scw.cloud/cli-test-rg-tag-delete-recursing-wilbur", "is_public":false,
+      "size":0, "created_at":"2025-11-03T15:54:55.468188Z", "updated_at":"2025-11-03T15:55:06.645629012Z",
+      "image_count":1, "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "496"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 15:55:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 73841ae8-013a-4ae3-ac4c-6ac45e86dcb6
+    status: 200 OK
+    code: 200
+    duration: ""

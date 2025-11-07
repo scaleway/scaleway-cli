@@ -1184,7 +1184,7 @@ func containerCronCreate() *core.Command {
 			},
 			{
 				Name:       "schedule",
-				Short:      `UNIX cron shedule`,
+				Short:      `UNIX cron schedule`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

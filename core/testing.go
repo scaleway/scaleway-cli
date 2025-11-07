@@ -312,6 +312,7 @@ var DefaultRetryInterval *time.Duration
 
 var foldersUsingVCRv4 = []string{
 	"instance",
+	"k8s",
 }
 
 func folderUsesVCRv4(fullFolderPath string) bool {
@@ -676,6 +677,14 @@ func ExecBeforeCmdArgs(args []string) BeforeFunc {
 
 		return nil
 	}
+}
+
+// ExecBeforeCmdWithResult executes the given command and returns its result.
+func ExecBeforeCmdWithResult(ctx *BeforeFuncCtx, cmd string) any {
+	args := cmdToArgs(ctx.Meta, cmd)
+	ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
+
+	return ctx.ExecuteCmd(args)
 }
 
 // ExecAfterCmd executes the given before command.

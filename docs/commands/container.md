@@ -250,7 +250,7 @@ scw container cron create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | container-id |  | UUID of the container to invoke by the cron |
-| schedule |  | UNIX cron shedule |
+| schedule |  | UNIX cron schedule |
 | args |  | Arguments to pass with the cron |
 | name |  | Name of the cron to create |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |

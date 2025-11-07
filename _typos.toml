@@ -1,0 +1,16 @@
+[files]
+extend-exclude = [
+    "**.cassette.yaml",
+    "**.golden",
+    "go.mod",
+    "go.sum",
+    "CHANGELOG.md"
+]
+
+[default.extend-words]
+pn = "pn"
+thi = "thi"
+Vertexes = "Vertexes"
+ba = "ba"
+Viw = "Viw"
+UE = "UE"
