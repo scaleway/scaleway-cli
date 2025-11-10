@@ -73,6 +73,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "instance", "update").Override(instanceUpdateBuilder)
 	cmds.MustFind("rdb", "instance", "upgrade").Override(instanceUpgradeBuilder)
 
+	// Make database create idempotent
+	cmds.MustFind("rdb", "database", "create").Override(databaseCreateBuilder)
+
 	cmds.MustFind("rdb", "user", "create").Override(userCreateBuilder)
 	cmds.MustFind("rdb", "user", "list").Override(userListBuilder)
 	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
