@@ -1,22 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    NAME          BILLING OPERATION PATH           OPTIONS  PRICE    AVAILABLE  CONTROL PANEL NAME  END OF LIFE  QUOTA WARNING    REGION
-f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par          10       € 5.99   true       cpanel              false        unknown_warning  
-525098b0-c4bc-4e96-b656-8d6f68d8f52f  lite          /webhosting/lite/fr-par          10       € 5.99   true       wordpress           false        unknown_warning  
-d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par      10       € 9.99   true       cpanel              false        unknown_warning  
-4651a634-070f-47a3-8bf8-2c22ace80b9b  personal      /webhosting/personal/fr-par      10       € 9.99   true       wordpress           false        unknown_warning  
-de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par  10       € 18.99  true       cpanel              false        unknown_warning  
-97b9988d-6551-4f91-ab3e-c2265d4abcba  professional  /webhosting/professional/fr-par  10       € 18.99  true       wordpress           false        unknown_warning  
-e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       cpanel              false        unknown_warning  
-f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       wordpress           false        unknown_warning  
-f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par          10       € 5.99   true       cpanel              false        unknown_warning  
-525098b0-c4bc-4e96-b656-8d6f68d8f52f  lite          /webhosting/lite/fr-par          10       € 5.99   true       wordpress           false        unknown_warning  
-d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par      10       € 9.99   true       cpanel              false        unknown_warning  
-4651a634-070f-47a3-8bf8-2c22ace80b9b  personal      /webhosting/personal/fr-par      10       € 9.99   true       wordpress           false        unknown_warning  
-de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par  10       € 18.99  true       cpanel              false        unknown_warning  
-97b9988d-6551-4f91-ab3e-c2265d4abcba  professional  /webhosting/professional/fr-par  10       € 18.99  true       wordpress           false        unknown_warning  
-e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       cpanel              false        unknown_warning  
-f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       wordpress           false        unknown_warning
+ID                                    NAME          BILLING OPERATION PATH           OPTIONS  PRICE    AVAILABLE  CONTROL PANEL NAME  END OF LIFE  QUOTA WARNING    CONTROL PANELS  REGION
+f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par          10       € 5.99   true       cpanel              false        unknown_warning  -               
+525098b0-c4bc-4e96-b656-8d6f68d8f52f  lite          /webhosting/lite/fr-par          10       € 5.99   true       wordpress           false        unknown_warning  -               
+d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par      10       € 9.99   true       cpanel              false        unknown_warning  -               
+4651a634-070f-47a3-8bf8-2c22ace80b9b  personal      /webhosting/personal/fr-par      10       € 9.99   true       wordpress           false        unknown_warning  -               
+de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par  10       € 18.99  true       cpanel              false        unknown_warning  -               
+97b9988d-6551-4f91-ab3e-c2265d4abcba  professional  /webhosting/professional/fr-par  10       € 18.99  true       wordpress           false        unknown_warning  -               
+e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       cpanel              false        unknown_warning  -               
+f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       wordpress           false        unknown_warning  -               
+f5c2ae8f-7625-4bca-b711-b44bb3d08694  lite          /webhosting/lite/fr-par          10       € 5.99   true       cpanel              false        unknown_warning  -               
+525098b0-c4bc-4e96-b656-8d6f68d8f52f  lite          /webhosting/lite/fr-par          10       € 5.99   true       wordpress           false        unknown_warning  -               
+d86c61a0-a9e9-11ec-b909-0242ac120002  personal      /webhosting/personal/fr-par      10       € 9.99   true       cpanel              false        unknown_warning  -               
+4651a634-070f-47a3-8bf8-2c22ace80b9b  personal      /webhosting/personal/fr-par      10       € 9.99   true       wordpress           false        unknown_warning  -               
+de2426b4-a9e9-11ec-b909-0242ac120002  professional  /webhosting/professional/fr-par  10       € 18.99  true       cpanel              false        unknown_warning  -               
+97b9988d-6551-4f91-ab3e-c2265d4abcba  professional  /webhosting/professional/fr-par  10       € 18.99  true       wordpress           false        unknown_warning  -               
+e1c1e6c6-a9e9-11ec-b909-0242ac120002  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       cpanel              false        unknown_warning  -               
+f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par     10       € 29.99  true       wordpress           false        unknown_warning  -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -174,6 +174,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -331,6 +332,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -488,6 +490,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -645,6 +648,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -802,6 +806,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -959,6 +964,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -1116,6 +1122,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -1273,6 +1280,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -1430,6 +1438,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -1587,6 +1596,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -1744,6 +1754,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -1901,6 +1912,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -2058,6 +2070,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -2215,6 +2228,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -2372,6 +2386,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "cpanel",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   },
   {
@@ -2529,6 +2544,7 @@ f328bb60-18be-4e5a-9130-e199c660e74e  ecommerce     /webhosting/ecommerce/fr-par
     "control_panel_name": "wordpress",
     "end_of_life": false,
     "quota_warning": "unknown_warning",
+    "control_panels": null,
     "region": ""
   }
 ]
