@@ -15,7 +15,6 @@ ID                                    NAME                      STATE      ZONE 
       "1": {
         "id": "b0c3ad93-75a7-4f82-9ea8-8dcebd848bcb",
         "name": "",
-        "export_uri": null,
         "size": 10000000000,
         "volume_type": "sbs_snapshot",
         "creation_date": null,
@@ -30,7 +29,6 @@ ID                                    NAME                      STATE      ZONE 
       "2": {
         "id": "5eb8067c-0677-4995-83e0-aa7338792c99",
         "name": "",
-        "export_uri": null,
         "size": 15000000000,
         "volume_type": "sbs_snapshot",
         "creation_date": null,
