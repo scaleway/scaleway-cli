@@ -442,6 +442,7 @@ func ipamIPList() *core.Command {
 					"kafka_cluster",
 					"bgp_endpoint",
 					"scbl_sedb_cluster",
+					"dtwh_deployment",
 				},
 			},
 			{
@@ -477,6 +478,7 @@ func ipamIPList() *core.Command {
 					"kafka_cluster",
 					"bgp_endpoint",
 					"scbl_sedb_cluster",
+					"dtwh_deployment",
 				},
 			},
 			{
