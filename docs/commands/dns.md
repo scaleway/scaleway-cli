@@ -81,7 +81,7 @@ scw dns certificate delete <dns-zone ...> [arg=value ...]
 
 ### Get a DNS zone's TLS certificate
 
-Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
+Get the DNS zone's TLS certificate. If you do not have a certificate, the output returns `no certificate found`.
 
 **Usage:**
 

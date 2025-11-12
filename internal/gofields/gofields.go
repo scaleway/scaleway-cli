@@ -204,7 +204,7 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 	}
 }
 
-// IsNil test if a given value is nil. It is saf to call the mthod with non nillable value like scalar types
+// IsNil test if a given value is nil. It is saf to call the method with non nillable value like scalar types
 func IsNil(value reflect.Value) bool {
 	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) &&
 		value.IsNil()

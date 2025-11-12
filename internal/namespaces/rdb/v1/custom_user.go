@@ -3,7 +3,6 @@ package rdb
 import (
 	"context"
 	"errors"
-	"fmt"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -113,30 +112,42 @@ func userCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(rdbCreateUserRequestCustom{})
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
-		client := core.ExtractClient(ctx)
-		api := rdb.NewAPI(client)
-
+		api := rdb.NewAPI(core.ExtractClient(ctx))
 		customRequest := argsI.(*rdbCreateUserRequestCustom)
-		createUserRequest := customRequest.CreateUserRequest
+		req := customRequest.CreateUserRequest
 
-		var err error
+		if req.Name != "" {
+			name := req.Name
+			users, err := api.ListUsers(&rdb.ListUsersRequest{
+				Region:     req.Region,
+				InstanceID: req.InstanceID,
+				Name:       &name,
+			}, scw.WithAllPages())
+			if err == nil && users.TotalCount > 0 {
+				return rdbCreateUserResponseCustom{
+					User:     users.Users[0],
+					Password: "",
+				}, nil
+			}
+		}
+
 		if customRequest.GeneratePassword && customRequest.Password == "" {
-			createUserRequest.Password, err = passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
+			password, err := passwordgenerator.GeneratePassword(21, 1, 1, 1, 1)
 			if err != nil {
 				return nil, err
 			}
-			fmt.Printf("Your generated password is %s \n", createUserRequest.Password)
-			fmt.Printf("\n")
+			req.Password = password
+			// password is returned in the command output; avoid logging it to stdout
 		}
 
-		user, err := api.CreateUser(createUserRequest)
+		user, err := api.CreateUser(req)
 		if err != nil {
 			return nil, err
 		}
 
 		result := rdbCreateUserResponseCustom{
 			User:     user,
-			Password: createUserRequest.Password,
+			Password: req.Password,
 		}
 
 		return result, nil

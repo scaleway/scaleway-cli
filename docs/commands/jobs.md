@@ -4,7 +4,7 @@ This API allows you to manage your Serverless Jobs.
   
 - [](#)
   - [Create a new job definition in a specified Project](#create-a-new-job-definition-in-a-specified-project)
-  - [Delete an exsisting job definition by its unique identifier](#delete-an-exsisting-job-definition-by-its-unique-identifier)
+  - [Delete an existing job definition by its unique identifier](#delete-an-existing-job-definition-by-its-unique-identifier)
   - [Get a job definition by its unique identifier](#get-a-job-definition-by-its-unique-identifier)
   - [List all your job definitions with filters](#list-all-your-job-definitions-with-filters)
   - [Run an existing job definition by its unique identifier. This will create a new job run](#run-an-existing-job-definition-by-its-unique-identifier.-this-will-create-a-new-job-run)
@@ -58,9 +58,9 @@ scw jobs definition create [arg=value ...]
 
 
 
-### Delete an exsisting job definition by its unique identifier
+### Delete an existing job definition by its unique identifier
 
-Delete an exsisting job definition by its unique identifier.
+Delete an existing job definition by its unique identifier.
 
 **Usage:**
 
