@@ -1,0 +1,86 @@
+name: Tests
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  merge_group:
+
+jobs:
+  namespaces:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+        products:
+          - account
+          - applesilicon
+          - baremetal
+          - billing
+          - block
+          - cockpit
+          - container
+          - dedibox
+          - domain
+          - edge_services
+          - flexibleip
+          - function
+          - iam
+          - inference
+          - init
+          - instance
+          - iot
+          - ipam
+          - jobs
+          - k8s
+          - key_manager
+          - lb
+          - login
+          - marketplace
+          - mnq
+          - mongodb
+          - object
+          - rdb
+          - redis
+          - registry
+          - serverless_sqldb
+          - secret
+          - tem
+          - vpc
+          - vpcgw
+          - webhosting
+    runs-on: ${{ matrix.platform }}
+    steps:
+      - name: Set git to use LF to avoid problem with goldens on windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      # Checkout should always be before setup-go to ensure caching is working
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - name: Install Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - name: Run tests
+        run: go tool gotestsum --format github-actions -- -v ./internal/namespaces/${{ matrix.products }}/...
+      - name: Execute main binary # Test the runtime for potential panics.
+        run: go run cmd/scw/main.go -h
+  others:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout
+        uses: actions/checkout@v5
+        with:
+          fetch-depth: 1
+      - name: Install Go
+        uses: actions/setup-go@v6
+        with:
+          go-version: stable
+      - name: Run tests outside of products namespaces
+        run: go list ./... | grep -v 'internal/namespaces' | xargs go tool gotestsum --format github-actions -- -v
