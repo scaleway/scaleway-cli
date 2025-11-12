@@ -83,4 +83,4 @@ jobs:
         with:
           go-version: stable
       - name: Run tests outside of products namespaces
-        run: go tool gotestsum --format github-actions -- -v "$(go list ./... | grep -v 'internal/namespaces')"
+        run: go tool gotestsum --format github-actions -- -v "$(go list ./... | grep -v 'internal/namespaces' | tr '\n' ' ' | xargs)"
