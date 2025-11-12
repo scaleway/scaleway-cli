@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Security Group:
-ID                     12ac0440-b1c1-45d0-890d-b030a6b10d26
-Name                   cli-sg-sleepy-engelbart
+ID                     6bbed5ce-6b01-4841-9adb-c18fc2b80774
+Name                   cli-sg-charming-rubin
 State                  available
 Description            -
 EnableDefaultSecurity  true
@@ -30,8 +30,8 @@ Servers:
 ID   NAME
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "12ac0440-b1c1-45d0-890d-b030a6b10d26",
-  "name": "cli-sg-sleepy-engelbart",
+  "id": "6bbed5ce-6b01-4841-9adb-c18fc2b80774",
+  "name": "cli-sg-charming-rubin",
   "description": "",
   "enable_default_security": true,
   "inbound_default_policy": "accept",

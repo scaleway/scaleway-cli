@@ -13,7 +13,7 @@ import (
 )
 
 func Test_ImageCreate(t *testing.T) {
-	t.Run("Create simple image", core.Test(&core.TestConfig{
+	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
 				"Server",
@@ -68,7 +68,7 @@ func Test_ImageCreate(t *testing.T) {
 }
 
 func Test_ImageDelete(t *testing.T) {
-	t.Run("simple", core.Test(&core.TestConfig{
+	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("Image"),
 		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance image delete {{ .Image.Image.ID }} with-snapshots=true",
