@@ -1,4 +1,4 @@
-name: Tests
+name: Build
 
 permissions:
   contents: read
@@ -8,16 +8,9 @@ on:
   merge_group:
 
 jobs:
-  os-tests:
-    strategy:
-      matrix:
-        platform: [ubuntu-latest, macos-latest, windows-latest]
-    runs-on: ${{ matrix.platform }}
+  native-binary:
+    runs-on: ubuntu-latest
     steps:
-      - name: Set git to use LF to avoid problem with goldens on windows
-        run: |
-          git config --global core.autocrlf false
-          git config --global core.eol lf
       # Checkout should always be before setup-go to ensure caching is working
       - name: Checkout
         uses: actions/checkout@v5
@@ -31,23 +24,6 @@ jobs:
         run: |
           go mod tidy
           git diff --exit-code
-      - name: Run unit tests
-        run: go tool gotestsum --format github-actions
-      - name: Execute main binary # Test the runtime for potential panics.
-        run: go run cmd/scw/main.go -h
-
-  build-tests:
-    runs-on: ubuntu-latest
-    steps:
-      # Checkout should always be before setup-go to ensure caching is working
-      - name: Checkout
-        uses: actions/checkout@v5
-        with:
-          fetch-depth: 1
-      - name: Install Go
-        uses: actions/setup-go@v6
-        with:
-          go-version: stable
       - name: Build binaries
         run: ./scripts/build.sh
       - name: Print binaries size
@@ -55,7 +31,7 @@ jobs:
       - name: Check binary size
         run: ./scripts/check-size.sh ./bin/*linux-x86_64
 
-  docker-tests:
+  docker:
     runs-on: ubuntu-latest
     steps:
     - name: Checkout
