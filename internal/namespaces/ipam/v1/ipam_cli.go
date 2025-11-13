@@ -443,6 +443,7 @@ func ipamIPList() *core.Command {
 					"bgp_endpoint",
 					"scbl_sedb_cluster",
 					"dtwh_deployment",
+					"sedb_cluster",
 				},
 			},
 			{
@@ -479,6 +480,7 @@ func ipamIPList() *core.Command {
 					"bgp_endpoint",
 					"scbl_sedb_cluster",
 					"dtwh_deployment",
+					"sedb_cluster",
 				},
 			},
 			{
