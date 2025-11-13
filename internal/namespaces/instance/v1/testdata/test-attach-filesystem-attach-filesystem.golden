@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Server.ID                          8b0cc204-0bd7-4ddb-b57e-f0cd4378ab0f
-Server.Name                        cli-srv-funny-curran
+Server.ID                          cb63eaec-e7c5-4c1a-b3da-04a7c4bd51cd
+Server.Name                        cli-srv-distracted-northcutt
 Server.Organization                fa1e3217-dc80-42ac-85c3-3f034b78b552
 Server.Project                     fa1e3217-dc80-42ac-85c3-3f034b78b552
 Server.AllowedActions.0            poweron
@@ -11,7 +11,7 @@ Server.CreationDate                few seconds ago
 Server.DynamicIPRequired           false
 Server.RoutedIPEnabled             true
 Server.EnableIPv6                  false
-Server.Hostname                    cli-srv-funny-curran
+Server.Hostname                    cli-srv-distracted-northcutt
 Server.Image.ID                    6d3c053e-c728-4294-b23a-560b62a4d592
 Server.Image.Name                  Ubuntu 22.04 Jammy Jellyfish
 Server.Image.Arch                  x86_64
@@ -26,11 +26,11 @@ Server.Image.State                 available
 Server.Image.Project               51b656e3-4865-41e8-adbc-0c45bdd780db
 Server.Image.Zone                  fr-par-1
 Server.Protected                   false
-Server.MacAddress                  de:00:00:d0:04:a1
+Server.MacAddress                  de:00:00:d1:45:bb
 Server.ModificationDate            few seconds ago
 Server.State                       archived
 Server.BootType                    local
-Server.Volumes.0.ID                d98ba8fa-0e20-45df-99de-ed186191d104
+Server.Volumes.0.ID                5a90a249-4707-4bb9-8b86-bc23339c2b14
 Server.Volumes.0.VolumeType        sbs_volume
 Server.Volumes.0.State             available
 Server.Volumes.0.Boot              false
@@ -40,14 +40,14 @@ Server.SecurityGroup.Name          Default security group
 Server.StateDetail                 -
 Server.Arch                        x86_64
 Server.Zone                        fr-par-1
-Server.Filesystems.0.FilesystemID  76ec2ddd-9383-4898-bf7d-d3cbf2daac0f
+Server.Filesystems.0.FilesystemID  e2b45d46-f1de-406d-a43d-9f8dfcdd2342
 Server.Filesystems.0.State         available
 Server.EndOfService                false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "server": {
-    "id": "8b0cc204-0bd7-4ddb-b57e-f0cd4378ab0f",
-    "name": "cli-srv-funny-curran",
+    "id": "cb63eaec-e7c5-4c1a-b3da-04a7c4bd51cd",
+    "name": "cli-srv-distracted-northcutt",
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "allowed_actions": [
@@ -60,7 +60,7 @@ Server.EndOfService                false
     "dynamic_ip_required": false,
     "routed_ip_enabled": true,
     "enable_ipv6": false,
-    "hostname": "cli-srv-funny-curran",
+    "hostname": "cli-srv-distracted-northcutt",
     "image": {
       "id": "6d3c053e-c728-4294-b23a-560b62a4d592",
       "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -87,7 +87,7 @@ Server.EndOfService                false
     "private_ip": null,
     "public_ip": null,
     "public_ips": [],
-    "mac_address": "de:00:00:d0:04:a1",
+    "mac_address": "de:00:00:d1:45:bb",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "state": "stopped",
     "location": null,
@@ -95,7 +95,7 @@ Server.EndOfService                false
     "boot_type": "local",
     "volumes": {
       "0": {
-        "id": "d98ba8fa-0e20-45df-99de-ed186191d104",
+        "id": "5a90a249-4707-4bb9-8b86-bc23339c2b14",
         "name": null,
         "export_uri": null,
         "organization": null,
@@ -124,7 +124,7 @@ Server.EndOfService                false
     "admin_password_encrypted_value": null,
     "filesystems": [
       {
-        "filesystem_id": "76ec2ddd-9383-4898-bf7d-d3cbf2daac0f",
+        "filesystem_id": "e2b45d46-f1de-406d-a43d-9f8dfcdd2342",
         "state": "available"
       }
     ],

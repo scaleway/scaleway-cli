@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                      a28ff07b-2ae6-4a9b-8b5c-9d62e2ed5df2
-Name                    cli-srv-trusting-tereshkova
+ID                      e945cfe9-5b5e-41e9-9bbc-8bdb8cd1bdf4
+Name                    cli-srv-flamboyant-swartz
 Organization            fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project                 fa1e3217-dc80-42ac-85c3-3f034b78b552
 AllowedActions.0        poweron
@@ -11,7 +11,7 @@ CreationDate            few seconds ago
 DynamicIPRequired       false
 RoutedIPEnabled         true
 EnableIPv6              false
-Hostname                cli-srv-trusting-tereshkova
+Hostname                cli-srv-flamboyant-swartz
 Image.ID                6d3c053e-c728-4294-b23a-560b62a4d592
 Image.Name              Ubuntu 22.04 Jammy Jellyfish
 Image.Arch              x86_64
@@ -26,11 +26,11 @@ Image.State             available
 Image.Project           51b656e3-4865-41e8-adbc-0c45bdd780db
 Image.Zone              fr-par-1
 Protected               false
-MacAddress              de:00:00:d0:05:27
+MacAddress              de:00:00:d1:46:21
 ModificationDate        few seconds ago
 State                   archived
 BootType                local
-Volumes.0.ID            c1ae0164-e9b9-4dec-af65-432c287c73a9
+Volumes.0.ID            dc864e14-f3be-4f93-8232-2758a5fc06e1
 Volumes.0.VolumeType    sbs_volume
 Volumes.0.State         available
 Volumes.0.Boot          false
@@ -43,8 +43,8 @@ Zone                    fr-par-1
 EndOfService            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "a28ff07b-2ae6-4a9b-8b5c-9d62e2ed5df2",
-  "name": "cli-srv-trusting-tereshkova",
+  "id": "e945cfe9-5b5e-41e9-9bbc-8bdb8cd1bdf4",
+  "name": "cli-srv-flamboyant-swartz",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -57,7 +57,7 @@ EndOfService            false
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
   "enable_ipv6": false,
-  "hostname": "cli-srv-trusting-tereshkova",
+  "hostname": "cli-srv-flamboyant-swartz",
   "image": {
     "id": "6d3c053e-c728-4294-b23a-560b62a4d592",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -84,7 +84,7 @@ EndOfService            false
   "private_ip": null,
   "public_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:d0:05:27",
+  "mac_address": "de:00:00:d1:46:21",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "location": null,
@@ -92,7 +92,7 @@ EndOfService            false
   "boot_type": "local",
   "volumes": {
     "0": {
-      "id": "c1ae0164-e9b9-4dec-af65-432c287c73a9",
+      "id": "dc864e14-f3be-4f93-8232-2758a5fc06e1",
       "name": null,
       "export_uri": null,
       "organization": null,

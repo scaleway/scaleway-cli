@@ -18,7 +18,7 @@ GP1-XL             € 1.671       600 GB                 48   0    256 GiB  x86
 L4-1-24G           € 0.75        0 B                    8    1    48 GiB   x86_64  available     2
 L4-2-24G           € 1.50        0 B                    16   2    96 GiB   x86_64  available     4
 L4-4-24G           € 3.00        0 B                    32   4    192 GiB  x86_64  available     8
-L4-8-24G           € 6.00        0 B                    64   8    384 GiB  x86_64  out of stock  16
+L4-8-24G           € 6.00        0 B                    64   8    384 GiB  x86_64  low stock     16
 PLAY2-PICO         € 0.014       0 B                    1    0    2.0 GiB  x86_64  available     0
 PLAY2-NANO         € 0.027       0 B                    2    0    4.0 GiB  x86_64  available     0
 PLAY2-MICRO        € 0.054       0 B                    4    0    8.0 GiB  x86_64  available     0
@@ -55,7 +55,7 @@ PRO2-XXS           € 0.055       0 B                    2    0    8.0 GiB  x86
 PRO2-XS            € 0.11        0 B                    4    0    16 GiB   x86_64  available     0
 PRO2-S             € 0.219       0 B                    8    0    32 GiB   x86_64  available     0
 PRO2-M             € 0.438       0 B                    16   0    64 GiB   x86_64  available     0
-PRO2-L             € 0.877       0 B                    32   0    128 GiB  x86_64  low stock     0
+PRO2-L             € 0.877       0 B                    32   0    128 GiB  x86_64  out of stock  0
 RENDER-S           € 1.243       400 GB                 10   1    42 GiB   x86_64  available     0
 STARDUST1-S        € 0.005       10 GB                  1    0    1.0 GiB  x86_64  low stock     0
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
@@ -327,7 +327,7 @@ STARDUST1-S        € 0.005       10 GB                  1    0    1.0 GiB  x86
     "gpu": 8,
     "ram": 412316860416,
     "arch": "x86_64",
-    "availability": "shortage",
+    "availability": "scarce",
     "max_file_systems": 16
   },
   {
@@ -882,7 +882,7 @@ STARDUST1-S        € 0.005       10 GB                  1    0    1.0 GiB  x86
     "gpu": 0,
     "ram": 137438953472,
     "arch": "x86_64",
-    "availability": "scarce",
+    "availability": "shortage",
     "max_file_systems": 0
   },
   {

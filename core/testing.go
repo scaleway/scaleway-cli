@@ -313,12 +313,13 @@ var DefaultRetryInterval *time.Duration
 var foldersUsingVCRv4 = []string{
 	"instance",
 	"k8s",
+	"marketplace",
 }
 
 func folderUsesVCRv4(fullFolderPath string) bool {
-	fullPathSplit := strings.Split(fullFolderPath, "/")
+	fullPathSplit := strings.Split(fullFolderPath, string(os.PathSeparator))
 
-	folder := fullPathSplit[len(fullPathSplit)-1]
+	folder := fullPathSplit[len(fullPathSplit)-2]
 	for _, migratedFolder := range foldersUsingVCRv4 {
 		if migratedFolder == folder {
 			return true
