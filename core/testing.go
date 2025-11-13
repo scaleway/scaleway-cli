@@ -313,6 +313,7 @@ var DefaultRetryInterval *time.Duration
 var foldersUsingVCRv4 = []string{
 	"instance",
 	"k8s",
+	"marketplace",
 }
 
 func folderUsesVCRv4(fullFolderPath string) bool {
