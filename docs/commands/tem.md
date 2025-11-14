@@ -286,7 +286,7 @@ scw tem email cancel <email-id ...> [arg=value ...]
 
 ### Send an email
 
-You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
+You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain.
 
 **Usage:**
 

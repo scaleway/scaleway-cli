@@ -369,7 +369,7 @@ scw mnq sns get-credentials <sns-credentials-id ...> [arg=value ...]
 
 ### Get Topics and Events info
 
-Retrieve the Topics and Events information of the specified Project ID. Information include the activation status and the Topics and Events API endpoint URL.
+Retrieve the Topics and Events information of the specified Project ID. information include the activation status and the Topics and Events API endpoint URL.
 
 **Usage:**
 
@@ -543,7 +543,7 @@ scw mnq sqs get-credentials <sqs-credentials-id ...> [arg=value ...]
 
 ### Get Queues info
 
-Retrieve the Queues information of the specified Project ID. Information include the activation status and the Queues API endpoint URL.
+Retrieve the Queues information of the specified Project ID. information include the activation status and the Queues API endpoint URL.
 
 **Usage:**
 
