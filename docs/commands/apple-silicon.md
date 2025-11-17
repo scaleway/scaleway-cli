@@ -381,7 +381,7 @@ scw apple-silicon server wait <server-id ...> [arg=value ...]
 
 Wait for a server to reach a stable state
 ```
-scw apple-silicon server wait
+scw apple-silicon server wait 11111111-1111-1111-1111-111111111111
 ```
 
 
