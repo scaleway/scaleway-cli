@@ -166,8 +166,10 @@ func DeployStepCreateNamespace(
 		})
 
 		namespace, err = api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID:   namespace.ID,
-			Region:        namespace.Region,
+			GetNamespaceRequest: function.GetNamespaceRequest{
+				NamespaceID: namespace.ID,
+				Region:      namespace.Region,
+			},
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -185,8 +187,10 @@ func DeployStepFetchNamespace(
 ) tasks.TaskFunc[any, *function.Namespace] {
 	return func(_ *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespace, err := api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID:   namespaceID,
-			Region:        region,
+			GetNamespaceRequest: function.GetNamespaceRequest{
+				NamespaceID: namespaceID,
+				Region:      region,
+			},
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -309,8 +313,10 @@ func DeployStepFunctionDeploy(
 		}
 
 		return api.WaitForFunction(&function.WaitForFunctionRequest{
-			FunctionID:    fc.ID,
-			Region:        fc.Region,
+			GetFunctionRequest: function.GetFunctionRequest{
+				FunctionID: fc.ID,
+				Region:     fc.Region,
+			},
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

@@ -74,8 +74,10 @@ func poolUpdateBuilder(c *core.Command) *core.Command {
 func waitForPoolFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI any) (any, error) {
 		pool, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForPool(&k8s.WaitForPoolRequest{
-			Region:        respI.(*k8s.Pool).Region,
-			PoolID:        respI.(*k8s.Pool).ID,
+			GetPoolRequest: k8s.GetPoolRequest{
+				Region: respI.(*k8s.Pool).Region,
+				PoolID: respI.(*k8s.Pool).ID,
+			},
 			Timeout:       scw.TimeDurationPtr(poolActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -116,8 +118,10 @@ func k8sPoolWaitCommand() *core.Command {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForPool(&k8s.WaitForPoolRequest{
-				Region:        argsI.(*k8s.WaitForPoolRequest).Region,
-				PoolID:        argsI.(*k8s.WaitForPoolRequest).PoolID,
+				GetPoolRequest: k8s.GetPoolRequest{
+					Region: argsI.(*k8s.WaitForPoolRequest).Region,
+					PoolID: argsI.(*k8s.WaitForPoolRequest).PoolID,
+				},
 				Timeout:       argsI.(*k8s.WaitForPoolRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})

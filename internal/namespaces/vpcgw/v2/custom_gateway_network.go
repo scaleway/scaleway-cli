@@ -27,10 +27,12 @@ func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
-			GatewayNetworkID: getResp.ID,
-			Zone:             getResp.Zone,
-			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
-			RetryInterval:    core.DefaultRetryInterval,
+			GetGatewayNetworkRequest: vpcgw.GetGatewayNetworkRequest{
+				GatewayNetworkID: getResp.ID,
+				Zone:             getResp.Zone,
+			},
+			Timeout:       scw.TimeDurationPtr(gatewayActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
 
@@ -42,10 +44,12 @@ func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
 		getResp := argsI.(*vpcgw.DeleteGatewayNetworkRequest)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 		gwNetwork, err := api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
-			GatewayNetworkID: getResp.GatewayNetworkID,
-			Zone:             getResp.Zone,
-			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
-			RetryInterval:    core.DefaultRetryInterval,
+			GetGatewayNetworkRequest: vpcgw.GetGatewayNetworkRequest{
+				GatewayNetworkID: getResp.GatewayNetworkID,
+				Zone:             getResp.Zone,
+			},
+			Timeout:       scw.TimeDurationPtr(gatewayActionTimeout),
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			notFoundError := &scw.ResourceNotFoundError{}

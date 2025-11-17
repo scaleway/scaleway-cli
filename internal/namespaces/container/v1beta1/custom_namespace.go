@@ -32,8 +32,10 @@ func waitForContainerNamespace(ctx context.Context, _, respI any) (any, error) {
 	api := container.NewAPI(client)
 
 	return api.WaitForNamespace(&container.WaitForNamespaceRequest{
-		NamespaceID:   ns.ID,
-		Region:        ns.Region,
+		GetNamespaceRequest: container.GetNamespaceRequest{
+			NamespaceID: ns.ID,
+			Region:      ns.Region,
+		},
 		Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
 		RetryInterval: core.DefaultRetryInterval,
 	})
@@ -58,8 +60,10 @@ func containerNamespaceDeleteBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := container.NewAPI(client)
 		_, err := api.WaitForNamespace(&container.WaitForNamespaceRequest{
-			NamespaceID:   req.NamespaceID,
-			Region:        req.Region,
+			GetNamespaceRequest: container.GetNamespaceRequest{
+				NamespaceID: req.NamespaceID,
+				Region:      req.Region,
+			},
 			Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})

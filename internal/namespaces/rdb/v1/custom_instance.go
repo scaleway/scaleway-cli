@@ -196,8 +196,10 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdbSDK.Instance).ID,
-			Region:        respI.(*rdbSDK.Instance).Region,
+			GetInstanceRequest: rdbSDK.GetInstanceRequest{
+				InstanceID: respI.(*rdbSDK.Instance).ID,
+				Region:     respI.(*rdbSDK.Instance).Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -316,8 +318,10 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    respI.(CreateInstanceResult).ID,
-			Region:        respI.(CreateInstanceResult).Region,
+			GetInstanceRequest: rdbSDK.GetInstanceRequest{
+				InstanceID: respI.(CreateInstanceResult).ID,
+				Region:     respI.(CreateInstanceResult).Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -508,8 +512,10 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    instance.ID,
-			Region:        instance.Region,
+			GetInstanceRequest: rdbSDK.GetInstanceRequest{
+				InstanceID: instance.ID,
+				Region:     instance.Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -667,8 +673,10 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-				InstanceID:    respI.(*rdbSDK.Instance).ID,
-				Region:        respI.(*rdbSDK.Instance).Region,
+				GetInstanceRequest: rdbSDK.GetInstanceRequest{
+					InstanceID: respI.(*rdbSDK.Instance).ID,
+					Region:     respI.(*rdbSDK.Instance).Region,
+				},
 				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -694,8 +702,10 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdbSDK.Instance).ID,
-			Region:        respI.(*rdbSDK.Instance).Region,
+			GetInstanceRequest: rdbSDK.GetInstanceRequest{
+				InstanceID: respI.(*rdbSDK.Instance).ID,
+				Region:     respI.(*rdbSDK.Instance).Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -730,8 +740,10 @@ func instanceWaitCommand() *core.Command {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-				Region:        argsI.(*serverWaitRequest).Region,
-				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
+				GetInstanceRequest: rdbSDK.GetInstanceRequest{
+					Region:     argsI.(*serverWaitRequest).Region,
+					InstanceID: argsI.(*serverWaitRequest).InstanceID,
+				},
 				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})

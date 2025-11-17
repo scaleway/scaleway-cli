@@ -55,8 +55,10 @@ func serverWaitCommand() *core.Command {
 			api := baremetal.NewAPI(core.ExtractClient(ctx))
 			logger.Debugf("starting to wait for server to reach a stable delivery status")
 			server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
-				ServerID:      args.ServerID,
-				Zone:          args.Zone,
+				GetServerRequest: baremetal.GetServerRequest{
+					ServerID: args.ServerID,
+					Zone:     args.Zone,
+				},
 				Timeout:       scw.TimeDurationPtr(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -123,8 +125,10 @@ func serverStartBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:          argsI.(*baremetal.StartServerRequest).Zone,
-			ServerID:      respI.(*baremetal.Server).ID,
+			GetServerRequest: baremetal.GetServerRequest{
+				ServerID: respI.(*baremetal.Server).ID,
+				Zone:     argsI.(*baremetal.StartServerRequest).Zone,
+			},
 			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -139,8 +143,10 @@ func serverStopBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:          argsI.(*baremetal.StopServerRequest).Zone,
-			ServerID:      respI.(*baremetal.Server).ID,
+			GetServerRequest: baremetal.GetServerRequest{
+				ServerID: respI.(*baremetal.Server).ID,
+				Zone:     argsI.(*baremetal.StopServerRequest).Zone,
+			},
 			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -157,8 +163,10 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 		api := baremetal.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
-			Zone:          argsI.(*baremetal.RebootServerRequest).Zone,
-			ServerID:      respI.(*baremetal.Server).ID,
+			GetServerRequest: baremetal.GetServerRequest{
+				ServerID: respI.(*baremetal.Server).ID,
+				Zone:     argsI.(*baremetal.RebootServerRequest).Zone,
+			},
 			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})

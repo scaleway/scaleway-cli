@@ -357,8 +357,10 @@ func waitForClusterFunc(action int) core.WaitFunc {
 		}
 		cluster, err := k8s.NewAPI(core.ExtractClient(ctx)).
 			WaitForCluster(&k8s.WaitForClusterRequest{
-				Region:        clusterResponse.Region,
-				ClusterID:     clusterResponse.ID,
+				GetClusterRequest: k8s.GetClusterRequest{
+					ClusterID: clusterResponse.ID,
+					Region:    clusterResponse.Region,
+				},
 				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -405,8 +407,10 @@ func k8sClusterWaitCommand() *core.Command {
 
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 			cluster, err := api.WaitForCluster(&k8s.WaitForClusterRequest{
-				Region:        args.Region,
-				ClusterID:     args.ClusterID,
+				GetClusterRequest: k8s.GetClusterRequest{
+					ClusterID: args.ClusterID,
+					Region:    args.Region,
+				},
 				Timeout:       args.Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -424,8 +428,10 @@ func k8sClusterWaitCommand() *core.Command {
 				}
 				for _, pool := range pools.Pools {
 					_, err := api.WaitForPool(&k8s.WaitForPoolRequest{
-						Region:        pool.Region,
-						PoolID:        pool.ID,
+						GetPoolRequest: k8s.GetPoolRequest{
+							PoolID: pool.ID,
+							Region: pool.Region,
+						},
 						Timeout:       args.Timeout,
 						RetryInterval: core.DefaultRetryInterval,
 					})

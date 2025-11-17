@@ -125,8 +125,10 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 		args := argsI.(*rdbCreateEndpointRequestCustom)
 
 		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    args.InstanceID,
-			Region:        args.Region,
+			GetInstanceRequest: rdb.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			},
 			RetryInterval: core.DefaultRetryInterval,
 		}, scw.WithContext(ctx))
 		if err != nil {
@@ -195,8 +197,10 @@ func endpointDeleteBuilder(c *core.Command) *core.Command {
 		args := argsI.(*rdbDeleteEndpointRequestCustom)
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    args.InstanceID,
-			Region:        args.Region,
+			GetInstanceRequest: rdb.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			},
 			RetryInterval: core.DefaultRetryInterval,
 		}, scw.WithContext(ctx))
 		if err != nil {

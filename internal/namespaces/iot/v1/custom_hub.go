@@ -28,8 +28,10 @@ func hubCreateBuilder(c *core.Command) *core.Command {
 		api := iot.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForHub(&iot.WaitForHubRequest{
-			HubID:         respI.(*iot.Hub).ID,
-			Region:        respI.(*iot.Hub).Region,
+			GetHubRequest: iot.GetHubRequest{
+				HubID:  respI.(*iot.Hub).ID,
+				Region: respI.(*iot.Hub).Region,
+			},
 			Timeout:       scw.TimeDurationPtr(hubActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})

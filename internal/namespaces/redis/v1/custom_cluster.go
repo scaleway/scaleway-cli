@@ -49,8 +49,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
-			ClusterID:     respI.(*redis.Cluster).ID,
-			Zone:          respI.(*redis.Cluster).Zone,
+
 			Timeout:       scw.TimeDurationPtr(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -112,8 +111,10 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
-			ClusterID:     respI.(*redis.Cluster).ID,
-			Zone:          respI.(*redis.Cluster).Zone,
+			GetClusterRequest: redis.GetClusterRequest{
+				ClusterID: respI.(*redis.Cluster).ID,
+				Zone:      respI.(*redis.Cluster).Zone,
+			},
 			Timeout:       scw.TimeDurationPtr(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -147,8 +148,10 @@ func clusterWaitCommand() *core.Command {
 			api := redis.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForCluster(&redis.WaitForClusterRequest{
-				Zone:          argsI.(*redis.WaitForClusterRequest).Zone,
-				ClusterID:     argsI.(*redis.WaitForClusterRequest).ClusterID,
+				GetClusterRequest: redis.GetClusterRequest{
+					ClusterID: argsI.(*redis.WaitForClusterRequest).ClusterID,
+					Zone:      argsI.(*redis.WaitForClusterRequest).Zone,
+				},
 				Timeout:       argsI.(*redis.WaitForClusterRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})

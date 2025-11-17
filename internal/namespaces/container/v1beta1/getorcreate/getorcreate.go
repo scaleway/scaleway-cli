@@ -46,8 +46,10 @@ func Namespace(
 	}
 
 	namespace, err = api.WaitForNamespace(&container.WaitForNamespaceRequest{
-		Region:      region,
-		NamespaceID: namespace.ID,
+		GetNamespaceRequest: container.GetNamespaceRequest{
+			NamespaceID: namespace.ID,
+			Region:      region,
+		},
 	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, err

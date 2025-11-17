@@ -14,8 +14,10 @@ func serverDeleteBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, argsI, _ any) (any, error) {
 		server, err := baremetal.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&baremetal.WaitForServerRequest{
-				ServerID:      argsI.(*baremetal.DeleteServerRequest).ServerID,
-				Zone:          argsI.(*baremetal.DeleteServerRequest).Zone,
+				GetServerRequest: baremetal.GetServerRequest{
+					ServerID: argsI.(*baremetal.DeleteServerRequest).ServerID,
+					Zone:     argsI.(*baremetal.DeleteServerRequest).Zone,
+				},
 				Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})

@@ -72,8 +72,10 @@ func waitForServerFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI any) (any, error) {
 		server, err := applesilicon.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&applesilicon.WaitForServerRequest{
-				Zone:          respI.(*applesilicon.Server).Zone,
-				ServerID:      respI.(*applesilicon.Server).ID,
+				GetServerRequest: applesilicon.GetServerRequest{
+					ServerID: respI.(*applesilicon.Server).ID,
+					Zone:     respI.(*applesilicon.Server).Zone,
+				},
 				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -121,8 +123,10 @@ func serverWaitCommand() *core.Command {
 
 			api := applesilicon.NewAPI(core.ExtractClient(ctx))
 			cluster, err := api.WaitForServer(&applesilicon.WaitForServerRequest{
-				Zone:          args.Zone,
-				ServerID:      args.ServerID,
+				GetServerRequest: applesilicon.GetServerRequest{
+					ServerID: args.ServerID,
+					Zone:     args.Zone,
+				},
 				Timeout:       args.Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})

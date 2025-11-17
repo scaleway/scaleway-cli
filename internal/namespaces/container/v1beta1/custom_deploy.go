@@ -477,8 +477,10 @@ func DeployStepCreateContainer(
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
-		Region:        data.Args.Region,
-		ContainerID:   targetContainer.ID,
+		GetContainerRequest: container.GetContainerRequest{
+			Region:      data.Args.Region,
+			ContainerID: targetContainer.ID,
+		},
 		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
 		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(t.Ctx))
@@ -510,8 +512,10 @@ func DeployStepDeployContainer(
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
-		Region:        data.Args.Region,
-		ContainerID:   targetContainer.ID,
+		GetContainerRequest: container.GetContainerRequest{
+			Region:      data.Args.Region,
+			ContainerID: targetContainer.ID,
+		},
 		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
 		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(t.Ctx))

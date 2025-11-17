@@ -27,8 +27,10 @@ func logPrepareBuilder(c *core.Command) *core.Command {
 		readyLogs := make([]*rdb.InstanceLog, len(getResp.InstanceLogs))
 		for i := range getResp.InstanceLogs {
 			logs, err := api.WaitForInstanceLog(&rdb.WaitForInstanceLogRequest{
-				InstanceLogID: getResp.InstanceLogs[i].ID,
-				Region:        getResp.InstanceLogs[i].Region,
+				GetInstanceLogRequest: rdb.GetInstanceLogRequest{
+					InstanceLogID: getResp.InstanceLogs[i].ID,
+					Region:        getResp.InstanceLogs[i].Region,
+				},
 				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})

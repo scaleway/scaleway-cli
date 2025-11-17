@@ -142,8 +142,10 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    args.InstanceID,
-			Region:        args.Region,
+			GetInstanceRequest: rdb.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -270,8 +272,10 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    args.InstanceID,
-			Region:        args.Region,
+			GetInstanceRequest: rdb.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -356,8 +360,10 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID:    args.InstanceID,
-			Region:        args.Region,
+			GetInstanceRequest: rdb.GetInstanceRequest{
+				InstanceID: args.InstanceID,
+				Region:     args.Region,
+			},
 			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})

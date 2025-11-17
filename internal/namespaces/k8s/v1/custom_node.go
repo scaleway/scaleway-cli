@@ -39,8 +39,10 @@ func nodeRebootBuilder(c *core.Command) *core.Command {
 func waitForNodeFunc(action int) core.WaitFunc {
 	return func(ctx context.Context, _, respI any) (any, error) {
 		node, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForNode(&k8s.WaitForNodeRequest{
-			Region:        respI.(*k8s.Node).Region,
-			NodeID:        respI.(*k8s.Node).ID,
+			GetNodeRequest: k8s.GetNodeRequest{
+				NodeID: respI.(*k8s.Node).ID,
+				Region: respI.(*k8s.Node).Region,
+			},
 			Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
@@ -65,8 +67,10 @@ func k8sNodeWaitCommand() *core.Command {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForNode(&k8s.WaitForNodeRequest{
-				Region:        argsI.(*k8s.WaitForNodeRequest).Region,
-				NodeID:        argsI.(*k8s.WaitForNodeRequest).NodeID,
+				GetNodeRequest: k8s.GetNodeRequest{
+					NodeID: argsI.(*k8s.WaitForNodeRequest).NodeID,
+					Region: argsI.(*k8s.WaitForNodeRequest).Region,
+				},
 				Timeout:       argsI.(*k8s.WaitForNodeRequest).Timeout,
 				RetryInterval: core.DefaultRetryInterval,
 			})

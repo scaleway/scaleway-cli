@@ -33,8 +33,10 @@ func gatewayCreateBuilder(c *core.Command) *core.Command {
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForGateway(&vpcgw.WaitForGatewayRequest{
-			GatewayID:     getResp.ID,
-			Zone:          getResp.Zone,
+			GetGatewayRequest: vpcgw.GetGatewayRequest{
+				GatewayID: getResp.ID,
+				Zone:      getResp.Zone,
+			},
 			Timeout:       scw.TimeDurationPtr(gatewayActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
