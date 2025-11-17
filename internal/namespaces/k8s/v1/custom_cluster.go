@@ -390,7 +390,9 @@ func waitForClusterFunc(action int) core.WaitFunc {
 
 func k8sClusterWaitCommand() *core.Command {
 	type customClusterWaitArgs struct {
-		k8s.WaitForClusterRequest
+		ClusterID    string
+		Region       scw.Region
+		Timeout      time.Duration
 		WaitForPools bool
 	}
 
@@ -411,7 +413,7 @@ func k8sClusterWaitCommand() *core.Command {
 					ClusterID: args.ClusterID,
 					Region:    args.Region,
 				},
-				Timeout:       args.Timeout,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -432,7 +434,7 @@ func k8sClusterWaitCommand() *core.Command {
 							PoolID: pool.ID,
 							Region: pool.Region,
 						},
-						Timeout:       args.Timeout,
+						Timeout:       scw.TimeDurationPtr(args.Timeout),
 						RetryInterval: core.DefaultRetryInterval,
 					})
 					if err != nil {

@@ -107,7 +107,9 @@ func waitForServerFunc(action int) core.WaitFunc {
 
 func serverWaitCommand() *core.Command {
 	type customServerWaitArgs struct {
-		applesilicon.WaitForServerRequest
+		ServerID string
+		Zone     scw.Zone
+		Timeout  time.Duration
 	}
 
 	return &core.Command{
@@ -127,7 +129,7 @@ func serverWaitCommand() *core.Command {
 					ServerID: args.ServerID,
 					Zone:     args.Zone,
 				},
-				Timeout:       args.Timeout,
+				Timeout:       scw.TimeDurationPtr(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
