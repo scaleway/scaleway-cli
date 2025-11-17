@@ -49,7 +49,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
-
 			Timeout:       scw.TimeDurationPtr(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})

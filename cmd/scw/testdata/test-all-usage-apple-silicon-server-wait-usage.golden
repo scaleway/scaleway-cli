@@ -7,7 +7,7 @@ USAGE:
 
 EXAMPLES:
   Wait for a server to reach a stable state
-    scw apple-silicon server wait 11111111-1111-1111-1111-111111111111
+    scw apple-silicon server wait
 
 ARGS:
   server-id          ID of the server.

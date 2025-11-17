@@ -588,7 +588,7 @@ scw k8s cluster wait <cluster-id ...> [arg=value ...]
 
 Wait for a cluster to reach a stable state
 ```
-scw k8s cluster wait 11111111-1111-1111-1111-111111111111
+scw k8s cluster wait
 ```
 
 

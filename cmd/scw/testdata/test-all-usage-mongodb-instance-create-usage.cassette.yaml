@@ -2,29 +2,31 @@
 version: 1
 interactions:
 - request:
-    body: '{"versions":[{"version":"7.0.12", "end_of_life_at":"2026-01-02T15:04:05Z",
-      "available_settings":[]}], "total_count":1}'
+    body: '{"versions":[{"version":"7.0.21", "end_of_life_at":"2026-01-02T15:04:05Z",
+      "available_settings":[]}, {"version":"7.0.12", "end_of_life_at":"2026-01-02T15:04:05Z",
+      "available_settings":[]}], "total_count":2}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.33.0.20250516160029-3f13aad4f58a (go1.24.2; darwin;
-        amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.35.0.20251117083225-febdd5aefa58 (go1.25.3; darwin;
+        arm64) cli-e2e-test
     url: https://api.scaleway.com/mongodb/v1alpha1/regions/fr-par/versions
     method: GET
   response:
-    body: '{"versions":[{"version":"7.0.12", "end_of_life_at":"2026-01-02T15:04:05Z",
-      "available_settings":[]}], "total_count":1}'
+    body: '{"versions":[{"version":"7.0.21", "end_of_life_at":"2026-01-02T15:04:05Z",
+      "available_settings":[]}, {"version":"7.0.12", "end_of_life_at":"2026-01-02T15:04:05Z",
+      "available_settings":[]}], "total_count":2}'
     headers:
       Content-Length:
-      - "118"
+      - "206"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 19 May 2025 22:36:36 GMT
+      - Mon, 17 Nov 2025 11:49:17 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -32,7 +34,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - aaaacbf5-1f08-4d9c-8a96-c7519a551691
+      - dcd66147-45d2-4246-8af4-61982ac9b3d4
     status: 200 OK
     code: 200
     duration: ""
