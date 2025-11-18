@@ -232,6 +232,12 @@ func appleSiliconServerCreate() *core.Command {
 					"gitlab",
 				},
 			},
+			{
+				Name:       "applied-runner-configurations.runner-configuration-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -466,6 +472,12 @@ func appleSiliconServerUpdate() *core.Command {
 			{
 				Name:       "public-bandwidth-bps",
 				Short:      `Public bandwidth configured for this server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "applied-runner-configurations.runner-configuration-ids.{index}",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
