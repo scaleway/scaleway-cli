@@ -5,6 +5,7 @@ Label         Kubernetes 1.32.3
 Region        fr-par
 DeprecatedAt  few seconds ago
 EndOfLifeAt   few seconds ago
+ReleasedAt    few seconds ago
 
 Available Kubelet Arguments:
 containerLogMaxFiles         uint16
@@ -85,5 +86,5 @@ Available Admission Plugins:
   },
   "deprecated_at": "2026-03-24T00:00:00Z",
   "end_of_life_at": "2025-05-24T00:00:00Z",
-  "released_at": null
+  "released_at": "2025-03-24T00:00:00Z"
 }

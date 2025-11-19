@@ -13,11 +13,11 @@
   "author": "Scaleway",
   "devDependencies": {
     "@codecov/vite-plugin": "^1.9.1",
-    "@vitest/browser": "^3.2.4",
+    "@vitest/browser": "^4.0.6",
     "prettier": "3.6.2",
     "typescript": "^5.8.3",
     "vite": "^6.4.1",
-    "vitest": "^3.2.4"
+    "vitest": "^4.0.6"
   },
   "files": [
     "cli.wasm",

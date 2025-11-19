@@ -72,7 +72,7 @@ func testAutocompleteGetCommands() *core.Commands {
 			Verb:       "deprecated",
 			ArgsType:   reflect.TypeOf(struct{}{}),
 			Deprecated: true,
-			Short:      "this command is deprected",
+			Short:      "this command is deprecated",
 			Long:       "This command is deprecated and should not show up in autocomplete.",
 		},
 	)

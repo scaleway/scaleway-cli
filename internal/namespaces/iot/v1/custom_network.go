@@ -9,7 +9,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/iot/v1"
 )
 
-func iotNetworkCreateResponsedMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+func iotNetworkCreateResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp iot.CreateNetworkResponse
 	networkCreateResponse := tmp(*i.(*iot.CreateNetworkResponse))
 
