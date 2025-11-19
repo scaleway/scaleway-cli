@@ -57,7 +57,7 @@ ARGS:
 FLAGS:
   -h, --help   help for create
   -w, --wait   wait until the server is ready
-      --web    open console page for the current ressource
+      --web    open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

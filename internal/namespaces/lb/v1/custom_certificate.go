@@ -40,17 +40,17 @@ func lbCertificateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 func certificateCreateBuilder(c *core.Command) *core.Command {
 	leCommonNameArgSpecs := c.ArgSpecs.GetByName("letsencrypt.common-name")
 	leAlternativeNames := c.ArgSpecs.GetByName("letsencrypt.subject-alternative-name.{index}")
-	customeCertificateArgSpecs := c.ArgSpecs.GetByName("custom-certificate.certificate-chain")
+	customCertificateArgSpecs := c.ArgSpecs.GetByName("custom-certificate.certificate-chain")
 
 	leCommonNameArgSpecs.Required = false
 	leCommonNameArgSpecs.Name = "letsencrypt-common-name"
-	leCommonNameArgSpecs.ConflictWith(customeCertificateArgSpecs)
+	leCommonNameArgSpecs.ConflictWith(customCertificateArgSpecs)
 
 	leAlternativeNames.Name = "letsencrypt-alternative-name.{index}"
-	leCommonNameArgSpecs.ConflictWith(customeCertificateArgSpecs)
+	leCommonNameArgSpecs.ConflictWith(customCertificateArgSpecs)
 
-	customeCertificateArgSpecs.Name = "custom-certificate-chain"
-	customeCertificateArgSpecs.Required = false
+	customCertificateArgSpecs.Name = "custom-certificate-chain"
+	customCertificateArgSpecs.Required = false
 
 	type lbCreateCertificateRequestCustom struct {
 		Zone scw.Zone `json:"-"`
@@ -119,7 +119,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 			Hint: fmt.Sprintf(
 				"You need to specify %s or %s",
 				leCommonNameArgSpecs.Name,
-				customeCertificateArgSpecs.Name,
+				customCertificateArgSpecs.Name,
 			),
 			Code: 1,
 		}

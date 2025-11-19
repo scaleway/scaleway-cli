@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                  f94ea059-b0ce-422a-b251-892b85e290c5
-Name                cli-srv-jovial-jones
+ID                  9b14016b-b1d9-4ab9-a0bb-17a5702cdabc
+Name                cli-srv-adoring-edison
 Organization        fa1e3217-dc80-42ac-85c3-3f034b78b552
 Project             fa1e3217-dc80-42ac-85c3-3f034b78b552
 CommercialType      DEV1-S
 CreationDate        few seconds ago
 DynamicIPRequired   false
 RoutedIPEnabled     true
-Hostname            cli-srv-jovial-jones
+Hostname            cli-srv-adoring-edison
 Protected           false
-MacAddress          de:00:00:d0:05:25
+MacAddress          de:00:00:d1:46:1d
 ModificationDate    few seconds ago
 State               archived
 StateDetail         -
@@ -41,7 +41,7 @@ Allowed Actions:
 
 Volumes:
 ID                                    NAME                                       SIZE   VOLUME TYPE  IOPS  STATE   CREATION DATE    MODIFICATION DATE  BOOT   ZONE
-c3de3285-2ec9-446f-95df-7f2e5a2ad1d4  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
+bf509bb0-1f87-40cc-80fe-b866b919aeae  Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0  10 GB  sbs_5k       5K    in_use  few seconds ago  few seconds ago    false  fr-par-1
 
 Public IPs:
 ID   ADDRESS  GATEWAY  NETMASK  FAMILY  DYNAMIC  PROVISIONING MODE  TAGS  IPAM ID  STATE
@@ -53,8 +53,8 @@ Server Filesystems:
 FILESYSTEM ID  STATE
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "f94ea059-b0ce-422a-b251-892b85e290c5",
-  "name": "cli-srv-jovial-jones",
+  "id": "9b14016b-b1d9-4ab9-a0bb-17a5702cdabc",
+  "name": "cli-srv-adoring-edison",
   "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "allowed_actions": [
@@ -66,7 +66,7 @@ FILESYSTEM ID  STATE
   "creation_date": "1970-01-01T00:00:00.0Z",
   "dynamic_ip_required": false,
   "routed_ip_enabled": true,
-  "hostname": "cli-srv-jovial-jones",
+  "hostname": "cli-srv-adoring-edison",
   "image": {
     "id": "6d3c053e-c728-4294-b23a-560b62a4d592",
     "name": "Ubuntu 22.04 Jammy Jellyfish",
@@ -92,7 +92,7 @@ FILESYSTEM ID  STATE
   "protected": false,
   "private_ip": null,
   "public_ips": [],
-  "mac_address": "de:00:00:d0:05:25",
+  "mac_address": "de:00:00:d1:46:1d",
   "modification_date": "1970-01-01T00:00:00.0Z",
   "state": "stopped",
   "state_detail": "",
@@ -111,7 +111,7 @@ FILESYSTEM ID  STATE
   "end_of_service": false,
   "Volumes": [
     {
-      "id": "c3de3285-2ec9-446f-95df-7f2e5a2ad1d4",
+      "id": "bf509bb0-1f87-40cc-80fe-b866b919aeae",
       "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
       "size": 10000000000,
       "volume_type": "sbs_5k",

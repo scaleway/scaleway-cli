@@ -51,7 +51,7 @@ func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	images := i.([]*imageListItem)
 	humanImages := []*humanImage(nil)
 	for _, image := range images {
-		// For each image we want to display a list of volume size sepatated with `,`
+		// For each image we want to display a list of volume size separated with `,`
 		// e.g: 10 GB, 20 GB
 		volumes := []scw.Size{
 			image.RootVolume.Size,

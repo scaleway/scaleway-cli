@@ -16,14 +16,14 @@ type CliError struct {
 	Err error
 
 	// Message allow to override the red message shown to the use.
-	// By default we will use Err.String() but in same case you may want to keep Err
-	// to avoid loosing detail in json output.
+	// By default, we will use Err.String() but in same case you may want to keep Err
+	// to avoid losing detail in json output.
 	Message string
 
 	Details string
 	Hint    string
 
-	// Code allows to return a sepcific error code from the main binary.
+	// Code allows to return a specific error code from the main binary.
 	Code int
 
 	// Empty tells the marshaler to not print any message for the error

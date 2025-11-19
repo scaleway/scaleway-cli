@@ -383,8 +383,8 @@ func jobsDefinitionUpdate() *core.Command {
 
 func jobsDefinitionDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete an exsisting job definition by its unique identifier`,
-		Long:      `Delete an exsisting job definition by its unique identifier.`,
+		Short:     `Delete an existing job definition by its unique identifier`,
+		Long:      `Delete an existing job definition by its unique identifier.`,
 		Namespace: "jobs",
 		Resource:  "definition",
 		Verb:      "delete",

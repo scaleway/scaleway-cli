@@ -1,465 +1,465 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"cluster_types":[{"name":"kapsule", "availability":"available", "max_nodes":150,
-      "commitment_delay":"0s", "sla":0, "resiliency":"standard", "memory":4000000000,
-      "dedicated":false, "audit_logs_supported":false, "max_etcd_size":55000000},
-      {"name":"kapsule-dedicated-4", "availability":"available", "max_nodes":250,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":4000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"kapsule-dedicated-8", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":8000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"kapsule-dedicated-16", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":16000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"multicloud", "availability":"available", "max_nodes":150, "commitment_delay":"0s",
-      "sla":0, "resiliency":"standard", "memory":4000000000, "dedicated":false, "audit_logs_supported":false,
-      "max_etcd_size":55000000}, {"name":"multicloud-dedicated-4", "availability":"available",
-      "max_nodes":250, "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":4000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"multicloud-dedicated-8", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":8000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"multicloud-dedicated-16", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":16000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000}],
-      "total_count":8}'
-    form: {}
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/k8s/v1/regions/fr-par/cluster-types
     method: GET
   response:
-    body: '{"cluster_types":[{"name":"kapsule", "availability":"available", "max_nodes":150,
-      "commitment_delay":"0s", "sla":0, "resiliency":"standard", "memory":4000000000,
-      "dedicated":false, "audit_logs_supported":false, "max_etcd_size":55000000},
-      {"name":"kapsule-dedicated-4", "availability":"available", "max_nodes":250,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":4000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"kapsule-dedicated-8", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":8000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"kapsule-dedicated-16", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":16000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"multicloud", "availability":"available", "max_nodes":150, "commitment_delay":"0s",
-      "sla":0, "resiliency":"standard", "memory":4000000000, "dedicated":false, "audit_logs_supported":false,
-      "max_etcd_size":55000000}, {"name":"multicloud-dedicated-4", "availability":"available",
-      "max_nodes":250, "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":4000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"multicloud-dedicated-8", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":8000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000},
-      {"name":"multicloud-dedicated-16", "availability":"available", "max_nodes":500,
-      "commitment_delay":"2592000s", "sla":99.5, "resiliency":"high_availability",
-      "memory":16000000000, "dedicated":true, "audit_logs_supported":true, "max_etcd_size":200000000}],
-      "total_count":8}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1985
+    body: "{\"cluster_types\":[{\"name\":\"kapsule\", \"availability\":\"available\", \"max_nodes\":150, \"commitment_delay\":\"0s\", \"sla\":0, \"resiliency\":\"standard\", \"memory\":4000000000, \"dedicated\":false, \"audit_logs_supported\":false, \"max_etcd_size\":55000000}, {\"name\":\"kapsule-dedicated-4\", \"availability\":\"available\", \"max_nodes\":250, \"commitment_delay\":\"2592000s\", \"sla\":99.5, \"resiliency\":\"high_availability\", \"memory\":4000000000, \"dedicated\":true, \"audit_logs_supported\":true, \"max_etcd_size\":200000000}, {\"name\":\"kapsule-dedicated-8\", \"availability\":\"available\", \"max_nodes\":500, \"commitment_delay\":\"2592000s\", \"sla\":99.5, \"resiliency\":\"high_availability\", \"memory\":8000000000, \"dedicated\":true, \"audit_logs_supported\":true, \"max_etcd_size\":200000000}, {\"name\":\"kapsule-dedicated-16\", \"availability\":\"available\", \"max_nodes\":500, \"commitment_delay\":\"2592000s\", \"sla\":99.5, \"resiliency\":\"high_availability\", \"memory\":16000000000, \"dedicated\":true, \"audit_logs_supported\":true, \"max_etcd_size\":200000000}, {\"name\":\"multicloud\", \"availability\":\"available\", \"max_nodes\":150, \"commitment_delay\":\"0s\", \"sla\":0, \"resiliency\":\"standard\", \"memory\":4000000000, \"dedicated\":false, \"audit_logs_supported\":false, \"max_etcd_size\":55000000}, {\"name\":\"multicloud-dedicated-4\", \"availability\":\"available\", \"max_nodes\":250, \"commitment_delay\":\"2592000s\", \"sla\":99.5, \"resiliency\":\"high_availability\", \"memory\":4000000000, \"dedicated\":true, \"audit_logs_supported\":true, \"max_etcd_size\":200000000}, {\"name\":\"multicloud-dedicated-8\", \"availability\":\"available\", \"max_nodes\":500, \"commitment_delay\":\"2592000s\", \"sla\":99.5, \"resiliency\":\"high_availability\", \"memory\":8000000000, \"dedicated\":true, \"audit_logs_supported\":true, \"max_etcd_size\":200000000}, {\"name\":\"multicloud-dedicated-16\", \"availability\":\"available\", \"max_nodes\":500, \"commitment_delay\":\"2592000s\", \"sla\":99.5, \"resiliency\":\"high_availability\", \"memory\":16000000000, \"dedicated\":true, \"audit_logs_supported\":true, \"max_etcd_size\":200000000}], \"total_count\":8}"
     headers:
       Content-Length:
       - "1985"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:08 GMT
+      - Mon, 03 Nov 2025 16:40:47 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - fba5d25b-bcac-4f14-a1b7-7195880152e5
+      - cc2f4372-e1f2-488e-903c-9969fcd49cba
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"id":"463a6351-e4e2-491c-bb76-aebc7aabf253", "name":"pn-confident-khorana",
-      "tags":["created-along-with-k8s-cluster", "created-by-cli"], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "created_at":"2025-07-30T13:43:08.082758Z", "updated_at":"2025-07-30T13:43:08.082758Z",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"af78d69e-65df-4437-b025-595cce233b29",
-      "created_at":"2025-07-30T13:43:08.082758Z", "updated_at":"2025-07-30T13:43:08.082758Z",
-      "subnet":"172.16.20.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"},
-      {"id":"f3cadde2-1ab0-4c2a-a3da-548f41916396", "created_at":"2025-07-30T13:43:08.082758Z",
-      "updated_at":"2025-07-30T13:43:08.082758Z", "subnet":"fd63:256c:45f7:72ee::/64",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c",
-      "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
-    form: {}
+    duration: 155.648528ms
+- id: 1
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 197
+    host: api.scaleway.com
+    body: "{\"name\":\"pn-crazy-zhukovsky\",\"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\",\"tags\":[\"created-along-with-k8s-cluster\",\"created-by-cli\"],\"subnets\":null,\"default_route_propagation_enabled\":false}"
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
     method: POST
   response:
-    body: '{"id":"463a6351-e4e2-491c-bb76-aebc7aabf253", "name":"pn-confident-khorana",
-      "tags":["created-along-with-k8s-cluster", "created-by-cli"], "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "created_at":"2025-07-30T13:43:08.082758Z", "updated_at":"2025-07-30T13:43:08.082758Z",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "subnets":[{"id":"af78d69e-65df-4437-b025-595cce233b29",
-      "created_at":"2025-07-30T13:43:08.082758Z", "updated_at":"2025-07-30T13:43:08.082758Z",
-      "subnet":"172.16.20.0/22", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253", "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"},
-      {"id":"f3cadde2-1ab0-4c2a-a3da-548f41916396", "created_at":"2025-07-30T13:43:08.082758Z",
-      "updated_at":"2025-07-30T13:43:08.082758Z", "subnet":"fd63:256c:45f7:72ee::/64",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c"}], "vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c",
-      "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1137
+    body: "{\"id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"name\":\"pn-crazy-zhukovsky\", \"tags\":[\"created-along-with-k8s-cluster\", \"created-by-cli\"], \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:47.523530Z\", \"updated_at\":\"2025-11-03T16:40:47.523530Z\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"subnets\":[{\"id\":\"62092958-a0df-4a85-a87f-cfac4921ae6c\", \"created_at\":\"2025-11-03T16:40:47.523530Z\", \"updated_at\":\"2025-11-03T16:40:47.523530Z\", \"subnet\":\"172.16.0.0/22\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"vpc_id\":\"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c\"}, {\"id\":\"8c812823-63c0-48b1-9616-7f2043af80f5\", \"created_at\":\"2025-11-03T16:40:47.523530Z\", \"updated_at\":\"2025-11-03T16:40:47.523530Z\", \"subnet\":\"fd63:256c:45f7:fd01::/64\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"vpc_id\":\"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c\"}], \"vpc_id\":\"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c\", \"dhcp_enabled\":true, \"default_route_propagation_enabled\":false, \"region\":\"fr-par\"}"
     headers:
       Content-Length:
-      - "1140"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "1137"
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:08 GMT
+      - Mon, 03 Nov 2025 16:40:48 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - 7625c287-5fef-4f41-bf7c-440928ac658f
+      - 9b7ffbd0-6401-4c0c-8b91-96b706b8b5a4
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:08.838639Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"creating", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
-    form: {}
+    duration: 639.82769ms
+- id: 2
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 665
+    host: api.scaleway.com
+    body: "{\"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\",\"type\":\"\",\"name\":\"cli-test-get-cluster\",\"description\":\"\",\"tags\":null,\"version\":\"1.32.3\",\"cni\":\"cilium\",\"pools\":[{\"name\":\"default\",\"node_type\":\"DEV1-M\",\"placement_group_id\":null,\"autoscaling\":false,\"size\":1,\"min_size\":null,\"max_size\":null,\"container_runtime\":\"unknown_runtime\",\"autohealing\":false,\"tags\":null,\"kubelet_args\":null,\"upgrade_policy\":null,\"zone\":\"\",\"root_volume_type\":\"default_volume_type\",\"root_volume_size\":null,\"public_ip_disabled\":false,\"security_group_id\":null}],\"feature_gates\":null,\"admission_plugins\":null,\"apiserver_cert_sans\":null,\"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\"}"
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters
     method: POST
   response:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:08.838639Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"creating", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1556
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:48.545193Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"creating\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"\", \"new_images_enabled\":false, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
     headers:
       Content-Length:
-      - "1521"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "1556"
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:09 GMT
+      - Mon, 03 Nov 2025 16:40:48 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - bfb7f22d-5539-4f26-a214-09b55cf16346
+      - af988358-41f5-4620-a397-bbb180117ded
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:08.838639Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"creating", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
-    form: {}
+    duration: 540.105621ms
+- id: 3
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/f1e8452c-2434-4cf8-a594-bf8f5abf44fb
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
     method: GET
   response:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:08.838639Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"creating", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1555
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:48.545193Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"creating\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
     headers:
       Content-Length:
-      - "1521"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "1555"
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:09 GMT
+      - Mon, 03 Nov 2025 16:40:48 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - e692599c-c901-44e7-b4c2-7b316406a0e7
+      - 52b089a8-43d3-4e96-9ffa-33b2701e0fee
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"total_count":1, "pools":[{"region":"fr-par", "id":"c63e3bfd-7a81-4e1c-8182-faf02c53ebe9",
-      "cluster_id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "created_at":"2025-07-30T13:43:08.685249Z",
-      "updated_at":"2025-07-30T13:43:08.685249Z", "name":"default", "status":"scaling",
-      "version":"1.32.3", "node_type":"dev1_m", "autoscaling":false, "size":1, "min_size":0,
-      "max_size":1, "container_runtime":"containerd", "autohealing":false, "tags":[],
-      "placement_group_id":null, "kubelet_args":{}, "upgrade_policy":{"max_unavailable":1,
-      "max_surge":0}, "zone":"fr-par-1", "root_volume_type":"l_ssd", "root_volume_size":40000000000,
-      "public_ip_disabled":false, "new_images_enabled":false, "security_group_id":"592f683f-83b9-47e4-9434-ca1931bdaa4b"}]}'
-    form: {}
+    duration: 42.874263ms
+- id: 4
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    form:
+      order_by:
+      - created_at_asc
+      status:
+      - unknown
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/f1e8452c-2434-4cf8-a594-bf8f5abf44fb/pools?order_by=created_at_asc&status=unknown
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa/pools?order_by=created_at_asc&status=unknown
     method: GET
   response:
-    body: '{"total_count":1, "pools":[{"region":"fr-par", "id":"c63e3bfd-7a81-4e1c-8182-faf02c53ebe9",
-      "cluster_id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "created_at":"2025-07-30T13:43:08.685249Z",
-      "updated_at":"2025-07-30T13:43:08.685249Z", "name":"default", "status":"scaling",
-      "version":"1.32.3", "node_type":"dev1_m", "autoscaling":false, "size":1, "min_size":0,
-      "max_size":1, "container_runtime":"containerd", "autohealing":false, "tags":[],
-      "placement_group_id":null, "kubelet_args":{}, "upgrade_policy":{"max_unavailable":1,
-      "max_surge":0}, "zone":"fr-par-1", "root_volume_type":"l_ssd", "root_volume_size":40000000000,
-      "public_ip_disabled":false, "new_images_enabled":false, "security_group_id":"592f683f-83b9-47e4-9434-ca1931bdaa4b"}]}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 734
+    body: "{\"total_count\":1, \"pools\":[{\"region\":\"fr-par\", \"id\":\"65fbd09a-72aa-4022-af5a-6a09212d7047\", \"cluster_id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"created_at\":\"2025-11-03T16:40:48.152865Z\", \"updated_at\":\"2025-11-03T16:40:48.152865Z\", \"name\":\"default\", \"status\":\"scaling\", \"version\":\"1.32.3\", \"node_type\":\"dev1_m\", \"autoscaling\":false, \"size\":1, \"min_size\":0, \"max_size\":1, \"container_runtime\":\"containerd\", \"autohealing\":false, \"tags\":[], \"placement_group_id\":null, \"kubelet_args\":{}, \"upgrade_policy\":{\"max_unavailable\":1, \"max_surge\":0}, \"zone\":\"fr-par-1\", \"root_volume_type\":\"l_ssd\", \"root_volume_size\":40000000000, \"public_ip_disabled\":false, \"new_images_enabled\":true, \"security_group_id\":\"592f683f-83b9-47e4-9434-ca1931bdaa4b\"}]}"
     headers:
       Content-Length:
-      - "735"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "734"
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:09 GMT
+      - Mon, 03 Nov 2025 16:40:48 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - af338d29-0848-475d-92ae-bdb785ed3c00
+      - 099b0349-c473-4e74-b1bb-5111637f5088
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:09.454288Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"deleting", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
-    form: {}
+    duration: 19.472495ms
+- id: 5
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    form:
+      with_additional_resources:
+      - "true"
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/f1e8452c-2434-4cf8-a594-bf8f5abf44fb?with_additional_resources=true
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa?with_additional_resources=true
     method: DELETE
   response:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:09.454288Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"deleting", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1556
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:48.760607Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"\", \"new_images_enabled\":false, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
     headers:
       Content-Length:
-      - "1521"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "1556"
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:09 GMT
+      - Mon, 03 Nov 2025 16:40:48 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - b842f3a2-3c55-44b8-882c-c951592bd570
+      - 446e395b-df53-4725-abbb-7d79c2894c95
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:09.454288Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"deleting", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
-    form: {}
+    duration: 144.009004ms
+- id: 6
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/f1e8452c-2434-4cf8-a594-bf8f5abf44fb
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
     method: GET
   response:
-    body: '{"region":"fr-par", "id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552",
-      "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2025-07-30T13:43:08.838639Z",
-      "updated_at":"2025-07-30T13:43:09.454288Z", "type":"kapsule", "name":"cli-test-get-cluster",
-      "description":"", "status":"deleting", "version":"1.32.3", "cni":"cilium", "tags":[],
-      "cluster_url":"https://f1e8452c-2434-4cf8-a594-bf8f5abf44fb.api.k8s.fr-par.scw.cloud:6443",
-      "dns_wildcard":"*.f1e8452c-2434-4cf8-a594-bf8f5abf44fb.nodes.k8s.fr-par.scw.cloud",
-      "autoscaler_config":{"scale_down_disabled":false, "scale_down_delay_after_add":"10m",
-      "estimator":"binpacking", "expander":"random", "ignore_daemonsets_utilization":false,
-      "balance_similar_node_groups":false, "expendable_pods_priority_cutoff":-10,
-      "scale_down_unneeded_time":"10m", "scale_down_utilization_threshold":0.5, "max_graceful_termination_sec":600},
-      "auto_upgrade":{"enabled":false, "maintenance_window":{"start_hour":0, "day":"any"}},
-      "upgrade_available":true, "feature_gates":[], "admission_plugins":[], "open_id_connect_config":{"issuer_url":"",
-      "client_id":"", "username_claim":"", "username_prefix":"", "groups_claim":[],
-      "groups_prefix":"", "required_claim":[]}, "apiserver_cert_sans":[], "private_network_id":"463a6351-e4e2-491c-bb76-aebc7aabf253",
-      "commitment_ends_at":"2025-07-30T13:43:08.838648Z", "acl_available":true, "iam_nodes_group_id":"",
-      "new_images_enabled":false, "pod_cidr":"", "service_cidr":"", "service_dns_ip":""}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1555
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:48.760607Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
     headers:
       Content-Length:
-      - "1521"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "1555"
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:09 GMT
+      - Mon, 03 Nov 2025 16:40:48 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - 7b3e1e55-aeda-41d5-bfc0-916449515070
+      - d42387f1-3a8c-4177-bf2b-8086579ec178
     status: 200 OK
     code: 200
-    duration: ""
-- request:
-    body: '{"message":"resource is not found","resource":"cluster","resource_id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb","type":"not_found"}'
-    form: {}
+    duration: 18.00819ms
+- id: 7
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.1; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/f1e8452c-2434-4cf8-a594-bf8f5abf44fb
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
     method: GET
   response:
-    body: '{"message":"resource is not found","resource":"cluster","resource_id":"f1e8452c-2434-4cf8-a594-bf8f5abf44fb","type":"not_found"}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1591
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:49.141784Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"1043d2f0-6050-4521-b8e3-d23d5b765bef\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
+    headers:
+      Content-Length:
+      - "1591"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 16:40:53 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - 6153e7dc-ca6a-4e2b-85c5-59391372f5f9
+    status: 200 OK
+    code: 200
+    duration: 38.383618ms
+- id: 8
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1591
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:49.141784Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"1043d2f0-6050-4521-b8e3-d23d5b765bef\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
+    headers:
+      Content-Length:
+      - "1591"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 16:40:58 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - 9b5a6595-e39b-4a6c-8400-d9ef3018f781
+    status: 200 OK
+    code: 200
+    duration: 46.990683ms
+- id: 9
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1591
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:49.141784Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"1043d2f0-6050-4521-b8e3-d23d5b765bef\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
+    headers:
+      Content-Length:
+      - "1591"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 16:41:04 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - 9b1a3941-65b7-4108-bc8c-bbd09b46a39c
+    status: 200 OK
+    code: 200
+    duration: 66.731115ms
+- id: 10
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1591
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:49.141784Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"1043d2f0-6050-4521-b8e3-d23d5b765bef\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
+    headers:
+      Content-Length:
+      - "1591"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 16:41:09 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - 9fc34e9b-2ae3-424a-9420-f03e7ab4239f
+    status: 200 OK
+    code: 200
+    duration: 47.238001ms
+- id: 11
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1591
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:49.141784Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"1043d2f0-6050-4521-b8e3-d23d5b765bef\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
+    headers:
+      Content-Length:
+      - "1591"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 16:41:14 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - cfc14545-c970-444a-9d16-eaececb09f75
+    status: 200 OK
+    code: 200
+    duration: 50.446167ms
+- id: 12
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 1591
+    body: "{\"region\":\"fr-par\", \"id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\", \"organization_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project_id\":\"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"created_at\":\"2025-11-03T16:40:48.545193Z\", \"updated_at\":\"2025-11-03T16:40:49.141784Z\", \"type\":\"kapsule\", \"name\":\"cli-test-get-cluster\", \"description\":\"\", \"status\":\"deleting\", \"version\":\"1.32.3\", \"cni\":\"cilium\", \"tags\":[], \"cluster_url\":\"https://ebad6977-b62e-499f-bb6e-c97dbbbe56aa.api.k8s.fr-par.scw.cloud:6443\", \"dns_wildcard\":\"*.ebad6977-b62e-499f-bb6e-c97dbbbe56aa.nodes.k8s.fr-par.scw.cloud\", \"autoscaler_config\":{\"scale_down_disabled\":false, \"scale_down_delay_after_add\":\"10m\", \"estimator\":\"binpacking\", \"expander\":\"random\", \"ignore_daemonsets_utilization\":false, \"balance_similar_node_groups\":false, \"expendable_pods_priority_cutoff\":-10, \"scale_down_unneeded_time\":\"10m\", \"scale_down_utilization_threshold\":0.5, \"max_graceful_termination_sec\":600}, \"auto_upgrade\":{\"enabled\":false, \"maintenance_window\":{\"start_hour\":0, \"day\":\"any\"}}, \"upgrade_available\":true, \"feature_gates\":[], \"admission_plugins\":[], \"open_id_connect_config\":{\"issuer_url\":\"\", \"client_id\":\"\", \"username_claim\":\"\", \"username_prefix\":\"\", \"groups_claim\":[], \"groups_prefix\":\"\", \"required_claim\":[]}, \"apiserver_cert_sans\":[], \"private_network_id\":\"4a64f3e9-f128-4679-84ac-af05eec5b520\", \"commitment_ends_at\":\"2025-11-03T16:40:48.545197Z\", \"acl_available\":true, \"iam_nodes_group_id\":\"1043d2f0-6050-4521-b8e3-d23d5b765bef\", \"new_images_enabled\":true, \"pod_cidr\":\"100.64.0.0/15\", \"service_cidr\":\"10.32.0.0/20\", \"service_dns_ip\":\"10.32.0.10\"}"
+    headers:
+      Content-Length:
+      - "1591"
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 03 Nov 2025 16:41:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      X-Request-Id:
+      - 866e8b83-0c6a-48a5-a18a-f365b1eda9f7
+    status: 200 OK
+    code: 200
+    duration: 43.560432ms
+- id: 13
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/k8s/v1/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 128
+    body: "{\"message\":\"resource is not found\",\"resource\":\"cluster\",\"resource_id\":\"ebad6977-b62e-499f-bb6e-c97dbbbe56aa\",\"type\":\"not_found\"}"
     headers:
       Content-Length:
       - "128"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 30 Jul 2025 13:43:14 GMT
+      - Mon, 03 Nov 2025 16:41:24 GMT
       Server:
-      - Scaleway API Gateway (fr-par-1;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - 11779ddf-4394-4b27-b35a-93d252db4ac9
+      - 68f0bbc6-4f53-4501-93a2-bab1bbcf3dc2
     status: 404 Not Found
     code: 404
-    duration: ""
+    duration: 18.903234ms

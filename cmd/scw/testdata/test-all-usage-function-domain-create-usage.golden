@@ -6,7 +6,7 @@ USAGE:
   scw function domain create [arg=value ...]
 
 ARGS:
-  [hostname]        Hostame to create
+  [hostname]        Hostname to create
   [function-id]     UUID of the function to associate the domain with
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                1bb9c594-04d0-489c-83c7-5722321c0b69
+ID                3a04da67-e97e-4654-9e94-ab430e9e635f
 Type              kapsule
 Name              cli-test-wait-cluster
 Status            ready
@@ -10,18 +10,19 @@ OrganizationID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
 Cni               cilium
 Description       -
-ClusterURL        https://1bb9c594-04d0-489c-83c7-5722321c0b69.api.k8s.fr-par.scw.cloud:6443
-DNSWildcard       *.1bb9c594-04d0-489c-83c7-5722321c0b69.nodes.k8s.fr-par.scw.cloud
+ClusterURL        https://3a04da67-e97e-4654-9e94-ab430e9e635f.api.k8s.fr-par.scw.cloud:6443
+DNSWildcard       *.3a04da67-e97e-4654-9e94-ab430e9e635f.nodes.k8s.fr-par.scw.cloud
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 UpgradeAvailable  true
-PrivateNetworkID  bcf823a3-b7c7-4d1f-8939-b8eba6a964bc
+PrivateNetworkID  f932db89-93ed-4779-b9d4-2231b507aea2
 CommitmentEndsAt  few seconds ago
 ACLAvailable      true
-IamNodesGroupID   296bd2f7-4ed2-4faa-97d5-2850241745b6
-NewImagesEnabled  false
-PodCidr           -
-ServiceCidr       -
+IamNodesGroupID   30185f78-13c6-470e-a589-bc4f33fd9119
+NewImagesEnabled  true
+PodCidr           100.64.0.0/15
+ServiceCidr       10.32.0.0/20
+ServiceDNSIP      10.32.0.10
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -48,7 +49,7 @@ UsernamePrefix  -
 GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "1bb9c594-04d0-489c-83c7-5722321c0b69",
+  "id": "3a04da67-e97e-4654-9e94-ab430e9e635f",
   "type": "kapsule",
   "name": "cli-test-wait-cluster",
   "status": "ready",
@@ -59,8 +60,8 @@ GroupsPrefix    -
   "tags": [],
   "cni": "cilium",
   "description": "",
-  "cluster_url": "https://1bb9c594-04d0-489c-83c7-5722321c0b69.api.k8s.fr-par.scw.cloud:6443",
-  "dns_wildcard": "*.1bb9c594-04d0-489c-83c7-5722321c0b69.nodes.k8s.fr-par.scw.cloud",
+  "cluster_url": "https://3a04da67-e97e-4654-9e94-ab430e9e635f.api.k8s.fr-par.scw.cloud:6443",
+  "dns_wildcard": "*.3a04da67-e97e-4654-9e94-ab430e9e635f.nodes.k8s.fr-par.scw.cloud",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "autoscaler_config": {
@@ -95,12 +96,12 @@ GroupsPrefix    -
     "required_claim": []
   },
   "apiserver_cert_sans": [],
-  "private_network_id": "bcf823a3-b7c7-4d1f-8939-b8eba6a964bc",
+  "private_network_id": "f932db89-93ed-4779-b9d4-2231b507aea2",
   "commitment_ends_at": "1970-01-01T00:00:00.0Z",
   "acl_available": true,
-  "iam_nodes_group_id": "296bd2f7-4ed2-4faa-97d5-2850241745b6",
-  "new_images_enabled": false,
-  "pod_cidr": "",
-  "service_cidr": "",
-  "service_dns_ip": ""
+  "iam_nodes_group_id": "30185f78-13c6-470e-a589-bc4f33fd9119",
+  "new_images_enabled": true,
+  "pod_cidr": "100.64.0.0/15",
+  "service_cidr": "10.32.0.0/20",
+  "service_dns_ip": "10.32.0.10"
 }

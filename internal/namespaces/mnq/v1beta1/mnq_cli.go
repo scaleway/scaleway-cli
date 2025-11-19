@@ -501,7 +501,7 @@ func mnqSnsActivate() *core.Command {
 func mnqSnsGetInfo() *core.Command {
 	return &core.Command{
 		Short:     `Get Topics and Events info`,
-		Long:      `Retrieve the Topics and Events information of the specified Project ID. Informations include the activation status and the Topics and Events API endpoint URL.`,
+		Long:      `Retrieve the Topics and Events information of the specified Project ID. Information include the activation status and the Topics and Events API endpoint URL.`,
 		Namespace: "mnq",
 		Resource:  "sns",
 		Verb:      "get-info",
@@ -830,7 +830,7 @@ func mnqSqsActivate() *core.Command {
 func mnqSqsGetInfo() *core.Command {
 	return &core.Command{
 		Short:     `Get Queues info`,
-		Long:      `Retrieve the Queues information of the specified Project ID. Informations include the activation status and the Queues API endpoint URL.`,
+		Long:      `Retrieve the Queues information of the specified Project ID. Information include the activation status and the Queues API endpoint URL.`,
 		Namespace: "mnq",
 		Resource:  "sqs",
 		Verb:      "get-info",

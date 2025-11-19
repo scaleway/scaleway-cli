@@ -1793,7 +1793,7 @@ func iamPolicyCreate() *core.Command {
 func iamPolicyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an existing policy`,
-		Long:      `Retrieve information about a policy, speficified by the ` + "`" + `policy_id` + "`" + ` parameter. The policy's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `nb_rules` + "`" + ` and ` + "`" + `nb_scopes` + "`" + `, ` + "`" + `nb_permission_sets` + "`" + ` are returned in the response.`,
+		Long:      `Retrieve information about a policy, specified by the ` + "`" + `policy_id` + "`" + ` parameter. The policy's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `nb_rules` + "`" + ` and ` + "`" + `nb_scopes` + "`" + `, ` + "`" + `nb_permission_sets` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "get",
