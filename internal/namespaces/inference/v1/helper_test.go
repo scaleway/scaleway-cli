@@ -27,7 +27,3 @@ func CreatePN() core.BeforeFunc {
 func DeletePrivateNetwork() core.AfterFunc {
 	return core.ExecAfterCmd("scw vpc private-network delete {{ .PN.ID }}")
 }
-
-func DeleteDeployment() core.AfterFunc {
-	return core.ExecAfterCmd("scw inference deployment delete {{ .DEPLOYMENT.ID }}")
-}

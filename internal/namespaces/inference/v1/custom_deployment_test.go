@@ -51,16 +51,15 @@ func Test_CreateDeploymentPrivateEndpoint(t *testing.T) {
 		Commands:   cmds,
 		BeforeFunc: CreatePN(),
 		Cmd: fmt.Sprintf(
-			"scw inference deployment create model-id=%s node-type-name=%s accept-eula=true endpoints.0.private-network.private-network-id={{ .PN.ID }}",
+			"scw inference deployment create model-id=%s node-type-name=H100-SXM-2 accept-eula=true endpoints.0.private-network.private-network-id={{ .PN.ID }} --wait",
 			ModelID,
-			NodeTypeName,
 		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
 		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd("scw inference deployment delete {{ .CmdResult.ID }} --wait"),
 			DeletePrivateNetwork(),
-			DeleteDeployment(),
 		),
 	}))
 }

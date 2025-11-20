@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Unknown shorthand flag: 'w' in -w
+scaleway-sdk-go: error executing request: Delete "https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32": Requested interaction not found
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "error": "unknown shorthand flag: 'w' in -w"
+  "error": "scaleway-sdk-go: error executing request: Delete \"https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32\": Requested interaction not found"
 }

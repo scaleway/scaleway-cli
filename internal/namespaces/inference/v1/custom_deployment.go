@@ -2,8 +2,10 @@ package inference
 
 import (
 	"context"
+	"errors"
+	"fmt"
+	"net/http"
 	"reflect"
-	"strings"
 	"time"
 
 	"github.com/fatih/color"
@@ -15,6 +17,8 @@ import (
 
 const (
 	deploymentActionTimeout = 60 * time.Minute
+	deploymentActionCreate  = 1
+	deploymentActionDelete  = 2
 )
 
 var deploymentStateMarshalSpecs = human.EnumMarshalSpecs{
@@ -43,40 +47,13 @@ func DeploymentMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	return str, nil
 }
 
-var completeListNodeTypesCache *inference.ListNodeTypesResponse
+func deploymentDeleteBuilder(c *core.Command) *core.Command {
+	c.WaitFunc = waitForDeploymentFunc(deploymentActionDelete)
 
-func autocompleteDeploymentNodeType(
-	ctx context.Context,
-	prefix string,
-	request any,
-) core.AutocompleteSuggestions {
-	req := request.(*inference.CreateDeploymentRequest)
-	suggestions := core.AutocompleteSuggestions(nil)
-
-	client := core.ExtractClient(ctx)
-	api := inference.NewAPI(client)
-
-	if completeListNodeTypesCache == nil {
-		res, err := api.ListNodeTypes(&inference.ListNodeTypesRequest{
-			Region: req.Region,
-		})
-		if err != nil {
-			return nil
-		}
-		completeListNodeTypesCache = res
-	}
-
-	for _, nodeType := range completeListNodeTypesCache.NodeTypes {
-		if strings.HasPrefix(nodeType.Name, prefix) {
-			suggestions = append(suggestions, nodeType.Name)
-		}
-	}
-
-	return suggestions
+	return c
 }
 
 func deploymentCreateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("node-type-name").AutoCompleteFunc = autocompleteDeploymentNodeType
 	type llmInferenceEndpointSpecCustom struct {
 		*inference.EndpointSpec
 		IsPublic bool `json:"is-public"`
@@ -96,17 +73,8 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(llmInferenceCreateDeploymentRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
-		api := inference.NewAPI(core.ExtractClient(ctx))
+	c.WaitFunc = waitForDeploymentFunc(deploymentActionCreate)
 
-		return api.WaitForDeployment(&inference.WaitForDeploymentRequest{
-			DeploymentID:  respI.(*inference.Deployment).ID,
-			Region:        respI.(*inference.Deployment).Region,
-			Status:        respI.(*inference.Deployment).Status,
-			Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),
-			RetryInterval: core.DefaultRetryInterval,
-		})
-	}
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		deploymentCreateCustomRequest := argsI.(*llmInferenceCreateDeploymentRequestCustom)
 		deploymentRequest := deploymentCreateCustomRequest.CreateDeploymentRequest
@@ -144,4 +112,37 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+func waitForDeploymentFunc(action int) core.WaitFunc {
+	return func(ctx context.Context, _, respI any) (any, error) {
+		deployment, err := inference.NewAPI(core.ExtractClient(ctx)).
+			WaitForDeployment(&inference.WaitForDeploymentRequest{
+				DeploymentID:  respI.(*inference.Deployment).ID,
+				Region:        respI.(*inference.Deployment).Region,
+				Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
+			})
+
+		switch action {
+		case deploymentActionCreate:
+			return deployment, err
+		case deploymentActionDelete:
+			if err != nil {
+				// if we get a 404 here, it means the resource was successfully deleted
+				notFoundError := &scw.ResourceNotFoundError{}
+				responseError := &scw.ResponseError{}
+				if errors.As(err, &responseError) &&
+					responseError.StatusCode == http.StatusNotFound ||
+					errors.As(err, &notFoundError) {
+					return fmt.Sprintf(
+						"Server %s successfully deleted.",
+						respI.(*inference.Deployment).ID,
+					), nil
+				}
+			}
+		}
+
+		return nil, err
+	}
 }

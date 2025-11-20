@@ -19,6 +19,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(inference.Deployment{}, DeploymentMarshalerFunc)
 
 	cmds.MustFind("inference", "deployment", "create").Override(deploymentCreateBuilder)
+	cmds.MustFind("inference", "deployment", "delete").Override(deploymentDeleteBuilder)
 
 	return cmds
 }

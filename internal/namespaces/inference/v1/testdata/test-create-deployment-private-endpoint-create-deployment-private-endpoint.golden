@@ -1,50 +1,52 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                 41214803-d53e-4c32-8840-919eb99fa79f
-Name               cli-inference-condescending-hopper
+ID                 731c3313-1cd0-4755-bcd4-4eeeaeaf3f11
+Name               cli-inference-focused-moore
 ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
-Status             creating
-NodeTypeName       H100-2
-Size               0
+Status             ready
+NodeTypeName       H100-SXM-2
+Size               1
 MinSize            1
 MaxSize            1
+ErrorMessage       -
 ModelID            739d51ae-4f1e-4193-a4bf-f7380c090d46
 Quantization.Bits  4
 ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
 CreatedAt          few seconds ago
+UpdatedAt          few seconds ago
 Region             fr-par
 
 Endpoints:
 ID                                    URL                                                                                         DISABLE AUTH
-c4419cb0-dce7-4d21-aabe-69d9c967e86b  https://41214803-d53e-4c32-8840-919eb99fa79f.b7191d09-ea81-4a8d-93cc-bd4ead4f071c.internal  false
+e7af3dac-e83e-4a82-8c5c-542c270fa834  https://731c3313-1cd0-4755-bcd4-4eeeaeaf3f11.6bddbd90-e2b5-45ec-9985-410f2a399756.internal  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "41214803-d53e-4c32-8840-919eb99fa79f",
-  "name": "cli-inference-condescending-hopper",
+  "id": "731c3313-1cd0-4755-bcd4-4eeeaeaf3f11",
+  "name": "cli-inference-focused-moore",
   "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
-  "status": "creating",
+  "status": "ready",
   "tags": [],
-  "node_type_name": "H100-2",
+  "node_type_name": "H100-SXM-2",
   "endpoints": [
     {
-      "id": "c4419cb0-dce7-4d21-aabe-69d9c967e86b",
-      "url": "https://41214803-d53e-4c32-8840-919eb99fa79f.b7191d09-ea81-4a8d-93cc-bd4ead4f071c.internal",
+      "id": "e7af3dac-e83e-4a82-8c5c-542c270fa834",
+      "url": "https://731c3313-1cd0-4755-bcd4-4eeeaeaf3f11.6bddbd90-e2b5-45ec-9985-410f2a399756.internal",
       "private_network": {
-        "private_network_id": "b7191d09-ea81-4a8d-93cc-bd4ead4f071c"
+        "private_network_id": "6bddbd90-e2b5-45ec-9985-410f2a399756"
       },
       "disable_auth": false
     }
   ],
-  "size": 0,
+  "size": 1,
   "min_size": 1,
   "max_size": 1,
-  "error_message": null,
+  "error_message": "",
   "model_id": "739d51ae-4f1e-4193-a4bf-f7380c090d46",
   "quantization": {
     "bits": 4
   },
   "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
   "created_at": "1970-01-01T00:00:00.0Z",
-  "updated_at": null,
+  "updated_at": "1970-01-01T00:00:00.0Z",
   "region": "fr-par"
 }
