@@ -1,7 +1,5 @@
-🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-scaleway-sdk-go: error executing request: Delete "https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32": Requested interaction not found
-🟥🟥🟥 JSON STDERR 🟥🟥🟥
-{
-  "error": "scaleway-sdk-go: error executing request: Delete \"https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32\": Requested interaction not found"
-}
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Server f999c364-b523-4fb7-b56d-7a1290a7716f successfully deleted.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"Server f999c364-b523-4fb7-b56d-7a1290a7716f successfully deleted."
