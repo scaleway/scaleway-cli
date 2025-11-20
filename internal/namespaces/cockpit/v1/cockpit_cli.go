@@ -225,14 +225,13 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 
 func cockpitGrafanaUserCreate() *core.Command {
 	return &core.Command{
-		Short: `(Deprecated) EOL 2026-01-20`,
-		Long: `Create a Grafana user
-Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
+		Short: `Create a Grafana user`,
+		Long: `Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
 Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the ` + "`" + `admin` + "`" + ` username is not available for creation.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "create",
-		// Deprecated:    true,
+		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPICreateGrafanaUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -269,13 +268,12 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 
 func cockpitGrafanaUserList() *core.Command {
 	return &core.Command{
-		Short: `(Deprecated) EOL 2026-01-20`,
-		Long: `List Grafana users
-List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.`,
+		Short:     `List Grafana users`,
+		Long:      `List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "list",
-		// Deprecated:    true,
+		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaUsersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -309,13 +307,12 @@ List all Grafana users created in your Cockpit's Grafana. By default, the Grafan
 
 func cockpitGrafanaUserDelete() *core.Command {
 	return &core.Command{
-		Short: `(Deprecated) EOL 2026-01-20`,
-		Long: `Delete a Grafana user
-Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
+		Short:     `Delete a Grafana user`,
+		Long:      `Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "delete",
-		// Deprecated:    true,
+		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIDeleteGrafanaUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -347,14 +344,13 @@ Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Pr
 
 func cockpitGrafanaUserResetPassword() *core.Command {
 	return &core.Command{
-		Short: `(Deprecated) EOL 2026-01-20`,
-		Long: `Reset a Grafana user password
-Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
+		Short: `Reset a Grafana user password`,
+		Long: `Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
 A new password regenerates and only displays once. Make sure that you save it.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "reset-password",
-		// Deprecated:    true,
+		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIResetGrafanaUserPasswordRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -446,7 +442,7 @@ func cockpitPlanList() *core.Command {
 	return &core.Command{
 		Short: `List plan types`,
 		Long: `Retrieve a list of available pricing plan types.
-Deprecated due to retention now being managed at the data source level.`,
+Deprecated: retention is now managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "list",
@@ -484,7 +480,7 @@ func cockpitPlanSelect() *core.Command {
 	return &core.Command{
 		Short: `Apply a pricing plan`,
 		Long: `Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
-Deprecated due to retention now being managed at the data source level.`,
+Deprecated: retention is now managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "select",
@@ -521,7 +517,7 @@ func cockpitPlanGet() *core.Command {
 	return &core.Command{
 		Short: `Get current plan`,
 		Long: `Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-Deprecated due to retention now being managed at the data source level.`,
+Deprecated: retention is now managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "get",
