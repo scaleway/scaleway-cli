@@ -1,0 +1,50 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                 41214803-d53e-4c32-8840-919eb99fa79f
+Name               cli-inference-condescending-hopper
+ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Status             creating
+NodeTypeName       H100-2
+Size               0
+MinSize            1
+MaxSize            1
+ModelID            739d51ae-4f1e-4193-a4bf-f7380c090d46
+Quantization.Bits  4
+ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
+CreatedAt          few seconds ago
+Region             fr-par
+
+Endpoints:
+ID                                    URL                                                                                         DISABLE AUTH
+c4419cb0-dce7-4d21-aabe-69d9c967e86b  https://41214803-d53e-4c32-8840-919eb99fa79f.b7191d09-ea81-4a8d-93cc-bd4ead4f071c.internal  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "41214803-d53e-4c32-8840-919eb99fa79f",
+  "name": "cli-inference-condescending-hopper",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "status": "creating",
+  "tags": [],
+  "node_type_name": "H100-2",
+  "endpoints": [
+    {
+      "id": "c4419cb0-dce7-4d21-aabe-69d9c967e86b",
+      "url": "https://41214803-d53e-4c32-8840-919eb99fa79f.b7191d09-ea81-4a8d-93cc-bd4ead4f071c.internal",
+      "private_network": {
+        "private_network_id": "b7191d09-ea81-4a8d-93cc-bd4ead4f071c"
+      },
+      "disable_auth": false
+    }
+  ],
+  "size": 0,
+  "min_size": 1,
+  "max_size": 1,
+  "error_message": null,
+  "model_id": "739d51ae-4f1e-4193-a4bf-f7380c090d46",
+  "quantization": {
+    "bits": 4
+  },
+  "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": null,
+  "region": "fr-par"
+}

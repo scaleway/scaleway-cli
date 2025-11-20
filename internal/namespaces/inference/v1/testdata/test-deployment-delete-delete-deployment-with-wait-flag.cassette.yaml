@@ -1,0 +1,367 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments
+    method: POST
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "637"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:06:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5fbdf59a-d6ce-447e-be16-88124dfe0e7f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32
+    method: GET
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "637"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:06:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6eb8becd-5d72-425f-885c-af9a6fbef75c
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32
+    method: GET
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "637"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:06:50 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4b7d109c-a148-4062-9a8e-6b8aaeb9e796
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deploying", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:08:29.676666Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32
+    method: GET
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deploying", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:08:29.676666Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "683"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:09:31 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7e78ff0e-8b1c-4f52-b97e-82d0b2fb218e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deploying", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:08:29.676666Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32
+    method: GET
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deploying", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:08:29.676666Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "683"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:09:46 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c8072340-6d50-459d-8e7a-bd661342fa6a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deploying", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:08:29.676666Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32
+    method: GET
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deploying", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:08:29.676666Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "683"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:10:01 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ecb8ddb0-6542-42f6-9c75-c901aac60b19
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"ready", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":1, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:19:35.610317Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/5086630c-1a9c-4820-bd29-93aefca10d32
+    method: GET
+  response:
+    body: '{"id":"5086630c-1a9c-4820-bd29-93aefca10d32", "name":"cli-inference-xenodochial-dubinsky",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"ready", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"e510f39d-24f4-4437-857e-74c83f73d608",
+      "url":"https://5086630c-1a9c-4820-bd29-93aefca10d32.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":1, "min_size":1, "max_size":1,
+      "error_message":"", "created_at":"2025-11-20T10:06:35.298762Z", "updated_at":"2025-11-20T10:19:35.610317Z",
+      "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46", "quantization":{"bits":4},
+      "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq", "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "679"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:25:14 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 04184f06-938d-4de8-8cb7-e0e2b53c5cf7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"access_key":"SCWHR0TR7ZTXD5GYMBMS", "secret_key":null, "description":"Generated
+      by the Scaleway CLI", "created_at":"2025-07-22T09:34:00.009103Z", "updated_at":"2025-07-22T09:34:00.009103Z",
+      "expires_at":null, "default_project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.9",
+      "user_id":"c6d30243-8c79-4999-867f-e901e6f498e7"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWHR0TR7ZTXD5GYMBMS
+    method: GET
+  response:
+    body: '{"access_key":"SCWHR0TR7ZTXD5GYMBMS", "secret_key":null, "description":"Generated
+      by the Scaleway CLI", "created_at":"2025-07-22T09:34:00.009103Z", "updated_at":"2025-07-22T09:34:00.009103Z",
+      "expires_at":null, "default_project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.9",
+      "user_id":"c6d30243-8c79-4999-867f-e901e6f498e7"}'
+    headers:
+      Content-Length:
+      - "402"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 20 Nov 2025 10:25:14 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f0804199-19d9-4223-b888-450a5287871c
+    status: 200 OK
+    code: 200
+    duration: ""
