@@ -201,6 +201,7 @@ scw apple-silicon server create [arg=value ...]
 | runner-configuration.url |  |  |
 | runner-configuration.token |  |  |
 | runner-configuration.provider | One of: `unknown_provider`, `github`, `gitlab` |  |
+| applied-runner-configurations.runner-configuration-ids.{index} |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -352,6 +353,7 @@ scw apple-silicon server update <server-id ...> [arg=value ...]
 | enable-vpc |  | Activate or deactivate Private Network support for this server |
 | commitment-type.commitment-type | One of: `duration_24h`, `renewed_monthly`, `none` |  |
 | public-bandwidth-bps |  | Public bandwidth configured for this server |
+| applied-runner-configurations.runner-configuration-ids.{index} |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
