@@ -19,8 +19,12 @@ func Test_DeploymentCreate(t *testing.T) {
 
 	t.Run("Simple deployment", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      fmt.Sprintf("scw inference deployment create node-type-name=%s model-id=%s", NodeTypeName, ModelID),
-		Check:    core.TestCheckGolden(),
+		Cmd: fmt.Sprintf(
+			"scw inference deployment create node-type-name=%s model-id=%s",
+			NodeTypeName,
+			ModelID,
+		),
+		Check: core.TestCheckGolden(),
 		AfterFunc: core.ExecAfterCmd(
 			"scw inference deployment delete {{ .CmdResult.ID }}",
 		),
@@ -48,7 +52,8 @@ func Test_CreateDeploymentPrivateEndpoint(t *testing.T) {
 		BeforeFunc: CreatePN(),
 		Cmd: fmt.Sprintf(
 			"scw inference deployment create model-id=%s node-type-name=%s accept-eula=true endpoints.0.private-network.private-network-id={{ .PN.ID }}",
-			ModelID, NodeTypeName,
+			ModelID,
+			NodeTypeName,
 		),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),

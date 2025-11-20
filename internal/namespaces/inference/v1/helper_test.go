@@ -9,7 +9,11 @@ import (
 func CreateDeploymentPublicEndpoint() core.BeforeFunc {
 	return core.ExecStoreBeforeCmd(
 		"DEPLOYMENT",
-		fmt.Sprintf("scw inference deployment create node-type-name=%s model-id=%s -w", NodeTypeName, ModelID),
+		fmt.Sprintf(
+			"scw inference deployment create node-type-name=%s model-id=%s -w",
+			NodeTypeName,
+			ModelID,
+		),
 	)
 }
 
