@@ -17,7 +17,7 @@ const (
 	deploymentActionTimeout = 60 * time.Minute
 )
 
-var deployementStateMarshalSpecs = human.EnumMarshalSpecs{
+var deploymentStateMarshalSpecs = human.EnumMarshalSpecs{
 	inference.DeploymentStatusCreating:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	inference.DeploymentStatusDeploying: &human.EnumMarshalSpec{Attribute: color.FgBlue},
 	inference.DeploymentStatusDeleting:  &human.EnumMarshalSpec{Attribute: color.FgBlue},

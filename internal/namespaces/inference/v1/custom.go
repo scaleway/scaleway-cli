@@ -13,7 +13,7 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(
 		inference.DeploymentStatus(""),
-		human.EnumMarshalFunc(deployementStateMarshalSpecs),
+		human.EnumMarshalFunc(deploymentStateMarshalSpecs),
 	)
 
 	human.RegisterMarshalerFunc(inference.Deployment{}, DeploymentMarshalerFunc)
