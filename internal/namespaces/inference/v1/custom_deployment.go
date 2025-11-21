@@ -68,7 +68,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		Name:     "endpoints.{index}.is-public",
 		Short:    "Will configure your public endpoint if true",
 		Required: false,
-		Default:  core.DefaultValueSetter("false"),
+		Default:  core.DefaultValueSetter("true"),
 	})
 
 	c.ArgsType = reflect.TypeOf(llmInferenceCreateDeploymentRequestCustom{})
@@ -89,23 +89,29 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 
 			return runner(ctx, deploymentRequest)
 		}
-		for _, endpoint := range deploymentCreateCustomRequest.Endpoints {
-			publicEndpoint := &inference.EndpointPublicNetworkDetails{}
-			if !endpoint.IsPublic {
-				publicEndpoint = nil
+		for _, ep := range deploymentCreateCustomRequest.Endpoints {
+			if ep.IsPublic {
+				deploymentRequest.Endpoints = append(
+					deploymentRequest.Endpoints,
+					&inference.EndpointSpec{
+						PublicNetwork: &inference.EndpointPublicNetworkDetails{},
+						DisableAuth:   ep.DisableAuth,
+					},
+				)
 			}
-			privateNetwork := &inference.EndpointPrivateNetworkDetails{}
-			if endpoint.PrivateNetwork == nil {
-				privateNetwork = nil
-			} else {
-				privateNetwork.PrivateNetworkID = endpoint.PrivateNetwork.PrivateNetworkID
+
+			if ep.PrivateNetwork != nil {
+				deploymentRequest.Endpoints = append(
+					deploymentRequest.Endpoints,
+					&inference.EndpointSpec{
+						PrivateNetwork: &inference.EndpointPrivateNetworkDetails{
+							PrivateNetworkID: ep.PrivateNetwork.PrivateNetworkID,
+						},
+						DisableAuth: ep.DisableAuth,
+					},
+				)
 			}
-			endpoint := inference.EndpointSpec{
-				PublicNetwork:  publicEndpoint,
-				PrivateNetwork: privateNetwork,
-				DisableAuth:    endpoint.DisableAuth,
-			}
-			deploymentRequest.Endpoints = append(deploymentRequest.Endpoints, &endpoint)
+
 		}
 
 		return runner(ctx, deploymentRequest)
