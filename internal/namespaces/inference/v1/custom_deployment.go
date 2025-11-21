@@ -111,7 +111,6 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 					},
 				)
 			}
-
 		}
 
 		return runner(ctx, deploymentRequest)
