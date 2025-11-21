@@ -36,6 +36,7 @@ const (
 var (
 	sharedInstance   *rdbSDK.Instance
 	sharedInstanceMu sync.Mutex
+	backupOpMu       sync.Mutex
 )
 
 // TestMain ensures shared instance cleanup
@@ -326,7 +327,11 @@ func BenchmarkBackupGet(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := createBackupDirect("Backup")(ctx); err != nil {
+	backupOpMu.Lock()
+	err := createBackupDirect("Backup")(ctx)
+	backupOpMu.Unlock()
+
+	if err != nil {
 		b.Fatalf("Failed to create backup: %v", err)
 	}
 
@@ -387,10 +392,16 @@ func BenchmarkBackupList(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := createBackupDirect("Backup1")(ctx); err != nil {
+	backupOpMu.Lock()
+	err := createBackupDirect("Backup1")(ctx)
+	if err != nil {
+		backupOpMu.Unlock()
 		b.Fatalf("Failed to create backup 1: %v", err)
 	}
-	if err := createBackupDirect("Backup2")(ctx); err != nil {
+	err = createBackupDirect("Backup2")(ctx)
+	backupOpMu.Unlock()
+
+	if err != nil {
 		b.Fatalf("Failed to create backup 2: %v", err)
 	}
 
