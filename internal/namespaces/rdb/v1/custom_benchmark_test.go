@@ -6,6 +6,7 @@ import (
 	"fmt"
 	"os"
 	"sort"
+	"strings"
 	"sync"
 	"testing"
 	"time"
@@ -107,12 +108,26 @@ func setupBenchmark(b *testing.B) (*scw.Client, core.TestMetadata, func(args []s
 func cleanupWithRetry(b *testing.B, name string, resourceID string, cleanupFn func() error) {
 	b.Helper()
 
-	if err := cleanupFn(); err != nil {
-		b.Logf("cleanup failed (%s=%s): %v; retrying...", name, resourceID, err)
-		time.Sleep(2 * time.Second)
-		if err2 := cleanupFn(); err2 != nil {
-			b.Errorf("final cleanup failure (%s=%s): %v", name, resourceID, err2)
+	maxRetries := 5
+	for i := 0; i < maxRetries; i++ {
+		err := cleanupFn()
+		if err == nil {
+			return
 		}
+
+		// Check if it's a 409 conflict (resource in transient state)
+		errMsg := err.Error()
+		if strings.Contains(errMsg, "409") || strings.Contains(errMsg, "Conflict") || strings.Contains(errMsg, "transient state") {
+			if i < maxRetries-1 {
+				waitTime := time.Duration(2*(i+1)) * time.Second
+				b.Logf("cleanup conflict for %s=%s (attempt %d/%d), waiting %v: %v", name, resourceID, i+1, maxRetries, waitTime, err)
+				time.Sleep(waitTime)
+				continue
+			}
+		}
+
+		b.Errorf("cleanup failure (%s=%s) after %d attempts: %v", name, resourceID, i+1, err)
+		return
 	}
 }
 
