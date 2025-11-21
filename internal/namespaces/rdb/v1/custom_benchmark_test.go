@@ -95,7 +95,7 @@ type benchmarkStats struct {
 
 func newBenchmarkStats() *benchmarkStats {
 	return &benchmarkStats{
-		enabled: env.GetBool("CLI_BENCH_TRACE", false),
+		enabled: os.Getenv(env.BenchTrace) == "true",
 		timings: make([]time.Duration, 0, 1000),
 	}
 }
@@ -248,7 +248,7 @@ func cleanupSharedInstance() {
 }
 
 func BenchmarkInstanceGet(b *testing.B) {
-	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
+	if os.Getenv(env.RunBenchmarks) != "true" {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
@@ -284,7 +284,7 @@ func BenchmarkInstanceGet(b *testing.B) {
 }
 
 func BenchmarkBackupGet(b *testing.B) {
-	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
+	if os.Getenv(env.RunBenchmarks) != "true" {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
@@ -353,7 +353,7 @@ func BenchmarkBackupGet(b *testing.B) {
 }
 
 func BenchmarkBackupList(b *testing.B) {
-	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
+	if os.Getenv(env.RunBenchmarks) != "true" {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
@@ -435,7 +435,7 @@ func BenchmarkBackupList(b *testing.B) {
 }
 
 func BenchmarkDatabaseList(b *testing.B) {
-	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
+	if os.Getenv(env.RunBenchmarks) != "true" {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
