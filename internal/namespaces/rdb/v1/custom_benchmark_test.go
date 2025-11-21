@@ -3,8 +3,10 @@ package rdb_test
 import (
 	"bytes"
 	"context"
+	"fmt"
 	"os"
 	"sort"
+	"sync"
 	"testing"
 	"time"
 
@@ -30,6 +32,18 @@ const (
 	defaultCmdTimeout    = 30 * time.Second
 	instanceReadyTimeout = 3 * time.Minute
 )
+
+var (
+	sharedInstance   *rdbSDK.Instance
+	sharedInstanceMu sync.Mutex
+)
+
+// TestMain ensures shared instance cleanup
+func TestMain(m *testing.M) {
+	code := m.Run()
+	cleanupSharedInstance()
+	os.Exit(code)
+}
 
 func setupBenchmark(b *testing.B) (*scw.Client, core.TestMetadata, func(args []string) any) {
 	b.Helper()
@@ -151,35 +165,118 @@ func (s *benchmarkStats) report(b *testing.B) {
 		len(s.timings), minVal, median, mean, p95, maxVal)
 }
 
+func getOrCreateSharedInstance(b *testing.B, client *scw.Client, executeCmd func([]string) any, meta core.TestMetadata) *rdbSDK.Instance {
+	b.Helper()
+
+	sharedInstanceMu.Lock()
+	defer sharedInstanceMu.Unlock()
+
+	if sharedInstance != nil {
+		b.Log("Reusing existing shared RDB instance")
+		return sharedInstance
+	}
+
+	b.Log("Creating shared RDB instance for all benchmarks...")
+	ctx := &core.BeforeFuncCtx{
+		Client:     client,
+		ExecuteCmd: executeCmd,
+		Meta:       meta,
+	}
+
+	if err := createInstanceDirect(engine)(ctx); err != nil {
+		b.Fatalf("Failed to create shared instance: %v", err)
+	}
+
+	instance := meta["Instance"].(rdb.CreateInstanceResult).Instance
+	sharedInstance = instance
+
+	b.Logf("Shared RDB instance created: %s", instance.ID)
+
+	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+		b.Fatalf("Shared instance not ready: %v", err)
+	}
+
+	b.Log("Shared instance is ready")
+	return sharedInstance
+}
+
+func cleanupSharedInstance() {
+	sharedInstanceMu.Lock()
+	defer sharedInstanceMu.Unlock()
+
+	if sharedInstance == nil {
+		return
+	}
+
+	fmt.Printf("Cleaning up shared RDB instance: %s\n", sharedInstance.ID)
+
+	client, err := scw.NewClient(
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithEnv(),
+	)
+	if err != nil {
+		fmt.Printf("Error creating client for cleanup: %v\n", err)
+		return
+	}
+
+	config, err := scw.LoadConfig()
+	if err == nil {
+		activeProfile, err := config.GetActiveProfile()
+		if err == nil {
+			envProfile := scw.LoadEnvProfile()
+			profile := scw.MergeProfiles(activeProfile, envProfile)
+			client, _ = scw.NewClient(
+				scw.WithDefaultRegion(scw.RegionFrPar),
+				scw.WithDefaultZone(scw.ZoneFrPar1),
+				scw.WithProfile(profile),
+				scw.WithEnv(),
+			)
+		}
+	}
+
+	executeCmd := func(args []string) any {
+		_, result, _ := core.Bootstrap(&core.BootstrapConfig{
+			Args:             args,
+			Commands:         rdb.GetCommands().Copy(),
+			BuildInfo:        &core.BuildInfo{},
+			Client:           client,
+			DisableTelemetry: true,
+			DisableAliases:   true,
+			OverrideEnv:      map[string]string{},
+			Ctx:              context.Background(),
+		})
+		return result
+	}
+
+	meta := core.TestMetadata{
+		"Instance": rdb.CreateInstanceResult{Instance: sharedInstance},
+	}
+
+	afterCtx := &core.AfterFuncCtx{
+		Client:     client,
+		ExecuteCmd: executeCmd,
+		Meta:       meta,
+	}
+
+	if err := deleteInstanceDirect()(afterCtx); err != nil {
+		fmt.Printf("Error deleting shared instance: %v\n", err)
+		time.Sleep(2 * time.Second)
+		if err2 := deleteInstanceDirect()(afterCtx); err2 != nil {
+			fmt.Printf("Final cleanup failure: %v\n", err2)
+		}
+	}
+
+	sharedInstance = nil
+}
+
 func BenchmarkInstanceGet(b *testing.B) {
 	if os.Getenv("CLI_RUN_BENCHMARKS") != "true" {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
 	client, meta, executeCmd := setupBenchmark(b)
-
-	ctx := &core.BeforeFuncCtx{
-		Client:     client,
-		ExecuteCmd: executeCmd,
-		Meta:       meta,
-	}
-	err := createInstanceDirect(engine)(ctx)
-	if err != nil {
-		b.Fatalf("Failed to create instance: %v", err)
-	}
-
-	instance := meta["Instance"].(rdb.CreateInstanceResult).Instance
-
-	b.Cleanup(func() {
-		afterCtx := &core.AfterFuncCtx{
-			Client:     client,
-			ExecuteCmd: executeCmd,
-			Meta:       meta,
-		}
-		cleanupWithRetry(b, "instance", instance.ID, func() error {
-			return deleteInstanceDirect()(afterCtx)
-		})
-	})
+	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	stats := newBenchmarkStats()
 	b.ResetTimer()
@@ -215,25 +312,17 @@ func BenchmarkBackupGet(b *testing.B) {
 	}
 
 	client, meta, executeCmd := setupBenchmark(b)
+	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	ctx := &core.BeforeFuncCtx{
 		Client:     client,
 		ExecuteCmd: executeCmd,
 		Meta:       meta,
 	}
-	err := createInstanceDirect(engine)(ctx)
-	if err != nil {
-		b.Fatalf("Failed to create instance: %v", err)
-	}
 
-	instance := meta["Instance"].(rdb.CreateInstanceResult).Instance
+	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
-		b.Fatalf("Instance not ready: %v", err)
-	}
-
-	err = createBackupDirect("Backup")(ctx)
-	if err != nil {
+	if err := createBackupDirect("Backup")(ctx); err != nil {
 		b.Fatalf("Failed to create backup: %v", err)
 	}
 
@@ -247,9 +336,6 @@ func BenchmarkBackupGet(b *testing.B) {
 		}
 		cleanupWithRetry(b, "backup", backup.ID, func() error {
 			return deleteBackupDirect("Backup")(afterCtx)
-		})
-		cleanupWithRetry(b, "instance", instance.ID, func() error {
-			return deleteInstanceDirect()(afterCtx)
 		})
 	})
 
@@ -287,29 +373,20 @@ func BenchmarkBackupList(b *testing.B) {
 	}
 
 	client, meta, executeCmd := setupBenchmark(b)
+	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	ctx := &core.BeforeFuncCtx{
 		Client:     client,
 		ExecuteCmd: executeCmd,
 		Meta:       meta,
 	}
-	err := createInstanceDirect(engine)(ctx)
-	if err != nil {
-		b.Fatalf("Failed to create instance: %v", err)
-	}
 
-	instance := meta["Instance"].(rdb.CreateInstanceResult).Instance
+	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
-		b.Fatalf("Instance not ready: %v", err)
-	}
-
-	err = createBackupDirect("Backup1")(ctx)
-	if err != nil {
+	if err := createBackupDirect("Backup1")(ctx); err != nil {
 		b.Fatalf("Failed to create backup 1: %v", err)
 	}
-	err = createBackupDirect("Backup2")(ctx)
-	if err != nil {
+	if err := createBackupDirect("Backup2")(ctx); err != nil {
 		b.Fatalf("Failed to create backup 2: %v", err)
 	}
 
@@ -327,9 +404,6 @@ func BenchmarkBackupList(b *testing.B) {
 		})
 		cleanupWithRetry(b, "backup2", backup2.ID, func() error {
 			return deleteBackupDirect("Backup2")(afterCtx)
-		})
-		cleanupWithRetry(b, "instance", instance.ID, func() error {
-			return deleteInstanceDirect()(afterCtx)
 		})
 	})
 
@@ -367,29 +441,7 @@ func BenchmarkDatabaseList(b *testing.B) {
 	}
 
 	client, meta, executeCmd := setupBenchmark(b)
-
-	ctx := &core.BeforeFuncCtx{
-		Client:     client,
-		ExecuteCmd: executeCmd,
-		Meta:       meta,
-	}
-	err := createInstanceDirect(engine)(ctx)
-	if err != nil {
-		b.Fatalf("Failed to create instance: %v", err)
-	}
-
-	instance := meta["Instance"].(rdb.CreateInstanceResult).Instance
-
-	b.Cleanup(func() {
-		afterCtx := &core.AfterFuncCtx{
-			Client:     client,
-			ExecuteCmd: executeCmd,
-			Meta:       meta,
-		}
-		cleanupWithRetry(b, "instance", instance.ID, func() error {
-			return deleteInstanceDirect()(afterCtx)
-		})
-	})
+	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	stats := newBenchmarkStats()
 	b.ResetTimer()
