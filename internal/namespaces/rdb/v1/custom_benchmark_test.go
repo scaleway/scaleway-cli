@@ -236,10 +236,14 @@ func cleanupSharedInstance() {
 	}
 
 	executeCmd := func(args []string) any {
+		stdoutBuffer := &bytes.Buffer{}
+		stderrBuffer := &bytes.Buffer{}
 		_, result, _ := core.Bootstrap(&core.BootstrapConfig{
 			Args:             args,
 			Commands:         rdb.GetCommands().Copy(),
 			BuildInfo:        &core.BuildInfo{},
+			Stdout:           stdoutBuffer,
+			Stderr:           stderrBuffer,
 			Client:           client,
 			DisableTelemetry: true,
 			DisableAliases:   true,
