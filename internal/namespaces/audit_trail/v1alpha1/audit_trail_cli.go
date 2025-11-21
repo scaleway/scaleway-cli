@@ -132,6 +132,10 @@ func auditTrailEventList() *core.Command {
 					"edge_services_route_rules",
 					"edge_services_waf_stage",
 					"edge_services_backend_stage",
+					"s2s_vpn_gateway",
+					"s2s_customer_gateway",
+					"s2s_routing_policy",
+					"s2s_connection",
 				},
 			},
 			{
