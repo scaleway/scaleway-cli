@@ -328,6 +328,10 @@ func BenchmarkBackupGet(b *testing.B) {
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
 	backupOpMu.Lock()
+	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+		backupOpMu.Unlock()
+		b.Fatalf("Instance not ready before backup: %v", err)
+	}
 	err := createBackupDirect("Backup")(ctx)
 	backupOpMu.Unlock()
 
@@ -393,10 +397,18 @@ func BenchmarkBackupList(b *testing.B) {
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
 	backupOpMu.Lock()
+	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+		backupOpMu.Unlock()
+		b.Fatalf("Instance not ready before backup 1: %v", err)
+	}
 	err := createBackupDirect("Backup1")(ctx)
 	if err != nil {
 		backupOpMu.Unlock()
 		b.Fatalf("Failed to create backup 1: %v", err)
+	}
+	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+		backupOpMu.Unlock()
+		b.Fatalf("Instance not ready before backup 2: %v", err)
 	}
 	err = createBackupDirect("Backup2")(ctx)
 	backupOpMu.Unlock()
