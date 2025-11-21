@@ -1,12 +1,10 @@
 package main
 
 import (
-	"bufio"
 	"context"
 	"encoding/csv"
 	"flag"
 	"fmt"
-	"io"
 	"log"
 	"os"
 	"os/exec"
