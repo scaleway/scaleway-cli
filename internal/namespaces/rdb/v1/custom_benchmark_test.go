@@ -12,7 +12,9 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/env"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -21,6 +23,10 @@ import (
 //
 // Baseline stored in testdata/benchmark.baseline (like golden files).
 //
+// Install benchstat (required for comparison):
+//
+//	go install golang.org/x/perf/cmd/benchstat@latest
+//
 // To compare performance:
 //
 //	benchstat testdata/benchmark.baseline <(CLI_RUN_BENCHMARKS=true go test -bench=. -benchtime=100x .)
@@ -28,6 +34,10 @@ import (
 // To update baseline:
 //
 //	CLI_RUN_BENCHMARKS=true go test -bench=. -benchtime=100x . > testdata/benchmark.baseline
+//
+// Or use the automated tool (installs benchstat automatically):
+//
+//	go run ./cmd/scw-benchstat --install-benchstat --bench=. --count=10
 
 const (
 	defaultCmdTimeout    = 30 * time.Second
@@ -49,60 +59,7 @@ func TestMain(m *testing.M) {
 
 func setupBenchmark(b *testing.B) (*scw.Client, core.TestMetadata, func(args []string) any) {
 	b.Helper()
-
-	clientOpts := []scw.ClientOption{
-		scw.WithDefaultRegion(scw.RegionFrPar),
-		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithUserAgent("cli-benchmark-test"),
-		scw.WithEnv(),
-	}
-
-	config, err := scw.LoadConfig()
-	if err == nil {
-		activeProfile, err := config.GetActiveProfile()
-		if err == nil {
-			envProfile := scw.LoadEnvProfile()
-			profile := scw.MergeProfiles(activeProfile, envProfile)
-			clientOpts = append(clientOpts, scw.WithProfile(profile))
-		}
-	}
-
-	client, err := scw.NewClient(clientOpts...)
-	if err != nil {
-		b.Fatalf(
-			"Failed to create Scaleway client: %v\nMake sure you have configured your credentials with 'scw config'",
-			err,
-		)
-	}
-
-	meta := core.TestMetadata{
-		"t": b,
-	}
-
-	executeCmd := func(args []string) any {
-		stdoutBuffer := &bytes.Buffer{}
-		stderrBuffer := &bytes.Buffer{}
-		_, result, err := core.Bootstrap(&core.BootstrapConfig{
-			Args:             args,
-			Commands:         rdb.GetCommands().Copy(),
-			BuildInfo:        nil,
-			Stdout:           stdoutBuffer,
-			Stderr:           stderrBuffer,
-			Client:           client,
-			DisableTelemetry: true,
-			DisableAliases:   true,
-			OverrideEnv:      map[string]string{},
-			Ctx:              context.Background(),
-		})
-		if err != nil {
-			b.Errorf("error executing cmd (%s): %v\nstdout: %s\nstderr: %s",
-				args, err, stdoutBuffer.String(), stderrBuffer.String())
-		}
-
-		return result
-	}
-
-	return client, meta, executeCmd
+	return testhelpers.SetupBenchmark(b, rdb.GetCommands())
 }
 
 func cleanupWithRetry(b *testing.B, name string, resourceID string, cleanupFn func() error) {
@@ -138,7 +95,7 @@ type benchmarkStats struct {
 
 func newBenchmarkStats() *benchmarkStats {
 	return &benchmarkStats{
-		enabled: os.Getenv("CLI_BENCH_TRACE") == "true",
+		enabled: env.GetBool("CLI_BENCH_TRACE", false),
 		timings: make([]time.Duration, 0, 1000),
 	}
 }
@@ -291,7 +248,7 @@ func cleanupSharedInstance() {
 }
 
 func BenchmarkInstanceGet(b *testing.B) {
-	if os.Getenv("CLI_RUN_BENCHMARKS") != "true" {
+	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
@@ -327,7 +284,7 @@ func BenchmarkInstanceGet(b *testing.B) {
 }
 
 func BenchmarkBackupGet(b *testing.B) {
-	if os.Getenv("CLI_RUN_BENCHMARKS") != "true" {
+	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
@@ -396,7 +353,7 @@ func BenchmarkBackupGet(b *testing.B) {
 }
 
 func BenchmarkBackupList(b *testing.B) {
-	if os.Getenv("CLI_RUN_BENCHMARKS") != "true" {
+	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
@@ -478,7 +435,7 @@ func BenchmarkBackupList(b *testing.B) {
 }
 
 func BenchmarkDatabaseList(b *testing.B) {
-	if os.Getenv("CLI_RUN_BENCHMARKS") != "true" {
+	if !env.GetBool("CLI_RUN_BENCHMARKS", false) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
