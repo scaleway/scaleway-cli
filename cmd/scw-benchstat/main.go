@@ -231,9 +231,9 @@ func compareWithBaseline(cfg config, baselineFile, newResults string) error {
 
 	// Run benchstat comparison
 	cmd := exec.Command("benchstat", "-format=csv", baselineFile, tmpFile.Name())
-	output, err := cmd.Output()
+	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return fmt.Errorf("failed to compare with benchstat for %s: %w", filepath.Dir(baselineFile), err)
+		return fmt.Errorf("failed to compare with benchstat for %s: %w\nOutput: %s", filepath.Dir(baselineFile), err, output)
 	}
 
 	// Parse CSV output and check for regressions
