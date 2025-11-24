@@ -40,14 +40,7 @@ import (
 //
 //	go run ./cmd/scw-benchstat --install-benchstat --bench=. --count=10
 
-const (
-	defaultCmdTimeout    = 30 * time.Second
-	instanceReadyTimeout = 3 * time.Minute
-)
-
-var (
-	sharedInstance *rdbSDK.Instance
-)
+var sharedInstance *rdbSDK.Instance
 
 // TestMain ensures shared instance cleanup
 func TestMain(m *testing.M) {
@@ -58,6 +51,7 @@ func TestMain(m *testing.M) {
 
 func setupBenchmark(b *testing.B) (*scw.Client, core.TestMetadata, func(args []string) any) {
 	b.Helper()
+
 	return testhelpers.SetupBenchmark(b, rdb.GetCommands())
 }
 
@@ -65,7 +59,7 @@ func cleanupWithRetry(b *testing.B, name string, resourceID string, cleanupFn fu
 	b.Helper()
 
 	maxRetries := 5
-	for i := 0; i < maxRetries; i++ {
+	for i := range maxRetries {
 		err := cleanupFn()
 		if err == nil {
 			return
@@ -78,17 +72,28 @@ func cleanupWithRetry(b *testing.B, name string, resourceID string, cleanupFn fu
 		// Fallback: check error message for transient state keywords
 		if !isConflict {
 			errMsg := err.Error()
-			isConflict = strings.Contains(errMsg, "transient state") || strings.Contains(errMsg, "backuping")
+			isConflict = strings.Contains(errMsg, "transient state") ||
+				strings.Contains(errMsg, "backuping")
 		}
 
 		if isConflict && i < maxRetries-1 {
 			waitTime := time.Duration(2*(i+1)) * time.Second
-			b.Logf("cleanup conflict for %s=%s (attempt %d/%d), waiting %v: %v", name, resourceID, i+1, maxRetries, waitTime, err)
+			b.Logf(
+				"cleanup conflict for %s=%s (attempt %d/%d), waiting %v: %v",
+				name,
+				resourceID,
+				i+1,
+				maxRetries,
+				waitTime,
+				err,
+			)
 			time.Sleep(waitTime)
+
 			continue
 		}
 
 		b.Errorf("cleanup failure (%s=%s) after %d attempts: %v", name, resourceID, i+1, err)
+
 		return
 	}
 }
@@ -143,11 +148,17 @@ func (s *benchmarkStats) report(b *testing.B) {
 		len(s.timings), minVal, median, mean, p95, maxVal)
 }
 
-func getOrCreateSharedInstance(b *testing.B, client *scw.Client, executeCmd func([]string) any, meta core.TestMetadata) *rdbSDK.Instance {
+func getOrCreateSharedInstance(
+	b *testing.B,
+	client *scw.Client,
+	executeCmd func([]string) any,
+	meta core.TestMetadata,
+) *rdbSDK.Instance {
 	b.Helper()
 
 	if sharedInstance != nil {
 		b.Log("Reusing existing shared RDB instance")
+
 		return sharedInstance
 	}
 
@@ -167,11 +178,12 @@ func getOrCreateSharedInstance(b *testing.B, client *scw.Client, executeCmd func
 
 	b.Logf("Shared RDB instance created: %s", instance.ID)
 
-	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
 		b.Fatalf("Shared instance not ready: %v", err)
 	}
 
 	b.Log("Shared instance is ready")
+
 	return sharedInstance
 }
 
@@ -189,6 +201,7 @@ func cleanupSharedInstance() {
 	)
 	if err != nil {
 		fmt.Printf("Error creating client for cleanup: %v\n", err)
+
 		return
 	}
 
@@ -222,6 +235,7 @@ func cleanupSharedInstance() {
 			OverrideEnv:      map[string]string{},
 			Ctx:              context.Background(),
 		})
+
 		return result
 	}
 
@@ -284,7 +298,7 @@ func BenchmarkBackupGet(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
 		b.Fatalf("Instance not ready before backup: %v", err)
 	}
 
@@ -335,7 +349,7 @@ func BenchmarkBackupList(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
 		b.Fatalf("Instance not ready before backup 1: %v", err)
 	}
 
@@ -343,7 +357,7 @@ func BenchmarkBackupList(b *testing.B) {
 		b.Fatalf("Failed to create backup 1: %v", err)
 	}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
+	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
 		b.Fatalf("Instance not ready before backup 2: %v", err)
 	}
 

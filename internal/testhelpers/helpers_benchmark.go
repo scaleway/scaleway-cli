@@ -11,7 +11,10 @@ import (
 
 // SetupBenchmark initializes a Scaleway client and test metadata for benchmarks.
 // It loads credentials from the active profile and environment variables.
-func SetupBenchmark(b *testing.B, commands *core.Commands) (*scw.Client, core.TestMetadata, func(args []string) any) {
+func SetupBenchmark(
+	b *testing.B,
+	commands *core.Commands,
+) (*scw.Client, core.TestMetadata, func(args []string) any) {
 	b.Helper()
 
 	clientOpts := []scw.ClientOption{
