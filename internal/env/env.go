@@ -8,6 +8,9 @@ const (
 	// BenchTrace if set to "true" will enable detailed benchmark statistics (min, median, mean, p95, max)
 	BenchTrace = "CLI_BENCH_TRACE"
 
+	// BenchCmdTimeout sets the command timeout for benchmarks (e.g., "30s", "1m"). Default: 30s
+	BenchCmdTimeout = "CLI_BENCH_CMD_TIMEOUT"
+
 	// UpdateCassettes if set to "true" will trigger the cassettes to be recorded
 	UpdateCassettes = "CLI_UPDATE_CASSETTES"
 
