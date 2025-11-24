@@ -17,7 +17,7 @@ func GetCommands() *core.Commands {
 
 func helpRoot() *core.Command {
 	return &core.Command{
-		Short:                "Get help about how specific topics inside the CLI",
+		Short:                "Get help about how specific topics inside the CLI work",
 		Namespace:            "help",
 		AllowAnonymousClient: true,
 		Groups:               []string{"utility"},
