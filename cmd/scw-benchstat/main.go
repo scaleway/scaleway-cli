@@ -19,21 +19,22 @@ const (
 )
 
 type config struct {
-	bench         string
-	benchtime     string
-	count         int
-	benchmem      bool
-	failMetrics   []string
-	threshold     float64
-	installTool   bool
-	targetDirs    []string
-	verbose       bool
+	bench       string
+	benchtime   string
+	count       int
+	benchmem    bool
+	failMetrics []string
+	threshold   float64
+	installTool bool
+	targetDirs  []string
+	verbose     bool
+	update      bool
 }
 
 type benchResult struct {
-	name      string
-	timePerOp float64
-	bytesPerOp int64
+	name        string
+	timePerOp   float64
+	bytesPerOp  int64
 	allocsPerOp int64
 }
 
@@ -58,11 +59,16 @@ func main() {
 		log.Fatal("no benchmark directories found")
 	}
 
+	var hadError bool
 	for _, dir := range cfg.targetDirs {
 		if err := runBenchmarksForDir(cfg, dir); err != nil {
-			log.Printf("failed to run benchmarks for %s: %v", dir, err)
-			os.Exit(1)
+			log.Printf("❌ failed to run benchmarks for %s: %v", dir, err)
+			hadError = true
 		}
+	}
+
+	if hadError {
+		os.Exit(1)
 	}
 }
 
@@ -76,9 +82,10 @@ func parseFlags() config {
 	flag.Float64Var(&cfg.threshold, "threshold", 1.5, "performance regression threshold (e.g., 1.5 = 50% slower)")
 	flag.BoolVar(&cfg.installTool, "install-benchstat", false, "install benchstat tool if not found")
 	flag.BoolVar(&cfg.verbose, "verbose", false, "verbose output")
+	flag.BoolVar(&cfg.update, "update", false, "update baseline files instead of comparing")
 
 	var failMetricsStr string
-	flag.StringVar(&failMetricsStr, "fail-metrics", "", "comma-separated list of metrics to check for regressions (time/op,B/op,allocs/op)")
+	flag.StringVar(&failMetricsStr, "fail-metrics", "", "comma-separated list of metrics to check for regressions (default: time/op)")
 
 	var targetDirsStr string
 	flag.StringVar(&targetDirsStr, "target-dirs", "", "comma-separated list of directories to benchmark")
@@ -87,6 +94,8 @@ func parseFlags() config {
 
 	if failMetricsStr != "" {
 		cfg.failMetrics = strings.Split(failMetricsStr, ",")
+	} else {
+		cfg.failMetrics = []string{"time/op"}
 	}
 
 	if targetDirsStr != "" {
@@ -147,6 +156,15 @@ func runBenchmarksForDir(cfg config, dir string) error {
 		return fmt.Errorf("failed to run benchmarks: %w", err)
 	}
 
+	// Update mode: always overwrite baseline
+	if cfg.update {
+		if err := saveBaseline(baselineFile, newResults); err != nil {
+			return fmt.Errorf("failed to update baseline: %w", err)
+		}
+		fmt.Printf("✅ Baseline updated: %s\n", baselineFile)
+		return nil
+	}
+
 	// Check if baseline exists
 	if _, err := os.Stat(baselineFile); os.IsNotExist(err) {
 		fmt.Printf("No baseline found at %s. Creating new baseline.\n", baselineFile)
@@ -163,7 +181,7 @@ func runBenchmarksForDir(cfg config, dir string) error {
 
 func runBenchmarks(cfg config, dir string) (string, error) {
 	args := []string{"test", "-bench=" + cfg.bench, "-benchtime=" + cfg.benchtime, "-count=" + strconv.Itoa(cfg.count)}
-	
+
 	if cfg.benchmem {
 		args = append(args, "-benchmem")
 	}
