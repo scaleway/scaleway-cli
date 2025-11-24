@@ -22,7 +22,6 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRoot(),
 		vpcVpc(),
 		vpcPrivateNetwork(),
-		vpcSubnet(),
 		vpcRoute(),
 		vpcRule(),
 		vpcVpcList(),
@@ -75,15 +74,6 @@ to resources that are on the same Private Network. Note that a
 resource can be a part of multiple private networks.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
-	}
-}
-
-func vpcSubnet() *core.Command {
-	return &core.Command{
-		Short:     `Subnet management command`,
-		Long:      `CIDR Subnet.`,
-		Namespace: "vpc",
-		Resource:  "subnet",
 	}
 }
 
