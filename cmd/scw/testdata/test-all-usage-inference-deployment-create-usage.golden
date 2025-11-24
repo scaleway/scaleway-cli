@@ -14,6 +14,7 @@ ARGS:
   [tags.{index}]                                           List of tags to apply to the deployment
   [min-size]                                               Defines the minimum size of the pool
   [max-size]                                               Defines the maximum size of the pool
+  [endpoints.{index}.is-public=true]                       Will configure your public endpoint if true
   [endpoints.{index}.private-network.private-network-id]   
   [endpoints.{index}.disable-auth=false]                   Disable the authentication on the endpoint.
   [quantization.bits]                                      The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.
@@ -21,6 +22,7 @@ ARGS:
 
 FLAGS:
   -h, --help   help for create
+  -w, --wait   wait until the deployment is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

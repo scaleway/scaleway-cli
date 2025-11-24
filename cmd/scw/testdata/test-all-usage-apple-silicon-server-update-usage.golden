@@ -6,13 +6,14 @@ USAGE:
   scw apple-silicon server update <server-id ...> [arg=value ...]
 
 ARGS:
-  server-id                           UUID of the server you want to update
-  [name]                              Updated name for your server
-  [schedule-deletion]                 Specify whether the server should be flagged for automatic deletion
-  [enable-vpc]                        Activate or deactivate Private Network support for this server
-  [commitment-type.commitment-type]    (duration_24h | renewed_monthly | none)
-  [public-bandwidth-bps]              Public bandwidth configured for this server
-  [zone=fr-par-1]                     Zone to target. If none is passed will use default zone from the config (fr-par-3)
+  server-id                                                          UUID of the server you want to update
+  [name]                                                             Updated name for your server
+  [schedule-deletion]                                                Specify whether the server should be flagged for automatic deletion
+  [enable-vpc]                                                       Activate or deactivate Private Network support for this server
+  [commitment-type.commitment-type]                                   (duration_24h | renewed_monthly | none)
+  [public-bandwidth-bps]                                             Public bandwidth configured for this server
+  [applied-runner-configurations.runner-configuration-ids.{index}]   
+  [zone=fr-par-1]                                                    Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
   -h, --help   help for update
