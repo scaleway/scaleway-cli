@@ -3,11 +3,12 @@ package rdb_test
 import (
 	"bytes"
 	"context"
+	"errors"
 	"fmt"
+	"net/http"
 	"os"
 	"sort"
 	"strings"
-	"sync"
 	"testing"
 	"time"
 
@@ -45,9 +46,7 @@ const (
 )
 
 var (
-	sharedInstance   *rdbSDK.Instance
-	sharedInstanceMu sync.Mutex
-	backupOpMu       sync.Mutex
+	sharedInstance *rdbSDK.Instance
 )
 
 // TestMain ensures shared instance cleanup
@@ -72,15 +71,21 @@ func cleanupWithRetry(b *testing.B, name string, resourceID string, cleanupFn fu
 			return
 		}
 
-		// Check if it's a 409 conflict (resource in transient state)
-		errMsg := err.Error()
-		if strings.Contains(errMsg, "409") || strings.Contains(errMsg, "Conflict") || strings.Contains(errMsg, "transient state") {
-			if i < maxRetries-1 {
-				waitTime := time.Duration(2*(i+1)) * time.Second
-				b.Logf("cleanup conflict for %s=%s (attempt %d/%d), waiting %v: %v", name, resourceID, i+1, maxRetries, waitTime, err)
-				time.Sleep(waitTime)
-				continue
-			}
+		// Check if it's a 409 Conflict using typed error
+		var respErr *scw.ResponseError
+		isConflict := errors.As(err, &respErr) && respErr.StatusCode == http.StatusConflict
+
+		// Fallback: check error message for transient state keywords
+		if !isConflict {
+			errMsg := err.Error()
+			isConflict = strings.Contains(errMsg, "transient state") || strings.Contains(errMsg, "backuping")
+		}
+
+		if isConflict && i < maxRetries-1 {
+			waitTime := time.Duration(2*(i+1)) * time.Second
+			b.Logf("cleanup conflict for %s=%s (attempt %d/%d), waiting %v: %v", name, resourceID, i+1, maxRetries, waitTime, err)
+			time.Sleep(waitTime)
+			continue
 		}
 
 		b.Errorf("cleanup failure (%s=%s) after %d attempts: %v", name, resourceID, i+1, err)
@@ -141,9 +146,6 @@ func (s *benchmarkStats) report(b *testing.B) {
 func getOrCreateSharedInstance(b *testing.B, client *scw.Client, executeCmd func([]string) any, meta core.TestMetadata) *rdbSDK.Instance {
 	b.Helper()
 
-	sharedInstanceMu.Lock()
-	defer sharedInstanceMu.Unlock()
-
 	if sharedInstance != nil {
 		b.Log("Reusing existing shared RDB instance")
 		return sharedInstance
@@ -174,9 +176,6 @@ func getOrCreateSharedInstance(b *testing.B, client *scw.Client, executeCmd func
 }
 
 func cleanupSharedInstance() {
-	sharedInstanceMu.Lock()
-	defer sharedInstanceMu.Unlock()
-
 	if sharedInstance == nil {
 		return
 	}
@@ -261,22 +260,8 @@ func BenchmarkInstanceGet(b *testing.B) {
 
 	for range b.N {
 		start := time.Now()
-
-		ctx, cancel := context.WithTimeout(context.Background(), defaultCmdTimeout)
-		done := make(chan any, 1)
-
-		go func() {
-			done <- executeCmd([]string{"scw", "rdb", "instance", "get", instance.ID})
-		}()
-
-		select {
-		case <-done:
-			stats.record(time.Since(start))
-		case <-ctx.Done():
-			cancel()
-			b.Fatalf("command timeout after %v", defaultCmdTimeout)
-		}
-		cancel()
+		executeCmd([]string{"scw", "rdb", "instance", "get", instance.ID})
+		stats.record(time.Since(start))
 	}
 
 	b.StopTimer()
@@ -299,15 +284,11 @@ func BenchmarkBackupGet(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	backupOpMu.Lock()
 	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
-		backupOpMu.Unlock()
 		b.Fatalf("Instance not ready before backup: %v", err)
 	}
-	err := createBackupDirect("Backup")(ctx)
-	backupOpMu.Unlock()
 
-	if err != nil {
+	if err := createBackupDirect("Backup")(ctx); err != nil {
 		b.Fatalf("Failed to create backup: %v", err)
 	}
 
@@ -330,22 +311,8 @@ func BenchmarkBackupGet(b *testing.B) {
 
 	for range b.N {
 		start := time.Now()
-
-		ctx, cancel := context.WithTimeout(context.Background(), defaultCmdTimeout)
-		done := make(chan any, 1)
-
-		go func() {
-			done <- executeCmd([]string{"scw", "rdb", "backup", "get", backup.ID})
-		}()
-
-		select {
-		case <-done:
-			stats.record(time.Since(start))
-		case <-ctx.Done():
-			cancel()
-			b.Fatalf("command timeout after %v", defaultCmdTimeout)
-		}
-		cancel()
+		executeCmd([]string{"scw", "rdb", "backup", "get", backup.ID})
+		stats.record(time.Since(start))
 	}
 
 	b.StopTimer()
@@ -368,24 +335,19 @@ func BenchmarkBackupList(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	backupOpMu.Lock()
 	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
-		backupOpMu.Unlock()
 		b.Fatalf("Instance not ready before backup 1: %v", err)
 	}
-	err := createBackupDirect("Backup1")(ctx)
-	if err != nil {
-		backupOpMu.Unlock()
+
+	if err := createBackupDirect("Backup1")(ctx); err != nil {
 		b.Fatalf("Failed to create backup 1: %v", err)
 	}
+
 	if err := waitForInstanceReady(executeCmd, instance.ID, instanceReadyTimeout); err != nil {
-		backupOpMu.Unlock()
 		b.Fatalf("Instance not ready before backup 2: %v", err)
 	}
-	err = createBackupDirect("Backup2")(ctx)
-	backupOpMu.Unlock()
 
-	if err != nil {
+	if err := createBackupDirect("Backup2")(ctx); err != nil {
 		b.Fatalf("Failed to create backup 2: %v", err)
 	}
 
@@ -412,22 +374,8 @@ func BenchmarkBackupList(b *testing.B) {
 
 	for range b.N {
 		start := time.Now()
-
-		ctx, cancel := context.WithTimeout(context.Background(), defaultCmdTimeout)
-		done := make(chan any, 1)
-
-		go func() {
-			done <- executeCmd([]string{"scw", "rdb", "backup", "list", "instance-id=" + instance.ID})
-		}()
-
-		select {
-		case <-done:
-			stats.record(time.Since(start))
-		case <-ctx.Done():
-			cancel()
-			b.Fatalf("command timeout after %v", defaultCmdTimeout)
-		}
-		cancel()
+		executeCmd([]string{"scw", "rdb", "backup", "list", "instance-id=" + instance.ID})
+		stats.record(time.Since(start))
 	}
 
 	b.StopTimer()
@@ -448,22 +396,8 @@ func BenchmarkDatabaseList(b *testing.B) {
 
 	for range b.N {
 		start := time.Now()
-
-		ctx, cancel := context.WithTimeout(context.Background(), defaultCmdTimeout)
-		done := make(chan any, 1)
-
-		go func() {
-			done <- executeCmd([]string{"scw", "rdb", "database", "list", "instance-id=" + instance.ID})
-		}()
-
-		select {
-		case <-done:
-			stats.record(time.Since(start))
-		case <-ctx.Done():
-			cancel()
-			b.Fatalf("command timeout after %v", defaultCmdTimeout)
-		}
-		cancel()
+		executeCmd([]string{"scw", "rdb", "database", "list", "instance-id=" + instance.ID})
+		stats.record(time.Since(start))
 	}
 
 	b.StopTimer()
