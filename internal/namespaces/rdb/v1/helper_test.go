@@ -180,9 +180,8 @@ func deleteInstanceDirect() core.AfterFunc {
 func waitForInstanceReady(
 	executeCmd func([]string) any,
 	instanceID string,
-	maxWait time.Duration,
 ) error {
-	ctx, cancel := context.WithTimeout(context.Background(), maxWait)
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
 	defer cancel()
 
 	backoff := time.Second

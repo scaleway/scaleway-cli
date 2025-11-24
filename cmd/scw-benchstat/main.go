@@ -3,6 +3,7 @@ package main
 import (
 	"context"
 	"encoding/csv"
+	"errors"
 	"flag"
 	"fmt"
 	"log"
@@ -31,13 +32,6 @@ type config struct {
 	update      bool
 }
 
-type benchResult struct {
-	name        string
-	timePerOp   float64
-	bytesPerOp  int64
-	allocsPerOp int64
-}
-
 func main() {
 	cfg := parseFlags()
 
@@ -48,7 +42,10 @@ func main() {
 	}
 
 	if !isBenchstatAvailable() {
-		log.Fatalf("benchstat not found in PATH; install golang.org/x/perf/cmd/benchstat@%s in your environment or run with --install-benchstat", benchstatVersion)
+		log.Fatalf(
+			"benchstat not found in PATH; install golang.org/x/perf/cmd/benchstat@%s in your environment or run with --install-benchstat",
+			benchstatVersion,
+		)
 	}
 
 	if len(cfg.targetDirs) == 0 {
@@ -79,16 +76,36 @@ func parseFlags() config {
 	flag.StringVar(&cfg.benchtime, "benchtime", "1s", "benchmark time")
 	flag.IntVar(&cfg.count, "count", 5, "number of benchmark runs")
 	flag.BoolVar(&cfg.benchmem, "benchmem", false, "include memory allocation stats")
-	flag.Float64Var(&cfg.threshold, "threshold", 1.5, "performance regression threshold (e.g., 1.5 = 50% slower)")
-	flag.BoolVar(&cfg.installTool, "install-benchstat", false, "install benchstat tool if not found")
+	flag.Float64Var(
+		&cfg.threshold,
+		"threshold",
+		1.5,
+		"performance regression threshold (e.g., 1.5 = 50% slower)",
+	)
+	flag.BoolVar(
+		&cfg.installTool,
+		"install-benchstat",
+		false,
+		"install benchstat tool if not found",
+	)
 	flag.BoolVar(&cfg.verbose, "verbose", false, "verbose output")
 	flag.BoolVar(&cfg.update, "update", false, "update baseline files instead of comparing")
 
 	var failMetricsStr string
-	flag.StringVar(&failMetricsStr, "fail-metrics", "", "comma-separated list of metrics to check for regressions (default: time/op)")
+	flag.StringVar(
+		&failMetricsStr,
+		"fail-metrics",
+		"",
+		"comma-separated list of metrics to check for regressions (default: time/op)",
+	)
 
 	var targetDirsStr string
-	flag.StringVar(&targetDirsStr, "target-dirs", "", "comma-separated list of directories to benchmark")
+	flag.StringVar(
+		&targetDirsStr,
+		"target-dirs",
+		"",
+		"comma-separated list of directories to benchmark",
+	)
 
 	flag.Parse()
 
@@ -107,37 +124,41 @@ func parseFlags() config {
 
 func installBenchstat() error {
 	fmt.Printf("Installing benchstat@%s...\n", benchstatVersion)
-	cmd := exec.Command("go", "install", fmt.Sprintf("golang.org/x/perf/cmd/benchstat@%s", benchstatVersion))
+	cmd := exec.Command("go", "install", "golang.org/x/perf/cmd/benchstat@"+benchstatVersion)
 	cmd.Stdout = os.Stdout
 	cmd.Stderr = os.Stderr
+
 	return cmd.Run()
 }
 
 func isBenchstatAvailable() bool {
 	_, err := exec.LookPath("benchstat")
+
 	return err == nil
 }
 
 func findBenchmarkDirs() []string {
 	var dirs []string
 
-	err := filepath.WalkDir("internal/namespaces", func(path string, d os.DirEntry, err error) error {
-		if err != nil {
-			return err
-		}
+	err := filepath.WalkDir(
+		"internal/namespaces",
+		func(path string, d os.DirEntry, err error) error {
+			if err != nil {
+				return err
+			}
 
-		if d.IsDir() {
+			if d.IsDir() {
+				return nil
+			}
+
+			if strings.HasSuffix(d.Name(), "_benchmark_test.go") {
+				dir := filepath.Dir(path)
+				dirs = append(dirs, dir)
+			}
+
 			return nil
-		}
-
-		if strings.HasSuffix(d.Name(), "_benchmark_test.go") {
-			dir := filepath.Dir(path)
-			dirs = append(dirs, dir)
-		}
-
-		return nil
-	})
-
+		},
+	)
 	if err != nil {
 		log.Printf("error scanning for benchmark directories: %v", err)
 	}
@@ -162,6 +183,7 @@ func runBenchmarksForDir(cfg config, dir string) error {
 			return fmt.Errorf("failed to update baseline: %w", err)
 		}
 		fmt.Printf("✅ Baseline updated: %s\n", baselineFile)
+
 		return nil
 	}
 
@@ -172,6 +194,7 @@ func runBenchmarksForDir(cfg config, dir string) error {
 			return fmt.Errorf("failed to save baseline: %w", err)
 		}
 		fmt.Printf("Baseline saved to %s\n", baselineFile)
+
 		return nil
 	}
 
@@ -180,7 +203,12 @@ func runBenchmarksForDir(cfg config, dir string) error {
 }
 
 func runBenchmarks(cfg config, dir string) (string, error) {
-	args := []string{"test", "-bench=" + cfg.bench, "-benchtime=" + cfg.benchtime, "-count=" + strconv.Itoa(cfg.count)}
+	args := []string{
+		"test",
+		"-bench=" + cfg.bench,
+		"-benchtime=" + cfg.benchtime,
+		"-count=" + strconv.Itoa(cfg.count),
+	}
 
 	if cfg.benchmem {
 		args = append(args, "-benchmem")
@@ -208,11 +236,11 @@ func runBenchmarks(cfg config, dir string) (string, error) {
 
 func saveBaseline(filename, content string) error {
 	dir := filepath.Dir(filename)
-	if err := os.MkdirAll(dir, 0755); err != nil {
+	if err := os.MkdirAll(dir, 0o755); err != nil {
 		return err
 	}
 
-	return os.WriteFile(filename, []byte(content), 0644)
+	return os.WriteFile(filename, []byte(content), 0o644)
 }
 
 func compareWithBaseline(cfg config, baselineFile, newResults string) error {
@@ -233,7 +261,12 @@ func compareWithBaseline(cfg config, baselineFile, newResults string) error {
 	cmd := exec.Command("benchstat", "-format=csv", baselineFile, tmpFile.Name())
 	output, err := cmd.CombinedOutput()
 	if err != nil {
-		return fmt.Errorf("failed to compare with benchstat for %s: %w\nOutput: %s", filepath.Dir(baselineFile), err, output)
+		return fmt.Errorf(
+			"failed to compare with benchstat for %s: %w\nOutput: %s",
+			filepath.Dir(baselineFile),
+			err,
+			output,
+		)
 	}
 
 	// Parse CSV output and check for regressions
@@ -249,6 +282,7 @@ func checkForRegressions(cfg config, csvOutput string) error {
 
 	if len(records) < 2 {
 		fmt.Println("No benchmark comparisons found")
+
 		return nil
 	}
 
@@ -263,7 +297,7 @@ func checkForRegressions(cfg config, csvOutput string) error {
 	newAllocsIdx := findColumnIndex(header, "new allocs/op")
 
 	if nameIdx == -1 {
-		return fmt.Errorf("could not find 'name' column in benchstat output")
+		return errors.New("could not find 'name' column in benchstat output")
 	}
 
 	var regressions []string
@@ -278,7 +312,10 @@ func checkForRegressions(cfg config, csvOutput string) error {
 		// Check time/op regression
 		if contains(cfg.failMetrics, "time/op") && oldTimeIdx != -1 && newTimeIdx != -1 {
 			if regression := checkMetricRegression(record, oldTimeIdx, newTimeIdx, cfg.threshold); regression != "" {
-				regressions = append(regressions, fmt.Sprintf("%s: time/op %s", benchName, regression))
+				regressions = append(
+					regressions,
+					fmt.Sprintf("%s: time/op %s", benchName, regression),
+				)
 			}
 		}
 
@@ -292,7 +329,10 @@ func checkForRegressions(cfg config, csvOutput string) error {
 		// Check allocs/op regression
 		if contains(cfg.failMetrics, "allocs/op") && oldAllocsIdx != -1 && newAllocsIdx != -1 {
 			if regression := checkMetricRegression(record, oldAllocsIdx, newAllocsIdx, cfg.threshold); regression != "" {
-				regressions = append(regressions, fmt.Sprintf("%s: allocs/op %s", benchName, regression))
+				regressions = append(
+					regressions,
+					fmt.Sprintf("%s: allocs/op %s", benchName, regression),
+				)
 			}
 		}
 
@@ -310,10 +350,15 @@ func checkForRegressions(cfg config, csvOutput string) error {
 		for _, regression := range regressions {
 			fmt.Printf("  - %s\n", regression)
 		}
-		return fmt.Errorf("performance regressions detected")
+
+		return errors.New("performance regressions detected")
 	}
 
-	fmt.Printf("✅ No significant performance regressions detected (threshold: %.1fx)\n", cfg.threshold)
+	fmt.Printf(
+		"✅ No significant performance regressions detected (threshold: %.1fx)\n",
+		cfg.threshold,
+	)
+
 	return nil
 }
 
@@ -323,6 +368,7 @@ func findColumnIndex(header []string, columnName string) int {
 			return i
 		}
 	}
+
 	return -1
 }
 
@@ -354,7 +400,7 @@ func parseMetricValue(s string) (float64, error) {
 	s = strings.TrimSpace(s)
 
 	if s == "" || s == "-" {
-		return 0, fmt.Errorf("empty value")
+		return 0, errors.New("empty value")
 	}
 
 	return strconv.ParseFloat(s, 64)
@@ -366,5 +412,6 @@ func contains(slice []string, item string) bool {
 			return true
 		}
 	}
+
 	return false
 }
