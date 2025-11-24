@@ -17,10 +17,16 @@ func GetCommands() *core.Commands {
 
 func helpRoot() *core.Command {
 	return &core.Command{
-		Short:                "Get help about how the CLI works",
+		Short:                "Get help about how specific topics inside the CLI",
 		Namespace:            "help",
 		AllowAnonymousClient: true,
 		Groups:               []string{"utility"},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Print general help",
+				Command: "scw --help",
+			},
+		},
 	}
 }
 
