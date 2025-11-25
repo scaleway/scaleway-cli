@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"strings"
 	"time"
 
 	"github.com/containerd/console"
@@ -38,6 +39,16 @@ func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error
 		serverID:  serverID,
 		secretKey: secretKey,
 	}, nil
+}
+
+// SetWsURL updates the WebSocket URL for the client.
+func (c *Client) SetWsURL(url string) error {
+	// Basic validation that it's a wss URL
+	if !strings.HasPrefix(url, "wss://") {
+		return fmt.Errorf("URL must start with wss://")
+	}
+	c.wsURL = url
+	return nil
 }
 
 func (c *Client) Connect() error {
