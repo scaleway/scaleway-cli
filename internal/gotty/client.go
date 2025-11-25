@@ -4,6 +4,7 @@ package gotty
 
 import (
 	"encoding/base64"
+	"errors"
 	"fmt"
 	"net/url"
 	"os"
@@ -45,9 +46,10 @@ func NewClient(zone scw.Zone, serverID string, secretKey string) (*Client, error
 func (c *Client) SetWsURL(url string) error {
 	// Basic validation that it's a wss URL
 	if !strings.HasPrefix(url, "wss://") {
-		return fmt.Errorf("URL must start with wss://")
+		return errors.New("URL must start with wss://")
 	}
 	c.wsURL = url
+
 	return nil
 }
 
