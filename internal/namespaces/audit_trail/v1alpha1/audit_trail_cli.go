@@ -108,6 +108,7 @@ func auditTrailEventList() *core.Command {
 					"instance_volume",
 					"instance_snapshot",
 					"instance_image",
+					"instance_template",
 					"apple_silicon_server",
 					"baremetal_server",
 					"baremetal_setting",
