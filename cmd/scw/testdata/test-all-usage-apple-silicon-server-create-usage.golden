@@ -6,18 +6,19 @@ USAGE:
   scw apple-silicon server create [arg=value ...]
 
 ARGS:
-  [name=<generated>]                Create a server with this given name
-  [project-id]                      Project ID to use. If none is passed the default project ID will be used
-  [type]                            Create a server of the given type
-  [os-id]                           Create a server with the given os_id
-  [enable-vpc]                      Activate the Private Network feature for this server
-  [commitment-type]                 Activate commitment for this server (duration_24h | renewed_monthly | none)
-  [public-bandwidth-bps]            Public bandwidth to configure for this server. Expressed in bits per second.
-  [runner-configuration.name]       
-  [runner-configuration.url]        
-  [runner-configuration.token]      
-  [runner-configuration.provider]    (unknown_provider | github | gitlab)
-  [zone=fr-par-1]                   Zone to target. If none is passed will use default zone from the config (fr-par-3)
+  [name=<generated>]                                                 Create a server with this given name
+  [project-id]                                                       Project ID to use. If none is passed the default project ID will be used
+  [type]                                                             Create a server of the given type
+  [os-id]                                                            Create a server with the given os_id
+  [enable-vpc]                                                       Activate the Private Network feature for this server
+  [commitment-type]                                                  Activate commitment for this server (duration_24h | renewed_monthly | none)
+  [public-bandwidth-bps]                                             Public bandwidth to configure for this server. Expressed in bits per second.
+  [runner-configuration.name]                                        
+  [runner-configuration.url]                                         
+  [runner-configuration.token]                                       
+  [runner-configuration.provider]                                     (unknown_provider | github | gitlab)
+  [applied-runner-configurations.runner-configuration-ids.{index}]   
+  [zone=fr-par-1]                                                    Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
   -h, --help   help for create

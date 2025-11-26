@@ -444,6 +444,7 @@ func ipamIPList() *core.Command {
 					"scbl_sedb_cluster",
 					"dtwh_deployment",
 					"sedb_cluster",
+					"msgq_cluster",
 				},
 			},
 			{
@@ -481,6 +482,7 @@ func ipamIPList() *core.Command {
 					"scbl_sedb_cluster",
 					"dtwh_deployment",
 					"sedb_cluster",
+					"msgq_cluster",
 				},
 			},
 			{
