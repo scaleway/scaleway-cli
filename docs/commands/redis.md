@@ -650,7 +650,6 @@ scw redis version settings [arg=value ...]
 
 
 **Examples:**
-
 List settings for Redis™ 7.2.11
 ```
 scw redis version settings version=7.2.11
