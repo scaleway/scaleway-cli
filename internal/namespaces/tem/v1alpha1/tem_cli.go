@@ -128,7 +128,7 @@ func temProjectConsumption() *core.Command {
 func temEmailCreate() *core.Command {
 	return &core.Command{
 		Short:     `Send an email`,
-		Long:      `You must specify the ` + "`" + `region` + "`" + `, the sender and the recipient's information and the ` + "`" + `project_id` + "`" + ` to send an email from a checked domain. The subject of the email must contain at least 6 characters.`,
+		Long:      `You must specify the ` + "`" + `region` + "`" + `, the sender and the recipient's information and the ` + "`" + `project_id` + "`" + ` to send an email from a checked domain.`,
 		Namespace: "tem",
 		Resource:  "email",
 		Verb:      "create",
