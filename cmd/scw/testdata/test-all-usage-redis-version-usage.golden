@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   list        List available Redis™ versions
+  settings    List available settings from a Redis™ version
 
 FLAGS:
   -h, --help   help for version
