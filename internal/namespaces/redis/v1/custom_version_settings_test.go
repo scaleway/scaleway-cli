@@ -1,4 +1,4 @@
-package redis
+package redis_test
 
 import (
 	"context"
@@ -9,8 +9,10 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	redis "github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	redisSDK "github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
@@ -18,9 +20,9 @@ func TestRedisVersionSettingsCommand(t *testing.T) {
 	t.Parallel()
 
 	server := httptest.NewServer(http.HandlerFunc(func(w http.ResponseWriter, r *http.Request) {
-		require.Equal(t, "/redis/v1/zones/fr-par-1/cluster-versions", r.URL.Path)
+		assert.Equal(t, "/redis/v1/zones/fr-par-1/cluster-versions", r.URL.Path)
 		q := r.URL.Query()
-		require.Equal(t, "7.2.11", q.Get("version"))
+		assert.Equal(t, "7.2.11", q.Get("version"))
 
 		w.Header().Set("Content-Type", "application/json")
 		err := json.NewEncoder(w).Encode(&redisSDK.ListClusterVersionsResponse{
@@ -38,7 +40,9 @@ func TestRedisVersionSettingsCommand(t *testing.T) {
 				},
 			},
 		})
-		require.NoError(t, err)
+		if err != nil {
+			t.Fatalf("failed to encode response: %v", err)
+		}
 	}))
 	t.Cleanup(server.Close)
 
@@ -52,7 +56,9 @@ func TestRedisVersionSettingsCommand(t *testing.T) {
 		Client: client,
 	})
 
-	cmd := redisVersionSettingsCommand()
+	cmds := redis.GetCommands()
+	cmd := cmds.MustFind("redis", "version", "settings")
+
 	args := reflect.New(cmd.ArgsType).Interface()
 	argsValue := reflect.ValueOf(args).Elem()
 	argsValue.FieldByName("Version").SetString("7.2.11")
