@@ -4,7 +4,7 @@ go 1.25.0
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.40.0
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.91.1
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.92.1
 	github.com/buildpacks/pack v0.38.2
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v1.3.10
