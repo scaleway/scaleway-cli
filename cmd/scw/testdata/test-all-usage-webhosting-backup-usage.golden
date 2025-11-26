@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Backups represent snapshots of your hosting environment.
+You can list and restore individual items such as files, databases,
+or mailboxes.
+
+USAGE:
+  scw webhosting backup <command>
+
+AVAILABLE COMMANDS:
+  get         Get info about a backup specified by the backup ID.
+  list        List all available backups for a hosting account.
+  restore     Restore an entire backup to your hosting environment.
+
+FLAGS:
+  -h, --help   help for backup
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw webhosting backup [command] --help" for more information about a command.
