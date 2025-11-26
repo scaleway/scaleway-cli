@@ -21,6 +21,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("redis", "cluster", "migrate").Override(redisClusterMigrateBuilder)
 
 	cmds.Merge(core.NewCommands(redisACLUpdateCommand()))
+	cmds.Merge(core.NewCommands(redisVersionSettingsCommand()))
 
 	return cmds
 }

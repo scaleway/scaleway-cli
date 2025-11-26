@@ -629,3 +629,23 @@ scw redis version list [arg=value ...]
 
 
 
+### List settings for a Redis™ version
+
+List the available advanced settings for a specific Redis™ engine version.
+
+**Usage:**
+
+```
+scw redis version settings [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| version | Required | Redis™ engine version |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+
