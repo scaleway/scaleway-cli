@@ -20,16 +20,28 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		webhostingRoot(),
+		webhostingBackup(),
+		webhostingBackupItem(),
+		webhostingProgress(),
 		webhostingControlPanel(),
 		webhostingDatabase(),
 		webhostingDatabaseUser(),
 		webhostingDNSRecords(),
 		webhostingDomain(),
+		webhostingDomainAvailability(),
 		webhostingOffer(),
 		webhostingHosting(),
+		webhostingFreedomain(),
 		webhostingFtpAccount(),
 		webhostingMailAccount(),
 		webhostingWebsite(),
+		webhostingBackupList(),
+		webhostingBackupGet(),
+		webhostingBackupRestore(),
+		webhostingBackupItemList(),
+		webhostingBackupItemRestore(),
+		webhostingProgressGet(),
+		webhostingProgressList(),
 		webhostingControlPanelList(),
 		webhostingDatabaseCreate(),
 		webhostingDatabaseList(),
@@ -45,6 +57,8 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingDNSRecordsGetDNSRecords(),
 		webhostingDomainCheckOwnership(),
 		webhostingDomainSyncDNSRecords(),
+		webhostingDomainAvailabilitySearch(),
+		webhostingDomainGet(),
 		webhostingOfferList(),
 		webhostingHostingCreate(),
 		webhostingHostingList(),
@@ -52,6 +66,8 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingHostingUpdate(),
 		webhostingHostingDelete(),
 		webhostingHostingCreateSession(),
+		webhostingFreedomainCheckAvailability(),
+		webhostingFreedomainList(),
 		webhostingFtpAccountCreate(),
 		webhostingFtpAccountList(),
 		webhostingFtpAccountDelete(),
@@ -65,9 +81,40 @@ func GetGeneratedCommands() *core.Commands {
 
 func webhostingRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Web Hosting services`,
-		Long:      `This API allows you to manage your Web Hosting services.`,
+		Short:     `This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.`,
+		Long:      `This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.`,
 		Namespace: "webhosting",
+	}
+}
+
+func webhostingBackup() *core.Command {
+	return &core.Command{
+		Short: `Backups`,
+		Long: `Backups represent snapshots of your hosting environment.
+You can list and restore individual items such as files, databases,
+or mailboxes.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+	}
+}
+
+func webhostingBackupItem() *core.Command {
+	return &core.Command{
+		Short: `Backups items`,
+		Long: `Backups represent dedicated snapshots of services of your hosting.
+You can list and restore individual items such as files, databases,
+or mailboxes.`,
+		Namespace: "webhosting",
+		Resource:  "backup-item",
+	}
+}
+
+func webhostingProgress() *core.Command {
+	return &core.Command{
+		Short:     `Progresses`,
+		Long:      `Progresses give details on the advancement of a backup,.`,
+		Namespace: "webhosting",
+		Resource:  "progress",
 	}
 }
 
@@ -116,6 +163,15 @@ func webhostingDomain() *core.Command {
 	}
 }
 
+func webhostingDomainAvailability() *core.Command {
+	return &core.Command{
+		Short:     `Domain information commands`,
+		Long:      `With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.`,
+		Namespace: "webhosting",
+		Resource:  "domain-availability",
+	}
+}
+
 func webhostingOffer() *core.Command {
 	return &core.Command{
 		Short:     `Offer`,
@@ -131,6 +187,15 @@ func webhostingHosting() *core.Command {
 		Long:      `With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Create, list, update and delete your Web Hosting plans with these calls.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
+	}
+}
+
+func webhostingFreedomain() *core.Command {
+	return &core.Command{
+		Short:     `Free domains`,
+		Long:      `A free subdomain provided by Scaleway for your hosting.`,
+		Namespace: "webhosting",
+		Resource:  "freedomain",
 	}
 }
 
@@ -158,6 +223,300 @@ func webhostingWebsite() *core.Command {
 		Long:      `Websites represent the domains and paths hosted within your Web Hosting plan.`,
 		Namespace: "webhosting",
 		Resource:  "website",
+	}
+}
+
+func webhostingBackupList() *core.Command {
+	return &core.Command{
+		Short:     `List all available backups for a hosting account.`,
+		Long:      `List all available backups for a hosting account.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIListBackupsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Order in which to return the list of backups`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+				},
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIListBackupsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListBackups(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Backups, nil
+		},
+	}
+}
+
+func webhostingBackupGet() *core.Command {
+	return &core.Command{
+		Short:     `Get info about a backup specified by the backup ID.`,
+		Long:      `Get info about a backup specified by the backup ID.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIGetBackupRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup to retrieve`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIGetBackupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.GetBackup(request)
+		},
+	}
+}
+
+func webhostingBackupRestore() *core.Command {
+	return &core.Command{
+		Short:     `Restore an entire backup to your hosting environment.`,
+		Long:      `Restore an entire backup to your hosting environment.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIRestoreBackupRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup to fully restore`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIRestoreBackupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.RestoreBackup(request)
+		},
+	}
+}
+
+func webhostingBackupItemList() *core.Command {
+	return &core.Command{
+		Short:     `List items within a specific backup, grouped by type.`,
+		Long:      `List items within a specific backup, grouped by type.`,
+		Namespace: "webhosting",
+		Resource:  "backup-item",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIListBackupItemsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup to list items from`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIListBackupItemsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.ListBackupItems(request)
+		},
+	}
+}
+
+func webhostingBackupItemRestore() *core.Command {
+	return &core.Command{
+		Short:     `Restore specific items from a backup (e.g., a database or mailbox).`,
+		Long:      `Restore specific items from a backup (e.g., a database or mailbox).`,
+		Namespace: "webhosting",
+		Resource:  "backup-item",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIRestoreBackupItemsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "item-ids.{index}",
+				Short:      `List of backup item IDs to restore individually`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIRestoreBackupItemsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.RestoreBackupItems(request)
+		},
+	}
+}
+
+func webhostingProgressGet() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve detailed information about a specific progress by its ID.`,
+		Long:      `Retrieve detailed information about a specific progress by its ID.`,
+		Namespace: "webhosting",
+		Resource:  "progress",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIGetProgressRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `ID of the hosting associated with the progress.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "progress-id",
+				Short:      `ID of the progress to retrieve.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIGetProgressRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.GetProgress(request)
+		},
+	}
+}
+
+func webhostingProgressList() *core.Command {
+	return &core.Command{
+		Short:     `List recent progresses associated with a specific backup, grouped by type.`,
+		Long:      `List recent progresses associated with a specific backup, grouped by type.`,
+		Namespace: "webhosting",
+		Resource:  "progress",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.BackupAPIListRecentProgressesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `ID of the hosting linked to the progress.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIListRecentProgressesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.ListRecentProgresses(request)
+		},
 	}
 }
 
@@ -917,6 +1276,76 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 	}
 }
 
+func webhostingDomainAvailabilitySearch() *core.Command {
+	return &core.Command{
+		Short:     `Search for available domains based on domain name.`,
+		Long:      `Search for available domains based on domain name.`,
+		Namespace: "webhosting",
+		Resource:  "domain-availability",
+		Verb:      "search",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.DNSAPISearchDomainsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-name",
+				Short:      `Domain name to search.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.DNSAPISearchDomainsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewDnsAPI(client)
+
+			return api.SearchDomains(request)
+		},
+	}
+}
+
+func webhostingDomainGet() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.`,
+		Long:      `Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.`,
+		Namespace: "webhosting",
+		Resource:  "domain",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.DNSAPIGetDomainRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-name",
+				Short:      `Domain name to get.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.DNSAPIGetDomainRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewDnsAPI(client)
+
+			return api.GetDomain(request)
+		},
+	}
+}
+
 func webhostingOfferList() *core.Command {
 	return &core.Command{
 		Short:     `List all available hosting offers along with their specific options.`,
@@ -1443,6 +1872,84 @@ func webhostingHostingCreateSession() *core.Command {
 			api := webhosting.NewHostingAPI(client)
 
 			return api.CreateSession(request)
+		},
+	}
+}
+
+func webhostingFreedomainCheckAvailability() *core.Command {
+	return &core.Command{
+		Short:     `Check whether a given slug and free domain combination is available.`,
+		Long:      `Check whether a given slug and free domain combination is available.`,
+		Namespace: "webhosting",
+		Resource:  "freedomain",
+		Verb:      "check-availability",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.FreeDomainAPICheckFreeDomainAvailabilityRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "slug",
+				Short:      `Custom prefix used for the free domain.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "root-domain",
+				Short:      `Free root domain provided by Web Hosting, selected from the list returned by ` + "`" + `ListFreeRootDomains` + "`" + `.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.FreeDomainAPICheckFreeDomainAvailabilityRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewFreeDomainAPI(client)
+
+			return api.CheckFreeDomainAvailability(request)
+		},
+	}
+}
+
+func webhostingFreedomainList() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve the list of free root domains available for a Web Hosting.`,
+		Long:      `Retrieve the list of free root domains available for a Web Hosting.`,
+		Namespace: "webhosting",
+		Resource:  "freedomain",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(webhosting.FreeDomainAPIListFreeRootDomainsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.FreeDomainAPIListFreeRootDomainsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewFreeDomainAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFreeRootDomains(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.RootDomains, nil
 		},
 	}
 }
