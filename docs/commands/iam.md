@@ -67,6 +67,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Delete a guest user from an Organization](#delete-a-guest-user-from-an-organization)
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
+  - [Lock a member](#lock-a-member)
+  - [Unlock a member](#unlock-a-member)
   - [Update a user](#update-a-user)
   - [Update an user's password.](#update-an-user's-password.)
   - [Update an user's username.](#update-an-user's-username.)
@@ -1296,6 +1298,44 @@ scw iam user list [arg=value ...]
 | tag |  | Filter by tags containing a given string |
 | type | One of: `unknown_type`, `owner`, `member` | Filter by user type |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+
+
+
+### Lock a member
+
+Lock a member. A locked member cannot log in or use API keys until the locked status is removed.
+
+**Usage:**
+
+```
+scw iam user lock <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to lock |
+
+
+
+### Unlock a member
+
+Unlock a member.
+
+**Usage:**
+
+```
+scw iam user unlock <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to unlock |
 
 
 
