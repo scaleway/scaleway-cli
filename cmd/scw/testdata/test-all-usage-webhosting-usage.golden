@@ -1,21 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your Web Hosting services.
+This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.
 
 USAGE:
   scw webhosting <command>
 
 AVAILABLE COMMANDS:
-  control-panel Control Panels
-  database      Database
-  database-user Database User
-  dns-records   Domain information commands
-  domain        Domain information commands
-  ftp-account   FTP Account
-  hosting       Hosting management commands
-  mail-account  Mail Account
-  offer         Offer
-  website       Website
+  backup              Backups
+  backup-item         Backups items
+  control-panel       Control Panels
+  database            Database
+  database-user       Database User
+  dns-records         Domain information commands
+  domain              Domain information commands
+  domain-availability Domain information commands
+  freedomain          Free domains
+  ftp-account         FTP Account
+  hosting             Hosting management commands
+  mail-account        Mail Account
+  offer               Offer
+  progress            Progresses
+  website             Website
 
 FLAGS:
   -h, --help   help for webhosting

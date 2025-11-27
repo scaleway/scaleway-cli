@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new revocable token.
+Deprecated in favor of IAM authentication.
 
 USAGE:
   scw function token create [arg=value ...]

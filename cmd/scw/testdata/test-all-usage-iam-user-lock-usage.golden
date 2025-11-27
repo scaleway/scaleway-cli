@@ -1,0 +1,18 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Lock a member. A locked member cannot log in or use API keys until the locked status is removed.
+
+USAGE:
+  scw iam user lock <user-id ...> [arg=value ...]
+
+ARGS:
+  user-id   ID of the user to lock
+
+FLAGS:
+  -h, --help   help for lock
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

@@ -9,7 +9,6 @@ AVAILABLE COMMANDS:
   private-network Private network management command
   route           Route management command
   rule            Rule management command
-  subnet          Subnet management command
   vpc             VPC management command
 
 FLAGS:
