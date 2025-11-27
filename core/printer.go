@@ -9,9 +9,9 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/goccy/go-yaml"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
-	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
@@ -292,7 +292,7 @@ func (p *Printer) printJSON(data any) error {
 }
 
 func (p *Printer) printYAML(data any) error {
-	_, implementMarshaler := data.(yaml.Marshaler)
+	_, implementMarshaler := data.(yaml.BytesMarshaler)
 	err, isError := data.(error)
 
 	if isError && !implementMarshaler {

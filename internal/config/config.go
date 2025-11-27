@@ -8,9 +8,9 @@ import (
 	"runtime"
 	"text/template"
 
+	"github.com/goccy/go-yaml"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"gopkg.in/yaml.v3"
 )
 
 const (
