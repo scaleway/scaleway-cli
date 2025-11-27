@@ -15,7 +15,7 @@ require (
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.18.0
 	github.com/getsentry/sentry-go v0.39.0
-	github.com/ghodss/yaml v1.0.0
+	github.com/goccy/go-yaml v1.18.0
 	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674
 	github.com/hashicorp/go-version v1.7.0
 	github.com/karrick/tparse/v2 v2.8.2
@@ -32,7 +32,6 @@ require (
 	golang.org/x/sync v0.18.0
 	golang.org/x/term v0.37.0
 	golang.org/x/text v0.31.0
-	gopkg.in/yaml.v3 v3.0.1
 )
 
 require (
@@ -212,6 +211,7 @@ require (
 	gopkg.in/dnaeon/go-vcr.v4 v4.0.6 // indirect
 	gopkg.in/warnings.v0 v0.1.2 // indirect
 	gopkg.in/yaml.v2 v2.4.0 // indirect
+	gopkg.in/yaml.v3 v3.0.1 // indirect
 	gotest.tools/gotestsum v1.12.3 // indirect
 )
 
