@@ -45,6 +45,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserCreate(),
 		iamUserUpdateUsername(),
 		iamUserUpdatePassword(),
+		iamUserLock(),
+		iamUserUnlock(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -871,6 +873,64 @@ func iamUserUpdatePassword() *core.Command {
 			api := iam.NewAPI(client)
 
 			return api.UpdateUserPassword(request)
+		},
+	}
+}
+
+func iamUserLock() *core.Command {
+	return &core.Command{
+		Short:     `Lock a member`,
+		Long:      `Lock a member. A locked member cannot log in or use API keys until the locked status is removed.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "lock",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.LockUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to lock`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.LockUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.LockUser(request)
+		},
+	}
+}
+
+func iamUserUnlock() *core.Command {
+	return &core.Command{
+		Short:     `Unlock a member`,
+		Long:      `Unlock a member.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "unlock",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UnlockUserRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to unlock`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.UnlockUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.UnlockUser(request)
 		},
 	}
 }

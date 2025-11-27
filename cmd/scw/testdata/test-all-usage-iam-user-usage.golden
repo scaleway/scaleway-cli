@@ -10,6 +10,8 @@ AVAILABLE COMMANDS:
   delete          Delete a guest user from an Organization
   get             Get a given user
   list            List users of an Organization
+  lock            Lock a member
+  unlock          Unlock a member
   update          Update a user
   update-password Update an user's password.
   update-username Update an user's username.
