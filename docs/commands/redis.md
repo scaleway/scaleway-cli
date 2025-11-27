@@ -637,7 +637,7 @@ List available settings from a Redis™ version.
 **Usage:**
 
 ```
-scw redis version settings [arg=value ...]
+scw redis version list-settings [arg=value ...]
 ```
 
 
@@ -654,7 +654,7 @@ scw redis version settings [arg=value ...]
 
 List settings for Redis™ 7.2.11
 ```
-scw redis version settings version=7.2.11
+scw redis version list-settings version=7.2.11
 ```
 
 

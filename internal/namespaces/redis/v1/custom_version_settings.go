@@ -20,7 +20,7 @@ func redisVersionSettingsCommand() *core.Command {
 		Long:      "List available settings from a Redis™ version.",
 		Namespace: "redis",
 		Resource:  "version",
-		Verb:      "settings",
+		Verb:      "list-settings",
 		ArgsType:  reflect.TypeOf(versionSettingsArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -65,3 +65,4 @@ func redisVersionSettingsCommand() *core.Command {
 		},
 	}
 }
+
