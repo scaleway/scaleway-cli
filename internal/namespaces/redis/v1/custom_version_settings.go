@@ -65,4 +65,3 @@ func redisVersionSettingsCommand() *core.Command {
 		},
 	}
 }
-
