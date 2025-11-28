@@ -102,6 +102,7 @@ func auditTrailEventList() *core.Command {
 					"account_user",
 					"account_organization",
 					"account_project",
+					"account_contract_signature",
 					"instance_server",
 					"instance_placement_group",
 					"instance_security_group",
