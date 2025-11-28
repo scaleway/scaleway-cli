@@ -1263,6 +1263,18 @@ func edgeServicesBackendStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "scaleway-serverless-container.region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-container.container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateBackendStageRequest)
@@ -1387,6 +1399,18 @@ func edgeServicesBackendStageUpdate() *core.Command {
 			{
 				Name:       "pipeline-id",
 				Short:      `Pipeline ID the Backend stage belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-container.region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-container.container-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
