@@ -9,9 +9,9 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
-	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
@@ -292,10 +292,9 @@ func (p *Printer) printJSON(data any) error {
 }
 
 func (p *Printer) printYAML(data any) error {
-	_, implementMarshaler := data.(yaml.Marshaler)
 	err, isError := data.(error)
 
-	if isError && !implementMarshaler {
+	if isError {
 		data = map[string]string{
 			"error": err.Error(),
 		}
@@ -305,9 +304,16 @@ func (p *Printer) printYAML(data any) error {
 	if isError {
 		writer = p.stderr
 	}
-	encoder := yaml.NewEncoder(writer)
+	bytes, err := yaml.Marshal(data)
+	if err != nil {
+		return err
+	}
+	_, err = writer.Write(bytes)
+	if err != nil {
+		return err
+	}
 
-	return encoder.Encode(data)
+	return nil
 }
 
 func (p *Printer) printTemplate(data any) error {
