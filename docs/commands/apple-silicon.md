@@ -10,6 +10,12 @@ Apple silicon API.
   - [Delete a Private Network](#delete-a-private-network)
   - [List the Private Networks of a server](#list-the-private-networks-of-a-server)
   - [Set multiple Private Networks on a server](#set-multiple-private-networks-on-a-server)
+- [Runner management commands](#runner-management-commands)
+  - [Create a new runner configuration](#create-a-new-runner-configuration)
+  - [Create a new runner configuration](#create-a-new-runner-configuration)
+  - [Retrieve a runner configuration](#retrieve-a-runner-configuration)
+  - [List runner configurations associated with a server](#list-runner-configurations-associated-with-a-server)
+  - [Create a new runner configuration](#create-a-new-runner-configuration)
 - [Apple silicon management commands](#apple-silicon-management-commands)
   - [Create a server](#create-a-server)
   - [Delete a server](#delete-a-server)
@@ -167,6 +173,127 @@ scw apple-silicon private-network set [arg=value ...]
 | server-id | Required | ID of the server |
 | per-private-network-ipam-ip-ids.{key} | Required | Object where the keys are the IDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Apple silicon server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment. |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+## Runner management commands
+
+Runner management commands.
+
+
+### Create a new runner configuration
+
+Create a new runner configuration.
+
+**Usage:**
+
+```
+scw apple-silicon runner create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| runner-configuration.name |  |  |
+| runner-configuration.provider | One of: `unknown_provider`, `github`, `gitlab` |  |
+| runner-configuration.github-configuration.url |  |  |
+| runner-configuration.github-configuration.token |  |  |
+| runner-configuration.github-configuration.labels.{index} |  |  |
+| runner-configuration.gitlab-configuration.url |  |  |
+| runner-configuration.gitlab-configuration.token |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Create a new runner configuration
+
+Create a new runner configuration.
+
+**Usage:**
+
+```
+scw apple-silicon runner delete <runner-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| runner-id | Required | ID of the runner configuration to delete |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Retrieve a runner configuration
+
+Retrieve a runner configuration.
+
+**Usage:**
+
+```
+scw apple-silicon runner get <runner-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| runner-id | Required | ID of the runner configuration to get |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List runner configurations associated with a server
+
+List runner configurations associated with a server.
+
+**Usage:**
+
+```
+scw apple-silicon runner list <server-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| server-id | Required | ID of the server for which to list applied runner configurations |
+| project-id |  | Only list servers of this project ID |
+| organization-id |  | Only list servers of this Organization ID |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Create a new runner configuration
+
+Create a new runner configuration.
+
+**Usage:**
+
+```
+scw apple-silicon runner update <runner-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| runner-id | Required | ID of the runner configuration to update |
+| runner-configuration.name |  |  |
+| runner-configuration.provider | One of: `unknown_provider`, `github`, `gitlab` |  |
+| runner-configuration.github-configuration.url |  |  |
+| runner-configuration.github-configuration.token |  |  |
+| runner-configuration.github-configuration.labels.{index} |  |  |
+| runner-configuration.gitlab-configuration.url |  |  |
+| runner-configuration.gitlab-configuration.token |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
