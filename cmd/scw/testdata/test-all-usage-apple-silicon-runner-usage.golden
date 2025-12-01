@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Runner management commands.
+
+USAGE:
+  scw apple-silicon runner <command>
+
+AVAILABLE COMMANDS:
+  create      Create a new runner configuration
+  delete      Create a new runner configuration
+  get         Retrieve a runner configuration
+  list        List runner configurations associated with a server
+  update      Create a new runner configuration
+
+FLAGS:
+  -h, --help   help for runner
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw apple-silicon runner [command] --help" for more information about a command.
