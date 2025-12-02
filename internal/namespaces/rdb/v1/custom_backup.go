@@ -148,6 +148,89 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 }
 
 func backupListBuilder(c *core.Command) *core.Command {
+	type backupListArgs struct {
+		Name           *string
+		OrderBy        rdb.ListDatabaseBackupsRequestOrderBy
+		InstanceID     *string
+		ProjectID      *string
+		OrganizationID *string
+		Region         scw.Region
+		CreatedAfter   *time.Time
+		CreatedBefore  *time.Time
+	}
+
+	c.ArgsType = reflect.TypeOf(backupListArgs{})
+
+	// Insert created-after / created-before date filters before region, keeping
+	// existing arguments (name, order-by, instance-id, project-id, organization-id)
+	// unchanged and still passed to the API request.
+	c.ArgSpecs.AddBefore("region", &core.ArgSpec{
+		Name: "created-before",
+		Short: "Only list backups created before this date. " +
+			"Supports absolute RFC3339 timestamps and relative times (see `scw help date`).",
+		Required: false,
+	})
+	c.ArgSpecs.AddBefore("region", &core.ArgSpec{
+		Name: "created-after",
+		Short: "Only list backups created after this date. " +
+			"Supports absolute RFC3339 timestamps and relative times (see `scw help date`).",
+		Required: false,
+	})
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*backupListArgs)
+
+		client := core.ExtractClient(ctx)
+		api := rdb.NewAPI(client)
+
+		req := &rdb.ListDatabaseBackupsRequest{
+			Name:           args.Name,
+			OrderBy:        args.OrderBy,
+			InstanceID:     args.InstanceID,
+			ProjectID:      args.ProjectID,
+			OrganizationID: args.OrganizationID,
+			Region:         args.Region,
+		}
+
+		opts := []scw.RequestOption{scw.WithAllPages()}
+		if req.Region == scw.Region(core.AllLocalities) {
+			opts = append(opts, scw.WithRegions(api.Regions()...))
+			req.Region = ""
+		}
+
+		resp, err := api.ListDatabaseBackups(req, opts...)
+		if err != nil {
+			return nil, err
+		}
+
+		backups := resp.DatabaseBackups
+
+		// Client-side filtering on CreatedAt using parsed absolute or relative dates.
+		if args.CreatedAfter != nil || args.CreatedBefore != nil {
+			filtered := make([]*rdb.DatabaseBackup, 0, len(backups))
+			for _, b := range backups {
+				createdAt := b.CreatedAt
+
+				if args.CreatedAfter != nil {
+					if createdAt == nil || createdAt.Before(*args.CreatedAfter) {
+						continue
+					}
+				}
+
+				if args.CreatedBefore != nil {
+					if createdAt == nil || createdAt.After(*args.CreatedBefore) {
+						continue
+					}
+				}
+
+				filtered = append(filtered, b)
+			}
+			backups = filtered
+		}
+
+		return backups, nil
+	}
+
 	type customBackup struct {
 		ID           string                   `json:"ID"`
 		InstanceID   string                   `json:"instance_ID"`

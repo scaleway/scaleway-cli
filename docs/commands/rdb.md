@@ -335,6 +335,8 @@ scw rdb backup list [arg=value ...]
 | instance-id |  | UUID of the Database Instance |
 | project-id |  | Project ID of the Project the database backups belong to |
 | organization-id |  | Organization ID of the Organization the database backups belong to |
+| created-before |  | Only list backups created before this date. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
+| created-after |  | Only list backups created after this date. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
