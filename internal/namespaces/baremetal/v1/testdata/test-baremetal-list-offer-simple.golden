@@ -1,32 +1,32 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    Name           Stock      Disks  CPUs  Memories  Options  Bandwidth   PrivateBandwidth  CO2 (kg/hour)  Water (m³/hour)  Price per hour
-8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7  EM-A116X-SSD   available  2      1     1         3        500000000   1000000000        0.012079473    6.0804024e-07    € 0.077
-e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME  available  2      1     1         10       500000000   1000000000        -              -                € 0.11
-bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         7        1000000000  1000000000        0.014682782    7.551468e-07     € 0.122
-6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         2        1000000000  1000000000        0.014590595    7.943752e-07     € 0.153
-5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   available  2      1     1         8        1000000000  1000000000        0.014178203    6.8649706e-07    € 0.153
-c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         7        1000000000  1000000000        0.016040582    7.845681e-07     € 0.213
-8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         6        1000000000  1000000000        0.021371262    1.1474308e-06    € 0.263
-a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         9        1000000000  1000000000        0.02156152     1.1474308e-06    € 0.263
-c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         9        1000000000  1000000000        0.02295953     1.0787811e-06    € 0.321
-ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         9        1000000000  1000000000        0.024971958    1.2749231e-06    € 0.321
-206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.333
-0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.356
-a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         7        1000000000  1000000000        0.016040582    7.845681e-07     € 0.366
-a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME  empty      2      1     1         14       1000000000  10000000000       -              -                € 0.417
-d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.444
-d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.528
-fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.548
-7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a  EM-I210E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.667
-402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME  available  4      1     1         13       1000000000  10000000000       -              -                € 0.685
-66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 0.822
-ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME  available  2      1     1         14       1000000000  10000000000       -              -                € 0.904
-18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME  empty      4      1     1         13       1000000000  10000000000       -              -                € 1.014
-6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.096
-b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.37
-51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME  available  2      1     1         17       1000000000  25000000000       -              -                € 1.644
-49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME  empty      4      1     1         17       1000000000  25000000000       -              -                € 1.781
+ID                                    Name           Stock      Disks  CPUs  Memories  Bandwidth   PrivateBandwidth  CloudInit supported  CO2 (kg/hour)  Water (m³/hour)  Price per hour
+8779d2c1-cd10-4a34-a006-cb5b1fb5cbc7  EM-A116X-SSD   available  2      1     1         500000000   1000000000        false                0.012079473    6.0804024e-07    € 0.077
+e1680dec-52aa-4cbc-b70c-ef32d863fdb0  EM-A610R-NVME  available  2      1     1         500000000   1000000000        false                -              -                € 0.11
+bd757ca3-a71b-4158-9ef5-39436b6db2a4  EM-L101X-SATA  available  2      1     1         1000000000  1000000000        false                0.014682782    7.551468e-07     € 0.122
+6ec5bbb2-8267-41cd-aaf6-d43ea1b59372  EM-A315X-SSD   available  2      1     1         1000000000  1000000000        false                0.014590595    7.943752e-07     € 0.153
+5a505e81-5f6a-42bd-acec-0b290be92697  EM-A410X-SSD   available  2      1     1         1000000000  1000000000        false                0.014178203    6.8649706e-07    € 0.153
+c5853302-63e4-40c7-a711-4a91629565c8  EM-L105X-SATA  available  4      1     1         1000000000  1000000000        false                0.016040582    7.845681e-07     € 0.213
+8c2cf291-a3d3-4dc5-967f-f498a088411d  EM-B111X-SATA  available  2      2     1         1000000000  1000000000        false                0.021371262    1.1474308e-06    € 0.263
+a5065ba4-dde2-45f3-adec-1ebbb27b766b  EM-B112X-SSD   available  2      2     1         1000000000  1000000000        false                0.02156152     1.1474308e-06    € 0.263
+c753f736-fbb4-4689-ae93-623f9d08dce5  EM-B211X-SATA  empty      2      2     1         1000000000  1000000000        false                0.02295953     1.0787811e-06    € 0.321
+ddaf8ba6-b2b2-4279-8af3-51930fb602f8  EM-B212X-SSD   available  2      2     1         1000000000  1000000000        false                0.024971958    1.2749231e-06    € 0.321
+206ea234-9097-4ae1-af68-6d2be09f47ed  EM-B220E-NVME  available  2      1     1         1000000000  10000000000       false                -              -                € 0.333
+0e1f7c5b-05bf-4863-ba58-9ee07496d1f7  EM-I120E-NVME  available  2      1     1         1000000000  25000000000       false                -              -                € 0.356
+a204136d-656b-44b7-9735-88ca2f62cb1f  EM-L110X-SATA  available  4      1     1         1000000000  1000000000        false                0.016040582    7.845681e-07     € 0.366
+a60ae97c-268c-40cb-af5f-dd276e917ed7  EM-B320E-NVME  empty      2      1     1         1000000000  10000000000       false                -              -                € 0.417
+d14eef5e-3279-42db-bb57-bb2bbe6a5b28  EM-B420E-NVME  available  2      1     1         1000000000  10000000000       false                -              -                € 0.444
+d73011fa-02e0-46bc-992c-8bb62c767e97  EM-B520E-NVME  available  2      1     1         1000000000  10000000000       false                -              -                € 0.528
+fd7605a7-7493-49ba-9019-0e9c2897d4a0  EM-I220E-NVME  available  2      1     1         1000000000  25000000000       false                -              -                € 0.548
+7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a  EM-I210E-NVME  available  2      1     1         1000000000  10000000000       false                -              -                € 0.667
+402efe20-4dcb-49af-bc80-1008bcc749a6  EM-L220E-NVME  available  4      1     1         1000000000  10000000000       false                -              -                € 0.685
+66cdd2c4-664c-47af-b0ad-a70e12999f0e  EM-I320E-NVME  available  2      1     1         1000000000  25000000000       false                -              -                € 0.822
+ddb09834-8680-4339-b5e3-19ca5205fa1f  EM-I215E-NVME  available  2      1     1         1000000000  10000000000       false                -              -                € 0.904
+18137894-b9a7-4e7b-b026-518ab8a3e41e  EM-L420E-NVME  empty      4      1     1         1000000000  10000000000       false                -              -                € 1.014
+6e905149-d776-49c1-824d-8161f40968e9  EM-I420E-NVME  available  2      1     1         1000000000  25000000000       false                -              -                € 1.096
+b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1         1000000000  25000000000       false                -              -                € 1.37
+51131a3a-7a9b-44c7-8228-2c071c185b77  EM-I620E-NVME  available  2      1     1         1000000000  25000000000       false                -              -                € 1.644
+49c3ff54-7949-4a53-8f52-f2ea17c451b1  EM-I525E-NVME  empty      4      1     1         1000000000  25000000000       false                -              -                € 1.781
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -160,7 +160,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "7b3dae29-0658-4351-b8a7-7b97aef6efc2",
     "zone": "",
     "kg_co2_equivalent": 0.012079473,
-    "m3_water_usage": 6.0804024e-7
+    "m3_water_usage": 6.0804024e-7,
+    "cloud_init_supported": false
   },
   {
     "id": "e1680dec-52aa-4cbc-b70c-ef32d863fdb0",
@@ -407,7 +408,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "60bfff09-7b6e-4004-9b74-1957f26bf070",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "bd757ca3-a71b-4158-9ef5-39436b6db2a4",
@@ -589,7 +591,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "1b067ec1-e383-4756-bbc2-d2ba5a76aa08",
     "zone": "",
     "kg_co2_equivalent": 0.014682782,
-    "m3_water_usage": 7.551468e-7
+    "m3_water_usage": 7.551468e-7,
+    "cloud_init_supported": false
   },
   {
     "id": "6ec5bbb2-8267-41cd-aaf6-d43ea1b59372",
@@ -707,7 +710,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "6b91e989-5251-4d89-b366-0f5565339fdc",
     "zone": "",
     "kg_co2_equivalent": 0.014590595,
-    "m3_water_usage": 7.943752e-7
+    "m3_water_usage": 7.943752e-7,
+    "cloud_init_supported": false
   },
   {
     "id": "5a505e81-5f6a-42bd-acec-0b290be92697",
@@ -915,7 +919,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "7adc4a66-da70-40e3-856b-7b952b77fbf9",
     "zone": "",
     "kg_co2_equivalent": 0.014178203,
-    "m3_water_usage": 6.8649706e-7
+    "m3_water_usage": 6.8649706e-7,
+    "cloud_init_supported": false
   },
   {
     "id": "c5853302-63e4-40c7-a711-4a91629565c8",
@@ -1105,7 +1110,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "3b36516b-34e5-4ab1-8b05-0cda2adbc84c",
     "zone": "",
     "kg_co2_equivalent": 0.016040582,
-    "m3_water_usage": 7.845681e-7
+    "m3_water_usage": 7.845681e-7,
+    "cloud_init_supported": false
   },
   {
     "id": "8c2cf291-a3d3-4dc5-967f-f498a088411d",
@@ -1269,7 +1275,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": null,
     "zone": "",
     "kg_co2_equivalent": 0.021371262,
-    "m3_water_usage": 0.0000011474308
+    "m3_water_usage": 0.0000011474308,
+    "cloud_init_supported": false
   },
   {
     "id": "a5065ba4-dde2-45f3-adec-1ebbb27b766b",
@@ -1495,7 +1502,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "3032af6b-d3ad-424c-b986-58b9dce1f6ee",
     "zone": "",
     "kg_co2_equivalent": 0.02156152,
-    "m3_water_usage": 0.0000011474308
+    "m3_water_usage": 0.0000011474308,
+    "cloud_init_supported": false
   },
   {
     "id": "c753f736-fbb4-4689-ae93-623f9d08dce5",
@@ -1714,7 +1722,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "3cd02255-ec70-4890-9ea4-680a383bb066",
     "zone": "",
     "kg_co2_equivalent": 0.02295953,
-    "m3_water_usage": 0.0000010787811
+    "m3_water_usage": 0.0000010787811,
+    "cloud_init_supported": false
   },
   {
     "id": "ddaf8ba6-b2b2-4279-8af3-51930fb602f8",
@@ -1933,7 +1942,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "36c45e64-aaec-4823-9182-a9a05c497c01",
     "zone": "",
     "kg_co2_equivalent": 0.024971958,
-    "m3_water_usage": 0.0000012749231
+    "m3_water_usage": 0.0000012749231,
+    "cloud_init_supported": false
   },
   {
     "id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
@@ -2241,7 +2251,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "8852ff25-c867-4d58-a1f8-40b9968119b7",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "0e1f7c5b-05bf-4863-ba58-9ee07496d1f7",
@@ -2603,7 +2614,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "5e226c64-3ceb-470e-a9bb-d01aff3dc335",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "a204136d-656b-44b7-9735-88ca2f62cb1f",
@@ -2793,7 +2805,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "0ca85e34-d35a-494b-9077-70589cf7a6c8",
     "zone": "",
     "kg_co2_equivalent": 0.016040582,
-    "m3_water_usage": 7.845681e-7
+    "m3_water_usage": 7.845681e-7,
+    "cloud_init_supported": false
   },
   {
     "id": "a60ae97c-268c-40cb-af5f-dd276e917ed7",
@@ -3101,7 +3114,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "ffbd2be3-076a-4940-b77d-d8b333f9723e",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "d14eef5e-3279-42db-bb57-bb2bbe6a5b28",
@@ -3409,7 +3423,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "8511a555-b488-458d-bdf2-b74716b8c1cb",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "d73011fa-02e0-46bc-992c-8bb62c767e97",
@@ -3717,7 +3732,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "2cc8ffd7-c25d-4c02-aa8b-b695bebe6213",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "fd7605a7-7493-49ba-9019-0e9c2897d4a0",
@@ -4079,7 +4095,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "293cc6d1-0ac8-4bc4-a5a1-8ed2096b045c",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "7e81d4d4-a84b-4dd0-9f44-f0ac34a09e3a",
@@ -4374,7 +4391,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "f46f16bd-ce65-4a6c-9e15-1d35b52e9e5e",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "402efe20-4dcb-49af-bc80-1008bcc749a6",
@@ -4676,7 +4694,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "da1aff24-a8c5-445d-ae61-a1165e8dd636",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "66cdd2c4-664c-47af-b0ad-a70e12999f0e",
@@ -5038,7 +5057,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "db96a346-53e8-41ab-838b-b0a349abbb66",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
@@ -5351,7 +5371,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "44890f67-212b-4610-9170-4c199644525e",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "18137894-b9a7-4e7b-b026-518ab8a3e41e",
@@ -5653,7 +5674,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "d6cc24a7-b7a3-4dbf-808c-0e92be840f11",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "6e905149-d776-49c1-824d-8161f40968e9",
@@ -6015,7 +6037,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "1d6a7465-696d-408b-91d1-ccf1f90fd887",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "b20ba18e-34e8-44aa-b909-93cbff7635b5",
@@ -6377,7 +6400,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "5d7ced21-ce80-4bf8-ba7a-57195d56e2e8",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "51131a3a-7a9b-44c7-8228-2c071c185b77",
@@ -6739,7 +6763,8 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "cda8bdd6-40bc-4352-a1c4-e78941d9243f",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   },
   {
     "id": "49c3ff54-7949-4a53-8f52-f2ea17c451b1",
@@ -7109,6 +7134,7 @@ b20ba18e-34e8-44aa-b909-93cbff7635b5  EM-I520E-NVME  available  2      1     1  
     "monthly_offer_id": "fc10fde7-336e-430a-aa58-0f70669e9fab",
     "zone": "",
     "kg_co2_equivalent": null,
-    "m3_water_usage": null
+    "m3_water_usage": null,
+    "cloud_init_supported": false
   }
 ]
