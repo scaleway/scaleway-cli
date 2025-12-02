@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconServer(),
 		appleSiliconOs(),
 		appleSiliconServerType(),
+		appleSiliconRunner(),
 		appleSiliconPrivateNetwork(),
 		appleSiliconServerTypeList(),
 		appleSiliconServerTypeGet(),
@@ -35,6 +36,11 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconServerDelete(),
 		appleSiliconServerReboot(),
 		appleSiliconServerReinstall(),
+		appleSiliconRunnerCreate(),
+		appleSiliconRunnerGet(),
+		appleSiliconRunnerList(),
+		appleSiliconRunnerUpdate(),
+		appleSiliconRunnerDelete(),
 		appleSiliconPrivateNetworkAdd(),
 		appleSiliconPrivateNetworkSet(),
 		appleSiliconPrivateNetworkList(),
@@ -74,6 +80,15 @@ func appleSiliconServerType() *core.Command {
 		Long:      `Server-Types management commands.`,
 		Namespace: "apple-silicon",
 		Resource:  "server-type",
+	}
+}
+
+func appleSiliconRunner() *core.Command {
+	return &core.Command{
+		Short:     `Runner management commands`,
+		Long:      `Runner management commands.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
 	}
 }
 
@@ -595,6 +610,277 @@ func appleSiliconServerReinstall() *core.Command {
 			api := applesilicon.NewAPI(client)
 
 			return api.ReinstallServer(request)
+		},
+	}
+}
+
+func appleSiliconRunnerCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new runner configuration`,
+		Long:      `Create a new runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.CreateRunnerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "runner-configuration.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.provider",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_provider",
+					"github",
+					"gitlab",
+				},
+			},
+			{
+				Name:       "runner-configuration.github-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.labels.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.CreateRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+
+			return api.CreateRunner(request)
+		},
+	}
+}
+
+func appleSiliconRunnerGet() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve a runner configuration`,
+		Long:      `Retrieve a runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.GetRunnerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "runner-id",
+				Short:      `ID of the runner configuration to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.GetRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+
+			return api.GetRunner(request)
+		},
+	}
+}
+
+func appleSiliconRunnerList() *core.Command {
+	return &core.Command{
+		Short:     `List runner configurations associated with a server`,
+		Long:      `List runner configurations associated with a server.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.ListRunnersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server for which to list applied runner configurations`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Only list servers of this project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Only list servers of this Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar3,
+				scw.Zone(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.ListRunnersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListRunners(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Runners, nil
+		},
+	}
+}
+
+func appleSiliconRunnerUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new runner configuration`,
+		Long:      `Create a new runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.UpdateRunnerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "runner-id",
+				Short:      `ID of the runner configuration to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "runner-configuration.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.provider",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_provider",
+					"github",
+					"gitlab",
+				},
+			},
+			{
+				Name:       "runner-configuration.github-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.labels.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.UpdateRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+
+			return api.UpdateRunner(request)
+		},
+	}
+}
+
+func appleSiliconRunnerDelete() *core.Command {
+	return &core.Command{
+		Short:     `Create a new runner configuration`,
+		Long:      `Create a new runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(applesilicon.DeleteRunnerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "runner-id",
+				Short:      `ID of the runner configuration to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.DeleteRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+			e = api.DeleteRunner(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "runner",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

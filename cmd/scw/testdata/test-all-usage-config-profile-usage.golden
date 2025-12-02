@@ -8,6 +8,7 @@ USAGE:
 CONFIGURATION COMMANDS:
   activate    Mark a profile as active in the config file
   delete      Delete a profile from the config file
+  list        List all profiles in the config file
 
 FLAGS:
   -h, --help   help for profile

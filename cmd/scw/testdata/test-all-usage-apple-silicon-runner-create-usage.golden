@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new runner configuration.
+
+USAGE:
+  scw apple-silicon runner create [arg=value ...]
+
+ARGS:
+  [project-id]                                                 Project ID to use. If none is passed the default project ID will be used
+  [runner-configuration.name]                                  
+  [runner-configuration.provider]                               (unknown_provider | github | gitlab)
+  [runner-configuration.github-configuration.url]              
+  [runner-configuration.github-configuration.token]            
+  [runner-configuration.github-configuration.labels.{index}]   
+  [runner-configuration.gitlab-configuration.url]              
+  [runner-configuration.gitlab-configuration.token]            
+  [zone=fr-par-1]                                              Zone to target. If none is passed will use default zone from the config (fr-par-3)
+
+FLAGS:
+  -h, --help   help for create
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
