@@ -1,25 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get help about how specific topics inside the CLI work
+Retrieve a runner configuration.
 
 USAGE:
-  scw help <command>
+  scw apple-silicon runner get <runner-id ...> [arg=value ...]
 
-AVAILABLE COMMANDS:
-  date        Get help about how date parsing works in the CLI
-  output      Get help about how the CLI output works
+ARGS:
+  runner-id         ID of the runner configuration to get
+  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
-  -h, --help   help for help
+  -h, --help   help for get
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-SEE ALSO:
-  # Print general help
-  scw --help
-
-Use "scw help [command] --help" for more information about a command.

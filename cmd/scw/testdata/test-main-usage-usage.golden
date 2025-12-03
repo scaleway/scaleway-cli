@@ -77,7 +77,7 @@ STORAGE COMMANDS:
 UTILITY COMMANDS:
   autocomplete  Autocomplete related commands
   feedback      Send feedback to the Scaleway CLI Team!
-  help          Get help about how the CLI works
+  help          Get help about how specific topics inside the CLI work
   shell         Start shell mode
   version       Display cli version
 
