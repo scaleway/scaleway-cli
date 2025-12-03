@@ -102,32 +102,32 @@ func logDownloadCommand() *core.Command {
 		Verb:      "download",
 		ArgsType:  reflect.TypeOf(logDownloadArgs{}),
 		ArgSpecs: core.ArgSpecs{
-		{
-			Name:       "instance-id",
-			Short:      `UUID of the Database Instance you want logs of`,
-			Required:   true,
-			Positional: true,
+			{
+				Name:       "instance-id",
+				Short:      `UUID of the Database Instance you want logs of`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:     "from",
+				Short:    `Start datetime of your log. Supports absolute RFC3339 timestamps and relative times (see ` + "`scw help date`" + `).`,
+				Required: false,
+			},
+			{
+				Name:     "to",
+				Short:    `End datetime of your log. Supports absolute RFC3339 timestamps and relative times (see ` + "`scw help date`" + `).`,
+				Required: false,
+			},
+			{
+				Name:  "output",
+				Short: "Filename to write to",
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
 		},
-		{
-			Name:     "from",
-			Short:    `Start datetime of your log. Supports absolute RFC3339 timestamps and relative times (see ` + "`scw help date`" + `).`,
-			Required: false,
-		},
-		{
-			Name:     "to",
-			Short:    `End datetime of your log. Supports absolute RFC3339 timestamps and relative times (see ` + "`scw help date`" + `).`,
-			Required: false,
-		},
-		{
-			Name:  "output",
-			Short: "Filename to write to",
-		},
-		core.RegionArgSpec(
-			scw.RegionFrPar,
-			scw.RegionNlAms,
-			scw.RegionPlWaw,
-		),
-	},
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*logDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))
