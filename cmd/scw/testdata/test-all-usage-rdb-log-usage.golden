@@ -6,7 +6,8 @@ USAGE:
   scw rdb log <command>
 
 AVAILABLE COMMANDS:
-  get          Fetch logs from a database instance
+  download     Download logs from a database instance
+  get          Get given logs of a Database Instance
   list         List available logs of a Database Instance
   list-details List remote Database Instance logs details
   prepare      Prepare logs of a Database Instance
