@@ -109,19 +109,16 @@ func Test_CreateContextNoInteractiveTermAndMultiAccount(t *testing.T) {
 }
 
 func Test_CreateContextWithXDGConfigHome(t *testing.T) {
+	xdgConfigHomeDir := t.TempDir()
+
 	t.Run("XDG_CONFIG_HOME compliance", core.Test(&core.TestConfig{
 		Commands:   mnq.GetCommands(),
 		BeforeFunc: createNATSAccount("NATS"),
 		Cmd:        "scw mnq nats create-context nats-account-id={{ .NATS.ID }}",
-		OverrideEnv: func() map[string]string {
-			xdgConfigHome := t.TempDir()
-			realHomeDir, _ := os.UserHomeDir()
-
-			return map[string]string{
-				"XDG_CONFIG_HOME": xdgConfigHome,
-				"HOME":            realHomeDir,
-			}
-		}(),
+		TmpHomeDir: true,
+		OverrideEnv: map[string]string{
+			"XDG_CONFIG_HOME": xdgConfigHomeDir,
+		},
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGoldenAndReplacePatterns(
@@ -148,7 +145,7 @@ func Test_CreateContextWithXDGConfigHome(t *testing.T) {
 				assert.NotNil(t, result)
 
 				xdgConfigHome := ctx.OverrideEnv["XDG_CONFIG_HOME"]
-				realHomeDir := ctx.OverrideEnv["HOME"]
+				tmpHomeDir := ctx.OverrideEnv["HOME"]
 
 				expectedContextFile := result.Resource
 				assert.True(
@@ -167,16 +164,16 @@ func Test_CreateContextWithXDGConfigHome(t *testing.T) {
 					expectedContextFile,
 				)
 
-				realHomeNatsDir := filepath.Join(realHomeDir, ".config", "nats", "context")
-				realHomeNatsDirExists := false
-				if _, err := os.Stat(realHomeNatsDir); err == nil {
-					realHomeNatsDirExists = true
+				tmpHomeNatsDir := filepath.Join(tmpHomeDir, ".config", "nats", "context")
+				tmpHomeNatsDirExists := false
+				if _, err := os.Stat(tmpHomeNatsDir); err == nil {
+					tmpHomeNatsDirExists = true
 				}
 				assert.False(
 					t,
-					realHomeNatsDirExists,
-					"Files should not be created in real home directory: %s",
-					realHomeNatsDir,
+					tmpHomeNatsDirExists,
+					"Files should not be created in HOME/.config/nats/context when XDG_CONFIG_HOME is set: %s",
+					tmpHomeNatsDir,
 				)
 
 				ctx.Meta["deleteFiles"] = []string{expectedContextFile}
