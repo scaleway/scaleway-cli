@@ -82,7 +82,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
 
 	cmds.MustFind("rdb", "log", "prepare").Override(logPrepareBuilder)
-	cmds.MustFind("rdb", "log", "get").Override(logGetBuilder)
+	cmds.Merge(core.NewCommands(
+		logDownloadCommand(),
+	))
 
 	return cmds
 }

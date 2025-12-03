@@ -1,12 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve information about the logs of a Database Instance. Specify the `instance_log_id` and `region` in your request to get information such as `download_url`, `status`, `expires_at` and `created_at` about your logs in the response.
+Prepare, wait for, and download logs from a Database Instance. This command automatically prepares the logs, waits for them to be ready, and downloads them to a file.
 
 USAGE:
-  scw rdb log get [arg=value ...]
+  scw rdb log get <instance-id ...> [arg=value ...]
+
+EXAMPLES:
+  Download logs from a database instance
+    scw rdb log get 11111111-1111-1111-1111-111111111111
+
+  Download logs with a time range
+    scw rdb log get 11111111-1111-1111-1111-111111111111 from=2023-01-01T00:00:00Z to=2023-01-02T00:00:00Z
+
+  Download logs to a specific file
+    scw rdb log get 11111111-1111-1111-1111-111111111111 output=myLogs.txt
 
 ARGS:
-  instance-log-id   UUID of the instance_log you want
+  instance-id       UUID of the Database Instance you want logs of
+  [from]            Start datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`).
+  [to]              End datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`).
+  [output]          Filename to write to
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
