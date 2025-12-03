@@ -2,6 +2,7 @@ package baremetal
 
 import (
 	"context"
+	"slices"
 	"strings"
 
 	"github.com/fatih/color"
@@ -62,8 +63,9 @@ func listOfferMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 
 type customOffer struct {
 	*baremetal.Offer
-	KgCo2Equivalent *float32 `json:"kg_co2_equivalent"`
-	M3WaterUsage    *float32 `json:"m3_water_usage"`
+	KgCo2Equivalent    *float32 `json:"kg_co2_equivalent"`
+	M3WaterUsage       *float32 `json:"m3_water_usage"`
+	CloudInitSupported bool     `json:"cloud_init_supported"`
 }
 
 func serverOfferListBuilder(c *core.Command) *core.Command {
@@ -75,9 +77,9 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 			{Label: "Disks", FieldName: "Disks"},
 			{Label: "CPUs", FieldName: "CPUs"},
 			{Label: "Memories", FieldName: "Memories"},
-			{Label: "Options", FieldName: "Options"},
 			{Label: "Bandwidth", FieldName: "Bandwidth"},
 			{Label: "PrivateBandwidth", FieldName: "PrivateBandwidth"},
+			{Label: "CloudInit supported", FieldName: "CloudInitSupported"},
 		},
 	}
 
@@ -126,21 +128,24 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 		var customOfferRes []customOffer
 		for _, offer := range offers.Offers {
+			cloudInitSupported := slices.Contains(offer.Tags, "cloud-init")
 			impact, ok := impactMap[offer.Name]
 			if !ok {
 				customOfferRes = append(customOfferRes, customOffer{
-					Offer:           offer,
-					KgCo2Equivalent: nil,
-					M3WaterUsage:    nil,
+					Offer:              offer,
+					KgCo2Equivalent:    nil,
+					M3WaterUsage:       nil,
+					CloudInitSupported: cloudInitSupported,
 				})
 
 				continue
 			}
 
 			customOfferRes = append(customOfferRes, customOffer{
-				Offer:           offer,
-				KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
-				M3WaterUsage:    impact.EnvironmentalImpactEstimation.M3WaterUsage,
+				Offer:              offer,
+				KgCo2Equivalent:    impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
+				M3WaterUsage:       impact.EnvironmentalImpactEstimation.M3WaterUsage,
+				CloudInitSupported: cloudInitSupported,
 			})
 		}
 
