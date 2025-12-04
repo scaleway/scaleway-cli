@@ -1,7 +1,6 @@
 package mnq_test
 
 import (
-	"io"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -127,23 +126,12 @@ func beforeFuncCopyConfigToTmpHome() core.BeforeFunc {
 			return err
 		}
 
-		tmpConfigPath := filepath.Join(tmpConfigDir, "config.yaml")
-
-		src, err := os.Open(realConfigPath)
+		data, err := os.ReadFile(realConfigPath)
 		if err != nil {
 			return err
 		}
-		defer src.Close()
 
-		dst, err := os.Create(tmpConfigPath)
-		if err != nil {
-			return err
-		}
-		defer dst.Close()
-
-		_, err = io.Copy(dst, src)
-
-		return err
+		return os.WriteFile(filepath.Join(tmpConfigDir, "config.yaml"), data, 0o644)
 	})
 }
 
