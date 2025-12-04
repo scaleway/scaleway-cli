@@ -1,6 +1,7 @@
 package mnq_test
 
 import (
+	"io"
 	"os"
 	"path/filepath"
 	"reflect"
@@ -9,7 +10,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -121,16 +121,6 @@ func beforeFuncCopyConfigToTmpHome() core.BeforeFunc {
 			return nil
 		}
 
-		config, err := scw.LoadConfigFromPath(realConfigPath)
-		if err != nil {
-			return err
-		}
-
-		activeProfile, err := config.GetActiveProfile()
-		if err != nil {
-			return err
-		}
-
 		tmpHomeDir := ctx.OverrideEnv["HOME"]
 		tmpConfigDir := filepath.Join(tmpHomeDir, ".config", "scw")
 		if err := os.MkdirAll(tmpConfigDir, 0o0755); err != nil {
@@ -139,24 +129,21 @@ func beforeFuncCopyConfigToTmpHome() core.BeforeFunc {
 
 		tmpConfigPath := filepath.Join(tmpConfigDir, "config.yaml")
 
-		if err := config.SaveTo(tmpConfigPath); err != nil {
+		src, err := os.Open(realConfigPath)
+		if err != nil {
 			return err
 		}
+		defer src.Close()
 
-		if activeProfile.AccessKey != nil {
-			ctx.OverrideEnv[scw.ScwAccessKeyEnv] = *activeProfile.AccessKey
+		dst, err := os.Create(tmpConfigPath)
+		if err != nil {
+			return err
 		}
-		if activeProfile.SecretKey != nil {
-			ctx.OverrideEnv[scw.ScwSecretKeyEnv] = *activeProfile.SecretKey
-		}
-		if activeProfile.DefaultOrganizationID != nil {
-			ctx.OverrideEnv[scw.ScwDefaultOrganizationIDEnv] = *activeProfile.DefaultOrganizationID
-		}
-		if activeProfile.DefaultProjectID != nil {
-			ctx.OverrideEnv[scw.ScwDefaultProjectIDEnv] = *activeProfile.DefaultProjectID
-		}
+		defer dst.Close()
 
-		return nil
+		_, err = io.Copy(dst, src)
+
+		return err
 	})
 }
 
