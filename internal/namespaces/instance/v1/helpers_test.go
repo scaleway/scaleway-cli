@@ -88,8 +88,6 @@ func deleteServer(metaKey string) core.AfterFunc {
 
 // createVolume creates a volume of the given size and type and
 // register it in the context Meta at metaKey.
-//
-//nolint:unparam
 func createVolume(
 	metaKey string,
 	sizeInGb int,
@@ -110,14 +108,12 @@ func createVolume(
 }
 
 // deleteVolume deletes a volume previously registered in the context Meta at metaKey.
-func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
+func deleteVolume(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
 }
 
 // createSbsVolume creates a volume of the given size and
 // register it in the context Meta at metaKey
-//
-//nolint:unparam
 func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
