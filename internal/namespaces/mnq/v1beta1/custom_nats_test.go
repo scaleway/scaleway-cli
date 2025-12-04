@@ -9,6 +9,7 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 )
 
@@ -108,12 +109,66 @@ func Test_CreateContextNoInteractiveTermAndMultiAccount(t *testing.T) {
 	}))
 }
 
+func beforeFuncCopyConfigToTmpHome() core.BeforeFunc {
+	return core.BeforeFuncWhenUpdatingCassette(func(ctx *core.BeforeFuncCtx) error {
+		realHomeDir, err := os.UserHomeDir()
+		if err != nil {
+			return err
+		}
+
+		realConfigPath := filepath.Join(realHomeDir, ".config", "scw", "config.yaml")
+		if _, err := os.Stat(realConfigPath); os.IsNotExist(err) {
+			return nil
+		}
+
+		config, err := scw.LoadConfigFromPath(realConfigPath)
+		if err != nil {
+			return err
+		}
+
+		activeProfile, err := config.GetActiveProfile()
+		if err != nil {
+			return err
+		}
+
+		tmpHomeDir := ctx.OverrideEnv["HOME"]
+		tmpConfigDir := filepath.Join(tmpHomeDir, ".config", "scw")
+		if err := os.MkdirAll(tmpConfigDir, 0o0755); err != nil {
+			return err
+		}
+
+		tmpConfigPath := filepath.Join(tmpConfigDir, "config.yaml")
+
+		if err := config.SaveTo(tmpConfigPath); err != nil {
+			return err
+		}
+
+		if activeProfile.AccessKey != nil {
+			ctx.OverrideEnv[scw.ScwAccessKeyEnv] = *activeProfile.AccessKey
+		}
+		if activeProfile.SecretKey != nil {
+			ctx.OverrideEnv[scw.ScwSecretKeyEnv] = *activeProfile.SecretKey
+		}
+		if activeProfile.DefaultOrganizationID != nil {
+			ctx.OverrideEnv[scw.ScwDefaultOrganizationIDEnv] = *activeProfile.DefaultOrganizationID
+		}
+		if activeProfile.DefaultProjectID != nil {
+			ctx.OverrideEnv[scw.ScwDefaultProjectIDEnv] = *activeProfile.DefaultProjectID
+		}
+
+		return nil
+	})
+}
+
 func Test_CreateContextWithXDGConfigHome(t *testing.T) {
 	xdgConfigHomeDir := t.TempDir()
 
 	t.Run("XDG_CONFIG_HOME compliance", core.Test(&core.TestConfig{
-		Commands:   mnq.GetCommands(),
-		BeforeFunc: createNATSAccount("NATS"),
+		Commands: mnq.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			beforeFuncCopyConfigToTmpHome(),
+			createNATSAccount("NATS"),
+		),
 		Cmd:        "scw mnq nats create-context nats-account-id={{ .NATS.ID }}",
 		TmpHomeDir: true,
 		OverrideEnv: map[string]string{
