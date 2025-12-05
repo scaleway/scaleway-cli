@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		iamOrganization(),
 		iamSaml(),
 		iamSamlCertificates(),
+		iamSecuritySettings(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -80,6 +81,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwtDelete(),
 		iamLogList(),
 		iamLogGet(),
+		iamSecuritySettingsGet(),
+		iamSecuritySettingsUpdate(),
 		iamOrganizationGetSaml(),
 		iamOrganizationEnableSaml(),
 		iamSamlUpdate(),
@@ -212,6 +215,15 @@ func iamSamlCertificates() *core.Command {
 		Long:      `SAML Certificates management commands.`,
 		Namespace: "iam",
 		Resource:  "saml-certificates",
+	}
+}
+
+func iamSecuritySettings() *core.Command {
+	return &core.Command{
+		Short:     `Security settings management commands`,
+		Long:      `Security settings management commands.`,
+		Namespace: "iam",
+		Resource:  "security-settings",
 	}
 }
 
@@ -2726,6 +2738,87 @@ func iamLogGet() *core.Command {
 			api := iam.NewAPI(client)
 
 			return api.GetLog(request)
+		},
+	}
+}
+
+func iamSecuritySettingsGet() *core.Command {
+	return &core.Command{
+		Short:     `Get security settings of an Organization`,
+		Long:      `Retrieve information about the security settings of an Organization, specified by the ` + "`" + `organization_id` + "`" + ` parameter.`,
+		Namespace: "iam",
+		Resource:  "security-settings",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.GetOrganizationSecuritySettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.GetOrganizationSecuritySettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.GetOrganizationSecuritySettings(request)
+		},
+	}
+}
+
+func iamSecuritySettingsUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update the security settings of an Organization`,
+		Long:      `Update the security settings of an Organization.`,
+		Namespace: "iam",
+		Resource:  "security-settings",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.UpdateOrganizationSecuritySettingsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "enforce-password-renewal",
+				Short:      `Defines whether password renewal is enforced during first login`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "grace-period-duration",
+				Short:      `Duration of the grace period to renew password or enable MFA.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "login-attempts-before-locked",
+				Short:      `Number of login attempts before the account is locked`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-login-session-duration",
+				Short:      `Maximum duration a login session will stay active before needing to relogin.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-api-key-expiration-duration",
+				Short:      `Maximum duration the ` + "`" + `expires_at` + "`" + ` field of an API key can represent. A value of 0 means there is no maximum duration.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.UpdateOrganizationSecuritySettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.UpdateOrganizationSecuritySettings(request)
 		},
 	}
 }

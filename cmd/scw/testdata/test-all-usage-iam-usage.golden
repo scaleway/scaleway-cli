@@ -17,6 +17,7 @@ AVAILABLE COMMANDS:
   rule              Rules management commands
   saml              SAML management commands
   saml-certificates SAML Certificates management commands
+  security-settings Security settings management commands
   ssh-key           SSH keys management commands
   user              Users management commands
 

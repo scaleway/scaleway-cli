@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update the security settings of an Organization.
+
+USAGE:
+  scw iam security-settings update [arg=value ...]
+
+ARGS:
+  [enforce-password-renewal]          Defines whether password renewal is enforced during first login
+  [grace-period-duration]             Duration of the grace period to renew password or enable MFA.
+  [login-attempts-before-locked]      Number of login attempts before the account is locked
+  [max-login-session-duration]        Maximum duration a login session will stay active before needing to relogin.
+  [max-api-key-expiration-duration]   Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration.
+  [organization-id]                   Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
