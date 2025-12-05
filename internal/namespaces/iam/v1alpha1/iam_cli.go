@@ -34,6 +34,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamSaml(),
 		iamSamlCertificates(),
 		iamSecuritySettings(),
+		iamScim(),
+		iamScimTokens(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -224,6 +226,24 @@ func iamSecuritySettings() *core.Command {
 		Long:      `Security settings management commands.`,
 		Namespace: "iam",
 		Resource:  "security-settings",
+	}
+}
+
+func iamScim() *core.Command {
+	return &core.Command{
+		Short:     `SCIM management commands`,
+		Long:      `SCIM management commands.`,
+		Namespace: "iam",
+		Resource:  "scim",
+	}
+}
+
+func iamScimTokens() *core.Command {
+	return &core.Command{
+		Short:     `SCIM tokens management commands`,
+		Long:      `SCIM tokens management commands.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
 	}
 }
 
