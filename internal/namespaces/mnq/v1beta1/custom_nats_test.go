@@ -106,7 +106,12 @@ func beforeFuncCopyConfigToTmpHome() core.BeforeFunc {
 func checkContextFile(t *testing.T, ctx *core.CheckFuncCtx) {
 	t.Helper()
 	result, isSuccessResult := ctx.Result.(*core.SuccessResult)
-	assert.True(t, isSuccessResult, "Expected result to be of type *core.SuccessResult, got %s", reflect.TypeOf(result).String())
+	assert.True(
+		t,
+		isSuccessResult,
+		"Expected result to be of type *core.SuccessResult, got %s",
+		reflect.TypeOf(result).String(),
+	)
 	assert.NotNil(t, result)
 	expectedContextFile := result.Resource
 	if !mnq.FileExists(expectedContextFile) {
@@ -126,11 +131,22 @@ func checkContextFileInXDGConfigHome(t *testing.T, ctx *core.CheckFuncCtx) {
 	tmpHomeDir := ctx.OverrideEnv["HOME"]
 
 	expectedContextDir := filepath.Join(xdgConfigHome, "nats", "context")
-	assert.Contains(t, expectedContextFile, expectedContextDir, "Context file should be in XDG_CONFIG_HOME/nats/context, got: %s", expectedContextFile)
+	assert.Contains(
+		t,
+		expectedContextFile,
+		expectedContextDir,
+		"Context file should be in XDG_CONFIG_HOME/nats/context, got: %s",
+		expectedContextFile,
+	)
 
 	tmpHomeNatsDir := filepath.Join(tmpHomeDir, ".config", "nats", "context")
 	_, err := os.Stat(tmpHomeNatsDir)
-	assert.True(t, os.IsNotExist(err), "Files should not be created in HOME/.config/nats/context when XDG_CONFIG_HOME is set: %s", tmpHomeNatsDir)
+	assert.True(
+		t,
+		os.IsNotExist(err),
+		"Files should not be created in HOME/.config/nats/context when XDG_CONFIG_HOME is set: %s",
+		tmpHomeNatsDir,
+	)
 }
 
 func afterFuncDeleteFiles(ctx *core.AfterFuncCtx) error {
