@@ -55,6 +55,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Add a SAML certificate](#add-a-saml-certificate)
   - [Delete a SAML certificate](#delete-a-saml-certificate)
   - [List SAML certificates](#list-saml-certificates)
+- [SCIM management commands](#scim-management-commands)
+- [SCIM tokens management commands](#scim-tokens-management-commands)
 - [Security settings management commands](#security-settings-management-commands)
   - [Get security settings of an Organization](#get-security-settings-of-an-organization)
   - [Update the security settings of an Organization](#update-the-security-settings-of-an-organization)
@@ -1064,6 +1066,34 @@ scw iam saml-certificates list <saml-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | saml-id | Required | ID of the SAML configuration |
+
+
+
+## SCIM management commands
+
+SCIM management commands.
+
+SCIM management commands.
+
+**Usage:**
+
+```
+scw iam scim
+```
+
+
+
+## SCIM tokens management commands
+
+SCIM tokens management commands.
+
+SCIM tokens management commands.
+
+**Usage:**
+
+```
+scw iam scim-tokens
+```
 
 
 
