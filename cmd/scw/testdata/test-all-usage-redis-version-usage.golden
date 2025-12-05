@@ -6,7 +6,8 @@ USAGE:
   scw redis version <command>
 
 AVAILABLE COMMANDS:
-  list        List available Redis™ versions
+  list          List available Redis™ versions
+  list-settings List available settings from a Redis™ version
 
 FLAGS:
   -h, --help   help for version
