@@ -35,6 +35,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 - [Allows the activation and deletion of a profile from the config file](#allows-the-activation-and-deletion-of-a-profile-from-the-config-file)
   - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
   - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
+  - [List all profiles in the config file](#list-all-profiles-in-the-config-file)
 - [Reset the config](#reset-the-config)
 - [Set a line from the config file](#set-a-line-from-the-config-file)
 - [Unset a line from the config file](#unset-a-line-from-the-config-file)
@@ -209,6 +210,18 @@ scw config profile delete <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required |  |
+
+
+
+### List all profiles in the config file
+
+
+
+**Usage:**
+
+```
+scw config profile list
+```
 
 
 

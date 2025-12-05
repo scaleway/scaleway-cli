@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   check-ownership  Check whether you own this domain or not.
+  get              Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.
   sync-dns-records Synchronize your DNS records on the Elements Console and on cPanel.
 
 FLAGS:

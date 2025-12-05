@@ -1537,11 +1537,11 @@ func functionDomainDelete() *core.Command {
 func functionTokenCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new revocable token`,
-		Long:      `Create a new revocable token.`,
+		Long:      `Deprecated in favor of IAM authentication.`,
 		Namespace: "function",
 		Resource:  "token",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(function.CreateTokenRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
