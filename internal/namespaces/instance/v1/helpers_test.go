@@ -87,34 +87,31 @@ func deleteServer(metaKey string) core.AfterFunc {
 //
 
 // createVolume creates a volume of the given size and type and
-// register it in the context Meta at metaKey.
+// register it in the context Meta at "Volume".
 func createVolume(
-	metaKey string,
 	sizeInGb int,
-	volumeType instanceSDK.VolumeVolumeType,
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
-			"scw instance volume create name=cli-test size=%dGB volume-type=%s",
+			"scw instance volume create name=cli-test size=%dGB volume-type=l_ssd",
 			sizeInGb,
-			volumeType,
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createVolumeResponse := res.(*instanceSDK.CreateVolumeResponse)
-		ctx.Meta[metaKey] = createVolumeResponse.Volume
+		ctx.Meta["Volume"] = createVolumeResponse.Volume
 
 		return nil
 	}
 }
 
-// deleteVolume deletes a volume previously registered in the context Meta at metaKey.
-func deleteVolume(metaKey string) core.AfterFunc {
-	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
+// deleteVolume deletes a volume previously registered in the context Meta at "Volume".
+func deleteVolume() core.AfterFunc {
+	return core.ExecAfterCmd("scw instance volume delete {{ .Volume.ID }}")
 }
 
 // createSbsVolume creates a volume of the given size and
-// register it in the context Meta at metaKey
-func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
+// register it in the context Meta at "Volume".
+func createSbsVolume(sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
 			"scw block volume create name=%s from-empty.size=%dGB perf-iops=5000 -w",
@@ -123,7 +120,7 @@ func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		volume := res.(*block.Volume)
-		ctx.Meta[metaKey] = volume
+		ctx.Meta["Volume"] = volume
 
 		return nil
 	}
