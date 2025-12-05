@@ -47,6 +47,7 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
   - [Upgrade a Database Instance](#upgrade-a-database-instance)
   - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
 - [Instance logs management commands](#instance-logs-management-commands)
+  - [Download logs from a database instance](#download-logs-from-a-database-instance)
   - [Get given logs of a Database Instance](#get-given-logs-of-a-database-instance)
   - [List available logs of a Database Instance](#list-available-logs-of-a-database-instance)
   - [List remote Database Instance logs details](#list-remote-database-instance-logs-details)
@@ -1037,6 +1038,49 @@ scw rdb instance wait 11111111-1111-1111-1111-111111111111
 ## Instance logs management commands
 
 Instance logs management commands.
+
+
+### Download logs from a database instance
+
+Prepare, wait for, and download logs from a Database Instance. This command automatically prepares the logs, waits for them to be ready, and downloads them to a file.
+
+**Usage:**
+
+```
+scw rdb log download <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | UUID of the Database Instance you want logs of |
+| from |  | Start datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
+| to |  | End datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
+| output |  | Filename to write to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Download logs from a database instance
+```
+scw rdb log download 11111111-1111-1111-1111-111111111111
+```
+
+Download logs with a time range
+```
+scw rdb log download 11111111-1111-1111-1111-111111111111 from=2023-01-01T00:00:00Z to=2023-01-02T00:00:00Z
+```
+
+Download logs to a specific file
+```
+scw rdb log download 11111111-1111-1111-1111-111111111111 output=myLogs.txt
+```
+
+
 
 
 ### Get given logs of a Database Instance
