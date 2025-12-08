@@ -329,6 +329,7 @@ type clusterConnectArgs struct {
 	PrivateNetwork bool
 	ClusterID      string
 	CliRedis       *string
+	CliArgs        []string
 }
 
 const (
@@ -367,6 +368,16 @@ func checkRedisCliInstalled(cliRedis string) error {
 	return nil
 }
 
+func getRedisZones() []scw.Zone {
+	// Get zones dynamically from the Redis API SDK
+	// We create a minimal client just to access the Zones() method
+	// which doesn't require authentication
+	client := &scw.Client{}
+	api := redis.NewAPI(client)
+
+	return api.Zones()
+}
+
 func clusterConnectCommand() *core.Command {
 	return &core.Command{
 		Namespace: "redis",
@@ -392,14 +403,12 @@ func clusterConnectCommand() *core.Command {
 				Name:  "cli-redis",
 				Short: "Command line tool to use, default to redis-cli",
 			},
-			core.ZoneArgSpec(
-				scw.ZoneFrPar1,
-				scw.ZoneFrPar2,
-				scw.ZoneNlAms1,
-				scw.ZoneNlAms2,
-				scw.ZonePlWaw1,
-				scw.ZonePlWaw2,
-			),
+			{
+				Name:     "cli-args",
+				Short:    "Additional arguments to pass to redis-cli",
+				Required: false,
+			},
+			core.ZoneArgSpec(getRedisZones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*clusterConnectArgs)
@@ -498,6 +507,11 @@ func clusterConnectCommand() *core.Command {
 				cmdArgs = append(cmdArgs, "--user", cluster.UserName)
 			}
 
+			// Add any additional arguments passed by the user
+			if len(args.CliArgs) > 0 {
+				cmdArgs = append(cmdArgs, args.CliArgs...)
+			}
+
 			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
 			cmd.Stdin = os.Stdin
 			cmd.Stdout = os.Stdout
@@ -518,12 +532,12 @@ func clusterConnectCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Connect to a Redis cluster",
-				ArgsJSON: `{"cluster-id": "11111111-1111-1111-1111-111111111111"}`,
+				Short: "Connect to a Redis cluster",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111`,
 			},
 			{
-				Short:    "Connect to a Redis cluster via private network",
-				ArgsJSON: `{"cluster-id": "11111111-1111-1111-1111-111111111111", "private-network": true}`,
+				Short: "Connect to a Redis cluster via private network",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true`,
 			},
 		},
 	}
