@@ -442,7 +442,7 @@ func clusterConnectCommand() *core.Command {
 			}
 
 			if len(endpoint.IPs) == 0 {
-				return nil, fmt.Errorf("endpoint has no IP addresses")
+				return nil, errors.New("endpoint has no IP addresses")
 			}
 
 			port := endpoint.Port
@@ -464,7 +464,7 @@ func clusterConnectCommand() *core.Command {
 
 				tmpDir := os.TempDir()
 				certPath = filepath.Join(tmpDir, fmt.Sprintf("redis-cert-%s.crt", args.ClusterID))
-				if err := os.WriteFile(certPath, certContent, 0600); err != nil {
+				if err := os.WriteFile(certPath, certContent, 0o600); err != nil {
 					return nil, fmt.Errorf("failed to write certificate: %w", err)
 				}
 				defer func() {
@@ -508,6 +508,7 @@ func clusterConnectCommand() *core.Command {
 				if exitError, ok := err.(*exec.ExitError); ok {
 					return nil, &core.CliError{Empty: true, Code: exitError.ExitCode()}
 				}
+
 				return nil, err
 			}
 
