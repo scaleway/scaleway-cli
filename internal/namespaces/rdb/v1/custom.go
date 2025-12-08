@@ -17,6 +17,7 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(CreateInstanceResult{}, createInstanceResultMarshalerFunc)
 	human.RegisterMarshalerFunc(CustomACLResult{}, rdbACLCustomResultMarshalerFunc)
 	human.RegisterMarshalerFunc(rdbEndpointCustomResult{}, rdbEndpointCustomResultMarshalerFunc)
+	human.RegisterMarshalerFunc(logDownloadResult{}, logDownloadResultMarshalerFunc)
 
 	human.RegisterMarshalerFunc(
 		rdb.InstanceStatus(""),
@@ -81,6 +82,9 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("rdb", "user", "update").Override(userUpdateBuilder)
 
 	cmds.MustFind("rdb", "log", "prepare").Override(logPrepareBuilder)
+	cmds.Merge(core.NewCommands(
+		logDownloadCommand(),
+	))
 
 	return cmds
 }
