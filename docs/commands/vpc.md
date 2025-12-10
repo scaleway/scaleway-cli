@@ -20,7 +20,6 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Edit all ACL rules of a VPC](#edit-all-acl-rules-of-a-vpc)
   - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
   - [Set VPC ACL rules](#set-vpc-acl-rules)
-- [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
   - [Delete a VPC](#delete-a-vpc)
@@ -392,20 +391,6 @@ scw vpc rule set [arg=value ...]
 | is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
 | default-policy | Required<br />One of: `unknown_action`, `accept`, `drop` | Action to take for packets which do not match any rules |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-## Subnet management command
-
-CIDR Subnet.
-
-CIDR Subnet.
-
-**Usage:**
-
-```
-scw vpc subnet
-```
 
 
 

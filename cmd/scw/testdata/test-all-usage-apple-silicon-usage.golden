@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   os              OS management commands
   private-network Private network management command
+  runner          Runner management commands
   server          Apple silicon management commands
   server-type     Server-Types management commands
 
