@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/fatih/color"
@@ -29,6 +30,7 @@ func GetCommands() *core.Commands {
 		configUnsetCommand(),
 		configDumpCommand(),
 		configProfileCommand(),
+		configListProfilesCommand(),
 		configDeleteProfileCommand(),
 		configActivateProfileCommand(),
 		configResetCommand(),
@@ -421,6 +423,54 @@ func configProfileCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "profile",
 		AllowAnonymousClient: true,
+	}
+}
+
+// configListProfilesCommand lists all profiles in the config file
+func configListProfilesCommand() *core.Command {
+	return &core.Command{
+		Groups:               []string{"config"},
+		Short:                `List all profiles in the config file`,
+		Namespace:            "config",
+		Resource:             "profile",
+		Verb:                 "list",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(struct{}{}),
+		ArgSpecs:             core.ArgSpecs{},
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			type profile struct {
+				Name                  string
+				DefaultZone           *string
+				DefaultRegion         *string
+				DefaultProjectID      *string
+				DefaultOrganizationID *string
+				APIURL                *string
+			}
+			if err != nil {
+				return nil, err
+			}
+
+			profiles := []profile{}
+
+			for key, value := range config.Profiles {
+				profiles = append(profiles, profile{
+					Name:                  key,
+					DefaultRegion:         value.DefaultRegion,
+					DefaultZone:           value.DefaultZone,
+					DefaultOrganizationID: value.DefaultOrganizationID,
+					DefaultProjectID:      value.DefaultProjectID,
+					APIURL:                value.APIURL,
+				})
+			}
+
+			sort.Slice(profiles, func(i, j int) bool {
+				return profiles[i].Name < profiles[j].Name
+			})
+
+			return profiles, nil
+		},
 	}
 }
 

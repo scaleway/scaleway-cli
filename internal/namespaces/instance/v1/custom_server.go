@@ -408,6 +408,7 @@ type customServer struct {
 	Arch                            instance.Arch                  `json:"arch"`
 	PlacementGroup                  *instance.PlacementGroup       `json:"placement_group"`
 	Zone                            scw.Zone                       `json:"zone"`
+	Location                        *instance.ServerLocation       `json:"location"`
 	AdminPasswordEncryptionSSHKeyID *string                        `json:"admin_password_encryption_ssh_key_id"`
 	AdminPasswordEncryptedValue     *string                        `json:"admin_password_encrypted_value"`
 	Filesystems                     []*instance.ServerFilesystem   `json:"filesystems"`
@@ -440,6 +441,7 @@ func customServerFromInstanceServer(server *instance.Server) *customServer {
 		Arch:                            server.Arch,
 		PlacementGroup:                  server.PlacementGroup,
 		Zone:                            server.Zone,
+		Location:                        server.Location,
 		AdminPasswordEncryptionSSHKeyID: server.AdminPasswordEncryptionSSHKeyID,
 		AdminPasswordEncryptedValue:     server.AdminPasswordEncryptedValue,
 		Filesystems:                     server.Filesystems,

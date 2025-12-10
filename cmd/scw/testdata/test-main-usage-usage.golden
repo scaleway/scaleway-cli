@@ -38,7 +38,7 @@ DATABASE COMMANDS:
 DOMAIN & WEBHOSTING COMMANDS:
   dns           This API allows you to manage your domains, DNS zones and records
   tem           This API allows you to manage your Transactional Email services
-  webhosting    This API allows you to manage your Web Hosting services
+  webhosting    This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.
 
 INTEGRATION COMMANDS:
   iot           This API allows you to manage your IoT hubs and devices
@@ -77,7 +77,7 @@ STORAGE COMMANDS:
 UTILITY COMMANDS:
   autocomplete  Autocomplete related commands
   feedback      Send feedback to the Scaleway CLI Team!
-  help          Get help about how the CLI works
+  help          Get help about how specific topics inside the CLI work
   shell         Start shell mode
   version       Display cli version
 

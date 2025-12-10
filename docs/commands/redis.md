@@ -33,6 +33,7 @@ This API allows you to manage your Managed Databases for Redis™.
   - [Set advanced settings](#set-advanced-settings)
 - [Redis™ version management commands](#redis™-version-management-commands)
   - [List available Redis™ versions](#list-available-redis™-versions)
+  - [List available settings from a Redis™ version](#list-available-settings-from-a-redis™-version)
 
   
 ## Access Control List (ACL) management commands
@@ -626,6 +627,36 @@ scw redis version list [arg=value ...]
 | include-deprecated |  | Defines whether or not to include deprecated Redis™ engine versions |
 | version |  | List Redis™ engine versions that match a given name pattern |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List available settings from a Redis™ version
+
+List available settings from a Redis™ version.
+
+**Usage:**
+
+```
+scw redis version list-settings [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| version | Required | Redis™ engine version |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+List settings for Redis™ 7.2.11
+```
+scw redis version list-settings version=7.2.11
+```
+
 
 
 

@@ -280,7 +280,7 @@ func Test_ImageUpdate(t *testing.T) {
 			AfterFunc: core.AfterFuncCombine(
 				deleteServer("Server"),
 				deleteImage("ImageExtraVol"),
-				deleteVolume("Volume"),
+				deleteVolume(),
 			),
 		})
 	})

@@ -586,7 +586,7 @@ Token management commands.
 
 ### Create a new revocable token
 
-Create a new revocable token.
+Deprecated in favor of IAM authentication.
 
 **Usage:**
 
