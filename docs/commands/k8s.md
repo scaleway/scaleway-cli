@@ -184,16 +184,16 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | pools.{index}.security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
-| autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
+| autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
-| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
-| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them |
+| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details |
+| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false |
+| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them, defaults to false |
 | autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable |
-| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible to be scaled down |
-| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down |
-| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
+| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
+| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
+| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
@@ -483,16 +483,16 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | name |  | New external name for the cluster |
 | description |  | New description for the cluster |
 | tags.{index} |  | New tags associated with the cluster |
-| autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
+| autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
-| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
-| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them |
+| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details |
+| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false |
+| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them, defaults to false |
 | autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable |
-| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible to be scaled down |
-| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down |
-| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
+| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
+| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
+| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
