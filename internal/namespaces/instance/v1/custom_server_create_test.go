@@ -328,7 +328,7 @@ func Test_CreateServer(t *testing.T) {
 				block.GetCommands(),
 			),
 			BeforeFunc: core.BeforeFuncCombine(
-				createSbsVolume("Volume", 20),
+				createSbsVolume(20),
 			),
 			Cmd: testServerCommand(
 				"image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true",
@@ -381,7 +381,7 @@ func Test_CreateServer(t *testing.T) {
 				block.GetCommands(),
 			),
 			BeforeFunc: core.BeforeFuncCombine(
-				createSbsVolume("Volume", 20),
+				createSbsVolume(20),
 			),
 			Cmd: testServerCommand("image=none root-volume={{.Volume.ID}} stopped=true"),
 			Check: core.TestCheckCombine(
@@ -689,13 +689,13 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createVolume("Volume", 5, instanceSDK.VolumeVolumeTypeLSSD),
+		BeforeFunc: createVolume(5),
 		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }}"),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
+		AfterFunc:       deleteVolume(),
 		DisableParallel: true,
 	}))
 
@@ -723,7 +723,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
+		BeforeFunc: createVolume(20),
 		Cmd: testServerCommand(
 			"image=ubuntu_jammy root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
 		),
@@ -731,7 +731,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
+		AfterFunc:       deleteVolume(),
 		DisableParallel: true,
 	}))
 
@@ -749,13 +749,13 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
+		BeforeFunc: createVolume(20),
 		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }}"),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
+		AfterFunc:       deleteVolume(),
 		DisableParallel: true,
 	}))
 
