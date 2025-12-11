@@ -70,63 +70,94 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 
 		g.Go(func() (err error) {
 			instanceServers, err = listCustomInstanceServers(groupCtx, client, pn)
+			if err != nil {
+				instanceServers = []customInstanceServer{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			baremetalServers, err = listCustomBaremetalServers(groupCtx, client, pn)
+			if err != nil {
+				baremetalServers = []customBaremetalServer{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			k8sClusters, err = listCustomK8sClusters(groupCtx, client, pn)
+			if err != nil {
+				k8sClusters = []customK8sCluster{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			lbs, err = listCustomLBs(groupCtx, client, pn)
+			if err != nil {
+				lbs = []customLB{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			rdbs, err = listCustomRdbs(groupCtx, client, pn)
+			if err != nil {
+				rdbs = []customRdb{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			redisClusters, err = listCustomRedisClusters(groupCtx, client, pn)
+			if err != nil {
+				redisClusters = []customRedis{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			gateways, err = listCustomGateways(groupCtx, client, pn)
+			if err != nil {
+				gateways = []customGateway{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			appleSiliconServers, err = listCustomAppleSiliconServers(groupCtx, client, pn)
+			if err != nil {
+				appleSiliconServers = []customAppleSiliconServer{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			mongoDBs, err = listCustomMongoDBs(groupCtx, client, pn)
+			if err != nil {
+				mongoDBs = []customMongoDB{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			ipamIPs, err = listCustomIPAMIPs(groupCtx, client, pn)
+			if err != nil {
+				ipamIPs = []customIPAMIP{}
+			}
 
-			return err
+			return nil
 		})
 		g.Go(func() (err error) {
 			inferenceDeployments, err = listCustomInferenceDeployments(groupCtx, client, pn)
+			if err != nil {
+				inferenceDeployments = []customInferenceDeployment{}
+			}
 
-			return err
+			return nil
 		})
 
-		if err = g.Wait(); err != nil {
-			return nil, err
-		}
+		_ = g.Wait()
 
 		return &struct {
 			*vpc.PrivateNetwork
