@@ -3,13 +3,20 @@ package redis
 import (
 	"context"
 	"errors"
+	"fmt"
+	"io"
 	"net/http"
+	"os"
+	"os/exec"
+	"path/filepath"
 	"reflect"
+	"strconv"
 	"strings"
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
+	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-sdk-go/api/redis/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -315,4 +322,223 @@ func autoCompleteNodeType(
 	}
 
 	return suggestions
+}
+
+type clusterConnectArgs struct {
+	Zone           scw.Zone
+	PrivateNetwork bool
+	ClusterID      string
+	CliRedis       *string
+	CliArgs        []string
+}
+
+const (
+	errorMessagePublicEndpointNotFound  = "public endpoint not found"
+	errorMessagePrivateEndpointNotFound = "private endpoint not found"
+	errorMessageEndpointNotFound        = "any endpoint is associated on your cluster"
+	errorMessageRedisCliNotFound        = "redis-cli is not installed. Please install redis-cli to use this command"
+)
+
+func getPublicEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
+	for _, e := range endpoints {
+		if e.PublicNetwork != nil {
+			return e, nil
+		}
+	}
+
+	return nil, fmt.Errorf("%s", errorMessagePublicEndpointNotFound)
+}
+
+func getPrivateEndpoint(endpoints []*redis.Endpoint) (*redis.Endpoint, error) {
+	for _, e := range endpoints {
+		if e.PrivateNetwork != nil {
+			return e, nil
+		}
+	}
+
+	return nil, fmt.Errorf("%s", errorMessagePrivateEndpointNotFound)
+}
+
+func checkRedisCliInstalled(cliRedis string) error {
+	cmd := exec.Command(cliRedis, "--version") //nolint:gosec
+	if err := cmd.Run(); err != nil {
+		return fmt.Errorf("%s", errorMessageRedisCliNotFound)
+	}
+
+	return nil
+}
+
+func getRedisZones() []scw.Zone {
+	// Get zones dynamically from the Redis API SDK
+	// We create a minimal client just to access the Zones() method
+	// which doesn't require authentication
+	client := &scw.Client{}
+	api := redis.NewAPI(client)
+
+	return api.Zones()
+}
+
+func clusterConnectCommand() *core.Command {
+	return &core.Command{
+		Namespace: "redis",
+		Resource:  "cluster",
+		Verb:      "connect",
+		Short:     "Connect to a Redis cluster using locally installed redis-cli",
+		Long:      "Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.",
+		ArgsType:  reflect.TypeOf(clusterConnectArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:     "private-network",
+				Short:    `Connect by the private network endpoint attached.`,
+				Required: false,
+				Default:  core.DefaultValueSetter("false"),
+			},
+			{
+				Name:       "cluster-id",
+				Short:      `UUID of the cluster`,
+				Required:   true,
+				Positional: true,
+			},
+			{
+				Name:  "cli-redis",
+				Short: "Command line tool to use, default to redis-cli",
+			},
+			{
+				Name:     "cli-args",
+				Short:    "Additional arguments to pass to redis-cli",
+				Required: false,
+			},
+			core.ZoneArgSpec(getRedisZones()...),
+		},
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			args := argsI.(*clusterConnectArgs)
+
+			cliRedis := "redis-cli"
+			if args.CliRedis != nil {
+				cliRedis = *args.CliRedis
+			}
+
+			if err := checkRedisCliInstalled(cliRedis); err != nil {
+				return nil, err
+			}
+
+			client := core.ExtractClient(ctx)
+			api := redis.NewAPI(client)
+			cluster, err := api.GetCluster(&redis.GetClusterRequest{
+				Zone:      args.Zone,
+				ClusterID: args.ClusterID,
+			})
+			if err != nil {
+				return nil, err
+			}
+
+			if len(cluster.Endpoints) == 0 {
+				return nil, fmt.Errorf("%s", errorMessageEndpointNotFound)
+			}
+
+			var endpoint *redis.Endpoint
+			switch {
+			case args.PrivateNetwork:
+				endpoint, err = getPrivateEndpoint(cluster.Endpoints)
+				if err != nil {
+					return nil, err
+				}
+			default:
+				endpoint, err = getPublicEndpoint(cluster.Endpoints)
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			if len(endpoint.IPs) == 0 {
+				return nil, errors.New("endpoint has no IP addresses")
+			}
+
+			port := endpoint.Port
+
+			var certPath string
+			if cluster.TLSEnabled {
+				certResp, err := api.GetClusterCertificate(&redis.GetClusterCertificateRequest{
+					Zone:      args.Zone,
+					ClusterID: args.ClusterID,
+				})
+				if err != nil {
+					return nil, fmt.Errorf("failed to get certificate: %w", err)
+				}
+
+				certContent, err := io.ReadAll(certResp.Content)
+				if err != nil {
+					return nil, fmt.Errorf("failed to read certificate content: %w", err)
+				}
+
+				tmpDir := os.TempDir()
+				certPath = filepath.Join(tmpDir, fmt.Sprintf("redis-cert-%s.crt", args.ClusterID))
+				if err := os.WriteFile(certPath, certContent, 0o600); err != nil {
+					return nil, fmt.Errorf("failed to write certificate: %w", err)
+				}
+				defer func() {
+					if err := os.Remove(certPath); err != nil {
+						core.ExtractLogger(ctx).Debugf("failed to remove certificate file: %v", err)
+					}
+				}()
+			}
+
+			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
+				Ctx:    ctx,
+				Prompt: "Password",
+			})
+			if err != nil {
+				return nil, fmt.Errorf("failed to get password: %w", err)
+			}
+
+			hostStr := endpoint.IPs[0].String()
+			cmdArgs := []string{
+				cliRedis,
+				"-h", hostStr,
+				"-p", strconv.FormatUint(uint64(port), 10),
+				"-a", password,
+			}
+
+			if cluster.TLSEnabled {
+				cmdArgs = append(cmdArgs, "--tls", "--cert", certPath)
+			}
+
+			if cluster.UserName != "" {
+				cmdArgs = append(cmdArgs, "--user", cluster.UserName)
+			}
+
+			// Add any additional arguments passed by the user
+			if len(args.CliArgs) > 0 {
+				cmdArgs = append(cmdArgs, args.CliArgs...)
+			}
+
+			cmd := exec.Command(cmdArgs[0], cmdArgs[1:]...) //nolint:gosec
+			cmd.Stdin = os.Stdin
+			cmd.Stdout = os.Stdout
+			cmd.Stderr = os.Stderr
+			core.ExtractLogger(ctx).Debugf("executing: %s\n", cmd.Args)
+
+			if err := cmd.Run(); err != nil {
+				if exitError, ok := err.(*exec.ExitError); ok {
+					return nil, &core.CliError{Empty: true, Code: exitError.ExitCode()}
+				}
+
+				return nil, err
+			}
+
+			return &core.SuccessResult{
+				Empty: true,
+			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Connect to a Redis cluster",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111`,
+			},
+			{
+				Short: "Connect to a Redis cluster via private network",
+				Raw:   `scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true`,
+			},
+		},
+	}
 }
