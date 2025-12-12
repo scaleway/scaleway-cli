@@ -88,68 +88,33 @@ scw instance server list zone=all -o template="{{.ID}} zone={{.Zone}}" | xargs -
 scw rdb backup list -ojson | jq --arg d "$(date -d "7 days ago" --utc --iso-8601=ns)" '.[] | select (.created_at < $d)'
 ```
 
-### Configure password storage for rdb connect
+### Restore a backup from another Database Instance (even with different version)
 
-The `scw rdb instance connect` command can automatically use stored credentials to avoid typing passwords manually. Here's how to configure it for PostgreSQL and MySQL.
-
-#### PostgreSQL - Using .pgpass file
-
-Create a password file to store your connection credentials securely:
+You can restore a backup from one Database Instance to another, even if they have different PostgreSQL/MySQL versions (e.g., PostgreSQL-15 to PostgreSQL-16). The restore operation works within the same region.
 
 ```bash
-# Linux/macOS: Create ~/.pgpass
-cat > ~/.pgpass << 'EOF'
-# Format: hostname:port:database:username:password
-51.159.25.206:13917:rdb:myuser:mypassword
-# You can use * as wildcard
-*:*:*:myuser:mypassword
-EOF
-chmod 600 ~/.pgpass
+# Step 1: Create a backup from the source instance
+scw rdb backup create instance-id=<source-instance-id> database-name=<db-name> name=cross-instance-backup region=<region> -w
 
-# Windows: Create %APPDATA%\postgresql\pgpass.conf
-# Same format as above
+# Step 2: Get the backup ID
+BACKUP_ID=$(scw rdb backup list instance-id=<source-instance-id> region=<region> -ojson | jq -r '.[0].id')
+
+# Step 3: Create the target database on the destination instance (if it doesn't exist)
+scw rdb database create instance-id=<target-instance-id> name=<db-name> region=<region>
+
+# Step 4: Restore the backup to the target instance
+scw rdb backup restore $BACKUP_ID instance-id=<target-instance-id> region=<region> -w
+
+# Example: Restore from PostgreSQL-15 to PostgreSQL-16
+SOURCE_ID="325fd68a-a286-4f5c-b56b-3b8d66fcd13d"  # PG-15 instance
+TARGET_ID="70644724-60c9-411c-a3e2-5276f1cefff1"  # PG-16 instance
+scw rdb backup create instance-id=$SOURCE_ID database-name=mydb name=upgrade-backup region=fr-par -w
+BACKUP_ID=$(scw rdb backup list instance-id=$SOURCE_ID region=fr-par -ojson | jq -r '.[0].id')
+scw rdb database create instance-id=$TARGET_ID name=mydb region=fr-par
+scw rdb backup restore $BACKUP_ID instance-id=$TARGET_ID region=fr-par -w
 ```
 
-Then connect without password prompt:
-```bash
-scw rdb instance connect <instance-id> username=myuser
-```
-
-**Documentation:** https://www.postgresql.org/docs/current/libpq-pgpass.html
-
-#### MySQL - Using mysql_config_editor
-
-MySQL provides `mysql_config_editor` for secure, obfuscated password storage:
-
-```bash
-# Configure credentials for a login path
-mysql_config_editor set --login-path=scw \
-  --host=195.154.69.163 \
-  --port=12210 \
-  --user=myuser \
-  --password
-# You'll be prompted to enter the password securely
-
-# Verify configuration (password will be masked)
-mysql_config_editor print --login-path=scw
-
-# Connect using the login path
-mysql --login-path=scw --database=rdb
-```
-
-The credentials are stored in `~/.mylogin.cnf` (Linux/macOS) or `%APPDATA%\MySQL\.mylogin.cnf` (Windows).
-
-**Alternative:** You can also use `~/.my.cnf` for plain-text storage (less secure):
-```bash
-cat > ~/.my.cnf << 'EOF'
-[client]
-user=myuser
-password=mypassword
-EOF
-chmod 600 ~/.my.cnf
-```
-
-**Documentation:** https://dev.mysql.com/doc/refman/8.0/en/mysql-config-editor.html
+**Note:** This method only works within the same region. For cross-region migrations, see the "Migrate a managed database to another region" section.
 
 ## IPAM
 
