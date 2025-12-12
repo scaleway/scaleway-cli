@@ -1,10 +1,13 @@
 package baremetal_test
 
 import (
+	"errors"
 	"fmt"
 	"os"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func getenv(key, fallback string) string {
@@ -53,4 +56,24 @@ func addSSH(metaKey string, key string) core.BeforeFunc {
 // delete an ssh key with a given meta key
 func deleteSSH(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd(fmt.Sprintf("scw iam ssh-key delete {{ .%s.ID }}", metaKey))
+}
+
+func checkStockOffer() func(ctx *core.BeforeFuncCtx) error {
+	return func(ctx *core.BeforeFuncCtx) error {
+		api := baremetal.NewAPI(ctx.Client)
+
+		offer, err := api.GetOfferByName(&baremetal.GetOfferByNameRequest{
+			OfferName: offerNameNVME,
+			Zone:      scw.Zone(zone),
+		})
+		if err != nil {
+			return err
+		}
+
+		if offer.Stock != baremetal.OfferStockAvailable {
+			return errors.New("offer out of stock")
+		}
+
+		return nil
+	}
 }

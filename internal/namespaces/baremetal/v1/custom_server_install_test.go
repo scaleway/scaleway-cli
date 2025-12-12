@@ -1,14 +1,11 @@
 package baremetal_test
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
-	baremetalSDK "github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func Test_InstallServer(t *testing.T) {
@@ -22,20 +19,7 @@ func Test_InstallServer(t *testing.T) {
 
 		t.Run("With ID", core.Test(&core.TestConfig{
 			BeforeFunc: core.BeforeFuncCombine(
-				func(ctx *core.BeforeFuncCtx) error {
-					api := baremetalSDK.NewAPI(ctx.Client)
-					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-						OfferName: offerNameNVME,
-						Zone:      scw.Zone(zone),
-					})
-					if server.Stock != baremetalSDK.OfferStockAvailable {
-						err := errors.New("offer out of stock")
-
-						return err
-					}
-
-					return nil
-				},
+				checkStockOffer(),
 				addSSH("key", sshKey),
 				createServerAndWait(),
 			),
@@ -54,18 +38,7 @@ func Test_InstallServer(t *testing.T) {
 		t.Run("All SSH keys", core.Test(&core.TestConfig{
 			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
-				func(ctx *core.BeforeFuncCtx) error {
-					api := baremetalSDK.NewAPI(ctx.Client)
-					server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-						OfferName: offerNameNVME,
-						Zone:      scw.Zone(zone),
-					})
-					if server.Stock != baremetalSDK.OfferStockAvailable {
-						return errors.New("offer out of stock")
-					}
-
-					return nil
-				},
+				checkStockOffer(),
 				addSSH("key", sshKey),
 				createServerAndWait(),
 			),
