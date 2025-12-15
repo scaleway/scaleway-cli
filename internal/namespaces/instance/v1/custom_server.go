@@ -81,6 +81,7 @@ func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 		StateDetail       string
 		Arch              instance.Arch
 		ImageID           string
+		ProjectID         string
 	}
 
 	servers := i.([]*instance.Server)
@@ -117,6 +118,7 @@ func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 			StateDetail:       server.StateDetail,
 			Arch:              server.Arch,
 			ImageID:           serverImageID,
+			ProjectID:         server.Project,
 		})
 	}
 
