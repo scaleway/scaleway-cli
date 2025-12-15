@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all your connections. A number of filters are available, including Project ID, name, tags and status.
+
+USAGE:
+  scw s2s-vpn connection list [arg=value ...]
+
+ARGS:
+  [order-by]                       Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc | status_asc | status_desc)
+  [project-id]                     Project ID to filter for
+  [name]                           Connection name to filter for
+  [tags.{index}]                   Tags to filter for
+  [statuses.{index}]               Connection statuses to filter for (unknown_status | active | limited_connectivity | down | locked)
+  [is-ipv6]                        Filter connections with IP version of IPSec tunnel
+  [routing-policy-ids.{index}]     Filter for connections using these routing policies
+  [route-propagation-enabled]      Filter for connections with route propagation enabled
+  [vpn-gateway-ids.{index}]        Filter for connections attached to these VPN gateways
+  [customer-gateway-ids.{index}]   Filter for connections attached to these customer gateways
+  [region=fr-par]                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+
+FLAGS:
+  -h, --help   help for list
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
