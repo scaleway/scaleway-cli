@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+This API allows you to manage your Site-to-Site VPN.
+
+USAGE:
+  scw s2s-vpn <command>
+
+AVAILABLE COMMANDS:
+  connection       A connection represents the IPsec tunnel between VPN gateway and customer gateway.
+  customer-gateway A customer gateway represents a Scaleway client's device that communicates with a VPN gateway.
+  routing-policy   By default, all routes across the Site-to-Site VPN (between VPN gateway and customer gateway) are blocked. Routing policies allow you to set filters to define the IP prefixes to allow.
+  vpn-gateway      A VPN gateway is an IPsec peer managed by Scaleway. It can support multiple connections to customer gateways.
+  vpn-gateway-type VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
+
+FLAGS:
+  -h, --help   help for s2s-vpn
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw s2s-vpn [command] --help" for more information about a command.
