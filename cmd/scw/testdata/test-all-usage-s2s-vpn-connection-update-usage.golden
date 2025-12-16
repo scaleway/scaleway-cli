@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update an existing connection, specified by its connection ID.
+
+USAGE:
+  scw s2s-vpn connection update <connection-id ...> [arg=value ...]
+
+ARGS:
+  connection-id                        ID of the connection to update
+  [name]                               Name of the connection
+  [tags.{index}]                       List of tags to apply to the connection
+  [initiation-policy]                  Who initiates the IPsec tunnel (unknown_initiation_policy | vpn_gateway | customer_gateway)
+  [ikev2-ciphers.{index}.encryption]    (unknown_encryption | aes128 | aes192 | aes256 | aes128gcm | aes192gcm | aes256gcm | aes128ccm | aes256ccm | chacha20poly1305)
+  [ikev2-ciphers.{index}.integrity]     (unknown_integrity | sha256 | sha384 | sha512)
+  [ikev2-ciphers.{index}.dh-group]      (unknown_dhgroup | modp2048 | modp3072 | modp4096 | ecp256 | ecp384 | ecp521 | curve25519)
+  [esp-ciphers.{index}.encryption]      (unknown_encryption | aes128 | aes192 | aes256 | aes128gcm | aes192gcm | aes256gcm | aes128ccm | aes256ccm | chacha20poly1305)
+  [esp-ciphers.{index}.integrity]       (unknown_integrity | sha256 | sha384 | sha512)
+  [esp-ciphers.{index}.dh-group]        (unknown_dhgroup | modp2048 | modp3072 | modp4096 | ecp256 | ecp384 | ecp521 | curve25519)
+  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help   help for update
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
