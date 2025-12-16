@@ -38,6 +38,7 @@ type containerDeployRequest struct {
 	Name string
 
 	Builder      string
+	RunImage     string
 	Dockerfile   string
 	ForceBuilder bool
 
@@ -66,6 +67,11 @@ func containerDeployCommand() *core.Command {
 				Name:    "builder",
 				Short:   "Builder image to use",
 				Default: core.DefaultValueSetter("paketobuildpacks/builder-jammy-base:latest"),
+			},
+			{
+				Name:    "run-image",
+				Short:   "Run image to use",
+				Default: core.DefaultValueSetter("paketobuildpacks/run-jammy-base:latest"),
 			},
 			{
 				Name:    "dockerfile",
@@ -372,6 +378,7 @@ func DeployStepBuildpackBuildImage(
 		AppPath:      data.Args.BuildSource,
 		Builder:      data.Args.Builder,
 		Image:        tag,
+		RunImage:     data.Args.RunImage,
 		ClearCache:   !data.Args.Cache,
 		TrustBuilder: func(string) bool { return true },
 	})

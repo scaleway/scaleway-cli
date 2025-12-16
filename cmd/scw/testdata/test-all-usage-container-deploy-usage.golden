@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   [name]                                                 Name of the application (defaults to build-source's directory name)
   [builder=paketobuildpacks/builder-jammy-base:latest]   Builder image to use
+  [run-image=paketobuildpacks/run-jammy-base:latest]     Run image to use
   [dockerfile=Dockerfile]                                Path to the Dockerfile
   [force-builder=false]                                  Force the use of the builder image (even if a Dockerfile is present)
   [build-source=.]                                       Path to the build context
