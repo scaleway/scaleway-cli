@@ -361,6 +361,7 @@ scw container deploy [arg=value ...]
 |------|---|-------------|
 | name |  | Name of the application (defaults to build-source's directory name) |
 | builder | Default: `paketobuildpacks/builder-jammy-base:latest` | Builder image to use |
+| run-image | Default: `paketobuildpacks/run-jammy-base:latest` | Run image to use |
 | dockerfile | Default: `Dockerfile` | Path to the Dockerfile |
 | force-builder | Default: `false` | Force the use of the builder image (even if a Dockerfile is present) |
 | build-source | Default: `.` | Path to the build context |
