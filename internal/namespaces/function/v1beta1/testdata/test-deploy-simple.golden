@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              79a27f04-2519-49e1-9fe7-e40d77ab0089
+ID              bd4e6a89-a0cd-4d0f-8fec-1ca7553ec1d1
 Name            cli-test-function-deploy
-NamespaceID     20e20ab3-5c55-443b-b892-d34eab9e0d29
+NamespaceID     05be01cf-2e0a-4834-959f-512bd21fb820
 Status          ready
 MinScale        0
 MaxScale        5
@@ -13,7 +13,7 @@ Timeout         5 minutes
 Handler         Handle
 Privacy         public
 Description     -
-DomainName      clitestfunctiondeplozfc2btoz-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+DomainName      clitestfunctiondeplovcgixz1v-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
 Region          fr-par
 HTTPOption      enabled
 RuntimeMessage  -
@@ -23,9 +23,9 @@ UpdatedAt       few seconds ago
 ReadyAt         few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "79a27f04-2519-49e1-9fe7-e40d77ab0089",
+  "id": "bd4e6a89-a0cd-4d0f-8fec-1ca7553ec1d1",
   "name": "cli-test-function-deploy",
-  "namespace_id": "20e20ab3-5c55-443b-b892-d34eab9e0d29",
+  "namespace_id": "05be01cf-2e0a-4834-959f-512bd21fb820",
   "status": "ready",
   "environment_variables": {},
   "min_scale": 0,
@@ -39,7 +39,7 @@ ReadyAt         few seconds ago
   "build_message": null,
   "privacy": "public",
   "description": "",
-  "domain_name": "clitestfunctiondeplozfc2btoz-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
+  "domain_name": "clitestfunctiondeplovcgixz1v-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud",
   "secret_environment_variables": [],
   "region": "fr-par",
   "http_option": "enabled",
