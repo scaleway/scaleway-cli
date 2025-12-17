@@ -21,7 +21,7 @@ require (
 	github.com/karrick/tparse/v2 v2.8.2
 	github.com/mattn/go-colorable v0.1.14
 	github.com/mattn/go-isatty v0.0.20
-	github.com/moby/buildkit v0.26.2
+	github.com/moby/buildkit v0.26.3
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.35.0.20251209111654-44f4a1dfc432
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
