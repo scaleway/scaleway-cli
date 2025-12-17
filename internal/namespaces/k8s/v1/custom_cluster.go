@@ -145,30 +145,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		var pn *vpc.PrivateNetwork
 		var err error
 
-		types, err := k8sAPI.ListClusterTypes(&k8s.ListClusterTypesRequest{
-			Region: request.Region,
-		})
-		if err != nil {
-			return nil, err
-		}
-		if request.Type != "" {
-			validType := false
-			validTypes := []string(nil)
-			for _, clusterType := range types.ClusterTypes {
-				validTypes = append(validTypes, clusterType.Name)
-				if clusterType.Name == request.Type {
-					validType = true
-				}
-			}
-			if !validType {
-				return nil, fmt.Errorf(
-					"invalid cluster type %q, must be one of %v",
-					request.Type,
-					validTypes,
-				)
-			}
-		}
-
 		if request.Type == "" || strings.HasPrefix(request.Type, "kapsule") {
 			if request.PrivateNetworkID == nil {
 				createPNReq := &vpc.CreatePrivateNetworkRequest{
