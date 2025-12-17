@@ -1,7 +1,6 @@
 package baremetal_test
 
 import (
-	"errors"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -13,18 +12,7 @@ import (
 func Test_StartServerErrors(t *testing.T) {
 	t.Run("Error: cannot be started while not delivered", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				api := baremetalSDK.NewAPI(ctx.Client)
-				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerNameSATA,
-					Zone:      scw.Zone(zone),
-				})
-				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return errors.New("offer out of stock")
-				}
-
-				return nil
-			},
+			checkStockOffer(),
 			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
@@ -54,18 +42,7 @@ func Test_StartServerErrors(t *testing.T) {
 func Test_StopServerErrors(t *testing.T) {
 	t.Run("Error: cannot be stopped while not delivered", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				api := baremetalSDK.NewAPI(ctx.Client)
-				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerNameSATA,
-					Zone:      scw.Zone(zone),
-				})
-				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return errors.New("offer out of stock")
-				}
-
-				return nil
-			},
+			checkStockOffer(),
 			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
@@ -95,18 +72,7 @@ func Test_StopServerErrors(t *testing.T) {
 func Test_RebootServerErrors(t *testing.T) {
 	t.Run("Error: cannot be rebooted while not delivered", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
-			func(ctx *core.BeforeFuncCtx) error {
-				api := baremetalSDK.NewAPI(ctx.Client)
-				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: offerNameSATA,
-					Zone:      scw.Zone(zone),
-				})
-				if server.Stock != baremetalSDK.OfferStockAvailable {
-					return errors.New("offer out of stock")
-				}
-
-				return nil
-			},
+			checkStockOffer(),
 			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
