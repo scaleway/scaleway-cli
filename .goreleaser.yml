@@ -46,7 +46,7 @@ changelog:
 
 dockers_v2:
   - images:
-     - "scaleway/cli"
+      - "scaleway/cli"
     tags:
       - "latest"
       - "{{ .Tag }}"
