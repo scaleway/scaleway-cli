@@ -6,6 +6,7 @@ USAGE:
   scw redis cluster <command>
 
 AVAILABLE COMMANDS:
+  connect           Connect to a Redis cluster using locally installed redis-cli
   create            Create a Redis™ Database Instance
   delete            Delete a Redis™ Database Instance
   get               Get a Redis™ Database Instance
