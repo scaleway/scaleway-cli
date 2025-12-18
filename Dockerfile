@@ -1,6 +1,9 @@
-FROM golang:1.25-alpine3.21 AS builder
+FROM --platform=$BUILDPLATFORM golang:1.25-alpine3.21 AS builder
 
 ENV BUILD_IN_DOCKER=true
+ARG TARGETPLATFORM
+ARG TARGETOS
+ARG TARGETARCH
 ARG VERSION
 
 # ca-certificates is needed to add the certificates on the next image

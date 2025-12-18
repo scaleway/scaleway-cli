@@ -61,6 +61,47 @@ dockers:
       - .git
     build_flag_templates:
       - "--build-arg=VERSION={{ .Version }}"
+    use: buildx
+    goarch: amd64
+    dockerfile: Dockerfile
+  - image_templates:
+      - "scaleway/cli:latest-arm64"
+      - "scaleway/cli:{{ .Tag }}-arm64"
+      - "scaleway/cli:{{ .Major }}-arm64"
+      - "scaleway/cli:{{ .Major }}.{{ .Minor }}-arm64"
+    extra_files:
+      - go.mod
+      - go.sum
+      - scripts
+      - cmd
+      - core
+      - commands
+      - internal
+      - .git
+    build_flag_templates:
+      - "--build-arg=VERSION={{ .Version }}"
+      - "--platform=linux/arm64"
+    use: buildx
+    goarch: arm64
+    dockerfile: Dockerfile
+
+docker_manifests:
+  - name_template: "scaleway/cli:latest"
+    image_templates:
+      - "scaleway/cli:latest"
+      - "scaleway/cli:latest-arm64"
+  - name_template: "scaleway/cli:{{ .Tag }}"
+    image_templates:
+      - "scaleway/cli:{{ .Tag }}"
+      - "scaleway/cli:{{ .Tag }}-arm64"
+  - name_template: "scaleway/cli:{{ .Major }}"
+    image_templates:
+      - "scaleway/cli:{{ .Major }}"
+      - "scaleway/cli:{{ .Major }}-arm64"
+  - name_template: "scaleway/cli:{{ .Major }}.{{ .Minor }}"
+    image_templates:
+      - "scaleway/cli:{{ .Major }}.{{ .Minor }}"
+      - "scaleway/cli:{{ .Major }}.{{ .Minor }}-arm64"
 
 release:
   github:
