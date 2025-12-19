@@ -26,6 +26,7 @@ Image.Zone              fr-par-1
       "1": {
         "id": "ca888d38-0425-4686-a0df-d033f8341859",
         "name": "",
+        "export_uri": null,
         "size": 0,
         "volume_type": "sbs_snapshot",
         "creation_date": null,
@@ -40,6 +41,7 @@ Image.Zone              fr-par-1
       "2": {
         "id": "137ff099-af16-4bc8-a22d-e6ecd34c171f",
         "name": "",
+        "export_uri": null,
         "size": 0,
         "volume_type": "sbs_snapshot",
         "creation_date": null,
