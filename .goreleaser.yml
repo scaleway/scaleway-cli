@@ -44,12 +44,14 @@ changelog:
       - '^docs:'
       - '^test:'
 
-dockers:
-  - image_templates:
-      - "scaleway/cli:latest"
-      - "scaleway/cli:{{ .Tag }}"
-      - "scaleway/cli:{{ .Major }}"
-      - "scaleway/cli:{{ .Major }}.{{ .Minor }}"
+dockers_v2:
+  - images:
+      - "scaleway/cli"
+    tags:
+      - "latest"
+      - "{{ .Tag }}"
+      - "{{ .Major }}"
+      - "{{ .Major }}.{{ .Minor }}"
     extra_files:
       - go.mod
       - go.sum
@@ -59,8 +61,12 @@ dockers:
       - commands
       - internal
       - .git
-    build_flag_templates:
-      - "--build-arg=VERSION={{ .Version }}"
+    platforms:
+      - linux/amd64
+      - linux/arm64
+    sbom: true
+    build_args:
+      VERSION: "{{ .Version }}"
 
 release:
   github:
