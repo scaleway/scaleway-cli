@@ -108,7 +108,8 @@ fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985  tf-srv-naughty-colden                     
     "admin_password_encryption_ssh_key_id": null,
     "admin_password_encrypted_value": null,
     "filesystems": [],
-    "end_of_service": false
+    "end_of_service": false,
+    "dns": null
   },
   {
     "id": "fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985",
@@ -188,7 +189,8 @@ fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985  tf-srv-naughty-colden                     
     "admin_password_encryption_ssh_key_id": null,
     "admin_password_encrypted_value": null,
     "filesystems": [],
-    "end_of_service": false
+    "end_of_service": false,
+    "dns": null
   },
   {
     "id": "6ffbe4b0-3cf0-407e-8e87-2c67defd8897",
@@ -268,6 +270,7 @@ fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985  tf-srv-naughty-colden                     
     "admin_password_encryption_ssh_key_id": null,
     "admin_password_encrypted_value": null,
     "filesystems": [],
-    "end_of_service": false
+    "end_of_service": false,
+    "dns": null
   }
 ]

@@ -194,5 +194,6 @@ EndOfService                  false
   "admin_password_encrypted_value": null,
   "filesystems": [],
   "end_of_service": false,
+  "dns": null,
   "Warnings": null
 }
