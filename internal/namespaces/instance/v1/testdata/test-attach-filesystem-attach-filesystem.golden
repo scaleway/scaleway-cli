@@ -128,6 +128,7 @@ Server.EndOfService                false
         "state": "available"
       }
     ],
-    "end_of_service": false
+    "end_of_service": false,
+    "dns": null
   }
 }
