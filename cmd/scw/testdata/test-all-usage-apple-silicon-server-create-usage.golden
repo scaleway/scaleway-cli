@@ -18,6 +18,7 @@ ARGS:
   [runner-configuration.token]                                       
   [runner-configuration.provider]                                     (unknown_provider | github | gitlab)
   [applied-runner-configurations.runner-configuration-ids.{index}]   
+  [enable-kext]                                                      Enable kernel extensions
   [zone=fr-par-1]                                                    Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
