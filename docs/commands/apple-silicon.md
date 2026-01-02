@@ -329,6 +329,7 @@ scw apple-silicon server create [arg=value ...]
 | runner-configuration.token |  |  |
 | runner-configuration.provider | One of: `unknown_provider`, `github`, `gitlab` |  |
 | applied-runner-configurations.runner-configuration-ids.{index} |  |  |
+| enable-kext |  | Enable kernel extensions |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -432,6 +433,7 @@ scw apple-silicon server reinstall <server-id ...> [arg=value ...]
 |------|---|-------------|
 | server-id | Required | UUID of the server you want to reinstall |
 | os-id |  | Reinstall the server with the OS corresponding to the os_id |
+| enable-kext |  | Enable kernel extensions |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
 
 
