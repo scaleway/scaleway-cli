@@ -253,6 +253,13 @@ func appleSiliconServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-kext",
+				Short:      `Enable kernel extensions`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -597,6 +604,13 @@ func appleSiliconServerReinstall() *core.Command {
 			{
 				Name:       "os-id",
 				Short:      `Reinstall the server with the OS corresponding to the os_id`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-kext",
+				Short:      `Enable kernel extensions`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
