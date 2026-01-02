@@ -86,6 +86,8 @@ scw edge-services backend-stage create [arg=value ...]
 | pipeline-id | Required | Pipeline ID the Backend stage belongs to |
 | scaleway-serverless-container.region |  |  |
 | scaleway-serverless-container.container-id |  |  |
+| scaleway-serverless-function.region |  |  |
+| scaleway-serverless-function.function-id |  |  |
 
 
 
@@ -178,6 +180,8 @@ scw edge-services backend-stage update <backend-stage-id ...> [arg=value ...]
 | pipeline-id |  | Pipeline ID the Backend stage belongs to |
 | scaleway-serverless-container.region |  |  |
 | scaleway-serverless-container.container-id |  |  |
+| scaleway-serverless-function.region |  |  |
+| scaleway-serverless-function.function-id |  |  |
 
 
 

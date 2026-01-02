@@ -18,6 +18,8 @@ ARGS:
   pipeline-id                                    Pipeline ID the Backend stage belongs to
   [scaleway-serverless-container.region]         
   [scaleway-serverless-container.container-id]   
+  [scaleway-serverless-function.region]          
+  [scaleway-serverless-function.function-id]     
 
 FLAGS:
   -h, --help   help for create
