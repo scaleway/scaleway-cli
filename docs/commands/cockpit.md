@@ -201,8 +201,8 @@ scw cockpit data-source create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Data source name |
-| type | One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
+| name | Required | Data source name |
+| type | Required<br />One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
 | retention-days |  | Duration for which the data will be retained in the data source |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -263,10 +263,10 @@ scw cockpit data-source list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | origin | One of: `unknown_origin`, `scaleway`, `external`, `custom` | Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned |
 | types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -601,7 +601,7 @@ scw cockpit token create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the token |
+| name | Required | Name of the token |
 | token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token permission scopes |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -663,9 +663,9 @@ scw cockpit token list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token scopes to filter for |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 

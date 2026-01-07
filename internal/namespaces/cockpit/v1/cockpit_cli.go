@@ -556,14 +556,14 @@ The name of the data source will then be used as reference to name the associate
 			{
 				Name:       "name",
 				Short:      `Data source name`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
 				Short:      `Data source type`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{
@@ -682,21 +682,6 @@ func cockpitDataSourceList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListDataSourcesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "order-by",
-				Short:      `Sort order for data sources in the response`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"created_at_asc",
-					"created_at_desc",
-					"name_asc",
-					"name_desc",
-					"type_asc",
-					"type_desc",
-				},
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "origin",
@@ -722,6 +707,21 @@ func cockpitDataSourceList() *core.Command {
 					"metrics",
 					"logs",
 					"traces",
+				},
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sort order for data sources in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"type_asc",
+					"type_desc",
 				},
 			},
 			core.RegionArgSpec(
@@ -848,7 +848,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 			{
 				Name:       "name",
 				Short:      `Name of the token`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -899,19 +899,6 @@ You can filter tokens by Project ID and token scopes.`,
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListTokensRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "order-by",
-				Short:      `Order in which to return results`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"created_at_asc",
-					"created_at_desc",
-					"name_asc",
-					"name_desc",
-				},
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "token-scopes.{index}",
@@ -930,6 +917,19 @@ You can filter tokens by Project ID and token scopes.`,
 					"full_access_alert_manager",
 					"read_only_traces",
 					"write_only_traces",
+				},
+			},
+			{
+				Name:       "order-by",
+				Short:      `Order in which to return results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
 				},
 			},
 			core.RegionArgSpec(

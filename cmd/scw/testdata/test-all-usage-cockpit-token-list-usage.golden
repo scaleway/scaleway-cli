@@ -7,9 +7,9 @@ USAGE:
   scw cockpit token list [arg=value ...]
 
 ARGS:
-  [order-by]               Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc)
   [project-id]             Project ID to use. If none is passed the default project ID will be used
   [token-scopes.{index}]   Token scopes to filter for (unknown_scope | read_only_metrics | write_only_metrics | full_access_metrics_rules | read_only_logs | write_only_logs | full_access_logs_rules | full_access_alert_manager | read_only_traces | write_only_traces)
+  [order-by]               Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc)
   [region=fr-par]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

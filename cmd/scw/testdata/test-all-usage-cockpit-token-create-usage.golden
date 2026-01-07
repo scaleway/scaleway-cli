@@ -8,7 +8,7 @@ USAGE:
 
 ARGS:
   [project-id]             Project ID to use. If none is passed the default project ID will be used
-  [name]                   Name of the token
+  name                     Name of the token
   [token-scopes.{index}]   Token permission scopes (unknown_scope | read_only_metrics | write_only_metrics | full_access_metrics_rules | read_only_logs | write_only_logs | full_access_logs_rules | full_access_alert_manager | read_only_traces | write_only_traces)
   [region=fr-par]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
