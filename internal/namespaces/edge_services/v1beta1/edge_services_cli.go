@@ -34,6 +34,8 @@ func GetGeneratedCommands() *core.Commands {
 		edgeServicesPipelineGet(),
 		edgeServicesPipelineUpdate(),
 		edgeServicesPipelineDelete(),
+		edgeServicesPipelineListHead(),
+		edgeServicesPipelineSetHead(),
 		edgeServicesDNSStageList(),
 		edgeServicesDNSStageCreate(),
 		edgeServicesDNSStageGet(),
@@ -371,6 +373,93 @@ func edgeServicesPipelineDelete() *core.Command {
 				Resource: "pipeline",
 				Verb:     "delete",
 			}, nil
+		},
+	}
+}
+
+func edgeServicesPipelineListHead() *core.Command {
+	return &core.Command{
+		Short:     `List Head stage for your pipeline.`,
+		Long:      `List Head stage for your pipeline.`,
+		Namespace: "edge-services",
+		Resource:  "pipeline",
+		Verb:      "list-head",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.ListHeadStagesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pipeline-id",
+				Short:      `ID of the pipeline to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.ListHeadStagesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListHeadStages(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.HeadStages, nil
+		},
+	}
+}
+
+func edgeServicesPipelineSetHead() *core.Command {
+	return &core.Command{
+		Short:     `Configure a entry point to your pipeline. You must specify a ` + "`" + `head stage` + "`" + ` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.`,
+		Long:      `You must specify either a ` + "`" + `add_new_head_stage` + "`" + ` (to add a new head stage), ` + "`" + `remove_head_stage` + "`" + ` (to remove a head stage) or ` + "`" + `swap_head_stage` + "`" + ` (to replace a head stage).`,
+		Namespace: "edge-services",
+		Resource:  "pipeline",
+		Verb:      "set-head",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.SetHeadStageRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pipeline-id",
+				Short:      `ID of the pipeline to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "add-new-head-stage.new-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "remove-head-stage.remove-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "swap-head-stage.new-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "swap-head-stage.current-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.SetHeadStageRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.SetHeadStage(request)
 		},
 	}
 }
