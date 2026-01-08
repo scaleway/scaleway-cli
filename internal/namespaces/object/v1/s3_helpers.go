@@ -82,7 +82,7 @@ func verifyACLInput(aclInput string) (bool, []types.BucketCannedACL) {
 }
 
 func awsACLToCustomGrants(output *s3.GetBucketAclOutput) []CustomS3ACLGrant {
-	customGrants := []CustomS3ACLGrant(nil)
+	customGrants := make([]CustomS3ACLGrant, 0, len(output.Grants))
 	for _, grant := range output.Grants {
 		var grantee *string
 		switch grant.Grantee.Type {

@@ -140,8 +140,12 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e erro
 		)
 	} else {
 		_, _ = interactive.PrintlnWithoutIndent("Docker credential helper successfully installed.")
-		_, _ = interactive.PrintlnWithoutIndent("The Docker credential helper will now take care of the authentication for you.")
-		_, _ = interactive.PrintlnWithoutIndent("You don't have to login to your registries anymore.")
+		_, _ = interactive.PrintlnWithoutIndent(
+			"The Docker credential helper will now take care of the authentication for you.",
+		)
+		_, _ = interactive.PrintlnWithoutIndent(
+			"You don't have to login to your registries anymore.",
+		)
 	}
 
 	return &core.SuccessResult{}, nil

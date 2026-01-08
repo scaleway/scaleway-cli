@@ -49,19 +49,19 @@ func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	}
 
 	images := i.([]*imageListItem)
-	humanImages := []*humanImage(nil)
+	humanImages := make([]*humanImage, 0, len(images))
 	for _, image := range images {
-		// For each image we want to display a list of volume size separated with `,`
-		// e.g: 10 GB, 20 GB
-		volumes := []scw.Size{
-			image.RootVolume.Size,
-		}
 		// We must sort map key to make sure volume size are in the correct order.
-		extraVolumeKeys := []string(nil)
+		extraVolumeKeys := make([]string, 0, len(image.ExtraVolumes))
 		for key := range image.ExtraVolumes {
 			extraVolumeKeys = append(extraVolumeKeys, key)
 		}
 		sort.Strings(extraVolumeKeys)
+
+		// For each image we want to display a list of volume size separated with `,`
+		// e.g: 10 GB, 20 GB
+		volumes := make([]scw.Size, 0, len(extraVolumeKeys)+1)
+		volumes = append(volumes, image.RootVolume.Size)
 
 		for _, key := range extraVolumeKeys {
 			volumes = append(volumes, image.ExtraVolumes[key].Size)

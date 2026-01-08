@@ -251,16 +251,22 @@ func handleUnmarshalErrors(cmd *Command, unmarshalErr *args.UnmarshalArgError) e
 		switch e.Err.(type) { //nolint:gocritic
 		case *args.CannotParseBoolError:
 			return &CliError{
-				Err:     errors.New(""),
-				Message: fmt.Sprintf("invalid value for '%s' argument: invalid boolean value", unmarshalErr.ArgName),
-				Hint:    "Possible values: true, false",
+				Err: errors.New(""),
+				Message: fmt.Sprintf(
+					"invalid value for '%s' argument: invalid boolean value",
+					unmarshalErr.ArgName,
+				),
+				Hint: "Possible values: true, false",
 			}
 		case *args.CannotParseDateError:
 			dateErr := e.Err.(*args.CannotParseDateError)
 
 			return &CliError{
-				Err:     fmt.Errorf("date parsing error: %s", dateErr.ArgValue),
-				Message: fmt.Sprintf("could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339", dateErr.ArgValue),
+				Err: fmt.Errorf("date parsing error: %s", dateErr.ArgValue),
+				Message: fmt.Sprintf(
+					"could not parse %s as either an absolute time (RFC3339) nor a relative time (+/-)RFC3339",
+					dateErr.ArgValue,
+				),
 				Details: fmt.Sprintf(`Absolute time error: %s
 Relative time error: %s
 `, dateErr.AbsoluteTimeParseError, dateErr.RelativeTimeParseError),

@@ -409,7 +409,11 @@ func serverTerminateCommand() *core.Command {
 						Zone:     volume.Zone,
 					}, scw.WithContext(ctx))
 					if err != nil {
-						return nil, fmt.Errorf("failed to detach block volume %s: %w", volume.ID, err)
+						return nil, fmt.Errorf(
+							"failed to detach block volume %s: %w",
+							volume.ID,
+							err,
+						)
 					}
 
 					blockAPI := block.NewAPI(client)
@@ -422,7 +426,11 @@ func serverTerminateCommand() *core.Command {
 						RetryInterval:  core.DefaultRetryInterval,
 					})
 					if err != nil {
-						return nil, fmt.Errorf("failed to wait for block volume %s: %w", volume.ID, err)
+						return nil, fmt.Errorf(
+							"failed to wait for block volume %s: %w",
+							volume.ID,
+							err,
+						)
 					}
 
 					err = blockAPI.DeleteVolume(&block.DeleteVolumeRequest{
@@ -430,10 +438,17 @@ func serverTerminateCommand() *core.Command {
 						Zone:     blockVolume.Zone,
 					}, scw.WithContext(ctx))
 					if err != nil {
-						return nil, fmt.Errorf("failed to delete block volume %s: %w", blockVolume.Name, err)
+						return nil, fmt.Errorf(
+							"failed to delete block volume %s: %w",
+							blockVolume.Name,
+							err,
+						)
 					}
 
-					successMessages[index] = fmt.Sprintf("successfully deleted block volume %q", blockVolume.Name)
+					successMessages[index] = fmt.Sprintf(
+						"successfully deleted block volume %q",
+						blockVolume.Name,
+					)
 				}
 
 				printSuccessMessagesInOrder(successMessages)
@@ -502,7 +517,7 @@ func shouldDeleteBlockVolumes(
 
 // printSuccessMessagesInOrder prints volume deletion messages ordered by volume map key "0", "1", "2",...
 func printSuccessMessagesInOrder(messages map[string]string) {
-	indexes := []string(nil)
+	indexes := make([]string, 0, len(messages))
 	for index := range messages {
 		indexes = append(indexes, index)
 	}

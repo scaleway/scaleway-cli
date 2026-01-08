@@ -265,7 +265,12 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 
 		// Validate total local volume sizes.
 		if sb.serverType != nil && sb.serverImage != nil {
-			if err := validateLocalVolumeSizes(volumes, sb.serverType, sb.createReq.CommercialType, sb.serverImage.RootVolume.Size); err != nil {
+			if err := validateLocalVolumeSizes(
+				volumes,
+				sb.serverType,
+				sb.createReq.CommercialType,
+				sb.serverImage.RootVolume.Size,
+			); err != nil {
 				return err
 			}
 		} else {
@@ -314,7 +319,11 @@ func (sb *ServerBuilder) Validate() error {
 	}
 
 	if sb.serverType != nil && sb.serverImage != nil {
-		if err := validateImageServerTypeCompatibility(sb.serverImage, sb.serverType, sb.createReq.CommercialType); err != nil {
+		if err := validateImageServerTypeCompatibility(
+			sb.serverImage,
+			sb.serverType,
+			sb.createReq.CommercialType,
+		); err != nil {
 			return err
 		}
 	} else {
