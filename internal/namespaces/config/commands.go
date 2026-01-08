@@ -174,11 +174,11 @@ func configGetCommand() *core.Command {
 
 // configSetCommand sets a value for the scaleway config
 func configSetCommand() *core.Command {
-	allRegions := []string(nil)
+	allRegions := make([]string, 0, len(scw.AllRegions))
 	for _, region := range scw.AllRegions {
 		allRegions = append(allRegions, region.String())
 	}
-	allZones := []string(nil)
+	allZones := make([]string, 0, len(scw.AllZones))
 	for _, zone := range scw.AllZones {
 		allZones = append(allZones, zone.String())
 	}

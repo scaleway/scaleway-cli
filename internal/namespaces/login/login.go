@@ -75,7 +75,9 @@ Once you connected to Scaleway, the profile should be configured.
 			} else {
 				err = open.Start(accountURL)
 				if err != nil {
-					logger.Warningf("Failed to open web url, you may not have a default browser configured")
+					logger.Warningf(
+						"Failed to open web url, you may not have a default browser configured",
+					)
 					logger.Warningf("You can open it: " + accountURL)
 				}
 			}

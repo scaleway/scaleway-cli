@@ -56,7 +56,7 @@ func SplitRawMap(rawArgs []string) map[string]struct{} {
 // SplitRaw creates a slice that maps arg names to their values.
 // ["arg1=1", "arg2=2", "arg3"] => { {"arg1", "1"}, {"arg2", "2"}, {"arg3",""} }
 func SplitRaw(rawArgs []string) [][2]string {
-	keyValue := [][2]string{}
+	keyValue := make([][2]string, 0, len(rawArgs))
 	for _, arg := range rawArgs {
 		tmp := strings.SplitN(arg, "=", 2)
 		if len(tmp) < 2 {

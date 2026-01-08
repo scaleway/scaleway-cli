@@ -322,7 +322,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 
-		aclRules := []*rdb.ACLRuleRequest(nil)
+		aclRules := make([]*rdb.ACLRuleRequest, 0, len(args.ACLRuleIPs))
 		for _, ip := range args.ACLRuleIPs {
 			aclRules = append(aclRules, &rdb.ACLRuleRequest{
 				IP:          ip,

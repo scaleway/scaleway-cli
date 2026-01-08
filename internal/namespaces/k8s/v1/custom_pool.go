@@ -190,13 +190,16 @@ Keep in mind that your external node needs to have wget in order to download the
 				homeDir = "/home/" + args.Username
 			}
 			nodeInitScript := buildNodeInitScript(args.PoolID, args.Region)
-			copyScriptArgs := []string{
+			copyScriptArgs := append(append([]string{},
 				"cat", "<<", "EOF",
-				">", homeDir + "/init_kosmos_node.sh",
-				"\n",
-			}
-			copyScriptArgs = append(copyScriptArgs, strings.Split(nodeInitScript, " \n")...)
-			if err = execSSHCommand(ctx, append(sshCommonArgs, copyScriptArgs...), true); err != nil {
+				">", homeDir+"/init_kosmos_node.sh",
+				"\n"),
+				strings.Split(nodeInitScript, " \n")...)
+			if err = execSSHCommand(
+				ctx,
+				append(sshCommonArgs, copyScriptArgs...),
+				true,
+			); err != nil {
 				return nil, err
 			}
 			chmodArgs := []string{"chmod", "+x", homeDir + "/init_kosmos_node.sh"}
@@ -212,7 +215,11 @@ Keep in mind that your external node needs to have wget in order to download the
 				"SCW_SECRET_KEY=" + secretKey,
 				"./init_kosmos_node.sh",
 			}
-			if err = execSSHCommand(ctx, append(sshCommonArgs, execScriptArgs...), false); err != nil {
+			if err = execSSHCommand(
+				ctx,
+				append(sshCommonArgs, execScriptArgs...),
+				false,
+			); err != nil {
 				return nil, err
 			}
 
