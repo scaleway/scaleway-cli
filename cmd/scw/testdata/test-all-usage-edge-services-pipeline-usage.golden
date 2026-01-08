@@ -10,6 +10,8 @@ AVAILABLE COMMANDS:
   delete      Delete pipeline
   get         Get pipeline
   list        List pipelines
+  list-head   List Head stage for your pipeline.
+  set-head    Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.
   update      Update pipeline
 
 FLAGS:

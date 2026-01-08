@@ -25,6 +25,8 @@ Edge Services API
   - [Delete pipeline](#delete-pipeline)
   - [Get pipeline](#get-pipeline)
   - [List pipelines](#list-pipelines)
+  - [List Head stage for your pipeline.](#list-head-stage-for-your-pipeline.)
+  - [Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.](#configure-a-entry-point-to-your-pipeline.-you-must-specify-a-`head-stage`-to-form-a-stage-chain-that-goes-all-the-way-to-the-backend-stage-(origin),-so-the-http-request-will-be-processed-according-to-the-stages-you-created.)
   - [Update pipeline](#update-pipeline)
 - [Purge-request management commands](#purge-request-management-commands)
   - [Create purge request](#create-purge-request)
@@ -490,6 +492,48 @@ scw edge-services pipeline list [arg=value ...]
 | project-id |  | Project ID to filter for. Only pipelines from this Project will be returned |
 | has-backend-stage-lb |  | Filter on backend stage. Only pipelines with a Load Balancer origin will be returned |
 | organization-id |  | Organization ID to filter for. Only pipelines from this Organization will be returned |
+
+
+
+### List Head stage for your pipeline.
+
+List Head stage for your pipeline.
+
+**Usage:**
+
+```
+scw edge-services pipeline list-head <pipeline-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pipeline-id | Required | ID of the pipeline to update |
+
+
+
+### Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.
+
+You must specify either a `add_new_head_stage` (to add a new head stage), `remove_head_stage` (to remove a head stage) or `swap_head_stage` (to replace a head stage).
+
+**Usage:**
+
+```
+scw edge-services pipeline set-head <pipeline-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pipeline-id | Required | ID of the pipeline to update |
+| add-new-head-stage.new-stage-id |  |  |
+| remove-head-stage.remove-stage-id |  |  |
+| swap-head-stage.new-stage-id |  |  |
+| swap-head-stage.current-stage-id |  |  |
 
 
 
