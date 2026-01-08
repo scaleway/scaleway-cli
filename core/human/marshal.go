@@ -257,7 +257,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 	}
 	recFunc(v, []int(nil))
 
-	result := [][]int(nil)
+	result := make([][]int, 0, len(found))
 	for _, value := range found {
 		result = append(result, value)
 	}

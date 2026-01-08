@@ -72,7 +72,7 @@ func (s *ArgSpecs) DeleteByName(name string) {
 func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 	for i, spec := range *s {
 		if spec.Name == name {
-			newSpecs := ArgSpecs(nil)
+			newSpecs := make(ArgSpecs, 0, len(*s)+1)
 			newSpecs = append(newSpecs, (*s)[:i]...)
 			newSpecs = append(newSpecs, argSpec)
 			newSpecs = append(newSpecs, (*s)[i:]...)
@@ -140,7 +140,7 @@ func (a *ArgSpec) DebugString() string {
 type DefaultFunc func(ctx context.Context) (value string, doc string)
 
 func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
-	enumValues := []string(nil)
+	enumValues := make([]string, 0, len(zones))
 	for _, zone := range zones {
 		enumValues = append(enumValues, zone.String())
 	}
@@ -174,7 +174,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 }
 
 func RegionArgSpec(regions ...scw.Region) *ArgSpec {
-	enumValues := []string(nil)
+	enumValues := make([]string, 0, len(regions))
 	for _, region := range regions {
 		enumValues = append(enumValues, region.String())
 	}

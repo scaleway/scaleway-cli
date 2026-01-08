@@ -119,7 +119,9 @@ Do you want the include statement to be added at the beginning of your file ?`,
 				if errors.Is(err, sshconfig.ErrFileNotFound) {
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
-					logger.Warningf("Failed to check default config file, skipping include prompt\n")
+					logger.Warningf(
+						"Failed to check default config file, skipping include prompt\n",
+					)
 
 					return &core.SuccessResult{
 						Message: configFileGeneratedMessage + " " + configFilePath,

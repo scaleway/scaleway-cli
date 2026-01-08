@@ -569,7 +569,14 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
-				assert.EqualError(t, err, tt.expectedError, "Expected error message '%s', got '%v'", tt.expectedError, err)
+				assert.EqualError(
+					t,
+					err,
+					tt.expectedError,
+					"Expected error message '%s', got '%v'",
+					tt.expectedError,
+					err,
+				)
 			}
 		})
 	}
@@ -714,7 +721,14 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
-				assert.EqualError(t, err, tt.expectedError, "Expected error message '%s', got '%v'", tt.expectedError, err)
+				assert.EqualError(
+					t,
+					err,
+					tt.expectedError,
+					"Expected error message '%s', got '%v'",
+					tt.expectedError,
+					err,
+				)
 			}
 		})
 	}

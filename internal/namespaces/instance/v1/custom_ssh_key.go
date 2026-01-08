@@ -222,7 +222,10 @@ Keep in mind that SSH keys are scoped by project.`,
 						if err != nil {
 							_, _ = interactive.Println("Failed:", err)
 						} else {
-							_, _ = interactive.Println("Failed: ssh command failed with exit code", exitCode)
+							_, _ = interactive.Println(
+								"Failed: ssh command failed with exit code",
+								exitCode,
+							)
 						}
 					} else {
 						_, _ = interactive.Println("Success")

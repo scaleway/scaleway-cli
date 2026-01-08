@@ -56,13 +56,11 @@ func (e *Example) GetCommandLine(binaryName string, cmd *Command) string {
 		}
 
 		// Build command line example.
-		commandParts := []string{
-			binaryName,
-			cmd.Namespace,
-			cmd.Resource,
-			cmd.Verb,
-		}
-		commandParts = append(commandParts, cmdArgsAsStrings...)
+		commandParts := append(append(
+			[]string{},
+			binaryName, cmd.Namespace, cmd.Resource, cmd.Verb),
+			cmdArgsAsStrings...,
+		)
 
 		return strings.Join(commandParts, " ")
 	default:

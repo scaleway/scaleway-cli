@@ -34,7 +34,9 @@ func newObjectWithForcedJSONTags(t reflect.Type) any {
 				structFieldsCopy = append(structFieldsCopy, fieldCopy)
 			}
 		} else {
-			fieldCopy.Tag = reflect.StructTag(`json:"` + strings.ReplaceAll(strcase.ToBashArg(fieldCopy.Name), "-", "_") + `"`)
+			fieldCopy.Tag = reflect.StructTag(
+				`json:"` + strings.ReplaceAll(strcase.ToBashArg(fieldCopy.Name), "-", "_") + `"`,
+			)
 			structFieldsCopy = append(structFieldsCopy, fieldCopy)
 		}
 	}

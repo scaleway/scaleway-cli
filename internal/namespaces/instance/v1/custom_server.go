@@ -85,7 +85,7 @@ func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	}
 
 	servers := i.([]*instance.Server)
-	humanServers := make([]*humanServerInList, 0)
+	humanServers := make([]*humanServerInList, 0, len(servers))
 	for _, server := range servers {
 		publicIPAddress := net.IP(nil)
 		if server.PublicIP != nil {
@@ -140,7 +140,7 @@ type customVolume struct {
 
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
 func orderVolumes(v map[string]*customVolume) []*customVolume {
-	indexes := []string(nil)
+	indexes := make([]string, 0, len(v))
 	for index := range v {
 		indexes = append(indexes, index)
 	}

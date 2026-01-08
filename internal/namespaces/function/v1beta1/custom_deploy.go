@@ -84,7 +84,11 @@ func functionDeploy() *core.Command {
 					DeployStepFetchNamespace(api, args.Region, args.NamespaceID),
 				)
 			} else {
-				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.Name))
+				tasks.Add(
+					ts,
+					"Creating or fetching namespace",
+					DeployStepCreateNamespace(api, args.Region, args.Name),
+				)
 			}
 			tasks.Add(
 				ts,

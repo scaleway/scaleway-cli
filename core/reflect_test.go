@@ -95,7 +95,11 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
 				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
-					t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
+					t.Errorf(
+						"Expected %v, got %v",
+						tc.expectedValues[0].Interface(),
+						values[0].Interface(),
+					)
 				}
 			},
 		},
@@ -127,7 +131,11 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				if err != nil {
 					assert.Equal(t, tc.expectedError, err.Error())
 				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
-					t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
+					t.Errorf(
+						"Expected %v, got %v",
+						tc.expectedValues[0].Interface(),
+						values[0].Interface(),
+					)
 				}
 			},
 		},
@@ -172,7 +180,11 @@ func Test_getValuesForFieldByName(t *testing.T) {
 				if err != nil {
 					assert.Nil(t, err.Error())
 				} else if tc.expectedValues != nil && !reflect.DeepEqual(tc.expectedValues[0].Interface(), values[0].Interface()) {
-					t.Errorf("Expected %v, got %v", tc.expectedValues[0].Interface(), values[0].Interface())
+					t.Errorf(
+						"Expected %v, got %v",
+						tc.expectedValues[0].Interface(),
+						values[0].Interface(),
+					)
 				}
 			},
 		},
