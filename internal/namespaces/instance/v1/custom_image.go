@@ -192,6 +192,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 			Arch:         args.Arch,
 			Project:      args.ProjectID,
 			Tags:         args.Tags,
+			Zone:         args.Zone,
 		}
 
 		client := core.ExtractClient(ctx)
