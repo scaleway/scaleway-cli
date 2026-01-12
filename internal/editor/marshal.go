@@ -77,7 +77,7 @@ func addTemplate(content []byte, template string, mode MarshalMode) []byte {
 	}
 	newContent := []byte(nil)
 
-	for _, line := range strings.Split(template, "\n") {
+	for line := range strings.SplitSeq(template, "\n") {
 		newContent = append(newContent, []byte("#"+line+"\n")...)
 	}
 

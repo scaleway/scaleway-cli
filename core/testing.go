@@ -14,6 +14,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"testing"
@@ -320,13 +321,7 @@ func folderUsesVCRv4(fullFolderPath string) bool {
 	fullPathSplit := strings.Split(fullFolderPath, string(os.PathSeparator))
 
 	folder := fullPathSplit[len(fullPathSplit)-2]
-	for _, migratedFolder := range foldersUsingVCRv4 {
-		if migratedFolder == folder {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(foldersUsingVCRv4, folder)
 }
 
 // Run a CLI integration test. See TestConfig for configuration option
