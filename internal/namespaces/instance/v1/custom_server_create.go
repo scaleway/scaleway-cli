@@ -375,7 +375,7 @@ func addDefaultVolumes(
 	needScratch := false
 	hasScratch := false
 	defaultVolumes := []*instance.VolumeServerTemplate(nil)
-	if serverType.ScratchStorageMaxSize != nil && *serverType.ScratchStorageMaxSize > 0 {
+	if shouldHaveScratchVolume(serverType) {
 		needScratch = true
 	}
 	for _, volume := range volumes {
@@ -409,6 +409,12 @@ func addDefaultVolumes(
 	}
 
 	return volumes
+}
+
+func shouldHaveScratchVolume(serverType *instance.ServerType) bool {
+	return serverType.ScratchStorageMaxSize != nil &&
+		*serverType.ScratchStorageMaxSize > 0 &&
+		*serverType.Gpu > 0
 }
 
 func validateImageServerTypeCompatibility(
