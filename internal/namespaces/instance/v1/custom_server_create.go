@@ -372,25 +372,7 @@ func addDefaultVolumes(
 	serverType *instance.ServerType,
 	volumes map[string]*instance.VolumeServerTemplate,
 ) map[string]*instance.VolumeServerTemplate {
-	needScratch := false
-	hasScratch := false
 	defaultVolumes := []*instance.VolumeServerTemplate(nil)
-	if shouldHaveScratchVolume(serverType) {
-		needScratch = true
-	}
-	for _, volume := range volumes {
-		if volume.VolumeType == instance.VolumeVolumeTypeScratch {
-			hasScratch = true
-		}
-	}
-
-	if needScratch && !hasScratch {
-		defaultVolumes = append(defaultVolumes, &instance.VolumeServerTemplate{
-			Name:       scw.StringPtr("default-cli-scratch-volume"),
-			Size:       serverType.ScratchStorageMaxSize,
-			VolumeType: instance.VolumeVolumeTypeScratch,
-		})
-	}
 
 	if defaultVolumes != nil {
 		if volumes == nil {
@@ -409,12 +391,6 @@ func addDefaultVolumes(
 	}
 
 	return volumes
-}
-
-func shouldHaveScratchVolume(serverType *instance.ServerType) bool {
-	return serverType.ScratchStorageMaxSize != nil &&
-		*serverType.ScratchStorageMaxSize > 0 &&
-		*serverType.Gpu > 0
 }
 
 func validateImageServerTypeCompatibility(
