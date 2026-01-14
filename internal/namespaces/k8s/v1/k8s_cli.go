@@ -2033,6 +2033,13 @@ func k8sPoolUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "security-group-id",
+				Short:      `Security group ID in which all the nodes of the pool will be moved`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,

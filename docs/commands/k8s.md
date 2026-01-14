@@ -1171,6 +1171,7 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | kubelet-args.{key} |  | New Kubelet arguments to be used by this pool. Note that this feature is experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
+| security-group-id |  | Security group ID in which all the nodes of the pool will be moved |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
