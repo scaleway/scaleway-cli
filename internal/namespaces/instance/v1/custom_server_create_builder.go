@@ -357,7 +357,7 @@ func (sb *ServerBuilder) BuildVolumes() error {
 	sb.createReq.Volumes = volumes
 
 	if sb.serverType != nil {
-		sb.createReq.Volumes = addDefaultVolumes(sb.serverType, sb.createReq.Volumes)
+		sb.createReq.Volumes = addDefaultVolumes(sb.createReq.Volumes)
 	}
 
 	return nil
