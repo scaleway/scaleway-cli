@@ -88,10 +88,13 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 
 		client := core.ExtractClient(ctx)
 		baremetalAPI := baremetal.NewAPI(client)
-		offers, _ := baremetalAPI.ListOffers(req, scw.WithAllPages())
+		offers, err := baremetalAPI.ListOffers(req, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
 
 		productAPI := productcatalog.NewPublicCatalogAPI(client)
-		environmentalImpact, _ := productAPI.ListPublicCatalogProducts(
+		environmentalImpact, err := productAPI.ListPublicCatalogProducts(
 			&productcatalog.PublicCatalogAPIListPublicCatalogProductsRequest{
 				ProductTypes: []productcatalog.ListPublicCatalogProductsRequestProductType{
 					productcatalog.ListPublicCatalogProductsRequestProductTypeElasticMetal,
@@ -100,6 +103,9 @@ func serverOfferListBuilder(c *core.Command) *core.Command {
 			},
 			scw.WithAllPages(),
 		)
+		if err != nil {
+			return nil, err
+		}
 
 		var unitOfMeasure productcatalog.PublicCatalogProductUnitOfMeasureCountableUnit
 		if req.SubscriptionPeriod == "monthly" {
