@@ -369,7 +369,6 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 }
 
 func addDefaultVolumes(
-	serverType *instance.ServerType,
 	volumes map[string]*instance.VolumeServerTemplate,
 ) map[string]*instance.VolumeServerTemplate {
 	defaultVolumes := []*instance.VolumeServerTemplate(nil)
