@@ -6,11 +6,12 @@ USAGE:
   scw s2s-vpn customer-gateway list [arg=value ...]
 
 ARGS:
-  [order-by]        Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc)
-  [project-id]      Project ID to filter for
-  [name]            Customer gateway name to filter for
-  [tags.{index}]    Tags to filter for
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [order-by]          Order in which to return results (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-id]        Project ID to filter for
+  [name]              Customer gateway name to filter for
+  [tags.{index}]      Tags to filter for
+  [organization-id]   Organization ID to filter for
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help   help for list

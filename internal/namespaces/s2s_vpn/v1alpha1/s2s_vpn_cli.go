@@ -222,6 +222,13 @@ func s2sVpnVpnGatewayList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -545,6 +552,13 @@ func s2sVpnConnectionList() *core.Command {
 			{
 				Name:       "customer-gateway-ids.{index}",
 				Short:      `Filter for connections attached to these customer gateways`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1255,6 +1269,13 @@ func s2sVpnCustomerGatewayList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -1536,6 +1557,13 @@ func s2sVpnRoutingPolicyList() *core.Command {
 			{
 				Name:       "ipv6",
 				Short:      `Filter for the routing policies based on IP prefixes version`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
