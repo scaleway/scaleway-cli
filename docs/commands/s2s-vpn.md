@@ -206,6 +206,7 @@ scw s2s-vpn connection list [arg=value ...]
 | route-propagation-enabled |  | Filter for connections with route propagation enabled |
 | vpn-gateway-ids.{index} |  | Filter for connections attached to these VPN gateways |
 | customer-gateway-ids.{index} |  | Filter for connections attached to these customer gateways |
+| organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -370,6 +371,7 @@ scw s2s-vpn customer-gateway list [arg=value ...]
 | project-id |  | Project ID to filter for |
 | name |  | Customer gateway name to filter for |
 | tags.{index} |  | Tags to filter for |
+| organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -489,6 +491,7 @@ scw s2s-vpn routing-policy list [arg=value ...]
 | name |  | Routing policy name to filter for |
 | tags.{index} |  | Tags to filter for |
 | ipv6 |  | Filter for the routing policies based on IP prefixes version |
+| organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -613,6 +616,7 @@ scw s2s-vpn vpn-gateway list [arg=value ...]
 | statuses.{index} | One of: `unknown_status`, `configuring`, `failed`, `provisioning`, `active`, `deprovisioning`, `locked` | VPN gateway statuses to filter for |
 | gateway-types.{index} |  | Filter for VPN gateways of these types |
 | private-network-ids.{index} |  | Filter for VPN gateways attached to these private networks |
+| organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
