@@ -34,6 +34,7 @@ DATABASE COMMANDS:
   rdb           This API allows you to manage your Managed Databases for PostgreSQL and MySQL
   redis         This API allows you to manage your Managed Databases for Redis™
   sdb-sql       This API allows you to manage your Serverless SQL Databases
+  searchdb      SearchDB API
 
 DOMAIN & WEBHOSTING COMMANDS:
   dns           This API allows you to manage your domains, DNS zones and records
