@@ -23,9 +23,9 @@ func (a *Alias) Args() []string {
 func (a *Alias) computeArgs() {
 	a.args = []string{}
 	for _, cmd := range a.Command {
-		argSplitterIndex := strings.Index(cmd, "=")
-		if argSplitterIndex != -1 {
-			a.args = append(a.args, cmd[:argSplitterIndex])
+		before, _, ok := strings.Cut(cmd, "=")
+		if ok {
+			a.args = append(a.args, before)
 		}
 	}
 }

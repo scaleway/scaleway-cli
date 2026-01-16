@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -317,10 +318,8 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 
 		return fields
 	default:
-		for _, skippedArg := range listArgTypeFieldsSkippedArguments {
-			if base == skippedArg {
-				return []string{}
-			}
+		if slices.Contains(listArgTypeFieldsSkippedArguments, base) {
+			return []string{}
 		}
 
 		return []string{base}
