@@ -12,13 +12,16 @@ jobs:
     environment: actions
     steps:
       - name: Check out the release tag
-        uses: actions/checkout@v6
+        uses: actions/checkout@8e8c483db84b4bee98b60c0593521ed34d9990e8 # v6.0.1
         with:
           ref: ${{ github.event.release.tag_name }}
+          persist-credentials: false
       - name: Verify release commit
         run: | # Commit hash to compare with the commit returned by actions/checkout@v6 - Tag to compare with the latest release
           echo "Checked out commit: $(git rev-parse HEAD)"
-          echo "Expected tag: ${{ github.event.release.tag_name }}"
+          echo "Expected tag: ${GITHUB_EVENT_RELEASE_TAG_NAME}"
+        env:
+          GITHUB_EVENT_RELEASE_TAG_NAME: ${{ github.event.release.tag_name }}
       - name: prepare temporary folder for build
         run: | # Creates a temporary "docs" folder within the existing "docs" folder because the mkdocs.yml must be in the parent folder of the markdown pages
           cd docs
