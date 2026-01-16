@@ -68,43 +68,43 @@ func mainNoExit() int {
 
 	var errors []string
 
-	err = accountSweeper.SweepAll(client)
+	err = accountSweeper.SweepAll(client, true)
 	if err != nil {
 		log.Printf("Error sweeping account: %s", err)
 		errors = append(errors, fmt.Sprintf("account: %s", err))
 	}
 
-	err = applesiliconSweeper.SweepAllLocalities(client)
+	err = applesiliconSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping applesilicon: %s", err)
 		errors = append(errors, fmt.Sprintf("applesilicon: %s", err))
 	}
 
-	err = baremetalSweeper.SweepAllLocalities(client)
+	err = baremetalSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping baremetal: %s", err)
 		errors = append(errors, fmt.Sprintf("baremetal: %s", err))
 	}
 
-	err = cockpitSweeper.SweepAllLocalities(client)
+	err = cockpitSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping cockpit: %s", err)
 		errors = append(errors, fmt.Sprintf("cockpit: %s", err))
 	}
 
-	err = containerSweeper.SweepAllLocalities(client)
+	err = containerSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping container: %s", err)
 		errors = append(errors, fmt.Sprintf("container: %s", err))
 	}
 
-	err = flexibleipSweeper.SweepAllLocalities(client)
+	err = flexibleipSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping flexibleip: %s", err)
 		errors = append(errors, fmt.Sprintf("flexibleip: %s", err))
 	}
 
-	err = functionSweeper.SweepAllLocalities(client)
+	err = functionSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping function: %s", err)
 		errors = append(errors, fmt.Sprintf("function: %s", err))
@@ -116,13 +116,13 @@ func mainNoExit() int {
 		errors = append(errors, fmt.Sprintf("iam: %s", err))
 	}
 
-	err = inferenceSweeper.SweepAllLocalities(client)
+	err = inferenceSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping inference: %s", err)
 		errors = append(errors, fmt.Sprintf("inference: %s", err))
 	}
 
-	err = instanceSweeper.SweepAllLocalities(client)
+	err = instanceSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping instance: %s", err)
 		errors = append(errors, fmt.Sprintf("instance: %s", err))
@@ -130,91 +130,91 @@ func mainNoExit() int {
 
 	// Instance servers need to be swept before volumes and snapshots can be swept
 	// because volumes and snapshots are attached to servers.
-	err = blockSweeper.SweepAllLocalities(client)
+	err = blockSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping block: %s", err)
 		errors = append(errors, fmt.Sprintf("block: %s", err))
 	}
 
-	err = iotSweeper.SweepAllLocalities(client)
+	err = iotSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping iot: %s", err)
 		errors = append(errors, fmt.Sprintf("iot: %s", err))
 	}
 
-	err = jobsSweeper.SweepAllLocalities(client)
+	err = jobsSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping jobs: %s", err)
 		errors = append(errors, fmt.Sprintf("jobs: %s", err))
 	}
 
-	err = k8sSweeper.SweepAllLocalities(client)
+	err = k8sSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping k8s: %s", err)
 		errors = append(errors, fmt.Sprintf("k8s: %s", err))
 	}
 
-	err = lbSweeper.SweepAllLocalities(client)
+	err = lbSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping lb: %s", err)
 		errors = append(errors, fmt.Sprintf("lb: %s", err))
 	}
 
-	err = mongodbSweeper.SweepAllLocalities(client)
+	err = mongodbSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping mongodb: %s", err)
 		errors = append(errors, fmt.Sprintf("mongodb: %s", err))
 	}
 
-	err = mnqSweeper.SweepAllLocalities(client)
+	err = mnqSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping mnq: %s", err)
 		errors = append(errors, fmt.Sprintf("mnq: %s", err))
 	}
 
-	err = rdbSweeper.SweepAllLocalities(client)
+	err = rdbSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping rdb: %s", err)
 		errors = append(errors, fmt.Sprintf("rdb: %s", err))
 	}
 
-	err = redisSweeper.SweepAllLocalities(client)
+	err = redisSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping redis: %s", err)
 		errors = append(errors, fmt.Sprintf("redis: %s", err))
 	}
 
-	err = registrySweeper.SweepAllLocalities(client)
+	err = registrySweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping registry: %s", err)
 		errors = append(errors, fmt.Sprintf("registry: %s", err))
 	}
 
-	err = secretSweeper.SweepAllLocalities(client)
+	err = secretSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping secret: %s", err)
 		errors = append(errors, fmt.Sprintf("secret: %s", err))
 	}
 
-	err = sdbSweeper.SweepAllLocalities(client)
+	err = sdbSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping sdb: %s", err)
 		errors = append(errors, fmt.Sprintf("sdb: %s", err))
 	}
 
-	err = vpcSweeper.SweepAllLocalities(client)
+	err = vpcSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping vpc: %s", err)
 		errors = append(errors, fmt.Sprintf("vpc: %s", err))
 	}
 
-	err = vpcgwSweeper.SweepAllLocalities(client)
+	err = vpcgwSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping vpcgw: %s", err)
 		errors = append(errors, fmt.Sprintf("vpcgw: %s", err))
 	}
 
-	err = webhostingSweeper.SweepAllLocalities(client)
+	err = webhostingSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping webhosting: %s", err)
 		errors = append(errors, fmt.Sprintf("webhosting: %s", err))
@@ -222,7 +222,7 @@ func mainNoExit() int {
 
 	// IPAM IPs need to be swept in the end because we need to be sure
 	// that every resource with an attached ip is destroyed before executing it.
-	err = ipamSweeper.SweepAllLocalities(client)
+	err = ipamSweeper.SweepAllLocalities(client, true)
 	if err != nil {
 		log.Printf("Error sweeping ipam: %s", err)
 		errors = append(errors, fmt.Sprintf("ipam: %s", err))
