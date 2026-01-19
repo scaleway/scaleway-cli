@@ -11,7 +11,8 @@ ARGS:
   [ws-url]          WebSocket URL to connect to (overrides default)
 
 FLAGS:
-  -h, --help   help for console
+  -h, --help                help for console
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

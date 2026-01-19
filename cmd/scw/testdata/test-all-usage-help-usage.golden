@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   output      Get help about how the CLI output works
 
 FLAGS:
-  -h, --help   help for help
+  -h, --help                help for help
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

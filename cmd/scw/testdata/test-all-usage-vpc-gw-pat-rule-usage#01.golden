@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   update-v2   Update a PAT rule
 
 FLAGS:
-  -h, --help   help for pat-rule
+  -h, --help                help for pat-rule
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

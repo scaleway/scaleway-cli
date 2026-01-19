@@ -21,7 +21,8 @@ DEPRECATED ARGS:
   [organization-default]   Please use project_default instead
 
 FLAGS:
-  -h, --help   help for update
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   list        List Instance types
 
 FLAGS:
-  -h, --help   help for server-type
+  -h, --help                help for server-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

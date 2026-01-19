@@ -18,7 +18,8 @@ WORKFLOW COMMANDS:
 It generate hosts for instance servers, baremetal, apple-silicon and bastions
 
 FLAGS:
-  -h, --help   help for ssh
+  -h, --help                help for ssh
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

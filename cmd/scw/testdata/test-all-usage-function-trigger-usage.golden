@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update a trigger
 
 FLAGS:
-  -h, --help   help for trigger
+  -h, --help                help for trigger
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -9,7 +9,8 @@ ARGS:
   user-id   ID of the user to lock
 
 FLAGS:
-  -h, --help   help for lock
+  -h, --help                help for lock
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -13,7 +13,8 @@ ARGS:
   [swap-head-stage.current-stage-id]    
 
 FLAGS:
-  -h, --help   help for set-head
+  -h, --help                help for set-head
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

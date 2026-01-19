@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   versions    
 
 FLAGS:
-  -h, --help   help for searchdb
+  -h, --help                help for searchdb
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

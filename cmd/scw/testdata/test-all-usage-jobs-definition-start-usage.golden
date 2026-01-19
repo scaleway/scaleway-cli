@@ -13,8 +13,9 @@ ARGS:
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for start
-  -w, --wait   Wait until the job reach a stable state, use job definition timeout
+  -h, --help                help for start
+      --list-sub-commands   List all subcommands
+  -w, --wait                Wait until the job reach a stable state, use job definition timeout
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

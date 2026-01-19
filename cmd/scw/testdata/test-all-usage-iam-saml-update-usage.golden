@@ -11,7 +11,8 @@ ARGS:
   [single-sign-on-url]   Single Sign-On URL of the SAML Identity Provider
 
 FLAGS:
-  -h, --help   help for update
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

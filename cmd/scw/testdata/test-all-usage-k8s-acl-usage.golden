@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   set         Set new ACLs
 
 FLAGS:
-  -h, --help   help for acl
+  -h, --help                help for acl
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

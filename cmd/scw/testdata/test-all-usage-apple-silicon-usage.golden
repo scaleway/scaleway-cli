@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   server-type     Server-Types management commands
 
 FLAGS:
-  -h, --help   help for apple-silicon
+  -h, --help                help for apple-silicon
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

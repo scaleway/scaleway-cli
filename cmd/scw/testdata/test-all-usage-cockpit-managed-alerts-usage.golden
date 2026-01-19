@@ -6,7 +6,8 @@ USAGE:
   scw cockpit managed-alerts
 
 FLAGS:
-  -h, --help   help for managed-alerts
+  -h, --help                help for managed-alerts
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   list        List tags
 
 FLAGS:
-  -h, --help   help for tag
+  -h, --help                help for tag
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

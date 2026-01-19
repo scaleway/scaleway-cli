@@ -22,8 +22,9 @@ DEPRECATED ARGS:
   [ip-id]   ID of an existing flexible IP address to attach to the Load Balancer
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the lb is ready
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the lb is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

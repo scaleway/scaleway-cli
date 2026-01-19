@@ -19,7 +19,8 @@ DEPRECATED ARGS:
   [format]     (unknown_raw_format | bind)
 
 FLAGS:
-  -h, --help   help for import
+  -h, --help                help for import
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

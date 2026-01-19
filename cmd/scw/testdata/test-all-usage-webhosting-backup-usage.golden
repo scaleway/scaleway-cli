@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   restore     Restore an entire backup to your hosting environment.
 
 FLAGS:
-  -h, --help   help for backup
+  -h, --help                help for backup
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

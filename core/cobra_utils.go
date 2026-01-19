@@ -20,6 +20,14 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		meta := extractMeta(ctx)
 		meta.command = cmd
 
+		// Check if --list-sub-commands flag is set
+		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
+		if err == nil && listSubCommandsFlag {
+			printAllSubCommands(cobraCmd, 0)
+
+			return nil
+		}
+
 		sentry.AddCommandContext(cmd.GetCommandLine("scw"))
 
 		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
@@ -314,6 +322,14 @@ func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 				return err
 			}
 			cobraCmd.Println(out)
+
+			return nil
+		}
+
+		// Check if --list-sub-commands flag is set
+		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
+		if err == nil && listSubCommandsFlag {
+			printAllSubCommands(cobraCmd, 0)
 
 			return nil
 		}

@@ -38,7 +38,8 @@ DEPRECATED ARGS:
   [organization-default]   Defines whether this security group becomes the default security group for new Instances
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

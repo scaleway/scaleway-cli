@@ -30,7 +30,8 @@ AVAILABLE COMMANDS:
   list        List aliases and their commands
 
 FLAGS:
-  -h, --help   help for alias
+  -h, --help                help for alias
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

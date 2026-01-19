@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List available partners
 
 FLAGS:
-  -h, --help   help for partner
+  -h, --help                help for partner
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

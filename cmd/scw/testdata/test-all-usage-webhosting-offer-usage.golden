@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List all available hosting offers along with their specific options.
 
 FLAGS:
-  -h, --help   help for offer
+  -h, --help                help for offer
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

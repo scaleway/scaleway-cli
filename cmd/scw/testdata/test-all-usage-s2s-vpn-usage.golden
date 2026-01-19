@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   vpn-gateway-type VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
 
 FLAGS:
-  -h, --help   help for s2s-vpn
+  -h, --help                help for s2s-vpn
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

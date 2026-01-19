@@ -14,7 +14,8 @@ ARGS:
   human-id   UUID of the human you want to make run
 
 FLAGS:
-  -h, --help   help for run
+  -h, --help                help for run
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

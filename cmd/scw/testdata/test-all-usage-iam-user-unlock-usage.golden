@@ -9,7 +9,8 @@ ARGS:
   user-id   ID of the user to unlock
 
 FLAGS:
-  -h, --help   help for unlock
+  -h, --help                help for unlock
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

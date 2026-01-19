@@ -20,7 +20,8 @@ DEPRECATED ARGS:
   [dns-zone]   DNS zone on which to filter the returned DNS zones
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

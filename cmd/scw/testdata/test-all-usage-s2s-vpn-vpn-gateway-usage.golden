@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update a VPN gateway
 
 FLAGS:
-  -h, --help   help for vpn-gateway
+  -h, --help                help for vpn-gateway
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

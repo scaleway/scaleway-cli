@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   update         Update a Web Hosting plan
 
 FLAGS:
-  -h, --help   help for hosting
+  -h, --help                help for hosting
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

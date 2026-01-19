@@ -22,7 +22,8 @@ AVAILABLE COMMANDS:
   user              Users management commands
 
 FLAGS:
-  -h, --help   help for iam
+  -h, --help                help for iam
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -15,7 +15,8 @@ ARGS:
   [before-position]                                                    Add rules before the given position
 
 FLAGS:
-  -h, --help   help for add
+  -h, --help                help for add
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

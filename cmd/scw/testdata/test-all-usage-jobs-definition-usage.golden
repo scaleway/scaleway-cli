@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   update      Update an existing job definition associated with the specified unique identifier
 
 FLAGS:
-  -h, --help   help for definition
+  -h, --help                help for definition
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

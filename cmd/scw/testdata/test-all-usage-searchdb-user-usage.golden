@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   update      Update searchdb resources
 
 FLAGS:
-  -h, --help   help for user
+  -h, --help                help for user
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

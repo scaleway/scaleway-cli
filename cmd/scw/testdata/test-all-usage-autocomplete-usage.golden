@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   script      Show autocomplete script for current shell
 
 FLAGS:
-  -h, --help   help for autocomplete
+  -h, --help                help for autocomplete
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

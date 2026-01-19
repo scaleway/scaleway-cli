@@ -11,7 +11,8 @@ ARGS:
   [plan-name]    Name of the pricing plan (unknown_name | free | premium | custom)
 
 FLAGS:
-  -h, --help   help for select
+  -h, --help                help for select
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

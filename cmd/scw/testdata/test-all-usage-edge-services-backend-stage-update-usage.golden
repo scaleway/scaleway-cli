@@ -23,7 +23,8 @@ ARGS:
   [scaleway-serverless-function.function-id]     
 
 FLAGS:
-  -h, --help   help for update
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

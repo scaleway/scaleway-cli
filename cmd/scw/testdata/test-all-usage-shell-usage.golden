@@ -6,4 +6,5 @@ USAGE:
   scw shell
 
 FLAGS:
-  -h, --help   help for shell
+  -h, --help                help for shell
+      --list-sub-commands   List all subcommands

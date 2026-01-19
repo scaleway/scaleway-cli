@@ -17,7 +17,8 @@ AVAILABLE COMMANDS:
   update-username Update an user's username.
 
 FLAGS:
-  -h, --help   help for user
+  -h, --help                help for user
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

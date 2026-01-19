@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   set         Set route rules
 
 FLAGS:
-  -h, --help   help for route-rules
+  -h, --help                help for route-rules
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

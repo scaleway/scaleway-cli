@@ -9,7 +9,8 @@ ARGS:
   profile-name   
 
 FLAGS:
-  -h, --help   help for activate
+  -h, --help                help for activate
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

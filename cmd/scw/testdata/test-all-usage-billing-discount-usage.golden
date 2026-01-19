@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List discounts
 
 FLAGS:
-  -h, --help   help for discount
+  -h, --help                help for discount
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

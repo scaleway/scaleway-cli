@@ -18,7 +18,8 @@ WORKFLOW COMMANDS:
   wait        Wait for a load balancer to reach a stable state
 
 FLAGS:
-  -h, --help   help for lb
+  -h, --help                help for lb
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

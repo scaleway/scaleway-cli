@@ -25,7 +25,8 @@ ARGS:
   [send-telemetry]            Set to false to disable telemetry
 
 FLAGS:
-  -h, --help   help for set
+  -h, --help                help for set
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

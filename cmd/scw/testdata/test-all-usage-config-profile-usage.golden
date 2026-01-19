@@ -11,7 +11,8 @@ CONFIGURATION COMMANDS:
   list        List all profiles in the config file
 
 FLAGS:
-  -h, --help   help for profile
+  -h, --help                help for profile
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update filesystem properties
 
 FLAGS:
-  -h, --help   help for filesystem
+  -h, --help                help for filesystem
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

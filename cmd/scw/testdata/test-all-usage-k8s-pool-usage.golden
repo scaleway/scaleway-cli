@@ -19,7 +19,8 @@ WORKFLOW COMMANDS:
   wait              Wait for a pool to reach a stable state
 
 FLAGS:
-  -h, --help   help for pool
+  -h, --help                help for pool
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

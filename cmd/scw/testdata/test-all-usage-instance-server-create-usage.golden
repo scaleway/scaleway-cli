@@ -55,9 +55,10 @@ ARGS:
   [organization-id]                        Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the server is ready
-      --web    open console page for the current resource
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the server is ready
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

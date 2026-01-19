@@ -9,7 +9,8 @@ ARGS:
   key   the config config key name to unset (access-key | secret-key | api-url | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry)
 
 FLAGS:
-  -h, --help   help for unset
+  -h, --help                help for unset
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

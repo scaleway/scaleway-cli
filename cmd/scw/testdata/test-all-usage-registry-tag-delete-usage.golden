@@ -14,7 +14,8 @@ DEPRECATED ARGS:
   [force]   If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated)
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

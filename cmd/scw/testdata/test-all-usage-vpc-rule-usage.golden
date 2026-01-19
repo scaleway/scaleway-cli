@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   set         Set VPC ACL rules
 
 FLAGS:
-  -h, --help   help for rule
+  -h, --help                help for rule
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

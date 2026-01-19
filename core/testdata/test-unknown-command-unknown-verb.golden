@@ -4,7 +4,8 @@ USAGE:
   scw instance server
 
 FLAGS:
-  -h, --help   help for server
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

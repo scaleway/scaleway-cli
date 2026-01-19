@@ -15,7 +15,8 @@ ARGS:
   [timeout=1h0m0s]   Timeout of the wait
 
 FLAGS:
-  -h, --help   help for wait
+  -h, --help                help for wait
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

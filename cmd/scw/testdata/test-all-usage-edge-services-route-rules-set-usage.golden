@@ -13,7 +13,8 @@ ARGS:
   [route-rules.{index}.backend-stage-id]                               ID of the backend stage that requests matching the rule should be forwarded to
 
 FLAGS:
-  -h, --help   help for set
+  -h, --help                help for set
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

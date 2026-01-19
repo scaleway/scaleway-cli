@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   move        Relocate an existing virtual MAC address to a different flexible IP
 
 FLAGS:
-  -h, --help   help for mac
+  -h, --help                help for mac
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
