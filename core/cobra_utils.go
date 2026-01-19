@@ -24,7 +24,8 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
 		if err == nil && listSubCommandsFlag {
 			printAllSubCommands(cobraCmd, 0)
-			return &CliError{Empty: true, Code: 0}
+
+			return nil
 		}
 
 		sentry.AddCommandContext(cmd.GetCommandLine("scw"))
@@ -329,7 +330,8 @@ func cobraRunHelp(cmd *Command) func(cmd *cobra.Command, args []string) error {
 		listSubCommandsFlag, err := cobraCmd.PersistentFlags().GetBool("list-sub-commands")
 		if err == nil && listSubCommandsFlag {
 			printAllSubCommands(cobraCmd, 0)
-			return &CliError{Empty: true, Code: 0}
+
+			return nil
 		}
 
 		err = cobraCmd.Help()
