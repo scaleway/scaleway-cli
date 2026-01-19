@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list-v2     List Public Gateway types
 
 FLAGS:
-  -h, --help   help for gateway-type
+  -h, --help                help for gateway-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

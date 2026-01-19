@@ -13,7 +13,8 @@ ARGS:
   [backend-stage-id]   Backend stage ID the DNS stage will be linked to
 
 FLAGS:
-  -h, --help   help for update
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

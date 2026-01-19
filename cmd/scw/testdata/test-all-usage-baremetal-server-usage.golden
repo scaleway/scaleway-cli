@@ -26,7 +26,8 @@ WORKFLOW COMMANDS:
   wait            Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:
-  -h, --help   help for server
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -11,7 +11,8 @@ ARGS:
   grafana-user-id   ID of the Grafana user
 
 FLAGS:
-  -h, --help   help for delete
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   database    
 
 FLAGS:
-  -h, --help   help for sdb-sql
+  -h, --help                help for sdb-sql
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

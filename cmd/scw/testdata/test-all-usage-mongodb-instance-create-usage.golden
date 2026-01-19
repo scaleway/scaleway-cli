@@ -20,8 +20,9 @@ ARGS:
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the instance is ready
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the instance is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

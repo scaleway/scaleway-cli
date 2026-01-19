@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   mac         MAC address management commands
 
 FLAGS:
-  -h, --help   help for fip
+  -h, --help                help for fip
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

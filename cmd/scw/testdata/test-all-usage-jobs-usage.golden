@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   secret      
 
 FLAGS:
-  -h, --help   help for jobs
+  -h, --help                help for jobs
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list               Retrieve the list of free root domains available for a Web Hosting.
 
 FLAGS:
-  -h, --help   help for freedomain
+  -h, --help                help for freedomain
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

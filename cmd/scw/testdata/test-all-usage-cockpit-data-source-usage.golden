@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update a data source
 
 FLAGS:
-  -h, --help   help for data-source
+  -h, --help                help for data-source
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

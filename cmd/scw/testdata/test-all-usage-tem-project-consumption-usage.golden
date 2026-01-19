@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   get         Get project resource consumption.
 
 FLAGS:
-  -h, --help   help for project-consumption
+  -h, --help                help for project-consumption
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

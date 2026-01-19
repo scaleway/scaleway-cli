@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List events
 
 FLAGS:
-  -h, --help   help for event
+  -h, --help                help for event
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

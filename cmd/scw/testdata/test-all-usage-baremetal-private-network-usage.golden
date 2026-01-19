@@ -19,7 +19,8 @@ AVAILABLE COMMANDS:
   set         Set multiple Private Networks on a server
 
 FLAGS:
-  -h, --help   help for private-network
+  -h, --help                help for private-network
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

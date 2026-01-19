@@ -16,7 +16,8 @@ AVAILABLE COMMANDS:
   update-credentials Update Queues credentials
 
 FLAGS:
-  -h, --help   help for sqs
+  -h, --help                help for sqs
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

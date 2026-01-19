@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   volume-type Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: `bssd` and `sbs`. The IOPS can be chosen for volumes of the `sbs` storage class
 
 FLAGS:
-  -h, --help   help for block
+  -h, --help                help for block
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -10,8 +10,9 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for delete
-  -w, --wait   wait until the namespace is ready
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the namespace is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

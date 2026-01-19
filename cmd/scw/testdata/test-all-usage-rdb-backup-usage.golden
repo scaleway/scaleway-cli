@@ -19,7 +19,8 @@ WORKFLOW COMMANDS:
   wait        Wait for a backup to reach a stable state
 
 FLAGS:
-  -h, --help   help for backup
+  -h, --help                help for backup
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

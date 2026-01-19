@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   filesystem  Filesystem management
 
 FLAGS:
-  -h, --help   help for file
+  -h, --help                help for file
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

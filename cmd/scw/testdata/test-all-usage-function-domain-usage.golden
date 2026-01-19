@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   list        List all domain name bindings
 
 FLAGS:
-  -h, --help   help for domain
+  -h, --help                help for domain
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

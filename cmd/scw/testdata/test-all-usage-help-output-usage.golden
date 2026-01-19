@@ -84,7 +84,8 @@ USAGE:
   scw help output
 
 FLAGS:
-  -h, --help   help for output
+  -h, --help                help for output
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

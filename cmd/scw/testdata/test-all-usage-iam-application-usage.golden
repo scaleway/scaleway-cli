@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update an application
 
 FLAGS:
-  -h, --help   help for application
+  -h, --help                help for application
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

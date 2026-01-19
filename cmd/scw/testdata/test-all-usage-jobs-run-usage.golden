@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   wait        Wait for a job run to reach a stable state
 
 FLAGS:
-  -h, --help   help for run
+  -h, --help                help for run
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

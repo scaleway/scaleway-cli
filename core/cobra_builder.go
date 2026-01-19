@@ -2,6 +2,8 @@ package core
 
 import (
 	"context"
+	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -104,6 +106,37 @@ func (b *cobraBuilder) build() *cobra.Command {
 // hydrateCobra hydrates a cobra command from a *Command.
 // Field like Short, Long will be copied over.
 // More complex field like PreRun or Run will also be generated if needed.
+// printAllSubCommands prints all subcommands of a given cobra command in a hierarchical format
+func printAllSubCommands(cmd *cobra.Command, level int) {
+	indent := strings.Repeat("  ", level)
+
+	// Format the command name and description
+	var desc string
+	if cmd.Short != "" {
+		desc = " - " + cmd.Short
+	}
+	fmt.Printf("%s%s%s\n", indent, cmd.Name(), desc)
+
+	// Collect and sort subcommands alphabetically
+	var subCommands []*cobra.Command
+	for _, subCmd := range cmd.Commands() {
+		if !subCmd.IsAvailableCommand() || subCmd.Hidden {
+			continue
+		}
+		subCommands = append(subCommands, subCmd)
+	}
+
+	// Sort subcommands by name
+	sort.Slice(subCommands, func(i, j int) bool {
+		return subCommands[i].Name() < subCommands[j].Name()
+	})
+
+	// Recursively print all subcommands
+	for _, subCmd := range subCommands {
+		printAllSubCommands(subCmd, level+1)
+	}
+}
+
 func (b *cobraBuilder) hydrateCobra(
 	cobraCmd *cobra.Command,
 	cmd *Command,
@@ -186,6 +219,9 @@ func (b *cobraBuilder) hydrateCobra(
 	if commandHasWeb(cmd) {
 		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current resource")
 	}
+
+	// Add --list-sub-commands flag to list all subcommands
+	cobraCmd.PersistentFlags().Bool("list-sub-commands", false, "List all subcommands")
 }
 
 const usageTemplate = `USAGE:

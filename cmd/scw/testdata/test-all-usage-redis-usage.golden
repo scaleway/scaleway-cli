@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   version     Redis™ version management commands
 
 FLAGS:
-  -h, --help   help for redis
+  -h, --help                help for redis
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

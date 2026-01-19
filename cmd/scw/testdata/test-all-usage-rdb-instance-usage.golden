@@ -27,7 +27,8 @@ WORKFLOW COMMANDS:
   wait              Wait for an instance to reach a stable state
 
 FLAGS:
-  -h, --help   help for instance
+  -h, --help                help for instance
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

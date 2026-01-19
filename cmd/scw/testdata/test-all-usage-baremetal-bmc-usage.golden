@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   stop        Stop BMC access
 
 FLAGS:
-  -h, --help   help for bmc
+  -h, --help                help for bmc
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

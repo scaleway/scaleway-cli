@@ -11,7 +11,8 @@ ARGS:
   [field-a]   Field A
 
 FLAGS:
-  -h, --help   help for anonymous-fields
+  -h, --help                help for anonymous-fields
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

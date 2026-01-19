@@ -23,7 +23,8 @@ AVAILABLE COMMANDS:
   website             Website
 
 FLAGS:
-  -h, --help   help for webhosting
+  -h, --help                help for webhosting
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

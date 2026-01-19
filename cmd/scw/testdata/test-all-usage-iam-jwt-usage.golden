@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   list        List JWTs
 
 FLAGS:
-  -h, --help   help for jwt
+  -h, --help                help for jwt
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

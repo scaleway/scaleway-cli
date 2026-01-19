@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   trigger     Trigger a test alert
 
 FLAGS:
-  -h, --help   help for test-alert
+  -h, --help                help for test-alert
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

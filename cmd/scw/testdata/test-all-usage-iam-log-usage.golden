@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List logs
 
 FLAGS:
-  -h, --help   help for log
+  -h, --help                help for log
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

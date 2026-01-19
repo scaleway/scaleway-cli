@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update route stage
 
 FLAGS:
-  -h, --help   help for route-stage
+  -h, --help                help for route-stage
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

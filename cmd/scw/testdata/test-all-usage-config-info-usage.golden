@@ -13,7 +13,8 @@ EXAMPLES:
     scw -p prod config info
 
 FLAGS:
-  -h, --help   help for info
+  -h, --help                help for info
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List local images from a specific image or version
 
 FLAGS:
-  -h, --help   help for local-image
+  -h, --help                help for local-image
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   get-dns-records Get DNS records
 
 FLAGS:
-  -h, --help   help for dns-records
+  -h, --help                help for dns-records
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

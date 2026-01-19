@@ -13,7 +13,8 @@ ARGS:
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config
 
 FLAGS:
-  -h, --help   help for ssh
+  -h, --help                help for ssh
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

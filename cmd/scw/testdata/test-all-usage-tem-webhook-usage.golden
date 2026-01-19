@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   update      Update a Webhook
 
 FLAGS:
-  -h, --help   help for webhook
+  -h, --help                help for webhook
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

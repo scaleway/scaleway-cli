@@ -38,7 +38,8 @@ DEPRECATED ARGS:
   [private-ip]   List Instances by private_ip
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

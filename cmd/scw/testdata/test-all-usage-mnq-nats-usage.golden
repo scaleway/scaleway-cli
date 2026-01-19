@@ -20,7 +20,8 @@ WORKFLOW COMMANDS:
   create-context     Create a new context for natscli
 
 FLAGS:
-  -h, --help   help for nats
+  -h, --help                help for nats
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

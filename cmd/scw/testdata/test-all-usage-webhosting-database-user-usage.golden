@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   unassign        "Unassign a database user from a database"
 
 FLAGS:
-  -h, --help   help for database-user
+  -h, --help                help for database-user
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

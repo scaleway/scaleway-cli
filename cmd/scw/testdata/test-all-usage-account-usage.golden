@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   project     Project management commands
 
 FLAGS:
-  -h, --help   help for account
+  -h, --help                help for account
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

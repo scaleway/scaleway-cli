@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   config      Manage configuration files for popular S3 tools
 
 FLAGS:
-  -h, --help   help for object
+  -h, --help                help for object
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

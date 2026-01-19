@@ -34,8 +34,9 @@ AVAILABLE COMMANDS:
   update-servers Update placement group servers
 
 FLAGS:
-  -h, --help   help for placement-group
-      --web    open console page for the current resource
+  -h, --help                help for placement-group
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

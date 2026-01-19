@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list-taxes  Get monthly consumption taxes
 
 FLAGS:
-  -h, --help   help for consumption
+  -h, --help                help for consumption
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

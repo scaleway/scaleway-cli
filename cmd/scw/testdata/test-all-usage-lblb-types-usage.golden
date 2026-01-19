@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List all Load Balancer offer types
 
 FLAGS:
-  -h, --help   help for lb-types
+  -h, --help                help for lb-types
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

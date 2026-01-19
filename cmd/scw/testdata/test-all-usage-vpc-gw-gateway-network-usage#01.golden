@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update-v2   Update a Public Gateway's connection to a Private Network
 
 FLAGS:
-  -h, --help   help for gateway-network
+  -h, --help                help for gateway-network
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

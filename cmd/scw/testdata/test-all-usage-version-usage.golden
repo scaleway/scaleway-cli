@@ -6,7 +6,8 @@ USAGE:
   scw version
 
 FLAGS:
-  -h, --help   help for version
+  -h, --help                help for version
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

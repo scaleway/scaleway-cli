@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   route       IoT Route commands
 
 FLAGS:
-  -h, --help   help for iot
+  -h, --help                help for iot
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

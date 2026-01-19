@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   list        List models
 
 FLAGS:
-  -h, --help   help for model
+  -h, --help                help for model
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

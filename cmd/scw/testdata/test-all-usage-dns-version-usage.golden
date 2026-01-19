@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   show        List records from a given version of a specific DNS zone
 
 FLAGS:
-  -h, --help   help for version
+  -h, --help                help for version
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
