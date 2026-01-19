@@ -16,7 +16,8 @@ AVAILABLE COMMANDS:
   update-nameservers Update name servers within a DNS zone
 
 FLAGS:
-  -h, --help   help for record
+  -h, --help                help for record
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   invoice     Invoice management commands
 
 FLAGS:
-  -h, --help   help for billing
+  -h, --help                help for billing
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

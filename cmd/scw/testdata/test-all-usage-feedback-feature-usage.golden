@@ -6,7 +6,8 @@ USAGE:
   scw feedback feature
 
 FLAGS:
-  -h, --help   help for feature
+  -h, --help                help for feature
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

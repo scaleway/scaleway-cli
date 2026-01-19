@@ -37,8 +37,9 @@ WORKFLOW COMMANDS:
   wait                 Wait for server to reach a stable state
 
 FLAGS:
-  -h, --help   help for server
-      --web    open console page for the current resource
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

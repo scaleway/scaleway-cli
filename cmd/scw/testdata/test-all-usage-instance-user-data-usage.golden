@@ -22,7 +22,8 @@ AVAILABLE COMMANDS:
   set         Add/set user data
 
 FLAGS:
-  -h, --help   help for user-data
+  -h, --help                help for user-data
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

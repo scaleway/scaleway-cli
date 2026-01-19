@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List PoPs
 
 FLAGS:
-  -h, --help   help for pop
+  -h, --help                help for pop
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

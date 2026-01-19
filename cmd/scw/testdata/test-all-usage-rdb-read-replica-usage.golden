@@ -25,7 +25,8 @@ AVAILABLE COMMANDS:
   reset           Resync a Read Replica
 
 FLAGS:
-  -h, --help   help for read-replica
+  -h, --help                help for read-replica
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -6,7 +6,8 @@ USAGE:
   scw config reset
 
 FLAGS:
-  -h, --help   help for reset
+  -h, --help                help for reset
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

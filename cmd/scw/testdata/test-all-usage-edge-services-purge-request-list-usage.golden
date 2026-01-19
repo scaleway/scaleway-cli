@@ -12,7 +12,8 @@ ARGS:
   [organization-id]   Organization ID to filter for. Only purge requests from this Project will be returned
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

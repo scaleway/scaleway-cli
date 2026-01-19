@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List VPN gateway types
 
 FLAGS:
-  -h, --help   help for vpn-gateway-type
+  -h, --help                help for vpn-gateway-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

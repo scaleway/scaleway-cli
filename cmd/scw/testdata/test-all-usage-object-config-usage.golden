@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   install     Install a S3 tool configuration file to its default location
 
 FLAGS:
-  -h, --help   help for config
+  -h, --help                help for config
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

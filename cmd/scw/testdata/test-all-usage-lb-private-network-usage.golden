@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   list        List Private Networks attached to a Load Balancer
 
 FLAGS:
-  -h, --help   help for private-network
+  -h, --help                help for private-network
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -41,8 +41,9 @@ DEPRECATED ARGS:
   [max-concurrency]   Number of maximum concurrent executions of the container
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the container is ready
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the container is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

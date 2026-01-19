@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   key         Key management commands
 
 FLAGS:
-  -h, --help   help for keymanager
+  -h, --help                help for keymanager
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

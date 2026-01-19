@@ -11,7 +11,8 @@ ARGS:
   [all]              Defines whether to purge all content
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

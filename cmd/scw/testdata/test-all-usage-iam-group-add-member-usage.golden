@@ -11,7 +11,8 @@ ARGS:
   [application-id]   ID of the application to add
 
 FLAGS:
-  -h, --help   help for add-member
+  -h, --help                help for add-member
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

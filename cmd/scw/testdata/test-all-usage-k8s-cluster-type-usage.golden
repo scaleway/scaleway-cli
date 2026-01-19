@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List cluster types
 
 FLAGS:
-  -h, --help   help for cluster-type
+  -h, --help                help for cluster-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

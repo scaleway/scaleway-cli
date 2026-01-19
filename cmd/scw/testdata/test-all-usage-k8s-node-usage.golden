@@ -17,7 +17,8 @@ WORKFLOW COMMANDS:
   wait        Wait for a node to reach a stable state
 
 FLAGS:
-  -h, --help   help for node
+  -h, --help                help for node
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

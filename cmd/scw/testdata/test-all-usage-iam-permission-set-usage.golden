@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List permission sets
 
 FLAGS:
-  -h, --help   help for permission-set
+  -h, --help                help for permission-set
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List filesystems attachments
 
 FLAGS:
-  -h, --help   help for attachment
+  -h, --help                help for attachment
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   list            List all mail accounts within your hosting plan.
 
 FLAGS:
-  -h, --help   help for mail-account
+  -h, --help                help for mail-account
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

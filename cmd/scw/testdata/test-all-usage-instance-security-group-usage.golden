@@ -26,8 +26,9 @@ AVAILABLE COMMANDS:
   update-rule        Update security group rule
 
 FLAGS:
-  -h, --help   help for security-group
-      --web    open console page for the current resource
+  -h, --help                help for security-group
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

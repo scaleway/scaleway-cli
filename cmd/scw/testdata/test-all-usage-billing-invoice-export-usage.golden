@@ -15,7 +15,8 @@ ARGS:
   [force-replace=false]           Force file replacement
 
 FLAGS:
-  -h, --help   help for export
+  -h, --help                help for export
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

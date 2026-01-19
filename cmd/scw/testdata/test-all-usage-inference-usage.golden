@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   node-type   Node types management commands
 
 FLAGS:
-  -h, --help   help for inference
+  -h, --help                help for inference
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

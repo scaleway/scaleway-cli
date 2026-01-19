@@ -11,7 +11,8 @@ ARGS:
   [fqdn]        Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

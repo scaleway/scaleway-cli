@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   get-saml    Get SAML Identity Provider configuration of an Organization
 
 FLAGS:
-  -h, --help   help for organization
+  -h, --help                help for organization
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

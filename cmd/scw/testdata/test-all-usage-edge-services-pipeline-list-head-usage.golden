@@ -9,7 +9,8 @@ ARGS:
   pipeline-id   ID of the pipeline to update
 
 FLAGS:
-  -h, --help   help for list-head
+  -h, --help                help for list-head
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

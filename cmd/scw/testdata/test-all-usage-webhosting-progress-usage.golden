@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List recent progresses associated with a specific backup, grouped by type.
 
 FLAGS:
-  -h, --help   help for progress
+  -h, --help                help for progress
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -6,7 +6,8 @@ USAGE:
   scw tem project-settings
 
 FLAGS:
-  -h, --help   help for project-settings
+  -h, --help                help for project-settings
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

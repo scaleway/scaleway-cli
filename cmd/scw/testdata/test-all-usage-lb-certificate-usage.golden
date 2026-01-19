@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update an SSL/TLS certificate
 
 FLAGS:
-  -h, --help   help for certificate
+  -h, --help                help for certificate
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

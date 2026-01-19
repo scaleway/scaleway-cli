@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Create a new runner configuration
 
 FLAGS:
-  -h, --help   help for runner
+  -h, --help                help for runner
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

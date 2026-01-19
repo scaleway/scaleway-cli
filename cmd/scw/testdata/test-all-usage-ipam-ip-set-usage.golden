@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   release     Release ipam resources
 
 FLAGS:
-  -h, --help   help for ip-set
+  -h, --help                help for ip-set
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

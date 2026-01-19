@@ -10,7 +10,8 @@ UTILITY COMMANDS:
   feature     Send a feature request
 
 FLAGS:
-  -h, --help   help for feedback
+  -h, --help                help for feedback
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

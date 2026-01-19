@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List volume types
 
 FLAGS:
-  -h, --help   help for volume-type
+  -h, --help                help for volume-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

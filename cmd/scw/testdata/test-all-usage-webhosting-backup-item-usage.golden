@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   restore     Restore specific items from a backup (e.g., a database or mailbox).
 
 FLAGS:
-  -h, --help   help for backup-item
+  -h, --help                help for backup-item
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

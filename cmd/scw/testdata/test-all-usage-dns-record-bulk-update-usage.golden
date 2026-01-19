@@ -70,7 +70,8 @@ ARGS:
   [serial]                                                                                 Use the provided serial (0) instead of the auto-increment serial
 
 FLAGS:
-  -h, --help   help for bulk-update
+  -h, --help                help for bulk-update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

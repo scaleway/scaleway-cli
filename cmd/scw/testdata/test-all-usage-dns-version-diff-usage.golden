@@ -9,7 +9,8 @@ ARGS:
   dns-zone-version-id   
 
 FLAGS:
-  -h, --help   help for diff
+  -h, --help                help for diff
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

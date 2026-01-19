@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update a customer gateway
 
 FLAGS:
-  -h, --help   help for customer-gateway
+  -h, --help                help for customer-gateway
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

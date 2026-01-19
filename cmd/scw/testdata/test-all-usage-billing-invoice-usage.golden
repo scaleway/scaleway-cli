@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   list        List invoices
 
 FLAGS:
-  -h, --help   help for invoice
+  -h, --help                help for invoice
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

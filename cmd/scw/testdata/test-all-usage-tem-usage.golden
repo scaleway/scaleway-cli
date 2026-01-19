@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   webhook             Webhook management commands
 
 FLAGS:
-  -h, --help   help for tem
+  -h, --help                help for tem
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

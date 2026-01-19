@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List Scaleway resources dashboards
 
 FLAGS:
-  -h, --help   help for product-dashboards
+  -h, --help                help for product-dashboards
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

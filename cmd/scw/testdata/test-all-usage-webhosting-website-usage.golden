@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List all websites for a specific hosting.
 
 FLAGS:
-  -h, --help   help for website
+  -h, --help                help for website
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -17,7 +17,8 @@ WORKFLOW COMMANDS:
   deploy      Deploy a container
 
 FLAGS:
-  -h, --help   help for container
+  -h, --help                help for container
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

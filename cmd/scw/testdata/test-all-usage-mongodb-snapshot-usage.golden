@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   update      Update a Database Instance snapshot
 
 FLAGS:
-  -h, --help   help for snapshot
+  -h, --help                help for snapshot
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
