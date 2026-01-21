@@ -6,7 +6,7 @@ USAGE:
   scw searchdb node-types <command>
 
 AVAILABLE COMMANDS:
-  list        List searchdb resources
+  list        Retrieve a list of available node types
 
 FLAGS:
   -h, --help                help for node-types
