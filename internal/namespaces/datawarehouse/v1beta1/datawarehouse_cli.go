@@ -33,6 +33,7 @@ func GetGeneratedCommands() *core.Commands {
 		datawarehouseDeploymentCreate(),
 		datawarehouseDeploymentUpdate(),
 		datawarehouseDeploymentDelete(),
+		datawarehouseDeploymentGetCertificate(),
 		datawarehouseUserList(),
 		datawarehouseUserCreate(),
 		datawarehouseUserUpdate(),
@@ -465,6 +466,36 @@ func datawarehouseDeploymentDelete() *core.Command {
 			api := datawarehouse.NewAPI(client)
 
 			return api.DeleteDeployment(request)
+		},
+	}
+}
+
+func datawarehouseDeploymentGetCertificate() *core.Command {
+	return &core.Command{
+		Short:     `Get deployment TLS certificate`,
+		Long:      `Retrieve the TLS certificate associated with a deployment.`,
+		Namespace: "datawarehouse",
+		Resource:  "deployment",
+		Verb:      "get-certificate",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(datawarehouse.GetDeploymentCertificateRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "deployment-id",
+				Short:      `UUID of the deployment`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(scw.RegionFrPar),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*datawarehouse.GetDeploymentCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := datawarehouse.NewAPI(client)
+
+			return api.GetDeploymentCertificate(request)
 		},
 	}
 }

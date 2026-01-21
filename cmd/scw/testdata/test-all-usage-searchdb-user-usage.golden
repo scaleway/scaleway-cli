@@ -1,15 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage your SearchDB deployment users.
+Manage your Cloud Essentials for OpenSearch deployment users.
 
 USAGE:
   scw searchdb user <command>
 
 AVAILABLE COMMANDS:
-  create      Create searchdb resources
-  delete      Delete searchdb resources
-  list        List searchdb resources
-  update      Update searchdb resources
+  create      Create a new user
+  delete      Delete an existing user
+  list        Retrieve a list of deployment users
+  update      Update an existing user
 
 FLAGS:
   -h, --help                help for user
