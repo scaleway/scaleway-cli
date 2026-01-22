@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage your SearchDB deployment endpoint.
+Manage your Cloud Essentials for OpenSearch deployment endpoint.
 
 USAGE:
   scw searchdb endpoint <command>
 
 AVAILABLE COMMANDS:
-  create      Create searchdb resources
-  delete      Delete searchdb resources
+  create      Create a new endpoint on a deployment
+  delete      Delete an existing endpoint
 
 FLAGS:
   -h, --help                help for endpoint

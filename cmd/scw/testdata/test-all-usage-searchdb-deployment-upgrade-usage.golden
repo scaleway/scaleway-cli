@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Upgrade searchdb resources.
+Upgrade a Cloud Essentials for OpenSearch deployment.
 
 USAGE:
   scw searchdb deployment upgrade [arg=value ...]

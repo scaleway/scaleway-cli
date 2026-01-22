@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List searchdb resources.
+List available Cloud Essentials for OpenSearch versions.
 
 USAGE:
   scw searchdb versions list [arg=value ...]
