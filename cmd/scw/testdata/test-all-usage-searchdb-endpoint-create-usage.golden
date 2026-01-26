@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create searchdb resources.
+Create a new endpoint on a deployment.
 
 USAGE:
   scw searchdb endpoint create [arg=value ...]

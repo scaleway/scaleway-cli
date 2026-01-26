@@ -44,8 +44,8 @@ func GetGeneratedCommands() *core.Commands {
 
 func searchdbRoot() *core.Command {
 	return &core.Command{
-		Short:     `SearchDB API`,
-		Long:      `SearchDB API.`,
+		Short:     `Cloud Essentials for Opensearch API`,
+		Long:      `Cloud Essentials for Opensearch API.`,
 		Namespace: "searchdb",
 	}
 }
@@ -53,7 +53,7 @@ func searchdbRoot() *core.Command {
 func searchdbDeployment() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `Manage your SearchDB deployment.`,
+		Long:      `Manage your Cloud Essentials for OpenSearch deployment.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 	}
@@ -62,7 +62,7 @@ func searchdbDeployment() *core.Command {
 func searchdbVersions() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `List your SearchDB versions.`,
+		Long:      `List your Cloud Essentials for OpenSearch versions.`,
 		Namespace: "searchdb",
 		Resource:  "versions",
 	}
@@ -80,7 +80,7 @@ func searchdbNodeTypes() *core.Command {
 func searchdbUser() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `Manage your SearchDB deployment users.`,
+		Long:      `Manage your Cloud Essentials for OpenSearch deployment users.`,
 		Namespace: "searchdb",
 		Resource:  "user",
 	}
@@ -89,7 +89,7 @@ func searchdbUser() *core.Command {
 func searchdbEndpoint() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `Manage your SearchDB deployment endpoint.`,
+		Long:      `Manage your Cloud Essentials for OpenSearch deployment endpoint.`,
 		Namespace: "searchdb",
 		Resource:  "endpoint",
 	}
@@ -97,8 +97,8 @@ func searchdbEndpoint() *core.Command {
 
 func searchdbDeploymentCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create searchdb resources`,
-		Long:      `Create searchdb resources.`,
+		Short:     `Create a new Cloud Essentials for OpenSearch deployment`,
+		Long:      `Create a new Cloud Essentials for OpenSearch deployment.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 		Verb:      "create",
@@ -195,8 +195,8 @@ func searchdbDeploymentCreate() *core.Command {
 
 func searchdbDeploymentUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update searchdb resources`,
-		Long:      `Update searchdb resources.`,
+		Short:     `Update a Cloud Essentials for OpenSearch deployment`,
+		Long:      `Update a Cloud Essentials for OpenSearch deployment.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 		Verb:      "update",
@@ -239,8 +239,8 @@ func searchdbDeploymentUpdate() *core.Command {
 
 func searchdbDeploymentUpgrade() *core.Command {
 	return &core.Command{
-		Short:     `Upgrade searchdb resources`,
-		Long:      `Upgrade searchdb resources.`,
+		Short:     `Upgrade a Cloud Essentials for OpenSearch deployment`,
+		Long:      `Upgrade a Cloud Essentials for OpenSearch deployment.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 		Verb:      "upgrade",
@@ -283,8 +283,8 @@ func searchdbDeploymentUpgrade() *core.Command {
 
 func searchdbDeploymentGet() *core.Command {
 	return &core.Command{
-		Short:     `Get searchdb resources`,
-		Long:      `Get searchdb resources.`,
+		Short:     `Retrieve a specific Cloud Essentials for OpenSearch deployment`,
+		Long:      `Retrieve a specific Cloud Essentials for OpenSearch deployment.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 		Verb:      "get",
@@ -313,8 +313,8 @@ func searchdbDeploymentGet() *core.Command {
 
 func searchdbDeploymentDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete searchdb resources`,
-		Long:      `Delete searchdb resources.`,
+		Short:     `Delete a Cloud Essentials for OpenSearch deployment`,
+		Long:      `Delete a Cloud Essentials for OpenSearch deployment.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 		Verb:      "delete",
@@ -343,8 +343,8 @@ func searchdbDeploymentDelete() *core.Command {
 
 func searchdbDeploymentList() *core.Command {
 	return &core.Command{
-		Short:     `List searchdb resources`,
-		Long:      `List searchdb resources.`,
+		Short:     `Retrieve a list of Cloud Essentials for OpenSearch deployments`,
+		Long:      `Retrieve a list of Cloud Essentials for OpenSearch deployments.`,
 		Namespace: "searchdb",
 		Resource:  "deployment",
 		Verb:      "list",
@@ -428,8 +428,8 @@ func searchdbDeploymentList() *core.Command {
 
 func searchdbVersionsList() *core.Command {
 	return &core.Command{
-		Short:     `List searchdb resources`,
-		Long:      `List searchdb resources.`,
+		Short:     `List available Cloud Essentials for OpenSearch versions`,
+		Long:      `List available Cloud Essentials for OpenSearch versions.`,
 		Namespace: "searchdb",
 		Resource:  "versions",
 		Verb:      "list",
@@ -481,8 +481,8 @@ func searchdbVersionsList() *core.Command {
 
 func searchdbNodeTypesList() *core.Command {
 	return &core.Command{
-		Short:     `List searchdb resources`,
-		Long:      `List searchdb resources.`,
+		Short:     `Retrieve a list of available node types`,
+		Long:      `Retrieve a list of available node types.`,
 		Namespace: "searchdb",
 		Resource:  "node-types",
 		Verb:      "list",
@@ -531,8 +531,8 @@ func searchdbNodeTypesList() *core.Command {
 
 func searchdbEndpointCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create searchdb resources`,
-		Long:      `Create searchdb resources.`,
+		Short:     `Create a new endpoint on a deployment`,
+		Long:      `Create a new endpoint on a deployment.`,
 		Namespace: "searchdb",
 		Resource:  "endpoint",
 		Verb:      "create",
@@ -567,8 +567,8 @@ func searchdbEndpointCreate() *core.Command {
 
 func searchdbEndpointDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete searchdb resources`,
-		Long:      `Delete searchdb resources.`,
+		Short:     `Delete an existing endpoint`,
+		Long:      `Delete an existing endpoint.`,
 		Namespace: "searchdb",
 		Resource:  "endpoint",
 		Verb:      "delete",
@@ -604,8 +604,8 @@ func searchdbEndpointDelete() *core.Command {
 
 func searchdbUserList() *core.Command {
 	return &core.Command{
-		Short:     `List searchdb resources`,
-		Long:      `List searchdb resources.`,
+		Short:     `Retrieve a list of deployment users`,
+		Long:      `Retrieve a list of deployment users.`,
 		Namespace: "searchdb",
 		Resource:  "user",
 		Verb:      "list",
@@ -661,8 +661,8 @@ func searchdbUserList() *core.Command {
 
 func searchdbUserCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create searchdb resources`,
-		Long:      `Create searchdb resources.`,
+		Short:     `Create a new user`,
+		Long:      `Create a new user.`,
 		Namespace: "searchdb",
 		Resource:  "user",
 		Verb:      "create",
@@ -705,8 +705,8 @@ func searchdbUserCreate() *core.Command {
 
 func searchdbUserUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update searchdb resources`,
-		Long:      `Update searchdb resources.`,
+		Short:     `Update an existing user`,
+		Long:      `Update an existing user.`,
 		Namespace: "searchdb",
 		Resource:  "user",
 		Verb:      "update",
@@ -749,8 +749,8 @@ func searchdbUserUpdate() *core.Command {
 
 func searchdbUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete searchdb resources`,
-		Long:      `Delete searchdb resources.`,
+		Short:     `Delete an existing user`,
+		Long:      `Delete an existing user.`,
 		Namespace: "searchdb",
 		Resource:  "user",
 		Verb:      "delete",
