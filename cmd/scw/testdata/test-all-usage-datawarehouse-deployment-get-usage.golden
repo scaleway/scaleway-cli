@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Retrieve information about a given deployment, specified by the `region` and `deployment_id` parameters. Its full details, including name, status are returned in the response object.
+
+USAGE:
+  scw datawarehouse deployment get <deployment-id ...> [arg=value ...]
+
+ARGS:
+  deployment-id     UUID of the deployment
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
