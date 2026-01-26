@@ -1,0 +1,29 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Create a new deployment.
+
+USAGE:
+  scw datawarehouse deployment create [arg=value ...]
+
+ARGS:
+  [project-id]                                             Project ID to use. If none is passed the default project ID will be used
+  [name]                                                   Name of the deployment
+  [tags.{index}]                                           Tags to apply to the deployment
+  [version]                                                ClickHouse® version to use for the deployment
+  [replica-count]                                          Number of replicas for the deployment
+  [password]                                               Password for the initial user
+  [cpu-min]                                                Minimum CPU count for the deployment
+  [cpu-max]                                                Maximum CPU count for the deployment
+  [endpoints.{index}.private-network.private-network-id]   UUID of the Private Network
+  [ram-per-cpu]                                            RAM per CPU count for the deployment (in GB)
+  [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
