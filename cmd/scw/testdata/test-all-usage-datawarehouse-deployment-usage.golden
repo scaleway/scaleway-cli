@@ -6,11 +6,12 @@ USAGE:
   scw datawarehouse deployment <command>
 
 AVAILABLE COMMANDS:
-  create      Create a deployment
-  delete      Delete a deployment
-  get         Get a deployment
-  list        List deployments
-  update      Update a deployment
+  create          Create a deployment
+  delete          Delete a deployment
+  get             Get a deployment
+  get-certificate Get deployment TLS certificate
+  list            List deployments
+  update          Update a deployment
 
 FLAGS:
   -h, --help                help for deployment
