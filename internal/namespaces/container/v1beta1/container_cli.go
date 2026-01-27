@@ -826,7 +826,7 @@ This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field
 				Name:       "redeploy",
 				Short:      `Defines whether to redeploy failed containers`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
