@@ -16,7 +16,6 @@ ARGS:
   [memory-limit]                                   Memory limit of the container in MB
   [cpu-limit]                                      CPU limit of the container in mvCPU
   [timeout]                                        Processing time limit for the container
-  [redeploy]                                       Defines whether to redeploy failed containers
   [privacy]                                        Privacy settings of the container (unknown_privacy | public | private)
   [description]                                    Description of the container
   [registry-image]                                 Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
@@ -40,6 +39,7 @@ ARGS:
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
+  [redeploy]          Defines whether to redeploy failed containers
   [max-concurrency]   Number of maximum concurrent executions of the container
 
 FLAGS:
