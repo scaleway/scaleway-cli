@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -28,13 +29,7 @@ type sshConfigServer struct {
 }
 
 func (s sshConfigServer) InPrivateNetwork(id string) bool {
-	for _, pnID := range s.PrivateNetworksID {
-		if pnID == id {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(s.PrivateNetworksID, id)
 }
 
 type sshConfigInstallRequest struct {

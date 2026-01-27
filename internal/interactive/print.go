@@ -47,8 +47,8 @@ func Line(char string) string {
 
 func Center(str string) string {
 	longestLine := 0
-	lines := strings.Split(str, "\n")
-	for _, line := range lines {
+	lines := strings.SplitSeq(str, "\n")
+	for line := range lines {
 		longestLine = int(math.Max(float64(longestLine), float64(len(line))))
 	}
 

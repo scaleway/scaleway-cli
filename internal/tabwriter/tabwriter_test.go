@@ -840,7 +840,7 @@ lines
 
 func BenchmarkCode(b *testing.B) {
 	b.ReportAllocs()
-	for range b.N {
+	for b.Loop() {
 		w := tabwriter.NewWriter(
 			io.Discard,
 			4,
