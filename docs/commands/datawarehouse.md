@@ -10,6 +10,7 @@ Data Warehouse API.
   - [Create a deployment](#create-a-deployment)
   - [Delete a deployment](#delete-a-deployment)
   - [Get a deployment](#get-a-deployment)
+  - [Get deployment TLS certificate](#get-deployment-tls-certificate)
   - [List deployments](#list-deployments)
   - [Update a deployment](#update-a-deployment)
 - [Endpoint management commands](#endpoint-management-commands)
@@ -155,6 +156,26 @@ Retrieve information about a given deployment, specified by the `region` and `de
 
 ```
 scw datawarehouse deployment get <deployment-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| deployment-id | Required | UUID of the deployment |
+| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get deployment TLS certificate
+
+Retrieve the TLS certificate associated with a deployment.
+
+**Usage:**
+
+```
+scw datawarehouse deployment get-certificate <deployment-id ...> [arg=value ...]
 ```
 
 
