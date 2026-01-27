@@ -4,6 +4,7 @@ import (
 	"context"
 	"fmt"
 	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 
@@ -225,13 +226,7 @@ func DefaultArgSpecValidateFunc() ArgSpecValidateFunc {
 }
 
 func stringExists(strs []string, s string) bool {
-	for _, s2 := range strs {
-		if s == s2 {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(strs, s)
 }
 
 // ValidateSecretKey validates a secret key ID.
