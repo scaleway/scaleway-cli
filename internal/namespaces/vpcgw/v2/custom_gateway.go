@@ -118,7 +118,7 @@ func gatewayDeleteBuilder(c *core.Command) *core.Command {
 
 		// Get gateway info to check if it has an IP
 		gateway, err := api.GetGateway(&vpcgw.GetGatewayRequest{
-			Zone:     args.Zone,
+			Zone:      args.Zone,
 			GatewayID: args.GatewayID,
 		})
 		if err != nil {
