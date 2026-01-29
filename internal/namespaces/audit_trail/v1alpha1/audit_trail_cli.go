@@ -148,6 +148,7 @@ func auditTrailEventList() *core.Command {
 					"vpc_gw_dhcp_entry",
 					"vpc_gw_pat_rule",
 					"vpc_gw_ip",
+					"audit_trail_export_job",
 				},
 			},
 			{
