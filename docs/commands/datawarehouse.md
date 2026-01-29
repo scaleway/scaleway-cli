@@ -14,8 +14,6 @@ Data Warehouse API.
   - [List deployments](#list-deployments)
   - [Update a deployment](#update-a-deployment)
 - [Endpoint management commands](#endpoint-management-commands)
-  - [Create a new endpoint for a deployment](#create-a-new-endpoint-for-a-deployment)
-  - [Delete an endpoint from a deployment](#delete-an-endpoint-from-a-deployment)
 - [List available presets](#list-available-presets)
   - [List available presets](#list-available-presets)
 - [User management commands](#user-management-commands)
@@ -243,45 +241,13 @@ scw datawarehouse deployment update <deployment-id ...> [arg=value ...]
 
 Manage endpoints associated with a deployment.
 
-
-### Create a new endpoint for a deployment
-
-Create a new endpoint for a deployment.
+Manage endpoints associated with a deployment.
 
 **Usage:**
 
 ```
-scw datawarehouse endpoint create [arg=value ...]
+scw datawarehouse endpoint
 ```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id |  | UUID of the deployment |
-| endpoint.private-network.private-network-id |  | UUID of the Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
-
-
-
-### Delete an endpoint from a deployment
-
-Delete an endpoint from a deployment.
-
-**Usage:**
-
-```
-scw datawarehouse endpoint delete [arg=value ...]
-```
-
-
-**Args:**
-
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the Endpoint to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
