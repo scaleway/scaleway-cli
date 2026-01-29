@@ -4,7 +4,7 @@ go 1.25.5
 
 require (
 	github.com/aws/aws-sdk-go-v2 v1.41.1
-	github.com/aws/aws-sdk-go-v2/service/s3 v1.95.1
+	github.com/aws/aws-sdk-go-v2/service/s3 v1.96.0
 	github.com/buildpacks/pack v0.39.1
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v1.3.10
@@ -14,7 +14,7 @@ require (
 	github.com/docker/docker v28.5.2+incompatible
 	github.com/dustin/go-humanize v1.0.1
 	github.com/fatih/color v1.18.0
-	github.com/getsentry/sentry-go v0.41.0
+	github.com/getsentry/sentry-go v0.42.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674
 	github.com/hashicorp/go-version v1.8.0
