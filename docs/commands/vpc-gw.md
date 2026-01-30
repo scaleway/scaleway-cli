@@ -366,7 +366,7 @@ scw vpc-gw gateway delete <gateway-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | gateway-id | Required | ID of the gateway to delete |
-| delete-ip |  | Defines whether the PGW's IP should be deleted |
+| with-ip | Default: `prompt`<br />One of: `prompt`, `true`, `false` | Delete the IP attached to the gateway |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
