@@ -15,6 +15,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
 	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	datalab "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datalab/v1beta1"
 	datawarehouse "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
@@ -117,6 +118,7 @@ func GetCommands() *core.Commands {
 		interlink.GetCommands(),
 		s2s_vpn.GetCommands(),
 		searchdb.GetCommands(),
+		datalab.GetCommands(),
 		datawarehouse.GetCommands(),
 	)
 
