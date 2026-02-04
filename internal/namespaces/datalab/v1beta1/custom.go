@@ -1,4 +1,4 @@
-gitpackage datalab
+package datalab
 
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
