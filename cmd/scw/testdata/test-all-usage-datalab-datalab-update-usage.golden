@@ -9,7 +9,7 @@ ARGS:
   datalab-id        The unique identifier of the Data Lab.
   [name]            The updated name of the Data Lab.
   [description]     The updated description of the Data Lab.
-  [tags.{index}]    The updated tags of the Data Lab
+  [tags.{index}]    The updated tags of the Data Lab.
   [node-count]      The updated node count of the Data Lab. Scale up or down the number of worker nodes.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 

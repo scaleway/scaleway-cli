@@ -21,17 +21,17 @@ func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		datalabRoot(),
 		datalabDatalab(),
-		datalabNodeTypes(),
-		datalabNotebookVersions(),
-		datalabClusterVersions(),
+		datalabNodeType(),
+		datalabNotebookVersion(),
+		datalabClusterVersion(),
 		datalabDatalabCreate(),
 		datalabDatalabGet(),
 		datalabDatalabList(),
 		datalabDatalabUpdate(),
 		datalabDatalabDelete(),
-		datalabNodeTypesList(),
-		datalabNotebookVersionsList(),
-		datalabClusterVersionsList(),
+		datalabNodeTypeList(),
+		datalabNotebookVersionList(),
+		datalabClusterVersionList(),
 	)
 }
 
@@ -46,36 +46,36 @@ func datalabRoot() *core.Command {
 func datalabDatalab() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `Manage your Datalab.`,
+		Long:      `Manage your Data Labs.`,
 		Namespace: "datalab",
 		Resource:  "datalab",
 	}
 }
 
-func datalabNodeTypes() *core.Command {
+func datalabNodeType() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `List available node types. These are the possible compute units that can host the Spark cluster.`,
+		Long:      `List available node types.`,
 		Namespace: "datalab",
-		Resource:  "node-types",
+		Resource:  "node-type",
 	}
 }
 
-func datalabNotebookVersions() *core.Command {
+func datalabNotebookVersion() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `List available notebook versions. Currently it includes JupyterLab.`,
+		Long:      `List available notebook versions.`,
 		Namespace: "datalab",
-		Resource:  "notebook-versions",
+		Resource:  "notebook-version",
 	}
 }
 
-func datalabClusterVersions() *core.Command {
+func datalabClusterVersion() *core.Command {
 	return &core.Command{
 		Short:     ``,
 		Long:      `Lists the Spark versions available for Data Lab creation.`,
 		Namespace: "datalab",
-		Resource:  "cluster-versions",
+		Resource:  "cluster-version",
 	}
 }
 
@@ -131,7 +131,7 @@ func datalabDatalabCreate() *core.Command {
 			},
 			{
 				Name:       "has-notebook",
-				Short:      `Whether a JupyterLab notebook shall be created with the Data Lab or not.`,
+				Short:      `Select this option to include a notebook as part of the Data Lab.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -161,7 +161,7 @@ func datalabDatalabCreate() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `The private network to which the Data Lab is connected. Important for accessing the Spark Master URL from a private cluster.`,
+				Short:      `The unique identifier of the private network the Data Lab will be attached to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -320,7 +320,7 @@ func datalabDatalabUpdate() *core.Command {
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The updated tags of the Data Lab`,
+				Short:      `The updated tags of the Data Lab.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -375,12 +375,12 @@ func datalabDatalabDelete() *core.Command {
 	}
 }
 
-func datalabNodeTypesList() *core.Command {
+func datalabNodeTypeList() *core.Command {
 	return &core.Command{
 		Short:     `List datalab resources`,
 		Long:      `List datalab resources.`,
 		Namespace: "datalab",
-		Resource:  "node-types",
+		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(datalab.ListNodeTypesRequest{}),
@@ -406,7 +406,7 @@ func datalabNodeTypesList() *core.Command {
 			},
 			{
 				Name:       "targets.{index}",
-				Short:      `Filter on the wanted targets, whether it's for main node or worker.`,
+				Short:      `Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -453,12 +453,12 @@ func datalabNodeTypesList() *core.Command {
 	}
 }
 
-func datalabNotebookVersionsList() *core.Command {
+func datalabNotebookVersionList() *core.Command {
 	return &core.Command{
 		Short:     `List datalab resources`,
 		Long:      `List datalab resources.`,
 		Namespace: "datalab",
-		Resource:  "notebook-versions",
+		Resource:  "notebook-version",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(datalab.ListNotebookVersionsRequest{}),
@@ -499,12 +499,12 @@ func datalabNotebookVersionsList() *core.Command {
 	}
 }
 
-func datalabClusterVersionsList() *core.Command {
+func datalabClusterVersionList() *core.Command {
 	return &core.Command{
 		Short:     `List datalab resources`,
 		Long:      `List datalab resources.`,
 		Namespace: "datalab",
-		Resource:  "cluster-versions",
+		Resource:  "cluster-version",
 		Verb:      "list",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(datalab.ListClusterVersionsRequest{}),

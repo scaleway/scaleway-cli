@@ -28,7 +28,7 @@ List datalab resources.
 **Usage:**
 
 ```
-scw datalab cluster-versions list [arg=value ...]
+scw datalab cluster-version list [arg=value ...]
 ```
 
 
@@ -43,7 +43,7 @@ scw datalab cluster-versions list [arg=value ...]
 
 ## 
 
-Manage your Datalab.
+Manage your Data Labs.
 
 
 ### Create datalab resources
@@ -68,11 +68,11 @@ scw datalab datalab create [arg=value ...]
 | main.node-type |  |  |
 | worker.node-type |  |  |
 | worker.node-count |  |  |
-| has-notebook |  | Whether a JupyterLab notebook shall be created with the Data Lab or not. |
+| has-notebook |  | Select this option to include a notebook as part of the Data Lab. |
 | spark-version |  | The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions. |
 | total-storage.type | One of: `unknown_type`, `sbs_5k` |  |
 | total-storage.size |  |  |
-| private-network-id |  | The private network to which the Data Lab is connected. Important for accessing the Spark Master URL from a private cluster. |
+| private-network-id |  | The unique identifier of the private network the Data Lab will be attached to. |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -159,7 +159,7 @@ scw datalab datalab update [arg=value ...]
 | datalab-id | Required | The unique identifier of the Data Lab. |
 | name |  | The updated name of the Data Lab. |
 | description |  | The updated description of the Data Lab. |
-| tags.{index} |  | The updated tags of the Data Lab |
+| tags.{index} |  | The updated tags of the Data Lab. |
 | node-count |  | The updated node count of the Data Lab. Scale up or down the number of worker nodes. |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -167,7 +167,7 @@ scw datalab datalab update [arg=value ...]
 
 ## 
 
-List available node types. These are the possible compute units that can host the Spark cluster.
+List available node types.
 
 
 ### List datalab resources
@@ -177,7 +177,7 @@ List datalab resources.
 **Usage:**
 
 ```
-scw datalab node-types list [arg=value ...]
+scw datalab node-type list [arg=value ...]
 ```
 
 
@@ -186,7 +186,7 @@ scw datalab node-types list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | order-by | One of: `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc` | The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`. |
-| targets.{index} | One of: `unknown_target`, `notebook`, `worker` | Filter on the wanted targets, whether it's for main node or worker. |
+| targets.{index} | One of: `unknown_target`, `notebook`, `worker` | Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node. |
 | resource-type | One of: `all`, `gpu`, `cpu` | Filter based on node type ( `cpu`/`gpu`/`all` ). |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -194,7 +194,7 @@ scw datalab node-types list [arg=value ...]
 
 ## 
 
-List available notebook versions. Currently it includes JupyterLab.
+List available notebook versions.
 
 
 ### List datalab resources
@@ -204,7 +204,7 @@ List datalab resources.
 **Usage:**
 
 ```
-scw datalab notebook-versions list [arg=value ...]
+scw datalab notebook-version list [arg=value ...]
 ```
 
 

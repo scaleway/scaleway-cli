@@ -13,11 +13,11 @@ ARGS:
   [main.node-type]       
   [worker.node-type]     
   [worker.node-count]    
-  [has-notebook]         Whether a JupyterLab notebook shall be created with the Data Lab or not.
+  [has-notebook]         Select this option to include a notebook as part of the Data Lab.
   [spark-version]        The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions.
   [total-storage.type]    (unknown_type | sbs_5k)
   [total-storage.size]   
-  [private-network-id]   The private network to which the Data Lab is connected. Important for accessing the Spark Master URL from a private cluster.
+  [private-network-id]   The unique identifier of the private network the Data Lab will be attached to.
   [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
