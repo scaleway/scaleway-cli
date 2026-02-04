@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   add         Add route rules
+  edit        Edit all route rules of a route stage
   list        List route rules
   set         Set route rules
 
