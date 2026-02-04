@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update datalab resources.
+
+USAGE:
+  scw datalab datalab update [arg=value ...]
+
+ARGS:
+  datalab-id        The unique identifier of the Data Lab.
+  [name]            The updated name of the Data Lab.
+  [description]     The updated description of the Data Lab.
+  [tags.{index}]    The updated tags of the Data Lab
+  [node-count]      The updated node count of the Data Lab. Scale up or down the number of worker nodes.
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
