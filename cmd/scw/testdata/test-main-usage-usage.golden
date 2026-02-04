@@ -6,6 +6,9 @@ USAGE:
 AI COMMANDS:
   inference     This API allows you to handle your Managed Inference services
 
+AVAILABLE COMMANDS:
+  datalab       Data Lab API for Apache Spark™
+
 BAREMETAL COMMANDS:
   apple-silicon Apple silicon API
   baremetal     Elastic Metal API
