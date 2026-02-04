@@ -22,6 +22,7 @@ require (
 	github.com/mattn/go-colorable v0.1.14
 	github.com/mattn/go-isatty v0.0.20
 	github.com/moby/buildkit v0.27.1
+	github.com/moby/go-archive v0.2.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260206103045-4df7d84ec970
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
@@ -97,6 +98,7 @@ require (
 	github.com/containerd/stargz-snapshotter/estargz v0.18.1 // indirect
 	github.com/containerd/ttrpc v1.2.7 // indirect
 	github.com/containerd/typeurl/v2 v2.2.3 // indirect
+	github.com/creack/pty v1.1.24 // indirect
 	github.com/cyphar/filepath-securejoin v0.6.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
@@ -145,7 +147,6 @@ require (
 	github.com/mitchellh/go-homedir v1.1.0 // indirect
 	github.com/mitchellh/ioprogress v0.0.0-20180201004757-6a23b12fa88e // indirect
 	github.com/moby/docker-image-spec v1.3.1 // indirect
-	github.com/moby/go-archive v0.2.0 // indirect
 	github.com/moby/locker v1.0.1 // indirect
 	github.com/moby/moby/api v1.52.0 // indirect
 	github.com/moby/moby/client v0.1.0 // indirect
@@ -220,6 +221,9 @@ require (
 )
 
 tool gotest.tools/gotestsum
+
+// Force compatible version of docker/cli to avoid Go 1.23 iterator issues in v29.1.4
+replace github.com/docker/cli => github.com/docker/cli v28.5.0+incompatible
 
 ignore (
 	./docs
