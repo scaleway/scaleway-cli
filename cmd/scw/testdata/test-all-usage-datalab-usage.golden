@@ -6,10 +6,10 @@ USAGE:
   scw datalab <command>
 
 AVAILABLE COMMANDS:
-  cluster-versions  
-  datalab           
-  node-types        
-  notebook-versions 
+  cluster-version  
+  datalab          
+  node-type        
+  notebook-version 
 
 FLAGS:
   -h, --help                help for datalab
