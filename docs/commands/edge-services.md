@@ -34,6 +34,7 @@ Edge Services API
   - [List purge requests](#list-purge-requests)
 - [Route-rules management commands](#route-rules-management-commands)
   - [Add route rules](#add-route-rules)
+  - [Edit all route rules of a route stage](#edit-all-route-rules-of-a-route-stage)
   - [List route rules](#list-route-rules)
   - [Set route rules](#set-route-rules)
 - [Route-stage management commands](#route-stage-management-commands)
@@ -652,6 +653,30 @@ scw edge-services route-rules add <route-stage-id ...> [arg=value ...]
 | route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
 | after-position |  | Add rules after the given position |
 | before-position |  | Add rules before the given position |
+
+
+
+### Edit all route rules of a route stage
+
+Edit all route rules of a route stage.
+
+If backend-stage-id is provided, the editor will only show rule_http_match fields and the specified backend will be applied to all rules automatically.
+Otherwise, opens the editor with full rules including backend_stage_id for each rule.
+
+**Usage:**
+
+```
+scw edge-services route-rules edit <route-stage-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-stage-id | Required | ID of the route stage to edit |
+| backend-stage-id |  | ID of the backend stage to apply to all rules (simplifies editing when using a single backend) |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
 
 
 

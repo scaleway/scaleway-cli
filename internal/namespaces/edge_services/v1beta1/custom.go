@@ -7,5 +7,9 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("edge-services").Groups = []string{"network"}
 
+	cmds.Merge(core.NewCommands(
+		edgeServicesRouteRulesEditCommand(),
+	))
+
 	return cmds
 }
