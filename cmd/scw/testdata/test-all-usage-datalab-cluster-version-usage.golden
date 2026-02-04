@@ -1,19 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Manage your Data Labs.
+Lists the Spark versions available for Data Lab creation.
 
 USAGE:
-  scw datalab datalab <command>
+  scw datalab cluster-version <command>
 
 AVAILABLE COMMANDS:
-  create      Create datalab resources
-  delete      Delete datalab resources
-  get         Get datalab resources
   list        List datalab resources
-  update      Update datalab resources
 
 FLAGS:
-  -h, --help                help for datalab
+  -h, --help                help for cluster-version
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
@@ -22,4 +18,4 @@ GLOBAL FLAGS:
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
 
-Use "scw datalab datalab [command] --help" for more information about a command.
+Use "scw datalab cluster-version [command] --help" for more information about a command.
