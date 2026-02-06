@@ -773,6 +773,13 @@ func vpcRouteCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "nexthop-vpc-connector-id",
+				Short:      `ID of the nexthop VPC Connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -872,6 +879,13 @@ func vpcRouteUpdate() *core.Command {
 			{
 				Name:       "nexthop-private-network-id",
 				Short:      `ID of the nexthop private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-vpc-connector-id",
+				Short:      `ID of the nexthop VPC connector`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1161,6 +1175,13 @@ func vpcRouteList() *core.Command {
 					"baremetal_private_nic",
 					"apple_silicon_private_nic",
 				},
+			},
+			{
+				Name:       "nexthop-vpc-connector-id",
+				Short:      `Next hop VPC connector ID to filter for. Only routes with a matching next hop VPC connector ID will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "contains",

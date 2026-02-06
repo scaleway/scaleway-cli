@@ -12,6 +12,7 @@ ARGS:
   [destination]                  Destination of the Route
   [nexthop-resource-id]          ID of the nexthop resource
   [nexthop-private-network-id]   ID of the nexthop private network
+  [nexthop-vpc-connector-id]     ID of the nexthop VPC Connector
   [region=fr-par]                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
