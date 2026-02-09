@@ -6,17 +6,21 @@ USAGE:
   scw s2s-vpn vpn-gateway create [arg=value ...]
 
 ARGS:
-  [project-id]                   Project ID to use. If none is passed the default project ID will be used
-  name                           Name of the VPN gateway
-  [tags.{index}]                 List of tags to apply to the VPN gateway
-  gateway-type                   VPN gateway type (commercial offer type)
-  [public-config.ipam-ipv4-id]   
-  [public-config.ipam-ipv6-id]   
-  private-network-id             ID of the Private Network to attach to the VPN gateway
-  [ipam-private-ipv4-id]         ID of the IPAM private IPv4 address to attach to the VPN gateway
-  [ipam-private-ipv6-id]         ID of the IPAM private IPv6 address to attach to the VPN gateway
-  [zone]                         Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed.
-  [region=fr-par]                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [project-id]                                             Project ID to use. If none is passed the default project ID will be used
+  name                                                     Name of the VPN gateway
+  [tags.{index}]                                           List of tags to apply to the VPN gateway
+  gateway-type                                             VPN gateway type (commercial offer type)
+  [public-config.ipam-ipv4-id]                             
+  [public-config.ipam-ipv6-id]                             
+  private-network-id                                       ID of the Private Network to attach to the VPN gateway
+  [public-tunnel-config.single-ipv4-tunnel.ipam-id]        
+  [public-tunnel-config.single-ipv6-tunnel.ipam-id]        
+  [public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv4-id]   
+  [public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv6-id]   
+  [ipam-private-ipv4-id]                                   ID of the IPAM private IPv4 address to attach to the VPN gateway
+  [ipam-private-ipv6-id]                                   ID of the IPAM private IPv6 address to attach to the VPN gateway
+  [zone]                                                   Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed.
+  [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

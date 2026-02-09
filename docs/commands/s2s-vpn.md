@@ -547,6 +547,10 @@ scw s2s-vpn vpn-gateway create [arg=value ...]
 | public-config.ipam-ipv4-id |  |  |
 | public-config.ipam-ipv6-id |  |  |
 | private-network-id | Required | ID of the Private Network to attach to the VPN gateway |
+| public-tunnel-config.single-ipv4-tunnel.ipam-id |  |  |
+| public-tunnel-config.single-ipv6-tunnel.ipam-id |  |  |
+| public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv4-id |  |  |
+| public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv6-id |  |  |
 | ipam-private-ipv4-id |  | ID of the IPAM private IPv4 address to attach to the VPN gateway |
 | ipam-private-ipv6-id |  | ID of the IPAM private IPv6 address to attach to the VPN gateway |
 | zone |  | Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed. |
