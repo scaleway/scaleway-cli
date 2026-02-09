@@ -342,6 +342,30 @@ func s2sVpnVpnGatewayCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "public-tunnel-config.single-ipv4-tunnel.ipam-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-tunnel-config.single-ipv6-tunnel.ipam-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv4-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv6-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "ipam-private-ipv4-id",
 				Short:      `ID of the IPAM private IPv4 address to attach to the VPN gateway`,
 				Required:   false,
