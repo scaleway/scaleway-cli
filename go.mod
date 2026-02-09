@@ -98,7 +98,6 @@ require (
 	github.com/containerd/stargz-snapshotter/estargz v0.18.1 // indirect
 	github.com/containerd/ttrpc v1.2.7 // indirect
 	github.com/containerd/typeurl/v2 v2.2.3 // indirect
-	github.com/creack/pty v1.1.24 // indirect
 	github.com/cyphar/filepath-securejoin v0.6.0 // indirect
 	github.com/davecgh/go-spew v1.1.2-0.20180830191138-d8f796af33cc // indirect
 	github.com/dimchansky/utfbom v1.1.1 // indirect
@@ -221,9 +220,6 @@ require (
 )
 
 tool gotest.tools/gotestsum
-
-// Force compatible version of docker/cli to avoid Go 1.23 iterator issues in v29.1.4
-replace github.com/docker/cli => github.com/docker/cli v28.5.0+incompatible
 
 ignore (
 	./docs

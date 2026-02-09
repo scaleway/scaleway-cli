@@ -3,8 +3,9 @@
 package main
 
 import (
-	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 	"syscall/js"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/jshelpers"
 )
 
 func wasmTestFromSlice(_ js.Value, _ []js.Value) any {
