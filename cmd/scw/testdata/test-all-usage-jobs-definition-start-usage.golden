@@ -1,16 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Run an existing job definition by its unique identifier. This will create a new job run.
+Run an existing job definition using its unique identifier and create a new job run.
 
 USAGE:
   scw jobs definition start <job-definition-id ...> [arg=value ...]
 
 ARGS:
   job-definition-id               UUID of the job definition to start
-  [command]                       Contextual startup command for this specific job run
+  [startup-command.{index}]       Contextual startup command for this specific job run.
+  [args.{index}]                  Contextual arguments for this specific job run.
   [environment-variables.{key}]   Contextual environment variables for this specific job run
   [replicas]                      Number of jobs to run
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [command]   Contextual startup command for this specific job run.
 
 FLAGS:
   -h, --help                help for start
