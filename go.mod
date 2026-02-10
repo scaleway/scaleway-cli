@@ -5,7 +5,7 @@ go 1.25.5
 require (
 	github.com/aws/aws-sdk-go-v2 v1.41.1
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.96.0
-	github.com/buildpacks/pack v0.39.1
+	github.com/buildpacks/pack v0.40.0
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v1.3.10
 	github.com/chzyer/readline v1.5.1
@@ -77,8 +77,8 @@ require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bitfield/gotestdox v0.2.2 // indirect
-	github.com/buildpacks/imgutil v0.0.0-20250909162057-9db16db815e3 // indirect
-	github.com/buildpacks/lifecycle v0.20.19 // indirect
+	github.com/buildpacks/imgutil v0.0.0-20251202182233-51c1c8c186ea // indirect
+	github.com/buildpacks/lifecycle v0.21.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
 	github.com/chainguard-dev/kaniko v1.25.5 // indirect
 	github.com/charmbracelet/colorprofile v0.2.3-0.20250311203215-f60798e515dc // indirect
@@ -148,7 +148,7 @@ require (
 	github.com/moby/docker-image-spec v1.3.1 // indirect
 	github.com/moby/locker v1.0.1 // indirect
 	github.com/moby/moby/api v1.52.0 // indirect
-	github.com/moby/moby/client v0.1.0 // indirect
+	github.com/moby/moby/client v0.2.1 // indirect
 	github.com/moby/patternmatcher v0.6.0 // indirect
 	github.com/moby/sys/atomicwriter v0.1.0 // indirect
 	github.com/moby/sys/sequential v0.6.0 // indirect
