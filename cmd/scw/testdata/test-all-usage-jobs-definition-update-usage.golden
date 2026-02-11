@@ -8,17 +8,21 @@ USAGE:
 ARGS:
   job-definition-id               UUID of the job definition to update
   [name]                          Name of the job definition
-  [cpu-limit]                     CPU limit of the job
+  [cpu-limit]                     CPU limit of the job (in mvCPU)
   [memory-limit]                  Memory limit of the job (in MiB)
   [local-storage-capacity]        Local storage capacity of the job (in MiB)
   [image-uri]                     Image to use for the job
-  [command]                       Startup command
+  [startup-command.{index}]       Job startup command. Overrides the default defined in the job image.
+  [args.{index}]                  Job arguments. Overrides the default arguments defined in the job image.
   [environment-variables.{key}]   Environment variables of the job
   [description]                   Description of the job
   [job-timeout]                   Timeout of the job in seconds
   [cron-schedule.schedule]        
   [cron-schedule.timezone]        
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [command]   Startup command. If empty or not defined, the image's default command is used.
 
 FLAGS:
   -h, --help                help for update

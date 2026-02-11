@@ -8,7 +8,7 @@ AVAILABLE COMMANDS:
   delete      Delete an existing job definition by its unique identifier
   get         Get a job definition by its unique identifier
   list        List all your job definitions with filters
-  start       Run an existing job definition by its unique identifier. This will create a new job run
+  start       Run an existing job definition using its unique identifier and create a new job run
   update      Update an existing job definition associated with the specified unique identifier
 
 FLAGS:

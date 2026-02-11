@@ -6,7 +6,7 @@ USAGE:
 AVAILABLE COMMANDS:
   get         Get a job run by its unique identifier
   list        List all job runs with filters
-  stop        Stop a job run by its unique identifier
+  stop        Stop a job run using its unique identifier
   wait        Wait for a job run to reach a stable state
 
 FLAGS:
