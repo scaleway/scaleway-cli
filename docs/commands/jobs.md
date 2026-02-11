@@ -7,12 +7,12 @@ This API allows you to manage your Serverless Jobs.
   - [Delete an existing job definition by its unique identifier](#delete-an-existing-job-definition-by-its-unique-identifier)
   - [Get a job definition by its unique identifier](#get-a-job-definition-by-its-unique-identifier)
   - [List all your job definitions with filters](#list-all-your-job-definitions-with-filters)
-  - [Run an existing job definition by its unique identifier. This will create a new job run](#run-an-existing-job-definition-by-its-unique-identifier.-this-will-create-a-new-job-run)
+  - [Run an existing job definition using its unique identifier and create a new job run](#run-an-existing-job-definition-using-its-unique-identifier-and-create-a-new-job-run)
   - [Update an existing job definition associated with the specified unique identifier](#update-an-existing-job-definition-associated-with-the-specified-unique-identifier)
 - [](#)
   - [Get a job run by its unique identifier](#get-a-job-run-by-its-unique-identifier)
   - [List all job runs with filters](#list-all-job-runs-with-filters)
-  - [Stop a job run by its unique identifier](#stop-a-job-run-by-its-unique-identifier)
+  - [Stop a job run using its unique identifier](#stop-a-job-run-using-its-unique-identifier)
   - [Wait for a job run to reach a stable state](#wait-for-a-job-run-to-reach-a-stable-state)
 - [](#)
   - [Create a secret reference within a job definition](#create-a-secret-reference-within-a-job-definition)
@@ -43,11 +43,13 @@ scw jobs definition create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required<br />Default: `<generated>` | Name of the job definition |
-| cpu-limit | Required | CPU limit of the job |
+| cpu-limit | Required | CPU limit of the job (in mvCPU) |
 | memory-limit | Required | Memory limit of the job (in MiB) |
 | local-storage-capacity |  | Local storage capacity of the job (in MiB) |
 | image-uri | Required | Image to use for the job |
-| command |  | Startup command. If empty or not defined, the image's default command is used. |
+| ~~command~~ | Deprecated | Startup command. If empty or not defined, the image's default command is used. |
+| startup-command.{index} |  | Job startup command. Overrides the default defined in the job image. |
+| args.{index} |  | Job arguments. Overrides the default arguments defined in the job image. |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | environment-variables.{key} |  | Environment variables of the job |
 | description |  | Description of the job |
@@ -120,9 +122,9 @@ scw jobs definition list [arg=value ...]
 
 
 
-### Run an existing job definition by its unique identifier. This will create a new job run
+### Run an existing job definition using its unique identifier and create a new job run
 
-Run an existing job definition by its unique identifier. This will create a new job run.
+Run an existing job definition using its unique identifier and create a new job run.
 
 **Usage:**
 
@@ -136,7 +138,9 @@ scw jobs definition start <job-definition-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | job-definition-id | Required | UUID of the job definition to start |
-| command |  | Contextual startup command for this specific job run |
+| ~~command~~ | Deprecated | Contextual startup command for this specific job run. |
+| startup-command.{index} |  | Contextual startup command for this specific job run. |
+| args.{index} |  | Contextual arguments for this specific job run. |
 | environment-variables.{key} |  | Contextual environment variables for this specific job run |
 | replicas |  | Number of jobs to run |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -160,11 +164,13 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 |------|---|-------------|
 | job-definition-id | Required | UUID of the job definition to update |
 | name |  | Name of the job definition |
-| cpu-limit |  | CPU limit of the job |
+| cpu-limit |  | CPU limit of the job (in mvCPU) |
 | memory-limit |  | Memory limit of the job (in MiB) |
 | local-storage-capacity |  | Local storage capacity of the job (in MiB) |
 | image-uri |  | Image to use for the job |
-| command |  | Startup command |
+| ~~command~~ | Deprecated | Startup command. If empty or not defined, the image's default command is used. |
+| startup-command.{index} |  | Job startup command. Overrides the default defined in the job image. |
+| args.{index} |  | Job arguments. Overrides the default arguments defined in the job image. |
 | environment-variables.{key} |  | Environment variables of the job |
 | description |  | Description of the job |
 | job-timeout |  | Timeout of the job in seconds |
@@ -217,21 +223,22 @@ scw jobs run list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | job-definition-id |  |  |
 | project-id |  |  |
-| state | One of: `unknown_state`, `queued`, `scheduled`, `running`, `succeeded`, `failed`, `canceled`, `internal_error` |  |
-| states.{index} | One of: `unknown_state`, `queued`, `scheduled`, `running`, `succeeded`, `failed`, `canceled`, `internal_error` |  |
+| state | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted` |  |
+| states.{index} | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted` |  |
+| reasons.{index} | One of: `unknown_reason`, `invalid_request`, `timeout`, `cancellation`, `technical_error`, `image_not_found`, `invalid_image`, `memory_usage_exceeded`, `storage_usage_exceeded`, `exited_with_error`, `secret_disabled`, `secret_not_found`, `quota_exceeded` |  |
 | organization-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
-### Stop a job run by its unique identifier
+### Stop a job run using its unique identifier
 
-Stop a job run by its unique identifier.
+Stop a job run using its unique identifier.
 
 **Usage:**
 
 ```
-scw jobs run stop <job-run-id ...> [arg=value ...]
+scw jobs run stop [arg=value ...]
 ```
 
 
@@ -308,7 +315,6 @@ scw jobs secret delete [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
 | secret-id | Required | UUID of the secret reference within the job |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -329,7 +335,6 @@ scw jobs secret get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
 | secret-id | Required | UUID of the secret reference within the job |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -370,7 +375,6 @@ scw jobs secret update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
 | secret-id | Required | UUID of the secret reference within the job |
 | secret-manager-version |  | Version of the secret in Secret Manager |
 | path |  | Path of the secret to mount inside the job (either `path` or `env_var_name` must be set) |

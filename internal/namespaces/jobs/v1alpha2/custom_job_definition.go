@@ -6,7 +6,7 @@ import (
 	"fmt"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha1"
+	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 

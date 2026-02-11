@@ -1,9 +1,9 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Stop a job run by its unique identifier.
+Stop a job run using its unique identifier.
 
 USAGE:
-  scw jobs run stop <job-run-id ...> [arg=value ...]
+  scw jobs run stop [arg=value ...]
 
 ARGS:
   job-run-id        UUID of the job run to stop
