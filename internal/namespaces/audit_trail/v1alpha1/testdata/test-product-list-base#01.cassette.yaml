@@ -1,0 +1,127 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"products":[{"title":"Account", "name":"account", "services":[{"name":"scaleway.account.v2.GDPRApi",
+      "methods":["CreateGDPRRequest", "DownloadGDPRExport"]}, {"name":"scaleway.account.v3.OrganizationApi",
+      "methods":["ChangeSupportPlan", "CloseOrganization", "SetPicture"]}, {"name":"scaleway.account.v3.UserApi",
+      "methods":["ChangeUserEmail", "ChangeUserPassword", "ConfirmPhoneValidation",
+      "CreateMFAOTP", "DeleteMFAOTP", "SendPhoneValidation", "UpdateUser", "UpdateUserPreferences",
+      "ValidateMFAOTP"]}]}, {"title":"Apple Silicon", "name":"apple-silicon", "services":[{"name":"scaleway.apple_silicon.v1alpha1.Api",
+      "methods":["BatchCreateServers", "CreateServer", "DeleteServer", "RebootServer",
+      "ReinstallServer", "UpdateServer"]}]}, {"title":"Elastic Metal", "name":"baremetal",
+      "services":[{"name":"scaleway.baremetal.v1.Api", "methods":["AddOptionServer",
+      "CreateServer", "DeleteOptionServer", "DeleteServer", "InstallServer", "MigrateServerToMonthlyOffer",
+      "RebootServer", "StartBMCAccess", "StartServer", "StopBMCAccess", "StopServer",
+      "UpdateIP", "UpdateServer", "UpdateSetting"]}]}, {"title":"IAM", "name":"iam",
+      "services":[{"name":"scaleway.iam.v1alpha1.Api", "methods":["AddGroupMember",
+      "AddGroupMembers", "AddSamlCertificate", "ClonePolicy", "CreateAPIKey", "CreateApplication",
+      "CreateGroup", "CreateJWT", "CreatePolicy", "CreateSSHKey", "CreateUser", "CreateUserMFAOTP",
+      "DeleteAPIKey", "DeleteApplication", "DeleteGroup", "DeleteJWT", "DeletePolicy",
+      "DeleteSSHKey", "DeleteSaml", "DeleteSamlCertificate", "DeleteUser", "DeleteUserMFAOTP",
+      "EnableOrganizationSaml", "LockUser", "RemoveGroupMember", "SetGroupMembers",
+      "SetRules", "UnlockUser", "UpdateAPIKey", "UpdateApplication", "UpdateGroup",
+      "UpdateOrganizationSecuritySettings", "UpdatePolicy", "UpdateSSHKey", "UpdateSaml",
+      "UpdateUser", "UpdateUserPassword", "UpdateUserUsername", "ValidateUserMFAOTP"]},
+      {"name":"scaleway.iam.v1alpha1.UnauthenticatedApi", "methods":["CheckLoginMFAOTP",
+      "CommitLogin", "CreateMagicCodeLogin", "CreateOAuth2Login", "CreatePasswordLogin",
+      "CreateSamlLogin", "InitiateMagicCodeLogin", "InitiateOAuth2Login", "InitiateSamlLogin",
+      "RenewJWT"]}]}, {"title":"Key Manager", "name":"key-manager", "services":[{"name":"scaleway.key_manager.v1alpha1.Api",
+      "methods":["CreateKey", "DeleteKey", "DeleteKeyMaterial", "DisableKey", "EnableKey",
+      "ImportKeyMaterial", "ProtectKey", "RestoreKey", "RotateKey", "UnprotectKey",
+      "UpdateKey"]}]}, {"title":"Kubernetes", "name":"kubernetes", "services":[{"name":"scaleway.k8s.v1.Api",
+      "methods":["AddClusterACLRules", "CreateCluster", "CreateExternalNode", "CreatePool",
+      "DeleteACLRule", "DeleteCluster", "DeleteNode", "DeletePool", "MigrateClusterToSBSCSI",
+      "RebootNode", "ReplaceNode", "ResetClusterAdminToken", "SetClusterACLRules",
+      "SetClusterType", "UpdateCluster", "UpdatePool", "UpgradeCluster", "UpgradePool"]}]},
+      {"title":"Load Balancer", "name":"load-balancer", "services":[{"name":"scaleway.lb.v1.ZonedApi",
+      "methods":["AddBackendServers", "CreateAcl", "CreateBackend", "CreateCertificate",
+      "CreateFrontend", "CreateIp", "CreateLb", "CreateRoute", "DeleteAcl", "DeleteBackend",
+      "DeleteCertificate", "DeleteFrontend", "DeleteLb", "DeleteRoute", "MigrateLb",
+      "ReleaseIp", "RemoveBackendServers", "SetAcls", "SetBackendServers", "UpdateAcl",
+      "UpdateBackend", "UpdateCertificate", "UpdateFrontend", "UpdateHealthCheck",
+      "UpdateIp", "UpdateLb", "UpdateRoute"]}]}, {"title":"Secret Manager", "name":"secret-manager",
+      "services":[{"name":"scaleway.secret_manager.v1alpha1.Api", "methods":["AddSecretOwner",
+      "CreateSecret", "CreateSecretVersion", "DeleteSecret", "DestroySecretVersion",
+      "DisableSecretVersion", "EnableSecretVersion", "ProtectSecret", "UnprotectSecret",
+      "UpdateSecret", "UpdateSecretVersion"]}, {"name":"scaleway.secret_manager.v1beta1.Api",
+      "methods":["AddSecretOwner", "CreateSecret", "CreateSecretVersion", "DeleteSecret",
+      "DeleteSecretVersion", "DisableSecretVersion", "EnableSecretVersion", "ProtectSecret",
+      "RestoreSecret", "RestoreSecretVersion", "UnprotectSecret", "UpdateSecret",
+      "UpdateSecretVersion"]}]}], "total_count":8}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/audit-trail/v1alpha1/regions/fr-par/products?organization_id=951df375-e094-4d26-97c1-ba548eeb9c42
+    method: GET
+  response:
+    body: '{"products":[{"title":"Account", "name":"account", "services":[{"name":"scaleway.account.v2.GDPRApi",
+      "methods":["CreateGDPRRequest", "DownloadGDPRExport"]}, {"name":"scaleway.account.v3.OrganizationApi",
+      "methods":["ChangeSupportPlan", "CloseOrganization", "SetPicture"]}, {"name":"scaleway.account.v3.UserApi",
+      "methods":["ChangeUserEmail", "ChangeUserPassword", "ConfirmPhoneValidation",
+      "CreateMFAOTP", "DeleteMFAOTP", "SendPhoneValidation", "UpdateUser", "UpdateUserPreferences",
+      "ValidateMFAOTP"]}]}, {"title":"Apple Silicon", "name":"apple-silicon", "services":[{"name":"scaleway.apple_silicon.v1alpha1.Api",
+      "methods":["BatchCreateServers", "CreateServer", "DeleteServer", "RebootServer",
+      "ReinstallServer", "UpdateServer"]}]}, {"title":"Elastic Metal", "name":"baremetal",
+      "services":[{"name":"scaleway.baremetal.v1.Api", "methods":["AddOptionServer",
+      "CreateServer", "DeleteOptionServer", "DeleteServer", "InstallServer", "MigrateServerToMonthlyOffer",
+      "RebootServer", "StartBMCAccess", "StartServer", "StopBMCAccess", "StopServer",
+      "UpdateIP", "UpdateServer", "UpdateSetting"]}]}, {"title":"IAM", "name":"iam",
+      "services":[{"name":"scaleway.iam.v1alpha1.Api", "methods":["AddGroupMember",
+      "AddGroupMembers", "AddSamlCertificate", "ClonePolicy", "CreateAPIKey", "CreateApplication",
+      "CreateGroup", "CreateJWT", "CreatePolicy", "CreateSSHKey", "CreateUser", "CreateUserMFAOTP",
+      "DeleteAPIKey", "DeleteApplication", "DeleteGroup", "DeleteJWT", "DeletePolicy",
+      "DeleteSSHKey", "DeleteSaml", "DeleteSamlCertificate", "DeleteUser", "DeleteUserMFAOTP",
+      "EnableOrganizationSaml", "LockUser", "RemoveGroupMember", "SetGroupMembers",
+      "SetRules", "UnlockUser", "UpdateAPIKey", "UpdateApplication", "UpdateGroup",
+      "UpdateOrganizationSecuritySettings", "UpdatePolicy", "UpdateSSHKey", "UpdateSaml",
+      "UpdateUser", "UpdateUserPassword", "UpdateUserUsername", "ValidateUserMFAOTP"]},
+      {"name":"scaleway.iam.v1alpha1.UnauthenticatedApi", "methods":["CheckLoginMFAOTP",
+      "CommitLogin", "CreateMagicCodeLogin", "CreateOAuth2Login", "CreatePasswordLogin",
+      "CreateSamlLogin", "InitiateMagicCodeLogin", "InitiateOAuth2Login", "InitiateSamlLogin",
+      "RenewJWT"]}]}, {"title":"Key Manager", "name":"key-manager", "services":[{"name":"scaleway.key_manager.v1alpha1.Api",
+      "methods":["CreateKey", "DeleteKey", "DeleteKeyMaterial", "DisableKey", "EnableKey",
+      "ImportKeyMaterial", "ProtectKey", "RestoreKey", "RotateKey", "UnprotectKey",
+      "UpdateKey"]}]}, {"title":"Kubernetes", "name":"kubernetes", "services":[{"name":"scaleway.k8s.v1.Api",
+      "methods":["AddClusterACLRules", "CreateCluster", "CreateExternalNode", "CreatePool",
+      "DeleteACLRule", "DeleteCluster", "DeleteNode", "DeletePool", "MigrateClusterToSBSCSI",
+      "RebootNode", "ReplaceNode", "ResetClusterAdminToken", "SetClusterACLRules",
+      "SetClusterType", "UpdateCluster", "UpdatePool", "UpgradeCluster", "UpgradePool"]}]},
+      {"title":"Load Balancer", "name":"load-balancer", "services":[{"name":"scaleway.lb.v1.ZonedApi",
+      "methods":["AddBackendServers", "CreateAcl", "CreateBackend", "CreateCertificate",
+      "CreateFrontend", "CreateIp", "CreateLb", "CreateRoute", "DeleteAcl", "DeleteBackend",
+      "DeleteCertificate", "DeleteFrontend", "DeleteLb", "DeleteRoute", "MigrateLb",
+      "ReleaseIp", "RemoveBackendServers", "SetAcls", "SetBackendServers", "UpdateAcl",
+      "UpdateBackend", "UpdateCertificate", "UpdateFrontend", "UpdateHealthCheck",
+      "UpdateIp", "UpdateLb", "UpdateRoute"]}]}, {"title":"Secret Manager", "name":"secret-manager",
+      "services":[{"name":"scaleway.secret_manager.v1alpha1.Api", "methods":["AddSecretOwner",
+      "CreateSecret", "CreateSecretVersion", "DeleteSecret", "DestroySecretVersion",
+      "DisableSecretVersion", "EnableSecretVersion", "ProtectSecret", "UnprotectSecret",
+      "UpdateSecret", "UpdateSecretVersion"]}, {"name":"scaleway.secret_manager.v1beta1.Api",
+      "methods":["AddSecretOwner", "CreateSecret", "CreateSecretVersion", "DeleteSecret",
+      "DeleteSecretVersion", "DisableSecretVersion", "EnableSecretVersion", "ProtectSecret",
+      "RestoreSecret", "RestoreSecretVersion", "UnprotectSecret", "UpdateSecret",
+      "UpdateSecretVersion"]}]}], "total_count":8}'
+    headers:
+      Content-Length:
+      - "4087"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Tue, 07 Oct 2025 13:16:40 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 796eae8c-8a89-4e88-8205-a2307f9adb9e
+    status: 200 OK
+    code: 200
+    duration: ""
