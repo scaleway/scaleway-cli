@@ -462,7 +462,6 @@ func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	results := []*MarshalFieldOpt(nil)
 	// Loop through all struct field
 	for field := range t.Fields() {
-		field := field
 		fieldType := field.Type
 
 		if field.Anonymous {

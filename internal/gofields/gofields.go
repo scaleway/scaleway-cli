@@ -179,8 +179,6 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 	case reflect.Struct:
 		res := []string(nil)
 		for field := range t.Fields() {
-			field := field
-
 			if !isFieldPublic(field) {
 				continue
 			}

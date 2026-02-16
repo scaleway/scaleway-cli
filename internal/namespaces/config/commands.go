@@ -888,7 +888,6 @@ func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
 	keys := []string{}
 	for field := range t.Fields() {
-		field := field
 		switch field.Name {
 		case "APIURL":
 			keys = append(keys, "api-url")

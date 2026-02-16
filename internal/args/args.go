@@ -298,7 +298,6 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 		fields := []string(nil)
 
 		for field := range argType.Fields() {
-			field := field
 			fieldBase := base
 
 			// If this is an embedded struct, skip adding its name to base
