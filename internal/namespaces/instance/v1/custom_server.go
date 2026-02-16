@@ -325,13 +325,13 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 				if volumeIsFromSBS(block.NewAPI(client), customRequest.Zone, volumeID) {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:         scw.StringPtr(volumeID),
+						ID:         new(volumeID),
 						VolumeType: instance.VolumeVolumeTypeSbsVolume,
 					}
 				} else {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:   scw.StringPtr(volumeID),
-						Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
+						ID:   new(volumeID),
+						Name: new(getServerResponse.Server.Name + "-" + index),
 					}
 				}
 			}
@@ -787,7 +787,7 @@ func serverWaitCommand() *core.Command {
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          args.Zone,
 					ServerID:      args.ServerID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},

@@ -8,7 +8,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -34,7 +33,7 @@ func waitForContainerNamespace(ctx context.Context, _, respI any) (any, error) {
 	return api.WaitForNamespace(&container.WaitForNamespaceRequest{
 		NamespaceID:   ns.ID,
 		Region:        ns.Region,
-		Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
+		Timeout:       new(containerNamespaceActionTimeout),
 		RetryInterval: core.DefaultRetryInterval,
 	})
 }
@@ -60,7 +59,7 @@ func containerNamespaceDeleteBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForNamespace(&container.WaitForNamespaceRequest{
 			NamespaceID:   req.NamespaceID,
 			Region:        req.Region,
-			Timeout:       scw.TimeDurationPtr(containerNamespaceActionTimeout),
+			Timeout:       new(containerNamespaceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {

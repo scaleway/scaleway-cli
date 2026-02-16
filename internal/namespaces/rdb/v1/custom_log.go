@@ -39,7 +39,7 @@ func logPrepareBuilder(c *core.Command) *core.Command {
 			logs, err := api.WaitForInstanceLog(&rdb.WaitForInstanceLogRequest{
 				InstanceLogID: getResp.InstanceLogs[i].ID,
 				Region:        getResp.InstanceLogs[i].Region,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -172,7 +172,7 @@ func logDownloadCommand() *core.Command {
 				logs, err := api.WaitForInstanceLog(&rdb.WaitForInstanceLogRequest{
 					InstanceLogID: prepareResp.InstanceLogs[i].ID,
 					Region:        prepareResp.InstanceLogs[i].Region,
-					Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+					Timeout:       new(instanceActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 				if err != nil {

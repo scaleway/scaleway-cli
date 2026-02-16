@@ -15,15 +15,15 @@ import (
 // becomes struct{FieldName string `json:"field_name"`}
 func newObjectWithForcedJSONTags(t reflect.Type) any {
 	structFieldsCopy := []reflect.StructField(nil)
-	for i := range t.NumField() {
-		fieldCopy := t.Field(i)
+	for fieldCopy := range t.Fields() {
+		fieldCopy := fieldCopy
 		if fieldCopy.Anonymous {
 			anonymousType := fieldCopy.Type
 			if anonymousType.Kind() == reflect.Ptr {
 				anonymousType = anonymousType.Elem()
 			}
-			for i := range anonymousType.NumField() {
-				fieldCopy := anonymousType.Field(i)
+			for fieldCopy := range anonymousType.Fields() {
+				fieldCopy := fieldCopy
 				fieldCopy.Tag = reflect.StructTag(
 					`json:"` + strings.ReplaceAll(
 						strcase.ToBashArg(fieldCopy.Name),

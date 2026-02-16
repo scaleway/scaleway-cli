@@ -297,8 +297,8 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 	case reflect.Struct:
 		fields := []string(nil)
 
-		for i := range argType.NumField() {
-			field := argType.Field(i)
+		for field := range argType.Fields() {
+			field := field
 			fieldBase := base
 
 			// If this is an embedded struct, skip adding its name to base

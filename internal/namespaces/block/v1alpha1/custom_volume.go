@@ -44,7 +44,7 @@ func volumeWaitCommand() *core.Command {
 			return block.NewAPI(core.ExtractClient(ctx)).WaitForVolume(&block.WaitForVolumeRequest{
 				Zone:          args.Zone,
 				VolumeID:      args.VolumeID,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
+				Timeout:       new(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 
 				TerminalStatus: args.TerminalStatus,

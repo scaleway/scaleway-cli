@@ -144,7 +144,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    args.InstanceID,
 			Region:        args.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -272,7 +272,7 @@ func aclDeleteBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    args.InstanceID,
 			Region:        args.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -358,7 +358,7 @@ func aclSetBuilder(c *core.Command) *core.Command {
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
 			InstanceID:    args.InstanceID,
 			Region:        args.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {

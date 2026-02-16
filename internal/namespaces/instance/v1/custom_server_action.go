@@ -210,7 +210,7 @@ Once your image is ready you will be able to create a new server based on this i
 			return api.WaitForImage(&instance.WaitForImageRequest{
 				ImageID:       resp.Image.ID,
 				Zone:          resp.Image.Zone,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -322,7 +322,7 @@ func serverTerminateCommand() *core.Command {
 			_, err := api.WaitForServer(&instance.WaitForServerRequest{
 				Zone:          server.Zone,
 				ServerID:      server.ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -568,7 +568,7 @@ func waitForServerFunc() core.WaitFunc {
 			WaitForServer(&instance.WaitForServerRequest{
 				Zone:          argsI.(*instanceUniqueActionRequest).Zone,
 				ServerID:      argsI.(*instanceUniqueActionRequest).ServerID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 	}
@@ -612,7 +612,7 @@ func serverActionCommand() *core.Command {
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          argsI.(*instanceActionRequest).Zone,
 					ServerID:      argsI.(*instanceActionRequest).ServerID,
-					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					Timeout:       new(serverActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},
