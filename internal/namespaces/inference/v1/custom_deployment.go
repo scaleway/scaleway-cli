@@ -125,7 +125,7 @@ func waitForDeploymentFunc(action int) core.WaitFunc {
 			WaitForDeployment(&inference.WaitForDeploymentRequest{
 				DeploymentID:  respI.(*inference.Deployment).ID,
 				Region:        respI.(*inference.Deployment).Region,
-				Timeout:       scw.TimeDurationPtr(deploymentActionTimeout),
+				Timeout:       new(deploymentActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 

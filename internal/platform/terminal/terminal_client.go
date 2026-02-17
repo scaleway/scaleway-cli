@@ -66,7 +66,7 @@ func (p *Platform) CreateClient(
 		logger.Debugf("guess region from %s zone", zone)
 		region := zone[:len(zone)-2]
 		if validation.IsRegion(region) {
-			profile.DefaultRegion = scw.StringPtr(region)
+			profile.DefaultRegion = new(region)
 		} else {
 			logger.Debugf("invalid guessed region '%s'", region)
 		}

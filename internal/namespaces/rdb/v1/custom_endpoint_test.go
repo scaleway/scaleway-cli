@@ -268,7 +268,7 @@ func checkEndpoints(
 				Region:       instance.Region,
 				ResourceID:   &instance.ID,
 				ResourceType: "rdb_instance",
-				IsIPv6:       scw.BoolPtr(false),
+				IsIPv6:       new(false),
 			}, scw.WithAllPages())
 			if err != nil {
 				t.Errorf("could not list IPs: %v", err)

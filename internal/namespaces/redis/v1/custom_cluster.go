@@ -58,7 +58,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
 			Zone:          respI.(*redis.Cluster).Zone,
-			Timeout:       scw.TimeDurationPtr(redisActionTimeout),
+			Timeout:       new(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -121,7 +121,7 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 		cluster, err := api.WaitForCluster(&redis.WaitForClusterRequest{
 			ClusterID:     respI.(*redis.Cluster).ID,
 			Zone:          respI.(*redis.Cluster).Zone,
-			Timeout:       scw.TimeDurationPtr(redisActionTimeout),
+			Timeout:       new(redisActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {

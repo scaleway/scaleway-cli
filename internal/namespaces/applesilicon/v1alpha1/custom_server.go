@@ -74,7 +74,7 @@ func waitForServerFunc(action int) core.WaitFunc {
 			WaitForServer(&applesilicon.WaitForServerRequest{
 				Zone:          respI.(*applesilicon.Server).Zone,
 				ServerID:      respI.(*applesilicon.Server).ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 

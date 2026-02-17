@@ -158,7 +158,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				if err != nil {
 					return nil, err
 				}
-				request.PrivateNetworkID = scw.StringPtr(pn.ID)
+				request.PrivateNetworkID = new(pn.ID)
 				pnCreated = true
 			} else {
 				pn, err = vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
@@ -335,7 +335,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 			WaitForCluster(&k8s.WaitForClusterRequest{
 				Region:        clusterResponse.Region,
 				ClusterID:     clusterResponse.ID,
-				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+				Timeout:       new(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		switch action {

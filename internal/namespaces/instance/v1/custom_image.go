@@ -188,7 +188,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		req := &instance.ListImagesRequest{
 			Organization: args.OrganizationID,
 			Name:         args.Name,
-			Public:       scw.BoolPtr(false),
+			Public:       new(false),
 			Arch:         args.Arch,
 			Project:      args.ProjectID,
 			Tags:         args.Tags,

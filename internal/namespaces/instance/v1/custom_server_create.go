@@ -207,7 +207,7 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 			WaitForServer(&instance.WaitForServerRequest{
 				Zone:          argsI.(*instanceCreateServerRequest).Zone,
 				ServerID:      serverID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 
@@ -231,7 +231,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 	serverBuilder := NewServerBuilder(client, args.Name, args.Zone, args.Type).
 		AddOrganizationID(args.OrganizationID).
 		AddProjectID(args.ProjectID).
-		AddEnableIPv6(scw.BoolPtr(args.IPv6)).
+		AddEnableIPv6(new(args.IPv6)).
 		AddTags(args.Tags).
 		AddRoutedIPEnabled(args.RoutedIPEnabled).
 		AddDynamicIPRequired(args.DynamicIPRequired).
@@ -502,7 +502,7 @@ func sanitizeVolumeMap(
 	m := make(map[string]*instance.VolumeServerTemplate)
 
 	for index, v := range volumes {
-		v.Name = scw.StringPtr(serverName + "-" + index)
+		v.Name = new(serverName + "-" + index)
 
 		// Remove extra data for API validation.
 		switch {

@@ -77,7 +77,7 @@ func bucketCreateCommand() *core.Command {
 				CreateBucketConfiguration: &types.CreateBucketConfiguration{
 					LocationConstraint: types.BucketLocationConstraint(args.Region),
 				},
-				ObjectLockEnabledForBucket: scw.BoolPtr(false),
+				ObjectLockEnabledForBucket: new(false),
 			})
 			if err != nil {
 				return nil, fmt.Errorf("could not create bucket: %w", err)

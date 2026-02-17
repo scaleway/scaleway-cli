@@ -76,7 +76,7 @@ func backupWaitCommand() *core.Command {
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
-				Timeout:          scw.TimeDurationPtr(argsI.(*backupWaitRequest).Timeout),
+				Timeout:          new(argsI.(*backupWaitRequest).Timeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			})
 		},
@@ -402,7 +402,7 @@ func backupDownloadCommand() *core.Command {
 			backupRequest := &rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: args.BackupID,
 				Region:           args.Region,
-				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+				Timeout:          new(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			}
 

@@ -101,7 +101,7 @@ func serverDeleteCommand() *core.Command {
 			_, err := api.WaitForServer(&instance.WaitForServerRequest{
 				Zone:          server.Zone,
 				ServerID:      server.ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -131,7 +131,7 @@ func serverDeleteCommand() *core.Command {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
 					Zone:          deleteServerArgs.Zone,
 					ServerID:      deleteServerArgs.ServerID,
-					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					Timeout:       new(serverActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 				if err != nil {
@@ -143,7 +143,7 @@ func serverDeleteCommand() *core.Command {
 						Zone:          deleteServerArgs.Zone,
 						ServerID:      deleteServerArgs.ServerID,
 						Action:        instance.ServerActionPoweroff,
-						Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+						Timeout:       new(serverActionTimeout),
 						RetryInterval: core.DefaultRetryInterval,
 					})
 					if err != nil {

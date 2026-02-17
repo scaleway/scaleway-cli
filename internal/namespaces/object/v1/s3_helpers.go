@@ -42,7 +42,7 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 				SecretAccessKey: secretKey,
 			}, nil
 		}),
-		BaseEndpoint: scw.StringPtr(customEndpoint),
+		BaseEndpoint: new(customEndpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 	})
@@ -87,10 +87,10 @@ func awsACLToCustomGrants(output *s3.GetBucketAclOutput) []CustomS3ACLGrant {
 		var grantee *string
 		switch grant.Grantee.Type {
 		case types.TypeCanonicalUser:
-			grantee = scw.StringPtr(normalizeOwnerID(grant.Grantee.ID))
+			grantee = new(normalizeOwnerID(grant.Grantee.ID))
 		case types.TypeGroup:
 			split := strings.Split(*grant.Grantee.URI, "/")
-			grantee = scw.StringPtr(split[len(split)-1])
+			grantee = new(split[len(split)-1])
 		}
 		customGrants = append(customGrants, CustomS3ACLGrant{
 			Grantee:    grantee,

@@ -45,7 +45,7 @@ func snapshotWaitCommand() *core.Command {
 				WaitForSnapshot(&block.WaitForSnapshotRequest{
 					Zone:          args.Zone,
 					SnapshotID:    args.SnapshotID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 
 					TerminalStatus: args.TerminalStatus,

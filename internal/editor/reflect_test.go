@@ -78,7 +78,7 @@ func Test_valueMapperPointersWithPointers(t *testing.T) {
 	src := struct {
 		Arg1 *string
 		Arg2 *int32
-	}{scw.StringPtr("1"), scw.Int32Ptr(1)}
+	}{new("1"), scw.Int32Ptr(1)}
 	dest := struct {
 		Arg1 *string
 		Arg2 *int32
