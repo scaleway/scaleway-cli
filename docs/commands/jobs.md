@@ -223,8 +223,8 @@ scw jobs run list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` |  |
 | job-definition-id |  |  |
 | project-id |  |  |
-| state | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted` |  |
-| states.{index} | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted` |  |
+| state | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted`, `retrying` |  |
+| states.{index} | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted`, `retrying` |  |
 | reasons.{index} | One of: `unknown_reason`, `invalid_request`, `timeout`, `cancellation`, `technical_error`, `image_not_found`, `invalid_image`, `memory_usage_exceeded`, `storage_usage_exceeded`, `exited_with_error`, `secret_disabled`, `secret_not_found`, `quota_exceeded` |  |
 | organization-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
