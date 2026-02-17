@@ -476,8 +476,8 @@ func DeployStepCreateContainer(
 		Region:        data.Args.Region,
 		ContainerID:   targetContainer.ID,
 		RegistryImage: &data.Tag,
-		Port:          scw.Uint32Ptr(data.Args.Port),
-		Redeploy:      scw.BoolPtr(false),
+		Port:          new(data.Args.Port),
+		Redeploy:      new(false),
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
 		return nil, fmt.Errorf("could not update container: %w", err)

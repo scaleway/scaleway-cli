@@ -13,7 +13,7 @@ import (
 )
 
 func init() {
-	args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+	args.TestForceNow = new(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
 }
 
 func TestUnmarshalStruct(t *testing.T) {
@@ -205,7 +205,7 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 		expected: &Slice{
 			Strings:    []string(nil),
-			SlicePtr:   scw.StringsPtr([]string{}),
+			SlicePtr:   new([]string{}),
 			StringsPtr: []*string(nil),
 		},
 	}))

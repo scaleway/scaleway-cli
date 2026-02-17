@@ -194,7 +194,7 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 			Type:    instance.IPTypeRoutedIPv6,
 		}}
 	case validation.IsUUID(ip):
-		sb.createReq.PublicIP = scw.StringPtr(ip)
+		sb.createReq.PublicIP = new(ip)
 	case net.ParseIP(ip) != nil:
 		logger.Debugf("finding public IP UUID from address: %s", ip)
 		res, err := sb.apiInstance.GetIP(&instance.GetIPRequest{
@@ -204,12 +204,12 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 		if err != nil { // FIXME: isNotFoundError
 			return sb, fmt.Errorf("%s does not belong to you", ip)
 		}
-		sb.createReq.PublicIP = scw.StringPtr(res.IP.ID)
+		sb.createReq.PublicIP = new(res.IP.ID)
 
 	case ip == "dynamic":
-		sb.createReq.DynamicIPRequired = scw.BoolPtr(true)
+		sb.createReq.DynamicIPRequired = new(true)
 	case ip == "none":
-		sb.createReq.DynamicIPRequired = scw.BoolPtr(false)
+		sb.createReq.DynamicIPRequired = new(false)
 	default:
 		return sb, fmt.Errorf(
 			`invalid IP "%s", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`,
@@ -350,7 +350,7 @@ func (sb *ServerBuilder) BuildVolumes() error {
 			return fmt.Errorf("failed to build volume template: %w", err)
 		}
 		index := strconv.Itoa(i + 1)
-		volumeTemplate.Name = scw.StringPtr(sb.createReq.Name + "-" + index)
+		volumeTemplate.Name = new(sb.createReq.Name + "-" + index)
 		volumes[index] = volumeTemplate
 	}
 	// Sanitize the volume map to respect API schemas
@@ -564,7 +564,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		if err != nil {
 			return nil, fmt.Errorf("invalid volume iops %s in %s volume", parts[2], flagV)
 		}
-		vb.IOPS = scw.Uint32Ptr(uint32(iops))
+		vb.IOPS = new(uint32(iops))
 		parts = parts[0:2]
 	}
 
@@ -582,13 +582,13 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		}
 
 		if validation.IsUUID(parts[1]) {
-			vb.SnapshotID = scw.StringPtr(parts[1])
+			vb.SnapshotID = new(parts[1])
 		} else {
 			size, err := humanize.ParseBytes(parts[1])
 			if err != nil {
 				return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV)
 			}
-			vb.Size = scw.SizePtr(scw.Size(size))
+			vb.Size = new(scw.Size(size))
 		}
 
 		return vb, nil
@@ -596,7 +596,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 
 	// UUID format.
 	if len(parts) == 1 && validation.IsUUID(parts[0]) {
-		vb.VolumeID = scw.StringPtr(parts[0])
+		vb.VolumeID = new(parts[0])
 
 		return vb, nil
 	}

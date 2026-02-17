@@ -461,8 +461,7 @@ func computeMaxCols(grid [][]string) int {
 func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	results := []*MarshalFieldOpt(nil)
 	// Loop through all struct field
-	for fieldIdx := range t.NumField() {
-		field := t.Field(fieldIdx)
+	for field := range t.Fields() {
 		fieldType := field.Type
 
 		if field.Anonymous {

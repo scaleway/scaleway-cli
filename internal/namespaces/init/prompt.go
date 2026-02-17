@@ -119,7 +119,7 @@ func promptTelemetry(ctx context.Context) (*bool, error) {
 		return nil, err
 	}
 
-	return scw.BoolPtr(sendTelemetry), nil
+	return new(sendTelemetry), nil
 }
 
 func promptAutocomplete(ctx context.Context) (*bool, error) {
@@ -137,7 +137,7 @@ func promptAutocomplete(ctx context.Context) (*bool, error) {
 		return nil, err
 	}
 
-	return scw.BoolPtr(installAutocomplete), nil
+	return new(installAutocomplete), nil
 }
 
 func promptSecretKey(ctx context.Context) (string, error) {

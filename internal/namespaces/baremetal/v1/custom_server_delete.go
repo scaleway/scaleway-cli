@@ -16,7 +16,7 @@ func serverDeleteBuilder(c *core.Command) *core.Command {
 			WaitForServer(&baremetal.WaitForServerRequest{
 				ServerID:      argsI.(*baremetal.DeleteServerRequest).ServerID,
 				Zone:          argsI.(*baremetal.DeleteServerRequest).Zone,
-				Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+				Timeout:       new(ServerActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		if err != nil {

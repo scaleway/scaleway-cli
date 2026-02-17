@@ -306,7 +306,7 @@ func DeployStepFunctionDeploy(
 			Region:     fc.Region,
 			FunctionID: fc.ID,
 			Runtime:    runtime,
-			Redeploy:   scw.BoolPtr(true),
+			Redeploy:   new(true),
 		})
 		if err != nil {
 			return nil, err

@@ -174,7 +174,7 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 		waitRequest := &lb.ZonedAPIWaitForLBRequest{
 			LBID:          request.LBID,
 			Zone:          request.Zone,
-			Timeout:       scw.TimeDurationPtr(defaultLBTimeout),
+			Timeout:       new(defaultLBTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		}
 		res, err := lbAPI.WaitForLb(waitRequest, scw.WithContext(ctx))

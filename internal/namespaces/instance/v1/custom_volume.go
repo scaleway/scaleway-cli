@@ -127,7 +127,7 @@ func volumeWaitCommand() *core.Command {
 				WaitForVolume(&instance.WaitForVolumeRequest{
 					Zone:          args.Zone,
 					VolumeID:      args.VolumeID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},

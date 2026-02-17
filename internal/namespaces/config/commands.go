@@ -887,13 +887,12 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
 	keys := []string{}
-	for i := range t.NumField() {
-		field := t.Field(i)
+	for field := range t.Fields() {
 		switch field.Name {
 		case "APIURL":
 			keys = append(keys, "api-url")
 		default:
-			keys = append(keys, strcase.ToBashArg(t.Field(i).Name))
+			keys = append(keys, strcase.ToBashArg(field.Name))
 		}
 	}
 

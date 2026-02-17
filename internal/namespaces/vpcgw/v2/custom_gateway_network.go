@@ -29,7 +29,7 @@ func gatewayNetworkCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
 			GatewayNetworkID: getResp.ID,
 			Zone:             getResp.Zone,
-			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
+			Timeout:          new(gatewayActionTimeout),
 			RetryInterval:    core.DefaultRetryInterval,
 		})
 	}
@@ -44,7 +44,7 @@ func gatewayNetworkDeleteBuilder(c *core.Command) *core.Command {
 		gwNetwork, err := api.WaitForGatewayNetwork(&vpcgw.WaitForGatewayNetworkRequest{
 			GatewayNetworkID: getResp.GatewayNetworkID,
 			Zone:             getResp.Zone,
-			Timeout:          scw.TimeDurationPtr(gatewayActionTimeout),
+			Timeout:          new(gatewayActionTimeout),
 			RetryInterval:    core.DefaultRetryInterval,
 		})
 		if err != nil {

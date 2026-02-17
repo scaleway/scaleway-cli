@@ -198,7 +198,7 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -318,7 +318,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(CreateInstanceResult).ID,
 			Region:        respI.(CreateInstanceResult).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -510,7 +510,7 @@ func instanceUpgradeBuilder(c *core.Command) *core.Command {
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    instance.ID,
 			Region:        instance.Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -669,7 +669,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				InstanceID:    respI.(*rdbSDK.Instance).ID,
 				Region:        respI.(*rdbSDK.Instance).Region,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -696,7 +696,7 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -732,7 +732,7 @@ func instanceWaitCommand() *core.Command {
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
+				Timeout:       new(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},

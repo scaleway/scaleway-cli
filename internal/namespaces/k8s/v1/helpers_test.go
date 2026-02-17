@@ -11,7 +11,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	go_api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -56,7 +55,7 @@ func fetchClusterKubeconfigMetadata(
 			GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 				Region:    cluster.Region,
 				ClusterID: cluster.ID,
-				Redacted:  scw.BoolPtr(redacted),
+				Redacted:  new(redacted),
 			})
 		if err != nil {
 			return err

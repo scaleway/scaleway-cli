@@ -226,8 +226,8 @@ Default path for configuration file is based on the following priority order:
 			profile := &scw.Profile{
 				AccessKey:             &args.AccessKey,
 				SecretKey:             &args.SecretKey,
-				DefaultZone:           scw.StringPtr(args.Zone.String()),
-				DefaultRegion:         scw.StringPtr(args.Region.String()),
+				DefaultZone:           new(args.Zone.String()),
+				DefaultRegion:         new(args.Region.String()),
 				DefaultOrganizationID: &args.OrganizationID,
 				DefaultProjectID:      &args.ProjectID, // An API key is always bound to a project.
 			}
