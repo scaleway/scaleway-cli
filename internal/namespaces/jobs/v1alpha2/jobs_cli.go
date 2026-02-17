@@ -600,6 +600,7 @@ func jobsRunList() *core.Command {
 					"failed",
 					"interrupting",
 					"interrupted",
+					"retrying",
 				},
 			},
 			{
@@ -617,6 +618,7 @@ func jobsRunList() *core.Command {
 					"failed",
 					"interrupting",
 					"interrupted",
+					"retrying",
 				},
 			},
 			{
