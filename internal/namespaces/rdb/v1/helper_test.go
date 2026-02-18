@@ -1,8 +1,10 @@
 package rdb_test
 
 import (
+	"context"
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
@@ -112,4 +114,110 @@ func deleteInstance() core.AfterFunc {
 
 func deleteInstanceAndWait() core.AfterFunc {
 	return core.ExecAfterCmd("scw rdb instance delete {{ .Instance.ID }} --wait")
+}
+
+func createInstanceDirect(_ string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		result := ctx.ExecuteCmd([]string{
+			"scw", "rdb", "instance", "create",
+			"node-type=DB-DEV-S",
+			"is-ha-cluster=false",
+			"name=" + name,
+			"engine=" + engine,
+			"user-name=" + user,
+			"password=" + password,
+			"--wait",
+		})
+		ctx.Meta["Instance"] = result
+
+		return nil
+	}
+}
+
+func createBackupDirect(metaKey string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		instanceResult := ctx.Meta["Instance"].(rdb.CreateInstanceResult)
+		instance := instanceResult.Instance
+
+		result := ctx.ExecuteCmd([]string{
+			"scw", "rdb", "backup", "create",
+			"name=cli-test-backup",
+			"expires-at=2032-01-02T15:04:05-07:00",
+			"instance-id=" + instance.ID,
+			"database-name=rdb",
+			"--wait",
+		})
+		ctx.Meta[metaKey] = result
+
+		return nil
+	}
+}
+
+func deleteBackupDirect(metaKey string) core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		backup := ctx.Meta[metaKey].(*rdbSDK.DatabaseBackup)
+		ctx.ExecuteCmd([]string{
+			"scw", "rdb", "backup", "delete",
+			backup.ID,
+		})
+
+		return nil
+	}
+}
+
+func deleteInstanceDirect() core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
+		ctx.ExecuteCmd([]string{
+			"scw", "rdb", "instance", "delete",
+			instance.ID,
+		})
+
+		return nil
+	}
+}
+
+func waitForInstanceReady(
+	executeCmd func([]string) any,
+	instanceID string,
+) error {
+	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
+	defer cancel()
+
+	backoff := time.Second
+	for {
+		select {
+		case <-ctx.Done():
+			return fmt.Errorf(
+				"timeout waiting for instance %s to be ready for operations",
+				instanceID,
+			)
+		default:
+			result := executeCmd([]string{"scw", "rdb", "instance", "get", instanceID})
+
+			// Try direct type assertion first
+			if instance, ok := result.(*rdbSDK.Instance); ok {
+				if instance.Status == rdbSDK.InstanceStatusReady {
+					time.Sleep(5 * time.Second)
+
+					return nil
+				}
+			} else {
+				v := result.(struct {
+					*rdbSDK.Instance
+					ACLs []*rdbSDK.ACLRule `json:"acls"`
+				})
+				if v.Instance != nil && v.Instance.Status == rdbSDK.InstanceStatusReady {
+					time.Sleep(5 * time.Second)
+
+					return nil
+				}
+			}
+
+			time.Sleep(backoff)
+			if backoff < 10*time.Second {
+				backoff *= 2
+			}
+		}
+	}
 }
