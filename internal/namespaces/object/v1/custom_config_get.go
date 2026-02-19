@@ -37,6 +37,12 @@ func configGetCommand() *core.Command {
 				Required: false,
 				Default:  core.DefaultValueSetter("scaleway"),
 			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
+			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
 		Examples: []*core.Example{
