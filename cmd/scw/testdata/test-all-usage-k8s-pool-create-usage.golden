@@ -35,6 +35,13 @@ ARGS:
   [root-volume-size]                 System volume disk size
   [public-ip-disabled]               Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway
   [security-group-id]                Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone
+  [labels.{key}]                     Kubernetes labels applied and reconciled on the nodes
+  [taints.{index}.key]               The taint key to be applied to a node
+  [taints.{index}.value]             The taint value corresponding to the taint key
+  [taints.{index}.effect]            Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
+  [startup-taints.{index}.key]       The taint key to be applied to a node
+  [startup-taints.{index}.value]     The taint value corresponding to the taint key
+  [startup-taints.{index}.effect]    Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

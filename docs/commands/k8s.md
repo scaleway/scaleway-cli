@@ -183,6 +183,13 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | pools.{index}.security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
+| pools.{index}.labels.{key} |  | Kubernetes labels applied and reconciled on the nodes |
+| pools.{index}.taints.{index}.key |  | The taint key to be applied to a node |
+| pools.{index}.taints.{index}.value |  | The taint value corresponding to the taint key |
+| pools.{index}.taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
+| pools.{index}.startup-taints.{index}.key |  | The taint key to be applied to a node |
+| pools.{index}.startup-taints.{index}.value |  | The taint value corresponding to the taint key |
+| pools.{index}.startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
 | autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
@@ -1014,6 +1021,13 @@ scw k8s pool create [arg=value ...]
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
+| labels.{key} |  | Kubernetes labels applied and reconciled on the nodes |
+| taints.{index}.key |  | The taint key to be applied to a node |
+| taints.{index}.value |  | The taint value corresponding to the taint key |
+| taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
+| startup-taints.{index}.key |  | The taint key to be applied to a node |
+| startup-taints.{index}.value |  | The taint value corresponding to the taint key |
+| startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
