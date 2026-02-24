@@ -205,7 +205,7 @@ scw block snapshot wait <snapshot-id ...> [arg=value ...]
 | timeout | Default: `5m0s` | Timeout of the wait |
 | snapshot-id | Required | ID of the snapshot affected by the action. |
 | terminal-status | One of: `unknown_status`, `creating`, `available`, `error`, `deleting`, `deleted`, `in_use`, `locked`, `exporting` | Expected terminal status, will wait until this status is reached. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -359,7 +359,7 @@ scw block volume wait <volume-id ...> [arg=value ...]
 | timeout | Default: `5m0s` | Timeout of the wait |
 | volume-id | Required | ID of the volume affected by the action. |
 | terminal-status | One of: `unknown_status`, `creating`, `available`, `in_use`, `deleting`, `deleted`, `resizing`, `error`, `snapshotting`, `locked`, `updating` | Expected terminal status, will wait until this status is reached. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
