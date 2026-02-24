@@ -9,3 +9,7 @@ test:
 
 fmt:
 	golangci-lint run --fix ./...
+
+bump-sdk:
+	GOPROXY=direct go get -u github.com/scaleway/scaleway-sdk-go@master
+	go mod tidy
