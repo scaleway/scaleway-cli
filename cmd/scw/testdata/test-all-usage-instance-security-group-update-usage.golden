@@ -15,7 +15,7 @@ ARGS:
   [project-default]           True use this security group for future Instances created in this project
   [outbound-default-policy]   Default outbound policy (unknown_policy | accept | drop)
   [stateful]                  True to set the security group as stateful
-  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
+  [zone=fr-par-1]             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | fr-par-3 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | it-mil-1)
 
 DEPRECATED ARGS:
   [organization-default]   Please use project_default instead
