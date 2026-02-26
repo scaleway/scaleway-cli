@@ -121,7 +121,6 @@ scw datawarehouse deployment create [arg=value ...]
 | tags.{index} |  | Tags to apply to the deployment |
 | version |  | ClickHouse® version to use for the deployment |
 | replica-count |  | Number of replicas for the deployment |
-| shard-count |  | Number of shard for the deployment |
 | password |  | Password for the initial user |
 | cpu-min |  | Minimum CPU count for the deployment |
 | cpu-max |  | Maximum CPU count for the deployment |
