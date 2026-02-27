@@ -158,6 +158,7 @@ func auditTrailEventList() *core.Command {
 					"mongodb_instance",
 					"mongodb_instance_snapshot",
 					"mongodb_instance_endpoint",
+					"apple_silicon_runner",
 				},
 			},
 			{
