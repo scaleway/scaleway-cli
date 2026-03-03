@@ -132,6 +132,13 @@ func fileFilesystemList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "filesystem-ids.{index}",
+				Short:      `Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Filter by organization ID`,
 				Required:   false,
