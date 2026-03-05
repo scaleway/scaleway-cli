@@ -1174,6 +1174,7 @@ func vpcRouteList() *core.Command {
 					"instance_private_nic",
 					"baremetal_private_nic",
 					"apple_silicon_private_nic",
+					"vpn_gateway",
 				},
 			},
 			{

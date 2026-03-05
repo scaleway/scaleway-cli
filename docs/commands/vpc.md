@@ -281,7 +281,7 @@ scw vpc route list [arg=value ...]
 | vpc-id |  | VPC to filter for. Only routes within this VPC will be returned |
 | nexthop-resource-id |  | Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned |
 | nexthop-private-network-id |  | Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned |
-| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
+| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic`, `vpn_gateway` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
 | nexthop-vpc-connector-id |  | Next hop VPC connector ID to filter for. Only routes with a matching next hop VPC connector ID will be returned |
 | contains |  | Only routes whose destination is contained in this subnet will be returned |
 | tags.{index} |  | Tags to filter for, only routes with one or more matching tags will be returned |
