@@ -2366,6 +2366,11 @@ Put a specified Instance in the specified placement group. Instance must be off
 scw instance server server update 11111111-1111-1111-1111-111111111111 placement-group-id=11111111-1111-1111-1111-111111111111
 ```
 
+Boot an Instance from a specific volume
+```
+scw instance server update 18598572-0ec1-40a5-b0ea-a7467b437c44 volumes.0.id=9fb6a5f4-a7cd-4963-84b2-4491f7e9dd7d volumes.0.boot=true
+```
+
 
 
 

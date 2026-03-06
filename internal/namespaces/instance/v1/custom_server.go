@@ -379,6 +379,12 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		},
 	}
 
+	// clarify how to address attached volumes, specific to the cli.
+	c.Examples = append(c.Examples, &core.Example{
+		Short: "Boot an Instance from a specific volume",
+		Raw:   `scw instance server update 18598572-0ec1-40a5-b0ea-a7467b437c44 volumes.0.id=9fb6a5f4-a7cd-4963-84b2-4491f7e9dd7d volumes.0.boot=true`,
+	})
+
 	return c
 }
 
