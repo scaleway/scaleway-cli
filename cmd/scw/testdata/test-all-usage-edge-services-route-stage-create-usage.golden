@@ -6,9 +6,8 @@ USAGE:
   scw edge-services route-stage create [arg=value ...]
 
 ARGS:
-  pipeline-id          Pipeline ID the route stage belongs to
-  [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
-  [backend-stage-id]   
+  pipeline-id      Pipeline ID the route stage belongs to
+  [waf-stage-id]   ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
 
 FLAGS:
   -h, --help                help for create

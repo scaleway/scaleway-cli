@@ -6,9 +6,8 @@ USAGE:
   scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 
 ARGS:
-  route-stage-id       ID of the route stage to update
-  [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
-  [backend-stage-id]   
+  route-stage-id   ID of the route stage to update
+  [waf-stage-id]   ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
 
 FLAGS:
   -h, --help                help for update
