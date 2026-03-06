@@ -738,6 +738,7 @@ scw edge-services route-stage create [arg=value ...]
 |------|---|-------------|
 | pipeline-id | Required | Pipeline ID the route stage belongs to |
 | waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
+| backend-stage-id |  |  |
 
 
 
@@ -816,6 +817,7 @@ scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 |------|---|-------------|
 | route-stage-id | Required | ID of the route stage to update |
 | waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
+| backend-stage-id |  |  |
 
 
 
