@@ -12,13 +12,9 @@ EXAMPLES:
   Delete a node without evicting workloads
     scw k8s node delete 11111111-1111-1111-1111-111111111111 skip-drain=true
 
-  Replace a node by a new one
-    scw k8s node delete 11111111-1111-1111-1111-111111111111 replace=true
-
 ARGS:
   node-id           ID of the node to replace
   [skip-drain]      Skip draining node from its workload (Note: this parameter is currently inactive)
-  [replace]         Add a new node after the deletion of this node
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
