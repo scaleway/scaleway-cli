@@ -86,3 +86,54 @@ func TestCheckAPIKey(t *testing.T) {
 		},
 	}))
 }
+
+func TestCheckIfMultipleVariableSources(t *testing.T) {
+	testCommands := core.NewCommands(
+		&core.Command{
+			Namespace: "test",
+			ArgSpecs:  core.ArgSpecs{},
+			ArgsType:  reflect.TypeOf(testType{}),
+			Run:       func(ctx context.Context, _ any) (any, error) { return "", nil },
+		},
+	)
+
+	t.Run("conflicting sources should trigger warning", core.Test(&core.TestConfig{
+		Commands:   testCommands,
+		TmpHomeDir: true,
+		BeforeFunc: func(ctx *core.BeforeFuncCtx) error {
+			cfg := &scw.Config{
+				Profile: scw.Profile{
+					AccessKey:        scw.StringPtr("SCW11111111111111111"),
+					SecretKey:        scw.StringPtr("config-secret"),
+					DefaultProjectID: scw.StringPtr("config-project-id"),
+				},
+			}
+
+			configPath := filepath.Join(ctx.OverrideEnv["HOME"], ".config", "scw", "config.yaml")
+			if err := cfg.SaveTo(configPath); err != nil {
+				return err
+			}
+
+			t.Setenv("SCW_ACCESS_KEY", "SCW99999999999999999")
+			t.Setenv("SCW_SECRET_KEY", "env-secret")
+			t.Setenv("SCW_DEFAULT_PROJECT_ID", "config-project-id")
+
+			return nil
+		},
+		Cmd: "scw test",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+				expected := "" +
+					"Checking multiple variable sources: \n" +
+					"- Variable 'AccessKey' is defined in both config.yaml and environment with different values. " +
+					"Using: environment variable.\n" +
+					"- Variable 'SecretKey' is defined in both config.yaml and environment with different values. " +
+					"Using: environment variable.\n\n"
+
+				assert.Equal(t, expected, ctx.LogBuffer)
+			},
+		),
+	}))
+}
