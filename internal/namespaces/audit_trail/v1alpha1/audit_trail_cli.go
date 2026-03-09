@@ -129,7 +129,6 @@ func auditTrailEventList() *core.Command {
 					"vpc_subnet",
 					"vpc_route",
 					"vpc_acl",
-					"vpc_vpc_connector",
 					"edge_services_plan",
 					"edge_services_pipeline",
 					"edge_services_dns_stage",
@@ -160,7 +159,6 @@ func auditTrailEventList() *core.Command {
 					"mongodb_instance_snapshot",
 					"mongodb_instance_endpoint",
 					"apple_silicon_runner",
-					"audit_trail_alert_rule",
 				},
 			},
 			{
