@@ -29,7 +29,7 @@ type k8sPoolSetTaintRequest struct {
 
 func k8sPoolSetTaintCommand() *core.Command {
 	return &core.Command{
-		Short:     `Add or edit a taint to a Pool`,
+		Short:     `Apply a taint to a Pool`,
 		Long:      `Apply a taint to all nodes of the pool which will be periodically reconciled by scaleway.`,
 		Namespace: "k8s",
 		Resource:  "pool",
@@ -191,7 +191,7 @@ type k8sPoolSetStartupTaintRequest struct {
 
 func k8sPoolSetStartupTaintCommand() *core.Command {
 	return &core.Command{
-		Short:     `Add or edit a startup taint to a Pool`,
+		Short:     `Apply a startup taint to a Pool`,
 		Long:      `Apply a taint at node creation but does not reconcile after.`,
 		Namespace: "k8s",
 		Resource:  "pool",

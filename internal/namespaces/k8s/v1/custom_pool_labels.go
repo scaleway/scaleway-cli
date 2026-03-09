@@ -18,7 +18,7 @@ type k8sPoolSetLabelRequest struct {
 
 func k8sPoolSetLabelCommand() *core.Command {
 	return &core.Command{
-		Short:     `Add or edit a taint to a Pool`,
+		Short:     `Apply a label to a Pool`,
 		Long:      `Apply a label to all nodes of the pool which will be periodically reconciled by scaleway.`,
 		Namespace: "k8s",
 		Resource:  "pool",

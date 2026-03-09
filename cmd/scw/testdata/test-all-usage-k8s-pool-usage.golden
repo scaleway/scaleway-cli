@@ -17,13 +17,13 @@ AVAILABLE COMMANDS:
 
 LABEL COMMANDS:
   remove-label         Remove a label from a Pool
-  set-label            Add or edit a taint to a Pool
+  set-label            Apply a label to a Pool
 
 TAINT COMMANDS:
   remove-startup-taint Remove a startup taint from a Pool
   remove-taint         Remove a taint from a Pool
-  set-startup-taint    Add or edit a startup taint to a Pool
-  set-taint            Add or edit a taint to a Pool
+  set-startup-taint    Apply a startup taint to a Pool
+  set-taint            Apply a taint to a Pool
 
 WORKFLOW COMMANDS:
   wait                 Wait for a pool to reach a stable state

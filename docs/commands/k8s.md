@@ -41,9 +41,9 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [Remove a label from a Pool](#remove-a-label-from-a-pool)
   - [Remove a startup taint from a Pool](#remove-a-startup-taint-from-a-pool)
   - [Remove a taint from a Pool](#remove-a-taint-from-a-pool)
-  - [Add or edit a taint to a Pool](#add-or-edit-a-taint-to-a-pool)
-  - [Add or edit a startup taint to a Pool](#add-or-edit-a-startup-taint-to-a-pool)
-  - [Add or edit a taint to a Pool](#add-or-edit-a-taint-to-a-pool)
+  - [Apply a label to a Pool](#apply-a-label-to-a-pool)
+  - [Apply a startup taint to a Pool](#apply-a-startup-taint-to-a-pool)
+  - [Apply a taint to a Pool](#apply-a-taint-to-a-pool)
   - [Update a Pool in a Cluster](#update-a-pool-in-a-cluster)
   - [Upgrade a Pool in a Cluster](#upgrade-a-pool-in-a-cluster)
   - [Wait for a pool to reach a stable state](#wait-for-a-pool-to-reach-a-stable-state)
@@ -1259,7 +1259,7 @@ scw k8s pool remove-taint 11111111-1111-1111-1111-111111111111 key=foo
 
 
 
-### Add or edit a taint to a Pool
+### Apply a label to a Pool
 
 Apply a label to all nodes of the pool which will be periodically reconciled by scaleway.
 
@@ -1296,7 +1296,7 @@ scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=organization.exa
 
 
 
-### Add or edit a startup taint to a Pool
+### Apply a startup taint to a Pool
 
 Apply a taint at node creation but does not reconcile after.
 
@@ -1334,7 +1334,7 @@ scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=organiza
 
 
 
-### Add or edit a taint to a Pool
+### Apply a taint to a Pool
 
 Apply a taint to all nodes of the pool which will be periodically reconciled by scaleway.
 
