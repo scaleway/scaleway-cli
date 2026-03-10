@@ -514,6 +514,9 @@ You can filter records by type and name.`,
 			{
 				FieldName: "ID",
 			},
+			{
+				FieldName: "UpdatedAt",
+			},
 		}},
 	}
 }
@@ -688,6 +691,12 @@ All edits will be versioned.`,
 			},
 			{
 				Name:       "changes.{index}.add.records.{index}.id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "changes.{index}.add.records.{index}.updated-at",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -891,6 +900,12 @@ All edits will be versioned.`,
 			},
 			{
 				Name:       "changes.{index}.set.records.{index}.id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "changes.{index}.set.records.{index}.updated-at",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

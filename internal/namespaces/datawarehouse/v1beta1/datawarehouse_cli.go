@@ -330,6 +330,13 @@ func datawarehouseDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "shard-count",
+				Short:      `Number of shard for the deployment`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "password",
 				Short:      `Password for the initial user`,
 				Required:   false,

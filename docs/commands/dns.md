@@ -220,6 +220,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.add.records.{index}.view-config.views.{index}.subnet |  |  |
 | changes.{index}.add.records.{index}.view-config.views.{index}.data |  |  |
 | changes.{index}.add.records.{index}.id |  |  |
+| changes.{index}.add.records.{index}.updated-at |  |  |
 | changes.{index}.set.id |  |  |
 | changes.{index}.set.id-fields.name |  |  |
 | changes.{index}.set.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
@@ -245,6 +246,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.set.records.{index}.view-config.views.{index}.subnet |  |  |
 | changes.{index}.set.records.{index}.view-config.views.{index}.data |  |  |
 | changes.{index}.set.records.{index}.id |  |  |
+| changes.{index}.set.records.{index}.updated-at |  |  |
 | changes.{index}.delete.id |  |  |
 | changes.{index}.delete.id-fields.name |  |  |
 | changes.{index}.delete.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |

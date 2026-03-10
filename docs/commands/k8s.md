@@ -38,6 +38,12 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [Delete a Pool in a Cluster](#delete-a-pool-in-a-cluster)
   - [Get a Pool in a Cluster](#get-a-pool-in-a-cluster)
   - [List Pools in a Cluster](#list-pools-in-a-cluster)
+  - [Remove a label from a Pool](#remove-a-label-from-a-pool)
+  - [Remove a startup taint from a Pool](#remove-a-startup-taint-from-a-pool)
+  - [Remove a taint from a Pool](#remove-a-taint-from-a-pool)
+  - [Apply a label to a Pool](#apply-a-label-to-a-pool)
+  - [Apply a startup taint to a Pool](#apply-a-startup-taint-to-a-pool)
+  - [Apply a taint to a Pool](#apply-a-taint-to-a-pool)
   - [Update a Pool in a Cluster](#update-a-pool-in-a-cluster)
   - [Upgrade a Pool in a Cluster](#upgrade-a-pool-in-a-cluster)
   - [Wait for a pool to reach a stable state](#wait-for-a-pool-to-reach-a-stable-state)
@@ -767,7 +773,6 @@ scw k8s node delete <node-id ...> [arg=value ...]
 |------|---|-------------|
 | node-id | Required | ID of the node to replace |
 | skip-drain |  | Skip draining node from its workload (Note: this parameter is currently inactive) |
-| replace |  | Add a new node after the deletion of this node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -782,11 +787,6 @@ scw k8s node delete 11111111-1111-1111-1111-111111111111
 Delete a node without evicting workloads
 ```
 scw k8s node delete 11111111-1111-1111-1111-111111111111 skip-drain=true
-```
-
-Replace a node by a new one
-```
-scw k8s node delete 11111111-1111-1111-1111-111111111111 replace=true
 ```
 
 
@@ -1155,6 +1155,212 @@ scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 List all pools for a cluster and order them by ascending creation date
 ```
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
+```
+
+
+
+
+### Remove a label from a Pool
+
+Remove a label from all nodes of the pool (only apply to labels which was set through scaleway api).
+
+**Usage:**
+
+```
+scw k8s pool remove-label <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the label. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Remove a label of a specific pool
+```
+scw k8s pool remove-label 11111111-1111-1111-1111-111111111111 key=foo
+```
+
+
+
+
+### Remove a startup taint from a Pool
+
+New nodes will not have this taint at startup (does not remove taints from kubernetes side).
+
+**Usage:**
+
+```
+scw k8s pool remove-startup-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Remove a startup taint of a specific pool
+```
+scw k8s pool remove-startup-taint 11111111-1111-1111-1111-111111111111 key=foo
+```
+
+
+
+
+### Remove a taint from a Pool
+
+Remove a taint from all all nodes of the pool (only apply to taints which was set through scaleway api).
+
+**Usage:**
+
+```
+scw k8s pool remove-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Remove a taint to a specific pool
+```
+scw k8s pool remove-taint 11111111-1111-1111-1111-111111111111 key=foo
+```
+
+
+
+
+### Apply a label to a Pool
+
+Apply a label to all nodes of the pool which will be periodically reconciled by scaleway.
+
+**Usage:**
+
+```
+scw k8s pool set-label <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the label. |
+| value | Required | Value of the label. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Apply a label to a specific pool
+```
+scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=foo value=bar
+```
+
+Apply a full label to a specific pool
+```
+scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true
+```
+
+
+
+
+### Apply a startup taint to a Pool
+
+Apply a taint at node creation but does not reconcile after.
+
+**Usage:**
+
+```
+scw k8s pool set-startup-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| value | Required | Value of the taint. |
+| effect | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Apply a startup taint to a specific pool
+```
+scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
+```
+
+Apply a full startup taint to a specific pool
+```
+scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
+```
+
+
+
+
+### Apply a taint to a Pool
+
+Apply a taint to all nodes of the pool which will be periodically reconciled by scaleway.
+
+**Usage:**
+
+```
+scw k8s pool set-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| value | Required | Value of the taint. |
+| effect | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Apply a taint to a specific pool
+```
+scw k8s pool set-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
+```
+
+Apply a full taint to a specific pool
+```
+scw k8s pool set-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
 ```
 
 
