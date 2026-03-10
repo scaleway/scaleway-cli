@@ -5,6 +5,9 @@ Upgrade a given Public Gateway to the newest software version or to a different 
 USAGE:
   scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
 
+ALIASES:
+ upgrade-v2  
+
 ARGS:
   gateway-id        ID of the gateway to upgrade
   [type]            Gateway type (commercial offer)

@@ -6,11 +6,11 @@ USAGE:
   scw vpc-gw ip <command>
 
 AVAILABLE COMMANDS:
-  create-v2   Reserve an IP
-  delete-v2   Delete an IP
-  get-v2      Get an IP
-  list-v2     List IPs
-  update-v2   Update an IP
+  create      Reserve an IP
+  delete      Delete an IP
+  get         Get an IP
+  list        List IPs
+  update      Update an IP
 
 FLAGS:
   -h, --help                help for ip
