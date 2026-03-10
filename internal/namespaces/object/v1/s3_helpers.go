@@ -38,9 +38,8 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 
 	options := []func(*middleware.Stack) error{
 		func(stack *middleware.Stack) error {
-			return awsmiddleware.AddUserAgentKeyValue(
-				"terraform-provider-scaleway",
-				buildInfo.Version.String(),
+			return awsmiddleware.AddUserAgentKey(
+				buildInfo.GetUserAgent(),
 			)(stack)
 		},
 	}
