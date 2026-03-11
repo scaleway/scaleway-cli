@@ -72,7 +72,7 @@ jobs:
       - name: Execute main binary # Test the runtime for potential panics.
         run: go run cmd/scw/main.go -h
   others:
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
