@@ -6,13 +6,13 @@ USAGE:
   scw vpc-gw pat-rule <command>
 
 AVAILABLE COMMANDS:
-  create-v2   Create a PAT rule
-  delete-v2   Delete a PAT rule
+  create      Create a PAT rule
+  delete      Delete a PAT rule
   edit        Edit all PAT rules of a Public Gateway
-  get-v2      Get a PAT rule
-  list-v2     List PAT rules
-  set-v2      Set all PAT rules
-  update-v2   Update a PAT rule
+  get         Get a PAT rule
+  list        List PAT rules
+  set         Set all PAT rules
+  update      Update a PAT rule
 
 FLAGS:
   -h, --help                help for pat-rule
