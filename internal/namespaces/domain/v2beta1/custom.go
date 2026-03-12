@@ -44,6 +44,8 @@ func GetCommands() *core.Commands {
 		dnsRecordAddCommand(),
 		dnsRecordSetCommand(),
 		dnsRecordDeleteCommand(),
+		dnsTask(),
+		dnsTaskListCommand(),
 	))
 
 	cmds.MustFind("dns", "zone", "import").ArgSpecs.GetByName("bind-source.content").CanLoadFile = true
@@ -55,6 +57,10 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc(
 		domain.SSLCertificateStatus(""),
 		human.EnumMarshalFunc(certificateStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		domain.TaskStatus(""),
+		human.EnumMarshalFunc(taskStatusMarshalSpecs),
 	)
 
 	return cmds

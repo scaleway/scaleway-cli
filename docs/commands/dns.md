@@ -16,6 +16,8 @@ This API allows you to manage your domains, DNS zones and records.
   - [List name servers within a DNS zone](#list-name-servers-within-a-dns-zone)
   - [Update a DNS record](#update-a-dns-record)
   - [Update name servers within a DNS zone](#update-name-servers-within-a-dns-zone)
+- [DNS tasks management](#dns-tasks-management)
+  - [List DNS tasks](#list-dns-tasks)
 - [Transaction SIGnature key management](#transaction-signature-key-management)
   - [Delete the DNS zone's TSIG key](#delete-the-dns-zone's-tsig-key)
   - [Get the DNS zone's TSIG key](#get-the-dns-zone's-tsig-key)
@@ -432,6 +434,56 @@ scw dns record update-nameservers <dns-zone ...> [arg=value ...]
 | dns-zone | Required | DNS zone in which to update the DNS zone name servers |
 | ns.{index}.name |  |  |
 | ns.{index}.ip.{index} |  |  |
+
+
+
+## DNS tasks management
+
+DNS tasks management.
+
+
+### List DNS tasks
+
+Retrieve a list of tasks for domain operations (creation, transfer, renewal, etc.).
+This is useful for tracking operations and retrieving task IDs needed for Terraform imports.
+
+**Usage:**
+
+```
+scw dns task list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| organization-id |  | Organization ID to filter on |
+| domain |  | Domain name to filter on |
+| types.{index} | One of: `unknown`, `create_domain`, `create_external_domain`, `renew_domain`, `transfer_domain`, `trade_domain`, `lock_domain_transfer`, `unlock_domain_transfer`, `enable_dnssec`, `disable_dnssec`, `update_domain`, `update_contact`, `delete_domain`, `cancel_task`, `generate_ssl_certificate`, `renew_ssl_certificate`, `send_message`, `delete_domain_expired`, `delete_external_domain`, `create_host`, `update_host`, `delete_host`, `move_project`, `transfer_online_domain` | Task types to filter on |
+| statuses.{index} | One of: `unavailable`, `new`, `waiting_payment`, `pending`, `success`, `error` | Task statuses to filter on |
+| order-by | Default: `domain_desc`<br />One of: `domain_desc`, `domain_asc` | Sort order of the returned tasks |
+
+
+**Examples:**
+
+
+List all tasks
+```
+scw dns task list
+```
+
+List tasks for a specific domain
+```
+scw dns task list domain=example.com
+```
+
+List tasks with create_domain type
+```
+scw dns task list types.0=create_domain
+```
+
 
 
 
