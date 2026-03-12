@@ -50,7 +50,7 @@ jobs:
           - vpc
           - vpcgw
           - webhosting
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       # Checkout should always be before setup-go to ensure caching is working
       - name: Checkout
@@ -90,7 +90,7 @@ jobs:
           FAILED_PRODUCT: ${{ matrix.products }}
 
   sweepers:
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     needs: nightly
     if: always()
     steps:
