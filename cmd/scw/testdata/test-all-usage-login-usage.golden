@@ -8,7 +8,8 @@ USAGE:
   scw login [arg=value ...]
 
 ARGS:
-  [port]   The port number used to wait for browser's response
+  [port]             The port number used to wait for browser's response
+  [expires-at=+1y]   Expiration date of the API key (ISO 8601 or relative like +1y, +90d)
 
 FLAGS:
   -h, --help                help for login
