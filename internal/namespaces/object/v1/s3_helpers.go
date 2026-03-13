@@ -8,8 +8,10 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	awsmiddleware "github.com/aws/aws-sdk-go-v2/aws/middleware"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
+	"github.com/aws/smithy-go/middleware"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -17,6 +19,7 @@ import (
 func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
+	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
 		return nil
@@ -33,8 +36,16 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
 	}
 
+	options := []func(*middleware.Stack) error{
+		func(stack *middleware.Stack) error {
+			return awsmiddleware.AddUserAgentKey(
+				buildInfo.GetUserAgent(),
+			)(stack)
+		},
+	}
+
 	return s3.New(s3.Options{
-		APIOptions:    nil,
+		APIOptions:    options,
 		ClientLogMode: 0,
 		Credentials: aws.CredentialsProviderFunc(func(_ context.Context) (aws.Credentials, error) {
 			return aws.Credentials{
