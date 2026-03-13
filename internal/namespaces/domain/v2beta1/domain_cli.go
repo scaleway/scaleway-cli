@@ -514,6 +514,9 @@ You can filter records by type and name.`,
 			{
 				FieldName: "ID",
 			},
+			{
+				FieldName: "UpdatedAt",
+			},
 		}},
 	}
 }

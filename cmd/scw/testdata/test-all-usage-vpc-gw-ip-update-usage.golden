@@ -5,6 +5,9 @@ Update details of an existing flexible IP address, including its tags, reverse a
 USAGE:
   scw vpc-gw ip update <ip-id ...> [arg=value ...]
 
+ALIASES:
+ update-v2  
+
 ARGS:
   ip-id             ID of the IP address to update
   [tags.{index}]    Tags to give to the IP address
