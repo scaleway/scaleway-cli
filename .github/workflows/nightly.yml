@@ -50,13 +50,13 @@ jobs:
           - vpc
           - vpcgw
           - webhosting
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       # Checkout should always be before setup-go to ensure caching is working
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install Go
-        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
+        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
         with:
           go-version: stable
       - name: Run Acceptance Tests
@@ -90,7 +90,7 @@ jobs:
           FAILED_PRODUCT: ${{ matrix.products }}
 
   sweepers:
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     needs: nightly
     if: always()
     steps:
@@ -98,7 +98,7 @@ jobs:
       - name: Checkout
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install Go
-        uses: actions/setup-go@7a3fe6cf4cb3a834922a1244abfce67bcef6a0c5 # v6.2.0
+        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
         with:
           go-version: stable
       - name: Run Sweepers

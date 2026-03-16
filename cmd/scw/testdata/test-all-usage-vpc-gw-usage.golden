@@ -6,8 +6,6 @@ USAGE:
   scw vpc-gw <command>
 
 AVAILABLE COMMANDS:
-  dhcp            DHCP configuration management
-  dhcp-entry      DHCP entries management
   gateway         Public Gateway management
   gateway-network Gateway Networks management
   gateway-type    Gateway types information

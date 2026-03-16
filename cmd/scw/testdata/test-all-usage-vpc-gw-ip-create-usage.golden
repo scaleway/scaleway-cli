@@ -5,6 +5,9 @@ Create (reserve) a new flexible IP address that can be used for a Public Gateway
 USAGE:
   scw vpc-gw ip create [arg=value ...]
 
+ALIASES:
+ create-v2  
+
 ARGS:
   [project-id]      Project ID to use. If none is passed the default project ID will be used
   [tags.{index}]    Tags to give to the IP address

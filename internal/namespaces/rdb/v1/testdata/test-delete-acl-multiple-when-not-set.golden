@@ -1,18 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ 1 ACL rules successfully deleted (2 were not set).
-IP         PORT  PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  5849  tcp       inbound    allow   Allow All
+IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
+0.0.0.0/0  tcp       inbound    allow   Allow All    5849
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "0.0.0.0/0",
-      "port": 5849,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "Allow All"
+      "description": "Allow All",
+      "port": 5849
     }
   ],
   "Success": {

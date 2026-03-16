@@ -53,8 +53,7 @@ import (
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
-	vpcgwV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -97,7 +96,6 @@ func GetCommands() *core.Commands {
 		container.GetCommands(),
 		function.GetCommands(),
 		vpcgw.GetCommands(),
-		vpcgwV2.GetCommands(),
 		redis.GetCommands(),
 		secret.GetCommands(),
 		keymanager.GetCommands(),
