@@ -46,7 +46,6 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPoolUpgrade(),
 		k8sPoolUpdate(),
 		k8sPoolDelete(),
-		k8sPoolMigrateToNewImages(),
 		k8sNodeList(),
 		k8sNodeGet(),
 		k8sNodeReplace(),
@@ -489,8 +488,67 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "pools.{index}.labels.{key}",
+				Short:      `Kubernetes labels applied and reconciled on the nodes`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.taints.{index}.key",
+				Short:      `The taint key to be applied to a node`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.taints.{index}.value",
+				Short:      `The taint value corresponding to the taint key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.taints.{index}.effect",
+				Short:      `Effect defines the effects of Taint`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"NoSchedule",
+					"PreferNoSchedule",
+					"NoExecute",
+				},
+			},
+			{
+				Name:       "pools.{index}.startup-taints.{index}.key",
+				Short:      `The taint key to be applied to a node`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.startup-taints.{index}.value",
+				Short:      `The taint value corresponding to the taint key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.startup-taints.{index}.effect",
+				Short:      `Effect defines the effects of Taint`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"NoSchedule",
+					"PreferNoSchedule",
+					"NoExecute",
+				},
+			},
+			{
 				Name:       "autoscaler-config.scale-down-disabled",
-				Short:      `Disable the cluster autoscaler`,
+				Short:      `Forbid cluster autoscaler to scale down the cluster, defaults to false`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -515,7 +573,7 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.expander",
-				Short:      `Type of node group expander to be used in scale up`,
+				Short:      `Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -530,14 +588,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
-				Short:      `Ignore DaemonSet pods when calculating resource utilization for scaling down`,
+				Short:      `Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.balance-similar-node-groups",
-				Short:      `Detect similar node groups and balance the number of nodes between them`,
+				Short:      `Detect similar node groups and balance the number of nodes between them, defaults to false`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -551,21 +609,21 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.scale-down-unneeded-time",
-				Short:      `How long a node should be unneeded before it is eligible to be scaled down`,
+				Short:      `How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-utilization-threshold",
-				Short:      `Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Short:      `Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.max-graceful-termination-sec",
-				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node`,
+				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -807,7 +865,7 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.scale-down-disabled",
-				Short:      `Disable the cluster autoscaler`,
+				Short:      `Forbid cluster autoscaler to scale down the cluster, defaults to false`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -832,7 +890,7 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.expander",
-				Short:      `Type of node group expander to be used in scale up`,
+				Short:      `Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -847,14 +905,14 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.ignore-daemonsets-utilization",
-				Short:      `Ignore DaemonSet pods when calculating resource utilization for scaling down`,
+				Short:      `Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.balance-similar-node-groups",
-				Short:      `Detect similar node groups and balance the number of nodes between them`,
+				Short:      `Detect similar node groups and balance the number of nodes between them, defaults to false`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -868,21 +926,21 @@ func k8sClusterUpdate() *core.Command {
 			},
 			{
 				Name:       "autoscaler-config.scale-down-unneeded-time",
-				Short:      `How long a node should be unneeded before it is eligible to be scaled down`,
+				Short:      `How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-utilization-threshold",
-				Short:      `Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down`,
+				Short:      `Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.max-graceful-termination-sec",
-				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node`,
+				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1837,6 +1895,65 @@ func k8sPoolCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "labels.{key}",
+				Short:      `Kubernetes labels applied and reconciled on the nodes`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "taints.{index}.key",
+				Short:      `The taint key to be applied to a node`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "taints.{index}.value",
+				Short:      `The taint value corresponding to the taint key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "taints.{index}.effect",
+				Short:      `Effect defines the effects of Taint`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"NoSchedule",
+					"PreferNoSchedule",
+					"NoExecute",
+				},
+			},
+			{
+				Name:       "startup-taints.{index}.key",
+				Short:      `The taint key to be applied to a node`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "startup-taints.{index}.value",
+				Short:      `The taint value corresponding to the taint key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "startup-taints.{index}.effect",
+				Short:      `Effect defines the effects of Taint`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"NoSchedule",
+					"PreferNoSchedule",
+					"NoExecute",
+				},
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2034,6 +2151,13 @@ func k8sPoolUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "security-group-id",
+				Short:      `Security group ID in which all the nodes of the pool will be moved`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2104,62 +2228,6 @@ func k8sPoolDelete() *core.Command {
 			{
 				Short: "Delete a specific pool",
 				Raw:   `scw k8s pool delete 11111111-1111-1111-1111-111111111111`,
-			},
-		},
-	}
-}
-
-func k8sPoolMigrateToNewImages() *core.Command {
-	return &core.Command{
-		Short:     `Migrate specific pools or all pools of a cluster to new images.`,
-		Long:      `If no pool is specified, all pools of the cluster will be migrated to new images.`,
-		Namespace: "k8s",
-		Resource:  "pool",
-		Verb:      "migrate-to-new-images",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.MigratePoolsToNewImagesRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "cluster-id",
-				Required:   true,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "pool-ids.{index}",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.RegionNlAms,
-				scw.RegionPlWaw,
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*k8s.MigratePoolsToNewImagesRequest)
-
-			client := core.ExtractClient(ctx)
-			api := k8s.NewAPI(client)
-			e = api.MigratePoolsToNewImages(request)
-			if e != nil {
-				return nil, e
-			}
-
-			return &core.SuccessResult{
-				Resource: "pool",
-				Verb:     "migrate-to-new-images",
-			}, nil
-		},
-		Examples: []*core.Example{
-			{
-				Short: "Migrate all pools of a cluster to new images",
-				Raw:   `scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111`,
-			},
-			{
-				Short: "Migrate a specific pool of a cluster to new images",
-				Raw:   `scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111 pools.0=22222222-2222-2222-2222-222222222222`,
 			},
 		},
 	}
@@ -2447,13 +2515,6 @@ func k8sNodeDelete() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "replace",
-				Short:      `Add a new node after the deletion of this node`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2476,10 +2537,6 @@ func k8sNodeDelete() *core.Command {
 			{
 				Short: "Delete a node without evicting workloads",
 				Raw:   `scw k8s node delete 11111111-1111-1111-1111-111111111111 skip-drain=true`,
-			},
-			{
-				Short: "Replace a node by a new one",
-				Raw:   `scw k8s node delete 11111111-1111-1111-1111-111111111111 replace=true`,
 			},
 		},
 	}

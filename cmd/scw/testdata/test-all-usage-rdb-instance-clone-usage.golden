@@ -12,8 +12,9 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for clone
-  -w, --wait   wait until the instance is ready
+  -h, --help                help for clone
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the instance is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

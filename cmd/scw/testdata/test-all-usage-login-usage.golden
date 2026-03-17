@@ -11,7 +11,8 @@ ARGS:
   [port]   The port number used to wait for browser's response
 
 FLAGS:
-  -h, --help   help for login
+  -h, --help                help for login
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

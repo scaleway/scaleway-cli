@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve the Queues information of the specified Project ID. Information include the activation status and the Queues API endpoint URL.
+Retrieve the Queues information of the specified Project ID. information include the activation status and the Queues API endpoint URL.
 
 USAGE:
   scw mnq sqs get-info [arg=value ...]
@@ -10,7 +10,8 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams)
 
 FLAGS:
-  -h, --help   help for get-info
+  -h, --help                help for get-info
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

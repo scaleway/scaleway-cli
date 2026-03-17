@@ -25,7 +25,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServer("Server"),
-				createSbsVolume("Volume", 10),
+				createSbsVolume(10),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: core.TestCheckCombine(
@@ -51,7 +51,7 @@ func Test_ServerVolumeUpdate(t *testing.T) {
 			Commands: instance.GetCommands(),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServer("Server"),
-				createVolume("Volume", 10, instanceSDK.VolumeVolumeTypeLSSD),
+				createVolume(10),
 			),
 			Cmd: "scw instance server attach-volume server-id={{ .Server.ID }} volume-id={{ .Volume.ID }}",
 			Check: core.TestCheckCombine(
@@ -283,7 +283,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 			),
 			BeforeFunc: core.BeforeFuncCombine(
 				createServer("Server"),
-				createSbsVolume("Volume", 10),
+				createSbsVolume(10),
 			),
 			Cmd: `scw instance server update {{ .Server.ID }} volume-ids.0={{ (index .Server.Volumes "0").ID }} volume-ids.1={{ .Volume.ID }}`,
 			Check: core.TestCheckCombine(

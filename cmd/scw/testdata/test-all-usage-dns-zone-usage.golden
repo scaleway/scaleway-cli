@@ -16,7 +16,8 @@ AVAILABLE COMMANDS:
   update      Update a DNS zone
 
 FLAGS:
-  -h, --help   help for zone
+  -h, --help                help for zone
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

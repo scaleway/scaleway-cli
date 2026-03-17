@@ -101,7 +101,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetalCreateServerRequestCustom).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+			Timeout:       new(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

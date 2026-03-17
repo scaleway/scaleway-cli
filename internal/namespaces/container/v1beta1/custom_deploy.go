@@ -20,9 +20,9 @@ import (
 	"github.com/docker/docker/api/types/image"
 	dockerregistry "github.com/docker/docker/api/types/registry"
 	docker "github.com/docker/docker/client"
-	"github.com/docker/docker/pkg/archive"
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
+	"github.com/moby/go-archive"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -38,6 +38,7 @@ type containerDeployRequest struct {
 	Name string
 
 	Builder      string
+	RunImage     string
 	Dockerfile   string
 	ForceBuilder bool
 
@@ -66,6 +67,11 @@ func containerDeployCommand() *core.Command {
 				Name:    "builder",
 				Short:   "Builder image to use",
 				Default: core.DefaultValueSetter("paketobuildpacks/builder-jammy-base:latest"),
+			},
+			{
+				Name:    "run-image",
+				Short:   "Run image to use",
+				Default: core.DefaultValueSetter("paketobuildpacks/run-jammy-base:latest"),
 			},
 			{
 				Name:    "dockerfile",
@@ -372,6 +378,7 @@ func DeployStepBuildpackBuildImage(
 		AppPath:      data.Args.BuildSource,
 		Builder:      data.Args.Builder,
 		Image:        tag,
+		RunImage:     data.Args.RunImage,
 		ClearCache:   !data.Args.Cache,
 		TrustBuilder: func(string) bool { return true },
 	})
@@ -469,8 +476,8 @@ func DeployStepCreateContainer(
 		Region:        data.Args.Region,
 		ContainerID:   targetContainer.ID,
 		RegistryImage: &data.Tag,
-		Port:          scw.Uint32Ptr(data.Args.Port),
-		Redeploy:      scw.BoolPtr(false),
+		Port:          new(data.Args.Port),
+		Redeploy:      new(false),
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
 		return nil, fmt.Errorf("could not update container: %w", err)

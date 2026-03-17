@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update a DHCP configuration
 
 FLAGS:
-  -h, --help   help for dhcp
+  -h, --help                help for dhcp
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

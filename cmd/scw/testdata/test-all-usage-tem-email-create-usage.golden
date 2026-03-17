@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain. The subject of the email must contain at least 6 characters.
+You must specify the `region`, the sender and the recipient's information and the `project_id` to send an email from a checked domain.
 
 USAGE:
   scw tem email create [arg=value ...]
@@ -27,7 +27,8 @@ ARGS:
   [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

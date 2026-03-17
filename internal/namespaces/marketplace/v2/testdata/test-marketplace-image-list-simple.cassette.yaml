@@ -1,85 +1,113 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: ""
-    form: {}
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    form:
+      include_eol:
+      - "false"
+      order_by:
+      - name_asc
+      page:
+      - "1"
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.19.3; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/marketplace/v2/images?include_eol=false&order_by=name_asc&page=1
     method: GET
   response:
-    body: '{"images":[{"id":"0d3a22da-c634-45d6-a7dd-aff402f88b0c","name":"AlmaLinux
-      8","label":"almalinux_8","description":"AlmaLinux OS is an Open Source and forever-free
-      enterprise Linux distribution, governed and driven by the community, focused
-      on long-term stability and a robust production-grade platform","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png","categories":["distribution"],"valid_until":null,"created_at":"2021-10-05T13:36:52.246490Z","updated_at":"2022-11-21T09:56:12.505342Z"},{"id":"486ead23-9656-41d1-aa74-a5a780b2ae1b","name":"AlmaLinux
-      9","label":"almalinux_9","description":"AlmaLinux OS is an Open Source and forever-free
-      enterprise Linux distribution, governed and driven by the community, focused
-      on long-term stability and a robust production-grade platform","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png","categories":["distribution"],"valid_until":null,"created_at":"2022-08-24T09:21:26.315925Z","updated_at":"2022-11-21T09:56:21.843707Z"},{"id":"8f60c5dd-e659-48da-97e3-fb7de42195f5","name":"Arch
-      Linux","label":"arch_linux","description":"Arch Linux is an independently developed
-      Linux distribution versatile enough to suit any role.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/archlinux.png","categories":["distribution"],"valid_until":null,"created_at":"2016-03-07T20:55:32.213089Z","updated_at":"2022-01-26T12:54:47.557608Z"},{"id":"dc947de3-ddc7-4056-bc35-d51a316ebbb4","name":"CentOS
-      7.9","label":"centos_7.9","description":"The CentOS Project is a community-driven
-      free software effort focused on delivering a robust open source ecosystem.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png","categories":["distribution"],"valid_until":null,"created_at":"2019-12-25T00:00:00Z","updated_at":"2022-11-21T09:57:07.222778Z"},{"id":"f49dc23e-82d1-48c3-b80e-6c697b1dda92","name":"CentOS
-      Stream 8","label":"centos_stream_8","description":"The CentOS Project is a community-driven
-      free software effort focused on delivering a robust open source ecosystem.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png","categories":["distribution"],"valid_until":null,"created_at":"2022-02-03T10:23:22.168515Z","updated_at":"2022-11-21T09:57:17.844379Z"},{"id":"cfb3fa01-6406-4be8-9e9d-29daee2582fa","name":"CentOS
-      Stream 9","label":"centos_stream_9","description":"The CentOS Project is a community-driven
-      free software effort focused on delivering a robust open source ecosystem.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png","categories":["distribution"],"valid_until":null,"created_at":"2022-02-03T10:35:17.004309Z","updated_at":"2022-11-21T09:57:27.226811Z"},{"id":"7bdc1afb-231f-486a-9b85-1b0478bc0e4a","name":"Debian
-      10 (Buster)","label":"debian_buster","description":"Debian is a free operating
-      system, developed by thousands of volunteers from all over the world who collaborate
-      via the Internet.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png","categories":["distribution"],"valid_until":null,"created_at":"2019-07-16T13:55:36.377559Z","updated_at":"2022-11-22T15:03:29.064893Z"},{"id":"213b02cb-3d8d-4967-ba8d-e5767a57574e","name":"Debian
-      Bullseye","label":"debian_bullseye","description":"Debian is a free operating
-      system, developed by thousands of volunteers from all over the world who collaborate
-      via the Internet.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png","categories":["distribution"],"valid_until":null,"created_at":"2021-07-21T09:09:36.581723Z","updated_at":"2023-01-03T16:14:56.937558Z"},{"id":"c1b530d8-0ca0-45c4-80db-ba06608287b2","name":"Docker","label":"docker","description":"Docker
-      is an open platform for developers and sysadmins to build, ship, and run distributed
-      applications.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/docker.png","categories":["instantapp"],"valid_until":null,"created_at":"2016-03-05T15:11:26.847640Z","updated_at":"2022-11-21T09:58:41.216589Z"},{"id":"198bbff7-c136-4b9c-9e28-8770df451fc1","name":"Fedora
-      35","label":"fedora_35","description":"Fedora is a powerful, flexible operating
-      system that includes the best and latest datacenter technologies. It puts you
-      in control of all your infrastructure and services","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png","categories":["distribution"],"valid_until":null,"created_at":"2021-11-15T16:12:25.586923Z","updated_at":"2022-11-21T09:57:37.091043Z"},{"id":"186859f6-0152-45dd-9eb8-21fc5e8d774e","name":"Fedora
-      36","label":"fedora_36","description":"Fedora is a powerful, flexible operating
-      system that includes the best and latest datacenter technologies. It puts you
-      in control of all your infrastructure and services","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png","categories":["distribution"],"valid_until":null,"created_at":"2022-04-14T15:45:29.069701Z","updated_at":"2022-11-21T09:57:45.692658Z"},{"id":"2b0e5802-eb82-4fd5-ac8f-6877c46aa14b","name":"Fedora
-      37","label":"fedora_37","description":"Fedora is a powerful, flexible operating
-      system that includes the best and latest datacenter technologies. It puts you
-      in control of all your infrastructure and services","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png","categories":["distribution"],"valid_until":null,"created_at":"2022-11-14T10:48:04.097063Z","updated_at":"2022-11-21T10:14:57.440013Z"},{"id":"233074b9-e2ba-4e78-818e-dd4930ce6bee","name":"GitLab","label":"gitlab","description":"GitLab
-      is a web-based Git repository manager with wiki and issue tracking features.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/gitlab.png","categories":["instantapp"],"valid_until":null,"created_at":"2016-03-07T21:06:22.770864Z","updated_at":"2022-11-21T09:59:01.854428Z"},{"id":"7d4a7cb1-1fd5-4a64-920b-c79f47367254","name":"NextCloud","label":"nextcloud","description":"Nextcloud
-      is an open source, self-hosted file share and communication platform.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/nextcloud.png","categories":["instantapp"],"valid_until":null,"created_at":"2019-04-16T12:22:56.930842Z","updated_at":"2022-11-21T09:58:50.824677Z"},{"id":"b6f4edc8-21e6-4aa2-8f52-1030cf6d4dd8","name":"OpenVPN","label":"openvpn","description":"Surf
-      the web in a secure and anonymous way with OpenVPN InstantApp.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/openvpn.png","categories":["instantapp"],"valid_until":null,"created_at":"2016-03-07T21:04:57.667667Z","updated_at":"2022-11-21T09:58:29.002209Z"},{"id":"1576bf6b-f640-47f2-9117-968419d0546e","name":"Rocky
-      Linux 8","label":"rockylinux_8","description":"Rocky Linux is a community-driven
-      effort to bring you enterprise-grade, production-ready Linux.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png","categories":["distribution"],"valid_until":null,"created_at":"2021-06-25T10:16:16.254240Z","updated_at":"2022-12-06T10:11:34.316020Z"},{"id":"589c35a9-20ce-4ed9-92d7-16dc061be52b","name":"Rocky
-      Linux 9","label":"rockylinux_9","description":"Rocky Linux is a community-driven
-      effort to bring you enterprise-grade, production-ready Linux.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png","categories":["distribution"],"valid_until":null,"created_at":"2022-08-24T09:26:33.639016Z","updated_at":"2022-12-06T10:11:21.937145Z"},{"id":"b381b2bf-804a-4b12-91f6-9f4ff273462f","name":"Ubuntu
-      18.04 LTS (Bionic Beaver)","label":"ubuntu_bionic","description":"Ubuntu is
-      the ideal distribution for scale-out computing, Ubuntu Server helps you make
-      the most of your infrastructure.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png","categories":["distribution"],"valid_until":null,"created_at":"2018-04-27T14:07:25.221998Z","updated_at":"2022-11-21T09:55:29.947561Z"},{"id":"3f1b9623-71ba-4fe3-b994-27fcdaa850ba","name":"Ubuntu
-      20.04 TLS (Focal Fossa)","label":"ubuntu_focal","description":"Ubuntu is the
-      ideal distribution for scale-out computing, Ubuntu Server helps you make the
-      most of your infrastructure.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png","categories":["distribution"],"valid_until":null,"created_at":"2020-02-17T15:50:48.980694Z","updated_at":"2022-11-21T09:55:20.580470Z"},{"id":"1123148c-7660-4cb2-9fd3-7b5b4896f72f","name":"Ubuntu
-      22.04 TLS (Jammy Jellyfish)","label":"ubuntu_jammy","description":"Ubuntu is
-      the ideal distribution for scale-out computing, Ubuntu Server helps you make
-      the most of your infrastructure.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png","categories":["distribution"],"valid_until":null,"created_at":"2022-04-07T13:35:54.966630Z","updated_at":"2022-11-21T09:52:44.381782Z"},{"id":"4dcc771c-820f-405c-b663-4564bdc2ed56","name":"Ubuntu
-      Focal GPU OS 11","label":"ubuntu_focal_gpu_os_11","description":"Ubuntu 20.04
-      Focal Fossa for Nvidia GPU and Machine Learning","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png","categories":["Machine
-      Learning"],"valid_until":null,"created_at":"2021-11-30T12:37:45.971134Z","updated_at":"2022-09-19T14:10:37.648361Z"},{"id":"215a50f9-0ba8-4e9c-a4e7-10caf50e3586","name":"WordPress","label":"wordpress","description":"WordPress
-      is the most popular web software you can use to create a beautiful website or
-      blog.","logo":"https://scw-marketplace-logos.s3.fr-par.scw.cloud/wordpress.png","categories":["instantapp"],"valid_until":null,"created_at":"2016-03-07T21:03:59.783534Z","updated_at":"2022-11-21T09:58:15.549240Z"}],"total_count":22}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 8551
+    body: "{\"images\":[{\"id\":\"0d3a22da-c634-45d6-a7dd-aff402f88b0c\",\"name\":\"AlmaLinux 8\",\"label\":\"almalinux_8\",\"description\":\"AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution, governed and driven by the community, focused on long-term stability and a robust production-grade platform\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2021-10-05T13:36:52.246490Z\",\"updated_at\":\"2025-06-27T13:01:43.904475Z\"},{\"id\":\"486ead23-9656-41d1-aa74-a5a780b2ae1b\",\"name\":\"AlmaLinux 9\",\"label\":\"almalinux_9\",\"description\":\"AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution, governed and driven by the community, focused on long-term stability and a robust production-grade platform\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2022-08-24T09:21:26.315925Z\",\"updated_at\":\"2025-09-16T09:00:55.306346Z\"},{\"id\":\"cfb3fa01-6406-4be8-9e9d-29daee2582fa\",\"name\":\"Centos Stream 9\",\"label\":\"centos_stream_9\",\"description\":\"The CentOS Project is a community-driven free software effort focused on delivering a robust open source ecosystem.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2022-02-03T10:35:17.004309Z\",\"updated_at\":\"2025-09-16T09:01:02.227396Z\"},{\"id\":\"213b02cb-3d8d-4967-ba8d-e5767a57574e\",\"name\":\"Debian 11 (Bullseye)\",\"label\":\"debian_bullseye\",\"description\":\"Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2021-07-21T09:09:36.581723Z\",\"updated_at\":\"2025-09-12T12:18:07.604479Z\"},{\"id\":\"fd6931c1-5326-4f8d-8fdf-57867b2830e3\",\"name\":\"Debian 12 (Bookworm)\",\"label\":\"debian_bookworm\",\"description\":\"Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2023-06-05T14:20:04.240833Z\",\"updated_at\":\"2025-09-12T12:17:43.790297Z\"},{\"id\":\"193cdddd-0b0b-43b5-84a6-f0d88ebe7611\",\"name\":\"Debian 13 (Trixie)\",\"label\":\"debian_trixie\",\"description\":\"Debian is a free operating system, developed by thousands of volunteers from all over the world who collaborate via the Internet.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2025-09-16T09:03:20.585804Z\",\"updated_at\":\"2025-09-25T09:46:21.667494Z\"},{\"id\":\"c1b530d8-0ca0-45c4-80db-ba06608287b2\",\"name\":\"Docker\",\"label\":\"docker\",\"description\":\"Docker is an open platform for developers and sysadmins to build, ship, and run distributed applications.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/docker.png\",\"categories\":[\"instantapp\"],\"valid_until\":null,\"created_at\":\"2016-03-05T15:11:26.847640Z\",\"updated_at\":\"2025-07-03T09:05:10.350549Z\"},{\"id\":\"abb11fe5-7376-4eb1-bc9f-a274e6d09a04\",\"name\":\"Fedora 40\",\"label\":\"fedora_40\",\"description\":\"Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2024-04-25T14:52:59.809986Z\",\"updated_at\":\"2025-07-03T09:03:40.563137Z\"},{\"id\":\"d2e96d2d-19dd-495d-a49d-ecf91f4c3011\",\"name\":\"Fedora 41\",\"label\":\"fedora_41\",\"description\":\"Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2024-10-30T12:43:17.751838Z\",\"updated_at\":\"2025-09-16T09:01:03.199028Z\"},{\"id\":\"241d9bc8-4276-4106-8204-51d331342874\",\"name\":\"Fedora 42\",\"label\":\"fedora_42\",\"description\":\"Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2025-09-26T13:38:03.905202Z\",\"updated_at\":\"2025-09-29T14:45:38.625652Z\"},{\"id\":\"8c054c16-094d-485d-85e5-143aa27c9bd9\",\"name\":\"Fedora 43\",\"label\":\"fedora_43\",\"description\":\"Fedora is a powerful, flexible operating system that includes the best and latest datacenter technologies. It puts you in control of all your infrastructure and services\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2025-10-28T16:19:05.861800Z\",\"updated_at\":\"2025-10-30T10:03:16.310465Z\"},{\"id\":\"233074b9-e2ba-4e78-818e-dd4930ce6bee\",\"name\":\"GitLab\",\"label\":\"gitlab\",\"description\":\"GitLab is a web-based Git repository manager with wiki and issue tracking features.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/gitlab.png\",\"categories\":[\"instantapp\"],\"valid_until\":null,\"created_at\":\"2016-03-07T21:06:22.770864Z\",\"updated_at\":\"2025-07-03T09:05:11.374937Z\"},{\"id\":\"8af90812-6964-4a78-9125-b317311cfd5c\",\"name\":\"Kapsule\",\"label\":\"kapsule\",\"description\":\"Image used for spawning Kapsule nodes\",\"logo\":\"https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png\",\"categories\":[\"kapsule\"],\"valid_until\":null,\"created_at\":\"2024-02-21T08:43:13.667483Z\",\"updated_at\":\"2024-10-16T16:01:07.784192Z\"},{\"id\":\"518d0243-6577-47c7-9d57-a4c707e016a6\",\"name\":\"Kapsule Jammy\",\"label\":\"kapsule_jammy\",\"description\":\"Image used for spawning Kapsule nodes\",\"logo\":\"https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png\",\"categories\":[\"kapsule\"],\"valid_until\":null,\"created_at\":\"2024-12-02T11:49:34.957728Z\",\"updated_at\":\"2025-02-28T11:41:07.120465Z\"},{\"id\":\"bd48a209-b19e-4e5f-ba61-88378b2f5778\",\"name\":\"Kapsule Noble\",\"label\":\"kapsule_noble\",\"description\":\"Image used for spawning Kapsule nodes\",\"logo\":\"https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png\",\"categories\":[\"kapsule\"],\"valid_until\":null,\"created_at\":\"2024-12-02T11:50:37.407030Z\",\"updated_at\":\"2025-10-27T10:03:30.015341Z\"},{\"id\":\"7d4a7cb1-1fd5-4a64-920b-c79f47367254\",\"name\":\"NextCloud\",\"label\":\"nextcloud\",\"description\":\"Nextcloud is an open source, self-hosted file share and communication platform.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/nextcloud.png\",\"categories\":[\"instantapp\"],\"valid_until\":null,\"created_at\":\"2019-04-16T12:22:56.930842Z\",\"updated_at\":\"2025-07-03T09:05:11.184160Z\"},{\"id\":\"b6f4edc8-21e6-4aa2-8f52-1030cf6d4dd8\",\"name\":\"OpenVPN\",\"label\":\"openvpn\",\"description\":\"Surf the web in a secure and anonymous way with OpenVPN InstantApp.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/openvpn.png\",\"categories\":[\"instantapp\"],\"valid_until\":null,\"created_at\":\"2016-03-07T21:04:57.667667Z\",\"updated_at\":\"2025-10-14T14:45:22.645406Z\"},{\"id\":\"1576bf6b-f640-47f2-9117-968419d0546e\",\"name\":\"Rocky Linux 8\",\"label\":\"rockylinux_8\",\"description\":\"Rocky Linux is a community-driven effort to bring you enterprise-grade, production-ready Linux.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2021-06-25T10:16:16.254240Z\",\"updated_at\":\"2025-07-03T09:02:50.035473Z\"},{\"id\":\"589c35a9-20ce-4ed9-92d7-16dc061be52b\",\"name\":\"Rocky Linux 9\",\"label\":\"rockylinux_9\",\"description\":\"Rocky Linux is a community-driven effort to bring you enterprise-grade, production-ready Linux.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2022-08-24T09:26:33.639016Z\",\"updated_at\":\"2025-09-16T09:00:44.188982Z\"},{\"id\":\"3f1b9623-71ba-4fe3-b994-27fcdaa850ba\",\"name\":\"Ubuntu 20.04 Focal Fossa\",\"label\":\"ubuntu_focal\",\"description\":\"Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2020-02-17T15:50:48.980694Z\",\"updated_at\":\"2025-09-12T12:18:10.920394Z\"}],\"total_count\":27}"
     headers:
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      Content-Length:
+      - "8551"
       Content-Type:
       - application/json
       Date:
-      - Tue, 17 Jan 2023 10:11:08 GMT
+      - Fri, 07 Nov 2025 15:14:19 GMT
       Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-1;edge02)
       X-Request-Id:
-      - b41073f9-66cf-403b-91fc-bff72a1a1241
+      - 24c528f2-7520-47cd-a827-15375d86b587
     status: 200 OK
     code: 200
-    duration: ""
+    duration: 203.860551ms
+- id: 1
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    form:
+      include_eol:
+      - "false"
+      order_by:
+      - name_asc
+      page:
+      - "2"
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/marketplace/v2/images?include_eol=false&order_by=name_asc&page=2
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 2960
+    body: "{\"images\":[{\"id\":\"1123148c-7660-4cb2-9fd3-7b5b4896f72f\",\"name\":\"Ubuntu 22.04 Jammy Jellyfish\",\"label\":\"ubuntu_jammy\",\"description\":\"Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2022-04-07T13:35:54.966630Z\",\"updated_at\":\"2025-09-12T12:17:30.651241Z\"},{\"id\":\"607b12c2-685d-45f7-905f-57bc23863834\",\"name\":\"Ubuntu 24.04 Noble Numbat\",\"label\":\"ubuntu_noble\",\"description\":\"Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server helps you make the most of your infrastructure.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2024-04-15T11:39:21.011004Z\",\"updated_at\":\"2025-09-12T12:17:22.670604Z\"},{\"id\":\"a6c68db3-5613-4b08-acaa-2c92d8baf26c\",\"name\":\"Ubuntu Jammy GPU OS 12\",\"label\":\"ubuntu_jammy_gpu_os_12\",\"description\":\"Ubuntu 22.04 Jammy Jellyfish for Nvidia GPU and Machine Learning (GPU passthrough)\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png\",\"categories\":[\"Machine Learning\"],\"valid_until\":null,\"created_at\":\"2023-01-20T14:30:57.496021Z\",\"updated_at\":\"2025-10-21T09:19:07.479947Z\"},{\"id\":\"61916874-cf88-417d-83e8-c7933b848c6a\",\"name\":\"Ubuntu Noble GPU OS 12\",\"label\":\"ubuntu_noble_gpu_os_12\",\"description\":\"Ubuntu 22.04 Noble Numbat for Nvidia GPU and Machine Learning (GPU passthrough)\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png\",\"categories\":[\"Machine Learning\"],\"valid_until\":null,\"created_at\":\"2025-04-03T13:54:47.966340Z\",\"updated_at\":\"2025-10-21T09:19:17.615540Z\"},{\"id\":\"1b38cd96-9e7c-428e-8d2f-484058b284cd\",\"name\":\"Windows Server 2022\",\"label\":\"windows_server_2022\",\"description\":\"Microsoft Windows Server 2022 Base, english edition\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/microsoft_windows_server.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2024-01-05T11:48:30.728431Z\",\"updated_at\":\"2025-08-25T12:03:24.498653Z\"},{\"id\":\"3f09bf1e-12be-473d-b95e-ed90f490a0f1\",\"name\":\"Windows Server 2022 Core\",\"label\":\"windows_server_2022_core\",\"description\":\"Microsoft Windows Server 2022 Core, english edition\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/microsoft_windows_server.png\",\"categories\":[\"distribution\"],\"valid_until\":null,\"created_at\":\"2024-04-12T08:16:23.819768Z\",\"updated_at\":\"2025-08-25T12:03:24.590890Z\"},{\"id\":\"215a50f9-0ba8-4e9c-a4e7-10caf50e3586\",\"name\":\"WordPress\",\"label\":\"wordpress\",\"description\":\"WordPress is the most popular web software you can use to create a beautiful website or blog.\",\"logo\":\"https://scw-marketplace-logos.s3.fr-par.scw.cloud/wordpress.png\",\"categories\":[\"instantapp\"],\"valid_until\":null,\"created_at\":\"2016-03-07T21:03:59.783534Z\",\"updated_at\":\"2025-07-03T09:04:57.594941Z\"}],\"total_count\":27}"
+    headers:
+      Content-Length:
+      - "2960"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 07 Nov 2025 15:14:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      X-Request-Id:
+      - ea9ac19d-6980-487a-b4f1-15f72dc09fdc
+    status: 200 OK
+    code: 200
+    duration: 115.217867ms
+- id: 2
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+    method: GET
+  response:
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 401
+    body: "{\"access_key\":\"SCW2DWFM69FT5GRJARV0\",\"secret_key\":null,\"description\":\"my prod API key\",\"created_at\":\"2025-07-29T18:35:44.750352Z\",\"updated_at\":\"2025-07-29T18:35:44.750352Z\",\"expires_at\":\"2026-07-29T18:35:44.583Z\",\"default_project_id\":\"19a4819b-24bf-4d44-969f-935ef0061b71\",\"editable\":true,\"deletable\":true,\"managed\":false,\"creation_ip\":\"51.159.46.153\",\"user_id\":\"77e7fa85-f305-4ea2-afea-09571a039336\"}"
+    headers:
+      Content-Length:
+      - "401"
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 07 Nov 2025 15:14:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-1;edge02)
+      X-Request-Id:
+      - a8d95efc-49c7-484c-9cae-80b7e2d127cf
+    status: 200 OK
+    code: 200
+    duration: 64.488907ms

@@ -14,6 +14,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"testing"
@@ -313,19 +314,15 @@ var DefaultRetryInterval *time.Duration
 var foldersUsingVCRv4 = []string{
 	"instance",
 	"k8s",
+	"marketplace",
 }
 
 func folderUsesVCRv4(fullFolderPath string) bool {
-	fullPathSplit := strings.Split(fullFolderPath, "/")
+	fullPathSplit := strings.Split(fullFolderPath, string(os.PathSeparator))
 
-	folder := fullPathSplit[len(fullPathSplit)-1]
-	for _, migratedFolder := range foldersUsingVCRv4 {
-		if migratedFolder == folder {
-			return true
-		}
-	}
+	folder := fullPathSplit[len(fullPathSplit)-2]
 
-	return false
+	return slices.Contains(foldersUsingVCRv4, folder)
 }
 
 // Run a CLI integration test. See TestConfig for configuration option
@@ -346,7 +343,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// We need to set up this variable to ensure that relative date parsing stay consistent
-		args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+		args.TestForceNow = new(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.

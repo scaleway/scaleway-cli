@@ -145,30 +145,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		var pn *vpc.PrivateNetwork
 		var err error
 
-		types, err := k8sAPI.ListClusterTypes(&k8s.ListClusterTypesRequest{
-			Region: request.Region,
-		})
-		if err != nil {
-			return nil, err
-		}
-		if request.Type != "" {
-			validType := false
-			validTypes := []string(nil)
-			for _, clusterType := range types.ClusterTypes {
-				validTypes = append(validTypes, clusterType.Name)
-				if clusterType.Name == request.Type {
-					validType = true
-				}
-			}
-			if !validType {
-				return nil, fmt.Errorf(
-					"invalid cluster type %q, must be one of %v",
-					request.Type,
-					validTypes,
-				)
-			}
-		}
-
 		if request.Type == "" || strings.HasPrefix(request.Type, "kapsule") {
 			if request.PrivateNetworkID == nil {
 				createPNReq := &vpc.CreatePrivateNetworkRequest{
@@ -182,7 +158,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				if err != nil {
 					return nil, err
 				}
-				request.PrivateNetworkID = scw.StringPtr(pn.ID)
+				request.PrivateNetworkID = new(pn.ID)
 				pnCreated = true
 			} else {
 				pn, err = vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
@@ -359,7 +335,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 			WaitForCluster(&k8s.WaitForClusterRequest{
 				Region:        clusterResponse.Region,
 				ClusterID:     clusterResponse.ID,
-				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+				Timeout:       new(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		switch action {

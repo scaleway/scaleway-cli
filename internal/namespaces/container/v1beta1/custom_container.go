@@ -36,7 +36,7 @@ func waitForContainer(ctx context.Context, _, respI any) (any, error) {
 	return api.WaitForContainer(&container.WaitForContainerRequest{
 		ContainerID:   c.ID,
 		Region:        c.Region,
-		Timeout:       scw.TimeDurationPtr(containerDeployTimeout),
+		Timeout:       new(containerDeployTimeout),
 		RetryInterval: core.DefaultRetryInterval,
 	})
 }

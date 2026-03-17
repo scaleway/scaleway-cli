@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        Retrieve the list of Scaleway resources for which you have Audit Trail events
 
 FLAGS:
-  -h, --help   help for product
+  -h, --help                help for product
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

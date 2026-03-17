@@ -44,8 +44,9 @@ DEPRECATED ARGS:
   [user-data.content]        
 
 FLAGS:
-  -h, --help   help for install
-  -w, --wait   wait until the server is ready
+  -h, --help                help for install
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the server is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

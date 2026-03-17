@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Retrieve a list of available pricing plan types.
-Deprecated: retention is now managed at the data source level.
+Deprecated due to retention now being managed at the data source level.
 
 USAGE:
   scw cockpit plan list [arg=value ...]
@@ -10,7 +10,8 @@ ARGS:
   [order-by]    (name_asc | name_desc)
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

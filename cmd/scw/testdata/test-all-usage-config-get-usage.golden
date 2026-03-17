@@ -16,7 +16,8 @@ ARGS:
   key   the key to get from the config (access-key | secret-key | api-url | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry)
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

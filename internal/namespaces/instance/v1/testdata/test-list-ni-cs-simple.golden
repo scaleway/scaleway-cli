@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        STATE      TAGS  CREATION DATE    ZONE
-4fc073ed-a647-4707-b496-b8b0f9406327  2c933cdb-97b1-4267-a757-f1a6ec5ec619  26ccfbb2-07cd-4cb0-966f-8cb8f5cb48c0  02:00:00:19:46:82  available  []    few seconds ago  fr-par-1
+83648eff-98ec-4b45-816a-0f946aea79e6  0dfa708e-e42d-4648-8fa8-48ef47c2721e  53f375df-7aa4-42fe-82a0-3aef8d919b18  02:00:00:1e:ee:da  available  []    few seconds ago  fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "4fc073ed-a647-4707-b496-b8b0f9406327",
-    "server_id": "2c933cdb-97b1-4267-a757-f1a6ec5ec619",
-    "private_network_id": "26ccfbb2-07cd-4cb0-966f-8cb8f5cb48c0",
-    "mac_address": "02:00:00:19:46:82",
+    "id": "83648eff-98ec-4b45-816a-0f946aea79e6",
+    "server_id": "0dfa708e-e42d-4648-8fa8-48ef47c2721e",
+    "private_network_id": "53f375df-7aa4-42fe-82a0-3aef8d919b18",
+    "mac_address": "02:00:00:1e:ee:da",
     "state": "available",
     "tags": [],
     "creation_date": "1970-01-01T00:00:00.0Z",

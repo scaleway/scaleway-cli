@@ -22,7 +22,6 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRoot(),
 		vpcVpc(),
 		vpcPrivateNetwork(),
-		vpcSubnet(),
 		vpcRoute(),
 		vpcRule(),
 		vpcVpcList(),
@@ -75,15 +74,6 @@ to resources that are on the same Private Network. Note that a
 resource can be a part of multiple private networks.`,
 		Namespace: "vpc",
 		Resource:  "private-network",
-	}
-}
-
-func vpcSubnet() *core.Command {
-	return &core.Command{
-		Short:     `Subnet management command`,
-		Long:      `CIDR Subnet.`,
-		Namespace: "vpc",
-		Resource:  "subnet",
 	}
 }
 
@@ -783,6 +773,13 @@ func vpcRouteCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "nexthop-vpc-connector-id",
+				Short:      `ID of the nexthop VPC Connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -882,6 +879,13 @@ func vpcRouteUpdate() *core.Command {
 			{
 				Name:       "nexthop-private-network-id",
 				Short:      `ID of the nexthop private network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-vpc-connector-id",
+				Short:      `ID of the nexthop VPC connector`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1170,7 +1174,15 @@ func vpcRouteList() *core.Command {
 					"instance_private_nic",
 					"baremetal_private_nic",
 					"apple_silicon_private_nic",
+					"vpn_gateway",
 				},
+			},
+			{
+				Name:       "nexthop-vpc-connector-id",
+				Short:      `Next hop VPC connector ID to filter for. Only routes with a matching next hop VPC connector ID will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "contains",

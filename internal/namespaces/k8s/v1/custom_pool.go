@@ -44,6 +44,39 @@ const (
 	poolActionDelete
 )
 
+func poolMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	type humanPool k8s.Pool
+	pool := humanPool(i.(k8s.Pool))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "UpgradePolicy",
+			Title:     "Upgrade Policy",
+		},
+		{
+			FieldName: "Labels",
+			Title:     "Node labels",
+		},
+		{
+			FieldName: "Taints",
+			Title:     "Node taints",
+		},
+
+		{
+			FieldName: "StartupTaints",
+			Title:     "Node startup taints",
+		},
+	}
+
+	str, err := human.Marshal(pool, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 func poolCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionCreate)
 
@@ -76,7 +109,7 @@ func waitForPoolFunc(action int) core.WaitFunc {
 		pool, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForPool(&k8s.WaitForPoolRequest{
 			Region:        respI.(*k8s.Pool).Region,
 			PoolID:        respI.(*k8s.Pool).ID,
-			Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+			Timeout:       new(poolActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		switch action {
@@ -190,13 +223,16 @@ Keep in mind that your external node needs to have wget in order to download the
 				homeDir = "/home/" + args.Username
 			}
 			nodeInitScript := buildNodeInitScript(args.PoolID, args.Region)
-			copyScriptArgs := []string{
+			copyScriptArgs := append(append([]string{},
 				"cat", "<<", "EOF",
-				">", homeDir + "/init_kosmos_node.sh",
-				"\n",
-			}
-			copyScriptArgs = append(copyScriptArgs, strings.Split(nodeInitScript, " \n")...)
-			if err = execSSHCommand(ctx, append(sshCommonArgs, copyScriptArgs...), true); err != nil {
+				">", homeDir+"/init_kosmos_node.sh",
+				"\n"),
+				strings.Split(nodeInitScript, " \n")...)
+			if err = execSSHCommand(
+				ctx,
+				append(sshCommonArgs, copyScriptArgs...),
+				true,
+			); err != nil {
 				return nil, err
 			}
 			chmodArgs := []string{"chmod", "+x", homeDir + "/init_kosmos_node.sh"}
@@ -212,7 +248,11 @@ Keep in mind that your external node needs to have wget in order to download the
 				"SCW_SECRET_KEY=" + secretKey,
 				"./init_kosmos_node.sh",
 			}
-			if err = execSSHCommand(ctx, append(sshCommonArgs, execScriptArgs...), false); err != nil {
+			if err = execSSHCommand(
+				ctx,
+				append(sshCommonArgs, execScriptArgs...),
+				false,
+			); err != nil {
 				return nil, err
 			}
 

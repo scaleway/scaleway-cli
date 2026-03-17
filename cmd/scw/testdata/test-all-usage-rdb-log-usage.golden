@@ -6,6 +6,7 @@ USAGE:
   scw rdb log <command>
 
 AVAILABLE COMMANDS:
+  download     Download logs from a database instance
   get          Get given logs of a Database Instance
   list         List available logs of a Database Instance
   list-details List remote Database Instance logs details
@@ -13,7 +14,8 @@ AVAILABLE COMMANDS:
   purge        Purge remote Database Instance logs
 
 FLAGS:
-  -h, --help   help for log
+  -h, --help                help for log
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

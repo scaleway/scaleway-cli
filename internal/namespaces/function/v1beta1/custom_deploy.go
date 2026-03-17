@@ -84,7 +84,11 @@ func functionDeploy() *core.Command {
 					DeployStepFetchNamespace(api, args.Region, args.NamespaceID),
 				)
 			} else {
-				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.Name))
+				tasks.Add(
+					ts,
+					"Creating or fetching namespace",
+					DeployStepCreateNamespace(api, args.Region, args.Name),
+				)
 			}
 			tasks.Add(
 				ts,
@@ -302,7 +306,7 @@ func DeployStepFunctionDeploy(
 			Region:     fc.Region,
 			FunctionID: fc.ID,
 			Runtime:    runtime,
-			Redeploy:   scw.BoolPtr(true),
+			Redeploy:   new(true),
 		})
 		if err != nil {
 			return nil, err

@@ -17,7 +17,8 @@ AVAILABLE COMMANDS:
   update      Update Private Network
 
 FLAGS:
-  -h, --help   help for private-network
+  -h, --help                help for private-network
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

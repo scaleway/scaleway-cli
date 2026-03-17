@@ -6,7 +6,8 @@ USAGE:
   scw interlink connection
 
 FLAGS:
-  -h, --help   help for connection
+  -h, --help                help for connection
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

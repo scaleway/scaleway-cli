@@ -19,7 +19,8 @@ DEPRECATED ARGS:
   [activate-vpc-integration]   [DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

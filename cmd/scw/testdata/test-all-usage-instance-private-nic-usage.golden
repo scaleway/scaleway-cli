@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   update      Update a private NIC
 
 FLAGS:
-  -h, --help   help for private-nic
+  -h, --help                help for private-nic
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

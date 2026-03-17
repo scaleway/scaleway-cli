@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   sqs         MnQ Queues commands
 
 FLAGS:
-  -h, --help   help for mnq
+  -h, --help                help for mnq
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -17,7 +17,8 @@ AVAILABLE COMMANDS:
   waf-stage     WAF-stage management commands
 
 FLAGS:
-  -h, --help   help for edge-services
+  -h, --help                help for edge-services
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

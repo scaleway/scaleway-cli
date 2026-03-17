@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   list        List databases in a Database Instance
 
 FLAGS:
-  -h, --help   help for database
+  -h, --help                help for database
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

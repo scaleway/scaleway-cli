@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   delete      Delete a Database Instance endpoint
 
 FLAGS:
-  -h, --help   help for endpoint
+  -h, --help                help for endpoint
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

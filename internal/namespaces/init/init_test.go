@@ -124,7 +124,7 @@ func TestInit(t *testing.T) {
 				"test": {
 					AccessKey:   &dummyAccessKey,
 					SecretKey:   &dummySecretKey,
-					DefaultZone: scw.StringPtr("fr-test"), // Used to check profile override
+					DefaultZone: new("fr-test"), // Used to check profile override
 				},
 			},
 		}

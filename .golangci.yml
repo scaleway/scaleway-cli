@@ -53,6 +53,7 @@ linters:
     - makezero # Finds slice declarations with non-zero initial length [fast: false, auto-fix: false]
     - mirror # reports wrong mirror patterns of bytes/strings usage [fast: false, auto-fix: false]
     - misspell # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
+    - modernize # A suite of analyzers that suggest simplifications to Go code, using modern language and library features.
     - musttag # enforce field tags in (un)marshaled structs [fast: false, auto-fix: false]
     - nakedret # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
     - nilerr # Finds the code that returns nil even if it checks that the error is not nil. [fast: false, auto-fix: false]
@@ -92,6 +93,9 @@ linters:
       rules:
         - name: exported
           disabled: true
+    modernize:
+      disable:
+        - reflecttypefor
 
   exclusions:
     paths:

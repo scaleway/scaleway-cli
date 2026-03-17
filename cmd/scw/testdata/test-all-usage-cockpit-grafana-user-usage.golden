@@ -6,13 +6,14 @@ USAGE:
   scw cockpit grafana-user <command>
 
 AVAILABLE COMMANDS:
-  create         Create a Grafana user
-  delete         Delete a Grafana user
-  list           List Grafana users
-  reset-password Reset a Grafana user password
+  create         (Deprecated) EOL 2026-01-20
+  delete         (Deprecated) EOL 2026-01-20
+  list           (Deprecated) EOL 2026-01-20
+  reset-password (Deprecated) EOL 2026-01-20
 
 FLAGS:
-  -h, --help   help for grafana-user
+  -h, --help                help for grafana-user
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -20,6 +20,7 @@ import (
 type instanceConsoleServerArgs struct {
 	Zone     scw.Zone
 	ServerID string
+	WsURL    string
 }
 
 func serverConsoleCommand() *core.Command {
@@ -37,6 +38,10 @@ func serverConsoleCommand() *core.Command {
 				Positional: true,
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
+			{
+				Name:  "ws-url",
+				Short: "WebSocket URL to connect to (overrides default)",
+			},
 		},
 		Run: instanceServerConsoleRun,
 	}
@@ -64,6 +69,14 @@ func instanceServerConsoleRun(ctx context.Context, argsI any) (i any, e error) {
 	ttyClient, err := gotty.NewClient(server.Zone, server.ID, secretKey)
 	if err != nil {
 		return nil, err
+	}
+
+	// If a custom WebSocket URL was provided, use it
+	if args.WsURL != "" {
+		err = ttyClient.SetWsURL(args.WsURL)
+		if err != nil {
+			return nil, fmt.Errorf("invalid WebSocket URL: %w", err)
+		}
 	}
 
 	// Add hint on how to quit properly

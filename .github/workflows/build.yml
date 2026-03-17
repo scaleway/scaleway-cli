@@ -1,0 +1,44 @@
+name: Build
+
+permissions:
+  contents: read
+
+on:
+  pull_request:
+  merge_group:
+
+jobs:
+  native-binary:
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
+    steps:
+      # Checkout should always be before setup-go to ensure caching is working
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 1
+      - name: Install Go
+        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
+        with:
+          go-version: stable
+      - name: Verify go.mod is tidy
+        run: |
+          go mod tidy
+          git diff --exit-code
+      - name: Build binaries
+        run: ./scripts/build.sh
+      - name: Print binaries size
+        run: ls -lh ./bin
+      - name: Check binary size
+        run: ./scripts/check-size.sh ./bin/*linux-x86_64
+
+  docker:
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
+    steps:
+    - name: Checkout
+      uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      with:
+        fetch-depth: 1
+    - name: Build image in Docker
+      run: docker build -t scaleway/cli .
+    - name: Test help command in docker
+      run: docker run -i scaleway/cli version

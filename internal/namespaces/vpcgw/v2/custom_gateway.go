@@ -8,7 +8,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -35,7 +34,7 @@ func gatewayCreateBuilder(c *core.Command) *core.Command {
 		return api.WaitForGateway(&vpcgw.WaitForGatewayRequest{
 			GatewayID:     getResp.ID,
 			Zone:          getResp.Zone,
-			Timeout:       scw.TimeDurationPtr(gatewayActionTimeout),
+			Timeout:       new(gatewayActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

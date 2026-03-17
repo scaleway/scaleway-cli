@@ -57,7 +57,7 @@ func serverWaitCommand() *core.Command {
 			server, err := api.WaitForServer(&baremetal.WaitForServerRequest{
 				ServerID:      args.ServerID,
 				Zone:          args.Zone,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
+				Timeout:       new(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -79,7 +79,7 @@ func serverWaitCommand() *core.Command {
 			server, err = api.WaitForServerInstall(&baremetal.WaitForServerInstallRequest{
 				ServerID:      args.ServerID,
 				Zone:          args.Zone,
-				Timeout:       scw.TimeDurationPtr(args.Timeout),
+				Timeout:       new(args.Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -125,7 +125,7 @@ func serverStartBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.StartServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+			Timeout:       new(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -141,7 +141,7 @@ func serverStopBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.StopServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+			Timeout:       new(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -159,7 +159,7 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 		return api.WaitForServer(&baremetal.WaitForServerRequest{
 			Zone:          argsI.(*baremetal.RebootServerRequest).Zone,
 			ServerID:      respI.(*baremetal.Server).ID,
-			Timeout:       scw.TimeDurationPtr(ServerActionTimeout),
+			Timeout:       new(ServerActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

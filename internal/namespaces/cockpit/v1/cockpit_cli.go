@@ -225,13 +225,14 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 
 func cockpitGrafanaUserCreate() *core.Command {
 	return &core.Command{
-		Short: `Create a Grafana user`,
-		Long: `Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `Create a Grafana user
+Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
 Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the ` + "`" + `admin` + "`" + ` username is not available for creation.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPICreateGrafanaUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -268,12 +269,13 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 
 func cockpitGrafanaUserList() *core.Command {
 	return &core.Command{
-		Short:     `List Grafana users`,
-		Long:      `List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.`,
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `List Grafana users
+List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaUsersRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -307,12 +309,13 @@ func cockpitGrafanaUserList() *core.Command {
 
 func cockpitGrafanaUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a Grafana user`,
-		Long:      `Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `Delete a Grafana user
+Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIDeleteGrafanaUserRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -344,13 +347,14 @@ func cockpitGrafanaUserDelete() *core.Command {
 
 func cockpitGrafanaUserResetPassword() *core.Command {
 	return &core.Command{
-		Short: `Reset a Grafana user password`,
-		Long: `Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `Reset a Grafana user password
+Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
 A new password regenerates and only displays once. Make sure that you save it.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "reset-password",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(cockpit.GlobalAPIResetGrafanaUserPasswordRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
@@ -442,7 +446,7 @@ func cockpitPlanList() *core.Command {
 	return &core.Command{
 		Short: `List plan types`,
 		Long: `Retrieve a list of available pricing plan types.
-Deprecated: retention is now managed at the data source level.`,
+Deprecated due to retention now being managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "list",
@@ -480,7 +484,7 @@ func cockpitPlanSelect() *core.Command {
 	return &core.Command{
 		Short: `Apply a pricing plan`,
 		Long: `Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
-Deprecated: retention is now managed at the data source level.`,
+Deprecated due to retention now being managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "select",
@@ -517,7 +521,7 @@ func cockpitPlanGet() *core.Command {
 	return &core.Command{
 		Short: `Get current plan`,
 		Long: `Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-Deprecated: retention is now managed at the data source level.`,
+Deprecated due to retention now being managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "get",
@@ -552,14 +556,14 @@ The name of the data source will then be used as reference to name the associate
 			{
 				Name:       "name",
 				Short:      `Data source name`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
 				Short:      `Data source type`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{
@@ -678,21 +682,6 @@ func cockpitDataSourceList() *core.Command {
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListDataSourcesRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "order-by",
-				Short:      `Sort order for data sources in the response`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"created_at_asc",
-					"created_at_desc",
-					"name_asc",
-					"name_desc",
-					"type_asc",
-					"type_desc",
-				},
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "origin",
@@ -718,6 +707,21 @@ func cockpitDataSourceList() *core.Command {
 					"metrics",
 					"logs",
 					"traces",
+				},
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sort order for data sources in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+					"type_asc",
+					"type_desc",
 				},
 			},
 			core.RegionArgSpec(
@@ -844,7 +848,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 			{
 				Name:       "name",
 				Short:      `Name of the token`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -895,19 +899,6 @@ You can filter tokens by Project ID and token scopes.`,
 		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListTokensRequest{}),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "order-by",
-				Short:      `Order in which to return results`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"created_at_asc",
-					"created_at_desc",
-					"name_asc",
-					"name_desc",
-				},
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "token-scopes.{index}",
@@ -926,6 +917,19 @@ You can filter tokens by Project ID and token scopes.`,
 					"full_access_alert_manager",
 					"read_only_traces",
 					"write_only_traces",
+				},
+			},
+			{
+				Name:       "order-by",
+				Short:      `Order in which to return results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
 				},
 			},
 			core.RegionArgSpec(

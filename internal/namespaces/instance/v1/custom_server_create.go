@@ -207,7 +207,7 @@ func instanceWaitServerCreateRun() core.WaitFunc {
 			WaitForServer(&instance.WaitForServerRequest{
 				Zone:          argsI.(*instanceCreateServerRequest).Zone,
 				ServerID:      serverID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 
@@ -231,7 +231,7 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 	serverBuilder := NewServerBuilder(client, args.Name, args.Zone, args.Type).
 		AddOrganizationID(args.OrganizationID).
 		AddProjectID(args.ProjectID).
-		AddEnableIPv6(scw.BoolPtr(args.IPv6)).
+		AddEnableIPv6(new(args.IPv6)).
 		AddTags(args.Tags).
 		AddRoutedIPEnabled(args.RoutedIPEnabled).
 		AddDynamicIPRequired(args.DynamicIPRequired).
@@ -369,28 +369,9 @@ func instanceServerCreateRun(ctx context.Context, argsI any) (i any, e error) {
 }
 
 func addDefaultVolumes(
-	serverType *instance.ServerType,
 	volumes map[string]*instance.VolumeServerTemplate,
 ) map[string]*instance.VolumeServerTemplate {
-	needScratch := false
-	hasScratch := false
 	defaultVolumes := []*instance.VolumeServerTemplate(nil)
-	if serverType.ScratchStorageMaxSize != nil && *serverType.ScratchStorageMaxSize > 0 {
-		needScratch = true
-	}
-	for _, volume := range volumes {
-		if volume.VolumeType == instance.VolumeVolumeTypeScratch {
-			hasScratch = true
-		}
-	}
-
-	if needScratch && !hasScratch {
-		defaultVolumes = append(defaultVolumes, &instance.VolumeServerTemplate{
-			Name:       scw.StringPtr("default-cli-scratch-volume"),
-			Size:       serverType.ScratchStorageMaxSize,
-			VolumeType: instance.VolumeVolumeTypeScratch,
-		})
-	}
 
 	if defaultVolumes != nil {
 		if volumes == nil {
@@ -521,7 +502,7 @@ func sanitizeVolumeMap(
 	m := make(map[string]*instance.VolumeServerTemplate)
 
 	for index, v := range volumes {
-		v.Name = scw.StringPtr(serverName + "-" + index)
+		v.Name = new(serverName + "-" + index)
 
 		// Remove extra data for API validation.
 		switch {

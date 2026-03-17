@@ -11,7 +11,8 @@ ARGS:
   [application-id]   ID of the application to remove
 
 FLAGS:
-  -h, --help   help for remove-member
+  -h, --help                help for remove-member
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,0 +1,48 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                 956f2366-8cf5-439a-9dbc-5a0ee3036465
+Name               cli-inference-cranky-antonelli
+ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Status             creating
+NodeTypeName       H100-2
+Size               0
+MinSize            1
+MaxSize            1
+ModelID            739d51ae-4f1e-4193-a4bf-f7380c090d46
+Quantization.Bits  4
+ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
+CreatedAt          few seconds ago
+Region             fr-par
+
+Endpoints:
+ID                                    URL                                                                   DISABLE AUTH
+79319256-5e07-4b5a-8c08-b81f1c585b26  https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "956f2366-8cf5-439a-9dbc-5a0ee3036465",
+  "name": "cli-inference-cranky-antonelli",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "status": "creating",
+  "tags": [],
+  "node_type_name": "H100-2",
+  "endpoints": [
+    {
+      "id": "79319256-5e07-4b5a-8c08-b81f1c585b26",
+      "url": "https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
+      "public_network": {},
+      "disable_auth": false
+    }
+  ],
+  "size": 0,
+  "min_size": 1,
+  "max_size": 1,
+  "error_message": null,
+  "model_id": "739d51ae-4f1e-4193-a4bf-f7380c090d46",
+  "quantization": {
+    "bits": 4
+  },
+  "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": null,
+  "region": "fr-par"
+}

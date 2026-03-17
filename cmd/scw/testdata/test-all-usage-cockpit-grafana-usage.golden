@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   sync-data-sources Synchronize Grafana data sources
 
 FLAGS:
-  -h, --help   help for grafana
+  -h, --help                help for grafana
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   list        List the networks
 
 FLAGS:
-  -h, --help   help for network
+  -h, --help                help for network
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

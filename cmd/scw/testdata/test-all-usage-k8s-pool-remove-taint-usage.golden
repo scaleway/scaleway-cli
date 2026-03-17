@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Remove a taint from all all nodes of the pool (only apply to taints which was set through scaleway api).
+
+USAGE:
+  scw k8s pool remove-taint <pool-id ...> [arg=value ...]
+
+EXAMPLES:
+  Remove a taint to a specific pool
+    scw k8s pool remove-taint 11111111-1111-1111-1111-111111111111 key=foo
+
+ARGS:
+  pool-id           ID of the pool.
+  key               Key of the taint.
+  [region=fr-par]   Region to target. If none is passed will use default region from the config
+
+FLAGS:
+  -h, --help                help for remove-taint
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

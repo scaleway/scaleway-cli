@@ -17,7 +17,8 @@ AVAILABLE COMMANDS:
   update      Update a hub
 
 FLAGS:
-  -h, --help   help for hub
+  -h, --help                help for hub
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

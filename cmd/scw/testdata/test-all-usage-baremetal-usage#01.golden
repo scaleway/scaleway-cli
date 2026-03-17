@@ -16,7 +16,8 @@ AVAILABLE COMMANDS:
   settings             Settings management commands
 
 FLAGS:
-  -h, --help   help for baremetal
+  -h, --help                help for baremetal
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

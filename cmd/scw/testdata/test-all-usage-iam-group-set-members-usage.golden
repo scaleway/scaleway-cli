@@ -11,7 +11,8 @@ ARGS:
   application-ids.{index}   
 
 FLAGS:
-  -h, --help   help for set-members
+  -h, --help                help for set-members
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

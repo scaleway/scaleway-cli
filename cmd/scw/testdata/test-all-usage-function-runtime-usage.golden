@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List function runtimes
 
 FLAGS:
-  -h, --help   help for runtime
+  -h, --help                help for runtime
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

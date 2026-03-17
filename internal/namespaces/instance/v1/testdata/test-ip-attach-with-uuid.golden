@@ -1,25 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            adc52627-968f-4a07-9b80-588eff7201d1
-IP.Address       51.158.97.167
-IP.Server.ID     1f8cd4e6-3797-407b-af08-9e309e4bb338
-IP.Server.Name   cli-srv-funny-chatelet
+IP.ID            fe3afc1e-a1ea-48d8-8df4-663952b362a7
+IP.Address       51.15.129.35
+IP.Server.ID     d7b609b5-586c-4023-b948-9e35ea4ef9da
+IP.Server.Name   cli-srv-dreamy-bartik
 IP.Organization  fa1e3217-dc80-42ac-85c3-3f034b78b552
 IP.Project       fa1e3217-dc80-42ac-85c3-3f034b78b552
 IP.Type          routed_ipv4
 IP.State         attached
 IP.Prefix        -
-IP.IpamID        4ab4788c-f617-4bab-8a4f-fb7e2d44de46
+IP.IpamID        cff46b41-76f4-477e-8bcd-44eb2cf14308
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "adc52627-968f-4a07-9b80-588eff7201d1",
-    "address": "51.158.97.167",
+    "id": "fe3afc1e-a1ea-48d8-8df4-663952b362a7",
+    "address": "51.15.129.35",
     "reverse": null,
     "server": {
-      "id": "1f8cd4e6-3797-407b-af08-9e309e4bb338",
-      "name": "cli-srv-funny-chatelet"
+      "id": "d7b609b5-586c-4023-b948-9e35ea4ef9da",
+      "name": "cli-srv-dreamy-bartik"
     },
     "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
@@ -27,7 +27,7 @@ IP.Zone          fr-par-1
     "type": "routed_ipv4",
     "state": "attached",
     "prefix": "",
-    "ipam_id": "4ab4788c-f617-4bab-8a4f-fb7e2d44de46",
+    "ipam_id": "cff46b41-76f4-477e-8bcd-44eb2cf14308",
     "zone": "fr-par-1"
   }
 }

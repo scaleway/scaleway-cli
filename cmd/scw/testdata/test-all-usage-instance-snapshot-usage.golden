@@ -28,8 +28,9 @@ WORKFLOW COMMANDS:
   wait            Wait for snapshot to reach a stable state
 
 FLAGS:
-  -h, --help   help for snapshot
-      --web    open console page for the current resource
+  -h, --help                help for snapshot
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

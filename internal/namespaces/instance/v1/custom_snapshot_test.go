@@ -37,7 +37,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 			),
 			AfterFunc: core.AfterFuncCombine(
 				deleteSnapshot("CreateSnapshot"),
-				deleteVolume("Volume"),
+				deleteVolume(),
 			),
 		}))
 		t.Run("Change name", core.Test(&core.TestConfig{
@@ -65,7 +65,7 @@ func Test_UpdateSnapshot(t *testing.T) {
 			),
 			AfterFunc: core.AfterFuncCombine(
 				deleteSnapshot("CreateSnapshot"),
-				deleteVolume("Volume"),
+				deleteVolume(),
 			),
 		}))
 	})

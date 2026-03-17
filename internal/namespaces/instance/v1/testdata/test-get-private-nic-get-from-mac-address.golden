@@ -1,19 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-PrivateNic.ID                42eaf5d5-a726-4689-8bd9-41110fc03074
-PrivateNic.ServerID          59eec301-fbd1-4793-8255-b8bb4d6bcb1d
-PrivateNic.PrivateNetworkID  693902ae-c002-4544-b79c-25ed6f2e052c
-PrivateNic.MacAddress        02:00:00:12:7d:77
+PrivateNic.ID                a2f0dc3e-5cd1-47b6-8421-0b1786d508a9
+PrivateNic.ServerID          f58e3047-609e-44c2-94c4-e108ed5327f3
+PrivateNic.PrivateNetworkID  8aa280f3-38a8-4af4-a6b3-270106ecc346
+PrivateNic.MacAddress        02:00:00:1b:f4:62
 PrivateNic.State             available
 PrivateNic.CreationDate      few seconds ago
 PrivateNic.Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "private_nic": {
-    "id": "42eaf5d5-a726-4689-8bd9-41110fc03074",
-    "server_id": "59eec301-fbd1-4793-8255-b8bb4d6bcb1d",
-    "private_network_id": "693902ae-c002-4544-b79c-25ed6f2e052c",
-    "mac_address": "02:00:00:12:7d:77",
+    "id": "a2f0dc3e-5cd1-47b6-8421-0b1786d508a9",
+    "server_id": "f58e3047-609e-44c2-94c4-e108ed5327f3",
+    "private_network_id": "8aa280f3-38a8-4af4-a6b3-270106ecc346",
+    "mac_address": "02:00:00:1b:f4:62",
     "state": "available",
     "tags": [],
     "creation_date": "1970-01-01T00:00:00.0Z",

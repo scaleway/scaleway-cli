@@ -198,7 +198,7 @@ func instanceCloneBuilder(c *core.Command) *core.Command {
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -318,7 +318,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(CreateInstanceResult).ID,
 			Region:        respI.(CreateInstanceResult).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -440,16 +440,77 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func instanceUpgradeInterceptor(
+	ctx context.Context,
+	argsI any,
+	runner core.CommandRunner,
+) (any, error) {
+	req := argsI.(*rdbSDK.UpgradeInstanceRequest)
+	api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+
+	instance, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
+		Region:     req.Region,
+		InstanceID: req.InstanceID,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if !needsUpgrade(req, instance) {
+		return &core.SuccessResult{Message: "Nothing to do!"}, nil
+	}
+
+	return runner(ctx, argsI)
+}
+
+func needsUpgrade(req *rdbSDK.UpgradeInstanceRequest, instance *rdbSDK.Instance) bool {
+	if req.NodeType != nil && *req.NodeType != "" {
+		if !strings.EqualFold(instance.NodeType, *req.NodeType) {
+			return true
+		}
+	}
+
+	if req.EnableHa != nil && *req.EnableHa && !instance.IsHaCluster {
+		return true
+	}
+
+	if instance.Volume != nil {
+		if req.VolumeType != nil && *req.VolumeType != instance.Volume.Type {
+			return true
+		}
+		if req.VolumeSize != nil && *req.VolumeSize > uint64(instance.Volume.Size) {
+			return true
+		}
+	}
+
+	if req.UpgradableVersionID != nil && *req.UpgradableVersionID != "" {
+		return true
+	}
+
+	if req.MajorUpgradeWorkflow != nil && req.MajorUpgradeWorkflow.UpgradableVersionID != "" {
+		return true
+	}
+
+	return false
+}
+
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
+	c.Interceptor = instanceUpgradeInterceptor
+
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
+		if _, ok := respI.(*core.SuccessResult); ok {
+			return respI, nil
+		}
+
+		instance := respI.(*rdbSDK.Instance)
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdbSDK.Instance).ID,
-			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			InstanceID:    instance.ID,
+			Region:        instance.Region,
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -608,7 +669,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				InstanceID:    respI.(*rdbSDK.Instance).ID,
 				Region:        respI.(*rdbSDK.Instance).Region,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -635,7 +696,7 @@ func instanceDeleteBuilder(c *core.Command) *core.Command {
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -671,7 +732,7 @@ func instanceWaitCommand() *core.Command {
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
+				Timeout:       new(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},

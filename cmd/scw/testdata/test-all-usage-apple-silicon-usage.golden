@@ -8,11 +8,13 @@ USAGE:
 AVAILABLE COMMANDS:
   os              OS management commands
   private-network Private network management command
+  runner          Runner management commands
   server          Apple silicon management commands
   server-type     Server-Types management commands
 
 FLAGS:
-  -h, --help   help for apple-silicon
+  -h, --help                help for apple-silicon
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

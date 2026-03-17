@@ -25,6 +25,8 @@ Edge Services API
   - [Delete pipeline](#delete-pipeline)
   - [Get pipeline](#get-pipeline)
   - [List pipelines](#list-pipelines)
+  - [List Head stage for your pipeline.](#list-head-stage-for-your-pipeline.)
+  - [Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.](#configure-a-entry-point-to-your-pipeline.-you-must-specify-a-`head-stage`-to-form-a-stage-chain-that-goes-all-the-way-to-the-backend-stage-(origin),-so-the-http-request-will-be-processed-according-to-the-stages-you-created.)
   - [Update pipeline](#update-pipeline)
 - [Purge-request management commands](#purge-request-management-commands)
   - [Create purge request](#create-purge-request)
@@ -32,6 +34,7 @@ Edge Services API
   - [List purge requests](#list-purge-requests)
 - [Route-rules management commands](#route-rules-management-commands)
   - [Add route rules](#add-route-rules)
+  - [Edit all route rules of a route stage](#edit-all-route-rules-of-a-route-stage)
   - [List route rules](#list-route-rules)
   - [Set route rules](#set-route-rules)
 - [Route-stage management commands](#route-stage-management-commands)
@@ -485,6 +488,48 @@ scw edge-services pipeline list [arg=value ...]
 
 
 
+### List Head stage for your pipeline.
+
+List Head stage for your pipeline.
+
+**Usage:**
+
+```
+scw edge-services pipeline list-head <pipeline-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pipeline-id | Required | ID of the pipeline to update |
+
+
+
+### Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.
+
+You must specify either a `add_new_head_stage` (to add a new head stage), `remove_head_stage` (to remove a head stage) or `swap_head_stage` (to replace a head stage).
+
+**Usage:**
+
+```
+scw edge-services pipeline set-head <pipeline-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pipeline-id | Required | ID of the pipeline to update |
+| add-new-head-stage.new-stage-id |  |  |
+| remove-head-stage.remove-stage-id |  |  |
+| swap-head-stage.new-stage-id |  |  |
+| swap-head-stage.current-stage-id |  |  |
+
+
+
 ### Update pipeline
 
 Update the parameters of an existing pipeline, specified by its `pipeline_id`. Parameters which can be updated include the `name`, `description` and `dns_stage_id`.
@@ -598,8 +643,33 @@ scw edge-services route-rules add <route-stage-id ...> [arg=value ...]
 | route-rules.{index}.rule-http-match.path-filter.path-filter-type | One of: `unknown_path_filter`, `regex` | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type |
 | route-rules.{index}.rule-http-match.path-filter.value |  | Value to be matched for the HTTP URL path |
 | route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
+| route-rules.{index}.waf-stage-id |  | ID of the WAF stage that requests matching the rule should be forwarded to |
 | after-position |  | Add rules after the given position |
 | before-position |  | Add rules before the given position |
+
+
+
+### Edit all route rules of a route stage
+
+Edit all route rules of a route stage.
+
+If backend-stage-id is provided, the editor will only show rule_http_match fields and the specified backend will be applied to all rules automatically.
+Otherwise, opens the editor with full rules including backend_stage_id for each rule.
+
+**Usage:**
+
+```
+scw edge-services route-rules edit <route-stage-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| route-stage-id | Required | ID of the route stage to edit |
+| backend-stage-id |  | ID of the backend stage to apply to all rules (simplifies editing when using a single backend) |
+| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
 
 
 
@@ -642,6 +712,7 @@ scw edge-services route-rules set <route-stage-id ...> [arg=value ...]
 | route-rules.{index}.rule-http-match.path-filter.path-filter-type | One of: `unknown_path_filter`, `regex` | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type |
 | route-rules.{index}.rule-http-match.path-filter.value |  | Value to be matched for the HTTP URL path |
 | route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
+| route-rules.{index}.waf-stage-id |  | ID of the WAF stage that requests matching the rule should be forwarded to |
 
 
 
@@ -667,6 +738,7 @@ scw edge-services route-stage create [arg=value ...]
 |------|---|-------------|
 | pipeline-id | Required | Pipeline ID the route stage belongs to |
 | waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
+| backend-stage-id |  |  |
 
 
 
@@ -745,6 +817,7 @@ scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 |------|---|-------------|
 | route-stage-id | Required | ID of the route stage to update |
 | waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
+| backend-stage-id |  |  |
 
 
 

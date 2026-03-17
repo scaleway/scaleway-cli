@@ -20,7 +20,6 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Edit all ACL rules of a VPC](#edit-all-acl-rules-of-a-vpc)
   - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
   - [Set VPC ACL rules](#set-vpc-acl-rules)
-- [Subnet management command](#subnet-management-command)
 - [VPC management command](#vpc-management-command)
   - [Create a VPC](#create-a-vpc)
   - [Delete a VPC](#delete-a-vpc)
@@ -198,6 +197,7 @@ scw vpc route create [arg=value ...]
 | destination |  | Destination of the Route |
 | nexthop-resource-id |  | ID of the nexthop resource |
 | nexthop-private-network-id |  | ID of the nexthop private network |
+| nexthop-vpc-connector-id |  | ID of the nexthop VPC Connector |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -281,7 +281,8 @@ scw vpc route list [arg=value ...]
 | vpc-id |  | VPC to filter for. Only routes within this VPC will be returned |
 | nexthop-resource-id |  | Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned |
 | nexthop-private-network-id |  | Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned |
-| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
+| nexthop-resource-type | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic`, `vpn_gateway` | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned |
+| nexthop-vpc-connector-id |  | Next hop VPC connector ID to filter for. Only routes with a matching next hop VPC connector ID will be returned |
 | contains |  | Only routes whose destination is contained in this subnet will be returned |
 | tags.{index} |  | Tags to filter for, only routes with one or more matching tags will be returned |
 | is-ipv6 |  | Only routes with an IPv6 destination will be returned |
@@ -310,6 +311,7 @@ scw vpc route update <route-id ...> [arg=value ...]
 | destination |  | Destination of the Route |
 | nexthop-resource-id |  | ID of the nexthop resource |
 | nexthop-private-network-id |  | ID of the nexthop private network |
+| nexthop-vpc-connector-id |  | ID of the nexthop VPC connector |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -392,20 +394,6 @@ scw vpc rule set [arg=value ...]
 | is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
 | default-policy | Required<br />One of: `unknown_action`, `accept`, `drop` | Action to take for packets which do not match any rules |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
-
-
-
-## Subnet management command
-
-CIDR Subnet.
-
-CIDR Subnet.
-
-**Usage:**
-
-```
-scw vpc subnet
-```
 
 
 

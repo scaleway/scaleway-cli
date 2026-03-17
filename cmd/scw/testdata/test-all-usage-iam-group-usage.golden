@@ -17,7 +17,8 @@ AVAILABLE COMMANDS:
   update        Update a group
 
 FLAGS:
-  -h, --help   help for group
+  -h, --help                help for group
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

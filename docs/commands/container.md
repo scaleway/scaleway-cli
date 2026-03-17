@@ -203,7 +203,7 @@ scw container container update <container-id ...> [arg=value ...]
 | memory-limit |  | Memory limit of the container in MB |
 | cpu-limit |  | CPU limit of the container in mvCPU |
 | timeout |  | Processing time limit for the container |
-| redeploy |  | Defines whether to redeploy failed containers |
+| ~~redeploy~~ | Deprecated | Defines whether to redeploy failed containers |
 | privacy | One of: `unknown_privacy`, `public`, `private` | Privacy settings of the container |
 | description |  | Description of the container |
 | registry-image |  | Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag"). |
@@ -361,6 +361,7 @@ scw container deploy [arg=value ...]
 |------|---|-------------|
 | name |  | Name of the application (defaults to build-source's directory name) |
 | builder | Default: `paketobuildpacks/builder-jammy-base:latest` | Builder image to use |
+| run-image | Default: `paketobuildpacks/run-jammy-base:latest` | Run image to use |
 | dockerfile | Default: `Dockerfile` | Path to the Dockerfile |
 | force-builder | Default: `false` | Force the use of the builder image (even if a Dockerfile is present) |
 | build-source | Default: `.` | Path to the build context |
@@ -586,7 +587,7 @@ Token management commands.
 
 ### Create a new revocable token
 
-Create a new revocable token.
+Deprecated in favor of IAM authentication.
 
 **Usage:**
 

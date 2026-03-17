@@ -6,6 +6,7 @@ USAGE:
   scw redis cluster <command>
 
 AVAILABLE COMMANDS:
+  connect           Connect to a Redis cluster using locally installed redis-cli
   create            Create a Redis™ Database Instance
   delete            Delete a Redis™ Database Instance
   get               Get a Redis™ Database Instance
@@ -18,7 +19,8 @@ AVAILABLE COMMANDS:
   wait              Wait for a Redis cluster to reach a stable state
 
 FLAGS:
-  -h, --help   help for cluster
+  -h, --help                help for cluster
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

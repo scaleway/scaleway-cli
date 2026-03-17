@@ -38,7 +38,12 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
   - [Delete a Pool in a Cluster](#delete-a-pool-in-a-cluster)
   - [Get a Pool in a Cluster](#get-a-pool-in-a-cluster)
   - [List Pools in a Cluster](#list-pools-in-a-cluster)
-  - [Migrate specific pools or all pools of a cluster to new images.](#migrate-specific-pools-or-all-pools-of-a-cluster-to-new-images.)
+  - [Remove a label from a Pool](#remove-a-label-from-a-pool)
+  - [Remove a startup taint from a Pool](#remove-a-startup-taint-from-a-pool)
+  - [Remove a taint from a Pool](#remove-a-taint-from-a-pool)
+  - [Apply a label to a Pool](#apply-a-label-to-a-pool)
+  - [Apply a startup taint to a Pool](#apply-a-startup-taint-to-a-pool)
+  - [Apply a taint to a Pool](#apply-a-taint-to-a-pool)
   - [Update a Pool in a Cluster](#update-a-pool-in-a-cluster)
   - [Upgrade a Pool in a Cluster](#upgrade-a-pool-in-a-cluster)
   - [Wait for a pool to reach a stable state](#wait-for-a-pool-to-reach-a-stable-state)
@@ -184,16 +189,23 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.root-volume-size |  | System volume disk size |
 | pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | pools.{index}.security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
-| autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
+| pools.{index}.labels.{key} |  | Kubernetes labels applied and reconciled on the nodes |
+| pools.{index}.taints.{index}.key |  | The taint key to be applied to a node |
+| pools.{index}.taints.{index}.value |  | The taint value corresponding to the taint key |
+| pools.{index}.taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
+| pools.{index}.startup-taints.{index}.key |  | The taint key to be applied to a node |
+| pools.{index}.startup-taints.{index}.value |  | The taint value corresponding to the taint key |
+| pools.{index}.startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
+| autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
-| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
-| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them |
+| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details |
+| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false |
+| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them, defaults to false |
 | autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable |
-| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible to be scaled down |
-| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down |
-| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
+| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
+| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
+| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
@@ -483,16 +495,16 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | name |  | New external name for the cluster |
 | description |  | New description for the cluster |
 | tags.{index} |  | New tags associated with the cluster |
-| autoscaler-config.scale-down-disabled |  | Disable the cluster autoscaler |
+| autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
 | autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
 | autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Type of node group expander to be used in scale up |
-| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down |
-| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them |
+| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details |
+| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false |
+| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them, defaults to false |
 | autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable |
-| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible to be scaled down |
-| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by capacity, below which a node can be considered for scale down |
-| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node |
+| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
+| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
+| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
@@ -761,7 +773,6 @@ scw k8s node delete <node-id ...> [arg=value ...]
 |------|---|-------------|
 | node-id | Required | ID of the node to replace |
 | skip-drain |  | Skip draining node from its workload (Note: this parameter is currently inactive) |
-| replace |  | Add a new node after the deletion of this node |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -776,11 +787,6 @@ scw k8s node delete 11111111-1111-1111-1111-111111111111
 Delete a node without evicting workloads
 ```
 scw k8s node delete 11111111-1111-1111-1111-111111111111 skip-drain=true
-```
-
-Replace a node by a new one
-```
-scw k8s node delete 11111111-1111-1111-1111-111111111111 replace=true
 ```
 
 
@@ -1015,6 +1021,13 @@ scw k8s pool create [arg=value ...]
 | root-volume-size |  | System volume disk size |
 | public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
 | security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
+| labels.{key} |  | Kubernetes labels applied and reconciled on the nodes |
+| taints.{index}.key |  | The taint key to be applied to a node |
+| taints.{index}.value |  | The taint value corresponding to the taint key |
+| taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
+| startup-taints.{index}.key |  | The taint key to be applied to a node |
+| startup-taints.{index}.value |  | The taint value corresponding to the taint key |
+| startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -1147,14 +1160,14 @@ scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=creat
 
 
 
-### Migrate specific pools or all pools of a cluster to new images.
+### Remove a label from a Pool
 
-If no pool is specified, all pools of the cluster will be migrated to new images.
+Remove a label from all nodes of the pool (only apply to labels which was set through scaleway api).
 
 **Usage:**
 
 ```
-scw k8s pool migrate-to-new-images [arg=value ...]
+scw k8s pool remove-label <pool-id ...> [arg=value ...]
 ```
 
 
@@ -1162,22 +1175,192 @@ scw k8s pool migrate-to-new-images [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| cluster-id | Required |  |
-| pool-ids.{index} |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the label. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
 
 
-Migrate all pools of a cluster to new images
+Remove a label of a specific pool
 ```
-scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111
+scw k8s pool remove-label 11111111-1111-1111-1111-111111111111 key=foo
 ```
 
-Migrate a specific pool of a cluster to new images
+
+
+
+### Remove a startup taint from a Pool
+
+New nodes will not have this taint at startup (does not remove taints from kubernetes side).
+
+**Usage:**
+
 ```
-scw k8s pool migrate-to-new-images cluster-id=11111111-1111-1111-1111-111111111111 pools.0=22222222-2222-2222-2222-222222222222
+scw k8s pool remove-startup-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Remove a startup taint of a specific pool
+```
+scw k8s pool remove-startup-taint 11111111-1111-1111-1111-111111111111 key=foo
+```
+
+
+
+
+### Remove a taint from a Pool
+
+Remove a taint from all all nodes of the pool (only apply to taints which was set through scaleway api).
+
+**Usage:**
+
+```
+scw k8s pool remove-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Remove a taint to a specific pool
+```
+scw k8s pool remove-taint 11111111-1111-1111-1111-111111111111 key=foo
+```
+
+
+
+
+### Apply a label to a Pool
+
+Apply a label to all nodes of the pool which will be periodically reconciled by scaleway.
+
+**Usage:**
+
+```
+scw k8s pool set-label <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the label. |
+| value | Required | Value of the label. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Apply a label to a specific pool
+```
+scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=foo value=bar
+```
+
+Apply a full label to a specific pool
+```
+scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true
+```
+
+
+
+
+### Apply a startup taint to a Pool
+
+Apply a taint at node creation but does not reconcile after.
+
+**Usage:**
+
+```
+scw k8s pool set-startup-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| value | Required | Value of the taint. |
+| effect | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Apply a startup taint to a specific pool
+```
+scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
+```
+
+Apply a full startup taint to a specific pool
+```
+scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
+```
+
+
+
+
+### Apply a taint to a Pool
+
+Apply a taint to all nodes of the pool which will be periodically reconciled by scaleway.
+
+**Usage:**
+
+```
+scw k8s pool set-taint <pool-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| pool-id | Required | ID of the pool. |
+| key | Required | Key of the taint. |
+| value | Required | Value of the taint. |
+| effect | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect of the taint. |
+| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Apply a taint to a specific pool
+```
+scw k8s pool set-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
+```
+
+Apply a full taint to a specific pool
+```
+scw k8s pool set-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
 ```
 
 
@@ -1208,6 +1391,7 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | kubelet-args.{key} |  | New Kubelet arguments to be used by this pool. Note that this feature is experimental |
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
+| security-group-id |  | Security group ID in which all the nodes of the pool will be moved |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

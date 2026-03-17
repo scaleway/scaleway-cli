@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   settings    List available settings from an engine.
 
 FLAGS:
-  -h, --help   help for engine
+  -h, --help                help for engine
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

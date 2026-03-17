@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Security settings management commands.
+
+USAGE:
+  scw iam security-settings <command>
+
+AVAILABLE COMMANDS:
+  get         Get security settings of an Organization
+  update      Update the security settings of an Organization
+
+FLAGS:
+  -h, --help                help for security-settings
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw iam security-settings [command] --help" for more information about a command.

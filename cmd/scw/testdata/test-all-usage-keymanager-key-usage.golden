@@ -23,7 +23,8 @@ AVAILABLE COMMANDS:
   update              Update a key
 
 FLAGS:
-  -h, --help   help for key
+  -h, --help                help for key
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

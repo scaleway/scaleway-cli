@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -56,7 +57,7 @@ func SplitRawMap(rawArgs []string) map[string]struct{} {
 // SplitRaw creates a slice that maps arg names to their values.
 // ["arg1=1", "arg2=2", "arg3"] => { {"arg1", "1"}, {"arg2", "2"}, {"arg3",""} }
 func SplitRaw(rawArgs []string) [][2]string {
-	keyValue := [][2]string{}
+	keyValue := make([][2]string, 0, len(rawArgs))
 	for _, arg := range rawArgs {
 		tmp := strings.SplitN(arg, "=", 2)
 		if len(tmp) < 2 {
@@ -296,8 +297,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 	case reflect.Struct:
 		fields := []string(nil)
 
-		for i := range argType.NumField() {
-			field := argType.Field(i)
+		for field := range argType.Fields() {
 			fieldBase := base
 
 			// If this is an embedded struct, skip adding its name to base
@@ -317,10 +317,8 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 
 		return fields
 	default:
-		for _, skippedArg := range listArgTypeFieldsSkippedArguments {
-			if base == skippedArg {
-				return []string{}
-			}
+		if slices.Contains(listArgTypeFieldsSkippedArguments, base) {
+			return []string{}
 		}
 
 		return []string{base}

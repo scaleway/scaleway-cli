@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   update      Update an image
 
 FLAGS:
-  -h, --help   help for image
+  -h, --help                help for image
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

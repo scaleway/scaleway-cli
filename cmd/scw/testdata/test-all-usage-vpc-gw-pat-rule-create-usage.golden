@@ -5,16 +5,20 @@ Create a new PAT rule on a specified Public Gateway, defining the protocol to us
 USAGE:
   scw vpc-gw pat-rule create [arg=value ...]
 
+ALIASES:
+ create-v2  
+
 ARGS:
   [gateway-id]      ID of the Gateway on which to create the rule
   [public-port]     Public port to listen on
   [private-ip]      Private IP to forward data to
   [private-port]    Private port to translate to
-  [protocol]        Protocol the rule should apply to (unknown | both | tcp | udp)
+  [protocol]        Protocol the rule should apply to (unknown_protocol | both | tcp | udp)
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

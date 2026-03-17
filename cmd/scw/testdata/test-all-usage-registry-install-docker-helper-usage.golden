@@ -13,7 +13,8 @@ ARGS:
   [path=/usr/local/bin]   Directory in which the Docker helper will be installed. This directory should be in your $PATH
 
 FLAGS:
-  -h, --help   help for install-docker-helper
+  -h, --help                help for install-docker-helper
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

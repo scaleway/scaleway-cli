@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Edit all route rules of a route stage.
+
+If backend-stage-id is provided, the editor will only show rule_http_match fields and the specified backend will be applied to all rules automatically.
+Otherwise, opens the editor with full rules including backend_stage_id for each rule.
+
+USAGE:
+  scw edge-services route-rules edit <route-stage-id ...> [arg=value ...]
+
+ARGS:
+  route-stage-id       ID of the route stage to edit
+  [backend-stage-id]   ID of the backend stage to apply to all rules (simplifies editing when using a single backend)
+  [mode=yaml]          marshaling used when editing data (yaml | json)
+
+FLAGS:
+  -h, --help                help for edit
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

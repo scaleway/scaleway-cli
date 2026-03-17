@@ -10,7 +10,8 @@ ARGS:
   dns-zone   DNS zone to clear
 
 FLAGS:
-  -h, --help   help for clear
+  -h, --help                help for clear
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

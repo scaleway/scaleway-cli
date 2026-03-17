@@ -20,10 +20,10 @@ This API allows you to manage your Scaleway Cockpit, for storing and visualizing
   - [Get your Cockpit's Grafana](#get-your-cockpit's-grafana)
   - [Synchronize Grafana data sources](#synchronize-grafana-data-sources)
 - [Grafana user management commands](#grafana-user-management-commands)
-  - [Create a Grafana user](#create-a-grafana-user)
-  - [Delete a Grafana user](#delete-a-grafana-user)
-  - [List Grafana users](#list-grafana-users)
-  - [Reset a Grafana user password](#reset-a-grafana-user-password)
+  - [(Deprecated) EOL 2026-01-20](#(deprecated)-eol-2026-01-20)
+  - [(Deprecated) EOL 2026-01-20](#(deprecated)-eol-2026-01-20)
+  - [(Deprecated) EOL 2026-01-20](#(deprecated)-eol-2026-01-20)
+  - [(Deprecated) EOL 2026-01-20](#(deprecated)-eol-2026-01-20)
 - [Managed alerts management commands](#managed-alerts-management-commands)
 - [Pricing plans management commands](#pricing-plans-management-commands)
   - [Get current plan](#get-current-plan)
@@ -201,8 +201,8 @@ scw cockpit data-source create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Data source name |
-| type | One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
+| name | Required | Data source name |
+| type | Required<br />One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
 | retention-days |  | Duration for which the data will be retained in the data source |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -263,10 +263,10 @@ scw cockpit data-source list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | origin | One of: `unknown_origin`, `scaleway`, `external`, `custom` | Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned |
 | types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -342,8 +342,9 @@ scw cockpit grafana sync-data-sources [arg=value ...]
 Grafana user management commands.
 
 
-### Create a Grafana user
+### (Deprecated) EOL 2026-01-20
 
+Create a Grafana user
 Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
 Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the `admin` username is not available for creation.
 
@@ -364,8 +365,9 @@ scw cockpit grafana-user create [arg=value ...]
 
 
 
-### Delete a Grafana user
+### (Deprecated) EOL 2026-01-20
 
+Delete a Grafana user
 Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
 
 **Usage:**
@@ -384,8 +386,9 @@ scw cockpit grafana-user delete [arg=value ...]
 
 
 
-### List Grafana users
+### (Deprecated) EOL 2026-01-20
 
+List Grafana users
 List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.
 
 **Usage:**
@@ -404,8 +407,9 @@ scw cockpit grafana-user list [arg=value ...]
 
 
 
-### Reset a Grafana user password
+### (Deprecated) EOL 2026-01-20
 
+Reset a Grafana user password
 Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
 A new password regenerates and only displays once. Make sure that you save it.
 
@@ -447,7 +451,7 @@ Pricing plans management commands.
 ### Get current plan
 
 Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-Deprecated: retention is now managed at the data source level.
+Deprecated due to retention now being managed at the data source level.
 
 **Usage:**
 
@@ -467,7 +471,7 @@ scw cockpit plan get [arg=value ...]
 ### List plan types
 
 Retrieve a list of available pricing plan types.
-Deprecated: retention is now managed at the data source level.
+Deprecated due to retention now being managed at the data source level.
 
 **Usage:**
 
@@ -487,7 +491,7 @@ scw cockpit plan list [arg=value ...]
 ### Apply a pricing plan
 
 Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
-Deprecated: retention is now managed at the data source level.
+Deprecated due to retention now being managed at the data source level.
 
 **Usage:**
 
@@ -597,7 +601,7 @@ scw cockpit token create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the token |
+| name | Required | Name of the token |
 | token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token permission scopes |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -659,9 +663,9 @@ scw cockpit token list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token scopes to filter for |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 

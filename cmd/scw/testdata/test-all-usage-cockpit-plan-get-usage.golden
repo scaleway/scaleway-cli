@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-Deprecated: retention is now managed at the data source level.
+Deprecated due to retention now being managed at the data source level.
 
 USAGE:
   scw cockpit plan get [arg=value ...]
@@ -10,7 +10,8 @@ ARGS:
   [project-id]   Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

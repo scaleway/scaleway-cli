@@ -55,6 +55,9 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Add a SAML certificate](#add-a-saml-certificate)
   - [Delete a SAML certificate](#delete-a-saml-certificate)
   - [List SAML certificates](#list-saml-certificates)
+- [Security settings management commands](#security-settings-management-commands)
+  - [Get security settings of an Organization](#get-security-settings-of-an-organization)
+  - [Update the security settings of an Organization](#update-the-security-settings-of-an-organization)
 - [SSH keys management commands](#ssh-keys-management-commands)
   - [Create an SSH key](#create-an-ssh-key)
   - [Delete an SSH key](#delete-an-ssh-key)
@@ -67,6 +70,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Delete a guest user from an Organization](#delete-a-guest-user-from-an-organization)
   - [Get a given user](#get-a-given-user)
   - [List users of an Organization](#list-users-of-an-organization)
+  - [Lock a member](#lock-a-member)
+  - [Unlock a member](#unlock-a-member)
   - [Update a user](#update-a-user)
   - [Update an user's password.](#update-an-user's-password.)
   - [Update an user's username.](#update-an-user's-username.)
@@ -1062,6 +1067,54 @@ scw iam saml-certificates list <saml-id ...> [arg=value ...]
 
 
 
+## Security settings management commands
+
+Security settings management commands.
+
+
+### Get security settings of an Organization
+
+Retrieve information about the security settings of an Organization, specified by the `organization_id` parameter.
+
+**Usage:**
+
+```
+scw iam security-settings get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+### Update the security settings of an Organization
+
+Update the security settings of an Organization.
+
+**Usage:**
+
+```
+scw iam security-settings update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| enforce-password-renewal |  | Defines whether password renewal is enforced during first login |
+| grace-period-duration |  | Duration of the grace period to renew password or enable MFA. |
+| login-attempts-before-locked |  | Number of login attempts before the account is locked |
+| max-login-session-duration |  | Maximum duration a login session will stay active before needing to relogin. |
+| max-api-key-expiration-duration |  | Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration. |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
 ## SSH keys management commands
 
 SSH keys management commands.
@@ -1296,6 +1349,44 @@ scw iam user list [arg=value ...]
 | tag |  | Filter by tags containing a given string |
 | type | One of: `unknown_type`, `owner`, `member` | Filter by user type |
 | organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+
+
+
+### Lock a member
+
+Lock a member. A locked member cannot log in or use API keys until the locked status is removed.
+
+**Usage:**
+
+```
+scw iam user lock <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to lock |
+
+
+
+### Unlock a member
+
+Unlock a member.
+
+**Usage:**
+
+```
+scw iam user unlock <user-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| user-id | Required | ID of the user to unlock |
 
 
 

@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-A Gateway Network represents the connection of a Private Network to a Public Gateway. It holds configuration options relative to this specific connection, such as the DHCP configuration.
+A Gateway Network represents the connection of a Private Network to a Public Gateway.
 
 USAGE:
   scw vpc-gw gateway-network <command>
 
 AVAILABLE COMMANDS:
-  create-v2   Attach a Public Gateway to a Private Network
-  delete-v2   Detach a Public Gateway from a Private Network
-  get-v2      Get a Public Gateway connection to a Private Network
-  list-v2     List Public Gateway connections to Private Networks
-  update-v2   Update a Public Gateway's connection to a Private Network
+  create      Attach a Public Gateway to a Private Network
+  delete      Detach a Public Gateway from a Private Network
+  get         Get a Public Gateway connection to a Private Network
+  list        List Public Gateway connections to Private Networks
+  update      Update a Public Gateway's connection to a Private Network
 
 FLAGS:
-  -h, --help   help for gateway-network
+  -h, --help                help for gateway-network
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

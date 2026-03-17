@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   list        List SAML certificates
 
 FLAGS:
-  -h, --help   help for saml-certificates
+  -h, --help                help for saml-certificates
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -8,13 +8,14 @@ USAGE:
 
 ARGS:
   [project-id]       Project ID to use. If none is passed the default project ID will be used
-  [name]             Data source name
-  [type]             Data source type (unknown_type | metrics | logs | traces)
+  name               Data source name
+  type               Data source type (unknown_type | metrics | logs | traces)
   [retention-days]   Duration for which the data will be retained in the data source
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

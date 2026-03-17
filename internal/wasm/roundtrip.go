@@ -14,9 +14,8 @@ import (
 	"io"
 	"net/http"
 	"strconv"
-	_ "unsafe"
-
 	"syscall/js"
+	_ "unsafe"
 )
 
 var uint8Array = js.Global().Get("Uint8Array")

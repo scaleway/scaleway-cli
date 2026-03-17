@@ -826,7 +826,7 @@ This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field
 				Name:       "redeploy",
 				Short:      `Defines whether to redeploy failed containers`,
 				Required:   false,
-				Deprecated: false,
+				Deprecated: true,
 				Positional: false,
 			},
 			{
@@ -1485,11 +1485,11 @@ func containerDomainDelete() *core.Command {
 func containerTokenCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new revocable token`,
-		Long:      `Create a new revocable token.`,
+		Long:      `Deprecated in favor of IAM authentication.`,
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "create",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(container.CreateTokenRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{

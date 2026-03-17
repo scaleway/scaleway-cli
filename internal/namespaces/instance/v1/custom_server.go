@@ -81,10 +81,11 @@ func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 		StateDetail       string
 		Arch              instance.Arch
 		ImageID           string
+		ProjectID         string
 	}
 
 	servers := i.([]*instance.Server)
-	humanServers := make([]*humanServerInList, 0)
+	humanServers := make([]*humanServerInList, 0, len(servers))
 	for _, server := range servers {
 		publicIPAddress := net.IP(nil)
 		if server.PublicIP != nil {
@@ -117,6 +118,7 @@ func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 			StateDetail:       server.StateDetail,
 			Arch:              server.Arch,
 			ImageID:           serverImageID,
+			ProjectID:         server.Project,
 		})
 	}
 
@@ -138,7 +140,7 @@ type customVolume struct {
 
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
 func orderVolumes(v map[string]*customVolume) []*customVolume {
-	indexes := []string(nil)
+	indexes := make([]string, 0, len(v))
 	for index := range v {
 		indexes = append(indexes, index)
 	}
@@ -323,13 +325,13 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 				if volumeIsFromSBS(block.NewAPI(client), customRequest.Zone, volumeID) {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:         scw.StringPtr(volumeID),
+						ID:         new(volumeID),
 						VolumeType: instance.VolumeVolumeTypeSbsVolume,
 					}
 				} else {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:   scw.StringPtr(volumeID),
-						Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
+						ID:   new(volumeID),
+						Name: new(getServerResponse.Server.Name + "-" + index),
 					}
 				}
 			}
@@ -377,6 +379,12 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		},
 	}
 
+	// clarify how to address attached volumes, specific to the cli.
+	c.Examples = append(c.Examples, &core.Example{
+		Short: "Boot an Instance from a specific volume",
+		Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 volumes.0.id=11111111-1111-1111-1111-111111111111 volumes.0.boot=true`,
+	})
+
 	return c
 }
 
@@ -408,6 +416,7 @@ type customServer struct {
 	Arch                            instance.Arch                  `json:"arch"`
 	PlacementGroup                  *instance.PlacementGroup       `json:"placement_group"`
 	Zone                            scw.Zone                       `json:"zone"`
+	Location                        *instance.ServerLocation       `json:"location"`
 	AdminPasswordEncryptionSSHKeyID *string                        `json:"admin_password_encryption_ssh_key_id"`
 	AdminPasswordEncryptedValue     *string                        `json:"admin_password_encrypted_value"`
 	Filesystems                     []*instance.ServerFilesystem   `json:"filesystems"`
@@ -440,6 +449,7 @@ func customServerFromInstanceServer(server *instance.Server) *customServer {
 		Arch:                            server.Arch,
 		PlacementGroup:                  server.PlacementGroup,
 		Zone:                            server.Zone,
+		Location:                        server.Location,
 		AdminPasswordEncryptionSSHKeyID: server.AdminPasswordEncryptionSSHKeyID,
 		AdminPasswordEncryptedValue:     server.AdminPasswordEncryptedValue,
 		Filesystems:                     server.Filesystems,
@@ -783,7 +793,7 @@ func serverWaitCommand() *core.Command {
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          args.Zone,
 					ServerID:      args.ServerID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},

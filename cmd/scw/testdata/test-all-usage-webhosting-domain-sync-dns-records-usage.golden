@@ -23,7 +23,8 @@ DEPRECATED ARGS:
   [update-nameservers]    Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).
 
 FLAGS:
-  -h, --help   help for sync-dns-records
+  -h, --help                help for sync-dns-records
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -11,7 +11,8 @@ AVAILABLE COMMANDS:
   get         Get the Alert manager
 
 FLAGS:
-  -h, --help   help for alert-manager
+  -h, --help                help for alert-manager
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

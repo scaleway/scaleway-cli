@@ -11,13 +11,13 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	go_api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
 	kapsuleVersion    = "1.32.3"
 	clusterMetaKey    = "Cluster"
 	kubeconfigMetaKey = "Kubeconfig"
+	poolMetaKey       = "DefaultPool"
 )
 
 //
@@ -45,6 +45,33 @@ func createCluster(
 	)
 }
 
+// fetchPoolMetadata fetch pool data of previously created cluster.
+//
+//nolint:unparam
+func fetchPoolMetadata(clusterMetaKey, poolMetaKey, poolName string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cluster := ctx.Meta[clusterMetaKey].(*k8s.Cluster)
+
+		poolsList, err := k8s.NewAPI(ctx.Client).
+			ListPools(&k8s.ListPoolsRequest{
+				Region:    cluster.Region,
+				ClusterID: cluster.ID,
+				Name:      &poolName,
+			})
+		if err != nil {
+			return err
+		}
+
+		if len(poolsList.Pools) != 1 {
+			return fmt.Errorf("expected 1 pool, got %d", len(poolsList.Pools))
+		}
+
+		ctx.Meta[poolMetaKey] = poolsList.Pools[0]
+
+		return nil
+	}
+}
+
 // fetchClusterKubeconfigMetadata fetch kubeconfig of previously created cluster.
 func fetchClusterKubeconfigMetadata(
 	redacted bool,
@@ -56,7 +83,7 @@ func fetchClusterKubeconfigMetadata(
 			GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
 				Region:    cluster.Region,
 				ClusterID: cluster.ID,
-				Redacted:  scw.BoolPtr(redacted),
+				Redacted:  new(redacted),
 			})
 		if err != nil {
 			return err

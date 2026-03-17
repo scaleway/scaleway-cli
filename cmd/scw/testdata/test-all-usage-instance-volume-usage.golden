@@ -38,8 +38,9 @@ WORKFLOW COMMANDS:
   wait            Wait for volume to reach a stable state
 
 FLAGS:
-  -h, --help   help for volume
-      --web    open console page for the current resource
+  -h, --help                help for volume
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

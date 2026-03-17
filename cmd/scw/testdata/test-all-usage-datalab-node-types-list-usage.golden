@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List datalab resources.
+
+USAGE:
+  scw datalab node-types list [arg=value ...]
+
+ARGS:
+  [order-by]          The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`. (name_asc | name_desc | vcpus_asc | vcpus_desc | memory_gigabytes_asc | memory_gigabytes_desc | vram_bytes_asc | vram_bytes_desc | gpus_asc | gpus_desc)
+  [targets.{index}]   Filter on the wanted targets, whether it's for main node or worker. (unknown_target | notebook | worker)
+  [resource-type]     Filter based on node type ( `cpu`/`gpu`/`all` ). (all | gpu | cpu)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
+
+FLAGS:
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

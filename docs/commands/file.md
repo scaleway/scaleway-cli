@@ -128,6 +128,7 @@ scw file filesystem list [arg=value ...]
 | project-id |  | Filter by project ID |
 | name |  | Filter the returned filesystems by their names |
 | tags.{index} |  | Filter by tags. Only filesystems with one or more matching tags will be returned |
+| filesystem-ids.{index} |  | Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned |
 | organization-id |  | Filter by organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 

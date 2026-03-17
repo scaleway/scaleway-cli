@@ -6,8 +6,6 @@ USAGE:
   scw vpc-gw <command>
 
 AVAILABLE COMMANDS:
-  dhcp            DHCP configuration management
-  dhcp-entry      DHCP entries management
   gateway         Public Gateway management
   gateway-network Gateway Networks management
   gateway-type    Gateway types information
@@ -15,7 +13,8 @@ AVAILABLE COMMANDS:
   pat-rule        PAT rules management
 
 FLAGS:
-  -h, --help   help for vpc-gw
+  -h, --help                help for vpc-gw
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

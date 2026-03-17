@@ -25,10 +25,12 @@ ARGS:
   [auto-config-domain-dns.mail-records]       Whether or not to synchronize mail records.
   [auto-config-domain-dns.all-records]        Whether or not to synchronize all types of records. Takes priority over the other fields.
   [auto-config-domain-dns.none]               No automatic domain configuration. Users must configure their domain for the Web Hosting to work.
+  [offer-commitment-id]                       Offer commitment ID to which the hosting will be engaged
   [region=fr-par]                             Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

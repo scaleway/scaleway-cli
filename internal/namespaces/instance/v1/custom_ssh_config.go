@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -28,13 +29,7 @@ type sshConfigServer struct {
 }
 
 func (s sshConfigServer) InPrivateNetwork(id string) bool {
-	for _, pnID := range s.PrivateNetworksID {
-		if pnID == id {
-			return true
-		}
-	}
-
-	return false
+	return slices.Contains(s.PrivateNetworksID, id)
 }
 
 type sshConfigInstallRequest struct {
@@ -119,7 +114,9 @@ Do you want the include statement to be added at the beginning of your file ?`,
 				if errors.Is(err, sshconfig.ErrFileNotFound) {
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
-					logger.Warningf("Failed to check default config file, skipping include prompt\n")
+					logger.Warningf(
+						"Failed to check default config file, skipping include prompt\n",
+					)
 
 					return &core.SuccessResult{
 						Message: configFileGeneratedMessage + " " + configFilePath,

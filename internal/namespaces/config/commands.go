@@ -8,6 +8,7 @@ import (
 	"os"
 	"os/exec"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/fatih/color"
@@ -29,6 +30,7 @@ func GetCommands() *core.Commands {
 		configUnsetCommand(),
 		configDumpCommand(),
 		configProfileCommand(),
+		configListProfilesCommand(),
 		configDeleteProfileCommand(),
 		configActivateProfileCommand(),
 		configResetCommand(),
@@ -172,11 +174,11 @@ func configGetCommand() *core.Command {
 
 // configSetCommand sets a value for the scaleway config
 func configSetCommand() *core.Command {
-	allRegions := []string(nil)
+	allRegions := make([]string, 0, len(scw.AllRegions))
 	for _, region := range scw.AllRegions {
 		allRegions = append(allRegions, region.String())
 	}
-	allZones := []string(nil)
+	allZones := make([]string, 0, len(scw.AllZones))
 	for _, zone := range scw.AllZones {
 		allZones = append(allZones, zone.String())
 	}
@@ -421,6 +423,54 @@ func configProfileCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "profile",
 		AllowAnonymousClient: true,
+	}
+}
+
+// configListProfilesCommand lists all profiles in the config file
+func configListProfilesCommand() *core.Command {
+	return &core.Command{
+		Groups:               []string{"config"},
+		Short:                `List all profiles in the config file`,
+		Namespace:            "config",
+		Resource:             "profile",
+		Verb:                 "list",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(struct{}{}),
+		ArgSpecs:             core.ArgSpecs{},
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			type profile struct {
+				Name                  string
+				DefaultZone           *string
+				DefaultRegion         *string
+				DefaultProjectID      *string
+				DefaultOrganizationID *string
+				APIURL                *string
+			}
+			if err != nil {
+				return nil, err
+			}
+
+			profiles := []profile{}
+
+			for key, value := range config.Profiles {
+				profiles = append(profiles, profile{
+					Name:                  key,
+					DefaultRegion:         value.DefaultRegion,
+					DefaultZone:           value.DefaultZone,
+					DefaultOrganizationID: value.DefaultOrganizationID,
+					DefaultProjectID:      value.DefaultProjectID,
+					APIURL:                value.APIURL,
+				})
+			}
+
+			sort.Slice(profiles, func(i, j int) bool {
+				return profiles[i].Name < profiles[j].Name
+			})
+
+			return profiles, nil
+		},
 	}
 }
 
@@ -837,13 +887,12 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
 	keys := []string{}
-	for i := range t.NumField() {
-		field := t.Field(i)
+	for field := range t.Fields() {
 		switch field.Name {
 		case "APIURL":
 			keys = append(keys, "api-url")
 		default:
-			keys = append(keys, strcase.ToBashArg(t.Field(i).Name))
+			keys = append(keys, strcase.ToBashArg(field.Name))
 		}
 	}
 

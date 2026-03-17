@@ -50,6 +50,7 @@ scw inference deployment create [arg=value ...]
 | tags.{index} |  | List of tags to apply to the deployment |
 | min-size |  | Defines the minimum size of the pool |
 | max-size |  | Defines the maximum size of the pool |
+| endpoints.{index}.is-public | Default: `true` | Will configure your public endpoint if true |
 | endpoints.{index}.private-network.private-network-id |  |  |
 | endpoints.{index}.disable-auth | Default: `false` | Disable the authentication on the endpoint. |
 | quantization.bits |  | The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value. |

@@ -9,7 +9,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -41,7 +40,7 @@ func waitForNodeFunc(action int) core.WaitFunc {
 		node, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForNode(&k8s.WaitForNodeRequest{
 			Region:        respI.(*k8s.Node).Region,
 			NodeID:        respI.(*k8s.Node).ID,
-			Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
+			Timeout:       new(nodeActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if action == nodeActionReboot {

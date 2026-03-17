@@ -14,7 +14,8 @@ USAGE:
   scw config validate
 
 FLAGS:
-  -h, --help   help for validate
+  -h, --help                help for validate
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

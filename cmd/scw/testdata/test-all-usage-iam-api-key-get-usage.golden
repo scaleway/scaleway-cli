@@ -10,7 +10,8 @@ ARGS:
   [with-policies=true]   Display the set of policies associated with the API key
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

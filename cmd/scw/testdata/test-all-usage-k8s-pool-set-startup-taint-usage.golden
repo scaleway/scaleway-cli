@@ -1,0 +1,30 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Apply a taint at node creation but does not reconcile after.
+
+USAGE:
+  scw k8s pool set-startup-taint <pool-id ...> [arg=value ...]
+
+EXAMPLES:
+  Apply a startup taint to a specific pool
+    scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
+
+  Apply a full startup taint to a specific pool
+    scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
+
+ARGS:
+  pool-id           ID of the pool.
+  key               Key of the taint.
+  value             Value of the taint.
+  effect            Effect of the taint. (NoSchedule | PreferNoSchedule | NoExecute)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config
+
+FLAGS:
+  -h, --help                help for set-startup-taint
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

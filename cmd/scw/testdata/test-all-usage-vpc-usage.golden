@@ -9,11 +9,11 @@ AVAILABLE COMMANDS:
   private-network Private network management command
   route           Route management command
   rule            Rule management command
-  subnet          Subnet management command
   vpc             VPC management command
 
 FLAGS:
-  -h, --help   help for vpc
+  -h, --help                help for vpc
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

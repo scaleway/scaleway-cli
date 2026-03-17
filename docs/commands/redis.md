@@ -9,6 +9,7 @@ This API allows you to manage your Managed Databases for Redis™.
   - [Set ACL rules for a cluster](#set-acl-rules-for-a-cluster)
   - [Update an ACL rule for a Redis™ Database Instance (network rule)](#update-an-acl-rule-for-a-redis™-database-instance-(network-rule))
 - [Cluster management commands](#cluster-management-commands)
+  - [Connect to a Redis cluster using locally installed redis-cli](#connect-to-a-redis-cluster-using-locally-installed-redis-cli)
   - [Create a Redis™ Database Instance](#create-a-redis™-database-instance)
   - [Delete a Redis™ Database Instance](#delete-a-redis™-database-instance)
   - [Get a Redis™ Database Instance](#get-a-redis™-database-instance)
@@ -33,6 +34,7 @@ This API allows you to manage your Managed Databases for Redis™.
   - [Set advanced settings](#set-advanced-settings)
 - [Redis™ version management commands](#redis™-version-management-commands)
   - [List available Redis™ versions](#list-available-redis™-versions)
+  - [List available settings from a Redis™ version](#list-available-settings-from-a-redis™-version)
 
   
 ## Access Control List (ACL) management commands
@@ -150,6 +152,44 @@ scw redis acl update <acl-id ...> [arg=value ...]
 ## Cluster management commands
 
 A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
+
+
+### Connect to a Redis cluster using locally installed redis-cli
+
+Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.
+
+**Usage:**
+
+```
+scw redis cluster connect <cluster-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| private-network | Default: `false` | Connect by the private network endpoint attached. |
+| cluster-id | Required | UUID of the cluster |
+| cli-redis |  | Command line tool to use, default to redis-cli |
+| cli-args |  | Additional arguments to pass to redis-cli |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+Connect to a Redis cluster
+```
+scw redis cluster connect 11111111-1111-1111-1111-111111111111
+```
+
+Connect to a Redis cluster via private network
+```
+scw redis cluster connect 11111111-1111-1111-1111-111111111111 private-network=true
+```
+
+
 
 
 ### Create a Redis™ Database Instance
@@ -626,6 +666,36 @@ scw redis version list [arg=value ...]
 | include-deprecated |  | Defines whether or not to include deprecated Redis™ engine versions |
 | version |  | List Redis™ engine versions that match a given name pattern |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List available settings from a Redis™ version
+
+List available settings from a Redis™ version.
+
+**Usage:**
+
+```
+scw redis version list-settings [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| version | Required | Redis™ engine version |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+
+
+**Examples:**
+
+
+List settings for Redis™ 7.2.11
+```
+scw redis version list-settings version=7.2.11
+```
+
 
 
 
