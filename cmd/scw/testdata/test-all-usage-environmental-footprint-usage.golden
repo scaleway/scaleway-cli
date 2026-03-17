@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Access and download impact reports and impact data for your Scaleway projects. Our API provides key metrics such as estimated carbon emissions and water usage to help monitor your environmental footprint.
+
+USAGE:
+  scw environmental-footprint <command>
+
+AVAILABLE COMMANDS:
+  data        Environmental impact data management commands
+  report      Environmental impact report management commands
+
+FLAGS:
+  -h, --help                help for environmental-footprint
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw environmental-footprint [command] --help" for more information about a command.
