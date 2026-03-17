@@ -1,17 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the parameters of an existing route stage, specified by its `route_stage_id`.
+Scaleway Partner API ( for partner only ).
 
 USAGE:
-  scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
+  scw partner <command>
 
-ARGS:
-  route-stage-id       ID of the route stage to update
-  [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
-  [backend-stage-id]   
+AVAILABLE COMMANDS:
+  organization Organization management commands
 
 FLAGS:
-  -h, --help                help for update
+  -h, --help                help for partner
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
@@ -19,3 +17,5 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+Use "scw partner [command] --help" for more information about a command.

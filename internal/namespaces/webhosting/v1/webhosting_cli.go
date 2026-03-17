@@ -1546,6 +1546,13 @@ func webhostingHostingCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "offer-commitment-id",
+				Short:      `Offer commitment ID to which the hosting will be engaged`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,

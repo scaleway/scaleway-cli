@@ -42,6 +42,7 @@ import (
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/partner/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
@@ -118,6 +119,7 @@ func GetCommands() *core.Commands {
 		searchdb.GetCommands(),
 		datalab.GetCommands(),
 		datawarehouse.GetCommands(),
+		partner.GetCommands(),
 	)
 
 	if beta {

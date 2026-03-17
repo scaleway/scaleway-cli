@@ -67,6 +67,7 @@ SECURITY COMMANDS:
   audit-trail   This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
   iam           This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
   keymanager    Key Manager API
+  partner       Scaleway Partner API ( for partner only )
   secret        Secret Manager API
 
 SERVERLESS COMMANDS:

@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Update an organization.
+
+USAGE:
+  scw partner organization update [arg=value ...]
+
+ARGS:
+  [email]             The new email
+  [name]              The new name
+  [owner-firstname]   The first name of the new owner
+  [owner-lastname]    The last name of the new owner
+  [phone-number]      The phone number of the new owner
+  [customer-id]       Customer ID associated with this organization
+  [comment]           A comment about the organization
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

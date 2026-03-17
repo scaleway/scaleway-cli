@@ -1,17 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the parameters of an existing route stage, specified by its `route_stage_id`.
+Get an organization.
 
 USAGE:
-  scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
+  scw partner organization get [arg=value ...]
 
 ARGS:
-  route-stage-id       ID of the route stage to update
-  [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
-  [backend-stage-id]   
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
-  -h, --help                help for update
+  -h, --help                help for get
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
