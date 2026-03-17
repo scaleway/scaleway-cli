@@ -1819,6 +1819,12 @@ func edgeServicesRouteStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "backend-stage-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateRouteStageRequest)
@@ -1880,6 +1886,12 @@ func edgeServicesRouteStageUpdate() *core.Command {
 			{
 				Name:       "waf-stage-id",
 				Short:      `ID of the WAF stage HTTP requests should be forwarded to when no rules are matched`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backend-stage-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2020,6 +2032,13 @@ func edgeServicesRouteRulesSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "route-rules.{index}.waf-stage-id",
+				Short:      `ID of the WAF stage that requests matching the rule should be forwarded to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.SetRouteRulesRequest)
@@ -2087,6 +2106,13 @@ func edgeServicesRouteRulesAdd() *core.Command {
 			{
 				Name:       "route-rules.{index}.backend-stage-id",
 				Short:      `ID of the backend stage that requests matching the rule should be forwarded to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-rules.{index}.waf-stage-id",
+				Short:      `ID of the WAF stage that requests matching the rule should be forwarded to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

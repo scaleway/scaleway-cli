@@ -155,6 +155,11 @@ func auditTrailEventList() *core.Command {
 					"rdb_instance_logs",
 					"rdb_instance_read_replica",
 					"rdb_instance_snapshot",
+					"mongodb_instance",
+					"mongodb_instance_snapshot",
+					"mongodb_instance_endpoint",
+					"apple_silicon_runner",
+					"audit_trail_alert_rule",
 				},
 			},
 			{

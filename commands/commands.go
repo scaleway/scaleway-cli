@@ -42,6 +42,7 @@ import (
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/partner/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
@@ -53,8 +54,7 @@ import (
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
-	vpcgwV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -97,7 +97,6 @@ func GetCommands() *core.Commands {
 		container.GetCommands(),
 		function.GetCommands(),
 		vpcgw.GetCommands(),
-		vpcgwV2.GetCommands(),
 		redis.GetCommands(),
 		secret.GetCommands(),
 		keymanager.GetCommands(),
@@ -120,6 +119,7 @@ func GetCommands() *core.Commands {
 		searchdb.GetCommands(),
 		datalab.GetCommands(),
 		datawarehouse.GetCommands(),
+		partner.GetCommands(),
 	)
 
 	if beta {

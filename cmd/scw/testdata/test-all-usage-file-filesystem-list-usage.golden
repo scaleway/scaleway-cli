@@ -6,12 +6,13 @@ USAGE:
   scw file filesystem list [arg=value ...]
 
 ARGS:
-  [order-by]          Criteria to use when ordering the list (created_at_asc | created_at_desc | name_asc | name_desc)
-  [project-id]        Filter by project ID
-  [name]              Filter the returned filesystems by their names
-  [tags.{index}]      Filter by tags. Only filesystems with one or more matching tags will be returned
-  [organization-id]   Filter by organization ID
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
+  [order-by]                 Criteria to use when ordering the list (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-id]               Filter by project ID
+  [name]                     Filter the returned filesystems by their names
+  [tags.{index}]             Filter by tags. Only filesystems with one or more matching tags will be returned
+  [filesystem-ids.{index}]   Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned
+  [organization-id]          Filter by organization ID
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
   -h, --help                help for list

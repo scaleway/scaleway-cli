@@ -5,12 +5,15 @@ List PAT rules. You can filter by gateway ID to list all PAT rules for a particu
 USAGE:
   scw vpc-gw pat-rule list [arg=value ...]
 
+ALIASES:
+ list-v2  
+
 ARGS:
-  [order-by]        Order in which to return results (created_at_asc | created_at_desc | public_port_asc | public_port_desc)
-  [gateway-id]      Filter for PAT rules on this Gateway
-  [private-ip]      Filter for PAT rules targeting this private ip
-  [protocol]        Filter for PAT rules with this protocol (unknown | both | tcp | udp)
-  [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | all)
+  [order-by]              Order in which to return results (created_at_asc | created_at_desc | public_port_asc | public_port_desc)
+  [gateway-ids.{index}]   Filter for PAT rules on these gateways
+  [private-ips.{index}]   Filter for PAT rules targeting these private ips
+  [protocol]              Filter for PAT rules with this protocol (unknown_protocol | both | tcp | udp)
+  [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3 | all)
 
 FLAGS:
   -h, --help                help for list

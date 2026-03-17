@@ -1,19 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such as DHCP, NAT and routing.
+Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such NAT and PAT rules.
 
 USAGE:
   scw vpc-gw gateway <command>
 
 AVAILABLE COMMANDS:
-  create-v2           Create a Public Gateway
-  delete-v2           Delete a Public Gateway
-  get-v2              Get a Public Gateway
-  list-v2             List Public Gateways
-  migrate-to-v2       Put a Public Gateway in IPAM mode
-  refresh-ssh-keys-v2 Refresh a Public Gateway's SSH keys
-  update-v2           Update a Public Gateway
-  upgrade-v2          Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
+  create           Create a Public Gateway
+  delete           Delete a Public Gateway
+  get              Get a Public Gateway
+  list             List Public Gateways
+  refresh-ssh-keys Refresh a Public Gateway's SSH keys
+  update           Update a Public Gateway
+  upgrade          Upgrade a Public Gateway to the latest version and/or to a different commercial offer type
 
 FLAGS:
   -h, --help                help for gateway
