@@ -745,6 +745,7 @@ scw webhosting hosting create [arg=value ...]
 | auto-config-domain-dns.mail-records |  | Whether or not to synchronize mail records. |
 | auto-config-domain-dns.all-records |  | Whether or not to synchronize all types of records. Takes priority over the other fields. |
 | auto-config-domain-dns.none |  | No automatic domain configuration. Users must configure their domain for the Web Hosting to work. |
+| offer-commitment-id |  | Offer commitment ID to which the hosting will be engaged |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
