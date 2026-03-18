@@ -49,7 +49,9 @@ jobs:
       - name: Checkout Actions Repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
       - name: Install wget
-        run: sudo apt install -y wget
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends wget
       - name: Spell Check Repo
         uses: crate-ci/typos@631208b7aac2daa8b707f55e7331f9112b0e062d # v1.44.0
         env:
