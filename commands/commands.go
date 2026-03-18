@@ -20,6 +20,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
+	environmental_footprint "github.com/scaleway/scaleway-cli/v2/internal/namespaces/environmental_footprint/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
@@ -120,6 +121,7 @@ func GetCommands() *core.Commands {
 		datalab.GetCommands(),
 		datawarehouse.GetCommands(),
 		partner.GetCommands(),
+		environmental_footprint.GetCommands(),
 	)
 
 	if beta {
