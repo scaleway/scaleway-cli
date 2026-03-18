@@ -8,6 +8,7 @@ AI COMMANDS:
 
 AVAILABLE COMMANDS:
   datalab       Data Lab API for Apache Spark™
+  domain        Domains and DNS - Registrar API
 
 BAREMETAL COMMANDS:
   apple-silicon Apple silicon API
