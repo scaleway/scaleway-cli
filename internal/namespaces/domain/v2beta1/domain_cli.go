@@ -20,6 +20,7 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		dnsRoot(),
+		domainRoot(),
 		dnsZone(),
 		dnsRecord(),
 		dnsTsigKey(),
@@ -56,6 +57,14 @@ func dnsRoot() *core.Command {
 		Short:     `This API allows you to manage your domains, DNS zones and records`,
 		Long:      `This API allows you to manage your domains, DNS zones and records.`,
 		Namespace: "dns",
+	}
+}
+
+func domainRoot() *core.Command {
+	return &core.Command{
+		Short:     `Domains and DNS - Registrar API`,
+		Long:      `Manage your domains and contacts.`,
+		Namespace: "domain",
 	}
 }
 
