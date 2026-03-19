@@ -1,0 +1,24 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all available products in the Scaleway catalog. Returns a complete list of products with their corresponding description, locations, prices and properties. You can define the `page` number and `page_size` for your query in the request.
+
+USAGE:
+  scw product-catalog product list [arg=value ...]
+
+ARGS:
+  [product-types.{index}]   The list of filtered product categories. (unknown_product_type | instance | apple_silicon | elastic_metal | dedibox | block_storage | object_storage | managed_inference | generative_apis | load_balancer | secret_manager | key_manager | managed_redis_database | kubernetes | managed_relational_database | managed_mongodb)
+  [global]                  Filter global products.
+  [region]                  Filter products by region.
+  [zone]                    Filter products by zone.
+  [datacenter]              Filter products by datacenter.
+  [status.{index}]          The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned. (unknown_status | public_beta | preview | general_availability | end_of_new_features | end_of_growth | end_of_deployment | end_of_support | end_of_sale | end_of_life | retired)
+
+FLAGS:
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
