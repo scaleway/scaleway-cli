@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List all operations performed on the account.
+You can filter the list of tasks by domain name.
+
+USAGE:
+  scw domain task list [arg=value ...]
+
+ARGS:
+  [project-id]         
+  [domain]             
+  [types.{index}]       (unknown | create_domain | create_external_domain | renew_domain | transfer_domain | trade_domain | lock_domain_transfer | unlock_domain_transfer | enable_dnssec | disable_dnssec | update_domain | update_contact | delete_domain | cancel_task | generate_ssl_certificate | renew_ssl_certificate | send_message | delete_domain_expired | delete_external_domain | create_host | update_host | delete_host | move_project | transfer_online_domain)
+  [statuses.{index}]    (unavailable | new | waiting_payment | pending | success | error)
+  [order-by]            (domain_desc | domain_asc | type_asc | type_desc | status_asc | status_desc | updated_at_asc | updated_at_desc)
+  [organization-id]    
+
+FLAGS:
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

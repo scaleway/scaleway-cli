@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+If your domain uses another registrar and has the default Scaleway NS, you have to **update the DS record at your registrar**.
+
+USAGE:
+  scw domain domain enable-dnssec [arg=value ...]
+
+ARGS:
+  domain                              
+  [ds-record.key-id]                  
+  [ds-record.algorithm]                (rsamd5 | dh | dsa | rsasha1 | dsa_nsec3_sha1 | rsasha1_nsec3_sha1 | rsasha256 | rsasha512 | ecc_gost | ecdsap256sha256 | ecdsap384sha384 | ed25519 | ed448)
+  [ds-record.digest.type]              (sha_1 | sha_256 | gost_r_34_11_94 | sha_384)
+  [ds-record.digest.digest]           
+  [ds-record.digest.public-key.key]   
+  [ds-record.public-key.key]          
+
+FLAGS:
+  -h, --help                help for enable-dnssec
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

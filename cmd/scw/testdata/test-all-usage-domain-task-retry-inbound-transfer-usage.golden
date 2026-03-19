@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Request a retry for the transfer of a domain from another registrar to Scaleway Domains and DNS.
+
+USAGE:
+  scw domain task retry-inbound-transfer [arg=value ...]
+
+ARGS:
+  [domain]       The domain being transferred.
+  [project-id]   Project ID to use. If none is passed the default project ID will be used
+  [auth-code]    An optional new auth code to replace the previous one for the retry.
+
+FLAGS:
+  -h, --help                help for retry-inbound-transfer
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

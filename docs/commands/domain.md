@@ -2,5 +2,1203 @@
 # Documentation for `scw domain`
 Manage your domains and contacts.
   
+- [Contact management](#contact-management)
+  - [Check if contacts are compatible with a domain or a TLD](#check-if-contacts-are-compatible-with-a-domain-or-a-tld)
+  - [Get a contact](#get-a-contact)
+  - [List contacts](#list-contacts)
+  - [Update contact](#update-contact)
+- [Domain management](#domain-management)
+  - [Disable auto renew](#disable-auto-renew)
+  - [Disable a domain's DNSSEC](#disable-a-domain's-dnssec)
+  - [Enable auto renew](#enable-auto-renew)
+  - [Update domain DNSSEC](#update-domain-dnssec)
+  - [Get domain](#get-domain)
+  - [Get a domain's authorization code](#get-a-domain's-authorization-code)
+  - [List domains](#list-domains)
+  - [List domains that can be renewed](#list-domains-that-can-be-renewed)
+  - [Lock the transfer of a domain](#lock-the-transfer-of-a-domain)
+  - [Search available domains](#search-available-domains)
+  - [Unlock the transfer of a domain](#unlock-the-transfer-of-a-domain)
+  - [Update a domain's contacts](#update-a-domain's-contacts)
+- [External domain management](#external-domain-management)
+  - [Delete an external domain](#delete-an-external-domain)
+  - [Register an external domain](#register-an-external-domain)
+- [Domain host management](#domain-host-management)
+  - [Create a hostname for a domain](#create-a-hostname-for-a-domain)
+  - [Delete a domain's hostname](#delete-a-domain's-hostname)
+  - [List a domain's hostnames](#list-a-domain's-hostnames)
+  - [Update a domain's hostname](#update-a-domain's-hostname)
+- [Domain order operations](#domain-order-operations)
+  - [Purchase domains](#purchase-domains)
+  - [Renew domains](#renew-domains)
+  - [Trade a domain's contact](#trade-a-domain's-contact)
+  - [Transfer a domain](#transfer-a-domain)
+- [Task management](#task-management)
+  - [List tasks](#list-tasks)
+  - [List inbound domain transfers](#list-inbound-domain-transfers)
+  - [Retry the inbound transfer of a domain](#retry-the-inbound-transfer-of-a-domain)
+- [TLD management](#tld-management)
+  - [List TLD offers](#list-tld-offers)
 
   
+## Contact management
+
+Contact management.
+
+
+### Check if contacts are compatible with a domain or a TLD
+
+Check whether contacts are compatible with a domain or a TLD.
+If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
+
+**Usage:**
+
+```
+scw domain contact check-compatibility [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domains.{index} |  |  |
+| tlds.{index} |  |  |
+| owner-contact-id |  |  |
+| owner-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| owner-contact.firstname |  |  |
+| owner-contact.lastname |  |  |
+| owner-contact.company-name |  |  |
+| owner-contact.email |  |  |
+| owner-contact.email-alt |  |  |
+| owner-contact.phone-number |  |  |
+| owner-contact.fax-number |  |  |
+| owner-contact.address-line-1 |  |  |
+| owner-contact.address-line-2 |  |  |
+| owner-contact.zip |  |  |
+| owner-contact.city |  |  |
+| owner-contact.country |  |  |
+| owner-contact.vat-identification-code |  |  |
+| owner-contact.company-identification-code |  |  |
+| owner-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| owner-contact.resale |  |  |
+| owner-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| owner-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| owner-contact.extension-fr.duns-info.duns-id |  |  |
+| owner-contact.extension-fr.duns-info.local-id |  |  |
+| owner-contact.extension-fr.association-info.publication-jo |  |  |
+| owner-contact.extension-fr.association-info.publication-jo-page |  |  |
+| owner-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| owner-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| owner-contact.extension-eu.european-citizenship |  |  |
+| owner-contact.whois-opt-in |  |  |
+| owner-contact.state |  |  |
+| owner-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| owner-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~owner-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~owner-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| owner-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| owner-contact.questions.{index}.question |  |  |
+| owner-contact.questions.{index}.answer |  |  |
+| administrative-contact-id |  |  |
+| administrative-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| administrative-contact.firstname |  |  |
+| administrative-contact.lastname |  |  |
+| administrative-contact.company-name |  |  |
+| administrative-contact.email |  |  |
+| administrative-contact.email-alt |  |  |
+| administrative-contact.phone-number |  |  |
+| administrative-contact.fax-number |  |  |
+| administrative-contact.address-line-1 |  |  |
+| administrative-contact.address-line-2 |  |  |
+| administrative-contact.zip |  |  |
+| administrative-contact.city |  |  |
+| administrative-contact.country |  |  |
+| administrative-contact.vat-identification-code |  |  |
+| administrative-contact.company-identification-code |  |  |
+| administrative-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| administrative-contact.resale |  |  |
+| administrative-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| administrative-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| administrative-contact.extension-fr.duns-info.duns-id |  |  |
+| administrative-contact.extension-fr.duns-info.local-id |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo-page |  |  |
+| administrative-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| administrative-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| administrative-contact.extension-eu.european-citizenship |  |  |
+| administrative-contact.whois-opt-in |  |  |
+| administrative-contact.state |  |  |
+| administrative-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| administrative-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~administrative-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~administrative-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| administrative-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| administrative-contact.questions.{index}.question |  |  |
+| administrative-contact.questions.{index}.answer |  |  |
+| technical-contact-id |  |  |
+| technical-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| technical-contact.firstname |  |  |
+| technical-contact.lastname |  |  |
+| technical-contact.company-name |  |  |
+| technical-contact.email |  |  |
+| technical-contact.email-alt |  |  |
+| technical-contact.phone-number |  |  |
+| technical-contact.fax-number |  |  |
+| technical-contact.address-line-1 |  |  |
+| technical-contact.address-line-2 |  |  |
+| technical-contact.zip |  |  |
+| technical-contact.city |  |  |
+| technical-contact.country |  |  |
+| technical-contact.vat-identification-code |  |  |
+| technical-contact.company-identification-code |  |  |
+| technical-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| technical-contact.resale |  |  |
+| technical-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| technical-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| technical-contact.extension-fr.duns-info.duns-id |  |  |
+| technical-contact.extension-fr.duns-info.local-id |  |  |
+| technical-contact.extension-fr.association-info.publication-jo |  |  |
+| technical-contact.extension-fr.association-info.publication-jo-page |  |  |
+| technical-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| technical-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| technical-contact.extension-eu.european-citizenship |  |  |
+| technical-contact.whois-opt-in |  |  |
+| technical-contact.state |  |  |
+| technical-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| technical-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~technical-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~technical-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| technical-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| technical-contact.questions.{index}.question |  |  |
+| technical-contact.questions.{index}.answer |  |  |
+
+
+
+### Get a contact
+
+Retrieve a contact's details from the registrar using the given contact's ID.
+
+**Usage:**
+
+```
+scw domain contact get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| contact-id | Required |  |
+
+
+
+### List contacts
+
+Retrieve the list of contacts and their associated domains and roles.
+You can filter the list by domain name.
+
+**Usage:**
+
+```
+scw domain contact list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain |  |  |
+| project-id |  |  |
+| role | One of: `unknown_role`, `owner`, `administrative`, `technical` |  |
+| email-status | One of: `email_status_unknown`, `validated`, `not_validated`, `invalid_email` |  |
+| organization-id |  |  |
+
+
+
+### Update contact
+
+Edit the contact's information.
+
+**Usage:**
+
+```
+scw domain contact update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| contact-id | Required |  |
+| email |  |  |
+| email-alt |  |  |
+| phone-number |  |  |
+| fax-number |  |  |
+| address-line-1 |  |  |
+| address-line-2 |  |  |
+| zip |  |  |
+| city |  |  |
+| country |  |  |
+| vat-identification-code |  |  |
+| company-identification-code |  |  |
+| lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| resale |  |  |
+| extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| extension-fr.individual-info.whois-opt-in |  |  |
+| extension-fr.duns-info.duns-id |  |  |
+| extension-fr.duns-info.local-id |  |  |
+| extension-fr.association-info.publication-jo |  |  |
+| extension-fr.association-info.publication-jo-page |  |  |
+| extension-fr.trademark-info.trademark-inpi |  |  |
+| extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| extension-eu.european-citizenship |  |  |
+| extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| extension-nl.legal-form-registration-number |  |  |
+| ~~extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| whois-opt-in |  |  |
+| state |  |  |
+| questions.{index}.question |  |  |
+| questions.{index}.answer |  |  |
+
+
+
+## Domain management
+
+Domain management.
+
+
+### Disable auto renew
+
+Disable the `auto renew` feature for a domain. This means the domain will not be renewed before its expiry date.
+
+**Usage:**
+
+```
+scw domain domain disable-auto-renew [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Disable a domain's DNSSEC
+
+Disable DNSSEC for a domain.
+
+**Usage:**
+
+```
+scw domain domain disable-dnssec [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Enable auto renew
+
+Enable the `auto renew` feature for a domain. This means the domain will be automatically renewed before its expiry date.
+
+**Usage:**
+
+```
+scw domain domain enable-auto-renew [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Update domain DNSSEC
+
+If your domain uses another registrar and has the default Scaleway NS, you have to **update the DS record at your registrar**.
+
+**Usage:**
+
+```
+scw domain domain enable-dnssec [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+| ds-record.key-id |  |  |
+| ds-record.algorithm | One of: `rsamd5`, `dh`, `dsa`, `rsasha1`, `dsa_nsec3_sha1`, `rsasha1_nsec3_sha1`, `rsasha256`, `rsasha512`, `ecc_gost`, `ecdsap256sha256`, `ecdsap384sha384`, `ed25519`, `ed448` |  |
+| ds-record.digest.type | One of: `sha_1`, `sha_256`, `gost_r_34_11_94`, `sha_384` |  |
+| ds-record.digest.digest |  |  |
+| ds-record.digest.public-key.key |  |  |
+| ds-record.public-key.key |  |  |
+
+
+
+### Get domain
+
+Retrieve a specific domain and display the domain's information.
+
+**Usage:**
+
+```
+scw domain domain get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Get a domain's authorization code
+
+Retrieve the authorization code to transfer an unlocked domain. The output returns an error if the domain is locked.
+Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
+
+**Usage:**
+
+```
+scw domain domain get-auth-code [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### List domains
+
+Retrieve the list of domains you own.
+
+**Usage:**
+
+```
+scw domain domain list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `domain_asc`, `domain_desc` |  |
+| registrar |  |  |
+| status | One of: `status_unknown`, `active`, `creating`, `create_error`, `renewing`, `renew_error`, `xfering`, `xfer_error`, `expired`, `expiring`, `updating`, `checking`, `locked`, `deleting` |  |
+| project-id |  |  |
+| is-external |  |  |
+| domain |  |  |
+| organization-id |  |  |
+
+
+
+### List domains that can be renewed
+
+Retrieve the list of domains you own that can be renewed. You can also see the maximum renewal duration in years for your domains that are renewable.
+
+**Usage:**
+
+```
+scw domain domain list-renewable [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `domain_asc`, `domain_desc` |  |
+| project-id |  |  |
+| organization-id |  |  |
+
+
+
+### Lock the transfer of a domain
+
+Lock the transfer of a domain. This means that the domain cannot be transferred and the authorization code cannot be requested to your current registrar.
+
+**Usage:**
+
+```
+scw domain domain lock-transfer [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Search available domains
+
+Search a domain or a maximum of 10 domains that are available.
+
+If the TLD list is empty or not set, the search returns the results from the most popular TLDs.
+
+**Usage:**
+
+```
+scw domain domain search [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domains.{index} | Required | A list of domain to search, TLD is optional |
+| tlds.{index} |  | Array of tlds to search on |
+| strict-search |  | Search exact match |
+| include-exact-match |  | If an exact match is found, include it in response as a separate element |
+
+
+
+### Unlock the transfer of a domain
+
+Unlock the transfer of a domain. This means that the domain can be transferred and the authorization code can be requested to your current registrar.
+
+**Usage:**
+
+```
+scw domain domain unlock-transfer [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Update a domain's contacts
+
+Update contacts for a specific domain or create a new contact.<br/>
+If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
+
+**Usage:**
+
+```
+scw domain domain update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+| technical-contact-id |  |  |
+| technical-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| technical-contact.firstname |  |  |
+| technical-contact.lastname |  |  |
+| technical-contact.company-name |  |  |
+| technical-contact.email |  |  |
+| technical-contact.email-alt |  |  |
+| technical-contact.phone-number |  |  |
+| technical-contact.fax-number |  |  |
+| technical-contact.address-line-1 |  |  |
+| technical-contact.address-line-2 |  |  |
+| technical-contact.zip |  |  |
+| technical-contact.city |  |  |
+| technical-contact.country |  |  |
+| technical-contact.vat-identification-code |  |  |
+| technical-contact.company-identification-code |  |  |
+| technical-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| technical-contact.resale |  |  |
+| technical-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| technical-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| technical-contact.extension-fr.duns-info.duns-id |  |  |
+| technical-contact.extension-fr.duns-info.local-id |  |  |
+| technical-contact.extension-fr.association-info.publication-jo |  |  |
+| technical-contact.extension-fr.association-info.publication-jo-page |  |  |
+| technical-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| technical-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| technical-contact.extension-eu.european-citizenship |  |  |
+| technical-contact.whois-opt-in |  |  |
+| technical-contact.state |  |  |
+| technical-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| technical-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~technical-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~technical-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| technical-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| technical-contact.questions.{index}.question |  |  |
+| technical-contact.questions.{index}.answer |  |  |
+| ~~owner-contact-id~~ | Deprecated |  |
+| owner-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| owner-contact.firstname |  |  |
+| owner-contact.lastname |  |  |
+| owner-contact.company-name |  |  |
+| owner-contact.email |  |  |
+| owner-contact.email-alt |  |  |
+| owner-contact.phone-number |  |  |
+| owner-contact.fax-number |  |  |
+| owner-contact.address-line-1 |  |  |
+| owner-contact.address-line-2 |  |  |
+| owner-contact.zip |  |  |
+| owner-contact.city |  |  |
+| owner-contact.country |  |  |
+| owner-contact.vat-identification-code |  |  |
+| owner-contact.company-identification-code |  |  |
+| owner-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| owner-contact.resale |  |  |
+| owner-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| owner-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| owner-contact.extension-fr.duns-info.duns-id |  |  |
+| owner-contact.extension-fr.duns-info.local-id |  |  |
+| owner-contact.extension-fr.association-info.publication-jo |  |  |
+| owner-contact.extension-fr.association-info.publication-jo-page |  |  |
+| owner-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| owner-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| owner-contact.extension-eu.european-citizenship |  |  |
+| owner-contact.whois-opt-in |  |  |
+| owner-contact.state |  |  |
+| owner-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| owner-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~owner-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~owner-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| owner-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| owner-contact.questions.{index}.question |  |  |
+| owner-contact.questions.{index}.answer |  |  |
+| administrative-contact-id |  |  |
+| administrative-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| administrative-contact.firstname |  |  |
+| administrative-contact.lastname |  |  |
+| administrative-contact.company-name |  |  |
+| administrative-contact.email |  |  |
+| administrative-contact.email-alt |  |  |
+| administrative-contact.phone-number |  |  |
+| administrative-contact.fax-number |  |  |
+| administrative-contact.address-line-1 |  |  |
+| administrative-contact.address-line-2 |  |  |
+| administrative-contact.zip |  |  |
+| administrative-contact.city |  |  |
+| administrative-contact.country |  |  |
+| administrative-contact.vat-identification-code |  |  |
+| administrative-contact.company-identification-code |  |  |
+| administrative-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| administrative-contact.resale |  |  |
+| administrative-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| administrative-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| administrative-contact.extension-fr.duns-info.duns-id |  |  |
+| administrative-contact.extension-fr.duns-info.local-id |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo-page |  |  |
+| administrative-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| administrative-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| administrative-contact.extension-eu.european-citizenship |  |  |
+| administrative-contact.whois-opt-in |  |  |
+| administrative-contact.state |  |  |
+| administrative-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| administrative-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~administrative-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~administrative-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| administrative-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| administrative-contact.questions.{index}.question |  |  |
+| administrative-contact.questions.{index}.answer |  |  |
+
+
+
+## External domain management
+
+External domain management.
+
+
+### Delete an external domain
+
+Delete an external domain name.
+
+**Usage:**
+
+```
+scw domain external-domain delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Register an external domain
+
+Request the registration of an external domain name.
+
+**Usage:**
+
+```
+scw domain external-domain register [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain |  |  |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+## Domain host management
+
+Domain host management.
+
+
+### Create a hostname for a domain
+
+Create a hostname for a domain with glue IPs.
+
+**Usage:**
+
+```
+scw domain host create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+| name |  |  |
+| ips.{index} |  |  |
+
+
+
+### Delete a domain's hostname
+
+Delete a domain's hostname.
+
+**Usage:**
+
+```
+scw domain host delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+| name | Required |  |
+
+
+
+### List a domain's hostnames
+
+List a domain's hostnames using their glue IPs.
+
+**Usage:**
+
+```
+scw domain host list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+
+
+
+### Update a domain's hostname
+
+Update a domain's hostname with glue IPs.
+
+**Usage:**
+
+```
+scw domain host update [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+| name | Required |  |
+| ips.{index} |  |  |
+
+
+
+## Domain order operations
+
+Domain order operations.
+
+
+### Purchase domains
+
+Request the registration of domain names.
+You can provide a domain's already existing contact or a new contact.
+
+**Usage:**
+
+```
+scw domain order buy [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domains.{index} | Required |  |
+| duration-in-years |  |  |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| owner-contact-id |  |  |
+| owner-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| owner-contact.firstname |  |  |
+| owner-contact.lastname |  |  |
+| owner-contact.company-name |  |  |
+| owner-contact.email |  |  |
+| owner-contact.email-alt |  |  |
+| owner-contact.phone-number |  |  |
+| owner-contact.fax-number |  |  |
+| owner-contact.address-line-1 |  |  |
+| owner-contact.address-line-2 |  |  |
+| owner-contact.zip |  |  |
+| owner-contact.city |  |  |
+| owner-contact.country |  |  |
+| owner-contact.vat-identification-code |  |  |
+| owner-contact.company-identification-code |  |  |
+| owner-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| owner-contact.resale |  |  |
+| owner-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| owner-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| owner-contact.extension-fr.duns-info.duns-id |  |  |
+| owner-contact.extension-fr.duns-info.local-id |  |  |
+| owner-contact.extension-fr.association-info.publication-jo |  |  |
+| owner-contact.extension-fr.association-info.publication-jo-page |  |  |
+| owner-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| owner-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| owner-contact.extension-eu.european-citizenship |  |  |
+| owner-contact.whois-opt-in |  |  |
+| owner-contact.state |  |  |
+| owner-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| owner-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~owner-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~owner-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| owner-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| owner-contact.questions.{index}.question |  |  |
+| owner-contact.questions.{index}.answer |  |  |
+| administrative-contact-id |  |  |
+| administrative-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| administrative-contact.firstname |  |  |
+| administrative-contact.lastname |  |  |
+| administrative-contact.company-name |  |  |
+| administrative-contact.email |  |  |
+| administrative-contact.email-alt |  |  |
+| administrative-contact.phone-number |  |  |
+| administrative-contact.fax-number |  |  |
+| administrative-contact.address-line-1 |  |  |
+| administrative-contact.address-line-2 |  |  |
+| administrative-contact.zip |  |  |
+| administrative-contact.city |  |  |
+| administrative-contact.country |  |  |
+| administrative-contact.vat-identification-code |  |  |
+| administrative-contact.company-identification-code |  |  |
+| administrative-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| administrative-contact.resale |  |  |
+| administrative-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| administrative-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| administrative-contact.extension-fr.duns-info.duns-id |  |  |
+| administrative-contact.extension-fr.duns-info.local-id |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo-page |  |  |
+| administrative-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| administrative-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| administrative-contact.extension-eu.european-citizenship |  |  |
+| administrative-contact.whois-opt-in |  |  |
+| administrative-contact.state |  |  |
+| administrative-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| administrative-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~administrative-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~administrative-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| administrative-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| administrative-contact.questions.{index}.question |  |  |
+| administrative-contact.questions.{index}.answer |  |  |
+| technical-contact-id |  |  |
+| technical-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| technical-contact.firstname |  |  |
+| technical-contact.lastname |  |  |
+| technical-contact.company-name |  |  |
+| technical-contact.email |  |  |
+| technical-contact.email-alt |  |  |
+| technical-contact.phone-number |  |  |
+| technical-contact.fax-number |  |  |
+| technical-contact.address-line-1 |  |  |
+| technical-contact.address-line-2 |  |  |
+| technical-contact.zip |  |  |
+| technical-contact.city |  |  |
+| technical-contact.country |  |  |
+| technical-contact.vat-identification-code |  |  |
+| technical-contact.company-identification-code |  |  |
+| technical-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| technical-contact.resale |  |  |
+| technical-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| technical-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| technical-contact.extension-fr.duns-info.duns-id |  |  |
+| technical-contact.extension-fr.duns-info.local-id |  |  |
+| technical-contact.extension-fr.association-info.publication-jo |  |  |
+| technical-contact.extension-fr.association-info.publication-jo-page |  |  |
+| technical-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| technical-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| technical-contact.extension-eu.european-citizenship |  |  |
+| technical-contact.whois-opt-in |  |  |
+| technical-contact.state |  |  |
+| technical-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| technical-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~technical-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~technical-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| technical-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| technical-contact.questions.{index}.question |  |  |
+| technical-contact.questions.{index}.answer |  |  |
+
+
+
+### Renew domains
+
+Request the renewal of one or more domain names.
+
+**Usage:**
+
+```
+scw domain order renew [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domains.{index} | Required |  |
+| duration-in-years |  |  |
+| force-late-renewal |  |  |
+
+
+
+### Trade a domain's contact
+
+Request to change a domain's contact owner.<br/>
+If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
+If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
+If the new owner has never created a contact to register domains before, an error message displays.
+
+**Usage:**
+
+```
+scw domain order trade [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain | Required |  |
+| project-id |  |  |
+| new-owner-contact-id |  |  |
+| new-owner-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| new-owner-contact.firstname |  |  |
+| new-owner-contact.lastname |  |  |
+| new-owner-contact.company-name |  |  |
+| new-owner-contact.email |  |  |
+| new-owner-contact.email-alt |  |  |
+| new-owner-contact.phone-number |  |  |
+| new-owner-contact.fax-number |  |  |
+| new-owner-contact.address-line-1 |  |  |
+| new-owner-contact.address-line-2 |  |  |
+| new-owner-contact.zip |  |  |
+| new-owner-contact.city |  |  |
+| new-owner-contact.country |  |  |
+| new-owner-contact.vat-identification-code |  |  |
+| new-owner-contact.company-identification-code |  |  |
+| new-owner-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| new-owner-contact.resale |  |  |
+| new-owner-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| new-owner-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| new-owner-contact.extension-fr.duns-info.duns-id |  |  |
+| new-owner-contact.extension-fr.duns-info.local-id |  |  |
+| new-owner-contact.extension-fr.association-info.publication-jo |  |  |
+| new-owner-contact.extension-fr.association-info.publication-jo-page |  |  |
+| new-owner-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| new-owner-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| new-owner-contact.extension-eu.european-citizenship |  |  |
+| new-owner-contact.whois-opt-in |  |  |
+| new-owner-contact.state |  |  |
+| new-owner-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| new-owner-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~new-owner-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~new-owner-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| new-owner-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| new-owner-contact.questions.{index}.question |  |  |
+| new-owner-contact.questions.{index}.answer |  |  |
+
+
+
+### Transfer a domain
+
+Request the transfer of a domain from another registrar to Scaleway Domains and DNS.
+
+**Usage:**
+
+```
+scw domain order transfer [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domains.{index}.domain |  |  |
+| domains.{index}.auth-code |  |  |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| owner-contact-id |  |  |
+| owner-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| owner-contact.firstname |  |  |
+| owner-contact.lastname |  |  |
+| owner-contact.company-name |  |  |
+| owner-contact.email |  |  |
+| owner-contact.email-alt |  |  |
+| owner-contact.phone-number |  |  |
+| owner-contact.fax-number |  |  |
+| owner-contact.address-line-1 |  |  |
+| owner-contact.address-line-2 |  |  |
+| owner-contact.zip |  |  |
+| owner-contact.city |  |  |
+| owner-contact.country |  |  |
+| owner-contact.vat-identification-code |  |  |
+| owner-contact.company-identification-code |  |  |
+| owner-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| owner-contact.resale |  |  |
+| owner-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| owner-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| owner-contact.extension-fr.duns-info.duns-id |  |  |
+| owner-contact.extension-fr.duns-info.local-id |  |  |
+| owner-contact.extension-fr.association-info.publication-jo |  |  |
+| owner-contact.extension-fr.association-info.publication-jo-page |  |  |
+| owner-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| owner-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| owner-contact.extension-eu.european-citizenship |  |  |
+| owner-contact.whois-opt-in |  |  |
+| owner-contact.state |  |  |
+| owner-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| owner-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~owner-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~owner-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| owner-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| owner-contact.questions.{index}.question |  |  |
+| owner-contact.questions.{index}.answer |  |  |
+| administrative-contact-id |  |  |
+| administrative-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| administrative-contact.firstname |  |  |
+| administrative-contact.lastname |  |  |
+| administrative-contact.company-name |  |  |
+| administrative-contact.email |  |  |
+| administrative-contact.email-alt |  |  |
+| administrative-contact.phone-number |  |  |
+| administrative-contact.fax-number |  |  |
+| administrative-contact.address-line-1 |  |  |
+| administrative-contact.address-line-2 |  |  |
+| administrative-contact.zip |  |  |
+| administrative-contact.city |  |  |
+| administrative-contact.country |  |  |
+| administrative-contact.vat-identification-code |  |  |
+| administrative-contact.company-identification-code |  |  |
+| administrative-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| administrative-contact.resale |  |  |
+| administrative-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| administrative-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| administrative-contact.extension-fr.duns-info.duns-id |  |  |
+| administrative-contact.extension-fr.duns-info.local-id |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo |  |  |
+| administrative-contact.extension-fr.association-info.publication-jo-page |  |  |
+| administrative-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| administrative-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| administrative-contact.extension-eu.european-citizenship |  |  |
+| administrative-contact.whois-opt-in |  |  |
+| administrative-contact.state |  |  |
+| administrative-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| administrative-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~administrative-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~administrative-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| administrative-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| administrative-contact.questions.{index}.question |  |  |
+| administrative-contact.questions.{index}.answer |  |  |
+| technical-contact-id |  |  |
+| technical-contact.legal-form | One of: `legal_form_unknown`, `individual`, `corporate`, `association`, `other` |  |
+| technical-contact.firstname |  |  |
+| technical-contact.lastname |  |  |
+| technical-contact.company-name |  |  |
+| technical-contact.email |  |  |
+| technical-contact.email-alt |  |  |
+| technical-contact.phone-number |  |  |
+| technical-contact.fax-number |  |  |
+| technical-contact.address-line-1 |  |  |
+| technical-contact.address-line-2 |  |  |
+| technical-contact.zip |  |  |
+| technical-contact.city |  |  |
+| technical-contact.country |  |  |
+| technical-contact.vat-identification-code |  |  |
+| technical-contact.company-identification-code |  |  |
+| technical-contact.lang | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE` |  |
+| technical-contact.resale |  |  |
+| technical-contact.extension-fr.mode | One of: `mode_unknown`, `individual`, `company_identification_code`, `duns`, `local`, `association`, `trademark`, `code_auth_afnic` |  |
+| technical-contact.extension-fr.individual-info.whois-opt-in |  |  |
+| technical-contact.extension-fr.duns-info.duns-id |  |  |
+| technical-contact.extension-fr.duns-info.local-id |  |  |
+| technical-contact.extension-fr.association-info.publication-jo |  |  |
+| technical-contact.extension-fr.association-info.publication-jo-page |  |  |
+| technical-contact.extension-fr.trademark-info.trademark-inpi |  |  |
+| technical-contact.extension-fr.code-auth-afnic-info.code-auth-afnic |  |  |
+| technical-contact.extension-eu.european-citizenship |  |  |
+| technical-contact.whois-opt-in |  |  |
+| technical-contact.state |  |  |
+| technical-contact.extension-nl.legal-form | One of: `legal_form_unknown`, `other`, `non_dutch_eu_company`, `non_dutch_legal_form_enterprise_subsidiary`, `limited_company`, `limited_company_in_formation`, `cooperative`, `limited_partnership`, `sole_company`, `european_economic_interest_group`, `religious_entity`, `partnership`, `public_company`, `mutual_benefit_company`, `residential`, `shipping_company`, `foundation`, `association`, `trading_partnership`, `natural_person` |  |
+| technical-contact.extension-nl.legal-form-registration-number |  |  |
+| ~~technical-contact.extension-it.european-citizenship~~ | Deprecated | This option is useless anymore |
+| ~~technical-contact.extension-it.tax-code~~ | Deprecated | Tax_code is renamed to pin |
+| technical-contact.extension-it.pin |  | Domain name registrant's Taxcode (mandatory / only optional when the trustee is used) |
+| technical-contact.questions.{index}.question |  |  |
+| technical-contact.questions.{index}.answer |  |  |
+
+
+
+## Task management
+
+Task management.
+
+
+### List tasks
+
+List all operations performed on the account.
+You can filter the list of tasks by domain name.
+
+**Usage:**
+
+```
+scw domain task list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  |  |
+| domain |  |  |
+| types.{index} | One of: `unknown`, `create_domain`, `create_external_domain`, `renew_domain`, `transfer_domain`, `trade_domain`, `lock_domain_transfer`, `unlock_domain_transfer`, `enable_dnssec`, `disable_dnssec`, `update_domain`, `update_contact`, `delete_domain`, `cancel_task`, `generate_ssl_certificate`, `renew_ssl_certificate`, `send_message`, `delete_domain_expired`, `delete_external_domain`, `create_host`, `update_host`, `delete_host`, `move_project`, `transfer_online_domain` |  |
+| statuses.{index} | One of: `unavailable`, `new`, `waiting_payment`, `pending`, `success`, `error` |  |
+| order-by | One of: `domain_desc`, `domain_asc`, `type_asc`, `type_desc`, `status_asc`, `status_desc`, `updated_at_asc`, `updated_at_desc` |  |
+| organization-id |  |  |
+
+
+
+### List inbound domain transfers
+
+List all inbound transfer operations on the account.
+You can filter the list of inbound transfers by domain name.
+
+**Usage:**
+
+```
+scw domain task list-inbound-transfers [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| domain |  |  |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+### Retry the inbound transfer of a domain
+
+Request a retry for the transfer of a domain from another registrar to Scaleway Domains and DNS.
+
+**Usage:**
+
+```
+scw domain task retry-inbound-transfer [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain |  | The domain being transferred. |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| auth-code |  | An optional new auth code to replace the previous one for the retry. |
+
+
+
+## TLD management
+
+TLD management.
+
+
+### List TLD offers
+
+Retrieve the list of TLDs and offers associated with them.
+
+**Usage:**
+
+```
+scw domain tld list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| tlds.{index} |  | Array of TLDs to return |
+| order-by | One of: `name_asc`, `name_desc` | Sort order of the returned TLDs |
+
+
+

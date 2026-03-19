@@ -1,0 +1,61 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Request to change a domain's contact owner.<br/>
+If you specify the `organization_id` of the domain's new owner, the contact will change from the current owner's Scaleway account to the new owner's Scaleway account.<br/>
+If the new owner's current contact information is not available, the first ever contact they have created for previous domains is taken into account to operate the change.<br/>
+If the new owner has never created a contact to register domains before, an error message displays.
+
+USAGE:
+  scw domain order trade [arg=value ...]
+
+ARGS:
+  domain                                                                  
+  [project-id]                                                            
+  [new-owner-contact-id]                                                  
+  [new-owner-contact.legal-form]                                           (legal_form_unknown | individual | corporate | association | other)
+  [new-owner-contact.firstname]                                           
+  [new-owner-contact.lastname]                                            
+  [new-owner-contact.company-name]                                        
+  [new-owner-contact.email]                                               
+  [new-owner-contact.email-alt]                                           
+  [new-owner-contact.phone-number]                                        
+  [new-owner-contact.fax-number]                                          
+  [new-owner-contact.address-line-1]                                      
+  [new-owner-contact.address-line-2]                                      
+  [new-owner-contact.zip]                                                 
+  [new-owner-contact.city]                                                
+  [new-owner-contact.country]                                             
+  [new-owner-contact.vat-identification-code]                             
+  [new-owner-contact.company-identification-code]                         
+  [new-owner-contact.lang]                                                 (unknown_language_code | en_US | fr_FR | de_DE)
+  [new-owner-contact.resale]                                              
+  [new-owner-contact.extension-fr.mode]                                    (mode_unknown | individual | company_identification_code | duns | local | association | trademark | code_auth_afnic)
+  [new-owner-contact.extension-fr.individual-info.whois-opt-in]           
+  [new-owner-contact.extension-fr.duns-info.duns-id]                      
+  [new-owner-contact.extension-fr.duns-info.local-id]                     
+  [new-owner-contact.extension-fr.association-info.publication-jo]        
+  [new-owner-contact.extension-fr.association-info.publication-jo-page]   
+  [new-owner-contact.extension-fr.trademark-info.trademark-inpi]          
+  [new-owner-contact.extension-fr.code-auth-afnic-info.code-auth-afnic]   
+  [new-owner-contact.extension-eu.european-citizenship]                   
+  [new-owner-contact.whois-opt-in]                                        
+  [new-owner-contact.state]                                               
+  [new-owner-contact.extension-nl.legal-form]                              (legal_form_unknown | other | non_dutch_eu_company | non_dutch_legal_form_enterprise_subsidiary | limited_company | limited_company_in_formation | cooperative | limited_partnership | sole_company | european_economic_interest_group | religious_entity | partnership | public_company | mutual_benefit_company | residential | shipping_company | foundation | association | trading_partnership | natural_person)
+  [new-owner-contact.extension-nl.legal-form-registration-number]         
+  [new-owner-contact.extension-it.pin]                                    Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
+  [new-owner-contact.questions.{index}.question]                          
+  [new-owner-contact.questions.{index}.answer]                            
+
+DEPRECATED ARGS:
+  [new-owner-contact.extension-it.european-citizenship]   This option is useless anymore
+  [new-owner-contact.extension-it.tax-code]               Tax_code is renamed to pin
+
+FLAGS:
+  -h, --help                help for trade
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
