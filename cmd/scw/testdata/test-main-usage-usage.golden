@@ -4,89 +4,91 @@ USAGE:
   scw <command>
 
 AI COMMANDS:
-  inference     This API allows you to handle your Managed Inference services
+  inference               This API allows you to handle your Managed Inference services
 
 AVAILABLE COMMANDS:
-  datalab       Data Lab API for Apache Spark™
+  datalab                 Data Lab API for Apache Spark™
+  domain                  Domains and DNS - Registrar API
+  environmental-footprint Access and download impact reports and impact data for your Scaleway projects. Our API provides key metrics such as estimated carbon emissions and water usage to help monitor your environmental footprint.
 
 BAREMETAL COMMANDS:
-  apple-silicon Apple silicon API
-  baremetal     Elastic Metal API
-  fip           This API allows you to manage your Elastic Metal servers' flexible public IP addresses
+  apple-silicon           Apple silicon API
+  baremetal               Elastic Metal API
+  fip                     This API allows you to manage your Elastic Metal servers' flexible public IP addresses
 
 COMPUTE COMMANDS:
-  instance      This API allows you to manage your CPU and GPU Instances
-  marketplace   This API allows you to find available images for use when launching a Scaleway Instance
+  instance                This API allows you to manage your CPU and GPU Instances
+  marketplace             This API allows you to find available images for use when launching a Scaleway Instance
 
 CONFIGURATION COMMANDS:
-  alias         Alias related commands
-  config        Config file management
-  info          Get info about current settings
-  init          Initialize the config
-  login         Login to scaleway
+  alias                   Alias related commands
+  config                  Config file management
+  info                    Get info about current settings
+  init                    Initialize the config
+  login                   Login to scaleway
 
 CONTAINER COMMANDS:
-  k8s           This API allows you to manage Kubernetes Kapsule and Kosmos clusters
-  registry      This API allows you to manage your Container Registry resources
+  k8s                     This API allows you to manage Kubernetes Kapsule and Kosmos clusters
+  registry                This API allows you to manage your Container Registry resources
 
 COST COMMANDS:
-  billing       This API allows you to manage and query your Scaleway billing and consumption
+  billing                 This API allows you to manage and query your Scaleway billing and consumption
 
 DATABASE COMMANDS:
-  datawarehouse This API allows you to manage your Data Warehouse
-  mongodb       This API allows you to manage your Managed Databases for MongoDB®
-  rdb           This API allows you to manage your Managed Databases for PostgreSQL and MySQL
-  redis         This API allows you to manage your Managed Databases for Redis™
-  sdb-sql       This API allows you to manage your Serverless SQL Databases
-  searchdb      Cloud Essentials for Opensearch API
+  datawarehouse           This API allows you to manage your Data Warehouse
+  mongodb                 This API allows you to manage your Managed Databases for MongoDB®
+  rdb                     This API allows you to manage your Managed Databases for PostgreSQL and MySQL
+  redis                   This API allows you to manage your Managed Databases for Redis™
+  sdb-sql                 This API allows you to manage your Serverless SQL Databases
+  searchdb                Cloud Essentials for Opensearch API
 
 DOMAIN & WEBHOSTING COMMANDS:
-  dns           This API allows you to manage your domains, DNS zones and records
-  tem           This API allows you to manage your Transactional Email services
-  webhosting    This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.
+  dns                     This API allows you to manage your domains, DNS zones and records
+  tem                     This API allows you to manage your Transactional Email services
+  webhosting              This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.
 
 INTEGRATION COMMANDS:
-  iot           This API allows you to manage your IoT hubs and devices
-  mnq           These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services
+  iot                     This API allows you to manage your IoT hubs and devices
+  mnq                     These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services
 
 MONITORING COMMANDS:
-  audit-trail   This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
-  cockpit       This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs
+  audit-trail             This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
+  cockpit                 This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs
 
 NETWORK COMMANDS:
-  edge-services Edge Services API
-  interlink     This API allows you to manage your InterLink services
-  ipam          This API allows you to manage your Scaleway IP addresses with our IP Address Management tool
-  lb            This API allows you to manage your Scaleway Load Balancer services
-  s2s-vpn       This API allows you to manage your Site-to-Site VPN
-  vpc           This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks
-  vpc-gw        This API allows you to manage your Public Gateways
+  edge-services           Edge Services API
+  interlink               This API allows you to manage your InterLink services
+  ipam                    This API allows you to manage your Scaleway IP addresses with our IP Address Management tool
+  lb                      This API allows you to manage your Scaleway Load Balancer services
+  s2s-vpn                 This API allows you to manage your Site-to-Site VPN
+  vpc                     This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks
+  vpc-gw                  This API allows you to manage your Public Gateways
 
 SECURITY COMMANDS:
-  account       This API allows you to manage your Scaleway Projects
-  audit-trail   This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
-  iam           This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
-  keymanager    Key Manager API
-  partner       Scaleway Partner API ( for partner only )
-  secret        Secret Manager API
+  account                 This API allows you to manage your Scaleway Projects
+  audit-trail             This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
+  iam                     This API allows you to manage Identity and Access Management (IAM) across your Scaleway Organizations, Projects and resources
+  keymanager              Key Manager API
+  partner                 Scaleway Partner API ( for partner only )
+  secret                  Secret Manager API
 
 SERVERLESS COMMANDS:
-  container     This API allows you to manage your Serverless Containers
-  function      Function as a Service API
-  jobs          This API allows you to manage your Serverless Jobs
+  container               This API allows you to manage your Serverless Containers
+  function                Function as a Service API
+  jobs                    This API allows you to manage your Serverless Jobs
 
 STORAGE COMMANDS:
-  block         This API allows you to manage your Block Storage volumes
-  file          This API allows you to manage your File Storage resources
-  object        Object-storage utils
-  registry      This API allows you to manage your Container Registry resources
+  block                   This API allows you to manage your Block Storage volumes
+  file                    This API allows you to manage your File Storage resources
+  object                  Object-storage utils
+  registry                This API allows you to manage your Container Registry resources
 
 UTILITY COMMANDS:
-  autocomplete  Autocomplete related commands
-  feedback      Send feedback to the Scaleway CLI Team!
-  help          Get help about how specific topics inside the CLI work
-  shell         Start shell mode
-  version       Display cli version
+  autocomplete            Autocomplete related commands
+  feedback                Send feedback to the Scaleway CLI Team!
+  help                    Get help about how specific topics inside the CLI work
+  shell                   Start shell mode
+  version                 Display cli version
 
 FLAGS:
   -c, --config string       The path to the config file
