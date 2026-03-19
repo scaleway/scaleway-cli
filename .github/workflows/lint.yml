@@ -31,6 +31,10 @@ jobs:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install Go # We need the go binary to be available to run some checks (formatter, gomod_salt, ...)
+        uses: actions/setup-go@4b73464bb391d4059bd26b0524d20df3927bd417 # v6.3.0
+        with:
+          go-version: stable
       - name: golangci-lint
         uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9.2.0
         with:
@@ -44,6 +48,10 @@ jobs:
     steps:
       - name: Checkout Actions Repository
         uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - name: Install wget
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends wget
       - name: Spell Check Repo
         uses: crate-ci/typos@631208b7aac2daa8b707f55e7331f9112b0e062d # v1.44.0
         env:
