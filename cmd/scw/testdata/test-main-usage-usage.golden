@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   datalab                 Data Lab API for Apache Spark™
   domain                  Domains and DNS - Registrar API
   environmental-footprint Access and download impact reports and impact data for your Scaleway projects. Our API provides key metrics such as estimated carbon emissions and water usage to help monitor your environmental footprint.
+  product-catalog         Product Catalog API
 
 BAREMETAL COMMANDS:
   apple-silicon           Apple silicon API
