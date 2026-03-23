@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   route           Route management command
   rule            Rule management command
   vpc             VPC management command
+  vpc-connector   VPC connector management command
 
 FLAGS:
   -h, --help                help for vpc
