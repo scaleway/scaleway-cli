@@ -26,6 +26,12 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
   - [Get a VPC](#get-a-vpc)
   - [List VPCs](#list-vpcs)
   - [Update VPC](#update-vpc)
+- [VPC connector management command](#vpc-connector-management-command)
+  - [Create a VPC connector](#create-a-vpc-connector)
+  - [Delete a VPC connector](#delete-a-vpc-connector)
+  - [Get a VPC connector](#get-a-vpc-connector)
+  - [List VPC connectors](#list-vpc-connectors)
+  - [Update VPC connector](#update-vpc-connector)
 
   
 ## Private network management command
@@ -511,6 +517,123 @@ scw vpc vpc update <vpc-id ...> [arg=value ...]
 | vpc-id | Required | VPC ID |
 | name |  | Name for the VPC |
 | tags.{index} |  | Tags for the VPC |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## VPC connector management command
+
+VPC peering connectors.
+
+
+### Create a VPC connector
+
+Create a new VPC connector in the specified region.
+
+**Usage:**
+
+```
+scw vpc vpc-connector create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name | Required<br />Default: `<generated>` | Name for the VPC connector |
+| tags.{index} |  | Tags for the VPC connector |
+| vpc-id |  | VPC ID to filter for. Only connectors belonging to this VPC will be returned |
+| target-vpc-id |  | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete a VPC connector
+
+Delete a VPC connector specified by its VPC connector ID.
+
+**Usage:**
+
+```
+scw vpc vpc-connector delete <vpc-connector-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-connector-id | Required | VPC connector ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get a VPC connector
+
+Retrieve details of an existing VPC connector, specified by its VPC connector ID.
+
+**Usage:**
+
+```
+scw vpc vpc-connector get <vpc-connector-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-connector-id | Required | VPC connector ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List VPC connectors
+
+List existing VPC connectors in the specified region.
+
+**Usage:**
+
+```
+scw vpc vpc-connector list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned VPC connectors |
+| name |  | Name to filter for. Only connectors with names containing this string will be returned |
+| tags.{index} |  | Tags to filter for. Only connectors with one or more matching tags will be returned |
+| project-id |  | Project ID to filter for. Only connectors belonging to this Project will be returned |
+| vpc-id |  | VPC ID to filter for. Only connectors belonging to this VPC will be returned |
+| target-vpc-id |  | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |
+| status | One of: `unknown_vpc_connector_status`, `orphan`, `peered`, `conflict` | Status of the VPC connector |
+| organization-id |  | Organization ID to filter for. Only connectors belonging to this Organization will be returned |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update VPC connector
+
+Update parameters including name and tags of the specified VPC connector.
+
+**Usage:**
+
+```
+scw vpc vpc-connector update <vpc-connector-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| vpc-connector-id | Required | VPC connector ID |
+| name |  | Name for the VPC connector |
+| tags.{index} |  | Tags for the VPC connector |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

@@ -24,6 +24,7 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetwork(),
 		vpcRoute(),
 		vpcRule(),
+		vpcVpcConnector(),
 		vpcVpcList(),
 		vpcVpcCreate(),
 		vpcVpcGet(),
@@ -42,6 +43,11 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRouteDelete(),
 		vpcRuleGet(),
 		vpcRuleSet(),
+		vpcVpcConnectorList(),
+		vpcVpcConnectorCreate(),
+		vpcVpcConnectorGet(),
+		vpcVpcConnectorUpdate(),
+		vpcVpcConnectorDelete(),
 		vpcRouteList(),
 	)
 }
@@ -92,6 +98,15 @@ func vpcRule() *core.Command {
 		Long:      `ACL Rules.`,
 		Namespace: "vpc",
 		Resource:  "rule",
+	}
+}
+
+func vpcVpcConnector() *core.Command {
+	return &core.Command{
+		Short:     `VPC connector management command`,
+		Long:      `VPC peering connectors.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
 	}
 }
 
@@ -1112,6 +1127,290 @@ func vpcRuleSet() *core.Command {
 			api := vpc.NewAPI(client)
 
 			return api.SetACL(request)
+		},
+	}
+}
+
+func vpcVpcConnectorList() *core.Command {
+	return &core.Command{
+		Short:     `List VPC connectors`,
+		Long:      `List existing VPC connectors in the specified region.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.ListVPCConnectorsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of the returned VPC connectors`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
+			},
+			{
+				Name:       "name",
+				Short:      `Name to filter for. Only connectors with names containing this string will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags to filter for. Only connectors with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project ID to filter for. Only connectors belonging to this Project will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for. Only connectors belonging to this VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "target-vpc-id",
+				Short:      `Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "status",
+				Short:      `Status of the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_vpc_connector_status",
+					"orphan",
+					"peered",
+					"conflict",
+				},
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for. Only connectors belonging to this Organization will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.ListVPCConnectorsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListVPCConnectors(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.VpcConnectors, nil
+		},
+	}
+}
+
+func vpcVpcConnectorCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a VPC connector`,
+		Long:      `Create a new VPC connector in the specified region.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.CreateVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Name for the VPC connector`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("VPCConnector"),
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags for the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for. Only connectors belonging to this VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "target-vpc-id",
+				Short:      `Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.CreateVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.CreateVPCConnector(request)
+		},
+	}
+}
+
+func vpcVpcConnectorGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a VPC connector`,
+		Long:      `Retrieve details of an existing VPC connector, specified by its VPC connector ID.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.GetVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-connector-id",
+				Short:      `VPC connector ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.GetVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.GetVPCConnector(request)
+		},
+	}
+}
+
+func vpcVpcConnectorUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update VPC connector`,
+		Long:      `Update parameters including name and tags of the specified VPC connector.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.UpdateVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-connector-id",
+				Short:      `VPC connector ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name for the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags for the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.UpdateVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.UpdateVPCConnector(request)
+		},
+	}
+}
+
+func vpcVpcConnectorDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a VPC connector`,
+		Long:      `Delete a VPC connector specified by its VPC connector ID.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.DeleteVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-connector-id",
+				Short:      `VPC connector ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.DeleteVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			e = api.DeleteVPCConnector(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "vpc-connector",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
