@@ -5,6 +5,7 @@ go 1.26.0
 require (
 	github.com/aws/aws-sdk-go-v2 v1.41.4
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.97.1
+	github.com/aws/smithy-go v1.24.2
 	github.com/buildpacks/pack v0.39.1
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v1.3.10
@@ -13,7 +14,7 @@ require (
 	github.com/dnaeon/go-vcr v1.2.0
 	github.com/docker/docker v28.5.2+incompatible
 	github.com/dustin/go-humanize v1.0.1
-	github.com/fatih/color v1.18.0
+	github.com/fatih/color v1.19.0
 	github.com/getsentry/sentry-go v0.43.0
 	github.com/ghodss/yaml v1.0.0
 	github.com/gorilla/websocket v1.5.4-0.20250319132907-e064f32e3674
@@ -24,7 +25,7 @@ require (
 	github.com/moby/buildkit v0.28.0
 	github.com/moby/go-archive v0.2.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260318153310-43bb17f8bec8
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260323144744-f9a0138f3588
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/pflag v1.0.10
@@ -72,7 +73,6 @@ require (
 	github.com/aws/aws-sdk-go-v2/service/sso v1.30.11 // indirect
 	github.com/aws/aws-sdk-go-v2/service/ssooidc v1.35.15 // indirect
 	github.com/aws/aws-sdk-go-v2/service/sts v1.41.7 // indirect
-	github.com/aws/smithy-go v1.24.2 // indirect
 	github.com/awslabs/amazon-ecr-credential-helper/ecr-login v0.11.0 // indirect
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
