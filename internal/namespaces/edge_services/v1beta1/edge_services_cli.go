@@ -561,6 +561,13 @@ func edgeServicesDNSStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "wildcard-domain",
+				Short:      `Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateDNSStageRequest)
@@ -643,6 +650,13 @@ func edgeServicesDNSStageUpdate() *core.Command {
 			{
 				Name:       "backend-stage-id",
 				Short:      `Backend stage ID the DNS stage will be linked to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "wildcard-domain",
+				Short:      `Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

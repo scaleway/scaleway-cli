@@ -11,6 +11,7 @@ ARGS:
   [cache-stage-id]     Cache stage ID the DNS stage will be linked to
   [backend-stage-id]   Backend stage ID the DNS stage will be linked to
   pipeline-id          Pipeline ID the DNS stage belongs to
+  [wildcard-domain]    Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work)
 
 FLAGS:
   -h, --help                help for create

@@ -316,6 +316,7 @@ scw edge-services dns-stage create [arg=value ...]
 | cache-stage-id |  | Cache stage ID the DNS stage will be linked to |
 | backend-stage-id |  | Backend stage ID the DNS stage will be linked to |
 | pipeline-id | Required | Pipeline ID the DNS stage belongs to |
+| wildcard-domain |  | Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work) |
 
 
 
@@ -398,6 +399,7 @@ scw edge-services dns-stage update <dns-stage-id ...> [arg=value ...]
 | tls-stage-id |  | TLS stage ID the DNS stage will be linked to |
 | cache-stage-id |  | Cache stage ID the DNS stage will be linked to |
 | backend-stage-id |  | Backend stage ID the DNS stage will be linked to |
+| wildcard-domain |  | Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work) |
 
 
 
