@@ -44,7 +44,7 @@ func serverTypesListMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) 
 		Arch             string
 		Bandwidth        scw.Size
 		Availability     instance.ServerTypesAvailability
-		MaxFileSystems   uint32
+		MaxFileSystems   *uint32
 	}
 
 	customServerTypes := i.([]*customServerType)
@@ -82,7 +82,7 @@ type customServerType struct {
 	Arch               string                           `json:"arch"`
 	Bandwidth          scw.Size                         `json:"bandwidth"`
 	Availability       instance.ServerTypesAvailability `json:"availability"`
-	MaxFileSystems     uint32                           `json:"max_file_systems"`
+	MaxFileSystems     *uint32                          `json:"max_file_systems"`
 }
 
 // serverTypeListBuilder transforms the server map into a list to display a
@@ -154,15 +154,17 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			}
 
 			name := pcuServerType.Properties.Instance.OfferID
-			computeServerType := computeServerTypes.Servers[name]
 			serverType := &customServerType{
-				Name:           name,
-				HourlyPrice:    pcuServerType.Price.RetailPrice,
-				MaxFileSystems: computeServerType.Capabilities.MaxFileSystems,
+				Name:        name,
+				HourlyPrice: pcuServerType.Price.RetailPrice,
 			}
 
 			if availability, exists := availabilitiesResponse.Servers[name]; exists {
 				serverType.Availability = availability.Availability
+			}
+
+			if computeServerType, ok := computeServerTypes.Servers[name]; ok {
+				serverType.MaxFileSystems = new(computeServerType.Capabilities.MaxFileSystems)
 			}
 
 			if pcuServerType.Properties.Hardware != nil {
