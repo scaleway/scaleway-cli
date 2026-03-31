@@ -26,6 +26,14 @@ type Marshaler interface {
 	MarshalHuman() (string, error)
 }
 
+// Validates fields containing <index> placeholders
+func validateIndexedField(t reflect.Type, fieldName string) error {
+	testFieldName := strings.ReplaceAll(fieldName, "<index>", "0")
+	_, err := gofields.GetType(t, testFieldName)
+
+	return err
+}
+
 func Marshal(data any, opt *MarshalOpt) (string, error) {
 	if opt == nil {
 		opt = &MarshalOpt{}
@@ -298,11 +306,20 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 
 	// Validate that all field exist
 	for _, f := range opt.Fields {
-		_, err := gofields.GetType(itemType, f.FieldName)
-		if err != nil {
-			return "", &UnknownFieldError{
-				FieldName:   f.FieldName,
-				ValidFields: gofields.ListFields(itemType),
+		if strings.Contains(f.FieldName, "<index>") {
+			if err := validateIndexedField(itemType, f.FieldName); err != nil {
+				return "", &UnknownFieldError{
+					FieldName:   f.FieldName,
+					ValidFields: gofields.ListFields(itemType),
+				}
+			}
+		} else {
+			_, err := gofields.GetType(itemType, f.FieldName)
+			if err != nil {
+				return "", &UnknownFieldError{
+					FieldName:   f.FieldName,
+					ValidFields: gofields.ListFields(itemType),
+				}
 			}
 		}
 	}
