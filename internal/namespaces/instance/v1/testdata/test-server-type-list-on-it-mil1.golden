@@ -1,0 +1,528 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAME                 HOURLY PRICE  SUPPORTED STORAGE  CPU  GPU  RAM      ARCH  BANDWIDTH  AVAILABILITY  MAX FILE SYSTEMS
+STANDARD3-X2C-8G     € 0.0809      Block              2    0    8.0 GiB  x64   500 MB     available     1
+STANDARD3-X4C-16G    € 0.1617      Block              4    0    16 GiB   x64   1.0 GB     available     2
+STANDARD3-X8C-32G    € 0.319       Block              8    0    32 GiB   x64   2.0 GB     available     4
+STANDARD3-X16C-64G   € 0.649       Block              16   0    64 GiB   x64   4.0 GB     low stock     4
+STANDARD3-X32C-128G  € 1.298       Block              32   0    128 GiB  x64   8.0 GB     low stock     8
+STANDARD3-X48C-192G  € 1.947       Block              48   0    192 GiB  x64   16 GB      low stock     8
+STANDARD3-X64C-256G  € 2.585       Block              64   0    256 GiB  x64   16 GB      low stock     8
+BASIC3-X2C-4G        € 0.0383      Block              2    0    4.0 GiB  x64   350 MB     available     1
+BASIC3-X2C-8G        € 0.0575      Block              2    0    8.0 GiB  x64   350 MB     available     1
+BASIC3-X4C-8G        € 0.0767      Block              4    0    8.0 GiB  x64   700 MB     available     1
+BASIC3-X4C-16G       € 0.115       Block              4    0    16 GiB   x64   700 MB     available     2
+BASIC3-X8C-16G       € 0.1725      Block              8    0    16 GiB   x64   1.5 GB     available     2
+BASIC3-X8C-32G       € 0.2299      Block              8    0    32 GiB   x64   1.5 GB     available     4
+BASIC3-X16C-32G      € 0.3449      Block              16   0    32 GiB   x64   3.0 GB     available     4
+BASIC3-X16C-64G      € 0.4598      Block              16   0    64 GiB   x64   3.0 GB     available     8
+MEMORY3-X2C-16G      € 0.1133      Block              2    0    16 GiB   x64   500 MB     available     1
+MEMORY3-X4C-32G      € 0.2266      Block              4    0    32 GiB   x64   1.0 GB     available     2
+MEMORY3-X8C-64G      € 0.4532      Block              8    0    64 GiB   x64   2.0 GB     low stock     4
+MEMORY3-X16C-128G    € 0.9064      Block              16   0    128 GiB  x64   4.0 GB     low stock     4
+MEMORY3-X32C-256G    € 1.8128      Block              32   0    256 GiB  x64   8.0 GB     out of stock  8
+MEMORY3-X48C-384G    € 2.717       Block              48   0    384 GiB  x64   16 GB      low stock     8
+COMPUTE3-X2C-4G      € 0.0585      Block              2    0    4.0 GiB  x64   500 MB     available     1
+COMPUTE3-X4C-8G      € 0.117       Block              4    0    8.0 GiB  x64   1.0 GB     available     2
+COMPUTE3-X8C-16G     € 0.2341      Block              8    0    16 GiB   x64   2.0 GB     available     4
+COMPUTE3-X16C-32G    € 0.4682      Block              16   0    32 GiB   x64   4.0 GB     available     4
+COMPUTE3-X32C-64G    € 0.9363      Block              32   0    64 GiB   x64   8.0 GB     available     8
+COMPUTE3-X48C-96G    € 1.397       Block              48   0    96 GiB   x64   16 GB      available     8
+COMPUTE3-X64C-128G   € 1.8726      Block              64   0    128 GiB  x64   16 GB      low stock     8
+COMPUTE3-X96C-192G   € 2.794       Block              96   0    192 GiB  x64   16 GB      low stock     8
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "name": "STANDARD3-X2C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 80900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 500000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "STANDARD3-X4C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 161700000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 1000000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "STANDARD3-X8C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 319000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 2000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "STANDARD3-X16C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 649000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 4000000000,
+    "availability": "scarce",
+    "max_file_systems": 4
+  },
+  {
+    "name": "STANDARD3-X32C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 298000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 8000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD3-X48C-192G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 947000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 206158430208,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD3-X64C-256G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 585000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
+  },
+  {
+    "name": "BASIC3-X2C-4G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 38300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 4294967296,
+    "arch": "x64",
+    "bandwidth": 350000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "BASIC3-X2C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 57500000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 350000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "BASIC3-X4C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 76700000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 700000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "BASIC3-X4C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 115000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 700000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "BASIC3-X8C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 172500000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 1500000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "BASIC3-X8C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 229900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 1500000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "BASIC3-X16C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 344900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 3000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "BASIC3-X16C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 459800000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 3000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "MEMORY3-X2C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 113300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 500000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "MEMORY3-X4C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 226600000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 1000000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "MEMORY3-X8C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 453200000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 2000000000,
+    "availability": "scarce",
+    "max_file_systems": 4
+  },
+  {
+    "name": "MEMORY3-X16C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 906400000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 4000000000,
+    "availability": "scarce",
+    "max_file_systems": 4
+  },
+  {
+    "name": "MEMORY3-X32C-256G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 812800000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "x64",
+    "bandwidth": 8000000000,
+    "availability": "shortage",
+    "max_file_systems": 8
+  },
+  {
+    "name": "MEMORY3-X48C-384G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 717000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 412316860416,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X2C-4G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 58500000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 4294967296,
+    "arch": "x64",
+    "bandwidth": 500000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "COMPUTE3-X4C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 117000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 1000000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "COMPUTE3-X8C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 234100000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 2000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "COMPUTE3-X16C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 468200000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 4000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "COMPUTE3-X32C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 936300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 8000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X48C-96G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 397000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 103079215104,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X64C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 872600000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X96C-192G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 794000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 96,
+    "gpu": 0,
+    "ram": 206158430208,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
+  }
+]
