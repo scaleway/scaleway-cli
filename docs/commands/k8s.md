@@ -206,6 +206,8 @@ scw k8s cluster create [arg=value ...]
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
 | autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
 | autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
+| autoscaler-config.skip-nodes-with-local-storage |  | Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true |
+| autoscaler-config.log-level |  | Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
@@ -505,6 +507,8 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
 | autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
 | autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
+| autoscaler-config.skip-nodes-with-local-storage |  | Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true |
+| autoscaler-config.log-level |  | Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details |
 | auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
 | auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
 | auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
