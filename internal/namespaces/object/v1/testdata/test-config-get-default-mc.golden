@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-{"version":"9","hosts":{"scaleway":{"url":"https://s3.fr-par.scw.cloud","accessKey":"SCWXXXXXXXXXXXXXXXXX@11111111-1111-1111-1111-111111111111","secretKey":"11111111-1111-1111-1111-111111111111","api":"S3v4","projectID":""}}}
+{"version":"9","hosts":{"scaleway":{"url":"https://s3.fr-par.scw.cloud","accessKey":"SCWXXXXXXXXXXXXXXXXX@11111111-1111-1111-1111-111111111111@","secretKey":"11111111-1111-1111-1111-111111111111","api":"S3v4","projectID":""}}}
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-{"version":"9","hosts":{"scaleway":{"url":"https://s3.fr-par.scw.cloud","accessKey":"SCWXXXXXXXXXXXXXXXXX@11111111-1111-1111-1111-111111111111","secretKey":"11111111-1111-1111-1111-111111111111","api":"S3v4","projectID":""}}}
+{"version":"9","hosts":{"scaleway":{"url":"https://s3.fr-par.scw.cloud","accessKey":"SCWXXXXXXXXXXXXXXXXX@11111111-1111-1111-1111-111111111111@","secretKey":"11111111-1111-1111-1111-111111111111","api":"S3v4","projectID":""}}}

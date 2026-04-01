@@ -95,13 +95,11 @@ func newS3Config(ctx context.Context, region scw.Region, name string) (s3config,
 	}
 
 	projectID, exists := client.GetDefaultProjectID()
-	if !exists {
-		return s3config{}, errors.New("no project ID found")
+
+	if exists {
+		accessKey += "@" + projectID
 	}
 
-        if projectID != "" {
-                accessKey+="@"+projectID
-        }
 	config := s3config{
 		AccessKey: accessKey,
 		SecretKey: secretKey,
