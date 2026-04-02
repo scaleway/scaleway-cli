@@ -77,7 +77,7 @@ func Test_iamAPIKeyGet(t *testing.T) {
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmdWithResulter(
 					"member",
-					"scw iam user list type=member",
+					"scw iam user list type=member user-ids.0=e7a35342-d125-42e3-a0d8-f2f378abd1de",
 					userResulter,
 				),
 				core.ExecStoreBeforeCmdWithResulter(
@@ -112,7 +112,7 @@ func Test_iamAPIKeyGet(t *testing.T) {
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmdWithResulter(
 					"application",
-					"scw iam application list",
+					"scw iam application list name=test-cli-iam-application-api-key",
 					appResulter,
 				),
 				core.ExecStoreBeforeCmdWithResulter(
