@@ -16,9 +16,10 @@ import (
 
 func configInstallCommand() *core.Command {
 	type installArgs struct {
-		Region scw.Region
-		Type   s3tool
-		Name   string
+		Region    scw.Region
+		Type      s3tool
+		Name      string
+		ProjectID string
 	}
 
 	return &core.Command{
@@ -73,7 +74,7 @@ func configInstallCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*installArgs)
 
-			config, err := newS3Config(ctx, args.Region, args.Name)
+			config, err := newS3Config(ctx, args.Region, args.Name, args.ProjectID)
 			if err != nil {
 				return "", err
 			}
