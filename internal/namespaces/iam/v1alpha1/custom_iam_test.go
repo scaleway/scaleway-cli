@@ -10,6 +10,10 @@ import (
 	iamSdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
+const (
+	TestMemberID = "e7a35342-d125-42e3-a0d8-f2f378abd1de" // ID for the test-cli-iam-membership-api-key Member
+)
+
 func Test_iamAPIKeyGet(t *testing.T) {
 	if isNightly := os.Getenv("SLACK_WEBHOOK_NIGHTLY"); isNightly != "" {
 		t.Skip()
@@ -77,7 +81,7 @@ func Test_iamAPIKeyGet(t *testing.T) {
 			BeforeFunc: core.BeforeFuncCombine(
 				core.ExecStoreBeforeCmdWithResulter(
 					"member",
-					"scw iam user list type=member user-ids.0=e7a35342-d125-42e3-a0d8-f2f378abd1de",
+					"scw iam user list type=member user-ids.0="+TestMemberID,
 					userResulter,
 				),
 				core.ExecStoreBeforeCmdWithResulter(
