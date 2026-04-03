@@ -725,7 +725,7 @@ Route-stage management commands.
 
 ### Create route stage
 
-Create a new route stage. You must specify the `waf_stage_id` field to customize the route.
+Create a new route stage. You must specify the `waf_stage_id` or `backend_stage_id` fields to customize the route.
 
 **Usage:**
 
@@ -740,7 +740,7 @@ scw edge-services route-stage create [arg=value ...]
 |------|---|-------------|
 | pipeline-id | Required | Pipeline ID the route stage belongs to |
 | waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
-| backend-stage-id |  |  |
+| backend-stage-id |  | ID of the backend stage HTTP requests should be forwarded to when no rules are matched |
 
 
 
@@ -819,7 +819,7 @@ scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 |------|---|-------------|
 | route-stage-id | Required | ID of the route stage to update |
 | waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
-| backend-stage-id |  |  |
+| backend-stage-id |  | ID of the backend stage HTTP requests should be forwarded to when no rules are matched |
 
 
 
