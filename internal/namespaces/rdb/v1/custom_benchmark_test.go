@@ -7,7 +7,7 @@ import (
 	"fmt"
 	"net/http"
 	"os"
-	"sort"
+	"slices"
 	"strings"
 	"testing"
 	"time"
@@ -134,9 +134,7 @@ func (s *benchmarkStats) report(b *testing.B) {
 		return
 	}
 
-	sort.Slice(s.timings, func(i, j int) bool {
-		return s.timings[i] < s.timings[j]
-	})
+	slices.Sort(s.timings)
 
 	minVal := s.timings[0]
 	maxVal := s.timings[len(s.timings)-1]

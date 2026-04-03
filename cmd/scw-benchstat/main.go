@@ -10,6 +10,7 @@ import (
 	"os"
 	"os/exec"
 	"path/filepath"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -310,8 +311,9 @@ func checkForRegressions(cfg config, csvOutput string) error {
 		benchName := record[nameIdx]
 
 		// Check time/op regression
-		if contains(cfg.failMetrics, "time/op") && oldTimeIdx != -1 && newTimeIdx != -1 {
-			if regression := checkMetricRegression(record, oldTimeIdx, newTimeIdx, cfg.threshold); regression != "" {
+		if slices.Contains(cfg.failMetrics, "time/op") && oldTimeIdx != -1 && newTimeIdx != -1 {
+			regression := checkMetricRegression(record, oldTimeIdx, newTimeIdx, cfg.threshold)
+			if regression != "" {
 				regressions = append(
 					regressions,
 					fmt.Sprintf("%s: time/op %s", benchName, regression),
@@ -320,15 +322,17 @@ func checkForRegressions(cfg config, csvOutput string) error {
 		}
 
 		// Check B/op regression
-		if contains(cfg.failMetrics, "B/op") && oldBytesIdx != -1 && newBytesIdx != -1 {
-			if regression := checkMetricRegression(record, oldBytesIdx, newBytesIdx, cfg.threshold); regression != "" {
+		if slices.Contains(cfg.failMetrics, "B/op") && oldBytesIdx != -1 && newBytesIdx != -1 {
+			regression := checkMetricRegression(record, oldBytesIdx, newBytesIdx, cfg.threshold)
+			if regression != "" {
 				regressions = append(regressions, fmt.Sprintf("%s: B/op %s", benchName, regression))
 			}
 		}
 
 		// Check allocs/op regression
-		if contains(cfg.failMetrics, "allocs/op") && oldAllocsIdx != -1 && newAllocsIdx != -1 {
-			if regression := checkMetricRegression(record, oldAllocsIdx, newAllocsIdx, cfg.threshold); regression != "" {
+		if slices.Contains(cfg.failMetrics, "allocs/op") && oldAllocsIdx != -1 && newAllocsIdx != -1 {
+			regression := checkMetricRegression(record, oldAllocsIdx, newAllocsIdx, cfg.threshold)
+			if regression != "" {
 				regressions = append(
 					regressions,
 					fmt.Sprintf("%s: allocs/op %s", benchName, regression),
@@ -404,14 +408,4 @@ func parseMetricValue(s string) (float64, error) {
 	}
 
 	return strconv.ParseFloat(s, 64)
-}
-
-func contains(slice []string, item string) bool {
-	for _, s := range slice {
-		if s == item {
-			return true
-		}
-	}
-
-	return false
 }
