@@ -16,9 +16,10 @@ import (
 
 func configInstallCommand() *core.Command {
 	type installArgs struct {
-		Region scw.Region
-		Type   s3tool
-		Name   string
+		Region    scw.Region
+		Type      s3tool
+		Name      string
+		ProjectID string
 	}
 
 	return &core.Command{
@@ -40,6 +41,12 @@ func configInstallCommand() *core.Command {
 				Short:    "Name of the s3 remote you want to generate",
 				Required: false,
 				Default:  core.DefaultValueSetter("scaleway"),
+			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
@@ -67,7 +74,7 @@ func configInstallCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*installArgs)
 
-			config, err := newS3Config(ctx, args.Region, args.Name)
+			config, err := newS3Config(ctx, args.Region, args.Name, args.ProjectID)
 			if err != nil {
 				return "", err
 			}
