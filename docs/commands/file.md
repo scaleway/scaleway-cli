@@ -10,6 +10,7 @@ This API allows you to manage your File Storage resources.
   - [Get filesystem details](#get-filesystem-details)
   - [List all filesystems](#list-all-filesystems)
   - [Update filesystem properties](#update-filesystem-properties)
+- [Filesystem-type management](#filesystem-type-management)
 
   
 ## Attachment management
@@ -64,6 +65,7 @@ scw file filesystem create [arg=value ...]
 | name | Required | Name of the filesystem |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | size | Required | Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes). |
+| type |  | Type of the filesystem |
 | tags.{index} |  | List of tags assigned to the filesystem |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -127,6 +129,7 @@ scw file filesystem list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering the list |
 | project-id |  | Filter by project ID |
 | name |  | Filter the returned filesystems by their names |
+| filesystem-type |  | Type of the filesystem |
 | tags.{index} |  | Filter by tags. Only filesystems with one or more matching tags will be returned |
 | filesystem-ids.{index} |  | Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned |
 | organization-id |  | Filter by organization ID |
@@ -154,6 +157,20 @@ scw file filesystem update [arg=value ...]
 | size |  | Optional field for increasing the size of the filesystem (must be larger than the current size) |
 | tags.{index} |  | List of tags assigned to the filesystem |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Filesystem-type management
+
+Filesystem-type management.
+
+Filesystem-type management.
+
+**Usage:**
+
+```
+scw file filesystem-type
+```
 
 
 

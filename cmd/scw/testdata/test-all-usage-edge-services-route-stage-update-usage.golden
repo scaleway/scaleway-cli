@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   route-stage-id       ID of the route stage to update
   [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
-  [backend-stage-id]   
+  [backend-stage-id]   ID of the backend stage HTTP requests should be forwarded to when no rules are matched
 
 FLAGS:
   -h, --help                help for update
