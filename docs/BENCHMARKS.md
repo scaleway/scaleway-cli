@@ -112,7 +112,6 @@ go run ./cmd/scw-benchstat [OPTIONS]
 | `--benchmem` | `false` | Measure memory allocations |
 | `--fail-metrics` | - | Comma-separated metrics to check: `time/op`, `B/op`, `allocs/op` |
 | `--threshold` | `1.5` | Regression threshold (1.5 = fail if 50% slower) |
-| `--install-benchstat` | `false` | Auto-install benchstat if not found |
 | `--target-dirs` | (all) | Comma-separated directories to benchmark |
 | `--verbose` | `false` | Enable verbose output |
 
@@ -371,11 +370,6 @@ benchstat /tmp/main.txt /tmp/feature.txt
 Install benchstat:
 ```bash
 go install golang.org/x/perf/cmd/benchstat@latest
-```
-
-Or use auto-install:
-```bash
-go run ./cmd/scw-benchstat --install-benchstat
 ```
 
 ### "signal: killed"

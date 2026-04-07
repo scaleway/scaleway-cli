@@ -1,7 +1,6 @@
 package rdb_test
 
 import (
-	"context"
 	"errors"
 	"fmt"
 	"time"
@@ -176,47 +175,19 @@ func deleteInstanceDirect() core.AfterFunc {
 	}
 }
 
-func waitForInstanceReady(
-	executeCmd func([]string) any,
-	instanceID string,
-) error {
-	ctx, cancel := context.WithTimeout(context.Background(), 3*time.Minute)
-	defer cancel()
+func waitForInstanceReady(client *scw.Client, instanceID string) error {
+	api := rdbSDK.NewAPI(client)
 
-	backoff := time.Second
-	for {
-		select {
-		case <-ctx.Done():
-			return fmt.Errorf(
-				"timeout waiting for instance %s to be ready for operations",
-				instanceID,
-			)
-		default:
-			result := executeCmd([]string{"scw", "rdb", "instance", "get", instanceID})
-
-			// Try direct type assertion first
-			if instance, ok := result.(*rdbSDK.Instance); ok {
-				if instance.Status == rdbSDK.InstanceStatusReady {
-					time.Sleep(5 * time.Second)
-
-					return nil
-				}
-			} else {
-				v := result.(struct {
-					*rdbSDK.Instance
-					ACLs []*rdbSDK.ACLRule `json:"acls"`
-				})
-				if v.Instance != nil && v.Instance.Status == rdbSDK.InstanceStatusReady {
-					time.Sleep(5 * time.Second)
-
-					return nil
-				}
-			}
-
-			time.Sleep(backoff)
-			if backoff < 10*time.Second {
-				backoff *= 2
-			}
-		}
+	_, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+		InstanceID: instanceID,
+		Timeout:    scw.TimeDurationPtr(3 * time.Minute),
+	})
+	if err != nil {
+		return fmt.Errorf("timeout waiting for instance %s to be ready for operations: %w", instanceID, err)
 	}
+
+	// Give control plane a short settling window before dependent operations.
+	time.Sleep(5 * time.Second)
+
+	return nil
 }

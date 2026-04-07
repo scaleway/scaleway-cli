@@ -35,9 +35,9 @@ import (
 //
 //	CLI_RUN_BENCHMARKS=true go test -bench=. -benchtime=100x . > testdata/benchmark.baseline
 //
-// Or use scw-benchstat (can install benchstat for you: --install-benchstat):
+// Or use scw-benchstat:
 //
-//	go run ./cmd/scw-benchstat --install-benchstat --bench=. --count=10
+//	go run ./cmd/scw-benchstat --bench=. --count=10
 
 var sharedInstance *rdbSDK.Instance
 
@@ -169,7 +169,7 @@ func getOrCreateSharedInstance(
 
 	b.Logf("Shared RDB instance created: %s", instance.ID)
 
-	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
+	if err := waitForInstanceReady(client, instance.ID); err != nil {
 		b.Fatalf("Shared instance not ready: %v", err)
 	}
 
@@ -289,7 +289,7 @@ func BenchmarkBackupGet(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
+	if err := waitForInstanceReady(client, instance.ID); err != nil {
 		b.Fatalf("Instance not ready before backup: %v", err)
 	}
 
@@ -340,7 +340,7 @@ func BenchmarkBackupList(b *testing.B) {
 
 	meta["Instance"] = rdb.CreateInstanceResult{Instance: instance}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
+	if err := waitForInstanceReady(client, instance.ID); err != nil {
 		b.Fatalf("Instance not ready before backup 1: %v", err)
 	}
 
@@ -348,7 +348,7 @@ func BenchmarkBackupList(b *testing.B) {
 		b.Fatalf("Failed to create backup 1: %v", err)
 	}
 
-	if err := waitForInstanceReady(executeCmd, instance.ID); err != nil {
+	if err := waitForInstanceReady(client, instance.ID); err != nil {
 		b.Fatalf("Instance not ready before backup 2: %v", err)
 	}
 

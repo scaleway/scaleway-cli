@@ -16,10 +16,6 @@ import (
 	"time"
 )
 
-const (
-	benchstatVersion = "v0.0.0-20251023143056-3684bd442cc8"
-)
-
 type config struct {
 	bench       string
 	benchtime   string
@@ -27,7 +23,6 @@ type config struct {
 	benchmem    bool
 	failMetrics []string
 	threshold   float64
-	installTool bool
 	targetDirs  []string
 	verbose     bool
 	update      bool
@@ -36,17 +31,8 @@ type config struct {
 func main() {
 	cfg := parseFlags()
 
-	if cfg.installTool {
-		if err := installBenchstat(); err != nil {
-			log.Fatalf("failed to install benchstat: %v", err)
-		}
-	}
-
 	if !isBenchstatAvailable() {
-		log.Fatalf(
-			"benchstat not found in PATH; install golang.org/x/perf/cmd/benchstat@%s in your environment or run with --install-benchstat",
-			benchstatVersion,
-		)
+		log.Fatal("benchstat not found in PATH; install golang.org/x/perf/cmd/benchstat in your environment")
 	}
 
 	if len(cfg.targetDirs) == 0 {
@@ -83,12 +69,6 @@ func parseFlags() config {
 		1.5,
 		"performance regression threshold (e.g., 1.5 = 50% slower)",
 	)
-	flag.BoolVar(
-		&cfg.installTool,
-		"install-benchstat",
-		false,
-		"install benchstat tool if not found",
-	)
 	flag.BoolVar(&cfg.verbose, "verbose", false, "verbose output")
 	flag.BoolVar(&cfg.update, "update", false, "update baseline files instead of comparing")
 
@@ -121,15 +101,6 @@ func parseFlags() config {
 	}
 
 	return cfg
-}
-
-func installBenchstat() error {
-	fmt.Printf("Installing benchstat@%s...\n", benchstatVersion)
-	cmd := exec.Command("go", "install", "golang.org/x/perf/cmd/benchstat@"+benchstatVersion)
-	cmd.Stdout = os.Stdout
-	cmd.Stderr = os.Stderr
-
-	return cmd.Run()
 }
 
 func isBenchstatAvailable() bool {
