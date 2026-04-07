@@ -241,8 +241,9 @@ func lbDeleteBuilder(c *core.Command) *core.Command {
 		})
 		if err != nil {
 			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+			if responseError, ok := errors.AsType[*scw.ResponseError](
+				err,
+			); ok && responseError.StatusCode == http.StatusNotFound ||
 				errors.As(err, &notFoundError) {
 				return &core.SuccessResult{
 					Resource: "lb",

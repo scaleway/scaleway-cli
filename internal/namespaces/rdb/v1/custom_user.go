@@ -117,11 +117,10 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		req := customRequest.CreateUserRequest
 
 		if req.Name != "" {
-			name := req.Name
 			users, err := api.ListUsers(&rdb.ListUsersRequest{
 				Region:     req.Region,
 				InstanceID: req.InstanceID,
-				Name:       &name,
+				Name:       new(req.Name),
 			}, scw.WithAllPages())
 			if err == nil && users.TotalCount > 0 {
 				return rdbCreateUserResponseCustom{

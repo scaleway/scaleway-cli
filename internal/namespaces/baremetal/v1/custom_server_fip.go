@@ -106,7 +106,7 @@ func serverAddFlexibleIP() *core.Command {
 			return apiFip.WaitForFlexibleIP(&fip.WaitForFlexibleIPRequest{
 				FipID:         flexibleIP.ID,
 				Zone:          flexibleIP.Zone,
-				Timeout:       scw.TimeDurationPtr(flexibleip.FlexibleIPTimeout),
+				Timeout:       new(flexibleip.FlexibleIPTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
