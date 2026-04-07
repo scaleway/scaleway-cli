@@ -209,12 +209,15 @@ The tool fails if any metric exceeds the threshold:
 Create a file named `custom_benchmark_test.go` in your namespace:
 
 ```go
-package mynamespace_test
+package rdb_test
 
 import (
     "os"
     "testing"
     "time"
+
+    "github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
+    "github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 )
 
 func BenchmarkMyCommand(b *testing.B) {
@@ -223,8 +226,8 @@ func BenchmarkMyCommand(b *testing.B) {
         b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
     }
 
-    // Setup: create resources, clients, etc.
-    client, meta, executeCmd := setupBenchmark(b)
+    // Setup: client + executeCmd from shared helper (see internal/testhelpers/helpers_benchmark.go)
+    client, meta, executeCmd := testhelpers.SetupBenchmark(b, rdb.GetCommands())
     
     // Reset timer to exclude setup time
     b.ResetTimer()

@@ -330,7 +330,8 @@ func checkForRegressions(cfg config, csvOutput string) error {
 		}
 
 		// Check allocs/op regression
-		if slices.Contains(cfg.failMetrics, "allocs/op") && oldAllocsIdx != -1 && newAllocsIdx != -1 {
+		if slices.Contains(cfg.failMetrics, "allocs/op") &&
+			oldAllocsIdx != -1 && newAllocsIdx != -1 {
 			regression := checkMetricRegression(record, oldAllocsIdx, newAllocsIdx, cfg.threshold)
 			if regression != "" {
 				regressions = append(

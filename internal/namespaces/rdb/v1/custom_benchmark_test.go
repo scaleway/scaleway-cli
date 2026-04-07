@@ -22,21 +22,20 @@ import (
 
 // Benchmarks for RDB commands.
 //
-// Baseline stored in testdata/benchmark.baseline (like golden files).
+// Baseline: testdata/benchmark.baseline (committed like golden files). Full workflow: docs/BENCHMARKS.md.
 //
-// Install benchstat (required for comparison):
+// CLI setup uses testhelpers.SetupBenchmark(b, rdb.GetCommands()) — same pattern as other namespace benchmarks.
 //
-//	go install golang.org/x/perf/cmd/benchstat@latest
+// Comparing locally with upstream benchstat (install once, then compare):
 //
-// To compare performance:
+//  1. Install: go install golang.org/x/perf/cmd/benchstat@latest
+//  2. Compare: benchstat testdata/benchmark.baseline <(CLI_RUN_BENCHMARKS=true go test -bench=. -benchtime=100x .)
 //
-//	benchstat testdata/benchmark.baseline <(CLI_RUN_BENCHMARKS=true go test -bench=. -benchtime=100x .)
-//
-// To update baseline:
+// Update baseline:
 //
 //	CLI_RUN_BENCHMARKS=true go test -bench=. -benchtime=100x . > testdata/benchmark.baseline
 //
-// Or use the automated tool (installs benchstat automatically):
+// Or use scw-benchstat (can install benchstat for you: --install-benchstat):
 //
 //	go run ./cmd/scw-benchstat --install-benchstat --bench=. --count=10
 
@@ -47,12 +46,6 @@ func TestMain(m *testing.M) {
 	code := m.Run()
 	cleanupSharedInstance()
 	os.Exit(code)
-}
-
-func setupBenchmark(b *testing.B) (*scw.Client, core.TestMetadata, func(args []string) any) {
-	b.Helper()
-
-	return testhelpers.SetupBenchmark(b, rdb.GetCommands())
 }
 
 func cleanupWithRetry(b *testing.B, name string, resourceID string, cleanupFn func() error) {
@@ -263,7 +256,7 @@ func BenchmarkInstanceGet(b *testing.B) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
-	client, meta, executeCmd := setupBenchmark(b)
+	client, meta, executeCmd := testhelpers.SetupBenchmark(b, rdb.GetCommands())
 	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	stats := newBenchmarkStats()
@@ -285,7 +278,7 @@ func BenchmarkBackupGet(b *testing.B) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
-	client, meta, executeCmd := setupBenchmark(b)
+	client, meta, executeCmd := testhelpers.SetupBenchmark(b, rdb.GetCommands())
 	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	ctx := &core.BeforeFuncCtx{
@@ -336,7 +329,7 @@ func BenchmarkBackupList(b *testing.B) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
-	client, meta, executeCmd := setupBenchmark(b)
+	client, meta, executeCmd := testhelpers.SetupBenchmark(b, rdb.GetCommands())
 	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	ctx := &core.BeforeFuncCtx{
@@ -399,7 +392,7 @@ func BenchmarkDatabaseList(b *testing.B) {
 		b.Skip("Skipping benchmark. Set CLI_RUN_BENCHMARKS=true to run.")
 	}
 
-	client, meta, executeCmd := setupBenchmark(b)
+	client, meta, executeCmd := testhelpers.SetupBenchmark(b, rdb.GetCommands())
 	instance := getOrCreateSharedInstance(b, client, executeCmd, meta)
 
 	stats := newBenchmarkStats()
