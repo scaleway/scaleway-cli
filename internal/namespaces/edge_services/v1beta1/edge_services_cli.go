@@ -1812,7 +1812,7 @@ func edgeServicesRouteStageList() *core.Command {
 func edgeServicesRouteStageCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create route stage`,
-		Long:      `Create a new route stage. You must specify the ` + "`" + `waf_stage_id` + "`" + ` field to customize the route.`,
+		Long:      `Create a new route stage. You must specify the ` + "`" + `waf_stage_id` + "`" + ` or ` + "`" + `backend_stage_id` + "`" + ` fields to customize the route.`,
 		Namespace: "edge-services",
 		Resource:  "route-stage",
 		Verb:      "create",
@@ -1835,6 +1835,7 @@ func edgeServicesRouteStageCreate() *core.Command {
 			},
 			{
 				Name:       "backend-stage-id",
+				Short:      `ID of the backend stage HTTP requests should be forwarded to when no rules are matched`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1906,6 +1907,7 @@ func edgeServicesRouteStageUpdate() *core.Command {
 			},
 			{
 				Name:       "backend-stage-id",
+				Short:      `ID of the backend stage HTTP requests should be forwarded to when no rules are matched`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
