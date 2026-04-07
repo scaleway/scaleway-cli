@@ -4,43 +4,34 @@ Entity Type:
 application
 
 Api Key:
-AccessKey         SCWW3T9S86AVRK3Z0WM9
-ApplicationID     fecc73d6-cb99-4fd5-8f3f-95870cb57228
-Description       test-cli-iam-application-api-key
+AccessKey         SCWZ2CNKDJ217YMA8XFD
+ApplicationID     ee684d01-4555-4b8e-afd7-ac7755e1e50e
+Description       API key used solely for nightly IAM API keys listing tests.
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-ExpiresAt         few seconds ago
-DefaultProjectID  57a1e028-d7d3-4a4e-80cf-52cef8fd0d3e
+DefaultProjectID  5ebc0159-7cb7-406c-9521-9347d1987fb2
 Editable          true
 Deletable         true
 Managed           false
-CreationIP        51.159.73.145
+CreationIP        51.159.73.9
 
 Policies:
-Copy of Copy of Group - Editors (e8a8bacc-d77a-4bdd-8b37-e63409000e62)  AllProductsFullAccess OrganizationReadOnly ProjectManager SupportTicketReadOnly
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
-    "access_key": "SCWW3T9S86AVRK3Z0WM9",
+    "access_key": "SCWZ2CNKDJ217YMA8XFD",
     "secret_key": null,
-    "application_id": "fecc73d6-cb99-4fd5-8f3f-95870cb57228",
-    "description": "test-cli-iam-application-api-key",
+    "application_id": "ee684d01-4555-4b8e-afd7-ac7755e1e50e",
+    "description": "API key used solely for nightly IAM API keys listing tests.",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
-    "expires_at": "1970-01-01T00:00:00.0Z",
-    "default_project_id": "57a1e028-d7d3-4a4e-80cf-52cef8fd0d3e",
+    "expires_at": null,
+    "default_project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.73.145"
+    "creation_ip": "51.159.73.9"
   },
   "entity_type": "application",
-  "policies": {
-    "Copy of Copy of Group - Editors (e8a8bacc-d77a-4bdd-8b37-e63409000e62)": [
-      "AllProductsFullAccess",
-      "OrganizationReadOnly",
-      "ProjectManager",
-      "SupportTicketReadOnly"
-    ]
-  }
+  "policies": {}
 }
