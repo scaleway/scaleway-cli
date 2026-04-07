@@ -335,11 +335,10 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 				}
 				for _, snapshot := range snapshots {
 					if snapshot.Type == instance.VolumeVolumeTypeSbsSnapshot {
-						terminalStatus := block.SnapshotStatusAvailable
 						_, err := blockAPI.WaitForSnapshot(&block.WaitForSnapshotRequest{
 							SnapshotID:     snapshot.ID,
 							Zone:           args.Zone,
-							TerminalStatus: &terminalStatus,
+							TerminalStatus: new(block.SnapshotStatusAvailable),
 							RetryInterval:  core.DefaultRetryInterval,
 						})
 						if err != nil {

@@ -88,9 +88,8 @@ func getIPSubnet(ipNet scw.IPNet) (*string, error) {
 	addr[3] = +3
 
 	sz, _ := ipNet.Mask.Size()
-	ipNetStr := fmt.Sprintf("%s/%d", addr.String(), sz)
 
-	return &ipNetStr, nil
+	return new(fmt.Sprintf("%s/%d", addr.String(), sz)), nil
 }
 
 func listEndpointsInMeta() core.BeforeFunc {

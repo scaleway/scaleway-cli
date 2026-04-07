@@ -123,9 +123,9 @@ func waitForPoolFunc(action int) core.WaitFunc {
 			if err != nil {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
-				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) &&
-					responseError.StatusCode == http.StatusNotFound ||
+				if responseError, ok := errors.AsType[*scw.ResponseError](
+					err,
+				); ok && responseError.StatusCode == http.StatusNotFound ||
 					errors.As(err, &notFoundError) {
 					return fmt.Sprintf("Pool %s successfully deleted.", respI.(*k8s.Pool).ID), nil
 				}
