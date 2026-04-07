@@ -629,6 +629,20 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "autoscaler-config.skip-nodes-with-local-storage",
+				Short:      `Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.log-level",
+				Short:      `Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "auto-upgrade.enable",
 				Short:      `Defines whether auto upgrade is enabled for the cluster`,
 				Required:   false,
@@ -941,6 +955,20 @@ func k8sClusterUpdate() *core.Command {
 			{
 				Name:       "autoscaler-config.max-graceful-termination-sec",
 				Short:      `Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.skip-nodes-with-local-storage",
+				Short:      `Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.log-level",
+				Short:      `Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

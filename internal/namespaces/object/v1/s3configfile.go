@@ -37,6 +37,7 @@ type s3config struct {
 	Region    scw.Region
 	Name      string
 	ctx       context.Context
+	ProjectID string
 }
 
 const (
@@ -81,22 +82,39 @@ server_side_encryption =
 storage_class =
 `
 
-func newS3Config(ctx context.Context, region scw.Region, name string) (s3config, error) {
+func newS3Config(
+	ctx context.Context,
+	region scw.Region,
+	name string,
+	projectID string,
+) (s3config, error) {
 	client := core.ExtractClient(ctx)
 	accessKey, accessExists := client.GetAccessKey()
 	if !accessExists {
 		return s3config{}, errors.New("no access key found")
 	}
+
 	secretKey, secretExists := client.GetSecretKey()
 	if !secretExists {
 		return s3config{}, errors.New("no secret key found")
 	}
+
+	// Use provided projectID if available, otherwise fall back to client's default project ID
+	if projectID == "" {
+		projectID, _ = client.GetDefaultProjectID()
+	}
+
+	if projectID != "" {
+		accessKey += "@" + projectID
+	}
+
 	config := s3config{
 		AccessKey: accessKey,
 		SecretKey: secretKey,
 		Region:    region,
 		Name:      name,
 		ctx:       ctx,
+		ProjectID: projectID,
 	}
 
 	return config, nil
@@ -144,6 +162,7 @@ func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 			AccessKey string `json:"accessKey"`
 			SecretKey string `json:"secretKey"`
 			API       string `json:"api"`
+			ProjectID string `json:"projectID"`
 		}
 		m := struct {
 			Version string                `json:"version"`

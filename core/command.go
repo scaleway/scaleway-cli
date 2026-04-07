@@ -170,13 +170,11 @@ func (c *Command) Copy() *Command {
 	newCommand.Aliases = append([]string(nil), c.Aliases...)
 	newCommand.Examples = make([]*Example, len(c.Examples))
 	for i := range c.Examples {
-		e := *c.Examples[i]
-		newCommand.Examples[i] = &e
+		newCommand.Examples[i] = new(*c.Examples[i])
 	}
 	newCommand.SeeAlsos = make([]*SeeAlso, len(c.SeeAlsos))
 	for i := range c.SeeAlsos {
-		sa := *c.SeeAlsos[i]
-		newCommand.SeeAlsos[i] = &sa
+		newCommand.SeeAlsos[i] = new(*c.SeeAlsos[i])
 	}
 
 	return &newCommand

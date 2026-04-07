@@ -486,7 +486,7 @@ func DeployStepCreateContainer(
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
 		Region:        data.Args.Region,
 		ContainerID:   targetContainer.ID,
-		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
+		Timeout:       new(12*time.Minute + 30*time.Second),
 		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
@@ -519,7 +519,7 @@ func DeployStepDeployContainer(
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
 		Region:        data.Args.Region,
 		ContainerID:   targetContainer.ID,
-		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
+		Timeout:       new(12*time.Minute + 30*time.Second),
 		RetryInterval: core.DefaultRetryInterval,
 	}, scw.WithContext(t.Ctx))
 	if err != nil {
