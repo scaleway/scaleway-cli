@@ -2042,6 +2042,22 @@ func edgeServicesRouteRulesSet() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.host-filter-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_host_filter",
+					"regex",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "route-rules.{index}.backend-stage-id",
 				Short:      `ID of the backend stage that requests matching the rule should be forwarded to`,
 				Required:   false,
@@ -2115,6 +2131,22 @@ func edgeServicesRouteRulesAdd() *core.Command {
 			{
 				Name:       "route-rules.{index}.rule-http-match.path-filter.value",
 				Short:      `Value to be matched for the HTTP URL path`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.host-filter-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_host_filter",
+					"regex",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.value",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
