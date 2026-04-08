@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		fileRoot(),
 		fileFilesystem(),
 		fileAttachment(),
+		fileFilesystemType(),
 		fileFilesystemGet(),
 		fileFilesystemList(),
 		fileAttachmentList(),
@@ -54,6 +55,15 @@ func fileAttachment() *core.Command {
 		Long:      `Attachment management.`,
 		Namespace: "file",
 		Resource:  "attachment",
+	}
+}
+
+func fileFilesystemType() *core.Command {
+	return &core.Command{
+		Short:     `Filesystem-type management`,
+		Long:      `Filesystem-type management.`,
+		Namespace: "file",
+		Resource:  "filesystem-type",
 	}
 }
 
@@ -120,6 +130,13 @@ func fileFilesystemList() *core.Command {
 			{
 				Name:       "name",
 				Short:      `Filter the returned filesystems by their names`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "filesystem-type",
+				Short:      `Type of the filesystem`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -260,6 +277,13 @@ func fileFilesystemCreate() *core.Command {
 				Name:       "size",
 				Short:      `Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes).`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of the filesystem`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
