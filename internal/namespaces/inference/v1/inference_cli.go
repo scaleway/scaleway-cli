@@ -247,7 +247,7 @@ func inferenceDeploymentCreate() *core.Command {
 			},
 			{
 				Name:       "max-size",
-				Short:      `Defines the maximum size of the pool`,
+				Short:      `Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to ` + "`" + `min_size` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -326,7 +326,7 @@ func inferenceDeploymentUpdate() *core.Command {
 			},
 			{
 				Name:       "max-size",
-				Short:      `Defines the new maximum size of the pool`,
+				Short:      `Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to ` + "`" + `min_size` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -577,6 +577,13 @@ func inferenceModelList() *core.Command {
 			{
 				Name:       "tags.{index}",
 				Short:      `Filter by tags`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Filter by Organization ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
