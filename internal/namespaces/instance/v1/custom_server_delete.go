@@ -96,8 +96,6 @@ func serverDeleteCommand() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			notFoundErr := &scw.ResourceNotFoundError{}
-
 			_, err := api.WaitForServer(&instance.WaitForServerRequest{
 				Zone:          server.Zone,
 				ServerID:      server.ID,
@@ -106,7 +104,7 @@ func serverDeleteCommand() *core.Command {
 			})
 			if err != nil {
 				err = errors.Unwrap(err)
-				if !errors.As(err, &notFoundErr) {
+				if _, ok := errors.AsType[*scw.ResourceNotFoundError](err); !ok {
 					return nil, err
 				}
 			}
@@ -239,11 +237,10 @@ func serverDeleteVolume(
 	var err error
 
 	if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
-		volumeAvailable := block.VolumeStatusAvailable
 		_, err = blockAPI.WaitForVolumeAndReferences(&block.WaitForVolumeAndReferencesRequest{
 			Zone:                 volume.Zone,
 			VolumeID:             volume.ID,
-			VolumeTerminalStatus: &volumeAvailable,
+			VolumeTerminalStatus: new(block.VolumeStatusAvailable),
 		})
 		if err != nil {
 			return errorDeletingResource(err)

@@ -69,7 +69,7 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(scw.SizePtr(0)),
+		reflect.TypeOf(new(scw.Size(0))),
 		func(i any, _ *MarshalOpt) (string, error) {
 			size := uint64(*i.(*scw.Size))
 

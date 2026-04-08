@@ -119,7 +119,7 @@ func TestMarshal(t *testing.T) {
 			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
-			Size:        scw.SizePtr(13200),
+			Size:        new(scw.Size(13200)),
 			Bytes:       []byte{0, 1},
 		},
 		result: `
@@ -186,7 +186,7 @@ func TestMarshal(t *testing.T) {
 			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
-			Size:        scw.SizePtr(13200),
+			Size:        new(scw.Size(13200)),
 			Bytes:       []byte{0, 1},
 		},
 		result: `

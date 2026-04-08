@@ -417,12 +417,10 @@ func serverTerminateCommand() *core.Command {
 					}
 
 					blockAPI := block.NewAPI(client)
-					terminalStatus := block.VolumeStatusAvailable
-
 					blockVolume, err := blockAPI.WaitForVolume(&block.WaitForVolumeRequest{
 						VolumeID:       volume.ID,
 						Zone:           volume.Zone,
-						TerminalStatus: &terminalStatus,
+						TerminalStatus: new(block.VolumeStatusAvailable),
 						RetryInterval:  core.DefaultRetryInterval,
 					})
 					if err != nil {
