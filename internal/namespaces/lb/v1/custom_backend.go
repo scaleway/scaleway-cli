@@ -898,8 +898,7 @@ func interceptBackend() core.CommandInterceptor {
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
-			var invalidArgErr *scw.InvalidArgumentsError
-			if errors.As(err, &invalidArgErr) {
+			if invalidArgErr, ok := errors.AsType[*scw.InvalidArgumentsError](err); ok {
 				for _, detail := range invalidArgErr.Details {
 					switch detail.ArgumentName {
 					case "Port":

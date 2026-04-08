@@ -160,6 +160,7 @@ func auditTrailEventList() *core.Command {
 					"mongodb_instance",
 					"mongodb_instance_snapshot",
 					"mongodb_instance_endpoint",
+					"mongodb_instance_maintenance",
 					"apple_silicon_runner",
 					"audit_trail_alert_rule",
 				},

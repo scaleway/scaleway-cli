@@ -355,8 +355,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		)
 
 		if !*UpdateCassettes {
-			tmp := 0 * time.Second
-			DefaultRetryInterval = &tmp
+			DefaultRetryInterval = new(0 * time.Second)
 		}
 
 		ctx := config.Ctx

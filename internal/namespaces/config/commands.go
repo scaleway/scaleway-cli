@@ -747,11 +747,8 @@ func configImportCommand() *core.Command {
 			importedConfig, err := scw.LoadConfigFromPath(args.File)
 			if err != nil {
 				return nil, err
-			}
-			importedProfile := importedConfig.Profile
-
-			// Merge the imported configurations into the existing configuration
-			currentConfig.Profile = *scw.MergeProfiles(currentProfile, &importedProfile)
+			} // Merge the imported configurations into the existing configuration
+			currentConfig.Profile = *scw.MergeProfiles(currentProfile, new(importedConfig.Profile))
 
 			for profileName, profile := range importedConfig.Profiles {
 				existingProfile, exists := currentConfig.Profiles[profileName]

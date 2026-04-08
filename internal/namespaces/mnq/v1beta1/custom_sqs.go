@@ -37,7 +37,7 @@ func autocompleteSqsProjectID(
 ) core.AutocompleteSuggestions {
 	_ = prefix
 	req := request.(*mnq.SqsAPIListSqsCredentialsRequest)
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := make(core.AutocompleteSuggestions, 0, 1)
 	client := core.ExtractClient(ctx)
 	api := mnq.NewSqsAPI(client)
 	if completeSqsInfoCache == nil {
