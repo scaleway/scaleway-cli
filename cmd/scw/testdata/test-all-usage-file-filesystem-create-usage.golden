@@ -9,6 +9,7 @@ ARGS:
   name              Name of the filesystem
   [project-id]      Project ID to use. If none is passed the default project ID will be used
   size              Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes).
+  [type]            Type of the filesystem
   [tags.{index}]    List of tags assigned to the filesystem
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
 

@@ -644,6 +644,8 @@ scw edge-services route-rules add <route-stage-id ...> [arg=value ...]
 | route-rules.{index}.rule-http-match.method-filters.{index} | One of: `unknown_method_filter`, `get`, `post`, `put`, `patch`, `delete`, `head`, `options` | HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided |
 | route-rules.{index}.rule-http-match.path-filter.path-filter-type | One of: `unknown_path_filter`, `regex` | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type |
 | route-rules.{index}.rule-http-match.path-filter.value |  | Value to be matched for the HTTP URL path |
+| route-rules.{index}.rule-http-match.host-filter.host-filter-type | One of: `unknown_host_filter`, `regex` |  |
+| route-rules.{index}.rule-http-match.host-filter.value |  |  |
 | route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
 | route-rules.{index}.waf-stage-id |  | ID of the WAF stage that requests matching the rule should be forwarded to |
 | after-position |  | Add rules after the given position |
@@ -713,6 +715,8 @@ scw edge-services route-rules set <route-stage-id ...> [arg=value ...]
 | route-rules.{index}.rule-http-match.method-filters.{index} | One of: `unknown_method_filter`, `get`, `post`, `put`, `patch`, `delete`, `head`, `options` | HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided |
 | route-rules.{index}.rule-http-match.path-filter.path-filter-type | One of: `unknown_path_filter`, `regex` | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type |
 | route-rules.{index}.rule-http-match.path-filter.value |  | Value to be matched for the HTTP URL path |
+| route-rules.{index}.rule-http-match.host-filter.host-filter-type | One of: `unknown_host_filter`, `regex` |  |
+| route-rules.{index}.rule-http-match.host-filter.value |  |  |
 | route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
 | route-rules.{index}.waf-stage-id |  | ID of the WAF stage that requests matching the rule should be forwarded to |
 

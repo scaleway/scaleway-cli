@@ -34,6 +34,7 @@ scw product-catalog product list [arg=value ...]
 | zone |  | Filter products by zone. |
 | datacenter |  | Filter products by datacenter. |
 | status.{index} | One of: `unknown_status`, `public_beta`, `preview`, `general_availability`, `end_of_new_features`, `end_of_growth`, `end_of_deployment`, `end_of_support`, `end_of_sale`, `end_of_life`, `retired` | The lists of filtered product status, if empty only products with status public_beta, general_availability, preview, end_of_new_features, end_of_growth, end_of_deployment, end_of_support, end_of_sale, end_of_life or retired will be returned. |
+| api-ids.{index} |  | Filter products by API IDs. Each ID is matched against product-specific identifiers: `dedibox.offer_id` (converted to string), `elastic_metal.offer_id`, `apple_silicon.server_type`, `instance.offer_id`, and `load_balancer.node.offer_id`. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied. |
 
 
 
