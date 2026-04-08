@@ -32,7 +32,9 @@ func main() {
 	cfg := parseFlags()
 
 	if !isBenchstatAvailable() {
-		log.Fatal("benchstat not found in PATH; install golang.org/x/perf/cmd/benchstat in your environment")
+		log.Fatal(
+			"benchstat not found in PATH; install golang.org/x/perf/cmd/benchstat in your environment",
+		)
 	}
 
 	if len(cfg.targetDirs) == 0 {

@@ -183,7 +183,11 @@ func waitForInstanceReady(client *scw.Client, instanceID string) error {
 		Timeout:    scw.TimeDurationPtr(3 * time.Minute),
 	})
 	if err != nil {
-		return fmt.Errorf("timeout waiting for instance %s to be ready for operations: %w", instanceID, err)
+		return fmt.Errorf(
+			"timeout waiting for instance %s to be ready for operations: %w",
+			instanceID,
+			err,
+		)
 	}
 
 	// Give control plane a short settling window before dependent operations.
