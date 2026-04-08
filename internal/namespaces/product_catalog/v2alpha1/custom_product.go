@@ -11,7 +11,7 @@ import (
 var completeProductTypeCache []product_catalog.ListPublicCatalogProductsRequestProductType
 
 func autocompleteProductType(ctx context.Context, _ string, _ any) core.AutocompleteSuggestions {
-	suggestions := core.AutocompleteSuggestions(nil)
+	suggestions := make(core.AutocompleteSuggestions, 0, len(completeProductTypeCache))
 
 	if len(completeProductTypeCache) == 0 {
 		var productTypes product_catalog.ListPublicCatalogProductsRequestProductType

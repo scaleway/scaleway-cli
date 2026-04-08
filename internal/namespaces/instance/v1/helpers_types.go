@@ -66,16 +66,15 @@ func warningServerTypeDeprecated(
 	client *scw.Client,
 	server *instance.Server,
 ) []string {
-	warning := []string{
-		terminal.Style(
-			fmt.Sprintf(
-				"Warning: server type %q will soon reach EndOfService",
-				server.CommercialType,
-			),
-			color.Bold,
-			color.FgYellow,
+	warning := make([]string, 0, 2)
+	warning[0] = terminal.Style(
+		fmt.Sprintf(
+			"Warning: server type %q will soon reach EndOfService",
+			server.CommercialType,
 		),
-	}
+		color.Bold,
+		color.FgYellow,
+	)
 
 	eosDate, err := getEndOfServiceDate(ctx, client, server.Zone, server.CommercialType)
 	if err != nil {
