@@ -324,6 +324,7 @@ scw inference model list [arg=value ...]
 | project-id |  | Filter by Project ID |
 | name |  | Filter by model name |
 | tags.{index} |  | Filter by tags |
+| organization-id |  | Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
