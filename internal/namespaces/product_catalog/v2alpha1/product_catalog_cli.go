@@ -129,6 +129,13 @@ func productCatalogProductList() *core.Command {
 					"retired",
 				},
 			},
+			{
+				Name:       "api-ids.{index}",
+				Short:      `Filter products by API IDs. Each ID is matched against product-specific identifiers: ` + "`" + `dedibox.offer_id` + "`" + ` (converted to string), ` + "`" + `elastic_metal.offer_id` + "`" + `, ` + "`" + `apple_silicon.server_type` + "`" + `, ` + "`" + `instance.offer_id` + "`" + `, and ` + "`" + `load_balancer.node.offer_id` + "`" + `. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest)
