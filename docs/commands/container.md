@@ -126,6 +126,28 @@ scw container container list [arg=value ...]
 
 
 
+### Show container logs
+
+Display the logs of a container from the last 2 hours
+
+**Usage:**
+
+```shell
+scw container container logs <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id |  | ID of the container which logs are to be displayed |
+| time-span | Default: `2h` | Time range for which to retrieve container logs in duration format, defaults to 2h |
+| entry-count |  | Maximum number of log entries to be displayed |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Redeploy a container
 
 Performs a rollout of the container by creating new instances with the latest image version and terminating the old instances.
