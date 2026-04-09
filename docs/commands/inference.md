@@ -49,7 +49,7 @@ scw inference deployment create [arg=value ...]
 | node-type-name | Required | Name of the node type to use |
 | tags.{index} |  | List of tags to apply to the deployment |
 | min-size |  | Defines the minimum size of the pool |
-| max-size |  | Defines the maximum size of the pool |
+| max-size |  | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |
 | endpoints.{index}.is-public | Default: `true` | Will configure your public endpoint if true |
 | endpoints.{index}.private-network.private-network-id |  |  |
 | endpoints.{index}.disable-auth | Default: `false` | Disable the authentication on the endpoint. |
@@ -162,7 +162,7 @@ scw inference deployment update <deployment-id ...> [arg=value ...]
 | name |  | Name of the deployment |
 | tags.{index} |  | List of tags to apply to the deployment |
 | min-size |  | Defines the new minimum size of the pool |
-| max-size |  | Defines the new maximum size of the pool |
+| max-size |  | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |
 | model-id |  | Id of the model to set to the deployment |
 | quantization.bits |  | The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value. |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
