@@ -3,7 +3,9 @@ package domain
 import (
 	"bufio"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"slices"
 	"strings"
 
 	"github.com/miekg/dns"
@@ -40,38 +42,46 @@ func validateZoneDirectives(content string) error {
 		}
 		upper := strings.ToUpper(line)
 		if strings.HasPrefix(upper, "$INCLUDE") {
-			return fmt.Errorf("line %d: $INCLUDE is not supported; expand includes before importing", lineNum)
+			return fmt.Errorf(
+				"line %d: $INCLUDE is not supported; expand includes before importing",
+				lineNum,
+			)
 		}
 		if strings.HasPrefix(upper, "$GENERATE") {
-			return fmt.Errorf("line %d: $GENERATE is not supported; expand generated records before importing", lineNum)
+			return fmt.Errorf(
+				"line %d: $GENERATE is not supported; expand generated records before importing",
+				lineNum,
+			)
 		}
 	}
 	if err := scanner.Err(); err != nil {
 		return fmt.Errorf("read zone file: %w", err)
 	}
+
 	return nil
 }
 
-func parseImportJSON(content, dnsZone string) ([]*domain.Record, error) {
+func parseImportJSON(content string) ([]*domain.Record, error) {
 	var doc jsonImportFile
 	if err := json.Unmarshal([]byte(content), &doc); err != nil {
 		return nil, fmt.Errorf("parse JSON: %w", err)
 	}
 	if len(doc.Records) == 0 {
-		return nil, fmt.Errorf("no records found in JSON (expected a top-level \"records\" array)")
+		return nil, errors.New(`no records found in JSON (expected a top-level "records" array)`)
 	}
 	records := make([]*domain.Record, 0, len(doc.Records))
 	for i, r := range doc.Records {
-		rec, err := jsonRecordToDomain(r, dnsZone, i)
+		rec, err := jsonRecordToDomain(r, i)
 		if err != nil {
 			return nil, err
 		}
 		records = append(records, rec)
 	}
+
 	return records, nil
 }
 
-func jsonRecordToDomain(r jsonImportRecord, dnsZone string, index int) (*domain.Record, error) {
+func jsonRecordToDomain(r jsonImportRecord, index int) (*domain.Record, error) {
 	typ := strings.TrimSpace(strings.ToUpper(r.Type))
 	if typ == "" {
 		return nil, fmt.Errorf("records[%d]: missing type", index)
@@ -108,6 +118,7 @@ func jsonRecordToDomain(r jsonImportRecord, dnsZone string, index int) (*domain.
 	if typ == "MX" && r.Priority == nil {
 		return nil, fmt.Errorf("records[%d]: MX records require priority", index)
 	}
+
 	return rec, nil
 }
 
@@ -120,18 +131,17 @@ func validateRecordOwnerName(name string) error {
 	}
 	// Reject absolute FQDNs: we expect short names relative to the zone (like the rest of scw dns record).
 	if dns.IsFqdn(name) {
-		return fmt.Errorf("owner name %q looks like an FQDN; use a relative name (e.g. www) or @ for apex", name)
+		return fmt.Errorf(
+			"owner name %q looks like an FQDN; use a relative name (e.g. www) or @ for apex",
+			name,
+		)
 	}
+
 	return nil
 }
 
 func isAllowedImportRecordType(typ string) bool {
-	for _, t := range domainTypes {
-		if t == typ {
-			return true
-		}
-	}
-	return false
+	return slices.Contains(domainTypes, typ)
 }
 
 func parseImportBind(content, dnsZone string) ([]*domain.Record, error) {
@@ -151,6 +161,7 @@ func parseImportBind(content, dnsZone string) ([]*domain.Record, error) {
 	if err := zp.Err(); err != nil {
 		return nil, fmt.Errorf("parse BIND zone: %w", err)
 	}
+
 	return records, nil
 }
 
@@ -169,8 +180,9 @@ func dnsRRToRecords(rr dns.RR, dnsZone string) ([]*domain.Record, error) {
 		}
 		ns, ok := rr.(*dns.NS)
 		if !ok {
-			return nil, fmt.Errorf("internal error: expected NS record")
+			return nil, errors.New("internal error: expected NS record")
 		}
+
 		return []*domain.Record{{
 			Data:     targetToData(ns.Ns),
 			Name:     name,
@@ -186,6 +198,7 @@ func dnsRRToRecords(rr dns.RR, dnsZone string) ([]*domain.Record, error) {
 		if rec == nil {
 			return nil, nil
 		}
+
 		return []*domain.Record{rec}, nil
 	}
 }
@@ -247,6 +260,7 @@ func dnsRRToRecord(rr dns.RR, dnsZone string) (*domain.Record, error) {
 		if typeName == "" {
 			typeName = fmt.Sprintf("TYPE%d", hdr.Rrtype)
 		}
+
 		return nil, fmt.Errorf("unsupported record type %s for %s", typeName, hdr.Name)
 	}
 }
@@ -255,6 +269,7 @@ func ttlOrDefault(ttl uint32) uint32 {
 	if ttl == 0 {
 		return dnsImportDefaultTTL
 	}
+
 	return ttl
 }
 
@@ -269,8 +284,10 @@ func relativeOwnerName(ownerFQN, zone string) (string, error) {
 		return "", nil
 	}
 	suf := "." + z
-	if strings.HasSuffix(owner, suf) {
-		return strings.TrimSuffix(owner, suf), nil
+	rel, ok := strings.CutSuffix(owner, suf)
+	if !ok {
+		return "", fmt.Errorf("owner %q is not under DNS zone %q", ownerFQN, zone)
 	}
-	return "", fmt.Errorf("owner %q is not under DNS zone %q", ownerFQN, zone)
+
+	return rel, nil
 }

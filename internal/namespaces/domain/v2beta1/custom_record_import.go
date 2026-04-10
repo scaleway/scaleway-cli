@@ -2,6 +2,7 @@ package domain
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"os"
 	"path/filepath"
@@ -33,7 +34,10 @@ type dnsRecordImportResult struct {
 func (r dnsRecordImportResult) String() string {
 	switch {
 	case r.DryRun:
-		return fmt.Sprintf("dry-run: parsed %d record(s); would perform %d API request(s) (replace=%v)", r.RecordCount, r.APIRequests, r.ReplacedZone)
+		return fmt.Sprintf(
+			"dry-run: parsed %d record(s); would perform %d API request(s) (replace=%v)",
+			r.RecordCount, r.APIRequests, r.ReplacedZone,
+		)
 	case r.RecordCount == 0:
 		return "no records imported"
 	default:
@@ -119,11 +123,11 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 	args := argsI.(*dnsRecordImportArgs)
 	zone := strings.TrimSpace(args.DNSZone)
 	if zone == "" {
-		return nil, fmt.Errorf("dns-zone is required")
+		return nil, errors.New("dns-zone is required")
 	}
 	path := strings.TrimSpace(args.File)
 	if path == "" {
-		return nil, fmt.Errorf("file is required")
+		return nil, errors.New("file is required")
 	}
 	abs, err := filepath.Abs(path)
 	if err != nil {
@@ -144,7 +148,7 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 	case "bind":
 		records, err = parseImportBind(string(raw), zone)
 	case "json":
-		records, err = parseImportJSON(string(raw), zone)
+		records, err = parseImportJSON(string(raw))
 	default:
 		return nil, fmt.Errorf("unsupported format %q (use bind or json)", format)
 	}
@@ -182,10 +186,7 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 
 	disallow := true
 	for i := 0; i < len(records); i += dnsImportBatchSize {
-		end := i + dnsImportBatchSize
-		if end > len(records) {
-			end = len(records)
-		}
+		end := min(i+dnsImportBatchSize, len(records))
 		chunk := records[i:end]
 		req := &domain.UpdateDNSZoneRecordsRequest{
 			DNSZone:                 zone,
