@@ -602,7 +602,7 @@ scw dns zone create [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| domain | Required | Domain in which to crreate the DNS zone |
+| domain | Required | Domain in which to create the DNS zone |
 | subdomain | Required | Subdomain of the DNS zone to create |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 
@@ -740,7 +740,7 @@ scw dns zone update [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| dns-zone | Required | DNS zone to update |
+| dns-zone | Required | The full name of the DNS zone to modify. For a root zone (e.g., example.com), enter `example.com`. For a specific sub-zone (e.g., prod.example.com), enter `prod.example.com`. |
 | new-dns-zone | Required | Name of the new DNS zone to create |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 

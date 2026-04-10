@@ -6,7 +6,7 @@ USAGE:
   scw dns zone create [arg=value ...]
 
 ARGS:
-  domain         Domain in which to crreate the DNS zone
+  domain         Domain in which to create the DNS zone
   subdomain      Subdomain of the DNS zone to create
   [project-id]   Project ID to use. If none is passed the default project ID will be used
 

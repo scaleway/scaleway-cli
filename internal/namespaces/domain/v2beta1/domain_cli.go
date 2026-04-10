@@ -364,7 +364,7 @@ func dnsZoneCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
-				Short:      `Domain in which to crreate the DNS zone`,
+				Short:      `Domain in which to create the DNS zone`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
@@ -401,7 +401,7 @@ func dnsZoneUpdate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
-				Short:      `DNS zone to update`,
+				Short:      `The full name of the DNS zone to modify. For a root zone (e.g., example.com), enter ` + "`" + `example.com` + "`" + `. For a specific sub-zone (e.g., prod.example.com), enter ` + "`" + `prod.example.com` + "`" + `.`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
