@@ -5,6 +5,7 @@ import (
 	"encoding/base64"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"reflect"
 	"time"
 
@@ -72,7 +73,9 @@ Once you connected to Scaleway, the profile should be configured.
 
 			callbackURL := fmt.Sprintf("http://localhost:%d/callback", wb.Port())
 
-			accountURL := "https://account.scaleway.com/authenticate?redirectToUrl=" + callbackURL
+			params := url.Values{}
+			params.Add("redirectToUrl", callbackURL)
+			accountURL := "https://account.scaleway.com/authenticate?" + params.Encode()
 
 			logger.Debugf("Web server started, waiting for callback on %s\n", callbackURL)
 
