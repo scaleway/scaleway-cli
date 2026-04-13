@@ -207,6 +207,22 @@ func getMarshalerFunc(key reflect.Type) (MarshalerFunc, bool) {
 	return nil, false
 }
 
+// areAllStructFieldsMarshalable checks if all fields of a struct are marshalable
+func areAllStructFieldsMarshalable(t reflect.Type) bool {
+	if t.Kind() != reflect.Struct {
+		return false
+	}
+
+	for i := 0; i < t.NumField(); i++ {
+		field := t.Field(i)
+		if !isMarshalable(field.Type) {
+			return false
+		}
+	}
+
+	return true
+}
+
 // DefaultMarshalerFunc is used by default for all non-registered type
 func defaultMarshalerFunc(i any, _ *MarshalOpt) (string, error) {
 	if i == nil {
@@ -223,10 +239,11 @@ func defaultMarshalerFunc(i any, _ *MarshalOpt) (string, error) {
 }
 
 // isMarshalable checks if a type is Marshalable based on one of the following conditions:
-// - type is not a struct, nor a map, nor a pointer
+// - type is not a map, nor a pointer
 // - a marshal func was registered for this type
 // - the type implements the Marshaler, error, or Stringer interface
 // - pointer of the type matches one of the above conditions
+// - structs are marshalable if they have a registered marshaler or all fields are marshalable
 func isMarshalable(t reflect.Type) bool {
 	_, hasMarshalerFunc := getMarshalerFunc(t)
 
@@ -235,7 +252,8 @@ func isMarshalable(t reflect.Type) bool {
 		t.Implements(reflect.TypeOf((*Marshaler)(nil)).Elem()) ||
 		t.Implements(reflect.TypeOf((*error)(nil)).Elem()) ||
 		t.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()) ||
-		(t.Kind() == reflect.Ptr && isMarshalable(t.Elem()))
+		(t.Kind() == reflect.Ptr && isMarshalable(t.Elem())) ||
+		(t.Kind() == reflect.Struct && areAllStructFieldsMarshalable(t))
 }
 
 // EnumMarshalSpec contains specs used by EnumMarshalFunc.
