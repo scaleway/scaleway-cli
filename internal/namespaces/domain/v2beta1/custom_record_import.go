@@ -41,7 +41,11 @@ func (r dnsRecordImportResult) String() string {
 	case r.RecordCount == 0:
 		return "no records imported"
 	default:
-		return fmt.Sprintf("imported %d record(s) in %d API request(s)", r.RecordCount, r.APIRequests)
+		return fmt.Sprintf(
+			"imported %d record(s) in %d API request(s)",
+			r.RecordCount,
+			r.APIRequests,
+		)
 	}
 }
 
