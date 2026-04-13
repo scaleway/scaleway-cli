@@ -160,7 +160,10 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 		return nil, err
 	}
 	if len(records) == 0 {
-		return nil, fmt.Errorf("no records to import after parsing (SOA/apex NS are skipped in bind format)")
+		return nil, errors.New(
+			"no records to import after parsing " +
+				"(SOA/apex NS are skipped in bind format)",
+		)
 	}
 
 	apiCalls := 0
