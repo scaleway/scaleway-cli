@@ -2,6 +2,10 @@
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Deploy a container associated with the specified ID.
 
+Since updating a container now always deploys it (and passes its status to `pending`), this call becomes superfluous.
+
+Moreover, calling `DeployContainer` immediately after `UpdateContainer` can cause `409 - resource is in a transient state` errors, so it is better to not use it when updating a container.
+
 USAGE:
   scw container container deploy <container-id ...> [arg=value ...]
 
