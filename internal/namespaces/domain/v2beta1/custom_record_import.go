@@ -59,7 +59,9 @@ The DNS zone is the only positional argument; pass the path to the file as file=
 
 Two formats are supported:
  - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
+   Supported types: A, AAAA, CNAME, TXT, MX, NS, PTR, SRV, CAA. For other types (e.g. TLSA, SSHFP, DS), use format=json.
  - json: UTF-8 JSON object with a "records" array; each element has name, type, ttl, data, and optional priority (for MX).
+   Accepts all types supported by the Scaleway DNS API.
 
 SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
 
@@ -191,13 +193,12 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 		}
 	}
 
-	disallow := true
 	for i := 0; i < len(records); i += dnsImportBatchSize {
 		end := min(i+dnsImportBatchSize, len(records))
 		chunk := records[i:end]
 		req := &domain.UpdateDNSZoneRecordsRequest{
 			DNSZone:                 zone,
-			DisallowNewZoneCreation: disallow,
+			DisallowNewZoneCreation: true,
 			Changes: []*domain.RecordChange{
 				{Add: &domain.RecordChangeAdd{Records: chunk}},
 			},
