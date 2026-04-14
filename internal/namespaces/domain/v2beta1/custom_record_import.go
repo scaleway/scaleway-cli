@@ -137,7 +137,7 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 	if err != nil {
 		return nil, fmt.Errorf("resolve file path: %w", err)
 	}
-	raw, err := os.ReadFile(abs) //nolint:gosec // user-provided path is intentional
+	raw, err := os.ReadFile(abs)
 	if err != nil {
 		return nil, fmt.Errorf("read file: %w", err)
 	}
