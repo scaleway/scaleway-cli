@@ -516,8 +516,11 @@ func containerContainerGet() *core.Command {
 
 func containerContainerCreate() *core.Command {
 	return &core.Command{
-		Short:     `Create a new container`,
-		Long:      `Create a new container in the specified region.`,
+		Short: `Create a new container`,
+		Long: `Create a new container in the specified region.
+
+When creating a container, the ` + "`" + `created` + "`" + ` status is no longer used. The deployment process is started
+and the status is set to ` + "`" + `pending` + "`" + ` accordingly.`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "create",
