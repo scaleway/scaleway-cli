@@ -49,6 +49,9 @@ Container management commands.
 
 Create a new container in the specified region.
 
+When creating a container, the `created` status is no longer used. The deployment process is started
+and the status is set to `pending` accordingly.
+
 **Usage:**
 
 ```
