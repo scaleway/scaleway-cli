@@ -121,6 +121,10 @@ scw container container delete <container-id ...> [arg=value ...]
 
 Deploy a container associated with the specified ID.
 
+Since updating a container now always deploys it (and passes its status to `pending`), this call becomes superfluous.
+
+Moreover, calling `DeployContainer` immediately after `UpdateContainer` can cause `409 - resource is in a transient state` errors, so it is better to not use it when updating a container.
+
 **Usage:**
 
 ```
@@ -186,7 +190,8 @@ scw container container list [arg=value ...]
 Update the container associated with the specified ID.
 
 When updating a container, the container is automatically redeployed to apply the changes.
-This behavior can be changed by setting the `redeploy` field to `false` in the request.
+
+Warning: The `redeploy` field has been deprecated. An update now always redeploys the container.
 
 **Usage:**
 
