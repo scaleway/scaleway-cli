@@ -262,7 +262,8 @@ func dnsRRToRecord(rr dns.RR, dnsZone string) (*domain.Record, error) {
 		}
 
 		return nil, fmt.Errorf(
-			"unsupported record type %s for %s in BIND format; use format=json with a raw data field instead",
+			"unsupported record type %s for %s in BIND format; "+
+				"use format=json with a raw data field instead",
 			typeName, hdr.Name,
 		)
 	}
