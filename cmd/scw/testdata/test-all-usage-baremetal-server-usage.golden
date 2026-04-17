@@ -6,6 +6,7 @@ USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
+  batch-create    Create multiple Elastic Metal servers
   create          Create an Elastic Metal server
   delete          Delete an Elastic Metal server
   get             Get a specific Elastic Metal server
