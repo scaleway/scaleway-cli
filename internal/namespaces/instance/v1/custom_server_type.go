@@ -102,8 +102,13 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
 					instanceProductType,
 				},
-				Zone:   &request.Zone,
-				Status: nil,
+				Zone: &request.Zone,
+				Status: []product_catalog.ListPublicCatalogProductsRequestStatus{
+					product_catalog.ListPublicCatalogProductsRequestStatusPublicBeta,
+					product_catalog.ListPublicCatalogProductsRequestStatusPreview,
+					product_catalog.ListPublicCatalogProductsRequestStatusGeneralAvailability,
+					product_catalog.ListPublicCatalogProductsRequestStatusEndOfNewFeatures,
+				},
 			},
 			scw.WithAllPages(),
 			scw.WithContext(ctx),
@@ -132,27 +137,6 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		for _, pcuServerType := range listServersTypesResponse.Products {
-			switch pcuServerType.Status {
-			case product_catalog.PublicCatalogProductStatusUnknownStatus:
-				continue
-			case product_catalog.PublicCatalogProductStatusPublicBeta:
-			case product_catalog.PublicCatalogProductStatusPreview:
-			case product_catalog.PublicCatalogProductStatusGeneralAvailability:
-			case product_catalog.PublicCatalogProductStatusEndOfNewFeatures:
-			case product_catalog.PublicCatalogProductStatusEndOfGrowth:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfDeployment:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfSupport:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfSale:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfLife:
-				continue
-			case product_catalog.PublicCatalogProductStatusRetired:
-				continue
-			}
-
 			name := pcuServerType.Properties.Instance.OfferID
 			serverType := &customServerType{
 				Name:        name,

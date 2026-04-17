@@ -1,6 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 NAME                 HOURLY PRICE   SUPPORTED STORAGE  CPU  GPU  RAM      ARCH   BANDWIDTH  AVAILABILITY  MAX FILE SYSTEMS
+BASIC3-X2C-4G        € 0.0383       Block              2    0    4.0 GiB  x64    350 MB     available     1
+BASIC3-X2C-8G        € 0.0575       Block              2    0    8.0 GiB  x64    350 MB     available     1
+BASIC3-X4C-8G        € 0.0767       Block              4    0    8.0 GiB  x64    700 MB     available     1
+BASIC3-X4C-16G       € 0.115        Block              4    0    16 GiB   x64    700 MB     available     2
+BASIC3-X8C-16G       € 0.1725       Block              8    0    16 GiB   x64    1.5 GB     available     2
+BASIC3-X8C-32G       € 0.2299       Block              8    0    32 GiB   x64    1.5 GB     available     4
+BASIC3-X16C-32G      € 0.3449       Block              16   0    32 GiB   x64    3.0 GB     available     4
+BASIC3-X16C-64G      € 0.4598       Block              16   0    64 GiB   x64    3.0 GB     available     8
+STANDARD3-X2C-8G     € 0.0809       Block              2    0    8.0 GiB  x64    500 MB     available     1
+STANDARD3-X4C-16G    € 0.1617       Block              4    0    16 GiB   x64    1.0 GB     available     2
+STANDARD3-X8C-32G    € 0.319        Block              8    0    32 GiB   x64    2.0 GB     available     4
+STANDARD3-X16C-64G   € 0.649        Block              16   0    64 GiB   x64    4.0 GB     available     4
+STANDARD3-X32C-128G  € 1.298        Block              32   0    128 GiB  x64    8.0 GB     available     8
+STANDARD3-X48C-192G  € 1.947        Block              48   0    192 GiB  x64    16 GB      available     8
+STANDARD3-X64C-256G  € 2.585        Block              64   0    256 GiB  x64    16 GB      available     8
 POP2-2C-8G           € 0.0735       Block              2    0    8.0 GiB  x64    400 MB     available     1
 POP2-2C-8G-WIN       € 0.1823       Block              2    0    8.0 GiB  x64    400 MB     available     0
 POP2-4C-16G          € 0.147        Block              4    0    16 GiB   x64    800 MB     available     1
@@ -11,65 +26,334 @@ POP2-8C-32G-WIN      € 0.7233       Block              8    0    32 GiB   x64 
 POP2-16C-64G         € 0.59         Block              16   0    64 GiB   x64    3.2 GB     available     4
 POP2-16C-64G-WIN     € 1.4567       Block              16   0    64 GiB   x64    3.2 GB     available     0
 POP2-32C-128G        € 1.18         Block              32   0    128 GiB  x64    6.4 GB     available     8
-POP2-32C-128G-WIN    € 2.9133       Block              32   0    128 GiB  x64    6.4 GB     available     0
-POP2-64C-256G        € 2.35         Block              64   0    256 GiB  x64    13 GB      low stock     16
-STANDARD2-A2C-8G     € 0.0586       Block              2    0    8.0 GiB  arm64  400 MB     available     1
-STANDARD2-A4C-16G    € 0.1171       Block              4    0    16 GiB   arm64  800 MB     available     2
-STANDARD2-A8C-32G    € 0.2343       Block              8    0    32 GiB   arm64  1.6 GB     available     4
-STANDARD2-A16C-64G   € 0.5039       Block              16   0    64 GiB   arm64  3.2 GB     available     4
-STANDARD2-A32C-128G  € 1.0078       Block              32   0    128 GiB  arm64  6.4 GB     available     8
-STANDARD2-A48C-192G  € 1.5117       Block              48   0    192 GiB  arm64  9.6 GB     available     8
-STANDARD2-A64C-256G  € 2.0142       Block              64   0    256 GiB  arm64  13 GB      available     8
 BASIC2-A2C-4G        € 0.023        Block              2    0    4.0 GiB  arm64  200 MB     available     0
+POP2-32C-128G-WIN    € 2.9133       Block              32   0    128 GiB  x64    6.4 GB     available     0
 BASIC2-A4C-8G        € 0.0517       Block              4    0    8.0 GiB  arm64  400 MB     available     0
 BASIC2-A2C-8G        € 0.0345       Block              2    0    8.0 GiB  arm64  200 MB     available     0
+POP2-64C-256G        € 2.35         Block              64   0    256 GiB  x64    13 GB      available     16
 BASIC2-A4C-16G       € 0.0689       Block              4    0    16 GiB   arm64  400 MB     available     0
 BASIC2-A8C-16G       € 0.1034       Block              8    0    16 GiB   arm64  800 MB     available     0
 BASIC2-A8C-32G       € 0.1378       Block              8    0    32 GiB   arm64  800 MB     available     0
 BASIC2-A16C-32G      € 0.2067       Block              16   0    32 GiB   arm64  1.6 GB     available     0
 BASIC2-A16C-64G      € 0.2756       Block              16   0    64 GiB   arm64  1.6 GB     available     0
+STANDARD2-A2C-8G     € 0.0586       Block              2    0    8.0 GiB  arm64  400 MB     available     1
+STANDARD2-A48C-192G  € 1.5117       Block              48   0    192 GiB  arm64  9.6 GB     available     8
+STANDARD2-A8C-32G    € 0.2343       Block              8    0    32 GiB   arm64  1.6 GB     available     4
+STANDARD2-A16C-64G   € 0.5039       Block              16   0    64 GiB   arm64  3.2 GB     available     4
+STANDARD2-A32C-128G  € 1.0078       Block              32   0    128 GiB  arm64  6.4 GB     available     8
+STANDARD2-A4C-16G    € 0.1171       Block              4    0    16 GiB   arm64  800 MB     available     2
+STANDARD2-A64C-256G  € 2.0142       Block              64   0    256 GiB  arm64  13 GB      available     8
 PRO2-XXS             € 0.055        Block              2    0    8.0 GiB  x64    350 MB     available     0
 PRO2-XS              € 0.11         Block              4    0    16 GiB   x64    700 MB     available     0
 PRO2-S               € 0.219        Block              8    0    32 GiB   x64    1.5 GB     available     0
-PRO2-M               € 0.438        Block              16   0    64 GiB   x64    3.0 GB     available     0
+PRO2-M               € 0.438        Block              16   0    64 GiB   x64    3.0 GB     low stock     0
 PRO2-L               € 0.877        Block              32   0    128 GiB  x64    6.0 GB     low stock     0
 GP1-XS               € 0.091        Local, Block       4    0    16 GiB   x64    500 MB     available     0
 GP1-S                € 0.187        Local, Block       8    0    32 GiB   x64    800 MB     available     0
 GP1-M                € 0.376        Local, Block       16   0    64 GiB   x64    1.5 GB     available     0
 GP1-L                € 0.759        Local, Block       32   0    128 GiB  x64    5.0 GB     available     0
 GP1-XL               € 1.641        Local, Block       48   0    256 GiB  x64    10 GB      available     0
+PLAY2-PICO           € 0.014        Block              1    0    2.0 GiB  x64    100 MB     available     0
+PLAY2-NANO           € 0.027        Block              2    0    4.0 GiB  x64    200 MB     available     0
+PLAY2-MICRO          € 0.054        Block              4    0    8.0 GiB  x64    400 MB     available     0
 STARDUST1-S          € 0.00015      Local, Block       1    0    1.0 GiB  x64    100 MB     out of stock  0
 DEV1-S               € 0.0088       Local, Block       2    0    2.0 GiB  x64    200 MB     available     0
 DEV1-M               € 0.0198       Local, Block       3    0    4.0 GiB  x64    300 MB     available     0
 DEV1-L               € 0.042        Local, Block       4    0    8.0 GiB  x64    400 MB     available     0
 DEV1-XL              € 0.063799999  Local, Block       4    0    12 GiB   x64    500 MB     available     0
-PLAY2-PICO           € 0.014        Block              1    0    2.0 GiB  x64    100 MB     available     0
-PLAY2-NANO           € 0.027        Block              2    0    4.0 GiB  x64    200 MB     available     0
-PLAY2-MICRO          € 0.054        Block              4    0    8.0 GiB  x64    400 MB     available     0
+MEMORY3-X2C-16G      € 0.1133       Block              2    0    16 GiB   x64    500 MB     available     1
+MEMORY3-X4C-32G      € 0.2266       Block              4    0    32 GiB   x64    1.0 GB     available     2
+MEMORY3-X8C-64G      € 0.4532       Block              8    0    64 GiB   x64    2.0 GB     available     4
+MEMORY3-X16C-128G    € 0.9064       Block              16   0    128 GiB  x64    4.0 GB     available     4
+MEMORY3-X32C-256G    € 1.8128       Block              32   0    256 GiB  x64    8.0 GB     available     8
+MEMORY3-X48C-384G    € 2.717        Block              48   0    384 GiB  x64    16 GB      low stock     8
 POP2-HM-2C-16G       € 0.103        Block              2    0    16 GiB   x64    400 MB     available     2
 POP2-HM-4C-32G       € 0.206        Block              4    0    32 GiB   x64    800 MB     available     1
 POP2-HM-8C-64G       € 0.412        Block              8    0    64 GiB   x64    1.6 GB     available     2
 POP2-HM-16C-128G     € 0.824        Block              16   0    128 GiB  x64    3.2 GB     available     4
-POP2-HM-32C-256G     € 1.648        Block              32   0    256 GiB  x64    6.4 GB     low stock     8
-POP2-HM-48C-384G     € 2.47         Block              48   0    384 GiB  x64    9.6 GB     low stock     12
-POP2-HM-64C-512G     € 3.296        Block              64   0    512 GiB  x64    13 GB      out of stock  16
+POP2-HM-32C-256G     € 1.648        Block              32   0    256 GiB  x64    6.4 GB     available     8
+POP2-HM-48C-384G     € 2.47         Block              48   0    384 GiB  x64    9.6 GB     available     12
+POP2-HM-64C-512G     € 3.296        Block              64   0    512 GiB  x64    13 GB      available     16
+COMPUTE3-X2C-4G      € 0.0585       Block              2    0    4.0 GiB  x64    500 MB     available     1
+COMPUTE3-X4C-8G      € 0.117        Block              4    0    8.0 GiB  x64    1.0 GB     available     2
+COMPUTE3-X8C-16G     € 0.2341       Block              8    0    16 GiB   x64    2.0 GB     available     4
+COMPUTE3-X16C-32G    € 0.4682       Block              16   0    32 GiB   x64    4.0 GB     available     4
+COMPUTE3-X32C-64G    € 0.9363       Block              32   0    64 GiB   x64    8.0 GB     available     8
+COMPUTE3-X48C-96G    € 1.397        Block              48   0    96 GiB   x64    16 GB      available     8
+COMPUTE3-X64C-128G   € 1.8726       Block              64   0    128 GiB  x64    16 GB      available     8
+COMPUTE3-X96C-192G   € 2.794        Block              96   0    192 GiB  x64    16 GB      low stock     8
 POP2-HC-2C-4G        € 0.0532       Block              2    0    4.0 GiB  x64    400 MB     available     1
 POP2-HC-4C-8G        € 0.1064       Block              4    0    8.0 GiB  x64    800 MB     available     1
 POP2-HC-8C-16G       € 0.2128       Block              8    0    16 GiB   x64    1.6 GB     available     2
 POP2-HC-16C-32G      € 0.4256       Block              16   0    32 GiB   x64    3.2 GB     available     4
 POP2-HC-32C-64G      € 0.8512       Block              32   0    64 GiB   x64    6.4 GB     available     8
 POP2-HC-48C-96G      € 1.27         Block              48   0    96 GiB   x64    9.6 GB     available     12
-POP2-HC-64C-128G     € 1.7024       Block              64   0    128 GiB  x64    13 GB      low stock     16
-POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64    10 GB      available     1
+POP2-HC-64C-128G     € 1.7024       Block              64   0    128 GiB  x64    13 GB      available     16
 POP2-HN-3            € 0.2554       Block              2    0    4.0 GiB  x64    3.0 GB     available     1
 POP2-HN-5            € 0.4524       Block              4    0    8.0 GiB  x64    5.0 GB     available     1
+POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64    10 GB      available     1
 L4-8-24G             € 0.10         Block              64   8    384 GiB  x64    20 GB      out of stock  16
 L4-4-24G             € 0.05         Block              32   4    192 GiB  x64    10 GB      out of stock  8
-L4-2-24G             € 0.025        Block              16   2    96 GiB   x64    5.0 GB     out of stock  4
+L4-2-24G             € 0.025        Block              16   2    96 GiB   x64    5.0 GB     low stock     4
 L4-1-24G             € 0.0125       Block              8    1    48 GiB   x64    2.5 GB     low stock     2
 RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64    2.0 GB     available     0
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
+  {
+    "name": "BASIC3-X2C-4G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 38300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 4294967296,
+    "arch": "x64",
+    "bandwidth": 350000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "BASIC3-X2C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 57500000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 350000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "BASIC3-X4C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 76700000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 700000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "BASIC3-X4C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 115000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 700000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "BASIC3-X8C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 172500000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 1500000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "BASIC3-X8C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 229900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 1500000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "BASIC3-X16C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 344900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 3000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "BASIC3-X16C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 459800000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 3000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD3-X2C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 80900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 500000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "STANDARD3-X4C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 161700000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 1000000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "STANDARD3-X8C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 319000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 2000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "STANDARD3-X16C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 649000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 4000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "STANDARD3-X32C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 298000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 8000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD3-X48C-192G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 947000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 206158430208,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD3-X64C-256G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 585000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
   {
     "name": "POP2-2C-8G",
     "hourly_price": {
@@ -241,159 +525,6 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "max_file_systems": 8
   },
   {
-    "name": "POP2-32C-128G-WIN",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 2,
-      "nanos": 913300000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 32,
-    "gpu": 0,
-    "ram": 137438953472,
-    "arch": "x64",
-    "bandwidth": 6400000000,
-    "availability": "available",
-    "max_file_systems": 0
-  },
-  {
-    "name": "POP2-64C-256G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 2,
-      "nanos": 350000000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 64,
-    "gpu": 0,
-    "ram": 274877906944,
-    "arch": "x64",
-    "bandwidth": 12800000000,
-    "availability": "scarce",
-    "max_file_systems": 16
-  },
-  {
-    "name": "STANDARD2-A2C-8G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 0,
-      "nanos": 58600000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 2,
-    "gpu": 0,
-    "ram": 8589934592,
-    "arch": "arm64",
-    "bandwidth": 400000000,
-    "availability": "available",
-    "max_file_systems": 1
-  },
-  {
-    "name": "STANDARD2-A4C-16G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 0,
-      "nanos": 117100000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 4,
-    "gpu": 0,
-    "ram": 17179869184,
-    "arch": "arm64",
-    "bandwidth": 800000000,
-    "availability": "available",
-    "max_file_systems": 2
-  },
-  {
-    "name": "STANDARD2-A8C-32G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 0,
-      "nanos": 234300000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 8,
-    "gpu": 0,
-    "ram": 34359738368,
-    "arch": "arm64",
-    "bandwidth": 1600000000,
-    "availability": "available",
-    "max_file_systems": 4
-  },
-  {
-    "name": "STANDARD2-A16C-64G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 0,
-      "nanos": 503900000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 16,
-    "gpu": 0,
-    "ram": 68719476736,
-    "arch": "arm64",
-    "bandwidth": 3200000000,
-    "availability": "available",
-    "max_file_systems": 4
-  },
-  {
-    "name": "STANDARD2-A32C-128G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 1,
-      "nanos": 7800000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 32,
-    "gpu": 0,
-    "ram": 137438953472,
-    "arch": "arm64",
-    "bandwidth": 6400000000,
-    "availability": "available",
-    "max_file_systems": 8
-  },
-  {
-    "name": "STANDARD2-A48C-192G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 1,
-      "nanos": 511700000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 48,
-    "gpu": 0,
-    "ram": 206158430208,
-    "arch": "arm64",
-    "bandwidth": 9600000000,
-    "availability": "available",
-    "max_file_systems": 8
-  },
-  {
-    "name": "STANDARD2-A64C-256G",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 2,
-      "nanos": 14200000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 64,
-    "gpu": 0,
-    "ram": 274877906944,
-    "arch": "arm64",
-    "bandwidth": 12800000000,
-    "availability": "available",
-    "max_file_systems": 8
-  },
-  {
     "name": "BASIC2-A2C-4G",
     "hourly_price": {
       "currency_code": "EUR",
@@ -407,6 +538,23 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 4294967296,
     "arch": "arm64",
     "bandwidth": 200000000,
+    "availability": "available",
+    "max_file_systems": 0
+  },
+  {
+    "name": "POP2-32C-128G-WIN",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 913300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 6400000000,
     "availability": "available",
     "max_file_systems": 0
   },
@@ -443,6 +591,23 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "bandwidth": 200000000,
     "availability": "available",
     "max_file_systems": 0
+  },
+  {
+    "name": "POP2-64C-256G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 350000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "x64",
+    "bandwidth": 12800000000,
+    "availability": "available",
+    "max_file_systems": 16
   },
   {
     "name": "BASIC2-A4C-16G",
@@ -530,6 +695,125 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "max_file_systems": 0
   },
   {
+    "name": "STANDARD2-A2C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 58600000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "arm64",
+    "bandwidth": 400000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "STANDARD2-A48C-192G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 511700000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 206158430208,
+    "arch": "arm64",
+    "bandwidth": 9600000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD2-A8C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 234300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "arm64",
+    "bandwidth": 1600000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "STANDARD2-A16C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 503900000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "arm64",
+    "bandwidth": 3200000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "STANDARD2-A32C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 7800000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "arm64",
+    "bandwidth": 6400000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "STANDARD2-A4C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 117100000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "arm64",
+    "bandwidth": 800000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "STANDARD2-A64C-256G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 14200000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "arm64",
+    "bandwidth": 12800000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
     "name": "PRO2-XXS",
     "hourly_price": {
       "currency_code": "EUR",
@@ -594,7 +878,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 68719476736,
     "arch": "x64",
     "bandwidth": 3000000000,
-    "availability": "available",
+    "availability": "scarce",
     "max_file_systems": 0
   },
   {
@@ -700,6 +984,57 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "max_file_systems": 0
   },
   {
+    "name": "PLAY2-PICO",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 14000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 1,
+    "gpu": 0,
+    "ram": 2147483648,
+    "arch": "x64",
+    "bandwidth": 100000000,
+    "availability": "available",
+    "max_file_systems": 0
+  },
+  {
+    "name": "PLAY2-NANO",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 27000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 4294967296,
+    "arch": "x64",
+    "bandwidth": 200000000,
+    "availability": "available",
+    "max_file_systems": 0
+  },
+  {
+    "name": "PLAY2-MICRO",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 54000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 400000000,
+    "availability": "available",
+    "max_file_systems": 0
+  },
+  {
     "name": "STARDUST1-S",
     "hourly_price": {
       "currency_code": "EUR",
@@ -785,55 +1120,106 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "max_file_systems": 0
   },
   {
-    "name": "PLAY2-PICO",
+    "name": "MEMORY3-X2C-16G",
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 14000000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 1,
-    "gpu": 0,
-    "ram": 2147483648,
-    "arch": "x64",
-    "bandwidth": 100000000,
-    "availability": "available",
-    "max_file_systems": 0
-  },
-  {
-    "name": "PLAY2-NANO",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 0,
-      "nanos": 27000000
+      "nanos": 113300000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
     "cpu": 2,
     "gpu": 0,
-    "ram": 4294967296,
+    "ram": 17179869184,
     "arch": "x64",
-    "bandwidth": 200000000,
+    "bandwidth": 500000000,
     "availability": "available",
-    "max_file_systems": 0
+    "max_file_systems": 1
   },
   {
-    "name": "PLAY2-MICRO",
+    "name": "MEMORY3-X4C-32G",
     "hourly_price": {
       "currency_code": "EUR",
       "units": 0,
-      "nanos": 54000000
+      "nanos": 226600000
     },
     "local_volume_max_size": 0,
     "supported_storage": "Block",
     "cpu": 4,
     "gpu": 0,
-    "ram": 8589934592,
+    "ram": 34359738368,
     "arch": "x64",
-    "bandwidth": 400000000,
+    "bandwidth": 1000000000,
     "availability": "available",
-    "max_file_systems": 0
+    "max_file_systems": 2
+  },
+  {
+    "name": "MEMORY3-X8C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 453200000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 2000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "MEMORY3-X16C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 906400000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 4000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "MEMORY3-X32C-256G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 812800000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 274877906944,
+    "arch": "x64",
+    "bandwidth": 8000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "MEMORY3-X48C-384G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 717000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 412316860416,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
   },
   {
     "name": "POP2-HM-2C-16G",
@@ -917,7 +1303,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 274877906944,
     "arch": "x64",
     "bandwidth": 6400000000,
-    "availability": "scarce",
+    "availability": "available",
     "max_file_systems": 8
   },
   {
@@ -934,7 +1320,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 412316860416,
     "arch": "x64",
     "bandwidth": 9600000000,
-    "availability": "scarce",
+    "availability": "available",
     "max_file_systems": 12
   },
   {
@@ -951,8 +1337,144 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 549755813888,
     "arch": "x64",
     "bandwidth": 12800000000,
-    "availability": "shortage",
+    "availability": "available",
     "max_file_systems": 16
+  },
+  {
+    "name": "COMPUTE3-X2C-4G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 58500000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 2,
+    "gpu": 0,
+    "ram": 4294967296,
+    "arch": "x64",
+    "bandwidth": 500000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "COMPUTE3-X4C-8G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 117000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 1000000000,
+    "availability": "available",
+    "max_file_systems": 2
+  },
+  {
+    "name": "COMPUTE3-X8C-16G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 234100000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 8,
+    "gpu": 0,
+    "ram": 17179869184,
+    "arch": "x64",
+    "bandwidth": 2000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "COMPUTE3-X16C-32G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 468200000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 16,
+    "gpu": 0,
+    "ram": 34359738368,
+    "arch": "x64",
+    "bandwidth": 4000000000,
+    "availability": "available",
+    "max_file_systems": 4
+  },
+  {
+    "name": "COMPUTE3-X32C-64G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 936300000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 32,
+    "gpu": 0,
+    "ram": 68719476736,
+    "arch": "x64",
+    "bandwidth": 8000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X48C-96G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 397000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 48,
+    "gpu": 0,
+    "ram": 103079215104,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X64C-128G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 1,
+      "nanos": 872600000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 64,
+    "gpu": 0,
+    "ram": 137438953472,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "available",
+    "max_file_systems": 8
+  },
+  {
+    "name": "COMPUTE3-X96C-192G",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 2,
+      "nanos": 794000000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 96,
+    "gpu": 0,
+    "ram": 206158430208,
+    "arch": "x64",
+    "bandwidth": 16000000000,
+    "availability": "scarce",
+    "max_file_systems": 8
   },
   {
     "name": "POP2-HC-2C-4G",
@@ -1070,25 +1592,8 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 137438953472,
     "arch": "x64",
     "bandwidth": 12800000000,
-    "availability": "scarce",
-    "max_file_systems": 16
-  },
-  {
-    "name": "POP2-HN-10",
-    "hourly_price": {
-      "currency_code": "EUR",
-      "units": 0,
-      "nanos": 726400000
-    },
-    "local_volume_max_size": 0,
-    "supported_storage": "Block",
-    "cpu": 4,
-    "gpu": 0,
-    "ram": 8589934592,
-    "arch": "x64",
-    "bandwidth": 10000000000,
     "availability": "available",
-    "max_file_systems": 1
+    "max_file_systems": 16
   },
   {
     "name": "POP2-HN-3",
@@ -1121,6 +1626,23 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 8589934592,
     "arch": "x64",
     "bandwidth": 5000000000,
+    "availability": "available",
+    "max_file_systems": 1
+  },
+  {
+    "name": "POP2-HN-10",
+    "hourly_price": {
+      "currency_code": "EUR",
+      "units": 0,
+      "nanos": 726400000
+    },
+    "local_volume_max_size": 0,
+    "supported_storage": "Block",
+    "cpu": 4,
+    "gpu": 0,
+    "ram": 8589934592,
+    "arch": "x64",
+    "bandwidth": 10000000000,
     "availability": "available",
     "max_file_systems": 1
   },
@@ -1172,7 +1694,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 103079215104,
     "arch": "x64",
     "bandwidth": 5000000000,
-    "availability": "shortage",
+    "availability": "scarce",
     "max_file_systems": 4
   },
   {
