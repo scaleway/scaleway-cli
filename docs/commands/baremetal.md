@@ -25,6 +25,7 @@ Elastic Metal - Private Networks API.
   - [Set multiple Private Networks on a server](#set-multiple-private-networks-on-a-server)
 - [Server management commands](#server-management-commands)
   - [Attach a new flexible IP to a server](#attach-a-new-flexible-ip-to-a-server)
+  - [Create multiple Elastic Metal servers](#create-multiple-elastic-metal-servers)
   - [Create an Elastic Metal server](#create-an-elastic-metal-server)
   - [Delete an Elastic Metal server](#delete-an-elastic-metal-server)
   - [Get a specific Elastic Metal server](#get-a-specific-elastic-metal-server)
@@ -517,6 +518,61 @@ scw baremetal server add-flexible-ip <server-id ...> [arg=value ...]
 | ip-type | One of: `IPv4`, `IPv6` | Define whether the flexible IP is an IPv4 or IPv6 |
 | tags.{index} |  | Tags to associate to the flexible IP |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Create multiple Elastic Metal servers
+
+Create multiple new Elastic Metal servers. Once the servers are created, proceed with the [installation of an OS](#post-3e949e).
+
+**Usage:**
+
+```
+scw baremetal server batch-create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| common-configuration.offer-id |  | Offer ID of the new server |
+| common-configuration.project-id |  | Project ID with which the server will be created |
+| common-configuration.name |  | Name of the server (≠hostname) |
+| common-configuration.description |  | Description associated with the server, max 255 characters |
+| common-configuration.tags.{index} |  | Tags to associate to the server |
+| common-configuration.install.os-id |  | ID of the OS to installation on the server |
+| common-configuration.install.hostname |  | Hostname of the server |
+| common-configuration.install.ssh-key-ids.{index} |  | SSH key IDs authorized on the server |
+| common-configuration.install.user |  | User for the installation |
+| common-configuration.install.password |  | Password for the installation |
+| common-configuration.install.service-user |  | Regular user that runs the service to be installed on the server |
+| common-configuration.install.service-password |  | Password used for the service to install |
+| common-configuration.install.partitioning-schema.disks.{index}.device |  |  |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |  |  |
+| common-configuration.install.partitioning-schema.raids.{index}.name |  |  |
+| common-configuration.install.partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
+| common-configuration.install.partitioning-schema.raids.{index}.devices.{index} |  |  |
+| common-configuration.install.partitioning-schema.filesystems.{index}.device |  |  |
+| common-configuration.install.partitioning-schema.filesystems.{index}.format | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs` |  |
+| common-configuration.install.partitioning-schema.filesystems.{index}.mountpoint |  |  |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.name |  |  |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.type | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2` |  |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
+| common-configuration.option-ids.{index} |  | IDs of options to enable on server |
+| common-configuration.protected |  | If enabled, the server can not be deleted |
+| common-configuration.user-data |  | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
+| ~~common-configuration.organization-id~~ | Deprecated | Organization ID with which the server will be created |
+| common-configuration.zone |  |  |
+| servers.{index}.hostname |  |  |
+| servers.{index}.description |  |  |
+| servers.{index}.tags.{index} |  |  |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
