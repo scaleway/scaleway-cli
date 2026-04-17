@@ -121,6 +121,8 @@ func getEndOfServiceDate(
 			ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
 				product_catalog.ListPublicCatalogProductsRequestProductTypeInstance,
 			},
+			Zone:   &zone,
+			APIIDs: []string{commercialType},
 		},
 		scw.WithAllPages(),
 		scw.WithContext(ctx),
@@ -129,12 +131,13 @@ func getEndOfServiceDate(
 		return "", fmt.Errorf("could not list product catalog entries: %w", err)
 	}
 
-	for _, product := range products.Products {
-		if product.Properties != nil && product.Properties.Instance != nil &&
-			product.Properties.Instance.OfferID == commercialType {
-			return product.EndOfLifeAt.Format(time.DateOnly), nil
-		}
+	if products.TotalCount != 1 {
+		return "", fmt.Errorf(
+			"expected exactly 1 PCU entry for %q, got %d",
+			commercialType,
+			products.TotalCount,
+		)
 	}
 
-	return "", fmt.Errorf("could not find product catalog entry for %q in %s", commercialType, zone)
+	return products.Products[0].EndOfLifeAt.Format(time.DateOnly), nil
 }
