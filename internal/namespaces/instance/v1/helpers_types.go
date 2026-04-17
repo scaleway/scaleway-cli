@@ -132,7 +132,11 @@ func getEndOfServiceDate(
 	}
 
 	if products.TotalCount != 1 {
-		return "", fmt.Errorf("expected exactly 1 PCU entry for %q, got %d", commercialType, products.TotalCount)
+		return "", fmt.Errorf(
+			"expected exactly 1 PCU entry for %q, got %d",
+			commercialType,
+			products.TotalCount,
+		)
 	}
 
 	return products.Products[0].EndOfLifeAt.Format(time.DateOnly), nil
