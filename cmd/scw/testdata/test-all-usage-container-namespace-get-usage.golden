@@ -3,10 +3,10 @@
 Get the namespace associated with the specified ID.
 
 USAGE:
-  scw container namespace get <namespace-id ...> [arg=value ...]
+  scw container namespace get [arg=value ...]
 
 ARGS:
-  namespace-id      UUID of the namespace to get
+  namespace-id      
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

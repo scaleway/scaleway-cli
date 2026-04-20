@@ -3,7 +3,7 @@ package getorcreate
 import (
 	"context"
 
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -62,10 +62,12 @@ func Container(
 	region scw.Region,
 	namespaceID string,
 	name string,
+	image string,
+	port uint32,
 ) (*container.Container, error) {
 	listContainersResponse, err := api.ListContainers(&container.ListContainersRequest{
 		Region:      region,
-		NamespaceID: namespaceID,
+		NamespaceID: &namespaceID,
 		Name:        &name,
 	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
@@ -75,9 +77,9 @@ func Container(
 	containers := listContainersResponse.Containers
 
 	var matchingContainer *container.Container
-	for _, container := range containers {
-		if container.Name == name {
-			matchingContainer = container
+	for _, c := range containers {
+		if c.Name == name {
+			matchingContainer = c
 
 			break
 		}
@@ -87,16 +89,18 @@ func Container(
 		return matchingContainer, nil
 	}
 
-	container, err := api.CreateContainer(&container.CreateContainerRequest{
+	ctn, err := api.CreateContainer(&container.CreateContainerRequest{
 		Region:      region,
 		NamespaceID: namespaceID,
 		Name:        name,
+		Image:       image,
+		Port:        &port,
 	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, err
 	}
 
-	return container, nil
+	return ctn, nil
 }
 
 func Registry(

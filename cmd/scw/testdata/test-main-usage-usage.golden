@@ -74,7 +74,7 @@ SECURITY COMMANDS:
   secret                  Secret Manager API
 
 SERVERLESS COMMANDS:
-  container               This API allows you to manage your Serverless Containers
+  container               Easily run containers on the cloud with a single command
   function                Function as a Service API
   jobs                    This API allows you to manage your Serverless Jobs
 

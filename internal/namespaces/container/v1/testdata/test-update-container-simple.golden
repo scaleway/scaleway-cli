@@ -1,0 +1,71 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                         8de1d6d9-10cf-46f1-b909-750b13d967af
+Name                                       cli-test-gracious-austin
+NamespaceID                                1a3c297d-79a0-4d12-a5a2-c26d3512e550
+Description                                -
+Status                                     updating
+CreatedAt                                  few seconds ago
+UpdatedAt                                  few seconds ago
+MinScale                                   0
+MaxScale                                   5
+MemoryLimitBytes                           2.0 GB
+MvcpuLimit                                 1500
+LocalStorageLimitBytes                     1.0 GB
+Timeout                                    5 minutes
+Privacy                                    public
+Image                                      nginx:latest
+Protocol                                   http1
+Port                                       8080
+HTTPSConnectionsOnly                       false
+Sandbox                                    v2
+ScalingOption.ConcurrentRequestsThreshold  50
+LivenessProbe.FailureThreshold             30
+LivenessProbe.Interval                     10 seconds
+LivenessProbe.Timeout                      1 seconds
+Tags.0                                     new_tag
+PublicEndpoint                             https://clinsquirkypoincare1a3c297d-cli-test-gracious-austin.functions.fnc.fr-par.scw.cloud
+Region                                     fr-par
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "8de1d6d9-10cf-46f1-b909-750b13d967af",
+  "name": "cli-test-gracious-austin",
+  "namespace_id": "1a3c297d-79a0-4d12-a5a2-c26d3512e550",
+  "description": "",
+  "status": "updating",
+  "error_message": null,
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "environment_variables": {},
+  "secret_environment_variables": {},
+  "min_scale": 0,
+  "max_scale": 5,
+  "memory_limit_bytes": 2048000000,
+  "mvcpu_limit": 1500,
+  "local_storage_limit_bytes": 1000000000,
+  "timeout": "300.000000000s",
+  "privacy": "public",
+  "image": "nginx:latest",
+  "protocol": "http1",
+  "port": 8080,
+  "https_connections_only": false,
+  "sandbox": "v2",
+  "scaling_option": {
+    "concurrent_requests_threshold": 50
+  },
+  "liveness_probe": {
+    "failure_threshold": 30,
+    "interval": "10.000000000s",
+    "timeout": "1.000000000s",
+    "tcp": {}
+  },
+  "startup_probe": null,
+  "tags": [
+    "new_tag"
+  ],
+  "private_network_id": null,
+  "command": [],
+  "args": [],
+  "public_endpoint": "https://clinsquirkypoincare1a3c297d-cli-test-gracious-austin.functions.fnc.fr-par.scw.cloud",
+  "region": "fr-par"
+}
