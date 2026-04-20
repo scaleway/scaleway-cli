@@ -41,11 +41,11 @@ func waitForContainer(ctx context.Context, _, respI any) (any, error) {
 	})
 }
 
-//func containerContainerDeployBuilder(command *core.Command) *core.Command {
-//	command.WaitFunc = waitForContainer
-//
-//	return command
-//}
+func containerContainerRedeployBuilder(command *core.Command) *core.Command {
+	command.WaitFunc = waitForContainer
+
+	return command
+}
 
 func containerContainerCreateBuilder(command *core.Command) *core.Command {
 	// Add an interceptor that will deploy container after it was created

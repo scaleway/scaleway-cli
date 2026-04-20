@@ -20,7 +20,7 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(containerStatusMarshalSpecs),
 	)
 
-	// cmds.MustFind("container", "container", "deploy").Override(containerContainerDeployBuilder)
+	cmds.MustFind("container", "container", "redeploy").Override(containerContainerRedeployBuilder)
 	cmds.MustFind("container", "container", "create").Override(containerContainerCreateBuilder)
 	cmds.MustFind("container", "container", "update").Override(containerContainerUpdateBuilder)
 	cmds.MustFind("container", "namespace", "create").Override(containerNamespaceCreateBuilder)
