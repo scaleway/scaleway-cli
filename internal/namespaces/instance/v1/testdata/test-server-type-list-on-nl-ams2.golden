@@ -539,7 +539,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 91000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 150000000000,
     "supported_storage": "Local, Block",
     "cpu": 4,
     "gpu": 0,
@@ -556,7 +556,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 187000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 300000000000,
     "supported_storage": "Local, Block",
     "cpu": 8,
     "gpu": 0,
@@ -573,7 +573,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 376000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
     "cpu": 16,
     "gpu": 0,
@@ -590,7 +590,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 759000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
     "cpu": 32,
     "gpu": 0,
@@ -607,7 +607,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 1,
       "nanos": 641000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
     "cpu": 48,
     "gpu": 0,
@@ -675,7 +675,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 8800000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 20000000000,
     "supported_storage": "Local, Block",
     "cpu": 2,
     "gpu": 0,
@@ -692,7 +692,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 19800000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 40000000000,
     "supported_storage": "Local, Block",
     "cpu": 3,
     "gpu": 0,
@@ -709,7 +709,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 42000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 80000000000,
     "supported_storage": "Local, Block",
     "cpu": 4,
     "gpu": 0,
@@ -726,7 +726,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
       "units": 0,
       "nanos": 63799999
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 120000000000,
     "supported_storage": "Local, Block",
     "cpu": 4,
     "gpu": 0,

@@ -117,7 +117,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		// Get server types from Instance API (still needed for the number of file systems)
+		// Get server types from Instance API (still needed for the number of file systems and local storage details)
 		computeServerTypes, err := instanceAPI.ListServersTypes(request, scw.WithAllPages())
 		if err != nil {
 			return nil, err
@@ -149,6 +149,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 			if computeServerType, ok := computeServerTypes.Servers[name]; ok {
 				serverType.MaxFileSystems = new(computeServerType.Capabilities.MaxFileSystems)
+				serverType.LocalVolumeMaxSize = computeServerType.VolumesConstraint.MaxSize
 			}
 
 			if pcuServerType.Properties.Hardware != nil {

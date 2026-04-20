@@ -46,7 +46,7 @@ STANDARD2-A64C-256G  € 2.0142       Block              64   0    256 GiB  arm6
 PRO2-XXS             € 0.055        Block              2    0    8.0 GiB  x64    350 MB     available     0
 PRO2-XS              € 0.11         Block              4    0    16 GiB   x64    700 MB     available     0
 PRO2-S               € 0.219        Block              8    0    32 GiB   x64    1.5 GB     available     0
-PRO2-M               € 0.438        Block              16   0    64 GiB   x64    3.0 GB     low stock     0
+PRO2-M               € 0.438        Block              16   0    64 GiB   x64    3.0 GB     available     0
 PRO2-L               € 0.877        Block              32   0    128 GiB  x64    6.0 GB     low stock     0
 GP1-XS               € 0.091        Local, Block       4    0    16 GiB   x64    500 MB     available     0
 GP1-S                € 0.187        Local, Block       8    0    32 GiB   x64    800 MB     available     0
@@ -95,7 +95,7 @@ POP2-HN-10           € 0.7264       Block              4    0    8.0 GiB  x64 
 L4-8-24G             € 0.10         Block              64   8    384 GiB  x64    20 GB      out of stock  16
 L4-4-24G             € 0.05         Block              32   4    192 GiB  x64    10 GB      out of stock  8
 L4-2-24G             € 0.025        Block              16   2    96 GiB   x64    5.0 GB     low stock     4
-L4-1-24G             € 0.0125       Block              8    1    48 GiB   x64    2.5 GB     low stock     2
+L4-1-24G             € 0.0125       Block              8    1    48 GiB   x64    2.5 GB     available     2
 RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64    2.0 GB     available     0
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
@@ -878,7 +878,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 68719476736,
     "arch": "x64",
     "bandwidth": 3000000000,
-    "availability": "scarce",
+    "availability": "available",
     "max_file_systems": 0
   },
   {
@@ -905,7 +905,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 91000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 150000000000,
     "supported_storage": "Local, Block",
     "cpu": 4,
     "gpu": 0,
@@ -922,7 +922,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 187000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 300000000000,
     "supported_storage": "Local, Block",
     "cpu": 8,
     "gpu": 0,
@@ -939,7 +939,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 376000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
     "cpu": 16,
     "gpu": 0,
@@ -956,7 +956,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 759000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
     "cpu": 32,
     "gpu": 0,
@@ -973,7 +973,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 1,
       "nanos": 641000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 600000000000,
     "supported_storage": "Local, Block",
     "cpu": 48,
     "gpu": 0,
@@ -1041,7 +1041,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 150000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 10000000000,
     "supported_storage": "Local, Block",
     "cpu": 1,
     "gpu": 0,
@@ -1058,7 +1058,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 8800000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 20000000000,
     "supported_storage": "Local, Block",
     "cpu": 2,
     "gpu": 0,
@@ -1075,7 +1075,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 19800000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 40000000000,
     "supported_storage": "Local, Block",
     "cpu": 3,
     "gpu": 0,
@@ -1092,7 +1092,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 42000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 80000000000,
     "supported_storage": "Local, Block",
     "cpu": 4,
     "gpu": 0,
@@ -1109,7 +1109,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 0,
       "nanos": 63799999
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 120000000000,
     "supported_storage": "Local, Block",
     "cpu": 4,
     "gpu": 0,
@@ -1711,7 +1711,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
     "ram": 51539607552,
     "arch": "x64",
     "bandwidth": 2500000000,
-    "availability": "scarce",
+    "availability": "available",
     "max_file_systems": 2
   },
   {
@@ -1721,7 +1721,7 @@ RENDER-S             € 1.221        Local, Block       10   1    42 GiB   x64 
       "units": 1,
       "nanos": 221000000
     },
-    "local_volume_max_size": 0,
+    "local_volume_max_size": 400000000000,
     "supported_storage": "Local, Block",
     "cpu": 10,
     "gpu": 1,
