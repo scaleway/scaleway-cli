@@ -7,18 +7,18 @@ USAGE:
 
 ARGS:
   [project-id]           Project ID to use. If none is passed the default project ID will be used
-  [name]                 The name of the Data Lab.
-  [description]          The description of the Data Lab.
-  [tags.{index}]         The tags of the Data Lab.
+  [name]                 The name of the cluster.
+  [description]          The description of the cluster.
+  [tags.{index}]         The tags of the cluster.
   [main.node-type]       
   [worker.node-type]     
   [worker.node-count]    
-  [has-notebook]         Select this option to include a notebook as part of the Data Lab.
-  [spark-version]        The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions.
+  [has-notebook]         Select this option to include a notebook as part of the cluster.
+  [spark-version]        The version of Apache Spark™ running inside the cluster, available options can be viewed at ListClusterVersions.
   [total-storage.type]    (unknown_type | sbs_5k)
   [total-storage.size]   
-  [private-network-id]   The unique identifier of the private network the Data Lab will be attached to.
-  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par)
+  [private-network-id]   The unique identifier of the private network the cluster will be attached to.
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | it-mil)
 
 FLAGS:
   -h, --help                help for create

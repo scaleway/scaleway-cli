@@ -6,12 +6,12 @@ USAGE:
   scw datalab datalab list [arg=value ...]
 
 ARGS:
-  [project-id]        The unique identifier of the project whose Data Labs you want to list.
-  [name]              The name of the Data Lab you want to list.
-  [tags.{index}]      The tags associated with the Data Lab you want to list.
+  [project-id]        The unique identifier of the project whose clusters you want to list.
+  [name]              The name of the cluster you want to list.
+  [tags.{index}]      The tags associated with the cluster you want to list.
   [order-by]          The order by field, available options are `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`. (name_asc | name_desc | created_at_asc | created_at_desc | updated_at_asc | updated_at_desc)
-  [organization-id]   The unique identifier of the organization whose Data Labs you want to list.
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
+  [organization-id]   The unique identifier of the organization whose clusters you want to list.
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | it-mil | all)
 
 FLAGS:
   -h, --help                help for list

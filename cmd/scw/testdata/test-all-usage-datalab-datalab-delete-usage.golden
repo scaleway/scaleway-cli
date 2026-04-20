@@ -6,8 +6,8 @@ USAGE:
   scw datalab datalab delete [arg=value ...]
 
 ARGS:
-  datalab-id        The unique identifier of the Data Lab.
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+  datalab-id        The unique identifier of the cluster.
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil)
 
 FLAGS:
   -h, --help                help for delete

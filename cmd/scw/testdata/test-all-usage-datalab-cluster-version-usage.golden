@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Lists the Spark versions available for Data Lab creation.
+Lists the Apache Spark™ versions available for cluster creation.
 
 USAGE:
   scw datalab cluster-version <command>
