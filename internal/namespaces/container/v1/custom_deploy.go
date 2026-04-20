@@ -164,7 +164,6 @@ func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 
 	tasks.Add(actions, "Pushing image", DeployStepPushImage)
 	tasks.Add(actions, "Creating container", DeployStepCreateContainer)
-	// tasks.Add(actions, "Deploying container", DeployStepDeployContainer)
 
 	result, err := actions.Execute(ctx, &DeployStepData{
 		Client: client,
@@ -487,36 +486,3 @@ func DeployStepCreateContainer(
 		Container:      targetContainer,
 	}, nil
 }
-
-//type DeployStepDeployContainerResponse struct {
-//	*DeployStepData
-//	Container *container.Container
-//}
-//
-//func DeployStepDeployContainer(
-//	t *tasks.Task,
-//	data *DeployStepCreateContainerResponse,
-//) (*DeployStepDeployContainerResponse, error) {
-//	targetContainer, err := data.API.DeployContainer(&container.DeployContainerRequest{
-//		Region:      data.Args.Region,
-//		ContainerID: data.Container.ID,
-//	}, scw.WithContext(t.Ctx))
-//	if err != nil {
-//		return nil, fmt.Errorf("could not deploy container: %w", err)
-//	}
-//
-//	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
-//		Region:        data.Args.Region,
-//		ContainerID:   targetContainer.ID,
-//		Timeout:       scw.TimeDurationPtr(12*time.Minute + 30*time.Second),
-//		RetryInterval: core.DefaultRetryInterval,
-//	}, scw.WithContext(t.Ctx))
-//	if err != nil {
-//		return nil, fmt.Errorf("failed to deploy container: %w", err)
-//	}
-//
-//	return &DeployStepDeployContainerResponse{
-//		DeployStepData: data.DeployStepData,
-//		Container:      targetContainer,
-//	}, nil
-//}
