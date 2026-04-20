@@ -8,7 +8,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
@@ -36,7 +35,7 @@ func waitForContainer(ctx context.Context, _, respI any) (any, error) {
 	return api.WaitForContainer(&container.WaitForContainerRequest{
 		ContainerID:   c.ID,
 		Region:        c.Region,
-		Timeout:       scw.TimeDurationPtr(containerDeployTimeout),
+		Timeout:       new(containerDeployTimeout),
 		RetryInterval: core.DefaultRetryInterval,
 	})
 }
