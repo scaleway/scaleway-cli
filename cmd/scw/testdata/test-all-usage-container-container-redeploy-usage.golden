@@ -1,16 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the custom domain associated with the specified ID.
+Performs a rollout of the container by creating new instances with the latest image version and terminating the old instances.
+When using mutable registry image references (e.g. `my-registry-namespace/image:tag`), this endpoint can be used to force the container to use
+the most recent image version available in the registry.
 
 USAGE:
-  scw container domain get [arg=value ...]
+  scw container container redeploy <container-id ...> [arg=value ...]
 
 ARGS:
-  domain-id         
+  container-id      ID of the container to redeploy.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help                help for get
+  -h, --help                help for redeploy
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:

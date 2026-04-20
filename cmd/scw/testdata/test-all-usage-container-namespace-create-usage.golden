@@ -1,22 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new namespace in a specified region.
+Namespace name must be unique inside a project.
 
 USAGE:
   scw container namespace create [arg=value ...]
 
 ARGS:
-  [name=<generated>]                             Name of the namespace to create
-  [environment-variables.{key}]                  Environment variables of the namespace to create
-  [project-id]                                   Project ID to use. If none is passed the default project ID will be used
-  [description]                                  Description of the namespace to create
-  [secret-environment-variables.{index}.key]     
-  [secret-environment-variables.{index}.value]   
-  [tags.{index}]                                 Tags of the Serverless Container Namespace
-  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
-
-DEPRECATED ARGS:
-  [activate-vpc-integration]   [DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.
+  [project-id]                           Project ID to use. If none is passed the default project ID will be used
+  name                                   Namespace name.
+  [description]                          Namespace description.
+  [environment-variables.{key}]          Namespace environment variables.
+  [secret-environment-variables.{key}]   Namespace secret environment variables.
+  [tags.{index}]                         A list of arbitrary tags associated with the namespace.
+  [region=fr-par]                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

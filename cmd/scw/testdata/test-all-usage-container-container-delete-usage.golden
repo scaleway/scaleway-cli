@@ -1,12 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the container associated with the specified ID.
+It also deletes in cascade any resource linked to the container (crons, tokens, etc.).
+
+This action **cannot** be undone.
 
 USAGE:
   scw container container delete <container-id ...> [arg=value ...]
 
 ARGS:
-  container-id      UUID of the container to delete
+  container-id      UUID of the container to delete.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

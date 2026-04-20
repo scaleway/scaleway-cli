@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a trigger with a specified ID.
+Get the trigger associated with the specified ID.
 
 USAGE:
-  scw container trigger get <trigger-id ...> [arg=value ...]
+  scw container trigger get [arg=value ...]
 
 ARGS:
-  trigger-id        ID of the trigger to get
+  trigger-id        
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

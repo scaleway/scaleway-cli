@@ -1,22 +1,30 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new trigger for a specified container.
+Create a new trigger for the container with the specified ID.
 
 USAGE:
   scw container trigger create [arg=value ...]
 
 ARGS:
-  name                                    Name of the trigger
-  container-id                            ID of the container to trigger
-  [description]                           Description of the trigger
-  [scw-sqs-config.queue]                  Name of the SQS queue the trigger should listen to
-  [scw-sqs-config.mnq-project-id]         ID of the Messaging and Queuing project
-  [scw-sqs-config.mnq-region]             Region in which the Messaging and Queuing project is activated.
-  [scw-nats-config.subject]               Name of the NATS subject the trigger should listen to
-  [scw-nats-config.mnq-nats-account-id]   ID of the Messaging and Queuing NATS account
-  [scw-nats-config.mnq-project-id]        ID of the Messaging and Queuing project
-  [scw-nats-config.mnq-region]            Region in which the Messaging and Queuing project is activated.
-  [region=fr-par]                         Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  container-id                             ID of the container to trigger.
+  name                                     Name of the trigger.
+  [description]                            Description of the trigger.
+  [tags.{index}]                           Tags of the trigger.
+  [destination-config.http-path]           The HTTP path to send the request to (e.g., "/my-webhook-endpoint").
+  [destination-config.http-method]         The HTTP method to use when sending the request (e.g., get, post, put, patch, delete). Must be specified as lowercase. (unknown_http_method | get | post | put | patch | delete)
+  [cron-config.schedule]                   UNIX cron schedule to run job (e.g., "* * * * *").
+  [cron-config.timezone]                   Timezone for the cron schedule, in tz database format (e.g., "Europe/Paris").
+  [cron-config.body]                       Body to send to the container when the trigger is invoked.
+  [cron-config.headers.{key}]              Additional headers to send to the container when the trigger is invoked.
+  [sqs-config.region]                      The region where the SQS queue is hosted (e.g., "fr-par", "nl-ams").
+  [sqs-config.endpoint]                    Endpoint URL to use to access SQS (e.g., "https://sqs.mnq.fr-par.scaleway.com").
+  [sqs-config.access-key-id]               The access key for accessing the SQS queue.
+  [sqs-config.secret-access-key]           The secret key for accessing the SQS queue.
+  [sqs-config.queue-url]                   The URL of the SQS queue to monitor for messages.
+  [nats-config.server-urls.{index}]        The URLs of the NATS server (e.g., "nats://nats.mnq.fr-par.scaleway.com:4222").
+  [nats-config.subject]                    NATS subject to subscribe to (e.g., "my-subject").
+  [nats-config.credentials-file-content]   The content of the NATS credentials file.
+  [region=fr-par]                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

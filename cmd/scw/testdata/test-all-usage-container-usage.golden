@@ -1,16 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to manage your Serverless Containers.
+Easily run containers on the cloud with a single command.
 
 USAGE:
   scw container <command>
 
 AVAILABLE COMMANDS:
   container   Container management commands
-  cron        Cron management commands
   domain      Domain management commands
   namespace   Namespace management commands
-  token       Token management commands
   trigger     Trigger management commands
 
 WORKFLOW COMMANDS:

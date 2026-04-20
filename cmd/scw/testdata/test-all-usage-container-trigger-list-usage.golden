@@ -1,16 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all triggers belonging to a specified Organization or Project.
+By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+
+Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.
 
 USAGE:
   scw container trigger list [arg=value ...]
 
 ARGS:
-  [order-by]        Order in which to return results (created_at_asc | created_at_desc)
-  [container-id]    ID of the container the triggers belongs to
-  [namespace-id]    ID of the namespace the triggers belongs to
-  [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [order-by]           (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-id]        
+  [namespace-id]      
+  [container-id]      
+  [organization-id]   
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list

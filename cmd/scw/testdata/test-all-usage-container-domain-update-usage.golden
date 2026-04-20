@@ -1,16 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the custom domain associated with the specified ID.
+Only fields present in the request are updated; others are left untouched.
 
 USAGE:
-  scw container domain get [arg=value ...]
+  scw container domain update <domain-id ...> [arg=value ...]
 
 ARGS:
-  domain-id         
+  domain-id         UUID of the domain to update.
+  [tags.{index}]    A list of arbitrary tags associated with the domain.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help                help for get
+  -h, --help                help for update
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:

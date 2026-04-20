@@ -1,14 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all custom domains in a specified region.
+By default, the custom domains listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+    
+Additional parameters can be set in the query to filter the output, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.
 
 USAGE:
   scw container domain list [arg=value ...]
 
 ARGS:
-  [order-by]        Order of the domains (created_at_asc | created_at_desc | hostname_asc | hostname_desc)
-  [container-id]    UUID of the container the domain belongs to
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [order-by]           (created_at_asc | created_at_desc | hostname_asc | hostname_desc)
+  [project-id]        
+  [namespace-id]      
+  [container-id]      
+  [organization-id]   
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list

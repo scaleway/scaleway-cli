@@ -6,11 +6,11 @@ USAGE:
   scw container trigger <command>
 
 AVAILABLE COMMANDS:
-  create      Create a trigger
-  delete      Delete a trigger
-  get         Get a trigger
-  list        List all triggers
-  update      Update a trigger
+  create      Create a new trigger for the container with the specified ID.
+  delete      Delete the trigger associated with the specified ID.
+  get         Get the trigger associated with the specified ID.
+  list        List all triggers the caller can access (read permission).
+  update      Update the trigger associated with the specified ID.
 
 FLAGS:
   -h, --help                help for trigger

@@ -1,47 +1,43 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the container associated with the specified ID.
-
-When updating a container, the container is automatically redeployed to apply the changes.
-
-Warning: The `redeploy` field has been deprecated. An update now always redeploys the container.
+Only fields present in the request are updated; others are left untouched.
 
 USAGE:
   scw container container update <container-id ...> [arg=value ...]
 
 ARGS:
-  container-id                                     UUID of the container to update
-  [environment-variables.{key}]                    Environment variables of the container
-  [min-scale]                                      Minimum number of instances to scale the container to
-  [max-scale]                                      Maximum number of instances to scale the container to
-  [memory-limit]                                   Memory limit of the container in MB
-  [cpu-limit]                                      CPU limit of the container in mvCPU
-  [timeout]                                        Processing time limit for the container
-  [privacy]                                        Privacy settings of the container (unknown_privacy | public | private)
-  [description]                                    Description of the container
-  [registry-image]                                 Name of the registry image (e.g. "rg.fr-par.scw.cloud/something/image:tag").
-  [protocol]                                       Protocol the container uses (unknown_protocol | http1 | h2c)
-  [port]                                           Port the container listens on
-  [secret-environment-variables.{index}.key]       
-  [secret-environment-variables.{index}.value]     
-  [http-option]                                    Configure how HTTP and HTTPS requests are handled (unknown_http_option | enabled | redirected)
-  [sandbox]                                        Execution environment of the container (unknown_sandbox | v1 | v2)
-  [local-storage-limit]                            Local storage limit of the container (in MB)
-  [scaling-option.concurrent-requests-threshold]   
-  [scaling-option.cpu-usage-threshold]             
-  [scaling-option.memory-usage-threshold]          
-  [health-check.http.path]                         Path to use for the HTTP health check.
-  [health-check.failure-threshold]                 Number of consecutive health check failures before considering the container unhealthy.
-  [health-check.interval]                          Period between health checks.
-  [tags.{index}]                                   Tags of the Serverless Container
+  container-id                                     UUID of the container to update.
+  [environment-variables.{key}]                    Environment variables of the container.
+  [secret-environment-variables.{key}]             Secret environment variables of the container.
+  [min-scale]                                      Minimum number of instances to scale the container to.
+  [max-scale]                                      Maximum number of instances to scale the container to.
+  [memory-limit-bytes]                             Memory limit of the container in bytes.
+  [mvcpu-limit]                                    CPU limit of the container in mvCPU.
+  [timeout]                                        Processing time limit for the container.
+  [privacy]                                        Privacy policy of the container. (unknown_privacy | public | private)
+  [description]                                    Container description.
+  [image]                                          Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").
+  [protocol]                                       Protocol the container uses. (unknown_protocol | http1 | h2c)
+  [port]                                           Port the container listens on.
+  [https-connection-only]                          If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).
+  [sandbox]                                        Execution environment of the container. (unknown_sandbox | v1 | v2)
+  [local-storage-limit-bytes]                      Local storage limit of the container (in bytes).
+  [scaling-option.concurrent-requests-threshold]   Scale depending on the number of concurrent requests being processed per container instance. The threshold value is the number of concurrent requests above which the container will be scaled up.
+  [scaling-option.cpu-usage-threshold]             Scale depending on the CPU usage of a container instance. The threshold value is the percentage of CPU usage above which the container will be scaled up.
+  [scaling-option.memory-usage-threshold]          Scale depending on the memory usage of a container instance. The threshold value is the percentage of memory usage above which the container will be scaled up.
+  [liveness-probe.failure-threshold]               Number of consecutive failures before considering the container as unhealthy
+  [liveness-probe.interval]                        Time interval between checks.
+  [liveness-probe.timeout]                         Duration before the check times out.
+  [liveness-probe.http.path]                       HTTP path to perform the check on.
+  [startup-probe.failure-threshold]                
+  [startup-probe.interval]                         
+  [startup-probe.timeout]                          
+  [startup-probe.http.path]                        
+  [tags.{index}]                                   Tags of the Serverless Container.
   [private-network-id]                             ID of the Private Network the container is connected to.
   [command.{index}]                                Container command
   [args.{index}]                                   Container arguments
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
-
-DEPRECATED ARGS:
-  [redeploy]          Defines whether to redeploy failed containers
-  [max-concurrency]   Number of maximum concurrent executions of the container
 
 FLAGS:
   -h, --help                help for update
