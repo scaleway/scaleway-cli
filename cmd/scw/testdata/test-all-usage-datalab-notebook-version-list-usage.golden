@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   [order-by]        The order by field. Available options are `name_asc` and `name_desc`. (name_asc | name_desc)
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | all)
 
 FLAGS:
   -h, --help                help for list

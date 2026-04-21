@@ -9,7 +9,7 @@ ARGS:
   [order-by]          The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`. (name_asc | name_desc | vcpus_asc | vcpus_desc | memory_gigabytes_asc | memory_gigabytes_desc | vram_bytes_asc | vram_bytes_desc | gpus_asc | gpus_desc)
   [targets.{index}]   Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node. (unknown_target | notebook | worker)
   [resource-type]     Filter based on node type ( `cpu`/`gpu`/`all` ). (all | gpu | cpu)
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | it-mil | all)
 
 FLAGS:
   -h, --help                help for list
