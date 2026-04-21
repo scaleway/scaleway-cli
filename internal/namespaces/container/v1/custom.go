@@ -19,6 +19,14 @@ func GetCommands() *core.Commands {
 		container.ContainerStatus(""),
 		human.EnumMarshalFunc(containerStatusMarshalSpecs),
 	)
+	human.RegisterMarshalerFunc(
+		container.DomainStatus(""),
+		human.EnumMarshalFunc(domainStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		container.TriggerStatus(""),
+		human.EnumMarshalFunc(triggerStatusMarshalSpecs),
+	)
 
 	cmds.MustFind("container", "container", "redeploy").Override(containerContainerRedeployBuilder)
 	cmds.MustFind("container", "container", "create").Override(containerContainerCreateBuilder)
