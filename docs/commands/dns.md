@@ -12,6 +12,7 @@ This API allows you to manage your domains, DNS zones and records.
   - [Update records within a DNS zone](#update-records-within-a-dns-zone)
   - [Clear records within a DNS zone](#clear-records-within-a-dns-zone)
   - [Delete a DNS record](#delete-a-dns-record)
+  - [Import many DNS records from a file](#import-many-dns-records-from-a-file)
   - [List records within a DNS zone](#list-records-within-a-dns-zone)
   - [List name servers within a DNS zone](#list-name-servers-within-a-dns-zone)
   - [Update a DNS record](#update-a-dns-record)
@@ -311,6 +312,58 @@ scw dns record delete my-domain.tld name=www type=CNAME
 Delete a single IP from a record with more than one
 ```
 scw dns record delete my-domain.tld data=1.2.3.4 name=vpn type=A
+```
+
+
+
+
+### Import many DNS records from a file
+
+Import DNS records into a zone that uses Scaleway default name servers.
+
+The DNS zone is the only positional argument; pass the path to the file as file=PATH.
+
+Two formats are supported:
+ - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
+   Supported types: A, AAAA, CNAME, TXT, MX, NS, PTR, SRV, CAA. For other types (e.g. TLSA, SSHFP, DS), use format=json.
+ - json: UTF-8 JSON object with a "records" array; each element has name, type, ttl, data, and optional priority (for MX).
+   Accepts all types supported by the Scaleway DNS API.
+
+SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
+
+Use "replace=true" to delete all existing records in the zone before importing (equivalent to "scw dns record clear" followed by adds).
+
+For a full zone file replacement at once, prefer "scw dns zone import".
+
+**Usage:**
+
+```
+scw dns record import <dns-zone ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| dns-zone | Required | DNS zone to import records into |
+| file | Required | Path to the zone file (bind) or JSON file |
+| format | Default: `bind`<br />One of: `bind`, `json` | File format: "bind" or "json" |
+| dry-run | Default: `false` | Parse the file and print a summary without calling the API |
+| replace | Default: `false` | Clear all records in the zone before importing |
+
+
+**Examples:**
+
+
+Import BIND records from a file
+```
+scw dns record import my-domain.tld file=./zone.txt
+```
+
+Import JSON and replace existing records
+```
+scw dns record import my-domain.tld file=./records.json format=json replace=true
 ```
 
 

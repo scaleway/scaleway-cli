@@ -1,0 +1,54 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Import DNS records into a zone that uses Scaleway default name servers.
+
+The DNS zone is the only positional argument; pass the path to the file as file=PATH.
+
+Two formats are supported:
+ - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
+   Supported types: A, AAAA, CNAME, TXT, MX, NS, PTR, SRV, CAA. For other types (e.g. TLSA, SSHFP, DS), use format=json.
+ - json: UTF-8 JSON object with a "records" array; each element has name, type, ttl, data, and optional priority (for MX).
+   Accepts all types supported by the Scaleway DNS API.
+
+SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
+
+Use "replace=true" to delete all existing records in the zone before importing (equivalent to "scw dns record clear" followed by adds).
+
+For a full zone file replacement at once, prefer "scw dns zone import".
+
+USAGE:
+  scw dns record import <dns-zone ...> [arg=value ...]
+
+EXAMPLES:
+  Import BIND records from a file
+    scw dns record import my-domain.tld file=./zone.txt
+
+  Import JSON and replace existing records
+    scw dns record import my-domain.tld file=./records.json format=json replace=true
+
+ARGS:
+  dns-zone          DNS zone to import records into
+  file              Path to the zone file (bind) or JSON file
+  [format=bind]     File format: "bind" or "json" (bind | json)
+  [dry-run=false]   Parse the file and print a summary without calling the API
+  [replace=false]   Clear all records in the zone before importing
+
+FLAGS:
+  -h, --help                help for import
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Import a full raw DNS zone
+  dns zone import
+
+  # Low-level record changes
+  dns record bulk-update
+
+  # Delete all records in a zone
+  dns record clear
