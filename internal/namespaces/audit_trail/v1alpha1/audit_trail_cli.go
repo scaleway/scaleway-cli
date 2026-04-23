@@ -163,6 +163,10 @@ func auditTrailEventList() *core.Command {
 					"mongodb_instance_maintenance",
 					"apple_silicon_runner",
 					"audit_trail_alert_rule",
+					"dtwh_deployment",
+					"dtwh_deployment_endpoint",
+					"dtwh_deployment_database",
+					"dtwh_deployment_user",
 				},
 			},
 			{
