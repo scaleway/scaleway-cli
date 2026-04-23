@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+List SCIM tokens.
+
+USAGE:
+  scw iam scim-tokens list <scim-id ...> [arg=value ...]
+
+ARGS:
+  scim-id                     ID of the SCIM configuration
+  [order-by=created_at_asc]   Sort order of SCIM tokens (created_at_asc | created_at_desc)
+
+FLAGS:
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
