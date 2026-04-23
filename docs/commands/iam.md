@@ -33,7 +33,9 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [List logs](#list-logs)
 - [Organization-wide management commands](#organization-wide-management-commands)
   - [Enable SAML Identity Provider for an Organization](#enable-saml-identity-provider-for-an-organization)
+  - [Enable SCIM for an Organization](#enable-scim-for-an-organization)
   - [Get SAML Identity Provider configuration of an Organization](#get-saml-identity-provider-configuration-of-an-organization)
+  - [Get SCIM configuration of an Organization](#get-scim-configuration-of-an-organization)
 - [Permission sets management commands](#permission-sets-management-commands)
   - [List permission sets](#list-permission-sets)
 - [Policies management commands](#policies-management-commands)
@@ -55,6 +57,12 @@ This API allows you to manage Identity and Access Management (IAM) across your S
   - [Add a SAML certificate](#add-a-saml-certificate)
   - [Delete a SAML certificate](#delete-a-saml-certificate)
   - [List SAML certificates](#list-saml-certificates)
+- [SCIM management commands](#scim-management-commands)
+  - [Disable SCIM for an Organization](#disable-scim-for-an-organization)
+- [SCIM tokens management commands](#scim-tokens-management-commands)
+  - [Create a SCIM token](#create-a-scim-token)
+  - [Delete a SCIM token](#delete-a-scim-token)
+  - [List SCIM tokens](#list-scim-tokens)
 - [Security settings management commands](#security-settings-management-commands)
   - [Get security settings of an Organization](#get-security-settings-of-an-organization)
   - [Update the security settings of an Organization](#update-the-security-settings-of-an-organization)
@@ -669,6 +677,25 @@ scw iam organization enable-saml [arg=value ...]
 
 
 
+### Enable SCIM for an Organization
+
+Enable SCIM for an Organization.
+
+**Usage:**
+
+```
+scw iam organization enable-scim [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
 ### Get SAML Identity Provider configuration of an Organization
 
 Get SAML Identity Provider configuration of an Organization.
@@ -677,6 +704,25 @@ Get SAML Identity Provider configuration of an Organization.
 
 ```
 scw iam organization get-saml [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
+### Get SCIM configuration of an Organization
+
+Get SCIM configuration of an Organization.
+
+**Usage:**
+
+```
+scw iam organization get-scim [arg=value ...]
 ```
 
 
@@ -1064,6 +1110,93 @@ scw iam saml-certificates list <saml-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | saml-id | Required | ID of the SAML configuration |
+
+
+
+## SCIM management commands
+
+SCIM management commands.
+
+
+### Disable SCIM for an Organization
+
+Disable SCIM for an Organization.
+
+**Usage:**
+
+```
+scw iam scim delete <scim-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| scim-id | Required | ID of the SCIM configuration |
+
+
+
+## SCIM tokens management commands
+
+SCIM tokens management commands.
+
+
+### Create a SCIM token
+
+Create a SCIM token.
+
+**Usage:**
+
+```
+scw iam scim-tokens create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| scim-id | Required | ID of the SCIM configuration |
+
+
+
+### Delete a SCIM token
+
+Delete a SCIM token.
+
+**Usage:**
+
+```
+scw iam scim-tokens delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| token-id | Required | The SCIM token ID |
+
+
+
+### List SCIM tokens
+
+List SCIM tokens.
+
+**Usage:**
+
+```
+scw iam scim-tokens list <scim-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| scim-id | Required | ID of the SCIM configuration |
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc` | Sort order of SCIM tokens |
 
 
 

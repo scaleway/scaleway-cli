@@ -7,7 +7,9 @@ USAGE:
 
 AVAILABLE COMMANDS:
   enable-saml Enable SAML Identity Provider for an Organization
+  enable-scim Enable SCIM for an Organization
   get-saml    Get SAML Identity Provider configuration of an Organization
+  get-scim    Get SCIM configuration of an Organization
 
 FLAGS:
   -h, --help                help for organization
