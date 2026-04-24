@@ -20,7 +20,7 @@ ARGS:
   [ipam-private-ipv4-id]                                   ID of the IPAM private IPv4 address to attach to the VPN gateway
   [ipam-private-ipv6-id]                                   ID of the IPAM private IPv6 address to attach to the VPN gateway
   [zone]                                                   Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed.
-  [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

@@ -132,6 +132,7 @@ func ipamIPCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -166,6 +167,7 @@ func ipamIPDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -206,6 +208,7 @@ func ipamIPSetRelease() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -247,6 +250,7 @@ func ipamIPGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -302,6 +306,7 @@ func ipamIPUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -528,6 +533,7 @@ func ipamIPList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),

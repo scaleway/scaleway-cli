@@ -119,6 +119,7 @@ func s2sVpnVpnGatewayTypeList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -231,6 +232,7 @@ func s2sVpnVpnGatewayList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -275,6 +277,7 @@ func s2sVpnVpnGatewayGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -388,6 +391,7 @@ func s2sVpnVpnGatewayCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -436,6 +440,7 @@ func s2sVpnVpnGatewayUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -470,6 +475,7 @@ func s2sVpnVpnGatewayDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -589,6 +595,7 @@ func s2sVpnConnectionList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -633,6 +640,7 @@ func s2sVpnConnectionGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -843,6 +851,7 @@ func s2sVpnConnectionCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -995,6 +1004,7 @@ func s2sVpnConnectionUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1029,6 +1039,7 @@ func s2sVpnConnectionDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1070,6 +1081,7 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1118,6 +1130,7 @@ func s2sVpnConnectionSetRoutingPolicy() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1166,6 +1179,7 @@ func s2sVpnConnectionDetachRoutingPolicy() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1200,6 +1214,7 @@ func s2sVpnConnectionEnableRoutePropagation() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1234,6 +1249,7 @@ func s2sVpnConnectionDisableRoutePropagation() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1302,6 +1318,7 @@ func s2sVpnCustomerGatewayList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -1346,6 +1363,7 @@ func s2sVpnCustomerGatewayGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1409,6 +1427,7 @@ func s2sVpnCustomerGatewayCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1478,6 +1497,7 @@ func s2sVpnCustomerGatewayUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1512,6 +1532,7 @@ func s2sVpnCustomerGatewayDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1594,6 +1615,7 @@ func s2sVpnRoutingPolicyList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -1638,6 +1660,7 @@ func s2sVpnRoutingPolicyGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1701,6 +1724,7 @@ func s2sVpnRoutingPolicyCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1763,6 +1787,7 @@ func s2sVpnRoutingPolicyUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1797,6 +1822,7 @@ func s2sVpnRoutingPolicyDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),

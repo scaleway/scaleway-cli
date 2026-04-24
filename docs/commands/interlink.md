@@ -65,7 +65,7 @@ scw interlink link attach_policy <link-id ...> [arg=value ...]
 |------|---|-------------|
 | link-id | Required | ID of the link to attach a routing policy to |
 | routing-policy-id | Required | ID of the routing policy to be attached |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -86,7 +86,7 @@ scw interlink link attach_vpc <link-id ...> [arg=value ...]
 |------|---|-------------|
 | link-id | Required | ID of the link to attach VPC to |
 | vpc-id | Required | ID of the VPC to attach |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -116,7 +116,7 @@ scw interlink link create [arg=value ...]
 | vlan |  | For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned. |
 | routing-policy-v4-id |  | If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created. |
 | routing-policy-v6-id |  | If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -136,7 +136,7 @@ scw interlink link delete <link-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | link-id | Required | ID of the link to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -157,7 +157,7 @@ scw interlink link detach_policy <link-id ...> [arg=value ...]
 |------|---|-------------|
 | link-id | Required | ID of the link to detach a routing policy from |
 | routing-policy-id | Required | ID of the routing policy to be detached |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -177,7 +177,7 @@ scw interlink link detach_vpc <link-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | link-id | Required | ID of the link to detach the VPC from |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -197,7 +197,7 @@ scw interlink link disable_propagation <link-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | link-id | Required | ID of the link on which to disable route propagation |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -217,7 +217,7 @@ scw interlink link enable_propagation <link-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | link-id | Required | ID of the link on which to enable route propagation |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -237,7 +237,7 @@ scw interlink link get <link-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | link-id | Required | ID of the link to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -272,7 +272,7 @@ scw interlink link list [arg=value ...]
 | kind | One of: `hosted`, `self_hosted` | Filter for hosted or self-hosted links |
 | connection-id |  | Filter for links self-hosted on this connection |
 | organization-id |  | Organization ID to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -295,7 +295,7 @@ scw interlink link update <link-id ...> [arg=value ...]
 | name |  | Name of the link |
 | tags.{index} |  | List of tags to apply to the link |
 | peer-asn |  | For self-hosted links, AS Number to establish BGP session. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -320,7 +320,7 @@ scw interlink partner get <partner-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | partner-id | Required | ID of partner to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -341,7 +341,7 @@ scw interlink partner list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `name_asc`, `name_desc` | Order in which to return results |
 | pop-ids.{index} |  | Filter for partners present (offering a connection) in one of these PoPs |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -366,7 +366,7 @@ scw interlink pop get <pop-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pop-id | Required | ID of PoP to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -391,7 +391,7 @@ scw interlink pop list [arg=value ...]
 | partner-id |  | Filter for PoPs hosting an available shared connection from this partner |
 | link-bandwidth-mbps |  | Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |
 | dedicated-available |  | Filter for PoPs with a dedicated connection available for self-hosted links. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -421,7 +421,7 @@ scw interlink routing-policy create [arg=value ...]
 | prefix-filter-in.{index} |  | IP prefixes to accept from the peer (ranges of route announcements to accept) |
 | prefix-filter-out.{index} |  | IP prefix filters to advertise to the peer (ranges of routes to advertise) |
 | is-ipv6 |  | IP prefixes version of the routing policy |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -441,7 +441,7 @@ scw interlink routing-policy delete <routing-policy-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | routing-policy-id | Required | ID of the routing policy to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -461,7 +461,7 @@ scw interlink routing-policy get <routing-policy-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | routing-policy-id | Required | ID of the routing policy to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -486,7 +486,7 @@ scw interlink routing-policy list [arg=value ...]
 | tags.{index} |  | Tags to filter for |
 | ipv6 |  | Filter for the routing policies based on IP prefixes version |
 | organization-id |  | Organization ID to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -510,7 +510,7 @@ scw interlink routing-policy update <routing-policy-id ...> [arg=value ...]
 | tags.{index} |  | List of tags to apply to the routing policy |
 | prefix-filter-in.{index} |  | IP prefixes to accept from the peer (ranges of route announcements to accept) |
 | prefix-filter-out.{index} |  | IP prefix filters for routes to advertise to the peer (ranges of routes to advertise) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   pop-id            ID of PoP to get
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for get

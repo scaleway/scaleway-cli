@@ -10,7 +10,7 @@ ARGS:
   [tags.{index}]     Tags for the VPC connector
   [vpc-id]           VPC ID to filter for. Only connectors belonging to this VPC will be returned
   [target-vpc-id]    Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned
-  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

@@ -16,7 +16,7 @@ ARGS:
   [tags.{index}]                Tags for the IP
   [resource.mac-address]        MAC address of the custom resource
   [resource.name]               Name of the custom resource
-  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

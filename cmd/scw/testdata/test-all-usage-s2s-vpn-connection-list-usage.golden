@@ -17,7 +17,7 @@ ARGS:
   [vpn-gateway-ids.{index}]        Filter for connections attached to these VPN gateways
   [customer-gateway-ids.{index}]   Filter for connections attached to these customer gateways
   [organization-id]                Organization ID to filter for
-  [region=fr-par]                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]                  Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list

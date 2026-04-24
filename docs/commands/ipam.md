@@ -42,7 +42,7 @@ scw ipam ip create [arg=value ...]
 | tags.{index} |  | Tags for the IP |
 | resource.mac-address |  | MAC address of the custom resource |
 | resource.name |  | Name of the custom resource |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -62,7 +62,7 @@ scw ipam ip delete <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | IP ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -82,7 +82,7 @@ scw ipam ip get <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | IP ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -119,7 +119,7 @@ scw ipam ip list [arg=value ...]
 | ip-ids.{index} |  | IP IDs to filter for. Only IPs with these UUIDs will be returned |
 | source-vpc-id |  |  |
 | organization-id |  | Organization ID to filter for. Only IPs belonging to this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -142,7 +142,7 @@ scw ipam ip update <ip-id ...> [arg=value ...]
 | tags.{index} |  | Tags for the IP |
 | reverses.{index}.hostname |  | Reverse domain name |
 | reverses.{index}.address |  | IP corresponding to the hostname |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -167,7 +167,7 @@ scw ipam ip-set release [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-ids.{index} |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

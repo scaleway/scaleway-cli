@@ -177,6 +177,7 @@ func vpcVpcList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -237,6 +238,7 @@ func vpcVpcCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -271,6 +273,7 @@ func vpcVpcGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -319,6 +322,7 @@ func vpcVpcUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -353,6 +357,7 @@ func vpcVpcDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -449,6 +454,7 @@ func vpcPrivateNetworkList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -523,6 +529,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -557,6 +564,7 @@ func vpcPrivateNetworkGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -612,6 +620,7 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -646,6 +655,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -687,6 +697,7 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -721,6 +732,7 @@ func vpcRouteEnableRouting() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -797,6 +809,7 @@ func vpcRouteCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -831,6 +844,7 @@ func vpcRouteGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -907,6 +921,7 @@ func vpcRouteUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -941,6 +956,7 @@ func vpcRouteDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -989,6 +1005,7 @@ func vpcRuleGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1116,6 +1133,7 @@ func vpcRuleSet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1211,6 +1229,7 @@ func vpcVpcConnectorList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -1277,6 +1296,7 @@ func vpcVpcConnectorCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1311,6 +1331,7 @@ func vpcVpcConnectorGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1359,6 +1380,7 @@ func vpcVpcConnectorUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1393,6 +1415,7 @@ func vpcVpcConnectorDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
