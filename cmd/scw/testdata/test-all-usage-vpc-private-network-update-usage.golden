@@ -10,7 +10,7 @@ ARGS:
   [name]                                Name for the Private Network
   [tags.{index}]                        Tags for the Private Network
   [default-route-propagation-enabled]   Defines whether default v4 and v6 routes are propagated for this Private Network
-  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                       Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for update

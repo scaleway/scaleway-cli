@@ -16,7 +16,7 @@ ARGS:
   [esp-ciphers.{index}.encryption]      (unknown_encryption | aes128 | aes192 | aes256 | aes128gcm | aes192gcm | aes256gcm | aes128ccm | aes256ccm | chacha20poly1305)
   [esp-ciphers.{index}.integrity]       (unknown_integrity | sha256 | sha384 | sha512)
   [esp-ciphers.{index}.dh-group]        (unknown_dhgroup | modp2048 | modp3072 | modp4096 | ecp256 | ecp384 | ecp521 | curve25519)
-  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for update

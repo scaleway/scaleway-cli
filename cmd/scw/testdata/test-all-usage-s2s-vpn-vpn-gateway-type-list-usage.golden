@@ -6,7 +6,7 @@ USAGE:
   scw s2s-vpn vpn-gateway-type list [arg=value ...]
 
 ARGS:
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list

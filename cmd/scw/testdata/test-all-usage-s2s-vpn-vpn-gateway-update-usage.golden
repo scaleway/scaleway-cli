@@ -9,7 +9,7 @@ ARGS:
   gateway-id        ID of the VPN gateway to update
   [name]            Name of the VPN gateway
   [tags.{index}]    List of tags to apply to the VPN Gateway
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for update

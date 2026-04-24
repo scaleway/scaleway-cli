@@ -14,7 +14,7 @@ ARGS:
   [gateway-types.{index}]         Filter for VPN gateways of these types
   [private-network-ids.{index}]   Filter for VPN gateways attached to these private networks
   [organization-id]               Organization ID to filter for
-  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list

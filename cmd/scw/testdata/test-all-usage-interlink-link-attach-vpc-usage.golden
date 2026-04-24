@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   link-id           ID of the link to attach VPC to
   vpc-id            ID of the VPC to attach
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for attach_vpc

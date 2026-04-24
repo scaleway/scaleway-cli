@@ -63,7 +63,7 @@ scw vpc private-network create [arg=value ...]
 | subnets.{index} |  | Private Network subnets CIDR |
 | vpc-id |  | VPC in which to create the Private Network |
 | default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -83,7 +83,7 @@ scw vpc private-network delete <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -103,7 +103,7 @@ scw vpc private-network enable-dhcp [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -123,7 +123,7 @@ scw vpc private-network get <private-network-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | private-network-id | Required | Private Network ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -150,7 +150,7 @@ scw vpc private-network list [arg=value ...]
 | vpc-id |  | VPC ID to filter for. Only Private Networks belonging to this VPC will be returned |
 | dhcp-enabled |  | DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned |
 | organization-id |  | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -173,7 +173,7 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 | name |  | Name for the Private Network |
 | tags.{index} |  | Tags for the Private Network |
 | default-route-propagation-enabled |  | Defines whether default v4 and v6 routes are propagated for this Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -204,7 +204,7 @@ scw vpc route create [arg=value ...]
 | nexthop-resource-id |  | ID of the nexthop resource |
 | nexthop-private-network-id |  | ID of the nexthop private network |
 | nexthop-vpc-connector-id |  | ID of the nexthop VPC Connector |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -224,7 +224,7 @@ scw vpc route delete <route-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | route-id | Required | Route ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -244,7 +244,7 @@ scw vpc route enable-routing <vpc-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | vpc-id | Required | VPC ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -264,7 +264,7 @@ scw vpc route get <route-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | route-id | Required | Route ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -318,7 +318,7 @@ scw vpc route update <route-id ...> [arg=value ...]
 | nexthop-resource-id |  | ID of the nexthop resource |
 | nexthop-private-network-id |  | ID of the nexthop private network |
 | nexthop-vpc-connector-id |  | ID of the nexthop VPC connector |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -368,7 +368,7 @@ scw vpc rule get [arg=value ...]
 |------|---|-------------|
 | vpc-id | Required | ID of the Network ACL's VPC |
 | is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -399,7 +399,7 @@ scw vpc rule set [arg=value ...]
 | rules.{index}.description | Required | Rule description |
 | is-ipv6 | Required | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. |
 | default-policy | Required<br />One of: `unknown_action`, `accept`, `drop` | Action to take for packets which do not match any rules |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -429,7 +429,7 @@ scw vpc vpc create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags for the VPC |
 | enable-routing |  | Enable routing between Private Networks in the VPC |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -449,7 +449,7 @@ scw vpc vpc delete <vpc-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | vpc-id | Required | VPC ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -469,7 +469,7 @@ scw vpc vpc get <vpc-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | vpc-id | Required | VPC ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -495,7 +495,7 @@ scw vpc vpc list [arg=value ...]
 | is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
 | routing-enabled |  | Defines whether to filter only for VPCs which route traffic between their Private Networks |
 | organization-id |  | Organization ID to filter for. Only VPCs belonging to this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -517,7 +517,7 @@ scw vpc vpc update <vpc-id ...> [arg=value ...]
 | vpc-id | Required | VPC ID |
 | name |  | Name for the VPC |
 | tags.{index} |  | Tags for the VPC |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -545,7 +545,7 @@ scw vpc vpc-connector create [arg=value ...]
 | tags.{index} |  | Tags for the VPC connector |
 | vpc-id |  | VPC ID to filter for. Only connectors belonging to this VPC will be returned |
 | target-vpc-id |  | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -565,7 +565,7 @@ scw vpc vpc-connector delete <vpc-connector-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | vpc-connector-id | Required | VPC connector ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -585,7 +585,7 @@ scw vpc vpc-connector get <vpc-connector-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | vpc-connector-id | Required | VPC connector ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -612,7 +612,7 @@ scw vpc vpc-connector list [arg=value ...]
 | target-vpc-id |  | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |
 | status | One of: `unknown_vpc_connector_status`, `orphan`, `peered`, `conflict` | Status of the VPC connector |
 | organization-id |  | Organization ID to filter for. Only connectors belonging to this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -634,7 +634,7 @@ scw vpc vpc-connector update <vpc-connector-id ...> [arg=value ...]
 | vpc-connector-id | Required | VPC connector ID |
 | name |  | Name for the VPC connector |
 | tags.{index} |  | Tags for the VPC connector |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

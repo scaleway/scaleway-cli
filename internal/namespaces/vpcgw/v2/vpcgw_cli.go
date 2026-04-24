@@ -202,6 +202,7 @@ func vpcGwGatewayList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -251,6 +252,7 @@ func vpcGwGatewayGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -335,6 +337,7 @@ func vpcGwGatewayCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -409,6 +412,7 @@ func vpcGwGatewayUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -455,6 +459,7 @@ func vpcGwGatewayDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -501,6 +506,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -582,6 +588,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -631,6 +638,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -698,6 +706,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -758,6 +767,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -797,6 +807,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -869,6 +880,7 @@ func vpcGwPatRuleList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -918,6 +930,7 @@ func vpcGwPatRuleGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -991,6 +1004,7 @@ func vpcGwPatRuleCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1064,6 +1078,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1137,6 +1152,7 @@ func vpcGwPatRuleSet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1176,6 +1192,7 @@ func vpcGwPatRuleDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1215,6 +1232,7 @@ func vpcGwGatewayTypeList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1297,6 +1315,7 @@ func vpcGwIPList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1346,6 +1365,7 @@ func vpcGwIPGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1386,6 +1406,7 @@ func vpcGwIPCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1446,6 +1467,7 @@ func vpcGwIPUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1485,6 +1507,7 @@ func vpcGwIPDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1531,6 +1554,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
