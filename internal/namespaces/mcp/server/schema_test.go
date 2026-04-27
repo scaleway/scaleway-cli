@@ -1,9 +1,10 @@
-package server
+package server_test
 
 import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 )
 
 func TestCommandToFlatArgsSchema(t *testing.T) {
@@ -26,7 +27,7 @@ func TestCommandToFlatArgsSchema(t *testing.T) {
 		},
 	}
 
-	schema := CommandToFlatArgsSchema(cmd)
+	schema := server.CommandToFlatArgsSchema(cmd)
 
 	if schema.Type != "object" {
 		t.Errorf("Expected type 'object', got '%s'", schema.Type)
@@ -52,7 +53,7 @@ func TestArgSpecToJSONSchema(t *testing.T) {
 		EnumValues: []string{"value1", "value2"},
 	}
 
-	schema := ArgSpecToJSONSchema(argSpec)
+	schema := server.ArgSpecToJSONSchema(argSpec)
 
 	if schema.Type != "string" {
 		t.Errorf("Expected type 'string', got '%s'", schema.Type)

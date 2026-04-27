@@ -4,10 +4,12 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"reflect"
 	"strings"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/args"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
@@ -40,21 +42,73 @@ func (ct *CommandTool) ToMCPTool() *mcp.Tool {
 }
 
 // Execute runs the CLI command with the provided arguments
-func (ct *CommandTool) Execute(ctx context.Context, args map[string]any) (*mcp.CallToolResult, error) {
-	// Build command arguments for the CLI runner
-	cmdArgs := make(map[string]interface{})
+func (ct *CommandTool) Execute(ctx context.Context, inputArgs map[string]any) (*mcp.CallToolResult, error) {
+	// Skip commands without a Run function
+	if ct.Command.Run == nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: "Command has no execution logic",
+				},
+			},
+		}, nil
+	}
 
-	for argName, argValue := range args {
-		// Convert from kebab-case back to original arg spec name
-		originalName := argName
-		for _, spec := range ct.Command.ArgSpecs {
-			if strcase.ToKebab(spec.Name) == argName {
-				originalName = spec.Name
-				break
+	// Create a new instance of the expected args type
+	var cmdArgs any
+	if ct.Command.ArgsType != nil {
+		cmdArgs = reflect.New(ct.Command.ArgsType).Interface()
+
+		// Convert map[string]any to []string format expected by args.UnmarshalStruct
+		// Format: ["arg1=value1", "arg2=value2"]
+		rawArgs := make([]string, 0, len(inputArgs))
+		for argName, argValue := range inputArgs {
+			// Convert from kebab-case back to original arg spec name
+			originalName := argName
+			for _, spec := range ct.Command.ArgSpecs {
+				if strcase.ToKebab(spec.Name) == argName {
+					originalName = spec.Name
+					break
+				}
 			}
+
+			// Convert value to string
+			var valueStr string
+			switch v := argValue.(type) {
+			case string:
+				valueStr = v
+			case bool:
+				valueStr = fmt.Sprintf("%v", v)
+			case float64:
+				valueStr = fmt.Sprintf("%v", v)
+			case int:
+				valueStr = fmt.Sprintf("%v", v)
+			default:
+				// For complex types, marshal to JSON
+				if b, err := json.Marshal(v); err == nil {
+					valueStr = string(b)
+				} else {
+					valueStr = fmt.Sprintf("%v", v)
+				}
+			}
+
+			rawArgs = append(rawArgs, originalName+"="+valueStr)
 		}
 
-		cmdArgs[originalName] = argValue
+		// Unmarshal the args into the struct
+		if err := args.UnmarshalStruct(rawArgs, cmdArgs); err != nil {
+			return &mcp.CallToolResult{
+				Content: []mcp.Content{
+					&mcp.TextContent{
+						Text: fmt.Sprintf("Error parsing arguments: %v", err),
+					},
+				},
+				IsError: true,
+			}, nil
+		}
+	} else {
+		// Fallback for commands without ArgsType
+		cmdArgs = inputArgs
 	}
 
 	// Execute the command's Run function

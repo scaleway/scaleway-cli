@@ -1,21 +1,19 @@
 package server
 
 import (
-	"encoding/json"
-
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
 // JSONSchema represents a JSON Schema object
 type JSONSchema struct {
-	Type                 string              `json:"type,omitempty"`
-	Description          string             `json:"description,omitempty"`
+	Type                 string                 `json:"type,omitempty"`
+	Description          string                 `json:"description,omitempty"`
 	Properties           map[string]*JSONSchema `json:"properties,omitempty"`
-	Required             []string           `json:"required,omitempty"`
-	AdditionalProperties *bool              `json:"additionalProperties,omitempty"`
-	Enum                 []string           `json:"enum,omitempty"`
-	Default              interface{}        `json:"default,omitempty"`
+	Required             []string               `json:"required,omitempty"`
+	AdditionalProperties *bool                  `json:"additionalProperties,omitempty"`
+	Enum                 []string               `json:"enum,omitempty"`
+	Default              any                    `json:"default,omitempty"`
 }
 
 // ArgSpecToJSONSchema converts a core.ArgSpec to JSON Schema
@@ -28,6 +26,7 @@ func ArgSpecToJSONSchema(argSpec *core.ArgSpec) *JSONSchema {
 	if len(argSpec.EnumValues) > 0 {
 		schema.Enum = argSpec.EnumValues
 		schema.Type = "string"
+
 		return schema
 	}
 
@@ -43,7 +42,7 @@ func CommandToFlatArgsSchema(cmd *core.Command) *JSONSchema {
 		Type:                 "object",
 		Properties:           make(map[string]*JSONSchema),
 		Required:             []string{},
-		AdditionalProperties: boolPtr(false),
+		AdditionalProperties: new(false),
 	}
 
 	for _, argSpec := range cmd.ArgSpecs {
@@ -65,17 +64,4 @@ func CommandToFlatArgsSchema(cmd *core.Command) *JSONSchema {
 	}
 
 	return schema
-}
-
-func boolPtr(b bool) *bool {
-	return &b
-}
-
-// SchemaToString converts a JSONSchema to a JSON string
-func SchemaToString(schema *JSONSchema) (string, error) {
-	data, err := json.MarshalIndent(schema, "", "  ")
-	if err != nil {
-		return "", err
-	}
-	return string(data), nil
 }

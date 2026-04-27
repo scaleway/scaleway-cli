@@ -57,6 +57,35 @@ func runMCPServer(ctx context.Context) (any, error) {
 	buildInfo := core.ExtractBuildInfo(ctx)
 	version := buildInfo.Version.String()
 
+	// Get profile from context (set by global --profile flag)
+	profile := core.ExtractProfileName(ctx)
+	configPath := core.ExtractConfigPath(ctx)
+
+	// Log startup information to stderr (stdout is used for MCP protocol)
+	fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
+	fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
+	fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
+
+	// Reload the client with the profile to ensure proper authentication
+	// This is necessary because the bootstrap creates an anonymous client for
+	// commands with AllowAnonymousClient: true
+	if err := core.ReloadClient(ctx); err != nil {
+		return nil, fmt.Errorf("failed to initialize authenticated client: %w", err)
+	}
+
+	// Verify client is properly initialized
+	client := core.ExtractClient(ctx)
+	if client != nil {
+		if orgID, ok := client.GetDefaultOrganizationID(); ok {
+			fmt.Fprintf(os.Stderr, "Organization ID: %s\n", orgID)
+		}
+		if projectID, ok := client.GetDefaultProjectID(); ok {
+			fmt.Fprintf(os.Stderr, "Project ID: %s\n", projectID)
+		}
+	} else {
+		fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
+	}
+
 	// Create MCP server with all commands
 	mcpServer := server.NewMCPServer(version, cliCommands)
 
