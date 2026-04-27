@@ -76,7 +76,7 @@ describe('With wasm CLI', async () => {
 
   it('can run cli commands', async () => run(/profile.*default/, ['info']))
 
-  it('can run help', async () => runWithError(/USAGE:\n.*scw <command>.*/, []))
+  it('can run help', async () => run(/USAGE:\n.*scw <command>.*/, []))
 
   it('can use jwt', async () =>
     runWithError(/.*denied authentication.*invalid JWT.*/, [
