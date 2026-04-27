@@ -7,20 +7,22 @@ import (
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 )
 
 var (
 	containerNamespaceActionTimeout = 5 * time.Minute
 
 	namespaceStatusMarshalSpecs = human.EnumMarshalSpecs{
-		container.NamespaceStatusCreating: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusDeleting: &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusError:    &human.EnumMarshalSpec{Attribute: color.FgRed},
-		container.NamespaceStatusLocked:   &human.EnumMarshalSpec{Attribute: color.FgRed},
-		container.NamespaceStatusPending:  &human.EnumMarshalSpec{Attribute: color.FgBlue},
-		container.NamespaceStatusReady:    &human.EnumMarshalSpec{Attribute: color.FgGreen},
-		container.NamespaceStatusUnknown:  &human.EnumMarshalSpec{Attribute: color.Faint},
+		container.NamespaceStatusCreating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		container.NamespaceStatusDeleting:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		container.NamespaceStatusError:         &human.EnumMarshalSpec{Attribute: color.FgRed},
+		container.NamespaceStatusLocked:        &human.EnumMarshalSpec{Attribute: color.FgRed},
+		container.NamespaceStatusLocking:       &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		container.NamespaceStatusReady:         &human.EnumMarshalSpec{Attribute: color.FgGreen},
+		container.NamespaceStatusUpdating:      &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		container.NamespaceStatusUpgrading:     &human.EnumMarshalSpec{Attribute: color.FgBlue},
+		container.NamespaceStatusUnknownStatus: &human.EnumMarshalSpec{Attribute: color.Faint},
 	}
 )
 
@@ -72,6 +74,8 @@ func containerNamespaceDeleteBuilder(c *core.Command) *core.Command {
 
 		return nil, nil
 	}
+
+	c.ArgSpecs.GetByName("namespace-id").Positional = true
 
 	return c
 }

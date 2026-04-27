@@ -9,9 +9,9 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 	registrycmds "github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
-	containerSDK "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	containerSDK "github.com/scaleway/scaleway-sdk-go/api/container/v1"
 	registrySDK "github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -106,8 +106,8 @@ func Test_Deploy(t *testing.T) {
 			core.TestCheckExitCode(0),
 		),
 		AfterFunc: core.AfterFuncCombine(
-			testDeleteContainersNamespaceAfter(appName+"-fp"),
-			testDeleteRegistryAfter(appName+"-fp"),
+			testDeleteContainersNamespaceAfter("app-"+appName+"-fp"),
+			testDeleteRegistryAfter("app-"+appName+"-fp"),
 		),
 		DisableParallel: true,
 	}))

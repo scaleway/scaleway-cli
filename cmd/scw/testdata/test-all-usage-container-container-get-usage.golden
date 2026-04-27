@@ -3,10 +3,10 @@
 Get the container associated with the specified ID.
 
 USAGE:
-  scw container container get <container-id ...> [arg=value ...]
+  scw container container get [arg=value ...]
 
 ARGS:
-  container-id      UUID of the container to get
+  container-id      
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

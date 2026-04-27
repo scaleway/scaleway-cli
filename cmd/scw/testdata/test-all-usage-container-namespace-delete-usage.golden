@@ -1,12 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the namespace associated with the specified ID.
+It also deletes in cascade any resource inside the namespace.
+
+This action **cannot** be undone.
 
 USAGE:
   scw container namespace delete <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id      UUID of the namespace to delete
+  namespace-id      UUID of the namespace to delete.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

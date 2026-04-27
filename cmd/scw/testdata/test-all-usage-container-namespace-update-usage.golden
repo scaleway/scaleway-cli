@@ -1,18 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update the space associated with the specified ID.
+Only fields present in the request are updated; others are left untouched.
 
 USAGE:
   scw container namespace update <namespace-id ...> [arg=value ...]
 
 ARGS:
-  namespace-id                                   UUID of the namespace to update
-  [environment-variables.{key}]                  Environment variables of the namespace to update
-  [description]                                  Description of the namespace to update
-  [secret-environment-variables.{index}.key]     
-  [secret-environment-variables.{index}.value]   
-  [tags.{index}]                                 Tags of the Serverless Container Namespace
-  [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  namespace-id                           UUID of the namespace to update.
+  [description]                          Namespace description.
+  [environment-variables.{key}]          Namespace environment variables.
+  [secret-environment-variables.{key}]   Namespace secret environment variables.
+  [tags.{index}]                         A list of arbitrary tags associated with the namespace.
+  [region=fr-par]                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for update

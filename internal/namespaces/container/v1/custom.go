@@ -3,7 +3,7 @@ package container
 import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 )
 
 func GetCommands() *core.Commands {
@@ -20,11 +20,15 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(containerStatusMarshalSpecs),
 	)
 	human.RegisterMarshalerFunc(
-		container.CronStatus(""),
-		human.EnumMarshalFunc(cronStatusMarshalSpecs),
+		container.DomainStatus(""),
+		human.EnumMarshalFunc(domainStatusMarshalSpecs),
+	)
+	human.RegisterMarshalerFunc(
+		container.TriggerStatus(""),
+		human.EnumMarshalFunc(triggerStatusMarshalSpecs),
 	)
 
-	cmds.MustFind("container", "container", "deploy").Override(containerContainerDeployBuilder)
+	cmds.MustFind("container", "container", "redeploy").Override(containerContainerRedeployBuilder)
 	cmds.MustFind("container", "container", "create").Override(containerContainerCreateBuilder)
 	cmds.MustFind("container", "container", "update").Override(containerContainerUpdateBuilder)
 	cmds.MustFind("container", "namespace", "create").Override(containerNamespaceCreateBuilder)

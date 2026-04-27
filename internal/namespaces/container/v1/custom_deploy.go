@@ -16,7 +16,7 @@ import (
 
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
-	dockertypes "github.com/docker/docker/api/types"
+	"github.com/docker/docker/api/types/build"
 	"github.com/docker/docker/api/types/image"
 	dockerregistry "github.com/docker/docker/api/types/registry"
 	docker "github.com/docker/docker/client"
@@ -24,10 +24,10 @@ import (
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1/getorcreate"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -148,7 +148,7 @@ func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 		tasks.Add(actions, "Creating namespace", DeployStepCreateNamespace)
 	}
 
-	tasks.Add(actions, "Fetch or create image registry", DeployStepFetchOrCreateRegistry)
+	tasks.Add(actions, "Create image registry", DeployStepCreateRegistry)
 
 	hasDockerfile := false
 	if _, err := os.Stat(filepath.Join(args.BuildSource, args.Dockerfile)); err == nil {
@@ -164,7 +164,6 @@ func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 
 	tasks.Add(actions, "Pushing image", DeployStepPushImage)
 	tasks.Add(actions, "Creating container", DeployStepCreateContainer)
-	tasks.Add(actions, "Deploying container", DeployStepDeployContainer)
 
 	result, err := actions.Execute(ctx, &DeployStepData{
 		Client: client,
@@ -175,11 +174,11 @@ func containerDeployRun(ctx context.Context, argsI any) (i any, e error) {
 		return nil, err
 	}
 
-	container := result.(*DeployStepDeployContainerResponse).Container
+	c := result.(*DeployStepCreateContainerResponse).Container
 
 	return fmt.Sprintln(
 		terminal.Style("Your application is now available at", color.FgGreen),
-		terminal.Style("https://"+container.DomainName, color.FgGreen, color.Bold),
+		terminal.Style(c.PublicEndpoint, color.FgGreen, color.Bold),
 	), nil
 }
 
@@ -233,30 +232,25 @@ type DeployStepFetchOrCreateResponse struct {
 	RegistryEndpoint string
 }
 
-func DeployStepFetchOrCreateRegistry(
+func DeployStepCreateRegistry(
 	t *tasks.Task,
 	data *DeployStepCreateNamespaceResponse,
 ) (*DeployStepFetchOrCreateResponse, error) {
-	registryEndpoint := data.Namespace.RegistryEndpoint
-	if registryEndpoint == "" {
-		registryAPI := registry.NewAPI(data.Client)
-		registryNamespace, err := getorcreate.Registry(
-			t.Ctx,
-			registryAPI,
-			data.Args.Region,
-			data.Namespace.Name,
-		)
-		if err != nil {
-			return nil, err
-		}
-
-		registryEndpoint = registryNamespace.Endpoint
+	registryAPI := registry.NewAPI(data.Client)
+	registryNamespace, err := getorcreate.Registry(
+		t.Ctx,
+		registryAPI,
+		data.Args.Region,
+		data.Namespace.Name,
+	)
+	if err != nil {
+		return nil, err
 	}
 
 	return &DeployStepFetchOrCreateResponse{
 		DeployStepData:   data.DeployStepData,
 		Namespace:        data.Namespace,
-		RegistryEndpoint: registryEndpoint,
+		RegistryEndpoint: registryNamespace.Endpoint,
 	}, nil
 }
 
@@ -286,9 +280,10 @@ func DeployStepDockerPackImage(
 
 type DeployStepBuildImageResponse struct {
 	*DeployStepData
-	Namespace    *container.Namespace
-	Tag          string
-	DockerClient DockerClient
+	Namespace        *container.Namespace
+	RegistryEndpoint string
+	Tag              string
+	DockerClient     DockerClient
 }
 
 func DeployStepDockerBuildImage(
@@ -306,11 +301,12 @@ func DeployStepDockerBuildImage(
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to Docker: %w", err)
 	}
+	defer dockerClient.Close()
 
 	imageBuildResponse, err := dockerClient.ImageBuild(
 		t.Ctx,
 		data.Tar,
-		dockertypes.ImageBuildOptions{
+		build.ImageBuildOptions{
 			Dockerfile: data.Args.Dockerfile,
 			Tags:       []string{tag},
 			NoCache:    !data.Args.Cache,
@@ -347,10 +343,11 @@ func DeployStepDockerBuildImage(
 	}
 
 	return &DeployStepBuildImageResponse{
-		DeployStepData: data.DeployStepData,
-		Namespace:      data.Namespace,
-		Tag:            tag,
-		DockerClient:   dockerClient,
+		DeployStepData:   data.DeployStepData,
+		Namespace:        data.Namespace,
+		RegistryEndpoint: data.RegistryEndpoint,
+		Tag:              tag,
+		DockerClient:     dockerClient,
 	}, nil
 }
 
@@ -407,7 +404,7 @@ func DeployStepPushImage(
 	accessKey, _ := data.Client.GetAccessKey()
 	secretKey, _ := data.Client.GetSecretKey()
 	authConfig := dockerregistry.AuthConfig{
-		ServerAddress: data.Namespace.RegistryEndpoint,
+		ServerAddress: data.RegistryEndpoint,
 		Username:      accessKey,
 		Password:      secretKey,
 	}
@@ -467,20 +464,11 @@ func DeployStepCreateContainer(
 		data.Args.Region,
 		data.Namespace.ID,
 		data.Args.Name,
+		data.Tag,
+		data.Args.Port,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("could not get or create container: %w", err)
-	}
-
-	_, err = data.API.UpdateContainer(&container.UpdateContainerRequest{
-		Region:        data.Args.Region,
-		ContainerID:   targetContainer.ID,
-		RegistryImage: &data.Tag,
-		Port:          new(data.Args.Port),
-		Redeploy:      new(false),
-	}, scw.WithContext(t.Ctx))
-	if err != nil {
-		return nil, fmt.Errorf("could not update container: %w", err)
 	}
 
 	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
@@ -494,39 +482,6 @@ func DeployStepCreateContainer(
 	}
 
 	return &DeployStepCreateContainerResponse{
-		DeployStepData: data.DeployStepData,
-		Container:      targetContainer,
-	}, nil
-}
-
-type DeployStepDeployContainerResponse struct {
-	*DeployStepData
-	Container *container.Container
-}
-
-func DeployStepDeployContainer(
-	t *tasks.Task,
-	data *DeployStepCreateContainerResponse,
-) (*DeployStepDeployContainerResponse, error) {
-	targetContainer, err := data.API.DeployContainer(&container.DeployContainerRequest{
-		Region:      data.Args.Region,
-		ContainerID: data.Container.ID,
-	}, scw.WithContext(t.Ctx))
-	if err != nil {
-		return nil, fmt.Errorf("could not deploy container: %w", err)
-	}
-
-	targetContainer, err = data.API.WaitForContainer(&container.WaitForContainerRequest{
-		Region:        data.Args.Region,
-		ContainerID:   targetContainer.ID,
-		Timeout:       new(12*time.Minute + 30*time.Second),
-		RetryInterval: core.DefaultRetryInterval,
-	}, scw.WithContext(t.Ctx))
-	if err != nil {
-		return nil, fmt.Errorf("failed to deploy container: %w", err)
-	}
-
-	return &DeployStepDeployContainerResponse{
 		DeployStepData: data.DeployStepData,
 		Container:      targetContainer,
 	}, nil

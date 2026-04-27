@@ -1,16 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-List all containers for a specified region.
+By default, the containers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+
+Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, and `name`.
 
 USAGE:
   scw container container list [arg=value ...]
 
 ARGS:
-  [order-by]          Order of the containers (created_at_asc | created_at_desc | name_asc | name_desc)
-  [namespace-id]      UUID of the namespace the container belongs to
-  [name]              Name of the container
-  [project-id]        UUID of the Project the container belongs to
-  [organization-id]   UUID of the Organization the container belongs to
+  [order-by]           (created_at_asc | created_at_desc | name_asc | name_desc)
+  [project-id]        
+  [namespace-id]      
+  [name]              
+  [organization-id]   
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 
 FLAGS:

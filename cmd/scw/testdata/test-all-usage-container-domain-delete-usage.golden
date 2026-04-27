@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Delete the custom domain with the specific ID.
+Delete the custom domain associated with the specified ID.
 
 USAGE:
   scw container domain delete <domain-id ...> [arg=value ...]
 
 ARGS:
-  domain-id         UUID of the domain to delete
+  domain-id         UUID of the domain to delete.
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:

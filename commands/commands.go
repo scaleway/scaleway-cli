@@ -14,7 +14,7 @@ import (
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
-	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 	datalab "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datalab/v1beta1"
 	datawarehouse "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"

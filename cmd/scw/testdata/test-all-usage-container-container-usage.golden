@@ -6,12 +6,12 @@ USAGE:
   scw container container <command>
 
 AVAILABLE COMMANDS:
-  create      Create a new container
-  delete      Delete a container
-  deploy      Deploy a container
-  get         Get a container
-  list        List all your containers
-  update      Update an existing container
+  create      Create a new container in a namespace.
+  delete      Delete the container associated with the specified ID.
+  get         Get the container associated with the specified ID.
+  list        List all containers the caller can access (read permission).
+  redeploy    Redeploy a container
+  update      Update the container associated with the specified ID.
 
 FLAGS:
   -h, --help                help for container
