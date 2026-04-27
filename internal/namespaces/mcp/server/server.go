@@ -91,3 +91,8 @@ func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
 func (s *MCPServer) Run(ctx context.Context, transport mcp.Transport) error {
 	return s.server.Run(ctx, transport)
 }
+
+// Server returns the underlying MCP server for direct transport connections
+func (s *MCPServer) Server() *mcp.Server {
+	return s.server
+}
