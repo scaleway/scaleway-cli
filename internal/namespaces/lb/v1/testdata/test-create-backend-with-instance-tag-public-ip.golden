@@ -131,6 +131,7 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
   "max_retries": null,
   "max_connections": null,
   "timeout_queue": null,
+  "host": null,
   "timeout_server": 300000,
   "timeout_connect": 5000,
   "timeout_tunnel": 900000
