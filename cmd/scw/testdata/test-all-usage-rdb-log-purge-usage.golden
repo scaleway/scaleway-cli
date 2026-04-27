@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Purge a given remote log from a Database Instance. You can specify the `log_name` of the log you wish to clean from your Database Instance.
 
 USAGE:

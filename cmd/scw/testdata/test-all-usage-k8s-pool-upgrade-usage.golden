@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Upgrade the Kubernetes version of a specific pool. Note that it only works if the targeted version matches the cluster's version.
 This will drain and replace the nodes in that pool.
 

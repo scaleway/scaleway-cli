@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Retrieve information about the Alert manager which is unique per Project and region. By default the Alert manager is disabled.
 The output returned displays a URL to access the Alert manager, and whether the Alert manager and managed alerts are enabled.
 

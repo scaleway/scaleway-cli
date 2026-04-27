@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Update contacts for a specific domain or create a new contact.<br/>
 If you add the same contact for multiple roles (owner, administrative, technical), only one ID will be created and used for all of the roles.
 

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.
 
 USAGE:

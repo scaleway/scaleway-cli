@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create an Object Storage Bucket with the S3 protocol. The namespace is shared between all S3 users, so its name must be unique.
 
 USAGE:
