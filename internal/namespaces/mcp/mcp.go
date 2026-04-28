@@ -35,6 +35,7 @@ func mcpServerCommand() *core.Command {
 	type serveArgs struct {
 		Transport string `json:"transport"`
 		Address   string `json:"address"`
+		ReadOnly  bool   `json:"read-only"`
 	}
 
 	return &core.Command{
@@ -62,16 +63,23 @@ func mcpServerCommand() *core.Command {
 				Positional: false,
 				Default:    core.DefaultValueSetter(":8080"),
 			},
+			{
+				Name:       "read-only",
+				Short:      "Only register read-only commands (get, list operations)",
+				Required:   false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("false"),
+			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			return runMCPServer(ctx, args.Transport, args.Address)
+			return runMCPServer(ctx, args.Transport, args.Address, args.ReadOnly)
 		},
 	}
 }
 
-func runMCPServer(ctx context.Context, transportMode string, address string) (any, error) {
+func runMCPServer(ctx context.Context, transportMode string, address string, readOnly bool) (any, error) {
 	// Get all CLI commands from the meta context
 	commands := core.ExtractCommands(ctx)
 	cliCommands := commands.GetAll()
@@ -87,6 +95,7 @@ func runMCPServer(ctx context.Context, transportMode string, address string) (an
 	// Log startup information to stderr
 	fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
 	fmt.Fprintf(os.Stderr, "Transport mode: %s\n", transportMode)
+	fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", readOnly)
 	fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
 	fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
 
@@ -111,7 +120,7 @@ func runMCPServer(ctx context.Context, transportMode string, address string) (an
 	}
 
 	// Create MCP server with all commands
-	mcpServer := server.NewMCPServer(version, cliCommands)
+	mcpServer := server.NewMCPServer(version, cliCommands, readOnly)
 
 	// Setup graceful shutdown
 	ctx, cancel := context.WithCancel(ctx)

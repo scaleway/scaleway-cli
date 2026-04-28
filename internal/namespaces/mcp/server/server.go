@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"slices"
+	"strings"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -13,10 +14,11 @@ import (
 type MCPServer struct {
 	server   *mcp.Server
 	commands []*CommandTool
+	readOnly bool
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools
-func NewMCPServer(version string, cliCommands []*core.Command) *MCPServer {
+func NewMCPServer(version string, cliCommands []*core.Command, readOnly bool) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:    "scaleway-cli",
 		Version: version,
@@ -30,6 +32,7 @@ func NewMCPServer(version string, cliCommands []*core.Command) *MCPServer {
 	s := &MCPServer{
 		server:   mcpServer,
 		commands: make([]*CommandTool, 0, len(cliCommands)),
+		readOnly: readOnly,
 	}
 
 	// Register all commands during initialization
@@ -53,7 +56,8 @@ func NewMCPServer(version string, cliCommands []*core.Command) *MCPServer {
 // - Commands without a Run function (namespace/resource containers)
 // - All commands from the "mcp" namespace to avoid recursive server calls
 // - All commands that are shell-centric
-func shouldRegisterCommand(cmd *core.Command) bool {
+// - When readOnly is true, only commands with get/list verbs are registered
+func shouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
 	// Skip hidden commands
 	if cmd.Hidden {
 		return false
@@ -79,12 +83,37 @@ func shouldRegisterCommand(cmd *core.Command) bool {
 		return false
 	}
 
+	// In read-only mode, only allow get/list operations
+	if readOnly && !isReadOnlyCommand(cmd) {
+		return false
+	}
+
 	return true
+}
+
+// isReadOnlyCommand returns true if the command is a read-only operation
+// (get, list, or get-* verbs)
+func isReadOnlyCommand(cmd *core.Command) bool {
+	if cmd.Verb == "" {
+		return false
+	}
+
+	// Direct match for "get" or "list"
+	if cmd.Verb == "get" || cmd.Verb == "list" {
+		return true
+	}
+
+	// Match compound verbs that start with "get-" (e.g., "get-account", "get-credentials")
+	if strings.HasPrefix(cmd.Verb, "get-") {
+		return true
+	}
+
+	return false
 }
 
 // RegisterCommand registers a CLI command as an MCP tool
 func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
-	if !shouldRegisterCommand(cmd) {
+	if !shouldRegisterCommand(cmd, s.readOnly) {
 		return nil
 	}
 
