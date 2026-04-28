@@ -125,10 +125,16 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		return nil, err
 	}
 
-	if args.Type == cockpitConfigTypePrometheus && dataSource.Type != cockpit.DataSourceTypeMetrics {
+	if args.Type == cockpitConfigTypePrometheus &&
+		dataSource.Type != cockpit.DataSourceTypeMetrics {
 		return nil, &core.CliError{
-			Err:  fmt.Errorf("config type %q requires a metrics data source, got %q", args.Type, dataSource.Type),
-			Hint: "Use `scw cockpit data-source list types.0=metrics` to find a compatible data source.",
+			Err: fmt.Errorf(
+				"config type %q requires a metrics data source, got %q",
+				args.Type,
+				dataSource.Type,
+			),
+			Hint: "Use `scw cockpit data-source list types.0=metrics` " +
+				"to find a compatible data source.",
 		}
 	}
 
@@ -136,7 +142,10 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 	if args.GenerateToken {
 		scope, ok := tokenScopeForDataSourceType[dataSource.Type]
 		if !ok {
-			return nil, fmt.Errorf("unsupported data source type %q for token creation", dataSource.Type)
+			return nil, fmt.Errorf(
+				"unsupported data source type %q for token creation",
+				dataSource.Type,
+			)
 		}
 
 		token, err := api.CreateToken(&cockpit.RegionalAPICreateTokenRequest{
@@ -155,11 +164,15 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		tokenSecretKey = token.SecretKey
 	}
 
-	return renderPrometheusRemoteWriteConfig(dataSource.URL, tokenSecretKey), nil
+	return RenderPrometheusRemoteWriteConfig(dataSource.URL, tokenSecretKey), nil
 }
 
-func renderPrometheusRemoteWriteConfig(dataSourceURL string, tokenSecretKey *string) core.RawResult {
-	remoteWriteURL := buildPrometheusRemoteWriteURL(dataSourceURL)
+// RenderPrometheusRemoteWriteConfig renders a Prometheus remote_write YAML snippet for stdout.
+func RenderPrometheusRemoteWriteConfig(
+	dataSourceURL string,
+	tokenSecretKey *string,
+) core.RawResult {
+	remoteWriteURL := BuildPrometheusRemoteWriteURL(dataSourceURL)
 
 	lines := []string{
 		"# Snippet of Prometheus configuration to add to prometheus.yml",
@@ -179,7 +192,8 @@ func renderPrometheusRemoteWriteConfig(dataSourceURL string, tokenSecretKey *str
 	return core.RawResult(strings.Join(lines, "\n"))
 }
 
-func buildPrometheusRemoteWriteURL(dataSourceURL string) string {
+// BuildPrometheusRemoteWriteURL returns the remote_write push URL for a Cockpit metrics data source base URL.
+func BuildPrometheusRemoteWriteURL(dataSourceURL string) string {
 	baseURL := strings.TrimRight(dataSourceURL, "/")
 	if strings.HasSuffix(baseURL, "/api/v1/push") {
 		return baseURL
