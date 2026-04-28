@@ -53,12 +53,28 @@ func getDestructiveAnnotation(cmd *core.Command) *bool {
 		return nil
 	}
 
-	// Direct match for "delete"
-	if cmd.Verb == "delete" {
+	destructiveVerbs := []string{
+		"delete",
+		"delete-credentials",
+		"reinstall",
+		"reboot",
+		"update",
+		"deploy",
+	}
+	if slices.Contains(destructiveVerbs, cmd.Verb) {
 		return new(true)
 	}
 
-	nonDestructiveVerbs := []string{"get", "list", "create"}
+	nonDestructiveVerbs := []string{
+		"get",
+		"list",
+		"create",
+		"get-info",
+		"get-credentials",
+		"get-certificate",
+		"download",
+		"clone",
+	}
 	if slices.Contains(nonDestructiveVerbs, cmd.Verb) {
 		return new(false)
 	}

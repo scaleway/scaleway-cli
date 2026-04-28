@@ -24,10 +24,11 @@ func GetCommands() *core.Commands {
 
 func mcpRoot() *core.Command {
 	return &core.Command{
-		Groups:    []string{"utility"},
-		Namespace: "mcp",
-		Short:     "MCP (Model Context Protocol) server management",
-		Long:      "Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.",
+		Groups:         []string{"utility"},
+		Namespace:      "mcp",
+		Short:          "MCP (Model Context Protocol) server management",
+		Long:           "Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.",
+		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
 	}
 }
 
@@ -76,10 +77,16 @@ func mcpServerCommand() *core.Command {
 
 			return runMCPServer(ctx, args.Transport, args.Address, args.ReadOnly)
 		},
+		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
 	}
 }
 
-func runMCPServer(ctx context.Context, transportMode string, address string, readOnly bool) (any, error) {
+func runMCPServer(
+	ctx context.Context,
+	transportMode string,
+	address string,
+	readOnly bool,
+) (any, error) {
 	// Get all CLI commands from the meta context
 	commands := core.ExtractCommands(ctx)
 	cliCommands := commands.GetAll()

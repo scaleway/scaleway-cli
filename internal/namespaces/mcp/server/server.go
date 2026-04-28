@@ -50,16 +50,40 @@ func NewMCPServer(version string, cliCommands []*core.Command, readOnly bool) *M
 	return s
 }
 
-// shouldRegisterCommand returns true if the command should be registered as an MCP tool.
+var (
+	ExcludedNamespaces = []string{
+		// Skip config namespace to avoid security risks
+		"config",
+		// Skip shell-centric namespaces
+		"alias",
+		"autocomplete",
+		"shell",
+		"login",
+		"init",
+	}
+
+	ExcludedVerbs = []string{
+		"edit", // Shell-centric verb
+	}
+
+	ExcludedResources = []string{}
+)
+
+// ShouldRegisterCommand returns true if the command should be registered as an MCP tool.
 // It filters out:
 // - Hidden commands
+// - Commands with ExcludeFromMCP flag set
 // - Commands without a Run function (namespace/resource containers)
-// - All commands from the "mcp" namespace to avoid recursive server calls
-// - All commands that are shell-centric
+// - Commands in excluded namespaces
+// - Commands with excluded verbs
 // - When readOnly is true, only commands with get/list verbs are registered
-func shouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
+func ShouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
 	// Skip hidden commands
 	if cmd.Hidden {
+		return false
+	}
+
+	if cmd.ExcludeFromMCP {
 		return false
 	}
 
@@ -68,18 +92,15 @@ func shouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
 		return false
 	}
 
-	excludedNamespaces := []string{
-		// Skip mcp namespace to avoid recursive server calls
-		"mcp",
-		// Skip config namespace to avoid security risks
-		"config",
-		// Skip shell-centric namespaces
-		"alias",
-		"autocomplete",
-		"shell",
+	if slices.Contains(ExcludedNamespaces, cmd.Namespace) {
+		return false
 	}
 
-	if slices.Contains(excludedNamespaces, cmd.Namespace) {
+	if slices.Contains(ExcludedVerbs, cmd.Verb) {
+		return false
+	}
+
+	if slices.Contains(ExcludedResources, cmd.Resource) {
 		return false
 	}
 
@@ -89,6 +110,12 @@ func shouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
 	}
 
 	return true
+}
+
+// shouldRegisterCommand returns true if the command should be registered as an MCP tool.
+// Deprecated: use ShouldRegisterCommand instead
+func shouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
+	return ShouldRegisterCommand(cmd, readOnly)
 }
 
 // isReadOnlyCommand returns true if the command is a read-only operation
@@ -154,4 +181,9 @@ func (s *MCPServer) Run(ctx context.Context, transport mcp.Transport) error {
 // Server returns the underlying MCP server for direct transport connections
 func (s *MCPServer) Server() *mcp.Server {
 	return s.server
+}
+
+// RegisteredCommands returns the list of commands registered as MCP tools
+func (s *MCPServer) RegisteredCommands() []*CommandTool {
+	return s.commands
 }
