@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This commands overwrites the configuration file parameters with user input.
 The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure
 

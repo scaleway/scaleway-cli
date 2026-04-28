@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Update the parameters of a user on a Database Instance. You can update the `password` parameter, but you cannot change the name of the user.
 
 USAGE:

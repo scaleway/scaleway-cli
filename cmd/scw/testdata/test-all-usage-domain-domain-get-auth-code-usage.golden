@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Retrieve the authorization code to transfer an unlocked domain. The output returns an error if the domain is locked.
 Some TLDs may have a different procedure to retrieve the authorization code. In that case, the information displays in the message field.
 

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This command starts your default editor to edit a marshaled version of your resource
 Default editor will be taken from $VISUAL, then $EDITOR or an editor based on your system
 

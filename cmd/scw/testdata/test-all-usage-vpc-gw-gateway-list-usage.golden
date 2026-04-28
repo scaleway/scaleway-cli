@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List Public Gateways in a given Scaleway Organization or Project. By default, results are displayed in ascending order of creation date.
 
 USAGE:

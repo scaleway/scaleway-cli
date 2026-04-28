@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: `bssd` and `sbs`. The IOPS can be chosen for volumes of the `sbs` storage class.
 
 USAGE:

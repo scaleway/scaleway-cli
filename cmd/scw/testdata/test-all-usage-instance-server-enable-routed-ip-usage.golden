@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Enable routed IP for this server and migrate the nat public IP to routed
 Server will reboot !
 https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
