@@ -283,9 +283,9 @@ func parseURIToArgs(uri string) map[string]any {
 	}
 
 	query := parts[1]
-	paramPairs := strings.Split(query, "&")
+	paramPairs := strings.SplitSeq(query, "&")
 
-	for _, pair := range paramPairs {
+	for pair := range paramPairs {
 		kv := strings.SplitN(pair, "=", 2)
 		if len(kv) != 2 {
 			continue

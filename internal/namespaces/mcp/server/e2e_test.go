@@ -284,7 +284,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 func TestE2E_ListToolsPagination(t *testing.T) {
 	// Create many sample commands to test pagination
 	var sampleCommands []*core.Command
-	for i := 0; i < 15; i++ {
+	for i := range 15 {
 		sampleCommands = append(sampleCommands, &core.Command{
 			Namespace: "test",
 			Resource:  "resource",
@@ -449,7 +449,7 @@ func TestE2E_ToolCapabilitiesNotification(t *testing.T) {
 // 4. Lists resources from the client perspective
 // 5. Reads a resource and verifies the content
 //
-//nolint:revive // This is a test function
+
 func TestE2E_ListResourcesCompleteFlow(t *testing.T) {
 	// Setup: Create sample CLI commands that will be exposed as resources
 	// Only list commands become resources
@@ -487,7 +487,11 @@ func TestE2E_ListResourcesCompleteFlow(t *testing.T) {
 				},
 			},
 			Run: func(ctx context.Context, argsI any) (any, error) {
-				return map[string]string{"id": "srv-1", "name": "web-server", "status": "running"}, nil
+				return map[string]string{
+					"id":     "srv-1",
+					"name":   "web-server",
+					"status": "running",
+				}, nil
 			},
 		},
 		{
@@ -581,7 +585,11 @@ func TestE2E_ListResourcesCompleteFlow(t *testing.T) {
 
 	// Verify count matches
 	if len(listResult.Resources) != len(registeredResources) {
-		t.Errorf("Resource count mismatch: expected %d, got %d", len(registeredResources), len(listResult.Resources))
+		t.Errorf(
+			"Resource count mismatch: expected %d, got %d",
+			len(registeredResources),
+			len(listResult.Resources),
+		)
 	}
 
 	// Build a map of expected resources
@@ -598,6 +606,7 @@ func TestE2E_ListResourcesCompleteFlow(t *testing.T) {
 		// Check resource exists in expected list
 		if !expectedResources[resource.URI] {
 			t.Errorf("Unexpected resource: %s (URI: %s)", resource.Name, resource.URI)
+
 			continue
 		}
 

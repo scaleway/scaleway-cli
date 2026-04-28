@@ -49,6 +49,10 @@ Enable debug logging:
 SCW_DEBUG=true scw mcp server serve
 ```
 
+### Tool
+
+You can use [MCP inspector](https://modelcontextprotocol.io/docs/tools/inspector) to explore and test the available tools.
+
 ## Example: Using with an MCP Client
 
 Configure your MCP client to connect to the Scaleway CLI server:
