@@ -12,13 +12,21 @@ import (
 
 // MCPServer wraps the MCP server with CLI command integration
 type MCPServer struct {
-	server   *mcp.Server
-	commands []*CommandTool
-	readOnly bool
+	server            *mcp.Server
+	commands          []*CommandTool
+	readOnly          bool
+	enabledNamespaces []string
+	enabledResources  []string
+	enabledVerbs      []string
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools
-func NewMCPServer(version string, cliCommands []*core.Command, readOnly bool) *MCPServer {
+func NewMCPServer(
+	version string,
+	cliCommands []*core.Command,
+	readOnly bool,
+	enabledNamespaces, enabledResources, enabledVerbs []string,
+) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:    "scaleway-cli",
 		Version: version,
@@ -30,9 +38,12 @@ func NewMCPServer(version string, cliCommands []*core.Command, readOnly bool) *M
 	})
 
 	s := &MCPServer{
-		server:   mcpServer,
-		commands: make([]*CommandTool, 0, len(cliCommands)),
-		readOnly: readOnly,
+		server:            mcpServer,
+		commands:          make([]*CommandTool, 0, len(cliCommands)),
+		readOnly:          readOnly,
+		enabledNamespaces: enabledNamespaces,
+		enabledResources:  enabledResources,
+		enabledVerbs:      enabledVerbs,
 	}
 
 	// Register all commands during initialization
@@ -77,7 +88,12 @@ var (
 // - Commands in excluded namespaces
 // - Commands with excluded verbs
 // - When readOnly is true, only commands with get/list verbs are registered
-func ShouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
+// - When enabledNamespaces/ Resources/ Verbs are set, only matching commands are registered
+func ShouldRegisterCommand(
+	cmd *core.Command,
+	readOnly bool,
+	enabledNamespaces, enabledResources, enabledVerbs []string,
+) bool {
 	// Skip hidden commands
 	if cmd.Hidden {
 		return false
@@ -104,18 +120,27 @@ func ShouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
 		return false
 	}
 
+	// If enabled namespaces are specified, only allow those namespaces
+	if len(enabledNamespaces) > 0 && !slices.Contains(enabledNamespaces, cmd.Namespace) {
+		return false
+	}
+
+	// If enabled resources are specified, only allow those resources
+	if len(enabledResources) > 0 && !slices.Contains(enabledResources, cmd.Resource) {
+		return false
+	}
+
+	// If enabled verbs are specified, only allow those verbs
+	if len(enabledVerbs) > 0 && !slices.Contains(enabledVerbs, cmd.Verb) {
+		return false
+	}
+
 	// In read-only mode, only allow get/list operations
 	if readOnly && !isReadOnlyCommand(cmd) {
 		return false
 	}
 
 	return true
-}
-
-// shouldRegisterCommand returns true if the command should be registered as an MCP tool.
-// Deprecated: use ShouldRegisterCommand instead
-func shouldRegisterCommand(cmd *core.Command, readOnly bool) bool {
-	return ShouldRegisterCommand(cmd, readOnly)
 }
 
 // isReadOnlyCommand returns true if the command is a read-only operation
@@ -140,7 +165,13 @@ func isReadOnlyCommand(cmd *core.Command) bool {
 
 // RegisterCommand registers a CLI command as an MCP tool
 func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
-	if !shouldRegisterCommand(cmd, s.readOnly) {
+	if !ShouldRegisterCommand(
+		cmd,
+		s.readOnly,
+		s.enabledNamespaces,
+		s.enabledResources,
+		s.enabledVerbs,
+	) {
 		return nil
 	}
 

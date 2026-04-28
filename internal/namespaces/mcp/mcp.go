@@ -34,9 +34,12 @@ func mcpRoot() *core.Command {
 
 func mcpServerCommand() *core.Command {
 	type serveArgs struct {
-		Transport string `json:"transport"`
-		Address   string `json:"address"`
-		ReadOnly  bool   `json:"read-only"`
+		Transport         string   `json:"transport"`
+		Address           string   `json:"address"`
+		ReadOnly          bool     `json:"read-only"`
+		EnableNamespaces  []string `json:"enable-namespaces"`
+		EnableResources   []string `json:"enable-resources"`
+		EnableVerbs       []string `json:"enable-verbs"`
 	}
 
 	return &core.Command{
@@ -49,6 +52,36 @@ func mcpServerCommand() *core.Command {
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(serveArgs{}),
+		Examples: []*core.Example{
+			{
+				Short: "Start the MCP server with stdio transport (default)",
+				Raw:   `scw mcp server serve`,
+			},
+			{
+				Short: "Start the MCP server in read-only mode (only get/list operations)",
+				Raw:   `scw mcp server serve --read-only`,
+			},
+			{
+				Short: "Only serve commands from specific namespaces",
+				Raw:   `scw mcp server serve --enable-namespaces instance,iam,object`,
+			},
+			{
+				Short: "Only serve commands from specific resources",
+				Raw:   `scw mcp server serve --enable-resources server,volume,bucket`,
+			},
+			{
+				Short: "Only serve commands with specific verbs",
+				Raw:   `scw mcp server serve --enable-verbs get,list,create`,
+			},
+			{
+				Short: "Combine filters to serve only instance server get/list commands",
+				Raw:   `scw mcp server serve --enable-namespaces instance --enable-resources server --enable-verbs get,list`,
+			},
+			{
+				Short: "Start the MCP server with SSE transport on port 8080",
+				Raw:   `scw mcp server serve --transport sse --address :8080`,
+			},
+		},
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "transport",
@@ -71,11 +104,29 @@ func mcpServerCommand() *core.Command {
 				Positional: false,
 				Default:    core.DefaultValueSetter("false"),
 			},
+			{
+				Name:       "enable-namespaces",
+				Short:      "Only serve commands from specified namespaces (comma-separated)",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-resources",
+				Short:      "Only serve commands from specified resources (comma-separated)",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-verbs",
+				Short:      "Only serve commands with specified verbs (comma-separated)",
+				Required:   false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			return runMCPServer(ctx, args.Transport, args.Address, args.ReadOnly)
+			return runMCPServer(ctx, args.Transport, args.Address, args.ReadOnly, args.EnableNamespaces, args.EnableResources, args.EnableVerbs)
 		},
 		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
 	}
@@ -86,6 +137,9 @@ func runMCPServer(
 	transportMode string,
 	address string,
 	readOnly bool,
+	enabledNamespaces []string,
+	enabledResources []string,
+	enabledVerbs []string,
 ) (any, error) {
 	// Get all CLI commands from the meta context
 	commands := core.ExtractCommands(ctx)
@@ -103,6 +157,15 @@ func runMCPServer(
 	fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
 	fmt.Fprintf(os.Stderr, "Transport mode: %s\n", transportMode)
 	fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", readOnly)
+	if len(enabledNamespaces) > 0 {
+		fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", enabledNamespaces)
+	}
+	if len(enabledResources) > 0 {
+		fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", enabledResources)
+	}
+	if len(enabledVerbs) > 0 {
+		fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", enabledVerbs)
+	}
 	fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
 	fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
 
@@ -127,7 +190,7 @@ func runMCPServer(
 	}
 
 	// Create MCP server with all commands
-	mcpServer := server.NewMCPServer(version, cliCommands, readOnly)
+	mcpServer := server.NewMCPServer(version, cliCommands, readOnly, enabledNamespaces, enabledResources, enabledVerbs)
 
 	// Setup graceful shutdown
 	ctx, cancel := context.WithCancel(ctx)

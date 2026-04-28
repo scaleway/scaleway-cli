@@ -1,83 +1,499 @@
 package server
 
 import (
-	"slices"
+	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 // getReadOnlyAnnotation returns the value for the read-only annotation.
-// Returns true for commands with "get" or "list" as their verb, nil otherwise.
+// Returns true for read-only verbs (get, list, get-*), false for all others.
 func getReadOnlyAnnotation(cmd *core.Command) *bool {
 	if cmd.Verb == "" {
-		return nil
-	}
-
-	readOnlyVerbs := []string{"get", "list"}
-	if slices.Contains(readOnlyVerbs, cmd.Verb) {
-		return new(true)
-	}
-
-	noReadOnlyVerbs := []string{"create", "update"}
-	if slices.Contains(noReadOnlyVerbs, cmd.Verb) {
+		// For commands without a verb (namespace/resource containers), default to false
 		return new(false)
 	}
 
-	return nil
-}
-
-// getIdempotentAnnotation returns the value for the idempotent annotation.
-// Returns true for commands with "create" verb, nil otherwise.
-func getIdempotentAnnotation(cmd *core.Command) *bool {
-	if cmd.Verb == "" {
-		return nil
-	}
-
-	idempotentVerbs := []string{"get", "list"}
-	if slices.Contains(idempotentVerbs, cmd.Verb) {
-		return new(true)
-	}
-
-	noIdempotentVerbs := []string{"delete", "create"}
-	if slices.Contains(noIdempotentVerbs, cmd.Verb) {
-		return new(false)
-	}
-
-	return nil
-}
-
-// getDestructiveAnnotation returns the value for the destructive annotation.
-// Returns true for commands with "delete" verb, nil otherwise.
-func getDestructiveAnnotation(cmd *core.Command) *bool {
-	if cmd.Verb == "" {
-		return nil
-	}
-
-	destructiveVerbs := []string{
-		"delete",
-		"delete-credentials",
-		"reinstall",
-		"reboot",
-		"update",
-		"deploy",
-	}
-	if slices.Contains(destructiveVerbs, cmd.Verb) {
-		return new(true)
-	}
-
-	nonDestructiveVerbs := []string{
+	// Read-only verbs
+	readOnlyVerbs := []string{
 		"get",
 		"list",
-		"create",
 		"get-info",
 		"get-credentials",
 		"get-certificate",
+		"get-url",
+		"get-stats",
+		"get-compatible-types",
+		"get-servers",
+		"get-rule",
+		"get-rdp-password",
+		"get-dns-records",
+		"get-auth-code",
+		"get-ca",
+		"get-account",
+		"get-download-url",
+		"get-upload-url",
+		"get-last-status",
+		"get-compatible-types",
+		"get-metrics",
+		"list-details",
+		"list-head",
+		"list-available-versions",
+		"list-available-types",
+		"list-keys",
+		"list-rules",
+		"list-default-rules",
+		"list-events",
+		"list-inbound-transfers",
+		"list-renewable",
+		"list-statistics",
+		"list-taxes",
+		"list-accounts",
+		"list-credentials",
+		"settings",
+		"show",
+		"search",
+		"diff",
+		"connect",
+		"check-ownership",
+		"check-compatibility",
+		"check-availability",
+		"export",
 		"download",
 		"clone",
+		"metrics",
+		"version",
+		"output",
+		"date",
+		"bug",
+		"feature",
+		"info",
+		"help",
 	}
-	if slices.Contains(nonDestructiveVerbs, cmd.Verb) {
+
+	for _, v := range readOnlyVerbs {
+		if cmd.Verb == v {
+			return new(true)
+		}
+	}
+
+	// Handle get-* prefix verbs
+	if strings.HasPrefix(cmd.Verb, "get-") {
+		return new(true)
+	}
+
+	// All other verbs are not read-only
+	return new(false)
+}
+
+// getIdempotentAnnotation returns the value for the idempotent annotation.
+// Returns true for idempotent verbs (get, list, and other read operations), false for all others.
+func getIdempotentAnnotation(cmd *core.Command) *bool {
+	if cmd.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
 		return new(false)
 	}
 
-	return nil
+	// Idempotent verbs (read operations that can be safely repeated)
+	idempotentVerbs := []string{
+		"get",
+		"list",
+		"get-info",
+		"get-credentials",
+		"get-certificate",
+		"get-url",
+		"get-stats",
+		"get-compatible-types",
+		"get-servers",
+		"get-rule",
+		"get-rdp-password",
+		"get-dns-records",
+		"get-auth-code",
+		"get-ca",
+		"get-account",
+		"get-download-url",
+		"get-upload-url",
+		"get-last-status",
+		"get-metrics",
+		"list-details",
+		"list-head",
+		"list-available-versions",
+		"list-available-types",
+		"list-keys",
+		"list-rules",
+		"list-default-rules",
+		"list-events",
+		"list-inbound-transfers",
+		"list-renewable",
+		"list-statistics",
+		"list-taxes",
+		"list-accounts",
+		"list-credentials",
+		"settings",
+		"show",
+		"search",
+		"diff",
+		"check-ownership",
+		"check-compatibility",
+		"check-availability",
+		"clone",
+		"metrics",
+		"version",
+		"output",
+		"date",
+		"bug",
+		"feature",
+		"info",
+		"help",
+		"export",
+		"download",
+	}
+
+	for _, v := range idempotentVerbs {
+		if cmd.Verb == v {
+			return new(true)
+		}
+	}
+
+	// Handle get-* prefix verbs
+	if strings.HasPrefix(cmd.Verb, "get-") {
+		return new(true)
+	}
+
+	// All other verbs are not idempotent
+	return new(false)
+}
+
+// getDestructiveAnnotation returns the value for the destructive annotation.
+// Returns true for destructive verbs (delete, stop, disable, etc.), false for all others.
+func getDestructiveAnnotation(cmd *core.Command) *bool {
+	if cmd.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return new(false)
+	}
+
+	// Destructive verbs (modify or delete state)
+	destructiveVerbs := []string{
+		"delete",
+		"delete-credentials",
+		"delete-rule",
+		"delete-key-material",
+		"delete-rule",
+		"detach",
+		"detach-volume",
+		"detach-filesystem",
+		"detach-ip",
+		"detach-policy",
+		"detach-routing-policy",
+		"destroy",
+		"disable",
+		"disable-dnssec",
+		"disable-auto-renew",
+		"disable-propagation",
+		"disable-route-propagation",
+		"purge",
+		"remove",
+		"remove-member",
+		"remove-key",
+		"remove-servers",
+		"remove-taint",
+		"remove-label",
+		"remove-startup-taint",
+		"reboot",
+		"reboot",
+		"reinstall",
+		"revoke",
+		"reset",
+		"reset-password",
+		"reset-admin-token",
+		"stop",
+		"standby",
+		"terminate",
+		"terminate",
+		"uninstall",
+		"unlock",
+		"unprotect",
+		"unsubscribe",
+		"update",
+		"update-username",
+		"update-password",
+		"update-ip",
+		"update-nameservers",
+		"update-servers",
+		"update-rule",
+		"update-healthcheck",
+		"upgrade",
+		"uninstall",
+		"migrate",
+		"move",
+		"apply-migration",
+		"plan-migration",
+		"restore",
+		"restart",
+		"renew-certificate",
+		"renew-psk",
+		"rotate",
+		"replace",
+		"set",
+		"set-members",
+		"set-servers",
+		"set-rules",
+		"set-taint",
+		"set-label",
+		"set-startup-taint",
+		"set-routing-policy",
+		"set-role",
+		"set-type",
+		"clear",
+		"cancel",
+		"deactivate",
+		"decrypt",
+		"edit",
+		"bulk-update",
+		"add",
+		"add-member",
+		"add-members",
+		"add-servers",
+		"add-key",
+		"add-owner",
+		"add-flexible-ip",
+		"add-external-node",
+		"attach",
+		"attach-volume",
+		"attach-filesystem",
+		"attach-ip",
+		"attach-policy",
+		"enable",
+		"enable-dnssec",
+		"enable-auto-renew",
+		"enable-propagation",
+		"enable-route-propagation",
+		"enable-routed-ip",
+		"enable-scim",
+		"enable-saml",
+		"encrypt",
+		"export",
+		"import",
+		"import-key-material",
+		"install",
+		"install-config",
+		"start",
+		"standby",
+		"stop",
+		"standby",
+		"terminate",
+		"trade",
+		"transfer",
+		"trigger",
+		"uninstall",
+		"wait",
+		"refresh",
+		"refresh-ssh-keys",
+		"register",
+		"renew",
+		"buy",
+		"create",
+		"create-account",
+		"create-credentials",
+		"create-rule",
+		"create-session",
+		"create-endpoint",
+		"create-context",
+		"deploy",
+		"duplicate",
+		"action",
+		"backup",
+		"console",
+		"connect",
+		"check",
+		"sync",
+		"sync-data-sources",
+		"ssh",
+		"start",
+		"stop",
+		"reboot",
+		"reinstall",
+		"migrate",
+		"upgrade",
+		"replace",
+		"restart",
+		"reset",
+		"rotate",
+		"purge",
+		"clear",
+		"unlock",
+		"lock",
+		"lock-transfer",
+		"unlock-transfer",
+		"protect",
+		"unprotect",
+		"subscribe",
+		"unsubscribe",
+		"activate",
+		"deactivate",
+		"enable",
+		"disable",
+		"set",
+		"set-members",
+		"set-servers",
+		"set-rules",
+		"set-taint",
+		"set-label",
+		"set-startup-taint",
+		"set-routing-policy",
+		"set-role",
+		"set-type",
+		"add",
+		"add-member",
+		"add-members",
+		"add-servers",
+		"add-key",
+		"add-owner",
+		"add-flexible-ip",
+		"add-external-node",
+		"remove",
+		"remove-member",
+		"remove-key",
+		"remove-servers",
+		"remove-taint",
+		"remove-label",
+		"remove-startup-taint",
+		"detach",
+		"detach-volume",
+		"detach-filesystem",
+		"detach-ip",
+		"detach-policy",
+		"detach-routing-policy",
+		"attach",
+		"attach-volume",
+		"attach-filesystem",
+		"attach-ip",
+		"attach-policy",
+		"update",
+		"update-username",
+		"update-password",
+		"update-ip",
+		"update-nameservers",
+		"update-servers",
+		"update-rule",
+		"update-healthcheck",
+		"edit",
+		"bulk-update",
+		"clone",
+		"move",
+		"apply-migration",
+		"plan-migration",
+		"restore",
+		"import-from-object-storage",
+		"export-to-object-storage",
+		"renew-certificate",
+		"renew-psk",
+		"reset-password",
+		"reset-admin-token",
+		"get-certificate",
+		"get-stats",
+		"get-metrics",
+		"get-rdp-password",
+		"get-compatible-types",
+		"get-servers",
+		"get-rule",
+		"get-dns-records",
+		"get-auth-code",
+		"get-ca",
+		"get-account",
+		"get-download-url",
+		"get-upload-url",
+		"get-last-status",
+		"list-details",
+		"list-head",
+		"list-available-versions",
+		"list-available-types",
+		"list-keys",
+		"list-rules",
+		"list-default-rules",
+		"list-events",
+		"list-inbound-transfers",
+		"list-renewable",
+		"list-statistics",
+		"list-taxes",
+		"list-accounts",
+		"list-credentials",
+		"get-compatible-types",
+		"get-metrics",
+	}
+
+	for _, v := range destructiveVerbs {
+		if cmd.Verb == v {
+			return new(true)
+		}
+	}
+
+	// Non-destructive verbs (read-only operations)
+	nonDestructiveVerbs := []string{
+		"get",
+		"list",
+		"get-info",
+		"get-credentials",
+		"get-certificate",
+		"get-url",
+		"get-stats",
+		"get-compatible-types",
+		"get-servers",
+		"get-rule",
+		"get-rdp-password",
+		"get-dns-records",
+		"get-auth-code",
+		"get-ca",
+		"get-account",
+		"get-download-url",
+		"get-upload-url",
+		"get-last-status",
+		"get-metrics",
+		"list-details",
+		"list-head",
+		"list-available-versions",
+		"list-available-types",
+		"list-keys",
+		"list-rules",
+		"list-default-rules",
+		"list-events",
+		"list-inbound-transfers",
+		"list-renewable",
+		"list-statistics",
+		"list-taxes",
+		"list-accounts",
+		"list-credentials",
+		"settings",
+		"show",
+		"search",
+		"diff",
+		"check-ownership",
+		"check-compatibility",
+		"check-availability",
+		"clone",
+		"metrics",
+		"version",
+		"output",
+		"date",
+		"bug",
+		"feature",
+		"info",
+		"help",
+		"export",
+		"download",
+	}
+
+	for _, v := range nonDestructiveVerbs {
+		if cmd.Verb == v {
+			return new(false)
+		}
+	}
+
+	// Handle get-* prefix verbs (read-only)
+	if strings.HasPrefix(cmd.Verb, "get-") {
+		return new(false)
+	}
+
+	// Default: assume destructive for unknown verbs that modify state
+	return new(true)
 }

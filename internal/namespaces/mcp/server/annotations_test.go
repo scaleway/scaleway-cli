@@ -6,6 +6,7 @@ import (
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/commands"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 )
 
@@ -20,7 +21,7 @@ func TestInventoryNilAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, false)
+	mcpServer := server.NewMCPServer("test-version", allCommands, false, nil, nil, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	type nilAnnotation struct {
@@ -122,7 +123,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, false)
+	mcpServer := server.NewMCPServer("test-version", allCommands, false, nil, nil, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	var failedCommands []string
@@ -163,5 +164,130 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 			}
 			t.Logf("  - %s", failure)
 		}
+	}
+}
+
+// TestAllToolsHaveCommandMetadata verifies that all MCP tools have
+// namespace, resource, and verb metadata set in their Meta field.
+//
+//nolint:revive // This is a test function
+func TestAllToolsHaveCommandMetadata(t *testing.T) {
+	// Get all commands and create a real MCP server instance
+	allCommands := commands.GetCommands().GetAll()
+
+	mcpServer := server.NewMCPServer("test-version", allCommands, false, nil, nil, nil)
+	registeredCommands := mcpServer.RegisteredCommands()
+
+	var failedCommands []string
+
+	for _, tool := range registeredCommands {
+		mcpTool := tool.ToMCPTool()
+
+		// Check Meta field exists
+		if mcpTool.Meta == nil {
+			failedCommands = append(failedCommands, fmt.Sprintf(
+				"%s/%s/%s: Meta field is nil",
+				tool.Command.Namespace, tool.Command.Resource, tool.Command.Verb))
+			continue
+		}
+
+		// Check namespace is set
+		if ns, ok := mcpTool.Meta["namespace"].(string); !ok || ns == "" {
+			failedCommands = append(failedCommands, fmt.Sprintf(
+				"%s/%s/%s: namespace metadata not set or empty",
+				tool.Command.Namespace, tool.Command.Resource, tool.Command.Verb))
+		}
+
+		// Check resource is set (can be empty for namespace-level commands)
+		if _, ok := mcpTool.Meta["resource"].(string); !ok {
+			failedCommands = append(failedCommands, fmt.Sprintf(
+				"%s/%s/%s: resource metadata not set",
+				tool.Command.Namespace, tool.Command.Resource, tool.Command.Verb))
+		}
+
+		// Check verb is set (can be empty for namespace/resource-level commands)
+		if _, ok := mcpTool.Meta["verb"].(string); !ok {
+			failedCommands = append(failedCommands, fmt.Sprintf(
+				"%s/%s/%s: verb metadata not set",
+				tool.Command.Namespace, tool.Command.Resource, tool.Command.Verb))
+		}
+	}
+
+	if len(failedCommands) > 0 {
+		t.Errorf("%d commands have missing metadata:", len(failedCommands))
+
+		for i, failure := range failedCommands {
+			if i >= 20 {
+				t.Logf("... and %d more", len(failedCommands)-20)
+				break
+			}
+			t.Logf("  - %s", failure)
+		}
+	}
+}
+
+// TestToolMetadataValues verifies that metadata values match the command's
+// actual namespace, resource, and verb fields.
+func TestToolMetadataValues(t *testing.T) {
+	testCases := []struct {
+		name      string
+		command   *core.Command
+		wantNS    string
+		wantRes   string
+		wantVerb  string
+	}{
+		{
+			name: "full command",
+			command: &core.Command{
+				Namespace: "instance",
+				Resource:  "server",
+				Verb:      "list",
+			},
+			wantNS:   "instance",
+			wantRes:  "server",
+			wantVerb: "list",
+		},
+		{
+			name: "namespace only",
+			command: &core.Command{
+				Namespace: "config",
+			},
+			wantNS:   "config",
+			wantRes:  "",
+			wantVerb: "",
+		},
+		{
+			name: "namespace and resource",
+			command: &core.Command{
+				Namespace: "instance",
+				Resource:  "volume",
+			},
+			wantNS:   "instance",
+			wantRes:  "volume",
+			wantVerb: "",
+		},
+	}
+
+	for _, tc := range testCases {
+		t.Run(tc.name, func(t *testing.T) {
+			tool := server.NewCommandTool(tc.command)
+			mcpTool := tool.ToMCPTool()
+
+			if mcpTool.Meta == nil {
+				t.Fatal("Meta field is nil")
+			}
+
+			if got, ok := mcpTool.Meta["namespace"].(string); !ok || got != tc.wantNS {
+				t.Errorf("namespace: got %q, want %q", got, tc.wantNS)
+			}
+
+			if got, ok := mcpTool.Meta["resource"].(string); !ok || got != tc.wantRes {
+				t.Errorf("resource: got %q, want %q", got, tc.wantRes)
+			}
+
+			if got, ok := mcpTool.Meta["verb"].(string); !ok || got != tc.wantVerb {
+				t.Errorf("verb: got %q, want %q", got, tc.wantVerb)
+			}
+		})
 	}
 }
