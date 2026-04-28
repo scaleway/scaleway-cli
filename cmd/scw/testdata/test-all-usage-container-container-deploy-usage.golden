@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Deploy a container associated with the specified ID.
 
 Since updating a container now always deploys it (and passes its status to `pending`), this call becomes superfluous.

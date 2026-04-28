@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 To create a snapshot, the volume must be in the `in_use` or the `available` status.
 If your volume is in a transient state, you need to wait until the end of the current operation.
 

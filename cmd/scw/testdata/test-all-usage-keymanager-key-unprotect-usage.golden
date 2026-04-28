@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Remove key protection from a given key specified by the `key_id` parameter. Removing key protection means that your key can be deleted anytime.
 
 USAGE:

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Retrieve information on your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to.
 The output returned displays the URL to access your Cockpit's Grafana.
 

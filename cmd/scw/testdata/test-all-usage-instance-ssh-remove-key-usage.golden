@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Key will be remove from server's tags and removed from root user on next restart.
 Keys are identified by their comment as in openssh format.
 Lookup /root/.ssh/authorized_keys on your server for more information

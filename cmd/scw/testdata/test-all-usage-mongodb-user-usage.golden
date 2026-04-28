@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.
 
 USAGE:
