@@ -92,6 +92,9 @@ type Command struct {
 	Groups []string
 	//
 	Deprecated bool
+
+	// ExcludeFromMCP will exclude the command from the MCP server (scw mcp server)
+	ExcludeFromMCP bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
