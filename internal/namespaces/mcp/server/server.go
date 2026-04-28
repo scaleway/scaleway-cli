@@ -60,7 +60,7 @@ func shouldRegisterCommand(cmd *core.Command) bool {
 	}
 
 	// Skip commands without a Run function (namespace/resource containers)
-	if cmd.Run == nil && cmd.Verb == "" {
+	if cmd.Run == nil {
 		return false
 	}
 
