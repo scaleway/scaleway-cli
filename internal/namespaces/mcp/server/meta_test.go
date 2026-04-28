@@ -34,7 +34,7 @@ func TestToolMetaSerialization(t *testing.T) {
 	t.Logf("JSON representation:\n%s", string(jsonBytes))
 
 	// Verify _meta field exists in JSON
-	var rawJSON map[string]interface{}
+	var rawJSON map[string]any
 	if err := json.Unmarshal(jsonBytes, &rawJSON); err != nil {
 		t.Fatalf("Failed to unmarshal JSON: %v", err)
 	}
@@ -46,7 +46,7 @@ func TestToolMetaSerialization(t *testing.T) {
 		t.Logf("_meta content: %v", meta)
 
 		// Check for expected keys
-		metaMap, ok := meta.(map[string]interface{})
+		metaMap, ok := meta.(map[string]any)
 		if !ok {
 			t.Error("_meta is not a map")
 		} else {

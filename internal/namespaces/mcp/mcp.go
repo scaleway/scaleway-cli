@@ -34,12 +34,12 @@ func mcpRoot() *core.Command {
 
 func mcpServerCommand() *core.Command {
 	type serveArgs struct {
-		Transport         string   `json:"transport"`
-		Address           string   `json:"address"`
-		ReadOnly          bool     `json:"read-only"`
-		EnableNamespaces  []string `json:"enable-namespaces"`
-		EnableResources   []string `json:"enable-resources"`
-		EnableVerbs       []string `json:"enable-verbs"`
+		Transport        string   `json:"transport"`
+		Address          string   `json:"address"`
+		ReadOnly         bool     `json:"read-only"`
+		EnableNamespaces []string `json:"enable-namespaces"`
+		EnableResources  []string `json:"enable-resources"`
+		EnableVerbs      []string `json:"enable-verbs"`
 	}
 
 	return &core.Command{
@@ -126,7 +126,15 @@ func mcpServerCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			return runMCPServer(ctx, args.Transport, args.Address, args.ReadOnly, args.EnableNamespaces, args.EnableResources, args.EnableVerbs)
+			return runMCPServer(
+				ctx,
+				args.Transport,
+				args.Address,
+				args.ReadOnly,
+				args.EnableNamespaces,
+				args.EnableResources,
+				args.EnableVerbs,
+			)
 		},
 		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
 	}
@@ -190,7 +198,14 @@ func runMCPServer(
 	}
 
 	// Create MCP server with all commands
-	mcpServer := server.NewMCPServer(version, cliCommands, readOnly, enabledNamespaces, enabledResources, enabledVerbs)
+	mcpServer := server.NewMCPServer(
+		version,
+		cliCommands,
+		readOnly,
+		enabledNamespaces,
+		enabledResources,
+		enabledVerbs,
+	)
 
 	// Setup graceful shutdown
 	ctx, cancel := context.WithCancel(ctx)

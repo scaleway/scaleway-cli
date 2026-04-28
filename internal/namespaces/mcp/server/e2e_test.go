@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -23,7 +24,7 @@ import (
 // 4. Lists tools from the client perspective
 // 5. Verifies the tools are received correctly with metadata and annotations
 //
-//nolint:revive // This is a test function
+
 func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 	// Setup: Create sample CLI commands to expose as MCP tools
 	sampleCommands := []*core.Command{
@@ -34,7 +35,9 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 			Short:     "List servers",
 			Long:      "List all servers in the specified project",
 			Run: func(ctx context.Context, argsI any) (any, error) {
-				return map[string]any{"servers": []map[string]string{{"id": "srv-1", "name": "web-server"}}}, nil
+				return map[string]any{
+					"servers": []map[string]string{{"id": "srv-1", "name": "web-server"}},
+				}, nil
 			},
 		},
 		{
@@ -55,7 +58,11 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 				},
 			},
 			Run: func(ctx context.Context, argsI any) (any, error) {
-				return map[string]string{"id": "srv-1", "name": "web-server", "status": "running"}, nil
+				return map[string]string{
+					"id":     "srv-1",
+					"name":   "web-server",
+					"status": "running",
+				}, nil
 			},
 		},
 		{
@@ -100,8 +107,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 	t.Logf("Established InMemoryTransport connection between client and server")
 
 	// Connect server to transport
-	serverCtx, serverCancel := context.WithCancel(context.Background())
-	defer serverCancel()
+	serverCtx := t.Context()
 
 	go func() {
 		_, err := mcpServer.Server().Connect(serverCtx, serverTransport, nil)
@@ -111,8 +117,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 	}()
 
 	// Connect client to transport and initialize session
-	clientCtx, clientCancel := context.WithCancel(context.Background())
-	defer clientCancel()
+	clientCtx := t.Context()
 
 	session, err := client.Connect(clientCtx, clientTransport, nil)
 	if err != nil {
@@ -144,7 +149,11 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 
 	// Verify count matches
 	if len(listResult.Tools) != len(registeredCommands) {
-		t.Errorf("Tool count mismatch: expected %d, got %d", len(registeredCommands), len(listResult.Tools))
+		t.Errorf(
+			"Tool count mismatch: expected %d, got %d",
+			len(registeredCommands),
+			len(listResult.Tools),
+		)
 	}
 
 	// Build a map of expected tools
@@ -161,6 +170,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 		// Check tool exists in expected list
 		if !expectedTools[tool.Name] {
 			t.Errorf("Unexpected tool: %s", tool.Name)
+
 			continue
 		}
 
@@ -175,7 +185,12 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 		if tool.InputSchema == nil {
 			t.Errorf("Tool %s has no input schema", tool.Name)
 		} else {
-			schemaJSON, _ := json.MarshalIndent(tool.InputSchema, "", "  ")
+			schemaJSON, err := json.MarshalIndent(tool.InputSchema, "", "  ")
+			if err != nil {
+				t.Errorf("Failed to marshal input schema for tool %s: %v", tool.Name, err)
+
+				continue
+			}
 			t.Logf("  InputSchema: %s", truncateString(string(schemaJSON), 80))
 		}
 
@@ -244,6 +259,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 		for _, tool := range listResult.Tools {
 			if tool.Name == toolName {
 				found = true
+
 				break
 			}
 		}
@@ -264,7 +280,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 // TestE2E_ListToolsPagination demonstrates the pagination flow for listing tools
 // when there are many tools available.
 //
-//nolint:revive // This is a test function
+
 func TestE2E_ListToolsPagination(t *testing.T) {
 	// Create many sample commands to test pagination
 	var sampleCommands []*core.Command
@@ -286,15 +302,13 @@ func TestE2E_ListToolsPagination(t *testing.T) {
 	client := mcp.NewClient(&mcp.Implementation{Name: "test-client", Version: "1.0.0"}, nil)
 	clientTransport, serverTransport := mcp.NewInMemoryTransports()
 
-	serverCtx, serverCancel := context.WithCancel(context.Background())
-	defer serverCancel()
+	serverCtx := t.Context()
 
 	go func() {
 		_, _ = mcpServer.Server().Connect(serverCtx, serverTransport, nil)
 	}()
 
-	clientCtx, clientCancel := context.WithCancel(context.Background())
-	defer clientCancel()
+	clientCtx := t.Context()
 
 	session, err := client.Connect(clientCtx, clientTransport, nil)
 	if err != nil {
@@ -355,7 +369,7 @@ func TestE2E_ListToolsPagination(t *testing.T) {
 // TestE2E_ToolCapabilitiesNotification tests that the server sends proper
 // tool list changed notifications when capabilities are configured.
 //
-//nolint:revive // This is a test function
+
 func TestE2E_ToolCapabilitiesNotification(t *testing.T) {
 	sampleCommands := []*core.Command{
 		{
@@ -372,25 +386,26 @@ func TestE2E_ToolCapabilitiesNotification(t *testing.T) {
 	// Create server with tool listChanged capability enabled
 	mcpServer := server.NewMCPServer("test-version", sampleCommands, false, nil, nil, nil)
 
-	client := mcp.NewClient(&mcp.Implementation{Name: "test-client", Version: "1.0.0"}, &mcp.ClientOptions{
-		Capabilities: &mcp.ClientCapabilities{
-			Roots: struct {
-				ListChanged bool `json:"listChanged,omitempty"`
-			}{ListChanged: false},
+	client := mcp.NewClient(
+		&mcp.Implementation{Name: "test-client", Version: "1.0.0"},
+		&mcp.ClientOptions{
+			Capabilities: &mcp.ClientCapabilities{
+				Roots: struct {
+					ListChanged bool `json:"listChanged,omitempty"`
+				}{ListChanged: false},
+			},
 		},
-	})
+	)
 
 	clientTransport, serverTransport := mcp.NewInMemoryTransports()
 
-	serverCtx, serverCancel := context.WithCancel(context.Background())
-	defer serverCancel()
+	serverCtx := t.Context()
 
 	go func() {
 		_, _ = mcpServer.Server().Connect(serverCtx, serverTransport, nil)
 	}()
 
-	clientCtx, clientCancel := context.WithCancel(context.Background())
-	defer clientCancel()
+	clientCtx := t.Context()
 
 	session, err := client.Connect(clientCtx, clientTransport, nil)
 	if err != nil {
@@ -424,10 +439,238 @@ func TestE2E_ToolCapabilitiesNotification(t *testing.T) {
 	t.Logf("Listed %d tools successfully", len(result.Tools))
 }
 
+// TestE2E_ListResourcesCompleteFlow is an end-to-end test that demonstrates the complete flow
+// of a client request for listing and reading resources in a standard MCP protocol.
+//
+// This test:
+// 1. Creates an MCP server with sample list commands that become resources
+// 2. Creates an MCP client
+// 3. Connects them using InMemoryTransport
+// 4. Lists resources from the client perspective
+// 5. Reads a resource and verifies the content
+//
+//nolint:revive // This is a test function
+func TestE2E_ListResourcesCompleteFlow(t *testing.T) {
+	// Setup: Create sample CLI commands that will be exposed as resources
+	// Only list commands become resources
+	sampleCommands := []*core.Command{
+		{
+			Namespace: "instance",
+			Resource:  "server",
+			Verb:      "list",
+			Short:     "List servers",
+			Long:      "List all servers in the specified project",
+			Run: func(ctx context.Context, argsI any) (any, error) {
+				return map[string]any{
+					"servers": []map[string]string{
+						{"id": "srv-1", "name": "web-server", "status": "running"},
+						{"id": "srv-2", "name": "db-server", "status": "running"},
+					},
+				}, nil
+			},
+		},
+		{
+			Namespace: "instance",
+			Resource:  "server",
+			Verb:      "get",
+			Short:     "Get server details",
+			Long:      "Get detailed information about a specific server",
+			ArgsType: reflect.TypeOf(struct {
+				ServerID string `json:"server_id"`
+			}{}),
+			ArgSpecs: core.ArgSpecs{
+				{
+					Name:       "server-id",
+					Short:      "Server ID",
+					Required:   true,
+					Positional: false,
+				},
+			},
+			Run: func(ctx context.Context, argsI any) (any, error) {
+				return map[string]string{"id": "srv-1", "name": "web-server", "status": "running"}, nil
+			},
+		},
+		{
+			Namespace: "object",
+			Resource:  "bucket",
+			Verb:      "list",
+			Short:     "List buckets",
+			Long:      "List all object storage buckets",
+			Run: func(ctx context.Context, argsI any) (any, error) {
+				return map[string]any{
+					"buckets": []map[string]string{
+						{"name": "my-bucket", "region": "fr-par"},
+						{"name": "logs-bucket", "region": "nl-ams"},
+					},
+				}, nil
+			},
+		},
+	}
+
+	// Step 1: Create MCP server with sample commands
+	// List commands will be registered as both tools AND resources
+	mcpServer := server.NewMCPServer("test-version-1.0.0", sampleCommands, false, nil, nil, nil)
+	registeredResources := mcpServer.RegisteredResources()
+
+	t.Logf("=== MCP Server Setup ===")
+	t.Logf("Created MCP server with %d registered resources", len(registeredResources))
+	for _, res := range registeredResources {
+		mcpRes := res.ToMCPResource()
+		t.Logf("  - Resource: %s (URI: %s)", mcpRes.Name, mcpRes.URI)
+	}
+	t.Logf("")
+
+	// Verify that only list commands became resources (2 out of 3 commands)
+	if len(registeredResources) != 2 {
+		t.Errorf("Expected 2 resources (only list commands), got %d", len(registeredResources))
+	}
+
+	// Step 2: Create MCP client
+	// Note: Resources capability is server-side only; clients don't need to declare it
+	clientImpl := &mcp.Implementation{
+		Name:    "test-client",
+		Version: "1.0.0",
+	}
+	client := mcp.NewClient(clientImpl, nil)
+	t.Logf("=== MCP Client Setup ===")
+	t.Logf("Created MCP client: %s v%s", clientImpl.Name, clientImpl.Version)
+	t.Logf("")
+
+	// Step 3: Connect client and server using InMemoryTransport
+	clientTransport, serverTransport := mcp.NewInMemoryTransports()
+	t.Logf("=== Connection Setup ===")
+	t.Logf("Established InMemoryTransport connection between client and server")
+
+	serverCtx := t.Context()
+
+	go func() {
+		_, err := mcpServer.Server().Connect(serverCtx, serverTransport, nil)
+		if err != nil {
+			t.Errorf("Server connect error: %v", err)
+		}
+	}()
+
+	clientCtx := t.Context()
+
+	session, err := client.Connect(clientCtx, clientTransport, nil)
+	if err != nil {
+		t.Fatalf("Failed to connect client: %v", err)
+	}
+	defer session.Close()
+
+	t.Logf("Client connected to server, session ID: %s", session.ID())
+	t.Logf("")
+
+	// Wait for server to be ready
+	time.Sleep(100 * time.Millisecond)
+
+	// Step 4: List resources from client perspective
+	t.Logf("=== Resource Listing Flow ===")
+	t.Logf("Client sending ListResources request...")
+
+	listResult, err := session.ListResources(context.Background(), &mcp.ListResourcesParams{})
+	if err != nil {
+		t.Fatalf("ListResources failed: %v", err)
+	}
+
+	t.Logf("Server responded with %d resources", len(listResult.Resources))
+	t.Logf("")
+
+	// Step 5: Verify the resources received
+	t.Logf("=== Verification ===")
+
+	// Verify count matches
+	if len(listResult.Resources) != len(registeredResources) {
+		t.Errorf("Resource count mismatch: expected %d, got %d", len(registeredResources), len(listResult.Resources))
+	}
+
+	// Build a map of expected resources
+	expectedResources := make(map[string]bool)
+	for _, res := range registeredResources {
+		mcpRes := res.ToMCPResource()
+		expectedResources[mcpRes.URI] = true
+	}
+
+	// Verify each resource
+	for _, resource := range listResult.Resources {
+		t.Logf("Verifying resource: %s", resource.Name)
+
+		// Check resource exists in expected list
+		if !expectedResources[resource.URI] {
+			t.Errorf("Unexpected resource: %s (URI: %s)", resource.Name, resource.URI)
+			continue
+		}
+
+		// Verify resource has description
+		if resource.Description == "" {
+			t.Errorf("Resource %s has no description", resource.Name)
+		} else {
+			t.Logf("  Description: %s", truncateString(resource.Description, 80))
+		}
+
+		// Verify resource has MIME type
+		t.Logf("  MIMEType: %s", resource.MIMEType)
+
+		// Verify resource URI format
+		if !strings.HasPrefix(resource.URI, "scw://") {
+			t.Errorf("Resource %s has invalid URI format: %s", resource.Name, resource.URI)
+		} else {
+			t.Logf("  URI: %s", resource.URI)
+		}
+
+		t.Logf("")
+	}
+
+	// Step 6: Read a resource to verify content
+	t.Logf("=== Resource Read Flow ===")
+	t.Logf("Client sending ReadResource request for instance server resource...")
+
+	// Build the URI for the instance server resource
+	instanceServerURI := server.BuildResourceURI("instance", "server")
+	t.Logf("Reading resource: %s", instanceServerURI)
+
+	readResult, err := session.ReadResource(context.Background(), &mcp.ReadResourceParams{
+		URI: instanceServerURI,
+	})
+	if err != nil {
+		t.Fatalf("ReadResource failed: %v", err)
+	}
+
+	t.Logf("Server responded with %d content items", len(readResult.Contents))
+
+	// Verify content
+	if len(readResult.Contents) == 0 {
+		t.Fatal("Expected at least one content item in read result")
+	}
+
+	content := readResult.Contents[0]
+	t.Logf("Content MIME type: %s", content.MIMEType)
+	t.Logf("Content text (truncated): %s", truncateString(content.Text, 200))
+
+	// Verify content is valid JSON
+	var jsonData any
+	if err := json.Unmarshal([]byte(content.Text), &jsonData); err != nil {
+		t.Errorf("Content is not valid JSON: %v", err)
+	} else {
+		t.Logf("Content is valid JSON")
+	}
+
+	t.Logf("")
+	t.Logf("=== Flow Complete ===")
+	t.Logf("Successfully demonstrated complete MCP resource flow:")
+	t.Logf("  1. Server created with %d resources (list commands)", len(registeredResources))
+	t.Logf("  2. Client connected via InMemoryTransport")
+	t.Logf("  3. Client sent ListResources request")
+	t.Logf("  4. Server responded with %d resources", len(listResult.Resources))
+	t.Logf("  5. Client sent ReadResource request")
+	t.Logf("  6. Server responded with resource content")
+}
+
 // Helper function to truncate strings for logging
 func truncateString(s string, maxLen int) string {
 	if len(s) <= maxLen {
 		return s
 	}
+
 	return s[:maxLen-3] + "..."
 }

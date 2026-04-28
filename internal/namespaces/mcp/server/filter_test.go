@@ -63,7 +63,13 @@ func TestShouldRegisterCommand_WithEnabledNamespaces(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldRegisterCommand(tt.command, false, tt.enabledNamespaces, nil, nil)
+			result := server.ShouldRegisterCommand(
+				tt.command,
+				false,
+				tt.enabledNamespaces,
+				nil,
+				nil,
+			)
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -125,10 +131,10 @@ func TestShouldRegisterCommand_WithEnabledResources(t *testing.T) {
 
 func TestShouldRegisterCommand_WithEnabledVerbs(t *testing.T) {
 	tests := []struct {
-		name          string
-		command       *core.Command
-		enabledVerbs  []string
-		expected      bool
+		name         string
+		command      *core.Command
+		enabledVerbs []string
+		expected     bool
 	}{
 		{
 			name: "command with enabled verb",

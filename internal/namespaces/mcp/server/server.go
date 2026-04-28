@@ -4,6 +4,7 @@ import (
 	"context"
 	"log"
 	"slices"
+	"strconv"
 	"strings"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
@@ -14,13 +15,14 @@ import (
 type MCPServer struct {
 	server            *mcp.Server
 	commands          []*CommandTool
+	resources         []*CommandResource
 	readOnly          bool
 	enabledNamespaces []string
 	enabledResources  []string
 	enabledVerbs      []string
 }
 
-// NewMCPServer creates a new MCP server that exposes CLI commands as tools
+// NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
 func NewMCPServer(
 	version string,
 	cliCommands []*core.Command,
@@ -31,15 +33,17 @@ func NewMCPServer(
 		Name:    "scaleway-cli",
 		Version: version,
 	}, &mcp.ServerOptions{
-		// Explicitly enable tools capability with listChanged notifications
+		// Enable tools and resources capabilities with listChanged notifications
 		Capabilities: &mcp.ServerCapabilities{
-			Tools: &mcp.ToolCapabilities{ListChanged: true},
+			Tools:     &mcp.ToolCapabilities{ListChanged: true},
+			Resources: &mcp.ResourceCapabilities{ListChanged: true},
 		},
 	})
 
 	s := &MCPServer{
 		server:            mcpServer,
 		commands:          make([]*CommandTool, 0, len(cliCommands)),
+		resources:         make([]*CommandResource, 0),
 		readOnly:          readOnly,
 		enabledNamespaces: enabledNamespaces,
 		enabledResources:  enabledResources,
@@ -163,7 +167,7 @@ func isReadOnlyCommand(cmd *core.Command) bool {
 	return false
 }
 
-// RegisterCommand registers a CLI command as an MCP tool
+// RegisterCommand registers a CLI command as an MCP tool and optionally as a resource
 func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
 	if !ShouldRegisterCommand(
 		cmd,
@@ -175,6 +179,7 @@ func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
 		return nil
 	}
 
+	// Register as a tool
 	tool := NewCommandTool(cmd)
 	mcpTool := tool.ToMCPTool()
 
@@ -201,7 +206,107 @@ func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
 
 	s.commands = append(s.commands, tool)
 
+	// Register as a resource if it's a list command
+	if isListCommand(cmd) {
+		if err := s.RegisterResource(cmd); err != nil {
+			log.Printf(
+				"Warning: failed to register resource %s: %v\n",
+				cmd.GetCommandLine("scw"),
+				err,
+			)
+		}
+	}
+
 	return nil
+}
+
+// isListCommand returns true if the command is a list operation
+func isListCommand(cmd *core.Command) bool {
+	if cmd.Verb == "" {
+		return false
+	}
+
+	// Direct match for "list"
+	if cmd.Verb == "list" {
+		return true
+	}
+
+	return false
+}
+
+// RegisterResource registers a CLI command as an MCP resource
+func (s *MCPServer) RegisterResource(cmd *core.Command) error {
+	if !ShouldRegisterCommand(
+		cmd,
+		s.readOnly,
+		s.enabledNamespaces,
+		s.enabledResources,
+		s.enabledVerbs,
+	) {
+		return nil
+	}
+
+	resource := NewCommandResource(cmd)
+	mcpResource := resource.ToMCPResource()
+
+	// Create a handler function for the resource
+	handler := func(ctx context.Context, req *mcp.ReadResourceRequest) (*mcp.ReadResourceResult, error) {
+		// Extract arguments from the request URI
+		// URI format: scw://namespace/resource?arg1=value1&arg2=value2
+		inputArgs := parseURIToArgs(req.Params.URI)
+
+		result, err := resource.Execute(ctx, inputArgs)
+		if err != nil {
+			return nil, err
+		}
+
+		return result, nil
+	}
+
+	// Register with MCP SDK
+	s.server.AddResource(mcpResource, handler)
+
+	s.resources = append(s.resources, resource)
+
+	return nil
+}
+
+// parseURIToArgs extracts query parameters from a URI and converts them to input args
+func parseURIToArgs(uri string) map[string]any {
+	args := make(map[string]any)
+
+	// Parse URI query parameters
+	// Format: scw://namespace/resource?key1=value1&key2=value2
+	parts := strings.SplitN(uri, "?", 2)
+	if len(parts) != 2 {
+		return args
+	}
+
+	query := parts[1]
+	paramPairs := strings.Split(query, "&")
+
+	for _, pair := range paramPairs {
+		kv := strings.SplitN(pair, "=", 2)
+		if len(kv) != 2 {
+			continue
+		}
+
+		key := kv[0]
+		value := kv[1]
+
+		// Try to parse the value as different types
+		if value == "true" {
+			args[key] = true
+		} else if value == "false" {
+			args[key] = false
+		} else if num, err := strconv.ParseFloat(value, 64); err == nil {
+			args[key] = num
+		} else {
+			args[key] = value
+		}
+	}
+
+	return args
 }
 
 // Run starts the MCP server using the specified transport
@@ -217,4 +322,9 @@ func (s *MCPServer) Server() *mcp.Server {
 // RegisteredCommands returns the list of commands registered as MCP tools
 func (s *MCPServer) RegisteredCommands() []*CommandTool {
 	return s.commands
+}
+
+// RegisteredResources returns the list of commands registered as MCP resources
+func (s *MCPServer) RegisteredResources() []*CommandResource {
+	return s.resources
 }

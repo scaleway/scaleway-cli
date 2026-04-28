@@ -16,7 +16,7 @@ import (
 // This test creates a real MCPServer instance and checks the annotations
 // of all actually registered commands, ensuring the test matches production behavior.
 //
-//nolint:revive // This is a test function
+
 func TestInventoryNilAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
@@ -98,10 +98,8 @@ func TestInventoryNilAnnotations(t *testing.T) {
 				nilFields := []string{}
 				if m.annotations == nil {
 					nilFields = append(nilFields, "ALL_ANNOTATIONS_NIL")
-				} else {
-					if m.annotations.DestructiveHint == nil {
-						nilFields = append(nilFields, "DestructiveHint")
-					}
+				} else if m.annotations.DestructiveHint == nil {
+					nilFields = append(nilFields, "DestructiveHint")
 				}
 
 				t.Logf("  - %s (verb=%s): nil fields [%s]",
@@ -118,7 +116,7 @@ func TestInventoryNilAnnotations(t *testing.T) {
 // This test creates a real MCPServer instance to ensure it tests the actual
 // production behavior.
 //
-//nolint:revive // This is a test function
+
 func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
@@ -136,6 +134,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 			failedCommands = append(failedCommands, fmt.Sprintf(
 				"%s/%s/%s: annotations is nil",
 				tool.Command.Namespace, tool.Command.Resource, tool.Command.Verb))
+
 			continue
 		}
 
@@ -160,6 +159,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 		for i, failure := range failedCommands {
 			if i >= 20 {
 				t.Logf("... and %d more", len(failedCommands)-20)
+
 				break
 			}
 			t.Logf("  - %s", failure)
@@ -170,7 +170,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 // TestAllToolsHaveCommandMetadata verifies that all MCP tools have
 // namespace, resource, and verb metadata set in their Meta field.
 //
-//nolint:revive // This is a test function
+
 func TestAllToolsHaveCommandMetadata(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
@@ -188,6 +188,7 @@ func TestAllToolsHaveCommandMetadata(t *testing.T) {
 			failedCommands = append(failedCommands, fmt.Sprintf(
 				"%s/%s/%s: Meta field is nil",
 				tool.Command.Namespace, tool.Command.Resource, tool.Command.Verb))
+
 			continue
 		}
 
@@ -219,6 +220,7 @@ func TestAllToolsHaveCommandMetadata(t *testing.T) {
 		for i, failure := range failedCommands {
 			if i >= 20 {
 				t.Logf("... and %d more", len(failedCommands)-20)
+
 				break
 			}
 			t.Logf("  - %s", failure)
@@ -230,11 +232,11 @@ func TestAllToolsHaveCommandMetadata(t *testing.T) {
 // actual namespace, resource, and verb fields.
 func TestToolMetadataValues(t *testing.T) {
 	testCases := []struct {
-		name      string
-		command   *core.Command
-		wantNS    string
-		wantRes   string
-		wantVerb  string
+		name     string
+		command  *core.Command
+		wantNS   string
+		wantRes  string
+		wantVerb string
 	}{
 		{
 			name: "full command",

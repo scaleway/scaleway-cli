@@ -1,6 +1,7 @@
 package server
 
 import (
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -71,10 +72,8 @@ func getReadOnlyAnnotation(cmd *core.Command) *bool {
 		"help",
 	}
 
-	for _, v := range readOnlyVerbs {
-		if cmd.Verb == v {
-			return new(true)
-		}
+	if slices.Contains(readOnlyVerbs, cmd.Verb) {
+		return new(true)
 	}
 
 	// Handle get-* prefix verbs
@@ -149,10 +148,8 @@ func getIdempotentAnnotation(cmd *core.Command) *bool {
 		"download",
 	}
 
-	for _, v := range idempotentVerbs {
-		if cmd.Verb == v {
-			return new(true)
-		}
+	if slices.Contains(idempotentVerbs, cmd.Verb) {
+		return new(true)
 	}
 
 	// Handle get-* prefix verbs
@@ -422,10 +419,8 @@ func getDestructiveAnnotation(cmd *core.Command) *bool {
 		"get-metrics",
 	}
 
-	for _, v := range destructiveVerbs {
-		if cmd.Verb == v {
-			return new(true)
-		}
+	if slices.Contains(destructiveVerbs, cmd.Verb) {
+		return new(true)
 	}
 
 	// Non-destructive verbs (read-only operations)
@@ -483,10 +478,8 @@ func getDestructiveAnnotation(cmd *core.Command) *bool {
 		"download",
 	}
 
-	for _, v := range nonDestructiveVerbs {
-		if cmd.Verb == v {
-			return new(false)
-		}
+	if slices.Contains(nonDestructiveVerbs, cmd.Verb) {
+		return new(false)
 	}
 
 	// Handle get-* prefix verbs (read-only)
