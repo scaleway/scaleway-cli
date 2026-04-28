@@ -22,10 +22,8 @@ The MCP server uses the same configuration as the CLI:
 
 All CLI commands are exposed as MCP tools with the naming convention:
 - `namespace_resource_verb` (e.g., `instance_server_list`)
-- `namespace_resource` (e.g., `config_get`)
 
 Examples:
-- `config_get` - Get a value from the config file
 - `instance_server_list` - List servers
 - `iam_user_list` - List IAM users
 

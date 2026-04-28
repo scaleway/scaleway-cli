@@ -3,6 +3,7 @@ package server
 import (
 	"context"
 	"log"
+	"slices"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -46,15 +47,44 @@ func NewMCPServer(version string, cliCommands []*core.Command) *MCPServer {
 	return s
 }
 
-// RegisterCommand registers a CLI command as an MCP tool
-func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
+// shouldRegisterCommand returns true if the command should be registered as an MCP tool.
+// It filters out:
+// - Hidden commands
+// - Commands without a Run function (namespace/resource containers)
+// - All commands from the "mcp" namespace to avoid recursive server calls
+// - All commands that are shell-centric
+func shouldRegisterCommand(cmd *core.Command) bool {
 	// Skip hidden commands
 	if cmd.Hidden {
-		return nil
+		return false
 	}
 
 	// Skip commands without a Run function (namespace/resource containers)
 	if cmd.Run == nil && cmd.Verb == "" {
+		return false
+	}
+
+	excludedNamespaces := []string{
+		// Skip mcp namespace to avoid recursive server calls
+		"mcp",
+		// Skip config namespace to avoid security risks
+		"config",
+		// Skip shell-centric namespaces
+		"alias",
+		"autocomplete",
+		"shell",
+	}
+
+	if slices.Contains(excludedNamespaces, cmd.Namespace) {
+		return false
+	}
+
+	return true
+}
+
+// RegisterCommand registers a CLI command as an MCP tool
+func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
+	if !shouldRegisterCommand(cmd) {
 		return nil
 	}
 
