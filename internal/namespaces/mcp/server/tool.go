@@ -39,6 +39,22 @@ func (ct *CommandTool) ToMCPTool() *mcp.Tool {
 		tool.Description = ct.Command.Short + "\n\n" + truncateString(ct.Command.Long, 200)
 	}
 
+	annotations := &mcp.ToolAnnotations{
+		OpenWorldHint: new(true), // We interact with Scaleway for all registered commands
+	}
+
+	if v := getReadOnlyAnnotation(ct.Command); v != nil {
+		annotations.ReadOnlyHint = *v
+	}
+	if v := getIdempotentAnnotation(ct.Command); v != nil {
+		annotations.IdempotentHint = *v
+	}
+	if v := getDestructiveAnnotation(ct.Command); v != nil {
+		annotations.DestructiveHint = v
+	}
+
+	tool.Annotations = annotations
+
 	return tool
 }
 
