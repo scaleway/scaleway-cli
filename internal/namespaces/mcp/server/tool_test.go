@@ -79,6 +79,7 @@ func TestCommandToolExecute(t *testing.T) {
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			executedArgs = args.(*testArgs)
+
 			return map[string]string{"status": "ok"}, nil
 		},
 	}
@@ -91,7 +92,6 @@ func TestCommandToolExecute(t *testing.T) {
 	}
 
 	result, err := tool.Execute(context.Background(), inputArgs)
-
 	if err != nil {
 		t.Fatalf("Execute returned error: %v", err)
 	}
@@ -136,6 +136,7 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			executedArgs = args.(*testArgs)
+
 			return map[string]string{"status": "ok"}, nil
 		},
 	}
@@ -149,7 +150,6 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 	}
 
 	result, err := tool.Execute(context.Background(), inputArgs)
-
 	if err != nil {
 		t.Fatalf("Execute returned error: %v", err)
 	}

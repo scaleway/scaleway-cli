@@ -65,6 +65,7 @@ func mcpServerCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
+
 			return runMCPServer(ctx, args.Transport, args.Address)
 		},
 	}
@@ -134,14 +135,19 @@ func runMCPServer(ctx context.Context, transportMode string, address string) (an
 
 	case "sse":
 		fmt.Fprintf(os.Stderr, "Running MCP server with SSE transport on %s\n", address)
+
 		return nil, runSSEServer(ctx, mcpServer, address)
 
 	case "streamable-http":
 		fmt.Fprintf(os.Stderr, "Running MCP server with streamable HTTP transport on %s\n", address)
+
 		return nil, runStreamableHTTPServer(ctx, mcpServer, address)
 
 	default:
-		return nil, fmt.Errorf("unknown transport mode: %s (valid modes: stdio, sse, streamable-http)", transportMode)
+		return nil, fmt.Errorf(
+			"unknown transport mode: %s (valid modes: stdio, sse, streamable-http)",
+			transportMode,
+		)
 	}
 
 	return map[string]string{"status": "shutdown"}, nil
@@ -153,6 +159,7 @@ func runSSEServer(ctx context.Context, mcpServer *server.MCPServer, address stri
 	mux.HandleFunc("/sse", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodGet {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+
 			return
 		}
 
@@ -166,6 +173,7 @@ func runSSEServer(ctx context.Context, mcpServer *server.MCPServer, address stri
 		session, err := mcpServer.Server().Connect(ctx, transport, nil)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Connection error: %v", err), http.StatusInternalServerError)
+
 			return
 		}
 
@@ -176,6 +184,7 @@ func runSSEServer(ctx context.Context, mcpServer *server.MCPServer, address stri
 	mux.HandleFunc("/message", func(w http.ResponseWriter, r *http.Request) {
 		if r.Method != http.MethodPost {
 			http.Error(w, "Method not allowed", http.StatusMethodNotAllowed)
+
 			return
 		}
 
@@ -210,7 +219,11 @@ func runSSEServer(ctx context.Context, mcpServer *server.MCPServer, address stri
 	return server.Shutdown(shutdownCtx)
 }
 
-func runStreamableHTTPServer(ctx context.Context, mcpServer *server.MCPServer, address string) error {
+func runStreamableHTTPServer(
+	ctx context.Context,
+	mcpServer *server.MCPServer,
+	address string,
+) error {
 	mux := http.NewServeMux()
 
 	mux.HandleFunc("/mcp", func(w http.ResponseWriter, r *http.Request) {
@@ -223,6 +236,7 @@ func runStreamableHTTPServer(ctx context.Context, mcpServer *server.MCPServer, a
 		session, err := mcpServer.Server().Connect(ctx, transport, nil)
 		if err != nil {
 			http.Error(w, fmt.Sprintf("Connection error: %v", err), http.StatusInternalServerError)
+
 			return
 		}
 

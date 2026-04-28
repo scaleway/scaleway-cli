@@ -5,6 +5,7 @@ import (
 	"encoding/json"
 	"fmt"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
@@ -42,7 +43,10 @@ func (ct *CommandTool) ToMCPTool() *mcp.Tool {
 }
 
 // Execute runs the CLI command with the provided arguments
-func (ct *CommandTool) Execute(ctx context.Context, inputArgs map[string]any) (*mcp.CallToolResult, error) {
+func (ct *CommandTool) Execute(
+	ctx context.Context,
+	inputArgs map[string]any,
+) (*mcp.CallToolResult, error) {
 	// Skip commands without a Run function
 	if ct.Command.Run == nil {
 		return &mcp.CallToolResult{
@@ -68,6 +72,7 @@ func (ct *CommandTool) Execute(ctx context.Context, inputArgs map[string]any) (*
 			for _, spec := range ct.Command.ArgSpecs {
 				if strcase.ToKebab(spec.Name) == argName {
 					originalName = spec.Name
+
 					break
 				}
 			}
@@ -78,11 +83,11 @@ func (ct *CommandTool) Execute(ctx context.Context, inputArgs map[string]any) (*
 			case string:
 				valueStr = v
 			case bool:
-				valueStr = fmt.Sprintf("%v", v)
+				valueStr = strconv.FormatBool(v)
 			case float64:
 				valueStr = fmt.Sprintf("%v", v)
 			case int:
-				valueStr = fmt.Sprintf("%v", v)
+				valueStr = strconv.Itoa(v)
 			default:
 				// For complex types, marshal to JSON
 				if b, err := json.Marshal(v); err == nil {
@@ -113,7 +118,6 @@ func (ct *CommandTool) Execute(ctx context.Context, inputArgs map[string]any) (*
 
 	// Execute the command's Run function
 	result, err := ct.Command.Run(ctx, cmdArgs)
-
 	if err != nil {
 		return &mcp.CallToolResult{
 			Content: []mcp.Content{

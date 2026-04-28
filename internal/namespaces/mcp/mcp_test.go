@@ -1,11 +1,13 @@
-package mcp
+package mcp_test
 
 import (
 	"testing"
+
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 )
 
 func TestMcpCommands(t *testing.T) {
-	cmds := GetCommands()
+	cmds := mcp.GetCommands()
 	if cmds == nil {
 		t.Fatal("GetCommands() returned nil")
 	}
