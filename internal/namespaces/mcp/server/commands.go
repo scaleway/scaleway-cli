@@ -250,11 +250,12 @@ func McpServerListTools() *core.Command {
 
 func McpServer() *core.Command {
 	return &core.Command{
-		Groups:    []string{"utility"},
-		Short:     `MCP server management commands`,
-		Long:      `Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.`,
-		Namespace: "mcp",
-		Resource:  "server",
+		Groups:         []string{"utility"},
+		Short:          `MCP server management commands`,
+		Long:           `Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.`,
+		Namespace:      "mcp",
+		Resource:       "server",
+		ExcludeFromMCP: true,
 	}
 }
 
