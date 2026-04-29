@@ -213,7 +213,13 @@ func McpServerListTools() *core.Command {
 
 			var tools []toolInfo
 			for _, cmd := range cliCommands {
-				if ShouldRegisterCommand(cmd, args.ReadOnly, enabledNamespaces, enabledResources, enabledVerbs) {
+				if ShouldRegisterCommand(
+					cmd,
+					args.ReadOnly,
+					enabledNamespaces,
+					enabledResources,
+					enabledVerbs,
+				) {
 					tools = append(tools, toolInfo{
 						Namespace: cmd.Namespace,
 						Resource:  cmd.Resource,
@@ -335,7 +341,14 @@ func McpServerListResources() *core.Command {
 			var resources []resourceInfo
 			for _, cmd := range cliCommands {
 				// Only list commands are exposed as resources
-				if IsListCommand(cmd) && ShouldRegisterCommand(cmd, args.ReadOnly, enabledNamespaces, enabledResources, nil) {
+				if IsListCommand(cmd) &&
+					ShouldRegisterCommand(
+						cmd,
+						args.ReadOnly,
+						enabledNamespaces,
+						enabledResources,
+						nil,
+					) {
 					resources = append(resources, resourceInfo{
 						Namespace: cmd.Namespace,
 						Resource:  cmd.Resource,
@@ -350,6 +363,7 @@ func McpServerListResources() *core.Command {
 				if resources[i].Namespace != resources[j].Namespace {
 					return resources[i].Namespace < resources[j].Namespace
 				}
+
 				return resources[i].Resource < resources[j].Resource
 			})
 

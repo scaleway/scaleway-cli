@@ -7,7 +7,6 @@ import (
 	"os"
 	"os/signal"
 	"slices"
-	"strconv"
 	"strings"
 	"syscall"
 
@@ -236,81 +235,6 @@ func IsListCommand(cmd *core.Command) bool {
 	}
 
 	return false
-}
-
-// RegisterResource registers a CLI command as an MCP resource
-func (s *MCPServer) RegisterResource(cmd *core.Command) error {
-	if !ShouldRegisterCommand(
-		cmd,
-		s.readOnly,
-		s.enabledNamespaces,
-		s.enabledResources,
-		s.enabledVerbs,
-	) {
-		return nil
-	}
-
-	resource := NewCommandResource(cmd)
-	mcpResource := resource.ToMCPResource()
-
-	// Create a handler function for the resource
-	handler := func(ctx context.Context, req *mcp.ReadResourceRequest) (*mcp.ReadResourceResult, error) {
-		// Extract arguments from the request URI
-		// URI format: scw://namespace/resource?arg1=value1&arg2=value2
-		inputArgs := parseURIToArgs(req.Params.URI)
-
-		result, err := resource.Execute(ctx, inputArgs)
-		if err != nil {
-			return nil, err
-		}
-
-		return result, nil
-	}
-
-	// Register with MCP SDK
-	s.server.AddResource(mcpResource, handler)
-
-	s.resources = append(s.resources, resource)
-
-	return nil
-}
-
-// parseURIToArgs extracts query parameters from a URI and converts them to input args
-func parseURIToArgs(uri string) map[string]any {
-	args := make(map[string]any)
-
-	// Parse URI query parameters
-	// Format: scw://namespace/resource?key1=value1&key2=value2
-	parts := strings.SplitN(uri, "?", 2)
-	if len(parts) != 2 {
-		return args
-	}
-
-	query := parts[1]
-	paramPairs := strings.SplitSeq(query, "&")
-
-	for pair := range paramPairs {
-		kv := strings.SplitN(pair, "=", 2)
-		if len(kv) != 2 {
-			continue
-		}
-
-		key := kv[0]
-		value := kv[1]
-
-		// Try to parse the value as different types
-		if value == "true" {
-			args[key] = true
-		} else if value == "false" {
-			args[key] = false
-		} else if num, err := strconv.ParseFloat(value, 64); err == nil {
-			args[key] = num
-		} else {
-			args[key] = value
-		}
-	}
-
-	return args
 }
 
 // Run starts the MCP server using the specified transport

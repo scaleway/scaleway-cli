@@ -84,14 +84,14 @@ func TestMcpServerList(t *testing.T) {
 
 func TestShouldRegisterCommand(t *testing.T) {
 	testCmd := &core.Command{
-		Namespace:  "test",
-		Resource:   "resource",
-		Verb:       "get",
-		Short:      "Test command",
-		Hidden:     false,
-		Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-		ArgSpecs:   core.ArgSpecs{},
-		Examples:   []*core.Example{},
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "get",
+		Short:     "Test command",
+		Hidden:    false,
+		Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+		ArgSpecs:  core.ArgSpecs{},
+		Examples:  []*core.Example{},
 	}
 
 	t.Run("Should register visible command", func(t *testing.T) {
@@ -101,14 +101,14 @@ func TestShouldRegisterCommand(t *testing.T) {
 
 	t.Run("Should not register hidden command", func(t *testing.T) {
 		hiddenCmd := &core.Command{
-			Namespace:  "test",
-			Resource:   "resource",
-			Verb:       "get",
-			Short:      "Test command",
-			Hidden:     true,
-			Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
+			Namespace: "test",
+			Resource:  "resource",
+			Verb:      "get",
+			Short:     "Test command",
+			Hidden:    true,
+			Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+			ArgSpecs:  core.ArgSpecs{},
+			Examples:  []*core.Example{},
 		}
 		result := server.ShouldRegisterCommand(hiddenCmd, false, nil, nil, nil)
 		assert.False(t, result)
@@ -116,14 +116,14 @@ func TestShouldRegisterCommand(t *testing.T) {
 
 	t.Run("Should not register command without Run function", func(t *testing.T) {
 		noRunCmd := &core.Command{
-			Namespace:  "test",
-			Resource:   "resource",
-			Verb:       "get",
-			Short:      "Test command",
-			Hidden:     false,
-			Run:        nil,
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
+			Namespace: "test",
+			Resource:  "resource",
+			Verb:      "get",
+			Short:     "Test command",
+			Hidden:    false,
+			Run:       nil,
+			ArgSpecs:  core.ArgSpecs{},
+			Examples:  []*core.Example{},
 		}
 		result := server.ShouldRegisterCommand(noRunCmd, false, nil, nil, nil)
 		assert.False(t, result)
@@ -131,14 +131,14 @@ func TestShouldRegisterCommand(t *testing.T) {
 
 	t.Run("Should not register excluded namespace", func(t *testing.T) {
 		configCmd := &core.Command{
-			Namespace:  "config",
-			Resource:   "resource",
-			Verb:       "get",
-			Short:      "Test command",
-			Hidden:     false,
-			Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
+			Namespace: "config",
+			Resource:  "resource",
+			Verb:      "get",
+			Short:     "Test command",
+			Hidden:    false,
+			Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+			ArgSpecs:  core.ArgSpecs{},
+			Examples:  []*core.Example{},
 		}
 		result := server.ShouldRegisterCommand(configCmd, false, nil, nil, nil)
 		assert.False(t, result)
@@ -146,44 +146,47 @@ func TestShouldRegisterCommand(t *testing.T) {
 
 	t.Run("Should not register excluded verb", func(t *testing.T) {
 		editCmd := &core.Command{
-			Namespace:  "test",
-			Resource:   "resource",
-			Verb:       "edit",
-			Short:      "Test command",
-			Hidden:     false,
-			Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
+			Namespace: "test",
+			Resource:  "resource",
+			Verb:      "edit",
+			Short:     "Test command",
+			Hidden:    false,
+			Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+			ArgSpecs:  core.ArgSpecs{},
+			Examples:  []*core.Example{},
 		}
 		result := server.ShouldRegisterCommand(editCmd, false, nil, nil, nil)
 		assert.False(t, result)
 	})
 
-	t.Run("Should not register command in readOnly mode if not read-only operation", func(t *testing.T) {
-		createCmd := &core.Command{
-			Namespace:  "test",
-			Resource:   "resource",
-			Verb:       "create",
-			Short:      "Test command",
-			Hidden:     false,
-			Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
-		}
-		result := server.ShouldRegisterCommand(createCmd, true, nil, nil, nil)
-		assert.False(t, result)
-	})
+	t.Run(
+		"Should not register command in readOnly mode if not read-only operation",
+		func(t *testing.T) {
+			createCmd := &core.Command{
+				Namespace: "test",
+				Resource:  "resource",
+				Verb:      "create",
+				Short:     "Test command",
+				Hidden:    false,
+				Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+				ArgSpecs:  core.ArgSpecs{},
+				Examples:  []*core.Example{},
+			}
+			result := server.ShouldRegisterCommand(createCmd, true, nil, nil, nil)
+			assert.False(t, result)
+		},
+	)
 
 	t.Run("Should register get command in readOnly mode", func(t *testing.T) {
 		getCmd := &core.Command{
-			Namespace:  "test",
-			Resource:   "resource",
-			Verb:       "get",
-			Short:      "Test command",
-			Hidden:     false,
-			Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
+			Namespace: "test",
+			Resource:  "resource",
+			Verb:      "get",
+			Short:     "Test command",
+			Hidden:    false,
+			Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+			ArgSpecs:  core.ArgSpecs{},
+			Examples:  []*core.Example{},
 		}
 		result := server.ShouldRegisterCommand(getCmd, true, nil, nil, nil)
 		assert.True(t, result)
@@ -191,14 +194,14 @@ func TestShouldRegisterCommand(t *testing.T) {
 
 	t.Run("Should register list command in readOnly mode", func(t *testing.T) {
 		listCmd := &core.Command{
-			Namespace:  "test",
-			Resource:   "resource",
-			Verb:       "list",
-			Short:      "Test command",
-			Hidden:     false,
-			Run:        func(ctx context.Context, argsI any) (any, error) { return nil, nil },
-			ArgSpecs:   core.ArgSpecs{},
-			Examples:   []*core.Example{},
+			Namespace: "test",
+			Resource:  "resource",
+			Verb:      "list",
+			Short:     "Test command",
+			Hidden:    false,
+			Run:       func(ctx context.Context, argsI any) (any, error) { return nil, nil },
+			ArgSpecs:  core.ArgSpecs{},
+			Examples:  []*core.Example{},
 		}
 		result := server.ShouldRegisterCommand(listCmd, true, nil, nil, nil)
 		assert.True(t, result)

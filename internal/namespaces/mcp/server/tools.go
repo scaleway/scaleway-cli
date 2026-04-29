@@ -41,11 +41,14 @@ func (ct *CommandTool) ToMCPTool() *mcp.Tool {
 
 	// Add command metadata (namespace, resource, verb) to the tool's Meta field
 	// This allows clients to access structured information about the command
+	// https://modelcontextprotocol.io/specification/2025-11-25/basic#_meta
 	tool.Meta = mcp.Meta{
 		"namespace": ct.Command.Namespace,
 		"resource":  ct.Command.Resource,
 		"verb":      ct.Command.Verb,
 	}
+
+	// https://modelcontextprotocol.io/specification/2025-11-25/server/resources#annotations
 
 	annotations := &mcp.ToolAnnotations{
 		OpenWorldHint: new(true), // We interact with Scaleway for all registered commands
