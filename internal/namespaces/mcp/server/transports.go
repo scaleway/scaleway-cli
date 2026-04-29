@@ -75,3 +75,53 @@ func RunSSEServer(ctx context.Context, mcpServer *MCPServer, address string) err
 
 	return server.Shutdown(shutdownCtx)
 }
+
+func RunStreamableHTTPServer(
+	ctx context.Context,
+	mcpServer *MCPServer,
+	address string,
+) error {
+	mux := http.NewServeMux()
+
+	mux.HandleFunc("/mcp", func(w http.ResponseWriter, r *http.Request) {
+		// Create streamable transport for this connection
+		transport := &mcp.StreamableServerTransport{
+			SessionID: "", // Empty for stateless mode
+		}
+
+		// Connect the server to this transport
+		session, err := mcpServer.Server().Connect(ctx, transport, nil)
+		if err != nil {
+			http.Error(w, fmt.Sprintf("Connection error: %v", err), http.StatusInternalServerError)
+
+			return
+		}
+
+		// Handle messages until session ends
+		_ = session.Wait()
+	})
+
+	server := &http.Server{
+		Addr:    address,
+		Handler: mux,
+	}
+
+	// Start server in goroutine
+	go func() {
+		if err := server.ListenAndServe(); err != nil && err != http.ErrServerClosed {
+			fmt.Fprintf(os.Stderr, "HTTP server error: %v\n", err)
+		}
+	}()
+
+	fmt.Fprintf(os.Stderr, "Streamable HTTP server listening on %s\n", address)
+	fmt.Fprintf(os.Stderr, "Connect to: http://%s/mcp\n", address)
+
+	// Wait for shutdown signal
+	<-ctx.Done()
+
+	// Graceful shutdown with timeout
+	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
+	defer shutdownCancel()
+
+	return server.Shutdown(shutdownCtx)
+}

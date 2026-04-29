@@ -116,7 +116,7 @@ func McpServerServe() *core.Command {
 	}
 }
 
-func McpServerList() *core.Command {
+func McpServerListTools() *core.Command {
 	type listArgs struct {
 		Namespace string `json:"namespace"`
 		Resource  string `json:"resource"`
@@ -128,7 +128,7 @@ func McpServerList() *core.Command {
 		Groups:               []string{"utility"},
 		Namespace:            "mcp",
 		Resource:             "server",
-		Verb:                 "list",
+		Verb:                 "list-tools",
 		Short:                "List available MCP tools",
 		Long:                 "Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.",
 		AllowAnonymousClient: true,
@@ -137,23 +137,23 @@ func McpServerList() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "List all available MCP tools",
-				Raw:   `scw mcp server list`,
+				Raw:   `scw mcp server list-tools`,
 			},
 			{
 				Short: "List tools for a specific namespace",
-				Raw:   `scw mcp server list namespace=instance`,
+				Raw:   `scw mcp server list-tools namespace=instance`,
 			},
 			{
 				Short: "List tools for a specific resource",
-				Raw:   `scw mcp server list resource=server`,
+				Raw:   `scw mcp server list-tools resource=server`,
 			},
 			{
 				Short: "List only read-only tools (get/list operations)",
-				Raw:   `scw mcp server list read-only=true`,
+				Raw:   `scw mcp server list-tools read-only=true`,
 			},
 			{
 				Short: "List tools with a specific verb",
-				Raw:   `scw mcp server list verb=get`,
+				Raw:   `scw mcp server list-tools verb=get`,
 			},
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -232,10 +232,128 @@ func McpServerList() *core.Command {
 				if tools[i].Resource != tools[j].Resource {
 					return tools[i].Resource < tools[j].Resource
 				}
+
 				return tools[i].Verb < tools[j].Verb
 			})
 
 			return tools, nil
+		},
+		ExcludeFromMCP: true,
+	}
+}
+
+func McpServer() *core.Command {
+	return &core.Command{
+		Groups:    []string{"utility"},
+		Short:     `MCP server management commands`,
+		Long:      `Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.`,
+		Namespace: "mcp",
+		Resource:  "server",
+	}
+}
+
+func McpServerListResources() *core.Command {
+	type listResourcesArgs struct {
+		Namespace string `json:"namespace"`
+		Resource  string `json:"resource"`
+		ReadOnly  bool   `json:"read-only"`
+	}
+
+	return &core.Command{
+		Groups:               []string{"utility"},
+		Namespace:            "mcp",
+		Resource:             "server",
+		Verb:                 "list-resources",
+		Short:                "List available MCP resources",
+		Long:                 "Lists all CLI commands that would be exposed as MCP resources by the server. Resources are read-only endpoints for list commands that can be accessed via URI. Use filters to see which resources are available for specific namespaces or resources.",
+		AllowAnonymousClient: true,
+		DisableTelemetry:     true,
+		ArgsType:             reflect.TypeOf(listResourcesArgs{}),
+		Examples: []*core.Example{
+			{
+				Short: "List all available MCP resources",
+				Raw:   `scw mcp server list-resources`,
+			},
+			{
+				Short: "List resources for a specific namespace",
+				Raw:   `scw mcp server list-resources namespace=instance`,
+			},
+			{
+				Short: "List resources for a specific resource type",
+				Raw:   `scw mcp server list-resources resource=server`,
+			},
+			{
+				Short: "List only read-only resources",
+				Raw:   `scw mcp server list-resources read-only=true`,
+			},
+		},
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "namespace",
+				Short:      "Filter by namespace (e.g., instance, iam, object)",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "resource",
+				Short:      "Filter by resource (e.g., server, volume, bucket)",
+				Required:   false,
+				Positional: false,
+			},
+			{
+				Name:       "read-only",
+				Short:      "Only list read-only resources",
+				Required:   false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("false"),
+			},
+		},
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			args := argsI.(*listResourcesArgs)
+
+			// Get all CLI commands from the meta context
+			commands := core.ExtractCommands(ctx)
+			cliCommands := commands.GetAll()
+
+			// Build filter arrays from single string args
+			var enabledNamespaces, enabledResources []string
+			if args.Namespace != "" {
+				enabledNamespaces = []string{args.Namespace}
+			}
+			if args.Resource != "" {
+				enabledResources = []string{args.Resource}
+			}
+
+			// Collect matching resources
+			type resourceInfo struct {
+				Namespace string `json:"namespace"`
+				Resource  string `json:"resource"`
+				URI       string `json:"uri"`
+				Short     string `json:"short"`
+			}
+
+			var resources []resourceInfo
+			for _, cmd := range cliCommands {
+				// Only list commands are exposed as resources
+				if IsListCommand(cmd) && ShouldRegisterCommand(cmd, args.ReadOnly, enabledNamespaces, enabledResources, nil) {
+					resources = append(resources, resourceInfo{
+						Namespace: cmd.Namespace,
+						Resource:  cmd.Resource,
+						URI:       BuildResourceURI(cmd.Namespace, cmd.Resource),
+						Short:     cmd.Short,
+					})
+				}
+			}
+
+			// Sort resources by namespace, resource for consistent output
+			sort.Slice(resources, func(i, j int) bool {
+				if resources[i].Namespace != resources[j].Namespace {
+					return resources[i].Namespace < resources[j].Namespace
+				}
+				return resources[i].Resource < resources[j].Resource
+			})
+
+			return resources, nil
 		},
 		ExcludeFromMCP: true,
 	}
