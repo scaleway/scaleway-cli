@@ -99,7 +99,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 	}
 
 	t.Run("Should register visible command", func(t *testing.T) {
-		result := server.ShouldLoadCommand(testCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(testCmd, server.CommandFilterConfig{})
 		assert.True(t, result)
 	})
 
@@ -114,7 +114,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldLoadCommand(hiddenCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(hiddenCmd, server.CommandFilterConfig{})
 		assert.False(t, result)
 	})
 
@@ -129,7 +129,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldLoadCommand(noRunCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(noRunCmd, server.CommandFilterConfig{})
 		assert.False(t, result)
 	})
 
@@ -144,7 +144,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldLoadCommand(configCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(configCmd, server.CommandFilterConfig{})
 		assert.False(t, result)
 	})
 
@@ -159,7 +159,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldLoadCommand(editCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(editCmd, server.CommandFilterConfig{})
 		assert.False(t, result)
 	})
 
@@ -176,7 +176,10 @@ func TestShouldRegisterCommand(t *testing.T) {
 				ArgSpecs:  core.ArgSpecs{},
 				Examples:  []*core.Example{},
 			}
-			result := server.ShouldLoadCommand(createCmd, true, nil, nil, nil)
+			result := server.ShouldLoadCommand(
+				createCmd,
+				server.CommandFilterConfig{ReadOnly: true},
+			)
 			assert.False(t, result)
 		},
 	)
@@ -192,7 +195,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldLoadCommand(getCmd, true, nil, nil, nil)
+		result := server.ShouldLoadCommand(getCmd, server.CommandFilterConfig{ReadOnly: true})
 		assert.True(t, result)
 	})
 
@@ -207,31 +210,49 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldLoadCommand(listCmd, true, nil, nil, nil)
+		result := server.ShouldLoadCommand(listCmd, server.CommandFilterConfig{ReadOnly: true})
 		assert.True(t, result)
 	})
 
 	t.Run("Should filter by enabled namespace", func(t *testing.T) {
-		result := server.ShouldLoadCommand(testCmd, false, []string{"other"}, nil, nil)
+		result := server.ShouldLoadCommand(
+			testCmd,
+			server.CommandFilterConfig{EnabledNamespaces: []string{"other"}},
+		)
 		assert.False(t, result)
 
-		result = server.ShouldLoadCommand(testCmd, false, []string{"test"}, nil, nil)
+		result = server.ShouldLoadCommand(
+			testCmd,
+			server.CommandFilterConfig{EnabledNamespaces: []string{"test"}},
+		)
 		assert.True(t, result)
 	})
 
 	t.Run("Should filter by enabled resource", func(t *testing.T) {
-		result := server.ShouldLoadCommand(testCmd, false, nil, []string{"other"}, nil)
+		result := server.ShouldLoadCommand(
+			testCmd,
+			server.CommandFilterConfig{EnabledResources: []string{"other"}},
+		)
 		assert.False(t, result)
 
-		result = server.ShouldLoadCommand(testCmd, false, nil, []string{"resource"}, nil)
+		result = server.ShouldLoadCommand(
+			testCmd,
+			server.CommandFilterConfig{EnabledResources: []string{"resource"}},
+		)
 		assert.True(t, result)
 	})
 
 	t.Run("Should filter by enabled verb", func(t *testing.T) {
-		result := server.ShouldLoadCommand(testCmd, false, nil, nil, []string{"other"})
+		result := server.ShouldLoadCommand(
+			testCmd,
+			server.CommandFilterConfig{EnabledVerbs: []string{"other"}},
+		)
 		assert.False(t, result)
 
-		result = server.ShouldLoadCommand(testCmd, false, nil, nil, []string{"get"})
+		result = server.ShouldLoadCommand(
+			testCmd,
+			server.CommandFilterConfig{EnabledVerbs: []string{"get"}},
+		)
 		assert.True(t, result)
 	})
 }

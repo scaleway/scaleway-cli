@@ -10,6 +10,7 @@ import (
 )
 
 var (
+	// ExcludedNamespaces is used to filter out core.Command that should not be exposed as MCP tools based on their namespace.
 	ExcludedNamespaces = []string{
 		// Skip config namespace to avoid security risks
 		"config",
@@ -21,10 +22,20 @@ var (
 		"init",
 	}
 
+	// ExcludedVerbs is used to filter out core.Command that should not be exposed as MCP tools based on their verb.
 	ExcludedVerbs = []string{
 		"edit", // Shell-centric verb
 	}
 )
+
+// CommandFilterConfig holds the configuration for filtering CLI commands
+// when registering them as MCP tools/resources.
+type CommandFilterConfig struct {
+	ReadOnly          bool
+	EnabledNamespaces []string
+	EnabledResources  []string
+	EnabledVerbs      []string
+}
 
 // ShouldLoadCommand returns true if the command should be registered as an MCP tool.
 // It filters out:
@@ -35,11 +46,7 @@ var (
 // - Commands with excluded verbs
 // - When readOnly is true, only commands with get/list verbs are registered
 // - When enabledNamespaces/ Resources/ Verbs are set, only matching commands are registered
-func ShouldLoadCommand(
-	cmd *core.Command,
-	readOnly bool,
-	enabledNamespaces, enabledResources, enabledVerbs []string,
-) bool {
+func ShouldLoadCommand(cmd *core.Command, config CommandFilterConfig) bool {
 	// Skip hidden commands
 	if cmd.Hidden {
 		return false
@@ -63,22 +70,23 @@ func ShouldLoadCommand(
 	}
 
 	// If enabled namespaces are specified, only allow those namespaces
-	if len(enabledNamespaces) > 0 && !slices.Contains(enabledNamespaces, cmd.Namespace) {
+	if len(config.EnabledNamespaces) > 0 &&
+		!slices.Contains(config.EnabledNamespaces, cmd.Namespace) {
 		return false
 	}
 
 	// If enabled resources are specified, only allow those resources
-	if len(enabledResources) > 0 && !slices.Contains(enabledResources, cmd.Resource) {
+	if len(config.EnabledResources) > 0 && !slices.Contains(config.EnabledResources, cmd.Resource) {
 		return false
 	}
 
 	// If enabled verbs are specified, only allow those verbs
-	if len(enabledVerbs) > 0 && !slices.Contains(enabledVerbs, cmd.Verb) {
+	if len(config.EnabledVerbs) > 0 && !slices.Contains(config.EnabledVerbs, cmd.Verb) {
 		return false
 	}
 
 	// In read-only mode, only allow get/list operations
-	if readOnly && !cmd.IsReadOnlyCommand() {
+	if config.ReadOnly && !cmd.IsReadOnly() {
 		return false
 	}
 
@@ -87,13 +95,7 @@ func ShouldLoadCommand(
 
 // LoadCommand loads a CLI command as an MCP tool and optionally as a resource
 func (s *MCPServer) LoadCommand(cmd *core.Command) error {
-	if !ShouldLoadCommand(
-		cmd,
-		s.readOnly,
-		s.enabledNamespaces,
-		s.enabledResources,
-		s.enabledVerbs,
-	) {
+	if !ShouldLoadCommand(cmd, s.filterConfig) {
 		return nil
 	}
 
@@ -125,7 +127,7 @@ func (s *MCPServer) LoadCommand(cmd *core.Command) error {
 	s.commands = append(s.commands, tool)
 
 	// Register as a resource if it's a list command
-	if cmd.IsListCommand() {
+	if cmd.IsList() {
 		if err := s.LoadResource(cmd); err != nil {
 			log.Printf(
 				"Warning: failed to load resource %s: %v\n",

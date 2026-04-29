@@ -1,0 +1,38 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.
+
+USAGE:
+  scw mcp server list-tools [arg=value ...]
+
+EXAMPLES:
+  List all available MCP tools
+    scw mcp server list-tools
+
+  List tools for a specific namespace
+    scw mcp server list-tools namespace=instance
+
+  List tools for a specific resource
+    scw mcp server list-tools resource=server
+
+  List only read-only tools (get/list operations)
+    scw mcp server list-tools read-only=true
+
+  List tools with a specific verb
+    scw mcp server list-tools verb=get
+
+ARGS:
+  [namespace]         Filter by namespace (e.g., instance, iam, object)
+  [resource]          Filter by resource (e.g., server, volume, bucket)
+  [verb]              Filter by verb (e.g., get, list, create)
+  [read-only=false]   Only list read-only tools (get, list operations)
+
+FLAGS:
+  -h, --help                help for list-tools
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

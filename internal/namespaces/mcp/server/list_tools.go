@@ -141,10 +141,12 @@ func McpServerListTools() *core.Command {
 			mcpServer := NewMCPServer(
 				version,
 				cliCommands,
-				args.ReadOnly,
-				enabledNamespaces,
-				enabledResources,
-				enabledVerbs,
+				CommandFilterConfig{
+					ReadOnly:          args.ReadOnly,
+					EnabledNamespaces: enabledNamespaces,
+					EnabledResources:  enabledResources,
+					EnabledVerbs:      enabledVerbs,
+				},
 			)
 
 			// Step 2: List tools from the MCP server

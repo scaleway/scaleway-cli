@@ -8,7 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 )
 
-func TestShouldRegisterCommand_WithEnabledNamespaces(t *testing.T) {
+func TestShouldLoadCommand_WithEnabledNamespaces(t *testing.T) {
 	tests := []struct {
 		name              string
 		command           *core.Command
@@ -63,13 +63,9 @@ func TestShouldRegisterCommand_WithEnabledNamespaces(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldLoadCommand(
-				tt.command,
-				false,
-				tt.enabledNamespaces,
-				nil,
-				nil,
-			)
+			result := server.ShouldLoadCommand(tt.command, server.CommandFilterConfig{
+				EnabledNamespaces: tt.enabledNamespaces,
+			})
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -77,7 +73,7 @@ func TestShouldRegisterCommand_WithEnabledNamespaces(t *testing.T) {
 	}
 }
 
-func TestShouldRegisterCommand_WithEnabledResources(t *testing.T) {
+func TestShouldLoadCommand_WithEnabledResources(t *testing.T) {
 	tests := []struct {
 		name             string
 		command          *core.Command
@@ -121,7 +117,9 @@ func TestShouldRegisterCommand_WithEnabledResources(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldLoadCommand(tt.command, false, nil, tt.enabledResources, nil)
+			result := server.ShouldLoadCommand(tt.command, server.CommandFilterConfig{
+				EnabledResources: tt.enabledResources,
+			})
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -129,7 +127,7 @@ func TestShouldRegisterCommand_WithEnabledResources(t *testing.T) {
 	}
 }
 
-func TestShouldRegisterCommand_WithEnabledVerbs(t *testing.T) {
+func TestShouldLoadCommand_WithEnabledVerbs(t *testing.T) {
 	tests := []struct {
 		name         string
 		command      *core.Command
@@ -184,7 +182,9 @@ func TestShouldRegisterCommand_WithEnabledVerbs(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldLoadCommand(tt.command, false, nil, nil, tt.enabledVerbs)
+			result := server.ShouldLoadCommand(tt.command, server.CommandFilterConfig{
+				EnabledVerbs: tt.enabledVerbs,
+			})
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -192,7 +192,7 @@ func TestShouldRegisterCommand_WithEnabledVerbs(t *testing.T) {
 	}
 }
 
-func TestShouldRegisterCommand_WithCombinedFilters(t *testing.T) {
+func TestShouldLoadCommand_WithCombinedFilters(t *testing.T) {
 	tests := []struct {
 		name              string
 		command           *core.Command
@@ -296,13 +296,11 @@ func TestShouldRegisterCommand_WithCombinedFilters(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldLoadCommand(
-				tt.command,
-				false,
-				tt.enabledNamespaces,
-				tt.enabledResources,
-				tt.enabledVerbs,
-			)
+			result := server.ShouldLoadCommand(tt.command, server.CommandFilterConfig{
+				EnabledNamespaces: tt.enabledNamespaces,
+				EnabledResources:  tt.enabledResources,
+				EnabledVerbs:      tt.enabledVerbs,
+			})
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -310,7 +308,7 @@ func TestShouldRegisterCommand_WithCombinedFilters(t *testing.T) {
 	}
 }
 
-func TestShouldRegisterCommand_WithReadOnlyAndFilters(t *testing.T) {
+func TestShouldLoadCommand_WithReadOnlyAndFilters(t *testing.T) {
 	tests := []struct {
 		name              string
 		command           *core.Command
@@ -362,13 +360,11 @@ func TestShouldRegisterCommand_WithReadOnlyAndFilters(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldLoadCommand(
-				tt.command,
-				tt.readOnly,
-				tt.enabledNamespaces,
-				nil,
-				tt.enabledVerbs,
-			)
+			result := server.ShouldLoadCommand(tt.command, server.CommandFilterConfig{
+				ReadOnly:          tt.readOnly,
+				EnabledNamespaces: tt.enabledNamespaces,
+				EnabledVerbs:      tt.enabledVerbs,
+			})
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}

@@ -179,13 +179,7 @@ func (cr *CommandResource) Execute(
 
 // LoadResource registers a CLI command as an MCP resource
 func (s *MCPServer) LoadResource(cmd *core.Command) error {
-	if !ShouldLoadCommand(
-		cmd,
-		s.readOnly,
-		s.enabledNamespaces,
-		s.enabledResources,
-		s.enabledVerbs,
-	) {
+	if !ShouldLoadCommand(cmd, s.filterConfig) {
 		return nil
 	}
 

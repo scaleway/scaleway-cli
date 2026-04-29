@@ -50,21 +50,12 @@ func (ct *CommandTool) ToMCPTool() *mcp.Tool {
 
 	// https://modelcontextprotocol.io/specification/2025-11-25/server/resources#annotations
 
-	annotations := &mcp.ToolAnnotations{
-		OpenWorldHint: new(true), // We interact with Scaleway for all registered commands
+	tool.Annotations = &mcp.ToolAnnotations{
+		OpenWorldHint:   new(true), // We interact with Scaleway for all registered commands
+		DestructiveHint: new(ct.Command.IsDestructive()),
+		IdempotentHint:  ct.Command.IsIdempotent(),
+		ReadOnlyHint:    ct.Command.IsReadOnly(),
 	}
-
-	if v := getReadOnlyAnnotation(ct.Command); v != nil {
-		annotations.ReadOnlyHint = *v
-	}
-	if v := getIdempotentAnnotation(ct.Command); v != nil {
-		annotations.IdempotentHint = *v
-	}
-	if v := getDestructiveAnnotation(ct.Command); v != nil {
-		annotations.DestructiveHint = v
-	}
-
-	tool.Annotations = annotations
 
 	return tool
 }

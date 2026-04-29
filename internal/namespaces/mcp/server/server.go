@@ -14,21 +14,17 @@ import (
 
 // MCPServer wraps the MCP server with CLI command integration
 type MCPServer struct {
-	server            *mcp.Server
-	commands          []*CommandTool
-	resources         []*CommandResource
-	readOnly          bool
-	enabledNamespaces []string
-	enabledResources  []string
-	enabledVerbs      []string
+	server       *mcp.Server
+	commands     []*CommandTool
+	resources    []*CommandResource
+	filterConfig CommandFilterConfig
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
 func NewMCPServer(
 	version string,
 	cliCommands []*core.Command,
-	readOnly bool,
-	enabledNamespaces, enabledResources, enabledVerbs []string,
+	filterConfig CommandFilterConfig,
 ) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
@@ -44,13 +40,10 @@ func NewMCPServer(
 	})
 
 	s := &MCPServer{
-		server:            mcpServer,
-		commands:          make([]*CommandTool, 0, len(cliCommands)),
-		resources:         make([]*CommandResource, 0),
-		readOnly:          readOnly,
-		enabledNamespaces: enabledNamespaces,
-		enabledResources:  enabledResources,
-		enabledVerbs:      enabledVerbs,
+		server:       mcpServer,
+		commands:     make([]*CommandTool, 0, len(cliCommands)),
+		resources:    make([]*CommandResource, 0),
+		filterConfig: filterConfig,
 	}
 
 	// Register all commands during initialization

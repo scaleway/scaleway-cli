@@ -171,7 +171,7 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 func TestToolMetaSerialization(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, false, nil, nil, nil)
+	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{})
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	if len(registeredCommands) == 0 {

@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"reflect"
+	"regexp"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -187,9 +188,9 @@ func (c *Command) DebugString() string {
 	return c.getPath()
 }
 
-// IsReadOnlyCommand returns true if the command is a read-only operation
+// IsReadOnly returns true if the command is a read-only operation
 // (get, list, or get-* verbs)
-func (c *Command) IsReadOnlyCommand() bool {
+func (c *Command) IsReadOnly() bool {
 	if c.Verb == "" {
 		return false
 	}
@@ -207,8 +208,8 @@ func (c *Command) IsReadOnlyCommand() bool {
 	return false
 }
 
-// IsListCommand returns true if the command is a list operation
-func (c *Command) IsListCommand() bool {
+// IsList returns true if the command is a list operation
+func (c *Command) IsList() bool {
 	if c.Verb == "" {
 		return false
 	}
@@ -218,6 +219,40 @@ func (c *Command) IsListCommand() bool {
 		return true
 	}
 
+	return false
+}
+
+func (c *Command) IsDestructive() bool {
+	if c.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return false
+	}
+
+	// Non-destructive (read-only) verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	nonDestructivePattern := regexp.MustCompile(`^(get|list)$|^get-`)
+
+	if nonDestructivePattern.MatchString(c.Verb) {
+		return false
+	}
+
+	// Default: assume destructive for unknown verbs that modify state
+	return true
+}
+
+func (c *Command) IsIdempotent() bool {
+	if c.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return false
+	}
+
+	// Idempotent verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	idempotentPattern := regexp.MustCompile(`^(get|list)$|^get-`)
+
+	if idempotentPattern.MatchString(c.Verb) {
+		return true
+	}
+
+	// All other verbs are not idempotent
 	return false
 }
 

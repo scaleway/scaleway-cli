@@ -78,7 +78,11 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 	}
 
 	// Step 1: Create MCP server with sample commands
-	mcpServer := server.NewMCPServer("test-version-1.0.0", sampleCommands, false, nil, nil, nil)
+	mcpServer := server.NewMCPServer(
+		"test-version-1.0.0",
+		sampleCommands,
+		server.CommandFilterConfig{},
+	)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	t.Logf("=== MCP Server Setup ===")
@@ -296,7 +300,7 @@ func TestE2E_ListToolsPagination(t *testing.T) {
 		})
 	}
 
-	mcpServer := server.NewMCPServer("test-version", sampleCommands, false, nil, nil, nil)
+	mcpServer := server.NewMCPServer("test-version", sampleCommands, server.CommandFilterConfig{})
 
 	// Create client and connect
 	client := mcp.NewClient(&mcp.Implementation{Name: "test-client", Version: "1.0.0"}, nil)
@@ -384,7 +388,7 @@ func TestE2E_ToolCapabilitiesNotification(t *testing.T) {
 	}
 
 	// Create server with tool listChanged capability enabled
-	mcpServer := server.NewMCPServer("test-version", sampleCommands, false, nil, nil, nil)
+	mcpServer := server.NewMCPServer("test-version", sampleCommands, server.CommandFilterConfig{})
 
 	client := mcp.NewClient(
 		&mcp.Implementation{Name: "test-client", Version: "1.0.0"},
@@ -513,7 +517,11 @@ func TestE2E_ListResourcesCompleteFlow(t *testing.T) {
 
 	// Step 1: Create MCP server with sample commands
 	// List commands will be registered as both tools AND resources
-	mcpServer := server.NewMCPServer("test-version-1.0.0", sampleCommands, false, nil, nil, nil)
+	mcpServer := server.NewMCPServer(
+		"test-version-1.0.0",
+		sampleCommands,
+		server.CommandFilterConfig{},
+	)
 	registeredResources := mcpServer.RegisteredResources()
 
 	t.Logf("=== MCP Server Setup ===")

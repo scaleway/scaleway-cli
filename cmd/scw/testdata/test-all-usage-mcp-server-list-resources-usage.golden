@@ -1,0 +1,34 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Lists all CLI commands that would be exposed as MCP resources by the server. Resources are read-only endpoints for list commands that can be accessed via URI. Use filters to see which resources are available for specific namespaces or resources.
+
+USAGE:
+  scw mcp server list-resources [arg=value ...]
+
+EXAMPLES:
+  List all available MCP resources
+    scw mcp server list-resources
+
+  List resources for a specific namespace
+    scw mcp server list-resources namespace=instance
+
+  List resources for a specific resource type
+    scw mcp server list-resources resource=server
+
+  List only read-only resources
+    scw mcp server list-resources read-only=true
+
+ARGS:
+  [namespace]         Filter by namespace (e.g., instance, iam, object)
+  [resource]          Filter by resource (e.g., server, volume, bucket)
+  [read-only=false]   Only list read-only resources
+
+FLAGS:
+  -h, --help                help for list-resources
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

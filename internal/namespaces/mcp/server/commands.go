@@ -153,10 +153,12 @@ func McpServerServe() *core.Command {
 			mcpServer := NewMCPServer(
 				version,
 				cliCommands,
-				args.ReadOnly,
-				args.EnableNamespaces,
-				args.EnableResources,
-				args.EnableVerbs,
+				CommandFilterConfig{
+					ReadOnly:          args.ReadOnly,
+					EnabledNamespaces: args.EnableNamespaces,
+					EnabledResources:  args.EnableResources,
+					EnabledVerbs:      args.EnableVerbs,
+				},
 			)
 
 			// Step 2: Serve the MCP server with the specified transport
@@ -165,7 +167,6 @@ func McpServerServe() *core.Command {
 		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
 	}
 }
-
 
 func McpServer() *core.Command {
 	return &core.Command{
@@ -258,10 +259,11 @@ func McpServerListResources() *core.Command {
 			mcpServer := NewMCPServer(
 				version,
 				cliCommands,
-				args.ReadOnly,
-				enabledNamespaces,
-				enabledResources,
-				nil, // enabledVerbs - not used for resources
+				CommandFilterConfig{
+					ReadOnly:          args.ReadOnly,
+					EnabledNamespaces: enabledNamespaces,
+					EnabledResources:  enabledResources,
+				},
 			)
 
 			// Step 2: List resources from the MCP server
