@@ -1,8 +1,19 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAMESPACE  RESOURCE  VERB  TOOL NAME             SHORT
-account    project   get   account_project_get   Get an existing Project
-account    project   list  account_project_list  List all Projects of an Organization
+NAMESPACE  RESOURCE      VERB  TOOL NAME              SHORT
+account    project       get   account_project_get    Get an existing Project
+account    project       list  account_project_list   List all Projects of an Organization
+k8s        acl           list  k8s_acl_list           List ACLs
+k8s        cluster       get   k8s_cluster_get        Get a Cluster
+k8s        cluster       list  k8s_cluster_list       List Clusters
+k8s        cluster-type  list  k8s_cluster-type_list  List cluster types
+k8s        kubeconfig    get   k8s_kubeconfig_get     Retrieve a kubeconfig
+k8s        node          get   k8s_node_get           Get a Node in a Cluster
+k8s        node          list  k8s_node_list          List Nodes in a Cluster
+k8s        pool          get   k8s_pool_get           Get a Pool in a Cluster
+k8s        pool          list  k8s_pool_list          List Pools in a Cluster
+k8s        version       get   k8s_version_get        Get a Version
+k8s        version       list  k8s_version_list       List all available Versions
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -18,5 +29,82 @@ account    project   list  account_project_list  List all Projects of an Organiz
     "verb": "list",
     "tool_name": "account_project_list",
     "short": "List all Projects of an Organization"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "acl",
+    "verb": "list",
+    "tool_name": "k8s_acl_list",
+    "short": "List ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "get",
+    "tool_name": "k8s_cluster_get",
+    "short": "Get a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "list",
+    "tool_name": "k8s_cluster_list",
+    "short": "List Clusters"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster-type",
+    "verb": "list",
+    "tool_name": "k8s_cluster-type_list",
+    "short": "List cluster types"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "kubeconfig",
+    "verb": "get",
+    "tool_name": "k8s_kubeconfig_get",
+    "short": "Retrieve a kubeconfig"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "get",
+    "tool_name": "k8s_node_get",
+    "short": "Get a Node in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "list",
+    "tool_name": "k8s_node_list",
+    "short": "List Nodes in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "get",
+    "tool_name": "k8s_pool_get",
+    "short": "Get a Pool in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "list",
+    "tool_name": "k8s_pool_list",
+    "short": "List Pools in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "version",
+    "verb": "get",
+    "tool_name": "k8s_version_get",
+    "short": "Get a Version"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "version",
+    "verb": "list",
+    "tool_name": "k8s_version_list",
+    "short": "List all available Versions"
   }
 ]

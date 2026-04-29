@@ -1,5 +1,334 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAMESPACE  RESOURCE  VERB  TOOL NAME  SHORT
+NAMESPACE  RESOURCE      VERB                     TOOL NAME                            SHORT
+k8s        acl           add                      k8s_acl_add                          Add new ACLs
+k8s        acl           delete                   k8s_acl_delete                       Delete an existing ACL
+k8s        acl           list                     k8s_acl_list                         List ACLs
+k8s        acl           set                      k8s_acl_set                          Set new ACLs
+k8s        cluster       create                   k8s_cluster_create                   Create a new Cluster
+k8s        cluster       delete                   k8s_cluster_delete                   Delete a Cluster
+k8s        cluster       get                      k8s_cluster_get                      Get a Cluster
+k8s        cluster       list                     k8s_cluster_list                     List Clusters
+k8s        cluster       list-available-types     k8s_cluster_list-available-types     List available cluster types for a cluster
+k8s        cluster       list-available-versions  k8s_cluster_list-available-versions  List available versions for a Cluster
+k8s        cluster       reset-admin-token        k8s_cluster_reset-admin-token        Reset the admin token of a Cluster
+k8s        cluster       set-type                 k8s_cluster_set-type                 Change the Cluster type
+k8s        cluster       update                   k8s_cluster_update                   Update a Cluster
+k8s        cluster       upgrade                  k8s_cluster_upgrade                  Upgrade a Cluster
+k8s        cluster       wait                     k8s_cluster_wait                     Wait for a cluster to reach a stable state
+k8s        cluster-type  list                     k8s_cluster-type_list                List cluster types
+k8s        kubeconfig    get                      k8s_kubeconfig_get                   Retrieve a kubeconfig
+k8s        kubeconfig    install                  k8s_kubeconfig_install               Install a kubeconfig
+k8s        kubeconfig    uninstall                k8s_kubeconfig_uninstall             Uninstall a kubeconfig
+k8s        node          delete                   k8s_node_delete                      Delete a Node in a Cluster
+k8s        node          get                      k8s_node_get                         Get a Node in a Cluster
+k8s        node          list                     k8s_node_list                        List Nodes in a Cluster
+k8s        node          reboot                   k8s_node_reboot                      Reboot a Node in a Cluster
+k8s        node          replace                  k8s_node_replace                     Replace a Node in a Cluster
+k8s        node          wait                     k8s_node_wait                        Wait for a node to reach a stable state
+k8s        pool          add-external-node        k8s_pool_add-external-node           Add an external node to a Kosmos Pool
+k8s        pool          create                   k8s_pool_create                      Create a new Pool in a Cluster
+k8s        pool          delete                   k8s_pool_delete                      Delete a Pool in a Cluster
+k8s        pool          get                      k8s_pool_get                         Get a Pool in a Cluster
+k8s        pool          list                     k8s_pool_list                        List Pools in a Cluster
+k8s        pool          remove-label             k8s_pool_remove-label                Remove a label from a Pool
+k8s        pool          remove-startup-taint     k8s_pool_remove-startup-taint        Remove a startup taint from a Pool
+k8s        pool          remove-taint             k8s_pool_remove-taint                Remove a taint from a Pool
+k8s        pool          set-label                k8s_pool_set-label                   Apply a label to a Pool
+k8s        pool          set-startup-taint        k8s_pool_set-startup-taint           Apply a startup taint to a Pool
+k8s        pool          set-taint                k8s_pool_set-taint                   Apply a taint to a Pool
+k8s        pool          update                   k8s_pool_update                      Update a Pool in a Cluster
+k8s        pool          upgrade                  k8s_pool_upgrade                     Upgrade a Pool in a Cluster
+k8s        pool          wait                     k8s_pool_wait                        Wait for a pool to reach a stable state
+k8s        version       get                      k8s_version_get                      Get a Version
+k8s        version       list                     k8s_version_list                     List all available Versions
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[]
+[
+  {
+    "namespace": "k8s",
+    "resource": "acl",
+    "verb": "add",
+    "tool_name": "k8s_acl_add",
+    "short": "Add new ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "acl",
+    "verb": "delete",
+    "tool_name": "k8s_acl_delete",
+    "short": "Delete an existing ACL"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "acl",
+    "verb": "list",
+    "tool_name": "k8s_acl_list",
+    "short": "List ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "acl",
+    "verb": "set",
+    "tool_name": "k8s_acl_set",
+    "short": "Set new ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "create",
+    "tool_name": "k8s_cluster_create",
+    "short": "Create a new Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "delete",
+    "tool_name": "k8s_cluster_delete",
+    "short": "Delete a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "get",
+    "tool_name": "k8s_cluster_get",
+    "short": "Get a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "list",
+    "tool_name": "k8s_cluster_list",
+    "short": "List Clusters"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "list-available-types",
+    "tool_name": "k8s_cluster_list-available-types",
+    "short": "List available cluster types for a cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "list-available-versions",
+    "tool_name": "k8s_cluster_list-available-versions",
+    "short": "List available versions for a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "reset-admin-token",
+    "tool_name": "k8s_cluster_reset-admin-token",
+    "short": "Reset the admin token of a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "set-type",
+    "tool_name": "k8s_cluster_set-type",
+    "short": "Change the Cluster type"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "update",
+    "tool_name": "k8s_cluster_update",
+    "short": "Update a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "upgrade",
+    "tool_name": "k8s_cluster_upgrade",
+    "short": "Upgrade a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "wait",
+    "tool_name": "k8s_cluster_wait",
+    "short": "Wait for a cluster to reach a stable state"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster-type",
+    "verb": "list",
+    "tool_name": "k8s_cluster-type_list",
+    "short": "List cluster types"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "kubeconfig",
+    "verb": "get",
+    "tool_name": "k8s_kubeconfig_get",
+    "short": "Retrieve a kubeconfig"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "kubeconfig",
+    "verb": "install",
+    "tool_name": "k8s_kubeconfig_install",
+    "short": "Install a kubeconfig"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "kubeconfig",
+    "verb": "uninstall",
+    "tool_name": "k8s_kubeconfig_uninstall",
+    "short": "Uninstall a kubeconfig"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "delete",
+    "tool_name": "k8s_node_delete",
+    "short": "Delete a Node in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "get",
+    "tool_name": "k8s_node_get",
+    "short": "Get a Node in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "list",
+    "tool_name": "k8s_node_list",
+    "short": "List Nodes in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "reboot",
+    "tool_name": "k8s_node_reboot",
+    "short": "Reboot a Node in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "replace",
+    "tool_name": "k8s_node_replace",
+    "short": "Replace a Node in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "verb": "wait",
+    "tool_name": "k8s_node_wait",
+    "short": "Wait for a node to reach a stable state"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "add-external-node",
+    "tool_name": "k8s_pool_add-external-node",
+    "short": "Add an external node to a Kosmos Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "create",
+    "tool_name": "k8s_pool_create",
+    "short": "Create a new Pool in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "delete",
+    "tool_name": "k8s_pool_delete",
+    "short": "Delete a Pool in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "get",
+    "tool_name": "k8s_pool_get",
+    "short": "Get a Pool in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "list",
+    "tool_name": "k8s_pool_list",
+    "short": "List Pools in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "remove-label",
+    "tool_name": "k8s_pool_remove-label",
+    "short": "Remove a label from a Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "remove-startup-taint",
+    "tool_name": "k8s_pool_remove-startup-taint",
+    "short": "Remove a startup taint from a Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "remove-taint",
+    "tool_name": "k8s_pool_remove-taint",
+    "short": "Remove a taint from a Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "set-label",
+    "tool_name": "k8s_pool_set-label",
+    "short": "Apply a label to a Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "set-startup-taint",
+    "tool_name": "k8s_pool_set-startup-taint",
+    "short": "Apply a startup taint to a Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "set-taint",
+    "tool_name": "k8s_pool_set-taint",
+    "short": "Apply a taint to a Pool"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "update",
+    "tool_name": "k8s_pool_update",
+    "short": "Update a Pool in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "upgrade",
+    "tool_name": "k8s_pool_upgrade",
+    "short": "Upgrade a Pool in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "verb": "wait",
+    "tool_name": "k8s_pool_wait",
+    "short": "Wait for a pool to reach a stable state"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "version",
+    "verb": "get",
+    "tool_name": "k8s_version_get",
+    "short": "Get a Version"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "version",
+    "verb": "list",
+    "tool_name": "k8s_version_list",
+    "short": "List all available Versions"
+  }
+]

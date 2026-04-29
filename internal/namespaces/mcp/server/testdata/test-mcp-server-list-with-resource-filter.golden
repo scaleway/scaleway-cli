@@ -1,5 +1,46 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAMESPACE  RESOURCE  VERB  TOOL NAME  SHORT
+NAMESPACE  RESOURCE  VERB    TOOL NAME               SHORT
+account    project   create  account_project_create  Create a new Project for an Organization
+account    project   delete  account_project_delete  Delete an existing Project
+account    project   get     account_project_get     Get an existing Project
+account    project   list    account_project_list    List all Projects of an Organization
+account    project   update  account_project_update  Update Project
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[]
+[
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "create",
+    "tool_name": "account_project_create",
+    "short": "Create a new Project for an Organization"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "delete",
+    "tool_name": "account_project_delete",
+    "short": "Delete an existing Project"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "get",
+    "tool_name": "account_project_get",
+    "short": "Get an existing Project"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "list",
+    "tool_name": "account_project_list",
+    "short": "List all Projects of an Organization"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "update",
+    "tool_name": "account_project_update",
+    "short": "Update Project"
+  }
+]

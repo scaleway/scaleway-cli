@@ -1,5 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAMESPACE  RESOURCE  VERB  TOOL NAME  SHORT
+NAMESPACE  RESOURCE  VERB  TOOL NAME         SHORT
+k8s        cluster   list  k8s_cluster_list  List Clusters
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[]
+[
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "verb": "list",
+    "tool_name": "k8s_cluster_list",
+    "short": "List Clusters"
+  }
+]

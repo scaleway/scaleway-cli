@@ -6,13 +6,14 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMcpServerList(t *testing.T) {
-	cmds := core.NewCommandsMerge(mcp.GetCommands(), account.GetCommands())
+	cmds := core.NewCommandsMerge(mcp.GetCommands(), k8s.GetCommands(), account.GetCommands())
 
 	t.Run("Basic", core.Test(&core.TestConfig{
 		Commands: cmds,
@@ -26,7 +27,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Namespace Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=mcp",
+		Cmd:      "scw mcp server list-tools namespace=k8s",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -36,7 +37,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Resource Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools resource=server",
+		Cmd:      "scw mcp server list-tools resource=project",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -76,7 +77,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Combined Filters", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=mcp resource=server verb=list",
+		Cmd:      "scw mcp server list-tools namespace=k8s resource=cluster verb=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
