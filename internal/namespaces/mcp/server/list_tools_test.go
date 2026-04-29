@@ -5,14 +5,14 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMcpServerList(t *testing.T) {
-	cmds := core.NewCommandsMerge(mcp.GetCommands(), instance.GetCommands())
+	cmds := core.NewCommandsMerge(mcp.GetCommands(), account.GetCommands())
 
 	t.Run("Basic", core.Test(&core.TestConfig{
 		Commands: cmds,
