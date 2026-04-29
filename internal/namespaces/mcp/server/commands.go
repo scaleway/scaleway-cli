@@ -2,8 +2,9 @@ package server
 
 import (
 	"context"
+	"fmt"
+	"os"
 	"reflect"
-	"sort"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
@@ -102,15 +103,64 @@ func McpServerServe() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			return RunMCPServer(
-				ctx,
-				args.Transport,
-				args.Address,
+			// Get all CLI commands from the meta context
+			commands := core.ExtractCommands(ctx)
+			cliCommands := commands.GetAll()
+
+			// Get build info for version
+			buildInfo := core.ExtractBuildInfo(ctx)
+			version := buildInfo.Version.String()
+
+			// Get profile from context (set by global --profile flag)
+			profile := core.ExtractProfileName(ctx)
+			configPath := core.ExtractConfigPath(ctx)
+
+			// Log startup information to stderr
+			fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
+			fmt.Fprintf(os.Stderr, "Transport mode: %s\n", args.Transport)
+			fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", args.ReadOnly)
+			if len(args.EnableNamespaces) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", args.EnableNamespaces)
+			}
+			if len(args.EnableResources) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", args.EnableResources)
+			}
+			if len(args.EnableVerbs) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", args.EnableVerbs)
+			}
+			fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
+			fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
+
+			// Reload the client with the profile to ensure proper authentication
+			if err := core.ReloadClient(ctx); err != nil {
+				return nil, fmt.Errorf("failed to initialize authenticated client: %w", err)
+			}
+
+			// Verify client is properly initialized
+			client := core.ExtractClient(ctx)
+			if client != nil {
+				if orgID, ok := client.GetDefaultOrganizationID(); ok {
+					fmt.Fprintf(os.Stderr, "Organization ID: %s\n", orgID)
+				}
+				if projectID, ok := client.GetDefaultProjectID(); ok {
+					fmt.Fprintf(os.Stderr, "Project ID: %s\n", projectID)
+				}
+			} else {
+				fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
+			}
+
+			// Step 1: Create the MCP server using NewMCPServer
+			mcpServer := NewMCPServer(
+				version,
+				cliCommands,
 				args.ReadOnly,
 				args.EnableNamespaces,
 				args.EnableResources,
 				args.EnableVerbs,
 			)
+
+			// Step 2: Serve the MCP server with the specified transport
+			return mcpServer.Serve(ctx, args.Transport, args.Address)
 		},
 		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
 	}
@@ -190,6 +240,10 @@ func McpServerListTools() *core.Command {
 			commands := core.ExtractCommands(ctx)
 			cliCommands := commands.GetAll()
 
+			// Get build info for version
+			buildInfo := core.ExtractBuildInfo(ctx)
+			version := buildInfo.Version.String()
+
 			// Build filter arrays from single string args
 			var enabledNamespaces, enabledResources, enabledVerbs []string
 			if args.Namespace != "" {
@@ -202,47 +256,18 @@ func McpServerListTools() *core.Command {
 				enabledVerbs = []string{args.Verb}
 			}
 
-			// Collect matching commands
-			type toolInfo struct {
-				Namespace string `json:"namespace"`
-				Resource  string `json:"resource"`
-				Verb      string `json:"verb"`
-				ToolName  string `json:"tool_name"`
-				Short     string `json:"short"`
-			}
+			// Step 1: Create the MCP server using NewMCPServer
+			mcpServer := NewMCPServer(
+				version,
+				cliCommands,
+				args.ReadOnly,
+				enabledNamespaces,
+				enabledResources,
+				enabledVerbs,
+			)
 
-			var tools []toolInfo
-			for _, cmd := range cliCommands {
-				if ShouldRegisterCommand(
-					cmd,
-					args.ReadOnly,
-					enabledNamespaces,
-					enabledResources,
-					enabledVerbs,
-				) {
-					tools = append(tools, toolInfo{
-						Namespace: cmd.Namespace,
-						Resource:  cmd.Resource,
-						Verb:      cmd.Verb,
-						ToolName:  CommandNameToToolName(cmd),
-						Short:     cmd.Short,
-					})
-				}
-			}
-
-			// Sort tools by namespace, resource, verb for consistent output
-			sort.Slice(tools, func(i, j int) bool {
-				if tools[i].Namespace != tools[j].Namespace {
-					return tools[i].Namespace < tools[j].Namespace
-				}
-				if tools[i].Resource != tools[j].Resource {
-					return tools[i].Resource < tools[j].Resource
-				}
-
-				return tools[i].Verb < tools[j].Verb
-			})
-
-			return tools, nil
+			// Step 2: List tools from the MCP server
+			return mcpServer.ListTools(), nil
 		},
 		ExcludeFromMCP: true,
 	}
@@ -322,6 +347,10 @@ func McpServerListResources() *core.Command {
 			commands := core.ExtractCommands(ctx)
 			cliCommands := commands.GetAll()
 
+			// Get build info for version
+			buildInfo := core.ExtractBuildInfo(ctx)
+			version := buildInfo.Version.String()
+
 			// Build filter arrays from single string args
 			var enabledNamespaces, enabledResources []string
 			if args.Namespace != "" {
@@ -331,44 +360,18 @@ func McpServerListResources() *core.Command {
 				enabledResources = []string{args.Resource}
 			}
 
-			// Collect matching resources
-			type resourceInfo struct {
-				Namespace string `json:"namespace"`
-				Resource  string `json:"resource"`
-				URI       string `json:"uri"`
-				Short     string `json:"short"`
-			}
+			// Step 1: Create the MCP server using NewMCPServer
+			mcpServer := NewMCPServer(
+				version,
+				cliCommands,
+				args.ReadOnly,
+				enabledNamespaces,
+				enabledResources,
+				nil, // enabledVerbs - not used for resources
+			)
 
-			var resources []resourceInfo
-			for _, cmd := range cliCommands {
-				// Only list commands are exposed as resources
-				if IsListCommand(cmd) &&
-					ShouldRegisterCommand(
-						cmd,
-						args.ReadOnly,
-						enabledNamespaces,
-						enabledResources,
-						nil,
-					) {
-					resources = append(resources, resourceInfo{
-						Namespace: cmd.Namespace,
-						Resource:  cmd.Resource,
-						URI:       BuildResourceURI(cmd.Namespace, cmd.Resource),
-						Short:     cmd.Short,
-					})
-				}
-			}
-
-			// Sort resources by namespace, resource for consistent output
-			sort.Slice(resources, func(i, j int) bool {
-				if resources[i].Namespace != resources[j].Namespace {
-					return resources[i].Namespace < resources[j].Namespace
-				}
-
-				return resources[i].Resource < resources[j].Resource
-			})
-
-			return resources, nil
+			// Step 2: List resources from the MCP server
+			return mcpServer.ListResources(), nil
 		},
 		ExcludeFromMCP: true,
 	}

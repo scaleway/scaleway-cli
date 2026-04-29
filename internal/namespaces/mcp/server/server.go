@@ -7,6 +7,7 @@ import (
 	"os"
 	"os/signal"
 	"slices"
+	"sort"
 	"strings"
 	"syscall"
 
@@ -257,72 +258,107 @@ func (s *MCPServer) RegisteredResources() []*CommandResource {
 	return s.resources
 }
 
-func RunMCPServer(
+// ListTools returns a list of available MCP tools based on the server's configuration.
+// It returns tools that match the read-only mode and enabled namespaces/resources/verbs.
+func (s *MCPServer) ListTools() []toolInfo {
+	var tools []toolInfo
+	for _, cmd := range s.commands {
+		if ShouldRegisterCommand(
+			cmd.Command,
+			s.readOnly,
+			s.enabledNamespaces,
+			s.enabledResources,
+			s.enabledVerbs,
+		) {
+			tools = append(tools, toolInfo{
+				Namespace: cmd.Command.Namespace,
+				Resource:  cmd.Command.Resource,
+				Verb:      cmd.Command.Verb,
+				ToolName:  CommandNameToToolName(cmd.Command),
+				Short:     cmd.Command.Short,
+			})
+		}
+	}
+
+	// Sort tools by namespace, resource, verb for consistent output
+	sort.Slice(tools, func(i, j int) bool {
+		if tools[i].Namespace != tools[j].Namespace {
+			return tools[i].Namespace < tools[j].Namespace
+		}
+		if tools[i].Resource != tools[j].Resource {
+			return tools[i].Resource < tools[j].Resource
+		}
+		return tools[i].Verb < tools[j].Verb
+	})
+
+	return tools
+}
+
+// toolInfo represents information about an MCP tool
+type toolInfo struct {
+	Namespace string `json:"namespace"`
+	Resource  string `json:"resource"`
+	Verb      string `json:"verb"`
+	ToolName  string `json:"tool_name"`
+	Short     string `json:"short"`
+}
+
+// ListResources returns a list of available MCP resources based on the server's configuration.
+// Resources are read-only endpoints for list commands that can be accessed via URI.
+func (s *MCPServer) ListResources() []resourceInfo {
+	var resources []resourceInfo
+	for _, cmd := range s.commands {
+		// Only list commands are exposed as resources
+		if IsListCommand(cmd.Command) &&
+			ShouldRegisterCommand(
+				cmd.Command,
+				s.readOnly,
+				s.enabledNamespaces,
+				s.enabledResources,
+				s.enabledVerbs,
+			) {
+			resources = append(resources, resourceInfo{
+				Namespace: cmd.Command.Namespace,
+				Resource:  cmd.Command.Resource,
+				URI:       BuildResourceURI(cmd.Command.Namespace, cmd.Command.Resource),
+				Short:     cmd.Command.Short,
+			})
+		}
+	}
+
+	// Sort resources by namespace, resource for consistent output
+	sort.Slice(resources, func(i, j int) bool {
+		if resources[i].Namespace != resources[j].Namespace {
+			return resources[i].Namespace < resources[j].Namespace
+		}
+
+		return resources[i].Resource < resources[j].Resource
+	})
+
+	return resources
+}
+
+// resourceInfo represents information about an MCP resource
+type resourceInfo struct {
+	Namespace string `json:"namespace"`
+	Resource  string `json:"resource"`
+	URI       string `json:"uri"`
+	Short     string `json:"short"`
+}
+
+// Serve runs the MCP server with the specified transport.
+// It handles graceful shutdown and transport selection.
+func (s *MCPServer) Serve(
 	ctx context.Context,
 	transportMode string,
 	address string,
-	readOnly bool,
-	enabledNamespaces []string,
-	enabledResources []string,
-	enabledVerbs []string,
 ) (any, error) {
-	// Get all CLI commands from the meta context
-	commands := core.ExtractCommands(ctx)
-	cliCommands := commands.GetAll()
-
-	// Get build info for version
-	buildInfo := core.ExtractBuildInfo(ctx)
-	version := buildInfo.Version.String()
-
-	// Get profile from context (set by global --profile flag)
-	profile := core.ExtractProfileName(ctx)
-	configPath := core.ExtractConfigPath(ctx)
-
-	// Log startup information to stderr
-	fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
-	fmt.Fprintf(os.Stderr, "Transport mode: %s\n", transportMode)
-	fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", readOnly)
-	if len(enabledNamespaces) > 0 {
-		fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", enabledNamespaces)
+	// Log transport information
+	fmt.Fprintf(os.Stderr, "Running MCP server with %s transport", transportMode)
+	if transportMode != "stdio" {
+		fmt.Fprintf(os.Stderr, " on %s", address)
 	}
-	if len(enabledResources) > 0 {
-		fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", enabledResources)
-	}
-	if len(enabledVerbs) > 0 {
-		fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", enabledVerbs)
-	}
-	fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
-	fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
-
-	// Reload the client with the profile to ensure proper authentication
-	// This is necessary because the bootstrap creates an anonymous client for
-	// commands with AllowAnonymousClient: true
-	if err := core.ReloadClient(ctx); err != nil {
-		return nil, fmt.Errorf("failed to initialize authenticated client: %w", err)
-	}
-
-	// Verify client is properly initialized
-	client := core.ExtractClient(ctx)
-	if client != nil {
-		if orgID, ok := client.GetDefaultOrganizationID(); ok {
-			fmt.Fprintf(os.Stderr, "Organization ID: %s\n", orgID)
-		}
-		if projectID, ok := client.GetDefaultProjectID(); ok {
-			fmt.Fprintf(os.Stderr, "Project ID: %s\n", projectID)
-		}
-	} else {
-		fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
-	}
-
-	// Create MCP server with all commands
-	mcpServer := NewMCPServer(
-		version,
-		cliCommands,
-		readOnly,
-		enabledNamespaces,
-		enabledResources,
-		enabledVerbs,
-	)
+	fmt.Fprintf(os.Stderr, "\n")
 
 	// Setup graceful shutdown
 	ctx, cancel := context.WithCancel(ctx)
@@ -339,20 +375,15 @@ func RunMCPServer(
 	// Run server based on transport mode
 	switch transportMode {
 	case "stdio":
-		fmt.Fprintf(os.Stderr, "Running MCP server over stdio\n")
-		if err := mcpServer.Run(ctx, &mcp.StdioTransport{}); err != nil {
+		if err := s.Run(ctx, &mcp.StdioTransport{}); err != nil {
 			return nil, fmt.Errorf("MCP server error: %w", err)
 		}
 
 	case "sse":
-		fmt.Fprintf(os.Stderr, "Running MCP server with SSE transport on %s\n", address)
-
-		return nil, RunSSEServer(ctx, mcpServer, address)
+		return nil, RunSSEServer(ctx, s, address)
 
 	case "streamable-http":
-		fmt.Fprintf(os.Stderr, "Running MCP server with streamable HTTP transport on %s\n", address)
-
-		return nil, RunStreamableHTTPServer(ctx, mcpServer, address)
+		return nil, RunStreamableHTTPServer(ctx, s, address)
 
 	default:
 		return nil, fmt.Errorf(
