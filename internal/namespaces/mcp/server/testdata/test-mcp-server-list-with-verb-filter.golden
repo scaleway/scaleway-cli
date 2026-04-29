@@ -1,5 +1,94 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-NAMESPACE  RESOURCE  VERB  TOOL NAME  SHORT
+NAMESPACE  RESOURCE         VERB  TOOL NAME                      SHORT
+instance   image            list  instance_image_list            List Instance images
+instance   ip               list  instance_ip_list               List all flexible IPs
+instance   placement-group  list  instance_placement-group_list  List placement groups
+instance   private-nic      list  instance_private-nic_list      List all private NICs
+instance   security-group   list  instance_security-group_list   List security groups
+instance   server           list  instance_server_list           List all Instances
+instance   server-type      list  instance_server-type_list      List Instance types
+instance   snapshot         list  instance_snapshot_list         List snapshots
+instance   user-data        list  instance_user-data_list        List user data
+instance   volume           list  instance_volume_list           List volumes
+instance   volume-type      list  instance_volume-type_list      List volume types
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[]
+[
+  {
+    "namespace": "instance",
+    "resource": "image",
+    "verb": "list",
+    "tool_name": "instance_image_list",
+    "short": "List Instance images"
+  },
+  {
+    "namespace": "instance",
+    "resource": "ip",
+    "verb": "list",
+    "tool_name": "instance_ip_list",
+    "short": "List all flexible IPs"
+  },
+  {
+    "namespace": "instance",
+    "resource": "placement-group",
+    "verb": "list",
+    "tool_name": "instance_placement-group_list",
+    "short": "List placement groups"
+  },
+  {
+    "namespace": "instance",
+    "resource": "private-nic",
+    "verb": "list",
+    "tool_name": "instance_private-nic_list",
+    "short": "List all private NICs"
+  },
+  {
+    "namespace": "instance",
+    "resource": "security-group",
+    "verb": "list",
+    "tool_name": "instance_security-group_list",
+    "short": "List security groups"
+  },
+  {
+    "namespace": "instance",
+    "resource": "server",
+    "verb": "list",
+    "tool_name": "instance_server_list",
+    "short": "List all Instances"
+  },
+  {
+    "namespace": "instance",
+    "resource": "server-type",
+    "verb": "list",
+    "tool_name": "instance_server-type_list",
+    "short": "List Instance types"
+  },
+  {
+    "namespace": "instance",
+    "resource": "snapshot",
+    "verb": "list",
+    "tool_name": "instance_snapshot_list",
+    "short": "List snapshots"
+  },
+  {
+    "namespace": "instance",
+    "resource": "user-data",
+    "verb": "list",
+    "tool_name": "instance_user-data_list",
+    "short": "List user data"
+  },
+  {
+    "namespace": "instance",
+    "resource": "volume",
+    "verb": "list",
+    "tool_name": "instance_volume_list",
+    "short": "List volumes"
+  },
+  {
+    "namespace": "instance",
+    "resource": "volume-type",
+    "verb": "list",
+    "tool_name": "instance_volume-type_list",
+    "short": "List volume types"
+  }
+]

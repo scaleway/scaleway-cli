@@ -5,14 +5,17 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 	"github.com/stretchr/testify/assert"
 )
 
 func TestMcpServerList(t *testing.T) {
+	cmds := core.NewCommandsMerge(mcp.GetCommands(), instance.GetCommands())
+
 	t.Run("Basic", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -22,7 +25,7 @@ func TestMcpServerList(t *testing.T) {
 	}))
 
 	t.Run("With Namespace Filter", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools namespace=mcp",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -32,7 +35,7 @@ func TestMcpServerList(t *testing.T) {
 	}))
 
 	t.Run("With Resource Filter", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools resource=server",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -42,7 +45,7 @@ func TestMcpServerList(t *testing.T) {
 	}))
 
 	t.Run("With Verb Filter", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools verb=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -52,7 +55,7 @@ func TestMcpServerList(t *testing.T) {
 	}))
 
 	t.Run("With ReadOnly Filter", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools read-only=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -62,7 +65,7 @@ func TestMcpServerList(t *testing.T) {
 	}))
 
 	t.Run("With Namespace Filter That Matches Nothing", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools namespace=nonexistent",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
@@ -72,7 +75,7 @@ func TestMcpServerList(t *testing.T) {
 	}))
 
 	t.Run("With Combined Filters", core.Test(&core.TestConfig{
-		Commands: mcp.GetCommands(),
+		Commands: cmds,
 		Cmd:      "scw mcp server list-tools namespace=mcp resource=server verb=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
