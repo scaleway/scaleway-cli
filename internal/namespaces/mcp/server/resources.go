@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"net/url"
 	"reflect"
 	"strconv"
 	"strings"
@@ -217,7 +218,7 @@ func (s *MCPServer) RegisterResource(cmd *core.Command) error {
 func parseURIToArgs(uri string) map[string]any {
 	args := make(map[string]any)
 
-	// Parse URI query parameters
+	// Parse URI query parameters using url.ParseQuery for proper handling
 	// Format: scw://namespace/resource?key1=value1&key2=value2
 	parts := strings.SplitN(uri, "?", 2)
 	if len(parts) != 2 {
@@ -225,16 +226,16 @@ func parseURIToArgs(uri string) map[string]any {
 	}
 
 	query := parts[1]
-	paramPairs := strings.SplitSeq(query, "&")
+	params, err := url.ParseQuery(query)
+	if err != nil {
+		return args
+	}
 
-	for pair := range paramPairs {
-		kv := strings.SplitN(pair, "=", 2)
-		if len(kv) != 2 {
+	for key, values := range params {
+		if len(values) == 0 {
 			continue
 		}
-
-		key := kv[0]
-		value := kv[1]
+		value := values[0] // Use first value for each key
 
 		// Try to parse the value as different types
 		if value == "true" {

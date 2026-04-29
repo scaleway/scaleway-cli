@@ -14,9 +14,8 @@ func getReadOnlyAnnotation(cmd *core.Command) *bool {
 		return new(false)
 	}
 
-	// Read-only verbs: get, list, show, search, diff, version, output, date, bug, feature, info, help
-	// and check-* (check-ownership, check-compatibility, etc.)
-	readOnlyPattern := regexp.MustCompile(`^(get|list)*$`)
+	// Read-only verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	readOnlyPattern := regexp.MustCompile(`^(get|list)$|^get-`)
 
 	if readOnlyPattern.MatchString(cmd.Verb) {
 		return new(true)
@@ -34,8 +33,8 @@ func getIdempotentAnnotation(cmd *core.Command) *bool {
 		return new(false)
 	}
 
-	// Idempotent verbs: get, list, show, search, diff, version, output, date, bug, feature, info, help
-	idempotentPattern := regexp.MustCompile(`^(get|list)*$`)
+	// Idempotent verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	idempotentPattern := regexp.MustCompile(`^(get|list)$|^get-`)
 
 	if idempotentPattern.MatchString(cmd.Verb) {
 		return new(true)
@@ -53,9 +52,8 @@ func getDestructiveAnnotation(cmd *core.Command) *bool {
 		return new(false)
 	}
 
-	// Non-destructive (read-only) verbs: get, list, show, search, diff, version, output, date, bug, feature, info, help
-	// and check-* (check-ownership, check-compatibility, etc.)
-	nonDestructivePattern := regexp.MustCompile(`^(get|list)*$`)
+	// Non-destructive (read-only) verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	nonDestructivePattern := regexp.MustCompile(`^(get|list)$|^get-`)
 
 	if nonDestructivePattern.MatchString(cmd.Verb) {
 		return new(false)
