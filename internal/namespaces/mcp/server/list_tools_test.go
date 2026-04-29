@@ -13,7 +13,7 @@ import (
 func TestMcpServerList(t *testing.T) {
 	t.Run("Basic", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list",
+		Cmd:      "scw mcp server list-tools",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -23,7 +23,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Namespace Filter", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list namespace=mcp",
+		Cmd:      "scw mcp server list-tools namespace=mcp",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -33,7 +33,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Resource Filter", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list resource=server",
+		Cmd:      "scw mcp server list-tools resource=server",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -43,7 +43,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Verb Filter", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list verb=list",
+		Cmd:      "scw mcp server list-tools verb=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -53,7 +53,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With ReadOnly Filter", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list read-only=true",
+		Cmd:      "scw mcp server list-tools read-only=true",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -63,7 +63,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Namespace Filter That Matches Nothing", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list namespace=nonexistent",
+		Cmd:      "scw mcp server list-tools namespace=nonexistent",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -73,7 +73,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Combined Filters", core.Test(&core.TestConfig{
 		Commands: mcp.GetCommands(),
-		Cmd:      "scw mcp server list namespace=mcp resource=server verb=list",
+		Cmd:      "scw mcp server list-tools namespace=mcp resource=server verb=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
