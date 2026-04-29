@@ -177,9 +177,9 @@ func (cr *CommandResource) Execute(
 	}, nil
 }
 
-// RegisterResource registers a CLI command as an MCP resource
-func (s *MCPServer) RegisterResource(cmd *core.Command) error {
-	if !ShouldRegisterCommand(
+// LoadResource registers a CLI command as an MCP resource
+func (s *MCPServer) LoadResource(cmd *core.Command) error {
+	if !ShouldLoadCommand(
 		cmd,
 		s.readOnly,
 		s.enabledNamespaces,

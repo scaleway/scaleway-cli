@@ -187,6 +187,40 @@ func (c *Command) DebugString() string {
 	return c.getPath()
 }
 
+// IsReadOnlyCommand returns true if the command is a read-only operation
+// (get, list, or get-* verbs)
+func (c *Command) IsReadOnlyCommand() bool {
+	if c.Verb == "" {
+		return false
+	}
+
+	// Direct match for "get" or "list"
+	if c.Verb == "get" || c.Verb == "list" {
+		return true
+	}
+
+	// Match compound verbs that start with "get-" (e.g., "get-account", "get-credentials")
+	if strings.HasPrefix(c.Verb, "get-") {
+		return true
+	}
+
+	return false
+}
+
+// IsListCommand returns true if the command is a list operation
+func (c *Command) IsListCommand() bool {
+	if c.Verb == "" {
+		return false
+	}
+
+	// Direct match for "list"
+	if c.Verb == "list" {
+		return true
+	}
+
+	return false
+}
+
 // get a signature to sort commands
 func (c *Command) signature() string {
 	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short

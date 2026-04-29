@@ -63,7 +63,7 @@ func TestShouldRegisterCommand_WithEnabledNamespaces(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldRegisterCommand(
+			result := server.ShouldLoadCommand(
 				tt.command,
 				false,
 				tt.enabledNamespaces,
@@ -121,7 +121,7 @@ func TestShouldRegisterCommand_WithEnabledResources(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldRegisterCommand(tt.command, false, nil, tt.enabledResources, nil)
+			result := server.ShouldLoadCommand(tt.command, false, nil, tt.enabledResources, nil)
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -184,7 +184,7 @@ func TestShouldRegisterCommand_WithEnabledVerbs(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldRegisterCommand(tt.command, false, nil, nil, tt.enabledVerbs)
+			result := server.ShouldLoadCommand(tt.command, false, nil, nil, tt.enabledVerbs)
 			if result != tt.expected {
 				t.Errorf("Expected %v, got %v", tt.expected, result)
 			}
@@ -296,7 +296,7 @@ func TestShouldRegisterCommand_WithCombinedFilters(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldRegisterCommand(
+			result := server.ShouldLoadCommand(
 				tt.command,
 				false,
 				tt.enabledNamespaces,
@@ -362,7 +362,7 @@ func TestShouldRegisterCommand_WithReadOnlyAndFilters(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.name, func(t *testing.T) {
-			result := server.ShouldRegisterCommand(
+			result := server.ShouldLoadCommand(
 				tt.command,
 				tt.readOnly,
 				tt.enabledNamespaces,

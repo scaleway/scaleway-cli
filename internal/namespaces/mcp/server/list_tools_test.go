@@ -99,7 +99,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 	}
 
 	t.Run("Should register visible command", func(t *testing.T) {
-		result := server.ShouldRegisterCommand(testCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(testCmd, false, nil, nil, nil)
 		assert.True(t, result)
 	})
 
@@ -114,7 +114,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldRegisterCommand(hiddenCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(hiddenCmd, false, nil, nil, nil)
 		assert.False(t, result)
 	})
 
@@ -129,7 +129,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldRegisterCommand(noRunCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(noRunCmd, false, nil, nil, nil)
 		assert.False(t, result)
 	})
 
@@ -144,7 +144,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldRegisterCommand(configCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(configCmd, false, nil, nil, nil)
 		assert.False(t, result)
 	})
 
@@ -159,7 +159,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldRegisterCommand(editCmd, false, nil, nil, nil)
+		result := server.ShouldLoadCommand(editCmd, false, nil, nil, nil)
 		assert.False(t, result)
 	})
 
@@ -176,7 +176,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 				ArgSpecs:  core.ArgSpecs{},
 				Examples:  []*core.Example{},
 			}
-			result := server.ShouldRegisterCommand(createCmd, true, nil, nil, nil)
+			result := server.ShouldLoadCommand(createCmd, true, nil, nil, nil)
 			assert.False(t, result)
 		},
 	)
@@ -192,7 +192,7 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldRegisterCommand(getCmd, true, nil, nil, nil)
+		result := server.ShouldLoadCommand(getCmd, true, nil, nil, nil)
 		assert.True(t, result)
 	})
 
@@ -207,31 +207,31 @@ func TestShouldRegisterCommand(t *testing.T) {
 			ArgSpecs:  core.ArgSpecs{},
 			Examples:  []*core.Example{},
 		}
-		result := server.ShouldRegisterCommand(listCmd, true, nil, nil, nil)
+		result := server.ShouldLoadCommand(listCmd, true, nil, nil, nil)
 		assert.True(t, result)
 	})
 
 	t.Run("Should filter by enabled namespace", func(t *testing.T) {
-		result := server.ShouldRegisterCommand(testCmd, false, []string{"other"}, nil, nil)
+		result := server.ShouldLoadCommand(testCmd, false, []string{"other"}, nil, nil)
 		assert.False(t, result)
 
-		result = server.ShouldRegisterCommand(testCmd, false, []string{"test"}, nil, nil)
+		result = server.ShouldLoadCommand(testCmd, false, []string{"test"}, nil, nil)
 		assert.True(t, result)
 	})
 
 	t.Run("Should filter by enabled resource", func(t *testing.T) {
-		result := server.ShouldRegisterCommand(testCmd, false, nil, []string{"other"}, nil)
+		result := server.ShouldLoadCommand(testCmd, false, nil, []string{"other"}, nil)
 		assert.False(t, result)
 
-		result = server.ShouldRegisterCommand(testCmd, false, nil, []string{"resource"}, nil)
+		result = server.ShouldLoadCommand(testCmd, false, nil, []string{"resource"}, nil)
 		assert.True(t, result)
 	})
 
 	t.Run("Should filter by enabled verb", func(t *testing.T) {
-		result := server.ShouldRegisterCommand(testCmd, false, nil, nil, []string{"other"})
+		result := server.ShouldLoadCommand(testCmd, false, nil, nil, []string{"other"})
 		assert.False(t, result)
 
-		result = server.ShouldRegisterCommand(testCmd, false, nil, nil, []string{"get"})
+		result = server.ShouldLoadCommand(testCmd, false, nil, nil, []string{"get"})
 		assert.True(t, result)
 	})
 }

@@ -6,9 +6,6 @@ import (
 	"log"
 	"os"
 	"os/signal"
-	"slices"
-	"sort"
-	"strings"
 	"syscall"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
@@ -34,8 +31,10 @@ func NewMCPServer(
 	enabledNamespaces, enabledResources, enabledVerbs []string,
 ) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
-		Name:    "scaleway-cli",
-		Version: version,
+		Name:       "scaleway-mcp",
+		Title:      "Scaleway MCP Server",
+		WebsiteURL: "https://cli.scaleway.com",
+		Version:    version,
 	}, &mcp.ServerOptions{
 		// Enable tools and resources capabilities with listChanged notifications
 		Capabilities: &mcp.ServerCapabilities{
@@ -56,7 +55,7 @@ func NewMCPServer(
 
 	// Register all commands during initialization
 	for _, cmd := range cliCommands {
-		if err := s.RegisterCommand(cmd); err != nil {
+		if err := s.LoadCommand(cmd); err != nil {
 			// Log but don't fail - some commands might not be compatible
 			log.Printf(
 				"Warning: failed to register command %s: %v\n",
@@ -67,175 +66,6 @@ func NewMCPServer(
 	}
 
 	return s
-}
-
-var (
-	ExcludedNamespaces = []string{
-		// Skip config namespace to avoid security risks
-		"config",
-		// Skip shell-centric namespaces
-		"alias",
-		"autocomplete",
-		"shell",
-		"login",
-		"init",
-	}
-
-	ExcludedVerbs = []string{
-		"edit", // Shell-centric verb
-	}
-
-	ExcludedResources = []string{}
-)
-
-// ShouldRegisterCommand returns true if the command should be registered as an MCP tool.
-// It filters out:
-// - Hidden commands
-// - Commands with ExcludeFromMCP flag set
-// - Commands without a Run function (namespace/resource containers)
-// - Commands in excluded namespaces
-// - Commands with excluded verbs
-// - When readOnly is true, only commands with get/list verbs are registered
-// - When enabledNamespaces/ Resources/ Verbs are set, only matching commands are registered
-func ShouldRegisterCommand(
-	cmd *core.Command,
-	readOnly bool,
-	enabledNamespaces, enabledResources, enabledVerbs []string,
-) bool {
-	// Skip hidden commands
-	if cmd.Hidden {
-		return false
-	}
-
-	if cmd.ExcludeFromMCP {
-		return false
-	}
-
-	// Skip commands without a Run function (namespace/resource containers)
-	if cmd.Run == nil {
-		return false
-	}
-
-	if slices.Contains(ExcludedNamespaces, cmd.Namespace) {
-		return false
-	}
-
-	if slices.Contains(ExcludedVerbs, cmd.Verb) {
-		return false
-	}
-
-	if slices.Contains(ExcludedResources, cmd.Resource) {
-		return false
-	}
-
-	// If enabled namespaces are specified, only allow those namespaces
-	if len(enabledNamespaces) > 0 && !slices.Contains(enabledNamespaces, cmd.Namespace) {
-		return false
-	}
-
-	// If enabled resources are specified, only allow those resources
-	if len(enabledResources) > 0 && !slices.Contains(enabledResources, cmd.Resource) {
-		return false
-	}
-
-	// If enabled verbs are specified, only allow those verbs
-	if len(enabledVerbs) > 0 && !slices.Contains(enabledVerbs, cmd.Verb) {
-		return false
-	}
-
-	// In read-only mode, only allow get/list operations
-	if readOnly && !isReadOnlyCommand(cmd) {
-		return false
-	}
-
-	return true
-}
-
-// isReadOnlyCommand returns true if the command is a read-only operation
-// (get, list, or get-* verbs)
-func isReadOnlyCommand(cmd *core.Command) bool {
-	if cmd.Verb == "" {
-		return false
-	}
-
-	// Direct match for "get" or "list"
-	if cmd.Verb == "get" || cmd.Verb == "list" {
-		return true
-	}
-
-	// Match compound verbs that start with "get-" (e.g., "get-account", "get-credentials")
-	if strings.HasPrefix(cmd.Verb, "get-") {
-		return true
-	}
-
-	return false
-}
-
-// RegisterCommand registers a CLI command as an MCP tool and optionally as a resource
-func (s *MCPServer) RegisterCommand(cmd *core.Command) error {
-	if !ShouldRegisterCommand(
-		cmd,
-		s.readOnly,
-		s.enabledNamespaces,
-		s.enabledResources,
-		s.enabledVerbs,
-	) {
-		return nil
-	}
-
-	// Register as a tool
-	tool := NewCommandTool(cmd)
-	mcpTool := tool.ToMCPTool()
-
-	// Create a wrapper function for the tool using the correct MCP SDK signature
-	wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
-		result, err := tool.Execute(ctx, input)
-		var output map[string]any
-		if err != nil {
-			// Return error - MCP SDK will wrap it
-			return result, nil, err
-		}
-		// Extract text content for structured output
-		if len(result.Content) > 0 {
-			if tc, ok := result.Content[0].(*mcp.TextContent); ok {
-				output = map[string]any{"result": tc.Text}
-			}
-		}
-
-		return result, output, nil
-	}
-
-	// Register with MCP SDK
-	mcp.AddTool(s.server, mcpTool, wrapper)
-
-	s.commands = append(s.commands, tool)
-
-	// Register as a resource if it's a list command
-	if IsListCommand(cmd) {
-		if err := s.RegisterResource(cmd); err != nil {
-			log.Printf(
-				"Warning: failed to register resource %s: %v\n",
-				cmd.GetCommandLine("scw"),
-				err,
-			)
-		}
-	}
-
-	return nil
-}
-
-// IsListCommand returns true if the command is a list operation
-func IsListCommand(cmd *core.Command) bool {
-	if cmd.Verb == "" {
-		return false
-	}
-
-	// Direct match for "list"
-	if cmd.Verb == "list" {
-		return true
-	}
-
-	return false
 }
 
 // Run starts the MCP server using the specified transport
@@ -256,94 +86,6 @@ func (s *MCPServer) RegisteredCommands() []*CommandTool {
 // RegisteredResources returns the list of commands registered as MCP resources
 func (s *MCPServer) RegisteredResources() []*CommandResource {
 	return s.resources
-}
-
-// ListTools returns a list of available MCP tools based on the server's configuration.
-// It returns tools that match the read-only mode and enabled namespaces/resources/verbs.
-func (s *MCPServer) ListTools() []toolInfo {
-	var tools []toolInfo
-	for _, cmd := range s.commands {
-		if ShouldRegisterCommand(
-			cmd.Command,
-			s.readOnly,
-			s.enabledNamespaces,
-			s.enabledResources,
-			s.enabledVerbs,
-		) {
-			tools = append(tools, toolInfo{
-				Namespace: cmd.Command.Namespace,
-				Resource:  cmd.Command.Resource,
-				Verb:      cmd.Command.Verb,
-				ToolName:  CommandNameToToolName(cmd.Command),
-				Short:     cmd.Command.Short,
-			})
-		}
-	}
-
-	// Sort tools by namespace, resource, verb for consistent output
-	sort.Slice(tools, func(i, j int) bool {
-		if tools[i].Namespace != tools[j].Namespace {
-			return tools[i].Namespace < tools[j].Namespace
-		}
-		if tools[i].Resource != tools[j].Resource {
-			return tools[i].Resource < tools[j].Resource
-		}
-		return tools[i].Verb < tools[j].Verb
-	})
-
-	return tools
-}
-
-// toolInfo represents information about an MCP tool
-type toolInfo struct {
-	Namespace string `json:"namespace"`
-	Resource  string `json:"resource"`
-	Verb      string `json:"verb"`
-	ToolName  string `json:"tool_name"`
-	Short     string `json:"short"`
-}
-
-// ListResources returns a list of available MCP resources based on the server's configuration.
-// Resources are read-only endpoints for list commands that can be accessed via URI.
-func (s *MCPServer) ListResources() []resourceInfo {
-	var resources []resourceInfo
-	for _, cmd := range s.commands {
-		// Only list commands are exposed as resources
-		if IsListCommand(cmd.Command) &&
-			ShouldRegisterCommand(
-				cmd.Command,
-				s.readOnly,
-				s.enabledNamespaces,
-				s.enabledResources,
-				s.enabledVerbs,
-			) {
-			resources = append(resources, resourceInfo{
-				Namespace: cmd.Command.Namespace,
-				Resource:  cmd.Command.Resource,
-				URI:       BuildResourceURI(cmd.Command.Namespace, cmd.Command.Resource),
-				Short:     cmd.Command.Short,
-			})
-		}
-	}
-
-	// Sort resources by namespace, resource for consistent output
-	sort.Slice(resources, func(i, j int) bool {
-		if resources[i].Namespace != resources[j].Namespace {
-			return resources[i].Namespace < resources[j].Namespace
-		}
-
-		return resources[i].Resource < resources[j].Resource
-	})
-
-	return resources
-}
-
-// resourceInfo represents information about an MCP resource
-type resourceInfo struct {
-	Namespace string `json:"namespace"`
-	Resource  string `json:"resource"`
-	URI       string `json:"uri"`
-	Short     string `json:"short"`
 }
 
 // Serve runs the MCP server with the specified transport.

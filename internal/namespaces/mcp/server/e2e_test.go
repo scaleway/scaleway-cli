@@ -283,7 +283,7 @@ func TestE2E_ListToolsCompleteFlow(t *testing.T) {
 
 func TestE2E_ListToolsPagination(t *testing.T) {
 	// Create many sample commands to test pagination
-	var sampleCommands []*core.Command
+	sampleCommands := make([]*core.Command, 0, 15)
 	for i := range 15 {
 		sampleCommands = append(sampleCommands, &core.Command{
 			Namespace: "test",
