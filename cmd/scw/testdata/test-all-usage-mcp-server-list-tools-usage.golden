@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.
 
 USAGE:
