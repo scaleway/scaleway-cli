@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This command help you configure your nats cli
 Contexts should are stored in $HOME/.config/nats/context
 Credentials and context file are saved in your nats context folder with 0600 permissions

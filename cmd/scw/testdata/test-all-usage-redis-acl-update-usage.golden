@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Update an ACL rule (IP/description) for a Redis™ Database Instance (Redis™ cluster). This command simulates an update by fetching, deleting, and re-adding the rule.
 
 USAGE:

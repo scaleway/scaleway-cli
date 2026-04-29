@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 You must specify the data source name and type (metrics, logs, traces) upon creation.
 The name of the data source will then be used as reference to name the associated Grafana data source.
 

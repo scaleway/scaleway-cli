@@ -52,7 +52,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 	// Disable autocomplete commands from Cobra we should study whether or not we could use instead of our own logic
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
-	rootCmd.SetOut(b.meta.stderr)
+	rootCmd.SetOut(b.meta.stdout)
 
 	for _, cmd := range commands {
 		// If namespace command has not yet been created. We create an empty cobra command to allow leaf to be attached.
