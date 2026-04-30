@@ -141,8 +141,21 @@ func (cr *CommandResource) Execute(
 		cmdArgs = inputArgs
 	}
 
-	// Execute the command's Run function
-	result, err := cr.Command.Run(ctx, cmdArgs)
+	// Execute the command's Run function using the interceptor chain
+	// This ensures custom request wrappers (like customListServersRequest) are properly handled
+	var runner core.CommandRunner = func(ctx context.Context, argsI any) (i any, err error) {
+		return cr.Command.Run(ctx, argsI)
+	}
+
+	// Apply command interceptor if present
+	var result any
+	var err error
+	if cr.Command.Interceptor != nil {
+		result, err = cr.Command.Interceptor(ctx, cmdArgs, runner)
+	} else {
+		result, err = runner(ctx, cmdArgs)
+	}
+
 	if err != nil {
 		return &mcp.ReadResourceResult{
 			Contents: []*mcp.ResourceContents{

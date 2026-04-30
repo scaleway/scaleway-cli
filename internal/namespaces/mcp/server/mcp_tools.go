@@ -29,6 +29,7 @@ func NewCommandTool(cmd *core.Command) *CommandTool {
 // ToMCPTool converts the CommandTool to an MCP Tool
 func (ct *CommandTool) ToMCPTool() *mcp.Tool {
 	tool := &mcp.Tool{
+		Title:       CommandNameToToolName(ct.Command),
 		Name:        CommandNameToToolName(ct.Command),
 		Description: ct.Command.Short,
 		InputSchema: CommandToFlatArgsSchema(ct.Command),

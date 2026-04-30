@@ -31,6 +31,13 @@ func NewMCPServer(
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
 		Version:    version,
+		Icons: []mcp.Icon{
+			{
+				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",
+				MIMEType: "image/png",
+				Sizes:    []string{"48x48"},
+			},
+		},
 	}, &mcp.ServerOptions{
 		// Enable tools and resources capabilities with listChanged notifications
 		Capabilities: &mcp.ServerCapabilities{
