@@ -67,6 +67,27 @@ dockers_v2:
     sbom: true
     build_args:
       VERSION: "{{ .Version }}"
+    labels:
+      io.modelcontextprotocol.server.name: "io.github.scaleway/scaleway-mcp"
+
+mcp:
+  name: "io.github.scaleway/scaleway-mcp"
+  title: "Scaleway MCP server"
+  description: "Scaleway MCP server for interacting with the Scaleway APIs"
+  homepage: "https://cli.scaleway.com/"
+  auth:
+    type: github-oidc
+    token: "{{ .Env.GITHUB_TOKEN }}"
+  repository:
+    url: "https://github.com/scaleway/scaleway-cli"
+    source: github
+    id: "32575663"
+    subfolder: ./internal/namespaces/mcp
+  packages:
+    - registry_type: oci
+      identifier: "ghcr.io/scaleway/cli:{{ .Version }}"
+      transport:
+        type: stdio
 
 release:
   github:
