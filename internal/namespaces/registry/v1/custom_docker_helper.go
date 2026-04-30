@@ -55,7 +55,8 @@ It avoid running docker login commands.
 				},
 			},
 		},
-		Run: registrySetupDockerHelperRun,
+		Run:            registrySetupDockerHelperRun,
+		ExcludeFromMCP: true,
 	}
 }
 

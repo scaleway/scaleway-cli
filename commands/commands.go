@@ -40,6 +40,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
+	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -124,6 +125,7 @@ func GetCommands() *core.Commands {
 		partner.GetCommands(),
 		environmental_footprint.GetCommands(),
 		product_catalog.GetCommands(),
+		mcp.GetCommands(),
 	)
 
 	if beta {
