@@ -1,0 +1,606 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+TIMESTAMP        RESOURCE INSTANCE                                                MESSAGE
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://docs.docker.com/get-started/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  For more examples and ideas, visit:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://hub.docker.com/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   $ docker run -it ubuntu bash
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      to your terminal.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      executable that produces the output you are currently reading.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      (amd64)
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   1. The Docker client contacted the Docker daemon.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To generate this message, Docker took the following steps:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  This message shows that your installation appears to be working correctly.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Hello from Docker!
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://docs.docker.com/get-started/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  For more examples and ideas, visit:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://hub.docker.com/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   $ docker run -it ubuntu bash
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      to your terminal.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      executable that produces the output you are currently reading.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      (amd64)
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   1. The Docker client contacted the Docker daemon.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To generate this message, Docker took the following steps:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  This message shows that your installation appears to be working correctly.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Hello from Docker!
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://docs.docker.com/get-started/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  For more examples and ideas, visit:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://hub.docker.com/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   $ docker run -it ubuntu bash
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      to your terminal.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      executable that produces the output you are currently reading.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      (amd64)
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   1. The Docker client contacted the Docker daemon.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To generate this message, Docker took the following steps:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  This message shows that your installation appears to be working correctly.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Hello from Docker!
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://docs.docker.com/get-started/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  For more examples and ideas, visit:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://hub.docker.com/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   $ docker run -it ubuntu bash
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      to your terminal.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      executable that produces the output you are currently reading.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      (amd64)
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   1. The Docker client contacted the Docker daemon.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To generate this message, Docker took the following steps:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  This message shows that your installation appears to be working correctly.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Hello from Docker!
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://docs.docker.com/get-started/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  For more examples and ideas, visit:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   https://hub.docker.com/
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   $ docker run -it ubuntu bash
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr  -
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr      to your terminal.
+few seconds ago  clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr   4. The Docker daemon streamed that output to the Docker client, which sent it
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "timestamp": "2026-04-09T16:11:11.726557253+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.72655553+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726553696+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726551272+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726549568+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726547785+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726546002+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726544298+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726542335+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726540411+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726538688+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726536764+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726534861+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726532526+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726530563+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726528729+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726526555+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726524201+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726522227+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726519552+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726516316+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "2026-04-09T16:11:11.726471572+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713451355+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713449432+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713447528+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713444853+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71344312+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713441186+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713439373+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71343765+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713435285+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713433392+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713431628+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713428873+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71342704+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713424455+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71342159+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713419065+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71341664+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713413975+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71341149+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.71340643+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713402262+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "2026-04-09T16:09:49.713360153+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714623214+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.71462152+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714619607+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714617081+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714615348+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714613494+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714611691+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714609978+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714607764+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.71460593+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714604177+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714602253+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.71460031+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714598426+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714596302+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714594439+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714592415+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714590581+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714588548+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714585201+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714581835+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:57.714542261+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739282139+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739280326+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739278292+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739274825+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739273112+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739271118+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739268514+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739265929+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739262933+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739260509+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739258214+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739255229+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739252123+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739249608+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739246903+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739244408+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739241844+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739238968+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739236063+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739232346+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739227577+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:34.739189796+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881168937+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881166452+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881163777+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881160451+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881157836+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881155271+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881152807+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881150382+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881146504+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881141314+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": ""
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881138118+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "2026-04-09T16:08:20.881135313+02:00",
+    "resource_instance": "clicnsobjectivemayer9a1fe82a1796a1016964e95f3e5d4f15-deplo2btqr",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  }
+]
