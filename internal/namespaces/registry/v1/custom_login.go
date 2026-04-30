@@ -33,7 +33,8 @@ You will need to have the chosen binary installed on your system and in your PAT
 			},
 			core.RegionArgSpec(scw.AllRegions...),
 		},
-		Run: registryLoginRun,
+		Run:            registryLoginRun,
+		ExcludeFromMCP: true,
 	}
 }
 

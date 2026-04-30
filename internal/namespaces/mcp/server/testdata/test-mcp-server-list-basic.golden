@@ -23,8 +23,6 @@ k8s        cluster       upgrade                  k8s_cluster_upgrade           
 k8s        cluster       wait                     k8s_cluster_wait                     Wait for a cluster to reach a stable state
 k8s        cluster-type  list                     k8s_cluster-type_list                List cluster types
 k8s        kubeconfig    get                      k8s_kubeconfig_get                   Retrieve a kubeconfig
-k8s        kubeconfig    install                  k8s_kubeconfig_install               Install a kubeconfig
-k8s        kubeconfig    uninstall                k8s_kubeconfig_uninstall             Uninstall a kubeconfig
 k8s        node          delete                   k8s_node_delete                      Delete a Node in a Cluster
 k8s        node          get                      k8s_node_get                         Get a Node in a Cluster
 k8s        node          list                     k8s_node_list                        List Nodes in a Cluster
@@ -202,20 +200,6 @@ k8s        version       list                     k8s_version_list              
     "verb": "get",
     "tool_name": "k8s_kubeconfig_get",
     "short": "Retrieve a kubeconfig"
-  },
-  {
-    "namespace": "k8s",
-    "resource": "kubeconfig",
-    "verb": "install",
-    "tool_name": "k8s_kubeconfig_install",
-    "short": "Install a kubeconfig"
-  },
-  {
-    "namespace": "k8s",
-    "resource": "kubeconfig",
-    "verb": "uninstall",
-    "tool_name": "k8s_kubeconfig_uninstall",
-    "short": "Uninstall a kubeconfig"
   },
   {
     "namespace": "k8s",

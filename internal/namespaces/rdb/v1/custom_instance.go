@@ -998,6 +998,7 @@ func instanceConnectCommand() *core.Command {
 				Empty: true, // the program will output the success message
 			}, nil
 		},
+		ExcludeFromMCP: true,
 	}
 }
 

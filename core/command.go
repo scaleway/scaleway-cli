@@ -189,19 +189,15 @@ func (c *Command) DebugString() string {
 }
 
 // IsReadOnly returns true if the command is a read-only operation
-// (get, list, or get-* verbs)
+// (get, list, get-*, list-*, or wait verbs)
 func (c *Command) IsReadOnly() bool {
 	if c.Verb == "" {
 		return false
 	}
 
-	// Direct match for "get" or "list"
-	if c.Verb == "get" || c.Verb == "list" {
-		return true
-	}
+	readOnlyPattern := regexp.MustCompile(`^(get|list)$|^get-|^list-|^wait`)
 
-	// Match compound verbs that start with "get-" (e.g., "get-account", "get-credentials")
-	if strings.HasPrefix(c.Verb, "get-") {
+	if readOnlyPattern.MatchString(c.Verb) {
 		return true
 	}
 
@@ -214,8 +210,9 @@ func (c *Command) IsList() bool {
 		return false
 	}
 
-	// Direct match for "list"
-	if c.Verb == "list" {
+	listPattern := regexp.MustCompile(`^(list)$|^(list-*)`)
+
+	if listPattern.MatchString(c.Verb) {
 		return true
 	}
 
@@ -229,7 +226,7 @@ func (c *Command) IsDestructive() bool {
 	}
 
 	// Non-destructive (read-only) verbs: get, list, and get-* (get-credentials, get-account, etc.)
-	nonDestructivePattern := regexp.MustCompile(`^(get|list)$|^get-`)
+	nonDestructivePattern := regexp.MustCompile(`^(get|list)$|^get-|^wait`)
 
 	if nonDestructivePattern.MatchString(c.Verb) {
 		return false
@@ -246,7 +243,7 @@ func (c *Command) IsIdempotent() bool {
 	}
 
 	// Idempotent verbs: get, list, and get-* (get-credentials, get-account, etc.)
-	idempotentPattern := regexp.MustCompile(`^(get|list)$|^get-`)
+	idempotentPattern := regexp.MustCompile(`^(get|list)$|^get-|^wait`)
 
 	if idempotentPattern.MatchString(c.Verb) {
 		return true

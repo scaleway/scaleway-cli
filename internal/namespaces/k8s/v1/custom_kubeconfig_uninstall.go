@@ -48,6 +48,7 @@ If the current context points to this cluster, it will be set to an empty contex
 
 		// avoid calling checkAPIKey (Check if API Key is about to expire)
 		DisableAfterChecks: true,
+		ExcludeFromMCP:     true, // Shell-centric command
 	}
 }
 

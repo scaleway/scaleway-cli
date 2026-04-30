@@ -74,6 +74,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 				Short:   "Uninstall a kubeconfig",
 			},
 		},
+		ExcludeFromMCP: true, // Shell-centric command
 	}
 }
 
