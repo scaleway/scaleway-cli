@@ -3,7 +3,7 @@ module github.com/scaleway/scaleway-cli/v2
 go 1.26.0
 
 require (
-	github.com/aws/aws-sdk-go-v2 v1.41.6
+	github.com/aws/aws-sdk-go-v2 v1.41.7
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.100.0
 	github.com/aws/smithy-go v1.25.1
 	github.com/buildpacks/pack v0.39.1
@@ -26,7 +26,7 @@ require (
 	github.com/moby/go-archive v0.2.0
 	github.com/modelcontextprotocol/go-sdk v1.5.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260428073943-fdddaba558e6
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260429090835-cfb25da2a746
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/pflag v1.0.10
