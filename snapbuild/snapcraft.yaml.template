@@ -9,7 +9,7 @@ description: |
 
 contact: https://github.com/tingdahl/scaleway-cli
 website: https://github.com/tingdahl/scaleway-cli
-source-code: https://github.com/scaleway/scaleway-cli
+source-code: https://github.com/tingdahl/scaleway-cli
 license: Apache-2.0
 
 grade: stable
