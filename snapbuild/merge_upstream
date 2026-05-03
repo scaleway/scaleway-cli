@@ -50,9 +50,9 @@ git merge "${TAG}" -m "Merge upstream tag ${TAG}"
 # Re-apply our snapcraft files on top (merge may have overwritten them
 # if upstream ever adds their own snapcraft.yaml).
 echo "Generating snapcraft.yaml for version ${SNAP_VERSION}"
-sed "s/VERSION/${SNAP_VERSION}/g" scripts/snapcraft.yaml.template > snapcraft.yaml
+sed "s/VERSION/${SNAP_VERSION}/g" snapbuild/snapcraft.yaml.template > snapcraft.yaml
 
-git add snapcraft.yaml scripts/snapcraft.yaml.template
+git add snapcraft.yaml snapbuild/snapcraft.yaml.template
 git commit -m "Set snapcraft version to ${SNAP_VERSION} (upstream tag ${TAG})"
 
 # Move the tag so it points at our commit (which includes snapcraft.yaml)

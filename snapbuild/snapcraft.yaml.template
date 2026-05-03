@@ -1,7 +1,7 @@
 name: tingdahl-scw
-base: core26
-build-base: devel
+base: core24
 version: VERSION
+title: Scaleway CLI
 summary: Scaleway command-line interface
 description: |
   Scaleway CLI is a tool to pilot your Scaleway infrastructure
@@ -13,7 +13,7 @@ source-code: https://github.com/scaleway/scaleway-cli
 license: Apache-2.0
 
 grade: stable
-confinement: classic
+confinement: strict
 
 platforms:
   amd64:
@@ -63,4 +63,12 @@ parts:
 
 apps:
   scw:
-    command: usr/bin/scw
+    command: bin/scw
+    plugs:
+      - network            # HTTPS to Scaleway API, GitHub version check
+      - network-bind       # local listeners (e.g. k8s proxy)
+      - home               # ~/.config/scw, ~/.ssh, ~/.s3cfg, ~/.mc, kubeconfig
+      - removable-media    # file arguments that may live on mounted drives
+      - docker             # /var/run/docker.sock (container build/push commands)
+      - desktop            # browser launch via open-golang (scw web open)
+      - ssh-keys           # read/write ~/.ssh/scaleway.config and ~/.ssh/config
