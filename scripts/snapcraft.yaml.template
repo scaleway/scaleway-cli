@@ -1,0 +1,66 @@
+name: tingdahl-scw
+base: core26
+build-base: devel
+version: VERSION
+summary: Scaleway command-line interface
+description: |
+  Scaleway CLI is a tool to pilot your Scaleway infrastructure
+  directly from your terminal.
+
+contact: https://github.com/tingdahl/scaleway-cli
+website: https://github.com/tingdahl/scaleway-cli
+source-code: https://github.com/scaleway/scaleway-cli
+license: Apache-2.0
+
+grade: stable
+confinement: classic
+
+platforms:
+  amd64:
+    build-on: [amd64]
+    build-for: [amd64]
+  arm64:
+    build-on: [arm64]
+    build-for: [arm64]
+  armhf:
+    build-on: [armhf]
+    build-for: [armhf]
+  ppc64el:
+    build-on: [ppc64el]
+    build-for: [ppc64el]
+  riscv64:
+    build-on: [riscv64]
+    build-for: [riscv64]
+  s390x:
+    build-on: [s390x]
+    build-for: [s390x]
+
+parts:
+  scw:
+    plugin: nil
+    source: .
+    build-snaps:
+      - go/1.26/stable
+    build-packages:
+      - git
+    stage-packages:
+      - bash
+      - ca-certificates
+      - openssh-client
+    override-build: |
+      set -eux
+
+      cd "$CRAFT_PART_SRC"
+
+      export CGO_ENABLED=0
+      LDFLAGS="-s -w -extldflags -static"
+      LDFLAGS="$LDFLAGS -X main.Version=VERSION"
+      LDFLAGS="$LDFLAGS -X main.GitCommit=$(git rev-parse --short HEAD || echo unknown)"
+      LDFLAGS="$LDFLAGS -X main.GitBranch=$(git symbolic-ref -q --short HEAD || echo HEAD)"
+      LDFLAGS="$LDFLAGS -X main.BuildDate=$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
+
+      go build -trimpath -ldflags "$LDFLAGS" -o "$CRAFT_PART_INSTALL/bin/scw" ./cmd/scw
+
+apps:
+  scw:
+    command: usr/bin/scw
