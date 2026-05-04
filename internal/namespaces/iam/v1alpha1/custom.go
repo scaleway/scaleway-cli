@@ -65,15 +65,16 @@ func GetCommands() *core.Commands {
 
 func initWithSSHCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initialize SSH key`,
-		Long:      `Initialize SSH key.`,
-		Namespace: "iam",
-		Resource:  "ssh-key",
-		Verb:      "init",
-		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
-		ArgSpecs:  core.ArgSpecs{},
-		Run:       InitWithSSHKeyRun,
+		Short:          `Initialize SSH key`,
+		Long:           `Initialize SSH key.`,
+		Namespace:      "iam",
+		Resource:       "ssh-key",
+		Verb:           "init",
+		Groups:         []string{"workflow"},
+		ArgsType:       reflect.TypeOf(args.RawArgs{}),
+		ArgSpecs:       core.ArgSpecs{},
+		Run:            InitWithSSHKeyRun,
+		ExcludeFromMCP: true,
 	}
 }
 

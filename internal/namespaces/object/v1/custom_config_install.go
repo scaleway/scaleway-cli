@@ -118,5 +118,6 @@ func configInstallCommand() *core.Command {
 				Message: "Configuration file successfully installed at " + configPath,
 			}, nil
 		},
+		ExcludeFromMCP: true, // Shell-centric command
 	}
 }
