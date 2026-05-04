@@ -24,7 +24,7 @@ require (
 	github.com/mattn/go-isatty v0.0.22
 	github.com/moby/buildkit v0.29.0
 	github.com/moby/go-archive v0.2.0
-	github.com/modelcontextprotocol/go-sdk v1.5.0
+	github.com/modelcontextprotocol/go-sdk v1.6.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260430133037-4268251f852f
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
@@ -129,7 +129,7 @@ require (
 	github.com/golang/protobuf v1.5.4 // indirect
 	github.com/google/go-cmp v0.7.0 // indirect
 	github.com/google/go-containerregistry v0.21.1 // indirect
-	github.com/google/jsonschema-go v0.4.2 // indirect
+	github.com/google/jsonschema-go v0.4.3 // indirect
 	github.com/google/shlex v0.0.0-20191202100458-e7afc7fbc510 // indirect
 	github.com/google/uuid v1.6.0 // indirect
 	github.com/gorilla/mux v1.8.1 // indirect
