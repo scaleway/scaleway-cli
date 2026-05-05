@@ -89,6 +89,7 @@ UTILITY COMMANDS:
   feedback                Send feedback to the Scaleway CLI Team!
   help                    Get help about how specific topics inside the CLI work
   mcp                     MCP (Model Context Protocol) server management
+  search                  Search API
   shell                   Start shell mode
   version                 Display cli version
 
