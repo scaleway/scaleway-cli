@@ -138,6 +138,7 @@ func McpServerListTools() *core.Command {
 			}
 
 			// Step 1: Create the MCP server using NewMCPServer
+			// For list-tools command, we don't need to pass meta since it's just listing
 			mcpServer := NewMCPServer(
 				version,
 				cliCommands,
@@ -147,6 +148,7 @@ func McpServerListTools() *core.Command {
 					EnabledResources:  enabledResources,
 					EnabledVerbs:      enabledVerbs,
 				},
+				nil, // No baseMeta needed for listing
 			)
 
 			// Step 2: List tools from the MCP server

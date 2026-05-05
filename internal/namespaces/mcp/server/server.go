@@ -18,6 +18,7 @@ type MCPServer struct {
 	commands     []*CommandTool
 	resources    []*CommandResource
 	filterConfig CommandFilterConfig
+	baseMeta     *core.Meta // Meta from bootstrap context, used for HTTP transport
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
@@ -25,6 +26,7 @@ func NewMCPServer(
 	version string,
 	cliCommands []*core.Command,
 	filterConfig CommandFilterConfig,
+	baseMeta *core.Meta,
 ) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
@@ -51,6 +53,7 @@ func NewMCPServer(
 		commands:     make([]*CommandTool, 0, len(cliCommands)),
 		resources:    make([]*CommandResource, 0),
 		filterConfig: filterConfig,
+		baseMeta:     baseMeta,
 	}
 
 	// Register all commands during initialization
@@ -120,9 +123,6 @@ func (s *MCPServer) Serve(
 		if err := s.Run(ctx, &mcp.StdioTransport{}); err != nil {
 			return nil, fmt.Errorf("MCP server error: %w", err)
 		}
-
-	case "sse":
-		return nil, RunSSEServer(ctx, s, address)
 
 	case "streamable-http":
 		return nil, RunStreamableHTTPServer(ctx, s, address)

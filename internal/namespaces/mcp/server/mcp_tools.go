@@ -16,13 +16,22 @@ import (
 
 // CommandTool wraps a CLI command for MCP tool execution
 type CommandTool struct {
-	Command *core.Command
+	Command  *core.Command
+	baseMeta *core.Meta // Meta from bootstrap context for HTTP transport
 }
 
 // NewCommandTool creates a new CommandTool from a core.Command
 func NewCommandTool(cmd *core.Command) *CommandTool {
 	return &CommandTool{
 		Command: cmd,
+	}
+}
+
+// NewCommandToolWithMeta creates a new CommandTool with base meta for HTTP transport
+func NewCommandToolWithMeta(cmd *core.Command, baseMeta *core.Meta) *CommandTool {
+	return &CommandTool{
+		Command:  cmd,
+		baseMeta: baseMeta,
 	}
 }
 
@@ -66,6 +75,43 @@ func (ct *CommandTool) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.CallToolResult, error) {
+	// Initialize context with proper meta if not already present
+	// This is required when running as an MCP server (especially HTTP streamable)
+	// where the context doesn't go through the normal CLI bootstrap process
+	if core.ExtractClient(ctx) == nil {
+		// Use baseMeta from bootstrap if available, otherwise create a new client
+		if ct.baseMeta != nil {
+			// Clone the base meta for this request
+			meta := *ct.baseMeta
+			meta.OverrideEnv = make(map[string]string)
+			for k, v := range ct.baseMeta.OverrideEnv {
+				meta.OverrideEnv[k] = v
+			}
+			ctx = core.InjectMeta(ctx, &meta)
+		} else {
+			// Create an authenticated client from environment/config
+			client, err := createMCPClient()
+			if err != nil {
+				return &mcp.CallToolResult{
+					Content: []mcp.Content{
+						&mcp.TextContent{
+							Text: fmt.Sprintf("Error creating client: %v", err),
+						},
+					},
+					IsError: true,
+				}, nil
+			}
+
+			// Create minimal meta with the client
+			meta := &core.Meta{
+				Client:      client,
+				OverrideEnv: map[string]string{},
+				BinaryName:  "scw-mcp",
+			}
+			ctx = core.InjectMeta(ctx, meta)
+		}
+	}
+
 	// Skip commands without a Run function
 	if ct.Command.Run == nil {
 		return &mcp.CallToolResult{

@@ -99,8 +99,14 @@ func (s *MCPServer) LoadCommand(cmd *core.Command) error {
 		return nil
 	}
 
-	// Register as a tool
-	tool := NewCommandTool(cmd)
+	// Register as a tool - use baseMeta if available for HTTP transport
+	var tool *CommandTool
+	if s.baseMeta != nil {
+		tool = NewCommandToolWithMeta(cmd, s.baseMeta)
+	} else {
+		tool = NewCommandTool(cmd)
+	}
+
 	mcpTool := tool.ToMCPTool()
 
 	// Create a wrapper function for the tool using the correct MCP SDK signature

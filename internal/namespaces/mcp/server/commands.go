@@ -7,6 +7,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func McpServerServe() *core.Command {
@@ -149,7 +150,26 @@ func McpServerServe() *core.Command {
 				fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
 			}
 
-			// Step 1: Create the MCP server using NewMCPServer
+			// Extract meta from context to pass to MCPServer
+			// This allows HTTP transport to reuse the authenticated client
+			meta := &core.Meta{
+				Client:         client,
+				ProfileFlag:    core.ExtractProfileFlag(ctx),
+				ConfigPathFlag: configPath,
+				BuildInfo:      buildInfo,
+				Commands:       commands,
+				OverrideEnv:    make(map[string]string),
+				Logger:         core.ExtractLogger(ctx),
+				BetaMode:       core.ExtractBetaMode(ctx),
+			}
+			// Copy OverrideEnv from context
+			for _, envKey := range []string{"HOME", "PATH", scw.ScwAccessKeyEnv, scw.ScwSecretKeyEnv, scw.ScwDefaultOrganizationIDEnv, scw.ScwDefaultProjectIDEnv, scw.ScwDefaultRegionEnv, scw.ScwDefaultZoneEnv} {
+				if val := core.ExtractEnv(ctx, envKey); val != "" {
+					meta.OverrideEnv[envKey] = val
+				}
+			}
+
+			// Step 1: Create the MCP server using NewMCPServer with baseMeta
 			mcpServer := NewMCPServer(
 				version,
 				cliCommands,
@@ -159,6 +179,7 @@ func McpServerServe() *core.Command {
 					EnabledResources:  args.EnableResources,
 					EnabledVerbs:      args.EnableVerbs,
 				},
+				meta,
 			)
 
 			// Step 2: Serve the MCP server with the specified transport
@@ -256,6 +277,7 @@ func McpServerListResources() *core.Command {
 			}
 
 			// Step 1: Create the MCP server using NewMCPServer
+			// For list-tools command, we don't need to pass meta since it's just listing
 			mcpServer := NewMCPServer(
 				version,
 				cliCommands,
@@ -264,6 +286,7 @@ func McpServerListResources() *core.Command {
 					EnabledNamespaces: enabledNamespaces,
 					EnabledResources:  enabledResources,
 				},
+				nil, // No baseMeta needed for listing
 			)
 
 			// Step 2: List resources from the MCP server
