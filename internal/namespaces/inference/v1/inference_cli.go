@@ -43,8 +43,8 @@ func GetGeneratedCommands() *core.Commands {
 
 func inferenceRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to handle your Generative APIs - Dedicated Deployment services`,
-		Long:      `This API allows you to handle your Generative APIs - Dedicated Deployment services.`,
+		Short:     `This API allows you to handle your Managed Inference services`,
+		Long:      `This API allows you to handle your Managed Inference services.`,
 		Namespace: "inference",
 	}
 }
