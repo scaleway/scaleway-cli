@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   alert-manager      Alerting management commands
+  config             Config management commands
   contact-point      Contact point management commands
   data-source        Datasource management commands
   grafana            Grafana user management commands

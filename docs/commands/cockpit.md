@@ -6,6 +6,8 @@ This API allows you to manage your Scaleway Cockpit, for storing and visualizing
   - [Disable the Alert manager](#disable-the-alert-manager)
   - [Enable the Alert manager](#enable-the-alert-manager)
   - [Get the Alert manager](#get-the-alert-manager)
+- [Config management commands](#config-management-commands)
+  - [Generate a data source configuration snippet](#generate-a-data-source-configuration-snippet)
 - [Contact point management commands](#contact-point-management-commands)
   - [Create a contact point](#create-a-contact-point)
   - [Delete a contact point](#delete-a-contact-point)
@@ -106,6 +108,60 @@ scw cockpit alert-manager get [arg=value ...]
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Config management commands
+
+Config management commands.
+
+
+### Generate a data source configuration snippet
+
+Generate a ready-to-use configuration snippet for a Cockpit data source.
+
+Supported tools:
+  - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
+
+Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
+The token is created with the minimum required write scope for the data source type.
+
+**Usage:**
+
+```
+scw cockpit config get <data-source-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| data-source-id | Required | ID of the data source to generate the configuration for |
+| type | Required<br />One of: `prometheus` | Configuration template type |
+| generate-token |  | Create a new Cockpit token and inject it in the generated snippet |
+| token-name | Default: `prometheus-push` | Name of the token to create when generate-token=true |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Generate a Prometheus remote_write snippet
+```
+scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus
+```
+
+Generate a Prometheus remote_write snippet with a new token
+```
+scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true
+```
+
+Generate a Prometheus remote_write snippet with a named token
+```
+scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true token-name=my-prometheus
+```
+
 
 
 

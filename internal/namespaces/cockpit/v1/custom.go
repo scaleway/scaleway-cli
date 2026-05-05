@@ -10,6 +10,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("cockpit").Groups = []string{"monitoring"}
 
 	cmds.MustFind("cockpit", "token", "get").Override(cockpitTokenGetBuilder)
+	cmds.Add(cockpitConfigRoot())
+	cmds.Add(cockpitConfigGetCommand())
 
 	return cmds
 }
