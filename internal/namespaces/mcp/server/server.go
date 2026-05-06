@@ -98,6 +98,8 @@ func (s *MCPServer) Serve(
 	transportMode string,
 	address string,
 ) (any, error) {
+	fmt.Fprintf(os.Stderr, "%d registered commands\n", len(s.RegisteredCommands()))
+	fmt.Fprintf(os.Stderr, "%d registered resources\n", len(s.RegisteredResources()))
 	// Log transport information
 	fmt.Fprintf(os.Stderr, "Running MCP server with %s transport", transportMode)
 	if transportMode != "stdio" {
