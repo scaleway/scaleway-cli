@@ -131,7 +131,7 @@ func (s *MCPServer) Serve(
 
 	default:
 		return nil, fmt.Errorf(
-			"unknown transport mode: %s (valid modes: stdio, sse, streamable-http)",
+			"unknown transport mode: %s (valid modes: stdio, streamable-http)",
 			transportMode,
 		)
 	}

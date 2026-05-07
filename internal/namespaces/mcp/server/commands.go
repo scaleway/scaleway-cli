@@ -26,7 +26,7 @@ func McpServerServe() *core.Command {
 		Resource:             "server",
 		Verb:                 "serve",
 		Short:                "Start the MCP server",
-		Long:                 "Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default), SSE, and streamable HTTP transports.",
+		Long:                 "Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default) and streamable HTTP transports.",
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(serveArgs{}),
@@ -55,22 +55,18 @@ func McpServerServe() *core.Command {
 				Short: "Combine filters to serve only instance server get/list commands",
 				Raw:   `scw mcp server serve --enable-namespaces instance --enable-resources server --enable-verbs get,list`,
 			},
-			{
-				Short: "Start the MCP server with SSE transport on port 8080",
-				Raw:   `scw mcp server serve --transport sse --address :8080`,
-			},
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "transport",
-				Short:      "Transport mode: stdio (default), sse, or streamable-http",
+				Short:      "Transport mode: stdio (default) or streamable-http",
 				Required:   false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("stdio"),
 			},
 			{
 				Name:       "address",
-				Short:      "Address to bind for SSE and streamable-http transports (e.g., :8080)",
+				Short:      "Address to bind for streamable-http transports (e.g., :8080)",
 				Required:   false,
 				Positional: false,
 				Default:    core.DefaultValueSetter(":8080"),
