@@ -485,7 +485,6 @@ func clusterConnectCommand() *core.Command {
 			}
 
 			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-				Ctx:    ctx,
 				Prompt: "Password",
 			})
 			if err != nil {

@@ -21,14 +21,14 @@ func TestGeneric(t *testing.T) {
 	tasks.Add(
 		ts,
 		"convert int to string",
-		func(_ *tasks.Task, args int) (nextArgs string, err error) {
+		func(_ context.Context, _ *tasks.Task, args int) (nextArgs string, err error) {
 			return strconv.Itoa(args), nil
 		},
 	)
 	tasks.Add(
 		ts,
 		"convert string to int and divide by 4",
-		func(_ *tasks.Task, args string) (nextArgs int, err error) {
+		func(_ context.Context, _ *tasks.Task, args string) (nextArgs int, err error) {
 			i, err := strconv.ParseInt(args, 10, 32)
 			if err != nil {
 				return 0, err
@@ -56,11 +56,11 @@ func TestInvalidGeneric(t *testing.T) {
 	tasks.Add(
 		ts,
 		"convert int to string",
-		func(_ *tasks.Task, args int) (nextArgs string, err error) {
+		func(_ context.Context, _ *tasks.Task, args int) (nextArgs string, err error) {
 			return strconv.Itoa(args), nil
 		},
 	)
-	tasks.Add(ts, "divide by 4", func(_ *tasks.Task, args int) (nextArgs int, err error) {
+	tasks.Add(ts, "divide by 4", func(_ context.Context, _ *tasks.Task, args int) (nextArgs int, err error) {
 		return args / 4, nil
 	})
 }
@@ -73,8 +73,8 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 1",
-		func(task *tasks.Task, _ any) (nextArgs any, err error) {
-			task.AddToCleanUp(func(_ context.Context) error {
+		func(_ context.Context, t *tasks.Task, _ any) (nextArgs any, err error) {
+			t.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
 				return nil
@@ -86,8 +86,8 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 2",
-		func(task *tasks.Task, _ any) (nextArgs any, err error) {
-			task.AddToCleanUp(func(_ context.Context) error {
+		func(_ context.Context, t *tasks.Task, _ any) (nextArgs any, err error) {
+			t.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
 				return nil
@@ -99,8 +99,8 @@ func TestCleanup(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 3",
-		func(task *tasks.Task, _ any) (nextArgs any, err error) {
-			task.AddToCleanUp(func(_ context.Context) error {
+		func(_ context.Context, t *tasks.Task, _ any) (nextArgs any, err error) {
+			t.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
 				return nil
@@ -127,8 +127,8 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 1",
-		func(task *tasks.Task, _ any) (nextArgs any, err error) {
-			task.AddToCleanUp(func(_ context.Context) error {
+		func(_ context.Context, t *tasks.Task, _ any) (nextArgs any, err error) {
+			t.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
 				return nil
@@ -140,8 +140,8 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 2",
-		func(task *tasks.Task, _ any) (nextArgs any, err error) {
-			task.AddToCleanUp(func(_ context.Context) error {
+		func(_ context.Context, t *tasks.Task, _ any) (nextArgs any, err error) {
+			t.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
 				return nil
@@ -153,12 +153,13 @@ func TestCleanupOnContext(t *testing.T) {
 	tasks.Add(
 		ts,
 		"TaskFunc 3",
-		func(task *tasks.Task, _ any) (nextArgs any, err error) {
+		func(ctx context.Context, task *tasks.Task, _ any) (nextArgs any, err error) {
 			task.AddToCleanUp(func(_ context.Context) error {
 				clean++
 
 				return nil
 			})
+
 			p, err := os.FindProcess(os.Getpid())
 			if err != nil {
 				return nil, err
@@ -167,11 +168,11 @@ func TestCleanupOnContext(t *testing.T) {
 			// Interrupt tasks, as done with Ctrl-C
 			err = p.Signal(os.Interrupt)
 			if err != nil {
-				t.Fatal(err)
+				return nil, err
 			}
 
 			select {
-			case <-task.Ctx.Done():
+			case <-ctx.Done():
 				return nil, errors.New("interrupted")
 			case <-time.After(time.Second * 3):
 				return nil, nil

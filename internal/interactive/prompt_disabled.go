@@ -8,7 +8,6 @@ import (
 )
 
 type PromptPasswordConfig struct {
-	Ctx    context.Context
 	Prompt string
 }
 
@@ -16,8 +15,11 @@ func PromptPasswordWithConfig(config *PromptPasswordConfig) (string, error) {
 	return "", fmt.Errorf("prompt is disabled for this build")
 }
 
+func PromptPassword(ctx context.Context, prompt string) (string, error) {
+	return "", fmt.Errorf("prompt is disabled for this build")
+}
+
 type PromptBoolConfig struct {
-	Ctx          context.Context
 	Prompt       string
 	DefaultValue bool
 }
@@ -26,8 +28,11 @@ func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
 	return config.DefaultValue, nil
 }
 
+func PromptBool(ctx context.Context, prompt string, defaultValue bool) (bool, error) {
+	return defaultValue, nil
+}
+
 type PromptStringConfig struct {
-	Ctx             context.Context
 	Prompt          string
 	DefaultValue    string
 	DefaultValueDoc string
@@ -38,8 +43,21 @@ func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
 	return config.DefaultValue, nil
 }
 
+func PromptString(
+	ctx context.Context,
+	prompt string,
+	defaultValue string,
+	defaultValueDoc string,
+	validateFunc ValidateFunc,
+) (string, error) {
+	return defaultValue, nil
+}
+
+type ReadlineHandler struct{}
+
+func (h *ReadlineHandler) SetPrompt(prompt string) {}
+
 type ReadlineConfig struct {
-	Ctx          context.Context
 	Prompt       string
 	PromptFunc   func(string) string
 	Password     bool
@@ -47,6 +65,6 @@ type ReadlineConfig struct {
 	DefaultValue string
 }
 
-func Readline(config *ReadlineConfig) (string, error) {
+func Readline(ctx context.Context, config *ReadlineConfig) (string, error) {
 	return "", fmt.Errorf("prompt is disabled for this build")
 }

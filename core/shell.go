@@ -21,13 +21,24 @@ import (
 )
 
 type Completer struct {
-	ctx context.Context
+	commands *Commands
+	meta     *Meta
 }
 
 func NewShellCompleter(ctx context.Context) *Completer {
 	return &Completer{
-		ctx: ctx,
+		commands: ExtractCommands(ctx),
+		meta:     extractMeta(ctx),
 	}
+}
+
+// shellAutoComplete is a wrapper for AutoComplete that uses stored commands instead of context
+func (c *Completer) shellAutoComplete(leftWords []string, wordToComplete string, rightWords []string) *AutocompleteResponse {
+	// Create a minimal context with just the commands
+	ctx := context.Background()
+	ctx = InjectMeta(ctx, &Meta{Commands: c.commands})
+
+	return AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 }
 
 type ShellSuggestion struct {
@@ -232,12 +243,10 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 		return nil
 	}
 
-	meta := extractMeta(c.ctx)
-
-	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(
+	argsBeforeCursor := c.meta.CliConfig.Alias.ResolveAliases(
 		strings.Split(d.TextBeforeCursor(), " "),
 	)
-	argsAfterCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
+	argsAfterCursor := c.meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
 	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
 
 	// leftArgs contains all arguments before the one with the cursor
@@ -247,7 +256,7 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	leftWords := append([]string{"scw"}, leftArgs...)
 
-	acr := AutoComplete(c.ctx, leftWords, currentArg, rightWords)
+	acr := c.shellAutoComplete(leftWords, currentArg, rightWords)
 
 	suggestions := []prompt.Suggest(nil)
 	rawSuggestions := []string(acr.Suggestions)
@@ -255,13 +264,13 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	// if first suggestion is an option, all suggestions should be options
 	// we sort them
 	if len(rawSuggestions) > 0 && ArgIsOption(rawSuggestions[0]) {
-		rawSuggestions = sortOptions(meta, leftArgs, rawSuggestions[0], rawSuggestions)
+		rawSuggestions = sortOptions(c.meta, leftArgs, rawSuggestions[0], rawSuggestions)
 	}
 
 	for _, suggest := range rawSuggestions {
 		suggestions = append(suggestions, prompt.Suggest{
 			Text:        suggest,
-			Description: getSuggestDescription(meta, leftArgs, suggest),
+			Description: getSuggestDescription(c.meta, leftArgs, suggest),
 		})
 	}
 

@@ -122,7 +122,6 @@ func invoiceExportBuilder(command *core.Command) *core.Command {
 			overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 				Prompt:       fmt.Sprintf("Do you want to override the current file: %s ?", file),
 				DefaultValue: false,
-				Ctx:          ctx,
 			})
 			if err != nil {
 				return err

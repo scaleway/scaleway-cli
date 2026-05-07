@@ -503,7 +503,6 @@ func shouldDeleteBlockVolumes(
 			return interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 				Prompt:       "Do you also want to delete block volumes attached to this instance ?",
 				DefaultValue: false,
-				Ctx:          ctx,
 			})
 		}
 

@@ -19,7 +19,6 @@ func promptOrganizationID(ctx context.Context) (string, error) {
 	_, _ = interactive.Println()
 
 	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Ctx:    ctx,
 		Prompt: "Choose your default organization ID",
 		ValidateFunc: func(s string) error {
 			if !validation.IsUUID(s) {
@@ -35,7 +34,6 @@ func promptManualProjectID(ctx context.Context, defaultProjectID string) (string
 	_, _ = interactive.Println()
 
 	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Ctx:             ctx,
 		Prompt:          "Choose your default project ID",
 		DefaultValue:    defaultProjectID,
 		DefaultValueDoc: defaultProjectID,
@@ -113,7 +111,6 @@ func promptTelemetry(ctx context.Context) (*bool, error) {
 	sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
 		Prompt:       "Do you want to send usage statistics and diagnostics?",
 		DefaultValue: true,
-		Ctx:          ctx,
 	})
 	if err != nil {
 		return nil, err
@@ -129,7 +126,6 @@ func promptAutocomplete(ctx context.Context) (*bool, error) {
 				`)
 
 	installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Ctx:          ctx,
 		Prompt:       "Do you want to install autocomplete?",
 		DefaultValue: true,
 	})
@@ -142,8 +138,7 @@ func promptAutocomplete(ctx context.Context) (*bool, error) {
 
 func promptSecretKey(ctx context.Context) (string, error) {
 	_, _ = interactive.Println()
-	secret, err := interactive.Readline(&interactive.ReadlineConfig{
-		Ctx: ctx,
+	secret, err := interactive.Readline(ctx, &interactive.ReadlineConfig{
 		PromptFunc: func(value string) string {
 			secretKey := "secret-key"
 			if validation.IsUUID(value) {
@@ -176,8 +171,7 @@ func promptSecretKey(ctx context.Context) (string, error) {
 
 func promptAccessKey(ctx context.Context) (string, error) {
 	_, _ = interactive.Println()
-	key, err := interactive.Readline(&interactive.ReadlineConfig{
-		Ctx: ctx,
+	key, err := interactive.Readline(ctx, &interactive.ReadlineConfig{
 		PromptFunc: func(value string) string {
 			accessKey := "access-key"
 			if validation.IsAccessKey(value) {
@@ -210,7 +204,6 @@ func promptAccessKey(ctx context.Context) (string, error) {
 func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 	_, _ = interactive.Println()
 	zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Ctx:             ctx,
 		Prompt:          "Select a zone",
 		DefaultValueDoc: "fr-par-1",
 		DefaultValue:    "fr-par-1",
@@ -258,7 +251,6 @@ func promptProfileOverride(
 				profileName,
 			),
 			DefaultValue: true,
-			Ctx:          ctx,
 		})
 		if err != nil {
 			return err

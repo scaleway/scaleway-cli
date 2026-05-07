@@ -54,7 +54,6 @@ func promptOverWriteFile(ctx context.Context, filePath string) (bool, error) {
 	}
 
 	config := interactive.PromptBoolConfig{
-		Ctx:          ctx,
 		Prompt:       "The file " + filePath + " already exists. Do you want to overwrite it?",
 		DefaultValue: true,
 	}

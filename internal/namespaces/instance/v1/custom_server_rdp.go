@@ -173,7 +173,6 @@ func parsePrivateKey(ctx context.Context, key []byte) (any, error) {
 	}
 
 	passphrase, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-		Ctx:    ctx,
 		Prompt: "passphrase",
 	})
 	if err != nil {

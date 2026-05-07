@@ -194,14 +194,12 @@ type DeployStepCreateNamespaceResponse struct {
 	Namespace *container.Namespace
 }
 
-func DeployStepFetchNamespace(
-	t *tasks.Task,
-	data *DeployStepData,
+func DeployStepFetchNamespace(ctx context.Context, t *tasks.Task, data *DeployStepData,
 ) (*DeployStepCreateNamespaceResponse, error) {
 	namespace, err := data.API.GetNamespace(&container.GetNamespaceRequest{
 		Region:      data.Args.Region,
 		NamespaceID: *data.Args.NamespaceID,
-	}, scw.WithContext(t.Ctx))
+	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, fmt.Errorf("could not fetch namespace: %w", err)
 	}
@@ -212,11 +210,9 @@ func DeployStepFetchNamespace(
 	}, nil
 }
 
-func DeployStepCreateNamespace(
-	t *tasks.Task,
-	data *DeployStepData,
+func DeployStepCreateNamespace(ctx context.Context, t *tasks.Task, data *DeployStepData,
 ) (*DeployStepCreateNamespaceResponse, error) {
-	namespace, err := getorcreate.Namespace(t.Ctx, data.API, data.Args.Region, data.Args.Name)
+	namespace, err := getorcreate.Namespace(ctx, data.API, data.Args.Region, data.Args.Name)
 	if err != nil {
 		return nil, err
 	}
@@ -233,15 +229,13 @@ type DeployStepFetchOrCreateResponse struct {
 	RegistryEndpoint string
 }
 
-func DeployStepFetchOrCreateRegistry(
-	t *tasks.Task,
-	data *DeployStepCreateNamespaceResponse,
+func DeployStepFetchOrCreateRegistry(ctx context.Context, t *tasks.Task, data *DeployStepCreateNamespaceResponse,
 ) (*DeployStepFetchOrCreateResponse, error) {
 	registryEndpoint := data.Namespace.RegistryEndpoint
 	if registryEndpoint == "" {
 		registryAPI := registry.NewAPI(data.Client)
 		registryNamespace, err := getorcreate.Registry(
-			t.Ctx,
+			ctx,
 			registryAPI,
 			data.Args.Region,
 			data.Namespace.Name,
@@ -267,8 +261,7 @@ type DeployStepPackImageResponse struct {
 	Tar              io.Reader
 }
 
-func DeployStepDockerPackImage(
-	_ *tasks.Task,
+func DeployStepDockerPackImage(ctx context.Context, t *tasks.Task,
 	data *DeployStepFetchOrCreateResponse,
 ) (*DeployStepPackImageResponse, error) {
 	tar, err := archive.TarWithOptions(data.Args.BuildSource, &archive.TarOptions{})
@@ -291,13 +284,11 @@ type DeployStepBuildImageResponse struct {
 	DockerClient DockerClient
 }
 
-func DeployStepDockerBuildImage(
-	t *tasks.Task,
-	data *DeployStepPackImageResponse,
+func DeployStepDockerBuildImage(ctx context.Context, t *tasks.Task, data *DeployStepPackImageResponse,
 ) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
-	httpClient := core.ExtractHTTPClient(t.Ctx)
+	httpClient := core.ExtractHTTPClient(ctx)
 	dockerClient, err := docker.NewClientWithOpts(
 		docker.FromEnv,
 		docker.WithAPIVersionNegotiation(),
@@ -308,7 +299,7 @@ func DeployStepDockerBuildImage(
 	}
 
 	imageBuildResponse, err := dockerClient.ImageBuild(
-		t.Ctx,
+		ctx,
 		data.Tar,
 		dockertypes.ImageBuildOptions{
 			Dockerfile: data.Args.Dockerfile,
@@ -354,13 +345,11 @@ func DeployStepDockerBuildImage(
 	}, nil
 }
 
-func DeployStepBuildpackBuildImage(
-	t *tasks.Task,
-	data *DeployStepFetchOrCreateResponse,
+func DeployStepBuildpackBuildImage(ctx context.Context, t *tasks.Task, data *DeployStepFetchOrCreateResponse,
 ) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
-	httpClient := core.ExtractHTTPClient(t.Ctx)
+	httpClient := core.ExtractHTTPClient(ctx)
 	dockerClient, err := NewCustomDockerClient(httpClient)
 	if err != nil {
 		return nil, err
@@ -374,7 +363,7 @@ func DeployStepBuildpackBuildImage(
 		return nil, fmt.Errorf("could not create pack client: %w", err)
 	}
 
-	err = packClient.Build(t.Ctx, pack.BuildOptions{
+	err = packClient.Build(ctx, pack.BuildOptions{
 		AppPath:      data.Args.BuildSource,
 		Builder:      data.Args.Builder,
 		Image:        tag,
@@ -400,9 +389,7 @@ type DeployStepPushImageResponse struct {
 	Tag       string
 }
 
-func DeployStepPushImage(
-	t *tasks.Task,
-	data *DeployStepBuildImageResponse,
+func DeployStepPushImage(ctx context.Context, t *tasks.Task, data *DeployStepBuildImageResponse,
 ) (*DeployStepPushImageResponse, error) {
 	accessKey, _ := data.Client.GetAccessKey()
 	secretKey, _ := data.Client.GetSecretKey()
@@ -419,7 +406,7 @@ func DeployStepPushImage(
 
 	authStr := base64.URLEncoding.EncodeToString(encodedJSON)
 
-	imagePushResponse, err := data.DockerClient.ImagePush(t.Ctx, data.Tag, image.PushOptions{
+	imagePushResponse, err := data.DockerClient.ImagePush(ctx, data.Tag, image.PushOptions{
 		RegistryAuth: authStr,
 	})
 	if err != nil {
@@ -457,12 +444,10 @@ type DeployStepCreateContainerResponse struct {
 	Container *container.Container
 }
 
-func DeployStepCreateContainer(
-	t *tasks.Task,
-	data *DeployStepPushImageResponse,
+func DeployStepCreateContainer(ctx context.Context, t *tasks.Task, data *DeployStepPushImageResponse,
 ) (*DeployStepCreateContainerResponse, error) {
 	targetContainer, err := getorcreate.Container(
-		t.Ctx,
+		ctx,
 		data.API,
 		data.Args.Region,
 		data.Namespace.ID,
@@ -478,7 +463,7 @@ func DeployStepCreateContainer(
 		RegistryImage: &data.Tag,
 		Port:          new(data.Args.Port),
 		Redeploy:      new(false),
-	}, scw.WithContext(t.Ctx))
+	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, fmt.Errorf("could not update container: %w", err)
 	}
@@ -488,7 +473,7 @@ func DeployStepCreateContainer(
 		ContainerID:   targetContainer.ID,
 		Timeout:       new(12*time.Minute + 30*time.Second),
 		RetryInterval: core.DefaultRetryInterval,
-	}, scw.WithContext(t.Ctx))
+	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, fmt.Errorf("failed to deploy container: %w", err)
 	}
@@ -504,14 +489,12 @@ type DeployStepDeployContainerResponse struct {
 	Container *container.Container
 }
 
-func DeployStepDeployContainer(
-	t *tasks.Task,
-	data *DeployStepCreateContainerResponse,
+func DeployStepDeployContainer(ctx context.Context, t *tasks.Task, data *DeployStepCreateContainerResponse,
 ) (*DeployStepDeployContainerResponse, error) {
 	targetContainer, err := data.API.DeployContainer(&container.DeployContainerRequest{
 		Region:      data.Args.Region,
 		ContainerID: data.Container.ID,
-	}, scw.WithContext(t.Ctx))
+	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, fmt.Errorf("could not deploy container: %w", err)
 	}
@@ -521,7 +504,7 @@ func DeployStepDeployContainer(
 		ContainerID:   targetContainer.ID,
 		Timeout:       new(12*time.Minute + 30*time.Second),
 		RetryInterval: core.DefaultRetryInterval,
-	}, scw.WithContext(t.Ctx))
+	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, fmt.Errorf("failed to deploy container: %w", err)
 	}
