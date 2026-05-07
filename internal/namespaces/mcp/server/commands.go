@@ -100,20 +100,20 @@ func McpServerServe() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			// Get all CLI commands from the meta context
-			commands := core.ExtractCommands(ctx)
-			cliCommands := commands.GetAll()
+			meta, err := extractMetaForMCP(ctx)
+			if err != nil {
+				return nil, err
+			}
 
-			// Get build info for version
-			buildInfo := core.ExtractBuildInfo(ctx)
-			version := buildInfo.Version.String()
-
-			// Get profile from context (set by global --profile flag)
-			profile := core.ExtractProfileName(ctx)
-			configPath := core.ExtractConfigPath(ctx)
+			// Reload the client with the profile to ensure proper authentication
+			if err := core.ReloadClient(ctx); err != nil {
+				return nil, fmt.Errorf("failed to initialize authenticated client: %w", err)
+			}
 
 			// Log startup information to stderr
 			fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
+			fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
+			fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
 			fmt.Fprintf(os.Stderr, "Transport mode: %s\n", args.Transport)
 			fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", args.ReadOnly)
 			if len(args.EnableNamespaces) > 0 {
@@ -125,39 +125,7 @@ func McpServerServe() *core.Command {
 			if len(args.EnableVerbs) > 0 {
 				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", args.EnableVerbs)
 			}
-			fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
-			fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
 
-			// Reload the client with the profile to ensure proper authentication
-			if err := core.ReloadClient(ctx); err != nil {
-				return nil, fmt.Errorf("failed to initialize authenticated client: %w", err)
-			}
-
-			// Verify client is properly initialized
-			client := core.ExtractClient(ctx)
-			if client != nil {
-				if orgID, ok := client.GetDefaultOrganizationID(); ok {
-					fmt.Fprintf(os.Stderr, "Organization ID: %s\n", orgID)
-				}
-				if projectID, ok := client.GetDefaultProjectID(); ok {
-					fmt.Fprintf(os.Stderr, "Project ID: %s\n", projectID)
-				}
-			} else {
-				fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
-			}
-
-			// Extract meta from context to pass to MCPServer
-			// This allows HTTP transport to reuse the authenticated client
-			meta := &core.Meta{
-				Client:         client,
-				ProfileFlag:    core.ExtractProfileFlag(ctx),
-				ConfigPathFlag: core.ExtractConfigPathFlag(ctx),
-				BuildInfo:      buildInfo,
-				Commands:       commands,
-				OverrideEnv:    make(map[string]string),
-				Logger:         core.ExtractLogger(ctx),
-				BetaMode:       core.ExtractBetaMode(ctx),
-			}
 			// Copy OverrideEnv from context
 			for _, envKey := range []string{"HOME", "PATH", scw.ScwAccessKeyEnv, scw.ScwSecretKeyEnv, scw.ScwDefaultOrganizationIDEnv, scw.ScwDefaultProjectIDEnv, scw.ScwDefaultRegionEnv, scw.ScwDefaultZoneEnv} {
 				if val := core.ExtractEnv(ctx, envKey); val != "" {
@@ -166,17 +134,12 @@ func McpServerServe() *core.Command {
 			}
 
 			// Step 1: Create the MCP server using NewMCPServer with baseMeta
-			mcpServer := NewMCPServer(
-				version,
-				cliCommands,
-				CommandFilterConfig{
-					ReadOnly:          args.ReadOnly,
-					EnabledNamespaces: args.EnableNamespaces,
-					EnabledResources:  args.EnableResources,
-					EnabledVerbs:      args.EnableVerbs,
-				},
-				meta,
-			)
+			mcpServer := NewMCPServer(cliCommands, CommandFilterConfig{
+				ReadOnly:          args.ReadOnly,
+				EnabledNamespaces: args.EnableNamespaces,
+				EnabledResources:  args.EnableResources,
+				EnabledVerbs:      args.EnableVerbs,
+			}, meta)
 
 			// Step 2: Serve the MCP server with the specified transport
 			return mcpServer.Serve(ctx, args.Transport, args.Address)
@@ -274,16 +237,11 @@ func McpServerListResources() *core.Command {
 
 			// Step 1: Create the MCP server using NewMCPServer
 			// For list-tools command, we don't need to pass meta since it's just listing
-			mcpServer := NewMCPServer(
-				version,
-				cliCommands,
-				CommandFilterConfig{
-					ReadOnly:          args.ReadOnly,
-					EnabledNamespaces: enabledNamespaces,
-					EnabledResources:  enabledResources,
-				},
-				nil, // No baseMeta needed for listing
-			)
+			mcpServer := NewMCPServer(cliCommands, CommandFilterConfig{
+				ReadOnly:          args.ReadOnly,
+				EnabledNamespaces: enabledNamespaces,
+				EnabledResources:  enabledResources,
+			}, nil)
 
 			// Step 2: List resources from the MCP server
 			return mcpServer.ListResources(), nil

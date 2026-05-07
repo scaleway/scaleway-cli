@@ -18,21 +18,21 @@ type MCPServer struct {
 	commands     []*CommandTool
 	resources    []*CommandResource
 	filterConfig CommandFilterConfig
-	baseMeta     *core.Meta // Meta from bootstrap context, used for HTTP transport
+	// meta from bootstrap context, used for HTTP transport
+	meta *core.Meta
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
-func NewMCPServer(
-	version string,
+func NewMCPServer(ctx context.Context,
 	cliCommands []*core.Command,
 	filterConfig CommandFilterConfig,
-	baseMeta *core.Meta,
+	meta *core.Meta,
 ) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
-		Version:    version,
+		Version:    meta.BuildInfo.Version.String(),
 		Icons: []mcp.Icon{
 			{
 				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",
@@ -53,7 +53,7 @@ func NewMCPServer(
 		commands:     make([]*CommandTool, 0, len(cliCommands)),
 		resources:    make([]*CommandResource, 0),
 		filterConfig: filterConfig,
-		baseMeta:     baseMeta,
+		meta:         meta,
 	}
 
 	// Register all commands during initialization

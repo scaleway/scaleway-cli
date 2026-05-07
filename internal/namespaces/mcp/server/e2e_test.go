@@ -22,10 +22,9 @@ func runServer(t *testing.T) int {
 	port := listener.Addr().(*net.TCPAddr).Port
 
 	s := server.NewMCPServer(
-		"test",
 		instance.GetCommands().GetSortedCommand(),
 		server.CommandFilterConfig{},
-		nil, // No baseMeta for test
+		nil,
 	)
 
 	// Create the streamable HTTP handler.

@@ -17,15 +17,16 @@ import (
 
 // CommandResource wraps a CLI command for MCP resource exposure
 type CommandResource struct {
-	Command  *core.Command
-	baseMeta *core.Meta // Meta from bootstrap context for HTTP transport
+	Command *core.Command
+	// meta from bootstrap context for HTTP transport
+	meta *core.Meta
 }
 
 // NewCommandResource creates a new CommandResource from a core.Command with optional baseMeta
 func NewCommandResource(cmd *core.Command, baseMeta *core.Meta) *CommandResource {
 	return &CommandResource{
-		Command:  cmd,
-		baseMeta: baseMeta,
+		Command: cmd,
+		meta:    baseMeta,
 	}
 }
 
@@ -73,7 +74,7 @@ func (cr *CommandResource) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.ReadResourceResult, error) {
-	ctx, err := injectMetaIfMissing(ctx, cr.baseMeta)
+	ctx, err := injectMetaIfMissing(ctx, cr.meta)
 	if err != nil {
 		return &mcp.ReadResourceResult{
 			Contents: []*mcp.ResourceContents{
@@ -223,7 +224,7 @@ func (s *MCPServer) LoadResource(cmd *core.Command) error {
 	}
 
 	// Use baseMeta if available for HTTP transport
-	resource := NewCommandResource(cmd, s.baseMeta)
+	resource := NewCommandResource(cmd, s.meta)
 
 	mcpResource := resource.ToMCPResource()
 

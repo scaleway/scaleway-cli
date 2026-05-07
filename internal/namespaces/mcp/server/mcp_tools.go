@@ -20,15 +20,16 @@ import (
 
 // CommandTool wraps a CLI command for MCP tool execution
 type CommandTool struct {
-	Command  *core.Command
-	baseMeta *core.Meta // Meta from bootstrap context for HTTP transport
+	Command *core.Command
+	// meta from bootstrap context for HTTP transport
+	meta *core.Meta
 }
 
 // NewCommandTool creates a new CommandTool from a core.Command with optional baseMeta
 func NewCommandTool(cmd *core.Command, baseMeta *core.Meta) *CommandTool {
 	return &CommandTool{
-		Command:  cmd,
-		baseMeta: baseMeta,
+		Command: cmd,
+		meta:    baseMeta,
 	}
 }
 
@@ -72,7 +73,7 @@ func (ct *CommandTool) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.CallToolResult, error) {
-	ctx, err := injectMetaIfMissing(ctx, ct.baseMeta)
+	ctx, err := injectMetaIfMissing(ctx, ct.meta)
 	if err != nil {
 		return &mcp.CallToolResult{
 			Content: []mcp.Content{
@@ -236,16 +237,16 @@ func truncateString(s string, maxLen int) string {
 // This is required when running as an MCP server (especially HTTP streamable)
 // where the context doesn't go through the normal CLI bootstrap process.
 // Returns the updated context and any error that occurred during initialization.
-func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) (context.Context, error) {
+func injectMetaIfMissing(ctx context.Context, meta *core.Meta) (context.Context, error) {
 	if core.ExtractClient(ctx) != nil {
 		return ctx, nil
 	}
-	if baseMeta != nil {
-		meta := *baseMeta
-		meta.OverrideEnv = make(map[string]string)
-		maps.Copy(meta.OverrideEnv, baseMeta.OverrideEnv)
+	if meta != nil {
+		m := *meta
+		m.OverrideEnv = make(map[string]string)
+		maps.Copy(meta.OverrideEnv, meta.OverrideEnv)
 
-		return core.InjectMeta(ctx, &meta), nil
+		return core.InjectMeta(ctx, &m), nil
 	}
 	// baseMeta is nil - create an authenticated client from environment/config
 	// Load config to get active profile and credentials
@@ -293,4 +294,44 @@ func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) (context.Cont
 		OverrideEnv: map[string]string{},
 		BinaryName:  "scw-mcp",
 	}), nil
+}
+
+func extractMetaForMCP(ctx context.Context) (*core.Meta, error) {
+	// Get all CLI commands from the meta context
+	commands := core.ExtractCommands(ctx)
+	cliCommands := commands.GetAll()
+
+	// Get build info for version
+	buildInfo := core.ExtractBuildInfo(ctx)
+	version := buildInfo.Version.String()
+
+	// Get profile from context (set by global --profile flag)
+	profile := core.ExtractProfileName(ctx)
+	configPath := core.ExtractConfigPath(ctx)
+
+	// Verify client is properly initialized
+	client := core.ExtractClient(ctx)
+	if client != nil {
+		if orgID, ok := client.GetDefaultOrganizationID(); ok {
+			fmt.Fprintf(os.Stderr, "Organization ID: %s\n", orgID)
+		}
+		if projectID, ok := client.GetDefaultProjectID(); ok {
+			fmt.Fprintf(os.Stderr, "Project ID: %s\n", projectID)
+		}
+	} else {
+		fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
+	}
+
+	// Extract meta from context to pass to MCPServer
+	// This allows HTTP transport to reuse the authenticated client
+	meta := &core.Meta{
+		Client:         client,
+		ProfileFlag:    core.ExtractProfileFlag(ctx),
+		ConfigPathFlag: core.ExtractConfigPathFlag(ctx),
+		BuildInfo:      buildInfo,
+		Commands:       commands,
+		OverrideEnv:    make(map[string]string),
+		Logger:         core.ExtractLogger(ctx),
+		BetaMode:       core.ExtractBetaMode(ctx),
+	}
 }
