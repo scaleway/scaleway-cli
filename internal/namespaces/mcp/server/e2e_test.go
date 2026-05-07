@@ -14,8 +14,8 @@ import (
 
 func runServer(t *testing.T) int {
 	t.Helper()
-	// Find available port
-	listener, err := net.Listen("tcp", ":0")
+	// Find available port on loopback interface only
+	listener, err := net.Listen("tcp", "localhost:0")
 	if err != nil {
 		t.Fatalf("Failed to find available port: %v", err)
 	}
