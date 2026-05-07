@@ -21,9 +21,8 @@ func RunStreamableHTTPServer(
 			return mcpServer.Server()
 		},
 		&mcp.StreamableHTTPOptions{
-			DisableLocalhostProtection: true,
-			JSONResponse:               true,
-			Stateless:                  true,
+			JSONResponse: true,
+			Stateless:    true,
 		},
 	)
 
