@@ -72,9 +72,9 @@ type PromptStringConfig struct {
 	ValidateFunc    ValidateFunc
 }
 
-func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
+func PromptStringWithConfig(ctx context.Context, config *PromptStringConfig) (string, error) {
 	return PromptString(
-		context.Background(),
+		ctx,
 		config.Prompt,
 		config.DefaultValue,
 		config.DefaultValueDoc,

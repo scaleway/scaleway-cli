@@ -182,7 +182,7 @@ func InstallCommandRun(ctx context.Context, argsI any) (i any, e error) {
 			defaultShellName = filepath.Base(core.ExtractEnv(ctx, "SHELL"))
 		}
 
-		promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
+		promptedShell, err := interactive.PromptStringWithConfig(ctx, &interactive.PromptStringConfig{
 			Prompt:          "What type of shell are you using",
 			DefaultValue:    defaultShellName,
 			DefaultValueDoc: defaultShellName,

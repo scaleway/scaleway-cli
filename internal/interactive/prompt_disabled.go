@@ -11,7 +11,7 @@ type PromptPasswordConfig struct {
 	Prompt string
 }
 
-func PromptPasswordWithConfig(config *PromptPasswordConfig) (string, error) {
+func PromptPasswordWithConfig(ctx context.Context, config *PromptPasswordConfig) (string, error) {
 	return "", fmt.Errorf("prompt is disabled for this build")
 }
 
@@ -24,7 +24,7 @@ type PromptBoolConfig struct {
 	DefaultValue bool
 }
 
-func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
+func PromptBoolWithConfig(ctx context.Context, config *PromptBoolConfig) (bool, error) {
 	return config.DefaultValue, nil
 }
 
@@ -39,7 +39,7 @@ type PromptStringConfig struct {
 	ValidateFunc    ValidateFunc
 }
 
-func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
+func PromptStringWithConfig(ctx context.Context, config *PromptStringConfig) (string, error) {
 	return config.DefaultValue, nil
 }
 
