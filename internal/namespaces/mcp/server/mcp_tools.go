@@ -3,8 +3,10 @@ package server
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
 	"maps"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -70,7 +72,29 @@ func (ct *CommandTool) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.CallToolResult, error) {
-	ctx = injectMetaIfMissing(ctx, ct.baseMeta)
+	ctx, err := injectMetaIfMissing(ctx, ct.baseMeta)
+	if err != nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: fmt.Sprintf("Error initializing client: %v", err),
+				},
+			},
+			IsError: true,
+		}, nil
+	}
+
+	// Verify client was successfully injected
+	if core.ExtractClient(ctx) == nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: "Error: client not initialized - check SCW credentials (access key, secret key, or profile)",
+				},
+			},
+			IsError: true,
+		}, nil
+	}
 
 	// Skip commands without a Run function
 	if ct.Command.Run == nil {
@@ -115,7 +139,7 @@ func (ct *CommandTool) Execute(
 				valueStr = strconv.Itoa(v)
 			default:
 				// For complex types, marshal to JSON
-				if b, err := json.Marshal(v); err == nil {
+				if b, marshalErr := json.Marshal(v); marshalErr == nil {
 					valueStr = string(b)
 				} else {
 					valueStr = fmt.Sprintf("%v", v)
@@ -126,11 +150,11 @@ func (ct *CommandTool) Execute(
 		}
 
 		// Unmarshal the args into the struct
-		if err := args.UnmarshalStruct(rawArgs, cmdArgs); err != nil {
+		if unmarshalErr := args.UnmarshalStruct(rawArgs, cmdArgs); unmarshalErr != nil {
 			return &mcp.CallToolResult{
 				Content: []mcp.Content{
 					&mcp.TextContent{
-						Text: fmt.Sprintf("Error parsing arguments: %v", err),
+						Text: fmt.Sprintf("Error parsing arguments: %v", unmarshalErr),
 					},
 				},
 				IsError: true,
@@ -211,30 +235,62 @@ func truncateString(s string, maxLen int) string {
 // injectMetaIfMissing initializes context with meta if not already present.
 // This is required when running as an MCP server (especially HTTP streamable)
 // where the context doesn't go through the normal CLI bootstrap process.
-func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) context.Context {
+// Returns the updated context and any error that occurred during initialization.
+func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) (context.Context, error) {
 	if core.ExtractClient(ctx) != nil {
-		return ctx
+		return ctx, nil
 	}
 	if baseMeta != nil {
 		meta := *baseMeta
 		meta.OverrideEnv = make(map[string]string)
 		maps.Copy(meta.OverrideEnv, baseMeta.OverrideEnv)
 
-		return core.InjectMeta(ctx, &meta)
+		return core.InjectMeta(ctx, &meta), nil
 	}
 	// baseMeta is nil - create an authenticated client from environment/config
-	client, err := scw.NewClient(
+	// Load config to get active profile and credentials
+	configPath := scw.GetConfigPath()
+	config, err := scw.LoadConfigFromPath(configPath)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return ctx, fmt.Errorf("loading config: %w", err)
+	}
+
+	// Get active profile name (from config or env)
+	profileName := scw.DefaultProfileName
+	if config != nil && config.ActiveProfile != nil {
+		profileName = *config.ActiveProfile
+	}
+	if envProfile := os.Getenv(scw.ScwActiveProfileEnv); envProfile != "" {
+		profileName = envProfile
+	}
+
+	// Build client options with defaults and profile
+	options := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent("scaleway-mcp-server"),
-	)
+		scw.WithEnv(), // Load credentials from environment variables
+	}
+
+	// Load profile from config file if available
+	if config != nil {
+		profile, err := config.GetProfile(profileName)
+		if err != nil {
+			return ctx, fmt.Errorf("getting profile %q: %w", profileName, err)
+		}
+		if profile != nil {
+			options = append(options, scw.WithProfile(profile))
+		}
+	}
+
+	client, err := scw.NewClient(options...)
 	if err != nil {
-		return ctx // Error will be handled by caller when executing command
+		return ctx, fmt.Errorf("creating client: %w", err)
 	}
 
 	return core.InjectMeta(ctx, &core.Meta{
 		Client:      client,
 		OverrideEnv: map[string]string{},
 		BinaryName:  "scw-mcp",
-	})
+	}), nil
 }
