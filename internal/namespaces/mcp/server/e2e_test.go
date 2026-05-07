@@ -2,7 +2,6 @@ package server_test
 
 import (
 	"fmt"
-	"log"
 	"net"
 	"net/http"
 	"testing"
@@ -38,12 +37,24 @@ func runServer(t *testing.T) int {
 		Stateless:                  true,
 	})
 
-	log.Printf("MCP server listening on port %d", port)
+	httpServer := &http.Server{
+		Handler: handler,
+	}
+
+	// Cleanup: shutdown server and close listener.
+	t.Cleanup(func() {
+		if err := httpServer.Shutdown(t.Context()); err != nil {
+			t.Logf("Server shutdown error: %v", err)
+		}
+		listener.Close()
+	})
+
+	t.Logf("MCP server listening on port %d", port)
 
 	// Start the HTTP server.
 	go func() {
-		if err := http.Serve(listener, handler); err != nil {
-			log.Printf("Server error: %v", err)
+		if err := httpServer.Serve(listener); err != http.ErrServerClosed {
+			t.Logf("Server error: %v", err)
 		}
 	}()
 
@@ -58,7 +69,7 @@ func runClient(t *testing.T, port int) {
 		Endpoint: fmt.Sprintf("http://localhost:%d/mcp", port),
 	}, nil)
 	if err != nil {
-		log.Fatalf("Failed to connect: %v", err)
+		t.Fatalf("Failed to connect: %v", err)
 	}
 	defer clientSession.Close()
 
