@@ -17,8 +17,8 @@ type PromptPasswordConfig struct {
 	Prompt string
 }
 
-func PromptPasswordWithConfig(config *PromptPasswordConfig) (string, error) {
-	return PromptPassword(context.Background(), config.Prompt)
+func PromptPasswordWithConfig(ctx context.Context, config *PromptPasswordConfig) (string, error) {
+	return PromptPassword(ctx, config.Prompt)
 }
 
 func PromptPassword(ctx context.Context, prompt string) (string, error) {
@@ -33,8 +33,8 @@ type PromptBoolConfig struct {
 	DefaultValue bool
 }
 
-func PromptBoolWithConfig(config *PromptBoolConfig) (bool, error) {
-	return PromptBool(context.Background(), config.Prompt, config.DefaultValue)
+func PromptBoolWithConfig(ctx context.Context, config *PromptBoolConfig) (bool, error) {
+	return PromptBool(ctx, config.Prompt, config.DefaultValue)
 }
 
 func PromptBool(ctx context.Context, prompt string, defaultValue bool) (bool, error) {
@@ -73,7 +73,13 @@ type PromptStringConfig struct {
 }
 
 func PromptStringWithConfig(config *PromptStringConfig) (string, error) {
-	return PromptString(context.Background(), config.Prompt, config.DefaultValue, config.DefaultValueDoc, config.ValidateFunc)
+	return PromptString(
+		context.Background(),
+		config.Prompt,
+		config.DefaultValue,
+		config.DefaultValueDoc,
+		config.ValidateFunc,
+	)
 }
 
 func PromptString(

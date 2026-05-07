@@ -32,15 +32,6 @@ func NewShellCompleter(ctx context.Context) *Completer {
 	}
 }
 
-// shellAutoComplete is a wrapper for AutoComplete that uses stored commands instead of context
-func (c *Completer) shellAutoComplete(leftWords []string, wordToComplete string, rightWords []string) *AutocompleteResponse {
-	// Create a minimal context with just the commands
-	ctx := context.Background()
-	ctx = InjectMeta(ctx, &Meta{Commands: c.commands})
-
-	return AutoComplete(ctx, leftWords, wordToComplete, rightWords)
-}
-
 type ShellSuggestion struct {
 	Text string
 	Arg  *ArgSpec
@@ -246,7 +237,9 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	argsBeforeCursor := c.meta.CliConfig.Alias.ResolveAliases(
 		strings.Split(d.TextBeforeCursor(), " "),
 	)
-	argsAfterCursor := c.meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
+	argsAfterCursor := c.meta.CliConfig.Alias.ResolveAliases(
+		strings.Split(d.TextAfterCursor(), " "),
+	)
 	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
 
 	// leftArgs contains all arguments before the one with the cursor
@@ -275,6 +268,19 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	}
 
 	return prompt.FilterHasPrefix(suggestions, currentArg, true)
+}
+
+// shellAutoComplete is a wrapper for AutoComplete that uses stored commands instead of context
+func (c *Completer) shellAutoComplete(
+	leftWords []string,
+	wordToComplete string,
+	rightWords []string,
+) *AutocompleteResponse {
+	// Create a minimal context with just the commands
+	ctx := context.Background()
+	ctx = InjectMeta(ctx, &Meta{Commands: c.commands})
+
+	return AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 }
 
 // shellExecutor returns the function that will execute command entered in shell

@@ -229,7 +229,10 @@ type DeployStepFetchOrCreateResponse struct {
 	RegistryEndpoint string
 }
 
-func DeployStepFetchOrCreateRegistry(ctx context.Context, t *tasks.Task, data *DeployStepCreateNamespaceResponse,
+func DeployStepFetchOrCreateRegistry(
+	ctx context.Context,
+	t *tasks.Task,
+	data *DeployStepCreateNamespaceResponse,
 ) (*DeployStepFetchOrCreateResponse, error) {
 	registryEndpoint := data.Namespace.RegistryEndpoint
 	if registryEndpoint == "" {
@@ -284,7 +287,10 @@ type DeployStepBuildImageResponse struct {
 	DockerClient DockerClient
 }
 
-func DeployStepDockerBuildImage(ctx context.Context, t *tasks.Task, data *DeployStepPackImageResponse,
+func DeployStepDockerBuildImage(
+	ctx context.Context,
+	t *tasks.Task,
+	data *DeployStepPackImageResponse,
 ) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
@@ -345,7 +351,10 @@ func DeployStepDockerBuildImage(ctx context.Context, t *tasks.Task, data *Deploy
 	}, nil
 }
 
-func DeployStepBuildpackBuildImage(ctx context.Context, t *tasks.Task, data *DeployStepFetchOrCreateResponse,
+func DeployStepBuildpackBuildImage(
+	ctx context.Context,
+	t *tasks.Task,
+	data *DeployStepFetchOrCreateResponse,
 ) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
@@ -444,7 +453,10 @@ type DeployStepCreateContainerResponse struct {
 	Container *container.Container
 }
 
-func DeployStepCreateContainer(ctx context.Context, t *tasks.Task, data *DeployStepPushImageResponse,
+func DeployStepCreateContainer(
+	ctx context.Context,
+	t *tasks.Task,
+	data *DeployStepPushImageResponse,
 ) (*DeployStepCreateContainerResponse, error) {
 	targetContainer, err := getorcreate.Container(
 		ctx,
@@ -489,7 +501,10 @@ type DeployStepDeployContainerResponse struct {
 	Container *container.Container
 }
 
-func DeployStepDeployContainer(ctx context.Context, t *tasks.Task, data *DeployStepCreateContainerResponse,
+func DeployStepDeployContainer(
+	ctx context.Context,
+	t *tasks.Task,
+	data *DeployStepCreateContainerResponse,
 ) (*DeployStepDeployContainerResponse, error) {
 	targetContainer, err := data.API.DeployContainer(&container.DeployContainerRequest{
 		Region:      data.Args.Region,

@@ -131,7 +131,7 @@ Do you want the include statement to be added at the beginning of your file ?`,
 				}, nil
 			}
 
-			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(
+			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(ctx,
 				&interactive.PromptBoolConfig{
 					Prompt:       includePrompt,
 					DefaultValue: true,

@@ -60,9 +60,13 @@ func TestInvalidGeneric(t *testing.T) {
 			return strconv.Itoa(args), nil
 		},
 	)
-	tasks.Add(ts, "divide by 4", func(_ context.Context, _ *tasks.Task, args int) (nextArgs int, err error) {
-		return args / 4, nil
-	})
+	tasks.Add(
+		ts,
+		"divide by 4",
+		func(_ context.Context, _ *tasks.Task, args int) (nextArgs int, err error) {
+			return args / 4, nil
+		},
+	)
 }
 
 func TestCleanup(t *testing.T) {

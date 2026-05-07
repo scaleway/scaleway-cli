@@ -245,10 +245,13 @@ func InstallCommandRun(ctx context.Context, argsI any) (i any, e error) {
 
 	// Early exit if user disagrees
 	_, _ = interactive.Println()
-	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       "Do you want to proceed with these changes?",
-		DefaultValue: true,
-	})
+	continueInstallation, err := interactive.PromptBoolWithConfig(
+		ctx,
+		&interactive.PromptBoolConfig{
+			Prompt:       "Do you want to proceed with these changes?",
+			DefaultValue: true,
+		},
+	)
 	if err != nil {
 		return nil, err
 	}
