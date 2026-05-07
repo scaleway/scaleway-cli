@@ -78,14 +78,14 @@ func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 	}
 
 	// Extract mock responses from context for testing
-	var mockResponses []string
+	var mockResponses *[]string
 	if contextValue := ctx.Value(contextKey); contextValue != nil {
 		if mockValues, ok := contextValue.(*[]string); ok && mockValues != nil {
-			mockResponses = *mockValues
+			mockResponses = mockValues
 		}
 	}
 
-	if len(mockResponses) > 0 {
+	if mockResponses != nil && len(*mockResponses) > 0 {
 		opts = append(opts, tea.WithInput(&mockResponseReader{
 			mockResponses: mockResponses,
 			defaultReader: os.Stdin,

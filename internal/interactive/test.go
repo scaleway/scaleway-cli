@@ -18,14 +18,14 @@ func InjectMockResponseToContext(ctx context.Context, mockValues []string) conte
 }
 
 type mockResponseReader struct {
-	mockResponses []string
+	mockResponses *[]string
 	defaultReader io.ReadCloser
 }
 
 func (m *mockResponseReader) Read(p []byte) (n int, err error) {
-	if len(m.mockResponses) > 0 {
-		mockResponse := m.mockResponses[0]
-		m.mockResponses = m.mockResponses[1:]
+	if m.mockResponses != nil && len(*m.mockResponses) > 0 {
+		mockResponse := (*m.mockResponses)[0]
+		*m.mockResponses = (*m.mockResponses)[1:]
 		buff := []byte(mockResponse + "\n")
 		copy(p, buff)
 

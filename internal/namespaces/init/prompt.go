@@ -18,32 +18,24 @@ import (
 func promptOrganizationID(ctx context.Context) (string, error) {
 	_, _ = interactive.Println()
 
-	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Prompt: "Choose your default organization ID",
-		ValidateFunc: func(s string) error {
-			if !validation.IsUUID(s) {
-				return core.InvalidOrganizationIDError(s)
-			}
+	return interactive.PromptString(ctx, "Choose your default organization ID", "", "", func(s string) error {
+		if !validation.IsUUID(s) {
+			return core.InvalidOrganizationIDError(s)
+		}
 
-			return nil
-		},
+		return nil
 	})
 }
 
 func promptManualProjectID(ctx context.Context, defaultProjectID string) (string, error) {
 	_, _ = interactive.Println()
 
-	return interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Prompt:          "Choose your default project ID",
-		DefaultValue:    defaultProjectID,
-		DefaultValueDoc: defaultProjectID,
-		ValidateFunc: func(s string) error {
-			if !validation.IsProjectID(s) {
-				return core.InvalidProjectIDError(s)
-			}
+	return interactive.PromptString(ctx, "Choose your default project ID", defaultProjectID, defaultProjectID, func(s string) error {
+		if !validation.IsProjectID(s) {
+			return core.InvalidProjectIDError(s)
+		}
 
-			return nil
-		},
+		return nil
 	})
 }
 
@@ -108,15 +100,12 @@ func promptTelemetry(ctx context.Context) (*bool, error) {
 					Sending such data is optional and can be disabled at any time by running "scw config set send-telemetry=false".
 				`)
 
-	sendTelemetry, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       "Do you want to send usage statistics and diagnostics?",
-		DefaultValue: true,
-	})
+	sendTelemetry, err := interactive.PromptBool(ctx, "Do you want to send usage statistics and diagnostics?", true)
 	if err != nil {
 		return nil, err
 	}
 
-	return new(sendTelemetry), nil
+	return &sendTelemetry, nil
 }
 
 func promptAutocomplete(ctx context.Context) (*bool, error) {
@@ -125,15 +114,12 @@ func promptAutocomplete(ctx context.Context) (*bool, error) {
 					To fully enjoy Scaleway CLI we recommend you install autocomplete support in your shell.
 				`)
 
-	installAutocomplete, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Prompt:       "Do you want to install autocomplete?",
-		DefaultValue: true,
-	})
+	installAutocomplete, err := interactive.PromptBool(ctx, "Do you want to install autocomplete?", true)
 	if err != nil {
 		return nil, err
 	}
 
-	return new(installAutocomplete), nil
+	return &installAutocomplete, nil
 }
 
 func promptSecretKey(ctx context.Context) (string, error) {
@@ -203,18 +189,13 @@ func promptAccessKey(ctx context.Context) (string, error) {
 
 func promptDefaultZone(ctx context.Context) (scw.Zone, error) {
 	_, _ = interactive.Println()
-	zone, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-		Prompt:          "Select a zone",
-		DefaultValueDoc: "fr-par-1",
-		DefaultValue:    "fr-par-1",
-		ValidateFunc: func(s string) error {
-			logger.Debugf("s: %v", s)
-			if !validation.IsZone(s) {
-				return core.InvalidZoneError(s)
-			}
+	zone, err := interactive.PromptString(ctx, "Select a zone", "fr-par-1", "fr-par-1", func(s string) error {
+		logger.Debugf("s: %v", s)
+		if !validation.IsZone(s) {
+			return core.InvalidZoneError(s)
+		}
 
-			return nil
-		},
+		return nil
 	})
 	if err != nil {
 		return "", err
@@ -245,13 +226,10 @@ func promptProfileOverride(
 					Current config is located at ` + configPath + `
 					` + terminal.Style(fmt.Sprint(profile), color.Faint) + `
 				`)
-		overrideConfig, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-			Prompt: fmt.Sprintf(
-				"Do you want to override the current profile (%s) ?",
-				profileName,
-			),
-			DefaultValue: true,
-		})
+		overrideConfig, err := interactive.PromptBool(ctx, fmt.Sprintf(
+			"Do you want to override the current profile (%s) ?",
+			profileName,
+		), true)
 		if err != nil {
 			return err
 		}

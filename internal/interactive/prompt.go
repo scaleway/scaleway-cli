@@ -133,10 +133,10 @@ func Readline(ctx context.Context, config *ReadlineConfig) (string, error) {
 	}
 
 	// Extract mock responses from context for testing
-	var mockResponses []string
+	var mockResponses *[]string
 	if contextValue := ctx.Value(contextKey); contextValue != nil {
 		if mockValues, ok := contextValue.(*[]string); ok && mockValues != nil {
-			mockResponses = *mockValues
+			mockResponses = mockValues
 		}
 	}
 
