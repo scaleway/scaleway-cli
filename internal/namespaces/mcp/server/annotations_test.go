@@ -21,7 +21,7 @@ func TestInventoryNilAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{})
+	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{}, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	type nilAnnotation struct {
@@ -121,7 +121,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{})
+	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{}, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	var failedCommands []string
@@ -175,7 +175,7 @@ func TestAllToolsHaveCommandMetadata(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{})
+	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{}, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	var failedCommands []string
@@ -272,7 +272,7 @@ func TestToolMetadataValues(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			tool := server.NewCommandTool(tc.command)
+			tool := server.NewCommandTool(tc.command, nil)
 			mcpTool := tool.ToMCPTool()
 
 			if mcpTool.Meta == nil {

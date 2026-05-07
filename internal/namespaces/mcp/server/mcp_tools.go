@@ -11,6 +11,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
@@ -20,15 +21,8 @@ type CommandTool struct {
 	baseMeta *core.Meta // Meta from bootstrap context for HTTP transport
 }
 
-// NewCommandTool creates a new CommandTool from a core.Command
-func NewCommandTool(cmd *core.Command) *CommandTool {
-	return &CommandTool{
-		Command: cmd,
-	}
-}
-
-// NewCommandToolWithMeta creates a new CommandTool with base meta for HTTP transport
-func NewCommandToolWithMeta(cmd *core.Command, baseMeta *core.Meta) *CommandTool {
+// NewCommandTool creates a new CommandTool from a core.Command with optional baseMeta
+func NewCommandTool(cmd *core.Command, baseMeta *core.Meta) *CommandTool {
 	return &CommandTool{
 		Command:  cmd,
 		baseMeta: baseMeta,
@@ -75,42 +69,7 @@ func (ct *CommandTool) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.CallToolResult, error) {
-	// Initialize context with proper meta if not already present
-	// This is required when running as an MCP server (especially HTTP streamable)
-	// where the context doesn't go through the normal CLI bootstrap process
-	if core.ExtractClient(ctx) == nil {
-		// Use baseMeta from bootstrap if available, otherwise create a new client
-		if ct.baseMeta != nil {
-			// Clone the base meta for this request
-			meta := *ct.baseMeta
-			meta.OverrideEnv = make(map[string]string)
-			for k, v := range ct.baseMeta.OverrideEnv {
-				meta.OverrideEnv[k] = v
-			}
-			ctx = core.InjectMeta(ctx, &meta)
-		} else {
-			// Create an authenticated client from environment/config
-			client, err := createMCPClient()
-			if err != nil {
-				return &mcp.CallToolResult{
-					Content: []mcp.Content{
-						&mcp.TextContent{
-							Text: fmt.Sprintf("Error creating client: %v", err),
-						},
-					},
-					IsError: true,
-				}, nil
-			}
-
-			// Create minimal meta with the client
-			meta := &core.Meta{
-				Client:      client,
-				OverrideEnv: map[string]string{},
-				BinaryName:  "scw-mcp",
-			}
-			ctx = core.InjectMeta(ctx, meta)
-		}
-	}
+	ctx = injectMetaIfMissing(ctx, ct.baseMeta)
 
 	// Skip commands without a Run function
 	if ct.Command.Run == nil {
@@ -246,4 +205,35 @@ func truncateString(s string, maxLen int) string {
 	}
 
 	return s[:maxLen-3] + "..."
+}
+
+// injectMetaIfMissing initializes context with meta if not already present.
+// This is required when running as an MCP server (especially HTTP streamable)
+// where the context doesn't go through the normal CLI bootstrap process.
+func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) context.Context {
+	if core.ExtractClient(ctx) != nil {
+		return ctx
+	}
+	if baseMeta != nil {
+		meta := *baseMeta
+		meta.OverrideEnv = make(map[string]string)
+		for k, v := range baseMeta.OverrideEnv {
+			meta.OverrideEnv[k] = v
+		}
+		return core.InjectMeta(ctx, &meta)
+	}
+	// baseMeta is nil - create an authenticated client from environment/config
+	client, err := scw.NewClient(
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithUserAgent("scaleway-mcp-server"),
+	)
+	if err != nil {
+		return ctx // Error will be handled by caller when executing command
+	}
+	return core.InjectMeta(ctx, &core.Meta{
+		Client:      client,
+		OverrideEnv: map[string]string{},
+		BinaryName:  "scw-mcp",
+	})
 }

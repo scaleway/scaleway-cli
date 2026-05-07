@@ -1,7 +1,9 @@
 package server_test
 
 import (
+	"fmt"
 	"log"
+	"net"
 	"net/http"
 	"testing"
 	"time"
@@ -11,7 +13,14 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 )
 
-func runServer(url string) {
+func runServer(t *testing.T) int {
+	// Find available port
+	listener, err := net.Listen("tcp", ":0")
+	if err != nil {
+		t.Fatalf("Failed to find available port: %v", err)
+	}
+	port := listener.Addr().(*net.TCPAddr).Port
+
 	s := server.NewMCPServer(
 		"test",
 		instance.GetCommands().GetSortedCommand(),
@@ -28,19 +37,23 @@ func runServer(url string) {
 		Stateless:                  true,
 	})
 
-	log.Printf("MCP server listening on %s", url)
+	log.Printf("MCP server listening on port %d", port)
 
 	// Start the HTTP server.
-	if err := http.ListenAndServe(url, handler); err != nil {
-		log.Fatalf("Server failed: %v", err)
-	}
+	go func() {
+		if err := http.Serve(listener, handler); err != nil {
+			log.Printf("Server error: %v", err)
+		}
+	}()
+
+	return port
 }
 
-func runClient(t *testing.T) {
+func runClient(t *testing.T, port int) {
 	// Connect to the proxy server (acting as a client).
 	client := mcp.NewClient(&mcp.Implementation{Name: "client", Version: "1.0.0"}, nil)
 	clientSession, err := client.Connect(t.Context(), &mcp.StreamableClientTransport{
-		Endpoint: "http://:8080/mcp",
+		Endpoint: fmt.Sprintf("http://localhost:%d/mcp", port),
 	}, nil)
 	if err != nil {
 		log.Fatalf("Failed to connect: %v", err)
@@ -61,9 +74,9 @@ func runClient(t *testing.T) {
 }
 
 func Test_E2E(t *testing.T) {
-	go runServer(":8080")
+	port := runServer(t)
 	// Give the backend a moment to start.
 	time.Sleep(100 * time.Millisecond)
 
-	runClient(t)
+	runClient(t, port)
 }

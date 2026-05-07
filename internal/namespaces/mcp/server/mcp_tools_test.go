@@ -86,7 +86,7 @@ func TestCommandToolExecute(t *testing.T) {
 		},
 	}
 
-	tool := server.NewCommandTool(cmd)
+	tool := server.NewCommandTool(cmd, nil)
 
 	inputArgs := map[string]any{
 		"name":  "test-name",
@@ -143,7 +143,7 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 		},
 	}
 
-	tool := server.NewCommandTool(cmd)
+	tool := server.NewCommandTool(cmd, nil)
 
 	// MCP sends kebab-case keys
 	inputArgs := map[string]any{
@@ -171,7 +171,7 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 func TestToolMetaSerialization(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{})
+	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{}, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	if len(registeredCommands) == 0 {

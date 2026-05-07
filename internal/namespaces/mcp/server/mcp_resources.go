@@ -12,7 +12,6 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
@@ -22,15 +21,8 @@ type CommandResource struct {
 	baseMeta *core.Meta // Meta from bootstrap context for HTTP transport
 }
 
-// NewCommandResource creates a new CommandResource from a core.Command
-func NewCommandResource(cmd *core.Command) *CommandResource {
-	return &CommandResource{
-		Command: cmd,
-	}
-}
-
-// NewCommandResourceWithMeta creates a new CommandResource with base meta for HTTP transport
-func NewCommandResourceWithMeta(cmd *core.Command, baseMeta *core.Meta) *CommandResource {
+// NewCommandResource creates a new CommandResource from a core.Command with optional baseMeta
+func NewCommandResource(cmd *core.Command, baseMeta *core.Meta) *CommandResource {
 	return &CommandResource{
 		Command:  cmd,
 		baseMeta: baseMeta,
@@ -81,42 +73,7 @@ func (cr *CommandResource) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.ReadResourceResult, error) {
-	// Initialize context with proper meta if not already present
-	// This is required when running as an MCP server (especially HTTP streamable)
-	// where the context doesn't go through the normal CLI bootstrap process
-	if core.ExtractClient(ctx) == nil {
-		// Use baseMeta from bootstrap if available, otherwise create a new client
-		if cr.baseMeta != nil {
-			// Clone the base meta for this request
-			meta := *cr.baseMeta
-			meta.OverrideEnv = make(map[string]string)
-			for k, v := range cr.baseMeta.OverrideEnv {
-				meta.OverrideEnv[k] = v
-			}
-			ctx = core.InjectMeta(ctx, &meta)
-		} else {
-			// Create an authenticated client from environment/config
-			client, err := createMCPClient()
-			if err != nil {
-				return &mcp.ReadResourceResult{
-					Contents: []*mcp.ResourceContents{
-						{
-							URI:  BuildResourceURI(cr.Command.Namespace, cr.Command.Resource),
-							Text: fmt.Sprintf("Error creating client: %v", err),
-						},
-					},
-				}, nil
-			}
-
-			// Create minimal meta with the client
-			meta := &core.Meta{
-				Client:      client,
-				OverrideEnv: map[string]string{},
-				BinaryName:  "scw-mcp",
-			}
-			ctx = core.InjectMeta(ctx, meta)
-		}
-	}
+	ctx = injectMetaIfMissing(ctx, cr.baseMeta)
 
 	// Skip commands without a Run function
 	if cr.Command.Run == nil {
@@ -244,12 +201,7 @@ func (s *MCPServer) LoadResource(cmd *core.Command) error {
 	}
 
 	// Use baseMeta if available for HTTP transport
-	var resource *CommandResource
-	if s.baseMeta != nil {
-		resource = NewCommandResourceWithMeta(cmd, s.baseMeta)
-	} else {
-		resource = NewCommandResource(cmd)
-	}
+	resource := NewCommandResource(cmd, s.baseMeta)
 
 	mcpResource := resource.ToMCPResource()
 
@@ -273,23 +225,6 @@ func (s *MCPServer) LoadResource(cmd *core.Command) error {
 	s.resources = append(s.resources, resource)
 
 	return nil
-}
-
-// createMCPClient creates an authenticated Scaleway client for MCP server usage
-// It loads credentials from the standard configuration (env vars, config file)
-func createMCPClient() (*scw.Client, error) {
-	// Create client using SDK's automatic configuration
-	// This reads from environment variables and config file
-	client, err := scw.NewClient(
-		scw.WithDefaultRegion(scw.RegionFrPar),
-		scw.WithDefaultZone(scw.ZoneFrPar1),
-		scw.WithUserAgent("scaleway-mcp-server"),
-	)
-	if err != nil {
-		return nil, fmt.Errorf("failed to create Scaleway client: %w", err)
-	}
-
-	return client, nil
 }
 
 // parseURIToArgs extracts query parameters from a URI and converts them to input args

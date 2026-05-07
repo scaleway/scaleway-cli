@@ -100,12 +100,7 @@ func (s *MCPServer) LoadCommand(cmd *core.Command) error {
 	}
 
 	// Register as a tool - use baseMeta if available for HTTP transport
-	var tool *CommandTool
-	if s.baseMeta != nil {
-		tool = NewCommandToolWithMeta(cmd, s.baseMeta)
-	} else {
-		tool = NewCommandTool(cmd)
-	}
+	tool := NewCommandTool(cmd, s.baseMeta)
 
 	mcpTool := tool.ToMCPTool()
 
