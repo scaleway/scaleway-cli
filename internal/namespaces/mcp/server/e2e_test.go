@@ -79,11 +79,19 @@ func runClient(t *testing.T, port int) {
 	}
 	t.Logf("Client received result: %v", tools.Tools)
 
+	if len(tools.Tools) == 0 {
+		t.Fatal("Expected non-empty tools list")
+	}
+
 	resources, err := clientSession.ListResources(t.Context(), &mcp.ListResourcesParams{})
 	if err != nil {
 		t.Fatalf("Failed to call list resources: %v", err)
 	}
 	t.Logf("Client received result: %v", resources.Resources)
+
+	if len(resources.Resources) == 0 {
+		t.Fatal("Expected non-empty resources list")
+	}
 }
 
 func Test_E2E(t *testing.T) {
