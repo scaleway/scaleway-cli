@@ -18,7 +18,7 @@ func newObjectWithForcedJSONTags(t reflect.Type) any {
 	for fieldCopy := range t.Fields() {
 		if fieldCopy.Anonymous {
 			anonymousType := fieldCopy.Type
-			if anonymousType.Kind() == reflect.Ptr {
+			if anonymousType.Kind() == reflect.Pointer {
 				anonymousType = anonymousType.Elem()
 			}
 			for field := range anonymousType.Fields() {
@@ -52,7 +52,7 @@ func GetValuesForFieldByName(
 		return []reflect.Value{value}, nil
 	}
 	switch value.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return GetValuesForFieldByName(value.Elem(), parts)
 
 	case reflect.Slice:

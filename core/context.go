@@ -2,7 +2,7 @@ package core
 
 import (
 	"context"
-	"fmt"
+	"errors"
 	"io"
 	"net/http"
 	"os"
@@ -56,6 +56,7 @@ func extractMeta(ctx context.Context) *Meta {
 	if meta, ok := ctx.Value(metaContextKey).(*Meta); ok {
 		return meta
 	}
+
 	return nil
 }
 
@@ -81,6 +82,7 @@ func ExtractCommands(ctx context.Context) *Commands {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.Commands
 }
 
@@ -89,6 +91,7 @@ func ExtractCliConfig(ctx context.Context) *cliConfig.Config {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.CliConfig
 }
 
@@ -97,6 +100,7 @@ func ExtractAliases(ctx context.Context) *alias.Config {
 	if cliConfig == nil {
 		return nil
 	}
+
 	return cliConfig.Alias
 }
 
@@ -125,6 +129,7 @@ func ExtractClient(ctx context.Context) *scw.Client {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.Client
 }
 
@@ -133,6 +138,7 @@ func ExtractLogger(ctx context.Context) *Logger {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.Logger
 }
 
@@ -141,6 +147,7 @@ func ExtractBuildInfo(ctx context.Context) *BuildInfo {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.BuildInfo
 }
 
@@ -149,6 +156,7 @@ func ExtractBetaMode(ctx context.Context) bool {
 	if meta == nil {
 		return false
 	}
+
 	return meta.BetaMode
 }
 
@@ -187,6 +195,7 @@ func ExtractBinaryName(ctx context.Context) string {
 	if meta == nil {
 		return ""
 	}
+
 	return meta.BinaryName
 }
 
@@ -195,6 +204,7 @@ func ExtractStdin(ctx context.Context) io.Reader {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.stdin
 }
 
@@ -226,6 +236,7 @@ func ExtractHTTPClient(ctx context.Context) *http.Client {
 	if meta == nil {
 		return nil
 	}
+
 	return meta.httpClient
 }
 
@@ -249,6 +260,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 	meta := extractMeta(ctx)
 	if meta == nil {
 		configPath, _ := cliConfig.FilePath()
+
 		return configPath
 	}
 	// This is only useful for test when we override home environment variable
@@ -263,7 +275,7 @@ func ExtractCliConfigPath(ctx context.Context) string {
 func ReloadClient(ctx context.Context) error {
 	meta := extractMeta(ctx)
 	if meta == nil {
-		return fmt.Errorf("cannot reload client: meta not found in context")
+		return errors.New("cannot reload client: meta not found in context")
 	}
 	var err error
 	meta.Client, err = meta.Platform.CreateClient(
@@ -280,6 +292,7 @@ func ExtractConfigPathFlag(ctx context.Context) string {
 	if meta == nil {
 		return ""
 	}
+
 	return meta.ConfigPathFlag
 }
 
@@ -288,6 +301,7 @@ func ExtractProfileFlag(ctx context.Context) string {
 	if meta == nil {
 		return ""
 	}
+
 	return meta.ProfileFlag
 }
 

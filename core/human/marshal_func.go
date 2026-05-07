@@ -230,12 +230,12 @@ func defaultMarshalerFunc(i any, _ *MarshalOpt) (string, error) {
 func isMarshalable(t reflect.Type) bool {
 	_, hasMarshalerFunc := getMarshalerFunc(t)
 
-	return (t.Kind() != reflect.Struct && t.Kind() != reflect.Map && t.Kind() != reflect.Ptr) ||
+	return (t.Kind() != reflect.Struct && t.Kind() != reflect.Map && t.Kind() != reflect.Pointer) ||
 		hasMarshalerFunc ||
 		t.Implements(reflect.TypeOf((*Marshaler)(nil)).Elem()) ||
 		t.Implements(reflect.TypeOf((*error)(nil)).Elem()) ||
 		t.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()) ||
-		(t.Kind() == reflect.Ptr && isMarshalable(t.Elem()))
+		(t.Kind() == reflect.Pointer && isMarshalable(t.Elem()))
 }
 
 // EnumMarshalSpec contains specs used by EnumMarshalFunc.

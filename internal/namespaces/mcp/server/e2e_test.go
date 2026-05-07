@@ -14,6 +14,7 @@ import (
 )
 
 func runServer(t *testing.T) int {
+	t.Helper()
 	// Find available port
 	listener, err := net.Listen("tcp", ":0")
 	if err != nil {
@@ -50,6 +51,7 @@ func runServer(t *testing.T) int {
 }
 
 func runClient(t *testing.T, port int) {
+	t.Helper()
 	// Connect to the proxy server (acting as a client).
 	client := mcp.NewClient(&mcp.Implementation{Name: "client", Version: "1.0.0"}, nil)
 	clientSession, err := client.Connect(t.Context(), &mcp.StreamableClientTransport{

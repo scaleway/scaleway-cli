@@ -4,6 +4,7 @@ import (
 	"context"
 	"encoding/json"
 	"fmt"
+	"maps"
 	"reflect"
 	"strconv"
 	"strings"
@@ -217,9 +218,8 @@ func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) context.Conte
 	if baseMeta != nil {
 		meta := *baseMeta
 		meta.OverrideEnv = make(map[string]string)
-		for k, v := range baseMeta.OverrideEnv {
-			meta.OverrideEnv[k] = v
-		}
+		maps.Copy(meta.OverrideEnv, baseMeta.OverrideEnv)
+
 		return core.InjectMeta(ctx, &meta)
 	}
 	// baseMeta is nil - create an authenticated client from environment/config
@@ -231,6 +231,7 @@ func injectMetaIfMissing(ctx context.Context, baseMeta *core.Meta) context.Conte
 	if err != nil {
 		return ctx // Error will be handled by caller when executing command
 	}
+
 	return core.InjectMeta(ctx, &core.Meta{
 		Client:      client,
 		OverrideEnv: map[string]string{},
