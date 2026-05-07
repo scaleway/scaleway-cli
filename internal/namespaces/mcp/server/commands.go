@@ -155,7 +155,7 @@ func McpServerServe() *core.Command {
 			meta := &core.Meta{
 				Client:         client,
 				ProfileFlag:    core.ExtractProfileFlag(ctx),
-				ConfigPathFlag: configPath,
+				ConfigPathFlag: core.ExtractConfigPathFlag(ctx),
 				BuildInfo:      buildInfo,
 				Commands:       commands,
 				OverrideEnv:    make(map[string]string),
