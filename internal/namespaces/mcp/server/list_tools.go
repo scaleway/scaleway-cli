@@ -133,13 +133,13 @@ func McpServerListTools() *core.Command {
 				enabledVerbs = []string{args.Verb}
 			}
 
-	// Step 1: Filter commands based on the given config
+			// Step 1: Filter commands based on the given config
 			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
 				EnabledNamespaces: enabledNamespaces,
 				EnabledResources:  enabledResources,
 				EnabledVerbs:      enabledVerbs,
-			}, nil)
+			})
 
 			// Step 2: Create the MCP server with pre-filtered commands
 			mcpServer := NewMCPServer(filteredCommands, nil)

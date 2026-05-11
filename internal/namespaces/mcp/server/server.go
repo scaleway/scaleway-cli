@@ -17,7 +17,7 @@ type MCPServer struct {
 	server    *mcp.Server
 	commands  []*CommandTool
 	resources []*CommandResource
-	meta      *core.Meta
+	meta      *core.Meta // Used to inject meta into context for tool/resource execution
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
@@ -63,7 +63,21 @@ func NewMCPServer(
 		mcpTool := cmd.ToMCPTool()
 
 		// Create a wrapper function for the tool using the correct MCP SDK signature
+		// The wrapper injects meta into the context before executing the command
 		wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
+			// Inject meta into context for command execution
+			ctx, err := ensureMetaInContext(ctx, meta)
+			if err != nil {
+				return &mcp.CallToolResult{
+					Content: []mcp.Content{
+						&mcp.TextContent{
+							Text: fmt.Sprintf("Error initializing client: %v", err),
+						},
+					},
+					IsError: true,
+				}, nil, err
+			}
+
 			result, err := cmd.Execute(ctx, input)
 			var output map[string]any
 			if err != nil {

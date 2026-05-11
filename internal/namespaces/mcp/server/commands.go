@@ -144,7 +144,7 @@ func McpServerServe() *core.Command {
 				EnabledNamespaces: args.EnableNamespaces,
 				EnabledResources:  args.EnableResources,
 				EnabledVerbs:      args.EnableVerbs,
-			}, meta)
+			})
 
 			// Step 2: Create the MCP server with pre-filtered commands
 			mcpServer := NewMCPServer(filteredCommands, meta)
@@ -244,7 +244,7 @@ func McpServerListResources() *core.Command {
 				ReadOnly:          args.ReadOnly,
 				EnabledNamespaces: enabledNamespaces,
 				EnabledResources:  enabledResources,
-			}, nil)
+			})
 
 			// Step 2: Create the MCP server with pre-filtered commands
 			mcpServer := NewMCPServer(filteredCommands, nil)

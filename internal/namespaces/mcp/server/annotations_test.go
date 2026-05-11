@@ -122,7 +122,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{}, nil)
+	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
@@ -177,7 +177,7 @@ func TestAllToolsHaveCommandMetadata(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{}, nil)
+	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
@@ -275,7 +275,7 @@ func TestToolMetadataValues(t *testing.T) {
 
 	for _, tc := range testCases {
 		t.Run(tc.name, func(t *testing.T) {
-			tool := server.NewCommandTool(tc.command, nil)
+			tool := server.NewCommandTool(tc.command)
 			mcpTool := tool.ToMCPTool()
 
 			if mcpTool.Meta == nil {

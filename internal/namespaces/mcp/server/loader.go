@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"fmt"
 	"log"
 	"slices"
 
@@ -39,11 +40,11 @@ type CommandFilterConfig struct {
 
 // FilterCommands filters CLI commands based on the given config.
 // Returns a slice of CommandTool ready to be passed to NewMCPServer.
-func FilterCommands(commands []*core.Command, config CommandFilterConfig, meta *core.Meta) []*CommandTool {
+func FilterCommands(commands []*core.Command, config CommandFilterConfig) []*CommandTool {
 	result := make([]*CommandTool, 0, len(commands))
 	for _, cmd := range commands {
 		if ShouldLoadCommand(cmd, config) {
-			result = append(result, NewCommandTool(cmd, meta))
+			result = append(result, NewCommandTool(cmd))
 		}
 	}
 
@@ -109,13 +110,27 @@ func ShouldLoadCommand(cmd *core.Command, config CommandFilterConfig) bool {
 // LoadCommand loads a CLI command as an MCP tool and optionally as a resource.
 // The command is assumed to have already been filtered before being passed to the server.
 func (s *MCPServer) LoadCommand(cmd *core.Command) error {
-	// Register as a tool - use baseMeta if available for HTTP transport
-	tool := NewCommandTool(cmd, s.meta)
+	// Register as a tool
+	tool := NewCommandTool(cmd)
 
 	mcpTool := tool.ToMCPTool()
 
 	// Create a wrapper function for the tool using the correct MCP SDK signature
+	// The wrapper injects meta into the context before executing the command
 	wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
+		// Inject meta into context for command execution
+		ctx, err := ensureMetaInContext(ctx, s.meta)
+		if err != nil {
+			return &mcp.CallToolResult{
+				Content: []mcp.Content{
+					&mcp.TextContent{
+						Text: fmt.Sprintf("Error initializing client: %v", err),
+					},
+				},
+				IsError: true,
+			}, nil, err
+		}
+
 		result, err := tool.Execute(ctx, input)
 		var output map[string]any
 		if err != nil {

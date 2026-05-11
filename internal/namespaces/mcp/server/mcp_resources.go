@@ -18,15 +18,12 @@ import (
 // CommandResource wraps a CLI command for MCP resource exposure
 type CommandResource struct {
 	Command *core.Command
-	// meta from bootstrap context for HTTP transport
-	meta *core.Meta
 }
 
-// NewCommandResource creates a new CommandResource from a core.Command with optional baseMeta
-func NewCommandResource(cmd *core.Command, baseMeta *core.Meta) *CommandResource {
+// NewCommandResource creates a new CommandResource from a core.Command
+func NewCommandResource(cmd *core.Command) *CommandResource {
 	return &CommandResource{
 		Command: cmd,
-		meta:    baseMeta,
 	}
 }
 
@@ -74,18 +71,6 @@ func (cr *CommandResource) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.ReadResourceResult, error) {
-	ctx, err := injectMetaIfMissing(ctx, cr.meta)
-	if err != nil {
-		return &mcp.ReadResourceResult{
-			Contents: []*mcp.ResourceContents{
-				{
-					URI:  BuildResourceURI(cr.Command.Namespace, cr.Command.Resource),
-					Text: fmt.Sprintf("Error initializing client: %v", err),
-				},
-			},
-		}, nil
-	}
-
 	// Verify client was successfully injected
 	if core.ExtractClient(ctx) == nil {
 		return &mcp.ReadResourceResult{
@@ -219,13 +204,26 @@ func (cr *CommandResource) Execute(
 
 // LoadResource registers a CLI command as an MCP resource
 func (s *MCPServer) LoadResource(cmd *core.Command) error {
-	// Use baseMeta if available for HTTP transport
-	resource := NewCommandResource(cmd, s.meta)
+	resource := NewCommandResource(cmd)
 
 	mcpResource := resource.ToMCPResource()
 
 	// Create a handler function for the resource
+	// The handler injects meta into the context before executing the command
 	handler := func(ctx context.Context, req *mcp.ReadResourceRequest) (*mcp.ReadResourceResult, error) {
+		// Inject meta into context for command execution
+		ctx, err := ensureMetaInContext(ctx, s.meta)
+		if err != nil {
+			return &mcp.ReadResourceResult{
+				Contents: []*mcp.ResourceContents{
+					{
+						URI:  BuildResourceURI(cmd.Namespace, cmd.Resource),
+						Text: fmt.Sprintf("Error initializing client: %v", err),
+					},
+				},
+			}, nil
+		}
+
 		// Extract arguments from the request URI
 		// URI format: scw://namespace/resource?arg1=value1&arg2=value2
 		inputArgs := parseURIToArgs(req.Params.URI)

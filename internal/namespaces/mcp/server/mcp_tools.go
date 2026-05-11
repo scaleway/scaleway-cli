@@ -18,18 +18,36 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
+// contextKey is a custom type for context keys to avoid collisions
+type contextKey int
+
+const (
+	metaContextKey contextKey = iota
+)
+
+// InjectMetaInContext creates a new context with the given meta injected.
+// This is used to pass meta through the context for MCP tool/resource execution.
+func InjectMetaInContext(ctx context.Context, meta *core.Meta) context.Context {
+	return context.WithValue(ctx, metaContextKey, meta)
+}
+
+// ExtractMetaFromContext extracts Meta from a given context.
+func ExtractMetaFromContext(ctx context.Context) *core.Meta {
+	if meta, ok := ctx.Value(metaContextKey).(*core.Meta); ok {
+		return meta
+	}
+	return nil
+}
+
 // CommandTool wraps a CLI command for MCP tool execution
 type CommandTool struct {
 	Command *core.Command
-	// meta from bootstrap context for HTTP transport
-	meta *core.Meta
 }
 
-// NewCommandTool creates a new CommandTool from a core.Command with optional baseMeta
-func NewCommandTool(cmd *core.Command, baseMeta *core.Meta) *CommandTool {
+// NewCommandTool creates a new CommandTool from a core.Command
+func NewCommandTool(cmd *core.Command) *CommandTool {
 	return &CommandTool{
 		Command: cmd,
-		meta:    baseMeta,
 	}
 }
 
@@ -73,7 +91,10 @@ func (ct *CommandTool) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.CallToolResult, error) {
-	ctx, err := injectMetaIfMissing(ctx, ct.meta)
+	// Ensure meta is available in context
+	// If meta is already in context (from wrapper), this is a no-op
+	// If not, this creates meta from environment/config (useful for tests)
+	ctx, err := ensureMetaInContext(ctx, nil)
 	if err != nil {
 		return &mcp.CallToolResult{
 			Content: []mcp.Content{
@@ -233,30 +254,33 @@ func truncateString(s string, maxLen int) string {
 	return s[:maxLen-3] + "..."
 }
 
-// injectMetaIfMissing initializes context with meta if not already present.
-// This is required when running as an MCP server (especially HTTP streamable)
-// where the context doesn't go through the normal CLI bootstrap process.
-// Returns the updated context and any error that occurred during initialization.
-func injectMetaIfMissing(ctx context.Context, meta *core.Meta) (context.Context, error) {
-	if core.ExtractClient(ctx) != nil {
+// ensureMetaInContext ensures meta is available in the context for command execution.
+// If meta is already present, it returns the context unchanged.
+// If meta is provided, it injects it into the context.
+// If no meta is provided, it creates one from environment/config.
+// Returns the updated context and any error that occurred.
+func ensureMetaInContext(ctx context.Context, meta *core.Meta) (context.Context, error) {
+	// Meta already in context - nothing to do
+	if ExtractMetaFromContext(ctx) != nil {
 		return ctx, nil
 	}
+
+	// Use provided meta
 	if meta != nil {
 		m := *meta
 		m.OverrideEnv = make(map[string]string)
-		maps.Copy(meta.OverrideEnv, meta.OverrideEnv)
-
+		maps.Copy(m.OverrideEnv, meta.OverrideEnv)
+		
 		return core.InjectMeta(ctx, &m), nil
 	}
-	// baseMeta is nil - create an authenticated client from environment/config
-	// Load config to get active profile and credentials
+
+	// No meta provided - create one from environment/config
 	configPath := scw.GetConfigPath()
 	config, err := scw.LoadConfigFromPath(configPath)
 	if err != nil && !errors.Is(err, os.ErrNotExist) {
 		return ctx, fmt.Errorf("loading config: %w", err)
 	}
 
-	// Get active profile name (from config or env)
 	profileName := scw.DefaultProfileName
 	if config != nil && config.ActiveProfile != nil {
 		profileName = *config.ActiveProfile
@@ -265,15 +289,13 @@ func injectMetaIfMissing(ctx context.Context, meta *core.Meta) (context.Context,
 		profileName = envProfile
 	}
 
-	// Build client options with defaults and profile
 	options := []scw.ClientOption{
 		scw.WithDefaultRegion(scw.RegionFrPar),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithUserAgent("scaleway-mcp-server"),
-		scw.WithEnv(), // Load credentials from environment variables
+		scw.WithEnv(),
 	}
 
-	// Load profile from config file if available
 	if config != nil {
 		profile, err := config.GetProfile(profileName)
 		if err != nil {
