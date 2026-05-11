@@ -5,10 +5,20 @@ import (
 	"fmt"
 	"log"
 	"slices"
+	"strings"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
+
+// SplitArg splits a comma-separated string into a slice of strings.
+// Returns an empty slice if the input is empty.
+func SplitArg(s string) []string {
+	if s == "" {
+		return []string{}
+	}
+	return strings.Split(s, ",")
+}
 
 var (
 	// ExcludedNamespaces is used to filter out core.Command that should not be exposed as MCP tools based on their namespace.

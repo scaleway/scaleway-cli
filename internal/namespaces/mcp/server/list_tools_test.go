@@ -84,6 +84,150 @@ func TestMcpServerList(t *testing.T) {
 		),
 		TmpHomeDir: true,
 	}))
+
+	t.Run("With Comma-Separated Namespaces", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-tools namespace=k8s,account",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Comma-Separated Resources", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-tools resource=cluster,project",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Comma-Separated Verbs", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-tools verb=get,list",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With All Comma-Separated Filters Combined", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-tools namespace=k8s,account resource=cluster,project verb=get,list",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
+func TestMcpServerListResources(t *testing.T) {
+	cmds := core.NewCommandsMerge(mcp.GetCommands(), k8s.GetCommands(), account.GetCommands())
+
+	t.Run("Basic", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Namespace Filter", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources namespace=k8s",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Resource Filter", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources resource=cluster",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With ReadOnly Filter", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources read-only=true",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Comma-Separated Namespaces", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources namespace=k8s,account",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Comma-Separated Resources", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources resource=cluster,project",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+
+	t.Run("With Combined Comma-Separated Filters", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server list-resources namespace=k8s,account resource=cluster,project",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+			core.TestCheckGolden(),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
+func TestMcpServerServe(t *testing.T) {
+	cmds := core.NewCommandsMerge(mcp.GetCommands(), k8s.GetCommands(), account.GetCommands())
+
+	t.Run("Help", core.Test(&core.TestConfig{
+		Commands: cmds,
+		Cmd:      "scw mcp server serve --help",
+		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
+		),
+		TmpHomeDir: true,
+	}))
+}
+
+func TestSplitArg(t *testing.T) {
+	tests := []struct {
+		name     string
+		input    string
+		expected []string
+	}{
+		{"empty string", "", []string{}},
+		{"single value", "instance", []string{"instance"}},
+		{"two values", "instance,iam", []string{"instance", "iam"}},
+		{"three values", "instance,iam,object", []string{"instance", "iam", "object"}},
+		{"with spaces", "instance, iam, object", []string{"instance", " iam", " object"}},
+	}
+
+	for _, tt := range tests {
+		t.Run(tt.name, func(t *testing.T) {
+			result := server.SplitArg(tt.input)
+			assert.Equal(t, tt.expected, result)
+		})
+	}
 }
 
 func TestShouldRegisterCommand(t *testing.T) {

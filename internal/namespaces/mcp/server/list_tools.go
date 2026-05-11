@@ -121,24 +121,12 @@ func McpServerListTools() *core.Command {
 			commands := core.ExtractCommands(ctx)
 			cliCommands := commands.GetAll()
 
-			// Build filter arrays from single string args
-			var enabledNamespaces, enabledResources, enabledVerbs []string
-			if args.Namespace != "" {
-				enabledNamespaces = []string{args.Namespace}
-			}
-			if args.Resource != "" {
-				enabledResources = []string{args.Resource}
-			}
-			if args.Verb != "" {
-				enabledVerbs = []string{args.Verb}
-			}
-
 			// Step 1: Filter commands based on the given config
 			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
-				EnabledNamespaces: enabledNamespaces,
-				EnabledResources:  enabledResources,
-				EnabledVerbs:      enabledVerbs,
+				EnabledNamespaces: SplitArg(args.Namespace),
+				EnabledResources:  SplitArg(args.Resource),
+				EnabledVerbs:      SplitArg(args.Verb),
 			})
 
 			// Step 2: Create the MCP server with pre-filtered commands

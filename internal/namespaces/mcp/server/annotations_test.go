@@ -21,7 +21,7 @@ func TestInventoryNilAnnotations(t *testing.T) {
 	// Get all commands and create a real MCP server instance
 	allCommands := commands.GetCommands().GetAll()
 
-	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{}, nil)
+	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, nil)
 	registeredCommands := mcpServer.RegisteredCommands()
 
