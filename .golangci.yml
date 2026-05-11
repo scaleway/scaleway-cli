@@ -27,6 +27,7 @@ linters:
     - bidichk # Checks for dangerous unicode character sequences [fast: true, auto-fix: false]
     - bodyclose # checks whether HTTP response body is closed successfully [fast: false, auto-fix: false]
     - canonicalheader # canonicalheader checks whether net/http.Header uses canonical header [fast: false, auto-fix: false]
+    - containedctx # Containedctx is a linter that detects struct contained context.Context field.
     - copyloopvar # copyloopvar is a linter detects places where loop variables are copied [fast: true, auto-fix: false]
     - decorder # check declaration order and count of types, constants, variables and functions [fast: true, auto-fix: false]
     - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
