@@ -17,7 +17,7 @@ func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) 
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
 		rawArgs := args.RawArgs(rawArgsStr)
 
-		meta := extractMeta(ctx)
+		meta := ExtractMeta(ctx)
 		meta.command = cmd
 
 		// Check if --list-sub-commands flag is set

@@ -100,10 +100,7 @@ func McpServerServe() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			meta, err := extractMetaForMCP(ctx)
-			if err != nil {
-				return nil, err
-			}
+			meta := core.ExtractMeta(ctx)
 
 			// Reload the client with the profile to ensure proper authentication
 			if err := core.ReloadClient(ctx); err != nil {
@@ -111,9 +108,13 @@ func McpServerServe() *core.Command {
 			}
 
 			// Log startup information to stderr
-			fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
-			fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
-			fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
+			fmt.Fprintf(
+				os.Stderr,
+				"Starting MCP server version %s\n",
+				meta.BuildInfo.Version.String(),
+			)
+			fmt.Fprintf(os.Stderr, "Using profile: %s\n", meta.ProfileFlag)
+			fmt.Fprintf(os.Stderr, "Config path: %s\n", meta.ConfigPathFlag)
 			fmt.Fprintf(os.Stderr, "Transport mode: %s\n", args.Transport)
 			fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", args.ReadOnly)
 			if len(args.EnableNamespaces) > 0 {
@@ -126,6 +127,10 @@ func McpServerServe() *core.Command {
 				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", args.EnableVerbs)
 			}
 
+			// Get all CLI commands
+			commands := core.ExtractCommands(ctx)
+			cliCommands := commands.GetAll()
+
 			// Copy OverrideEnv from context
 			for _, envKey := range []string{"HOME", "PATH", scw.ScwAccessKeyEnv, scw.ScwSecretKeyEnv, scw.ScwDefaultOrganizationIDEnv, scw.ScwDefaultProjectIDEnv, scw.ScwDefaultRegionEnv, scw.ScwDefaultZoneEnv} {
 				if val := core.ExtractEnv(ctx, envKey); val != "" {
@@ -133,13 +138,16 @@ func McpServerServe() *core.Command {
 				}
 			}
 
-			// Step 1: Create the MCP server using NewMCPServer with baseMeta
-			mcpServer := NewMCPServer(cliCommands, CommandFilterConfig{
+			// Step 1: Filter commands based on the given config
+			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
 				EnabledNamespaces: args.EnableNamespaces,
 				EnabledResources:  args.EnableResources,
 				EnabledVerbs:      args.EnableVerbs,
 			}, meta)
+
+			// Step 2: Create the MCP server with pre-filtered commands
+			mcpServer := NewMCPServer(filteredCommands, meta)
 
 			// Step 2: Serve the MCP server with the specified transport
 			return mcpServer.Serve(ctx, args.Transport, args.Address)
@@ -222,10 +230,6 @@ func McpServerListResources() *core.Command {
 			commands := core.ExtractCommands(ctx)
 			cliCommands := commands.GetAll()
 
-			// Get build info for version
-			buildInfo := core.ExtractBuildInfo(ctx)
-			version := buildInfo.Version.String()
-
 			// Build filter arrays from single string args
 			var enabledNamespaces, enabledResources []string
 			if args.Namespace != "" {
@@ -235,13 +239,15 @@ func McpServerListResources() *core.Command {
 				enabledResources = []string{args.Resource}
 			}
 
-			// Step 1: Create the MCP server using NewMCPServer
-			// For list-tools command, we don't need to pass meta since it's just listing
-			mcpServer := NewMCPServer(cliCommands, CommandFilterConfig{
+			// Step 1: Filter commands based on the given config
+			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
 				EnabledNamespaces: enabledNamespaces,
 				EnabledResources:  enabledResources,
 			}, nil)
+
+			// Step 2: Create the MCP server with pre-filtered commands
+			mcpServer := NewMCPServer(filteredCommands, nil)
 
 			// Step 2: List resources from the MCP server
 			return mcpServer.ListResources(), nil

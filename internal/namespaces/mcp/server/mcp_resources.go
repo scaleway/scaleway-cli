@@ -219,10 +219,6 @@ func (cr *CommandResource) Execute(
 
 // LoadResource registers a CLI command as an MCP resource
 func (s *MCPServer) LoadResource(cmd *core.Command) error {
-	if !ShouldLoadCommand(cmd, s.filterConfig) {
-		return nil
-	}
-
 	// Use baseMeta if available for HTTP transport
 	resource := NewCommandResource(cmd, s.meta)
 

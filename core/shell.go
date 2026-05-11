@@ -232,7 +232,7 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 		return nil
 	}
 
-	meta := extractMeta(c.ctx)
+	meta := ExtractMeta(c.ctx)
 
 	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(
 		strings.Split(d.TextBeforeCursor(), " "),

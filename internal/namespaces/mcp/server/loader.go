@@ -37,6 +37,19 @@ type CommandFilterConfig struct {
 	EnabledVerbs      []string
 }
 
+// FilterCommands filters CLI commands based on the given config.
+// Returns a slice of CommandTool ready to be passed to NewMCPServer.
+func FilterCommands(commands []*core.Command, config CommandFilterConfig, meta *core.Meta) []*CommandTool {
+	result := make([]*CommandTool, 0, len(commands))
+	for _, cmd := range commands {
+		if ShouldLoadCommand(cmd, config) {
+			result = append(result, NewCommandTool(cmd, meta))
+		}
+	}
+
+	return result
+}
+
 // ShouldLoadCommand returns true if the command should be registered as an MCP tool.
 // It filters out:
 // - Hidden commands
@@ -93,12 +106,9 @@ func ShouldLoadCommand(cmd *core.Command, config CommandFilterConfig) bool {
 	return true
 }
 
-// LoadCommand loads a CLI command as an MCP tool and optionally as a resource
+// LoadCommand loads a CLI command as an MCP tool and optionally as a resource.
+// The command is assumed to have already been filtered before being passed to the server.
 func (s *MCPServer) LoadCommand(cmd *core.Command) error {
-	if !ShouldLoadCommand(cmd, s.filterConfig) {
-		return nil
-	}
-
 	// Register as a tool - use baseMeta if available for HTTP transport
 	tool := NewCommandTool(cmd, s.meta)
 

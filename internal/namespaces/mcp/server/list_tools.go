@@ -121,10 +121,6 @@ func McpServerListTools() *core.Command {
 			commands := core.ExtractCommands(ctx)
 			cliCommands := commands.GetAll()
 
-			// Get build info for version
-			buildInfo := core.ExtractBuildInfo(ctx)
-			version := buildInfo.Version.String()
-
 			// Build filter arrays from single string args
 			var enabledNamespaces, enabledResources, enabledVerbs []string
 			if args.Namespace != "" {
@@ -137,14 +133,16 @@ func McpServerListTools() *core.Command {
 				enabledVerbs = []string{args.Verb}
 			}
 
-			// Step 1: Create the MCP server using NewMCPServer
-			// For list-tools command, we don't need to pass meta since it's just listing
-			mcpServer := NewMCPServer(cliCommands, CommandFilterConfig{
+	// Step 1: Filter commands based on the given config
+			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
 				EnabledNamespaces: enabledNamespaces,
 				EnabledResources:  enabledResources,
 				EnabledVerbs:      enabledVerbs,
 			}, nil)
+
+			// Step 2: Create the MCP server with pre-filtered commands
+			mcpServer := NewMCPServer(filteredCommands, nil)
 
 			// Step 2: List tools from the MCP server
 			return mcpServer.ListTools(), nil

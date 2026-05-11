@@ -14,25 +14,27 @@ import (
 
 // MCPServer wraps the MCP server with CLI command integration
 type MCPServer struct {
-	server       *mcp.Server
-	commands     []*CommandTool
-	resources    []*CommandResource
-	filterConfig CommandFilterConfig
-	// meta from bootstrap context, used for HTTP transport
-	meta *core.Meta
+	server    *mcp.Server
+	commands  []*CommandTool
+	resources []*CommandResource
+	meta      *core.Meta
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
-func NewMCPServer(ctx context.Context,
-	cliCommands []*core.Command,
-	filterConfig CommandFilterConfig,
+func NewMCPServer(
+	commands []*CommandTool,
 	meta *core.Meta,
 ) *MCPServer {
+	version := "dev"
+	if meta != nil {
+		version = meta.BuildInfo.Version.String()
+	}
+
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
-		Version:    meta.BuildInfo.Version.String(),
+		Version:    version,
 		Icons: []mcp.Icon{
 			{
 				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",
@@ -49,22 +51,48 @@ func NewMCPServer(ctx context.Context,
 	})
 
 	s := &MCPServer{
-		server:       mcpServer,
-		commands:     make([]*CommandTool, 0, len(cliCommands)),
-		resources:    make([]*CommandResource, 0),
-		filterConfig: filterConfig,
-		meta:         meta,
+		server:    mcpServer,
+		commands:  commands,
+		resources: make([]*CommandResource, 0),
+		meta:      meta,
 	}
 
 	// Register all commands during initialization
-	for _, cmd := range cliCommands {
-		if err := s.LoadCommand(cmd); err != nil {
-			// Log but don't fail - some commands might not be compatible
-			log.Printf(
-				"Warning: failed to register command %s: %v\n",
-				cmd.GetCommandLine("scw"),
-				err,
-			)
+	for _, cmd := range commands {
+		// Register as a tool
+		mcpTool := cmd.ToMCPTool()
+
+		// Create a wrapper function for the tool using the correct MCP SDK signature
+		wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
+			result, err := cmd.Execute(ctx, input)
+			var output map[string]any
+			if err != nil {
+				// Return error - MCP SDK will wrap it
+				return result, nil, err
+			}
+			// Extract text content for structured output
+			if len(result.Content) > 0 {
+				if tc, ok := result.Content[0].(*mcp.TextContent); ok {
+					output = map[string]any{"result": tc.Text}
+				}
+			}
+
+			return result, output, nil
+		}
+
+		// Register with MCP SDK
+		mcp.AddTool(mcpServer, mcpTool, wrapper)
+
+		// Register as a resource if it's a list command
+		if cmd.Command.IsList() {
+			if err := s.LoadResource(cmd.Command); err != nil {
+				// Log but don't fail - some commands might not be compatible
+				log.Printf(
+					"Warning: failed to load resource %s: %v\n",
+					cmd.Command.GetCommandLine("scw"),
+					err,
+				)
+			}
 		}
 	}
 
