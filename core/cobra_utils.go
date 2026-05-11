@@ -15,6 +15,9 @@ import (
 // cobraRun returns a cobraRun command that wrap a CommandRunner function.
 func cobraRun(ctx context.Context, cmd *Command) func(*cobra.Command, []string) error {
 	return func(cobraCmd *cobra.Command, rawArgsStr []string) error {
+		// Get context from cobra command, which should have been set during bootstrap
+		ctx = cobraCmd.Context()
+
 		rawArgs := args.RawArgs(rawArgsStr)
 
 		meta := ExtractMeta(ctx)
