@@ -219,7 +219,7 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 	var recursiveFunc func(argType reflect.Type, parts []string) (reflect.Type, error)
 	recursiveFunc = func(argType reflect.Type, parts []string) (reflect.Type, error) {
 		switch {
-		case argType.Kind() == reflect.Ptr:
+		case argType.Kind() == reflect.Pointer:
 			return recursiveFunc(argType.Elem(), parts)
 		case len(parts) == 0:
 			return argType, nil
@@ -254,8 +254,8 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 			}
 
 			// If it does not exist we try to find it in nested anonymous field
-			for i := len(anonymousFieldIndexes) - 1; i >= 0; i-- {
-				argType, err := recursiveFunc(argType.Field(anonymousFieldIndexes[i]).Type, parts)
+			for _, v := range slices.Backward(anonymousFieldIndexes) {
+				argType, err := recursiveFunc(argType.Field(v).Type, parts)
 				if err == nil {
 					return argType, nil
 				}
@@ -275,7 +275,7 @@ var listArgTypeFieldsSkippedArguments = []string{
 }
 
 func listArgTypeFields(base string, argType reflect.Type) []string {
-	if argType.Kind() != reflect.Ptr {
+	if argType.Kind() != reflect.Pointer {
 		// Can be a handled type like time.Time
 		// If so, use it like a scalar type
 		_, isHandled := unmarshalFuncs[argType]
@@ -285,7 +285,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 	}
 
 	switch argType.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return listArgTypeFields(base, argType.Elem())
 
 	case reflect.Slice:

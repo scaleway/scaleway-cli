@@ -10,6 +10,7 @@ import (
 	"io"
 	"net"
 	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -150,7 +151,7 @@ func UnmarshalStruct(args []string, data any) error {
 
 	// Second make sure data is a pointer to a struct or a map.
 	dest := reflect.ValueOf(data)
-	if !(dest.Kind() == reflect.Ptr && (dest.Elem().Kind() == reflect.Struct || dest.Elem().Kind() == reflect.Map)) {
+	if !(dest.Kind() == reflect.Pointer && (dest.Elem().Kind() == reflect.Struct || dest.Elem().Kind() == reflect.Map)) {
 		return &DataMustBeAPointerError{}
 	}
 
@@ -217,7 +218,7 @@ func IsUmarshalableValue(data any) bool {
 		return false
 	}
 
-	for dest.Kind() == reflect.Ptr {
+	for dest.Kind() == reflect.Pointer {
 		dest = dest.Elem()
 	}
 
@@ -250,7 +251,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			}
 		}
 
-		for dest.Kind() == reflect.Ptr {
+		for dest.Kind() == reflect.Pointer {
 			dest.Set(reflect.New(dest.Type().Elem()))
 			dest = dest.Elem()
 		}
@@ -259,7 +260,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 	}
 
 	switch dest.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		// If type is a nil pointer we create a new Value. NB: maps and slices are pointers.
 		if dest.IsNil() {
 			dest.Set(reflect.New(dest.Type().Elem()))
@@ -370,8 +371,8 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		}
 
 		// If it does not exist we try to find it in nested anonymous field
-		for i := len(anonymousFieldIndexes) - 1; i >= 0; i-- {
-			err := set(dest.Field(anonymousFieldIndexes[i]), argNameWords, value)
+		for _, v := range slices.Backward(anonymousFieldIndexes) {
+			err := set(dest.Field(v), argNameWords, value)
 			switch err.(type) {
 			case nil:
 				// If we got no error the field was correctly set we return nil.
