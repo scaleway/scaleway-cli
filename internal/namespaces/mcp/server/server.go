@@ -63,6 +63,7 @@ func NewMCPServer(
 			if err != nil {
 				// Return error - MCP SDK will wrap it
 				output["error"] = err.Error()
+
 				return result, output, err
 			}
 			// Extract text content for structured output

@@ -242,7 +242,6 @@ func TestCommandToolExecutePanicRecovery(t *testing.T) {
 
 	inputArgs := map[string]any{}
 	result, err := tool.Execute(context.Background(), inputArgs)
-
 	// Should not return an error (panic is recovered)
 	if err != nil {
 		t.Fatalf("Execute should not return error, got: %v", err)

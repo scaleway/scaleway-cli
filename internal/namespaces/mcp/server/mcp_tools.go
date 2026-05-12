@@ -159,7 +159,7 @@ func (ct *CommandTool) Execute(
 					},
 				},
 				IsError: true,
-			}, nil
+			}, unmarshalErr
 		}
 	} else {
 		// Fallback for commands without ArgsType
@@ -197,7 +197,7 @@ func (ct *CommandTool) Execute(
 				},
 			},
 			IsError: true,
-		}, nil
+		}, execErr
 	}
 
 	// Format the result
