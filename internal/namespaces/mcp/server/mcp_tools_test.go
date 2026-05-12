@@ -11,6 +11,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCommandNameToToolName(t *testing.T) {
@@ -55,6 +57,27 @@ func TestCommandNameToToolName(t *testing.T) {
 	}
 }
 
+// createTestContextWithMeta creates a context with a properly initialized meta and client
+// This is needed to avoid config file loading errors in CI environments
+func createTestContextWithMeta(t *testing.T) context.Context {
+	t.Helper()
+	client, err := scw.NewClient(
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
+		scw.WithUserAgent("cli-test"),
+	)
+	require.NoError(t, err)
+
+	return core.InjectMeta(context.Background(), &core.Meta{
+		Client:      client,
+		OverrideEnv: map[string]string{},
+		BinaryName:  "scw-test",
+	})
+}
+
 func TestCommandToolExecute(t *testing.T) {
 	type testArgs struct {
 		Name  string `json:"name"`
@@ -95,7 +118,8 @@ func TestCommandToolExecute(t *testing.T) {
 		"value": float64(42),
 	}
 
-	result, err := tool.Execute(context.Background(), inputArgs)
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, inputArgs)
 	if err != nil {
 		t.Fatalf("Execute returned error: %v", err)
 	}
@@ -153,7 +177,8 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 		"zone":       "fr-par-1",
 	}
 
-	result, err := tool.Execute(context.Background(), inputArgs)
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, inputArgs)
 	if err != nil {
 		t.Fatalf("Execute returned error: %v", err)
 	}
@@ -241,7 +266,9 @@ func TestCommandToolExecutePanicRecovery(t *testing.T) {
 	tool := server.NewCommandTool(cmd)
 
 	inputArgs := map[string]any{}
-	result, err := tool.Execute(context.Background(), inputArgs)
+
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, inputArgs)
 	// Should not return an error (panic is recovered)
 	if err != nil {
 		t.Fatalf("Execute should not return error, got: %v", err)
