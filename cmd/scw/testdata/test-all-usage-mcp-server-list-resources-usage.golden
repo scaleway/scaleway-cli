@@ -10,17 +10,17 @@ EXAMPLES:
     scw mcp server list-resources
 
   List resources for a specific namespace
-    scw mcp server list-resources namespace=instance
+    scw mcp server list-resources namespaces=instance
 
   List resources for a specific resource type
-    scw mcp server list-resources resource=server
+    scw mcp server list-resources resources=server
 
   List only read-only resources
     scw mcp server list-resources read-only=true
 
 ARGS:
-  [namespace]         Filter by namespace (e.g., instance, iam, object)
-  [resource]          Filter by resource (e.g., server, volume, bucket)
+  [namespaces]        Filter by namespaces (e.g., instance, iam, object)
+  [resources]         Filter by resources (e.g., server, volume, bucket)
   [read-only=false]   Only list read-only resources
 
 FLAGS:

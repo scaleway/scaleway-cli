@@ -27,7 +27,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Namespace Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=k8s",
+		Cmd:      "scw mcp server list-tools namespaces=k8s",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -37,7 +37,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Resource Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools resource=project",
+		Cmd:      "scw mcp server list-tools resources=project",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -47,7 +47,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Verb Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools verb=list",
+		Cmd:      "scw mcp server list-tools verbs=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -67,7 +67,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Namespace Filter That Matches Nothing", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=nonexistent",
+		Cmd:      "scw mcp server list-tools namespaces=nonexistent",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -77,7 +77,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Combined Filters", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=k8s resource=cluster verb=list",
+		Cmd:      "scw mcp server list-tools namespaces=k8s resources=cluster verbs=list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -87,7 +87,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Comma-Separated Namespaces", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=k8s,account",
+		Cmd:      "scw mcp server list-tools namespaces=k8s,account",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 		),
@@ -96,7 +96,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Comma-Separated Resources", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools resource=cluster,project",
+		Cmd:      "scw mcp server list-tools resources=cluster,project",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 		),
@@ -105,7 +105,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With Comma-Separated Verbs", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools verb=get,list",
+		Cmd:      "scw mcp server list-tools verbs=get,list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 		),
@@ -114,7 +114,7 @@ func TestMcpServerList(t *testing.T) {
 
 	t.Run("With All Comma-Separated Filters Combined", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-tools namespace=k8s,account resource=cluster,project verb=get,list",
+		Cmd:      "scw mcp server list-tools namespaces=k8s,account resources=cluster,project verbs=get,list",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 		),
@@ -137,7 +137,7 @@ func TestMcpServerListResources(t *testing.T) {
 
 	t.Run("With Namespace Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-resources namespace=k8s",
+		Cmd:      "scw mcp server list-resources namespaces=k8s",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -147,7 +147,7 @@ func TestMcpServerListResources(t *testing.T) {
 
 	t.Run("With Resource Filter", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-resources resource=cluster",
+		Cmd:      "scw mcp server list-resources resources=cluster",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -167,7 +167,7 @@ func TestMcpServerListResources(t *testing.T) {
 
 	t.Run("With Comma-Separated Namespaces", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-resources namespace=k8s,account",
+		Cmd:      "scw mcp server list-resources namespaces=k8s,account",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -177,7 +177,7 @@ func TestMcpServerListResources(t *testing.T) {
 
 	t.Run("With Comma-Separated Resources", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-resources resource=cluster,project",
+		Cmd:      "scw mcp server list-resources resources=cluster,project",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
@@ -187,7 +187,7 @@ func TestMcpServerListResources(t *testing.T) {
 
 	t.Run("With Combined Comma-Separated Filters", core.Test(&core.TestConfig{
 		Commands: cmds,
-		Cmd:      "scw mcp server list-resources namespace=k8s,account resource=cluster,project",
+		Cmd:      "scw mcp server list-resources namespaces=k8s,account resources=cluster,project",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),

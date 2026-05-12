@@ -32,7 +32,7 @@ func (s *MCPServer) ListTools() []toolInfo {
 		})
 	}
 
-	// Sort tools by namespace, resource, verb for consistent output
+	// Sort tools by namespaces, resources, verbs for consistent output
 	sort.Slice(tools, func(i, j int) bool {
 		if tools[i].Namespace != tools[j].Namespace {
 			return tools[i].Namespace < tools[j].Namespace
@@ -49,10 +49,10 @@ func (s *MCPServer) ListTools() []toolInfo {
 
 func McpServerListTools() *core.Command {
 	type listArgs struct {
-		Namespace string `json:"namespace"`
-		Resource  string `json:"resource"`
-		Verb      string `json:"verb"`
-		ReadOnly  bool   `json:"read-only"`
+		Namespaces string `json:"namespacess"`
+		Resources  string `json:"resourcess"`
+		Verbs      string `json:"verbss"`
+		ReadOnly   bool   `json:"read-only"`
 	}
 
 	return &core.Command{
@@ -61,7 +61,7 @@ func McpServerListTools() *core.Command {
 		Resource:             "server",
 		Verb:                 "list-tools",
 		Short:                "List available MCP tools",
-		Long:                 "Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.",
+		Long:                 "Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespacess, resourcess, or verbss.",
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(listArgs{}),
@@ -71,38 +71,38 @@ func McpServerListTools() *core.Command {
 				Raw:   `scw mcp server list-tools`,
 			},
 			{
-				Short: "List tools for a specific namespace",
-				Raw:   `scw mcp server list-tools namespace=instance`,
+				Short: "List tools for a specific namespaces",
+				Raw:   `scw mcp server list-tools namespaces=instance`,
 			},
 			{
-				Short: "List tools for a specific resource",
-				Raw:   `scw mcp server list-tools resource=server`,
+				Short: "List tools for a specific resources",
+				Raw:   `scw mcp server list-tools resources=server`,
 			},
 			{
 				Short: "List only read-only tools (get/list operations)",
 				Raw:   `scw mcp server list-tools read-only=true`,
 			},
 			{
-				Short: "List tools with a specific verb",
-				Raw:   `scw mcp server list-tools verb=get`,
+				Short: "List tools with a specific verbs",
+				Raw:   `scw mcp server list-tools verbs=get`,
 			},
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "namespace",
-				Short:      "Filter by namespace (e.g., instance, iam, object)",
+				Name:       "namespaces",
+				Short:      "Filter by namespaces (e.g., instance, iam, object)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "resource",
-				Short:      "Filter by resource (e.g., server, volume, bucket)",
+				Name:       "resources",
+				Short:      "Filter by resources (e.g., server, volume, bucket)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "verb",
-				Short:      "Filter by verb (e.g., get, list, create)",
+				Name:       "verbs",
+				Short:      "Filter by verbs (e.g., get, list, create)",
 				Required:   false,
 				Positional: false,
 			},
@@ -124,9 +124,9 @@ func McpServerListTools() *core.Command {
 			// Step 1: Filter commands based on the given config
 			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
-				EnabledNamespaces: SplitArg(args.Namespace),
-				EnabledResources:  SplitArg(args.Resource),
-				EnabledVerbs:      SplitArg(args.Verb),
+				EnabledNamespaces: SplitArg(args.Namespaces),
+				EnabledResources:  SplitArg(args.Resources),
+				EnabledVerbs:      SplitArg(args.Verbs),
 			})
 
 			// Step 2: Create the MCP server with pre-filtered commands

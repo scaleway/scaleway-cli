@@ -12,12 +12,12 @@ import (
 
 func McpServerServe() *core.Command {
 	type serveArgs struct {
-		Transport string `json:"transport"`
-		Address   string `json:"address"`
-		ReadOnly  bool   `json:"read-only"`
-		Namespace string `json:"namespace"`
-		Resource  string `json:"resource"`
-		Verb      string `json:"verb"`
+		Transport  string `json:"transport"`
+		Address    string `json:"address"`
+		ReadOnly   bool   `json:"read-only"`
+		Namespaces string `json:"namespaces"`
+		Resources  string `json:"resources"`
+		Verbs      string `json:"verbs"`
 	}
 
 	return &core.Command{
@@ -41,19 +41,19 @@ func McpServerServe() *core.Command {
 			},
 			{
 				Short: "Only serve commands from specific namespaces",
-				Raw:   `scw mcp server serve namespace=instance,iam,object`,
+				Raw:   `scw mcp server serve namespaces=instance,iam,object`,
 			},
 			{
 				Short: "Only serve commands from specific resources",
-				Raw:   `scw mcp server serve resource=server,volume,bucket`,
+				Raw:   `scw mcp server serve resources=server,volume,bucket`,
 			},
 			{
 				Short: "Only serve commands with specific verbs",
-				Raw:   `scw mcp server serve verb=get,list,create`,
+				Raw:   `scw mcp server serve verbs=get,list,create`,
 			},
 			{
 				Short: "Combine filters to serve only instance server get/list commands",
-				Raw:   `scw mcp server serve namespace=instance resource=server verb=get,list`,
+				Raw:   `scw mcp server serve namespaces=instance resources=server verbs=get,list`,
 			},
 		},
 		ArgSpecs: core.ArgSpecs{
@@ -79,19 +79,19 @@ func McpServerServe() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 			},
 			{
-				Name:       "namespace",
+				Name:       "namespaces",
 				Short:      "Only serve commands from specified namespaces (comma-separated)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "resource",
+				Name:       "resources",
 				Short:      "Only serve commands from specified resources (comma-separated)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "verb",
+				Name:       "verbs",
 				Short:      "Only serve commands with specified verbs (comma-separated)",
 				Required:   false,
 				Positional: false,
@@ -117,14 +117,14 @@ func McpServerServe() *core.Command {
 			fmt.Fprintf(os.Stderr, "Config path: %s\n", meta.ConfigPathFlag)
 			fmt.Fprintf(os.Stderr, "Transport mode: %s\n", args.Transport)
 			fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", args.ReadOnly)
-			if len(SplitArg(args.Namespace)) > 0 {
-				fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", SplitArg(args.Namespace))
+			if len(SplitArg(args.Namespaces)) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", SplitArg(args.Namespaces))
 			}
-			if len(SplitArg(args.Resource)) > 0 {
-				fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", SplitArg(args.Resource))
+			if len(SplitArg(args.Resources)) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", SplitArg(args.Resources))
 			}
-			if len(SplitArg(args.Verb)) > 0 {
-				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", SplitArg(args.Verb))
+			if len(SplitArg(args.Verbs)) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", SplitArg(args.Verbs))
 			}
 
 			// Get all CLI commands
@@ -141,12 +141,12 @@ func McpServerServe() *core.Command {
 			// Step 1: Filter commands based on the given config
 			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
-				EnabledNamespaces: SplitArg(args.Namespace),
-				EnabledResources:  SplitArg(args.Resource),
-				EnabledVerbs:      SplitArg(args.Verb),
+				EnabledNamespaces: SplitArg(args.Namespaces),
+				EnabledResources:  SplitArg(args.Resources),
+				EnabledVerbs:      SplitArg(args.Verbs),
 			})
 
-			// Step 2: Inject meta into context for tool/resource execution
+			// Step 2: Inject meta into context for tool/resources execution
 			ctx = core.InjectMeta(ctx, meta)
 
 			// Step 3: Create the MCP server with pre-filtered commands
@@ -155,7 +155,7 @@ func McpServerServe() *core.Command {
 			// Step 2: Serve the MCP server with the specified transport
 			return mcpServer.Serve(ctx, args.Transport, args.Address)
 		},
-		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
+		ExcludeFromMCP: true, // Skip mcp namespaces to avoid recursive server calls
 	}
 }
 
@@ -172,9 +172,9 @@ func McpServer() *core.Command {
 
 func McpServerListResources() *core.Command {
 	type listResourcesArgs struct {
-		Namespace string `json:"namespace"`
-		Resource  string `json:"resource"`
-		ReadOnly  bool   `json:"read-only"`
+		Namespaces string `json:"namespaces"`
+		Resources  string `json:"resources"`
+		ReadOnly   bool   `json:"read-only"`
 	}
 
 	return &core.Command{
@@ -194,11 +194,11 @@ func McpServerListResources() *core.Command {
 			},
 			{
 				Short: "List resources for a specific namespace",
-				Raw:   `scw mcp server list-resources namespace=instance`,
+				Raw:   `scw mcp server list-resources namespaces=instance`,
 			},
 			{
 				Short: "List resources for a specific resource type",
-				Raw:   `scw mcp server list-resources resource=server`,
+				Raw:   `scw mcp server list-resources resources=server`,
 			},
 			{
 				Short: "List only read-only resources",
@@ -207,14 +207,14 @@ func McpServerListResources() *core.Command {
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "namespace",
-				Short:      "Filter by namespace (e.g., instance, iam, object)",
+				Name:       "namespaces",
+				Short:      "Filter by namespaces (e.g., instance, iam, object)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "resource",
-				Short:      "Filter by resource (e.g., server, volume, bucket)",
+				Name:       "resources",
+				Short:      "Filter by resources (e.g., server, volume, bucket)",
 				Required:   false,
 				Positional: false,
 			},
@@ -236,8 +236,8 @@ func McpServerListResources() *core.Command {
 			// Step 1: Filter commands based on the given config
 			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
 				ReadOnly:          args.ReadOnly,
-				EnabledNamespaces: SplitArg(args.Namespace),
-				EnabledResources:  SplitArg(args.Resource),
+				EnabledNamespaces: SplitArg(args.Namespaces),
+				EnabledResources:  SplitArg(args.Resources),
 			})
 
 			// Step 2: Create the MCP server with pre-filtered commands
