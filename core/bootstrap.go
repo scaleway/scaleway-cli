@@ -199,9 +199,6 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		meta.OverrideExec = defaultOverrideExec
 	}
 
-	if ctx == nil {
-		ctx = context.Background()
-	}
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = InjectMeta(ctx, meta)
 

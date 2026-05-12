@@ -45,7 +45,7 @@ func RunStreamableHTTPServer(
 	<-ctx.Done()
 
 	// Graceful shutdown with timeout
-	shutdownCtx, shutdownCancel := context.WithTimeout(context.Background(), 10*time.Second)
+	shutdownCtx, shutdownCancel := context.WithTimeout(ctx, 10*time.Second)
 	defer shutdownCancel()
 
 	return server.Shutdown(shutdownCtx)
