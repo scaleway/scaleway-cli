@@ -40,7 +40,7 @@ func getValue(value reflect.Value, parents []string, path []string) (reflect.Val
 		return reflect.Value{}, NewNilValueError(strings.Join(parents, "."))
 	}
 
-	if value.Type().Kind() == reflect.Ptr {
+	if value.Type().Kind() == reflect.Pointer {
 		return getValue(value.Elem(), parents, path)
 	}
 
@@ -113,7 +113,7 @@ func getType(t reflect.Type, parents []string, path []string) (reflect.Type, err
 		return t, nil
 	}
 
-	if t.Kind() == reflect.Ptr {
+	if t.Kind() == reflect.Pointer {
 		return getType(t.Elem(), parents, path)
 	}
 
@@ -167,7 +167,7 @@ func ListFieldsWithFilter(t reflect.Type, filter ListFieldFilter) []string {
 }
 
 func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []string {
-	if t.Kind() == reflect.Ptr {
+	if t.Kind() == reflect.Pointer {
 		return listFields(t.Elem(), parents, filter)
 	}
 
@@ -204,7 +204,7 @@ func listFields(t reflect.Type, parents []string, filter ListFieldFilter) []stri
 
 // IsNil test if a given value is nil. It is saf to call the method with non nillable value like scalar types
 func IsNil(value reflect.Value) bool {
-	return (value.Kind() == reflect.Ptr || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) &&
+	return (value.Kind() == reflect.Pointer || value.Kind() == reflect.Slice || value.Kind() == reflect.Map) &&
 		value.IsNil()
 }
 

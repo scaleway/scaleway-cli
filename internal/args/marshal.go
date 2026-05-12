@@ -50,7 +50,7 @@ func MarshalStruct(data any) (args []string, err error) {
 
 	// Second make sure data is a pointer to a struct or a map.
 	src := reflect.ValueOf(data)
-	if !(src.Kind() == reflect.Ptr && (src.Elem().Kind() == reflect.Struct || src.Elem().Kind() == reflect.Map)) {
+	if !(src.Kind() == reflect.Pointer && (src.Elem().Kind() == reflect.Struct || src.Elem().Kind() == reflect.Map)) {
 		return nil, &DataMustBeAPointerError{}
 	}
 
@@ -121,7 +121,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 	}
 
 	switch src.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		// If src is nil we do not marshal it
 		if src.IsNil() {
 			return nil, nil
@@ -288,7 +288,7 @@ func isInterfaceNil(data any) bool {
 
 	value := reflect.ValueOf(data)
 	switch value.Kind() {
-	case reflect.Ptr, reflect.Slice, reflect.Map:
+	case reflect.Pointer, reflect.Slice, reflect.Map:
 		return value.IsNil()
 	default:
 		return false
