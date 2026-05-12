@@ -4,8 +4,10 @@ import (
 	"context"
 	"encoding/json"
 	"reflect"
+	"strings"
 	"testing"
 
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
@@ -172,7 +174,7 @@ func TestToolMetaSerialization(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
-	mcpServer := server.NewMCPServer(filteredCommands, nil)
+	mcpServer := server.NewMCPServer(filteredCommands)
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	if len(registeredCommands) == 0 {
@@ -220,4 +222,51 @@ func TestToolMetaSerialization(t *testing.T) {
 			}
 		}
 	}
+}
+
+// TestCommandToolExecutePanicRecovery verifies that panics during command
+// execution are recovered and returned as proper error responses.
+func TestCommandToolExecutePanicRecovery(t *testing.T) {
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "panic",
+		Verb:      "trigger",
+		ArgsType:  nil,
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			// Simulate a panic like the one in instanceServerList
+			panic("nil pointer dereference")
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+
+	inputArgs := map[string]any{}
+	result, err := tool.Execute(context.Background(), inputArgs)
+
+	// Should not return an error (panic is recovered)
+	if err != nil {
+		t.Fatalf("Execute should not return error, got: %v", err)
+	}
+
+	// Should have content
+	if len(result.Content) == 0 {
+		t.Fatal("Expected content in result")
+	}
+
+	// Should be marked as error
+	if !result.IsError {
+		t.Error("Expected IsError to be true")
+	}
+
+	// Content should mention panic recovery
+	tc, ok := result.Content[0].(*mcp.TextContent)
+	if !ok {
+		t.Fatalf("Expected TextContent, got %T", result.Content[0])
+	}
+
+	if !strings.Contains(tc.Text, "panic recovered") {
+		t.Errorf("Expected panic recovery message, got: %s", tc.Text)
+	}
+
+	t.Logf("Recovered panic message: %s", tc.Text)
 }

@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -9,7 +10,6 @@ import (
 	"syscall"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
-	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 // MCPServer wraps the MCP server with CLI command integration
@@ -17,24 +17,18 @@ type MCPServer struct {
 	server    *mcp.Server
 	commands  []*CommandTool
 	resources []*CommandResource
-	meta      *core.Meta // Used to inject meta into context for tool/resource execution
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
+// Meta should be injected into the context by callers before tool/resource execution.
 func NewMCPServer(
 	commands []*CommandTool,
-	meta *core.Meta,
 ) *MCPServer {
-	version := "dev"
-	if meta != nil {
-		version = meta.BuildInfo.Version.String()
-	}
-
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
-		Version:    version,
+		Version:    "dev",
 		Icons: []mcp.Icon{
 			{
 				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",
@@ -54,7 +48,6 @@ func NewMCPServer(
 		server:    mcpServer,
 		commands:  commands,
 		resources: make([]*CommandResource, 0),
-		meta:      meta,
 	}
 
 	// Register all commands during initialization
@@ -63,32 +56,29 @@ func NewMCPServer(
 		mcpTool := cmd.ToMCPTool()
 
 		// Create a wrapper function for the tool using the correct MCP SDK signature
-		// The wrapper injects meta into the context before executing the command
 		wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
-			// Inject meta into context for command execution
-			ctx, err := ensureMetaInContext(ctx, meta)
-			if err != nil {
-				return &mcp.CallToolResult{
-					Content: []mcp.Content{
-						&mcp.TextContent{
-							Text: fmt.Sprintf("Error initializing client: %v", err),
-						},
-					},
-					IsError: true,
-				}, nil, err
-			}
-
 			result, err := cmd.Execute(ctx, input)
-			var output map[string]any
+			// Initialize output map to avoid nil serialization issues
+			output := map[string]any{}
 			if err != nil {
 				// Return error - MCP SDK will wrap it
-				return result, nil, err
+				output["error"] = err.Error()
+				return result, output, err
 			}
 			// Extract text content for structured output
 			if len(result.Content) > 0 {
 				if tc, ok := result.Content[0].(*mcp.TextContent); ok {
-					output = map[string]any{"result": tc.Text}
+					output["result"] = tc.Text
+				} else {
+					// Handle non-TextContent types by marshaling to JSON
+					if data, marshalErr := json.Marshal(result.Content[0]); marshalErr == nil {
+						output["result"] = string(data)
+					} else {
+						output["result"] = fmt.Sprintf("%T", result.Content[0])
+					}
 				}
+			} else {
+				output["result"] = "Command executed successfully (no output)"
 			}
 
 			return result, output, nil

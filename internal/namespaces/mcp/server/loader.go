@@ -1,13 +1,9 @@
 package server
 
 import (
-	"context"
-	"fmt"
-	"log"
 	"slices"
 	"strings"
 
-	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
@@ -17,6 +13,7 @@ func SplitArg(s string) []string {
 	if s == "" {
 		return []string{}
 	}
+
 	return strings.Split(s, ",")
 }
 
@@ -115,63 +112,4 @@ func ShouldLoadCommand(cmd *core.Command, config CommandFilterConfig) bool {
 	}
 
 	return true
-}
-
-// LoadCommand loads a CLI command as an MCP tool and optionally as a resource.
-// The command is assumed to have already been filtered before being passed to the server.
-func (s *MCPServer) LoadCommand(cmd *core.Command) error {
-	// Register as a tool
-	tool := NewCommandTool(cmd)
-
-	mcpTool := tool.ToMCPTool()
-
-	// Create a wrapper function for the tool using the correct MCP SDK signature
-	// The wrapper injects meta into the context before executing the command
-	wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
-		// Inject meta into context for command execution
-		ctx, err := ensureMetaInContext(ctx, s.meta)
-		if err != nil {
-			return &mcp.CallToolResult{
-				Content: []mcp.Content{
-					&mcp.TextContent{
-						Text: fmt.Sprintf("Error initializing client: %v", err),
-					},
-				},
-				IsError: true,
-			}, nil, err
-		}
-
-		result, err := tool.Execute(ctx, input)
-		var output map[string]any
-		if err != nil {
-			// Return error - MCP SDK will wrap it
-			return result, nil, err
-		}
-		// Extract text content for structured output
-		if len(result.Content) > 0 {
-			if tc, ok := result.Content[0].(*mcp.TextContent); ok {
-				output = map[string]any{"result": tc.Text}
-			}
-		}
-
-		return result, output, nil
-	}
-
-	// Register with MCP SDK
-	mcp.AddTool(s.server, mcpTool, wrapper)
-
-	s.commands = append(s.commands, tool)
-
-	// Register as a resource if it's a list command
-	if cmd.IsList() {
-		if err := s.LoadResource(cmd); err != nil {
-			log.Printf(
-				"Warning: failed to load resource %s: %v\n",
-				cmd.GetCommandLine("scw"),
-				err,
-			)
-		}
-	}
-
-	return nil
 }

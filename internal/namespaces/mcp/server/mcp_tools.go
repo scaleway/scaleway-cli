@@ -18,27 +18,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
-// contextKey is a custom type for context keys to avoid collisions
-type contextKey int
-
-const (
-	metaContextKey contextKey = iota
-)
-
-// InjectMetaInContext creates a new context with the given meta injected.
-// This is used to pass meta through the context for MCP tool/resource execution.
-func InjectMetaInContext(ctx context.Context, meta *core.Meta) context.Context {
-	return context.WithValue(ctx, metaContextKey, meta)
-}
-
-// ExtractMetaFromContext extracts Meta from a given context.
-func ExtractMetaFromContext(ctx context.Context) *core.Meta {
-	if meta, ok := ctx.Value(metaContextKey).(*core.Meta); ok {
-		return meta
-	}
-	return nil
-}
-
 // CommandTool wraps a CLI command for MCP tool execution
 type CommandTool struct {
 	Command *core.Command
@@ -187,13 +166,34 @@ func (ct *CommandTool) Execute(
 		cmdArgs = inputArgs
 	}
 
-	// Execute the command's Run function
-	result, err := ct.Command.Run(ctx, cmdArgs)
-	if err != nil {
+	// Execute the command's Run function using the interceptor chain
+	// This ensures custom request wrappers (like customListServersRequest) are properly handled
+	var result any
+	var execErr error
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				execErr = fmt.Errorf("panic recovered during command execution: %v", r)
+			}
+		}()
+
+		// Create a runner that wraps the command's Run function
+		var runner core.CommandRunner = func(ctx context.Context, argsI any) (i any, err error) {
+			return ct.Command.Run(ctx, argsI)
+		}
+
+		// Apply command interceptor if present
+		if ct.Command.Interceptor != nil {
+			result, execErr = ct.Command.Interceptor(ctx, cmdArgs, runner)
+		} else {
+			result, execErr = runner(ctx, cmdArgs)
+		}
+	}()
+	if execErr != nil {
 		return &mcp.CallToolResult{
 			Content: []mcp.Content{
 				&mcp.TextContent{
-					Text: fmt.Sprintf("Error: %v", err),
+					Text: fmt.Sprintf("Error: %v", execErr),
 				},
 			},
 			IsError: true,
@@ -261,7 +261,7 @@ func truncateString(s string, maxLen int) string {
 // Returns the updated context and any error that occurred.
 func ensureMetaInContext(ctx context.Context, meta *core.Meta) (context.Context, error) {
 	// Meta already in context - nothing to do
-	if ExtractMetaFromContext(ctx) != nil {
+	if core.ExtractMeta(ctx) != nil {
 		return ctx, nil
 	}
 
@@ -270,7 +270,7 @@ func ensureMetaInContext(ctx context.Context, meta *core.Meta) (context.Context,
 		m := *meta
 		m.OverrideEnv = make(map[string]string)
 		maps.Copy(m.OverrideEnv, meta.OverrideEnv)
-		
+
 		return core.InjectMeta(ctx, &m), nil
 	}
 

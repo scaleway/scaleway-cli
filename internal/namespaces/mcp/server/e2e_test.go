@@ -25,7 +25,7 @@ func runServer(t *testing.T) int {
 		instance.GetCommands().GetSortedCommand(),
 		server.CommandFilterConfig{},
 	)
-	s := server.NewMCPServer(filteredCommands, nil)
+	s := server.NewMCPServer(filteredCommands)
 
 	// Create the streamable HTTP handler.
 	handler := mcp.NewStreamableHTTPHandler(func(req *http.Request) *mcp.Server {

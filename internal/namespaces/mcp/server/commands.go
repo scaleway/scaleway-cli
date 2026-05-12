@@ -146,8 +146,11 @@ func McpServerServe() *core.Command {
 				EnabledVerbs:      SplitArg(args.Verb),
 			})
 
-			// Step 2: Create the MCP server with pre-filtered commands
-			mcpServer := NewMCPServer(filteredCommands, meta)
+			// Step 2: Inject meta into context for tool/resource execution
+			ctx = core.InjectMeta(ctx, meta)
+
+			// Step 3: Create the MCP server with pre-filtered commands
+			mcpServer := NewMCPServer(filteredCommands)
 
 			// Step 2: Serve the MCP server with the specified transport
 			return mcpServer.Serve(ctx, args.Transport, args.Address)
@@ -238,7 +241,7 @@ func McpServerListResources() *core.Command {
 			})
 
 			// Step 2: Create the MCP server with pre-filtered commands
-			mcpServer := NewMCPServer(filteredCommands, nil)
+			mcpServer := NewMCPServer(filteredCommands)
 
 			// Step 2: List resources from the MCP server
 			return mcpServer.ListResources(), nil

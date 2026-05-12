@@ -203,27 +203,14 @@ func (cr *CommandResource) Execute(
 }
 
 // LoadResource registers a CLI command as an MCP resource
+// Meta is expected to be already present in the context.
 func (s *MCPServer) LoadResource(cmd *core.Command) error {
 	resource := NewCommandResource(cmd)
 
 	mcpResource := resource.ToMCPResource()
 
 	// Create a handler function for the resource
-	// The handler injects meta into the context before executing the command
 	handler := func(ctx context.Context, req *mcp.ReadResourceRequest) (*mcp.ReadResourceResult, error) {
-		// Inject meta into context for command execution
-		ctx, err := ensureMetaInContext(ctx, s.meta)
-		if err != nil {
-			return &mcp.ReadResourceResult{
-				Contents: []*mcp.ResourceContents{
-					{
-						URI:  BuildResourceURI(cmd.Namespace, cmd.Resource),
-						Text: fmt.Sprintf("Error initializing client: %v", err),
-					},
-				},
-			}, nil
-		}
-
 		// Extract arguments from the request URI
 		// URI format: scw://namespace/resource?arg1=value1&arg2=value2
 		inputArgs := parseURIToArgs(req.Params.URI)
