@@ -170,10 +170,13 @@ func (ct *CommandTool) Execute(
 	// This ensures custom request wrappers (like customListServersRequest) are properly handled
 	var result any
 	var execErr error
+	var panicRecovered bool
+	var panicMessage string
 	func() {
 		defer func() {
 			if r := recover(); r != nil {
-				execErr = fmt.Errorf("panic recovered during command execution: %v", r)
+				panicRecovered = true
+				panicMessage = fmt.Sprintf("panic recovered during command execution: %v", r)
 			}
 		}()
 
@@ -189,6 +192,19 @@ func (ct *CommandTool) Execute(
 			result, execErr = runner(ctx, cmdArgs)
 		}
 	}()
+
+	// Handle panic recovery - return as error response but not as Go error
+	if panicRecovered {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: panicMessage,
+				},
+			},
+			IsError: true,
+		}, nil
+	}
+
 	if execErr != nil {
 		return &mcp.CallToolResult{
 			Content: []mcp.Content{
