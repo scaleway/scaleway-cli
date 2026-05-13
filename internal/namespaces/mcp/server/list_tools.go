@@ -49,9 +49,9 @@ func (s *MCPServer) ListTools() []toolInfo {
 
 func McpServerListTools() *core.Command {
 	type listArgs struct {
-		Namespaces string `json:"namespacess"`
-		Resources  string `json:"resourcess"`
-		Verbs      string `json:"verbss"`
+		Namespaces string `json:"namespaces"`
+		Resources  string `json:"resources"`
+		Verbs      string `json:"verbs"`
 		ReadOnly   bool   `json:"read-only"`
 	}
 
