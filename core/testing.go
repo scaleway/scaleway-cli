@@ -2,7 +2,6 @@ package core
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -209,9 +208,6 @@ type TestConfig struct {
 	// Custom client to use for test, if none are provided will create one automatically
 	Client *scw.Client
 
-	// Context that will be forwarded to Bootstrap
-	Ctx context.Context
-
 	// If this is specified this value will be passed to interactive.InjectMockResponseToContext ans will allow
 	// to mock response a user would have enter in a prompt.
 	// Warning: All prompts MUST be mocked or test will hang.
@@ -358,10 +354,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 			DefaultRetryInterval = new(0 * time.Second)
 		}
 
-		ctx := config.Ctx
-		if ctx == nil {
-			ctx = t.Context()
-		}
+		ctx := t.Context()
 		if len(config.PromptResponseMocks) > 0 {
 			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
 		}
@@ -443,7 +436,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		executeCmd := func(args []string) any {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			_, result, err := Bootstrap(&BootstrapConfig{
+			_, result, err := Bootstrap(ctx, &BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands.Copy(), // Copy commands to ensure they are not modified
 				BuildInfo:        buildInfo,
@@ -454,7 +447,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
-				Ctx:              ctx,
 				Logger:           testLogger,
 				HTTPClient:       httpClient,
 				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
@@ -510,7 +502,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if len(renderedArgs) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
-			exitCode, result, err = Bootstrap(&BootstrapConfig{
+			exitCode, result, err = Bootstrap(ctx, &BootstrapConfig{
 				Args:             renderedArgs,
 				Commands:         config.Commands,
 				BuildInfo:        buildInfo,
@@ -522,7 +514,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
-				Ctx:              ctx,
 				Logger:           cmdLogger,
 				HTTPClient:       httpClient,
 				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),

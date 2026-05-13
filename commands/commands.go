@@ -40,6 +40,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
+	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -49,6 +50,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	s2s_vpn "github.com/scaleway/scaleway-cli/v2/internal/namespaces/s2s_vpn/v1alpha1"
+	search "github.com/scaleway/scaleway-cli/v2/internal/namespaces/search/v1alpha1"
 	searchdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/searchdb/v1alpha1"
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
@@ -124,6 +126,8 @@ func GetCommands() *core.Commands {
 		partner.GetCommands(),
 		environmental_footprint.GetCommands(),
 		product_catalog.GetCommands(),
+		mcp.GetCommands(),
+		search.GetCommands(),
 	)
 
 	if beta {

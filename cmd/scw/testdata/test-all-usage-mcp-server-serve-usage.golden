@@ -1,0 +1,46 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default), SSE, and streamable HTTP transports.
+
+USAGE:
+  scw mcp server serve [arg=value ...]
+
+EXAMPLES:
+  Start the MCP server with stdio transport (default)
+    scw mcp server serve
+
+  Start the MCP server in read-only mode (only get/list operations)
+    scw mcp server serve --read-only
+
+  Only serve commands from specific namespaces
+    scw mcp server serve --enable-namespaces instance,iam,object
+
+  Only serve commands from specific resources
+    scw mcp server serve --enable-resources server,volume,bucket
+
+  Only serve commands with specific verbs
+    scw mcp server serve --enable-verbs get,list,create
+
+  Combine filters to serve only instance server get/list commands
+    scw mcp server serve --enable-namespaces instance --enable-resources server --enable-verbs get,list
+
+  Start the MCP server with SSE transport on port 8080
+    scw mcp server serve --transport sse --address :8080
+
+ARGS:
+  [transport=stdio]     Transport mode: stdio (default), sse, or streamable-http
+  [address=:8080]       Address to bind for SSE and streamable-http transports (e.g., :8080)
+  [read-only=false]     Only register read-only commands (get, list operations)
+  [enable-namespaces]   Only serve commands from specified namespaces (comma-separated)
+  [enable-resources]    Only serve commands from specified resources (comma-separated)
+  [enable-verbs]        Only serve commands with specified verbs (comma-separated)
+
+FLAGS:
+  -h, --help                help for serve
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

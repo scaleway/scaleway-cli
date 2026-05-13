@@ -167,6 +167,8 @@ func auditTrailEventList() *core.Command {
 					"dtwh_deployment_endpoint",
 					"dtwh_deployment_database",
 					"dtwh_deployment_user",
+					"ssdb_database",
+					"ssdb_database_backup",
 				},
 			},
 			{

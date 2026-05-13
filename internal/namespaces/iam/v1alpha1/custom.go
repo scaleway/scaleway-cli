@@ -65,15 +65,16 @@ func GetCommands() *core.Commands {
 
 func initWithSSHCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initialize SSH key`,
-		Long:      `Initialize SSH key.`,
-		Namespace: "iam",
-		Resource:  "ssh-key",
-		Verb:      "init",
-		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
-		ArgSpecs:  core.ArgSpecs{},
-		Run:       InitWithSSHKeyRun,
+		Short:          `Initialize SSH key`,
+		Long:           `Initialize SSH key.`,
+		Namespace:      "iam",
+		Resource:       "ssh-key",
+		Verb:           "init",
+		Groups:         []string{"workflow"},
+		ArgsType:       reflect.TypeOf(args.RawArgs{}),
+		ArgSpecs:       core.ArgSpecs{},
+		Run:            InitWithSSHKeyRun,
+		ExcludeFromMCP: true,
 	}
 }
 
@@ -131,8 +132,7 @@ func InitWithSSHKeyRun(ctx context.Context, _ any) (i any, e error) {
 	_, _ = interactive.Println(
 		"An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/",
 	)
-	addSSHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Ctx:          ctx,
+	addSSHKey, err := interactive.PromptBoolWithConfig(ctx, &interactive.PromptBoolConfig{
 		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway project?",
 		DefaultValue: true,
 	})

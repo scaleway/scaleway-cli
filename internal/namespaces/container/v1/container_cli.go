@@ -1491,7 +1491,7 @@ func containerTriggerList() *core.Command {
 		Short: `List all triggers the caller can access (read permission).`,
 		Long: `By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the ` + "`" + `order_by` + "`" + ` field.
 
-Additional parameters can be set in the query to filter, such as ` + "`" + `organization_id` + "`" + `, ` + "`" + `project_id` + "`" + `, ` + "`" + `namespace_id` + "`" + `, or ` + "`" + `container_id` + "`" + `.`,
+Additional parameters can be set in the query to filter, such as ` + "`" + `organization_id` + "`" + `, ` + "`" + `project_id` + "`" + `, ` + "`" + `namespace_id` + "`" + `, ` + "`" + `container_id` + "`" + ` or ` + "`" + `trigger_type` + "`" + `.`,
 		Namespace: "container",
 		Resource:  "trigger",
 		Verb:      "list",
@@ -1527,6 +1527,18 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "trigger-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_source_type",
+					"cron",
+					"sqs",
+					"nats",
+				},
 			},
 			{
 				Name:       "organization-id",

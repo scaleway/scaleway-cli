@@ -23,7 +23,6 @@ func init() {
 type cobraBuilder struct {
 	commands *Commands
 	meta     *Meta
-	ctx      context.Context
 }
 
 // build creates the cobra root command.
@@ -152,20 +151,21 @@ func (b *cobraBuilder) hydrateCobra(
 	// Use a custom function to print usage
 	// This function will build usage to avoid building it for each commands
 	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
+		ctx := cobraCmd.Context()
 		if cobraCmd.Annotations == nil {
 			cobraCmd.Annotations = make(map[string]string)
 		}
 
 		if len(cmd.Aliases) > 0 {
-			cobraCmd.Annotations["Aliases"] = buildUsageAliases(b.ctx, cmd)
+			cobraCmd.Annotations["Aliases"] = buildUsageAliases(ctx, cmd)
 		}
 
 		if cmd.ArgsType != nil {
-			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(b.ctx, cmd, false)
+			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(ctx, cmd, false)
 		}
 
 		if cmd.ArgSpecs != nil {
-			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(b.ctx, cmd, true)
+			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(ctx, cmd, true)
 		}
 
 		if cmd.Examples != nil {
@@ -176,11 +176,11 @@ func (b *cobraBuilder) hydrateCobra(
 			cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 		}
 
-		cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), b.commands)
+		cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(ctx), b.commands)
 	}))
 
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(b.ctx, cmd)
+		cobraCmd.RunE = cobraRun(context.TODO(), cmd)
 	} else {
 		// If command is not runnable we create a default run function that
 		// will print usage of the parent command and exit with code 1

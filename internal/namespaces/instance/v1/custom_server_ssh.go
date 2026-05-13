@@ -52,7 +52,8 @@ func serverSSHCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: instanceServerSSHRun,
+		Run:            instanceServerSSHRun,
+		ExcludeFromMCP: true,
 	}
 }
 

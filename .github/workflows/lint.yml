@@ -39,7 +39,7 @@ jobs:
         uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9.2.0
         with:
           # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
-          version: v2.9.0
+          version: v2.12.2
           args: --timeout 10m
 
   spelling:
@@ -53,6 +53,6 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends wget
       - name: Spell Check Repo
-        uses: crate-ci/typos@631208b7aac2daa8b707f55e7331f9112b0e062d # v1.44.0
+        uses: crate-ci/typos@bbaefadf97b0ec5fdc942684b647f1a6ab250274 # v1.46.0
         env:
           CLICOLOR: 1

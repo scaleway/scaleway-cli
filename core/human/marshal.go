@@ -80,7 +80,7 @@ func Marshal(data any, opt *MarshalOpt) (string, error) {
 		return rValue.Interface().(fmt.Stringer).String(), nil
 
 	// If data is a pointer dereference an call Marshal again
-	case rType.Kind() == reflect.Ptr:
+	case rType.Kind() == reflect.Pointer:
 		return Marshal(rValue.Elem().Interface(), opt)
 
 	// If data is a slice uses marshalSlice
@@ -148,7 +148,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 				{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()},
 			}, nil
 
-		case rType.Kind() == reflect.Ptr:
+		case rType.Kind() == reflect.Pointer:
 			// If type is a pointer we Marshal pointer.Elem()
 			return marshal(value.Elem(), keys)
 
@@ -248,7 +248,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 
 	var recFunc func(v reflect.Type, parent []int)
 	recFunc = func(v reflect.Type, parent []int) {
-		for v.Kind() == reflect.Ptr {
+		for v.Kind() == reflect.Pointer {
 			v = v.Elem()
 		}
 
@@ -288,7 +288,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 	// Resole itemType and get rid of all pointer level if needed.
 	itemType := slice.Type().Elem()
-	for itemType.Kind() == reflect.Ptr {
+	for itemType.Kind() == reflect.Pointer {
 		itemType = itemType.Elem()
 	}
 
@@ -378,7 +378,7 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 	}
 
 	itemType := slice.Type().Elem()
-	for itemType.Kind() == reflect.Ptr {
+	for itemType.Kind() == reflect.Pointer {
 		itemType = itemType.Elem()
 	}
 
