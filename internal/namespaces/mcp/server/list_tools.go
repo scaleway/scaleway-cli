@@ -61,7 +61,7 @@ func McpServerListTools() *core.Command {
 		Resource:             "server",
 		Verb:                 "list-tools",
 		Short:                "List available MCP tools",
-		Long:                 "Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespacess, resourcess, or verbss.",
+		Long:                 "Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.",
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(listArgs{}),
