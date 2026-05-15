@@ -17,7 +17,7 @@
     "@vitest/browser": "^4.0.6",
     "prettier": "3.8.3",
     "typescript": "^6.0.2",
-    "vite": "^6.4.1",
+    "vite": "^8.0.13",
     "vitest": "^4.0.6"
   },
   "files": [
