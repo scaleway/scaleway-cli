@@ -41,6 +41,9 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   wasm:
+    permissions:
+      contents: read
+      id-token: write # Required for OIDC
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     needs:
       - goreleaser
@@ -62,9 +65,6 @@ jobs:
       - name: Configure package version
         working-directory: wasm
         run: pnpm version ${{ github.ref_name }}
-      - run: pnpm config set '//registry.npmjs.org/:_authToken' "${NPM_AUTH_TOKEN}"
-        env:
-          NPM_AUTH_TOKEN: ${{ secrets.NPM_AUTH_TOKEN }}
       - name: Publish package
         working-directory: wasm
         run: pnpm publish --no-git-checks
