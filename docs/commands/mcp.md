@@ -61,7 +61,7 @@ scw mcp server list-resources read-only=true
 
 ### List available MCP tools
 
-Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespacess, resourcess, or verbss.
+Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.
 
 **Usage:**
 
@@ -88,12 +88,12 @@ List all available MCP tools
 scw mcp server list-tools
 ```
 
-List tools for a specific namespaces
+List tools for specific namespaces (comma-separated)
 ```
 scw mcp server list-tools namespaces=instance
 ```
 
-List tools for a specific resources
+List tools for specific resources (comma-separated)
 ```
 scw mcp server list-tools resources=server
 ```
@@ -103,9 +103,9 @@ List only read-only tools (get/list operations)
 scw mcp server list-tools read-only=true
 ```
 
-List tools with a specific verbs
+List tools with specific verbs (comma-separated)
 ```
-scw mcp server list-tools verbs=get
+scw mcp server list-tools verbs=get,list
 ```
 
 

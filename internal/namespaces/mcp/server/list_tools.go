@@ -71,11 +71,11 @@ func McpServerListTools() *core.Command {
 				Raw:   `scw mcp server list-tools`,
 			},
 			{
-				Short: "List tools for a specific namespaces",
+				Short: "List tools for specific namespaces (comma-separated)",
 				Raw:   `scw mcp server list-tools namespaces=instance`,
 			},
 			{
-				Short: "List tools for a specific resources",
+				Short: "List tools for specific resources (comma-separated)",
 				Raw:   `scw mcp server list-tools resources=server`,
 			},
 			{
@@ -83,8 +83,8 @@ func McpServerListTools() *core.Command {
 				Raw:   `scw mcp server list-tools read-only=true`,
 			},
 			{
-				Short: "List tools with a specific verbs",
-				Raw:   `scw mcp server list-tools verbs=get`,
+				Short: "List tools with specific verbs (comma-separated)",
+				Raw:   `scw mcp server list-tools verbs=get,list`,
 			},
 		},
 		ArgSpecs: core.ArgSpecs{
