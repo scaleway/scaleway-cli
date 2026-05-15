@@ -4,6 +4,7 @@
   "description": "WASM interface for Scaleway CLI, made to be used in a JS environment",
   "type": "module",
   "main": "index.js",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "test": "vitest src",
     "lint": "prettier --check ."

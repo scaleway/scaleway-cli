@@ -21,9 +21,7 @@ jobs:
         with:
           go-version: stable
       - name: Install pnpm
-        uses: pnpm/action-setup@fc06bc1257f339d1d5d8b3a19a8cae5388b55320 # v4.4.0
-        with:
-          version: 6.0.2
+        uses: pnpm/action-setup@0e279bb959325dab635dd2c09392533439d90093 # v6.0.8
       - name: Build
         run: ./scripts/build-wasm.sh
       - name: Run npm package tests
