@@ -109,11 +109,7 @@ Once you connected to Scaleway, the profile should be configured.
 				return nil, err
 			}
 
-			buildInfo := core.ExtractBuildInfo(ctx)
-			client, err := scw.NewClient(
-				scw.WithJWT(tt.Token),
-				scw.WithUserAgent(buildInfo.GetUserAgent()),
-			)
+			client, err := scw.NewClient(scw.WithJWT(tt.Token))
 			if err != nil {
 				return nil, err
 			}
