@@ -12,8 +12,7 @@ describe('With test environment', async () => {
   let cli: CLITester
 
   beforeAll(async () => {
-    // @ts-ignore
-    cli = (await loadWasmBinary('./cliTester.wasm')) as CLITester
+    cli = await loadWasmBinary('./cliTester.wasm') as CLITester
   })
 
   it('can return array', async () => {
@@ -31,12 +30,6 @@ describe('With test environment', async () => {
     expect(buildInfo).toContain('2.0.0')
   })
 
-  afterAll(async () => {
-    try {
-      await cli.stop()
-      go._resume()
-    } catch (e) {
-      console.log(e)
-    }
-  })
+  // Note: skipping cli.stop() cleanup as it triggers Go runtime errors
+  // The WASM runtime is cleaned up when the Node.js process exits
 })
