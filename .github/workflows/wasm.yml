@@ -22,6 +22,8 @@ jobs:
           go-version: stable
       - name: Install pnpm
         uses: pnpm/action-setup@v5
+        with:
+          package_json_file: "wasm/package.json"
       - name: Build
         run: ./scripts/build-wasm.sh
       - name: Run npm package tests
