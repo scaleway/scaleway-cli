@@ -37,7 +37,6 @@ ARGS:
   [private-network-id]                             ID of the Private Network the container is connected to.
   [command.{index}]                                Container command
   [args.{index}]                                   Container arguments
-  [deploy=true]                                    Deploy container after creation
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 DEPRECATED ARGS:
@@ -46,7 +45,6 @@ DEPRECATED ARGS:
 FLAGS:
   -h, --help                help for create
       --list-sub-commands   List all subcommands
-  -w, --wait                wait until the container is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
