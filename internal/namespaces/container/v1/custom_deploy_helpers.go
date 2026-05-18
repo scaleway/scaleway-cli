@@ -12,16 +12,13 @@ import (
 	"strings"
 
 	pack "github.com/buildpacks/pack/pkg/client"
-	dockertypes "github.com/docker/docker/api/types"
-	"github.com/docker/docker/api/types/container"
-	"github.com/docker/docker/api/types/image"
-	docker "github.com/docker/docker/client"
+	docker "github.com/moby/moby/client"
 )
 
 type DockerClient interface {
 	pack.DockerClient
 
-	ImagePush(ctx context.Context, image string, options image.PushOptions) (io.ReadCloser, error)
+	ImagePush(ctx context.Context, image string, options docker.ImagePushOptions) (docker.ImagePushResponse, error)
 }
 
 type CustomDockerClient struct {
@@ -31,9 +28,8 @@ type CustomDockerClient struct {
 }
 
 func NewCustomDockerClient(httpClient *http.Client) (*CustomDockerClient, error) {
-	dockerClient, err := docker.NewClientWithOpts(
+	dockerClient, err := docker.New(
 		docker.FromEnv,
-		docker.WithAPIVersionNegotiation(),
 		docker.WithHTTPClient(httpClient),
 	)
 	if err != nil {
@@ -49,8 +45,8 @@ func NewCustomDockerClient(httpClient *http.Client) (*CustomDockerClient, error)
 func (c *CustomDockerClient) ContainerAttach(
 	_ context.Context,
 	container string,
-	options container.AttachOptions,
-) (dockertypes.HijackedResponse, error) {
+	options docker.ContainerAttachOptions,
+) (docker.ContainerAttachResult, error) {
 	query := url.Values{}
 	if options.Stream {
 		query.Set("stream", "1")
@@ -111,5 +107,5 @@ func (c *CustomDockerClient) ContainerAttach(
 		}
 	}()
 
-	return dockertypes.NewHijackedResponse(reader, "text/plain"), nil
+	return docker.ContainerAttachResult{HijackedResponse: docker.NewHijackedResponse(reader, "text/plain")}, nil
 }

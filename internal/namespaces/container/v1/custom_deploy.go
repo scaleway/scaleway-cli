@@ -16,13 +16,11 @@ import (
 
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
-	"github.com/docker/docker/api/types/build"
-	"github.com/docker/docker/api/types/image"
 	dockerregistry "github.com/docker/docker/api/types/registry"
-	docker "github.com/docker/docker/client"
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
+	"github.com/moby/moby/client"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -298,11 +296,7 @@ func DeployStepDockerBuildImage(
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
 	httpClient := core.ExtractHTTPClient(ctx)
-	dockerClient, err := docker.NewClientWithOpts(
-		docker.FromEnv,
-		docker.WithAPIVersionNegotiation(),
-		docker.WithHTTPClient(httpClient),
-	)
+	dockerClient, err := NewCustomDockerClient(httpClient)
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to Docker: %w", err)
 	}
@@ -311,7 +305,7 @@ func DeployStepDockerBuildImage(
 	imageBuildResponse, err := dockerClient.ImageBuild(
 		ctx,
 		data.Tar,
-		build.ImageBuildOptions{
+		client.ImageBuildOptions{
 			Dockerfile: data.Args.Dockerfile,
 			Tags:       []string{tag},
 			NoCache:    !data.Args.Cache,
@@ -423,7 +417,7 @@ func DeployStepPushImage(
 
 	authStr := base64.URLEncoding.EncodeToString(encodedJSON)
 
-	imagePushResponse, err := data.DockerClient.ImagePush(ctx, data.Tag, image.PushOptions{
+	imagePushResponse, err := data.DockerClient.ImagePush(ctx, data.Tag, client.ImagePushOptions{
 		RegistryAuth: authStr,
 	})
 	if err != nil {
