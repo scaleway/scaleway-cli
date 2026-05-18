@@ -18,7 +18,11 @@ import (
 type DockerClient interface {
 	pack.DockerClient
 
-	ImagePush(ctx context.Context, image string, options docker.ImagePushOptions) (docker.ImagePushResponse, error)
+	ImagePush(
+		ctx context.Context,
+		image string,
+		options docker.ImagePushOptions,
+	) (docker.ImagePushResponse, error)
 }
 
 type CustomDockerClient struct {
@@ -107,5 +111,7 @@ func (c *CustomDockerClient) ContainerAttach(
 		}
 	}()
 
-	return docker.ContainerAttachResult{HijackedResponse: docker.NewHijackedResponse(reader, "text/plain")}, nil
+	return docker.ContainerAttachResult{
+		HijackedResponse: docker.NewHijackedResponse(reader, "text/plain"),
+	}, nil
 }

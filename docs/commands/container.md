@@ -120,7 +120,7 @@ Get the container associated with the specified ID.
 **Usage:**
 
 ```
-scw container container get [arg=value ...]
+scw container container get <container-id ...> [arg=value ...]
 ```
 
 
@@ -128,7 +128,7 @@ scw container container get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| container-id | Required |  |
+| container-id | Required | UUID of the container to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -316,7 +316,7 @@ Get the custom domain associated with the specified ID.
 **Usage:**
 
 ```
-scw container domain get [arg=value ...]
+scw container domain get <domain-id ...> [arg=value ...]
 ```
 
 
@@ -324,7 +324,7 @@ scw container domain get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| domain-id | Required |  |
+| domain-id | Required | UUID of the domain to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -435,7 +435,7 @@ Get the namespace associated with the specified ID.
 **Usage:**
 
 ```
-scw container namespace get [arg=value ...]
+scw container namespace get <namespace-id ...> [arg=value ...]
 ```
 
 
@@ -443,7 +443,7 @@ scw container namespace get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace-id | Required |  |
+| namespace-id | Required | UUID of the namespace to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -656,7 +656,7 @@ Get the trigger associated with the specified ID.
 **Usage:**
 
 ```
-scw container trigger get [arg=value ...]
+scw container trigger get <trigger-id ...> [arg=value ...]
 ```
 
 
@@ -664,7 +664,7 @@ scw container trigger get [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| trigger-id | Required |  |
+| trigger-id | Required | ID of the trigger to get |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
