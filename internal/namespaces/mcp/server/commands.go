@@ -7,16 +7,17 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 func McpServerServe() *core.Command {
 	type serveArgs struct {
-		Transport        string   `json:"transport"`
-		Address          string   `json:"address"`
-		ReadOnly         bool     `json:"read-only"`
-		EnableNamespaces []string `json:"enable-namespaces"`
-		EnableResources  []string `json:"enable-resources"`
-		EnableVerbs      []string `json:"enable-verbs"`
+		Transport  string `json:"transport"`
+		Address    string `json:"address"`
+		ReadOnly   bool   `json:"read-only"`
+		Namespaces string `json:"namespaces"`
+		Resources  string `json:"resources"`
+		Verbs      string `json:"verbs"`
 	}
 
 	return &core.Command{
@@ -25,7 +26,7 @@ func McpServerServe() *core.Command {
 		Resource:             "server",
 		Verb:                 "serve",
 		Short:                "Start the MCP server",
-		Long:                 "Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default), SSE, and streamable HTTP transports.",
+		Long:                 "Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default) and streamable HTTP transports.",
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
 		ArgsType:             reflect.TypeOf(serveArgs{}),
@@ -40,36 +41,32 @@ func McpServerServe() *core.Command {
 			},
 			{
 				Short: "Only serve commands from specific namespaces",
-				Raw:   `scw mcp server serve --enable-namespaces instance,iam,object`,
+				Raw:   `scw mcp server serve namespaces=instance,iam,object`,
 			},
 			{
 				Short: "Only serve commands from specific resources",
-				Raw:   `scw mcp server serve --enable-resources server,volume,bucket`,
+				Raw:   `scw mcp server serve resources=server,volume,bucket`,
 			},
 			{
 				Short: "Only serve commands with specific verbs",
-				Raw:   `scw mcp server serve --enable-verbs get,list,create`,
+				Raw:   `scw mcp server serve verbs=get,list,create`,
 			},
 			{
 				Short: "Combine filters to serve only instance server get/list commands",
-				Raw:   `scw mcp server serve --enable-namespaces instance --enable-resources server --enable-verbs get,list`,
-			},
-			{
-				Short: "Start the MCP server with SSE transport on port 8080",
-				Raw:   `scw mcp server serve --transport sse --address :8080`,
+				Raw:   `scw mcp server serve namespaces=instance resources=server verbs=get,list`,
 			},
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "transport",
-				Short:      "Transport mode: stdio (default), sse, or streamable-http",
+				Short:      "Transport mode: stdio (default) or streamable-http",
 				Required:   false,
 				Positional: false,
 				Default:    core.DefaultValueSetter("stdio"),
 			},
 			{
 				Name:       "address",
-				Short:      "Address to bind for SSE and streamable-http transports (e.g., :8080)",
+				Short:      "Address to bind for streamable-http transports (e.g., :8080)",
 				Required:   false,
 				Positional: false,
 				Default:    core.DefaultValueSetter(":8080"),
@@ -82,19 +79,19 @@ func McpServerServe() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 			},
 			{
-				Name:       "enable-namespaces",
+				Name:       "namespaces",
 				Short:      "Only serve commands from specified namespaces (comma-separated)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "enable-resources",
+				Name:       "resources",
 				Short:      "Only serve commands from specified resources (comma-separated)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "enable-verbs",
+				Name:       "verbs",
 				Short:      "Only serve commands with specified verbs (comma-separated)",
 				Required:   false,
 				Positional: false,
@@ -103,68 +100,62 @@ func McpServerServe() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*serveArgs)
 
-			// Get all CLI commands from the meta context
-			commands := core.ExtractCommands(ctx)
-			cliCommands := commands.GetAll()
-
-			// Get build info for version
-			buildInfo := core.ExtractBuildInfo(ctx)
-			version := buildInfo.Version.String()
-
-			// Get profile from context (set by global --profile flag)
-			profile := core.ExtractProfileName(ctx)
-			configPath := core.ExtractConfigPath(ctx)
-
-			// Log startup information to stderr
-			fmt.Fprintf(os.Stderr, "Starting MCP server version %s\n", version)
-			fmt.Fprintf(os.Stderr, "Transport mode: %s\n", args.Transport)
-			fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", args.ReadOnly)
-			if len(args.EnableNamespaces) > 0 {
-				fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", args.EnableNamespaces)
-			}
-			if len(args.EnableResources) > 0 {
-				fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", args.EnableResources)
-			}
-			if len(args.EnableVerbs) > 0 {
-				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", args.EnableVerbs)
-			}
-			fmt.Fprintf(os.Stderr, "Using profile: %s\n", profile)
-			fmt.Fprintf(os.Stderr, "Config path: %s\n", configPath)
+			meta := core.ExtractMeta(ctx)
 
 			// Reload the client with the profile to ensure proper authentication
 			if err := core.ReloadClient(ctx); err != nil {
 				return nil, fmt.Errorf("failed to initialize authenticated client: %w", err)
 			}
 
-			// Verify client is properly initialized
-			client := core.ExtractClient(ctx)
-			if client != nil {
-				if orgID, ok := client.GetDefaultOrganizationID(); ok {
-					fmt.Fprintf(os.Stderr, "Organization ID: %s\n", orgID)
-				}
-				if projectID, ok := client.GetDefaultProjectID(); ok {
-					fmt.Fprintf(os.Stderr, "Project ID: %s\n", projectID)
-				}
-			} else {
-				fmt.Fprintf(os.Stderr, "Warning: No client initialized\n")
+			// Log startup information to stderr
+			fmt.Fprintf(
+				os.Stderr,
+				"Starting MCP server version %s\n",
+				meta.BuildInfo.Version.String(),
+			)
+			fmt.Fprintf(os.Stderr, "Using profile: %s\n", meta.ProfileFlag)
+			fmt.Fprintf(os.Stderr, "Config path: %s\n", meta.ConfigPathFlag)
+			fmt.Fprintf(os.Stderr, "Transport mode: %s\n", args.Transport)
+			fmt.Fprintf(os.Stderr, "Read-only mode: %v\n", args.ReadOnly)
+			if len(SplitArg(args.Namespaces)) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled namespaces: %v\n", SplitArg(args.Namespaces))
+			}
+			if len(SplitArg(args.Resources)) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled resources: %v\n", SplitArg(args.Resources))
+			}
+			if len(SplitArg(args.Verbs)) > 0 {
+				fmt.Fprintf(os.Stderr, "Enabled verbs: %v\n", SplitArg(args.Verbs))
 			}
 
-			// Step 1: Create the MCP server using NewMCPServer
-			mcpServer := NewMCPServer(
-				version,
-				cliCommands,
-				CommandFilterConfig{
-					ReadOnly:          args.ReadOnly,
-					EnabledNamespaces: args.EnableNamespaces,
-					EnabledResources:  args.EnableResources,
-					EnabledVerbs:      args.EnableVerbs,
-				},
-			)
+			// Get all CLI commands
+			commands := core.ExtractCommands(ctx)
+			cliCommands := commands.GetAll()
+
+			// Copy OverrideEnv from context
+			for _, envKey := range []string{"HOME", "PATH", scw.ScwAccessKeyEnv, scw.ScwSecretKeyEnv, scw.ScwDefaultOrganizationIDEnv, scw.ScwDefaultProjectIDEnv, scw.ScwDefaultRegionEnv, scw.ScwDefaultZoneEnv} {
+				if val := core.ExtractEnv(ctx, envKey); val != "" {
+					meta.OverrideEnv[envKey] = val
+				}
+			}
+
+			// Step 1: Filter commands based on the given config
+			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
+				ReadOnly:          args.ReadOnly,
+				EnabledNamespaces: SplitArg(args.Namespaces),
+				EnabledResources:  SplitArg(args.Resources),
+				EnabledVerbs:      SplitArg(args.Verbs),
+			})
+
+			// Step 2: Inject meta into context for tool/resources execution
+			ctx = core.InjectMeta(ctx, meta)
+
+			// Step 3: Create the MCP server with pre-filtered commands
+			mcpServer := NewMCPServer(filteredCommands)
 
 			// Step 2: Serve the MCP server with the specified transport
 			return mcpServer.Serve(ctx, args.Transport, args.Address)
 		},
-		ExcludeFromMCP: true, // Skip mcp namespace to avoid recursive server calls
+		ExcludeFromMCP: true, // Skip mcp namespaces to avoid recursive server calls
 	}
 }
 
@@ -181,9 +172,9 @@ func McpServer() *core.Command {
 
 func McpServerListResources() *core.Command {
 	type listResourcesArgs struct {
-		Namespace string `json:"namespace"`
-		Resource  string `json:"resource"`
-		ReadOnly  bool   `json:"read-only"`
+		Namespaces string `json:"namespaces"`
+		Resources  string `json:"resources"`
+		ReadOnly   bool   `json:"read-only"`
 	}
 
 	return &core.Command{
@@ -203,11 +194,11 @@ func McpServerListResources() *core.Command {
 			},
 			{
 				Short: "List resources for a specific namespace",
-				Raw:   `scw mcp server list-resources namespace=instance`,
+				Raw:   `scw mcp server list-resources namespaces=instance`,
 			},
 			{
 				Short: "List resources for a specific resource type",
-				Raw:   `scw mcp server list-resources resource=server`,
+				Raw:   `scw mcp server list-resources resources=server`,
 			},
 			{
 				Short: "List only read-only resources",
@@ -216,14 +207,14 @@ func McpServerListResources() *core.Command {
 		},
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "namespace",
-				Short:      "Filter by namespace (e.g., instance, iam, object)",
+				Name:       "namespaces",
+				Short:      "Filter by namespaces (e.g., instance, iam, object)",
 				Required:   false,
 				Positional: false,
 			},
 			{
-				Name:       "resource",
-				Short:      "Filter by resource (e.g., server, volume, bucket)",
+				Name:       "resources",
+				Short:      "Filter by resources (e.g., server, volume, bucket)",
 				Required:   false,
 				Positional: false,
 			},
@@ -242,29 +233,15 @@ func McpServerListResources() *core.Command {
 			commands := core.ExtractCommands(ctx)
 			cliCommands := commands.GetAll()
 
-			// Get build info for version
-			buildInfo := core.ExtractBuildInfo(ctx)
-			version := buildInfo.Version.String()
+			// Step 1: Filter commands based on the given config
+			filteredCommands := FilterCommands(cliCommands, CommandFilterConfig{
+				ReadOnly:          args.ReadOnly,
+				EnabledNamespaces: SplitArg(args.Namespaces),
+				EnabledResources:  SplitArg(args.Resources),
+			})
 
-			// Build filter arrays from single string args
-			var enabledNamespaces, enabledResources []string
-			if args.Namespace != "" {
-				enabledNamespaces = []string{args.Namespace}
-			}
-			if args.Resource != "" {
-				enabledResources = []string{args.Resource}
-			}
-
-			// Step 1: Create the MCP server using NewMCPServer
-			mcpServer := NewMCPServer(
-				version,
-				cliCommands,
-				CommandFilterConfig{
-					ReadOnly:          args.ReadOnly,
-					EnabledNamespaces: enabledNamespaces,
-					EnabledResources:  enabledResources,
-				},
-			)
+			// Step 2: Create the MCP server with pre-filtered commands
+			mcpServer := NewMCPServer(filteredCommands)
 
 			// Step 2: List resources from the MCP server
 			return mcpServer.ListResources(), nil

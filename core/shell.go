@@ -28,7 +28,7 @@ type Completer struct {
 func NewShellCompleter(ctx context.Context) *Completer {
 	return &Completer{
 		commands: ExtractCommands(ctx),
-		meta:     extractMeta(ctx),
+		meta:     ExtractMeta(ctx),
 	}
 }
 

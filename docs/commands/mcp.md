@@ -28,8 +28,8 @@ scw mcp server list-resources [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace |  | Filter by namespace (e.g., instance, iam, object) |
-| resource |  | Filter by resource (e.g., server, volume, bucket) |
+| namespaces |  | Filter by namespaces (e.g., instance, iam, object) |
+| resources |  | Filter by resources (e.g., server, volume, bucket) |
 | read-only | Default: `false` | Only list read-only resources |
 
 
@@ -43,12 +43,12 @@ scw mcp server list-resources
 
 List resources for a specific namespace
 ```
-scw mcp server list-resources namespace=instance
+scw mcp server list-resources namespaces=instance
 ```
 
 List resources for a specific resource type
 ```
-scw mcp server list-resources resource=server
+scw mcp server list-resources resources=server
 ```
 
 List only read-only resources
@@ -61,7 +61,7 @@ scw mcp server list-resources read-only=true
 
 ### List available MCP tools
 
-Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespaces, resources, or verbs.
+Lists all CLI commands that would be exposed as MCP tools by the server. Use filters to see which commands are available for specific namespacess, resourcess, or verbss.
 
 **Usage:**
 
@@ -74,9 +74,9 @@ scw mcp server list-tools [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| namespace |  | Filter by namespace (e.g., instance, iam, object) |
-| resource |  | Filter by resource (e.g., server, volume, bucket) |
-| verb |  | Filter by verb (e.g., get, list, create) |
+| namespaces |  | Filter by namespaces (e.g., instance, iam, object) |
+| resources |  | Filter by resources (e.g., server, volume, bucket) |
+| verbs |  | Filter by verbs (e.g., get, list, create) |
 | read-only | Default: `false` | Only list read-only tools (get, list operations) |
 
 
@@ -88,14 +88,14 @@ List all available MCP tools
 scw mcp server list-tools
 ```
 
-List tools for a specific namespace
+List tools for a specific namespaces
 ```
-scw mcp server list-tools namespace=instance
+scw mcp server list-tools namespaces=instance
 ```
 
-List tools for a specific resource
+List tools for a specific resources
 ```
-scw mcp server list-tools resource=server
+scw mcp server list-tools resources=server
 ```
 
 List only read-only tools (get/list operations)
@@ -103,9 +103,9 @@ List only read-only tools (get/list operations)
 scw mcp server list-tools read-only=true
 ```
 
-List tools with a specific verb
+List tools with a specific verbs
 ```
-scw mcp server list-tools verb=get
+scw mcp server list-tools verbs=get
 ```
 
 
@@ -113,7 +113,7 @@ scw mcp server list-tools verb=get
 
 ### Start the MCP server
 
-Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default), SSE, and streamable HTTP transports.
+Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default) and streamable HTTP transports.
 
 **Usage:**
 
@@ -126,12 +126,12 @@ scw mcp server serve [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| transport | Default: `stdio` | Transport mode: stdio (default), sse, or streamable-http |
-| address | Default: `:8080` | Address to bind for SSE and streamable-http transports (e.g., :8080) |
+| transport | Default: `stdio` | Transport mode: stdio (default) or streamable-http |
+| address | Default: `:8080` | Address to bind for streamable-http transports (e.g., :8080) |
 | read-only | Default: `false` | Only register read-only commands (get, list operations) |
-| enable-namespaces |  | Only serve commands from specified namespaces (comma-separated) |
-| enable-resources |  | Only serve commands from specified resources (comma-separated) |
-| enable-verbs |  | Only serve commands with specified verbs (comma-separated) |
+| namespaces |  | Only serve commands from specified namespaces (comma-separated) |
+| resources |  | Only serve commands from specified resources (comma-separated) |
+| verbs |  | Only serve commands with specified verbs (comma-separated) |
 
 
 **Examples:**
@@ -149,27 +149,22 @@ scw mcp server serve --read-only
 
 Only serve commands from specific namespaces
 ```
-scw mcp server serve --enable-namespaces instance,iam,object
+scw mcp server serve namespaces=instance,iam,object
 ```
 
 Only serve commands from specific resources
 ```
-scw mcp server serve --enable-resources server,volume,bucket
+scw mcp server serve resources=server,volume,bucket
 ```
 
 Only serve commands with specific verbs
 ```
-scw mcp server serve --enable-verbs get,list,create
+scw mcp server serve verbs=get,list,create
 ```
 
 Combine filters to serve only instance server get/list commands
 ```
-scw mcp server serve --enable-namespaces instance --enable-resources server --enable-verbs get,list
-```
-
-Start the MCP server with SSE transport on port 8080
-```
-scw mcp server serve --transport sse --address :8080
+scw mcp server serve namespaces=instance resources=server verbs=get,list
 ```
 
 
