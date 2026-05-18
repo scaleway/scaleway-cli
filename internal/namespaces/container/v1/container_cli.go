@@ -167,9 +167,10 @@ func containerNamespaceGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
+				Short:      `UUID of the namespace to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -638,9 +639,10 @@ func containerContainerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
+				Short:      `UUID of the container to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -1085,9 +1087,10 @@ func containerDomainGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
+				Short:      `UUID of the domain to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -1465,9 +1468,10 @@ func containerTriggerGet() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
+				Short:      `ID of the trigger to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,

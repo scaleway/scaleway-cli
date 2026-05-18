@@ -9,22 +9,22 @@ EXAMPLES:
   List all available MCP tools
     scw mcp server list-tools
 
-  List tools for a specific namespace
-    scw mcp server list-tools namespace=instance
+  List tools for specific namespaces (comma-separated)
+    scw mcp server list-tools namespaces=instance
 
-  List tools for a specific resource
-    scw mcp server list-tools resource=server
+  List tools for specific resources (comma-separated)
+    scw mcp server list-tools resources=server
 
   List only read-only tools (get/list operations)
     scw mcp server list-tools read-only=true
 
-  List tools with a specific verb
-    scw mcp server list-tools verb=get
+  List tools with specific verbs (comma-separated)
+    scw mcp server list-tools verbs=get,list
 
 ARGS:
-  [namespace]         Filter by namespace (e.g., instance, iam, object)
-  [resource]          Filter by resource (e.g., server, volume, bucket)
-  [verb]              Filter by verb (e.g., get, list, create)
+  [namespaces]        Filter by namespaces (e.g., instance, iam, object)
+  [resources]         Filter by resources (e.g., server, volume, bucket)
+  [verbs]             Filter by verbs (e.g., get, list, create)
   [read-only=false]   Only list read-only tools (get, list operations)
 
 FLAGS:

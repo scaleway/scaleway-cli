@@ -4,11 +4,15 @@ import (
 	"context"
 	"encoding/json"
 	"reflect"
+	"strings"
 	"testing"
 
+	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/commands"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
+	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/stretchr/testify/require"
 )
 
 func TestCommandNameToToolName(t *testing.T) {
@@ -53,6 +57,27 @@ func TestCommandNameToToolName(t *testing.T) {
 	}
 }
 
+// createTestContextWithMeta creates a context with a properly initialized meta and client
+// This is needed to avoid config file loading errors in CI environments
+func createTestContextWithMeta(t *testing.T) context.Context {
+	t.Helper()
+	client, err := scw.NewClient(
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithAuth("SCWXXXXXXXXXXXXXXXXX", "11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
+		scw.WithUserAgent("cli-test"),
+	)
+	require.NoError(t, err)
+
+	return core.InjectMeta(context.Background(), &core.Meta{
+		Client:      client,
+		OverrideEnv: map[string]string{},
+		BinaryName:  "scw-test",
+	})
+}
+
 func TestCommandToolExecute(t *testing.T) {
 	type testArgs struct {
 		Name  string `json:"name"`
@@ -93,7 +118,8 @@ func TestCommandToolExecute(t *testing.T) {
 		"value": float64(42),
 	}
 
-	result, err := tool.Execute(context.Background(), inputArgs)
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, inputArgs)
 	if err != nil {
 		t.Fatalf("Execute returned error: %v", err)
 	}
@@ -151,7 +177,8 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 		"zone":       "fr-par-1",
 	}
 
-	result, err := tool.Execute(context.Background(), inputArgs)
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, inputArgs)
 	if err != nil {
 		t.Fatalf("Execute returned error: %v", err)
 	}
@@ -171,7 +198,8 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 func TestToolMetaSerialization(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
-	mcpServer := server.NewMCPServer("test-version", allCommands, server.CommandFilterConfig{})
+	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
+	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	if len(registeredCommands) == 0 {
@@ -219,4 +247,52 @@ func TestToolMetaSerialization(t *testing.T) {
 			}
 		}
 	}
+}
+
+// TestCommandToolExecutePanicRecovery verifies that panics during command
+// execution are recovered and returned as proper error responses.
+func TestCommandToolExecutePanicRecovery(t *testing.T) {
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "panic",
+		Verb:      "trigger",
+		ArgsType:  nil,
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			// Simulate a panic like the one in instanceServerList
+			panic("nil pointer dereference")
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+
+	inputArgs := map[string]any{}
+
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, inputArgs)
+	// Should not return an error (panic is recovered)
+	if err != nil {
+		t.Fatalf("Execute should not return error, got: %v", err)
+	}
+
+	// Should have content
+	if len(result.Content) == 0 {
+		t.Fatal("Expected content in result")
+	}
+
+	// Should be marked as error
+	if !result.IsError {
+		t.Error("Expected IsError to be true")
+	}
+
+	// Content should mention panic recovery
+	tc, ok := result.Content[0].(*mcp.TextContent)
+	if !ok {
+		t.Fatalf("Expected TextContent, got %T", result.Content[0])
+	}
+
+	if !strings.Contains(tc.Text, "panic recovered") {
+		t.Errorf("Expected panic recovery message, got: %s", tc.Text)
+	}
+
+	t.Logf("Recovered panic message: %s", tc.Text)
 }

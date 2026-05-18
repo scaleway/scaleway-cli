@@ -10,10 +10,6 @@ AVAILABLE COMMANDS:
   domain      Domain management commands
   namespace   Namespace management commands
   token       Token management commands
-  trigger     Trigger management commands
-
-WORKFLOW COMMANDS:
-  deploy      Deploy a container
 
 FLAGS:
   -h, --help                help for container

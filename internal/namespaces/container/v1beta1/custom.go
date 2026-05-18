@@ -7,5 +7,7 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 
+	cmds.MustFind("container").Groups = []string{"serverless"}
+
 	return cmds
 }

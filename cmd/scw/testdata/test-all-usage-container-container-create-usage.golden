@@ -43,7 +43,6 @@ ARGS:
 FLAGS:
   -h, --help                help for create
       --list-sub-commands   List all subcommands
-  -w, --wait                wait until the container is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
