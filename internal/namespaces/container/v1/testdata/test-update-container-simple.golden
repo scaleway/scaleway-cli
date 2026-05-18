@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         8de1d6d9-10cf-46f1-b909-750b13d967af
-Name                                       cli-test-gracious-austin
-NamespaceID                                1a3c297d-79a0-4d12-a5a2-c26d3512e550
+ID                                         9cf4f426-b37d-45c4-9d6d-0238f2b9f307
+Name                                       cli-test-sad-matsumoto
+NamespaceID                                b0ea510a-60d3-44e1-a9ac-15fb94dac5e9
 Description                                -
 Status                                     updating
 CreatedAt                                  few seconds ago
@@ -24,13 +24,13 @@ LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
 Tags.0                                     new_tag
-PublicEndpoint                             https://clinsquirkypoincare1a3c297d-cli-test-gracious-austin.functions.fnc.fr-par.scw.cloud
+PublicEndpoint                             https://clinsvigorousmccarthb0ea510a-cli-test-sad-matsumoto.functions.fnc.fr-par.scw.cloud
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "8de1d6d9-10cf-46f1-b909-750b13d967af",
-  "name": "cli-test-gracious-austin",
-  "namespace_id": "1a3c297d-79a0-4d12-a5a2-c26d3512e550",
+  "id": "9cf4f426-b37d-45c4-9d6d-0238f2b9f307",
+  "name": "cli-test-sad-matsumoto",
+  "namespace_id": "b0ea510a-60d3-44e1-a9ac-15fb94dac5e9",
   "description": "",
   "status": "updating",
   "error_message": null,
@@ -66,6 +66,6 @@ Region                                     fr-par
   "private_network_id": null,
   "command": [],
   "args": [],
-  "public_endpoint": "https://clinsquirkypoincare1a3c297d-cli-test-gracious-austin.functions.fnc.fr-par.scw.cloud",
+  "public_endpoint": "https://clinsvigorousmccarthb0ea510a-cli-test-sad-matsumoto.functions.fnc.fr-par.scw.cloud",
   "region": "fr-par"
 }

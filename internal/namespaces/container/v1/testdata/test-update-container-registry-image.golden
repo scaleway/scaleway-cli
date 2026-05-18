@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         ead05389-38a1-4ad1-9a47-14ee4f3f49b7
-Name                                       cli-test-funny-archimedes
-NamespaceID                                7dd16df2-de1d-406f-8484-4e55553863a0
+ID                                         6150688c-7791-41c3-8bf4-ff66206e984a
+Name                                       cli-test-nifty-wescoff
+NamespaceID                                87985e88-42cb-4b38-848e-a44a9e11c3d3
 Description                                -
 Status                                     ready
 ErrorMessage                               -
@@ -15,7 +15,7 @@ MvcpuLimit                                 1000
 LocalStorageLimitBytes                     1.0 GB
 Timeout                                    5 minutes
 Privacy                                    public
-Image                                      rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-jovial-raman/nginx:1.29.2-alpine
+Image                                      rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine
 Protocol                                   http1
 Port                                       80
 HTTPSConnectionsOnly                       false
@@ -24,18 +24,18 @@ ScalingOption.ConcurrentRequestsThreshold  50
 LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
-PublicEndpoint                             https://clinsintelligentmors7dd16df2-cli-test-funny-archimedes.functions.fnc.fr-par.scw.cloud
+PublicEndpoint                             https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "ead05389-38a1-4ad1-9a47-14ee4f3f49b7",
-  "name": "cli-test-funny-archimedes",
-  "namespace_id": "7dd16df2-de1d-406f-8484-4e55553863a0",
+  "id": "6150688c-7791-41c3-8bf4-ff66206e984a",
+  "name": "cli-test-nifty-wescoff",
+  "namespace_id": "87985e88-42cb-4b38-848e-a44a9e11c3d3",
   "description": "",
   "status": "ready",
   "error_message": "",
   "created_at": "1970-01-01T00:00:00.0Z",
-  "updated_at": "2026-04-20T11:02:40Z",
+  "updated_at": "2026-05-18T18:14:03Z",
   "environment_variables": {},
   "secret_environment_variables": {},
   "min_scale": 0,
@@ -45,7 +45,7 @@ Region                                     fr-par
   "local_storage_limit_bytes": 1000000000,
   "timeout": "300.000000000s",
   "privacy": "public",
-  "image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-jovial-raman/nginx:1.29.2-alpine",
+  "image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine",
   "protocol": "http1",
   "port": 80,
   "https_connections_only": false,
@@ -64,6 +64,6 @@ Region                                     fr-par
   "private_network_id": null,
   "command": [],
   "args": [],
-  "public_endpoint": "https://clinsintelligentmors7dd16df2-cli-test-funny-archimedes.functions.fnc.fr-par.scw.cloud",
+  "public_endpoint": "https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud",
   "region": "fr-par"
 }
