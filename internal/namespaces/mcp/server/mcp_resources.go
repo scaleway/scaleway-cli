@@ -71,6 +71,13 @@ func (cr *CommandResource) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.ReadResourceResult, error) {
+	// Ensure meta is available in context
+	// If meta is already in context (from wrapper), this is a no-op
+	// If not, this creates meta from environment/config (useful for tests)
+	ctx, err := ensureMetaInContext(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
 	// Verify client was successfully injected
 	if core.ExtractClient(ctx) == nil {
 		return &mcp.ReadResourceResult{
