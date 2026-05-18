@@ -2,6 +2,7 @@ package server
 
 import (
 	"context"
+	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -14,23 +15,27 @@ import (
 
 // MCPServer wraps the MCP server with CLI command integration
 type MCPServer struct {
-	server       *mcp.Server
-	commands     []*CommandTool
-	resources    []*CommandResource
-	filterConfig CommandFilterConfig
+	server    *mcp.Server
+	commands  []*CommandTool
+	resources []*CommandResource
 }
 
 // NewMCPServer creates a new MCP server that exposes CLI commands as tools and resources
+// Meta should be injected into the context by callers before tool/resource execution.
 func NewMCPServer(
-	version string,
-	cliCommands []*core.Command,
-	filterConfig CommandFilterConfig,
+	commands []*CommandTool,
+	buildInfo core.BuildInfo,
 ) *MCPServer {
+	versionStr := ""
+	if buildInfo.Version != nil {
+		versionStr = buildInfo.Version.String()
+	}
+
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
-		Version:    version,
+		Version:    versionStr,
 		Icons: []mcp.Icon{
 			{
 				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",
@@ -47,21 +52,59 @@ func NewMCPServer(
 	})
 
 	s := &MCPServer{
-		server:       mcpServer,
-		commands:     make([]*CommandTool, 0, len(cliCommands)),
-		resources:    make([]*CommandResource, 0),
-		filterConfig: filterConfig,
+		server:    mcpServer,
+		commands:  commands,
+		resources: make([]*CommandResource, 0),
 	}
 
 	// Register all commands during initialization
-	for _, cmd := range cliCommands {
-		if err := s.LoadCommand(cmd); err != nil {
-			// Log but don't fail - some commands might not be compatible
-			log.Printf(
-				"Warning: failed to register command %s: %v\n",
-				cmd.GetCommandLine("scw"),
-				err,
-			)
+	for _, cmd := range commands {
+		// Register as a tool
+		mcpTool := cmd.ToMCPTool()
+
+		// Create a wrapper function for the tool using the correct MCP SDK signature
+		wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
+			result, err := cmd.Execute(ctx, input)
+			// Initialize output map to avoid nil serialization issues
+			output := map[string]any{}
+			if err != nil {
+				// Return error - MCP SDK will wrap it
+				output["error"] = err.Error()
+
+				return result, output, err
+			}
+			// Extract text content for structured output
+			if len(result.Content) > 0 {
+				if tc, ok := result.Content[0].(*mcp.TextContent); ok {
+					output["result"] = tc.Text
+				} else {
+					// Handle non-TextContent types by marshaling to JSON
+					if data, marshalErr := json.Marshal(result.Content[0]); marshalErr == nil {
+						output["result"] = string(data)
+					} else {
+						output["result"] = fmt.Sprintf("%T", result.Content[0])
+					}
+				}
+			} else {
+				output["result"] = "Command executed successfully (no output)"
+			}
+
+			return result, output, nil
+		}
+
+		// Register with MCP SDK
+		mcp.AddTool(mcpServer, mcpTool, wrapper)
+
+		// Register as a resource if it's a list command
+		if cmd.Command.IsList() {
+			if err := s.LoadResource(cmd.Command); err != nil {
+				// Log but don't fail - some commands might not be compatible
+				log.Printf(
+					"Warning: failed to load resource %s: %v\n",
+					cmd.Command.GetCommandLine("scw"),
+					err,
+				)
+			}
 		}
 	}
 
@@ -95,6 +138,8 @@ func (s *MCPServer) Serve(
 	transportMode string,
 	address string,
 ) (any, error) {
+	fmt.Fprintf(os.Stderr, "%d registered commands\n", len(s.RegisteredCommands()))
+	fmt.Fprintf(os.Stderr, "%d registered resources\n", len(s.RegisteredResources()))
 	// Log transport information
 	fmt.Fprintf(os.Stderr, "Running MCP server with %s transport", transportMode)
 	if transportMode != "stdio" {
@@ -121,15 +166,12 @@ func (s *MCPServer) Serve(
 			return nil, fmt.Errorf("MCP server error: %w", err)
 		}
 
-	case "sse":
-		return nil, RunSSEServer(ctx, s, address)
-
 	case "streamable-http":
 		return nil, RunStreamableHTTPServer(ctx, s, address)
 
 	default:
 		return nil, fmt.Errorf(
-			"unknown transport mode: %s (valid modes: stdio, sse, streamable-http)",
+			"unknown transport mode: %s (valid modes: stdio, streamable-http)",
 			transportMode,
 		)
 	}

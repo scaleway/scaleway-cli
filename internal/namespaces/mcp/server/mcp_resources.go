@@ -71,6 +71,25 @@ func (cr *CommandResource) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.ReadResourceResult, error) {
+	// Ensure meta is available in context
+	// If meta is already in context (from wrapper), this is a no-op
+	// If not, this creates meta from environment/config (useful for tests)
+	ctx, err := ensureMetaInContext(ctx, nil)
+	if err != nil {
+		return nil, err
+	}
+	// Verify client was successfully injected
+	if core.ExtractClient(ctx) == nil {
+		return &mcp.ReadResourceResult{
+			Contents: []*mcp.ResourceContents{
+				{
+					URI:  BuildResourceURI(cr.Command.Namespace, cr.Command.Resource),
+					Text: "Error: client not initialized - check SCW credentials (access key, secret key, or profile)",
+				},
+			},
+		}, nil
+	}
+
 	// Skip commands without a Run function
 	if cr.Command.Run == nil {
 		return &mcp.ReadResourceResult{
@@ -115,7 +134,7 @@ func (cr *CommandResource) Execute(
 				valueStr = strconv.Itoa(v)
 			default:
 				// For complex types, marshal to JSON
-				if b, err := json.Marshal(v); err == nil {
+				if b, marshalErr := json.Marshal(v); marshalErr == nil {
 					valueStr = string(b)
 				} else {
 					valueStr = fmt.Sprintf("%v", v)
@@ -126,12 +145,12 @@ func (cr *CommandResource) Execute(
 		}
 
 		// Unmarshal the args into the struct
-		if err := args.UnmarshalStruct(rawArgs, cmdArgs); err != nil {
+		if unmarshalErr := args.UnmarshalStruct(rawArgs, cmdArgs); unmarshalErr != nil {
 			return &mcp.ReadResourceResult{
 				Contents: []*mcp.ResourceContents{
 					{
 						URI:  BuildResourceURI(cr.Command.Namespace, cr.Command.Resource),
-						Text: fmt.Sprintf("Error parsing arguments: %v", err),
+						Text: fmt.Sprintf("Error parsing arguments: %v", unmarshalErr),
 					},
 				},
 			}, nil
@@ -149,19 +168,19 @@ func (cr *CommandResource) Execute(
 
 	// Apply command interceptor if present
 	var result any
-	var err error
+	var execErr error
 	if cr.Command.Interceptor != nil {
-		result, err = cr.Command.Interceptor(ctx, cmdArgs, runner)
+		result, execErr = cr.Command.Interceptor(ctx, cmdArgs, runner)
 	} else {
-		result, err = runner(ctx, cmdArgs)
+		result, execErr = runner(ctx, cmdArgs)
 	}
 
-	if err != nil {
+	if execErr != nil {
 		return &mcp.ReadResourceResult{
 			Contents: []*mcp.ResourceContents{
 				{
 					URI:  BuildResourceURI(cr.Command.Namespace, cr.Command.Resource),
-					Text: fmt.Sprintf("Error: %v", err),
+					Text: fmt.Sprintf("Error: %v", execErr),
 				},
 			},
 		}, nil
@@ -191,12 +210,10 @@ func (cr *CommandResource) Execute(
 }
 
 // LoadResource registers a CLI command as an MCP resource
+// Meta is expected to be already present in the context.
 func (s *MCPServer) LoadResource(cmd *core.Command) error {
-	if !ShouldLoadCommand(cmd, s.filterConfig) {
-		return nil
-	}
-
 	resource := NewCommandResource(cmd)
+
 	mcpResource := resource.ToMCPResource()
 
 	// Create a handler function for the resource
