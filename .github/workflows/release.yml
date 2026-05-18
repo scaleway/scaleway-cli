@@ -18,7 +18,6 @@ jobs:
           fetch-depth: 0
 
       - name: Login to DockerHub Registry
-        if: ${{ ! env.ACT }}
         run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
 
       - name: Set up Docker Buildx
@@ -33,29 +32,6 @@ jobs:
         run: |
           go mod tidy
           git diff --exit-code
-
-      - name: Install mono (chocolatey requirement)
-        run: |
-          sudo apt-get update
-          sudo apt-get install -y mono-complete
-
-      - name: Install chocolatey
-        run: |
-          # Create directories owned by your user
-          sudo mkdir -p /opt/chocolatey/config
-          sudo mkdir -p /opt/chocolatey/logs
-          sudo mkdir -p /opt/chocolatey/lib
-  
-          # Give ownership to your user (more secure than 777)
-          sudo chown -R $USER:$USER /opt/chocolatey/config
-          sudo chown -R $USER:$USER /opt/chocolatey/logs
-  
-          wget -q -O - "https://github.com/chocolatey/choco/releases/download/${CHOCOLATEY_VERSION}/chocolatey.v${CHOCOLATEY_VERSION}.tar.gz" | tar -xz -C "/opt/chocolatey"
-          echo '#!/bin/bash' >> /usr/local/bin/choco
-          echo 'mono /opt/chocolatey/choco.exe $@' >> /usr/local/bin/choco
-          chmod +x /usr/local/bin/choco
-        env:
-          CHOCOLATEY_VERSION: 2.7.1
 
       - name: Run GoReleaser
         uses: goreleaser/goreleaser-action@1a80836c5c9d9e5755a25cb59ec6f45a3b5f41a8 # v7.2.1

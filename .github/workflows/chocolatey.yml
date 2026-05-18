@@ -1,0 +1,65 @@
+name: chocolatey
+permissions:
+  contents: write
+
+on:
+  push:
+    tags:
+      - 'v*'
+
+jobs:
+  goreleaser:
+    runs-on: "${{ vars.RUNS_ON || 'windows-latest' }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        with:
+          fetch-depth: 0
+
+      - name: Login to DockerHub Registry
+        if: ${{ ! env.ACT }}
+        run: echo ${{ secrets.DOCKERHUB_PASSWORD }} | docker login -u ${{ secrets.DOCKERHUB_USERNAME }} --password-stdin
+
+      - name: Set up Docker Buildx
+        uses: docker/setup-buildx-action@4d04d5d9486b7bd6fa91e7baf45bbb4f8b9deedd # v4.0.0
+
+      - name: Set up Go
+        uses: actions/setup-go@4a3601121dd01d1626a1e23e37211e3254c1c06c # v6.4.0
+        with:
+          go-version: stable
+
+      - name: Verify go.mod is tidy
+        run: |
+          go mod tidy
+          git diff --exit-code
+
+#      - name: Install mono (chocolatey requirement)
+#        run: |
+#          sudo apt-get update
+#          sudo apt-get install -y mono-complete
+#
+#      - name: Install chocolatey
+#        run: |
+#          # Create directories owned by your user
+#          sudo mkdir -p /opt/chocolatey/config
+#          sudo mkdir -p /opt/chocolatey/logs
+#          sudo mkdir -p /opt/chocolatey/lib
+#
+#          # Give ownership to your user (more secure than 777)
+#          sudo chown -R $USER:$USER /opt/chocolatey/config
+#          sudo chown -R $USER:$USER /opt/chocolatey/logs
+#
+#          wget -q -O - "https://github.com/chocolatey/choco/releases/download/${CHOCOLATEY_VERSION}/chocolatey.v${CHOCOLATEY_VERSION}.tar.gz" | tar -xz -C "/opt/chocolatey"
+#          echo '#!/bin/bash' >> /usr/local/bin/choco
+#          echo 'mono /opt/chocolatey/choco.exe $@' >> /usr/local/bin/choco
+#          chmod +x /usr/local/bin/choco
+#        env:
+#          CHOCOLATEY_VERSION: 2.7.1
+
+      - name: Run GoReleaser
+        uses: goreleaser/goreleaser-action@ec59f474b9834571250b370d4735c50f8e2d1e29 # v7.0.0
+        with:
+          version: "~> v2"
+          args: release
+        env:
+          GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
