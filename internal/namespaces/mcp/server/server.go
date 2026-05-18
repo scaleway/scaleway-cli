@@ -26,11 +26,16 @@ func NewMCPServer(
 	commands []*CommandTool,
 	buildInfo core.BuildInfo,
 ) *MCPServer {
+	versionStr := ""
+	if buildInfo.Version != nil {
+		versionStr = buildInfo.Version.String()
+	}
+
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
-		Version:    buildInfo.Version.String(),
+		Version:    versionStr,
 		Icons: []mcp.Icon{
 			{
 				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",
