@@ -24,7 +24,7 @@ describe('With wasm CLI', async () => {
   let cli: CLI
 
   beforeAll(async () => {
-    cli = await loadWasmBinary(wasmURL) as CLI
+    cli = (await loadWasmBinary(wasmURL)) as CLI
   })
 
   const run = async (

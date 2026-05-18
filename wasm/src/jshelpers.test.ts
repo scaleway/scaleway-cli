@@ -12,7 +12,7 @@ describe('With test environment', async () => {
   let cli: CLITester
 
   beforeAll(async () => {
-    cli = await loadWasmBinary('./cliTester.wasm') as CLITester
+    cli = (await loadWasmBinary('./cliTester.wasm')) as CLITester
   })
 
   it('can return array', async () => {
