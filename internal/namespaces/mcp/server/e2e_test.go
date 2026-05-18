@@ -8,6 +8,7 @@ import (
 	"time"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
 )
@@ -25,7 +26,7 @@ func runServer(t *testing.T) int {
 		instance.GetCommands().GetSortedCommand(),
 		server.CommandFilterConfig{},
 	)
-	s := server.NewMCPServer(filteredCommands)
+	s := server.NewMCPServer(filteredCommands, core.BuildInfo{})
 
 	// Create the streamable HTTP handler.
 	handler := mcp.NewStreamableHTTPHandler(func(req *http.Request) *mcp.Server {
