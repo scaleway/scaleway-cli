@@ -117,6 +117,7 @@ scw searchdb deployment list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `updated_at_asc`, `updated_at_desc` | Define the order of the returned deployments |
 | tags.{index} |  | Filter by tag, only deployments with one or more matching tags will be returned |
 | name |  | Deployment name to filter for |
+| version |  | Engine version to filter for |
 | organization-id |  | ID of the Organization containing the deployments |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
