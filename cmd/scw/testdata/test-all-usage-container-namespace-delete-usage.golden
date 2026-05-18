@@ -12,7 +12,6 @@ ARGS:
 FLAGS:
   -h, --help                help for delete
       --list-sub-commands   List all subcommands
-  -w, --wait                wait until the namespace is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
