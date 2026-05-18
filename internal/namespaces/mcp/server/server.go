@@ -10,6 +10,7 @@ import (
 	"syscall"
 
 	"github.com/modelcontextprotocol/go-sdk/mcp"
+	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
 // MCPServer wraps the MCP server with CLI command integration
@@ -23,12 +24,13 @@ type MCPServer struct {
 // Meta should be injected into the context by callers before tool/resource execution.
 func NewMCPServer(
 	commands []*CommandTool,
+	buildInfo core.BuildInfo,
 ) *MCPServer {
 	mcpServer := mcp.NewServer(&mcp.Implementation{
 		Name:       "scaleway-mcp",
 		Title:      "Scaleway MCP Server",
 		WebsiteURL: "https://cli.scaleway.com",
-		Version:    "dev",
+		Version:    buildInfo.Version.String(),
 		Icons: []mcp.Icon{
 			{
 				Source:   "https://raw.githubusercontent.com/scaleway/scaleway-cli/main/docs/static_files/cli-artwork.png",

@@ -22,7 +22,7 @@ func TestInventoryNilAnnotations(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
-	mcpServer := server.NewMCPServer(filteredCommands)
+	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	type nilAnnotation struct {
@@ -123,7 +123,7 @@ func TestAllRegisteredCommandsHaveAnnotations(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
-	mcpServer := server.NewMCPServer(filteredCommands)
+	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	var failedCommands []string
@@ -178,7 +178,7 @@ func TestAllToolsHaveCommandMetadata(t *testing.T) {
 	allCommands := commands.GetCommands().GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
-	mcpServer := server.NewMCPServer(filteredCommands)
+	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
 	registeredCommands := mcpServer.RegisteredCommands()
 
 	var failedCommands []string

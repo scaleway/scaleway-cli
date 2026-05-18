@@ -130,7 +130,8 @@ func McpServerListTools() *core.Command {
 			})
 
 			// Step 2: Create the MCP server with pre-filtered commands
-			mcpServer := NewMCPServer(filteredCommands)
+			buildInfo := core.ExtractBuildInfo(ctx)
+			mcpServer := NewMCPServer(filteredCommands, *buildInfo)
 
 			// Step 2: List tools from the MCP server
 			return mcpServer.ListTools(), nil
