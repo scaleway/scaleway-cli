@@ -308,6 +308,7 @@ func createTestClient(
 var DefaultRetryInterval *time.Duration
 
 var foldersUsingVCRv4 = []string{
+	"container",
 	"instance",
 	"k8s",
 	"marketplace",
