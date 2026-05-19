@@ -1,0 +1,27 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAMESPACE  RESOURCE  URI                SHORT
+k8s        cluster   scw://k8s/cluster  List Clusters
+k8s        cluster   scw://k8s/cluster  List available versions for a Cluster
+k8s        cluster   scw://k8s/cluster  List available cluster types for a cluster
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "uri": "scw://k8s/cluster",
+    "short": "List Clusters"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "uri": "scw://k8s/cluster",
+    "short": "List available versions for a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "uri": "scw://k8s/cluster",
+    "short": "List available cluster types for a cluster"
+  }
+]

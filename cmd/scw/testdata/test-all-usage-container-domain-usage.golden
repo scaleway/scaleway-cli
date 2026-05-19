@@ -6,10 +6,11 @@ USAGE:
   scw container domain <command>
 
 AVAILABLE COMMANDS:
-  create      Create a custom domain
-  delete      Delete a custom domain
-  get         Get a custom domain
-  list        List all custom domains
+  create      Create a new custom domain for the container with the specified ID.
+  delete      Delete the custom domain associated with the specified ID.
+  get         Get the custom domain associated with the specified ID.
+  list        List all custom domains the caller can access (read permission).
+  update      Update the domain associated with the specified ID.
 
 FLAGS:
   -h, --help                help for domain
