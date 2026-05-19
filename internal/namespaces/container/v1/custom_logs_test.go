@@ -5,7 +5,7 @@ import (
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
 )
 
 func Test_ContainerLogs(t *testing.T) {
@@ -16,7 +16,7 @@ func Test_ContainerLogs(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createNamespace("Namespace"),
 			core.ExecStoreBeforeCmd("Container", fmt.Sprintf(
-				"scw container container create namespace-id={{ .Namespace.ID }} name=%s registry-image=%s -w",
+				"scw container container create namespace-id={{ .Namespace.ID }} name=%s image=%s -w",
 				core.GetRandomName("test-logs"),
 				image,
 			)),

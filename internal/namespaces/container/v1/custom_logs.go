@@ -25,12 +25,12 @@ type containerLogsRequest struct {
 func containerLogs() *core.Command {
 	return &core.Command{
 		Short:     `Show container logs`,
-		Long:      ``, // TODO
+		Long:      `Display the logs of a container from the last 2 hours`,
 		Namespace: "container",
 		Resource:  "container",
 		Verb:      "logs",
-		// Groups:    []string{"workflow"}, // TODO
-		ArgsType: reflect.TypeOf(containerLogsRequest{}),
+		Groups:    []string{"utility"},
+		ArgsType:  reflect.TypeOf(containerLogsRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -41,7 +41,6 @@ func containerLogs() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
-				scw.Region(core.AllLocalities), // TODO: test region=all
 			),
 		},
 		Run: containerLogsRun,
@@ -118,10 +117,10 @@ func buildLokiQuery(datasourceURL, containerID string) (*http.Request, error) {
 		`{resource_type="serverless_container", resource_id="%s"}`,
 		containerID,
 	)
-	start := time.Now().Add(-2 * time.Hour).Format(time.RFC3339) //"2026-01-26T16:00:00Z"
-	end := time.Now().Format(time.RFC3339)                       //"2026-01-26T16:30:00Z"
+	start := time.Now().Add(-2 * time.Hour).Format(time.RFC3339) // TODO: customize timespan ?
+	end := time.Now().Format(time.RFC3339)
 
-	reqURL := fmt.Sprintf("%s/loki/api/v1/query_range", datasourceURL)
+	reqURL := datasourceURL + "/loki/api/v1/query_range"
 
 	formData := url.Values{}
 	formData.Set("query", query)
@@ -165,8 +164,9 @@ func readLokiResponseBody(requestBody io.ReadCloser) ([]LogEntry, error) {
 		return nil, fmt.Errorf("Error parsing JSON: %v\n", err)
 	}
 
-	if len(lokiResp.Data.Result) == 0 { //|| len(lokiResp.Data.Result[0].Values) == 0 {
-		return nil, fmt.Errorf("No results found\n")
+	if len(lokiResp.Data.Result) == 0 {
+		// || len(lokiResp.Data.Result[0].Values) == 0 {    TODO: rework no-data case
+		return nil, errors.New("No results found\n")
 	}
 
 	var response []LogEntry
@@ -209,45 +209,9 @@ func deleteToken(
 func getOrCreateToken(
 	ctx context.Context,
 	cockpitAPI *cockpit.RegionalAPI,
-	region scw.Region, scope cockpit.TokenScope,
+	region scw.Region,
+	scope cockpit.TokenScope,
 ) (*cockpit.Token, bool, error) {
-	// var tokenToUse *cockpit.Token
-
-	readOnlyTokens, err := cockpitAPI.ListTokens(&cockpit.RegionalAPIListTokensRequest{
-		Region: region,
-		// ProjectID:   "",
-		TokenScopes: []cockpit.TokenScope{scope},
-	}, scw.WithAllPages(), scw.WithContext(ctx))
-	if err != nil {
-		return nil, false, err
-	}
-
-	for _, roToken := range readOnlyTokens.Tokens {
-		token, err := cockpitAPI.GetToken(&cockpit.RegionalAPIGetTokenRequest{
-			Region:  region,
-			TokenID: roToken.ID,
-		}, scw.WithContext(ctx))
-		if err != nil {
-			return nil, false, err
-		}
-
-		if token.SecretKey != nil {
-			return token, false, nil
-		}
-	}
-
-	//	fullAccessTokens, err := cockpitAPI.ListTokens(&cockpit.RegionalAPIListTokensRequest{
-	//		Region: region,
-	//		// ProjectID:   "",
-	//		TokenScopes: []cockpit.TokenScope{cockpit.TokenScopeFullAccessLogsRules},
-	//	}, scw.WithAllPages(), scw.WithContext(ctx))
-	//	if err != nil {
-	//		return nil, err
-	//	}
-	//
-	//	if len(fullAccessTokens.Tokens) > 0 {
-	//		tokenToUse = fullAccessTokens.Tokens[0]
-	//	} else {
 	token, err := cockpitAPI.CreateToken(&cockpit.RegionalAPICreateTokenRequest{
 		Region: region,
 		// ProjectID:   "",

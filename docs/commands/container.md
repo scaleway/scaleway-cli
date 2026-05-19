@@ -7,6 +7,7 @@ This API allows you to manage your Serverless Containers.
   - [Delete the container associated with the specified ID.](#delete-the-container-associated-with-the-specified-id.)
   - [Get the container associated with the specified ID.](#get-the-container-associated-with-the-specified-id.)
   - [List all containers the caller can access (read permission).](#list-all-containers-the-caller-can-access-(read-permission).)
+  - [Show container logs](#show-container-logs)
   - [Redeploy a container](#redeploy-a-container)
   - [Update the container associated with the specified ID.](#update-the-container-associated-with-the-specified-id.)
 - [Deploy a container](#deploy-a-container)
@@ -156,6 +157,26 @@ scw container container list [arg=value ...]
 | name |  |  |
 | organization-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Show container logs
+
+Display the logs of a container from the last 2 hours
+
+**Usage:**
+
+```
+scw container container logs <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id |  | ID of the container which logs are to be displayed |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
