@@ -1,6 +1,7 @@
 name: release
 permissions:
   contents: write
+  id-token: write # Required for OIDC (MCP and scaleway-cli-wasm)
 
 on:
   push:
@@ -41,9 +42,6 @@ jobs:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
 
   wasm:
-    permissions:
-      contents: read
-      id-token: write # Required for OIDC
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     needs:
       - goreleaser
