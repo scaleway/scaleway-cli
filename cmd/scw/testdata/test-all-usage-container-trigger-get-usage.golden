@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Get a trigger with a specified ID.
+Get the trigger associated with the specified ID.
 
 USAGE:
   scw container trigger get <trigger-id ...> [arg=value ...]

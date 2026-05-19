@@ -2,13 +2,501 @@
 # Documentation for `scw container`
 This API allows you to manage your Serverless Containers.
   
+- [Container management commands](#container-management-commands)
+  - [Create a new container in a namespace.](#create-a-new-container-in-a-namespace.)
+  - [Delete the container associated with the specified ID.](#delete-the-container-associated-with-the-specified-id.)
+  - [Get the container associated with the specified ID.](#get-the-container-associated-with-the-specified-id.)
+  - [List all containers the caller can access (read permission).](#list-all-containers-the-caller-can-access-(read-permission).)
+  - [Redeploy a container](#redeploy-a-container)
+  - [Update the container associated with the specified ID.](#update-the-container-associated-with-the-specified-id.)
+- [Deploy a container](#deploy-a-container)
+- [Domain management commands](#domain-management-commands)
+  - [Create a new custom domain for the container with the specified ID.](#create-a-new-custom-domain-for-the-container-with-the-specified-id.)
+  - [Delete the custom domain associated with the specified ID.](#delete-the-custom-domain-associated-with-the-specified-id.)
+  - [Get the custom domain associated with the specified ID.](#get-the-custom-domain-associated-with-the-specified-id.)
+  - [List all custom domains the caller can access (read permission).](#list-all-custom-domains-the-caller-can-access-(read-permission).)
+  - [Update the domain associated with the specified ID.](#update-the-domain-associated-with-the-specified-id.)
+- [Namespace management commands](#namespace-management-commands)
+  - [Create a new namespace.](#create-a-new-namespace.)
+  - [Delete the namespace associated with the specified ID.](#delete-the-namespace-associated-with-the-specified-id.)
+  - [Get the namespace associated with the specified ID.](#get-the-namespace-associated-with-the-specified-id.)
+  - [List all namespaces the caller can access (read permission).](#list-all-namespaces-the-caller-can-access-(read-permission).)
+  - [Update the namespace associated with the specified ID.](#update-the-namespace-associated-with-the-specified-id.)
 - [Token management commands](#token-management-commands)
   - [Create a new revocable token](#create-a-new-revocable-token)
   - [Delete a token](#delete-a-token)
   - [Get a token](#get-a-token)
   - [List all tokens](#list-all-tokens)
+- [Trigger management commands](#trigger-management-commands)
+  - [Create a new trigger for the container with the specified ID.](#create-a-new-trigger-for-the-container-with-the-specified-id.)
+  - [Delete the trigger associated with the specified ID.](#delete-the-trigger-associated-with-the-specified-id.)
+  - [Get the trigger associated with the specified ID.](#get-the-trigger-associated-with-the-specified-id.)
+  - [List all triggers the caller can access (read permission).](#list-all-triggers-the-caller-can-access-(read-permission).)
+  - [Update the trigger associated with the specified ID.](#update-the-trigger-associated-with-the-specified-id.)
 
   
+## Container management commands
+
+Container management commands.
+
+
+### Create a new container in a namespace.
+
+Name must be unique inside the given namespace.
+
+**Usage:**
+
+```
+scw container container create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| namespace-id | Required | Unique ID of the namespace the container belongs to. |
+| name | Required | Container name. |
+| environment-variables.{key} |  | Environment variables of the container. |
+| secret-environment-variables.{key} |  | Secret environment variables of the container. |
+| min-scale |  | Minimum number of instances to scale the container to. |
+| max-scale |  | Maximum number of instances to scale the container to. |
+| memory-limit-bytes |  | Memory limit of the container in bytes. |
+| mvcpu-limit |  | CPU limit of the container in mvCPU. |
+| timeout |  | Processing time limit for the container. |
+| privacy | Default: `public`<br />One of: `unknown_privacy`, `public`, `private` | Privacy policy of the container. |
+| description |  | Container description. |
+| image | Required | Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag"). |
+| protocol | Default: `http1`<br />One of: `unknown_protocol`, `http1`, `h2c` | Protocol the container uses. |
+| port | Default: `8080` | Port the container listens on. |
+| https-connections-only | Default: `false` | If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP). |
+| sandbox | Default: `v2`<br />One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container. |
+| local-storage-limit-bytes |  | Local storage limit of the container (in bytes). |
+| scaling-option.concurrent-requests-threshold |  | Scale depending on the number of concurrent requests being processed per container instance. The threshold value is the number of concurrent requests above which the container will be scaled up. |
+| scaling-option.cpu-usage-threshold |  | Scale depending on the CPU usage of a container instance. The threshold value is the percentage of CPU usage above which the container will be scaled up. |
+| scaling-option.memory-usage-threshold |  | Scale depending on the memory usage of a container instance. The threshold value is the percentage of memory usage above which the container will be scaled up. |
+| liveness-probe.failure-threshold |  | Number of consecutive failures before considering the container as unhealthy |
+| liveness-probe.interval |  | Time interval between checks. |
+| liveness-probe.timeout |  | Duration before the check times out. |
+| liveness-probe.http.path |  | HTTP path to perform the check on. |
+| startup-probe.failure-threshold |  | Number of consecutive failures before considering the container as unhealthy |
+| startup-probe.interval |  | Time interval between checks. |
+| startup-probe.timeout |  | Duration before the check times out. |
+| startup-probe.http.path |  | HTTP path to perform the check on. |
+| tags.{index} |  | Tags of the Serverless Container. |
+| private-network-id |  | ID of the Private Network the container is connected to. |
+| command.{index} |  | Container command |
+| args.{index} |  | Container arguments |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete the container associated with the specified ID.
+
+It also deletes in cascade any resource linked to the container (crons, tokens, etc.).
+
+This action **cannot** be undone.
+
+**Usage:**
+
+```
+scw container container delete <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required | UUID of the container to delete. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get the container associated with the specified ID.
+
+Get the container associated with the specified ID.
+
+**Usage:**
+
+```
+scw container container get <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required | UUID of the container to get |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all containers the caller can access (read permission).
+
+By default, the containers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+
+Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, and `name`.
+
+**Usage:**
+
+```
+scw container container list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
+| project-id |  |  |
+| namespace-id |  |  |
+| name |  |  |
+| organization-id |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Redeploy a container
+
+Performs a rollout of the container by creating new instances with the latest image version and terminating the old instances.
+When using mutable registry image references (e.g. `my-registry-namespace/image:tag`), this endpoint can be used to force the container to use
+the most recent image version available in the registry.
+
+**Usage:**
+
+```
+scw container container redeploy <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required | ID of the container to redeploy. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update the container associated with the specified ID.
+
+Only fields present in the request are updated; others are left untouched.
+
+**Usage:**
+
+```
+scw container container update <container-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required | UUID of the container to update. |
+| environment-variables.{key} |  | Environment variables of the container. |
+| secret-environment-variables.{key} |  | Secret environment variables of the container. |
+| min-scale |  | Minimum number of instances to scale the container to. |
+| max-scale |  | Maximum number of instances to scale the container to. |
+| memory-limit-bytes |  | Memory limit of the container in bytes. |
+| mvcpu-limit |  | CPU limit of the container in mvCPU. |
+| timeout |  | Processing time limit for the container. |
+| privacy | One of: `unknown_privacy`, `public`, `private` | Privacy policy of the container. |
+| description |  | Container description. |
+| image |  | Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag"). |
+| protocol | One of: `unknown_protocol`, `http1`, `h2c` | Protocol the container uses. |
+| port |  | Port the container listens on. |
+| https-connection-only |  | If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP). |
+| sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the container. |
+| local-storage-limit-bytes |  | Local storage limit of the container (in bytes). |
+| scaling-option.concurrent-requests-threshold |  | Scale depending on the number of concurrent requests being processed per container instance. The threshold value is the number of concurrent requests above which the container will be scaled up. |
+| scaling-option.cpu-usage-threshold |  | Scale depending on the CPU usage of a container instance. The threshold value is the percentage of CPU usage above which the container will be scaled up. |
+| scaling-option.memory-usage-threshold |  | Scale depending on the memory usage of a container instance. The threshold value is the percentage of memory usage above which the container will be scaled up. |
+| liveness-probe.failure-threshold |  | Number of consecutive failures before considering the container as unhealthy |
+| liveness-probe.interval |  | Time interval between checks. |
+| liveness-probe.timeout |  | Duration before the check times out. |
+| liveness-probe.http.path |  | HTTP path to perform the check on. |
+| startup-probe.failure-threshold |  |  |
+| startup-probe.interval |  |  |
+| startup-probe.timeout |  |  |
+| startup-probe.http.path |  |  |
+| tags.{index} |  | Tags of the Serverless Container. |
+| private-network-id |  | ID of the Private Network the container is connected to. |
+| command.{index} |  | Container command |
+| args.{index} |  | Container arguments |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Deploy a container
+
+Automatically build and deploy a container.
+
+Automatically build and deploy a container.
+
+**Usage:**
+
+```
+scw container deploy [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  | Name of the application (defaults to build-source's directory name) |
+| builder | Default: `paketobuildpacks/builder-jammy-base:latest` | Builder image to use |
+| run-image | Default: `paketobuildpacks/run-jammy-base:latest` | Run image to use |
+| dockerfile | Default: `Dockerfile` | Path to the Dockerfile |
+| force-builder | Default: `false` | Force the use of the builder image (even if a Dockerfile is present) |
+| build-source | Default: `.` | Path to the build context |
+| cache | Default: `true` | Use cache when building the image |
+| build-args.{key} |  | Build-time variables |
+| port | Default: `8080` | Port to expose |
+| namespace-id |  | Container Namespace ID to deploy to |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Domain management commands
+
+Domain management commands.
+
+
+### Create a new custom domain for the container with the specified ID.
+
+Create a new custom domain for the container with the specified ID.
+
+**Usage:**
+
+```
+scw container domain create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required | Unique ID of the container the domain will be assigned to. |
+| hostname | Required | Domain assigned to the container. |
+| tags.{index} |  | A list of arbitrary tags associated with the domain. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete the custom domain associated with the specified ID.
+
+Delete the custom domain associated with the specified ID.
+
+**Usage:**
+
+```
+scw container domain delete <domain-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id | Required | UUID of the domain to delete. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get the custom domain associated with the specified ID.
+
+Get the custom domain associated with the specified ID.
+
+**Usage:**
+
+```
+scw container domain get <domain-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id | Required | UUID of the domain to get |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all custom domains the caller can access (read permission).
+
+By default, the custom domains listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+    
+Additional parameters can be set in the query to filter the output, such as `organization_id`, `project_id`, `namespace_id`, or `container_id`.
+
+**Usage:**
+
+```
+scw container domain list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` |  |
+| project-id |  |  |
+| namespace-id |  |  |
+| container-id |  |  |
+| organization-id |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update the domain associated with the specified ID.
+
+Only fields present in the request are updated; others are left untouched.
+
+**Usage:**
+
+```
+scw container domain update <domain-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| domain-id | Required | UUID of the domain to update. |
+| tags.{index} |  | A list of arbitrary tags associated with the domain. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Namespace management commands
+
+Namespace management commands.
+
+
+### Create a new namespace.
+
+Namespace name must be unique inside a project.
+
+**Usage:**
+
+```
+scw container namespace create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name | Required | Namespace name. |
+| description |  | Namespace description. |
+| environment-variables.{key} |  | Namespace environment variables. |
+| secret-environment-variables.{key} |  | Namespace secret environment variables. |
+| tags.{index} |  | A list of arbitrary tags associated with the namespace. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete the namespace associated with the specified ID.
+
+It also deletes in cascade any resource inside the namespace.
+
+This action **cannot** be undone.
+
+**Usage:**
+
+```
+scw container namespace delete <namespace-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| namespace-id | Required | UUID of the namespace to delete. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get the namespace associated with the specified ID.
+
+Get the namespace associated with the specified ID.
+
+**Usage:**
+
+```
+scw container namespace get <namespace-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| namespace-id | Required | UUID of the namespace to get |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all namespaces the caller can access (read permission).
+
+By default, the namespaces listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+
+Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, and `name`.
+
+**Usage:**
+
+```
+scw container namespace list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
+| project-id |  |  |
+| name |  |  |
+| organization-id |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update the namespace associated with the specified ID.
+
+Only fields present in the request are updated; others are left untouched.
+
+**Usage:**
+
+```
+scw container namespace update <namespace-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| namespace-id | Required | UUID of the namespace to update. |
+| description |  | Namespace description. |
+| environment-variables.{key} |  | Namespace environment variables. |
+| secret-environment-variables.{key} |  | Namespace secret environment variables. |
+| tags.{index} |  | A list of arbitrary tags associated with the namespace. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ## Token management commands
 
 Token management commands.
@@ -96,6 +584,153 @@ scw container token list [arg=value ...]
 | container-id |  | UUID of the container the token belongs to |
 | namespace-id |  | UUID of the namespace the token belongs to |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+## Trigger management commands
+
+Trigger management commands.
+
+
+### Create a new trigger for the container with the specified ID.
+
+Create a new trigger for the container with the specified ID.
+
+**Usage:**
+
+```
+scw container trigger create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| container-id | Required | ID of the container to trigger. |
+| name | Required | Name of the trigger. |
+| description |  | Description of the trigger. |
+| tags.{index} |  | Tags of the trigger. |
+| destination-config.http-path |  | The HTTP path to send the request to (e.g., "/my-webhook-endpoint"). |
+| destination-config.http-method | One of: `unknown_http_method`, `get`, `post`, `put`, `patch`, `delete` | The HTTP method to use when sending the request (e.g., get, post, put, patch, delete). Must be specified as lowercase. |
+| cron-config.schedule |  | UNIX cron schedule to run job (e.g., "* * * * *"). |
+| cron-config.timezone |  | Timezone for the cron schedule, in tz database format (e.g., "Europe/Paris"). |
+| cron-config.body |  | Body to send to the container when the trigger is invoked. |
+| cron-config.headers.{key} |  | Additional headers to send to the container when the trigger is invoked. |
+| sqs-config.region |  | The region where the SQS queue is hosted (e.g., "fr-par", "nl-ams"). |
+| sqs-config.endpoint |  | Endpoint URL to use to access SQS (e.g., "https://sqs.mnq.fr-par.scaleway.com"). |
+| sqs-config.access-key-id |  | The access key for accessing the SQS queue. |
+| sqs-config.secret-access-key |  | The secret key for accessing the SQS queue. |
+| sqs-config.queue-url |  | The URL of the SQS queue to monitor for messages. |
+| nats-config.server-urls.{index} |  | The URLs of the NATS server (e.g., "nats://nats.mnq.fr-par.scaleway.com:4222"). |
+| nats-config.subject |  | NATS subject to subscribe to (e.g., "my-subject"). |
+| nats-config.credentials-file-content |  | The content of the NATS credentials file. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Delete the trigger associated with the specified ID.
+
+This action **cannot** be undone.
+
+**Usage:**
+
+```
+scw container trigger delete <trigger-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required | ID of the trigger to delete. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Get the trigger associated with the specified ID.
+
+Get the trigger associated with the specified ID.
+
+**Usage:**
+
+```
+scw container trigger get <trigger-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required | ID of the trigger to get |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List all triggers the caller can access (read permission).
+
+By default, the triggers listed are ordered by creation date in ascending order. This can be modified via the `order_by` field.
+
+Additional parameters can be set in the query to filter, such as `organization_id`, `project_id`, `namespace_id`, `container_id` or `trigger_type`.
+
+**Usage:**
+
+```
+scw container trigger list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |  |
+| project-id |  |  |
+| namespace-id |  |  |
+| container-id |  |  |
+| trigger-type | One of: `unknown_source_type`, `cron`, `sqs`, `nats` |  |
+| organization-id |  |  |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Update the trigger associated with the specified ID.
+
+When updating a trigger, you cannot specify a different source type than the one already set.
+Only fields present in the request are updated; others are left untouched.
+
+**Usage:**
+
+```
+scw container trigger update <trigger-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| trigger-id | Required | ID of the trigger to update. |
+| name |  | Name of the trigger. |
+| description |  | Description of the trigger. |
+| tags.{index} |  | Tags of the trigger. |
+| destination-config.http-path |  | The HTTP path to send the request to (e.g., "/my-webhook-endpoint"). |
+| destination-config.http-method | One of: `unknown_http_method`, `get`, `post`, `put`, `patch`, `delete` | The HTTP method to use when sending the request (e.g., get, post, put, patch, delete). Must be specified as lowercase. |
+| cron-config.schedule |  | UNIX cron schedule to run job (e.g., "* * * * *"). |
+| cron-config.timezone |  | Timezone for the cron schedule, in tz database format (e.g., "Europe/Paris"). |
+| cron-config.body |  | Body to send to the container when the trigger is invoked. |
+| cron-config.headers.{key} |  | Additional headers to send to the container when the trigger is invoked. |
+| sqs-config.region |  | The region where the SQS queue is hosted (e.g., "fr-par", "nl-ams"). |
+| sqs-config.endpoint |  | Endpoint URL to use to access SQS (e.g., "https://sqs.mnq.fr-par.scaleway.com"). |
+| sqs-config.access-key-id |  | The access key for accessing the SQS queue. |
+| sqs-config.secret-access-key |  | The secret key for accessing the SQS queue. |
+| sqs-config.queue-url |  | The URL of the SQS queue to monitor for messages. |
+| nats-config.server-urls.{index} |  | The URLs of the NATS server (e.g., "nats://nats.mnq.fr-par.scaleway.com:4222"). |
+| nats-config.subject |  | NATS subject to subscribe to (e.g., "my-subject"). |
+| nats-config.credentials-file-content |  | The content of the NATS credentials file. |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

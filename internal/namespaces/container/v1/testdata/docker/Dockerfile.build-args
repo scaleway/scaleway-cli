@@ -1,0 +1,6 @@
+FROM nginx:alpine
+RUN apk add --no-cache curl git bash
+COPY ./index.html /usr/share/nginx/html/index.html
+ARG TEST
+RUN test -n "$TEST"
+EXPOSE 80
