@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         6150688c-7791-41c3-8bf4-ff66206e984a
-Name                                       cli-test-nifty-wescoff
-NamespaceID                                87985e88-42cb-4b38-848e-a44a9e11c3d3
+ID                                         4cd4b28b-c180-4fdb-aa60-2a57af8cf2af
+Name                                       cli-test-determined-wiles
+NamespaceID                                c6546a5d-378d-4127-9255-8447a063abac
 Description                                -
 Status                                     ready
 ErrorMessage                               -
@@ -15,7 +15,7 @@ MvcpuLimit                                 1000
 LocalStorageLimitBytes                     1.0 GB
 Timeout                                    5 minutes
 Privacy                                    public
-Image                                      rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine
+Image                                      rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-sharp-kapitsa/nginx:1.29.2-alpine
 Protocol                                   http1
 Port                                       80
 HTTPSConnectionsOnly                       false
@@ -24,18 +24,18 @@ ScalingOption.ConcurrentRequestsThreshold  50
 LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
-PublicEndpoint                             https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud
+PublicEndpoint                             https://clinsflamboyanthofstc6546a5d-cli-test-determined-wiles.functions.fnc.fr-par.scw.cloud
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "6150688c-7791-41c3-8bf4-ff66206e984a",
-  "name": "cli-test-nifty-wescoff",
-  "namespace_id": "87985e88-42cb-4b38-848e-a44a9e11c3d3",
+  "id": "4cd4b28b-c180-4fdb-aa60-2a57af8cf2af",
+  "name": "cli-test-determined-wiles",
+  "namespace_id": "c6546a5d-378d-4127-9255-8447a063abac",
   "description": "",
   "status": "ready",
   "error_message": "",
   "created_at": "1970-01-01T00:00:00.0Z",
-  "updated_at": "2026-05-18T18:14:03Z",
+  "updated_at": "2026-05-19T12:37:50Z",
   "environment_variables": {},
   "secret_environment_variables": {},
   "min_scale": 0,
@@ -45,7 +45,7 @@ Region                                     fr-par
   "local_storage_limit_bytes": 1000000000,
   "timeout": "300.000000000s",
   "privacy": "public",
-  "image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine",
+  "image": "rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-sharp-kapitsa/nginx:1.29.2-alpine",
   "protocol": "http1",
   "port": 80,
   "https_connections_only": false,
@@ -64,6 +64,6 @@ Region                                     fr-par
   "private_network_id": null,
   "command": [],
   "args": [],
-  "public_endpoint": "https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud",
+  "public_endpoint": "https://clinsflamboyanthofstc6546a5d-cli-test-determined-wiles.functions.fnc.fr-par.scw.cloud",
   "region": "fr-par"
 }
