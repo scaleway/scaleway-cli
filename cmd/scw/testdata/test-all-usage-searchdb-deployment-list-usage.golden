@@ -10,6 +10,7 @@ ARGS:
   [order-by]          Define the order of the returned deployments (created_at_asc | created_at_desc | name_asc | name_desc | updated_at_asc | updated_at_desc)
   [tags.{index}]      Filter by tag, only deployments with one or more matching tags will be returned
   [name]              Deployment name to filter for
+  [version]           Engine version to filter for
   [organization-id]   ID of the Organization containing the deployments
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
 
