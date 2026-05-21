@@ -1,0 +1,46 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Generate a ready-to-use configuration snippet for a Cockpit data source.
+
+Supported tools:
+  - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
+
+Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
+The token is created with the minimum required write scope for the data source type.
+
+USAGE:
+  scw cockpit config get <data-source-id ...> [arg=value ...]
+
+EXAMPLES:
+  Generate a Prometheus remote_write snippet
+    scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus
+
+  Generate a Prometheus remote_write snippet with a new token
+    scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true
+
+  Generate a Prometheus remote_write snippet with a named token
+    scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true token-name=my-prometheus
+
+ARGS:
+  data-source-id                 ID of the data source to generate the configuration for
+  type                           Configuration template type (prometheus)
+  [generate-token]               Create a new Cockpit token and inject it in the generated snippet
+  [token-name=prometheus-push]   Name of the token to create when generate-token=true
+  [region=fr-par]                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Get a data source
+  scw cockpit data-source get
+
+  # Create a Cockpit token
+  scw cockpit token create
