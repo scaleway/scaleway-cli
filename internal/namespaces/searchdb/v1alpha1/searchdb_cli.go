@@ -388,13 +388,6 @@ func searchdbDeploymentList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "version",
-				Short:      `Engine version to filter for`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "organization-id",
 				Short:      `ID of the Organization containing the deployments`,
 				Required:   false,
