@@ -800,18 +800,6 @@ func s2sVpnConnectionCreate() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "secret.id",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "secret.revision",
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "vpn-gateway-id",
 				Short:      `ID of the VPN gateway to attach to the connection`,
 				Required:   true,
