@@ -269,7 +269,7 @@ scw interlink link list [arg=value ...]
 | vpc-id |  | Filter for links attached to this VPC |
 | routing-policy-id |  | Filter for links using this routing policy |
 | pairing-key |  | Filter for the link with this pairing_key |
-| kind | One of: `hosted`, `self_hosted`, `l2_hosted`, `l3_hosted` | Filter for hosted or self-hosted links |
+| kind | One of: `hosted`, `self_hosted` | Filter for hosted or self-hosted links |
 | connection-id |  | Filter for links self-hosted on this connection |
 | organization-id |  | Organization ID to filter for |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
@@ -341,7 +341,6 @@ scw interlink partner list [arg=value ...]
 |------|---|-------------|
 | order-by | One of: `name_asc`, `name_desc` | Order in which to return results |
 | pop-ids.{index} |  | Filter for partners present (offering a connection) in one of these PoPs |
-| l3-connectivity |  | Filter for partners supporting L3 connectivity |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
@@ -390,9 +389,8 @@ scw interlink pop list [arg=value ...]
 | name |  | PoP name to filter for |
 | hosting-provider-name |  | Hosting provider name to filter for |
 | partner-id |  | Filter for PoPs hosting an available shared connection from this partner |
-| link-bandwidth-mbps |  | Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |
+| link-bandwidth-mbps |  | Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |
 | dedicated-available |  | Filter for PoPs with a dedicated connection available for self-hosted links. |
-| l3-connectivity-partners |  | Filter for PoPs with a shared connection available from a partner supporting L3 connectivity |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
