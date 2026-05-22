@@ -67,6 +67,8 @@ scw s2s-vpn connection create [arg=value ...]
 | esp-ciphers.{index}.integrity | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512` |  |
 | esp-ciphers.{index}.dh-group | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519` |  |
 | enable-route-propagation |  | Defines whether route propagation is enabled or not. |
+| secret.id |  |  |
+| secret.revision |  |  |
 | vpn-gateway-id | Required | ID of the VPN gateway to attach to the connection |
 | customer-gateway-id | Required | ID of the customer gateway to attach to the connection |
 | bgp-config-ipv4.routing-policy-id |  |  |
