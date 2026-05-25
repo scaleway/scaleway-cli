@@ -1,0 +1,69 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+NAMESPACE  RESOURCE      URI                     SHORT
+account    project       scw://account/project   List all Projects of an Organization
+k8s        acl           scw://k8s/acl           List ACLs
+k8s        cluster       scw://k8s/cluster       List Clusters
+k8s        cluster       scw://k8s/cluster       List available versions for a Cluster
+k8s        cluster       scw://k8s/cluster       List available cluster types for a cluster
+k8s        cluster-type  scw://k8s/cluster-type  List cluster types
+k8s        node          scw://k8s/node          List Nodes in a Cluster
+k8s        pool          scw://k8s/pool          List Pools in a Cluster
+k8s        version       scw://k8s/version       List all available Versions
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "namespace": "account",
+    "resource": "project",
+    "uri": "scw://account/project",
+    "short": "List all Projects of an Organization"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "acl",
+    "uri": "scw://k8s/acl",
+    "short": "List ACLs"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "uri": "scw://k8s/cluster",
+    "short": "List Clusters"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "uri": "scw://k8s/cluster",
+    "short": "List available versions for a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster",
+    "uri": "scw://k8s/cluster",
+    "short": "List available cluster types for a cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "cluster-type",
+    "uri": "scw://k8s/cluster-type",
+    "short": "List cluster types"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "node",
+    "uri": "scw://k8s/node",
+    "short": "List Nodes in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "pool",
+    "uri": "scw://k8s/pool",
+    "short": "List Pools in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "version",
+    "uri": "scw://k8s/version",
+    "short": "List all available Versions"
+  }
+]

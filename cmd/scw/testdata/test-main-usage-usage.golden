@@ -4,7 +4,7 @@ USAGE:
   scw <command>
 
 AI COMMANDS:
-  inference               This API allows you to handle your Managed Inference services
+  inference               This API allows you to handle your Generative APIs - Dedicated Deployment services
 
 AVAILABLE COMMANDS:
   datalab                 Clusters for Apache Spark™ API
@@ -74,7 +74,7 @@ SECURITY COMMANDS:
   secret                  Secret Manager API
 
 SERVERLESS COMMANDS:
-  container               This API allows you to manage your Serverless Containers
+  container               Easily run containers on the cloud with a single command
   function                Function as a Service API
   jobs                    This API allows you to manage your Serverless Jobs
 
@@ -89,6 +89,7 @@ UTILITY COMMANDS:
   feedback                Send feedback to the Scaleway CLI Team!
   help                    Get help about how specific topics inside the CLI work
   mcp                     MCP (Model Context Protocol) server management
+  search                  Search API
   shell                   Start shell mode
   version                 Display cli version
 

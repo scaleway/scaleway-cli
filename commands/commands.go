@@ -14,7 +14,8 @@ import (
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
-	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
+	containerBeta "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
 	datalab "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datalab/v1beta1"
 	datawarehouse "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
@@ -50,6 +51,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
 	s2s_vpn "github.com/scaleway/scaleway-cli/v2/internal/namespaces/s2s_vpn/v1alpha1"
+	search "github.com/scaleway/scaleway-cli/v2/internal/namespaces/search/v1alpha1"
 	searchdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/searchdb/v1alpha1"
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
@@ -98,6 +100,7 @@ func GetCommands() *core.Commands {
 		flexibleip.GetCommands(),
 		file.GetCommands(),
 		container.GetCommands(),
+		containerBeta.GetCommands(),
 		function.GetCommands(),
 		vpcgw.GetCommands(),
 		redis.GetCommands(),
@@ -126,6 +129,7 @@ func GetCommands() *core.Commands {
 		environmental_footprint.GetCommands(),
 		product_catalog.GetCommands(),
 		mcp.GetCommands(),
+		search.GetCommands(),
 	)
 
 	if beta {

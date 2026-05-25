@@ -4,6 +4,7 @@
   "description": "WASM interface for Scaleway CLI, made to be used in a JS environment",
   "type": "module",
   "main": "index.js",
+  "packageManager": "pnpm@10.33.2",
   "scripts": {
     "test": "vitest src",
     "lint": "prettier --check ."
@@ -12,11 +13,11 @@
   "keywords": [],
   "author": "Scaleway",
   "devDependencies": {
-    "@codecov/vite-plugin": "^1.9.1",
+    "@codecov/vite-plugin": "^2.0.1",
     "@vitest/browser": "^4.0.6",
-    "prettier": "3.8.1",
+    "prettier": "3.8.3",
     "typescript": "^6.0.2",
-    "vite": "^6.4.1",
+    "vite": "^8.0.13",
     "vitest": "^4.0.6"
   },
   "files": [

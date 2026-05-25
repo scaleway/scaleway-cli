@@ -124,11 +124,16 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 		if askPrompt {
 			_, _ = interactive.PrintlnWithoutIndent(`
 					Current file exist is located at ` + terminal.Style(args.FilePath, color.Faint))
-			overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Prompt:       fmt.Sprintf("Do you want to override the current file: %s ?", file),
-				DefaultValue: false,
-				Ctx:          ctx,
-			})
+			overrideFile, err := interactive.PromptBoolWithConfig(
+				ctx,
+				&interactive.PromptBoolConfig{
+					Prompt: fmt.Sprintf(
+						"Do you want to override the current file: %s ?",
+						file,
+					),
+					DefaultValue: false,
+				},
+			)
 			if err != nil {
 				return err
 			}

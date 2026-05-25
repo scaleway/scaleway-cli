@@ -3,7 +3,10 @@ package server
 import (
 	"context"
 	"encoding/json"
+	"errors"
 	"fmt"
+	"maps"
+	"os"
 	"reflect"
 	"strconv"
 	"strings"
@@ -11,6 +14,7 @@ import (
 	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/args"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/scaleway/scaleway-sdk-go/strcase"
 )
 
@@ -66,6 +70,33 @@ func (ct *CommandTool) Execute(
 	ctx context.Context,
 	inputArgs map[string]any,
 ) (*mcp.CallToolResult, error) {
+	// Ensure meta is available in context
+	// If meta is already in context (from wrapper), this is a no-op
+	// If not, this creates meta from environment/config (useful for tests)
+	ctx, err := ensureMetaInContext(ctx, nil)
+	if err != nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: fmt.Sprintf("Error initializing client: %v", err),
+				},
+			},
+			IsError: true,
+		}, nil
+	}
+
+	// Verify client was successfully injected
+	if core.ExtractClient(ctx) == nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: "Error: client not initialized - check SCW credentials (access key, secret key, or profile)",
+				},
+			},
+			IsError: true,
+		}, nil
+	}
+
 	// Skip commands without a Run function
 	if ct.Command.Run == nil {
 		return &mcp.CallToolResult{
@@ -109,7 +140,7 @@ func (ct *CommandTool) Execute(
 				valueStr = strconv.Itoa(v)
 			default:
 				// For complex types, marshal to JSON
-				if b, err := json.Marshal(v); err == nil {
+				if b, marshalErr := json.Marshal(v); marshalErr == nil {
 					valueStr = string(b)
 				} else {
 					valueStr = fmt.Sprintf("%v", v)
@@ -120,32 +151,69 @@ func (ct *CommandTool) Execute(
 		}
 
 		// Unmarshal the args into the struct
-		if err := args.UnmarshalStruct(rawArgs, cmdArgs); err != nil {
+		if unmarshalErr := args.UnmarshalStruct(rawArgs, cmdArgs); unmarshalErr != nil {
 			return &mcp.CallToolResult{
 				Content: []mcp.Content{
 					&mcp.TextContent{
-						Text: fmt.Sprintf("Error parsing arguments: %v", err),
+						Text: fmt.Sprintf("Error parsing arguments: %v", unmarshalErr),
 					},
 				},
 				IsError: true,
-			}, nil
+			}, unmarshalErr
 		}
 	} else {
 		// Fallback for commands without ArgsType
 		cmdArgs = inputArgs
 	}
 
-	// Execute the command's Run function
-	result, err := ct.Command.Run(ctx, cmdArgs)
-	if err != nil {
+	// Execute the command's Run function using the interceptor chain
+	// This ensures custom request wrappers (like customListServersRequest) are properly handled
+	var result any
+	var execErr error
+	var panicRecovered bool
+	var panicMessage string
+	func() {
+		defer func() {
+			if r := recover(); r != nil {
+				panicRecovered = true
+				panicMessage = fmt.Sprintf("panic recovered during command execution: %v", r)
+			}
+		}()
+
+		// Create a runner that wraps the command's Run function
+		var runner core.CommandRunner = func(ctx context.Context, argsI any) (i any, err error) {
+			return ct.Command.Run(ctx, argsI)
+		}
+
+		// Apply command interceptor if present
+		if ct.Command.Interceptor != nil {
+			result, execErr = ct.Command.Interceptor(ctx, cmdArgs, runner)
+		} else {
+			result, execErr = runner(ctx, cmdArgs)
+		}
+	}()
+
+	// Handle panic recovery - return as error response but not as Go error
+	if panicRecovered {
 		return &mcp.CallToolResult{
 			Content: []mcp.Content{
 				&mcp.TextContent{
-					Text: fmt.Sprintf("Error: %v", err),
+					Text: panicMessage,
 				},
 			},
 			IsError: true,
 		}, nil
+	}
+
+	if execErr != nil {
+		return &mcp.CallToolResult{
+			Content: []mcp.Content{
+				&mcp.TextContent{
+					Text: fmt.Sprintf("Error: %v", execErr),
+				},
+			},
+			IsError: true,
+		}, execErr
 	}
 
 	// Format the result
@@ -200,4 +268,68 @@ func truncateString(s string, maxLen int) string {
 	}
 
 	return s[:maxLen-3] + "..."
+}
+
+// ensureMetaInContext ensures meta is available in the context for command execution.
+// If meta is already present, it returns the context unchanged.
+// If meta is provided, it injects it into the context.
+// If no meta is provided, it creates one from environment/config.
+// Returns the updated context and any error that occurred.
+func ensureMetaInContext(ctx context.Context, meta *core.Meta) (context.Context, error) {
+	// Meta already in context - nothing to do
+	if core.ExtractMeta(ctx) != nil {
+		return ctx, nil
+	}
+
+	// Use provided meta
+	if meta != nil {
+		m := *meta
+		m.OverrideEnv = make(map[string]string)
+		maps.Copy(m.OverrideEnv, meta.OverrideEnv)
+
+		return core.InjectMeta(ctx, &m), nil
+	}
+
+	// No meta provided - create one from environment/config
+	configPath := scw.GetConfigPath()
+	config, err := scw.LoadConfigFromPath(configPath)
+	if err != nil && !errors.Is(err, os.ErrNotExist) {
+		return ctx, fmt.Errorf("loading config: %w", err)
+	}
+
+	profileName := scw.DefaultProfileName
+	if config != nil && config.ActiveProfile != nil {
+		profileName = *config.ActiveProfile
+	}
+	if envProfile := os.Getenv(scw.ScwActiveProfileEnv); envProfile != "" {
+		profileName = envProfile
+	}
+
+	options := []scw.ClientOption{
+		scw.WithDefaultRegion(scw.RegionFrPar),
+		scw.WithDefaultZone(scw.ZoneFrPar1),
+		scw.WithUserAgent("scaleway-mcp-server"),
+		scw.WithEnv(),
+	}
+
+	if config != nil {
+		profile, err := config.GetProfile(profileName)
+		if err != nil {
+			return ctx, fmt.Errorf("getting profile %q: %w", profileName, err)
+		}
+		if profile != nil {
+			options = append(options, scw.WithProfile(profile))
+		}
+	}
+
+	client, err := scw.NewClient(options...)
+	if err != nil {
+		return ctx, fmt.Errorf("creating client: %w", err)
+	}
+
+	return core.InjectMeta(ctx, &core.Meta{
+		Client:      client,
+		OverrideEnv: map[string]string{},
+		BinaryName:  "scw-mcp",
+	}), nil
 }

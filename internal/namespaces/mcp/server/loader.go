@@ -1,13 +1,21 @@
 package server
 
 import (
-	"context"
-	"log"
 	"slices"
+	"strings"
 
-	"github.com/modelcontextprotocol/go-sdk/mcp"
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
+
+// SplitArg splits a comma-separated string into a slice of strings.
+// Returns an empty slice if the input is empty.
+func SplitArg(s string) []string {
+	if s == "" {
+		return []string{}
+	}
+
+	return strings.Split(s, ",")
+}
 
 var (
 	// ExcludedNamespaces is used to filter out core.Command that should not be exposed as MCP tools based on their namespace.
@@ -35,6 +43,19 @@ type CommandFilterConfig struct {
 	EnabledNamespaces []string
 	EnabledResources  []string
 	EnabledVerbs      []string
+}
+
+// FilterCommands filters CLI commands based on the given config.
+// Returns a slice of CommandTool ready to be passed to NewMCPServer.
+func FilterCommands(commands []*core.Command, config CommandFilterConfig) []*CommandTool {
+	result := make([]*CommandTool, 0, len(commands))
+	for _, cmd := range commands {
+		if ShouldLoadCommand(cmd, config) {
+			result = append(result, NewCommandTool(cmd))
+		}
+	}
+
+	return result
 }
 
 // ShouldLoadCommand returns true if the command should be registered as an MCP tool.
@@ -91,51 +112,4 @@ func ShouldLoadCommand(cmd *core.Command, config CommandFilterConfig) bool {
 	}
 
 	return true
-}
-
-// LoadCommand loads a CLI command as an MCP tool and optionally as a resource
-func (s *MCPServer) LoadCommand(cmd *core.Command) error {
-	if !ShouldLoadCommand(cmd, s.filterConfig) {
-		return nil
-	}
-
-	// Register as a tool
-	tool := NewCommandTool(cmd)
-	mcpTool := tool.ToMCPTool()
-
-	// Create a wrapper function for the tool using the correct MCP SDK signature
-	wrapper := func(ctx context.Context, req *mcp.CallToolRequest, input map[string]any) (*mcp.CallToolResult, map[string]any, error) {
-		result, err := tool.Execute(ctx, input)
-		var output map[string]any
-		if err != nil {
-			// Return error - MCP SDK will wrap it
-			return result, nil, err
-		}
-		// Extract text content for structured output
-		if len(result.Content) > 0 {
-			if tc, ok := result.Content[0].(*mcp.TextContent); ok {
-				output = map[string]any{"result": tc.Text}
-			}
-		}
-
-		return result, output, nil
-	}
-
-	// Register with MCP SDK
-	mcp.AddTool(s.server, mcpTool, wrapper)
-
-	s.commands = append(s.commands, tool)
-
-	// Register as a resource if it's a list command
-	if cmd.IsList() {
-		if err := s.LoadResource(cmd); err != nil {
-			log.Printf(
-				"Warning: failed to load resource %s: %v\n",
-				cmd.GetCommandLine("scw"),
-				err,
-			)
-		}
-	}
-
-	return nil
 }

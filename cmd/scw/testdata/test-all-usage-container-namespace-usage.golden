@@ -6,11 +6,11 @@ USAGE:
   scw container namespace <command>
 
 AVAILABLE COMMANDS:
-  create      Create a new namespace
-  delete      Delete an existing namespace
-  get         Get a namespace
-  list        List all your namespaces
-  update      Update an existing namespace
+  create      Create a new namespace.
+  delete      Delete the namespace associated with the specified ID.
+  get         Get the namespace associated with the specified ID.
+  list        List all namespaces the caller can access (read permission).
+  update      Update the namespace associated with the specified ID.
 
 FLAGS:
   -h, --help                help for namespace
