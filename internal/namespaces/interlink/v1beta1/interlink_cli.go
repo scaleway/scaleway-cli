@@ -129,6 +129,13 @@ func interlinkPartnerList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "l3-connectivity",
+				Short:      `Filter for partners supporting L3 connectivity`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionItMil,
@@ -236,7 +243,7 @@ func interlinkPopList() *core.Command {
 			},
 			{
 				Name:       "link-bandwidth-mbps",
-				Short:      `Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.`,
+				Short:      `Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -244,6 +251,13 @@ func interlinkPopList() *core.Command {
 			{
 				Name:       "dedicated-available",
 				Short:      `Filter for PoPs with a dedicated connection available for self-hosted links.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "l3-connectivity-partners",
+				Short:      `Filter for PoPs with a shared connection available from a partner supporting L3 connectivity`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -457,6 +471,8 @@ func interlinkLinkList() *core.Command {
 				EnumValues: []string{
 					"hosted",
 					"self_hosted",
+					"l2_hosted",
+					"l3_hosted",
 				},
 			},
 			{
