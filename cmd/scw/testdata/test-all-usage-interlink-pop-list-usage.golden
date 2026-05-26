@@ -6,13 +6,14 @@ USAGE:
   scw interlink pop list [arg=value ...]
 
 ARGS:
-  [order-by]                Order in which to return results (name_asc | name_desc)
-  [name]                    PoP name to filter for
-  [hosting-provider-name]   Hosting provider name to filter for
-  [partner-id]              Filter for PoPs hosting an available shared connection from this partner
-  [link-bandwidth-mbps]     Filter for PoPs with a shared connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
-  [dedicated-available]     Filter for PoPs with a dedicated connection available for self-hosted links.
-  [region=fr-par]           Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
+  [order-by]                   Order in which to return results (name_asc | name_desc)
+  [name]                       PoP name to filter for
+  [hosting-provider-name]      Hosting provider name to filter for
+  [partner-id]                 Filter for PoPs hosting an available shared connection from this partner
+  [link-bandwidth-mbps]        Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity.
+  [dedicated-available]        Filter for PoPs with a dedicated connection available for self-hosted links.
+  [l3-connectivity-partners]   Filter for PoPs with a shared connection available from a partner supporting L3 connectivity
+  [region=fr-par]              Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list
