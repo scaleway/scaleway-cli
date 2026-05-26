@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   [order-by]          Order in which to return results (name_asc | name_desc)
   [pop-ids.{index}]   Filter for partners present (offering a connection) in one of these PoPs
+  [l3-connectivity]   Filter for partners supporting L3 connectivity
   [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
