@@ -19,7 +19,7 @@ ARGS:
   [vpc-id]              Filter for links attached to this VPC
   [routing-policy-id]   Filter for links using this routing policy
   [pairing-key]         Filter for the link with this pairing_key
-  [kind]                Filter for hosted or self-hosted links (hosted | self_hosted)
+  [kind]                Filter for hosted or self-hosted links (hosted | self_hosted | l2_hosted | l3_hosted)
   [connection-id]       Filter for links self-hosted on this connection
   [organization-id]     Organization ID to filter for
   [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
