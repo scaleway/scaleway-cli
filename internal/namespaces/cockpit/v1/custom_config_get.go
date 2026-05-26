@@ -278,7 +278,10 @@ func ParseCockpitDataSourceEndpoint(dataSourceURL string) (cockpitDataSourceEndp
 
 	host := parsedURL.Hostname()
 	if host == "" {
-		return cockpitDataSourceEndpoint{}, fmt.Errorf("invalid data source URL %q: missing host", dataSourceURL)
+		return cockpitDataSourceEndpoint{}, fmt.Errorf(
+			"invalid data source URL %q: missing host",
+			dataSourceURL,
+		)
 	}
 
 	port := parsedURL.Port()
@@ -292,7 +295,11 @@ func ParseCockpitDataSourceEndpoint(dataSourceURL string) (cockpitDataSourceEndp
 
 	portNumber, err := strconv.Atoi(port)
 	if err != nil {
-		return cockpitDataSourceEndpoint{}, fmt.Errorf("invalid data source URL %q: invalid port %q", dataSourceURL, port)
+		return cockpitDataSourceEndpoint{}, fmt.Errorf(
+			"invalid data source URL %q: invalid port %q",
+			dataSourceURL,
+			port,
+		)
 	}
 
 	return cockpitDataSourceEndpoint{Host: host, Port: portNumber}, nil

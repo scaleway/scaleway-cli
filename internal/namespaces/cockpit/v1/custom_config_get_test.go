@@ -6,6 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 func Test_BuildPrometheusRemoteWriteURL(t *testing.T) {
@@ -29,11 +30,11 @@ func Test_BuildPrometheusRemoteWriteURL(t *testing.T) {
 
 func Test_ParseCockpitDataSourceEndpoint(t *testing.T) {
 	t.Run("https default port", func(t *testing.T) {
-		endpoint, err := cockpit.ParseCockpitDataSourceEndpoint(
-			"https://000avb0d-34ae-66hh-643b-f9e0n3k17773.logs.cockpit.fr-par.scw.cloud",
-		)
-		assert.NoError(t, err)
-		assert.Equal(t, "000avb0d-34ae-66hh-643b-f9e0n3k17773.logs.cockpit.fr-par.scw.cloud", endpoint.Host)
+		const host = "000avb0d-34ae-66hh-643b-f9e0n3k17773.logs.cockpit.fr-par.scw.cloud"
+
+		endpoint, err := cockpit.ParseCockpitDataSourceEndpoint("https://" + host)
+		require.NoError(t, err)
+		assert.Equal(t, host, endpoint.Host)
 		assert.Equal(t, 443, endpoint.Port)
 	})
 
@@ -41,7 +42,7 @@ func Test_ParseCockpitDataSourceEndpoint(t *testing.T) {
 		endpoint, err := cockpit.ParseCockpitDataSourceEndpoint(
 			"https://example.logs.cockpit.fr-par.scw.cloud:8443",
 		)
-		assert.NoError(t, err)
+		require.NoError(t, err)
 		assert.Equal(t, "example.logs.cockpit.fr-par.scw.cloud", endpoint.Host)
 		assert.Equal(t, 8443, endpoint.Port)
 	})
@@ -60,7 +61,7 @@ func Test_RenderFluentBitConfig(t *testing.T) {
 	endpoint, err := cockpit.ParseCockpitDataSourceEndpoint(
 		"https://example.logs.cockpit.fr-par.scw.cloud",
 	)
-	assert.NoError(t, err)
+	require.NoError(t, err)
 
 	t.Run("without token", func(t *testing.T) {
 		got := cockpit.RenderFluentBitConfig(endpoint, nil)
