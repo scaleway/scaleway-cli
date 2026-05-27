@@ -1091,6 +1091,14 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			{
+				Name:       "generate-revision",
+				Short:      `Generate a new revision or update to the latest existing one`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("true"),
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionItMil,
