@@ -229,6 +229,7 @@ scw s2s-vpn connection renew-psk <connection-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | connection-id | Required | ID of the connection to renew the PSK |
+| generate-revision | Default: `true` | Generate a new revision or update to the latest existing one |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
