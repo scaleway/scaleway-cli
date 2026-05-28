@@ -131,6 +131,7 @@ func auditTrailEventList() *core.Command {
 					"vpc_route",
 					"vpc_acl",
 					"vpc_connector",
+					"vpc_ingress_rule",
 					"edge_services_plan",
 					"edge_services_pipeline",
 					"edge_services_dns_stage",
