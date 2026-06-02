@@ -12,6 +12,7 @@ import (
 	"os"
 	"path/filepath"
 	"reflect"
+	"strings"
 	"time"
 
 	pack "github.com/buildpacks/pack/pkg/client"
@@ -21,6 +22,7 @@ import (
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
 	"github.com/moby/moby/client"
+	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -43,6 +45,7 @@ type containerDeployRequest struct {
 	BuildSource string
 	Cache       bool
 	BuildArgs   map[string]*string
+	Platform    string
 
 	NamespaceID *string
 	Port        uint32
@@ -90,6 +93,10 @@ func containerDeployCommand() *core.Command {
 				Name:    "cache",
 				Short:   "Use cache when building the image",
 				Default: core.DefaultValueSetter("true"),
+			},
+			{
+				Name:  "platform",
+				Short: "Platform to build for (e.g., linux/amd64, linux/arm64)",
 			},
 			{
 				Name:     "build-args.{key}",
@@ -295,6 +302,19 @@ func DeployStepDockerBuildImage(
 ) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
+	var platforms []ocispec.Platform
+	if data.Args.Platform != "" {
+		for _, p := range strings.Split(data.Args.Platform, ",") {
+			parts := strings.Split(strings.TrimSpace(p), "/")
+			if len(parts) == 2 {
+				platforms = append(platforms, ocispec.Platform{
+					OS:           parts[0],
+					Architecture: parts[1],
+				})
+			}
+		}
+	}
+
 	httpClient := core.ExtractHTTPClient(ctx)
 	dockerClient, err := NewCustomDockerClient(httpClient)
 	if err != nil {
@@ -302,15 +322,20 @@ func DeployStepDockerBuildImage(
 	}
 	defer dockerClient.Close()
 
+	buildOpts := client.ImageBuildOptions{
+		Dockerfile: data.Args.Dockerfile,
+		Tags:       []string{tag},
+		NoCache:    !data.Args.Cache,
+		BuildArgs:  data.Args.BuildArgs,
+	}
+	if len(platforms) > 0 {
+		buildOpts.Platforms = platforms
+	}
+
 	imageBuildResponse, err := dockerClient.ImageBuild(
 		ctx,
 		data.Tar,
-		client.ImageBuildOptions{
-			Dockerfile: data.Args.Dockerfile,
-			Tags:       []string{tag},
-			NoCache:    !data.Args.Cache,
-			BuildArgs:  data.Args.BuildArgs,
-		},
+		buildOpts,
 	)
 	if err != nil {
 		return nil, fmt.Errorf("could not build image: %w", errors.Unwrap(err))
