@@ -20,6 +20,7 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		edgeServicesRoot(),
+		edgeServicesPlan(),
 		edgeServicesPipeline(),
 		edgeServicesDNSStage(),
 		edgeServicesTLSStage(),
@@ -72,6 +73,10 @@ func GetGeneratedCommands() *core.Commands {
 		edgeServicesPurgeRequestList(),
 		edgeServicesPurgeRequestCreate(),
 		edgeServicesPurgeRequestGet(),
+		edgeServicesPlanList(),
+		edgeServicesPlanSelect(),
+		edgeServicesPlanGet(),
+		edgeServicesPlanDelete(),
 	)
 }
 
@@ -80,6 +85,15 @@ func edgeServicesRoot() *core.Command {
 		Short:     `Edge Services API`,
 		Long:      ``,
 		Namespace: "edge-services",
+	}
+}
+
+func edgeServicesPlan() *core.Command {
+	return &core.Command{
+		Short:     `Plan management commands`,
+		Long:      `Plan management commands.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
 	}
 }
 
@@ -2276,7 +2290,7 @@ func edgeServicesPurgeRequestList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID to filter for. Only purge requests from this Project will be returned`,
+				Short:      `Organization ID to filter for. Only purge requests from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2366,6 +2380,112 @@ func edgeServicesPurgeRequestGet() *core.Command {
 			api := edge_services.NewAPI(client)
 
 			return api.GetPurgeRequest(request)
+		},
+	}
+}
+
+func edgeServicesPlanList() *core.Command {
+	return &core.Command{
+		Short:     `List plans`,
+		Long:      `List all available Edge Services subscription plans.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgSpecs: core.ArgSpecs{},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.ListPlans()
+		},
+	}
+}
+
+func edgeServicesPlanSelect() *core.Command {
+	return &core.Command{
+		Short:     `Select plan`,
+		Long:      `Subscribe to the Edge Services subscription plan of your choice, for the given Scaleway Project.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "select",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.SelectPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "plan-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_name",
+					"starter",
+					"professional",
+					"advanced",
+				},
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.SelectPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.SelectPlan(request)
+		},
+	}
+}
+
+func edgeServicesPlanGet() *core.Command {
+	return &core.Command{
+		Short:     `Get plan`,
+		Long:      `Get the current Edge Services subscription plan for your Scaleway Project.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.GetCurrentPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.GetCurrentPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.GetCurrentPlan(request)
+		},
+	}
+}
+
+func edgeServicesPlanDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete plan`,
+		Long:      `Unsubscribe from the current Edge Services subscription plan for your Scaleway Project.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.DeleteCurrentPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.DeleteCurrentPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			e = api.DeleteCurrentPlan(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "plan",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
