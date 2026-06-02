@@ -28,6 +28,11 @@ Edge Services API
   - [List Head stage for your pipeline.](#list-head-stage-for-your-pipeline.)
   - [Configure a entry point to your pipeline. You must specify a `head stage` to form a stage-chain that goes all the way to the backend stage (origin), so the HTTP request will be processed according to the stages you created.](#configure-a-entry-point-to-your-pipeline.-you-must-specify-a-`head-stage`-to-form-a-stage-chain-that-goes-all-the-way-to-the-backend-stage-(origin),-so-the-http-request-will-be-processed-according-to-the-stages-you-created.)
   - [Update pipeline](#update-pipeline)
+- [Plan management commands](#plan-management-commands)
+  - [Delete plan](#delete-plan)
+  - [Get plan](#get-plan)
+  - [List plans](#list-plans)
+  - [Select plan](#select-plan)
 - [Purge-request management commands](#purge-request-management-commands)
   - [Create purge request](#create-purge-request)
   - [Get purge request](#get-purge-request)
@@ -561,6 +566,81 @@ scw edge-services pipeline update <pipeline-id ...> [arg=value ...]
 
 
 
+## Plan management commands
+
+Plan management commands.
+
+
+### Delete plan
+
+Unsubscribe from the current Edge Services subscription plan for your Scaleway Project.
+
+**Usage:**
+
+```
+scw edge-services plan delete [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### Get plan
+
+Get the current Edge Services subscription plan for your Scaleway Project.
+
+**Usage:**
+
+```
+scw edge-services plan get [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+
+
+
+### List plans
+
+List all available Edge Services subscription plans.
+
+**Usage:**
+
+```
+scw edge-services plan list
+```
+
+
+
+### Select plan
+
+Subscribe to the Edge Services subscription plan of your choice, for the given Scaleway Project.
+
+**Usage:**
+
+```
+scw edge-services plan select [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| plan-name | One of: `unknown_name`, `starter`, `professional`, `advanced` |  |
+
+
+
 ## Purge-request management commands
 
 Purge-request management commands.
@@ -624,7 +704,7 @@ scw edge-services purge-request list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of purge requests in the response |
 | project-id |  | Project ID to filter for. Only purge requests from this Project will be returned |
 | pipeline-id |  | Pipeline ID to filter for. Only purge requests from this pipeline will be returned |
-| organization-id |  | Organization ID to filter for. Only purge requests from this Project will be returned |
+| organization-id |  | Organization ID to filter for. Only purge requests from this Organization will be returned |
 
 
 
