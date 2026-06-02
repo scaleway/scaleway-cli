@@ -295,6 +295,20 @@ type DeployStepBuildImageResponse struct {
 	DockerClient     DockerClient
 }
 
+func parsePlatforms(platformStr string) []ocispec.Platform {
+	var platforms []ocispec.Platform
+	for _, p := range strings.Split(platformStr, ",") {
+		parts := strings.Split(strings.TrimSpace(p), "/")
+		if len(parts) == 2 {
+			platforms = append(platforms, ocispec.Platform{
+				OS:           parts[0],
+				Architecture: parts[1],
+			})
+		}
+	}
+	return platforms
+}
+
 func DeployStepDockerBuildImage(
 	ctx context.Context,
 	t *tasks.Task,
@@ -302,25 +316,14 @@ func DeployStepDockerBuildImage(
 ) (*DeployStepBuildImageResponse, error) {
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
-	var platforms []ocispec.Platform
-	if data.Args.Platform != "" {
-		for _, p := range strings.Split(data.Args.Platform, ",") {
-			parts := strings.Split(strings.TrimSpace(p), "/")
-			if len(parts) == 2 {
-				platforms = append(platforms, ocispec.Platform{
-					OS:           parts[0],
-					Architecture: parts[1],
-				})
-			}
-		}
-	}
-
 	httpClient := core.ExtractHTTPClient(ctx)
 	dockerClient, err := NewCustomDockerClient(httpClient)
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to Docker: %w", err)
 	}
 	defer dockerClient.Close()
+
+	platforms := parsePlatforms(data.Args.Platform)
 
 	buildOpts := client.ImageBuildOptions{
 		Dockerfile: data.Args.Dockerfile,
