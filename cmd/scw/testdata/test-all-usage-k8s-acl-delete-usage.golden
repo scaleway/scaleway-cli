@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   acl-id            ID of the ACL rule to delete
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for delete

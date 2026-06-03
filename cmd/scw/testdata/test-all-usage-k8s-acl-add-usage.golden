@@ -10,7 +10,7 @@ ARGS:
   [acls.{index}.ip]                IP subnet to allow
   [acls.{index}.scaleway-ranges]   Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway.
   [acls.{index}.description]       Description of the ACL
-  [region=fr-par]                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for add

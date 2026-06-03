@@ -42,7 +42,7 @@ ARGS:
   [open-id-connect-config.groups-prefix]                 Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`
   [open-id-connect-config.required-claim.{index}]        Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value
   [apiserver-cert-sans.{index}]                          Additional Subject Alternative Names for the Kubernetes API server certificate
-  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for update

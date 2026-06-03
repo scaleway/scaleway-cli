@@ -30,7 +30,7 @@ ARGS:
   [upgrade-policy.max-unavailable]   
   [upgrade-policy.max-surge]         
   [security-group-id]                Security group ID in which all the nodes of the pool will be moved
-  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for update

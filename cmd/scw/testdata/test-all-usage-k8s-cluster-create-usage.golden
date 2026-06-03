@@ -75,7 +75,7 @@ ARGS:
   [service-cidr]                                         Subnet used for the Service CIDR (cannot be changed later)
   [service-dns-ip]                                       IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10
   [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
-  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for create
