@@ -194,6 +194,7 @@ func environmentalFootprintDataGet() *core.Command {
 					"network",
 					"containers",
 					"databases",
+					"ai",
 				},
 			},
 			{
@@ -215,6 +216,7 @@ func environmentalFootprintDataGet() *core.Command {
 					"managed_relational_databases",
 					"managed_mongodb",
 					"managed_redis",
+					"managed_inference",
 				},
 			},
 			core.OrganizationIDArgSpec(),

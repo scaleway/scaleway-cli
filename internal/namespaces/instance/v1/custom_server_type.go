@@ -139,8 +139,11 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		for _, pcuServerType := range listServersTypesResponse.Products {
 			name := pcuServerType.Properties.Instance.OfferID
 			serverType := &customServerType{
-				Name:        name,
-				HourlyPrice: pcuServerType.Price.RetailPrice,
+				Name: name,
+			}
+
+			if pcuServerType.Price != nil && pcuServerType.Price.RetailPrice != nil {
+				serverType.HourlyPrice = pcuServerType.Price.RetailPrice
 			}
 
 			if availability, exists := availabilitiesResponse.Servers[name]; exists {

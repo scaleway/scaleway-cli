@@ -131,6 +131,7 @@ func auditTrailEventList() *core.Command {
 					"vpc_route",
 					"vpc_acl",
 					"vpc_connector",
+					"vpc_ingress_rule",
 					"edge_services_plan",
 					"edge_services_pipeline",
 					"edge_services_dns_stage",
@@ -169,6 +170,9 @@ func auditTrailEventList() *core.Command {
 					"dtwh_deployment_user",
 					"ssdb_database",
 					"ssdb_database_backup",
+					"observability_datasource",
+					"observability_token",
+					"observability_exporter",
 				},
 			},
 			{
