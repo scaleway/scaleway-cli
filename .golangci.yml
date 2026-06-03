@@ -150,7 +150,9 @@ linters:
         - tagalign
 
     # cobra API requires func(*cobra.Command) error signature; context extracted from command
-    - linters:
+    # Only apply to core Cobra integration files where context comes from cobraCmd.Context()
+    - path: core/cobra_utils\.go
+      linters:
         - contextcheck
       text: "should pass the context parameter"
 

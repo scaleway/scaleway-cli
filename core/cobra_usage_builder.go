@@ -154,13 +154,13 @@ func buildExamples(binaryName string, cmd *Command) string {
 // the builder also takes a function that will fill annotations used by the usage template,
 // this is done like this to avoid build annotations for each command if not required
 func usageFuncBuilder(
-	cobreCmd *cobra.Command,
+	cobraCmd *cobra.Command,
 	annotationBuilder func(context.Context),
 ) func(*cobra.Command) error {
 	return func(command *cobra.Command) error {
-		executeWithCtx(command.Context(), cobreCmd, annotationBuilder)
+		executeWithCtx(command.Context(), cobraCmd, annotationBuilder)
 
-		return cobreCmd.UsageFunc()(command)
+		return cobraCmd.UsageFunc()(command)
 	}
 }
 
