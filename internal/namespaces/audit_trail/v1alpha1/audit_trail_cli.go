@@ -170,6 +170,9 @@ func auditTrailEventList() *core.Command {
 					"dtwh_deployment_user",
 					"ssdb_database",
 					"ssdb_database_backup",
+					"observability_datasource",
+					"observability_token",
+					"observability_exporter",
 				},
 			},
 			{
