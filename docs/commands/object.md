@@ -27,6 +27,7 @@ scw object bucket create <name ...> [arg=value ...]
 | enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
 | project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
@@ -44,11 +45,12 @@ scw object bucket delete <name ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| name       | The unique name of the bucket                                               | Required                |
-| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                         |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| name        | The unique name of the bucket                                               | Required                |
+| project-id  | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| s3-endpoint | Custom S3 endpoint to use instead of the default                            |                         |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -65,12 +67,13 @@ scw object bucket get <name ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                                                               | Argument Specifications |
-|------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
-| name       | The unique name of the bucket                                                                                             | Required                |
-| with-size  | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. | Default: `false`        |
-| project-id | Scaleway project ID to use with IAM Access Key syntax                                                                     |                         |
-| region     | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`       |
+| Name        | Description                                                                                                               | Argument Specifications |
+|-------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| name        | The unique name of the bucket                                                                                             | Required                |
+| with-size   | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. | Default: `false`        |
+| project-id  | Scaleway project ID to use with IAM Access Key syntax                                                                     |                         |
+| s3-endpoint | Custom S3 endpoint to use instead of the default                                                                          |                         |
+| region      | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`       |
 
 
 
@@ -87,10 +90,11 @@ scw object bucket list [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                         |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name        | Description                                                                 | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------|-------------------------|
+| project-id  | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| s3-endpoint | Custom S3 endpoint to use instead of the default                            |                         |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -114,6 +118,7 @@ scw object bucket update <name ...> [arg=value ...]
 | enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
 | project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
