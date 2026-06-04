@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   name                The unique name of the bucket
   [with-size=false]   Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.
+  [s3-endpoint]       Custom S3 endpoint to use instead of the default
   [region=fr-par]     Region to target. If none is passed will use default region from the config
 
 FLAGS:
