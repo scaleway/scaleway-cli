@@ -122,9 +122,11 @@ Generate a ready-to-use configuration snippet for a Cockpit data source.
 
 Supported tools:
   - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
+  - alloy: generates a Grafana Alloy snippet for Cockpit (metrics, logs, or traces data sources).
 
 Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
 The token is created with the minimum required write scope for the data source type.
+Custom data sources are required for push; Scaleway-managed data sources are read-only.
 
 **Usage:**
 
@@ -138,7 +140,7 @@ scw cockpit config get <data-source-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | data-source-id | Required | ID of the data source to generate the configuration for |
-| type | Required<br />One of: `prometheus` | Configuration template type |
+| type | Required<br />One of: `prometheus`, `alloy` | Configuration template type |
 | generate-token |  | Create a new Cockpit token and inject it in the generated snippet |
 | token-name | Default: `prometheus-push` | Name of the token to create when generate-token=true |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
@@ -160,6 +162,16 @@ scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus gene
 Generate a Prometheus remote_write snippet with a named token
 ```
 scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true token-name=my-prometheus
+```
+
+Generate a Grafana Alloy configuration snippet
+```
+scw cockpit config get 11111111-1111-1111-1111-111111111111 type=alloy
+```
+
+Generate a Grafana Alloy configuration snippet with a new token
+```
+scw cockpit config get 11111111-1111-1111-1111-111111111111 type=alloy generate-token=true
 ```
 
 

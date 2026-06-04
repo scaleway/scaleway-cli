@@ -51,9 +51,11 @@ func cockpitConfigGetCommand() *core.Command {
 
 Supported tools:
   - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
+  - alloy: generates a Grafana Alloy snippet for Cockpit (metrics, logs, or traces data sources).
 
 Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
-The token is created with the minimum required write scope for the data source type.`,
+The token is created with the minimum required write scope for the data source type.
+Custom data sources are required for push; Scaleway-managed data sources are read-only.`,
 		ArgsType: reflect.TypeOf(cockpitConfigGetRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -66,7 +68,10 @@ The token is created with the minimum required write scope for the data source t
 				Name:       "type",
 				Short:      "Configuration template type",
 				Required:   true,
-				EnumValues: []string{string(cockpitConfigTypePrometheus)},
+				EnumValues: []string{
+					string(cockpitConfigTypePrometheus),
+					string(cockpitConfigTypeAlloy),
+				},
 			},
 			{
 				Name:  "generate-token",
@@ -95,6 +100,14 @@ The token is created with the minimum required write scope for the data source t
 			{
 				Short:    "Generate a Prometheus remote_write snippet with a named token",
 				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"prometheus","generate_token":true,"token_name":"my-prometheus"}`,
+			},
+			{
+				Short:    "Generate a Grafana Alloy configuration snippet",
+				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"alloy"}`,
+			},
+			{
+				Short:    "Generate a Grafana Alloy configuration snippet with a new token",
+				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"alloy","generate_token":true}`,
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -125,21 +138,49 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		return nil, err
 	}
 
-	if args.Type == cockpitConfigTypePrometheus &&
-		dataSource.Type != cockpit.DataSourceTypeMetrics {
-		return nil, &core.CliError{
-			Err: fmt.Errorf(
-				"config type %q requires a metrics data source, got %q",
+	switch args.Type {
+	case cockpitConfigTypePrometheus:
+		if dataSource.Type != cockpit.DataSourceTypeMetrics {
+			return nil, incompatibleDataSourceTypeError(
+				args.Type,
+				cockpit.DataSourceTypeMetrics,
+				dataSource.Type,
+				"metrics",
+			)
+		}
+	case cockpitConfigTypeAlloy:
+		switch dataSource.Type {
+		case cockpit.DataSourceTypeMetrics, cockpit.DataSourceTypeLogs, cockpit.DataSourceTypeTraces:
+			// supported
+		default:
+			return nil, fmt.Errorf(
+				"config type %q requires a metrics, logs, or traces data source, got %q",
 				args.Type,
 				dataSource.Type,
+			)
+		}
+	default:
+		return nil, fmt.Errorf("unsupported config type %q", args.Type)
+	}
+
+	if dataSource.Origin == cockpit.DataSourceOriginScaleway {
+		return nil, &core.CliError{
+			Err: fmt.Errorf(
+				"data source %q has origin %q and does not accept external push",
+				dataSource.ID,
+				dataSource.Origin,
 			),
-			Hint: "Use `scw cockpit data-source list types.0=metrics` " +
-				"to find a compatible data source.",
+			Hint: "Create a custom data source with " +
+				"`scw cockpit data-source create` and use its ID instead.",
 		}
 	}
 
 	var tokenSecretKey *string
 	if args.GenerateToken {
+		tokenName := args.TokenName
+		if args.Type == cockpitConfigTypeAlloy && tokenName == "prometheus-push" {
+			tokenName = defaultAlloyTokenName(dataSource.Type)
+		}
 		scope, ok := tokenScopeForDataSourceType[dataSource.Type]
 		if !ok {
 			return nil, fmt.Errorf(
@@ -151,7 +192,7 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		token, err := api.CreateToken(&cockpit.RegionalAPICreateTokenRequest{
 			Region:      args.Region,
 			ProjectID:   dataSource.ProjectID,
-			Name:        args.TokenName,
+			Name:        tokenName,
 			TokenScopes: []cockpit.TokenScope{scope},
 		})
 		if err != nil {
@@ -164,7 +205,45 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		tokenSecretKey = token.SecretKey
 	}
 
-	return RenderPrometheusRemoteWriteConfig(dataSource.URL, tokenSecretKey), nil
+	switch args.Type {
+	case cockpitConfigTypePrometheus:
+		return RenderPrometheusRemoteWriteConfig(dataSource.URL, tokenSecretKey), nil
+	case cockpitConfigTypeAlloy:
+		return RenderAlloyConfig(dataSource.Type, dataSource.URL, tokenSecretKey)
+	default:
+		return nil, fmt.Errorf("unsupported config type %q", args.Type)
+	}
+}
+
+func incompatibleDataSourceTypeError(
+	configType cockpitConfigType,
+	required cockpit.DataSourceType,
+	got cockpit.DataSourceType,
+	listFilter string,
+) *core.CliError {
+	return &core.CliError{
+		Err: fmt.Errorf(
+			"config type %q requires a %s data source, got %q",
+			configType,
+			required,
+			got,
+		),
+		Hint: "Use `scw cockpit data-source list types.0=" + listFilter + "` " +
+			"to find a compatible data source.",
+	}
+}
+
+func defaultAlloyTokenName(dataSourceType cockpit.DataSourceType) string {
+	switch dataSourceType {
+	case cockpit.DataSourceTypeMetrics:
+		return "alloy-metrics-push"
+	case cockpit.DataSourceTypeLogs:
+		return "alloy-logs-push"
+	case cockpit.DataSourceTypeTraces:
+		return "alloy-traces-push"
+	default:
+		return "alloy-push"
+	}
 }
 
 // RenderPrometheusRemoteWriteConfig renders a Prometheus remote_write YAML snippet for stdout.
