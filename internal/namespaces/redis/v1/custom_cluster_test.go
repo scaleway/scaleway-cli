@@ -16,10 +16,10 @@ import (
 const (
 	redisTestVersion = "8.4.0"
 	baseCommand      = "scw redis cluster create --wait name=%s version=" + redisTestVersion + " node-type=RED1-micro user-name=admin password=P@sSw0Rd "
-	serviceIPsA = "172.16.4.1/22"
-	serviceIPsB = "10.16.4.1/22"
-	metaNamePNA = "PrivateNetworkA"
-	metaNamePNB = "PrivateNetworkB"
+	serviceIPsA      = "172.16.4.1/22"
+	serviceIPsB      = "10.16.4.1/22"
+	metaNamePNA      = "PrivateNetworkA"
+	metaNamePNB      = "PrivateNetworkB"
 )
 
 func Test_Endpoints(t *testing.T) {
