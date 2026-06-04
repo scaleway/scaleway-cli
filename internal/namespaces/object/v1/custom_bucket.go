@@ -344,7 +344,12 @@ func bucketUpdateCommand() *core.Command {
 	}
 }
 
-func getBucketInfo(ctx context.Context, region scw.Region, name string, endpoint ...string) (*bucketInfo, error) {
+func getBucketInfo(
+	ctx context.Context,
+	region scw.Region,
+	name string,
+	endpoint ...string,
+) (*bucketInfo, error) {
 	client := newS3Client(ctx, region, endpoint...)
 	bucket := &bucketInfo{
 		ID:     name,
