@@ -16,7 +16,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
+func newS3Client(ctx context.Context, region scw.Region, endpoint ...string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -30,7 +30,10 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 	}
 
 	var customEndpoint string
-	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
+	// Priority: 1) command flag, 2) env var, 3) default
+	if len(endpoint) > 0 && endpoint[0] != "" {
+		customEndpoint = endpoint[0]
+	} else if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		customEndpoint = ep
 	} else {
 		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
