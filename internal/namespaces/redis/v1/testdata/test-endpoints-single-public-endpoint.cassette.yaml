@@ -4,7 +4,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":null, "tls_enabled":false,
       "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin",
@@ -20,7 +20,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":null, "tls_enabled":false,
       "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin",
@@ -50,7 +50,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":null, "tls_enabled":false,
       "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin",
@@ -64,7 +64,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":null, "tls_enabled":false,
       "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin",
@@ -94,7 +94,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":null, "tls_enabled":false,
       "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin",
@@ -108,7 +108,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":[],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":null, "tls_enabled":false,
       "cluster_settings":[], "acl_rules":[], "cluster_size":1, "user_name":"admin",
@@ -138,7 +138,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -152,7 +152,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -182,7 +182,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -196,7 +196,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -226,7 +226,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -240,7 +240,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -270,7 +270,7 @@ interactions:
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -284,7 +284,7 @@ interactions:
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
+      "version":"8.4.0", "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"],
       "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}], "tags":[], "node_type":"RED1-micro",
       "created_at":"2025-10-28T05:21:57.395358Z", "updated_at":"2025-10-28T05:22:24.256183Z",
       "tls_enabled":false, "cluster_settings":[], "acl_rules":[], "cluster_size":1,
@@ -313,7 +313,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:22.888175Z", "tls_enabled":false, "cluster_settings":[],
@@ -327,7 +327,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:22.888175Z", "tls_enabled":false, "cluster_settings":[],
@@ -357,7 +357,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -371,7 +371,7 @@ interactions:
     method: DELETE
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -401,7 +401,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -415,7 +415,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -445,7 +445,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -459,7 +459,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -489,7 +489,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
@@ -503,7 +503,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"9bd9070c-1571-4631-a8d8-33e87d104beb", "name":"1-pub-endpoint",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "public_network":{}, "ips":["51.158.111.88"], "id":"72c32043-69f4-41e7-a6fd-d3b5e239e017"}],
       "tags":[], "node_type":"RED1-micro", "created_at":"2025-10-28T05:21:57.395358Z",
       "updated_at":"2025-10-28T05:23:28.756709Z", "tls_enabled":false, "cluster_settings":[],
