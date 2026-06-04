@@ -19,7 +19,12 @@ import (
 
 // newS3Client creates a new S3 client to interact with the S3 API of the passed
 // region. If `projectID` is empty, the default one is used.
-func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.Client {
+func newS3Client(
+	ctx context.Context,
+	region scw.Region,
+	projectID string,
+	endpoint ...string,
+) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -36,7 +41,10 @@ func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.C
 	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
 
 	var customEndpoint string
-	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
+	// Priority: 1) command flag, 2) env var, 3) default
+	if len(endpoint) > 0 && endpoint[0] != "" {
+		customEndpoint = endpoint[0]
+	} else if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		customEndpoint = ep
 	} else {
 		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
