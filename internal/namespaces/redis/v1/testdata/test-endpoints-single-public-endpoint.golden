@@ -4,7 +4,7 @@ ID           9bd9070c-1571-4631-a8d8-33e87d104beb
 Name         1-pub-endpoint
 ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
 Status       ready
-Version      7.2.11
+Version      8.4.0
 NodeType     RED1-micro
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
@@ -25,7 +25,7 @@ ID   IP CIDR  DESCRIPTION
   "name": "1-pub-endpoint",
   "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
   "status": "ready",
-  "version": "7.2.11",
+  "version": "8.4.0",
   "endpoints": [
     {
       "port": 6379,

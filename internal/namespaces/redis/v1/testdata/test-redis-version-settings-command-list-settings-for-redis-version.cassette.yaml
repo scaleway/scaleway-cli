@@ -2,7 +2,7 @@
 version: 1
 interactions:
 - request:
-    body: '{"total_count":1, "versions":[{"version":"7.2.11", "end_of_life_at":"2026-02-28T00:00:00Z",
+    body: '{"total_count":1, "versions":[{"version":"8.4.0", "end_of_life_at":"2026-02-28T00:00:00Z",
       "available_settings":[{"name":"tcp-keepalive", "default_value":"300", "type":"INT",
       "description":"The specified value (in seconds) is the period used to send ACKs.",
       "max_value":65536, "min_value":null, "regex":null, "deprecated":false}, {"name":"maxclients",
@@ -30,10 +30,10 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; amd64) cli-e2e-test
-    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/cluster-versions?include_beta=false&include_deprecated=false&include_disabled=false&version=7.2.11
+    url: https://api.scaleway.com/redis/v1/zones/fr-par-1/cluster-versions?include_beta=false&include_deprecated=false&include_disabled=false&version=8.4.0
     method: GET
   response:
-    body: '{"total_count":1, "versions":[{"version":"7.2.11", "end_of_life_at":"2026-02-28T00:00:00Z",
+    body: '{"total_count":1, "versions":[{"version":"8.4.0", "end_of_life_at":"2026-02-28T00:00:00Z",
       "available_settings":[{"name":"tcp-keepalive", "default_value":"300", "type":"INT",
       "description":"The specified value (in seconds) is the period used to send ACKs.",
       "max_value":65536, "min_value":null, "regex":null, "deprecated":false}, {"name":"maxclients",
