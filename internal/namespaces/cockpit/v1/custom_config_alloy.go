@@ -11,9 +11,9 @@ import (
 const (
 	cockpitConfigTypeAlloy = cockpitConfigType("alloy")
 
-	cockpitLokiPushPath    = "/loki/api/v1/push"
-	cockpitTracesOTLPPath  = "/otlp/v1/traces"
-	alloyTokenPlaceholder  = "COCKPIT_TOKEN_SECRET_KEY"
+	cockpitLokiPushPath   = "/loki/api/v1/push"
+	cockpitTracesOTLPPath = "/otlp/v1/traces"
+	alloyTokenPlaceholder = "COCKPIT_TOKEN_SECRET_KEY"
 )
 
 // BuildLokiPushURL returns the Loki push URL for a Cockpit logs data source base URL.
@@ -39,8 +39,8 @@ func BuildTracesOTLPPushURL(dataSourceURL string) string {
 // BuildTracesOTLPBaseURL returns the base URL for otelcol.exporter.otlphttp client.endpoint.
 func BuildTracesOTLPBaseURL(dataSourceURL string) string {
 	baseURL := strings.TrimRight(dataSourceURL, "/")
-	if strings.HasSuffix(baseURL, cockpitTracesOTLPPath) {
-		return strings.TrimSuffix(baseURL, cockpitTracesOTLPPath)
+	if base, ok := strings.CutSuffix(baseURL, cockpitTracesOTLPPath); ok {
+		return base
 	}
 
 	return baseURL
@@ -73,7 +73,10 @@ func RenderAlloyConfig(
 	case cockpit.DataSourceTypeTraces:
 		return RenderAlloyTracesConfig(dataSourceURL, tokenSecretKey), nil
 	default:
-		return core.RawResult(""), fmt.Errorf("unsupported data source type %q for alloy config", dataSourceType)
+		return core.RawResult(""), fmt.Errorf(
+			"unsupported data source type %q for alloy config",
+			dataSourceType,
+		)
 	}
 }
 
@@ -81,7 +84,8 @@ func RenderAlloyConfig(
 func RenderAlloyMetricsConfig(dataSourceURL string, tokenSecretKey *string) core.RawResult {
 	remoteWriteURL := BuildPrometheusRemoteWriteURL(dataSourceURL)
 
-	lines := []string{
+	lines := make([]string, 0, 28)
+	lines = append(lines,
 		"// Snippet of Grafana Alloy configuration to add to cockpit.alloy",
 		"// Collects host metrics and pushes them to your Cockpit metrics data source.",
 		"// Run with: alloy run cockpit.alloy",
@@ -108,8 +112,8 @@ func RenderAlloyMetricsConfig(dataSourceURL string, tokenSecretKey *string) core
 		"",
 		`prometheus.remote_write "cockpit" {`,
 		"    endpoint {",
-		`        url = "` + remoteWriteURL + `"`,
-	}
+		`        url = "`+remoteWriteURL+`"`,
+	)
 	lines = append(lines, renderAlloyTokenHeaders(tokenSecretKey)...)
 	lines = append(lines,
 		"    }",
@@ -124,7 +128,8 @@ func RenderAlloyMetricsConfig(dataSourceURL string, tokenSecretKey *string) core
 func RenderAlloyLogsConfig(dataSourceURL string, tokenSecretKey *string) core.RawResult {
 	pushURL := BuildLokiPushURL(dataSourceURL)
 
-	lines := []string{
+	lines := make([]string, 0, 12)
+	lines = append(lines,
 		"// Snippet of Grafana Alloy configuration to add to cockpit.alloy",
 		"// Forwards logs to your Cockpit logs data source. Add loki.source.* components",
 		"// and forward them to loki.write.cockpit.receiver.",
@@ -132,8 +137,8 @@ func RenderAlloyLogsConfig(dataSourceURL string, tokenSecretKey *string) core.Ra
 		"",
 		`loki.write "cockpit" {`,
 		"    endpoint {",
-		`        url = "` + pushURL + `"`,
-	}
+		`        url = "`+pushURL+`"`,
+	)
 	lines = append(lines, renderAlloyTokenHeaders(tokenSecretKey)...)
 	lines = append(lines,
 		"    }",
@@ -149,7 +154,8 @@ func RenderAlloyTracesConfig(dataSourceURL string, tokenSecretKey *string) core.
 	baseURL := BuildTracesOTLPBaseURL(dataSourceURL)
 	tracesURL := BuildTracesOTLPPushURL(dataSourceURL)
 
-	lines := []string{
+	lines := make([]string, 0, 12)
+	lines = append(lines,
 		"// Snippet of Grafana Alloy configuration to add to cockpit.alloy",
 		"// Exports traces to your Cockpit traces data source over OTLP HTTP.",
 		"// Forward otelcol.* pipeline outputs to otelcol.exporter.otlphttp.cockpit.input.",
@@ -157,9 +163,9 @@ func RenderAlloyTracesConfig(dataSourceURL string, tokenSecretKey *string) core.
 		"",
 		`otelcol.exporter.otlphttp "cockpit" {`,
 		"    client {",
-		`        endpoint        = "` + baseURL + `"`,
-		`        traces_endpoint = "` + tracesURL + `"`,
-	}
+		`        endpoint        = "`+baseURL+`"`,
+		`        traces_endpoint = "`+tracesURL+`"`,
+	)
 	lines = append(lines, renderAlloyTokenHeaders(tokenSecretKey)...)
 	lines = append(lines,
 		"    }",

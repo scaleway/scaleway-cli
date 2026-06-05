@@ -3,8 +3,8 @@ package cockpit_test
 import (
 	"testing"
 
-	cockpitSDK "github.com/scaleway/scaleway-sdk-go/api/cockpit/v1"
 	cockpit "github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
+	cockpitSDK "github.com/scaleway/scaleway-sdk-go/api/cockpit/v1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
@@ -23,16 +23,13 @@ func Test_BuildLokiPushURL(t *testing.T) {
 }
 
 func Test_BuildTracesOTLPPushURL(t *testing.T) {
-	assert.Equal(
-		t,
-		"https://example.traces.cockpit.fr-par.scw.cloud/otlp/v1/traces",
-		cockpit.BuildTracesOTLPPushURL("https://example.traces.cockpit.fr-par.scw.cloud"),
+	const (
+		tracesHost    = "https://example.traces.cockpit.fr-par.scw.cloud"
+		tracesPushURL = tracesHost + "/otlp/v1/traces"
 	)
-	assert.Equal(
-		t,
-		"https://example.traces.cockpit.fr-par.scw.cloud",
-		cockpit.BuildTracesOTLPBaseURL("https://example.traces.cockpit.fr-par.scw.cloud/otlp/v1/traces"),
-	)
+
+	assert.Equal(t, tracesPushURL, cockpit.BuildTracesOTLPPushURL(tracesHost))
+	assert.Equal(t, tracesHost, cockpit.BuildTracesOTLPBaseURL(tracesPushURL))
 }
 
 func Test_RenderAlloyMetricsConfig(t *testing.T) {

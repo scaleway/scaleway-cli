@@ -174,7 +174,9 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 		}
 	case cockpitConfigTypeAlloy:
 		switch dataSource.Type {
-		case cockpit.DataSourceTypeMetrics, cockpit.DataSourceTypeLogs, cockpit.DataSourceTypeTraces:
+		case cockpit.DataSourceTypeMetrics,
+			cockpit.DataSourceTypeLogs,
+			cockpit.DataSourceTypeTraces:
 			// supported
 		default:
 			return nil, fmt.Errorf(
