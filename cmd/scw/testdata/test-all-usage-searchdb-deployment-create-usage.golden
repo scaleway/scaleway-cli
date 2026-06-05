@@ -9,7 +9,7 @@ ARGS:
   [project-id]                                             Project ID to use. If none is passed the default project ID will be used
   [name]                                                   Name of the deployment
   [tags.{index}]                                           Tags
-  [node-amount]                                            Number of nodes
+  [node-count]                                             Number of nodes.
   [node-type]                                              Node type
   [user-name]                                              Username for the deployment user
   [password]                                               Password for the deployment user
@@ -18,6 +18,9 @@ ARGS:
   [endpoints.{index}.private-network.private-network-id]   
   [version]                                                The Opensearch version to use
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
+
+DEPRECATED ARGS:
+  [node-amount]   DEPRECATED: Use node_count instead. Number of nodes
 
 FLAGS:
   -h, --help                help for create
