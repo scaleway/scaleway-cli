@@ -122,14 +122,7 @@ func searchdbDeploymentCreate() *core.Command {
 			},
 			{
 				Name:       "node-amount",
-				Short:      `DEPRECATED: Use node_count instead. Number of nodes`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
-				Name:       "node-count",
-				Short:      `Number of nodes.`,
+				Short:      `Number of nodes`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -263,14 +256,7 @@ func searchdbDeploymentUpgrade() *core.Command {
 			},
 			{
 				Name:       "node-amount",
-				Short:      `DEPRECATED: Use node_count instead. Amount of node upgrade target`,
-				Required:   false,
-				Deprecated: true,
-				Positional: false,
-			},
-			{
-				Name:       "node-count",
-				Short:      `The target number of nodes for the upgrade.`,
+				Short:      `Amount of node upgrade target`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
