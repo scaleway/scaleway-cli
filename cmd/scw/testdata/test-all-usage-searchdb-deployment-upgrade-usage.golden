@@ -7,9 +7,12 @@ USAGE:
 
 ARGS:
   deployment-id         UUID of the Deployment to upgrade
-  [node-amount]         Amount of node upgrade target
+  [node-count]          The target number of nodes for the upgrade.
   [volume-size-bytes]   Volume size upgrade target
   [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
+
+DEPRECATED ARGS:
+  [node-amount]   DEPRECATED: Use node_count instead. Amount of node upgrade target
 
 FLAGS:
   -h, --help                help for upgrade
