@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   cluster-id        ID of the cluster whose ACLs will be listed
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil | all)
 
 FLAGS:
   -h, --help                help for list

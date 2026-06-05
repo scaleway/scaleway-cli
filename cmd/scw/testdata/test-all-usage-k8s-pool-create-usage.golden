@@ -42,7 +42,7 @@ ARGS:
   [startup-taints.{index}.key]       The taint key to be applied to a node
   [startup-taints.{index}.value]     The taint value corresponding to the taint key
   [startup-taints.{index}.effect]    Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
-  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for create

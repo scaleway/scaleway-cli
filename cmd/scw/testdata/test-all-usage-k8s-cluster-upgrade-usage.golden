@@ -16,7 +16,7 @@ ARGS:
   cluster-id        ID of the cluster to upgrade
   version           New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one
   [upgrade-pools]   Defines whether pools will also be upgraded once the control plane is upgraded
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for upgrade

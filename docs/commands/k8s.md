@@ -76,7 +76,7 @@ scw k8s acl add [arg=value ...]
 | acls.{index}.ip |  | IP subnet to allow |
 | acls.{index}.scaleway-ranges |  | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |
 | acls.{index}.description |  | Description of the ACL |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -96,7 +96,7 @@ scw k8s acl delete [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | acl-id | Required | ID of the ACL rule to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -116,7 +116,7 @@ scw k8s acl list [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | ID of the cluster whose ACLs will be listed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -139,7 +139,7 @@ scw k8s acl set [arg=value ...]
 | acls.{index}.ip |  | IP subnet to allow |
 | acls.{index}.scaleway-ranges |  | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |
 | acls.{index}.description |  | Description of the ACL |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -226,7 +226,7 @@ scw k8s cluster create [arg=value ...]
 | service-cidr |  | Subnet used for the Service CIDR (cannot be changed later) |
 | service-dns-ip |  | IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10 |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -262,7 +262,7 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | ID of the cluster to delete |
 | with-additional-resources |  | Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -297,7 +297,7 @@ scw k8s cluster get <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | ID of the requested cluster |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -333,7 +333,7 @@ scw k8s cluster list [arg=value ...]
 | type |  | Type to filter on, only clusters with this type will be returned |
 | private-network-id |  | Private Network ID to filter on, only clusters within this Private Network will be returned |
 | organization-id |  | Organization ID on which to filter the returned clusters |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -373,7 +373,7 @@ scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | Cluster ID for which the available Kubernetes types will be listed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -403,7 +403,7 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | Cluster ID for which the available Kubernetes versions will be listed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -433,7 +433,7 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | cluster-id | Required | Cluster ID on which the admin token will be renewed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -464,7 +464,7 @@ scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 |------|---|-------------|
 | cluster-id | Required | ID of the cluster to migrate from one type to another |
 | type | Required | Type of the cluster. Note that some migrations are not possible (please refer to product documentation) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -522,7 +522,7 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 | open-id-connect-config.groups-prefix |  | Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra` |
 | open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value |
 | apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -559,7 +559,7 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 | cluster-id | Required | ID of the cluster to upgrade |
 | version | Required | New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one |
 | upgrade-pools |  | Defines whether pools will also be upgraded once the control plane is upgraded |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -631,7 +631,7 @@ scw k8s cluster-type list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -777,7 +777,7 @@ scw k8s node delete <node-id ...> [arg=value ...]
 |------|---|-------------|
 | node-id | Required | ID of the node to replace |
 | skip-drain |  | Skip draining node from its workload (Note: this parameter is currently inactive) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -812,7 +812,7 @@ scw k8s node get <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | ID of the requested node |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -846,7 +846,7 @@ scw k8s node list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of the returned nodes |
 | name |  | Name to filter on, only nodes containing this substring in their name will be returned |
 | status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | Status to filter on, only nodes with this status will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -886,7 +886,7 @@ scw k8s node reboot <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | ID of the node to reboot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -916,7 +916,7 @@ scw k8s node replace <node-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | node-id | Required | ID of the node to replace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1032,7 +1032,7 @@ scw k8s pool create [arg=value ...]
 | startup-taints.{index}.key |  | The taint key to be applied to a node |
 | startup-taints.{index}.value |  | The taint value corresponding to the taint key |
 | startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1072,7 +1072,7 @@ scw k8s pool delete <pool-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pool-id | Required | ID of the pool to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1102,7 +1102,7 @@ scw k8s pool get <pool-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | pool-id | Required | ID of the requested pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1135,7 +1135,7 @@ scw k8s pool list [arg=value ...]
 | order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of returned pools |
 | name |  | Name to filter on, only pools containing this substring in their name will be returned |
 | status | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading` | Status to filter on, only pools with this status will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1396,7 +1396,7 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | upgrade-policy.max-unavailable |  |  |
 | upgrade-policy.max-surge |  |  |
 | security-group-id |  | Security group ID in which all the nodes of the pool will be moved |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1443,7 +1443,7 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 |------|---|-------------|
 | pool-id | Required | ID of the pool to upgrade |
 | version | Required | New Kubernetes version for the pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1510,7 +1510,7 @@ scw k8s version get <version-name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | version-name | Required | Requested version name |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -1539,7 +1539,7 @@ scw k8s version list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**

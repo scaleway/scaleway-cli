@@ -3,7 +3,9 @@ package cockpit
 import (
 	"context"
 	"fmt"
+	"net/url"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -15,6 +17,9 @@ type cockpitConfigType string
 
 const (
 	cockpitConfigTypePrometheus cockpitConfigType = "prometheus"
+	cockpitConfigTypeFluentBit  cockpitConfigType = "fluent-bit"
+
+	cockpitLogsOTLPPath = "/otlp/v1/logs"
 )
 
 // tokenScopeForDataSourceType returns the write scope matching a data source type.
@@ -51,6 +56,7 @@ func cockpitConfigGetCommand() *core.Command {
 
 Supported tools:
   - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
+  - fluent-bit: generates a fluent-bit.conf snippet with a dummy input and an OpenTelemetry output (logs data sources only).
   - alloy: generates a Grafana Alloy snippet for Cockpit (metrics, logs, or traces data sources).
 
 Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
@@ -65,11 +71,12 @@ Custom data sources are required for push; Scaleway-managed data sources are rea
 				Positional: true,
 			},
 			{
-				Name:       "type",
-				Short:      "Configuration template type",
-				Required:   true,
+				Name:     "type",
+				Short:    "Configuration template type",
+				Required: true,
 				EnumValues: []string{
 					string(cockpitConfigTypePrometheus),
+					string(cockpitConfigTypeFluentBit),
 					string(cockpitConfigTypeAlloy),
 				},
 			},
@@ -100,6 +107,14 @@ Custom data sources are required for push; Scaleway-managed data sources are rea
 			{
 				Short:    "Generate a Prometheus remote_write snippet with a named token",
 				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"prometheus","generate_token":true,"token_name":"my-prometheus"}`,
+			},
+			{
+				Short:    "Generate a Fluent Bit configuration snippet",
+				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"fluent-bit"}`,
+			},
+			{
+				Short:    "Generate a Fluent Bit configuration snippet with a new token",
+				ArgsJSON: `{"data_source_id":"11111111-1111-1111-1111-111111111111","type":"fluent-bit","generate_token":true}`,
 			},
 			{
 				Short:    "Generate a Grafana Alloy configuration snippet",
@@ -148,6 +163,15 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 				"metrics",
 			)
 		}
+	case cockpitConfigTypeFluentBit:
+		if dataSource.Type != cockpit.DataSourceTypeLogs {
+			return nil, incompatibleDataSourceTypeError(
+				args.Type,
+				cockpit.DataSourceTypeLogs,
+				dataSource.Type,
+				"logs",
+			)
+		}
 	case cockpitConfigTypeAlloy:
 		switch dataSource.Type {
 		case cockpit.DataSourceTypeMetrics, cockpit.DataSourceTypeLogs, cockpit.DataSourceTypeTraces:
@@ -178,6 +202,9 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 	var tokenSecretKey *string
 	if args.GenerateToken {
 		tokenName := args.TokenName
+		if args.Type == cockpitConfigTypeFluentBit && tokenName == "prometheus-push" {
+			tokenName = "fluent-bit-push"
+		}
 		if args.Type == cockpitConfigTypeAlloy && tokenName == "prometheus-push" {
 			tokenName = defaultAlloyTokenName(dataSource.Type)
 		}
@@ -208,6 +235,13 @@ func cockpitConfigGetRun(ctx context.Context, argsI any) (any, error) {
 	switch args.Type {
 	case cockpitConfigTypePrometheus:
 		return RenderPrometheusRemoteWriteConfig(dataSource.URL, tokenSecretKey), nil
+	case cockpitConfigTypeFluentBit:
+		endpoint, err := ParseCockpitDataSourceEndpoint(dataSource.URL)
+		if err != nil {
+			return nil, err
+		}
+
+		return RenderFluentBitConfig(endpoint, tokenSecretKey), nil
 	case cockpitConfigTypeAlloy:
 		return RenderAlloyConfig(dataSource.Type, dataSource.URL, tokenSecretKey)
 	default:
@@ -279,4 +313,93 @@ func BuildPrometheusRemoteWriteURL(dataSourceURL string) string {
 	}
 
 	return baseURL + "/api/v1/push"
+}
+
+// cockpitDataSourceEndpoint holds host and port parsed from a Cockpit data source URL.
+type cockpitDataSourceEndpoint struct {
+	Host string
+	Port int
+}
+
+// ParseCockpitDataSourceEndpoint parses the host and port from a Cockpit data source URL.
+func ParseCockpitDataSourceEndpoint(dataSourceURL string) (cockpitDataSourceEndpoint, error) {
+	parsedURL, err := url.Parse(dataSourceURL)
+	if err != nil {
+		return cockpitDataSourceEndpoint{}, fmt.Errorf("invalid data source URL: %w", err)
+	}
+
+	host := parsedURL.Hostname()
+	if host == "" {
+		return cockpitDataSourceEndpoint{}, fmt.Errorf(
+			"invalid data source URL %q: missing host",
+			dataSourceURL,
+		)
+	}
+
+	port := parsedURL.Port()
+	if port == "" {
+		if parsedURL.Scheme == "http" {
+			port = "80"
+		} else {
+			port = "443"
+		}
+	}
+
+	portNumber, err := strconv.Atoi(port)
+	if err != nil {
+		return cockpitDataSourceEndpoint{}, fmt.Errorf(
+			"invalid data source URL %q: invalid port %q",
+			dataSourceURL,
+			port,
+		)
+	}
+
+	return cockpitDataSourceEndpoint{Host: host, Port: portNumber}, nil
+}
+
+// BuildFluentBitLogsURI returns the OpenTelemetry logs URI path for a Cockpit logs data source.
+func BuildFluentBitLogsURI(dataSourceURL string) string {
+	baseURL := strings.TrimRight(dataSourceURL, "/")
+	if strings.HasSuffix(baseURL, cockpitLogsOTLPPath) {
+		return cockpitLogsOTLPPath
+	}
+
+	return cockpitLogsOTLPPath
+}
+
+// RenderFluentBitConfig renders a Fluent Bit configuration snippet for stdout.
+func RenderFluentBitConfig(
+	endpoint cockpitDataSourceEndpoint,
+	tokenSecretKey *string,
+) core.RawResult {
+	lines := []string{
+		"# Snippet of Fluent Bit configuration to add to fluent-bit.conf",
+		"# Uses a dummy input for testing; replace it with your real log inputs.",
+		"[SERVICE]",
+		"    Flush        1",
+		"    Log_Level    info",
+		"",
+		"[INPUT]",
+		"    Name    dummy",
+		"    Tag     dummy.log",
+		"    Rate    1",
+		"",
+		"[OUTPUT]",
+		"    Name                 opentelemetry",
+		"    Match                dummy.log",
+		"    Host                 " + endpoint.Host,
+		"    Port                 " + strconv.Itoa(endpoint.Port),
+		"    Logs_uri             " + cockpitLogsOTLPPath,
+		"    Log_response_payload True",
+		"    Tls                  On",
+		"    Tls.verify           On",
+	}
+
+	if tokenSecretKey != nil {
+		lines = append(lines, "    header               X-TOKEN "+*tokenSecretKey)
+	}
+
+	lines = append(lines, "")
+
+	return core.RawResult(strings.Join(lines, "\n"))
 }

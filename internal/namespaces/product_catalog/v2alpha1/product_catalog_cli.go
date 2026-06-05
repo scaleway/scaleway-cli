@@ -79,6 +79,7 @@ func productCatalogProductList() *core.Command {
 					"kubernetes",
 					"managed_relational_database",
 					"managed_mongodb",
+					"serverless_functions",
 				},
 			},
 			{
