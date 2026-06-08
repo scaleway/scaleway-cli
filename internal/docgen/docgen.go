@@ -2,6 +2,7 @@ package docgen
 
 import (
 	"bytes"
+	"embed"
 	"fmt"
 	"os"
 	"path"
@@ -11,6 +12,9 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
+
+//go:embed tpl.md.tmpl
+var templateFile embed.FS
 
 type tplData struct {
 	Namespaces map[string]*tplNamespace
@@ -178,7 +182,7 @@ func newTemplate() *template.Template {
 			return value
 		},
 	})
-	tpl = template.Must(tpl.Parse(tplStr))
+	tpl = template.Must(tpl.ParseFS(templateFile, "tpl.md.tmpl"))
 
 	return tpl
 }
