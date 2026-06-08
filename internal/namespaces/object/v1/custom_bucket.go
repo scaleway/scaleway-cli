@@ -404,6 +404,7 @@ func getBucketInfo(
 	return bucket, nil
 }
 
+// FIXME: handle profile value as well
 func getAPIEndpoint(region string, customEndpoint ...string) string {
 	// Priority: 1) provided custom endpoint, 2) env var, 3) default
 	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
@@ -416,6 +417,7 @@ func getAPIEndpoint(region string, customEndpoint ...string) string {
 	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
 }
 
+// FIXME: handle profile value as well
 func getBucketEndpoint(name, region string, customEndpoint ...string) (string, error) {
 	// Priority: 1) provided custom endpoint, 2) env var, 3) default
 	var ep string
