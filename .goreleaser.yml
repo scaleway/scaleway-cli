@@ -100,3 +100,48 @@ release:
   prerelease: auto
   draft: true
   name_template: "{{ .Tag }}"
+
+chocolateys:
+  - name: scaleway-cli
+
+    # IDs of the archives to use.
+    # Empty means all IDs.
+    # Attention: archives must not be in the 'binary' format.
+    ids:
+      - binaries
+
+    package_source_url: https://scaleway.com/cli
+    owners: Scaleway
+    authors: DevTools Team
+
+    # Your app's project url.
+    # It is a required field.
+    project_url: https://github.com/scaleway/scaleway-cli
+
+    icon_url: "https://github.com/scaleway/scaleway-cli/blob/main/docs/static_files/cli-artwork.png"
+    copyright: 2019 Scaleway
+    license_url: https://github.com/scaleway/scaleway-cli/blob/main/LICENSE
+    require_license_acceptance: false
+
+    project_source_url: https://github.com/scaleway/scaleway-cli
+    docs_url: https://cli.scaleway.com
+    bug_tracker_url: https://github.com/scaleway/scaleway-cli/issues
+
+    tags: "scaleway-cli scaleway scw"
+    summary: Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly from your terminal.
+    description: |
+      The Scaleway CLI allows you to interact with Scaleway APIs using a command line interface.
+      You can create, update, delete, list or get information about all types of resources.
+
+    release_notes: "https://github.com/scaleway/scaleway-cli/releases/tag/v{{ .Version }}"
+
+    # The API key that should be used to push to the Chocolatey repository.
+    api_key: "{{ .Env.CHOCOLATEY_API_KEY }}"
+
+    # The source repository that will push the package to.
+    source_repo: "https://push.chocolatey.org/"
+
+    # Setting this will prevent GoReleaser to actually try to push the package
+    # to Chocolatey repository, leaving the responsibility of publishing it to
+    # the user.
+    skip_publish: true
