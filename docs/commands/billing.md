@@ -2,6 +2,8 @@
 # Documentation for `scw billing`
 This API allows you to manage and query your Scaleway billing and consumption.
   
+- [](#)
+  - [List charges](#list-charges)
 - [Consumption management commands](#consumption-management-commands)
   - [Get monthly consumption](#get-monthly-consumption)
   - [Get monthly consumption taxes](#get-monthly-consumption-taxes)
@@ -14,6 +16,41 @@ This API allows you to manage and query your Scaleway billing and consumption.
   - [List invoices](#list-invoices)
 
   
+## 
+
+
+
+
+### List charges
+
+List charges for organizations or projects. You must specify at least `organization_ids` or `project_ids`.
+
+**Usage:**
+
+```
+scw billing charge list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| order-by | One of: `start_date_asc`, `start_date_desc` | Sort order of charges in the response |
+| page-token |  | Token returned by previous call to list next paginated charges, omitted for first page |
+| page-size |  | Number of charges to return per page |
+| start-date-after |  | Minimum start date of charges to filter for, defaults to the start of the billing period |
+| end-date-before |  | Maximum end date of charges to filter for, defaults to the end of the billing period |
+| invoice-ids.{index} |  | Invoice IDs to filter for, only charges from these invoices will be returned |
+| project-ids.{index} |  | Project IDs to filter for, only charges for these projects will be returned |
+| resource-ids.{index} |  | Resource IDs to filter for, only charges for these resources will be returned |
+| resource-names.{index} |  | Resource display names to filter for, only charges for these resources will be returned |
+| skus.{index} |  | SKU IDs to filter for, only charges for these SKUs will be returned |
+| clamp-to-time-range |  | Clamp charges to the requested time range |
+| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+
+
+
 ## Consumption management commands
 
 Consumption management commands.
