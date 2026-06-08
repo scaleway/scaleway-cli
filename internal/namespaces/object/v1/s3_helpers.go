@@ -31,7 +31,7 @@ func newS3Client(ctx context.Context, region scw.Region, endpoint ...string) *s3
 	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
 
 	var customEndpoint string
-	// Priority: 1) command flag, 2) env var, 3) default
+	// Priority: 1) command flag, 2) env var, 3) profile, 4) default
 	if len(endpoint) > 0 && endpoint[0] != "" {
 		customEndpoint = endpoint[0]
 	} else if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
