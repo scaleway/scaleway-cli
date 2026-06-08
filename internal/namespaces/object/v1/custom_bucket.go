@@ -395,8 +395,9 @@ func getBucketInfo(
 	if len(endpoint) > 0 && endpoint[0] != "" {
 		customEndpoint = endpoint[0]
 	}
-	bucket.APIEndpoint = getAPIEndpoint(region.String(), customEndpoint)
-	bucket.BucketEndpoint, err = getBucketEndpoint(name, region.String(), customEndpoint)
+
+	bucket.APIEndpoint = getAPIEndpoint(ctx, region.String(), customEndpoint)
+	bucket.BucketEndpoint, err = getBucketEndpoint(ctx, name, region.String(), customEndpoint)
 	if err != nil {
 		return nil, err
 	}
@@ -404,27 +405,36 @@ func getBucketInfo(
 	return bucket, nil
 }
 
-// FIXME: handle profile value as well
-func getAPIEndpoint(region string, customEndpoint ...string) string {
-	// Priority: 1) provided custom endpoint, 2) env var, 3) default
+func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string) string {
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+	// Priority: 1) provided custom endpoint, 2) env var, 3) profile, 4) default
 	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
 		return customEndpoint[0]
 	}
 	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		return ep
 	}
+	if s3EndpointOk && profileS3Endpoint != "" {
+		return profileS3Endpoint
+	}
 
 	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
 }
 
-// FIXME: handle profile value as well
-func getBucketEndpoint(name, region string, customEndpoint ...string) (string, error) {
-	// Priority: 1) provided custom endpoint, 2) env var, 3) default
+func getBucketEndpoint(ctx context.Context, name, region string, customEndpoint ...string) (string, error) {
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+	// Priority: 1) provided custom endpoint, 2) env var, 3) profile, 4) default
 	var ep string
 	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
 		ep = customEndpoint[0]
-	} else {
-		ep = os.Getenv("SCW_S3_ENDPOINT")
+	} else if envVarEp := os.Getenv("SCW_S3_ENDPOINT"); envVarEp != "" {
+		ep = envVarEp
+	} else if s3EndpointOk && profileS3Endpoint != "" {
+		ep = profileS3Endpoint
 	}
 
 	if ep != "" {
