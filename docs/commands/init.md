@@ -7,6 +7,35 @@ Default path for configuration file is based on the following priority order:
 - $XDG_CONFIG_HOME/scw/config.yaml
 - $HOME/.config/scw/config.yaml
 - $USERPROFILE/.config/scw/config.yaml
-  
 
-  
+
+
+
+Initialize the active profile of the config.
+Default path for configuration file is based on the following priority order:
+
+- $SCW_CONFIG_PATH
+- $XDG_CONFIG_HOME/scw/config.yaml
+- $HOME/.config/scw/config.yaml
+- $USERPROFILE/.config/scw/config.yaml
+
+**Usage:**
+
+```
+scw init [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| secret-key |  | Scaleway secret-key |
+| access-key |  | Scaleway access-key |
+| organization-id |  | Scaleway organization ID |
+| project-id |  | Scaleway project ID |
+| send-telemetry |  | Send usage statistics and diagnostics |
+| with-ssh-key | Default: `true` | Whether the SSH key for managing instances should be uploaded automatically |
+| install-autocomplete |  | Whether the autocomplete script should be installed during initialisation |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |

@@ -130,6 +130,10 @@ Default path for configuration file is based on the following priority order:
 				Short:   "Login through a web page",
 				Command: "scw login",
 			},
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
+			},
 		},
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*Args)

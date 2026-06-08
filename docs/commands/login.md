@@ -4,6 +4,25 @@ Start an interactive connection to scaleway to initialize the active profile of 
 A webpage will open while the CLI will wait for a response.
 Once you connected to Scaleway, the profile should be configured.
 
-  
 
-  
+
+
+
+Start an interactive connection to scaleway to initialize the active profile of the config
+A webpage will open while the CLI will wait for a response.
+Once you connected to Scaleway, the profile should be configured.
+
+
+**Usage:**
+
+```
+scw login [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| port |  | The port number used to wait for browser's response |
+| expires-at |  | Expiration date of the API key (ISO 8601 or relative like +1y, +90d). Required when your organization enforces max-api-key-expiration-duration. |

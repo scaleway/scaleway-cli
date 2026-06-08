@@ -22,5 +22,11 @@ func versionCommand() *core.Command {
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			return core.ExtractBuildInfo(ctx), nil
 		},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
+			},
+		},
 	}
 }

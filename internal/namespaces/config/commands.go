@@ -153,6 +153,10 @@ func configGetCommand() *core.Command {
 				Short:   "Config management help",
 				Command: "scw config",
 			},
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
+			},
 		},
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
@@ -650,6 +654,10 @@ func configInfoCommand() *core.Command {
 			{
 				Short:   "Config management help",
 				Command: "scw config",
+			},
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
 			},
 		},
 		Run: func(ctx context.Context, _ any) (i any, e error) {

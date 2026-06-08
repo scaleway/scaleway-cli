@@ -7,14 +7,16 @@ const tplStr = `
 {{ template "do_not_edit" }}
 # Documentation for {{ bq }}scw {{ .Cmd.Namespace }}{{ bq }}
 {{ remove_escape_sequence (.Cmd.Long | default .Cmd.Short) }}
-  
+
+{{ $hasResources := .Resources | len -}}
+{{ if $hasResources }}
 {{ range $resourceName, $resource := .Resources -}}
 - [{{ $resource.Cmd.Short }}](#{{ anchor $resource.Cmd.Short }})
 {{- range $verbName, $cmd := $resource.Verbs }}
   - [{{ $cmd.Short }}](#{{ anchor $cmd.Short }})
 {{- end }}
 {{ end }}
-  
+
 {{ range $resourceName, $resource := .Resources -}}
 ## {{ $resource.Cmd.Short }}
 
@@ -32,6 +34,11 @@ const tplStr = `
 
 {{ end }}
 {{ end }}
+{{- else }}
+{{/* Namespace with no resources: render the namespace command directly */}}
+
+{{ template "cmd" (map "Cmd" .Cmd "Data" $) }}
+{{- end }}
 {{- end -}}
 
 {{- define "cmd" -}}
