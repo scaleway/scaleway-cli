@@ -6,6 +6,7 @@ USAGE:
   scw billing <command>
 
 AVAILABLE COMMANDS:
+  charge      
   consumption Consumption management commands
   discount    Discount management commands
   invoice     Invoice management commands
