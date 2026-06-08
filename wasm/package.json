@@ -5,6 +5,10 @@
   "type": "module",
   "main": "index.js",
   "packageManager": "pnpm@10.33.2",
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/scaleway/scaleway-cli"
+  },
   "scripts": {
     "test": "vitest src",
     "lint": "prettier --check ."
