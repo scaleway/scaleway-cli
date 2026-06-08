@@ -36,6 +36,7 @@ func newS3Client(
 	if !ok {
 		return nil
 	}
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
 	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
@@ -46,6 +47,8 @@ func newS3Client(
 		customEndpoint = endpoint[0]
 	} else if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		customEndpoint = ep
+	} else if s3EndpointOk && profileS3Endpoint != "" {
+		customEndpoint = profileS3Endpoint
 	} else {
 		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
 	}
