@@ -91,7 +91,7 @@ func infosRoot() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Show info",
+				Short:    "See current configuration",
 				ArgsJSON: `{}`,
 			},
 		},

@@ -29,7 +29,7 @@ func feedbackBugCommand() *core.Command {
 	return &core.Command{
 		Groups:               []string{"utility"},
 		Short:                `Send a bug-report`,
-		Long:                 `Send a bug-report to the Scaleway CLI team.`,
+		Long:                 `Send a bug-report to the Scaleway CLI team on the GitHub repository.`,
 		Namespace:            "feedback",
 		Resource:             `bug`,
 		ArgsType:             reflect.TypeOf(struct{}{}),
