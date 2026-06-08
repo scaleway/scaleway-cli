@@ -173,6 +173,10 @@ func auditTrailEventList() *core.Command {
 					"observability_datasource",
 					"observability_token",
 					"observability_exporter",
+					"ili_partner",
+					"ili_connection",
+					"ili_link",
+					"ili_routing_policy",
 				},
 			},
 			{
