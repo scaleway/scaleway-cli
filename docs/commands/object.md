@@ -17,6 +17,8 @@ Object-storage utils
 
 ## Manage S3 buckets
 
+Manage S3 buckets creation, deletion and updates to properties like tags, ACL and versioning.
+
 
 ### Create an S3 bucket
 
@@ -125,6 +127,8 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 ## Manage configuration files for popular S3 tools
+
+Configuration generation for S3 tools.
 
 
 ### Generate a S3 tool configuration file

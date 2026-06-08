@@ -73,6 +73,8 @@ This API allows you to manage your Scaleway Load Balancer services.
 
 ## Access Control List (ACL) management commands
 
+Access Control List (ACL) management commands.
+
 
 ### Create an ACL for a given frontend
 
@@ -236,6 +238,8 @@ scw lb acl update <acl-id ...> [arg=value ...]
 
 
 ## Backend management commands
+
+Backend management commands.
 
 
 ### Add a set of backend servers to a given backend
@@ -539,6 +543,8 @@ scw lb backend update-healthcheck [arg=value ...]
 
 ## TLS certificate management commands
 
+TLS certificate management commands.
+
 
 ### Create an SSL/TLS certificate
 
@@ -648,6 +654,8 @@ scw lb certificate update <certificate-id ...> [arg=value ...]
 
 
 ## Frontend management commands
+
+Frontend management commands.
 
 
 ### Create a frontend in a given Load Balancer
@@ -772,6 +780,8 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 
 ## IP management commands
 
+IP management commands.
+
 
 ### Create an IP address
 
@@ -885,6 +895,8 @@ scw lb ip update <ip-id ...> [arg=value ...]
 
 
 ## Load balancer management commands
+
+Load balancer management commands.
 
 
 ### Create a Load Balancer
@@ -1083,6 +1095,8 @@ scw lb lb wait 11111111-1111-1111-1111-111111111111
 
 ## Load balancer types management commands
 
+Load balancer types management commands.
+
 
 ### List all Load Balancer offer types
 
@@ -1104,6 +1118,8 @@ scw lb lb-types list [arg=value ...]
 
 
 ## Private networks management commands
+
+Private networks management commands.
 
 
 ### Attach a Load Balancer to a Private Network
@@ -1171,6 +1187,8 @@ scw lb private-network list <lb-id ...> [arg=value ...]
 
 
 ## Route rules management commands
+
+Route rules management commands.
 
 
 ### Create a route
@@ -1285,6 +1303,8 @@ scw lb route update <route-id ...> [arg=value ...]
 
 
 ## Subscriber management commands
+
+Subscriber management commands.
 
 
 ### Create a subscriber

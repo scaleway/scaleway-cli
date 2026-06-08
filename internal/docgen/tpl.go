@@ -21,6 +21,8 @@ const tplStr = `
 {{ range $resourceName, $resource := .Resources -}}
 ## {{ $resource.Cmd.Short }}
 
+{{ if $resource.Cmd.Long }}{{ $resource.Cmd.Long }}{{ end }}
+
 {{ if $resource.Verbs | len -}}
 {{ range $verbName, $cmd := $resource.Verbs }}
 ### {{ $cmd.Short }}
@@ -29,7 +31,7 @@ const tplStr = `
 
 {{ end -}}
 {{- else -}}
-{{ template "cmd"  (map "Cmd" $resource.Cmd "Data" $) }}
+{{ template "cmdNoLong" (map "Cmd" $resource.Cmd "Data" $) }}
 
 {{ end }}
 {{ end }}
@@ -42,6 +44,35 @@ const tplStr = `
 {{- define "cmd" -}}
 {{ .Cmd.Long | default .Cmd.Short }}
 
+**Usage:**
+
+{{ bbq }}
+{{ .Cmd.GetUsage "scw" .Data.Commands }}
+{{ bbq }}
+{{ if .Cmd.ArgSpecs }}
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+{{ range $arg := .Cmd.ArgSpecs -}}
+| {{ arg_spec_name $arg }} | {{ arg_spec_flag $arg }} | {{ $arg.Short }} |
+{{ end -}}
+{{- end -}}
+{{- if .Cmd.Examples }}
+
+**Examples:**
+
+{{ range $example := .Cmd.Examples }}
+{{ $example.Short }}
+{{ bbq }}
+{{ $example.GetCommandLine "scw" $.Cmd }}
+{{ bbq }}
+{{ end }}
+{{ end }}
+{{- end -}}
+
+{{- define "cmdNoLong" -}}
 **Usage:**
 
 {{ bbq }}

@@ -39,6 +39,8 @@ This API allows you to manage your Serverless Containers.
 
 ## Container management commands
 
+Container management commands.
+
 
 ### Create a new container in a namespace.
 
@@ -262,6 +264,8 @@ scw container deploy [arg=value ...]
 
 ## Domain management commands
 
+Domain management commands.
+
 
 ### Create a new custom domain for the container with the specified ID.
 
@@ -373,6 +377,8 @@ scw container domain update <domain-id ...> [arg=value ...]
 
 
 ## Namespace management commands
+
+Namespace management commands.
 
 
 ### Create a new namespace.
@@ -493,6 +499,8 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 
 ## Token management commands
 
+Token management commands.
+
 
 ### Create a new revocable token
 
@@ -580,6 +588,8 @@ scw container token list [arg=value ...]
 
 
 ## Trigger management commands
+
+Trigger management commands.
 
 
 ### Create a new trigger for the container with the specified ID.

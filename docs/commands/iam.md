@@ -89,6 +89,8 @@ This API allows you to manage Identity and Access Management (IAM) across your S
 
 ## API keys management commands
 
+API keys management commands.
+
 
 ### Create an API key
 
@@ -215,6 +217,8 @@ scw iam api-key update <access-key ...> [arg=value ...]
 
 ## Applications management commands
 
+Applications management commands.
+
 
 ### Create a new application
 
@@ -323,6 +327,8 @@ scw iam application update <application-id ...> [arg=value ...]
 
 
 ## Groups management commands
+
+Groups management commands.
 
 
 ### Add a user or an application to a group
@@ -538,6 +544,8 @@ scw iam group update <group-id ...> [arg=value ...]
 
 ## JWTs management commands
 
+JWTs management commands.
+
 
 ### Delete a JWT
 
@@ -600,6 +608,8 @@ scw iam jwt list <audience-id ...> [arg=value ...]
 
 ## Log management commands
 
+Log management commands.
+
 
 ### Get a log
 
@@ -646,6 +656,8 @@ scw iam log list [arg=value ...]
 
 
 ## Organization-wide management commands
+
+Organization-wide management commands.
 
 
 ### Enable SAML Identity Provider for an Organization
@@ -726,6 +738,8 @@ scw iam organization get-scim [arg=value ...]
 
 ## Permission sets management commands
 
+Permission sets management commands.
+
 
 ### List permission sets
 
@@ -748,6 +762,8 @@ scw iam permission-set list [arg=value ...]
 
 
 ## Policies management commands
+
+Policies management commands.
 
 
 ### Clone a policy
@@ -903,6 +919,8 @@ scw iam policy update <policy-id ...> [arg=value ...]
 
 ## Rules management commands
 
+Rules management commands.
+
 
 ### Create a rule for a specific IAM policy
 
@@ -990,6 +1008,8 @@ scw iam rule update <policy-id ...> [arg=value ...]
 
 ## SAML management commands
 
+SAML management commands.
+
 
 ### Disable SAML Identity Provider for an Organization
 
@@ -1032,6 +1052,8 @@ scw iam saml update <saml-id ...> [arg=value ...]
 
 
 ## SAML Certificates management commands
+
+SAML Certificates management commands.
 
 
 ### Add a SAML certificate
@@ -1095,6 +1117,8 @@ scw iam saml-certificates list <saml-id ...> [arg=value ...]
 
 ## SCIM management commands
 
+SCIM management commands.
+
 
 ### Disable SCIM for an Organization
 
@@ -1116,6 +1140,8 @@ scw iam scim delete <scim-id ...> [arg=value ...]
 
 
 ## SCIM tokens management commands
+
+SCIM tokens management commands.
 
 
 ### Create a SCIM token
@@ -1178,6 +1204,8 @@ scw iam scim-tokens list <scim-id ...> [arg=value ...]
 
 ## Security settings management commands
 
+Security settings management commands.
+
 
 ### Get security settings of an Organization
 
@@ -1223,6 +1251,8 @@ scw iam security-settings update [arg=value ...]
 
 
 ## SSH keys management commands
+
+SSH keys management commands.
 
 
 ### Create an SSH key
@@ -1361,6 +1391,8 @@ scw iam ssh-key update <ssh-key-id ...> [arg=value ...]
 
 
 ## Users management commands
+
+Users management commands.
 
 
 ### Create a new user

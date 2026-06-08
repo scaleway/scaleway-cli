@@ -21,6 +21,9 @@ This API allows you to manage your Elastic Metal servers' flexible public IP add
 
 ## Flexible IP management commands
 
+A flexible IP can be attached to any Elastic Metal server within the same zone.
+Multiple flexible IPs can be attached to a server.
+
 
 ### Attach an existing flexible IP to a server
 
@@ -177,6 +180,8 @@ scw fip ip update <fip-id ...> [arg=value ...]
 
 
 ## MAC address management commands
+
+MAC address management commands.
 
 
 ### Generate a virtual MAC address on an existing flexible IP

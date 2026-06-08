@@ -27,6 +27,8 @@ This API allows you to manage your Secret Manager services, for storing, accessi
 
 ## Secret management commands
 
+Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.
+
 
 ### Allow a product to use the secret
 
@@ -255,6 +257,8 @@ scw secret secret update <secret-id ...> [arg=value ...]
 
 
 ## Secret Version management commands
+
+Versions store the sensitive data contained in your secrets (API keys, passwords, or certificates).
 
 
 ### Access a secret's version using the secret's ID

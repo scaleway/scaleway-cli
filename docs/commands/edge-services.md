@@ -66,6 +66,8 @@ Edge Services API
 
 ## Backend-stage management commands
 
+Backend-stage management commands.
+
 
 ### Create backend stage
 
@@ -195,6 +197,8 @@ scw edge-services backend-stage update <backend-stage-id ...> [arg=value ...]
 
 ## Cache-stage management commands
 
+Cache-stage management commands.
+
 
 ### Create cache stage
 
@@ -303,6 +307,8 @@ scw edge-services cache-stage update <cache-stage-id ...> [arg=value ...]
 
 
 ## DNS-stage management commands
+
+DNS-stage management commands.
 
 
 ### Create DNS stage
@@ -413,6 +419,8 @@ scw edge-services dns-stage update <dns-stage-id ...> [arg=value ...]
 
 
 ## Pipeline management commands
+
+Pipeline management commands.
 
 
 ### Create pipeline
@@ -562,6 +570,8 @@ scw edge-services pipeline update <pipeline-id ...> [arg=value ...]
 
 ## Plan management commands
 
+Plan management commands.
+
 
 ### Delete plan
 
@@ -635,6 +645,8 @@ scw edge-services plan select [arg=value ...]
 
 ## Purge-request management commands
 
+Purge-request management commands.
+
 
 ### Create purge request
 
@@ -699,6 +711,8 @@ scw edge-services purge-request list [arg=value ...]
 
 
 ## Route-rules management commands
+
+Route-rules management commands.
 
 
 ### Add route rules
@@ -799,6 +813,8 @@ scw edge-services route-rules set <route-stage-id ...> [arg=value ...]
 
 
 ## Route-stage management commands
+
+Route-stage management commands.
 
 
 ### Create route stage
@@ -902,6 +918,8 @@ scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 
 
 ## TLS-stage management commands
+
+TLS-stage management commands.
 
 
 ### Create TLS stage
@@ -1017,6 +1035,8 @@ scw edge-services tls-stage update <tls-stage-id ...> [arg=value ...]
 
 
 ## WAF-stage management commands
+
+WAF-stage management commands.
 
 
 ### Create WAF stage

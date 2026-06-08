@@ -56,6 +56,8 @@ This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
 
 ## Access Control List (ACL) management commands
 
+Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.
+
 
 ### Add new ACLs
 
@@ -144,6 +146,9 @@ scw k8s acl set [arg=value ...]
 
 
 ## Kapsule cluster management commands
+
+A cluster is a fully managed Kubernetes cluster
+It is composed of different pools, each pool containing the same kind of nodes.
 
 
 ### Create a new Cluster
@@ -609,6 +614,9 @@ scw k8s cluster wait 11111111-1111-1111-1111-111111111111
 
 ## Cluster type management commands
 
+All cluster types available in a specified region
+A cluster type represents the different commercial types of clusters offered by Scaleway.
+
 
 ### List cluster types
 
@@ -630,6 +638,8 @@ scw k8s cluster-type list [arg=value ...]
 
 
 ## Manage your Kubernetes Kapsule cluster's kubeconfig files
+
+
 
 
 ### Retrieve a kubeconfig
@@ -747,6 +757,9 @@ scw k8s kubeconfig uninstall 11111111-1111-1111-1111-111111111111
 
 
 ## Kapsule node management commands
+
+A node (short for worker node) is an abstraction for a Scaleway Instance
+A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.
 
 
 ### Delete a Node in a Cluster
@@ -951,6 +964,9 @@ scw k8s node wait 11111111-1111-1111-1111-111111111111
 
 
 ## Kapsule pool management commands
+
+A pool is a set of identical nodes
+A pool has a name, a size (its desired number of nodes), node number limits (min, max), and a Scaleway Instance type. Changing those limits increases/decreases the size of a pool. As a result and depending on its load, the pool will grow or shrink within those limits when autoscaling is enabled.
 
 
 ### Add an external node to a Kosmos Pool
@@ -1475,6 +1491,9 @@ scw k8s pool wait 11111111-1111-1111-1111-111111111111
 
 
 ## Available Kubernetes versions commands
+
+A version is a vanilla Kubernetes version like `x.y.z`
+It comprises a major version `x`, a minor version `y`, and a patch version `z`. At the minimum, Kapsule (Scaleway's managed Kubernetes), will support the last patch version for the past three minor releases. Also, each version has a different set of CNIs, eventually container runtimes, feature gates, and admission plugins available. See our [Version Support Policy](https://www.scaleway.com/en/docs/kubernetes/reference-content/version-support-policy/).
 
 
 ### Get a Version

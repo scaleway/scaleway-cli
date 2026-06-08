@@ -26,6 +26,10 @@ This API allows you to manage your Container Registry resources.
 
 ## Image management commands
 
+An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.
+
+The visibility of an image can be public - when anyone can pull it, private - when only users within your organization can pull it, or inherited from the namespace visibility - which is the default. The visibility of your image can be changed using the [update image endpoit](#path-images-update-an-image).
+
 
 ### Delete an image
 
@@ -180,6 +184,12 @@ scw registry logout [arg=value ...]
 
 ## Namespace management commands
 
+A namespace is a collection of container images, each bearing the unique identifier of that namespace. A namespace can be either public or private, by default.
+
+Each namespace must have a globally unique name within its region. This means no namespaces in the same region can bear the same name.
+
+You can use namespace privacy policies to specify whether everyone has the right to pull an image from a namespace or not. When an image is in a public namespace, anyone is able to pull it. You can set your namespace to private if you want to restrict access.
+
 
 ### Create a namespace
 
@@ -291,6 +301,8 @@ scw registry namespace update <namespace-id ...> [arg=value ...]
 
 
 ## Tag management commands
+
+Tags allow you to organize your container images. This gives you the possibility of sorting and filtering your images in any organizational pattern of your choice, which in turn helps you arrange, control and monitor your cloud resources. You can assign as many tags as you want to each image.
 
 
 ### Delete a tag

@@ -59,7 +59,7 @@ scw alias create c command=create
 
 ## Delete an alias
 
-Delete an alias
+
 
 **Usage:**
 
@@ -78,7 +78,7 @@ scw alias delete <alias ...> [arg=value ...]
 
 ## List aliases and their commands
 
-List aliases and their commands
+
 
 **Usage:**
 

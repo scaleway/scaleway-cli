@@ -35,6 +35,8 @@ Apple silicon API.
 
 ## OS management commands
 
+OS management commands.
+
 
 ### Get an Operating System (OS)
 
@@ -78,6 +80,13 @@ scw apple-silicon os list [arg=value ...]
 
 
 ## Private network management command
+
+A Private Network allows you to interconnect your resources
+in an isolated and private
+network. Network reachability is limited to the
+resources that are in the same VPC.
+
+Note that a resource can be a part of multiple Private Networks.
 
 
 ### Add a server to a Private Network
@@ -170,6 +179,8 @@ scw apple-silicon private-network set [arg=value ...]
 
 
 ## Runner management commands
+
+Runner management commands.
 
 
 ### Create a new runner configuration
@@ -289,6 +300,8 @@ scw apple-silicon runner update <runner-id ...> [arg=value ...]
 
 
 ## Apple silicon management commands
+
+Apple silicon management commands.
 
 
 ### Create a server
@@ -508,6 +521,8 @@ scw apple-silicon server wait 11111111-1111-1111-1111-111111111111
 
 
 ## Server-Types management commands
+
+Server-Types management commands.
 
 
 ### Get a server type

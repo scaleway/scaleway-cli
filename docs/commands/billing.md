@@ -21,6 +21,8 @@ This API allows you to manage and query your Scaleway billing and consumption.
 ## 
 
 
+
+
 ### List charges
 
 List charges for organizations or projects. You must specify at least `organization_ids` or `project_ids`.
@@ -52,6 +54,8 @@ scw billing charge list [arg=value ...]
 
 
 ## Consumption management commands
+
+Consumption management commands.
 
 
 ### Get monthly consumption
@@ -100,6 +104,8 @@ scw billing consumption list-taxes [arg=value ...]
 
 ## Discount management commands
 
+Discount management commands.
+
 
 ### List discounts
 
@@ -125,6 +131,8 @@ scw billing discount list [arg=value ...]
 
 
 ## Invoice management commands
+
+Invoice management commands.
 
 
 ### Download an invoice

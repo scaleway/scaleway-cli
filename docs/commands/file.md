@@ -17,6 +17,8 @@ This API allows you to manage your File Storage resources.
 
 ## Attachment management
 
+Attachment management.
+
 
 ### List filesystems attachments
 
@@ -43,6 +45,8 @@ scw file attachment list [arg=value ...]
 
 
 ## Filesystem management
+
+Filesystem management.
 
 
 ### Create a new filesystem

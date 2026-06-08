@@ -38,6 +38,11 @@ This API allows you to manage your Virtual Private Clouds (VPCs) and Private Net
 
 ## Private network management command
 
+A Private Network allows you to interconnect your Scaleway resources
+in an isolated and private network. Network reachability is limited
+to resources that are on the same Private Network. Note that a
+resource can be a part of multiple private networks.
+
 
 ### Create a Private Network
 
@@ -175,6 +180,8 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 
 ## Route management command
+
+Custom routes.
 
 
 ### Create a Route
@@ -319,6 +326,8 @@ scw vpc route update <route-id ...> [arg=value ...]
 
 ## Rule management command
 
+ACL Rules.
+
 
 ### Edit all ACL rules of a VPC
 
@@ -397,6 +406,10 @@ scw vpc rule set [arg=value ...]
 
 
 ## VPC management command
+
+A Virtual Private Cloud (VPC) allows you to group your regional
+Private Networks together. Note that a Private Network can be a
+part of only one VPC.
 
 
 ### Create a VPC
@@ -511,6 +524,8 @@ scw vpc vpc update <vpc-id ...> [arg=value ...]
 
 
 ## VPC connector management command
+
+VPC peering connectors.
 
 
 ### Create a VPC connector

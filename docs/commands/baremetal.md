@@ -48,6 +48,12 @@ Elastic Metal - Private Networks API.
 
 ## Baseboard Management Controller (BMC) management commands
 
+A Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.
+For instance, your KVM-IP management console could be accessed with it.
+You need first to create an Remote Access option. You will find the ID and the price with a call to listOffers (https://developers.scaleway.com/en/products/baremetal/api/#get-78db92). Then you can add the option https://developers.scaleway.com/en/products/baremetal/api/#post-b14abd. Do not forget to delete the Option.
+Then you need to create Remote Access https://developers.scaleway.com/en/products/baremetal/api/#post-1af723.
+And finally Get Remote Access to get the login/password https://developers.scaleway.com/en/products/baremetal/api/#get-cefc0f.
+
 
 ### Get BMC access
 
@@ -114,6 +120,9 @@ scw baremetal bmc stop [arg=value ...]
 
 
 ## Server offer management commands
+
+Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.
 
 
 ### Get offer
@@ -183,6 +192,8 @@ scw baremetal offer list zone=fr-par-1
 
 
 ## Server options management commands
+
+A Server has additional options that let you personalize it to better fit your needs.
 
 
 ### Add server option
@@ -316,6 +327,8 @@ scw baremetal options list zone=fr-par-1
 
 ## Operating System (OS) management commands
 
+An Operating System (OS) is the underlying software installed on your server.
+
 
 ### Get OS with an ID
 
@@ -380,6 +393,15 @@ scw baremetal partitioning-schemas
 
 
 ## Private network management command
+
+A Private Network allows you to interconnect your resources
+in an isolated and private
+network. Network reachability is limited to the
+resources that are on the same Private Network.  A VLAN
+interface is available on the server and can be freely
+managed (adding IP addresses, shutdown interface etc.).
+
+Note that a resource can be a part of multiple Private Networks.
 
 
 ### Add a server to a Private Network
@@ -472,6 +494,8 @@ scw baremetal private-network set [arg=value ...]
 
 
 ## Server management commands
+
+A server is a denomination of a type of instances provided by Scaleway.
 
 
 ### Attach a new flexible IP to a server
@@ -990,6 +1014,8 @@ scw baremetal server wait 11111111-1111-1111-1111-111111111111
 
 
 ## Settings management commands
+
+Allows to configure the general settings for your Elastic Metal server.
 
 
 ### List all settings

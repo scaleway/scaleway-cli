@@ -16,6 +16,8 @@ This API allows you to manage your Scaleway IP addresses with our IP Address Man
 
 ## IP management command
 
+*ips_long.
+
 
 ### Reserve a new IP
 
@@ -147,6 +149,8 @@ scw ipam ip update <ip-id ...> [arg=value ...]
 
 
 ## Management command for sets of IPs
+
+*ips_long.
 
 
 ### Release ipam resources

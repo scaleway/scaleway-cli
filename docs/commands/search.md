@@ -10,6 +10,8 @@ Search API
 
 ## Resource search commands
 
+Resource search commands.
+
 
 ### Search API
 

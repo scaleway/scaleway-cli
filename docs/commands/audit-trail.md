@@ -12,6 +12,8 @@ This API allows you to ensure accountability and security by recording events an
 
 ## Represent an entry in the Audit Trail
 
+Represent an entry in the Audit Trail.
+
 
 ### List events
 
@@ -48,6 +50,8 @@ scw audit-trail event list [arg=value ...]
 
 
 ## Product integrated with Audit Trail
+
+Product integrated with Audit Trail.
 
 
 ### Retrieve the list of Scaleway resources for which you have Audit Trail events

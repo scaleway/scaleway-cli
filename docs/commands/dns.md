@@ -39,6 +39,8 @@ This API allows you to manage your domains, DNS zones and records.
 
 ## TLS certificate management
 
+TLS certificate management.
+
 
 ### Create or get the DNS zone's TLS certificate
 
@@ -119,6 +121,8 @@ scw dns certificate list <dns-zone ...> [arg=value ...]
 
 
 ## DNS records management
+
+DNS records management.
 
 
 ### Add a new DNS record
@@ -435,6 +439,8 @@ scw dns record update-nameservers <dns-zone ...> [arg=value ...]
 
 ## Transaction SIGnature key management
 
+Transaction SIGnature key management.
+
 
 ### Delete the DNS zone's TSIG key
 
@@ -475,6 +481,8 @@ scw dns tsig-key get <dns-zone ...> [arg=value ...]
 
 
 ## DNS zones version management
+
+DNS zones version management.
 
 
 ### Access differences from a specific DNS zone version
@@ -555,6 +563,8 @@ scw dns version show <dns-zone-version-id ...> [arg=value ...]
 
 
 ## DNS Zones management
+
+DNS Zones management.
 
 
 ### Clone a DNS zone

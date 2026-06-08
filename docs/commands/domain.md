@@ -45,6 +45,8 @@ Manage your domains and contacts.
 
 ## Contact management
 
+Contact management.
+
 
 ### Check if contacts are compatible with a domain or a TLD
 
@@ -269,6 +271,8 @@ scw domain contact update [arg=value ...]
 
 
 ## Domain management
+
+Domain management.
 
 
 ### Disable auto renew
@@ -630,6 +634,8 @@ scw domain domain update [arg=value ...]
 
 ## External domain management
 
+External domain management.
+
 
 ### Delete an external domain
 
@@ -671,6 +677,8 @@ scw domain external-domain register [arg=value ...]
 
 
 ## Domain host management
+
+Domain host management.
 
 
 ### Create a hostname for a domain
@@ -755,6 +763,8 @@ scw domain host update [arg=value ...]
 
 
 ## Domain order operations
+
+Domain order operations.
 
 
 ### Purchase domains
@@ -1098,6 +1108,8 @@ scw domain order transfer [arg=value ...]
 
 ## Task management
 
+Task management.
+
 
 ### List tasks
 
@@ -1168,6 +1180,8 @@ scw domain task retry-inbound-transfer [arg=value ...]
 
 
 ## TLD management
+
+TLD management.
 
 
 ### List TLD offers

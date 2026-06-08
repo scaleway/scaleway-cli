@@ -41,6 +41,8 @@ This API allows you to manage your Managed Databases for Redis™.
 
 ## Access Control List (ACL) management commands
 
+Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.
+
 
 ### Add ACL rules for a cluster
 
@@ -150,6 +152,8 @@ scw redis acl update <acl-id ...> [arg=value ...]
 
 
 ## Cluster management commands
+
+A Redis™ Database Instance, also known as a Redis™ cluster, consists of either one standalone node or a cluster composed of three to six nodes. The cluster uses partitioning to split the keyspace. Each partition is replicated and can be reassigned or elected as the primary when necessary. Standalone mode creates a standalone database provisioned on a single node.
 
 
 ### Connect to a Redis cluster using locally installed redis-cli
@@ -433,6 +437,8 @@ scw redis cluster wait
 
 ## Endpoints management commands
 
+Manage endpoint access to your Redis™ Database Instance through Public or Private Networks.
+
 
 ### Add endpoints for a cluster
 
@@ -542,6 +548,8 @@ scw redis endpoint update <endpoint-id ...> [arg=value ...]
 
 ## Node Types management commands
 
+Nodes are the compute units that make up your Redis™ Database Instance. Different node types are available with varying amounts of RAM and vCPU.
+
 
 ### List available node types
 
@@ -564,6 +572,10 @@ scw redis node-type list [arg=value ...]
 
 
 ## Settings management commands
+
+Advanced settings allow you to tune the behavior of your Redis™ database engine to better fit your needs. Available settings depend on the version of the Redis™ engine. Note that some settings can only be defined upon the Redis™ engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available Redis™ versions](#path-redistm-engine-versions-list-available-redistm-versions) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
 
 
 ### Add advanced settings
@@ -632,6 +644,8 @@ scw redis setting set [arg=value ...]
 
 
 ## Redis™ version management commands
+
+The Redis™ database engine versions available at Scaleway for your clusters.
 
 
 ### List available Redis™ versions

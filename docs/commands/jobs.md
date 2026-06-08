@@ -33,6 +33,8 @@ This API allows you to manage your Serverless Jobs.
 ## 
 
 
+
+
 ### Create a new job definition in a specified Project
 
 Create a new job definition in a specified Project.
@@ -189,6 +191,8 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 ## 
 
 
+
+
 ### Get a job run by its unique identifier
 
 Get a job run by its unique identifier.
@@ -276,6 +280,8 @@ scw jobs run wait <job-run-id ...> [arg=value ...]
 
 
 ## 
+
+
 
 
 ### Create a secret reference within a job definition
@@ -386,6 +392,8 @@ scw jobs secret update [arg=value ...]
 
 
 ## 
+
+
 
 
 ### Create a trigger

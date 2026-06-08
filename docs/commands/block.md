@@ -26,6 +26,8 @@ This API allows you to manage your Block Storage volumes.
 
 ## A Block Storage snapshot is a read-only picture of a Block volume, taken at a specific time
 
+You can then revert your data to the previous snapshot. You can also create a new read/write Block volume from a previous snapshot.
+
 
 ### Create a snapshot of a volume
 
@@ -221,6 +223,8 @@ scw block snapshot wait 11111111-1111-1111-1111-111111111111 terminal-status=ava
 
 ## A Block Storage volume is a logical storage drive on a network-connected storage system. It is exposed to Instances as if it were a physical disk, and can be attached and detached like a hard drive. Several Block volumes can be attached to one Instance at a time
 
+Block volumes can be snapshotted, mounted or unmounted.
+
 
 ### Create a volume
 
@@ -372,6 +376,8 @@ scw block volume wait 11111111-1111-1111-1111-111111111111 terminal-status=avail
 
 
 ## Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: `bssd` and `sbs`. The IOPS can be chosen for volumes of the `sbs` storage class
+
+Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: `bssd` and `sbs`. The IOPS can be chosen for volumes of the `sbs` storage class.
 
 
 ### List volume types

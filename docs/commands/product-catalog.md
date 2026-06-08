@@ -10,6 +10,10 @@ Product Catalog API
 
 ## Scaleway Product Catalog API
 
+Scaleway's Product Catalog is an extensive list of the Scaleway products.
+The catalog includes details about each product including: description,
+locations, prices and properties.
+
 
 ### List all available products
 

@@ -48,6 +48,8 @@ Function as a Service API.
 
 ## Cron management commands
 
+Cron management commands.
+
 
 ### Create a new cron
 
@@ -182,6 +184,8 @@ scw function deploy [arg=value ...]
 
 ## Domain management commands
 
+Domain management commands.
+
 
 ### Create a domain name binding
 
@@ -266,6 +270,8 @@ scw function domain list [arg=value ...]
 
 
 ## Function management commands
+
+Function management commands.
 
 
 ### Create a new function
@@ -470,6 +476,8 @@ scw function function update <function-id ...> [arg=value ...]
 
 ## Function namespace management commands
 
+Function namespace management commands.
+
 
 ### Create a new namespace
 
@@ -588,6 +596,8 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 
 ## Runtime management commands
 
+Runtime management commands.
+
 
 ### List function runtimes
 
@@ -609,6 +619,8 @@ scw function runtime list [arg=value ...]
 
 
 ## Token management commands
+
+Token management commands.
 
 
 ### Create a new revocable token
@@ -697,6 +709,8 @@ scw function token list [arg=value ...]
 
 
 ## Trigger management commands
+
+Trigger management commands.
 
 
 ### Create a trigger

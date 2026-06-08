@@ -45,6 +45,8 @@ scw interlink connection
 
 ## Link commands
 
+Link commands.
+
 
 ### Attach a routing policy
 
@@ -299,6 +301,8 @@ scw interlink link update <link-id ...> [arg=value ...]
 
 ## Partner commands
 
+Partner commands.
+
 
 ### Get a partner
 
@@ -343,6 +347,8 @@ scw interlink partner list [arg=value ...]
 
 
 ## PoP commands
+
+PoP commands.
 
 
 ### Get a PoP
@@ -392,6 +398,8 @@ scw interlink pop list [arg=value ...]
 
 
 ## Routing policy commands
+
+Routing policy commands.
 
 
 ### Create a routing policy

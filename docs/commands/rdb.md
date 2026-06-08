@@ -88,6 +88,8 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 
 ## Access Control List (ACL) management commands
 
+Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
+
 
 ### Add an ACL rule to a Database Instance
 
@@ -198,6 +200,8 @@ scw rdb acl set <acl-rule-ips ...> [arg=value ...]
 
 
 ## Backup management commands
+
+A database backup is a dated export of a Database Instance stored on an offsite backend located in a different region than your database, by default. Once a backup is created, it can be used to restore the database. Each logical database in a Database Instance is backed up and can be restored separately.
 
 
 ### Create a database backup
@@ -417,6 +421,8 @@ scw rdb backup wait 11111111-1111-1111-1111-111111111111
 
 ## Database management commands
 
+Databases can be used to store and manage sets of structured information, or data. The interaction between the user and a database is done using a Database Engine, which provides a structured query language to add, modify or delete information from the database.
+
 
 ### Create a database in a Database Instance
 
@@ -507,6 +513,14 @@ scw rdb database list [arg=value ...]
 
 
 ## Endpoint management
+
+A point of connection to a Database Instance. The endpoint is associated with an IPv4 address and a port. It contains the information about whether the endpoint is read-write or not. The endpoints always point to the main node of a Database Instance.
+
+All endpoints have TLS enabled. You can use TLS to make your data and your passwords unreadable in transit to anyone but you.
+
+For added security, you can set up ACL rules to restrict access to your endpoint to a set of trusted hosts or networks of your choice.
+
+Load Balancers are used to forward traffic to the right node based on the node state (active/hot standby). The Load Balancers' configuration is set to cut off inactive connections if no TCP traffic is sent within a 6-hour timeframe. We recommend using connection pooling on the application side to renew database connections regularly.
 
 
 ### Create a new Database Instance endpoint
@@ -616,6 +630,8 @@ scw rdb endpoint migrate [arg=value ...]
 
 ## Database engines commands
 
+A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
+
 
 ### List available database engines
 
@@ -670,6 +686,12 @@ scw rdb engine settings name=MySQL version=8
 
 
 ## Instance management commands
+
+A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data.
+
+**Note**: HA standby nodes are not accessible to users unless the main node becomes unavailable and the standby takes over. If you wish to run queries on a read-only node, you can use [Read Replicas](#path-read-replicas-create-a-read-replica)
+
+Read Replicas can be used for certain read-only workflows such as Business Intelligence, or for a read-only scaling of your application. Read Replicas use asynchronous replication to replicate data from the main node.
 
 
 ### Clone a Database Instance
@@ -1017,6 +1039,8 @@ scw rdb instance wait 11111111-1111-1111-1111-111111111111
 
 ## Instance logs management commands
 
+Instance logs management commands.
+
 
 ### Download logs from a database instance
 
@@ -1167,6 +1191,11 @@ scw rdb log purge [arg=value ...]
 
 ## Node types management commands
 
+Two node type ranges are available:
+
+* **General Purpose:** production-grade nodes designed for scalable database infrastructures.
+* **Development:** sandbox environments and reliable performance for development and testing purposes.
+
 
 ### List available node types
 
@@ -1189,6 +1218,15 @@ scw rdb node-type list [arg=value ...]
 
 
 ## User privileges management commands
+
+Privileges are permissions that can be granted to database users. You can manage user permissions either via the console, the Scaleway APIs or SQL. Managed Database for PostgreSQL and MySQL provides a simplified and unified permission model through the API and the console to make things easier to manage and understand.
+
+Each user has associated permissions that give them access to zero or more logical databases. These include:
+
+* **None:** No access to the database
+* **Read:** Allow users to read tables and fields in a database
+* **Write:** Allow users to write content in databases.
+* **Admin:** Read and write access to the data, and extended privileges depending on the database engine.
 
 
 ### List user privileges for a database
@@ -1238,6 +1276,20 @@ scw rdb privilege set [arg=value ...]
 
 
 ## Read replica management
+
+A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections.
+The replica mirrors the data of the primary Database node and any changes made are replicated to the replica asynchronously. Read Replicas allow you to scale your Database Instance for read-heavy database workloads. They can also be used for business intelligence workloads.
+
+A Read Replica can have at most one direct access and one Private Network endpoint. `Loadbalancer` endpoints are not available on Read Replicas even if this resource is displayed in the Read Replica response example.
+
+If you want to remove a Read Replica endpoint, you can use [delete a Database Instance endpoint](#path-endpoints-delete-a-database-instance-endpoint) API call.
+
+Instance Access Control Lists (ACL) also apply to Read Replica direct access endpoints.
+
+**Limitations:**
+There might be replication lags between the primary node and its Read Replica nodes. You can try to reduce this lag with some good practices:
+* All your tables should have a primary key
+* Don't run large transactions that modify, delete or insert lots of rows. Try to split it into several small transactions.
 
 
 ### Create a Read Replica
@@ -1348,6 +1400,12 @@ scw rdb read-replica reset <read-replica-id ...> [arg=value ...]
 
 ## Setting management
 
+Advanced Database Instance settings allow you to tune the behavior of your database engines to better fit your needs.
+
+Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](#path-databases-list-databases-in-a-database-instance) endpoint.
+
+Each advanced setting entry has a default value that users can override. The deletion of a setting entry will restore the setting to default value. Some of the defaults values can be different from the engine's defaults, as we optimize them to the Scaleway platform.
+
 
 ### Add Database Instance advanced settings
 
@@ -1452,6 +1510,8 @@ scw rdb setting set [arg=value ...]
 
 
 ## Block snapshot management
+
+A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time. They are designed to recover your data in case of failure or accidental alterations of the data by a user. They allow you to quickly create a new Instance from a previous state of your database, regardless of the size of the volume. Their limitation is that, unlike backups, snapshots can only be stored in the same location as the original data.
 
 
 ### Create a Database Instance snapshot
@@ -1586,6 +1646,8 @@ scw rdb snapshot update <snapshot-id ...> [arg=value ...]
 
 
 ## User management commands
+
+Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an `admin` role can create new databases and users.
 
 
 ### Create a user for a Database Instance

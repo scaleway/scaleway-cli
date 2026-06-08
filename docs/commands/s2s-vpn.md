@@ -39,6 +39,8 @@ This API allows you to manage your Site-to-Site VPN.
 
 ## A connection represents the IPsec tunnel between VPN gateway and customer gateway.
 
+A connection represents the IPsec tunnel between VPN gateway and customer gateway.
+
 
 ### Create a connection
 
@@ -287,6 +289,8 @@ scw s2s-vpn connection update <connection-id ...> [arg=value ...]
 
 ## A customer gateway represents a Scaleway client's device that communicates with a VPN gateway.
 
+A customer gateway represents a Scaleway client's device that communicates with a VPN gateway.
+
 
 ### Create a customer gateway
 
@@ -404,6 +408,8 @@ scw s2s-vpn customer-gateway update <gateway-id ...> [arg=value ...]
 
 ## By default, all routes across the Site-to-Site VPN (between VPN gateway and customer gateway) are blocked. Routing policies allow you to set filters to define the IP prefixes to allow.
 
+By default, all routes across the Site-to-Site VPN (between VPN gateway and customer gateway) are blocked. Routing policies allow you to set filters to define the IP prefixes to allow.
+
 
 ### Create a routing policy
 
@@ -520,6 +526,8 @@ scw s2s-vpn routing-policy update <routing-policy-id ...> [arg=value ...]
 
 
 ## A VPN gateway is an IPsec peer managed by Scaleway. It can support multiple connections to customer gateways.
+
+A VPN gateway is an IPsec peer managed by Scaleway. It can support multiple connections to customer gateways.
 
 
 ### Create VPN gateway
@@ -645,6 +653,8 @@ scw s2s-vpn vpn-gateway update <gateway-id ...> [arg=value ...]
 
 
 ## VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
+
+VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
 
 
 ### List VPN gateway types

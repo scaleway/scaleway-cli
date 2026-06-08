@@ -14,6 +14,8 @@ This API allows you to manage your Scaleway Projects.
 
 ## Project management commands
 
+Project management commands.
+
 
 ### Create a new Project for an Organization
 

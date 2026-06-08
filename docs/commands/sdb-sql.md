@@ -20,6 +20,8 @@ This API allows you to manage your Serverless SQL Databases.
 ## 
 
 
+
+
 ### Export a database backup
 
 Export a database backup providing a download link once the export process is completed. You must provide the `backup_id` parameter.
@@ -84,6 +86,8 @@ scw sdb-sql backup list [arg=value ...]
 
 
 ## 
+
+
 
 
 ### Create a new Serverless SQL Database

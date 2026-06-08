@@ -41,6 +41,8 @@ This API allows you to manage your IoT hubs and devices.
 
 ## IoT Device commands
 
+IoT Device commands.
+
 
 ### Add a device
 
@@ -286,6 +288,8 @@ scw iot device update <device-id ...> [arg=value ...]
 
 ## IoT Hub commands
 
+IoT Hub commands.
+
 
 ### Create a hub
 
@@ -486,6 +490,8 @@ scw iot hub update <hub-id ...> [arg=value ...]
 
 ## IoT Network commands
 
+IoT Network commands.
+
 
 ### Create a new network
 
@@ -574,6 +580,8 @@ scw iot network list [arg=value ...]
 
 
 ## IoT Route commands
+
+IoT Route commands.
 
 
 ### Create a route

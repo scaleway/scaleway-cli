@@ -49,6 +49,8 @@ This API allows you to manage your Scaleway Cockpit, for storing and visualizing
 
 ## Alerting management commands
 
+Alerting management commands.
+
 
 ### Disable the Alert manager
 
@@ -113,6 +115,8 @@ scw cockpit alert-manager get [arg=value ...]
 
 ## Config management commands
 
+Config management commands.
+
 
 ### Generate a data source configuration snippet
 
@@ -175,6 +179,8 @@ scw cockpit config get 11111111-1111-1111-1111-111111111111 type=fluent-bit gene
 
 
 ## Contact point management commands
+
+Contact point management commands.
 
 
 ### Create a contact point
@@ -243,6 +249,8 @@ scw cockpit contact-point list [arg=value ...]
 
 
 ## Datasource management commands
+
+Datasource management commands.
 
 
 ### Create a data source
@@ -356,6 +364,8 @@ scw cockpit data-source update <data-source-id ...> [arg=value ...]
 
 ## Grafana user management commands
 
+Grafana user management commands.
+
 
 ### Get your Cockpit's Grafana
 
@@ -397,6 +407,8 @@ scw cockpit grafana sync-data-sources [arg=value ...]
 
 
 ## Grafana user management commands
+
+Grafana user management commands.
 
 
 ### (Deprecated) EOL 2026-01-20
@@ -500,6 +512,8 @@ scw cockpit managed-alerts
 
 ## Pricing plans management commands
 
+Pricing plans management commands.
+
 
 ### Get current plan
 
@@ -564,6 +578,8 @@ scw cockpit plan select [arg=value ...]
 
 ## Product dashboards management commands
 
+Product dashboards management commands.
+
 
 ### Get Scaleway resource dashboard
 
@@ -607,6 +623,8 @@ scw cockpit product-dashboards list [arg=value ...]
 
 ## Test alert management commands
 
+Test alert management commands.
+
 
 ### Trigger a test alert
 
@@ -629,6 +647,8 @@ scw cockpit test-alert trigger [arg=value ...]
 
 
 ## Token management commands
+
+Token management commands.
 
 
 ### Create a token
@@ -718,6 +738,8 @@ scw cockpit token list [arg=value ...]
 
 
 ## Usage overview management commands
+
+Usage overview management commands.
 
 
 ### Get data source usage overview

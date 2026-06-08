@@ -13,6 +13,8 @@ Access and download impact reports and impact data for your Scaleway projects. O
 
 ## Environmental impact data management commands
 
+Environmental impact data management commands.
+
 
 ### Retrieve detailed impact data
 
@@ -41,6 +43,8 @@ scw environmental-footprint data get [arg=value ...]
 
 
 ## Environmental impact report management commands
+
+Environmental impact report management commands.
 
 
 ### Download PDF impact report

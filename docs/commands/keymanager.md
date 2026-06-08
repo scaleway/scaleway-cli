@@ -24,6 +24,8 @@ This API allows you to conveniently store and use cryptographic keys.
 
 ## Key management commands
 
+Keys are logical containers which store cryptographic keys.
+
 
 ### Create a key
 

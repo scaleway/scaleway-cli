@@ -46,7 +46,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 
 ## Destroy the config file
 
-Destroy the config file
+
 
 **Usage:**
 
@@ -58,7 +58,7 @@ scw config destroy
 
 ## Dump the config file
 
-Dump the config file
+
 
 **Usage:**
 
@@ -82,7 +82,7 @@ scw config edit
 
 ## Get a value from the config file
 
-Get a value from the config file
+
 
 **Usage:**
 
@@ -116,7 +116,7 @@ scw -p prod config get default_region
 
 ## Import configurations from another file
 
-Import configurations from another file
+
 
 **Usage:**
 
@@ -135,7 +135,7 @@ scw config import <file ...> [arg=value ...]
 
 ## Get config values from the config file for the current profile
 
-Get config values from the config file for the current profile
+
 
 **Usage:**
 
@@ -161,6 +161,8 @@ scw -p prod config info
 
 
 ## Allows the activation and deletion of a profile from the config file
+
+
 
 
 ### Mark a profile as active in the config file
@@ -215,7 +217,7 @@ scw config profile list
 
 ## Reset the config
 
-Reset the config
+
 
 **Usage:**
 
@@ -270,7 +272,7 @@ scw -p prod config set default_region=nl-ams
 
 ## Unset a line from the config file
 
-Unset a line from the config file
+
 
 **Usage:**
 

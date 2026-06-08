@@ -27,6 +27,8 @@ Cloud Essentials for Opensearch API.
 
 ## 
 
+Manage your Cloud Essentials for OpenSearch deployment.
+
 
 ### Create a new Cloud Essentials for OpenSearch deployment
 
@@ -170,6 +172,8 @@ scw searchdb deployment upgrade [arg=value ...]
 
 ## 
 
+Manage your Cloud Essentials for OpenSearch deployment endpoint.
+
 
 ### Create a new endpoint on a deployment
 
@@ -214,6 +218,8 @@ scw searchdb endpoint delete [arg=value ...]
 
 ## 
 
+List available node types.
+
 
 ### Retrieve a list of available node types
 
@@ -236,6 +242,8 @@ scw searchdb node-types list [arg=value ...]
 
 
 ## 
+
+Manage your Cloud Essentials for OpenSearch deployment users.
 
 
 ### Create a new user
@@ -326,6 +334,8 @@ scw searchdb user update [arg=value ...]
 
 
 ## 
+
+List your Cloud Essentials for OpenSearch versions.
 
 
 ### List available Cloud Essentials for OpenSearch versions
