@@ -56,6 +56,10 @@ Once you connected to Scaleway, the profile should be configured.
 				Short:   "Init profile manually",
 				Command: "scw init",
 			},
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
+			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*loginArgs)

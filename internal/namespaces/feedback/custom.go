@@ -29,13 +29,24 @@ func feedbackBugCommand() *core.Command {
 	return &core.Command{
 		Groups:               []string{"utility"},
 		Short:                `Send a bug-report`,
-		Long:                 `Send a bug-report to the Scaleway CLI team.`,
+		Long:                 `Send a bug-report to the Scaleway CLI team on the GitHub repository.`,
 		Namespace:            "feedback",
 		Resource:             `bug`,
 		ArgsType:             reflect.TypeOf(struct{}{}),
 		ArgSpecs:             core.ArgSpecs{},
 		AllowAnonymousClient: true,
-
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
+			},
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Send a bug report",
+				Raw:   "scw feedback bug",
+			},
+		},
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			issue := issue{
 				IssueTemplate: bug,
@@ -64,6 +75,18 @@ func feedbackFeatureRequestCommand() *core.Command {
 		ArgsType:             reflect.TypeOf(struct{}{}),
 		ArgSpecs:             core.ArgSpecs{},
 		AllowAnonymousClient: true,
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "See current configuration",
+				Command: "scw info",
+			},
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Send a feedback",
+				Raw:   "scw feedback feature",
+			},
+		},
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			issue := issue{
 				IssueTemplate: feature,

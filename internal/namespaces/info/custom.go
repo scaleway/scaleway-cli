@@ -58,6 +58,7 @@ func infosRoot() *core.Command {
 	return &core.Command{
 		Groups:               []string{"config"},
 		Short:                `Get info about current settings`,
+		Long:                 `Get info about current settings.`,
 		Namespace:            "info",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(infoArgs{}),
@@ -87,6 +88,12 @@ func infosRoot() *core.Command {
 					secretKey(ctx, config, profileName, req.ShowSecret),
 				},
 			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "See current configuration",
+				ArgsJSON: `{}`,
+			},
 		},
 	}
 }
