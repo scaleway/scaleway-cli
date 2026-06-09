@@ -4,8 +4,10 @@ import (
 	"context"
 	"errors"
 	"fmt"
+	"net"
 	"net/url"
 	"reflect"
+	"strconv"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -36,6 +38,10 @@ type ConnectionInfo struct {
 	User             string
 	Database         string
 	PrivateNetworkID string
+}
+
+func (info *ConnectionInfo) hostPort() string {
+	return net.JoinHostPort(info.Host, strconv.Itoa(int(info.Port)))
 }
 
 func databaseGetURLCommand() *core.Command {
@@ -188,7 +194,7 @@ func connectionInfoToURL(info *ConnectionInfo, includeDatabase bool) *url.URL {
 	}
 
 	u.User = url.User(info.User)
-	u.Host = fmt.Sprintf("%s:%d", info.Host, info.Port)
+	u.Host = info.hostPort()
 
 	if includeDatabase {
 		u = u.JoinPath(info.Database)

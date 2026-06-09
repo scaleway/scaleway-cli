@@ -31,7 +31,11 @@ func sampleMySQLConnectionInfo() *rdb.ConnectionInfo {
 func Test_RenderPHPConfig(t *testing.T) {
 	t.Run("postgresql", func(t *testing.T) {
 		got := string(rdb.RenderPHPConfig(samplePostgresConnectionInfo()))
-		assert.Contains(t, got, `pg_connect("host=163.172.166.66 port=21441 dbname=mydb user=myuser password=YOUR_PASSWORD")`)
+		assert.Contains(
+			t,
+			got,
+			`pg_connect("host=163.172.166.66 port=21441 dbname=mydb user=myuser password=YOUR_PASSWORD")`,
+		)
 	})
 
 	t.Run("mysql", func(t *testing.T) {
@@ -90,5 +94,9 @@ func Test_RenderGoConfig(t *testing.T) {
 func Test_RenderRustConfig(t *testing.T) {
 	got := string(rdb.RenderRustConfig(samplePostgresConnectionInfo()))
 	assert.Contains(t, got, "sqlx::postgres::PgPoolOptions")
-	require.Contains(t, got, "postgres://myuser:YOUR_PASSWORD@163.172.166.66:21441/mydb?sslmode=require")
+	require.Contains(
+		t,
+		got,
+		"postgres://myuser:YOUR_PASSWORD@163.172.166.66:21441/mydb?sslmode=require",
+	)
 }

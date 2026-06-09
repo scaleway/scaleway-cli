@@ -221,11 +221,10 @@ func RenderGoConfig(info *ConnectionInfo) core.RawResult {
 	switch info.EngineFamily {
 	case PostgreSQL:
 		dsn := fmt.Sprintf(
-			"postgres://%s:%s@%s:%d/%s?sslmode=require",
+			"postgres://%s:%s@%s/%s?sslmode=require",
 			info.User,
 			rdbPasswordPlaceholder,
-			info.Host,
-			info.Port,
+			info.hostPort(),
 			info.Database,
 		)
 		lines = append(lines,
@@ -247,11 +246,10 @@ func RenderGoConfig(info *ConnectionInfo) core.RawResult {
 		)
 	case MySQL:
 		dsn := fmt.Sprintf(
-			"%s:%s@tcp(%s:%d)/%s?tls=true",
+			"%s:%s@tcp(%s)/%s?tls=true",
 			info.User,
 			rdbPasswordPlaceholder,
-			info.Host,
-			info.Port,
+			info.hostPort(),
 			info.Database,
 		)
 		lines = append(lines,
@@ -283,11 +281,10 @@ func RenderRustConfig(info *ConnectionInfo) core.RawResult {
 	switch info.EngineFamily {
 	case PostgreSQL:
 		dsn := fmt.Sprintf(
-			"postgres://%s:%s@%s:%d/%s?sslmode=require",
+			"postgres://%s:%s@%s/%s?sslmode=require",
 			info.User,
 			rdbPasswordPlaceholder,
-			info.Host,
-			info.Port,
+			info.hostPort(),
 			info.Database,
 		)
 		lines = append(lines,
@@ -303,11 +300,10 @@ func RenderRustConfig(info *ConnectionInfo) core.RawResult {
 		)
 	case MySQL:
 		dsn := fmt.Sprintf(
-			"mysql://%s:%s@%s:%d/%s",
+			"mysql://%s:%s@%s/%s",
 			info.User,
 			rdbPasswordPlaceholder,
-			info.Host,
-			info.Port,
+			info.hostPort(),
 			info.Database,
 		)
 		lines = append(lines,
