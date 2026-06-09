@@ -137,6 +137,10 @@ func newTemplate() *template.Template {
 			res := strings.ToLower(short)
 			res = strings.ReplaceAll(res, " ", "-")
 			res = strings.ReplaceAll(res, "/", "")
+			res = strings.ReplaceAll(res, "(", "")
+			res = strings.ReplaceAll(res, ")", "")
+			res = strings.ReplaceAll(res, "'", "-")
+			res = strings.ReplaceAll(res, ".", "")
 
 			return res
 		},
@@ -164,7 +168,7 @@ func newTemplate() *template.Template {
 				)
 			}
 
-			return strings.Join(parts, "<br />")
+			return strings.Join(parts, ", ")
 		},
 		"arg_spec_name": func(arg *core.ArgSpec) string {
 			res := arg.Name
@@ -180,6 +184,16 @@ func newTemplate() *template.Template {
 			}
 
 			return value
+		},
+		"trim": func(s string) string {
+			return strings.TrimSpace(s)
+		},
+		"normalize_newlines": func(s string) string {
+			// Replace multiple consecutive newlines with a single newline
+			for strings.Contains(s, "\n\n\n") {
+				s = strings.ReplaceAll(s, "\n\n\n", "\n\n")
+			}
+			return s
 		},
 	})
 	tpl = template.Must(tpl.ParseFS(templateFile, "tpl.md.tmpl"))
