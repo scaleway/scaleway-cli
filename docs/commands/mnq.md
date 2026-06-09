@@ -37,6 +37,7 @@ These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topic
 
 ## MnQ NATS commands
 
+
 MnQ NATS commands.
 
 
@@ -262,6 +263,7 @@ scw mnq nats update-account <nats-account-id ...> [arg=value ...]
 
 ## MnQ Topics and Events commands
 
+
 MnQ Topics and Events commands.
 
 
@@ -435,6 +437,7 @@ scw mnq sns update-credentials <sns-credentials-id ...> [arg=value ...]
 
 
 ## MnQ Queues commands
+
 
 MnQ Queues commands.
 

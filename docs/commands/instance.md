@@ -117,6 +117,7 @@ it-generate-hosts-for-instance-servers,-baremetal,-apple-silicon-and-bastions)
 
 ## Image management commands
 
+
 Images are backups of your Instances.
 One image will contain all the volumes of your Instance and can be used to restore your Instance and its data. You can also use it to create a series of Instances with a predefined configuration.
 To copy not all but only one specified volume of an Instance, you can use the snapshot feature instead.
@@ -326,6 +327,7 @@ scw instance image wait 11111111-1111-1111-1111-111111111111
 
 
 ## IP management commands
+
 
 A flexible IP address is an IP address which you hold independently of any Instance.
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
@@ -606,6 +608,7 @@ scw instance ip update 51.15.253.183 reverse=example.com
 
 
 ## Placement group management commands
+
 
 Placement groups allow the user to express a preference regarding
 the physical position of a group of Instances. The feature lets the user
@@ -934,6 +937,7 @@ scw instance placement-group update-servers [arg=value ...]
 
 ## Private NIC management commands
 
+
 A Private NIC is the network interface that connects an Instance to a
 Private Network. An Instance can have multiple private NICs at the same
 time, but each NIC must belong to a different Private Network.
@@ -1074,6 +1078,7 @@ scw instance private-nic update server-id=11111111-1111-1111-1111-111111111111 p
 
 
 ## Security group management commands
+
 
 A security group is a set of firewall rules on a set of Instances.
 Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
@@ -1535,6 +1540,7 @@ scw instance security-group update-rule [arg=value ...]
 
 
 ## Instance management commands
+
 
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
@@ -2409,6 +2415,7 @@ scw instance server wait 11111111-1111-1111-1111-111111111111
 
 ## Instance type management commands
 
+
 All Instance types available in a specified zone.
 Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
 
@@ -2467,6 +2474,7 @@ scw instance server-type list zone=fr-par-1
 
 
 ## Snapshot management commands
+
 
 Snapshots contain the data of a specified volume at a particular point in time.
 The data can include the Instance's operating system,
@@ -2774,6 +2782,7 @@ scw instance snapshot wait 11111111-1111-1111-1111-111111111111
 
 ## SSH Utilities
 
+
 Command utilities around server SSH
 - Manage keys per server
 - Generate ssh config
@@ -2896,6 +2905,7 @@ scw instance ssh remove-key [arg=value ...]
 
 ## User data management commands
 
+
 User data is a key/value store you can use to provide your instance with introspective data.
 
 As an example of use, Scaleway images contain the `scw-generate-ssh-keys` script, which generates the SSH server’s host keys, then stores their fingerprints as user data under the `ssh-host-fingerprints` key.
@@ -2994,6 +3004,7 @@ scw instance user-data set [arg=value ...]
 
 
 ## Volume management commands
+
 
 A volume is where you store your data inside your Instance. It
 appears as a block device on Linux that you can use to create
@@ -3278,6 +3289,7 @@ scw instance volume wait 11111111-1111-1111-1111-111111111111
 
 
 ## Volume type management commands
+
 
 All volume types available in a specified zone.
 Each of these types will contains all the capabilities and constraints of the volume (min size, max size, snapshot).

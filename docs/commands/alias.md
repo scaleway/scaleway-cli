@@ -24,6 +24,7 @@ aliases in your commands are evaluated and you get completion
 
 ## Create a new alias for a command
 
+
 This command help you create aliases and save it to your config
 
 **Usage:**
@@ -60,6 +61,7 @@ scw alias create c command=create
 ## Delete an alias
 
 
+Delete an alias
 
 **Usage:**
 
@@ -79,6 +81,7 @@ scw alias delete <alias ...> [arg=value ...]
 ## List aliases and their commands
 
 
+List aliases and their commands
 
 **Usage:**
 

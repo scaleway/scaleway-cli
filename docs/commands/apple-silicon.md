@@ -35,6 +35,7 @@ Apple silicon API.
 
 ## OS management commands
 
+
 OS management commands.
 
 
@@ -80,6 +81,7 @@ scw apple-silicon os list [arg=value ...]
 
 
 ## Private network management command
+
 
 A Private Network allows you to interconnect your resources
 in an isolated and private
@@ -179,6 +181,7 @@ scw apple-silicon private-network set [arg=value ...]
 
 
 ## Runner management commands
+
 
 Runner management commands.
 
@@ -300,6 +303,7 @@ scw apple-silicon runner update <runner-id ...> [arg=value ...]
 
 
 ## Apple silicon management commands
+
 
 Apple silicon management commands.
 
@@ -521,6 +525,7 @@ scw apple-silicon server wait 11111111-1111-1111-1111-111111111111
 
 
 ## Server-Types management commands
+
 
 Server-Types management commands.
 

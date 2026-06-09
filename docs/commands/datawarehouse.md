@@ -31,6 +31,7 @@ Data Warehouse API.
 
 ## Database management commands
 
+
 Manage databases within a deployment.
 
 
@@ -99,6 +100,7 @@ scw datawarehouse database list [arg=value ...]
 
 
 ## Deployment management commands
+
 
 A deployment is composed of one or multiple replicas.
 
@@ -244,6 +246,7 @@ scw datawarehouse deployment update <deployment-id ...> [arg=value ...]
 
 ## Endpoint management commands
 
+
 Manage endpoints associated with a deployment.
 
 
@@ -290,6 +293,7 @@ scw datawarehouse endpoint delete [arg=value ...]
 
 ## List available presets
 
+
 Data Warehouse preset to help you choose the best configuration.
 
 
@@ -313,6 +317,7 @@ scw datawarehouse preset list [arg=value ...]
 
 
 ## User management commands
+
 
 Manage users associated with a deployment.
 
@@ -407,6 +412,7 @@ scw datawarehouse user update [arg=value ...]
 
 
 ## List available Clickhouse® versions
+
 
 ClickHouse® versions powering your deployment.
 

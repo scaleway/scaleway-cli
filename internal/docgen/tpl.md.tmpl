@@ -20,9 +20,10 @@ gottype: github.com/scaleway/scaleway-cli/v2/internal/docgen.tplNamespace
 {{ range $resourceName, $resource := .Resources -}}
 ## {{ $resource.Cmd.Short }}
 
+{{ if $resource.Verbs | len -}}
+{{/* Resource with verbs: show resource Long as intro, then each verb */}}
 {{ if $resource.Cmd.Long }}{{ $resource.Cmd.Long }}{{ end }}
 
-{{ if $resource.Verbs | len -}}
 {{ range $verbName, $cmd := $resource.Verbs }}
 ### {{ $cmd.Short }}
 
@@ -30,7 +31,8 @@ gottype: github.com/scaleway/scaleway-cli/v2/internal/docgen.tplNamespace
 
 {{ end -}}
 {{- else -}}
-{{ template "cmdNoLong" (map "Cmd" $resource.Cmd "Data" $) }}
+{{/* Resource without verbs: the resource command IS the content */}}
+{{ template "cmd" (map "Cmd" $resource.Cmd "Data" $) }}
 
 {{ end }}
 {{ end }}

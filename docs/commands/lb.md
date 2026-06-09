@@ -73,6 +73,7 @@ This API allows you to manage your Scaleway Load Balancer services.
 
 ## Access Control List (ACL) management commands
 
+
 Access Control List (ACL) management commands.
 
 
@@ -238,6 +239,7 @@ scw lb acl update <acl-id ...> [arg=value ...]
 
 
 ## Backend management commands
+
 
 Backend management commands.
 
@@ -543,6 +545,7 @@ scw lb backend update-healthcheck [arg=value ...]
 
 ## TLS certificate management commands
 
+
 TLS certificate management commands.
 
 
@@ -654,6 +657,7 @@ scw lb certificate update <certificate-id ...> [arg=value ...]
 
 
 ## Frontend management commands
+
 
 Frontend management commands.
 
@@ -780,6 +784,7 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 
 ## IP management commands
 
+
 IP management commands.
 
 
@@ -895,6 +900,7 @@ scw lb ip update <ip-id ...> [arg=value ...]
 
 
 ## Load balancer management commands
+
 
 Load balancer management commands.
 
@@ -1095,6 +1101,7 @@ scw lb lb wait 11111111-1111-1111-1111-111111111111
 
 ## Load balancer types management commands
 
+
 Load balancer types management commands.
 
 
@@ -1118,6 +1125,7 @@ scw lb lb-types list [arg=value ...]
 
 
 ## Private networks management commands
+
 
 Private networks management commands.
 
@@ -1187,6 +1195,7 @@ scw lb private-network list <lb-id ...> [arg=value ...]
 
 
 ## Route rules management commands
+
 
 Route rules management commands.
 
@@ -1303,6 +1312,7 @@ scw lb route update <route-id ...> [arg=value ...]
 
 
 ## Subscriber management commands
+
 
 Subscriber management commands.
 

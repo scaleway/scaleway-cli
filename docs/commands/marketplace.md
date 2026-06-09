@@ -20,6 +20,7 @@ This API allows you to find available images for use when launching a Scaleway I
 
 ## Marketplace category management commands
 
+
 Marketplace category management commands.
 
 
@@ -55,6 +56,7 @@ scw marketplace category list
 
 
 ## Marketplace images management commands
+
 
 Marketplace images management commands.
 
@@ -101,6 +103,7 @@ scw marketplace image list [arg=value ...]
 
 
 ## Marketplace local images management commands
+
 
 Marketplace local images management commands.
 
@@ -150,6 +153,7 @@ scw marketplace local-image list [arg=value ...]
 
 
 ## Marketplace version management commands
+
 
 Marketplace version management commands.
 

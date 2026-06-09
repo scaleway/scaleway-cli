@@ -38,6 +38,7 @@ This API allows you to manage your Public Gateways.
 
 ## Public Gateway management
 
+
 Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such NAT and PAT rules.
 
 
@@ -205,6 +206,7 @@ scw vpc-gw gateway upgrade <gateway-id ...> [arg=value ...]
 
 ## Gateway Networks management
 
+
 A Gateway Network represents the connection of a Private Network to a Public Gateway.
 
 
@@ -321,6 +323,7 @@ scw vpc-gw gateway-network update <gateway-network-id ...> [arg=value ...]
 
 ## Gateway types information
 
+
 Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
 
 
@@ -344,6 +347,7 @@ scw vpc-gw gateway-type list [arg=value ...]
 
 
 ## IP address management
+
 
 Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
 
@@ -458,6 +462,7 @@ scw vpc-gw ip update <ip-id ...> [arg=value ...]
 
 
 ## PAT rules management
+
 
 PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.
 

@@ -89,6 +89,7 @@ This API allows you to manage Identity and Access Management (IAM) across your S
 
 ## API keys management commands
 
+
 API keys management commands.
 
 
@@ -217,6 +218,7 @@ scw iam api-key update <access-key ...> [arg=value ...]
 
 ## Applications management commands
 
+
 Applications management commands.
 
 
@@ -327,6 +329,7 @@ scw iam application update <application-id ...> [arg=value ...]
 
 
 ## Groups management commands
+
 
 Groups management commands.
 
@@ -544,6 +547,7 @@ scw iam group update <group-id ...> [arg=value ...]
 
 ## JWTs management commands
 
+
 JWTs management commands.
 
 
@@ -608,6 +612,7 @@ scw iam jwt list <audience-id ...> [arg=value ...]
 
 ## Log management commands
 
+
 Log management commands.
 
 
@@ -656,6 +661,7 @@ scw iam log list [arg=value ...]
 
 
 ## Organization-wide management commands
+
 
 Organization-wide management commands.
 
@@ -738,6 +744,7 @@ scw iam organization get-scim [arg=value ...]
 
 ## Permission sets management commands
 
+
 Permission sets management commands.
 
 
@@ -762,6 +769,7 @@ scw iam permission-set list [arg=value ...]
 
 
 ## Policies management commands
+
 
 Policies management commands.
 
@@ -919,6 +927,7 @@ scw iam policy update <policy-id ...> [arg=value ...]
 
 ## Rules management commands
 
+
 Rules management commands.
 
 
@@ -1008,6 +1017,7 @@ scw iam rule update <policy-id ...> [arg=value ...]
 
 ## SAML management commands
 
+
 SAML management commands.
 
 
@@ -1052,6 +1062,7 @@ scw iam saml update <saml-id ...> [arg=value ...]
 
 
 ## SAML Certificates management commands
+
 
 SAML Certificates management commands.
 
@@ -1117,6 +1128,7 @@ scw iam saml-certificates list <saml-id ...> [arg=value ...]
 
 ## SCIM management commands
 
+
 SCIM management commands.
 
 
@@ -1140,6 +1152,7 @@ scw iam scim delete <scim-id ...> [arg=value ...]
 
 
 ## SCIM tokens management commands
+
 
 SCIM tokens management commands.
 
@@ -1204,6 +1217,7 @@ scw iam scim-tokens list <scim-id ...> [arg=value ...]
 
 ## Security settings management commands
 
+
 Security settings management commands.
 
 
@@ -1251,6 +1265,7 @@ scw iam security-settings update [arg=value ...]
 
 
 ## SSH keys management commands
+
 
 SSH keys management commands.
 
@@ -1391,6 +1406,7 @@ scw iam ssh-key update <ssh-key-id ...> [arg=value ...]
 
 
 ## Users management commands
+
 
 Users management commands.
 

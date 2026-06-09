@@ -10,6 +10,7 @@ Send feedback to the Scaleway CLI Team!
 
 ## Send a bug-report
 
+
 Send a bug-report to the Scaleway CLI team on the GitHub repository.
 
 **Usage:**
@@ -31,6 +32,7 @@ scw feedback bug
 
 
 ## Send a feature request
+
 
 Send a feature request to the Scaleway CLI team.
 

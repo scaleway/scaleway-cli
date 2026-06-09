@@ -47,6 +47,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 ## Destroy the config file
 
 
+Destroy the config file
 
 **Usage:**
 
@@ -59,6 +60,7 @@ scw config destroy
 ## Dump the config file
 
 
+Dump the config file
 
 **Usage:**
 
@@ -69,6 +71,7 @@ scw config dump
 
 
 ## Edit the configuration file
+
 
 Edit the configuration file with the default editor
 
@@ -83,6 +86,7 @@ scw config edit
 ## Get a value from the config file
 
 
+Get a value from the config file
 
 **Usage:**
 
@@ -117,6 +121,7 @@ scw -p prod config get default_region
 ## Import configurations from another file
 
 
+Import configurations from another file
 
 **Usage:**
 
@@ -136,6 +141,7 @@ scw config import <file ...> [arg=value ...]
 ## Get config values from the config file for the current profile
 
 
+Get config values from the config file for the current profile
 
 **Usage:**
 
@@ -161,6 +167,7 @@ scw -p prod config info
 
 
 ## Allows the activation and deletion of a profile from the config file
+
 
 
 
@@ -218,6 +225,7 @@ scw config profile list
 ## Reset the config
 
 
+Reset the config
 
 **Usage:**
 
@@ -228,6 +236,7 @@ scw config reset
 
 
 ## Set a line from the config file
+
 
 This commands overwrites the configuration file parameters with user input.
 The only allowed attributes are access_key, secret_key, default_organization_id, default_region, default_zone, api_url, insecure
@@ -273,6 +282,7 @@ scw -p prod config set default_region=nl-ams
 ## Unset a line from the config file
 
 
+Unset a line from the config file
 
 **Usage:**
 
@@ -290,6 +300,7 @@ scw config unset <key ...> [arg=value ...]
 
 
 ## Validate the config
+
 
 This command validates the configuration of your Scaleway CLI tool.
 

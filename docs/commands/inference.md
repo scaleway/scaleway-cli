@@ -26,6 +26,7 @@ This API allows you to handle your Generative APIs - Dedicated Deployment servic
 
 ## Deployment commands
 
+
 Deployment commands.
 
 
@@ -173,6 +174,7 @@ scw inference deployment update <deployment-id ...> [arg=value ...]
 
 ## Endpoint management commands
 
+
 Endpoint management commands.
 
 
@@ -240,6 +242,7 @@ scw inference endpoint update <endpoint-id ...> [arg=value ...]
 
 
 ## Models commands
+
 
 Models commands.
 
@@ -332,6 +335,7 @@ scw inference model list [arg=value ...]
 
 
 ## Node types management commands
+
 
 Node types management commands.
 

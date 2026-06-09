@@ -12,6 +12,7 @@ This API allows you to ensure accountability and security by recording events an
 
 ## Represent an entry in the Audit Trail
 
+
 Represent an entry in the Audit Trail.
 
 
@@ -50,6 +51,7 @@ scw audit-trail event list [arg=value ...]
 
 
 ## Product integrated with Audit Trail
+
 
 Product integrated with Audit Trail.
 

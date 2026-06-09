@@ -88,6 +88,7 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 
 ## Access Control List (ACL) management commands
 
+
 Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
 
 
@@ -200,6 +201,7 @@ scw rdb acl set <acl-rule-ips ...> [arg=value ...]
 
 
 ## Backup management commands
+
 
 A database backup is a dated export of a Database Instance stored on an offsite backend located in a different region than your database, by default. Once a backup is created, it can be used to restore the database. Each logical database in a Database Instance is backed up and can be restored separately.
 
@@ -421,6 +423,7 @@ scw rdb backup wait 11111111-1111-1111-1111-111111111111
 
 ## Database management commands
 
+
 Databases can be used to store and manage sets of structured information, or data. The interaction between the user and a database is done using a Database Engine, which provides a structured query language to add, modify or delete information from the database.
 
 
@@ -513,6 +516,7 @@ scw rdb database list [arg=value ...]
 
 
 ## Endpoint management
+
 
 A point of connection to a Database Instance. The endpoint is associated with an IPv4 address and a port. It contains the information about whether the endpoint is read-write or not. The endpoints always point to the main node of a Database Instance.
 
@@ -630,6 +634,7 @@ scw rdb endpoint migrate [arg=value ...]
 
 ## Database engines commands
 
+
 A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
 
 
@@ -686,6 +691,7 @@ scw rdb engine settings name=MySQL version=8
 
 
 ## Instance management commands
+
 
 A Database Instance is made up of one or multiple dedicated compute nodes running a single database engine. Two node settings are available: **High-Availability (HA)**, with a main node and one replica, and **standalone** with a main node. The HA standby node is linked to the main node, using synchronous replication. Synchronous replication offers the ability to confirm that all changes intended by a transaction have been transferred and applied to the synchronous replica node, providing durability to the data.
 
@@ -1039,6 +1045,7 @@ scw rdb instance wait 11111111-1111-1111-1111-111111111111
 
 ## Instance logs management commands
 
+
 Instance logs management commands.
 
 
@@ -1191,6 +1198,7 @@ scw rdb log purge [arg=value ...]
 
 ## Node types management commands
 
+
 Two node type ranges are available:
 
 * **General Purpose:** production-grade nodes designed for scalable database infrastructures.
@@ -1218,6 +1226,7 @@ scw rdb node-type list [arg=value ...]
 
 
 ## User privileges management commands
+
 
 Privileges are permissions that can be granted to database users. You can manage user permissions either via the console, the Scaleway APIs or SQL. Managed Database for PostgreSQL and MySQL provides a simplified and unified permission model through the API and the console to make things easier to manage and understand.
 
@@ -1276,6 +1285,7 @@ scw rdb privilege set [arg=value ...]
 
 
 ## Read replica management
+
 
 A Read Replica is a live copy of a Database Instance that behaves like an Instance, but that only allows read-only connections.
 The replica mirrors the data of the primary Database node and any changes made are replicated to the replica asynchronously. Read Replicas allow you to scale your Database Instance for read-heavy database workloads. They can also be used for business intelligence workloads.
@@ -1400,6 +1410,7 @@ scw rdb read-replica reset <read-replica-id ...> [arg=value ...]
 
 ## Setting management
 
+
 Advanced Database Instance settings allow you to tune the behavior of your database engines to better fit your needs.
 
 Available settings depend on the database engine and its version. Note that some settings can only be defined upon database engine initialization. These are called init settings. You can find a full list of the settings available in the response body of the [list available database engines](#path-databases-list-databases-in-a-database-instance) endpoint.
@@ -1510,6 +1521,7 @@ scw rdb setting set [arg=value ...]
 
 
 ## Block snapshot management
+
 
 A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time. They are designed to recover your data in case of failure or accidental alterations of the data by a user. They allow you to quickly create a new Instance from a previous state of your database, regardless of the size of the volume. Their limitation is that, unlike backups, snapshots can only be stored in the same location as the original data.
 
@@ -1646,6 +1658,7 @@ scw rdb snapshot update <snapshot-id ...> [arg=value ...]
 
 
 ## User management commands
+
 
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage. For example, users with an `admin` role can create new databases and users.
 

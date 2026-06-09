@@ -10,6 +10,7 @@ Get help about how specific topics inside the CLI work
 
 ## Get help about how date parsing works in the CLI
 
+
 Date parsing
 
 You have two ways for managing date in the CLI: Absolute and Relative
@@ -52,6 +53,7 @@ scw help date
 
 
 ## Get help about how the CLI output works
+
 
 Output formatting in the CLI
 

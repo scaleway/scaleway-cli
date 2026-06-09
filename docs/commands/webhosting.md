@@ -64,6 +64,7 @@ This API allows you to list and restore backups for your cPanel and WordPress We
 
 ## Backups
 
+
 Backups represent snapshots of your hosting environment.
 You can list and restore individual items such as files, databases,
 or mailboxes.
@@ -134,6 +135,7 @@ scw webhosting backup restore [arg=value ...]
 
 ## Backups items
 
+
 Backups represent dedicated snapshots of services of your hosting.
 You can list and restore individual items such as files, databases,
 or mailboxes.
@@ -183,6 +185,7 @@ scw webhosting backup-item restore [arg=value ...]
 
 ## Control Panels
 
+
 Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.
 
 
@@ -206,6 +209,7 @@ scw webhosting control-panel list [arg=value ...]
 
 
 ## Database
+
 
 Databases represent the databases you can create and manage within your Web Hosting plan. Supported types are MySQL and PostgreSQL.
 
@@ -298,6 +302,7 @@ scw webhosting database list [arg=value ...]
 
 
 ## Database User
+
 
 Database users represent the users that can access and manage the databases in your Web Hosting plan.
 
@@ -455,6 +460,7 @@ scw webhosting database-user unassign [arg=value ...]
 
 ## Domain information commands
 
+
 With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.
 
 
@@ -489,6 +495,7 @@ scw webhosting dns-records get-dns-records domain=foo.com
 
 
 ## Domain information commands
+
 
 With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.
 
@@ -568,6 +575,7 @@ scw webhosting domain sync-dns-records [arg=value ...]
 
 ## Domain information commands
 
+
 With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.
 
 
@@ -593,6 +601,7 @@ scw webhosting domain-availability search [arg=value ...]
 
 
 ## Free domains
+
 
 A free subdomain provided by Scaleway for your hosting.
 
@@ -638,6 +647,7 @@ scw webhosting freedomain list [arg=value ...]
 
 
 ## FTP Account
+
 
 FTP accounts represent the access credentials for FTP (File Transfer Protocol) used to manage files on your web hosting plan.
 
@@ -709,6 +719,7 @@ scw webhosting ftp-account list [arg=value ...]
 
 
 ## Hosting management commands
+
 
 With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Create, list, update and delete your Web Hosting plans with these calls.
 
@@ -912,6 +923,7 @@ scw webhosting hosting update hosting-id=11111111-1111-1111-1111-111111111111 ta
 
 ## Mail Account
 
+
 Mail accounts represent the email addresses you can create and manage within your Web Hosting plan.
 
 
@@ -1007,6 +1019,7 @@ scw webhosting mail-account list [arg=value ...]
 
 ## Offer
 
+
 Offers represent the available Web Hosting plans and their associated options.
 
 
@@ -1033,6 +1046,7 @@ scw webhosting offer list [arg=value ...]
 
 
 ## Progresses
+
 
 Progresses give details on the advancement of a backup,.
 
@@ -1079,6 +1093,7 @@ scw webhosting progress list [arg=value ...]
 
 
 ## Website
+
 
 Websites represent the domains and paths hosted within your Web Hosting plan.
 

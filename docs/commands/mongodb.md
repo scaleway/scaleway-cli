@@ -37,6 +37,7 @@ This API allows you to manage your Managed Databases for MongoDB®.
 
 ## Endpoint management commands
 
+
 Instance endpoints enable connection to your instance.
 
 
@@ -82,6 +83,7 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 
 
 ## Instance management commands
+
 
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
@@ -276,6 +278,7 @@ scw mongodb instance wait 11111111-1111-1111-1111-111111111111
 
 ## Node types management commands
 
+
 Two node type ranges are available:
 
 * **Cost-Optimized:** a complete and highly reliable node range with shared resources that is made for scaling from development to production needs, at affordable prices.
@@ -303,6 +306,7 @@ scw mongodb node-type list [arg=value ...]
 
 
 ## Snapshot management commands
+
 
 A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time.
 
@@ -441,6 +445,7 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 
 ## User management commands
 
+
 Users are profiles to which you can attribute database-level permissions. They allow you to define permissions specific to each type of database usage.
 
 
@@ -556,6 +561,7 @@ scw mongodb user update [arg=value ...]
 
 
 ## MongoDB® version management commands
+
 
 A database engine is the core software that handles the storage, retrieval, and management of data in your Database Instance.
 

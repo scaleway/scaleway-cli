@@ -12,6 +12,7 @@ Commands for managing the MCP server that exposes Scaleway CLI commands as AI to
 
 ## MCP server management commands
 
+
 Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.
 
 

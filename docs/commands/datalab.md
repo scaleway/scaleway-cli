@@ -20,6 +20,7 @@ Clusters for Apache Spark™ API.
 
 ## 
 
+
 Lists the Apache Spark™ versions available for cluster creation.
 
 
@@ -44,6 +45,7 @@ scw datalab cluster-version list [arg=value ...]
 
 
 ## 
+
 
 Manage your clusters.
 
@@ -169,6 +171,7 @@ scw datalab datalab update [arg=value ...]
 
 ## 
 
+
 List available node types.
 
 
@@ -195,6 +198,7 @@ scw datalab node-type list [arg=value ...]
 
 
 ## 
+
 
 List available notebook versions.
 

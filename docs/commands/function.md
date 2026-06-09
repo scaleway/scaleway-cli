@@ -48,6 +48,7 @@ Function as a Service API.
 
 ## Cron management commands
 
+
 Cron management commands.
 
 
@@ -161,6 +162,7 @@ scw function cron update <cron-id ...> [arg=value ...]
 
 ## Deploy a function
 
+
 Create or fetch, upload and deploy your function
 
 **Usage:**
@@ -183,6 +185,7 @@ scw function deploy [arg=value ...]
 
 
 ## Domain management commands
+
 
 Domain management commands.
 
@@ -270,6 +273,7 @@ scw function domain list [arg=value ...]
 
 
 ## Function management commands
+
 
 Function management commands.
 
@@ -476,6 +480,7 @@ scw function function update <function-id ...> [arg=value ...]
 
 ## Function namespace management commands
 
+
 Function namespace management commands.
 
 
@@ -596,6 +601,7 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 
 ## Runtime management commands
 
+
 Runtime management commands.
 
 
@@ -619,6 +625,7 @@ scw function runtime list [arg=value ...]
 
 
 ## Token management commands
+
 
 Token management commands.
 
@@ -709,6 +716,7 @@ scw function token list [arg=value ...]
 
 
 ## Trigger management commands
+
 
 Trigger management commands.
 

@@ -39,6 +39,7 @@ This API allows you to manage your Transactional Email services.
 
 ## Blocklist
 
+
 This section allows you to manage the blocklist of your emails.
 
 
@@ -110,6 +111,7 @@ scw tem blocklists list [arg=value ...]
 
 
 ## Domain management commands
+
 
 This section lists your domains, shows you to manage them, and gives you information about them.
 
@@ -263,6 +265,7 @@ scw tem domain update <domain-id ...> [arg=value ...]
 
 ## Email management commands
 
+
 This section lists your emails and shows you how to manage them.
 
 
@@ -401,6 +404,7 @@ scw tem email list [arg=value ...]
 
 ## Project offers management commands
 
+
 This section allows you to manage and get get subscribed information about your project email offer.
 
 
@@ -446,6 +450,7 @@ scw tem offers update [arg=value ...]
 
 ## Project consumption management commands
 
+
 Project consumption allow you to see your project consumption.
 
 
@@ -471,6 +476,7 @@ scw tem project-consumption get [arg=value ...]
 
 ## Project settings management commands
 
+
 Project settings allow you to manage the configuration of your projects.
 
 **Usage:**
@@ -482,6 +488,7 @@ scw tem project-settings
 
 
 ## Webhook management commands
+
 
 Webhooks enable real-time communication and automation between systems by sending messages through all protocols supported by SNS, such as HTTP, HTTPS, and Serverless Functions, allowing for immediate updates and actions based on specific events. This feature is in beta. You can request quotas from the [Scaleway betas page](https://www.scaleway.com/fr/betas/#email-webhooks).
 
