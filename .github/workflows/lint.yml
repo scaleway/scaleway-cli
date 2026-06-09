@@ -59,9 +59,8 @@ jobs:
 
   rumdl:
     name: rumdl
-    runs-on: ubuntu-latest
-    steps:
-      - name: Checkout Actions Repository
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
+      - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: rumdl
         uses: rvben/rumdl@c865358794ca767361fe7d2947ad631ac8a89996 # v0.2.10
