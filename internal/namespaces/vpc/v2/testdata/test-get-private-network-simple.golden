@@ -12,8 +12,8 @@ DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID
-2575fda0-e06c-4149-bcd1-274c76c7dcd8  few seconds ago  few seconds ago  172.16.52.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
+2575fda0-e06c-4149-bcd1-274c76c7dcd8  few seconds ago  few seconds ago  172.16.52.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19  
 5398d0ef-54a7-4037-81e0-a2835618fd37  few seconds ago  few seconds ago  fd46:78ab:30b8:83ca::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19
 
 Instance Servers:
@@ -42,7 +42,8 @@ e8eee783-12e1-4753-83b9-a961add1cc33  fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64
       "subnet": "172.16.52.0/22",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+      "region": ""
     },
     {
       "id": "5398d0ef-54a7-4037-81e0-a2835618fd37",
@@ -51,7 +52,8 @@ e8eee783-12e1-4753-83b9-a961add1cc33  fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64
       "subnet": "fd46:78ab:30b8:83ca::/64",
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19"
+      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+      "region": ""
     }
   ],
   "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
