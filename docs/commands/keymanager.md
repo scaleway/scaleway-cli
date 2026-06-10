@@ -51,6 +51,7 @@ scw keymanager key create [arg=value ...]
 | rotation-policy.next-rotation-at |  | Key next rotation date |
 | unprotected |  | (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted |
 | origin | One of: `unknown_origin`, `scaleway_kms`, `external` | Key origin |
+| protection-level | One of: `unknown_protection_level`, `software`, `hsm` | Key Protection level |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -266,6 +267,7 @@ scw keymanager key list [arg=value ...]
 | name |  | (Optional) Filter by key name |
 | usage | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing` | (Optional) Filter keys by usage. |
 | scheduled-for-deletion |  | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |
+| protection-level | One of: `unknown_protection_level`, `software`, `hsm` | (Optional) Filter keys by protection level. |
 | organization-id |  | (Optional) Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
