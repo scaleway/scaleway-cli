@@ -25,6 +25,11 @@ func main() {
 		panic(fmt.Errorf("outdir %s must be a valid directory", *outDir))
 	}
 
+	// We set the shell to bash to ensure the documentation will render the same
+	err = os.Setenv("SHELL", "/bin/bash")
+	if err != nil {
+		panic(err)
+	}
 	err = docgen.GenerateDocs(cmds, *outDir)
 	if err != nil {
 		panic(err)
