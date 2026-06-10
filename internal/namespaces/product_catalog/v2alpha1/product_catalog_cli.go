@@ -81,6 +81,7 @@ func productCatalogProductList() *core.Command {
 					"managed_mongodb",
 					"serverless_functions",
 					"serverless_containers",
+					"serverless_jobs",
 				},
 			},
 			{
