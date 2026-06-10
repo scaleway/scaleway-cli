@@ -10,6 +10,7 @@ USAGE:
 ARGS:
   [port]         The port number used to wait for browser's response
   [expires-at]   Expiration date of the API key (ISO 8601 or relative like +1y, +90d). Required when your organization enforces max-api-key-expiration-duration.
+  [project-id]   Project ID to use for this login session for the API key created during login
 
 FLAGS:
   -h, --help                help for login
