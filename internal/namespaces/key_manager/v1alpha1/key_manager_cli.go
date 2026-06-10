@@ -163,6 +163,18 @@ func keymanagerKeyCreate() *core.Command {
 					"external",
 				},
 			},
+			{
+				Name:       "protection-level",
+				Short:      `Key Protection level`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_protection_level",
+					"software",
+					"hsm",
+				},
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -558,6 +570,18 @@ func keymanagerKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "protection-level",
+				Short:      `(Optional) Filter keys by protection level.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_protection_level",
+					"software",
+					"hsm",
+				},
 			},
 			{
 				Name:       "organization-id",
