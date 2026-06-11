@@ -2,6 +2,7 @@ package docgen
 
 import (
 	"bytes"
+	_ "embed"
 	"fmt"
 	"os"
 	"path"
@@ -12,11 +13,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 )
 
-import _ "embed"
-
 //go:embed main.md.tmpl
 var mainTemplate string
-
 
 type Data struct {
 	Namespaces map[string]*Namespace
