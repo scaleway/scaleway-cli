@@ -134,6 +134,7 @@ func auditTrailEventList() *core.Command {
 					"vpc_ingress_rule",
 					"edge_services_plan",
 					"edge_services_pipeline",
+					"edge_services_vpc_endpoint",
 					"edge_services_dns_stage",
 					"edge_services_tls_stage",
 					"edge_services_cache_stage",
