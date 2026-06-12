@@ -82,7 +82,7 @@ mcp:
     url: "https://github.com/scaleway/scaleway-cli"
     source: github
     id: "32575663"
-    subfolder: ./internal/namespaces/mcp
+    subfolder: internal/namespaces/mcp
   packages:
     - registry_type: oci
       identifier: "ghcr.io/scaleway/cli:{{ .Version }}"
