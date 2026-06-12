@@ -46,7 +46,6 @@ scw searchdb deployment create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | name |  | Name of the deployment |
 | tags.{index} |  | Tags |
-| ~~node-amount~~ | Deprecated | DEPRECATED: Use node_count instead. Number of nodes |
 | node-count |  | Number of nodes. |
 | node-type |  | Node type |
 | user-name |  | Username for the deployment user |
@@ -161,7 +160,6 @@ scw searchdb deployment upgrade [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | deployment-id | Required | UUID of the Deployment to upgrade |
-| ~~node-amount~~ | Deprecated | DEPRECATED: Use node_count instead. Amount of node upgrade target |
 | node-count |  | The target number of nodes for the upgrade. |
 | volume-size-bytes |  | Volume size upgrade target |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
