@@ -80,7 +80,9 @@ func interceptACL() core.CommandInterceptor {
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			if getACL != nil && getACL.Frontend != nil && getACL.Frontend.LB != nil && len(getACL.Frontend.LB.Tags) != 0 && getACL.Frontend.LB.Tags[0] == kapsuleTag {
+			if getACL != nil && getACL.Frontend != nil && getACL.Frontend.LB != nil &&
+				len(getACL.Frontend.LB.Tags) != 0 &&
+				getACL.Frontend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}
 		}
