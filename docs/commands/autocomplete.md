@@ -45,7 +45,7 @@ scw autocomplete script [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| shell | Default: `/opt/homebrew/bin/fish` |  |
+| shell | Default: `/bin/fish` |  |
 | basename | Default: `` |  |
 
 
