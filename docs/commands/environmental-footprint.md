@@ -35,7 +35,7 @@ scw environmental-footprint data get [arg=value ...]
 | zones.{index} |  | List of zones to filter by (e.g. `fr-par-1`). Defaults to all zones. |
 | project-ids.{index} |  | List of Project IDs to filter by. Defaults to all Projects in the Organization. |
 | service-categories.{index} | One of: `unknown_service_category`, `baremetal`, `compute`, `storage`, `network`, `containers`, `databases`, `ai` | List of service categories to filter by. Defaults to all service categories. |
-| product-categories.{index} | One of: `unknown_product_category`, `apple_silicon`, `block_storage`, `dedibox`, `elastic_metal`, `instances`, `object_storage`, `load_balancer`, `kubernetes`, `managed_relational_databases`, `managed_mongodb`, `managed_redis`, `managed_inference` | List of product categories to filter by. Defaults to all product categories. |
+| product-categories.{index} | One of: `unknown_product_category`, `apple_silicon`, `block_storage`, `dedibox`, `elastic_metal`, `instances`, `object_storage`, `load_balancer`, `kubernetes`, `managed_relational_databases`, `managed_mongodb`, `managed_redis`, `managed_inference`, `generative_apis` | List of product categories to filter by. Defaults to all product categories. |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
