@@ -119,7 +119,7 @@ scw baremetal bmc stop [arg=value ...]
 
 ## Server offer management commands
 
-Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+Server offers will answer with all different Elastic Metal server ranges available in a zone.
 Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.
 
 
@@ -397,7 +397,7 @@ scw baremetal partitioning-schemas
 A Private Network allows you to interconnect your resources
 in an isolated and private
 network. Network reachability is limited to the
-resources that are on the same Private Network.  A VLAN
+resources that are on the same Private Network. A VLAN
 interface is available on the server and can be freely
 managed (adding IP addresses, shutdown interface etc.).
 
@@ -766,7 +766,7 @@ scw baremetal server install <server-id ...> [arg=value ...]
 **Examples:**
 
 
-Install an OS on a  server with a particular SSH key ID
+Install an OS on a server with a particular SSH key ID
 ```
 scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111-1111-1111-1111-111111111111 ssh-key-ids.0=11111111-1111-1111-1111-111111111111
 ```

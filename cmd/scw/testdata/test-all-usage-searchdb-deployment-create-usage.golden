@@ -19,6 +19,9 @@ ARGS:
   [version]                                                The Opensearch version to use
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)
 
+DEPRECATED ARGS:
+  [node-amount]   DEPRECATED: Use node_count instead. Number of nodes
+
 FLAGS:
   -h, --help                help for create
       --list-sub-commands   List all subcommands

@@ -11,6 +11,9 @@ ARGS:
   [volume-size-bytes]   Volume size upgrade target
   [region=fr-par]       Region to target. If none is passed will use default region from the config (fr-par)
 
+DEPRECATED ARGS:
+  [node-amount]   DEPRECATED: Use node_count instead. Amount of node upgrade target
+
 FLAGS:
   -h, --help                help for upgrade
       --list-sub-commands   List all subcommands

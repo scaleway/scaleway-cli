@@ -109,7 +109,7 @@ scw registry image update <image-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | image-id | Required | ID of the image to update |
-| visibility | One of: `visibility_unknown`, `inherit`, `public`, `private` | Set to `public` to allow the image to be pulled without authentication. Else, set to  `private`. Set to `inherit` to keep the same visibility configuration as the namespace |
+| visibility | One of: `visibility_unknown`, `inherit`, `public`, `private` | Set to `public` to allow the image to be pulled without authentication. Else, set to `private`. Set to `inherit` to keep the same visibility configuration as the namespace |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
