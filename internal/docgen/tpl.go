@@ -9,13 +9,6 @@ const tplStr = `
 {{ remove_escape_sequence (.Cmd.Long | default .Cmd.Short) }}
   
 {{ range $resourceName, $resource := .Resources -}}
-- [{{ $resource.Cmd.Short }}](#{{ anchor $resource.Cmd.Short }})
-{{- range $verbName, $cmd := $resource.Verbs }}
-  - [{{ $cmd.Short }}](#{{ anchor $cmd.Short }})
-{{- end }}
-{{ end }}
-  
-{{ range $resourceName, $resource := .Resources -}}
 ## {{ $resource.Cmd.Short }}
 
 {{ $resource.Cmd.Long }}
