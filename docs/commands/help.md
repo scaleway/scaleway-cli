@@ -76,7 +76,7 @@ You have two ways for managing date in the CLI: Absolute and Relative
 
 **Usage:**
 
-```
+```shell
 scw help date
 ```
 
@@ -248,7 +248,7 @@ In case the command returns data that is not correctly converted, for instance a
 
 **Usage:**
 
-```
+```shell
 scw help output
 ```
 

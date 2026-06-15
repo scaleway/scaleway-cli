@@ -29,7 +29,7 @@ Attach an existing flexible IP to a specified Elastic Metal server.
 
 **Usage:**
 
-```
+```shell
 scw fip ip attach [arg=value ...]
 ```
 
@@ -50,7 +50,7 @@ Generate a new flexible IP within a given zone, specifying its configuration inc
 
 **Usage:**
 
-```
+```shell
 scw fip ip create [arg=value ...]
 ```
 
@@ -75,7 +75,7 @@ Delete an existing flexible IP, specified by its ID and zone. Note that deleting
 
 **Usage:**
 
-```
+```shell
 scw fip ip delete <fip-id ...> [arg=value ...]
 ```
 
@@ -95,7 +95,7 @@ Detach an existing flexible IP from a specified Elastic Metal server.
 
 **Usage:**
 
-```
+```shell
 scw fip ip detach [arg=value ...]
 ```
 
@@ -115,7 +115,7 @@ Retrieve information about an existing flexible IP, specified by its ID and zone
 
 **Usage:**
 
-```
+```shell
 scw fip ip get <fip-id ...> [arg=value ...]
 ```
 
@@ -135,7 +135,7 @@ List all flexible IPs within a given zone.
 
 **Usage:**
 
-```
+```shell
 scw fip ip list [arg=value ...]
 ```
 
@@ -160,7 +160,7 @@ Update the parameters of an existing flexible IP, specified by its ID and zone. 
 
 **Usage:**
 
-```
+```shell
 scw fip ip update <fip-id ...> [arg=value ...]
 ```
 
@@ -188,7 +188,7 @@ Generate a virtual MAC (Media Access Control) address on an existing flexible IP
 
 **Usage:**
 
-```
+```shell
 scw fip mac create [arg=value ...]
 ```
 
@@ -209,7 +209,7 @@ Detach a given MAC (Media Access Control) address from an existing flexible IP.
 
 **Usage:**
 
-```
+```shell
 scw fip mac delete [arg=value ...]
 ```
 
@@ -229,7 +229,7 @@ Duplicate a virtual MAC address from a given flexible IP to another flexible IP 
 
 **Usage:**
 
-```
+```shell
 scw fip mac duplicate [arg=value ...]
 ```
 
@@ -250,7 +250,7 @@ Relocate a virtual MAC (Media Access Control) address from an existing flexible 
 
 **Usage:**
 
-```
+```shell
 scw fip mac move [arg=value ...]
 ```
 

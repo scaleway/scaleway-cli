@@ -46,7 +46,7 @@ When you are running CLI commands, you can use the `-D` to access the user logs.
 You can activate the debug mode by passing the `-debug` flag when running the `go test` command.
 For instance:
 
-```
+```shell
 go test ./internal/namespaces/init -debug
 ```
 

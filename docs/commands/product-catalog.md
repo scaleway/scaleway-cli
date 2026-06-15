@@ -19,7 +19,7 @@ List all available products in the Scaleway catalog. Returns a complete list of 
 
 **Usage:**
 
-```
+```shell
 scw product-catalog product list [arg=value ...]
 ```
 

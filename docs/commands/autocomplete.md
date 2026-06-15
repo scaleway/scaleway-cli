@@ -14,7 +14,7 @@ Install autocomplete script for a given shell and OS.
 
 **Usage:**
 
-```
+```shell
 scw autocomplete install [arg=value ...]
 ```
 
@@ -36,7 +36,7 @@ Show autocomplete script for current shell.
 
 **Usage:**
 
-```
+```shell
 scw autocomplete script [arg=value ...]
 ```
 

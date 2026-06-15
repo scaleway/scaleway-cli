@@ -38,7 +38,7 @@ Create a new database within a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse database create [arg=value ...]
 ```
 
@@ -59,7 +59,7 @@ Delete a database from a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse database delete [arg=value ...]
 ```
 
@@ -80,7 +80,7 @@ List databases within a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse database list [arg=value ...]
 ```
 
@@ -107,7 +107,7 @@ Create a new deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse deployment create [arg=value ...]
 ```
 
@@ -137,7 +137,7 @@ Delete a given deployment, specified by the `region` and `deployment_id` paramet
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse deployment delete <deployment-id ...> [arg=value ...]
 ```
 
@@ -157,7 +157,7 @@ Retrieve information about a given deployment, specified by the `region` and `de
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse deployment get <deployment-id ...> [arg=value ...]
 ```
 
@@ -177,7 +177,7 @@ Retrieve the TLS certificate associated with a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse deployment get-certificate <deployment-id ...> [arg=value ...]
 ```
 
@@ -197,7 +197,7 @@ List all deployments in the specified region, for a given Scaleway Project. By d
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse deployment list [arg=value ...]
 ```
 
@@ -221,7 +221,7 @@ Update the parameters of a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse deployment update <deployment-id ...> [arg=value ...]
 ```
 
@@ -251,7 +251,7 @@ Create a new endpoint for a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse endpoint create [arg=value ...]
 ```
 
@@ -272,7 +272,7 @@ Delete an endpoint from a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse endpoint delete [arg=value ...]
 ```
 
@@ -297,7 +297,7 @@ List available presets.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse preset list [arg=value ...]
 ```
 
@@ -321,7 +321,7 @@ Create a new user for a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse user create [arg=value ...]
 ```
 
@@ -344,7 +344,7 @@ Delete a user from a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse user delete [arg=value ...]
 ```
 
@@ -365,7 +365,7 @@ List users associated with a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse user list [arg=value ...]
 ```
 
@@ -387,7 +387,7 @@ Update an existing user for a deployment.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse user update [arg=value ...]
 ```
 
@@ -415,7 +415,7 @@ List available ClickHouse® versions.
 
 **Usage:**
 
-```
+```shell
 scw datawarehouse version list [arg=value ...]
 ```
 

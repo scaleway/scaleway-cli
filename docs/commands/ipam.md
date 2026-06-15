@@ -23,7 +23,7 @@ Reserve a new IP from the specified source. Currently IPs can only be reserved f
 
 **Usage:**
 
-```
+```shell
 scw ipam ip create [arg=value ...]
 ```
 
@@ -52,7 +52,7 @@ Release an IP not currently attached to a resource, and returns it to the availa
 
 **Usage:**
 
-```
+```shell
 scw ipam ip delete <ip-id ...> [arg=value ...]
 ```
 
@@ -72,7 +72,7 @@ Retrieve details of an existing IP, specified by its IP ID.
 
 **Usage:**
 
-```
+```shell
 scw ipam ip get <ip-id ...> [arg=value ...]
 ```
 
@@ -92,7 +92,7 @@ List existing IPs in the specified region using various filters. For example, yo
 
 **Usage:**
 
-```
+```shell
 scw ipam ip list [arg=value ...]
 ```
 
@@ -129,7 +129,7 @@ Update parameters including tags of the specified IP.
 
 **Usage:**
 
-```
+```shell
 scw ipam ip update <ip-id ...> [arg=value ...]
 ```
 
@@ -157,7 +157,7 @@ Release ipam resources.
 
 **Usage:**
 
-```
+```shell
 scw ipam ip-set release [arg=value ...]
 ```
 

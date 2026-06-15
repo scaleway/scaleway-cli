@@ -17,7 +17,7 @@ Search API.
 
 **Usage:**
 
-```
+```shell
 scw search resource search <query ...> [arg=value ...]
 ```
 

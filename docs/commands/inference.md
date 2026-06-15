@@ -33,7 +33,7 @@ Create a new inference deployment related to a specific model.
 
 **Usage:**
 
-```
+```shell
 scw inference deployment create [arg=value ...]
 ```
 
@@ -64,7 +64,7 @@ Delete an existing inference deployment.
 
 **Usage:**
 
-```
+```shell
 scw inference deployment delete <deployment-id ...> [arg=value ...]
 ```
 
@@ -84,7 +84,7 @@ Get the deployment for the given ID.
 
 **Usage:**
 
-```
+```shell
 scw inference deployment get <deployment-id ...> [arg=value ...]
 ```
 
@@ -105,7 +105,7 @@ The CA certificate will be returned as a PEM file.
 
 **Usage:**
 
-```
+```shell
 scw inference deployment get-certificate [arg=value ...]
 ```
 
@@ -125,7 +125,7 @@ List all your inference deployments.
 
 **Usage:**
 
-```
+```shell
 scw inference deployment list [arg=value ...]
 ```
 
@@ -149,7 +149,7 @@ Update an existing inference deployment.
 
 **Usage:**
 
-```
+```shell
 scw inference deployment update <deployment-id ...> [arg=value ...]
 ```
 
@@ -180,7 +180,7 @@ Create a new Endpoint related to a specific deployment.
 
 **Usage:**
 
-```
+```shell
 scw inference endpoint create <deployment-id ...> [arg=value ...]
 ```
 
@@ -202,7 +202,7 @@ Delete an existing Endpoint.
 
 **Usage:**
 
-```
+```shell
 scw inference endpoint delete <endpoint-id ...> [arg=value ...]
 ```
 
@@ -222,7 +222,7 @@ Update an existing Endpoint.
 
 **Usage:**
 
-```
+```shell
 scw inference endpoint update <endpoint-id ...> [arg=value ...]
 ```
 
@@ -248,7 +248,7 @@ Delete an existing model from your model library.
 
 **Usage:**
 
-```
+```shell
 scw inference model delete <model-id ...> [arg=value ...]
 ```
 
@@ -268,7 +268,7 @@ Get the model for the given ID.
 
 **Usage:**
 
-```
+```shell
 scw inference model get <model-id ...> [arg=value ...]
 ```
 
@@ -288,7 +288,7 @@ Import a new model to your model library.
 
 **Usage:**
 
-```
+```shell
 scw inference model import [arg=value ...]
 ```
 
@@ -311,7 +311,7 @@ List all available models.
 
 **Usage:**
 
-```
+```shell
 scw inference model list [arg=value ...]
 ```
 
@@ -340,7 +340,7 @@ List all available node types. By default, the node types returned in the list a
 
 **Usage:**
 
-```
+```shell
 scw inference node-type list [arg=value ...]
 ```
 
