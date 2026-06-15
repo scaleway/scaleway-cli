@@ -122,6 +122,7 @@ func searchResourceSearch() *core.Command {
 					"svpn_customer_gateway",
 					"svpn_connection",
 					"svpn_routing_policy",
+					"kafk_cluster",
 				},
 			},
 			{
