@@ -85,7 +85,7 @@ It will set up your profile, the authentication, and the auto-completion.
 
 ## Basic commands
 
-```
+```shell
 # Create an instance server
 scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
 

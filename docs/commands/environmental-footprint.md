@@ -20,7 +20,7 @@ Retrieve detailed impact data for your Scaleway projects within a specified date
 
 **Usage:**
 
-```
+```shell
 scw environmental-footprint data get [arg=value ...]
 ```
 
@@ -51,7 +51,7 @@ Download a Scaleway impact PDF report with detailed impact data for your Scalewa
 
 **Usage:**
 
-```
+```shell
 scw environmental-footprint report get [arg=value ...]
 ```
 
@@ -72,7 +72,7 @@ Returns a list of dates of available impact reports.
 
 **Usage:**
 
-```
+```shell
 scw environmental-footprint report list [arg=value ...]
 ```
 

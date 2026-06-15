@@ -63,7 +63,7 @@ Add new ACL rules for a specific cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s acl add [arg=value ...]
 ```
 
@@ -86,7 +86,7 @@ Delete an existing ACL.
 
 **Usage:**
 
-```
+```shell
 scw k8s acl delete [arg=value ...]
 ```
 
@@ -106,7 +106,7 @@ List ACLs for a specific cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s acl list [arg=value ...]
 ```
 
@@ -126,7 +126,7 @@ Set new ACL rules for a specific cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s acl set [arg=value ...]
 ```
 
@@ -155,7 +155,7 @@ Create a new Kubernetes cluster in a Scaleway region.
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster create [arg=value ...]
 ```
 
@@ -233,12 +233,12 @@ scw k8s cluster create [arg=value ...]
 
 
 Create a Kubernetes cluster named foo with cilium as CNI, in version 1.31.2 and with a pool named default composed of 3 DEV1-M
-```
+```shell
 scw k8s cluster create name=foo version=1.31.2 pools.0.size=3 pools.0.node-type=DEV1-M pools.0.name=default
 ```
 
 Create a Kubernetes cluster named bar, tagged, calico as CNI, in version 1.31.2 and with a tagged pool named default composed of 2 RENDER-S and autohealing and autoscaling enabled (between 1 and 10 nodes)
-```
+```shell
 scw k8s cluster create name=bar version=1.31.2 tags.0=tag1 tags.1=tag2 cni=calico pools.0.size=2 pools.0.node-type=RENDER-S pools.0.min-size=1 pools.0.max-size=10 pools.0.autohealing=true pools.0.autoscaling=true pools.0.tags.0=pooltag1 pools.0.tags.1=pooltag2 pools.0.name=default
 ```
 
@@ -251,7 +251,7 @@ Delete a specific Kubernetes cluster and all its associated pools and nodes, and
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster delete <cluster-id ...> [arg=value ...]
 ```
 
@@ -269,12 +269,12 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 
 
 Delete a cluster without deleting its Block volumes and Load Balancers
-```
+```shell
 scw k8s cluster delete 11111111-1111-1111-1111-111111111111
 ```
 
 Delete a cluster with its Block volumes and Load Balancers (best effort)
-```
+```shell
 scw k8s cluster delete 11111111-1111-1111-1111-111111111111 with-additional-resources=true
 ```
 
@@ -287,7 +287,7 @@ Retrieve information about a specific Kubernetes cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster get <cluster-id ...> [arg=value ...]
 ```
 
@@ -304,7 +304,7 @@ scw k8s cluster get <cluster-id ...> [arg=value ...]
 
 
 Get a cluster information
-```
+```shell
 scw k8s cluster get 11111111-1111-1111-1111-111111111111
 ```
 
@@ -317,7 +317,7 @@ List all existing Kubernetes clusters in a specific region.
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster list [arg=value ...]
 ```
 
@@ -340,17 +340,17 @@ scw k8s cluster list [arg=value ...]
 
 
 List all clusters on your default region
-```
+```shell
 scw k8s cluster list
 ```
 
 List the ready clusters on your default region
-```
+```shell
 scw k8s cluster list status=ready
 ```
 
 List the clusters that match the given name on fr-par ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
-```
+```shell
 scw k8s cluster list region=fr-par name=cluster1
 ```
 
@@ -363,7 +363,7 @@ List the cluster types that a specific Kubernetes cluster is allowed to switch t
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
 ```
 
@@ -380,7 +380,7 @@ scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
 
 
 List all cluster types that a cluster can upgrade to
-```
+```shell
 scw k8s cluster list-available-types 11111111-1111-1111-1111-111111111111
 ```
 
@@ -393,7 +393,7 @@ List the versions that a specific Kubernetes cluster is allowed to upgrade to. R
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 ```
 
@@ -410,7 +410,7 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 
 
 List all versions that a cluster can upgrade to
-```
+```shell
 scw k8s cluster list-available-versions 11111111-1111-1111-1111-111111111111
 ```
 
@@ -423,7 +423,7 @@ Reset the admin token for a specific Kubernetes cluster. This will revoke the ol
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 ```
 
@@ -440,7 +440,7 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 
 
 Reset the admin token for a cluster
-```
+```shell
 scw k8s cluster reset-admin-token 11111111-1111-1111-1111-111111111111
 ```
 
@@ -453,7 +453,7 @@ Change the type of a specific Kubernetes cluster. To see the possible values you
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 ```
 
@@ -471,7 +471,7 @@ scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 
 
 Convert a kapsule cluster to a kapsule-dedicated-16 cluster
-```
+```shell
 scw k8s cluster set-type 11111111-1111-1111-1111-111111111111 type=kapsule-dedicated-16
 ```
 
@@ -484,7 +484,7 @@ Update information on a specific Kubernetes cluster. You can update details such
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster update <cluster-id ...> [arg=value ...]
 ```
 
@@ -529,12 +529,12 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 
 
 Add InPlacePodVerticalScaling and SidecarContainers as feature gates on a cluster
-```
+```shell
 scw k8s cluster update 11111111-1111-1111-1111-111111111111 feature-gates.0=InPlacePodVerticalScaling feature-gates.1=SidecarContainers
 ```
 
 Remove all custom feature gates on a cluster
-```
+```shell
 scw k8s cluster update 11111111-1111-1111-1111-111111111111 feature-gates=none
 ```
 
@@ -547,7 +547,7 @@ Upgrade a specific Kubernetes cluster and possibly its associated pools to a spe
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 ```
 
@@ -566,12 +566,12 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 
 
 Upgrade a cluster to version 1.31.2 of Kubernetes (pools *are not* included)
-```
+```shell
 scw k8s cluster upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2
 ```
 
 Upgrade a cluster to version 1.31.2 of Kubernetes (pools *are* included)
-```
+```shell
 scw k8s cluster upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2 upgrade-pools=true
 ```
 
@@ -584,7 +584,7 @@ Wait for server to reach a stable state. This is similar to using --wait flag on
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster wait <cluster-id ...> [arg=value ...]
 ```
 
@@ -603,7 +603,7 @@ scw k8s cluster wait <cluster-id ...> [arg=value ...]
 
 
 Wait for a cluster to reach a stable state
-```
+```shell
 scw k8s cluster wait 11111111-1111-1111-1111-111111111111
 ```
 
@@ -622,7 +622,7 @@ List available cluster types and their technical details.
 
 **Usage:**
 
-```
+```shell
 scw k8s cluster-type list [arg=value ...]
 ```
 
@@ -646,7 +646,7 @@ Retrieve the kubeconfig for a specified cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 ```
 
@@ -664,17 +664,17 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 
 
 Get the kubeconfig for a given cluster
-```
+```shell
 scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111
 ```
 
 Get the kubeconfig for a given cluster by copying current secret_key to it
-```
+```shell
 scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111 auth-method=copy-cli-token
 ```
 
 Get the kubeconfig for a given cluster and use legacy authentication
-```
+```shell
 scw k8s kubeconfig get 11111111-1111-1111-1111-111111111111 auth-method=legacy
 ```
 
@@ -688,7 +688,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 
 **Usage:**
 
-```
+```shell
 scw k8s kubeconfig install <cluster-id ...> [arg=value ...]
 ```
 
@@ -707,17 +707,17 @@ scw k8s kubeconfig install <cluster-id ...> [arg=value ...]
 
 
 Install the kubeconfig for a given cluster and using the new context
-```
+```shell
 scw k8s kubeconfig install 11111111-1111-1111-1111-111111111111
 ```
 
 Get the kubeconfig for a given cluster by copying current secret_key to it
-```
+```shell
 scw k8s kubeconfig install 11111111-1111-1111-1111-111111111111 auth-method=copy-cli-token
 ```
 
 Get the kubeconfig for a given cluster and use legacy authentication
-```
+```shell
 scw k8s kubeconfig install 11111111-1111-1111-1111-111111111111 auth-method=legacy
 ```
 
@@ -731,7 +731,7 @@ If the current context points to this cluster, it will be set to an empty contex
 
 **Usage:**
 
-```
+```shell
 scw k8s kubeconfig uninstall <cluster-id ...> [arg=value ...]
 ```
 
@@ -747,7 +747,7 @@ scw k8s kubeconfig uninstall <cluster-id ...> [arg=value ...]
 
 
 Uninstall the kubeconfig for a given cluster
-```
+```shell
 scw k8s kubeconfig uninstall 11111111-1111-1111-1111-111111111111
 ```
 
@@ -766,7 +766,7 @@ Delete a specific Node. The node will first be drained and pods will be reschedu
 
 **Usage:**
 
-```
+```shell
 scw k8s node delete <node-id ...> [arg=value ...]
 ```
 
@@ -784,12 +784,12 @@ scw k8s node delete <node-id ...> [arg=value ...]
 
 
 Delete a node
-```
+```shell
 scw k8s node delete 11111111-1111-1111-1111-111111111111
 ```
 
 Delete a node without evicting workloads
-```
+```shell
 scw k8s node delete 11111111-1111-1111-1111-111111111111 skip-drain=true
 ```
 
@@ -802,7 +802,7 @@ Retrieve details about a specific Kubernetes Node.
 
 **Usage:**
 
-```
+```shell
 scw k8s node get <node-id ...> [arg=value ...]
 ```
 
@@ -819,7 +819,7 @@ scw k8s node get <node-id ...> [arg=value ...]
 
 
 Get a node
-```
+```shell
 scw k8s node get 11111111-1111-1111-1111-111111111111
 ```
 
@@ -832,7 +832,7 @@ List all the existing nodes for a specific Kubernetes cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s node list [arg=value ...]
 ```
 
@@ -853,17 +853,17 @@ scw k8s node list [arg=value ...]
 
 
 List all the nodes in the cluster
-```
+```shell
 scw k8s node list cluster-id=11111111-1111-1111-1111-111111111111
 ```
 
 List all the nodes in the cluster's 22222222-2222-2222-2222-222222222222 pool
-```
+```shell
 scw k8s node list cluster-id=11111111-1111-1111-1111-111111111111 pool-id=22222222-2222-2222-2222-222222222222
 ```
 
 List all cluster nodes that are ready
-```
+```shell
 scw k8s node list cluster-id=11111111-1111-1111-1111-111111111111 status=ready
 ```
 
@@ -876,7 +876,7 @@ Reboot a specific Node. The node will first be drained and pods will be reschedu
 
 **Usage:**
 
-```
+```shell
 scw k8s node reboot <node-id ...> [arg=value ...]
 ```
 
@@ -893,7 +893,7 @@ scw k8s node reboot <node-id ...> [arg=value ...]
 
 
 Reboot a node
-```
+```shell
 scw k8s node reboot 11111111-1111-1111-1111-111111111111
 ```
 
@@ -906,7 +906,7 @@ Replace a specific Node. The node will first be drained and pods will be resched
 
 **Usage:**
 
-```
+```shell
 scw k8s node replace <node-id ...> [arg=value ...]
 ```
 
@@ -923,7 +923,7 @@ scw k8s node replace <node-id ...> [arg=value ...]
 
 
 Replace a node
-```
+```shell
 scw k8s node replace 11111111-1111-1111-1111-111111111111
 ```
 
@@ -936,7 +936,7 @@ Wait for a node to reach a stable state. This is similar to using --wait flag on
 
 **Usage:**
 
-```
+```shell
 scw k8s node wait <node-id ...> [arg=value ...]
 ```
 
@@ -954,7 +954,7 @@ scw k8s node wait <node-id ...> [arg=value ...]
 
 
 Wait for a node to reach a stable state
-```
+```shell
 scw k8s node wait 11111111-1111-1111-1111-111111111111
 ```
 
@@ -975,7 +975,7 @@ Keep in mind that your external node needs to have wget in order to download the
 
 **Usage:**
 
-```
+```shell
 scw k8s pool add-external-node [arg=value ...]
 ```
 
@@ -997,7 +997,7 @@ Create a new pool in a specific Kubernetes cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s pool create [arg=value ...]
 ```
 
@@ -1039,17 +1039,17 @@ scw k8s pool create [arg=value ...]
 
 
 Create a pool named 'bar' with 2 DEV1-XL on a cluster
-```
+```shell
 scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=bar node-type=DEV1-XL size=2
 ```
 
 Create a pool named 'fish' with 5 GP1-L, autoscaling within 0 and 10 nodes and autohealing enabled
-```
+```shell
 scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=fish node-type=GP1-L size=5 min-size=0 max-size=10 autoscaling=true autohealing=true
 ```
 
 Create a tagged pool named 'turtle' with 1 GP1-S which is using the already created placement group 22222222-2222-2222-2222-222222222222 for all the nodes in the pool on a cluster
-```
+```shell
 scw k8s pool create cluster-id=11111111-1111-1111-1111-111111111111 name=turtle node-type=GP1-S size=1 placement-group-id=22222222-2222-2222-2222-222222222222 tags.0=turtle-uses-placement-group
 ```
 
@@ -1062,7 +1062,7 @@ Delete a specific pool from a cluster. Note that all the pool's nodes will also 
 
 **Usage:**
 
-```
+```shell
 scw k8s pool delete <pool-id ...> [arg=value ...]
 ```
 
@@ -1079,7 +1079,7 @@ scw k8s pool delete <pool-id ...> [arg=value ...]
 
 
 Delete a specific pool
-```
+```shell
 scw k8s pool delete 11111111-1111-1111-1111-111111111111
 ```
 
@@ -1092,7 +1092,7 @@ Retrieve details about a specific pool in a Kubernetes cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s pool get <pool-id ...> [arg=value ...]
 ```
 
@@ -1109,7 +1109,7 @@ scw k8s pool get <pool-id ...> [arg=value ...]
 
 
 Get a given pool
-```
+```shell
 scw k8s pool get 11111111-1111-1111-1111-111111111111
 ```
 
@@ -1122,7 +1122,7 @@ List all the existing pools for a specific Kubernetes cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s pool list [arg=value ...]
 ```
 
@@ -1142,22 +1142,22 @@ scw k8s pool list [arg=value ...]
 
 
 List all pools for a cluster
-```
+```shell
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111
 ```
 
 List all scaling pools for a cluster
-```
+```shell
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 status=scaling
 ```
 
 List all pools for clusters containing 'foo' in their name
-```
+```shell
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 name=foo
 ```
 
 List all pools for a cluster and order them by ascending creation date
-```
+```shell
 scw k8s pool list cluster-id=11111111-1111-1111-1111-111111111111 order-by=created_at_asc
 ```
 
@@ -1170,7 +1170,7 @@ Remove a label from all nodes of the pool (only apply to labels which was set th
 
 **Usage:**
 
-```
+```shell
 scw k8s pool remove-label <pool-id ...> [arg=value ...]
 ```
 
@@ -1188,7 +1188,7 @@ scw k8s pool remove-label <pool-id ...> [arg=value ...]
 
 
 Remove a label of a specific pool
-```
+```shell
 scw k8s pool remove-label 11111111-1111-1111-1111-111111111111 key=foo
 ```
 
@@ -1201,7 +1201,7 @@ New nodes will not have this taint at startup (does not remove taints from kuber
 
 **Usage:**
 
-```
+```shell
 scw k8s pool remove-startup-taint <pool-id ...> [arg=value ...]
 ```
 
@@ -1219,7 +1219,7 @@ scw k8s pool remove-startup-taint <pool-id ...> [arg=value ...]
 
 
 Remove a startup taint of a specific pool
-```
+```shell
 scw k8s pool remove-startup-taint 11111111-1111-1111-1111-111111111111 key=foo
 ```
 
@@ -1232,7 +1232,7 @@ Remove a taint from all all nodes of the pool (only apply to taints which was se
 
 **Usage:**
 
-```
+```shell
 scw k8s pool remove-taint <pool-id ...> [arg=value ...]
 ```
 
@@ -1250,7 +1250,7 @@ scw k8s pool remove-taint <pool-id ...> [arg=value ...]
 
 
 Remove a taint to a specific pool
-```
+```shell
 scw k8s pool remove-taint 11111111-1111-1111-1111-111111111111 key=foo
 ```
 
@@ -1263,7 +1263,7 @@ Apply a label to all nodes of the pool which will be periodically reconciled by 
 
 **Usage:**
 
-```
+```shell
 scw k8s pool set-label <pool-id ...> [arg=value ...]
 ```
 
@@ -1282,12 +1282,12 @@ scw k8s pool set-label <pool-id ...> [arg=value ...]
 
 
 Apply a label to a specific pool
-```
+```shell
 scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=foo value=bar
 ```
 
 Apply a full label to a specific pool
-```
+```shell
 scw k8s pool set-label 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true
 ```
 
@@ -1300,7 +1300,7 @@ Apply a taint at node creation but does not reconcile after.
 
 **Usage:**
 
-```
+```shell
 scw k8s pool set-startup-taint <pool-id ...> [arg=value ...]
 ```
 
@@ -1320,12 +1320,12 @@ scw k8s pool set-startup-taint <pool-id ...> [arg=value ...]
 
 
 Apply a startup taint to a specific pool
-```
+```shell
 scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
 ```
 
 Apply a full startup taint to a specific pool
-```
+```shell
 scw k8s pool set-startup-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
 ```
 
@@ -1338,7 +1338,7 @@ Apply a taint to all nodes of the pool which will be periodically reconciled by 
 
 **Usage:**
 
-```
+```shell
 scw k8s pool set-taint <pool-id ...> [arg=value ...]
 ```
 
@@ -1358,12 +1358,12 @@ scw k8s pool set-taint <pool-id ...> [arg=value ...]
 
 
 Apply a taint to a specific pool
-```
+```shell
 scw k8s pool set-taint 11111111-1111-1111-1111-111111111111 key=foo value=bar effect=NoSchedule
 ```
 
 Apply a full taint to a specific pool
-```
+```shell
 scw k8s pool set-taint 11111111-1111-1111-1111-111111111111 key=organization.example/gpu value=true effect=NoSchedule
 ```
 
@@ -1376,7 +1376,7 @@ Update the attributes of a specific pool, such as its desired size, autoscaling 
 
 **Usage:**
 
-```
+```shell
 scw k8s pool update <pool-id ...> [arg=value ...]
 ```
 
@@ -1403,22 +1403,22 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 
 
 Enable autoscaling on a given pool
-```
+```shell
 scw k8s pool update 11111111-1111-1111-1111-111111111111 autoscaling=true
 ```
 
 Reduce the size and maximum size of a given pool to 4
-```
+```shell
 scw k8s pool update 11111111-1111-1111-1111-111111111111 size=4 max-size=4
 ```
 
 Modify the tags of a given pool
-```
+```shell
 scw k8s pool update 11111111-1111-1111-1111-111111111111 tags.0=my tags.1=new tags.2=pool
 ```
 
 Remove all tags of a given pool
-```
+```shell
 scw k8s pool update 11111111-1111-1111-1111-111111111111 tags=none
 ```
 
@@ -1432,7 +1432,7 @@ This will drain and replace the nodes in that pool.
 
 **Usage:**
 
-```
+```shell
 scw k8s pool upgrade <pool-id ...> [arg=value ...]
 ```
 
@@ -1450,7 +1450,7 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 
 
 Upgrade a specific pool to the Kubernetes version 1.31.2
-```
+```shell
 scw k8s pool upgrade 11111111-1111-1111-1111-111111111111 version=1.31.2
 ```
 
@@ -1463,7 +1463,7 @@ Wait for a pool to reach a stable state. This is similar to using --wait flag on
 
 **Usage:**
 
-```
+```shell
 scw k8s pool wait <pool-id ...> [arg=value ...]
 ```
 
@@ -1481,7 +1481,7 @@ scw k8s pool wait <pool-id ...> [arg=value ...]
 
 
 Wait for a pool to reach a stable state
-```
+```shell
 scw k8s pool wait 11111111-1111-1111-1111-111111111111
 ```
 
@@ -1500,7 +1500,7 @@ Retrieve a specific Kubernetes version and its details.
 
 **Usage:**
 
-```
+```shell
 scw k8s version get <version-name ...> [arg=value ...]
 ```
 
@@ -1517,7 +1517,7 @@ scw k8s version get <version-name ...> [arg=value ...]
 
 
 Get the Kubernetes version 1.31.2
-```
+```shell
 scw k8s version get 1.31.2
 ```
 
@@ -1530,7 +1530,7 @@ List all available versions for the creation of a new Kubernetes cluster.
 
 **Usage:**
 
-```
+```shell
 scw k8s version list [arg=value ...]
 ```
 
@@ -1546,7 +1546,7 @@ scw k8s version list [arg=value ...]
 
 
 List all available Kubernetes version in Kapsule
-```
+```shell
 scw k8s version list
 ```
 

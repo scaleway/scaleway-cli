@@ -14,7 +14,7 @@ Install autocomplete script for a given shell and OS.
 
 **Usage:**
 
-```
+```shell
 scw autocomplete install [arg=value ...]
 ```
 
@@ -36,7 +36,7 @@ Show autocomplete script for current shell.
 
 **Usage:**
 
-```
+```shell
 scw autocomplete script [arg=value ...]
 ```
 
@@ -45,7 +45,7 @@ scw autocomplete script [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| shell | Default: `/bin/bash` |  |
+| shell | Default: `/opt/homebrew/bin/fish` |  |
 | basename | Default: `` |  |
 
 

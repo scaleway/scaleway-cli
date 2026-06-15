@@ -86,7 +86,7 @@ NB: you'll need to have an **API-key** (access-key + access-secret), so be sure 
 
 ## Basic commands
 
-```
+```shell
 # Create an instance server
 scw instance server create type=DEV1-S image=ubuntu_noble zone=fr-par-1 tags.0="scw-cli"
 

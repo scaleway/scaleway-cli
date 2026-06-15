@@ -27,7 +27,7 @@ List charges for organizations or projects. You must specify at least `organizat
 
 **Usage:**
 
-```
+```shell
 scw billing charge list [arg=value ...]
 ```
 
@@ -62,7 +62,7 @@ Consumption allows you to retrieve your past or current consumption cost, by pro
 
 **Usage:**
 
-```
+```shell
 scw billing consumption list [arg=value ...]
 ```
 
@@ -85,7 +85,7 @@ Consumption Tax allows you to retrieve your past or current tax charges, by proj
 
 **Usage:**
 
-```
+```shell
 scw billing consumption list-taxes [arg=value ...]
 ```
 
@@ -114,7 +114,7 @@ List all discounts for your Organization and usable categories, products, offers
 
 **Usage:**
 
-```
+```shell
 scw billing discount list [arg=value ...]
 ```
 
@@ -139,7 +139,7 @@ Download a specific invoice, specified by its ID.
 
 **Usage:**
 
-```
+```shell
 scw billing invoice download <invoice-id ...> [arg=value ...]
 ```
 
@@ -161,7 +161,7 @@ Export invoices in a CSV file.
 
 **Usage:**
 
-```
+```shell
 scw billing invoice export [arg=value ...]
 ```
 
@@ -186,7 +186,7 @@ Get a specific invoice, specified by its ID.
 
 **Usage:**
 
-```
+```shell
 scw billing invoice get <invoice-id ...> [arg=value ...]
 ```
 
@@ -205,7 +205,7 @@ List all your invoices, filtering by `start_date` and `invoice_type`. Each invoi
 
 **Usage:**
 
-```
+```shell
 scw billing invoice list [arg=value ...]
 ```
 

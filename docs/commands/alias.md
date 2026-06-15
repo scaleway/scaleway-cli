@@ -28,7 +28,7 @@ This command help you create aliases and save it to your config
 
 **Usage:**
 
-```
+```shell
 scw alias create <alias ...> [arg=value ...]
 ```
 
@@ -45,12 +45,12 @@ scw alias create <alias ...> [arg=value ...]
 
 
 Create a custom alias 'isl' for 'instance server list'
-```
+```shell
 scw alias create isl command="instance server list""
 ```
 
 Add an alias to a verb
-```
+```shell
 scw alias create c command=create
 ```
 
@@ -65,7 +65,7 @@ scw alias create c command=create
 
 **Usage:**
 
-```
+```shell
 scw alias delete <alias ...> [arg=value ...]
 ```
 
@@ -86,7 +86,7 @@ scw alias delete <alias ...> [arg=value ...]
 
 **Usage:**
 
-```
+```shell
 scw alias list [arg=value ...]
 ```
 

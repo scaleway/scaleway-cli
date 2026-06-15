@@ -44,7 +44,7 @@ This will give you names of the failed tests.
 ### Step 3: Locate the Test File
 
 Test files live in:
-```
+```text
 internal/namespaces/<product>/v<version>/<test_file>.go
 ```
 
@@ -63,7 +63,7 @@ Read the failing test function to understand:
 #### Timeout/Infrastructure Failure
 
 **Symptoms:**
-```
+```text
 context deadline exceeded
 timeout waiting for resource
 ```

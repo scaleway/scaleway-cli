@@ -34,7 +34,7 @@ Create a new Cloud Essentials for OpenSearch deployment.
 
 **Usage:**
 
-```
+```shell
 scw searchdb deployment create [arg=value ...]
 ```
 
@@ -64,7 +64,7 @@ Delete a Cloud Essentials for OpenSearch deployment.
 
 **Usage:**
 
-```
+```shell
 scw searchdb deployment delete [arg=value ...]
 ```
 
@@ -84,7 +84,7 @@ Retrieve a specific Cloud Essentials for OpenSearch deployment.
 
 **Usage:**
 
-```
+```shell
 scw searchdb deployment get [arg=value ...]
 ```
 
@@ -104,7 +104,7 @@ Retrieve a list of Cloud Essentials for OpenSearch deployments.
 
 **Usage:**
 
-```
+```shell
 scw searchdb deployment list [arg=value ...]
 ```
 
@@ -128,7 +128,7 @@ Update a Cloud Essentials for OpenSearch deployment.
 
 **Usage:**
 
-```
+```shell
 scw searchdb deployment update [arg=value ...]
 ```
 
@@ -150,7 +150,7 @@ Upgrade a Cloud Essentials for OpenSearch deployment.
 
 **Usage:**
 
-```
+```shell
 scw searchdb deployment upgrade [arg=value ...]
 ```
 
@@ -177,7 +177,7 @@ Create a new endpoint on a deployment.
 
 **Usage:**
 
-```
+```shell
 scw searchdb endpoint create [arg=value ...]
 ```
 
@@ -198,7 +198,7 @@ Delete an existing endpoint.
 
 **Usage:**
 
-```
+```shell
 scw searchdb endpoint delete [arg=value ...]
 ```
 
@@ -223,7 +223,7 @@ Retrieve a list of available node types.
 
 **Usage:**
 
-```
+```shell
 scw searchdb node-types list [arg=value ...]
 ```
 
@@ -248,7 +248,7 @@ Create a new user.
 
 **Usage:**
 
-```
+```shell
 scw searchdb user create [arg=value ...]
 ```
 
@@ -270,7 +270,7 @@ Delete an existing user.
 
 **Usage:**
 
-```
+```shell
 scw searchdb user delete [arg=value ...]
 ```
 
@@ -291,7 +291,7 @@ Retrieve a list of deployment users.
 
 **Usage:**
 
-```
+```shell
 scw searchdb user list [arg=value ...]
 ```
 
@@ -313,7 +313,7 @@ Update an existing user.
 
 **Usage:**
 
-```
+```shell
 scw searchdb user update [arg=value ...]
 ```
 
@@ -340,7 +340,7 @@ List available Cloud Essentials for OpenSearch versions.
 
 **Usage:**
 
-```
+```shell
 scw searchdb versions list [arg=value ...]
 ```
 
