@@ -123,6 +123,11 @@ func searchResourceSearch() *core.Command {
 					"svpn_connection",
 					"svpn_routing_policy",
 					"kafk_cluster",
+					"iam_api_key",
+					"iam_application",
+					"iam_user",
+					"iam_group",
+					"iam_policy",
 				},
 			},
 			{
