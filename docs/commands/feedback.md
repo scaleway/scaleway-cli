@@ -14,7 +14,7 @@ Send a bug-report to the Scaleway CLI team.
 
 **Usage:**
 
-```
+```shell
 scw feedback bug
 ```
 
@@ -28,7 +28,7 @@ Send a feature request to the Scaleway CLI team.
 
 **Usage:**
 
-```
+```shell
 scw feedback feature
 ```
 

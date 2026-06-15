@@ -39,7 +39,7 @@ Create a new job definition in a specified Project.
 
 **Usage:**
 
-```
+```shell
 scw jobs definition create [arg=value ...]
 ```
 
@@ -72,7 +72,7 @@ Delete an existing job definition by its unique identifier.
 
 **Usage:**
 
-```
+```shell
 scw jobs definition delete <job-definition-id ...> [arg=value ...]
 ```
 
@@ -92,7 +92,7 @@ Get a job definition by its unique identifier.
 
 **Usage:**
 
-```
+```shell
 scw jobs definition get <job-definition-id ...> [arg=value ...]
 ```
 
@@ -112,7 +112,7 @@ List all your job definitions with filters.
 
 **Usage:**
 
-```
+```shell
 scw jobs definition list [arg=value ...]
 ```
 
@@ -134,7 +134,7 @@ Run an existing job definition using its unique identifier and create a new job 
 
 **Usage:**
 
-```
+```shell
 scw jobs definition start <job-definition-id ...> [arg=value ...]
 ```
 
@@ -159,7 +159,7 @@ Update an existing job definition associated with the specified unique identifie
 
 **Usage:**
 
-```
+```shell
 scw jobs definition update <job-definition-id ...> [arg=value ...]
 ```
 
@@ -197,7 +197,7 @@ Get a job run by its unique identifier.
 
 **Usage:**
 
-```
+```shell
 scw jobs run get <job-run-id ...> [arg=value ...]
 ```
 
@@ -217,7 +217,7 @@ List all job runs with filters.
 
 **Usage:**
 
-```
+```shell
 scw jobs run list [arg=value ...]
 ```
 
@@ -243,7 +243,7 @@ Stop a job run using its unique identifier.
 
 **Usage:**
 
-```
+```shell
 scw jobs run stop [arg=value ...]
 ```
 
@@ -263,7 +263,7 @@ Wait for a job run to reach a stable state. This is similar to using --wait flag
 
 **Usage:**
 
-```
+```shell
 scw jobs run wait <job-run-id ...> [arg=value ...]
 ```
 
@@ -288,7 +288,7 @@ Create a secret reference within a job definition.
 
 **Usage:**
 
-```
+```shell
 scw jobs secret create [arg=value ...]
 ```
 
@@ -312,7 +312,7 @@ Delete a secret reference within a job definition.
 
 **Usage:**
 
-```
+```shell
 scw jobs secret delete [arg=value ...]
 ```
 
@@ -332,7 +332,7 @@ Get a secret references within a job definition.
 
 **Usage:**
 
-```
+```shell
 scw jobs secret get [arg=value ...]
 ```
 
@@ -352,7 +352,7 @@ List secrets references within a job definition.
 
 **Usage:**
 
-```
+```shell
 scw jobs secret list [arg=value ...]
 ```
 
@@ -372,7 +372,7 @@ Update a secret reference within a job definition.
 
 **Usage:**
 
-```
+```shell
 scw jobs secret update [arg=value ...]
 ```
 
@@ -400,7 +400,7 @@ Create a trigger.
 
 **Usage:**
 
-```
+```shell
 scw jobs trigger create [arg=value ...]
 ```
 
@@ -425,7 +425,7 @@ Delete a trigger.
 
 **Usage:**
 
-```
+```shell
 scw jobs trigger delete [arg=value ...]
 ```
 
@@ -445,7 +445,7 @@ Get a trigger.
 
 **Usage:**
 
-```
+```shell
 scw jobs trigger get [arg=value ...]
 ```
 
@@ -465,7 +465,7 @@ List triggers of a job definition.
 
 **Usage:**
 
-```
+```shell
 scw jobs trigger list [arg=value ...]
 ```
 
@@ -486,7 +486,7 @@ Update a trigger.
 
 **Usage:**
 
-```
+```shell
 scw jobs trigger update [arg=value ...]
 ```
 

@@ -34,7 +34,7 @@
 
 **Usage:**
 
-{{ bbq }}
+{{ bbq }}shell
 {{ .Cmd.GetUsage "scw" .Data.Commands }}
 {{ bbq }}
 {{ if .Cmd.ArgSpecs }}
@@ -53,7 +53,7 @@
 
 {{ range $example := .Cmd.Examples }}
 {{ $example.Short }}
-{{ bbq }}
+{{ bbq }}shell
 {{ $example.GetCommandLine "scw" $.Cmd }}
 {{ bbq }}
 {{ end }}

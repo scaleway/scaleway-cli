@@ -22,7 +22,7 @@ Create a new organization.
 
 **Usage:**
 
-```
+```shell
 scw partner organization create [arg=value ...]
 ```
 
@@ -48,7 +48,7 @@ Get an organization.
 
 **Usage:**
 
-```
+```shell
 scw partner organization get [arg=value ...]
 ```
 
@@ -67,7 +67,7 @@ List Organizations.
 
 **Usage:**
 
-```
+```shell
 scw partner organization list [arg=value ...]
 ```
 
@@ -90,7 +90,7 @@ Lock an organization.
 
 **Usage:**
 
-```
+```shell
 scw partner organization lock [arg=value ...]
 ```
 
@@ -109,7 +109,7 @@ Unlock an organization.
 
 **Usage:**
 
-```
+```shell
 scw partner organization unlock [arg=value ...]
 ```
 
@@ -128,7 +128,7 @@ Update an organization.
 
 **Usage:**
 
-```
+```shell
 scw partner organization update [arg=value ...]
 ```
 

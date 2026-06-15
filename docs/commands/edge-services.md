@@ -73,7 +73,7 @@ Create a new backend stage. You must specify either a `scaleway_s3` (for a Scale
 
 **Usage:**
 
-```
+```shell
 scw edge-services backend-stage create [arg=value ...]
 ```
 
@@ -105,7 +105,7 @@ Delete an existing backend stage, specified by its `backend_stage_id`. Deleting 
 
 **Usage:**
 
-```
+```shell
 scw edge-services backend-stage delete <backend-stage-id ...> [arg=value ...]
 ```
 
@@ -124,7 +124,7 @@ Retrieve information about an existing backend stage, specified by its `backend_
 
 **Usage:**
 
-```
+```shell
 scw edge-services backend-stage get <backend-stage-id ...> [arg=value ...]
 ```
 
@@ -143,7 +143,7 @@ List all backend stages, for a Scaleway Organization or Scaleway Project. By def
 
 **Usage:**
 
-```
+```shell
 scw edge-services backend-stage list [arg=value ...]
 ```
 
@@ -166,7 +166,7 @@ Update the parameters of an existing backend stage, specified by its `backend_st
 
 **Usage:**
 
-```
+```shell
 scw edge-services backend-stage update <backend-stage-id ...> [arg=value ...]
 ```
 
@@ -204,7 +204,7 @@ Create a new cache stage. You must specify the `fallback_ttl` field to customize
 
 **Usage:**
 
-```
+```shell
 scw edge-services cache-stage create [arg=value ...]
 ```
 
@@ -228,7 +228,7 @@ Delete an existing cache stage, specified by its `cache_stage_id`. Deleting a ca
 
 **Usage:**
 
-```
+```shell
 scw edge-services cache-stage delete <cache-stage-id ...> [arg=value ...]
 ```
 
@@ -247,7 +247,7 @@ Retrieve information about an existing cache stage, specified by its `cache_stag
 
 **Usage:**
 
-```
+```shell
 scw edge-services cache-stage get <cache-stage-id ...> [arg=value ...]
 ```
 
@@ -266,7 +266,7 @@ List all cache stages, for a Scaleway Organization or Scaleway Project. By defau
 
 **Usage:**
 
-```
+```shell
 scw edge-services cache-stage list [arg=value ...]
 ```
 
@@ -286,7 +286,7 @@ Update the parameters of an existing cache stage, specified by its `cache_stage_
 
 **Usage:**
 
-```
+```shell
 scw edge-services cache-stage update <cache-stage-id ...> [arg=value ...]
 ```
 
@@ -315,7 +315,7 @@ Create a new DNS stage. You must specify the `fqdns` field to customize the doma
 
 **Usage:**
 
-```
+```shell
 scw edge-services dns-stage create [arg=value ...]
 ```
 
@@ -339,7 +339,7 @@ Delete an existing DNS stage, specified by its `dns_stage_id`. Deleting a DNS st
 
 **Usage:**
 
-```
+```shell
 scw edge-services dns-stage delete <dns-stage-id ...> [arg=value ...]
 ```
 
@@ -358,7 +358,7 @@ Retrieve information about an existing DNS stage, specified by its `dns_stage_id
 
 **Usage:**
 
-```
+```shell
 scw edge-services dns-stage get <dns-stage-id ...> [arg=value ...]
 ```
 
@@ -377,7 +377,7 @@ List all DNS stages, for a Scaleway Organization or Scaleway Project. By default
 
 **Usage:**
 
-```
+```shell
 scw edge-services dns-stage list [arg=value ...]
 ```
 
@@ -398,7 +398,7 @@ Update the parameters of an existing DNS stage, specified by its `dns_stage_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services dns-stage update <dns-stage-id ...> [arg=value ...]
 ```
 
@@ -427,7 +427,7 @@ Create a new pipeline. You must specify a `dns_stage_id` to form a stage-chain t
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline create [arg=value ...]
 ```
 
@@ -448,7 +448,7 @@ Delete an existing pipeline, specified by its `pipeline_id`. Deleting a pipeline
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline delete <pipeline-id ...> [arg=value ...]
 ```
 
@@ -467,7 +467,7 @@ Retrieve information about an existing pipeline, specified by its `pipeline_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline get <pipeline-id ...> [arg=value ...]
 ```
 
@@ -486,7 +486,7 @@ List all pipelines, for a Scaleway Organization or Scaleway Project. By default,
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline list [arg=value ...]
 ```
 
@@ -509,7 +509,7 @@ List Head stage for your pipeline.
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline list-head <pipeline-id ...> [arg=value ...]
 ```
 
@@ -528,7 +528,7 @@ You must specify either a `add_new_head_stage` (to add a new head stage), `remov
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline set-head <pipeline-id ...> [arg=value ...]
 ```
 
@@ -551,7 +551,7 @@ Update the parameters of an existing pipeline, specified by its `pipeline_id`. P
 
 **Usage:**
 
-```
+```shell
 scw edge-services pipeline update <pipeline-id ...> [arg=value ...]
 ```
 
@@ -577,7 +577,7 @@ Unsubscribe from the current Edge Services subscription plan for your Scaleway P
 
 **Usage:**
 
-```
+```shell
 scw edge-services plan delete [arg=value ...]
 ```
 
@@ -596,7 +596,7 @@ Get the current Edge Services subscription plan for your Scaleway Project.
 
 **Usage:**
 
-```
+```shell
 scw edge-services plan get [arg=value ...]
 ```
 
@@ -615,7 +615,7 @@ List all available Edge Services subscription plans.
 
 **Usage:**
 
-```
+```shell
 scw edge-services plan list
 ```
 
@@ -627,7 +627,7 @@ Subscribe to the Edge Services subscription plan of your choice, for the given S
 
 **Usage:**
 
-```
+```shell
 scw edge-services plan select [arg=value ...]
 ```
 
@@ -652,7 +652,7 @@ Create a new purge request. You must specify either the `all` field (to purge al
 
 **Usage:**
 
-```
+```shell
 scw edge-services purge-request create [arg=value ...]
 ```
 
@@ -673,7 +673,7 @@ Retrieve information about a purge request, specified by its `purge_request_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services purge-request get <purge-request-id ...> [arg=value ...]
 ```
 
@@ -692,7 +692,7 @@ List all purge requests, for a Scaleway Organization or Scaleway Project. This e
 
 **Usage:**
 
-```
+```shell
 scw edge-services purge-request list [arg=value ...]
 ```
 
@@ -719,7 +719,7 @@ Add route rules to an existing route stage, specified by its `route_stage_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-rules add <route-stage-id ...> [arg=value ...]
 ```
 
@@ -750,7 +750,7 @@ Otherwise, opens the editor with full rules including backend_stage_id for each 
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-rules edit <route-stage-id ...> [arg=value ...]
 ```
 
@@ -771,7 +771,7 @@ List all route rules of an existing route stage, specified by its `route_stage_i
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-rules list [arg=value ...]
 ```
 
@@ -790,7 +790,7 @@ Set the rules of an existing route stage, specified by its `route_stage_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-rules set <route-stage-id ...> [arg=value ...]
 ```
 
@@ -821,7 +821,7 @@ Create a new route stage. You must specify the `waf_stage_id` or `backend_stage_
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-stage create [arg=value ...]
 ```
 
@@ -842,7 +842,7 @@ Delete an existing route stage, specified by its `route_stage_id`. Deleting a ro
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-stage delete <route-stage-id ...> [arg=value ...]
 ```
 
@@ -861,7 +861,7 @@ Retrieve information about an existing route stage, specified by its `route_stag
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-stage get <route-stage-id ...> [arg=value ...]
 ```
 
@@ -880,7 +880,7 @@ List all route stages, for a given pipeline. By default, the route stages return
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-stage list [arg=value ...]
 ```
 
@@ -900,7 +900,7 @@ Update the parameters of an existing route stage, specified by its `route_stage_
 
 **Usage:**
 
-```
+```shell
 scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 ```
 
@@ -926,7 +926,7 @@ Create a new TLS stage. You must specify either the `secrets` or `managed_certif
 
 **Usage:**
 
-```
+```shell
 scw edge-services tls-stage create [arg=value ...]
 ```
 
@@ -952,7 +952,7 @@ Delete an existing TLS stage, specified by its `tls_stage_id`. Deleting a TLS st
 
 **Usage:**
 
-```
+```shell
 scw edge-services tls-stage delete <tls-stage-id ...> [arg=value ...]
 ```
 
@@ -971,7 +971,7 @@ Retrieve information about an existing TLS stage, specified by its `tls_stage_id
 
 **Usage:**
 
-```
+```shell
 scw edge-services tls-stage get <tls-stage-id ...> [arg=value ...]
 ```
 
@@ -990,7 +990,7 @@ List all TLS stages, for a Scaleway Organization or Scaleway Project. By default
 
 **Usage:**
 
-```
+```shell
 scw edge-services tls-stage list [arg=value ...]
 ```
 
@@ -1012,7 +1012,7 @@ Update the parameters of an existing TLS stage, specified by its `tls_stage_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services tls-stage update <tls-stage-id ...> [arg=value ...]
 ```
 
@@ -1043,7 +1043,7 @@ Create a new WAF stage. You must specify the `mode` and `paranoia_level` fields 
 
 **Usage:**
 
-```
+```shell
 scw edge-services waf-stage create [arg=value ...]
 ```
 
@@ -1065,7 +1065,7 @@ Delete an existing WAF stage, specified by its `waf_stage_id`. Deleting a WAF st
 
 **Usage:**
 
-```
+```shell
 scw edge-services waf-stage delete <waf-stage-id ...> [arg=value ...]
 ```
 
@@ -1084,7 +1084,7 @@ Retrieve information about an existing WAF stage, specified by its `waf_stage_id
 
 **Usage:**
 
-```
+```shell
 scw edge-services waf-stage get <waf-stage-id ...> [arg=value ...]
 ```
 
@@ -1103,7 +1103,7 @@ List all WAF stages, for a Scaleway Organization or Scaleway Project. By default
 
 **Usage:**
 
-```
+```shell
 scw edge-services waf-stage list [arg=value ...]
 ```
 
@@ -1123,7 +1123,7 @@ Update the parameters of an existing WAF stage, specified by its `waf_stage_id`.
 
 **Usage:**
 
-```
+```shell
 scw edge-services waf-stage update <waf-stage-id ...> [arg=value ...]
 ```
 

@@ -24,7 +24,7 @@ Create an Object Storage Bucket with the S3 protocol. The namespace is shared be
 
 **Usage:**
 
-```
+```shell
 scw object bucket create <name ...> [arg=value ...]
 ```
 
@@ -47,7 +47,7 @@ Delete an S3 bucket with all its content.
 
 **Usage:**
 
-```
+```shell
 scw object bucket delete <name ...> [arg=value ...]
 ```
 
@@ -67,7 +67,7 @@ Get the properties of an S3 bucket like tags, endpoint, access control, versioni
 
 **Usage:**
 
-```
+```shell
 scw object bucket get <name ...> [arg=value ...]
 ```
 
@@ -88,7 +88,7 @@ List all existing S3 buckets in the specified region
 
 **Usage:**
 
-```
+```shell
 scw object bucket list [arg=value ...]
 ```
 
@@ -107,7 +107,7 @@ Update an S3 bucket's properties like tags, access control and versioning.
 
 **Usage:**
 
-```
+```shell
 scw object bucket update <name ...> [arg=value ...]
 ```
 
@@ -135,7 +135,7 @@ Generate a S3 tool configuration file.
 
 **Usage:**
 
-```
+```shell
 scw object config get [arg=value ...]
 ```
 
@@ -154,17 +154,17 @@ scw object config get [arg=value ...]
 
 
 Generate a s3cmd config file for Paris region
-```
+```shell
 scw object config get region=fr-par type=s3cmd
 ```
 
 Generate a rclone config file for default region
-```
+```shell
 scw object config get type=rclone
 ```
 
 Generate a mc (minio) config file for default region
-```
+```shell
 scw object config get type=mc
 ```
 
@@ -177,7 +177,7 @@ Install a S3 tool configuration file to its default location.
 
 **Usage:**
 
-```
+```shell
 scw object config install [arg=value ...]
 ```
 
@@ -196,17 +196,17 @@ scw object config install [arg=value ...]
 
 
 Install a s3cmd config file for Paris region
-```
+```shell
 scw object config install region=fr-par type=s3cmd
 ```
 
 Install a rclone config file for default region
-```
+```shell
 scw object config install type=rclone
 ```
 
 Install a mc (minio) config file for default region
-```
+```shell
 scw object config install type=mc
 ```
 

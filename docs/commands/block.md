@@ -34,7 +34,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 
 **Usage:**
 
-```
+```shell
 scw block snapshot create <volume-id ...> [arg=value ...]
 ```
 
@@ -57,7 +57,7 @@ You must specify the `snapshot_id` of the snapshot you want to delete. The snaps
 
 **Usage:**
 
-```
+```shell
 scw block snapshot delete <snapshot-id ...> [arg=value ...]
 ```
 
@@ -78,7 +78,7 @@ The snapshot must not be in transient state.
 
 **Usage:**
 
-```
+```shell
 scw block snapshot export-to-object-storage [arg=value ...]
 ```
 
@@ -100,7 +100,7 @@ Retrieve technical information about a specific snapshot. Details such as size, 
 
 **Usage:**
 
-```
+```shell
 scw block snapshot get <snapshot-id ...> [arg=value ...]
 ```
 
@@ -121,7 +121,7 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 
 **Usage:**
 
-```
+```shell
 scw block snapshot import-from-object-storage [arg=value ...]
 ```
 
@@ -146,7 +146,7 @@ List all available snapshots in a specified zone. By default, the snapshots list
 
 **Usage:**
 
-```
+```shell
 scw block snapshot list [arg=value ...]
 ```
 
@@ -171,7 +171,7 @@ Update the name or tags of the snapshot.
 
 **Usage:**
 
-```
+```shell
 scw block snapshot update <snapshot-id ...> [arg=value ...]
 ```
 
@@ -193,7 +193,7 @@ Wait for snapshot to reach a stable state. This is similar to using --wait flag 
 
 **Usage:**
 
-```
+```shell
 scw block snapshot wait <snapshot-id ...> [arg=value ...]
 ```
 
@@ -212,7 +212,7 @@ scw block snapshot wait <snapshot-id ...> [arg=value ...]
 
 
 Wait for a snapshot to be available
-```
+```shell
 scw block snapshot wait 11111111-1111-1111-1111-111111111111 terminal-status=available
 ```
 
@@ -231,7 +231,7 @@ To create a volume from an existing snapshot, specify `from_snapshot` and the `s
 
 **Usage:**
 
-```
+```shell
 scw block volume create [arg=value ...]
 ```
 
@@ -257,7 +257,7 @@ You must specify the `volume_id` of the volume you want to delete. The volume mu
 
 **Usage:**
 
-```
+```shell
 scw block volume delete <volume-id ...> [arg=value ...]
 ```
 
@@ -277,7 +277,7 @@ Retrieve technical information about a specific volume. Details such as size, ty
 
 **Usage:**
 
-```
+```shell
 scw block volume get <volume-id ...> [arg=value ...]
 ```
 
@@ -297,7 +297,7 @@ List all existing volumes in a specified zone. By default, the volumes listed ar
 
 **Usage:**
 
-```
+```shell
 scw block volume list [arg=value ...]
 ```
 
@@ -323,7 +323,7 @@ You can only resize a volume to a larger size. It is currently not possible to c
 
 **Usage:**
 
-```
+```shell
 scw block volume update <volume-id ...> [arg=value ...]
 ```
 
@@ -347,7 +347,7 @@ Wait for volume to reach a stable state. This is similar to using --wait flag on
 
 **Usage:**
 
-```
+```shell
 scw block volume wait <volume-id ...> [arg=value ...]
 ```
 
@@ -366,7 +366,7 @@ scw block volume wait <volume-id ...> [arg=value ...]
 
 
 Wait for a volume to be available
-```
+```shell
 scw block volume wait 11111111-1111-1111-1111-111111111111 terminal-status=available
 ```
 
@@ -384,7 +384,7 @@ List all available volume types in a specified zone. The volume types listed are
 
 **Usage:**
 
-```
+```shell
 scw block volume-type list [arg=value ...]
 ```
 

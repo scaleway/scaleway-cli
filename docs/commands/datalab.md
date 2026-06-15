@@ -27,7 +27,7 @@ List datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab cluster-version list [arg=value ...]
 ```
 
@@ -52,7 +52,7 @@ Create datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab datalab create [arg=value ...]
 ```
 
@@ -83,7 +83,7 @@ Delete datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab datalab delete [arg=value ...]
 ```
 
@@ -103,7 +103,7 @@ Get datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab datalab get [arg=value ...]
 ```
 
@@ -123,7 +123,7 @@ List datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab datalab list [arg=value ...]
 ```
 
@@ -147,7 +147,7 @@ Update datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab datalab update [arg=value ...]
 ```
 
@@ -176,7 +176,7 @@ List datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab node-type list [arg=value ...]
 ```
 
@@ -203,7 +203,7 @@ List datalab resources.
 
 **Usage:**
 
-```
+```shell
 scw datalab notebook-version list [arg=value ...]
 ```
 
