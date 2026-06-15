@@ -7,7 +7,6 @@
 [global]
 # List of rules to disable (uncomment and modify as needed)
 disable = [
-    "MD001",
     "MD004",
     "MD005",
     "MD007",
