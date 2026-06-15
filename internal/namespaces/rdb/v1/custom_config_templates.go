@@ -15,6 +15,28 @@ var configTemplatesFS embed.FS
 
 var configTemplates = template.Must(template.ParseFS(configTemplatesFS, "templates/*.tmpl"))
 
+func init() {
+	for _, configType := range []rdbConfigType{
+		rdbConfigTypePHP,
+		rdbConfigTypeNode,
+		rdbConfigTypeTypeScript,
+		rdbConfigTypePython,
+		rdbConfigTypeGo,
+		rdbConfigTypeRust,
+	} {
+		for _, engineSuffix := range []string{"postgresql", "mysql"} {
+			name := configTemplateName(configType, engineSuffix)
+			if configTemplates.Lookup(name) == nil {
+				panic("missing rdb config template " + name)
+			}
+		}
+	}
+}
+
+func configTemplateName(configType rdbConfigType, engineSuffix string) string {
+	return fmt.Sprintf("%s-%s.tmpl", configType, engineSuffix)
+}
+
 type configTemplateData struct {
 	Host             string
 	Port             uint32
@@ -84,7 +106,7 @@ func renderConfigTemplate(configType rdbConfigType, info *ConnectionInfo) (core.
 		return core.RawResult(""), err
 	}
 
-	templateName := fmt.Sprintf("templates/%s-%s.tmpl", configType, engineSuffix)
+	templateName := configTemplateName(configType, engineSuffix)
 
 	var buf bytes.Buffer
 	if err := configTemplates.ExecuteTemplate(&buf, templateName, info.configTemplateData()); err != nil {
