@@ -2,26 +2,6 @@
 # Documentation for `scw registry`
 This API allows you to manage your Container Registry resources.
 
-- [Image management commands](#image-management-commands)
-  - [Delete an image](#delete-an-image)
-  - [Get an image](#get-an-image)
-  - [List images](#list-images)
-  - [Update an image](#update-an-image)
-- [Install a local Docker credential helper](#install-a-local-docker-credential-helper)
-- [Login to a registry](#login-to-a-registry)
-- [Logout of a registry](#logout-of-a-registry)
-- [Namespace management commands](#namespace-management-commands)
-  - [Create a namespace](#create-a-namespace)
-  - [Delete a namespace](#delete-a-namespace)
-  - [Get a namespace](#get-a-namespace)
-  - [List namespaces](#list-namespaces)
-  - [Update a namespace](#update-a-namespace)
-- [Tag management commands](#tag-management-commands)
-  - [Delete a tag](#delete-a-tag)
-  - [Get a tag](#get-a-tag)
-  - [List tags](#list-tags)
-
-
 ## Image management commands
 
 An image represents a container image. A container image is a file that includes all the requirements and instructions of a complete and executable version of an application. When running, it becomes one or multiple instances of that application.

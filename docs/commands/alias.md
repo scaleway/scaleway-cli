@@ -15,11 +15,6 @@ aliases in your commands are evaluated and you get completion
     "scw <TAB>" will complete "isl"
 
 
-- [Create a new alias for a command](#create-a-new-alias-for-a-command)
-- [Delete an alias](#delete-an-alias)
-- [List aliases and their commands](#list-aliases-and-their-commands)
-
-
 ## Create a new alias for a command
 
 This command help you create aliases and save it to your config

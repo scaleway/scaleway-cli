@@ -2,27 +2,6 @@
 # Documentation for `scw searchdb`
 Cloud Essentials for Opensearch API.
 
-- [](#)
-  - [Create a new Cloud Essentials for OpenSearch deployment](#create-a-new-cloud-essentials-for-opensearch-deployment)
-  - [Delete a Cloud Essentials for OpenSearch deployment](#delete-a-cloud-essentials-for-opensearch-deployment)
-  - [Retrieve a specific Cloud Essentials for OpenSearch deployment](#retrieve-a-specific-cloud-essentials-for-opensearch-deployment)
-  - [Retrieve a list of Cloud Essentials for OpenSearch deployments](#retrieve-a-list-of-cloud-essentials-for-opensearch-deployments)
-  - [Update a Cloud Essentials for OpenSearch deployment](#update-a-cloud-essentials-for-opensearch-deployment)
-  - [Upgrade a Cloud Essentials for OpenSearch deployment](#upgrade-a-cloud-essentials-for-opensearch-deployment)
-- [](#)
-  - [Create a new endpoint on a deployment](#create-a-new-endpoint-on-a-deployment)
-  - [Delete an existing endpoint](#delete-an-existing-endpoint)
-- [](#)
-  - [Retrieve a list of available node types](#retrieve-a-list-of-available-node-types)
-- [](#)
-  - [Create a new user](#create-a-new-user)
-  - [Delete an existing user](#delete-an-existing-user)
-  - [Retrieve a list of deployment users](#retrieve-a-list-of-deployment-users)
-  - [Update an existing user](#update-an-existing-user)
-- [](#)
-  - [List available Cloud Essentials for OpenSearch versions](#list-available-cloud-essentials-for-opensearch-versions)
-
-
 ## 
 
 Manage your Cloud Essentials for OpenSearch deployment.

@@ -2,21 +2,6 @@
 # Documentation for `scw fip`
 This API allows you to manage your Elastic Metal servers' flexible public IP addresses.
 
-- [Flexible IP management commands](#flexible-ip-management-commands)
-  - [Attach an existing flexible IP to a server](#attach-an-existing-flexible-ip-to-a-server)
-  - [Create a new flexible IP](#create-a-new-flexible-ip)
-  - [Delete an existing flexible IP](#delete-an-existing-flexible-ip)
-  - [Detach an existing flexible IP from a server](#detach-an-existing-flexible-ip-from-a-server)
-  - [Get an existing flexible IP](#get-an-existing-flexible-ip)
-  - [List flexible IPs](#list-flexible-ips)
-  - [Update an existing flexible IP](#update-an-existing-flexible-ip)
-- [MAC address management commands](#mac-address-management-commands)
-  - [Generate a virtual MAC address on an existing flexible IP](#generate-a-virtual-mac-address-on-an-existing-flexible-ip)
-  - [Detach a given virtual MAC address from an existing flexible IP](#detach-a-given-virtual-mac-address-from-an-existing-flexible-ip)
-  - [Duplicate a virtual MAC address to another flexible IP](#duplicate-a-virtual-mac-address-to-another-flexible-ip)
-  - [Relocate an existing virtual MAC address to a different flexible IP](#relocate-an-existing-virtual-mac-address-to-a-different-flexible-ip)
-
-
 ## Flexible IP management commands
 
 A flexible IP can be attached to any Elastic Metal server within the same zone.

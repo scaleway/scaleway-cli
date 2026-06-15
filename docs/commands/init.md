@@ -8,5 +8,3 @@ Default path for configuration file is based on the following priority order:
 - $HOME/.config/scw/config.yaml
 - $USERPROFILE/.config/scw/config.yaml
 
-
-

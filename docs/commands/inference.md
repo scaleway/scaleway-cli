@@ -2,26 +2,6 @@
 # Documentation for `scw inference`
 This API allows you to handle your Generative APIs - Dedicated Deployment services.
 
-- [Deployment commands](#deployment-commands)
-  - [Create a deployment](#create-a-deployment)
-  - [Delete a deployment](#delete-a-deployment)
-  - [Get a deployment](#get-a-deployment)
-  - [Get the CA certificate](#get-the-ca-certificate)
-  - [List inference deployments](#list-inference-deployments)
-  - [Update a deployment](#update-a-deployment)
-- [Endpoint management commands](#endpoint-management-commands)
-  - [Create an endpoint](#create-an-endpoint)
-  - [Delete an endpoint](#delete-an-endpoint)
-  - [Update an endpoint](#update-an-endpoint)
-- [Models commands](#models-commands)
-  - [Delete a model](#delete-a-model)
-  - [Get a model](#get-a-model)
-  - [Import a model](#import-a-model)
-  - [List models](#list-models)
-- [Node types management commands](#node-types-management-commands)
-  - [List available node types](#list-available-node-types)
-
-
 ## Deployment commands
 
 Deployment commands.

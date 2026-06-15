@@ -2,41 +2,6 @@
 # Documentation for `scw iot`
 This API allows you to manage your IoT hubs and devices.
 
-- [IoT Device commands](#iot-device-commands)
-  - [Add a device](#add-a-device)
-  - [Remove a device](#remove-a-device)
-  - [Disable a device](#disable-a-device)
-  - [Enable a device](#enable-a-device)
-  - [Get a device](#get-a-device)
-  - [Get a device's certificate](#get-a-device's-certificate)
-  - [Get a device's metrics](#get-a-device's-metrics)
-  - [List devices](#list-devices)
-  - [Renew a device certificate](#renew-a-device-certificate)
-  - [Set a custom certificate on a device](#set-a-custom-certificate-on-a-device)
-  - [Update a device](#update-a-device)
-- [IoT Hub commands](#iot-hub-commands)
-  - [Create a hub](#create-a-hub)
-  - [Delete a hub](#delete-a-hub)
-  - [Disable a hub](#disable-a-hub)
-  - [Enable a hub](#enable-a-hub)
-  - [Get a hub](#get-a-hub)
-  - [Get the certificate authority of a hub](#get-the-certificate-authority-of-a-hub)
-  - [List hubs](#list-hubs)
-  - [Set the certificate authority of a hub](#set-the-certificate-authority-of-a-hub)
-  - [Update a hub](#update-a-hub)
-- [IoT Network commands](#iot-network-commands)
-  - [Create a new network](#create-a-new-network)
-  - [Delete a Network](#delete-a-network)
-  - [Retrieve a specific network](#retrieve-a-specific-network)
-  - [List the networks](#list-the-networks)
-- [IoT Route commands](#iot-route-commands)
-  - [Create a route](#create-a-route)
-  - [Delete a route](#delete-a-route)
-  - [Get a route](#get-a-route)
-  - [List routes](#list-routes)
-  - [Update a route](#update-a-route)
-
-
 ## IoT Device commands
 
 IoT Device commands.

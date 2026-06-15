@@ -2,38 +2,6 @@
 # Documentation for `scw vpc`
 This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.
 
-- [Private network management command](#private-network-management-command)
-  - [Create a Private Network](#create-a-private-network)
-  - [Delete a Private Network](#delete-a-private-network)
-  - [Enable DHCP on a Private Network](#enable-dhcp-on-a-private-network)
-  - [Get a Private Network](#get-a-private-network)
-  - [List Private Networks](#list-private-networks)
-  - [Update Private Network](#update-private-network)
-- [Route management command](#route-management-command)
-  - [Create a Route](#create-a-route)
-  - [Delete a Route](#delete-a-route)
-  - [Enable routing on a VPC](#enable-routing-on-a-vpc)
-  - [Get a Route](#get-a-route)
-  - [Return routes with associated next hop data](#return-routes-with-associated-next-hop-data)
-  - [Update Route](#update-route)
-- [Rule management command](#rule-management-command)
-  - [Edit all ACL rules of a VPC](#edit-all-acl-rules-of-a-vpc)
-  - [Get ACL Rules for VPC](#get-acl-rules-for-vpc)
-  - [Set VPC ACL rules](#set-vpc-acl-rules)
-- [VPC management command](#vpc-management-command)
-  - [Create a VPC](#create-a-vpc)
-  - [Delete a VPC](#delete-a-vpc)
-  - [Get a VPC](#get-a-vpc)
-  - [List VPCs](#list-vpcs)
-  - [Update VPC](#update-vpc)
-- [VPC connector management command](#vpc-connector-management-command)
-  - [Create a VPC connector](#create-a-vpc-connector)
-  - [Delete a VPC connector](#delete-a-vpc-connector)
-  - [Get a VPC connector](#get-a-vpc-connector)
-  - [List VPC connectors](#list-vpc-connectors)
-  - [Update VPC connector](#update-vpc-connector)
-
-
 ## Private network management command
 
 A Private Network allows you to interconnect your Scaleway resources

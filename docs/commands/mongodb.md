@@ -2,37 +2,6 @@
 # Documentation for `scw mongodb`
 This API allows you to manage your Managed Databases for MongoDB®.
 
-- [Endpoint management commands](#endpoint-management-commands)
-  - [Create a new Instance endpoint](#create-a-new-instance-endpoint)
-  - [Delete a Database Instance endpoint](#delete-a-database-instance-endpoint)
-- [Instance management commands](#instance-management-commands)
-  - [Create a MongoDB® Database Instance](#create-a-mongodb®-database-instance)
-  - [Delete a MongoDB® Database Instance](#delete-a-mongodb®-database-instance)
-  - [Get a MongoDB® Database Instance](#get-a-mongodb®-database-instance)
-  - [Get the certificate of a Database Instance](#get-the-certificate-of-a-database-instance)
-  - [List MongoDB® Database Instances](#list-mongodb®-database-instances)
-  - [Update a MongoDB® Database Instance](#update-a-mongodb®-database-instance)
-  - [Upgrade a Database Instance](#upgrade-a-database-instance)
-  - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
-- [Node types management commands](#node-types-management-commands)
-  - [List available node types](#list-available-node-types)
-- [Snapshot management commands](#snapshot-management-commands)
-  - [Create a Database Instance snapshot](#create-a-database-instance-snapshot)
-  - [Delete a Database Instance snapshot](#delete-a-database-instance-snapshot)
-  - [Get a Database Instance snapshot](#get-a-database-instance-snapshot)
-  - [List snapshots](#list-snapshots)
-  - [Restore a Database Instance snapshot](#restore-a-database-instance-snapshot)
-  - [Update a Database Instance snapshot](#update-a-database-instance-snapshot)
-- [User management commands](#user-management-commands)
-  - [Create an user on a Database Instance](#create-an-user-on-a-database-instance)
-  - [Delete a user on a Database Instance](#delete-a-user-on-a-database-instance)
-  - [List users of a Database Instance](#list-users-of-a-database-instance)
-  - [Apply user roles](#apply-user-roles)
-  - [Update a user on a Database Instance](#update-a-user-on-a-database-instance)
-- [MongoDB® version management commands](#mongodb®-version-management-commands)
-  - [List available MongoDB® versions](#list-available-mongodb®-versions)
-
-
 ## Endpoint management commands
 
 Instance endpoints enable connection to your instance.

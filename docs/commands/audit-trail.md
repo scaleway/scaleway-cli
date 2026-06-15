@@ -2,12 +2,6 @@
 # Documentation for `scw audit-trail`
 This API allows you to ensure accountability and security by recording events and changes performed within your Scaleway Organization.
 
-- [Represent an entry in the Audit Trail](#represent-an-entry-in-the-audit-trail)
-  - [List events](#list-events)
-- [Product integrated with Audit Trail](#product-integrated-with-audit-trail)
-  - [Retrieve the list of Scaleway resources for which you have Audit Trail events](#retrieve-the-list-of-scaleway-resources-for-which-you-have-audit-trail-events)
-
-
 ## Represent an entry in the Audit Trail
 
 Represent an entry in the Audit Trail.

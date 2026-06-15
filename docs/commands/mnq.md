@@ -2,37 +2,6 @@
 # Documentation for `scw mnq`
 These APIs allow you to manage your Messaging and Queuing NATS, Queues and Topics and Events services.
 
-- [MnQ NATS commands](#mnq-nats-commands)
-  - [Create a NATS account](#create-a-nats-account)
-  - [Create a new context for natscli](#create-a-new-context-for-natscli)
-  - [Create NATS credentials](#create-nats-credentials)
-  - [Delete a NATS account](#delete-a-nats-account)
-  - [Delete NATS credentials](#delete-nats-credentials)
-  - [Get a NATS account](#get-a-nats-account)
-  - [Get NATS credentials](#get-nats-credentials)
-  - [List NATS accounts](#list-nats-accounts)
-  - [List NATS credentials](#list-nats-credentials)
-  - [Update the name of a NATS account](#update-the-name-of-a-nats-account)
-- [MnQ Topics and Events commands](#mnq-topics-and-events-commands)
-  - [Activate Topics and Events](#activate-topics-and-events)
-  - [Create Topics and Events credentials](#create-topics-and-events-credentials)
-  - [Deactivate Topics and Events](#deactivate-topics-and-events)
-  - [Delete Topics and Events credentials](#delete-topics-and-events-credentials)
-  - [Get Topics and Events credentials](#get-topics-and-events-credentials)
-  - [Get Topics and Events info](#get-topics-and-events-info)
-  - [List Topics and Events credentials](#list-topics-and-events-credentials)
-  - [Update Topics and Events credentials](#update-topics-and-events-credentials)
-- [MnQ Queues commands](#mnq-queues-commands)
-  - [Activate Queues](#activate-queues)
-  - [Create Queues credentials](#create-queues-credentials)
-  - [Deactivate Queues](#deactivate-queues)
-  - [Delete Queues credentials](#delete-queues-credentials)
-  - [Get Queues credentials](#get-queues-credentials)
-  - [Get Queues info](#get-queues-info)
-  - [List Queues credentials](#list-queues-credentials)
-  - [Update Queues credentials](#update-queues-credentials)
-
-
 ## MnQ NATS commands
 
 MnQ NATS commands.

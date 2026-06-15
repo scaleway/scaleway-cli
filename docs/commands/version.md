@@ -2,5 +2,3 @@
 # Documentation for `scw version`
 Display cli version
 
-
-

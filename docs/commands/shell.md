@@ -2,5 +2,3 @@
 # Documentation for `scw shell`
 Start shell mode
 
-
-

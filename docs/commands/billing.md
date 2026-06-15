@@ -2,20 +2,6 @@
 # Documentation for `scw billing`
 This API allows you to manage and query your Scaleway billing and consumption.
 
-- [](#)
-  - [List charges](#list-charges)
-- [Consumption management commands](#consumption-management-commands)
-  - [Get monthly consumption](#get-monthly-consumption)
-  - [Get monthly consumption taxes](#get-monthly-consumption-taxes)
-- [Discount management commands](#discount-management-commands)
-  - [List discounts](#list-discounts)
-- [Invoice management commands](#invoice-management-commands)
-  - [Download an invoice](#download-an-invoice)
-  - [Export invoices](#export-invoices)
-  - [Get an invoice](#get-an-invoice)
-  - [List invoices](#list-invoices)
-
-
 ## 
 
 

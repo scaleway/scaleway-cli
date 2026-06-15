@@ -2,19 +2,6 @@
 # Documentation for `scw sdb-sql`
 This API allows you to manage your Serverless SQL Databases.
 
-- [](#)
-  - [Export a database backup](#export-a-database-backup)
-  - [Get a database backup information](#get-a-database-backup-information)
-  - [List your Serverless SQL Database backups](#list-your-serverless-sql-database-backups)
-- [](#)
-  - [Create a new Serverless SQL Database](#create-a-new-serverless-sql-database)
-  - [Delete a database](#delete-a-database)
-  - [Get a database information](#get-a-database-information)
-  - [List your Serverless SQL Databases](#list-your-serverless-sql-databases)
-  - [Restore a database from a backup](#restore-a-database-from-a-backup)
-  - [Update database information](#update-database-information)
-
-
 ## 
 
 

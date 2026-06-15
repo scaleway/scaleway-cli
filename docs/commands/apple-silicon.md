@@ -2,35 +2,6 @@
 # Documentation for `scw apple-silicon`
 Apple silicon API.
 
-- [OS management commands](#os-management-commands)
-  - [Get an Operating System (OS)](#get-an-operating-system-(os))
-  - [List all Operating Systems (OS)](#list-all-operating-systems-(os))
-- [Private network management command](#private-network-management-command)
-  - [Add a server to a Private Network](#add-a-server-to-a-private-network)
-  - [Delete a Private Network](#delete-a-private-network)
-  - [List the Private Networks of a server](#list-the-private-networks-of-a-server)
-  - [Set multiple Private Networks on a server](#set-multiple-private-networks-on-a-server)
-- [Runner management commands](#runner-management-commands)
-  - [Create a new runner configuration](#create-a-new-runner-configuration)
-  - [Create a new runner configuration](#create-a-new-runner-configuration)
-  - [Retrieve a runner configuration](#retrieve-a-runner-configuration)
-  - [List runner configurations associated with a server](#list-runner-configurations-associated-with-a-server)
-  - [Create a new runner configuration](#create-a-new-runner-configuration)
-- [Apple silicon management commands](#apple-silicon-management-commands)
-  - [Create a server](#create-a-server)
-  - [Delete a server](#delete-a-server)
-  - [Get a server](#get-a-server)
-  - [List all servers](#list-all-servers)
-  - [Reboot a server](#reboot-a-server)
-  - [Reinstall a server](#reinstall-a-server)
-  - [SSH into a server](#ssh-into-a-server)
-  - [Update a server](#update-a-server)
-  - [Wait for a server to reach a stable state](#wait-for-a-server-to-reach-a-stable-state)
-- [Server-Types management commands](#server-types-management-commands)
-  - [Get a server type](#get-a-server-type)
-  - [List server types](#list-server-types)
-
-
 ## OS management commands
 
 OS management commands.

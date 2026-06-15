@@ -2,39 +2,6 @@
 # Documentation for `scw dns`
 This API allows you to manage your domains, DNS zones and records.
 
-- [TLS certificate management](#tls-certificate-management)
-  - [Create or get the DNS zone's TLS certificate](#create-or-get-the-dns-zone's-tls-certificate)
-  - [Delete a TLS certificate](#delete-a-tls-certificate)
-  - [Get a DNS zone's TLS certificate](#get-a-dns-zone's-tls-certificate)
-  - [List a user's TLS certificates](#list-a-user's-tls-certificates)
-- [DNS records management](#dns-records-management)
-  - [Add a new DNS record](#add-a-new-dns-record)
-  - [Update records within a DNS zone](#update-records-within-a-dns-zone)
-  - [Clear records within a DNS zone](#clear-records-within-a-dns-zone)
-  - [Delete a DNS record](#delete-a-dns-record)
-  - [List records within a DNS zone](#list-records-within-a-dns-zone)
-  - [List name servers within a DNS zone](#list-name-servers-within-a-dns-zone)
-  - [Update a DNS record](#update-a-dns-record)
-  - [Update name servers within a DNS zone](#update-name-servers-within-a-dns-zone)
-- [Transaction SIGnature key management](#transaction-signature-key-management)
-  - [Delete the DNS zone's TSIG key](#delete-the-dns-zone's-tsig-key)
-  - [Get the DNS zone's TSIG key](#get-the-dns-zone's-tsig-key)
-- [DNS zones version management](#dns-zones-version-management)
-  - [Access differences from a specific DNS zone version](#access-differences-from-a-specific-dns-zone-version)
-  - [List versions of a DNS zone](#list-versions-of-a-dns-zone)
-  - [Restore a DNS zone version](#restore-a-dns-zone-version)
-  - [List records from a given version of a specific DNS zone](#list-records-from-a-given-version-of-a-specific-dns-zone)
-- [DNS Zones management](#dns-zones-management)
-  - [Clone a DNS zone](#clone-a-dns-zone)
-  - [Create a DNS zone](#create-a-dns-zone)
-  - [Delete a DNS zone](#delete-a-dns-zone)
-  - [Export a raw DNS zone](#export-a-raw-dns-zone)
-  - [Import a raw DNS zone](#import-a-raw-dns-zone)
-  - [List DNS zones](#list-dns-zones)
-  - [Refresh a DNS zone](#refresh-a-dns-zone)
-  - [Update a DNS zone](#update-a-dns-zone)
-
-
 ## TLS certificate management
 
 TLS certificate management.

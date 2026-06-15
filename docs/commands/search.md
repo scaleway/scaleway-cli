@@ -2,10 +2,6 @@
 # Documentation for `scw search`
 Search API
 
-- [Resource search commands](#resource-search-commands)
-  - [Search API](#search-api)
-
-
 ## Resource search commands
 
 Resource search commands.

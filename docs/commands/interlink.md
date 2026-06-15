@@ -2,33 +2,6 @@
 # Documentation for `scw interlink`
 This API allows you to manage your InterLink services.
 
-- [Connection commands](#connection-commands)
-- [Link commands](#link-commands)
-  - [Attach a routing policy](#attach-a-routing-policy)
-  - [Attach a VPC](#attach-a-vpc)
-  - [Create a link](#create-a-link)
-  - [Delete a link](#delete-a-link)
-  - [Detach a routing policy](#detach-a-routing-policy)
-  - [Detach a VPC](#detach-a-vpc)
-  - [Disable route propagation](#disable-route-propagation)
-  - [Enable route propagation](#enable-route-propagation)
-  - [Get a link](#get-a-link)
-  - [List links](#list-links)
-  - [Update a link](#update-a-link)
-- [Partner commands](#partner-commands)
-  - [Get a partner](#get-a-partner)
-  - [List available partners](#list-available-partners)
-- [PoP commands](#pop-commands)
-  - [Get a PoP](#get-a-pop)
-  - [List PoPs](#list-pops)
-- [Routing policy commands](#routing-policy-commands)
-  - [Create a routing policy](#create-a-routing-policy)
-  - [Delete a routing policy](#delete-a-routing-policy)
-  - [Get routing policy](#get-routing-policy)
-  - [List routing policies](#list-routing-policies)
-  - [Update a routing policy](#update-a-routing-policy)
-
-
 ## Connection commands
 
 Connection commands.

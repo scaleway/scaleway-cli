@@ -2,39 +2,6 @@
 # Documentation for `scw container`
 This API allows you to manage your Serverless Containers.
 
-- [Container management commands](#container-management-commands)
-  - [Create a new container in a namespace.](#create-a-new-container-in-a-namespace.)
-  - [Delete the container associated with the specified ID.](#delete-the-container-associated-with-the-specified-id.)
-  - [Get the container associated with the specified ID.](#get-the-container-associated-with-the-specified-id.)
-  - [List all containers the caller can access (read permission).](#list-all-containers-the-caller-can-access-(read-permission).)
-  - [Redeploy a container](#redeploy-a-container)
-  - [Update the container associated with the specified ID.](#update-the-container-associated-with-the-specified-id.)
-- [Deploy a container](#deploy-a-container)
-- [Domain management commands](#domain-management-commands)
-  - [Create a new custom domain for the container with the specified ID.](#create-a-new-custom-domain-for-the-container-with-the-specified-id.)
-  - [Delete the custom domain associated with the specified ID.](#delete-the-custom-domain-associated-with-the-specified-id.)
-  - [Get the custom domain associated with the specified ID.](#get-the-custom-domain-associated-with-the-specified-id.)
-  - [List all custom domains the caller can access (read permission).](#list-all-custom-domains-the-caller-can-access-(read-permission).)
-  - [Update the domain associated with the specified ID.](#update-the-domain-associated-with-the-specified-id.)
-- [Namespace management commands](#namespace-management-commands)
-  - [Create a new namespace.](#create-a-new-namespace.)
-  - [Delete the namespace associated with the specified ID.](#delete-the-namespace-associated-with-the-specified-id.)
-  - [Get the namespace associated with the specified ID.](#get-the-namespace-associated-with-the-specified-id.)
-  - [List all namespaces the caller can access (read permission).](#list-all-namespaces-the-caller-can-access-(read-permission).)
-  - [Update the namespace associated with the specified ID.](#update-the-namespace-associated-with-the-specified-id.)
-- [Token management commands](#token-management-commands)
-  - [Create a new revocable token](#create-a-new-revocable-token)
-  - [Delete a token](#delete-a-token)
-  - [Get a token](#get-a-token)
-  - [List all tokens](#list-all-tokens)
-- [Trigger management commands](#trigger-management-commands)
-  - [Create a new trigger for the container with the specified ID.](#create-a-new-trigger-for-the-container-with-the-specified-id.)
-  - [Delete the trigger associated with the specified ID.](#delete-the-trigger-associated-with-the-specified-id.)
-  - [Get the trigger associated with the specified ID.](#get-the-trigger-associated-with-the-specified-id.)
-  - [List all triggers the caller can access (read permission).](#list-all-triggers-the-caller-can-access-(read-permission).)
-  - [Update the trigger associated with the specified ID.](#update-the-trigger-associated-with-the-specified-id.)
-
-
 ## Container management commands
 
 Container management commands.
