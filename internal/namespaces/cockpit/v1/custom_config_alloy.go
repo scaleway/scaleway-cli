@@ -46,19 +46,6 @@ func BuildTracesOTLPBaseURL(dataSourceURL string) string {
 	return baseURL
 }
 
-func renderAlloyTokenHeaders(tokenSecretKey *string) []string {
-	token := alloyTokenPlaceholder
-	if tokenSecretKey != nil {
-		token = *tokenSecretKey
-	}
-
-	return []string{
-		"        headers = {",
-		`            "X-TOKEN" = "` + token + `",`,
-		"        }",
-	}
-}
-
 // RenderAlloyConfig renders a Grafana Alloy configuration snippet for stdout.
 func RenderAlloyConfig(
 	dataSourceType cockpit.DataSourceType,
@@ -82,96 +69,40 @@ func RenderAlloyConfig(
 
 // RenderAlloyMetricsConfig renders an Alloy snippet that scrapes host metrics and remote_writes to Cockpit.
 func RenderAlloyMetricsConfig(dataSourceURL string, tokenSecretKey *string) core.RawResult {
-	remoteWriteURL := BuildPrometheusRemoteWriteURL(dataSourceURL)
+	result, err := renderAlloyTemplate("alloy-metrics.tmpl", AlloyTemplateData{
+		RemoteWriteURL: BuildPrometheusRemoteWriteURL(dataSourceURL),
+		Token:          alloyToken(tokenSecretKey),
+	})
+	if err != nil {
+		return core.RawResult("")
+	}
 
-	lines := make([]string, 0, 28)
-	lines = append(lines,
-		"// Snippet of Grafana Alloy configuration to add to cockpit.alloy",
-		"// Collects host metrics and pushes them to your Cockpit metrics data source.",
-		"// Run with: alloy run cockpit.alloy",
-		"",
-		`prometheus.exporter.unix "node" {`,
-		"    set_collectors = [",
-		`        "uname",`,
-		`        "cpu",`,
-		`        "cpufreq",`,
-		`        "loadavg",`,
-		`        "meminfo",`,
-		`        "filesystem",`,
-		`        "netdev",`,
-		"    ]",
-		"}",
-		"",
-		`prometheus.scrape "node" {`,
-		`    scrape_interval = "60s"`,
-		`    scrape_timeout  = "4s"`,
-		"",
-		"    targets    = prometheus.exporter.unix.node.targets",
-		"    forward_to = [prometheus.remote_write.cockpit.receiver]",
-		"}",
-		"",
-		`prometheus.remote_write "cockpit" {`,
-		"    endpoint {",
-		`        url = "`+remoteWriteURL+`"`,
-	)
-	lines = append(lines, renderAlloyTokenHeaders(tokenSecretKey)...)
-	lines = append(lines,
-		"    }",
-		"}",
-		"",
-	)
-
-	return core.RawResult(strings.Join(lines, "\n"))
+	return result
 }
 
 // RenderAlloyLogsConfig renders an Alloy loki.write snippet for Cockpit logs.
 func RenderAlloyLogsConfig(dataSourceURL string, tokenSecretKey *string) core.RawResult {
-	pushURL := BuildLokiPushURL(dataSourceURL)
+	result, err := renderAlloyTemplate("alloy-logs.tmpl", AlloyTemplateData{
+		PushURL: BuildLokiPushURL(dataSourceURL),
+		Token:   alloyToken(tokenSecretKey),
+	})
+	if err != nil {
+		return core.RawResult("")
+	}
 
-	lines := make([]string, 0, 12)
-	lines = append(lines,
-		"// Snippet of Grafana Alloy configuration to add to cockpit.alloy",
-		"// Forwards logs to your Cockpit logs data source. Add loki.source.* components",
-		"// and forward them to loki.write.cockpit.receiver.",
-		"// Run with: alloy run cockpit.alloy",
-		"",
-		`loki.write "cockpit" {`,
-		"    endpoint {",
-		`        url = "`+pushURL+`"`,
-	)
-	lines = append(lines, renderAlloyTokenHeaders(tokenSecretKey)...)
-	lines = append(lines,
-		"    }",
-		"}",
-		"",
-	)
-
-	return core.RawResult(strings.Join(lines, "\n"))
+	return result
 }
 
 // RenderAlloyTracesConfig renders an Alloy otelcol.exporter.otlphttp snippet for Cockpit traces.
 func RenderAlloyTracesConfig(dataSourceURL string, tokenSecretKey *string) core.RawResult {
-	baseURL := BuildTracesOTLPBaseURL(dataSourceURL)
-	tracesURL := BuildTracesOTLPPushURL(dataSourceURL)
+	result, err := renderAlloyTemplate("alloy-traces.tmpl", AlloyTemplateData{
+		OTLPBaseURL:    BuildTracesOTLPBaseURL(dataSourceURL),
+		TracesEndpoint: BuildTracesOTLPPushURL(dataSourceURL),
+		Token:          alloyToken(tokenSecretKey),
+	})
+	if err != nil {
+		return core.RawResult("")
+	}
 
-	lines := make([]string, 0, 12)
-	lines = append(lines,
-		"// Snippet of Grafana Alloy configuration to add to cockpit.alloy",
-		"// Exports traces to your Cockpit traces data source over OTLP HTTP.",
-		"// Forward otelcol.* pipeline outputs to otelcol.exporter.otlphttp.cockpit.input.",
-		"// Run with: alloy run cockpit.alloy",
-		"",
-		`otelcol.exporter.otlphttp "cockpit" {`,
-		"    client {",
-		`        endpoint        = "`+baseURL+`"`,
-		`        traces_endpoint = "`+tracesURL+`"`,
-	)
-	lines = append(lines, renderAlloyTokenHeaders(tokenSecretKey)...)
-	lines = append(lines,
-		"    }",
-		"}",
-		"",
-	)
-
-	return core.RawResult(strings.Join(lines, "\n"))
+	return result
 }
