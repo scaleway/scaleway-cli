@@ -45,7 +45,7 @@ scw autocomplete script [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| shell | Default: `/bin/fish` |  |
+| shell | Default: `/bin/bash` |  |
 | basename | Default: `` |  |
 
 
