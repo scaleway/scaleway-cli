@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
+Create a new network for an existing hub. Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
 
 USAGE:
   scw iot network create [arg=value ...]

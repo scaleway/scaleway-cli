@@ -1256,7 +1256,7 @@ scw lb route get <route-id ...> [arg=value ...]
 
 ### List all routes
 
-List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
+List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
 
 **Usage:**
 
