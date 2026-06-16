@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
+List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).
 
 USAGE:
   scw lb route list [arg=value ...]
