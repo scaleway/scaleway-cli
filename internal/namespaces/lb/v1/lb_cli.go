@@ -2216,7 +2216,7 @@ func lbFrontendDelete() *core.Command {
 func lbRouteList() *core.Command {
 	return &core.Command{
 		Short:     `List all routes`,
-		Long:      `List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
+		Long:      `List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
 		Namespace: "lb",
 		Resource:  "route",
 		Verb:      "list",
