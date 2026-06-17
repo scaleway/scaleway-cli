@@ -3,7 +3,7 @@
 A Private Network allows you to interconnect your resources
 in an isolated and private
 network. Network reachability is limited to the
-resources that are on the same Private Network.  A VLAN
+resources that are on the same Private Network. A VLAN
 interface is available on the server and can be freely
 managed (adding IP addresses, shutdown interface etc.).
 

@@ -1357,7 +1357,7 @@ scw rdb read-replica delete <read-replica-id ...> [arg=value ...]
 
 ### Get a Read Replica
 
-Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
+Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status` and `region` are returned in the response.
 
 **Usage:**
 
@@ -1536,7 +1536,7 @@ scw rdb snapshot create [arg=value ...]
 
 ### Delete a Database Instance snapshot
 
-Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the `region` and `snapshot_id` parameters of the snapshot you want to delete.
+Delete a given snapshot of a Database Instance. You must specify, in the endpoint, the `region` and `snapshot_id` parameters of the snapshot you want to delete.
 
 **Usage:**
 
@@ -1674,7 +1674,7 @@ scw rdb user create [arg=value ...]
 
 ### Delete a user on a Database Instance
 
-Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
+Delete a given user on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the user you want to delete.
 
 **Usage:**
 
