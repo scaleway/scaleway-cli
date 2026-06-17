@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Delete a given user on a Database Instance. You must specify, in the endpoint,  the `region`, `instance_id` and `name` parameters of the user you want to delete.
+Delete a given user on a Database Instance. You must specify, in the endpoint, the `region`, `instance_id` and `name` parameters of the user you want to delete.
 
 USAGE:
   scw rdb user delete [arg=value ...]
