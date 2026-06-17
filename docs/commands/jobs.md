@@ -62,6 +62,7 @@ scw jobs definition create [arg=value ...]
 | job-timeout |  | Timeout of the job in seconds |
 | cron-schedule.schedule |  |  |
 | cron-schedule.timezone |  |  |
+| retry-policy.max-retries |  | Maximum number of retries upon a job failure. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -182,6 +183,7 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 | job-timeout |  | Timeout of the job in seconds |
 | cron-schedule.schedule |  |  |
 | cron-schedule.timezone |  |  |
+| retry-policy.max-retries |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
