@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.
+Get an Operating System (OS). The response will include the OS's unique ID as well as its name and label.
 
 USAGE:
   scw apple-silicon os get <os-id ...> [arg=value ...]

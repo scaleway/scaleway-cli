@@ -179,6 +179,8 @@ func auditTrailEventList() *core.Command {
 					"ili_link",
 					"ili_routing_policy",
 					"autoscaling_group",
+					"gapi_dedicated_deployment",
+					"gapi_dedicated_model",
 				},
 			},
 			{
