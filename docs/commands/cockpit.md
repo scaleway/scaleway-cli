@@ -56,7 +56,7 @@ Disabling the Alert manager deletes the contact points you have created and disa
 
 **Usage:**
 
-```
+```shell
 scw cockpit alert-manager disable [arg=value ...]
 ```
 
@@ -76,7 +76,7 @@ Enabling the Alert manager allows you to enable managed alerts and create contac
 
 **Usage:**
 
-```
+```shell
 scw cockpit alert-manager enable [arg=value ...]
 ```
 
@@ -97,7 +97,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 
 **Usage:**
 
-```
+```shell
 scw cockpit alert-manager get [arg=value ...]
 ```
 
@@ -129,7 +129,7 @@ The token is created with the minimum required write scope for the data source t
 
 **Usage:**
 
-```
+```shell
 scw cockpit config get <data-source-id ...> [arg=value ...]
 ```
 
@@ -149,27 +149,27 @@ scw cockpit config get <data-source-id ...> [arg=value ...]
 
 
 Generate a Prometheus remote_write snippet
-```
+```shell
 scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus
 ```
 
 Generate a Prometheus remote_write snippet with a new token
-```
+```shell
 scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true
 ```
 
 Generate a Prometheus remote_write snippet with a named token
-```
+```shell
 scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true token-name=my-prometheus
 ```
 
 Generate a Fluent Bit configuration snippet
-```
+```shell
 scw cockpit config get 11111111-1111-1111-1111-111111111111 type=fluent-bit
 ```
 
 Generate a Fluent Bit configuration snippet with a new token
-```
+```shell
 scw cockpit config get 11111111-1111-1111-1111-111111111111 type=fluent-bit generate-token=true
 ```
 
@@ -189,7 +189,7 @@ If you need to receive alerts for other receivers, you can create additional con
 
 **Usage:**
 
-```
+```shell
 scw cockpit contact-point create [arg=value ...]
 ```
 
@@ -211,7 +211,7 @@ Delete a contact point associated with the default receiver.
 
 **Usage:**
 
-```
+```shell
 scw cockpit contact-point delete [arg=value ...]
 ```
 
@@ -232,7 +232,7 @@ Retrieve a list of contact points for the specified Project. The response lists 
 
 **Usage:**
 
-```
+```shell
 scw cockpit contact-point list [arg=value ...]
 ```
 
@@ -258,7 +258,7 @@ The name of the data source will then be used as reference to name the associate
 
 **Usage:**
 
-```
+```shell
 scw cockpit data-source create [arg=value ...]
 ```
 
@@ -281,7 +281,7 @@ Delete a given data source. Note that this action will permanently delete this d
 
 **Usage:**
 
-```
+```shell
 scw cockpit data-source delete <data-source-id ...> [arg=value ...]
 ```
 
@@ -301,7 +301,7 @@ Retrieve information about a given data source, specified by the data source ID.
 
 **Usage:**
 
-```
+```shell
 scw cockpit data-source get <data-source-id ...> [arg=value ...]
 ```
 
@@ -321,7 +321,7 @@ Retrieve the list of data sources available in the specified region. By default,
 
 **Usage:**
 
-```
+```shell
 scw cockpit data-source list [arg=value ...]
 ```
 
@@ -344,7 +344,7 @@ Update a given data source attributes (name and/or retention_days).
 
 **Usage:**
 
-```
+```shell
 scw cockpit data-source update <data-source-id ...> [arg=value ...]
 ```
 
@@ -372,7 +372,7 @@ The output returned displays the URL to access your Cockpit's Grafana.
 
 **Usage:**
 
-```
+```shell
 scw cockpit grafana get [arg=value ...]
 ```
 
@@ -391,7 +391,7 @@ Trigger the synchronization of all your data sources and the alert manager in th
 
 **Usage:**
 
-```
+```shell
 scw cockpit grafana sync-data-sources [arg=value ...]
 ```
 
@@ -417,7 +417,7 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 
 **Usage:**
 
-```
+```shell
 scw cockpit grafana-user create [arg=value ...]
 ```
 
@@ -439,7 +439,7 @@ Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Pr
 
 **Usage:**
 
-```
+```shell
 scw cockpit grafana-user delete [arg=value ...]
 ```
 
@@ -460,7 +460,7 @@ List all Grafana users created in your Cockpit's Grafana. By default, the Grafan
 
 **Usage:**
 
-```
+```shell
 scw cockpit grafana-user list [arg=value ...]
 ```
 
@@ -482,7 +482,7 @@ A new password regenerates and only displays once. Make sure that you save it.
 
 **Usage:**
 
-```
+```shell
 scw cockpit grafana-user reset-password [arg=value ...]
 ```
 
@@ -504,7 +504,7 @@ Managed alerts management commands.
 
 **Usage:**
 
-```
+```shell
 scw cockpit managed-alerts
 ```
 
@@ -522,7 +522,7 @@ Deprecated due to retention now being managed at the data source level.
 
 **Usage:**
 
-```
+```shell
 scw cockpit plan get [arg=value ...]
 ```
 
@@ -542,7 +542,7 @@ Deprecated due to retention now being managed at the data source level.
 
 **Usage:**
 
-```
+```shell
 scw cockpit plan list [arg=value ...]
 ```
 
@@ -562,7 +562,7 @@ Deprecated due to retention now being managed at the data source level.
 
 **Usage:**
 
-```
+```shell
 scw cockpit plan select [arg=value ...]
 ```
 
@@ -587,7 +587,7 @@ Retrieve information about the dashboard of a Scaleway resource in Grafana, spec
 
 **Usage:**
 
-```
+```shell
 scw cockpit product-dashboards get [arg=value ...]
 ```
 
@@ -607,7 +607,7 @@ Retrieve a list of available dashboards in Grafana, for all Scaleway resources w
 
 **Usage:**
 
-```
+```shell
 scw cockpit product-dashboards list [arg=value ...]
 ```
 
@@ -632,7 +632,7 @@ Send a test alert to the Alert manager to make sure your contact points get noti
 
 **Usage:**
 
-```
+```shell
 scw cockpit test-alert trigger [arg=value ...]
 ```
 
@@ -658,7 +658,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 
 **Usage:**
 
-```
+```shell
 scw cockpit token create [arg=value ...]
 ```
 
@@ -680,7 +680,7 @@ Delete a given token, specified by the token ID. Deleting a token is irreversibl
 
 **Usage:**
 
-```
+```shell
 scw cockpit token delete <token-id ...> [arg=value ...]
 ```
 
@@ -700,7 +700,7 @@ Retrieve information about a given token, specified by the token ID. The token's
 
 **Usage:**
 
-```
+```shell
 scw cockpit token get <token-id ...> [arg=value ...]
 ```
 
@@ -721,7 +721,7 @@ You can filter tokens by Project ID and token scopes.
 
 **Usage:**
 
-```
+```shell
 scw cockpit token list [arg=value ...]
 ```
 
@@ -748,7 +748,7 @@ Retrieve the volume of data ingested for each of your data sources in the specif
 
 **Usage:**
 
-```
+```shell
 scw cockpit usage-overview get [arg=value ...]
 ```
 

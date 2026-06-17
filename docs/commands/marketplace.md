@@ -27,7 +27,7 @@ Get information about a specific category of the marketplace catalog, specified 
 
 **Usage:**
 
-```
+```shell
 scw marketplace category get [arg=value ...]
 ```
 
@@ -46,7 +46,7 @@ Get a list of all existing categories. The output can be paginated.
 
 **Usage:**
 
-```
+```shell
 scw marketplace category list
 ```
 
@@ -63,7 +63,7 @@ Get detailed information about a marketplace image, specified by its `image_id` 
 
 **Usage:**
 
-```
+```shell
 scw marketplace image get [arg=value ...]
 ```
 
@@ -82,7 +82,7 @@ List all available images on the marketplace, their UUID, CPU architecture and d
 
 **Usage:**
 
-```
+```shell
 scw marketplace image list [arg=value ...]
 ```
 
@@ -109,7 +109,7 @@ Get detailed information about a local image, including compatible commercial ty
 
 **Usage:**
 
-```
+```shell
 scw marketplace local-image get [arg=value ...]
 ```
 
@@ -128,7 +128,7 @@ List information about local images in a specific Availability Zone, specified b
 
 **Usage:**
 
-```
+```shell
 scw marketplace local-image list [arg=value ...]
 ```
 
@@ -158,7 +158,7 @@ Get information such as the name, creation date, last update and published date 
 
 **Usage:**
 
-```
+```shell
 scw marketplace version get [arg=value ...]
 ```
 
@@ -177,7 +177,7 @@ Get a list of all available version of an image, specified by its `image_id` (UU
 
 **Usage:**
 
-```
+```shell
 scw marketplace version list [arg=value ...]
 ```
 

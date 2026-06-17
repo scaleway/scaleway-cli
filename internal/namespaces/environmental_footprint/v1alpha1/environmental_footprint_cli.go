@@ -217,6 +217,7 @@ func environmentalFootprintDataGet() *core.Command {
 					"managed_mongodb",
 					"managed_redis",
 					"managed_inference",
+					"generative_apis",
 				},
 			},
 			core.OrganizationIDArgSpec(),

@@ -31,7 +31,7 @@ Create a key in a given region specified by the `region` parameter. You can use 
 
 **Usage:**
 
-```
+```shell
 scw keymanager key create [arg=value ...]
 ```
 
@@ -62,7 +62,7 @@ Decrypt an encrypted payload using an existing key, specified by the `key_id` pa
 
 **Usage:**
 
-```
+```shell
 scw keymanager key decrypt <key-id ...> [arg=value ...]
 ```
 
@@ -84,7 +84,7 @@ Permanently delete a key specified by the `region` and `key_id` parameters. This
 
 **Usage:**
 
-```
+```shell
 scw keymanager key delete <key-id ...> [arg=value ...]
 ```
 
@@ -104,7 +104,7 @@ Delete previously imported key material. This renders the associated cryptograph
 
 **Usage:**
 
-```
+```shell
 scw keymanager key delete-key-material <key-id ...> [arg=value ...]
 ```
 
@@ -124,7 +124,7 @@ Disable a given key, preventing it to be used for cryptographic operations. Disa
 
 **Usage:**
 
-```
+```shell
 scw keymanager key disable <key-id ...> [arg=value ...]
 ```
 
@@ -144,7 +144,7 @@ Enable a given key to be used for cryptographic operations. Enabling a key allow
 
 **Usage:**
 
-```
+```shell
 scw keymanager key enable <key-id ...> [arg=value ...]
 ```
 
@@ -164,7 +164,7 @@ Encrypt a payload using an existing key, specified by the `key_id` parameter. Th
 
 **Usage:**
 
-```
+```shell
 scw keymanager key encrypt <key-id ...> [arg=value ...]
 ```
 
@@ -188,7 +188,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 
 **Usage:**
 
-```
+```shell
 scw keymanager key generate-data-key <key-id ...> [arg=value ...]
 ```
 
@@ -210,7 +210,7 @@ Retrieve metadata for a specified key using the `region` and `key_id` parameters
 
 **Usage:**
 
-```
+```shell
 scw keymanager key get <key-id ...> [arg=value ...]
 ```
 
@@ -230,7 +230,7 @@ Import externally generated key material into Key Manager to derive a new crypto
 
 **Usage:**
 
-```
+```shell
 scw keymanager key import-key-material <key-id ...> [arg=value ...]
 ```
 
@@ -252,7 +252,7 @@ Retrieve a list of keys across all Projects in an Organization or within a speci
 
 **Usage:**
 
-```
+```shell
 scw keymanager key list [arg=value ...]
 ```
 
@@ -279,7 +279,7 @@ Apply protection to a given key specified by the `key_id` parameter. Applying ke
 
 **Usage:**
 
-```
+```shell
 scw keymanager key protect <key-id ...> [arg=value ...]
 ```
 
@@ -299,7 +299,7 @@ Generate a new version of an existing key with new key material. Previous key ve
 
 **Usage:**
 
-```
+```shell
 scw keymanager key rotate <key-id ...> [arg=value ...]
 ```
 
@@ -319,7 +319,7 @@ Remove key protection from a given key specified by the `key_id` parameter. Remo
 
 **Usage:**
 
-```
+```shell
 scw keymanager key unprotect <key-id ...> [arg=value ...]
 ```
 
@@ -339,7 +339,7 @@ Modify a key's metadata including name, description and tags, specified by the `
 
 **Usage:**
 
-```
+```shell
 scw keymanager key update <key-id ...> [arg=value ...]
 ```
 

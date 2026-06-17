@@ -46,7 +46,7 @@ Create a connection.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection create [arg=value ...]
 ```
 
@@ -87,7 +87,7 @@ Delete an existing connection, specified by its connection ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection delete <connection-id ...> [arg=value ...]
 ```
 
@@ -107,7 +107,7 @@ Detach an existing routing policy from a connection, specified by its connection
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection detach-routing-policy <connection-id ...> [arg=value ...]
 ```
 
@@ -129,7 +129,7 @@ Prevent any prefixes from being announced in the BGP session. Traffic will not b
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection disable-route-propagation <connection-id ...> [arg=value ...]
 ```
 
@@ -149,7 +149,7 @@ Enable all allowed prefixes (defined in a routing policy) to be announced in the
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection enable-route-propagation <connection-id ...> [arg=value ...]
 ```
 
@@ -169,7 +169,7 @@ Get a connection for the given connection ID. The response object includes infor
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection get <connection-id ...> [arg=value ...]
 ```
 
@@ -189,7 +189,7 @@ List all your connections. A number of filters are available, including Project 
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection list [arg=value ...]
 ```
 
@@ -219,7 +219,7 @@ Renew pre-shared key for a given connection.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection renew-psk <connection-id ...> [arg=value ...]
 ```
 
@@ -240,7 +240,7 @@ Set a new routing policy on a connection, overriding the existing one if present
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection set-routing-policy <connection-id ...> [arg=value ...]
 ```
 
@@ -262,7 +262,7 @@ Update an existing connection, specified by its connection ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn connection update <connection-id ...> [arg=value ...]
 ```
 
@@ -296,7 +296,7 @@ Create a customer gateway.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn customer-gateway create [arg=value ...]
 ```
 
@@ -321,7 +321,7 @@ Delete an existing customer gateway, specified by its customer gateway ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn customer-gateway delete <gateway-id ...> [arg=value ...]
 ```
 
@@ -341,7 +341,7 @@ Get a customer gateway for the given customer gateway ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn customer-gateway get <gateway-id ...> [arg=value ...]
 ```
 
@@ -361,7 +361,7 @@ List all your customer gateways. A number of filters are available, including Pr
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn customer-gateway list [arg=value ...]
 ```
 
@@ -385,7 +385,7 @@ Update an existing customer gateway, specified by its customer gateway ID. You c
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn customer-gateway update <gateway-id ...> [arg=value ...]
 ```
 
@@ -415,7 +415,7 @@ Create a routing policy. Routing policies allow you to set IP prefix filters to 
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn routing-policy create [arg=value ...]
 ```
 
@@ -440,7 +440,7 @@ Delete an existing routing policy, specified by its routing policy ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn routing-policy delete <routing-policy-id ...> [arg=value ...]
 ```
 
@@ -460,7 +460,7 @@ Get a routing policy for the given routing policy ID. The response object gives 
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn routing-policy get <routing-policy-id ...> [arg=value ...]
 ```
 
@@ -480,7 +480,7 @@ List all routing policies in a given region. A routing policy can be attached to
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn routing-policy list [arg=value ...]
 ```
 
@@ -505,7 +505,7 @@ Update an existing routing policy, specified by its routing policy ID. Its name,
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn routing-policy update <routing-policy-id ...> [arg=value ...]
 ```
 
@@ -534,7 +534,7 @@ Create VPN gateway.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn vpn-gateway create [arg=value ...]
 ```
 
@@ -567,7 +567,7 @@ Delete an existing VPN gateway, specified by its VPN gateway ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn vpn-gateway delete <gateway-id ...> [arg=value ...]
 ```
 
@@ -587,7 +587,7 @@ Get a VPN gateway for the given VPN gateway ID.
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn vpn-gateway get <gateway-id ...> [arg=value ...]
 ```
 
@@ -607,7 +607,7 @@ List all your VPN gateways. A number of filters are available, including Project
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn vpn-gateway list [arg=value ...]
 ```
 
@@ -634,7 +634,7 @@ Update an existing VPN gateway, specified by its VPN gateway ID. Only its name a
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn vpn-gateway update <gateway-id ...> [arg=value ...]
 ```
 
@@ -661,7 +661,7 @@ List the different VPN gateway commercial offer types available at Scaleway. The
 
 **Usage:**
 
-```
+```shell
 scw s2s-vpn vpn-gateway-type list [arg=value ...]
 ```
 

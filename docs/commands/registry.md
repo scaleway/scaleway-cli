@@ -35,7 +35,7 @@ Delete a given image. You must specify, in the endpoint, the `region` and `image
 
 **Usage:**
 
-```
+```shell
 scw registry image delete <image-id ...> [arg=value ...]
 ```
 
@@ -55,7 +55,7 @@ Retrieve information about a given container image, specified by its `image_id` 
 
 **Usage:**
 
-```
+```shell
 scw registry image get <image-id ...> [arg=value ...]
 ```
 
@@ -75,7 +75,7 @@ List all images in a specified region. By default, the images listed are ordered
 
 **Usage:**
 
-```
+```shell
 scw registry image list [arg=value ...]
 ```
 
@@ -99,7 +99,7 @@ Update the parameters of a given image, specified by its `image_id` and `region`
 
 **Usage:**
 
-```
+```shell
 scw registry image update <image-id ...> [arg=value ...]
 ```
 
@@ -132,7 +132,7 @@ It avoid running docker login commands.
 
 **Usage:**
 
-```
+```shell
 scw registry install-docker-helper [arg=value ...]
 ```
 
@@ -155,7 +155,7 @@ You will need to have the chosen binary installed on your system and in your PAT
 
 **Usage:**
 
-```
+```shell
 scw registry login [arg=value ...]
 ```
 
@@ -179,7 +179,7 @@ You will need to have the chosen binary installed on your system and in your PAT
 
 **Usage:**
 
-```
+```shell
 scw registry logout [arg=value ...]
 ```
 
@@ -208,7 +208,7 @@ Create a new Container Registry namespace. You must specify the namespace name a
 
 **Usage:**
 
-```
+```shell
 scw registry namespace create [arg=value ...]
 ```
 
@@ -232,7 +232,7 @@ Delete a given namespace. You must specify, in the endpoint, the `region` and `n
 
 **Usage:**
 
-```
+```shell
 scw registry namespace delete <namespace-id ...> [arg=value ...]
 ```
 
@@ -252,7 +252,7 @@ Retrieve information about a given namespace, specified by its `namespace_id` an
 
 **Usage:**
 
-```
+```shell
 scw registry namespace get <namespace-id ...> [arg=value ...]
 ```
 
@@ -272,7 +272,7 @@ List all namespaces in a specified region. By default, the namespaces listed are
 
 **Usage:**
 
-```
+```shell
 scw registry namespace list [arg=value ...]
 ```
 
@@ -295,7 +295,7 @@ Update the parameters of a given namespace, specified by its `namespace_id` and 
 
 **Usage:**
 
-```
+```shell
 scw registry namespace update <namespace-id ...> [arg=value ...]
 ```
 
@@ -322,7 +322,7 @@ Delete a given image tag. You must specify, in the endpoint, the `region` and `t
 
 **Usage:**
 
-```
+```shell
 scw registry tag delete <tag-id ...> [arg=value ...]
 ```
 
@@ -344,7 +344,7 @@ Retrieve information about a given image tag, specified by its `tag_id` and regi
 
 **Usage:**
 
-```
+```shell
 scw registry tag get <tag-id ...> [arg=value ...]
 ```
 
@@ -364,7 +364,7 @@ List all tags for a given image, specified by region. By default, the tags liste
 
 **Usage:**
 
-```
+```shell
 scw registry tag list [arg=value ...]
 ```
 

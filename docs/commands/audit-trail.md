@@ -19,7 +19,7 @@ Retrieve the list of Audit Trail events for a Scaleway Organization and/or Proje
 
 **Usage:**
 
-```
+```shell
 scw audit-trail event list [arg=value ...]
 ```
 
@@ -58,7 +58,7 @@ Retrieve the list of Scaleway resources for which you have Audit Trail events.
 
 **Usage:**
 
-```
+```shell
 scw audit-trail product list [arg=value ...]
 ```
 
