@@ -371,6 +371,13 @@ func datawarehouseDeploymentCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "move-factor",
+				Short:      `For the ` + "`" + `tiered` + "`" + ` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -432,6 +439,13 @@ func datawarehouseDeploymentUpdate() *core.Command {
 			{
 				Name:       "replica-count",
 				Short:      `Number of replicas for the deployment`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "move-factor",
+				Short:      `For the ` + "`" + `tiered` + "`" + ` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
