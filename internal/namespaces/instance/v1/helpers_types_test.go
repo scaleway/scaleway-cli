@@ -1,10 +1,11 @@
-package instance
+package instance_test
 
 import (
 	"context"
 	"testing"
 
-	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instance "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instancesdk "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -21,8 +22,8 @@ func TestWarningServerTypeDeprecated(t *testing.T) {
 	)
 	require.NoError(t, err)
 
-	server := &instance.Server{CommercialType: "DEV1-S", Zone: scw.ZoneFrPar1}
-	warnings := warningServerTypeDeprecated(context.Background(), client, server)
+	server := &instancesdk.Server{CommercialType: "DEV1-S", Zone: scw.ZoneFrPar1}
+	warnings := instance.WarningServerTypeDeprecated(context.Background(), client, server)
 
 	require.NotEmpty(t, warnings)
 	assert.Contains(t, warnings[0], "EndOfService")
