@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status`  and `region` are returned in the response.
+Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like `endpoints`, `status` and `region` are returned in the response.
 
 USAGE:
   scw rdb read-replica get <read-replica-id ...> [arg=value ...]
