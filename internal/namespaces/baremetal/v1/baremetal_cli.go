@@ -76,7 +76,7 @@ func baremetalServer() *core.Command {
 func baremetalOffer() *core.Command {
 	return &core.Command{
 		Short: `Server offer management commands`,
-		Long: `Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+		Long: `Server offers will answer with all different Elastic Metal server ranges available in a zone.
 Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
@@ -1144,7 +1144,7 @@ func baremetalServerInstall() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Install an OS on a  server with a particular SSH key ID",
+				Short:    "Install an OS on a server with a particular SSH key ID",
 				ArgsJSON: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
 			},
 		},

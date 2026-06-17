@@ -250,8 +250,8 @@ managed by the SBS API (https://www.scaleway.com/en/developers/api/block/).
 
 Minimum and maximum volume sizes for each volume types can be queried
 from the zone ` + "`" + `/products/volumes` + "`" + ` API endpoint. _I.e_ for:
-  - ` + "`" + `fr-par-1` + "`" + `  use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
-  - ` + "`" + `nl-ams-1` + "`" + `  use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
+  - ` + "`" + `fr-par-1` + "`" + ` use https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
+  - ` + "`" + `nl-ams-1` + "`" + ` use https://api.scaleway.com/instance/v1/zones/nl-ams-1/products/volumes
 
 Each type of volume is also subject to a global quota for the sum of all the
 volumes. This quota depends of the level of support and may be
