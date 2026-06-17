@@ -1706,7 +1706,7 @@ func iotNetworkList() *core.Command {
 func iotNetworkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new network`,
-		Long:      `Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.`,
+		Long:      `Create a new network for an existing hub. Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "create",
@@ -1763,7 +1763,7 @@ func iotNetworkCreate() *core.Command {
 func iotNetworkGet() *core.Command {
 	return &core.Command{
 		Short:     `Retrieve a specific network`,
-		Long:      `Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.`,
+		Long:      `Retrieve an existing network, specified by its network ID. The response returns full details of the network, including its type, the topic prefix and its endpoint.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "get",
