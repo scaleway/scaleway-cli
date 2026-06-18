@@ -28,7 +28,7 @@ scw product-catalog product list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| product-types.{index} | One of: `unknown_product_type`, `instance`, `apple_silicon`, `elastic_metal`, `dedibox`, `block_storage`, `object_storage`, `managed_inference`, `generative_apis`, `load_balancer`, `secret_manager`, `key_manager`, `managed_redis_database`, `kubernetes`, `managed_relational_database`, `managed_mongodb`, `serverless_functions`, `serverless_containers`, `serverless_jobs` | The list of filtered product categories. |
+| product-types.{index} | One of: `unknown_product_type`, `instance`, `apple_silicon`, `elastic_metal`, `dedibox`, `block_storage`, `object_storage`, `managed_inference`, `generative_apis`, `load_balancer`, `secret_manager`, `key_manager`, `managed_redis_database`, `kubernetes`, `managed_relational_database`, `managed_mongodb`, `serverless_functions`, `serverless_containers`, `serverless_jobs`, `apache_kafka` | The list of filtered product categories. |
 | global |  | Filter global products. |
 | region |  | Filter products by region. |
 | zone |  | Filter products by zone. |

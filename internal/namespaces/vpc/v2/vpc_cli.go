@@ -236,6 +236,13 @@ func vpcVpcCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-transitivity",
+				Short:      `Enable packets from peered VPCs to transit through this VPC`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionItMil,
