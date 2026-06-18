@@ -191,6 +191,13 @@ func jobsDefinitionCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "retry-policy.max-retries",
+				Short:      `Maximum number of retries upon a job failure.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -403,6 +410,12 @@ func jobsDefinitionUpdate() *core.Command {
 			},
 			{
 				Name:       "cron-schedule.timezone",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "retry-policy.max-retries",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
