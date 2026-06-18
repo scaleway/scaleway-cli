@@ -1,0 +1,25 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Budget management commands.
+
+USAGE:
+  scw billing budget <command>
+
+AVAILABLE COMMANDS:
+  create      Create a new budget.
+  delete      Delete a budget.
+  get         Fetch a budget.
+  list        List your budgets, filtering by `organization_id`.
+  update      Update a budget.
+
+FLAGS:
+  -h, --help                help for budget
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw billing budget [command] --help" for more information about a command.
