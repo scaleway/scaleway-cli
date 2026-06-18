@@ -429,6 +429,7 @@ scw vpc vpc create [arg=value ...]
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
 | tags.{index} |  | Tags for the VPC |
 | enable-routing |  | Enable routing between Private Networks in the VPC |
+| enable-transitivity |  | Enable packets from peered VPCs to transit through this VPC |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

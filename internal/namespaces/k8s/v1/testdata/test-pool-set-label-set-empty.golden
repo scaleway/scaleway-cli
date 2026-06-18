@@ -19,6 +19,7 @@ RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
 SecurityGroupID   8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957
+PrivateNetworkID  -
 Region            fr-par
 
 Upgrade Policy:
@@ -66,5 +67,6 @@ KEY  VALUE  EFFECT
   },
   "taints": [],
   "startup_taints": [],
+  "private_network_id": "",
   "region": "fr-par"
 }
