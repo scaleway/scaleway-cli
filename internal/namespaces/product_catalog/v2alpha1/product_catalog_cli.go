@@ -82,6 +82,7 @@ func productCatalogProductList() *core.Command {
 					"serverless_functions",
 					"serverless_containers",
 					"serverless_jobs",
+					"apache_kafka",
 				},
 			},
 			{
