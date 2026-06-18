@@ -493,7 +493,7 @@ IoT Network commands.
 
 ### Create a new network
 
-Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
+Create a new network for an existing hub. Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.
 
 **Usage:**
 
@@ -536,7 +536,7 @@ scw iot network delete <network-id ...> [arg=value ...]
 
 ### Retrieve a specific network
 
-Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.
+Retrieve an existing network, specified by its network ID. The response returns full details of the network, including its type, the topic prefix and its endpoint.
 
 **Usage:**
 
