@@ -12,6 +12,7 @@ ARGS:
   [name]                     (Optional) Filter by key name
   [usage]                    (Optional) Filter keys by usage. (unknown_usage | symmetric_encryption | asymmetric_encryption | asymmetric_signing)
   [scheduled-for-deletion]   Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output.
+  [protection-level]         (Optional) Filter keys by protection level. (unknown_protection_level | software | hsm)
   [organization-id]          (Optional) Filter by Organization ID
   [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
 

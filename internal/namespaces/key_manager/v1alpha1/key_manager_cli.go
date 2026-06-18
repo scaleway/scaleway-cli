@@ -114,6 +114,9 @@ func keymanagerKeyCreate() *core.Command {
 					"rsa_pkcs1_2048_sha256",
 					"rsa_pkcs1_3072_sha256",
 					"rsa_pkcs1_4096_sha256",
+					"ml_dsa_44",
+					"ml_dsa_65",
+					"ml_dsa_87",
 				},
 			},
 			{
@@ -161,6 +164,18 @@ func keymanagerKeyCreate() *core.Command {
 					"unknown_origin",
 					"scaleway_kms",
 					"external",
+				},
+			},
+			{
+				Name:       "protection-level",
+				Short:      `Key Protection level`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_protection_level",
+					"software",
+					"hsm",
 				},
 			},
 			core.RegionArgSpec(
@@ -558,6 +573,18 @@ func keymanagerKeyList() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
+			},
+			{
+				Name:       "protection-level",
+				Short:      `(Optional) Filter keys by protection level.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_protection_level",
+					"software",
+					"hsm",
+				},
 			},
 			{
 				Name:       "organization-id",

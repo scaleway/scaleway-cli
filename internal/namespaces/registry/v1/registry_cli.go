@@ -526,7 +526,7 @@ func registryImageUpdate() *core.Command {
 			},
 			{
 				Name:       "visibility",
-				Short:      `Set to ` + "`" + `public` + "`" + ` to allow the image to be pulled without authentication. Else, set to  ` + "`" + `private` + "`" + `. Set to ` + "`" + `inherit` + "`" + ` to keep the same visibility configuration as the namespace`,
+				Short:      `Set to ` + "`" + `public` + "`" + ` to allow the image to be pulled without authentication. Else, set to ` + "`" + `private` + "`" + `. Set to ` + "`" + `inherit` + "`" + ` to keep the same visibility configuration as the namespace`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
