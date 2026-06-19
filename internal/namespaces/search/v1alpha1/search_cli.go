@@ -129,6 +129,7 @@ func searchResourceSearch() *core.Command {
 					"iam_group",
 					"iam_policy",
 					"sedb_cluster",
+					"autoscaling_group",
 				},
 			},
 			{
