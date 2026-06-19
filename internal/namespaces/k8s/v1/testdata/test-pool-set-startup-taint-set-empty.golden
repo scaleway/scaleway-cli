@@ -19,7 +19,6 @@ RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
 SecurityGroupID   8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957
-PrivateNetworkID  -
 Region            fr-par
 
 Upgrade Policy:
@@ -72,6 +71,6 @@ foo  bar    NoSchedule
       "effect": "NoSchedule"
     }
   ],
-  "private_network_id": "",
+  "private_network_id": null,
   "region": "fr-par"
 }

@@ -83,6 +83,7 @@ func productCatalogProductList() *core.Command {
 					"serverless_containers",
 					"serverless_jobs",
 					"apache_kafka",
+					"open_search",
 				},
 			},
 			{
