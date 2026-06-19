@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Create a new budget alert notification.
+
+USAGE:
+  scw billing budget-alert-notification create [arg=value ...]
+
+ARGS:
+  [budget-alert-id]             The ID of the budget alert to create notification for
+  [sms-phone-numbers.{index}]   List of phone numbers to receive sms notifications
+  [email-addresses.{index}]     List of email addresses to receive email notifications
+  [webhook-urls.{index}]        List of webhook url to receive webhook notifications
+
+FLAGS:
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
