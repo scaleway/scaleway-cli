@@ -79,7 +79,8 @@ func bucketCreateCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region, args.ProjectID, args.S3Endpoint)
+			s3Endpoint := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
@@ -390,7 +391,9 @@ func getBucketInfo(
 	projectID string,
 	endpoint ...string,
 ) (*bucketInfo, error) {
-	client := newS3Client(ctx, region, projectID, endpoint...)
+	s3Endpoint := getAPIEndpoint(ctx, region.String(), endpoint...)
+	client := newS3Client(ctx, region, projectID, s3Endpoint)
+
 	bucket := &bucketInfo{
 		ID:     name,
 		Region: region,
@@ -430,14 +433,9 @@ func getBucketInfo(
 	bucket.Owner = normalizeOwnerID(acl.Owner.ID)
 	bucket.ACL = awsACLToCustomGrants(acl)
 
-	// get endpoints
-	var customEndpoint string
-	if len(endpoint) > 0 && endpoint[0] != "" {
-		customEndpoint = endpoint[0]
-	}
-
-	bucket.APIEndpoint = getAPIEndpoint(ctx, region.String(), customEndpoint)
-	bucket.BucketEndpoint, err = getBucketEndpoint(ctx, name, region.String(), customEndpoint)
+	// Get endpoints
+	bucket.APIEndpoint = s3Endpoint
+	bucket.BucketEndpoint, err = getBucketEndpoint(ctx, name, region.String(), endpoint...)
 	if err != nil {
 		return nil, err
 	}
@@ -463,7 +461,11 @@ func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string
 	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
 }
 
-func getBucketEndpoint(ctx context.Context, name, region string, customEndpoint ...string) (string, error) {
+func getBucketEndpoint(
+	ctx context.Context,
+	name, region string,
+	customEndpoint ...string,
+) (string, error) {
 	scwClient := core.ExtractClient(ctx)
 	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
 
@@ -617,7 +619,8 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client := newS3Client(ctx, region, projectID)
+	s3Endpoint := getAPIEndpoint(ctx, region.String())
+	client := newS3Client(ctx, region, projectID, s3Endpoint)
 
 	if completeListBucketsCache == nil {
 		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
