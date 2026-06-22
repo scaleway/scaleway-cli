@@ -106,11 +106,21 @@ winget:
   - name: cli
     publisher: Scaleway
     short_description: Command Line Interface for Scaleway
-    license: apache-2.0
+    package_identifier: "Scaleway.cli"
+    license: Apache-2.0
     release_notes: "{{ .Changelog }}"
     repository:
-      owner: microsoft
+      owner: scaleway
       name: winget-pkgs
+      branch: "{{ .ProjectName }}-{{ .Version }}"
+      pull_request:
+        enabled: true
+        draft: false
+        base:
+          owner: microsoft
+          name: winget-pkgs
+          branch: master
+    token: "{{ .Env.WINGET_TOKEN }}"
     tags:
       - golang
       - cli
