@@ -52,6 +52,7 @@ dockers_v2:
       - "{{ .Tag }}"
       - "{{ .Major }}"
       - "{{ .Major }}.{{ .Minor }}"
+      - "{{ .Version }}"
     extra_files:
       - go.mod
       - go.sum
