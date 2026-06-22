@@ -4,7 +4,6 @@ package object
 
 import (
 	"context"
-	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -16,7 +15,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func newS3Client(ctx context.Context, region scw.Region, endpoint ...string) *s3.Client {
+func newS3Client(ctx context.Context, region scw.Region, s3Endpoint string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -27,19 +26,6 @@ func newS3Client(ctx context.Context, region scw.Region, endpoint ...string) *s3
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
 		return nil
-	}
-	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
-
-	var customEndpoint string
-	// Priority: 1) command flag, 2) env var, 3) profile, 4) default
-	if len(endpoint) > 0 && endpoint[0] != "" {
-		customEndpoint = endpoint[0]
-	} else if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
-		customEndpoint = ep
-	} else if s3EndpointOk && profileS3Endpoint != "" {
-		customEndpoint = profileS3Endpoint
-	} else {
-		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
 	}
 
 	options := []func(*middleware.Stack) error{
@@ -60,7 +46,7 @@ func newS3Client(ctx context.Context, region scw.Region, endpoint ...string) *s3
 				SecretAccessKey: secretKey,
 			}, nil
 		}),
-		BaseEndpoint: new(customEndpoint),
+		BaseEndpoint: new(s3Endpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 	})

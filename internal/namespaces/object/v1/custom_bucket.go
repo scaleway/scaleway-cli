@@ -72,7 +72,8 @@ func bucketCreateCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region, args.S3Endpoint)
+			s3Endpoint := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			client := newS3Client(ctx, args.Region, s3Endpoint)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
@@ -147,6 +148,9 @@ func bucketDeleteCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
+
+			// TODO: parse S3 endpoint here
+
 			client := newS3Client(ctx, args.Region, args.S3Endpoint)
 
 			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
@@ -350,7 +354,9 @@ func getBucketInfo(
 	name string,
 	endpoint ...string,
 ) (*bucketInfo, error) {
-	client := newS3Client(ctx, region, endpoint...)
+	s3Endpoint := getAPIEndpoint(ctx, region.String(), endpoint...)
+
+	client := newS3Client(ctx, region, s3Endpoint)
 	bucket := &bucketInfo{
 		ID:     name,
 		Region: region,
@@ -390,14 +396,9 @@ func getBucketInfo(
 	bucket.Owner = normalizeOwnerID(acl.Owner.ID)
 	bucket.ACL = awsACLToCustomGrants(acl)
 
-	// get endpoints
-	var customEndpoint string
-	if len(endpoint) > 0 && endpoint[0] != "" {
-		customEndpoint = endpoint[0]
-	}
-
-	bucket.APIEndpoint = getAPIEndpoint(ctx, region.String(), customEndpoint)
-	bucket.BucketEndpoint, err = getBucketEndpoint(ctx, name, region.String(), customEndpoint)
+	// Get endpoints
+	bucket.APIEndpoint = s3Endpoint
+	bucket.BucketEndpoint, err = getBucketEndpoint(ctx, name, region.String(), endpoint...)
 	if err != nil {
 		return nil, err
 	}
@@ -573,7 +574,8 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client := newS3Client(ctx, region)
+	s3Endpoint := getAPIEndpoint(ctx, region.String())
+	client := newS3Client(ctx, region, s3Endpoint)
 
 	if completeListBucketsCache == nil {
 		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
