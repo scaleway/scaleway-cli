@@ -10,6 +10,7 @@ import (
 	"reflect"
 	"strings"
 
+	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -72,14 +73,18 @@ func bucketCreateCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			s3Endpoint := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3Endpoint, err := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			if err != nil {
+				return nil, fmt.Errorf("could not get API endpoint: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, s3Endpoint)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
 			}
 
-			_, err := client.CreateBucket(ctx, &s3.CreateBucketInput{
+			_, err = client.CreateBucket(ctx, &s3.CreateBucketInput{
 				Bucket: &args.Name,
 				ACL:    types.BucketCannedACL(args.ACL),
 				CreateBucketConfiguration: &types.CreateBucketConfiguration{
@@ -149,11 +154,14 @@ func bucketDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
 
-			// TODO: parse S3 endpoint here
+			s3Endpoint, err := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			if err != nil {
+				return nil, fmt.Errorf("could not get API endpoint: %w", err)
+			}
 
-			client := newS3Client(ctx, args.Region, args.S3Endpoint)
+			client := newS3Client(ctx, args.Region, s3Endpoint)
 
-			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
+			_, err = client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
 			})
 			if err != nil {
@@ -201,7 +209,13 @@ func bucketGetCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
-			client := newS3Client(ctx, args.Region, args.S3Endpoint)
+
+			s3Endpoint, err := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			if err != nil {
+				return nil, fmt.Errorf("could not get API endpoint: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, s3Endpoint)
 
 			bucket, err := getBucketInfo(ctx, args.Region, args.Name, args.S3Endpoint)
 			if err != nil {
@@ -256,7 +270,13 @@ func bucketListCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
-			client := newS3Client(ctx, args.Region, args.S3Endpoint)
+
+			s3Endpoint, err := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			if err != nil {
+				return nil, fmt.Errorf("could not get API endpoint: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, s3Endpoint)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
@@ -315,9 +335,15 @@ func bucketUpdateCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region, args.S3Endpoint)
 
-			err := putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
+			s3Endpoint, err := getAPIEndpoint(ctx, args.Region.String(), args.S3Endpoint)
+			if err != nil {
+				return nil, fmt.Errorf("could not get API endpoint: %w", err)
+			}
+
+			client := newS3Client(ctx, args.Region, s3Endpoint)
+
+			err = putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
 			if err != nil {
 				return nil, fmt.Errorf("could not update bucket versioning: %w", err)
 			}
@@ -354,7 +380,10 @@ func getBucketInfo(
 	name string,
 	endpoint ...string,
 ) (*bucketInfo, error) {
-	s3Endpoint := getAPIEndpoint(ctx, region.String(), endpoint...)
+	s3Endpoint, err := getAPIEndpoint(ctx, region.String(), endpoint...)
+	if err != nil {
+		return nil, err
+	}
 
 	client := newS3Client(ctx, region, s3Endpoint)
 	bucket := &bucketInfo{
@@ -406,22 +435,63 @@ func getBucketInfo(
 	return bucket, nil
 }
 
-func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string) string {
+// getAPIEndpoint retrieves the S3 API URL according to various configuration
+// variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - AWS configuration
+// - Profile field value
+// - Default value, built with the provided region
+func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string) (string, error) {
 	scwClient := core.ExtractClient(ctx)
 	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
 
-	// Priority: 1) provided custom endpoint, 2) env var, 3) profile, 4) default
+	// CLI argument
 	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
-		return customEndpoint[0]
-	}
-	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
-		return ep
-	}
-	if s3EndpointOk && profileS3Endpoint != "" {
-		return profileS3Endpoint
+		return customEndpoint[0], nil
 	}
 
-	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
+	// SCW environment variable
+	if ep := os.Getenv(scw.ScwS3EndpointEnv); ep != "" {
+		return ep, nil
+	}
+
+	// AWS configuration, by environment variable or config file
+	ep, err := getAPIEndpointFromAWSConf(ctx)
+	if err != nil {
+		return "", fmt.Errorf("could not get API endpoint from AWS conf: %w", err)
+	}
+	if ep != "" {
+		return ep, nil
+	}
+
+	// Profile field value
+	if s3EndpointOk && profileS3Endpoint != "" {
+		return profileS3Endpoint, nil
+	}
+
+	// Default value
+	return fmt.Sprintf("https://s3.%s.scw.cloud", region), nil
+}
+
+// getAPIEndpointFromAWSConf retrieves the set value of AWS_ENDPOINT_URL_S3 (or
+// AWS_ENDPOINT_URL). We retrieve them for configuration compatibility with AWS
+// services.
+// See https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-envvars.html#envvars-list-AWS_ENDPOINT_URL.
+func getAPIEndpointFromAWSConf(ctx context.Context) (string, error) {
+	cfg, err := config.LoadDefaultConfig(ctx)
+	if err != nil {
+		return "", fmt.Errorf("could not load default config: %w", err)
+	}
+
+	tmpClient := s3.NewFromConfig(cfg)
+
+	tmpOpts := tmpClient.Options()
+	if tmpOpts.BaseEndpoint != nil && *tmpOpts.BaseEndpoint != "" {
+		return *tmpOpts.BaseEndpoint, nil
+	}
+
+	return "", nil
 }
 
 func getBucketEndpoint(ctx context.Context, name, region string, customEndpoint ...string) (string, error) {
@@ -574,7 +644,7 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	s3Endpoint := getAPIEndpoint(ctx, region.String())
+	s3Endpoint, _ := getAPIEndpoint(ctx, region.String())
 	client := newS3Client(ctx, region, s3Endpoint)
 
 	if completeListBucketsCache == nil {
