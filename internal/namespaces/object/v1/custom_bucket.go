@@ -10,7 +10,6 @@ import (
 	"reflect"
 	"strings"
 
-	"github.com/aws/aws-sdk-go-v2/config"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -457,7 +456,7 @@ func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string
 	}
 
 	// AWS configuration, by environment variable or config file
-	ep, err := getAPIEndpointFromAWSConf(ctx)
+	ep, err := scw.GetS3EndpointFromAWSConf(ctx)
 	if err != nil {
 		return "", fmt.Errorf("could not get API endpoint from AWS conf: %w", err)
 	}
@@ -472,26 +471,6 @@ func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string
 
 	// Default value
 	return fmt.Sprintf("https://s3.%s.scw.cloud", region), nil
-}
-
-// getAPIEndpointFromAWSConf retrieves the set value of AWS_ENDPOINT_URL_S3 (or
-// AWS_ENDPOINT_URL). We retrieve them for configuration compatibility with AWS
-// services.
-// See https://docs.aws.amazon.com/cli/v1/userguide/cli-configure-envvars.html#envvars-list-AWS_ENDPOINT_URL.
-func getAPIEndpointFromAWSConf(ctx context.Context) (string, error) {
-	cfg, err := config.LoadDefaultConfig(ctx)
-	if err != nil {
-		return "", fmt.Errorf("could not load default config: %w", err)
-	}
-
-	tmpClient := s3.NewFromConfig(cfg)
-
-	tmpOpts := tmpClient.Options()
-	if tmpOpts.BaseEndpoint != nil && *tmpOpts.BaseEndpoint != "" {
-		return *tmpOpts.BaseEndpoint, nil
-	}
-
-	return "", nil
 }
 
 func getBucketEndpoint(ctx context.Context, name, region string, customEndpoint ...string) (string, error) {
