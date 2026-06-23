@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 version: 2
 before:
   hooks:
@@ -113,6 +114,7 @@ winget:
       owner: scaleway
       name: winget-pkgs
       branch: "{{ .ProjectName }}-{{ .Version }}"
+      token: "{{ .Env.WINGET_TOKEN }}"
       pull_request:
         enabled: true
         draft: false
@@ -120,7 +122,6 @@ winget:
           owner: microsoft
           name: winget-pkgs
           branch: master
-    token: "{{ .Env.WINGET_TOKEN }}"
     tags:
       - golang
       - cli
