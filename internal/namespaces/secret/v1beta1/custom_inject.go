@@ -81,7 +81,6 @@ Examples:
 			),
 		},
 		Groups:         []string{"security"},
-		ExcludeFromMCP: true,
 		Run:            secretInjectRun,
 		Examples: []*core.Example{
 			{
