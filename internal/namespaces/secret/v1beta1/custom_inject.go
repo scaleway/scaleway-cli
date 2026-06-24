@@ -10,7 +10,6 @@ import (
 	"regexp"
 	"strconv"
 	"strings"
-
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -192,7 +191,6 @@ func renderTemplate(input string, api *secret.API, region scw.Region) (string, e
 	g, _ := errgroup.WithContext(context.Background())
 
 	for _, p := range pending {
-		p := p
 		g.Go(func() error {
 			value, err := resolveSecretRef(api, p.ref, region)
 			if err != nil {
