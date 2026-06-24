@@ -11,9 +11,12 @@ import (
 	"strconv"
 	"strings"
 
+	"sync"
+
 	"github.com/scaleway/scaleway-cli/v2/core"
 	secret "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"golang.org/x/sync/errgroup"
 )
 
 // matches {{ scw://REFERENCE }} with optional surrounding whitespace inside braces
@@ -155,27 +158,57 @@ func readInjectInput(ctx context.Context, inFile string) (string, error) {
 }
 
 func renderTemplate(input string, api *secret.API, region scw.Region) (string, error) {
-	// Collect unique references first to batch-deduplicate API calls.
 	matches := secretRefRegex.FindAllStringSubmatch(input, -1)
-	cache := make(map[string]string, len(matches))
+
+	// Deduplicate and parse all references before fetching.
+	type pendingRef struct {
+		rawRef string
+		ref    *parsedSecretRef
+	}
+
+	seen := make(map[string]struct{}, len(matches))
+	pending := make([]pendingRef, 0, len(matches))
 
 	for _, m := range matches {
 		rawRef := m[1]
-		if _, seen := cache[rawRef]; seen {
+		if _, ok := seen[rawRef]; ok {
 			continue
 		}
+
+		seen[rawRef] = struct{}{}
 
 		ref, err := parseSecretRef(rawRef)
 		if err != nil {
 			return "", fmt.Errorf("invalid reference %q: %w", rawRef, err)
 		}
 
-		value, err := resolveSecretRef(api, ref, region)
-		if err != nil {
-			return "", fmt.Errorf("resolving {{ scw://%s }}: %w", rawRef, err)
-		}
+		pending = append(pending, pendingRef{rawRef: rawRef, ref: ref})
+	}
 
-		cache[rawRef] = value
+	// Fetch all unique secrets concurrently.
+	var mu sync.Mutex
+
+	cache := make(map[string]string, len(pending))
+	g, _ := errgroup.WithContext(context.Background())
+
+	for _, p := range pending {
+		p := p
+		g.Go(func() error {
+			value, err := resolveSecretRef(api, p.ref, region)
+			if err != nil {
+				return fmt.Errorf("resolving {{ scw://%s }}: %w", p.rawRef, err)
+			}
+
+			mu.Lock()
+			cache[p.rawRef] = value
+			mu.Unlock()
+
+			return nil
+		})
+	}
+
+	if err := g.Wait(); err != nil {
+		return "", err
 	}
 
 	rendered := secretRefRegex.ReplaceAllStringFunc(input, func(match string) string {
