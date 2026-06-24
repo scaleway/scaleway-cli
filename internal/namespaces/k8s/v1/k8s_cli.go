@@ -199,6 +199,13 @@ func k8sClusterList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "version",
+				Short:      `Version to filter on, only cluster matching this prefix version will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID on which to filter the returned clusters`,
 				Required:   false,
