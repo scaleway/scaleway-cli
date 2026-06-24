@@ -3,10 +3,9 @@ package secret_test
 import (
 	"testing"
 
+	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 )
 
 const (

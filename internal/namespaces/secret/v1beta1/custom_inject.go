@@ -120,7 +120,10 @@ func secretInjectRun(ctx context.Context, argsI any) (any, error) {
 	if args.OutFile != "" {
 		mode, err := strconv.ParseUint(args.FileMode, 8, 32)
 		if err != nil {
-			return nil, fmt.Errorf("invalid file-mode %q: expected octal value like 0600", args.FileMode)
+			return nil, fmt.Errorf(
+				"invalid file-mode %q: expected octal value like 0600",
+				args.FileMode,
+			)
 		}
 
 		if err := os.WriteFile(args.OutFile, []byte(rendered), os.FileMode(mode)); err != nil {
