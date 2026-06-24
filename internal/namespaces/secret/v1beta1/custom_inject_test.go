@@ -1,10 +1,18 @@
-package secret
+package secret_test
 
 import (
 	"testing"
 
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
+
+	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
+)
+
+const (
+	testUUID     = "11111111-1111-1111-1111-111111111111"
+	testLatest   = "latest"
+	testMySecret = "my-secret"
 )
 
 func Test_ParseSecretRef(t *testing.T) {
@@ -18,38 +26,38 @@ func Test_ParseSecretRef(t *testing.T) {
 		wantErr      bool
 	}{
 		{
-			raw:          "11111111-1111-1111-1111-111111111111",
-			wantID:       "11111111-1111-1111-1111-111111111111",
-			wantRevision: "latest",
+			raw:          testUUID,
+			wantID:       testUUID,
+			wantRevision: testLatest,
 		},
 		{
-			raw:          "11111111-1111-1111-1111-111111111111@2",
-			wantID:       "11111111-1111-1111-1111-111111111111",
+			raw:          testUUID + "@2",
+			wantID:       testUUID,
 			wantRevision: "2",
 		},
 		{
-			raw:          "11111111-1111-1111-1111-111111111111:api-key",
-			wantID:       "11111111-1111-1111-1111-111111111111",
-			wantRevision: "latest",
+			raw:          testUUID + ":api-key",
+			wantID:       testUUID,
+			wantRevision: testLatest,
 			wantField:    "api-key",
 		},
 		{
-			raw:          "11111111-1111-1111-1111-111111111111@latest:api-key",
-			wantID:       "11111111-1111-1111-1111-111111111111",
-			wantRevision: "latest",
+			raw:          testUUID + "@latest:api-key",
+			wantID:       testUUID,
+			wantRevision: testLatest,
 			wantField:    "api-key",
 		},
 		{
-			raw:          "my-secret",
-			wantName:     "my-secret",
+			raw:          testMySecret,
+			wantName:     testMySecret,
 			wantPath:     "/",
-			wantRevision: "latest",
+			wantRevision: testLatest,
 		},
 		{
-			raw:          "db/my-secret",
-			wantName:     "my-secret",
+			raw:          "db/" + testMySecret,
+			wantName:     testMySecret,
 			wantPath:     "/db",
-			wantRevision: "latest",
+			wantRevision: testLatest,
 		},
 		{
 			raw:          "my-app/db/password@2:key",
@@ -63,11 +71,11 @@ func Test_ParseSecretRef(t *testing.T) {
 			wantErr: true,
 		},
 		{
-			raw:     "my-secret:",
+			raw:     testMySecret + ":",
 			wantErr: true,
 		},
 		{
-			raw:     "my-secret@",
+			raw:     testMySecret + "@",
 			wantErr: true,
 		},
 		{
@@ -78,23 +86,25 @@ func Test_ParseSecretRef(t *testing.T) {
 
 	for _, tt := range tests {
 		t.Run(tt.raw, func(t *testing.T) {
-			ref, err := parseSecretRef(tt.raw)
+			ref, err := secret.ParseSecretRef(tt.raw)
 			if tt.wantErr {
 				require.Error(t, err)
+
 				return
 			}
+
 			require.NoError(t, err)
-			assert.Equal(t, tt.wantID, ref.secretID)
-			assert.Equal(t, tt.wantName, ref.secretName)
-			assert.Equal(t, tt.wantPath, ref.secretPath)
-			assert.Equal(t, tt.wantRevision, ref.revision)
-			assert.Equal(t, tt.wantField, ref.field)
+			assert.Equal(t, tt.wantID, ref.SecretID)
+			assert.Equal(t, tt.wantName, ref.SecretName)
+			assert.Equal(t, tt.wantPath, ref.SecretPath)
+			assert.Equal(t, tt.wantRevision, ref.Revision)
+			assert.Equal(t, tt.wantField, ref.Field)
 		})
 	}
 }
 
 func Test_RenderTemplate_NoRefs(t *testing.T) {
-	rendered, err := renderTemplate("hello world\nno secrets here", nil, "")
+	rendered, err := secret.RenderTemplate("hello world\nno secrets here", nil, "")
 	require.NoError(t, err)
 	assert.Equal(t, "hello world\nno secrets here", rendered)
 }
@@ -104,16 +114,17 @@ func Test_IsSecretUUID(t *testing.T) {
 		input string
 		want  bool
 	}{
-		{"11111111-1111-1111-1111-111111111111", true},
+		{testUUID, true},
 		{"abcdef01-abcd-abcd-abcd-abcdef012345", true},
 		{"not-a-uuid", false},
-		{"11111111-1111-1111-1111-11111111111G", false}, // uppercase G
-		{"11111111-1111-1111-1111-111111111111X", false}, // too long
+		{"11111111-1111-1111-1111-11111111111G", false},
+		{"11111111-1111-1111-1111-111111111111X", false},
 		{"", false},
 	}
+
 	for _, tt := range tests {
 		t.Run(tt.input, func(t *testing.T) {
-			assert.Equal(t, tt.want, isSecretUUID(tt.input))
+			assert.Equal(t, tt.want, secret.IsSecretUUID(tt.input))
 		})
 	}
 }

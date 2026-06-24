@@ -2,6 +2,7 @@ package secret
 
 import (
 	"context"
+	"errors"
 	"fmt"
 	"io"
 	"os"
@@ -17,6 +18,8 @@ import (
 
 // matches {{ scw://REFERENCE }} with optional surrounding whitespace inside braces
 var secretRefRegex = regexp.MustCompile(`\{\{\s*scw://([^\s}]+)\s*\}\}`)
+
+const revisionLatest = "latest"
 
 type secretInjectArgs struct {
 	InFile   string
@@ -57,7 +60,7 @@ Examples:
   {{ scw://11111111-1111-1111-1111-111111111111 }}
   {{ scw://11111111-1111-1111-1111-111111111111@2:api-key }}
   {{ scw://my-app/db-password@latest }}`,
-		Namespace: "secret",
+		Namespace: "secret", //nolint:goconst
 		Resource:  "inject",
 		ArgsType:  reflect.TypeOf(secretInjectArgs{}),
 		ArgSpecs: core.ArgSpecs{
@@ -80,8 +83,8 @@ Examples:
 				scw.RegionPlWaw,
 			),
 		},
-		Groups:         []string{"security"},
-		Run:            secretInjectRun,
+		Groups: []string{"security"},
+		Run:    secretInjectRun,
 		Examples: []*core.Example{
 			{
 				Short: "Render a template from stdin to stdout",
@@ -91,10 +94,10 @@ Examples:
 				Short: "Render a template file to an output file",
 				Raw:   `scw secret inject in-file=config.tpl out-file=config.yaml`,
 			},
-		{
-			Short: "Extract a JSON field and write to a file with custom permissions",
-			Raw:   `scw secret inject in-file=config.tpl out-file=config.yaml file-mode=0640`,
-		},
+			{
+				Short: "Extract a JSON field and write to a file with custom permissions",
+				Raw:   `scw secret inject in-file=config.tpl out-file=config.yaml file-mode=0640`,
+			},
 		},
 	}
 }
@@ -119,9 +122,11 @@ func secretInjectRun(ctx context.Context, argsI any) (any, error) {
 		if err != nil {
 			return nil, fmt.Errorf("invalid file-mode %q: expected octal value like 0600", args.FileMode)
 		}
+
 		if err := os.WriteFile(args.OutFile, []byte(rendered), os.FileMode(mode)); err != nil {
 			return nil, fmt.Errorf("writing output file: %w", err)
 		}
+
 		return &core.SuccessResult{Empty: true}, nil
 	}
 
@@ -134,6 +139,7 @@ func readInjectInput(ctx context.Context, inFile string) (string, error) {
 		if err != nil {
 			return "", fmt.Errorf("reading template file: %w", err)
 		}
+
 		return string(data), nil
 	}
 
@@ -141,6 +147,7 @@ func readInjectInput(ctx context.Context, inFile string) (string, error) {
 	if err != nil {
 		return "", fmt.Errorf("reading stdin: %w", err)
 	}
+
 	return string(data), nil
 }
 
@@ -168,14 +175,11 @@ func renderTemplate(input string, api *secret.API, region scw.Region) (string, e
 		cache[rawRef] = value
 	}
 
-	var replaceErr error
 	rendered := secretRefRegex.ReplaceAllStringFunc(input, func(match string) string {
 		sub := secretRefRegex.FindStringSubmatch(match)
+
 		return cache[sub[1]]
 	})
-	if replaceErr != nil {
-		return "", replaceErr
-	}
 
 	return rendered, nil
 }
@@ -184,14 +188,15 @@ func renderTemplate(input string, api *secret.API, region scw.Region) (string, e
 //
 //	(UUID|PATH/NAME)[@REVISION][:FIELD]
 func parseSecretRef(raw string) (*parsedSecretRef, error) {
-	ref := &parsedSecretRef{revision: "latest"}
+	ref := &parsedSecretRef{revision: revisionLatest}
 
 	// Strip optional :FIELD (last colon, since neither UUID nor revision contain one)
 	if idx := strings.LastIndex(raw, ":"); idx != -1 {
 		ref.field = raw[idx+1:]
 		raw = raw[:idx]
+
 		if ref.field == "" {
-			return nil, fmt.Errorf("empty field name after ':'")
+			return nil, errors.New("empty field name after ':'")
 		}
 	}
 
@@ -199,13 +204,14 @@ func parseSecretRef(raw string) (*parsedSecretRef, error) {
 	if idx := strings.Index(raw, "@"); idx != -1 {
 		ref.revision = raw[idx+1:]
 		raw = raw[:idx]
+
 		if ref.revision == "" {
-			return nil, fmt.Errorf("empty revision after '@'")
+			return nil, errors.New("empty revision after '@'")
 		}
 	}
 
 	if raw == "" {
-		return nil, fmt.Errorf("empty secret identifier")
+		return nil, errors.New("empty secret identifier")
 	}
 
 	if isSecretUUID(raw) {
@@ -219,8 +225,9 @@ func parseSecretRef(raw string) (*parsedSecretRef, error) {
 			ref.secretPath = "/"
 			ref.secretName = raw
 		}
+
 		if ref.secretName == "" {
-			return nil, fmt.Errorf("empty secret name in path reference")
+			return nil, errors.New("empty secret name in path reference")
 		}
 	}
 
@@ -231,6 +238,7 @@ func isSecretUUID(s string) bool {
 	if len(s) != 36 {
 		return false
 	}
+
 	for i, c := range s {
 		switch i {
 		case 8, 13, 18, 23:
@@ -243,6 +251,7 @@ func isSecretUUID(s string) bool {
 			}
 		}
 	}
+
 	return true
 }
 
@@ -266,6 +275,7 @@ func resolveSecretRef(api *secret.API, ref *parsedSecretRef, region scw.Region) 
 			Revision:   ref.revision,
 		})
 	}
+
 	if err != nil {
 		return "", err
 	}
