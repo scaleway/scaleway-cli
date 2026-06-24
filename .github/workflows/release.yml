@@ -69,3 +69,4 @@ jobs:
           args: release
         env:
           GITHUB_TOKEN: ${{ secrets.GITHUB_TOKEN }}
+          WINGET_TOKEN: ${{ secrets.WINGET_TOKEN }}
