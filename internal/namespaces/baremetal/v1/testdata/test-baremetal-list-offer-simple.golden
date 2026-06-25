@@ -68,7 +68,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 32000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_A116X_SSD",
@@ -203,7 +204,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 32000000000,
         "type": "DDR4",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_A610R_NVMe",
@@ -452,7 +454,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 96000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_L101X_SATA",
@@ -635,7 +638,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 64000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_A315X_SSD",
@@ -754,7 +758,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 64000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_A410X_SSD",
@@ -971,7 +976,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 96000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_L105X_SATA",
@@ -1161,7 +1167,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 192000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B111X_SATA",
@@ -1326,7 +1333,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 192000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B112X_SSD",
@@ -1553,7 +1561,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 256000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B211X_SATA",
@@ -1773,7 +1782,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 256000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B212X_SSD",
@@ -1986,7 +1996,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 64000000000,
         "type": "DDR4",
         "frequency": 2400,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B220E_NVMe",
@@ -2296,7 +2307,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 64000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I120E_NVMe",
@@ -2668,7 +2680,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 96000000000,
         "type": "DDR3",
         "frequency": 1600,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_L110X_SATA",
@@ -2851,7 +2864,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 128000000000,
         "type": "DDR4",
         "frequency": 2400,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B320E_NVMe",
@@ -3161,7 +3175,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 128000000000,
         "type": "DDR4",
         "frequency": 2400,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B420E_NVMe",
@@ -3471,7 +3486,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 256000000000,
         "type": "DDR4",
         "frequency": 2400,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_B520E_NVMe",
@@ -3781,7 +3797,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 128000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I220E_NVMe",
@@ -4145,7 +4162,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 128000000000,
         "type": "DDR4",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I210E_NVMe",
@@ -4449,7 +4467,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 64000000000,
         "type": "DDR4",
         "frequency": 2400,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_L220E_NVMe",
@@ -4745,7 +4764,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 192000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I320E_NVMe",
@@ -5109,7 +5129,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 256000000000,
         "type": "DDR4",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I215E_NVMe",
@@ -5432,7 +5453,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 128000000000,
         "type": "DDR4",
         "frequency": 2400,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_L420E_NVMe",
@@ -5728,7 +5750,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 256000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I420E_NVMe",
@@ -6092,7 +6115,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 384000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I520E_NVMe",
@@ -6456,7 +6480,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 576000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I620E_NVMe",
@@ -6828,7 +6853,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 384000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_I525E_NVMe",
@@ -7200,7 +7226,8 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME  empty      4      1     1  
         "capacity": 576000000000,
         "type": "DDR5",
         "frequency": 3200,
-        "is_ecc": true
+        "is_ecc": true,
+        "ecc_type": "unknown_ecc_type"
       }
     ],
     "quota_name": "EM_L620E_NVMe",
