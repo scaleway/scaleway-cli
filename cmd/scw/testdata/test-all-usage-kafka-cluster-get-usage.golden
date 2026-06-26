@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Retrieve information about a given Kafka cluster, specified by the `region` and `cluster_id` parameters. Its full details, including name, status, IP address and port, are returned in the response object.
+
+USAGE:
+  scw kafka cluster get <cluster-id ...> [arg=value ...]
+
+ARGS:
+  cluster-id        UUID of the Kafka Cluster
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par)
+
+FLAGS:
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
