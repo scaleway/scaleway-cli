@@ -38,6 +38,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	kafka "github.com/scaleway/scaleway-cli/v2/internal/namespaces/kafka/v1alpha1"
 	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
@@ -132,6 +133,7 @@ func GetCommands() *core.Commands {
 		mcp.GetCommands(),
 		search.GetCommands(),
 		billing.GetCommands(),
+		kafka.GetCommands(),
 	)
 
 	if beta {
