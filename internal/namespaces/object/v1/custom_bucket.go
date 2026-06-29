@@ -475,9 +475,6 @@ func getBucketInfo(
 // - Profile field value
 // - Default value, built with the provided region
 func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string) (string, error) {
-	scwClient := core.ExtractClient(ctx)
-	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
-
 	// CLI argument
 	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
 		return customEndpoint[0], nil
@@ -495,6 +492,9 @@ func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string
 	}
 
 	// Profile field value
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
 	if s3EndpointOk && profileS3Endpoint != "" {
 		return profileS3Endpoint, nil
 	}
