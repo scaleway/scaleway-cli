@@ -453,10 +453,7 @@ func getAPIEndpoint(ctx context.Context, region string, customEndpoint ...string
 	}
 
 	// AWS configuration, by environment variable or config file
-	ep, err := scw.GetS3EndpointFromAWSConf(ctx)
-	if err != nil {
-		return "", fmt.Errorf("could not get API endpoint from AWS conf: %w", err)
-	}
+	ep := scw.GetS3EndpointFromAWSConf()
 	if ep != "" {
 		return ep, nil
 	}
