@@ -1,19 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Models commands.
+List all available serverless models using the OpenAI-compatible API endpoint. Prices per million of tokens.
 
 USAGE:
-  scw inference model <command>
-
-AVAILABLE COMMANDS:
-  delete          Delete a model
-  get             Get a model
-  import          Import a model
-  list            List models
-  list-serverless List available serverless models
+  scw inference model list-serverless
 
 FLAGS:
-  -h, --help                help for model
+  -h, --help                help for list-serverless
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
@@ -21,5 +14,3 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw inference model [command] --help" for more information about a command.

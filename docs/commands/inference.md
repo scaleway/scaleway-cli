@@ -18,6 +18,7 @@ This API allows you to handle your Generative APIs - Dedicated Deployment servic
   - [Get a model](#get-a-model)
   - [Import a model](#import-a-model)
   - [List models](#list-models)
+  - [List available serverless models](#list-available-serverless-models)
 - [Node types management commands](#node-types-management-commands)
   - [List available node types](#list-available-node-types)
 
@@ -326,6 +327,18 @@ scw inference model list [arg=value ...]
 | tags.{index} |  | Filter by tags |
 | organization-id |  | Filter by Organization ID |
 | region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### List available serverless models
+
+List all available serverless models using the OpenAI-compatible API endpoint. Prices per million of tokens.
+
+**Usage:**
+
+```shell
+scw inference model list-serverless
+```
 
 
 
