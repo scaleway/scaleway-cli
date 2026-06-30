@@ -26,6 +26,7 @@ func ParseSecretRef(raw string) (*ParsedSecretRef, error) {
 }
 
 var (
-	RenderTemplate = renderTemplate
-	IsSecretUUID   = isSecretUUID
+	RenderTemplate  = renderTemplate
+	IsSecretUUID    = isSecretUUID
+	WriteOutputFile = writeOutputFile
 )

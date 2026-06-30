@@ -128,14 +128,38 @@ func secretInjectRun(ctx context.Context, argsI any) (any, error) {
 			)
 		}
 
-		if err := os.WriteFile(args.OutFile, []byte(rendered), os.FileMode(mode)); err != nil {
-			return nil, fmt.Errorf("writing output file: %w", err)
+		if err := writeOutputFile(args.OutFile, rendered, os.FileMode(mode)); err != nil {
+			return nil, err
 		}
 
 		return &core.SuccessResult{Empty: true}, nil
 	}
 
 	return core.RawResult(rendered), nil
+}
+
+func writeOutputFile(path, content string, mode os.FileMode) (err error) {
+	f, err := os.OpenFile(path, os.O_WRONLY|os.O_CREATE|os.O_TRUNC, mode)
+	if err != nil {
+		return fmt.Errorf("writing output file: %w", err)
+	}
+
+	defer func() {
+		if cerr := f.Close(); cerr != nil && err == nil {
+			err = fmt.Errorf("writing output file: %w", cerr)
+		}
+	}()
+
+	// Chmod before writing so the secret never lands in a wider-mode file.
+	if err := f.Chmod(mode); err != nil {
+		return fmt.Errorf("setting output file permissions: %w", err)
+	}
+
+	if _, err := f.WriteString(content); err != nil {
+		return fmt.Errorf("writing output file: %w", err)
+	}
+
+	return nil
 }
 
 func readInjectInput(ctx context.Context, inFile string) (string, error) {

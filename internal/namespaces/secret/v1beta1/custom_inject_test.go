@@ -1,6 +1,8 @@
 package secret_test
 
 import (
+	"os"
+	"path/filepath"
 	"testing"
 
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
@@ -126,4 +128,21 @@ func Test_IsSecretUUID(t *testing.T) {
 			assert.Equal(t, tt.want, secret.IsSecretUUID(tt.input))
 		})
 	}
+}
+
+func Test_WriteOutputFile_EnforcesModeOnExistingFile(t *testing.T) {
+	path := filepath.Join(t.TempDir(), "out.yaml")
+
+	// Mimic a leftover world-readable file from a previous run.
+	require.NoError(t, os.WriteFile(path, []byte("old"), 0o644))
+
+	require.NoError(t, secret.WriteOutputFile(path, "secret-value", 0o600))
+
+	info, err := os.Stat(path)
+	require.NoError(t, err)
+	assert.Equal(t, os.FileMode(0o600), info.Mode().Perm())
+
+	data, err := os.ReadFile(path)
+	require.NoError(t, err)
+	assert.Equal(t, "secret-value", string(data))
 }
