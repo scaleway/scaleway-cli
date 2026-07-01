@@ -39,8 +39,7 @@ You will need to have the chosen binary installed on your system and in your PAT
 func registryLogoutRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*registryLogoutArgs)
 
-	region := args.Region.String()
-	endpoint := endpointPrefix + region + endpointSuffix
+	endpoint := getRegistryEndpoint(args.Region)
 
 	cmdArgs := []string{"logout", endpoint}
 	cmd := exec.Command(args.Program, cmdArgs...) //nolint:gosec
