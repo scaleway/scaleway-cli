@@ -17,7 +17,6 @@ ARGS:
   [rotation-policy.next-rotation-at]   Key next rotation date
   [unprotected]                        (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted
   [origin]                             Key origin (unknown_origin | scaleway_kms | external)
-  [protection-level]                   Key Protection level (unknown_protection_level | software | hsm)
   [region=fr-par]                      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
