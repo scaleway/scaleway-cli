@@ -1613,6 +1613,8 @@ func webhostingHostingList() *core.Command {
 					"locked",
 					"migrating",
 					"updating",
+					"payment_pending",
+					"payment_failed",
 				},
 			},
 			{
