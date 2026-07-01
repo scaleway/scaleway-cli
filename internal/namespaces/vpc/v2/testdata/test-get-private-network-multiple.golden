@@ -10,11 +10,12 @@ UpdatedAt                       few seconds ago
 VpcID                           086a5171-f7ab-4667-a231-840a81203f19
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/4715b0f1-7db9-47e1-a857-c2d25c6734df
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
-6f92b461-bd15-4766-a4d0-98431e2070e1  few seconds ago  few seconds ago  172.16.40.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19  
-8ff8ba73-6cef-4745-9226-effcfed300e6  few seconds ago  few seconds ago  fd46:78ab:30b8:e2da::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
+6f92b461-bd15-4766-a4d0-98431e2070e1  few seconds ago  few seconds ago  172.16.40.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19          -
+8ff8ba73-6cef-4745-9226-effcfed300e6  few seconds ago  few seconds ago  fd46:78ab:30b8:e2da::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  4715b0f1-7db9-47e1-a857-c2d25c6734df  086a5171-f7ab-4667-a231-840a81203f19          -
 
 Instance Servers:
 ID                                    NAME                     STATE     NIC ID                                MAC ADDRESS
@@ -75,6 +76,7 @@ f546daa5-be42-4c48-a6c3-54771576a628  fd46:78ab:30b8:e2da:deca:54ba:ba68:5d10/64
   "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/4715b0f1-7db9-47e1-a857-c2d25c6734df",
   "instance_servers": [
     {
       "id": "32ac2c08-28d6-4fbc-89ff-b196b3b6cdba",
