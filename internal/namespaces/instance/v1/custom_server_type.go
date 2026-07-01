@@ -144,6 +144,14 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 			if pcuServerType.Price != nil && pcuServerType.Price.RetailPrice != nil {
 				serverType.HourlyPrice = pcuServerType.Price.RetailPrice
+
+				if pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute {
+					serverType.HourlyPrice = scw.NewMoneyFromFloat(
+						serverType.HourlyPrice.ToFloat()*60,
+						serverType.HourlyPrice.CurrencyCode,
+						4,
+					)
+				}
 			}
 
 			if availability, exists := availabilitiesResponse.Servers[name]; exists {
