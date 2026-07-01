@@ -2,34 +2,6 @@
 # Documentation for `scw billing`
 This API allows you to query billing related objects.
 
-- [Budget management commands](#budget-management-commands)
-  - [Create a new budget.](#create-a-new-budget.)
-  - [Delete a budget.](#delete-a-budget.)
-  - [Fetch a budget.](#fetch-a-budget.)
-  - [List your budgets, filtering by `organization_id`.](#list-your-budgets,-filtering-by-`organization_id`.)
-  - [Update a budget.](#update-a-budget.)
-- [Budget alerts management commands](#budget-alerts-management-commands)
-  - [Create a new budget alert.](#create-a-new-budget-alert.)
-  - [Delete a budget alert.](#delete-a-budget-alert.)
-  - [Update a budget alert.](#update-a-budget-alert.)
-- [Budget alert notification management commands](#budget-alert-notification-management-commands)
-  - [Create a new budget alert notification.](#create-a-new-budget-alert-notification.)
-  - [Delete a budget alert notification.](#delete-a-budget-alert-notification.)
-  - [Update a budget alert notification.](#update-a-budget-alert-notification.)
-- [](#)
-  - [List charges](#list-charges)
-- [Consumption management commands](#consumption-management-commands)
-  - [Get monthly consumption](#get-monthly-consumption)
-  - [Get monthly consumption taxes](#get-monthly-consumption-taxes)
-- [Discount management commands](#discount-management-commands)
-  - [List discounts](#list-discounts)
-- [Invoice management commands](#invoice-management-commands)
-  - [Download an invoice](#download-an-invoice)
-  - [Export invoices](#export-invoices)
-  - [Get an invoice](#get-an-invoice)
-  - [List invoices](#list-invoices)
-
-
 ## Budget management commands
 
 Budget management commands.

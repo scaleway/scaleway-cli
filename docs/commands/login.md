@@ -5,5 +5,3 @@ A webpage will open while the CLI will wait for a response.
 Once you connected to Scaleway, the profile should be configured.
 
 
-
-

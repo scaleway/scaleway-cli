@@ -2,12 +2,6 @@
 # Documentation for `scw mcp`
 Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.
 
-- [MCP server management commands](#mcp-server-management-commands)
-  - [List available MCP resources](#list-available-mcp-resources)
-  - [List available MCP tools](#list-available-mcp-tools)
-  - [Start the MCP server](#start-the-mcp-server)
-
-
 ## MCP server management commands
 
 Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.

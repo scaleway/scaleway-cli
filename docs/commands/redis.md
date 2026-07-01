@@ -2,41 +2,6 @@
 # Documentation for `scw redis`
 This API allows you to manage your Managed Databases for Redis™.
 
-- [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
-  - [Add ACL rules for a cluster](#add-acl-rules-for-a-cluster)
-  - [Delete an ACL rule for a cluster](#delete-an-acl-rule-for-a-cluster)
-  - [Get an ACL rule](#get-an-acl-rule)
-  - [Set ACL rules for a cluster](#set-acl-rules-for-a-cluster)
-  - [Update an ACL rule for a Redis™ Database Instance (network rule)](#update-an-acl-rule-for-a-redis™-database-instance-(network-rule))
-- [Cluster management commands](#cluster-management-commands)
-  - [Connect to a Redis cluster using locally installed redis-cli](#connect-to-a-redis-cluster-using-locally-installed-redis-cli)
-  - [Create a Redis™ Database Instance](#create-a-redis™-database-instance)
-  - [Delete a Redis™ Database Instance](#delete-a-redis™-database-instance)
-  - [Get a Redis™ Database Instance](#get-a-redis™-database-instance)
-  - [Get the TLS certificate of a cluster](#get-the-tls-certificate-of-a-cluster)
-  - [List Redis™ Database Instances](#list-redis™-database-instances)
-  - [Get metrics of a Redis™ Database Instance](#get-metrics-of-a-redis™-database-instance)
-  - [Scale up a Redis™ Database Instance](#scale-up-a-redis™-database-instance)
-  - [Renew the TLS certificate of a cluster](#renew-the-tls-certificate-of-a-cluster)
-  - [Update a Redis™ Database Instance](#update-a-redis™-database-instance)
-  - [Wait for a Redis cluster to reach a stable state](#wait-for-a-redis-cluster-to-reach-a-stable-state)
-- [Endpoints management commands](#endpoints-management-commands)
-  - [Add endpoints for a cluster](#add-endpoints-for-a-cluster)
-  - [Delete an endpoint for a cluster](#delete-an-endpoint-for-a-cluster)
-  - [Get an endpoint](#get-an-endpoint)
-  - [Set endpoints for a cluster](#set-endpoints-for-a-cluster)
-  - [Update an endpoint](#update-an-endpoint)
-- [Node Types management commands](#node-types-management-commands)
-  - [List available node types](#list-available-node-types)
-- [Settings management commands](#settings-management-commands)
-  - [Add advanced settings](#add-advanced-settings)
-  - [Delete advanced setting](#delete-advanced-setting)
-  - [Set advanced settings](#set-advanced-settings)
-- [Redis™ version management commands](#redis™-version-management-commands)
-  - [List available Redis™ versions](#list-available-redis™-versions)
-  - [List available settings from a Redis™ version](#list-available-settings-from-a-redis™-version)
-
-
 ## Access Control List (ACL) management commands
 
 Network Access Control Lists (ACLs) allow you to manage network inbound traffic by setting up ACL rules.

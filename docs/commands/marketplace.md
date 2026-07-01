@@ -2,20 +2,6 @@
 # Documentation for `scw marketplace`
 This API allows you to find available images for use when launching a Scaleway Instance.
 
-- [Marketplace category management commands](#marketplace-category-management-commands)
-  - [Get a specific category](#get-a-specific-category)
-  - [List existing image categories](#list-existing-image-categories)
-- [Marketplace images management commands](#marketplace-images-management-commands)
-  - [Get a specific marketplace image](#get-a-specific-marketplace-image)
-  - [List marketplace images](#list-marketplace-images)
-- [Marketplace local images management commands](#marketplace-local-images-management-commands)
-  - [Get a specific local image by ID](#get-a-specific-local-image-by-id)
-  - [List local images from a specific image or version](#list-local-images-from-a-specific-image-or-version)
-- [Marketplace version management commands](#marketplace-version-management-commands)
-  - [Get a specific image version](#get-a-specific-image-version)
-  - [List versions of an Image](#list-versions-of-an-image)
-
-
 ## Marketplace category management commands
 
 Marketplace category management commands.

@@ -2,24 +2,6 @@
 # Documentation for `scw keymanager`
 This API allows you to conveniently store and use cryptographic keys.
 
-- [Key management commands](#key-management-commands)
-  - [Create a key](#create-a-key)
-  - [Decrypt an encrypted payload](#decrypt-an-encrypted-payload)
-  - [Delete a key](#delete-a-key)
-  - [Delete key material](#delete-key-material)
-  - [Disable key](#disable-key)
-  - [Enable key](#enable-key)
-  - [Encrypt a payload](#encrypt-a-payload)
-  - [Create a data encryption key](#create-a-data-encryption-key)
-  - [Get key metadata](#get-key-metadata)
-  - [Import key material](#import-key-material)
-  - [List keys](#list-keys)
-  - [Apply key protection](#apply-key-protection)
-  - [Rotate a key](#rotate-a-key)
-  - [Remove key protection](#remove-key-protection)
-  - [Update a key](#update-a-key)
-
-
 ## Key management commands
 
 Keys are logical containers which store cryptographic keys.

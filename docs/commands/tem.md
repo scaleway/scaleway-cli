@@ -2,39 +2,6 @@
 # Documentation for `scw tem`
 This API allows you to manage your Transactional Email services.
 
-- [Blocklist](#blocklist)
-  - [Bulk create blocklists](#bulk-create-blocklists)
-  - [Delete a blocklist](#delete-a-blocklist)
-  - [List blocklists](#list-blocklists)
-- [Domain management commands](#domain-management-commands)
-  - [Domain DNS check](#domain-dns-check)
-  - [Register a domain in a project](#register-a-domain-in-a-project)
-  - [Get information about a domain](#get-information-about-a-domain)
-  - [Display SPF, DKIM, DMARC and MX records status and potential errors](#display-spf,-dkim,-dmarc-and-mx-records-status-and-potential-errors)
-  - [List domains](#list-domains)
-  - [Delete a domain](#delete-a-domain)
-  - [Update a domain](#update-a-domain)
-- [Email management commands](#email-management-commands)
-  - [Cancel an email](#cancel-an-email)
-  - [Send an email](#send-an-email)
-  - [Get an email](#get-an-email)
-  - [Email statuses](#email-statuses)
-  - [List emails](#list-emails)
-- [Project offers management commands](#project-offers-management-commands)
-  - [List the available offers.](#list-the-available-offers.)
-  - [Update a subscribed offer](#update-a-subscribed-offer)
-- [Project consumption management commands](#project-consumption-management-commands)
-  - [Get project resource consumption.](#get-project-resource-consumption.)
-- [Project settings management commands](#project-settings-management-commands)
-- [Webhook management commands](#webhook-management-commands)
-  - [Create a Webhook](#create-a-webhook)
-  - [Delete a Webhook](#delete-a-webhook)
-  - [Get information about a Webhook](#get-information-about-a-webhook)
-  - [List Webhooks](#list-webhooks)
-  - [List Webhook triggered events](#list-webhook-triggered-events)
-  - [Update a Webhook](#update-a-webhook)
-
-
 ## Blocklist
 
 This section allows you to manage the blocklist of your emails.

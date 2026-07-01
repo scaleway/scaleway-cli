@@ -2,20 +2,6 @@
 # Documentation for `scw datalab`
 Clusters for Apache Spark™ API.
 
-- [](#)
-  - [List datalab resources](#list-datalab-resources)
-- [](#)
-  - [Create datalab resources](#create-datalab-resources)
-  - [Delete datalab resources](#delete-datalab-resources)
-  - [Get datalab resources](#get-datalab-resources)
-  - [List datalab resources](#list-datalab-resources)
-  - [Update datalab resources](#update-datalab-resources)
-- [](#)
-  - [List datalab resources](#list-datalab-resources)
-- [](#)
-  - [List datalab resources](#list-datalab-resources)
-
-
 ## 
 
 Lists the Apache Spark™ versions available for cluster creation.

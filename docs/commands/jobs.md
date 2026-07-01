@@ -2,32 +2,6 @@
 # Documentation for `scw jobs`
 This API allows you to manage your Serverless Jobs.
 
-- [](#)
-  - [Create a new job definition in a specified Project](#create-a-new-job-definition-in-a-specified-project)
-  - [Delete an existing job definition by its unique identifier](#delete-an-existing-job-definition-by-its-unique-identifier)
-  - [Get a job definition by its unique identifier](#get-a-job-definition-by-its-unique-identifier)
-  - [List all your job definitions with filters](#list-all-your-job-definitions-with-filters)
-  - [Run an existing job definition using its unique identifier and create a new job run](#run-an-existing-job-definition-using-its-unique-identifier-and-create-a-new-job-run)
-  - [Update an existing job definition associated with the specified unique identifier](#update-an-existing-job-definition-associated-with-the-specified-unique-identifier)
-- [](#)
-  - [Get a job run by its unique identifier](#get-a-job-run-by-its-unique-identifier)
-  - [List all job runs with filters](#list-all-job-runs-with-filters)
-  - [Stop a job run using its unique identifier](#stop-a-job-run-using-its-unique-identifier)
-  - [Wait for a job run to reach a stable state](#wait-for-a-job-run-to-reach-a-stable-state)
-- [](#)
-  - [Create a secret reference within a job definition](#create-a-secret-reference-within-a-job-definition)
-  - [Delete a secret reference within a job definition](#delete-a-secret-reference-within-a-job-definition)
-  - [Get a secret references within a job definition](#get-a-secret-references-within-a-job-definition)
-  - [List secrets references within a job definition](#list-secrets-references-within-a-job-definition)
-  - [Update a secret reference within a job definition](#update-a-secret-reference-within-a-job-definition)
-- [](#)
-  - [Create a trigger](#create-a-trigger)
-  - [Delete a trigger](#delete-a-trigger)
-  - [Get a trigger](#get-a-trigger)
-  - [List triggers of a job definition](#list-triggers-of-a-job-definition)
-  - [Update a trigger](#update-a-trigger)
-
-
 ## 
 
 

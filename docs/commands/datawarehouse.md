@@ -2,31 +2,6 @@
 # Documentation for `scw datawarehouse`
 Data Warehouse API.
 
-- [Database management commands](#database-management-commands)
-  - [Create a new database within a deployment](#create-a-new-database-within-a-deployment)
-  - [Delete a database from a deployment](#delete-a-database-from-a-deployment)
-  - [List databases within a deployment](#list-databases-within-a-deployment)
-- [Deployment management commands](#deployment-management-commands)
-  - [Create a deployment](#create-a-deployment)
-  - [Delete a deployment](#delete-a-deployment)
-  - [Get a deployment](#get-a-deployment)
-  - [Get deployment TLS certificate](#get-deployment-tls-certificate)
-  - [List deployments](#list-deployments)
-  - [Update a deployment](#update-a-deployment)
-- [Endpoint management commands](#endpoint-management-commands)
-  - [Create a new endpoint for a deployment](#create-a-new-endpoint-for-a-deployment)
-  - [Delete an endpoint from a deployment](#delete-an-endpoint-from-a-deployment)
-- [List available presets](#list-available-presets)
-  - [List available presets](#list-available-presets)
-- [User management commands](#user-management-commands)
-  - [Create a new user for a deployment](#create-a-new-user-for-a-deployment)
-  - [Delete a user from a deployment](#delete-a-user-from-a-deployment)
-  - [List users associated with a deployment](#list-users-associated-with-a-deployment)
-  - [Update an existing user for a deployment](#update-an-existing-user-for-a-deployment)
-- [List available Clickhouse® versions](#list-available-clickhouse®-versions)
-  - [List available ClickHouse® versions](#list-available-clickhouse®-versions)
-
-
 ## Database management commands
 
 Manage databases within a deployment.

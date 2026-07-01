@@ -2,39 +2,6 @@
 # Documentation for `scw s2s-vpn`
 This API allows you to manage your Site-to-Site VPN.
 
-- [A connection represents the IPsec tunnel between VPN gateway and customer gateway.](#a-connection-represents-the-ipsec-tunnel-between-vpn-gateway-and-customer-gateway.)
-  - [Create a connection](#create-a-connection)
-  - [Delete a connection](#delete-a-connection)
-  - [Detach a routing policy](#detach-a-routing-policy)
-  - [Disable route propagation](#disable-route-propagation)
-  - [Enable route propagation](#enable-route-propagation)
-  - [Get a connection](#get-a-connection)
-  - [List connections](#list-connections)
-  - [Renew pre-shared key](#renew-pre-shared-key)
-  - [Set a new routing policy](#set-a-new-routing-policy)
-  - [Update a connection](#update-a-connection)
-- [A customer gateway represents a Scaleway client's device that communicates with a VPN gateway.](#a-customer-gateway-represents-a-scaleway-client's-device-that-communicates-with-a-vpn-gateway.)
-  - [Create a customer gateway](#create-a-customer-gateway)
-  - [Delete a customer gateway](#delete-a-customer-gateway)
-  - [Get a customer gateway](#get-a-customer-gateway)
-  - [List customer gateways](#list-customer-gateways)
-  - [Update a customer gateway](#update-a-customer-gateway)
-- [By default, all routes across the Site-to-Site VPN (between VPN gateway and customer gateway) are blocked. Routing policies allow you to set filters to define the IP prefixes to allow.](#by-default,-all-routes-across-the-site-to-site-vpn-(between-vpn-gateway-and-customer-gateway)-are-blocked.-routing-policies-allow-you-to-set-filters-to-define-the-ip-prefixes-to-allow.)
-  - [Create a routing policy](#create-a-routing-policy)
-  - [Delete a routing policy](#delete-a-routing-policy)
-  - [Get routing policy](#get-routing-policy)
-  - [List routing policies](#list-routing-policies)
-  - [Update a routing policy](#update-a-routing-policy)
-- [A VPN gateway is an IPsec peer managed by Scaleway. It can support multiple connections to customer gateways.](#a-vpn-gateway-is-an-ipsec-peer-managed-by-scaleway.-it-can-support-multiple-connections-to-customer-gateways.)
-  - [Create VPN gateway](#create-vpn-gateway)
-  - [Delete a VPN gateway](#delete-a-vpn-gateway)
-  - [Get a VPN gateway](#get-a-vpn-gateway)
-  - [List VPN gateways](#list-vpn-gateways)
-  - [Update a VPN gateway](#update-a-vpn-gateway)
-- [VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.](#vpn-gateways-come-in-various-shapes,-sizes-and-prices,-which-are--described-by-vpn-gateway-types.-they-represent-the-different-commercial--offer-types-for-vpn-gateways-available-at-scaleway.)
-  - [List VPN gateway types](#list-vpn-gateway-types)
-
-
 ## A connection represents the IPsec tunnel between VPN gateway and customer gateway.
 
 A connection represents the IPsec tunnel between VPN gateway and customer gateway.

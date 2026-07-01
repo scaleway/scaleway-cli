@@ -2,48 +2,6 @@
 # Documentation for `scw baremetal`
 Elastic Metal - Private Networks API.
 
-- [Baseboard Management Controller (BMC) management commands](#baseboard-management-controller-(bmc)-management-commands)
-  - [Get BMC access](#get-bmc-access)
-  - [Start BMC access](#start-bmc-access)
-  - [Stop BMC access](#stop-bmc-access)
-- [Server offer management commands](#server-offer-management-commands)
-  - [Get offer](#get-offer)
-  - [List offers](#list-offers)
-- [Server options management commands](#server-options-management-commands)
-  - [Add server option](#add-server-option)
-  - [Delete server option](#delete-server-option)
-  - [Get option](#get-option)
-  - [List options](#list-options)
-- [Operating System (OS) management commands](#operating-system-(os)-management-commands)
-  - [Get OS with an ID](#get-os-with-an-id)
-  - [List available OSes](#list-available-oses)
-- [Partitioning-schemas management commands](#partitioning-schemas-management-commands)
-- [Private network management command](#private-network-management-command)
-  - [Add a server to a Private Network](#add-a-server-to-a-private-network)
-  - [Delete a Private Network](#delete-a-private-network)
-  - [List the Private Networks of a server](#list-the-private-networks-of-a-server)
-  - [Set multiple Private Networks on a server](#set-multiple-private-networks-on-a-server)
-- [Server management commands](#server-management-commands)
-  - [Attach a new flexible IP to a server](#attach-a-new-flexible-ip-to-a-server)
-  - [Create multiple Elastic Metal servers](#create-multiple-elastic-metal-servers)
-  - [Create an Elastic Metal server](#create-an-elastic-metal-server)
-  - [Delete an Elastic Metal server](#delete-an-elastic-metal-server)
-  - [Get a specific Elastic Metal server](#get-a-specific-elastic-metal-server)
-  - [Return server metrics](#return-server-metrics)
-  - [Install an Elastic Metal server](#install-an-elastic-metal-server)
-  - [List Elastic Metal servers for an Organization](#list-elastic-metal-servers-for-an-organization)
-  - [List server events](#list-server-events)
-  - [Reboot an Elastic Metal server](#reboot-an-elastic-metal-server)
-  - [Start an Elastic Metal server](#start-an-elastic-metal-server)
-  - [Stop an Elastic Metal server](#stop-an-elastic-metal-server)
-  - [Update an Elastic Metal server](#update-an-elastic-metal-server)
-  - [Update IP](#update-ip)
-  - [Wait for a server to reach a stable state (delivery and installation)](#wait-for-a-server-to-reach-a-stable-state-(delivery-and-installation))
-- [Settings management commands](#settings-management-commands)
-  - [List all settings](#list-all-settings)
-  - [Update setting](#update-setting)
-
-
 ## Baseboard Management Controller (BMC) management commands
 
 A Baseboard Management Controller (BMC) allows you to remotely access the low-level parameters of your dedicated server.

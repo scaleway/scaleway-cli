@@ -2,24 +2,6 @@
 # Documentation for `scw kafka`
 This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Public Beta.
 
-- [Cluster management commands](#cluster-management-commands)
-  - [Create a Kafka cluster](#create-a-kafka-cluster)
-  - [Delete a Kafka cluster](#delete-a-kafka-cluster)
-  - [Get a Kafka cluster](#get-a-kafka-cluster)
-  - [Get a Kafka cluster's certificate authority](#get-a-kafka-cluster's-certificate-authority)
-  - [List Kafka clusters](#list-kafka-clusters)
-  - [Renew the Kafka cluster's certificate authority](#renew-the-kafka-cluster's-certificate-authority)
-  - [Update a Kafka cluster](#update-a-kafka-cluster)
-- [Endpoints management commands](#endpoints-management-commands)
-- [Node types management commands](#node-types-management-commands)
-  - [List available node types](#list-available-node-types)
-- [Kafka users management commands](#kafka-users-management-commands)
-  - [List kafka resources](#list-kafka-resources)
-  - [Update kafka resources](#update-kafka-resources)
-- [Kafka version management commands](#kafka-version-management-commands)
-  - [List Kafka versions](#list-kafka-versions)
-
-
 ## Cluster management commands
 
 A Kafka cluster is composed of one or multiple dedicated compute nodes running a single Kafka broker.
