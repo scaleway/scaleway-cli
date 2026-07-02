@@ -112,29 +112,53 @@ func Test_Deploy(t *testing.T) {
 		DisableParallel: true,
 	}))
 
-	buildArgsPath := filepath.Join(path, "build-args")
-	t.Run("Build args", core.Test(&core.TestConfig{
-		Commands: commands,
-		BeforeFunc: core.BeforeFuncCombine(
-			mkdirAllBeforeFunc(buildArgsPath),
-			loadTestdataBeforeFunc(buildArgsPath, "index.html", testdataDockerIndexHTML),
-			loadTestdataBeforeFunc(buildArgsPath, "Dockerfile", testdataDockerDockerfileBuildArgs),
-		),
-		Cmd: fmt.Sprintf(
-			"scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest",
-			appName+"-ba",
-			buildArgsPath,
-		),
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			testDeleteContainersNamespaceAfter(appName+"-ba"),
-			testDeleteRegistryAfter(appName+"-ba"),
-		),
-		DisableParallel: true,
-	}))
+		buildArgsPath := filepath.Join(path, "build-args")
+		t.Run("Build args", core.Test(&core.TestConfig{
+			Commands: commands,
+			BeforeFunc: core.BeforeFuncCombine(
+				mkdirAllBeforeFunc(buildArgsPath),
+				loadTestdataBeforeFunc(buildArgsPath, "index.html", testdataDockerIndexHTML),
+				loadTestdataBeforeFunc(buildArgsPath, "Dockerfile", testdataDockerDockerfileBuildArgs),
+			),
+			Cmd: fmt.Sprintf(
+				"scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest",
+				appName+"-ba",
+				buildArgsPath,
+			),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				testDeleteContainersNamespaceAfter(appName+"-ba"),
+				testDeleteRegistryAfter(appName+"-ba"),
+			),
+			DisableParallel: true,
+		}))
+
+		platformPath := filepath.Join(path, "platform")
+		t.Run("Platform", core.Test(&core.TestConfig{
+			Commands: commands,
+			BeforeFunc: core.BeforeFuncCombine(
+				mkdirAllBeforeFunc(platformPath),
+				loadTestdataBeforeFunc(platformPath, "index.html", testdataDockerIndexHTML),
+				loadTestdataBeforeFunc(platformPath, "Dockerfile", testdataDockerDockerfile),
+			),
+			Cmd: fmt.Sprintf(
+				"scw container deploy name=%s build-source=%s port=80 platform=linux/amd64",
+				appName+"-pl",
+				platformPath,
+			),
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				testDeleteContainersNamespaceAfter(appName+"-pl"),
+				testDeleteRegistryAfter(appName+"-pl"),
+			),
+			DisableParallel: true,
+		}))
 
 	buildpackPath := filepath.Join(path, "bp")
 	t.Run("Buildpack", core.Test(&core.TestConfig{
