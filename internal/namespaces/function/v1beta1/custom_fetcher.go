@@ -23,7 +23,7 @@ func (f FetchNamespaces) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-// Fetch fetches all serverless functions in a given region.
+// Fetch fetches all serverless function namespaces in a given region.
 func (f FetchNamespaces) Fetch(
 	ctx context.Context,
 	region scw.Region,
