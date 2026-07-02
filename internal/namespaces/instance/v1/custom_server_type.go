@@ -145,7 +145,9 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			if pcuServerType.Price != nil && pcuServerType.Price.RetailPrice != nil {
 				serverType.HourlyPrice = pcuServerType.Price.RetailPrice
 
-				if pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute {
+				if pcuServerType.UnitOfMeasure != nil &&
+					pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute &&
+					pcuServerType.UnitOfMeasure.Size == 1 {
 					serverType.HourlyPrice = scw.NewMoneyFromFloat(
 						serverType.HourlyPrice.ToFloat()*60,
 						serverType.HourlyPrice.CurrencyCode,
