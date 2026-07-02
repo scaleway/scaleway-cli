@@ -23,7 +23,7 @@ func (s *FetchServers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-// Fetch fetches all block storage snapshots in a given zone.
+// Fetch fetches all Apple Silicon servers in a given zone.
 func (*FetchServers) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
