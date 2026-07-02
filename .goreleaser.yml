@@ -105,10 +105,16 @@ release:
 
 winget:
   - name: cli
-    publisher: Scaleway
+    publisher: Scaleway SAS
     short_description: Command Line Interface for Scaleway
     package_identifier: "Scaleway.cli"
     license: Apache-2.0
+    author: Scaleway
+    copyright: Copyright (c) Scaleway SAS
+    publisher_url: https://www.scaleway.com/en/
+    publisher_support_url: https://www.scaleway.com/en/docs/
+    license_url: https://github.com/scaleway/scaleway-cli/blob/master/LICENSE
+    release_notes_url: https://github.com/scaleway/scaleway-cli/releases/tag/{{ .Tag }}
     release_notes: "{{ .Changelog }}"
     repository:
       owner: scaleway
@@ -125,3 +131,7 @@ winget:
     tags:
       - golang
       - cli
+      - go
+      - scaleway
+      - scaleway-cli
+      - scw
