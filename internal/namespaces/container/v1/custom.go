@@ -38,7 +38,6 @@ func GetCommands() *core.Commands {
 	// Logs and Metrics
 	cmds.Merge(core.NewCommands(
 		containerLogs(),
-		// containerMetrics(), // TODO: coming soon
 	))
 
 	// Deploy
