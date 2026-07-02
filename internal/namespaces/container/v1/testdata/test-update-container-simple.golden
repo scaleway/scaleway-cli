@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         9cf4f426-b37d-45c4-9d6d-0238f2b9f307
-Name                                       cli-test-sad-matsumoto
-NamespaceID                                b0ea510a-60d3-44e1-a9ac-15fb94dac5e9
+ID                                         87c75c03-b24f-4ac7-8ad4-077afd53c726
+Name                                       cli-test-practical-turing
+NamespaceID                                a051f156-d2ef-4e56-9cba-220539e5b24a
 Description                                -
 Status                                     updating
 CreatedAt                                  few seconds ago
@@ -24,13 +24,13 @@ LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
 Tags.0                                     new_tag
-PublicEndpoint                             https://clinsvigorousmccarthb0ea510a-cli-test-sad-matsumoto.functions.fnc.fr-par.scw.cloud
+PublicEndpoint                             https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9cf4f426-b37d-45c4-9d6d-0238f2b9f307",
-  "name": "cli-test-sad-matsumoto",
-  "namespace_id": "b0ea510a-60d3-44e1-a9ac-15fb94dac5e9",
+  "id": "87c75c03-b24f-4ac7-8ad4-077afd53c726",
+  "name": "cli-test-practical-turing",
+  "namespace_id": "a051f156-d2ef-4e56-9cba-220539e5b24a",
   "description": "",
   "status": "updating",
   "error_message": null,
@@ -66,6 +66,6 @@ Region                                     fr-par
   "private_network_id": null,
   "command": [],
   "args": [],
-  "public_endpoint": "https://clinsvigorousmccarthb0ea510a-cli-test-sad-matsumoto.functions.fnc.fr-par.scw.cloud",
+  "public_endpoint": "https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud",
   "region": "fr-par"
 }

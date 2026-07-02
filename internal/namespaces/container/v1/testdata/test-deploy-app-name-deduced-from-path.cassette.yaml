@@ -1,635 +1,694 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"namespaces":[{"id":"7d69e92a-2a77-4990-b1a9-4f3328288562","name":"test-logs","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-04-02T14:39:58.610096Z","updated_at":"2026-04-02T14:39:58.610096Z","region":"fr-par"},{"id":"215d32e6-0fc8-421f-9d3a-2f5563b0ccdc","name":"tf-ns-mystifying-lederberg","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"9e652dfc-4754-4a39-8fba-73946886cee6","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-04T19:04:43.890850Z","updated_at":"2026-05-04T19:04:43.890850Z","region":"fr-par"}],"total_count":2}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"namespaces":[{"id":"7d69e92a-2a77-4990-b1a9-4f3328288562","name":"test-logs","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-04-02T14:39:58.610096Z","updated_at":"2026-04-02T14:39:58.610096Z","region":"fr-par"},{"id":"215d32e6-0fc8-421f-9d3a-2f5563b0ccdc","name":"tf-ns-mystifying-lederberg","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"9e652dfc-4754-4a39-8fba-73946886cee6","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-04T19:04:43.890850Z","updated_at":"2026-05-04T19:04:43.890850Z","region":"fr-par"}],"total_count":2}'
-    headers:
-      Content-Length:
-      - "815"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:25 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 1a1a5ec3-e12e-4fd2-8417-576cdfa01ee6
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
-    method: POST
-  response:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "400"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:26 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - e91533c2-a350-4ad1-8e92-9ced7647e3e9
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/f6147888-90d4-454b-865b-39c9581e5ec3
-    method: GET
-  response:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "400"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:26 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 7453ca9e-048b-4a29-ab36-1bbc36805d25
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/f6147888-90d4-454b-865b-39c9581e5ec3
-    method: GET
-  response:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "397"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:41 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 9747ffae-463c-4c0a-9074-00a3ce2978eb
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"namespaces":[],"total_count":0}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"namespaces":[],"total_count":0}'
-    headers:
-      Content-Length:
-      - "33"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:41 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 40df95c3-2509-46f5-96b5-da45398c9648
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"241f9e65-b434-4cbd-af70-ff3a4c4affd2","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":0,"created_at":"2026-05-18T18:15:41.719101236Z","updated_at":"2026-05-18T18:15:41.719101236Z","image_count":0,"region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
-    method: POST
-  response:
-    body: '{"id":"241f9e65-b434-4cbd-af70-ff3a4c4affd2","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":0,"created_at":"2026-05-18T18:15:41.719101236Z","updated_at":"2026-05-18T18:15:41.719101236Z","image_count":0,"region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "453"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:41 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 00570b82-3e44-4c53-9618-0ed6fb857a6d
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - moby-client/v0.0.0+unknown linux/amd64
-    url: http://%2Fvar%2Frun%2Fdocker.sock/_ping
-    method: HEAD
-  response:
-    body: ""
-    headers:
-      Api-Version:
-      - "1.54"
-      Builder-Version:
-      - "2"
-      Cache-Control:
-      - no-cache, no-store, must-revalidate
-      Content-Length:
-      - "0"
-      Content-Type:
-      - text/plain; charset=utf-8
-      Date:
-      - Mon, 18 May 2026 18:15:40 GMT
-      Docker-Experimental:
-      - "false"
-      Ostype:
-      - linux
-      Pragma:
-      - no-cache
-      Server:
-      - Docker/29.4.2 (linux)
-      Swarm:
-      - inactive
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: "{\"stream\":\"Step 1/4 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e 5e7abcdd2021\\n\"}\r\n{\"stream\":\"Step 2/4 : RUN apk add --no-cache
-      curl git bash\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e bdf1ef9cfce3\\n\"}\r\n{\"stream\":\"Step
-      3/4 : COPY ./index.html /usr/share/nginx/html/index.html\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e 2526015042db\\n\"}\r\n{\"stream\":\"Step
-      4/4 : EXPOSE 80\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e 128b9541e8f4\\n\"}\r\n{\"aux\":{\"ID\":\"sha256:128b9541e8f4049bff9157a34f9100835fd23878a9cd35c85713a229582dafeb\"}}\r\n{\"stream\":\"Successfully
-      built 128b9541e8f4\\n\"}\r\n{\"stream\":\"Successfully tagged rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest\\n\"}\r\n"
-    form: {}
-    headers:
-      Content-Type:
-      - application/x-tar
-      User-Agent:
-      - moby-client/v0.0.0+unknown linux/amd64
-      X-Registry-Config:
-      - bnVsbA==
-    url: http://%2Fvar%2Frun%2Fdocker.sock/v1.54/build?dockerfile=Dockerfile&rm=0&t=rg.fr-par.scw.cloud%2Fapp-cli-t-ctnr-deploy-fp%2Fapp-cli-t-ctnr-deploy-fp%3Alatest
-    method: POST
-  response:
-    body: "{\"stream\":\"Step 1/4 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e 5e7abcdd2021\\n\"}\r\n{\"stream\":\"Step 2/4 : RUN apk add --no-cache
-      curl git bash\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e bdf1ef9cfce3\\n\"}\r\n{\"stream\":\"Step
-      3/4 : COPY ./index.html /usr/share/nginx/html/index.html\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e 2526015042db\\n\"}\r\n{\"stream\":\"Step
-      4/4 : EXPOSE 80\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e 128b9541e8f4\\n\"}\r\n{\"aux\":{\"ID\":\"sha256:128b9541e8f4049bff9157a34f9100835fd23878a9cd35c85713a229582dafeb\"}}\r\n{\"stream\":\"Successfully
-      built 128b9541e8f4\\n\"}\r\n{\"stream\":\"Successfully tagged rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest\\n\"}\r\n"
-    headers:
-      Api-Version:
-      - "1.54"
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:40 GMT
-      Docker-Experimental:
-      - "false"
-      Ostype:
-      - linux
-      Server:
-      - Docker/29.4.2 (linux)
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp]\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":3018},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5120,\"total\":3018},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":144},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4096,\"total\":144},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":4619},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7168,\"total\":4619},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":402944,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2511872,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4593152,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7141888,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9697792,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11401728,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":99328,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13105664,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":984576,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15241216,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2262528,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4224512,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15667200,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4322816,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":17797632,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5946368,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18224640,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6735360,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8114176,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8619008,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19938304,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":22458368,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":24575488,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":25008640,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":27983360,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":2125},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4608,\"total\":2125},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":29656064,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":31328992,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":389},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2560,\"total\":389},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":1620},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3584,\"total\":1620},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":32607744,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":34295296,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":36416000,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":38531584,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":40922624,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":71168,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":714752,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2098176,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3544064,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4589568,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":101376,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2050608,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4033536,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6786048,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8607232,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"latest:
-      digest: sha256:31fc4e83ff776cddf67e01af79e15b4e5a12bf9981e52cfb83411536de41ea97
-      size: 2407\"}\r\n{\"progressDetail\":{},\"aux\":{\"Tag\":\"latest\",\"Digest\":\"sha256:31fc4e83ff776cddf67e01af79e15b4e5a12bf9981e52cfb83411536de41ea97\",\"Size\":2407}}\r\n"
-    form: {}
-    headers:
-      User-Agent:
-      - moby-client/v0.0.0+unknown linux/amd64
-      X-Registry-Auth:
-      - eyJ1c2VybmFtZSI6IlNDVzJXSDRNOVFBQzZQV0VKU0pBIiwicGFzc3dvcmQiOiIxMTRhMDFlNi1hOTIxLTRiMjgtOTQ1ZC0zYWU3YmU4NDkyZDEiLCJzZXJ2ZXJhZGRyZXNzIjoicmcuZnItcGFyLnNjdy5jbG91ZC9hcHAtY2xpLXQtY3Ruci1kZXBsb3ktZnAifQ==
-    url: http://%2Fvar%2Frun%2Fdocker.sock/v1.54/images/rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp/push?tag=latest
-    method: POST
-  response:
-    body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp]\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":3018},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5120,\"total\":3018},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":144},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4096,\"total\":144},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":4619},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7168,\"total\":4619},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":402944,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2511872,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4593152,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7141888,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9697792,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11401728,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":99328,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13105664,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":984576,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15241216,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2262528,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4224512,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15667200,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4322816,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":17797632,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5946368,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18224640,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6735360,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8114176,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8619008,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19938304,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":22458368,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":24575488,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":25008640,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":27983360,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":2125},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4608,\"total\":2125},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":29656064,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":31328992,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":389},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2560,\"total\":389},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":1620},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3584,\"total\":1620},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":32607744,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":34295296,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":36416000,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":38531584,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":40922624,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":71168,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":714752,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2098176,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3544064,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4589568,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":101376,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2050608,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4033536,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6786048,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8607232,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"latest:
-      digest: sha256:31fc4e83ff776cddf67e01af79e15b4e5a12bf9981e52cfb83411536de41ea97
-      size: 2407\"}\r\n{\"progressDetail\":{},\"aux\":{\"Tag\":\"latest\",\"Digest\":\"sha256:31fc4e83ff776cddf67e01af79e15b4e5a12bf9981e52cfb83411536de41ea97\",\"Size\":2407}}\r\n"
-    headers:
-      Api-Version:
-      - "1.54"
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:40 GMT
-      Docker-Experimental:
-      - "false"
-      Ostype:
-      - linux
-      Server:
-      - Docker/29.4.2 (linux)
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"containers":[],"total_count":0}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers?name=app-cli-t-ctnr-deploy-fp&namespace_id=f6147888-90d4-454b-865b-39c9581e5ec3&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"containers":[],"total_count":0}'
-    headers:
-      Content-Length:
-      - "33"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:55 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 7dae28bf-5983-41c9-917d-54bf8b5a8e22
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"21bc13b5-9972-45b7-9699-04e21c2e4ef7","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"f6147888-90d4-454b-865b-39c9581e5ec3","description":"","status":"creating","created_at":"2026-05-18T18:15:55.658571Z","updated_at":"2026-05-18T18:15:55.658571Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfpf6147888-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-    form: {}
-    headers:
-      Content-Type:
-      - application/json
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
-    method: POST
-  response:
-    body: '{"id":"21bc13b5-9972-45b7-9699-04e21c2e4ef7","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"f6147888-90d4-454b-865b-39c9581e5ec3","description":"","status":"creating","created_at":"2026-05-18T18:15:55.658571Z","updated_at":"2026-05-18T18:15:55.658571Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfpf6147888-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "954"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:55 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - dcb493ce-92ac-4bd4-a4df-b0b0040a452d
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"21bc13b5-9972-45b7-9699-04e21c2e4ef7","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"f6147888-90d4-454b-865b-39c9581e5ec3","description":"","status":"creating","created_at":"2026-05-18T18:15:55.658571Z","updated_at":"2026-05-18T18:15:55.658571Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfpf6147888-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/21bc13b5-9972-45b7-9699-04e21c2e4ef7
-    method: GET
-  response:
-    body: '{"id":"21bc13b5-9972-45b7-9699-04e21c2e4ef7","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"f6147888-90d4-454b-865b-39c9581e5ec3","description":"","status":"creating","created_at":"2026-05-18T18:15:55.658571Z","updated_at":"2026-05-18T18:15:55.658571Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfpf6147888-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "954"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:15:55 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 995985b4-767a-4c6a-a82d-f68c93675449
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"21bc13b5-9972-45b7-9699-04e21c2e4ef7","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"f6147888-90d4-454b-865b-39c9581e5ec3","description":"","status":"ready","error_message":"","created_at":"2026-05-18T18:15:55.658571Z","updated_at":"2026-05-18T18:16:03Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfpf6147888-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/21bc13b5-9972-45b7-9699-04e21c2e4ef7
-    method: GET
-  response:
-    body: '{"id":"21bc13b5-9972-45b7-9699-04e21c2e4ef7","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"f6147888-90d4-454b-865b-39c9581e5ec3","description":"","status":"ready","error_message":"","created_at":"2026-05-18T18:15:55.658571Z","updated_at":"2026-05-18T18:16:03Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfpf6147888-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "963"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:10 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 767d0809-6aa8-48c5-9fda-2c201d2d2870
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"namespaces":[{"id":"7d69e92a-2a77-4990-b1a9-4f3328288562","name":"test-logs","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-04-02T14:39:58.610096Z","updated_at":"2026-04-02T14:39:58.610096Z","region":"fr-par"},{"id":"215d32e6-0fc8-421f-9d3a-2f5563b0ccdc","name":"tf-ns-mystifying-lederberg","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"9e652dfc-4754-4a39-8fba-73946886cee6","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-04T19:04:43.890850Z","updated_at":"2026-05-04T19:04:43.890850Z","region":"fr-par"},{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}],"total_count":3}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"namespaces":[{"id":"7d69e92a-2a77-4990-b1a9-4f3328288562","name":"test-logs","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-04-02T14:39:58.610096Z","updated_at":"2026-04-02T14:39:58.610096Z","region":"fr-par"},{"id":"215d32e6-0fc8-421f-9d3a-2f5563b0ccdc","name":"tf-ns-mystifying-lederberg","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"9e652dfc-4754-4a39-8fba-73946886cee6","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-04T19:04:43.890850Z","updated_at":"2026-05-04T19:04:43.890850Z","region":"fr-par"},{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:15:25.645026Z","region":"fr-par"}],"total_count":3}'
-    headers:
-      Content-Length:
-      - "1213"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:11 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 04f20d2e-f0db-4eb1-9d2e-a3b05123c30c
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:16:11.127671Z","region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/f6147888-90d4-454b-865b-39c9581e5ec3
-    method: DELETE
-  response:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:16:11.127671Z","region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "400"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:11 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fd4e0296-a36d-4472-b1fb-7e42879da11d
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:16:11.127671Z","region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/f6147888-90d4-454b-865b-39c9581e5ec3
-    method: GET
-  response:
-    body: '{"id":"f6147888-90d4-454b-865b-39c9581e5ec3","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:15:25.645026Z","updated_at":"2026-05-18T18:16:11.127671Z","region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "400"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:11 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - ca943ed7-6e9b-4082-9206-77f8da099bfc
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"message":"resource is not found","resource":"namespace","resource_id":"f6147888-90d4-454b-865b-39c9581e5ec3","type":"not_found"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/f6147888-90d4-454b-865b-39c9581e5ec3
-    method: GET
-  response:
-    body: '{"message":"resource is not found","resource":"namespace","resource_id":"f6147888-90d4-454b-865b-39c9581e5ec3","type":"not_found"}'
-    headers:
-      Content-Length:
-      - "130"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:26 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 96f47d2e-9a79-4000-8195-2468bb28e00f
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: '{"namespaces":[{"id":"241f9e65-b434-4cbd-af70-ff3a4c4affd2","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":26776297,"created_at":"2026-05-18T18:15:41.719101Z","updated_at":"2026-05-18T18:15:55.415256Z","image_count":1,"region":"fr-par"}],"total_count":1}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
-    method: GET
-  response:
-    body: '{"namespaces":[{"id":"241f9e65-b434-4cbd-af70-ff3a4c4affd2","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":26776297,"created_at":"2026-05-18T18:15:41.719101Z","updated_at":"2026-05-18T18:15:55.415256Z","image_count":1,"region":"fr-par"}],"total_count":1}'
-    headers:
-      Content-Length:
-      - "487"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:26 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 18b67c02-1945-429e-a8b1-a4e5123b69b8
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"241f9e65-b434-4cbd-af70-ff3a4c4affd2","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":26776297,"created_at":"2026-05-18T18:15:41.719101Z","updated_at":"2026-05-18T18:16:26.356906507Z","image_count":1,"region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/241f9e65-b434-4cbd-af70-ff3a4c4affd2
-    method: DELETE
-  response:
-    body: '{"id":"241f9e65-b434-4cbd-af70-ff3a4c4affd2","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":26776297,"created_at":"2026-05-18T18:15:41.719101Z","updated_at":"2026-05-18T18:16:26.356906507Z","image_count":1,"region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "460"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Mon, 18 May 2026 18:16:26 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge03)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 79941369-5ba2-4b53-bcd7-00e4d3333e61
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - app-cli-t-ctnr-deploy-fp
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 33
+        body: '{"namespaces":[],"total_count":0}'
+        headers:
+            Content-Length:
+                - "33"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:02 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 94d09599-6c17-4419-ba63-de19c31e5e05
+        status: 200 OK
+        code: 200
+        duration: 129.767463ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 164
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"app-cli-t-ctnr-deploy-fp","environment_variables":null,"secret_environment_variables":null,"tags":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 400
+        body: '{"id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-22T15:05:05.375501Z","updated_at":"2026-05-22T15:05:05.375501Z","region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "400"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - a5001c5a-3d0a-4dd1-8325-0b91ba0e909f
+        status: 200 OK
+        code: 200
+        duration: 3.055841701s
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/8a01b95c-e62a-48c4-872d-f6c261ba8606
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 400
+        body: '{"id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-22T15:05:05.375501Z","updated_at":"2026-05-22T15:05:05.375501Z","region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "400"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 36ff90eb-ef70-4cd4-b450-8f88bdf5a005
+        status: 200 OK
+        code: 200
+        duration: 44.359703ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/8a01b95c-e62a-48c4-872d-f6c261ba8606
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 397
+        body: '{"id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-22T15:05:05.375501Z","updated_at":"2026-05-22T15:05:05.375501Z","region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "397"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 0a2e1ee6-d3f3-4473-b95e-dbfa4182aa63
+        status: 200 OK
+        code: 200
+        duration: 57.141045ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - app-cli-t-ctnr-deploy-fp
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 33
+        body: '{"namespaces":[],"total_count":0}'
+        headers:
+            Content-Length:
+                - "33"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 464397b6-064c-4f1d-9923-a9925b167900
+        status: 200 OK
+        code: 200
+        duration: 59.545154ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 122
+        host: api.scaleway.com
+        body: '{"name":"app-cli-t-ctnr-deploy-fp","description":"","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","is_public":false}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 453
+        body: '{"id":"39e4c232-a6f3-4df8-8285-dfcc2a3565e0","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":0,"created_at":"2026-05-22T15:05:21.306506302Z","updated_at":"2026-05-22T15:05:21.306506302Z","image_count":0,"region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "453"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - f6f68d61-524f-4a99-8111-8c3bf98481cb
+        status: 200 OK
+        code: 200
+        duration: 116.289624ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.moby.localhost
+        headers:
+            User-Agent:
+                - moby-client/v0.0.0+unknown linux/amd64
+        url: http:///var/run/docker.sock/_ping
+        method: HEAD
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        body: ""
+        headers:
+            Api-Version:
+                - "1.54"
+            Builder-Version:
+                - "2"
+            Cache-Control:
+                - no-cache, no-store, must-revalidate
+            Content-Length:
+                - "0"
+            Content-Type:
+                - text/plain; charset=utf-8
+            Date:
+                - Fri, 22 May 2026 15:05:21 GMT
+            Docker-Experimental:
+                - "false"
+            Ostype:
+                - linux
+            Pragma:
+                - no-cache
+            Server:
+                - Docker/29.4.2 (linux)
+            Swarm:
+                - inactive
+        status: 200 OK
+        code: 200
+        duration: 475.163µs
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.moby.localhost
+        body: "Dockerfile\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\00000600\00001750\00001750\000000000164\015204070236\0011260\0 0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0ustar\000\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\00000000\00000000\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0FROM nginx:alpine\nRUN apk add --no-cache curl git bash\nCOPY ./index.html /usr/share/nginx/html/index.html\nEXPOSE 80\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0index.html\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\00000600\00001750\00001750\000000000220\015204070236\0011254\0 0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0ustar\000\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\00000000\00000000\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0<!DOCTYPE html>\n<html>\n\n<head>\n    <title>My container</title>\n</head>\n\n<body>\n    <h1>Deployed with scw container deploy</h1>\n</body>\n\n</html>\n\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0\0"
+        form:
+            dockerfile:
+                - Dockerfile
+            rm:
+                - "0"
+            t:
+                - rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest
+        headers:
+            Content-Type:
+                - application/x-tar
+            User-Agent:
+                - moby-client/v0.0.0+unknown linux/amd64
+            X-Registry-Config:
+                - bnVsbA==
+        url: http:///var/run/docker.sock/v1.54/build?dockerfile=Dockerfile&rm=0&t=rg.fr-par.scw.cloud%2Fapp-cli-t-ctnr-deploy-fp%2Fapp-cli-t-ctnr-deploy-fp%3Alatest
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        content_length: -1
+        body: "{\"stream\":\"Step 1/4 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e 5e7abcdd2021\\n\"}\r\n{\"stream\":\"Step 2/4 : RUN apk add --no-cache curl git bash\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e bdf1ef9cfce3\\n\"}\r\n{\"stream\":\"Step 3/4 : COPY ./index.html /usr/share/nginx/html/index.html\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e 2526015042db\\n\"}\r\n{\"stream\":\"Step 4/4 : EXPOSE 80\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e 128b9541e8f4\\n\"}\r\n{\"aux\":{\"ID\":\"sha256:128b9541e8f4049bff9157a34f9100835fd23878a9cd35c85713a229582dafeb\"}}\r\n{\"stream\":\"Successfully built 128b9541e8f4\\n\"}\r\n{\"stream\":\"Successfully tagged rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest\\n\"}\r\n"
+        headers:
+            Api-Version:
+                - "1.54"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:21 GMT
+            Docker-Experimental:
+                - "false"
+            Ostype:
+                - linux
+            Server:
+                - Docker/29.4.2 (linux)
+        status: 200 OK
+        code: 200
+        duration: 2.653297ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.moby.localhost
+        form:
+            tag:
+                - latest
+        headers:
+            User-Agent:
+                - moby-client/v0.0.0+unknown linux/amd64
+            X-Registry-Auth:
+                - eyJ1c2VybmFtZSI6IlNDVzJXSDRNOVFBQzZQV0VKU0pBIiwicGFzc3dvcmQiOiIxMTRhMDFlNi1hOTIxLTRiMjgtOTQ1ZC0zYWU3YmU4NDkyZDEiLCJzZXJ2ZXJhZGRyZXNzIjoicmcuZnItcGFyLnNjdy5jbG91ZC9hcHAtY2xpLXQtY3Ruci1kZXBsb3ktZnAifQ==
+        url: http:///var/run/docker.sock/v1.54/images/rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp/push?tag=latest
+        method: POST
+      response:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        transfer_encoding:
+            - chunked
+        content_length: -1
+        body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp]\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Preparing\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":3018},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5120,\"total\":3018},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":4619},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7168,\"total\":4619},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":99328,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":144},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4096,\"total\":144},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1574400,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2950656,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":402944,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3933696,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2511872,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5848064,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4593152,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7515648,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7567872,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8619008,\"total\":8456691},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9697792,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11827712,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":14380544,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"dc45ec6c902b\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16090624,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18645504,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":20770816,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":22458368,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":24575488,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":389},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2560,\"total\":389},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":26714624,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":28826112,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":31328992,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"db5c9fbe944f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":33443328,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":35147264,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":36841984,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"205429c26d8c\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":38531584,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":40922624,\"total\":40291778},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":2125},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4608,\"total\":2125},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"3e4655a38876\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":512,\"total\":1620},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3584,\"total\":1620},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e9a26559275d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":71168,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1573888,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3216384,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4589568,\"total\":4130469},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"ed6be5e2fd33\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":101376,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":2270208,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4033536,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6589440,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"abbef7f88314\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8167936,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8607232,\"total\":8322300},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"1967fccdbe5e\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"256f393e029f\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"1704c5a3d8da\"}\r\n{\"status\":\"latest: digest: sha256:31fc4e83ff776cddf67e01af79e15b4e5a12bf9981e52cfb83411536de41ea97 size: 2407\"}\r\n{\"progressDetail\":{},\"aux\":{\"Tag\":\"latest\",\"Digest\":\"sha256:31fc4e83ff776cddf67e01af79e15b4e5a12bf9981e52cfb83411536de41ea97\",\"Size\":2407}}\r\n"
+        headers:
+            Api-Version:
+                - "1.54"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:21 GMT
+            Docker-Experimental:
+                - "false"
+            Ostype:
+                - linux
+            Server:
+                - Docker/29.4.2 (linux)
+        status: 200 OK
+        code: 200
+        duration: 11.866774ms
+    - id: 9
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - app-cli-t-ctnr-deploy-fp
+            namespace_id:
+                - 8a01b95c-e62a-48c4-872d-f6c261ba8606
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers?name=app-cli-t-ctnr-deploy-fp&namespace_id=8a01b95c-e62a-48c4-872d-f6c261ba8606&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 33
+        body: '{"containers":[],"total_count":0}'
+        headers:
+            Content-Length:
+                - "33"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:50 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 7e71e70d-3b6d-43d3-aaa3-1c23f1d1d94e
+        status: 200 OK
+        code: 200
+        duration: 46.757861ms
+    - id: 10
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 376
+        host: api.scaleway.com
+        body: '{"namespace_id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","environment_variables":null,"secret_environment_variables":null,"privacy":"unknown_privacy","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"unknown_protocol","port":80,"sandbox":"unknown_sandbox","tags":null,"command":null,"args":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 954
+        body: '{"id":"eef65894-f1bc-4459-a04f-6583ff998d92","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","description":"","status":"creating","created_at":"2026-05-22T15:05:51.093156Z","updated_at":"2026-05-22T15:05:51.093156Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfp8a01b95c-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "954"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 2c98be1f-00f4-4d06-a7da-d2dc76fa3977
+        status: 200 OK
+        code: 200
+        duration: 487.962324ms
+    - id: 11
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/eef65894-f1bc-4459-a04f-6583ff998d92
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 954
+        body: '{"id":"eef65894-f1bc-4459-a04f-6583ff998d92","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","description":"","status":"creating","created_at":"2026-05-22T15:05:51.093156Z","updated_at":"2026-05-22T15:05:51.093156Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfp8a01b95c-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "954"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:05:51 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 5805c975-8745-4cda-826c-3809015901a1
+        status: 200 OK
+        code: 200
+        duration: 45.539862ms
+    - id: 12
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/eef65894-f1bc-4459-a04f-6583ff998d92
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 1011
+        body: '{"id":"eef65894-f1bc-4459-a04f-6583ff998d92","name":"app-cli-t-ctnr-deploy-fp","namespace_id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","description":"","status":"error","error_message":"image was not found in container registry","created_at":"2026-05-22T15:05:51.093156Z","updated_at":"2026-05-22T15:05:51.908870Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp/app-cli-t-ctnr-deploy-fp:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://appclitctnrdeployfp8a01b95c-app-cli-t-ctnr-deploy-fp.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "1011"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - cf88a7f2-6037-4e85-8512-b114ac59a7b1
+        status: 200 OK
+        code: 200
+        duration: 62.028593ms
+    - id: 13
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - app-cli-t-ctnr-deploy-fp
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 430
+        body: '{"namespaces":[{"id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-22T15:05:05.375501Z","updated_at":"2026-05-22T15:05:05.375501Z","region":"fr-par"}],"total_count":1}'
+        headers:
+            Content-Length:
+                - "430"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - ccc651e8-4f15-4782-be3e-8f22c0500bfb
+        status: 200 OK
+        code: 200
+        duration: 274.124179ms
+    - id: 14
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/8a01b95c-e62a-48c4-872d-f6c261ba8606
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 400
+        body: '{"id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-22T15:05:05.375501Z","updated_at":"2026-05-22T15:06:06.864254Z","region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "400"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 3dacd784-b024-46e6-8a36-3dfe3f573c22
+        status: 200 OK
+        code: 200
+        duration: 67.192199ms
+    - id: 15
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/8a01b95c-e62a-48c4-872d-f6c261ba8606
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 400
+        body: '{"id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","name":"app-cli-t-ctnr-deploy-fp","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-22T15:05:05.375501Z","updated_at":"2026-05-22T15:06:06.864254Z","region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "400"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:06 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 817095f7-8db5-4eea-a414-d3e76416d6c9
+        status: 200 OK
+        code: 200
+        duration: 36.329411ms
+    - id: 16
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/8a01b95c-e62a-48c4-872d-f6c261ba8606
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 130
+        body: '{"message":"resource is not found","resource":"namespace","resource_id":"8a01b95c-e62a-48c4-872d-f6c261ba8606","type":"not_found"}'
+        headers:
+            Content-Length:
+                - "130"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:21 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - 5a898d2c-19cc-45e5-af79-28b00cfbf47b
+        status: 404 Not Found
+        code: 404
+        duration: 18.495953ms
+    - id: 17
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            name:
+                - app-cli-t-ctnr-deploy-fp
+            order_by:
+                - created_at_asc
+            page:
+                - "1"
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=app-cli-t-ctnr-deploy-fp&order_by=created_at_asc&page=1
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 487
+        body: '{"namespaces":[{"id":"39e4c232-a6f3-4df8-8285-dfcc2a3565e0","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":26776297,"created_at":"2026-05-22T15:05:21.306506Z","updated_at":"2026-05-22T15:05:50.866237Z","image_count":1,"region":"fr-par"}],"total_count":1}'
+        headers:
+            Content-Length:
+                - "487"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - a4618e65-65a2-49da-83cf-2b86348373c1
+        status: 200 OK
+        code: 200
+        duration: 62.869334ms
+    - id: 18
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/39e4c232-a6f3-4df8-8285-dfcc2a3565e0
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 460
+        body: '{"id":"39e4c232-a6f3-4df8-8285-dfcc2a3565e0","name":"app-cli-t-ctnr-deploy-fp","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/app-cli-t-ctnr-deploy-fp","is_public":false,"size":26776297,"created_at":"2026-05-22T15:05:21.306506Z","updated_at":"2026-05-22T15:06:22.074434412Z","image_count":1,"region":"fr-par"}'
+        headers:
+            Content-Length:
+                - "460"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 22 May 2026 15:06:22 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge03)
+            X-Request-Id:
+                - cfb48092-7c79-421b-98aa-6afa5f52bda1
+        status: 200 OK
+        code: 200
+        duration: 66.650461ms
