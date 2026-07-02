@@ -32,12 +32,13 @@ func (s supportedTool) ToStringArray() []string {
 }
 
 type s3config struct {
-	AccessKey string
-	SecretKey string
-	Region    scw.Region
-	Name      string
-	ProjectID string
-	HomeDir   string
+	AccessKey  string
+	SecretKey  string
+	Region     scw.Region
+	Name       string
+	ProjectID  string
+	HomeDir    string
+	S3Endpoint string
 }
 
 const (

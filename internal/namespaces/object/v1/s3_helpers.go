@@ -4,7 +4,6 @@ package object
 
 import (
 	"context"
-	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -16,7 +15,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
+func newS3Client(ctx context.Context, region scw.Region, s3Endpoint string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -27,13 +26,6 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
 		return nil
-	}
-
-	var customEndpoint string
-	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
-		customEndpoint = ep
-	} else {
-		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
 	}
 
 	options := []func(*middleware.Stack) error{
@@ -54,7 +46,7 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 				SecretAccessKey: secretKey,
 			}, nil
 		}),
-		BaseEndpoint: new(customEndpoint),
+		BaseEndpoint: new(s3Endpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 	})
