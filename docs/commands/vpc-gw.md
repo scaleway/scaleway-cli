@@ -2,38 +2,6 @@
 # Documentation for `scw vpc-gw`
 This API allows you to manage your Public Gateways.
 
-- [Public Gateway management](#public-gateway-management)
-  - [Create a Public Gateway](#create-a-public-gateway)
-  - [Delete a Public Gateway](#delete-a-public-gateway)
-  - [Get a Public Gateway](#get-a-public-gateway)
-  - [List Public Gateways](#list-public-gateways)
-  - [Refresh a Public Gateway's SSH keys](#refresh-a-public-gateway's-ssh-keys)
-  - [Update a Public Gateway](#update-a-public-gateway)
-  - [Upgrade a Public Gateway to the latest version and/or to a different commercial offer type](#upgrade-a-public-gateway-to-the-latest-version-andor-to-a-different-commercial-offer-type)
-- [Gateway Networks management](#gateway-networks-management)
-  - [Attach a Public Gateway to a Private Network](#attach-a-public-gateway-to-a-private-network)
-  - [Detach a Public Gateway from a Private Network](#detach-a-public-gateway-from-a-private-network)
-  - [Get a Public Gateway connection to a Private Network](#get-a-public-gateway-connection-to-a-private-network)
-  - [List Public Gateway connections to Private Networks](#list-public-gateway-connections-to-private-networks)
-  - [Update a Public Gateway's connection to a Private Network](#update-a-public-gateway's-connection-to-a-private-network)
-- [Gateway types information](#gateway-types-information)
-  - [List Public Gateway types](#list-public-gateway-types)
-- [IP address management](#ip-address-management)
-  - [Reserve an IP](#reserve-an-ip)
-  - [Delete an IP](#delete-an-ip)
-  - [Get an IP](#get-an-ip)
-  - [List IPs](#list-ips)
-  - [Update an IP](#update-an-ip)
-- [PAT rules management](#pat-rules-management)
-  - [Create a PAT rule](#create-a-pat-rule)
-  - [Delete a PAT rule](#delete-a-pat-rule)
-  - [Edit all PAT rules of a Public Gateway](#edit-all-pat-rules-of-a-public-gateway)
-  - [Get a PAT rule](#get-a-pat-rule)
-  - [List PAT rules](#list-pat-rules)
-  - [Set all PAT rules](#set-all-pat-rules)
-  - [Update a PAT rule](#update-a-pat-rule)
-
-
 ## Public Gateway management
 
 Public Gateways are building blocks for your infrastructure on Scaleway's shared public cloud. They provide a set of managed network services and features for Scaleway's Private Networks such NAT and PAT rules.

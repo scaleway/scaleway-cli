@@ -2,17 +2,6 @@
 # Documentation for `scw object`
 Object-storage utils
 
-- [Manage S3 buckets](#manage-s3-buckets)
-  - [Create an S3 bucket](#create-an-s3-bucket)
-  - [Delete an S3 bucket](#delete-an-s3-bucket)
-  - [Get information about an S3 bucket](#get-information-about-an-s3-bucket)
-  - [List S3 buckets](#list-s3-buckets)
-  - [Update an S3 bucket](#update-an-s3-bucket)
-- [Manage configuration files for popular S3 tools](#manage-configuration-files-for-popular-s3-tools)
-  - [Generate a S3 tool configuration file](#generate-a-s3-tool-configuration-file)
-  - [Install a S3 tool configuration file to its default location](#install-a-s3-tool-configuration-file-to-its-default-location)
-
-
 ## Manage S3 buckets
 
 Manage S3 buckets creation, deletion and updates to properties like tags, ACL and versioning.

@@ -2,15 +2,6 @@
 # Documentation for `scw partner`
 Scaleway Partner API ( for partner only ).
 
-- [Organization management commands](#organization-management-commands)
-  - [Create a new organization](#create-a-new-organization)
-  - [Get an organization](#get-an-organization)
-  - [List Organizations](#list-organizations)
-  - [Lock an organization](#lock-an-organization)
-  - [Unlock an organization](#unlock-an-organization)
-  - [Update an organization](#update-an-organization)
-
-
 ## Organization management commands
 
 Organization management commands.

@@ -2,16 +2,6 @@
 # Documentation for `scw ipam`
 This API allows you to manage your Scaleway IP addresses with our IP Address Management tool.
 
-- [IP management command](#ip-management-command)
-  - [Reserve a new IP](#reserve-a-new-ip)
-  - [Release an IP](#release-an-ip)
-  - [Get an IP](#get-an-ip)
-  - [List existing IPs](#list-existing-ips)
-  - [Update an IP](#update-an-ip)
-- [Management command for sets of IPs](#management-command-for-sets-of-ips)
-  - [Release ipam resources](#release-ipam-resources)
-
-
 ## IP management command
 
 *ips_long.

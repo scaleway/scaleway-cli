@@ -2,27 +2,6 @@
 # Documentation for `scw secret`
 This API allows you to manage your Secret Manager services, for storing, accessing and sharing sensitive data such as passwords, API keys and certificates.
 
-- [Secret management commands](#secret-management-commands)
-  - [Allow a product to use the secret](#allow-a-product-to-use-the-secret)
-  - [Create a secret](#create-a-secret)
-  - [Delete a secret](#delete-a-secret)
-  - [Get metadata using the secret's ID](#get-metadata-using-the-secret's-id)
-  - [List secrets](#list-secrets)
-  - [Enable secret protection](#enable-secret-protection)
-  - [Disable secret protection](#disable-secret-protection)
-  - [Update metadata of a secret](#update-metadata-of-a-secret)
-- [Secret Version management commands](#secret-version-management-commands)
-  - [Access a secret's version using the secret's ID](#access-a-secret's-version-using-the-secret's-id)
-  - [Access a secret's version using the secret's name and path](#access-a-secret's-version-using-the-secret's-name-and-path)
-  - [Create a version](#create-a-version)
-  - [Delete a version](#delete-a-version)
-  - [Disable a version](#disable-a-version)
-  - [Enable a version](#enable-a-version)
-  - [Get metadata of a secret's version using the secret's ID](#get-metadata-of-a-secret's-version-using-the-secret's-id)
-  - [List versions of a secret using the secret's ID](#list-versions-of-a-secret-using-the-secret's-id)
-  - [Update metadata of a version](#update-metadata-of-a-version)
-
-
 ## Secret management commands
 
 Secrets are logical containers made up of zero or more immutable versions, that contain sensitive data.

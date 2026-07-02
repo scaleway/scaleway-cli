@@ -2,26 +2,6 @@
 # Documentation for `scw block`
 This API allows you to manage your Block Storage volumes.
 
-- [A Block Storage snapshot is a read-only picture of a Block volume, taken at a specific time](#a-block-storage-snapshot-is-a-read-only-picture-of-a-block-volume,-taken-at-a-specific-time)
-  - [Create a snapshot of a volume](#create-a-snapshot-of-a-volume)
-  - [Delete a snapshot](#delete-a-snapshot)
-  - [Export a snapshot to a Scaleway Object Storage bucket](#export-a-snapshot-to-a-scaleway-object-storage-bucket)
-  - [Get a snapshot](#get-a-snapshot)
-  - [Import a snapshot from a Scaleway Object Storage bucket](#import-a-snapshot-from-a-scaleway-object-storage-bucket)
-  - [List all snapshots](#list-all-snapshots)
-  - [Update a snapshot](#update-a-snapshot)
-  - [Wait for snapshot to reach a stable state](#wait-for-snapshot-to-reach-a-stable-state)
-- [A Block Storage volume is a logical storage drive on a network-connected storage system. It is exposed to Instances as if it were a physical disk, and can be attached and detached like a hard drive. Several Block volumes can be attached to one Instance at a time](#a-block-storage-volume-is-a-logical-storage-drive-on-a-network-connected-storage-system.-it-is-exposed-to-instances-as-if-it-were-a-physical-disk,-and-can-be-attached-and-detached-like-a-hard-drive.-several-block-volumes-can-be-attached-to-one-instance-at-a-time)
-  - [Create a volume](#create-a-volume)
-  - [Delete a detached volume](#delete-a-detached-volume)
-  - [Get a volume](#get-a-volume)
-  - [List volumes](#list-volumes)
-  - [Update a volume](#update-a-volume)
-  - [Wait for volume to reach a stable state](#wait-for-volume-to-reach-a-stable-state)
-- [Block Storage volume types are determined by their storage class and their IOPS. There are two storage classes available: `bssd` and `sbs`. The IOPS can be chosen for volumes of the `sbs` storage class](#block-storage-volume-types-are-determined-by-their-storage-class-and-their-iops.-there-are-two-storage-classes-available:-`bssd`-and-`sbs`.-the-iops-can-be-chosen-for-volumes-of-the-`sbs`-storage-class)
-  - [List volume types](#list-volume-types)
-
-
 ## A Block Storage snapshot is a read-only picture of a Block volume, taken at a specific time
 
 You can then revert your data to the previous snapshot. You can also create a new read/write Block volume from a previous snapshot.

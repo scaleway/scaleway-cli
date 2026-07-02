@@ -2,48 +2,6 @@
 # Documentation for `scw function`
 Function as a Service API.
 
-- [Cron management commands](#cron-management-commands)
-  - [Create a new cron](#create-a-new-cron)
-  - [Delete an existing cron](#delete-an-existing-cron)
-  - [Get a cron](#get-a-cron)
-  - [List all crons](#list-all-crons)
-  - [Update an existing cron](#update-an-existing-cron)
-- [Deploy a function](#deploy-a-function)
-- [Domain management commands](#domain-management-commands)
-  - [Create a domain name binding](#create-a-domain-name-binding)
-  - [Delete a domain name binding](#delete-a-domain-name-binding)
-  - [Get a domain name binding](#get-a-domain-name-binding)
-  - [List all domain name bindings](#list-all-domain-name-bindings)
-- [Function management commands](#function-management-commands)
-  - [Create a new function](#create-a-new-function)
-  - [Delete a function](#delete-a-function)
-  - [Deploy a function](#deploy-a-function)
-  - [Get a function](#get-a-function)
-  - [Get a download URL of a function](#get-a-download-url-of-a-function)
-  - [Get an upload URL of a function](#get-an-upload-url-of-a-function)
-  - [List all your functions](#list-all-your-functions)
-  - [Update an existing function](#update-an-existing-function)
-- [Function namespace management commands](#function-namespace-management-commands)
-  - [Create a new namespace](#create-a-new-namespace)
-  - [Delete an existing namespace](#delete-an-existing-namespace)
-  - [Get a namespace](#get-a-namespace)
-  - [List all your namespaces](#list-all-your-namespaces)
-  - [Update an existing namespace](#update-an-existing-namespace)
-- [Runtime management commands](#runtime-management-commands)
-  - [List function runtimes](#list-function-runtimes)
-- [Token management commands](#token-management-commands)
-  - [Create a new revocable token](#create-a-new-revocable-token)
-  - [Delete a token](#delete-a-token)
-  - [Get a token](#get-a-token)
-  - [List all tokens](#list-all-tokens)
-- [Trigger management commands](#trigger-management-commands)
-  - [Create a trigger](#create-a-trigger)
-  - [Delete a trigger](#delete-a-trigger)
-  - [Get a trigger](#get-a-trigger)
-  - [List all triggers](#list-all-triggers)
-  - [Update a trigger](#update-a-trigger)
-
-
 ## Cron management commands
 
 Cron management commands.

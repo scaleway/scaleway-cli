@@ -2,17 +2,6 @@
 # Documentation for `scw file`
 This API allows you to manage your File Storage resources.
 
-- [Attachment management](#attachment-management)
-  - [List filesystems attachments](#list-filesystems-attachments)
-- [Filesystem management](#filesystem-management)
-  - [Create a new filesystem](#create-a-new-filesystem)
-  - [Delete a detached filesystem](#delete-a-detached-filesystem)
-  - [Get filesystem details](#get-filesystem-details)
-  - [List all filesystems](#list-all-filesystems)
-  - [Update filesystem properties](#update-filesystem-properties)
-- [Filesystem-type management](#filesystem-type-management)
-
-
 ## Attachment management
 
 Attachment management.

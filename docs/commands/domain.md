@@ -2,45 +2,6 @@
 # Documentation for `scw domain`
 Manage your domains and contacts.
 
-- [Contact management](#contact-management)
-  - [Check if contacts are compatible with a domain or a TLD](#check-if-contacts-are-compatible-with-a-domain-or-a-tld)
-  - [Get a contact](#get-a-contact)
-  - [List contacts](#list-contacts)
-  - [Update contact](#update-contact)
-- [Domain management](#domain-management)
-  - [Disable auto renew](#disable-auto-renew)
-  - [Disable a domain's DNSSEC](#disable-a-domain's-dnssec)
-  - [Enable auto renew](#enable-auto-renew)
-  - [Update domain DNSSEC](#update-domain-dnssec)
-  - [Get domain](#get-domain)
-  - [Get a domain's authorization code](#get-a-domain's-authorization-code)
-  - [List domains](#list-domains)
-  - [List domains that can be renewed](#list-domains-that-can-be-renewed)
-  - [Lock the transfer of a domain](#lock-the-transfer-of-a-domain)
-  - [Search available domains](#search-available-domains)
-  - [Unlock the transfer of a domain](#unlock-the-transfer-of-a-domain)
-  - [Update a domain's contacts](#update-a-domain's-contacts)
-- [External domain management](#external-domain-management)
-  - [Delete an external domain](#delete-an-external-domain)
-  - [Register an external domain](#register-an-external-domain)
-- [Domain host management](#domain-host-management)
-  - [Create a hostname for a domain](#create-a-hostname-for-a-domain)
-  - [Delete a domain's hostname](#delete-a-domain's-hostname)
-  - [List a domain's hostnames](#list-a-domain's-hostnames)
-  - [Update a domain's hostname](#update-a-domain's-hostname)
-- [Domain order operations](#domain-order-operations)
-  - [Purchase domains](#purchase-domains)
-  - [Renew domains](#renew-domains)
-  - [Trade a domain's contact](#trade-a-domain's-contact)
-  - [Transfer a domain](#transfer-a-domain)
-- [Task management](#task-management)
-  - [List tasks](#list-tasks)
-  - [List inbound domain transfers](#list-inbound-domain-transfers)
-  - [Retry the inbound transfer of a domain](#retry-the-inbound-transfer-of-a-domain)
-- [TLD management](#tld-management)
-  - [List TLD offers](#list-tld-offers)
-
-
 ## Contact management
 
 Contact management.

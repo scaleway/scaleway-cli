@@ -2,10 +2,6 @@
 # Documentation for `scw autocomplete`
 Autocomplete related commands
 
-- [Install autocomplete script](#install-autocomplete-script)
-- [Show autocomplete script for current shell](#show-autocomplete-script-for-current-shell)
-
-
 ## Install autocomplete script
 
 Install autocomplete script for a given shell and OS.
