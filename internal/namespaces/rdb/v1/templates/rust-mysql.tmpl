@@ -1,0 +1,11 @@
+{{- if .PrivateNetworkID }}// Connect from a resource attached to private network {{ .PrivateNetworkID }}
+{{ end -}}
+use sqlx::mysql::MySqlPoolOptions;
+
+#[tokio::main]
+async fn main() -> Result<(), sqlx::Error> {
+    let pool = MySqlPoolOptions::new().connect("{{ .MySQLDSN }}").await?;
+    let _ = pool;
+    Ok(())
+}
+

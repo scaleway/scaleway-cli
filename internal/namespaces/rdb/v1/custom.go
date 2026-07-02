@@ -40,6 +40,9 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(aclRuleActionMarshalSpecs),
 	)
 
+	cmds.Add(rdbConfigRoot())
+	cmds.Add(rdbConfigGetCommand())
+
 	cmds.Merge(core.NewCommands(
 		aclEditCommand(),
 		backupDownloadCommand(),

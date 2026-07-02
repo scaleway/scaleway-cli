@@ -18,6 +18,8 @@ This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
   - [Restore a database backup](#restore-a-database-backup)
   - [Update a database backup](#update-a-database-backup)
   - [Wait for a backup to reach a stable state](#wait-for-a-backup-to-reach-a-stable-state)
+- [Database client configuration snippets](#database-client-configuration-snippets)
+  - [Generate a database client configuration snippet](#generate-a-database-client-configuration-snippet)
 - [Database management commands](#database-management-commands)
   - [Create a database in a Database Instance](#create-a-database-in-a-database-instance)
   - [Delete a database in a Database Instance](#delete-a-database-in-a-database-instance)
@@ -412,6 +414,78 @@ scw rdb backup wait <backup-id ...> [arg=value ...]
 Wait for a backup to reach a stable state
 ```shell
 scw rdb backup wait 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+## Database client configuration snippets
+
+Generate ready-to-use database client configuration snippets.
+
+
+### Generate a database client configuration snippet
+
+Generate a ready-to-use database client configuration snippet for a Database Instance.
+
+Supported languages:
+  - php: PHP connection snippet (pg_connect for PostgreSQL, PDO for MySQL).
+  - node: Node.js connection snippet (pg or mysql2).
+  - typescript: TypeScript connection snippet (pg or mysql2).
+  - python: Python connection snippet (psycopg2 or mysql.connector).
+  - go: Go connection snippet (database/sql with pgx or go-sql-driver/mysql).
+  - rust: Rust connection snippet (sqlx).
+
+Use private-network=true when the instance has no public endpoint and is reachable only
+from resources attached to its Private Network.
+Replace YOUR_PASSWORD with your database user password, or use environment variables
+where suggested in the snippet.
+
+**Usage:**
+
+```
+scw rdb config get <instance-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| instance-id | Required | ID of the Database Instance |
+| type | Required<br />One of: `php`, `node`, `typescript`, `python`, `go`, `rust` | Configuration template type |
+| user |  | Database user to connect as |
+| db |  | Database name to connect to (defaults to rdb) |
+| private-network |  | Use the Private Network endpoint instead of the public one |
+| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+**Examples:**
+
+
+Generate a PHP connection snippet
+```
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=php
+```
+
+Generate a Node.js connection snippet for a custom user and database
+```
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=node user=myuser db=mydb
+```
+
+Generate a Python connection snippet using the Private Network endpoint
+```
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=python private-network=true
+```
+
+Generate a Go connection snippet
+```
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=go
+```
+
+Generate a Rust connection snippet
+```
+scw rdb config get 11111111-1111-1111-1111-111111111111 type=rust
 ```
 
 
