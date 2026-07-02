@@ -1,0 +1,993 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:40:35.772982Z","region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:40:35.772982Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "398"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:40:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ca50a736-2936-46be-b3da-3ff22f8da27b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:40:35.772982Z","region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7
+    method: GET
+  response:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:40:35.772982Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "398"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:40:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e721b948-7c7c-4502-9916-f0e52814fc17
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:40:35.772982Z","region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7
+    method: GET
+  response:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:40:35.772982Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "395"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:40:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5b340ec8-2b1e-4d05-a22b-626457929de3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
+    method: POST
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:40:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6c899caa-7a04-4515-9bf4-6bc6e9d9217a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:40:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e28a41ca-950e-4d92-ac0e-f89a8ca4fd64
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:41:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 709f7180-276a-4a2a-89c6-5bb16202006e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:41:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 2aa1fe06-8057-4217-ae41-e0a139186454
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:41:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cb9e6327-0213-4d75-b732-a3c1d2be6635
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:41:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c1628386-f0f9-40f2-bbbf-d7dadde3f928
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:42:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8ccb1791-ce2b-4265-a7cc-e55650ef801e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:42:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ee4f548e-975e-4c16-b168-9b32ba92609e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:42:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cf25c294-dafb-451e-b38c-a5257c6fc2c4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:42:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c3f62aee-ec0c-4201-9ac7-7f37e97763b8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:43:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - cd63e417-2ae5-4f5f-939c-00d80d04713e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:43:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 68858459-7912-4b81-93ea-a2c4329e1372
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:43:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 85a6b5fe-bd39-4ff0-b0d1-da3645376c48
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:43:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 0d1e3794-8a91-44b6-bce3-ad2b67c4bc51
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:44:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 83c6272c-d10d-452b-a16c-024b3f3c5501
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:44:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 394619cb-3c63-44f0-b2e6-9079583d4653
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:44:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - bdc2160c-66eb-4323-ba67-c366f39c8aa5
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:44:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 231970ef-69be-445c-9f6f-c14198f11a0e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:45:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f52a7eac-e246-4af0-a59f-563cd1412828
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:45:23 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 20c1014c-6620-4764-bf6e-cd7251d7477a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:45:38 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7037f2a1-d4be-4558-8973-4475e9c113bf
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"creating","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:40:51.482716Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "902"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:45:53 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 74d09ad5-2728-4a27-9abd-3382100c517d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"error","error_message":"Container
+      is unable to start OR is not listening on port 8080","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:45:53Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/ab8f563d-4ec6-4c98-9365-ed8e2826d017
+    method: GET
+  response:
+    body: '{"id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","name":"cli-test-logs-pensive-pike","namespace_id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","description":"","status":"error","error_message":"Container
+      is unable to start OR is not listening on port 8080","created_at":"2026-06-22T10:40:51.482716Z","updated_at":"2026-06-22T10:45:53Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"hello-world:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "972"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:46:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c247f6b9-60ae-47c8-8683-85781d85b762
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"total_count":1,"data_sources":[{"id":"70f266df-eee2-4689-9c46-3284861909c9","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"Scaleway
+      Logs","url":"https://70f266df-eee2-4689-9c46-3284861909c9.logs.cockpit.fr-par.scw.cloud","type":"logs","origin":"scaleway","created_at":"2024-04-17T14:54:47.534704Z","updated_at":"2024-04-17T14:54:47.534704Z","synchronized_with_grafana":true,"retention_days":7,"current_month_usage":32244860,"region":"fr-par"}]}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/cockpit/v1/regions/fr-par/data-sources?order_by=created_at_asc&origin=scaleway&page=1&project_id=fa1e3217-dc80-42ac-85c3-3f034b78b552&types=logs
+    method: GET
+  response:
+    body: '{"total_count":1,"data_sources":[{"id":"70f266df-eee2-4689-9c46-3284861909c9","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"Scaleway
+      Logs","url":"https://70f266df-eee2-4689-9c46-3284861909c9.logs.cockpit.fr-par.scw.cloud","type":"logs","origin":"scaleway","created_at":"2024-04-17T14:54:47.534704Z","updated_at":"2024-04-17T14:54:47.534704Z","synchronized_with_grafana":true,"retention_days":7,"current_month_usage":32244860,"region":"fr-par"}]}'
+    headers:
+      Content-Length:
+      - "459"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:46:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e8a1b579-8a7a-4fcf-b9bd-f9b90a49b360
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"f0c896e3-a4b7-4d8d-b691-0417621ae3e3","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-generated-for-container-logs","created_at":"2026-06-22T10:46:08.401571Z","updated_at":"2026-06-22T10:46:08.401571Z","scopes":["read_only_logs"],"secret_key":"Orj5B5cSlUVxSFJ9DYlgg-yiLjH-HPftlCmED6XkLbfV_fVsRvuaPNCEe8EpZOJo","region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/cockpit/v1/regions/fr-par/tokens
+    method: POST
+  response:
+    body: '{"id":"f0c896e3-a4b7-4d8d-b691-0417621ae3e3","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-generated-for-container-logs","created_at":"2026-06-22T10:46:08.401571Z","updated_at":"2026-06-22T10:46:08.401571Z","scopes":["read_only_logs"],"secret_key":"Orj5B5cSlUVxSFJ9DYlgg-yiLjH-HPftlCmED6XkLbfV_fVsRvuaPNCEe8EpZOJo","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "351"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:46:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8c6b99fe-b76a-4e39-b8da-10bbd38ae81e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: |
+      {"status":"success","data":{"resultType":"streams","result":[{"stream":{"detected_level":"unknown","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_name":"default","region":"fr-par","resource_id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","resource_name":"clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike","resource_type":"serverless_container","service_name":"serverless_container"},"values":[["1782125044967423474","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967418424","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782125044967412493","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782125044967403857","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967397185","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782125044967390221","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782125044967383048","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967376616","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782125044967367768","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782125044967360314","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967353872","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782125044967346809","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782125044967339846","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782125044967330869","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782125044967323235","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782125044967315911","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782125044967307506","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782125044967299511","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782125044967291855","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967281406","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782125044967267449","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782125044967146010","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012408154","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012401351","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124954012393747","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124954012384930","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012378398","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124954012371043","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124954012363880","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012357247","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124954012348361","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124954012341768","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012336358","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124954012330718","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782124954012325047","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782124954012319296","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782124954012313255","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782124954012307344","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782124954012301271","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782124954012295040","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782124954012288207","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012279821","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782124954012265625","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782124954012139566","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009895430","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009892554","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124902009889268","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124902009885181","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009882005","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124902009877556","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124902009874240","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009871285","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124902009867307","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124902009863410","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009860353","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124902009856706","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782124902009851076","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782124902009847709","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782124902009844283","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782124902009840125","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782124902009835897","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782124902009832551","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782124902009829155","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009824676","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782124902009817813","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782124902009716101","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063124975","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063118483","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124872063110326","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124872063101982","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063095259","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124872063087954","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124872063080551","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063074008","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124872063066304","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124872063058680","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063051877","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124872063044763","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782124872063037099","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782124872063029505","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782124872063022020","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782124872063013544","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782124872062960854","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782124872062953050","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782124872062944574","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872062934555","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782124872062920888","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782124872062824027","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180587807","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180582326","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124857180576405","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124857180569663","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180564293","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124857180558482","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124857180552721","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180547251","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124857180540338","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124857180534457","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180528946","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124857180523015","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"]]}],"stats":{"summary":{"bytesProcessedPerSecond":704571,"linesProcessedPerSecond":4355,"totalBytesProcessed":35590,"totalLinesProcessed":220,"execTime":0.050513,"queueTime":0.000815,"subqueries":0,"totalEntriesReturned":100,"splits":1,"shards":1,"totalPostFilterLines":220,"totalStructuredMetadataBytesProcessed":1760},"querier":{"store":{"totalChunksRef":0,"totalChunksDownloaded":0,"chunksDownloadTime":0,"queryReferencedStructuredMetadata":false,"queryUsedV2Engine":false,"chunk":{"headChunkBytes":0,"headChunkLines":0,"decompressedBytes":0,"decompressedLines":0,"compressedBytes":0,"totalDuplicates":100,"postFilterLines":0,"headChunkStructuredMetadataBytes":0,"decompressedStructuredMetadataBytes":0},"chunkRefsFetchTime":20109054,"congestionControlLatency":0,"pipelineWrapperFilteredLines":0,"dataobj":{"prePredicateDecompressedRows":0,"prePredicateDecompressedBytes":0,"prePredicateDecompressedStructuredMetadataBytes":0,"postPredicateRows":0,"postPredicateDecompressedBytes":0,"postPredicateStructuredMetadataBytes":0,"postFilterRows":0,"pagesScanned":0,"pagesDownloaded":0,"pagesDownloadedBytes":0,"pageBatches":0,"totalRowsAvailable":0,"totalPageDownloadTime":0}},"querierExecTime":0.050503},"ingester":{"totalReached":30,"totalChunksMatched":2,"totalBatches":20,"totalLinesSent":200,"store":{"totalChunksRef":0,"totalChunksDownloaded":0,"chunksDownloadTime":0,"queryReferencedStructuredMetadata":false,"queryUsedV2Engine":false,"chunk":{"headChunkBytes":35590,"headChunkLines":220,"decompressedBytes":0,"decompressedLines":0,"compressedBytes":0,"totalDuplicates":0,"postFilterLines":220,"headChunkStructuredMetadataBytes":1760,"decompressedStructuredMetadataBytes":0},"chunkRefsFetchTime":0,"congestionControlLatency":0,"pipelineWrapperFilteredLines":0,"dataobj":{"prePredicateDecompressedRows":0,"prePredicateDecompressedBytes":0,"prePredicateDecompressedStructuredMetadataBytes":0,"postPredicateRows":0,"postPredicateDecompressedBytes":0,"postPredicateStructuredMetadataBytes":0,"postFilterRows":0,"pagesScanned":0,"pagesDownloaded":0,"pagesDownloadedBytes":0,"pageBatches":0,"totalRowsAvailable":0,"totalPageDownloadTime":0}},"recvWaitTime":0.000394},"cache":{"chunk":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"index":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"result":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"statsResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"volumeResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"seriesResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"labelResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"instantMetricResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0}},"index":{"totalChunks":0,"postFilterChunks":0,"shardsDuration":0,"usedBloomFilters":false,"totalStreams":0,"chunkRefsLookupTime":0.018032,"bloomFilterTime":0}}}}
+    form: {}
+    headers:
+      X-Token:
+      - Orj5B5cSlUVxSFJ9DYlgg-yiLjH-HPftlCmED6XkLbfV_fVsRvuaPNCEe8EpZOJo
+    url: https://70f266df-eee2-4689-9c46-3284861909c9.logs.cockpit.fr-par.scw.cloud/loki/api/v1/query_range?end=2026-06-22T12%3A46%3A08%2B02%3A00&query=%7Bresource_type%3D%22serverless_container%22%2C+resource_id%3D%22ab8f563d-4ec6-4c98-9365-ed8e2826d017%22%7D&start=2026-06-22T10%3A46%3A08%2B02%3A00
+    method: GET
+  response:
+    body: |
+      {"status":"success","data":{"resultType":"streams","result":[{"stream":{"detected_level":"unknown","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_name":"default","region":"fr-par","resource_id":"ab8f563d-4ec6-4c98-9365-ed8e2826d017","resource_name":"clinsgracioushooverea3f9c46-cli-test-logs-pensive-pike","resource_type":"serverless_container","service_name":"serverless_container"},"values":[["1782125044967423474","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967418424","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782125044967412493","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782125044967403857","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967397185","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782125044967390221","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782125044967383048","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967376616","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782125044967367768","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782125044967360314","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967353872","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782125044967346809","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782125044967339846","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782125044967330869","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782125044967323235","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782125044967315911","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782125044967307506","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782125044967299511","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782125044967291855","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782125044967281406","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782125044967267449","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782125044967146010","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012408154","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012401351","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124954012393747","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124954012384930","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012378398","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124954012371043","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124954012363880","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012357247","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124954012348361","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124954012341768","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012336358","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124954012330718","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782124954012325047","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782124954012319296","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782124954012313255","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782124954012307344","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782124954012301271","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782124954012295040","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782124954012288207","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124954012279821","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782124954012265625","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782124954012139566","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009895430","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009892554","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124902009889268","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124902009885181","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009882005","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124902009877556","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124902009874240","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009871285","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124902009867307","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124902009863410","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009860353","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124902009856706","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782124902009851076","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782124902009847709","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782124902009844283","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782124902009840125","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782124902009835897","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782124902009832551","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782124902009829155","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124902009824676","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782124902009817813","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782124902009716101","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063124975","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063118483","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124872063110326","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124872063101982","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063095259","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124872063087954","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124872063080551","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063074008","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124872063066304","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124872063058680","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872063051877","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124872063044763","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"],["1782124872063037099","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    executable that produces the output you are currently reading.\"}"],["1782124872063029505","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 3. The Docker daemon created a new container from that image which runs the\"}"],["1782124872063022020","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    (amd64)\"}"],["1782124872063013544","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 2. The Docker daemon pulled the \\\"hello-world\\\" image from the Docker Hub.\"}"],["1782124872062960854","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 1. The Docker client contacted the Docker daemon.\"}"],["1782124872062953050","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To generate this message, Docker took the following steps:\"}"],["1782124872062944574","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124872062934555","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"This message shows that your installation appears to be working correctly.\"}"],["1782124872062920888","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Hello from Docker!\"}"],["1782124872062824027","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180587807","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180582326","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://docs.docker.com/get-started/\"}"],["1782124857180576405","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"For more examples and ideas, visit:\"}"],["1782124857180569663","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180564293","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" https://hub.docker.com/\"}"],["1782124857180558482","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"Share images, automate workflows, and more with a free Docker ID:\"}"],["1782124857180552721","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180547251","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" $ docker run -it ubuntu bash\"}"],["1782124857180540338","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"To try something more ambitious, you can run an Ubuntu container with:\"}"],["1782124857180534457","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"\"}"],["1782124857180528946","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\"    to your terminal.\"}"],["1782124857180523015","{\"stream\":\"stdout\",\"resource_instance\":\"clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw\",\"message\":\" 4. The Docker daemon streamed that output to the Docker client, which sent it\"}"]]}],"stats":{"summary":{"bytesProcessedPerSecond":704571,"linesProcessedPerSecond":4355,"totalBytesProcessed":35590,"totalLinesProcessed":220,"execTime":0.050513,"queueTime":0.000815,"subqueries":0,"totalEntriesReturned":100,"splits":1,"shards":1,"totalPostFilterLines":220,"totalStructuredMetadataBytesProcessed":1760},"querier":{"store":{"totalChunksRef":0,"totalChunksDownloaded":0,"chunksDownloadTime":0,"queryReferencedStructuredMetadata":false,"queryUsedV2Engine":false,"chunk":{"headChunkBytes":0,"headChunkLines":0,"decompressedBytes":0,"decompressedLines":0,"compressedBytes":0,"totalDuplicates":100,"postFilterLines":0,"headChunkStructuredMetadataBytes":0,"decompressedStructuredMetadataBytes":0},"chunkRefsFetchTime":20109054,"congestionControlLatency":0,"pipelineWrapperFilteredLines":0,"dataobj":{"prePredicateDecompressedRows":0,"prePredicateDecompressedBytes":0,"prePredicateDecompressedStructuredMetadataBytes":0,"postPredicateRows":0,"postPredicateDecompressedBytes":0,"postPredicateStructuredMetadataBytes":0,"postFilterRows":0,"pagesScanned":0,"pagesDownloaded":0,"pagesDownloadedBytes":0,"pageBatches":0,"totalRowsAvailable":0,"totalPageDownloadTime":0}},"querierExecTime":0.050503},"ingester":{"totalReached":30,"totalChunksMatched":2,"totalBatches":20,"totalLinesSent":200,"store":{"totalChunksRef":0,"totalChunksDownloaded":0,"chunksDownloadTime":0,"queryReferencedStructuredMetadata":false,"queryUsedV2Engine":false,"chunk":{"headChunkBytes":35590,"headChunkLines":220,"decompressedBytes":0,"decompressedLines":0,"compressedBytes":0,"totalDuplicates":0,"postFilterLines":220,"headChunkStructuredMetadataBytes":1760,"decompressedStructuredMetadataBytes":0},"chunkRefsFetchTime":0,"congestionControlLatency":0,"pipelineWrapperFilteredLines":0,"dataobj":{"prePredicateDecompressedRows":0,"prePredicateDecompressedBytes":0,"prePredicateDecompressedStructuredMetadataBytes":0,"postPredicateRows":0,"postPredicateDecompressedBytes":0,"postPredicateStructuredMetadataBytes":0,"postFilterRows":0,"pagesScanned":0,"pagesDownloaded":0,"pagesDownloadedBytes":0,"pageBatches":0,"totalRowsAvailable":0,"totalPageDownloadTime":0}},"recvWaitTime":0.000394},"cache":{"chunk":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"index":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"result":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"statsResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"volumeResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"seriesResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"labelResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0},"instantMetricResult":{"entriesFound":0,"entriesRequested":0,"entriesStored":0,"bytesReceived":0,"bytesSent":0,"requests":0,"downloadTime":0,"queryLengthServed":0}},"index":{"totalChunks":0,"postFilterChunks":0,"shardsDuration":0,"usedBloomFilters":false,"totalStreams":0,"chunkRefsLookupTime":0.018032,"bloomFilterTime":0}}}}
+    headers:
+      Content-Type:
+      - application/json; charset=UTF-8
+      Date:
+      - Mon, 22 Jun 2026 10:46:08 GMT
+      Via:
+      - 1.1 Caddy
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/cockpit/v1/regions/fr-par/tokens/f0c896e3-a4b7-4d8d-b691-0417621ae3e3
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:46:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d976740f-3020-4082-b775-a2f7a7d2434a
+    status: 204 No Content
+    code: 204
+    duration: ""
+- request:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:46:08.665610Z","region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7
+    method: DELETE
+  response:
+    body: '{"id":"ea3f9c46-4a9a-4b03-a6b8-bc6427bb02d7","name":"cli-ns-gracious-hoover","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-06-22T10:40:35.772982Z","updated_at":"2026-06-22T10:46:08.665610Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "398"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 22 Jun 2026 10:46:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 783cfc5d-985f-4150-bd6e-00abd2762acd
+    status: 200 OK
+    code: 200
+    duration: ""

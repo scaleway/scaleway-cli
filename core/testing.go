@@ -777,7 +777,7 @@ func TestCheckGolden() TestCheck {
 
 		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
-		assert.Equal(t, string(expected), actual)
+		assert.Equal(t, uniformTimestampsWithOffSet(string(expected)), actual)
 	}
 }
 
@@ -842,11 +842,23 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	}
 }
 
-var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
+var (
+	regTimestamp = regexp.MustCompile(
+		`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`,
+	) // 1970-01-01T00:00:00.0Z
+	regTimestampWithOffset = regexp.MustCompile(
+		`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2})`,
+	) // 1970-01-01T00:00:00.000000000+00:00
+)
 
 // uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
 func uniformTimestamps(input string) string {
 	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
+}
+
+// uniformTimestampsOffSet replaces all timestamps of the form "2026-06-22T12:40:57.180528946+02:00" to the date "1970-01-01T00:00:00.000000000+00:00"
+func uniformTimestampsWithOffSet(input string) string {
+	return regTimestampWithOffset.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
 func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
