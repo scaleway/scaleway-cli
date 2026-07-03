@@ -93,7 +93,7 @@ scw config get <key ...> [arg=value ...]
 
 Get the default organization ID
 ```shell
-scw config get default_organization_id
+scw config get default-organization-id
 ```
 
 Get the default region of the profile 'prod'
