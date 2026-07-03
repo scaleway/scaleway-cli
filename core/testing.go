@@ -777,7 +777,11 @@ func TestCheckGolden() TestCheck {
 
 		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
-		assert.Equal(t, uniformTimestampsWithOffSet(string(expected)), actual)
+		assert.Equal(
+			t,
+			uniformTimestampsWithOffSet(string(expected)),
+			uniformTimestampsWithOffSet(actual),
+		)
 	}
 }
 
