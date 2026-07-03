@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                7d30ec4c-ee0a-4475-b743-a3842a32458f
-ClusterID         a859d428-2d35-425e-91c0-7001ccf03126
+ID                16ba3b9a-4b50-4dc5-9614-b7dbb7dab7ac
+ClusterID         d057ade3-52fa-43d8-acad-cd7390cf77e8
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 Name              default
 Status            scaling
-Version           1.32.3
+Version           1.35.3
 NodeType          dev1_m
 Autoscaling       false
 Size              1
@@ -18,9 +18,9 @@ Zone              fr-par-1
 RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
-SecurityGroupID   8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957
+SecurityGroupID   592f683f-83b9-47e4-9434-ca1931bdaa4b
 Region            fr-par
-Srn               srn://k8s.scw.eu/regions/fr-par/pools/7d30ec4c-ee0a-4475-b743-a3842a32458f
+Srn               srn://k8s.scw.eu/regions/fr-par/pools/16ba3b9a-4b50-4dc5-9614-b7dbb7dab7ac
 
 Upgrade Policy:
 MaxUnavailable  1
@@ -37,13 +37,13 @@ Node startup taints:
 KEY  VALUE  EFFECT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "7d30ec4c-ee0a-4475-b743-a3842a32458f",
-  "cluster_id": "a859d428-2d35-425e-91c0-7001ccf03126",
+  "id": "16ba3b9a-4b50-4dc5-9614-b7dbb7dab7ac",
+  "cluster_id": "d057ade3-52fa-43d8-acad-cd7390cf77e8",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "name": "default",
   "status": "scaling",
-  "version": "1.32.3",
+  "version": "1.35.3",
   "node_type": "dev1_m",
   "autoscaling": false,
   "size": 1,
@@ -62,7 +62,7 @@ KEY  VALUE  EFFECT
   "root_volume_type": "l_ssd",
   "root_volume_size": 40000000000,
   "public_ip_disabled": false,
-  "security_group_id": "8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957",
+  "security_group_id": "592f683f-83b9-47e4-9434-ca1931bdaa4b",
   "labels": {},
   "taints": [
     {
@@ -74,5 +74,5 @@ KEY  VALUE  EFFECT
   "startup_taints": [],
   "private_network_id": null,
   "region": "fr-par",
-  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/7d30ec4c-ee0a-4475-b743-a3842a32458f"
+  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/16ba3b9a-4b50-4dc5-9614-b7dbb7dab7ac"
 }
