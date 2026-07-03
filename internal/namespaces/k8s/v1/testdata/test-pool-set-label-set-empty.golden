@@ -20,6 +20,7 @@ RootVolumeSize    40 GB
 PublicIPDisabled  false
 SecurityGroupID   8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957
 Region            fr-par
+Srn               srn://k8s.scw.eu/regions/fr-par/pools/c84d9895-ee2a-49fa-8e23-cca455dfb0ef
 
 Upgrade Policy:
 MaxUnavailable  1
@@ -67,5 +68,6 @@ KEY  VALUE  EFFECT
   "taints": [],
   "startup_taints": [],
   "private_network_id": null,
-  "region": "fr-par"
+  "region": "fr-par",
+  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/c84d9895-ee2a-49fa-8e23-cca455dfb0ef"
 }

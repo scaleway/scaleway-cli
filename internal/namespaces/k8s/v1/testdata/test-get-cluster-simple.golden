@@ -22,6 +22,7 @@ IamNodesGroupID   -
 PodCidr           100.64.0.0/15
 ServiceCidr       10.32.0.0/20
 ServiceDNSIP      10.32.0.10
+Srn               srn://k8s.scw.eu/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -110,6 +111,7 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
   "pod_cidr": "100.64.0.0/15",
   "service_cidr": "10.32.0.0/20",
   "service_dns_ip": "10.32.0.10",
+  "srn": "srn://k8s.scw.eu/regions/fr-par/clusters/ebad6977-b62e-499f-bb6e-c97dbbbe56aa",
   "pools": [
     {
       "id": "65fbd09a-72aa-4022-af5a-6a09212d7047",
