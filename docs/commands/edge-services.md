@@ -9,7 +9,7 @@ Backend-stage management commands.
 
 ### Create backend stage
 
-Create a new backend stage. You must specify either a `scaleway_s3` (for a Scaleway Object Storage bucket) or `scaleway_lb` (for a Scaleway Load Balancer) field to configure the origin.
+Create a new backend stage. You must specify a type of backend (`scaleway_s3`, `scaleway_lb`, etc.) to configure the origin.
 
 **Usage:**
 
@@ -60,7 +60,7 @@ scw edge-services backend-stage delete <backend-stage-id ...> [arg=value ...]
 
 ### Get backend stage
 
-Retrieve information about an existing backend stage, specified by its `backend_stage_id`. Its full details, including `scaleway_s3` or `scaleway_lb`, are returned in the response object.
+Retrieve information about an existing backend stage, specified by its `backend_stage_id`. Its full details are returned in the response object.
 
 **Usage:**
 
