@@ -22,6 +22,7 @@ IamNodesGroupID   30185f78-13c6-470e-a589-bc4f33fd9119
 PodCidr           100.64.0.0/15
 ServiceCidr       10.32.0.0/20
 ServiceDNSIP      10.32.0.10
+Srn               srn://k8s.scw.eu/regions/fr-par/clusters/3a04da67-e97e-4654-9e94-ab430e9e635f
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -105,5 +106,6 @@ GroupsPrefix    -
   "iam_nodes_group_id": "30185f78-13c6-470e-a589-bc4f33fd9119",
   "pod_cidr": "100.64.0.0/15",
   "service_cidr": "10.32.0.0/20",
-  "service_dns_ip": "10.32.0.10"
+  "service_dns_ip": "10.32.0.10",
+  "srn": "srn://k8s.scw.eu/regions/fr-par/clusters/3a04da67-e97e-4654-9e94-ab430e9e635f"
 }
