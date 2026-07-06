@@ -25,7 +25,7 @@ scw jobs definition create [arg=value ...]
 | name | Required<br />Default: `<generated>` | Name of the job definition |
 | cpu-limit | Required | CPU limit of the job (in mvCPU) |
 | memory-limit | Required | Memory limit of the job (in MiB) |
-| local-storage-capacity |  | Local storage capacity of the job (in MiB) |
+| local-storage-capacity | Required | Local storage capacity of the job (in MiB) |
 | image-uri | Required | Image to use for the job |
 | ~~command~~ | Deprecated | Startup command. If empty or not defined, the image's default command is used. |
 | startup-command.{index} |  | Job startup command. Overrides the default defined in the job image. |

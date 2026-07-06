@@ -125,7 +125,7 @@ func jobsDefinitionCreate() *core.Command {
 			{
 				Name:       "local-storage-capacity",
 				Short:      `Local storage capacity of the job (in MiB)`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
