@@ -153,8 +153,6 @@ Note that this development version could include bugs, use [tagged releases](htt
 go install github.com/scaleway/scaleway-cli/v2/cmd/scw@latest
 ```
 
-Dependencies: We only use go [Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
-
 ### Build with Docker
 
 You can build the `scw` CLI with Docker. If you have Docker installed, you can run:
