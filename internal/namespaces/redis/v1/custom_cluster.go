@@ -127,8 +127,9 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			// if we get a 404 here, it means the resource was successfully deleted
 			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+			if responseError, ok := errors.AsType[*scw.ResponseError](
+				err,
+			); ok && responseError.StatusCode == http.StatusNotFound ||
 				errors.As(err, &notFoundError) {
 				return cluster, nil
 			}
@@ -483,10 +484,12 @@ func clusterConnectCommand() *core.Command {
 				}()
 			}
 
-			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-				Ctx:    ctx,
-				Prompt: "Password",
-			})
+			password, err := interactive.PromptPasswordWithConfig(
+				ctx,
+				&interactive.PromptPasswordConfig{
+					Prompt: "Password",
+				},
+			)
 			if err != nil {
 				return nil, fmt.Errorf("failed to get password: %w", err)
 			}

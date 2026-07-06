@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
+		baremetalServerBatchCreate(),
 		baremetalServerUpdate(),
 		baremetalServerInstall(),
 		baremetalServerGetMetrics(),
@@ -75,7 +76,7 @@ func baremetalServer() *core.Command {
 func baremetalOffer() *core.Command {
 	return &core.Command{
 		Short: `Server offer management commands`,
-		Long: `Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+		Long: `Server offers will answer with all different Elastic Metal server ranges available in a zone.
 Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
@@ -540,6 +541,303 @@ func baremetalServerCreate() *core.Command {
 	}
 }
 
+func baremetalServerBatchCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create multiple Elastic Metal servers`,
+		Long:      `Create multiple new Elastic Metal servers. Once the servers are created, proceed with the [installation of an OS](#post-3e949e).`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "batch-create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(baremetal.BatchCreateServersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "common-configuration.offer-id",
+				Short:      `Offer ID of the new server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.project-id",
+				Short:      `Project ID with which the server will be created`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.name",
+				Short:      `Name of the server (≠hostname)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.description",
+				Short:      `Description associated with the server, max 255 characters`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.tags.{index}",
+				Short:      `Tags to associate to the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.os-id",
+				Short:      `ID of the OS to installation on the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.hostname",
+				Short:      `Hostname of the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.ssh-key-ids.{index}",
+				Short:      `SSH key IDs authorized on the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.user",
+				Short:      `User for the installation`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.password",
+				Short:      `Password for the installation`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.service-user",
+				Short:      `Regular user that runs the service to be installed on the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.service-password",
+				Short:      `Password used for the service to install`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.device",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.label",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_partition_label",
+					"uefi",
+					"legacy",
+					"root",
+					"boot",
+					"swap",
+					"data",
+					"home",
+					"raid",
+					"zfs",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.number",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.size",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.raids.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.raids.{index}.level",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_raid_level",
+					"raid_level_0",
+					"raid_level_1",
+					"raid_level_5",
+					"raid_level_6",
+					"raid_level_10",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.raids.{index}.devices.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.filesystems.{index}.device",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.filesystems.{index}.format",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_format",
+					"fat32",
+					"ext4",
+					"swap",
+					"zfs",
+					"xfs",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.filesystems.{index}.mountpoint",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_type",
+					"no_raid",
+					"mirror",
+					"raidz1",
+					"raidz2",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.option-ids.{index}",
+				Short:      `IDs of options to enable on server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.protected",
+				Short:      `If enabled, the server can not be deleted`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.user-data",
+				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.organization-id",
+				Short:      `Organization ID with which the server will be created`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.zone",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}.hostname",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}.description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}.tags.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*baremetal.BatchCreateServersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+
+			return api.BatchCreateServers(request)
+		},
+	}
+}
+
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an Elastic Metal server`,
@@ -846,7 +1144,7 @@ func baremetalServerInstall() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Install an OS on a  server with a particular SSH key ID",
+				Short:    "Install an OS on a server with a particular SSH key ID",
 				ArgsJSON: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
 			},
 		},

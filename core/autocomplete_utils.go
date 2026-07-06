@@ -178,7 +178,7 @@ func AutocompleteGetArg(
 	// Let's iterate over the struct in the response slice and get the searched field
 	for i := range resources.Len() {
 		resource := resources.Index(i)
-		if resource.Kind() == reflect.Ptr {
+		if resource.Kind() == reflect.Pointer {
 			resource = resource.Elem()
 		}
 		resourceField := resource.FieldByName(strcase.ToPublicGoName(argName))

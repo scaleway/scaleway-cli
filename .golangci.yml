@@ -27,6 +27,8 @@ linters:
     - bidichk # Checks for dangerous unicode character sequences [fast: true, auto-fix: false]
     - bodyclose # checks whether HTTP response body is closed successfully [fast: false, auto-fix: false]
     - canonicalheader # canonicalheader checks whether net/http.Header uses canonical header [fast: false, auto-fix: false]
+    - containedctx # Containedctx is a linter that detects struct contained context.Context field.
+    - contextcheck # Check whether the function uses a non-inherited context.
     - copyloopvar # copyloopvar is a linter detects places where loop variables are copied [fast: true, auto-fix: false]
     - decorder # check declaration order and count of types, constants, variables and functions [fast: true, auto-fix: false]
     - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
@@ -37,12 +39,11 @@ linters:
     - funcorder # Checks the order of functions, methods, and constructors. [fast]
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid. [fast: true, auto-fix: false]
     - gochecksumtype # Run exhaustiveness checks on Go "sum types" [fast: false, auto-fix: false]
-    - goconst # Finds repeated strings that could be replaced by a constant [fast: true, auto-fix: false]
     - gocritic # Provides diagnostics that check for bugs, performance and style issues. [fast: false, auto-fix: false]
     - gocyclo # Computes and checks the cyclomatic complexity of functions [fast: true, auto-fix: false]
     - goheader # Checks is file header matches to pattern [fast: true, auto-fix: false]
     - gomoddirectives # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod. [fast: true, auto-fix: false]
-    - gomodguard # Allow and block list linter for direct Go module dependencies. This is different from depguard where there are different block types for example version constraints and module recommendations. [fast: true, auto-fix: false]
+    - gomodguard_v2 # Allow and block list linter for direct Go module dependencies. This is different from depguard where there are different block types for example version constraints and module recommendations. [fast: true, auto-fix: false]
     - goprintffuncname # Checks that printf-like functions are named with `f` at the end [fast: true, auto-fix: false]
     - govet #(vet, vetshadow): Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string [fast: false, auto-fix: false]
     - grouper # An analyzer to analyze expression groups. [fast: true, auto-fix: false]
@@ -147,6 +148,13 @@ linters:
     - path: internal/namespaces/k8s/v1/types/types.go
       linters:
         - tagalign
+
+    # cobra API requires func(*cobra.Command) error signature; context extracted from command
+    # Only apply to core Cobra integration files where context comes from cobraCmd.Context()
+    - path: core/cobra_utils\.go
+      linters:
+        - contextcheck
+      text: "should pass the context parameter"
 
 issues:
   max-issues-per-linter: 0

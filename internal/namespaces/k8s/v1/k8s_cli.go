@@ -199,6 +199,13 @@ func k8sClusterList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "version",
+				Short:      `Version to filter on, only cluster matching this prefix version will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID on which to filter the returned clusters`,
 				Required:   false,
@@ -209,6 +216,7 @@ func k8sClusterList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -629,6 +637,20 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "autoscaler-config.skip-nodes-with-local-storage",
+				Short:      `Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.log-level",
+				Short:      `Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "auto-upgrade.enable",
 				Short:      `Defines whether auto upgrade is enabled for the cluster`,
 				Required:   false,
@@ -762,6 +784,7 @@ func k8sClusterCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -806,6 +829,7 @@ func k8sClusterGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -946,6 +970,20 @@ func k8sClusterUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "autoscaler-config.skip-nodes-with-local-storage",
+				Short:      `Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "autoscaler-config.log-level",
+				Short:      `Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "auto-upgrade.enable",
 				Short:      `Defines whether auto upgrade is enabled for the cluster`,
 				Required:   false,
@@ -1050,6 +1088,7 @@ func k8sClusterUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1101,6 +1140,7 @@ func k8sClusterDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1159,6 +1199,7 @@ func k8sClusterUpgrade() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1210,6 +1251,7 @@ func k8sClusterSetType() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1250,6 +1292,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1298,6 +1341,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1370,6 +1414,7 @@ func k8sClusterResetAdminToken() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1417,6 +1462,7 @@ func k8sACLList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1482,6 +1528,7 @@ func k8sACLAdd() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1537,6 +1584,7 @@ func k8sACLSet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1571,6 +1619,7 @@ func k8sACLDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1655,6 +1704,7 @@ func k8sPoolList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1958,6 +2008,7 @@ func k8sPoolCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2006,6 +2057,7 @@ func k8sPoolGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2054,6 +2106,7 @@ This will drain and replace the nodes in that pool.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2162,6 +2215,7 @@ func k8sPoolUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2214,6 +2268,7 @@ func k8sPoolDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2308,6 +2363,7 @@ func k8sNodeList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -2392,6 +2448,7 @@ func k8sNodeGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2432,6 +2489,7 @@ func k8sNodeReplace() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2472,6 +2530,7 @@ func k8sNodeReboot() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2519,6 +2578,7 @@ func k8sNodeDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2556,6 +2616,7 @@ func k8sVersionList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2616,6 +2677,7 @@ func k8sVersionGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -2649,6 +2711,7 @@ func k8sClusterTypeList() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},

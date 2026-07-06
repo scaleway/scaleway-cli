@@ -23,9 +23,11 @@ COPY .git/ .git/
 
 RUN ./scripts/build.sh
 
-FROM alpine:3.23
+FROM alpine:3.24
 WORKDIR /
 RUN apk update && apk add --no-cache bash ca-certificates openssh-client && update-ca-certificates
+RUN addgroup -g 1000 -S scw && adduser -u 1000 -S scw -G scw
 COPY --from=builder /go/src/github.com/scaleway/scaleway-cli/scw .
-RUN ln -s /scw /usr/local/bin/scw
+RUN chown scw:scw /scw && ln -s /scw /usr/local/bin/scw
+USER scw
 ENTRYPOINT ["/scw"]

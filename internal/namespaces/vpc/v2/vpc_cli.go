@@ -24,6 +24,8 @@ func GetGeneratedCommands() *core.Commands {
 		vpcPrivateNetwork(),
 		vpcRoute(),
 		vpcRule(),
+		vpcVpcConnector(),
+		vpcIngressRule(),
 		vpcVpcList(),
 		vpcVpcCreate(),
 		vpcVpcGet(),
@@ -42,6 +44,16 @@ func GetGeneratedCommands() *core.Commands {
 		vpcRouteDelete(),
 		vpcRuleGet(),
 		vpcRuleSet(),
+		vpcVpcConnectorList(),
+		vpcVpcConnectorCreate(),
+		vpcVpcConnectorGet(),
+		vpcVpcConnectorUpdate(),
+		vpcVpcConnectorDelete(),
+		vpcIngressRuleList(),
+		vpcIngressRuleCreate(),
+		vpcIngressRuleGet(),
+		vpcIngressRuleUpdate(),
+		vpcIngressRuleDelete(),
 		vpcRouteList(),
 	)
 }
@@ -92,6 +104,24 @@ func vpcRule() *core.Command {
 		Long:      `ACL Rules.`,
 		Namespace: "vpc",
 		Resource:  "rule",
+	}
+}
+
+func vpcVpcConnector() *core.Command {
+	return &core.Command{
+		Short:     `VPC connector management command`,
+		Long:      `VPC peering connectors.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+	}
+}
+
+func vpcIngressRule() *core.Command {
+	return &core.Command{
+		Short:     `Ingress rule management command`,
+		Long:      `Ingress rules.`,
+		Namespace: "vpc",
+		Resource:  "ingress-rule",
 	}
 }
 
@@ -162,6 +192,7 @@ func vpcVpcList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -220,8 +251,16 @@ func vpcVpcCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-transitivity",
+				Short:      `Enable packets from peered VPCs to transit through this VPC`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -256,6 +295,7 @@ func vpcVpcGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -304,6 +344,7 @@ func vpcVpcUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -338,6 +379,7 @@ func vpcVpcDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -434,6 +476,7 @@ func vpcPrivateNetworkList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
@@ -508,6 +551,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -542,6 +586,7 @@ func vpcPrivateNetworkGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -597,6 +642,7 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -631,6 +677,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -672,6 +719,7 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -706,6 +754,7 @@ func vpcRouteEnableRouting() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -782,6 +831,7 @@ func vpcRouteCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -816,6 +866,7 @@ func vpcRouteGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -892,6 +943,7 @@ func vpcRouteUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -926,6 +978,7 @@ func vpcRouteDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -974,6 +1027,7 @@ func vpcRuleGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1101,6 +1155,7 @@ func vpcRuleSet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
@@ -1112,6 +1167,614 @@ func vpcRuleSet() *core.Command {
 			api := vpc.NewAPI(client)
 
 			return api.SetACL(request)
+		},
+	}
+}
+
+func vpcVpcConnectorList() *core.Command {
+	return &core.Command{
+		Short:     `List VPC connectors`,
+		Long:      `List existing VPC connectors in the specified region.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.ListVPCConnectorsRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of the returned VPC connectors`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
+			},
+			{
+				Name:       "name",
+				Short:      `Name to filter for. Only connectors with names containing this string will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags to filter for. Only connectors with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project ID to filter for. Only connectors belonging to this Project will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for. Only connectors belonging to this VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "target-vpc-id",
+				Short:      `Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "status",
+				Short:      `Status of the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_vpc_connector_status",
+					"orphan",
+					"peered",
+					"conflict",
+				},
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for. Only connectors belonging to this Organization will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.ListVPCConnectorsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListVPCConnectors(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.VpcConnectors, nil
+		},
+	}
+}
+
+func vpcVpcConnectorCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a VPC connector`,
+		Long:      `Create a new VPC connector in the specified region.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.CreateVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "name",
+				Short:      `Name for the VPC connector`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.RandomValueGenerator("VPCConnector"),
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags for the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `VPC ID to filter for. Only connectors belonging to this VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "target-vpc-id",
+				Short:      `Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.CreateVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.CreateVPCConnector(request)
+		},
+	}
+}
+
+func vpcVpcConnectorGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a VPC connector`,
+		Long:      `Retrieve details of an existing VPC connector, specified by its VPC connector ID.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.GetVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-connector-id",
+				Short:      `VPC connector ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.GetVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.GetVPCConnector(request)
+		},
+	}
+}
+
+func vpcVpcConnectorUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update VPC connector`,
+		Long:      `Update parameters including name and tags of the specified VPC connector.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.UpdateVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-connector-id",
+				Short:      `VPC connector ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "name",
+				Short:      `Name for the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags for the VPC connector`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.UpdateVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.UpdateVPCConnector(request)
+		},
+	}
+}
+
+func vpcVpcConnectorDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a VPC connector`,
+		Long:      `Delete a VPC connector specified by its VPC connector ID.`,
+		Namespace: "vpc",
+		Resource:  "vpc-connector",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.DeleteVPCConnectorRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-connector-id",
+				Short:      `VPC connector ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.DeleteVPCConnectorRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			e = api.DeleteVPCConnector(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "vpc-connector",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func vpcIngressRuleList() *core.Command {
+	return &core.Command{
+		Short:     `List ingress rules`,
+		Long:      `List existing ingress rules in the specified region.`,
+		Namespace: "vpc",
+		Resource:  "ingress-rule",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.ListIngressRulesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of the returned ingress rules`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"source_asc",
+					"source_desc",
+					"prefix_len_asc",
+					"prefix_len_desc",
+				},
+			},
+			{
+				Name:       "vpc-id",
+				Short:      `ID of the VPC to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-ip",
+				Short:      `Next hop IP to filter for`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-private-network-id",
+				Short:      `Next hop Private Network ID to filter for. Only ingress rules with this Private Network as next hop will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "is-ipv6",
+				Short:      `Whether to return only IPv4 or IPv6 ingress rules`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags to filter for. Only ingress rules with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Project ID to filter for. Only ingress rules belonging to this Project will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Organization ID to filter for. Only ingress rules belonging to this Organization will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.ListIngressRulesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListIngressRules(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Rules, nil
+		},
+	}
+}
+
+func vpcIngressRuleCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create an ingress rule`,
+		Long:      `Create an ingress rule in the specified region.`,
+		Namespace: "vpc",
+		Resource:  "ingress-rule",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.CreateIngressRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "vpc-id",
+				Short:      `ID of the VPC this rule will belong to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source",
+				Short:      `Source network to match ingress traffic on. Can be IPv6 or IPv4`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-ip",
+				Short:      `IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-private-network-id",
+				Short:      `ID of the Private Network the destination resource is in`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description for this ingress rule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags for this ingress rule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.CreateIngressRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.CreateIngressRule(request)
+		},
+	}
+}
+
+func vpcIngressRuleGet() *core.Command {
+	return &core.Command{
+		Short:     `Get an ingress rule`,
+		Long:      `Retrieve details of an existing ingress rule, specified by its ingress rule ID.`,
+		Namespace: "vpc",
+		Resource:  "ingress-rule",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.GetIngressRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "rule-id",
+				Short:      `ID of the ingress rule to return`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.GetIngressRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.GetIngressRule(request)
+		},
+	}
+}
+
+func vpcIngressRuleUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update an ingress rule`,
+		Long:      `Update an ingress rule specified by its ingress rule ID.`,
+		Namespace: "vpc",
+		Resource:  "ingress-rule",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.UpdateIngressRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "rule-id",
+				Short:      `ID of the ingress rule to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "source",
+				Short:      `Source network to match ingress traffic on. Can be IPv4 or IPv6`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-resource-ip",
+				Short:      `IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "nexthop-private-network-id",
+				Short:      `ID of the Private Network the destination resource is in`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "description",
+				Short:      `Description to set for this ingress rule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "tags.{index}",
+				Short:      `Tags to set for this ingress rule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.UpdateIngressRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+
+			return api.UpdateIngressRule(request)
+		},
+	}
+}
+
+func vpcIngressRuleDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete an ingress rule`,
+		Long:      `Delete an ingress rule specified by its ingress rule ID.`,
+		Namespace: "vpc",
+		Resource:  "ingress-rule",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(vpc.DeleteIngressRuleRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "rule-id",
+				Short:      `ID of the ingress rule to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*vpc.DeleteIngressRuleRequest)
+
+			client := core.ExtractClient(ctx)
+			api := vpc.NewAPI(client)
+			e = api.DeleteIngressRule(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "ingress-rule",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

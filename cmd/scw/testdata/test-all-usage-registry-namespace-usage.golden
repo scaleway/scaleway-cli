@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A namespace is a collection of container images, each bearing the unique identifier of that namespace. A namespace can be either public or private, by default.
 
 Each namespace must have a globally unique name within its region. This means no namespaces in the same region can bear the same name.

@@ -340,7 +340,7 @@ func lbLBCreate() *core.Command {
 			},
 			{
 				Name:       "ssl-compatibility-level",
-				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort`,
+				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -453,7 +453,7 @@ func lbLBUpdate() *core.Command {
 			},
 			{
 				Name:       "ssl-compatibility-level",
-				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort`,
+				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2216,7 +2216,7 @@ func lbFrontendDelete() *core.Command {
 func lbRouteList() *core.Command {
 	return &core.Command{
 		Short:     `List all routes`,
-		Long:      `List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
+		Long:      `List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
 		Namespace: "lb",
 		Resource:  "route",
 		Verb:      "list",

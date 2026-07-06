@@ -1,0 +1,606 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+TIMESTAMP        RESOURCE INSTANCE                                                MESSAGE
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://docs.docker.com/get-started/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  For more examples and ideas, visit:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://hub.docker.com/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   $ docker run -it ubuntu bash
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      to your terminal.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      executable that produces the output you are currently reading.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      (amd64)
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   1. The Docker client contacted the Docker daemon.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To generate this message, Docker took the following steps:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  This message shows that your installation appears to be working correctly.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Hello from Docker!
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://docs.docker.com/get-started/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  For more examples and ideas, visit:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://hub.docker.com/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   $ docker run -it ubuntu bash
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      to your terminal.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      executable that produces the output you are currently reading.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      (amd64)
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   1. The Docker client contacted the Docker daemon.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To generate this message, Docker took the following steps:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  This message shows that your installation appears to be working correctly.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Hello from Docker!
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://docs.docker.com/get-started/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  For more examples and ideas, visit:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://hub.docker.com/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   $ docker run -it ubuntu bash
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      to your terminal.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      executable that produces the output you are currently reading.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      (amd64)
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   1. The Docker client contacted the Docker daemon.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To generate this message, Docker took the following steps:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  This message shows that your installation appears to be working correctly.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Hello from Docker!
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://docs.docker.com/get-started/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  For more examples and ideas, visit:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://hub.docker.com/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   $ docker run -it ubuntu bash
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      to your terminal.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   4. The Docker daemon streamed that output to the Docker client, which sent it
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      executable that produces the output you are currently reading.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   3. The Docker daemon created a new container from that image which runs the
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      (amd64)
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   2. The Docker daemon pulled the "hello-world" image from the Docker Hub.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   1. The Docker client contacted the Docker daemon.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To generate this message, Docker took the following steps:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  This message shows that your installation appears to be working correctly.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Hello from Docker!
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://docs.docker.com/get-started/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  For more examples and ideas, visit:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   https://hub.docker.com/
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  Share images, automate workflows, and more with a free Docker ID:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   $ docker run -it ubuntu bash
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  To try something more ambitious, you can run an Ubuntu container with:
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw  -
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw      to your terminal.
+few seconds ago  clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw   4. The Docker daemon streamed that output to the Docker client, which sent it
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    executable that produces the output you are currently reading."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 3. The Docker daemon created a new container from that image which runs the"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    (amd64)"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 1. The Docker client contacted the Docker daemon."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To generate this message, Docker took the following steps:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "This message shows that your installation appears to be working correctly."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Hello from Docker!"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://docs.docker.com/get-started/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "For more examples and ideas, visit:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " https://hub.docker.com/"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "Share images, automate workflows, and more with a free Docker ID:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " $ docker run -it ubuntu bash"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "To try something more ambitious, you can run an Ubuntu container with:"
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": ""
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": "    to your terminal."
+  },
+  {
+    "timestamp": "1970-01-01T00:00:00.0Z",
+    "resource_instance": "clinsgracioushoovere77fbe2425861326ef111df0289d0d54b-deplown5qw",
+    "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
+  }
+]

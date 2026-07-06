@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 By default, all routes across the Site-to-Site VPN (between VPN gateway and customer gateway) are blocked. Routing policies allow you to set filters to define the IP prefixes to allow.
 
 USAGE:

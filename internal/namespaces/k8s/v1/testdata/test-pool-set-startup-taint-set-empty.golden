@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                71701d87-07d3-46f1-884b-af78eaff3d75
-ClusterID         fbba131d-05b2-4b5e-b180-c6a8698f6133
+ID                4be08c06-3322-457d-98cd-c89774bcfe93
+ClusterID         a697e8ae-f47e-45bc-a2ff-03fb3cf74b5a
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 Name              default
 Status            scaling
-Version           1.32.3
+Version           1.35.3
 NodeType          dev1_m
 Autoscaling       false
 Size              1
@@ -18,8 +18,9 @@ Zone              fr-par-1
 RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
-SecurityGroupID   8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957
+SecurityGroupID   592f683f-83b9-47e4-9434-ca1931bdaa4b
 Region            fr-par
+Srn               srn://k8s.scw.eu/regions/fr-par/pools/4be08c06-3322-457d-98cd-c89774bcfe93
 
 Upgrade Policy:
 MaxUnavailable  1
@@ -36,13 +37,13 @@ KEY  VALUE  EFFECT
 foo  bar    NoSchedule
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "71701d87-07d3-46f1-884b-af78eaff3d75",
-  "cluster_id": "fbba131d-05b2-4b5e-b180-c6a8698f6133",
+  "id": "4be08c06-3322-457d-98cd-c89774bcfe93",
+  "cluster_id": "a697e8ae-f47e-45bc-a2ff-03fb3cf74b5a",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "name": "default",
   "status": "scaling",
-  "version": "1.32.3",
+  "version": "1.35.3",
   "node_type": "dev1_m",
   "autoscaling": false,
   "size": 1,
@@ -61,7 +62,7 @@ foo  bar    NoSchedule
   "root_volume_type": "l_ssd",
   "root_volume_size": 40000000000,
   "public_ip_disabled": false,
-  "security_group_id": "8bcdc1ce-cda4-4e8f-859f-2aa0aa86e957",
+  "security_group_id": "592f683f-83b9-47e4-9434-ca1931bdaa4b",
   "labels": {},
   "taints": [],
   "startup_taints": [
@@ -71,5 +72,7 @@ foo  bar    NoSchedule
       "effect": "NoSchedule"
     }
   ],
-  "region": "fr-par"
+  "private_network_id": null,
+  "region": "fr-par",
+  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/4be08c06-3322-457d-98cd-c89774bcfe93"
 }

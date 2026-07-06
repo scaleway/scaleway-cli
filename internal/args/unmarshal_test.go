@@ -372,14 +372,13 @@ func TestUnmarshalStruct(t *testing.T) {
 		},
 	}))
 
-	h := height(14)
 	t.Run("height-set", run(TestCase{
 		args: []string{
 			"height=14cm",
 		},
 		data: &CustomArgs{},
 		expected: &CustomArgs{
-			Height: &h,
+			Height: new(height(14)),
 		},
 	}))
 
@@ -550,10 +549,6 @@ func TestIsUmarshalableValue(t *testing.T) {
 
 	args.RegisterUnmarshalFunc((*height)(nil), unmarshalHeight)
 
-	strPtr := "This is a pointer"
-	heightPtr := height(42)
-	customStringPtr := CustomString("test")
-
 	t.Run("string", run(TestCase{
 		data:     "a simple string",
 		expected: true,
@@ -585,15 +580,15 @@ func TestIsUmarshalableValue(t *testing.T) {
 	}))
 
 	t.Run("str-pointer", run(TestCase{
-		data:     &strPtr,
+		data:     new("This is a pointer"),
 		expected: true,
 	}))
 	t.Run("custom-func-pointer", run(TestCase{
-		data:     &heightPtr,
+		data:     new(height(42)),
 		expected: true,
 	}))
 	t.Run("custom-pointer", run(TestCase{
-		data:     &customStringPtr,
+		data:     new(CustomString("test")),
 		expected: true,
 	}))
 	t.Run("custom-pointer", run(TestCase{

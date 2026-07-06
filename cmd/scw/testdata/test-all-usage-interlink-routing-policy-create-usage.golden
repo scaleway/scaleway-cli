@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a routing policy. Routing policies allow you to set IP prefix filters to define the incoming route announcements to accept from the peer, and the outgoing routes to announce to the peer.
 
 USAGE:
@@ -12,7 +12,7 @@ ARGS:
   [prefix-filter-in.{index}]    IP prefixes to accept from the peer (ranges of route announcements to accept)
   [prefix-filter-out.{index}]   IP prefix filters to advertise to the peer (ranges of routes to advertise)
   [is-ipv6]                     IP prefixes version of the routing policy
-  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]               Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for create

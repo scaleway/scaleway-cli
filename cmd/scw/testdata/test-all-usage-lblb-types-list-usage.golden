@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List all the different commercial Load Balancer types. The response includes an array of offer types, each with a name, description, and information about its stock availability.
 
 USAGE:

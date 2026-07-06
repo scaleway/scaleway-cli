@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This command will run the correct command in order to log you out of the registry with the chosen program.
 You will need to have the chosen binary installed on your system and in your PATH.
 

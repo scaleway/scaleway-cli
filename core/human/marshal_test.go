@@ -119,7 +119,7 @@ func TestMarshal(t *testing.T) {
 			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
-			Size:        scw.SizePtr(13200),
+			Size:        new(scw.Size(13200)),
 			Bytes:       []byte{0, 1},
 		},
 		result: `
@@ -186,7 +186,7 @@ func TestMarshal(t *testing.T) {
 			},
 			Stringer:    Stringer{},
 			StringerPtr: &Stringer{},
-			Size:        scw.SizePtr(13200),
+			Size:        new(scw.Size(13200)),
 			Bytes:       []byte{0, 1},
 		},
 		result: `
@@ -195,7 +195,7 @@ func TestMarshal(t *testing.T) {
 			Bool                true
 			Strings.0           s1
 			Strings.1           s2
-			Time                35 years ago
+			Time                36 years ago
 			Struct.String       -
 			Struct.Int          0
 			Struct.Bool         false

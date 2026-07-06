@@ -4,47 +4,34 @@ Entity Type:
 member
 
 Api Key:
-AccessKey         SCWPZ1WTFFCYAB554FW9
-UserID            bcc3ea6a-f5ca-43b0-8bc2-5a6a5b1bdc55
-Description       test-cli-iam-membership-api-key
+AccessKey         SCWVHZ094TMXVJS6571R
+UserID            e7a35342-d125-42e3-a0d8-f2f378abd1de
+Description       API key used solely for nightly IAM API keys listing tests.
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-ExpiresAt         few seconds ago
-DefaultProjectID  57a1e028-d7d3-4a4e-80cf-52cef8fd0d3e
+DefaultProjectID  5ebc0159-7cb7-406c-9521-9347d1987fb2
 Editable          true
 Deletable         true
 Managed           false
-CreationIP        51.159.73.145
+CreationIP        51.159.73.9
 
 Policies:
-Copy of Group - Editors (354d757c-d0ef-4e80-9c66-0a2dc3aae560)            AllProductsFullAccess OrganizationReadOnly ProjectManager SupportTicketReadOnly
-test-cli-iam-api-key-get-policies (9b9cb03b-ef4e-4378-96b5-bb61893de47c)  IAMGroupReadOnly
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
-    "access_key": "SCWPZ1WTFFCYAB554FW9",
+    "access_key": "SCWVHZ094TMXVJS6571R",
     "secret_key": null,
-    "user_id": "bcc3ea6a-f5ca-43b0-8bc2-5a6a5b1bdc55",
-    "description": "test-cli-iam-membership-api-key",
+    "user_id": "e7a35342-d125-42e3-a0d8-f2f378abd1de",
+    "description": "API key used solely for nightly IAM API keys listing tests.",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
-    "expires_at": "1970-01-01T00:00:00.0Z",
-    "default_project_id": "57a1e028-d7d3-4a4e-80cf-52cef8fd0d3e",
+    "expires_at": null,
+    "default_project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.73.145"
+    "creation_ip": "51.159.73.9"
   },
   "entity_type": "member",
-  "policies": {
-    "Copy of Group - Editors (354d757c-d0ef-4e80-9c66-0a2dc3aae560)": [
-      "AllProductsFullAccess",
-      "OrganizationReadOnly",
-      "ProjectManager",
-      "SupportTicketReadOnly"
-    ],
-    "test-cli-iam-api-key-get-policies (9b9cb03b-ef4e-4378-96b5-bb61893de47c)": [
-      "IAMGroupReadOnly"
-    ]
-  }
+  "policies": {}
 }

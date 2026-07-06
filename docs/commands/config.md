@@ -25,23 +25,7 @@ The following environment variables are supported:
 |SCW_PROFILE|Set the config profile to use|
 
 Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
-  
-- [Destroy the config file](#destroy-the-config-file)
-- [Dump the config file](#dump-the-config-file)
-- [Edit the configuration file](#edit-the-configuration-file)
-- [Get a value from the config file](#get-a-value-from-the-config-file)
-- [Import configurations from another file](#import-configurations-from-another-file)
-- [Get config values from the config file for the current profile](#get-config-values-from-the-config-file-for-the-current-profile)
-- [Allows the activation and deletion of a profile from the config file](#allows-the-activation-and-deletion-of-a-profile-from-the-config-file)
-  - [Mark a profile as active in the config file](#mark-a-profile-as-active-in-the-config-file)
-  - [Delete a profile from the config file](#delete-a-profile-from-the-config-file)
-  - [List all profiles in the config file](#list-all-profiles-in-the-config-file)
-- [Reset the config](#reset-the-config)
-- [Set a line from the config file](#set-a-line-from-the-config-file)
-- [Unset a line from the config file](#unset-a-line-from-the-config-file)
-- [Validate the config](#validate-the-config)
 
-  
 ## Destroy the config file
 
 
@@ -50,7 +34,7 @@ Read more about the config management engine at https://github.com/scaleway/scal
 
 **Usage:**
 
-```
+```shell
 scw config destroy
 ```
 
@@ -64,7 +48,7 @@ scw config destroy
 
 **Usage:**
 
-```
+```shell
 scw config dump
 ```
 
@@ -78,7 +62,7 @@ Edit the configuration file with the default editor
 
 **Usage:**
 
-```
+```shell
 scw config edit
 ```
 
@@ -92,7 +76,7 @@ scw config edit
 
 **Usage:**
 
-```
+```shell
 scw config get <key ...> [arg=value ...]
 ```
 
@@ -108,12 +92,12 @@ scw config get <key ...> [arg=value ...]
 
 
 Get the default organization ID
-```
-scw config get default_organization_id
+```shell
+scw config get default-organization-id
 ```
 
 Get the default region of the profile 'prod'
-```
+```shell
 scw -p prod config get default_region
 ```
 
@@ -128,7 +112,7 @@ scw -p prod config get default_region
 
 **Usage:**
 
-```
+```shell
 scw config import <file ...> [arg=value ...]
 ```
 
@@ -149,7 +133,7 @@ scw config import <file ...> [arg=value ...]
 
 **Usage:**
 
-```
+```shell
 scw config info
 ```
 
@@ -158,12 +142,12 @@ scw config info
 
 
 Get the default config values
-```
+```shell
 scw config info
 ```
 
 Get the config values of the profile 'prod'
-```
+```shell
 scw -p prod config info
 ```
 
@@ -181,7 +165,7 @@ scw -p prod config info
 
 **Usage:**
 
-```
+```shell
 scw config profile activate <profile-name ...> [arg=value ...]
 ```
 
@@ -200,7 +184,7 @@ scw config profile activate <profile-name ...> [arg=value ...]
 
 **Usage:**
 
-```
+```shell
 scw config profile delete <name ...> [arg=value ...]
 ```
 
@@ -219,7 +203,7 @@ scw config profile delete <name ...> [arg=value ...]
 
 **Usage:**
 
-```
+```shell
 scw config profile list
 ```
 
@@ -233,7 +217,7 @@ scw config profile list
 
 **Usage:**
 
-```
+```shell
 scw config reset
 ```
 
@@ -249,7 +233,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 
 **Usage:**
 
-```
+```shell
 scw config set [arg=value ...]
 ```
 
@@ -273,12 +257,12 @@ scw config set [arg=value ...]
 
 
 Update the default organization ID
-```
+```shell
 scw config set default_organization_id=12903058-d0e8-4366-89c3-6e666abe1f6f
 ```
 
 Update the default region of the profile 'prod'
-```
+```shell
 scw -p prod config set default_region=nl-ams
 ```
 
@@ -293,7 +277,7 @@ scw -p prod config set default_region=nl-ams
 
 **Usage:**
 
-```
+```shell
 scw config unset <key ...> [arg=value ...]
 ```
 
@@ -330,7 +314,7 @@ The command goes through each profile present in the config file and validates i
 
 **Usage:**
 
-```
+```shell
 scw config validate
 ```
 

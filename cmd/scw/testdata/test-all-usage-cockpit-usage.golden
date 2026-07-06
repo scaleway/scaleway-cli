@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Scaleway Cockpit, for storing and visualizing metrics and logs.
 
 USAGE:
@@ -7,6 +7,7 @@ USAGE:
 
 AVAILABLE COMMANDS:
   alert-manager      Alerting management commands
+  config             Config management commands
   contact-point      Contact point management commands
   data-source        Datasource management commands
   grafana            Grafana user management commands

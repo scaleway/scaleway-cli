@@ -141,7 +141,7 @@ func configGetCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Get the default organization ID",
-				Raw:   "scw config get default_organization_id",
+				Raw:   "scw config get default-organization-id",
 			},
 			{
 				Short: "Get the default region of the profile 'prod'",
@@ -747,11 +747,8 @@ func configImportCommand() *core.Command {
 			importedConfig, err := scw.LoadConfigFromPath(args.File)
 			if err != nil {
 				return nil, err
-			}
-			importedProfile := importedConfig.Profile
-
-			// Merge the imported configurations into the existing configuration
-			currentConfig.Profile = *scw.MergeProfiles(currentProfile, &importedProfile)
+			} // Merge the imported configurations into the existing configuration
+			currentConfig.Profile = *scw.MergeProfiles(currentProfile, new(importedConfig.Profile))
 
 			for profileName, profile := range importedConfig.Profiles {
 				existingProfile, exists := currentConfig.Profiles[profileName]

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
 
 USAGE:

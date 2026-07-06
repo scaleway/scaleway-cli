@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Wait for volume to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the volume.
 
 USAGE:

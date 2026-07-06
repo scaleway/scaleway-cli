@@ -34,6 +34,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamSaml(),
 		iamSamlCertificates(),
 		iamSecuritySettings(),
+		iamScim(),
+		iamScimTokens(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -90,6 +92,12 @@ func GetGeneratedCommands() *core.Commands {
 		iamSamlCertificatesList(),
 		iamSamlCertificatesAdd(),
 		iamSamlCertificatesDelete(),
+		iamOrganizationGetScim(),
+		iamOrganizationEnableScim(),
+		iamScimDelete(),
+		iamScimTokensList(),
+		iamScimTokensCreate(),
+		iamScimTokensDelete(),
 	)
 }
 
@@ -224,6 +232,24 @@ func iamSecuritySettings() *core.Command {
 		Long:      `Security settings management commands.`,
 		Namespace: "iam",
 		Resource:  "security-settings",
+	}
+}
+
+func iamScim() *core.Command {
+	return &core.Command{
+		Short:     `SCIM management commands`,
+		Long:      `SCIM management commands.`,
+		Namespace: "iam",
+		Resource:  "scim",
+	}
+}
+
+func iamScimTokens() *core.Command {
+	return &core.Command{
+		Short:     `SCIM tokens management commands`,
+		Long:      `SCIM tokens management commands.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
 	}
 }
 
@@ -3055,6 +3081,199 @@ func iamSamlCertificatesDelete() *core.Command {
 
 			return &core.SuccessResult{
 				Resource: "saml-certificates",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func iamOrganizationGetScim() *core.Command {
+	return &core.Command{
+		Short:     `Get SCIM configuration of an Organization`,
+		Long:      `Get SCIM configuration of an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "get-scim",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.GetOrganizationScimRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.GetOrganizationScimRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.GetOrganizationScim(request)
+		},
+	}
+}
+
+func iamOrganizationEnableScim() *core.Command {
+	return &core.Command{
+		Short:     `Enable SCIM for an Organization`,
+		Long:      `Enable SCIM for an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "enable-scim",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.EnableOrganizationScimRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.EnableOrganizationScimRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.EnableOrganizationScim(request)
+		},
+	}
+}
+
+func iamScimDelete() *core.Command {
+	return &core.Command{
+		Short:     `Disable SCIM for an Organization`,
+		Long:      `Disable SCIM for an Organization.`,
+		Namespace: "iam",
+		Resource:  "scim",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.DeleteScimRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "scim-id",
+				Short:      `ID of the SCIM configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteScimRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteScim(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "scim",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func iamScimTokensList() *core.Command {
+	return &core.Command{
+		Short:     `List SCIM tokens`,
+		Long:      `List SCIM tokens.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.ListScimTokensRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "scim-id",
+				Short:      `ID of the SCIM configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sort order of SCIM tokens`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.ListScimTokensRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			resp, err := api.ListScimTokens(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.ScimTokens, nil
+		},
+	}
+}
+
+func iamScimTokensCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a SCIM token`,
+		Long:      `Create a SCIM token.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.CreateScimTokenRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "scim-id",
+				Short:      `ID of the SCIM configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.CreateScimTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.CreateScimToken(request)
+		},
+	}
+}
+
+func iamScimTokensDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a SCIM token`,
+		Long:      `Delete a SCIM token.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(iam.DeleteScimTokenRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "token-id",
+				Short:      `The SCIM token ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteScimTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteScimToken(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "scim-tokens",
 				Verb:     "delete",
 			}, nil
 		},

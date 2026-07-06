@@ -285,8 +285,7 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 }
 
 func (sb *ServerBuilder) AddBootType(bootType string) *ServerBuilder {
-	instanceBootType := instance.BootType(bootType)
-	sb.createReq.BootType = &instanceBootType
+	sb.createReq.BootType = new(instance.BootType(bootType))
 
 	return sb
 }

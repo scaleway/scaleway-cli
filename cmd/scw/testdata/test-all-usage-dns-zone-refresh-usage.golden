@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Refresh an SOA DNS zone to reload the records in the DNS zone and update the SOA serial.
 You can recreate the given DNS zone and its sub DNS zone if needed.
 

@@ -44,11 +44,10 @@ func TestCheckAPIKey(t *testing.T) {
 			if err != nil {
 				return err
 			}
-			expiresAt := time.Now().Add(time.Hour)
 			apiKey, err = api.CreateAPIKey(&iam.CreateAPIKeyRequest{
 				ApplicationID: apiKey.ApplicationID,
 				UserID:        apiKey.UserID,
-				ExpiresAt:     &expiresAt,
+				ExpiresAt:     new(time.Now().Add(time.Hour)),
 				Description:   "test-cli-TestCheckAPIKey",
 			})
 			if err != nil {

@@ -12,7 +12,7 @@ jobs:
     name: Github Actions lint
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Check workflow files
         uses: docker://rhysd/actionlint:latest
         with:
@@ -22,7 +22,7 @@ jobs:
     name: dockerfile-lint
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: dockerfile-lint
         run: docker build --check .
 
@@ -30,12 +30,16 @@ jobs:
     name: golangci-lint
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
-      - uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+      - uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Install Go # We need the go binary to be available to run some checks (formatter, gomod_salt, ...)
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: stable
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@1e7e51e771db61008b38414a730f564565cf7c20 # v9.2.0
+        uses: golangci/golangci-lint-action@82606bf257cbaff209d206a39f5134f0cfbfd2ee # v9.2.1
         with:
           # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
-          version: v2.9.0
+          version: v2.12.2
           args: --timeout 10m
 
   spelling:
@@ -43,8 +47,21 @@ jobs:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       - name: Checkout Actions Repository
-        uses: actions/checkout@de0fac2e4500dabe0009e67214ff5f5447ce83dd # v6.0.2
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: Install wget
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends wget
       - name: Spell Check Repo
-        uses: crate-ci/typos@631208b7aac2daa8b707f55e7331f9112b0e062d # v1.44.0
+        uses: crate-ci/typos@44e2070e6017f834bf069503acb35ca0ca0b75f2 # v1.47.1
         env:
           CLICOLOR: 1
+
+  rumdl:
+    name: rumdl
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
+    steps:
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+      - name: rumdl
+        uses: rvben/rumdl@c6fa6612be03d6dd87812a1e6eb904cbbf1d9dce # v0.2.27

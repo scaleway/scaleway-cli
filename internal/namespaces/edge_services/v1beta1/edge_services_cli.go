@@ -20,6 +20,7 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		edgeServicesRoot(),
+		edgeServicesPlan(),
 		edgeServicesPipeline(),
 		edgeServicesDNSStage(),
 		edgeServicesTLSStage(),
@@ -72,6 +73,10 @@ func GetGeneratedCommands() *core.Commands {
 		edgeServicesPurgeRequestList(),
 		edgeServicesPurgeRequestCreate(),
 		edgeServicesPurgeRequestGet(),
+		edgeServicesPlanList(),
+		edgeServicesPlanSelect(),
+		edgeServicesPlanGet(),
+		edgeServicesPlanDelete(),
 	)
 }
 
@@ -80,6 +85,15 @@ func edgeServicesRoot() *core.Command {
 		Short:     `Edge Services API`,
 		Long:      ``,
 		Namespace: "edge-services",
+	}
+}
+
+func edgeServicesPlan() *core.Command {
+	return &core.Command{
+		Short:     `Plan management commands`,
+		Long:      `Plan management commands.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
 	}
 }
 
@@ -561,6 +575,13 @@ func edgeServicesDNSStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "wildcard-domain",
+				Short:      `Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateDNSStageRequest)
@@ -643,6 +664,13 @@ func edgeServicesDNSStageUpdate() *core.Command {
 			{
 				Name:       "backend-stage-id",
 				Short:      `Backend stage ID the DNS stage will be linked to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "wildcard-domain",
+				Short:      `Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1275,7 +1303,7 @@ func edgeServicesBackendStageList() *core.Command {
 func edgeServicesBackendStageCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create backend stage`,
-		Long:      `Create a new backend stage. You must specify either a ` + "`" + `scaleway_s3` + "`" + ` (for a Scaleway Object Storage bucket) or ` + "`" + `scaleway_lb` + "`" + ` (for a Scaleway Load Balancer) field to configure the origin.`,
+		Long:      `Create a new backend stage. You must specify a type of backend (` + "`" + `scaleway_s3` + "`" + `, ` + "`" + `scaleway_lb` + "`" + `, etc.) to configure the origin.`,
 		Namespace: "edge-services",
 		Resource:  "backend-stage",
 		Verb:      "create",
@@ -1352,6 +1380,30 @@ func edgeServicesBackendStageCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "scaleway-serverless-container.region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-container.container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-function.region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-function.function-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*edge_services.CreateBackendStageRequest)
@@ -1367,7 +1419,7 @@ func edgeServicesBackendStageCreate() *core.Command {
 func edgeServicesBackendStageGet() *core.Command {
 	return &core.Command{
 		Short:     `Get backend stage`,
-		Long:      `Retrieve information about an existing backend stage, specified by its ` + "`" + `backend_stage_id` + "`" + `. Its full details, including ` + "`" + `scaleway_s3` + "`" + ` or ` + "`" + `scaleway_lb` + "`" + `, are returned in the response object.`,
+		Long:      `Retrieve information about an existing backend stage, specified by its ` + "`" + `backend_stage_id` + "`" + `. Its full details are returned in the response object.`,
 		Namespace: "edge-services",
 		Resource:  "backend-stage",
 		Verb:      "get",
@@ -1469,6 +1521,30 @@ func edgeServicesBackendStageUpdate() *core.Command {
 			{
 				Name:       "scaleway-lb.lbs.{index}.has-websocket",
 				Short:      `Defines whether to forward websocket requests to the load balancer`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-container.region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-container.container-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-function.region",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "scaleway-serverless-function.function-id",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1798,7 +1874,7 @@ func edgeServicesRouteStageList() *core.Command {
 func edgeServicesRouteStageCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create route stage`,
-		Long:      `Create a new route stage. You must specify the ` + "`" + `waf_stage_id` + "`" + ` field to customize the route.`,
+		Long:      `Create a new route stage. You must specify the ` + "`" + `waf_stage_id` + "`" + ` or ` + "`" + `backend_stage_id` + "`" + ` fields to customize the route.`,
 		Namespace: "edge-services",
 		Resource:  "route-stage",
 		Verb:      "create",
@@ -1821,6 +1897,7 @@ func edgeServicesRouteStageCreate() *core.Command {
 			},
 			{
 				Name:       "backend-stage-id",
+				Short:      `ID of the backend stage HTTP requests should be forwarded to when no rules are matched`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1892,6 +1969,7 @@ func edgeServicesRouteStageUpdate() *core.Command {
 			},
 			{
 				Name:       "backend-stage-id",
+				Short:      `ID of the backend stage HTTP requests should be forwarded to when no rules are matched`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2026,6 +2104,22 @@ func edgeServicesRouteRulesSet() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.host-filter-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_host_filter",
+					"regex",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.value",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "route-rules.{index}.backend-stage-id",
 				Short:      `ID of the backend stage that requests matching the rule should be forwarded to`,
 				Required:   false,
@@ -2099,6 +2193,22 @@ func edgeServicesRouteRulesAdd() *core.Command {
 			{
 				Name:       "route-rules.{index}.rule-http-match.path-filter.value",
 				Short:      `Value to be matched for the HTTP URL path`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.host-filter-type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_host_filter",
+					"regex",
+				},
+			},
+			{
+				Name:       "route-rules.{index}.rule-http-match.host-filter.value",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2180,7 +2290,7 @@ func edgeServicesPurgeRequestList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `Organization ID to filter for. Only purge requests from this Project will be returned`,
+				Short:      `Organization ID to filter for. Only purge requests from this Organization will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2270,6 +2380,112 @@ func edgeServicesPurgeRequestGet() *core.Command {
 			api := edge_services.NewAPI(client)
 
 			return api.GetPurgeRequest(request)
+		},
+	}
+}
+
+func edgeServicesPlanList() *core.Command {
+	return &core.Command{
+		Short:     `List plans`,
+		Long:      `List all available Edge Services subscription plans.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgSpecs: core.ArgSpecs{},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.ListPlans()
+		},
+	}
+}
+
+func edgeServicesPlanSelect() *core.Command {
+	return &core.Command{
+		Short:     `Select plan`,
+		Long:      `Subscribe to the Edge Services subscription plan of your choice, for the given Scaleway Project.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "select",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.SelectPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "plan-name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_name",
+					"starter",
+					"professional",
+					"advanced",
+				},
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.SelectPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.SelectPlan(request)
+		},
+	}
+}
+
+func edgeServicesPlanGet() *core.Command {
+	return &core.Command{
+		Short:     `Get plan`,
+		Long:      `Get the current Edge Services subscription plan for your Scaleway Project.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.GetCurrentPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.GetCurrentPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+
+			return api.GetCurrentPlan(request)
+		},
+	}
+}
+
+func edgeServicesPlanDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete plan`,
+		Long:      `Unsubscribe from the current Edge Services subscription plan for your Scaleway Project.`,
+		Namespace: "edge-services",
+		Resource:  "plan",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(edge_services.DeleteCurrentPlanRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*edge_services.DeleteCurrentPlanRequest)
+
+			client := core.ExtractClient(ctx)
+			api := edge_services.NewAPI(client)
+			e = api.DeleteCurrentPlan(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "plan",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

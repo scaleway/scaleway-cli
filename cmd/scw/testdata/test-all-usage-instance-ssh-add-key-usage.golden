@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Key will be added to server's tags and added to root user on next restart.
 Key is expected in openssh format "(format) (key) (comment)".
 The comment will be used as key name or generated
