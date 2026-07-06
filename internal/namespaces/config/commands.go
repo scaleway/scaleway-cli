@@ -141,7 +141,7 @@ func configGetCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Get the default organization ID",
-				Raw:   "scw config get default_organization_id",
+				Raw:   "scw config get default-organization-id",
 			},
 			{
 				Short: "Get the default region of the profile 'prod'",
