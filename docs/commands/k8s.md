@@ -132,8 +132,8 @@ scw k8s cluster create [arg=value ...]
 | pools.{index}.autohealing |  | Defines whether the autohealing feature is enabled for the pool |
 | pools.{index}.tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags) |
 | pools.{index}.kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
-| pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
-| pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
+| pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be `upgrading` at the same time |
+| pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades |
 | pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
 | pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | pools.{index}.root-volume-size |  | System volume disk size |
@@ -969,8 +969,8 @@ scw k8s pool create [arg=value ...]
 | autohealing |  | Defines whether the autohealing feature is enabled for the pool |
 | tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags) |
 | kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
-| upgrade-policy.max-unavailable |  |  |
-| upgrade-policy.max-surge |  |  |
+| upgrade-policy.max-unavailable |  | The maximum number of nodes that can be `upgrading` at the same time |
+| upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades |
 | zone |  | Zone in which the pool's nodes will be spawned |
 | root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
 | root-volume-size |  | System volume disk size |
@@ -1344,8 +1344,8 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 | autohealing |  | New value for the pool autohealing enablement |
 | tags.{index} |  | New tags associated with the pool |
 | kubelet-args.{key} |  | New Kubelet arguments to be used by this pool. Note that this feature is experimental |
-| upgrade-policy.max-unavailable |  |  |
-| upgrade-policy.max-surge |  |  |
+| upgrade-policy.max-unavailable |  | New maximum number of nodes that can be `upgrading` at the same time |
+| upgrade-policy.max-surge |  | New maximum number of nodes to be created during the upgrade |
 | security-group-id |  | Security group ID in which all the nodes of the pool will be moved |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
