@@ -120,7 +120,10 @@ scw secret secret get <secret-id ...> [arg=value ...]
 
 ### List secrets
 
-Retrieve the list of secrets created within an Organization and/or Project. You must specify either the `organization_id` or the `project_id` and the `region`.
+Retrieve the list of secrets created within an Organization and/or Project. 
+If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+If the user has permissions for all current projects or only specific projects: The `project_id` is required.
+The `region` parameter in path is needed in both case.
 
 **Usage:**
 

@@ -221,7 +221,7 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | key-id | Required | ID of the key in which to import key material |
-| key-material |  | The key material The key material is a random sequence of bytes used to derive a cryptographic key. |
+| key-material |  | The key material |
 | salt |  | (Optional) Salt value to pass the key derivation function |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -229,7 +229,10 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 ### List keys
 
-Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the `region`, and either the `organization_id` or the `project_id`.
+Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+If the user has permissions for all current projects or only specific projects: The project_id is required.
+The `region` parameter in path is needed in both case.
 
 **Usage:**
 

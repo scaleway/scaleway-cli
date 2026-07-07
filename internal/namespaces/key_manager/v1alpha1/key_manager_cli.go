@@ -499,8 +499,11 @@ func keymanagerKeyDisable() *core.Command {
 
 func keymanagerKeyList() *core.Command {
 	return &core.Command{
-		Short:     `List keys`,
-		Long:      `Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the ` + "`" + `region` + "`" + `, and either the ` + "`" + `organization_id` + "`" + ` or the ` + "`" + `project_id` + "`" + `.`,
+		Short: `List keys`,
+		Long: `Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+If the user has permissions for all current projects or only specific projects: The project_id is required.
+The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "list",
@@ -766,7 +769,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 			},
 			{
 				Name:       "key-material",
-				Short:      `The key material The key material is a random sequence of bytes used to derive a cryptographic key.`,
+				Short:      `The key material`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

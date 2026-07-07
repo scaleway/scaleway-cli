@@ -27,8 +27,8 @@ ARGS:
   [autohealing]                      New value for the pool autohealing enablement
   [tags.{index}]                     New tags associated with the pool
   [kubelet-args.{key}]               New Kubelet arguments to be used by this pool. Note that this feature is experimental
-  [upgrade-policy.max-unavailable]   
-  [upgrade-policy.max-surge]         
+  [upgrade-policy.max-unavailable]   New maximum number of nodes that can be `upgrading` at the same time
+  [upgrade-policy.max-surge]         New maximum number of nodes to be created during the upgrade
   [security-group-id]                Security group ID in which all the nodes of the pool will be moved
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
