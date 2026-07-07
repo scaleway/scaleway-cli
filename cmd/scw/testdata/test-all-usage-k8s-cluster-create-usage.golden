@@ -31,8 +31,8 @@ ARGS:
   [pools.{index}.autohealing]                            Defines whether the autohealing feature is enabled for the pool
   [pools.{index}.tags.{index}]                           Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)
   [pools.{index}.kubelet-args.{key}]                     Kubelet arguments to be used by this pool. Note that this feature is experimental
-  [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
-  [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
+  [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be `upgrading` at the same time
+  [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades
   [pools.{index}.zone]                                   Zone in which the pool's nodes will be spawned
   [pools.{index}.root-volume-type]                       Defines the system volume disk type. Several types of volume (`volume_type`) are provided: (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [pools.{index}.root-volume-size]                       System volume disk size
