@@ -475,6 +475,8 @@ github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06 h1:OkMGxebDj
 github.com/sabhiram/go-gitignore v0.0.0-20210923224102-525f6e181f06/go.mod h1:+ePHsJ1keEjQtpvf9HHw0f4ZeJ0TLRsxhunSI2hYJSs=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260707073849-9aef64895b12 h1:WAnZSqYEj6PVK+VZTd2cLi+v+MThoWXqbBRMQQt/Qs8=
 github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260707073849-9aef64895b12/go.mod h1:NEMZfx03xU09Z5+Ky58W9XA1ukmJYdOykZlWx5gFLD0=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260708094646-60dd81644ad5 h1:hfg27suxNGE0iENUGtiv5qAhGpvqqwH2EmvgvTOZ+S4=
+github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260708094646-60dd81644ad5/go.mod h1:NEMZfx03xU09Z5+Ky58W9XA1ukmJYdOykZlWx5gFLD0=
 github.com/sclevine/spec v1.4.0 h1:z/Q9idDcay5m5irkZ28M7PtQM4aOISzOpj4bUPkDee8=
 github.com/sclevine/spec v1.4.0/go.mod h1:LvpgJaFyvQzRvc1kaDs0bulYwzC70PbiYjC4QnFHkOM=
 github.com/secure-systems-lab/go-securesystemslib v0.11.0 h1:iuCR9kcMFD4QurdKrGvPLoKZLv9YvwPYVr0473BdtFs=
