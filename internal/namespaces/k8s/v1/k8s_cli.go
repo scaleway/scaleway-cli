@@ -441,14 +441,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.upgrade-policy.max-unavailable",
-				Short:      `The maximum number of nodes that can be not ready at the same time`,
+				Short:      `The maximum number of nodes that can be ` + "`" + `upgrading` + "`" + ` at the same time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.upgrade-policy.max-surge",
-				Short:      `The maximum number of nodes to be created during the upgrade`,
+				Short:      `The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach ` + "`" + `size` + "`" + `+` + "`" + `max_surge` + "`" + ` before downscaling to ` + "`" + `size` + "`" + ` after node upgrades`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1893,12 +1893,14 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "upgrade-policy.max-unavailable",
+				Short:      `The maximum number of nodes that can be ` + "`" + `upgrading` + "`" + ` at the same time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "upgrade-policy.max-surge",
+				Short:      `The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach ` + "`" + `size` + "`" + `+` + "`" + `max_surge` + "`" + ` before downscaling to ` + "`" + `size` + "`" + ` after node upgrades`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2194,12 +2196,14 @@ func k8sPoolUpdate() *core.Command {
 			},
 			{
 				Name:       "upgrade-policy.max-unavailable",
+				Short:      `New maximum number of nodes that can be ` + "`" + `upgrading` + "`" + ` at the same time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "upgrade-policy.max-surge",
+				Short:      `New maximum number of nodes to be created during the upgrade`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
