@@ -107,7 +107,7 @@ func containerTokenGet() *core.Command {
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "get",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(container.GetTokenRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -141,7 +141,7 @@ func containerTokenList() *core.Command {
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "list",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(container.ListTokensRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -203,7 +203,7 @@ func containerTokenDelete() *core.Command {
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "delete",
-		// Deprecated:    false,
+		// Deprecated:    true,
 		ArgsType: reflect.TypeOf(container.DeleteTokenRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
