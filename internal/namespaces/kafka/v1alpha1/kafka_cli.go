@@ -41,8 +41,8 @@ func GetGeneratedCommands() *core.Commands {
 
 func kafkaRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Public Beta.`,
-		Long:      `This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Public Beta.`,
+		Short:     `This API allows you to manage your Clusters for Apache Kafka®.`,
+		Long:      `This API allows you to manage your Clusters for Apache Kafka®.`,
 		Namespace: "kafka",
 	}
 }
