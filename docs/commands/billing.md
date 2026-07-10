@@ -438,7 +438,7 @@ scw billing invoice list [arg=value ...]
 |------|---|-------------|
 | billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
 | billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
-| invoice-type | One of: `unknown_type`, `periodic`, `purchase` | Invoice type. It can either be `periodic` or `purchase` |
+| invoice-type | One of: `unknown_type`, `periodic`, `purchase`, `credit_note` | Invoice type. It can either be `periodic`, `purchase` or `credit_note` |
 | order-by | One of: `invoice_number_desc`, `invoice_number_asc`, `start_date_desc`, `start_date_asc`, `issued_date_desc`, `issued_date_asc`, `due_date_desc`, `due_date_asc`, `total_untaxed_desc`, `total_untaxed_asc`, `total_taxed_desc`, `total_taxed_asc`, `invoice_type_desc`, `invoice_type_asc` | How invoices are ordered in the response |
 | organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
 

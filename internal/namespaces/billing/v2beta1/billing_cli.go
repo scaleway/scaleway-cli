@@ -209,7 +209,7 @@ func billingInvoiceList() *core.Command {
 			},
 			{
 				Name:       "invoice-type",
-				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
+				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + `, ` + "`" + `purchase` + "`" + ` or ` + "`" + `credit_note` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -217,6 +217,7 @@ func billingInvoiceList() *core.Command {
 					"unknown_type",
 					"periodic",
 					"purchase",
+					"credit_note",
 				},
 			},
 			{
@@ -292,7 +293,7 @@ func billingInvoiceExport() *core.Command {
 			},
 			{
 				Name:       "invoice-type",
-				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
+				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + `, ` + "`" + `purchase` + "`" + ` or ` + "`" + `credit_note` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -300,6 +301,7 @@ func billingInvoiceExport() *core.Command {
 					"unknown_type",
 					"periodic",
 					"purchase",
+					"credit_note",
 				},
 			},
 			{

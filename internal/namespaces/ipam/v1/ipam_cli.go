@@ -451,6 +451,7 @@ func ipamIPList() *core.Command {
 					"sedb_cluster",
 					"msgq_cluster",
 					"edge_vpc_endpoint",
+					"dviz_cluster",
 				},
 			},
 			{
@@ -490,6 +491,7 @@ func ipamIPList() *core.Command {
 					"sedb_cluster",
 					"msgq_cluster",
 					"edge_vpc_endpoint",
+					"dviz_cluster",
 				},
 			},
 			{
