@@ -10,7 +10,7 @@ AVAILABLE COMMANDS:
   datalab                 Clusters for Apache Spark™ API
   domain                  Domains and DNS - Registrar API
   environmental-footprint Access and download impact reports and impact data for your Scaleway projects. Our API provides key metrics such as estimated carbon emissions and water usage to help monitor your environmental footprint.
-  kafka                   This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Public Beta.
+  kafka                   This API allows you to manage your Clusters for Apache Kafka®.
   product-catalog         Product Catalog API
 
 BAREMETAL COMMANDS:
