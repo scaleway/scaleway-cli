@@ -66,7 +66,6 @@ KEY  VALUE  EFFECT
   "taints": [],
   "startup_taints": [],
   "private_network_id": null,
-  "error_message": null,
   "region": "fr-par",
   "srn": "srn://k8s.scw.eu/regions/fr-par/pools/92f272fd-9dca-48cc-9f37-8d3ed4f38b2a"
 }
