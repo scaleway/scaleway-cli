@@ -73,6 +73,7 @@ foo  bar    NoSchedule
     }
   ],
   "private_network_id": null,
+  "error_message": null,
   "region": "fr-par",
   "srn": "srn://k8s.scw.eu/regions/fr-par/pools/4be08c06-3322-457d-98cd-c89774bcfe93"
 }
