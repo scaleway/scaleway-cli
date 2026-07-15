@@ -6,9 +6,13 @@ USAGE:
   scw datawarehouse endpoint create [arg=value ...]
 
 ARGS:
-  [deployment-id]                                 UUID of the deployment
-  [endpoint.private-network.private-network-id]   UUID of the Private Network
-  [region=fr-par]                                 Region to target. If none is passed will use default region from the config (fr-par)
+  [deployment-id]                                       UUID of the deployment
+  [endpoint.private-network.private-network-id]         UUID of the Private Network
+  [endpoint.private-network.nodes.{index}.node-name]    Name  of the node
+  [endpoint.private-network.nodes.{index}.shard]        The ClickHouse shard to which the node belongs to
+  [endpoint.private-network.nodes.{index}.replica]      The ClickHouse replica to which the node belongs to
+  [endpoint.private-network.nodes.{index}.ip-address]   Private static IP address of that node.
+  [region=fr-par]                                       Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:
   -h, --help                help for create
