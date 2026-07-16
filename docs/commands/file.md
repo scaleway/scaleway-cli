@@ -53,7 +53,7 @@ scw file filesystem create [arg=value ...]
 |------|---|-------------|
 | name | Required | Name of the filesystem |
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| size | Required | Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes). |
+| size | Required | Filesystem size in bytes, with a granularity in GB (10^9 bytes). |
 | type |  | Type of the filesystem |
 | tags.{index} |  | List of tags assigned to the filesystem |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
