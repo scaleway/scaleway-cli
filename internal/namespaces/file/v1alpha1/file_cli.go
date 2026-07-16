@@ -275,7 +275,7 @@ func fileFilesystemCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "size",
-				Short:      `Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes).`,
+				Short:      `Filesystem size in bytes, with a granularity in GB (10^9 bytes).`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
