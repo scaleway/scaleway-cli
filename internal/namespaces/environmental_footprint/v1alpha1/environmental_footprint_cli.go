@@ -195,6 +195,7 @@ func environmentalFootprintDataGet() *core.Command {
 					"containers",
 					"databases",
 					"ai",
+					"serverless",
 				},
 			},
 			{
@@ -218,6 +219,9 @@ func environmentalFootprintDataGet() *core.Command {
 					"managed_redis",
 					"managed_inference",
 					"generative_apis",
+					"serverless_functions",
+					"serverless_containers",
+					"serverless_jobs",
 				},
 			},
 			core.OrganizationIDArgSpec(),
