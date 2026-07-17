@@ -365,8 +365,8 @@ github.com/mitchellh/go-homedir v1.1.0 h1:lukF9ziXFxDFPkA1vsr5zpc1XuPDn/wFntq5mG
 github.com/mitchellh/go-homedir v1.1.0/go.mod h1:SfyaCUpYCn1Vlf4IUYiD9fPX4A5wJrkLzIz1N1q0pr0=
 github.com/mitchellh/ioprogress v0.0.0-20180201004757-6a23b12fa88e h1:Qa6dnn8DlasdXRnacluu8HzPts0S1I9zvvUPDbBnXFI=
 github.com/mitchellh/ioprogress v0.0.0-20180201004757-6a23b12fa88e/go.mod h1:waEya8ee1Ro/lgxpVhkJI4BVASzkm3UZqkx/cFJiYHM=
-github.com/moby/buildkit v0.31.1 h1:j3p55abBl4kiXXPZgYX+6zWgB2aefqHXoPown12fIzU=
-github.com/moby/buildkit v0.31.1/go.mod h1:YM5iNEbNCc6L1Zt3YWFB/aXNLufvf4Rcu0DPlc9HwQg=
+github.com/moby/buildkit v0.31.2 h1:UsaoSa0z45ycj+8DqWwmiXKnszDSNvv3wYPGLVtcEKE=
+github.com/moby/buildkit v0.31.2/go.mod h1:q1QO35x5YryiXLONScL2IybwMIziz6Rq3FBznz8fmGc=
 github.com/moby/docker-image-spec v1.3.1 h1:jMKff3w6PgbfSa69GfNg+zN/XLhfXJGnEx3Nl2EsFP0=
 github.com/moby/docker-image-spec v1.3.1/go.mod h1:eKmb5VW8vQEh/BAr2yvVNvuiJuY6UIocYsFu/DxxRpo=
 github.com/moby/go-archive v0.2.0 h1:zg5QDUM2mi0JIM9fdQZWC7U8+2ZfixfTYoHL7rWUcP8=
@@ -530,8 +530,8 @@ github.com/tj/go-buffer v1.1.0/go.mod h1:iyiJpfFcR2B9sXu7KvjbT9fpM4mOelRSDTbntVj
 github.com/tj/go-elastic v0.0.0-20171221160941-36157cbbebc2/go.mod h1:WjeM0Oo1eNAjXGDx2yma7uG2XoyRZTq1uv3M/o7imD0=
 github.com/tj/go-kinesis v0.0.0-20171128231115-08b17f58cb1b/go.mod h1:/yhzCV0xPfx6jb1bBgRFjl5lytqVqZXEaeqWP8lTEao=
 github.com/tj/go-spin v1.1.0/go.mod h1:Mg1mzmePZm4dva8Qz60H2lHwmJ2loum4VIrLgVnKwh4=
-github.com/tonistiigi/fsutil v0.0.0-20260609091201-0257b3308df4 h1:tJkv/edHw9FXVtbHxc6cpqDttiCLNzhqI1W40fcnxIY=
-github.com/tonistiigi/fsutil v0.0.0-20260609091201-0257b3308df4/go.mod h1:K5zrLch9UaSGNiek5XHZeqZUf1zPWJHqDfLIcnpquQ4=
+github.com/tonistiigi/fsutil v0.0.0-20260716115106-30cd4fc5d911 h1:xJZz1fhsRSrGTzQ6wvh1gX6d5jQaYjbIuGXT2s0AWuM=
+github.com/tonistiigi/fsutil v0.0.0-20260716115106-30cd4fc5d911/go.mod h1:K5zrLch9UaSGNiek5XHZeqZUf1zPWJHqDfLIcnpquQ4=
 github.com/tonistiigi/go-csvvalue v0.0.0-20240814133006-030d3b2625d0 h1:2f304B10LaZdB8kkVEaoXvAMVan2tl9AiK4G0odjQtE=
 github.com/tonistiigi/go-csvvalue v0.0.0-20240814133006-030d3b2625d0/go.mod h1:278M4p8WsNh3n4a1eqiFcV2FGk7wE5fwUpUom9mK9lE=
 github.com/tonistiigi/units v0.0.0-20180711220420-6950e57a87ea h1:SXhTLE6pb6eld/v/cCndK0AMpt1wiVFb/YYmqB3/QG0=
