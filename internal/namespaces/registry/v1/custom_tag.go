@@ -35,6 +35,7 @@ type CustomTag struct {
 
 func tagGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*registry.GetTagRequest)
 		getTagResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -45,8 +46,9 @@ func tagGetBuilder(c *core.Command) *core.Command {
 		api := registry.NewAPI(client)
 
 		image, err := api.GetImage(&registry.GetImageRequest{
+			Region:  request.Region,
 			ImageID: tag.ImageID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			logger.Warningf("cannot get image %s %s", tag.ImageID, err)
 
@@ -54,8 +56,9 @@ func tagGetBuilder(c *core.Command) *core.Command {
 		}
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			Region:      request.Region,
 			NamespaceID: image.NamespaceID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			logger.Warningf("cannot get namespace %s %s", image.NamespaceID, err)
 
@@ -102,15 +105,17 @@ func tagListBuilder(c *core.Command) *core.Command {
 
 		request := argsI.(*registry.ListTagsRequest)
 		image, err := api.GetImage(&registry.GetImageRequest{
+			Region:  request.Region,
 			ImageID: request.ImageID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return listTagResp, err
 		}
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			Region:      request.Region,
 			NamespaceID: image.NamespaceID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return listTagResp, err
 		}
