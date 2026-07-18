@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		jobsRun(),
 		jobsDefinition(),
 		jobsSecret(),
+		jobsTrigger(),
 		jobsDefinitionCreate(),
 		jobsDefinitionGet(),
 		jobsDefinitionList(),
@@ -37,6 +38,11 @@ func GetGeneratedCommands() *core.Commands {
 		jobsSecretList(),
 		jobsSecretUpdate(),
 		jobsSecretDelete(),
+		jobsTriggerCreate(),
+		jobsTriggerGet(),
+		jobsTriggerList(),
+		jobsTriggerUpdate(),
+		jobsTriggerDelete(),
 	)
 }
 
@@ -72,6 +78,15 @@ func jobsSecret() *core.Command {
 		Long:      ``,
 		Namespace: "jobs",
 		Resource:  "secret",
+	}
+}
+
+func jobsTrigger() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "jobs",
+		Resource:  "trigger",
 	}
 }
 
@@ -172,6 +187,13 @@ func jobsDefinitionCreate() *core.Command {
 			},
 			{
 				Name:       "cron-schedule.timezone",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "retry-policy.max-retries",
+				Short:      `Maximum number of retries upon a job failure.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -388,6 +410,12 @@ func jobsDefinitionUpdate() *core.Command {
 			},
 			{
 				Name:       "cron-schedule.timezone",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "retry-policy.max-retries",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -925,6 +953,274 @@ func jobsSecretDelete() *core.Command {
 
 			return &core.SuccessResult{
 				Resource: "secret",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func jobsTriggerCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a trigger`,
+		Long:      `Create a trigger.`,
+		Namespace: "jobs",
+		Resource:  "trigger",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.CreateTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the trigger`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.schedule",
+				Short:      `CRON schedule in UNIX format`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.timezone",
+				Short:      `Time zone for the CRON schedule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.startup-command.{index}",
+				Short:      `Startup command that will be used by the triggered job`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.args.{index}",
+				Short:      `Arguments passed to the startup command used by the triggered job`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*jobs.CreateTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+
+			return api.CreateTrigger(request)
+		},
+	}
+}
+
+func jobsTriggerGet() *core.Command {
+	return &core.Command{
+		Short:     `Get a trigger`,
+		Long:      `Get a trigger.`,
+		Namespace: "jobs",
+		Resource:  "trigger",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.GetTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Short:      `UUID of the trigger`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*jobs.GetTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+
+			return api.GetTrigger(request)
+		},
+	}
+}
+
+func jobsTriggerList() *core.Command {
+	return &core.Command{
+		Short:     `List triggers of a job definition`,
+		Long:      `List triggers of a job definition.`,
+		Namespace: "jobs",
+		Resource:  "trigger",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.ListTriggersRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "job-definition-id",
+				Short:      `UUID of the job definition`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sorting order of triggers`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*jobs.ListTriggersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages()}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListTriggers(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Triggers, nil
+		},
+	}
+}
+
+func jobsTriggerUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update a trigger`,
+		Long:      `Update a trigger.`,
+		Namespace: "jobs",
+		Resource:  "trigger",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.UpdateTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Short:      `UUID of the trigger`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "name",
+				Short:      `Name of the trigger`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.schedule",
+				Short:      `CRON schedule in UNIX format`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.timezone",
+				Short:      `Time zone for the CRON schedule`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.startup-command.{index}",
+				Short:      `Startup command that will be used by the triggered job`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "cron-config.args.{index}",
+				Short:      `Arguments passed to the startup command used by the triggered job`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*jobs.UpdateTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+
+			return api.UpdateTrigger(request)
+		},
+	}
+}
+
+func jobsTriggerDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a trigger`,
+		Long:      `Delete a trigger.`,
+		Namespace: "jobs",
+		Resource:  "trigger",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(jobs.DeleteTriggerRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "trigger-id",
+				Short:      `UUID of the trigger`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*jobs.DeleteTriggerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := jobs.NewAPI(client)
+			e = api.DeleteTrigger(request)
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "trigger",
 				Verb:     "delete",
 			}, nil
 		},

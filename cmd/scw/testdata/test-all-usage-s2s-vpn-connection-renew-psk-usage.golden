@@ -6,8 +6,9 @@ USAGE:
   scw s2s-vpn connection renew-psk <connection-id ...> [arg=value ...]
 
 ARGS:
-  connection-id     ID of the connection to renew the PSK
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
+  connection-id              ID of the connection to renew the PSK
+  [generate-revision=true]   Generate a new revision or update to the latest existing one
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for renew-psk

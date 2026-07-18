@@ -800,6 +800,18 @@ func s2sVpnConnectionCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "secret.id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret.revision",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "vpn-gateway-id",
 				Short:      `ID of the VPN gateway to attach to the connection`,
 				Required:   true,
@@ -1078,6 +1090,14 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "generate-revision",
+				Short:      `Generate a new revision or update to the latest existing one`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("true"),
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,

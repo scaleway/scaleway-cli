@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   definition  
   run         
   secret      
+  trigger     
 
 FLAGS:
   -h, --help                help for jobs

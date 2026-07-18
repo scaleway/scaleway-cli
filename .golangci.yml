@@ -28,6 +28,7 @@ linters:
     - bodyclose # checks whether HTTP response body is closed successfully [fast: false, auto-fix: false]
     - canonicalheader # canonicalheader checks whether net/http.Header uses canonical header [fast: false, auto-fix: false]
     - containedctx # Containedctx is a linter that detects struct contained context.Context field.
+    - contextcheck # Check whether the function uses a non-inherited context.
     - copyloopvar # copyloopvar is a linter detects places where loop variables are copied [fast: true, auto-fix: false]
     - decorder # check declaration order and count of types, constants, variables and functions [fast: true, auto-fix: false]
     - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
@@ -147,6 +148,13 @@ linters:
     - path: internal/namespaces/k8s/v1/types/types.go
       linters:
         - tagalign
+
+    # cobra API requires func(*cobra.Command) error signature; context extracted from command
+    # Only apply to core Cobra integration files where context comes from cobraCmd.Context()
+    - path: core/cobra_utils\.go
+      linters:
+        - contextcheck
+      text: "should pass the context parameter"
 
 issues:
   max-issues-per-linter: 0

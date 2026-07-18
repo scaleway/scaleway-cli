@@ -7,6 +7,6 @@ Default path for configuration file is based on the following priority order:
 - $XDG_CONFIG_HOME/scw/config.yaml
 - $HOME/.config/scw/config.yaml
 - $USERPROFILE/.config/scw/config.yaml
-  
 
-  
+
+

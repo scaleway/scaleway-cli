@@ -6,7 +6,7 @@ USAGE:
   scw baremetal server install <server-id ...> [arg=value ...]
 
 EXAMPLES:
-  Install an OS on a  server with a particular SSH key ID
+  Install an OS on a server with a particular SSH key ID
     scw baremetal server install 11111111-1111-1111-1111-111111111111 os-id=11111111-1111-1111-1111-111111111111 ssh-key-ids.0=11111111-1111-1111-1111-111111111111
 
 ARGS:

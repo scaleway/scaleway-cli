@@ -1478,7 +1478,7 @@ func rdbReadReplicaCreate() *core.Command {
 func rdbReadReplicaGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a Read Replica`,
-		Long:      `Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like ` + "`" + `endpoints` + "`" + `, ` + "`" + `status` + "`" + `  and ` + "`" + `region` + "`" + ` are returned in the response.`,
+		Long:      `Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like ` + "`" + `endpoints` + "`" + `, ` + "`" + `status` + "`" + ` and ` + "`" + `region` + "`" + ` are returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "get",
@@ -2322,7 +2322,7 @@ func rdbUserUpdate() *core.Command {
 func rdbUserDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a user on a Database Instance`,
-		Long:      `Delete a given user on a Database Instance. You must specify, in the endpoint,  the ` + "`" + `region` + "`" + `, ` + "`" + `instance_id` + "`" + ` and ` + "`" + `name` + "`" + ` parameters of the user you want to delete.`,
+		Long:      `Delete a given user on a Database Instance. You must specify, in the endpoint, the ` + "`" + `region` + "`" + `, ` + "`" + `instance_id` + "`" + ` and ` + "`" + `name` + "`" + ` parameters of the user you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "delete",
@@ -2888,7 +2888,7 @@ func rdbSnapshotUpdate() *core.Command {
 func rdbSnapshotDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Database Instance snapshot`,
-		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the ` + "`" + `region` + "`" + ` and ` + "`" + `snapshot_id` + "`" + ` parameters of the snapshot you want to delete.`,
+		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint, the ` + "`" + `region` + "`" + ` and ` + "`" + `snapshot_id` + "`" + ` parameters of the snapshot you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "delete",
