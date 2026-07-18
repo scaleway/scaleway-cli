@@ -20,7 +20,7 @@ jobs:
     runs-on: ubuntu-latest
     steps:
       - name: Checkout repository
-        uses: actions/checkout@v4
+        uses: actions/checkout@v5
         with:
           fetch-depth: 0
 
@@ -121,12 +121,12 @@ jobs:
 
       - name: Disable non-whitelisted repository workflows
         if: steps.needs_sync.outputs.skip != 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         with:
           script: |
             const keep = new Set([
               '.github/workflows/sync_upstream_release.yml',
-              '.github/workflows/snapcraft_pr_check.yml'
+              '.github/workflows/snapcraft_pr_check.yml',
             ]);
 
             const { owner, repo } = context.repo;
@@ -158,7 +158,7 @@ jobs:
 
       - name: Create or update pull request
         if: steps.needs_sync.outputs.skip != 'true'
-        uses: actions/github-script@v7
+        uses: actions/github-script@v8
         env:
           TAG: ${{ steps.resolve_tag.outputs.tag }}
           SNAP_VERSION: ${{ steps.resolve_tag.outputs.snap_version }}
