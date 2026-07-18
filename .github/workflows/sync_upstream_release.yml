@@ -13,7 +13,6 @@ on:
 permissions:
   contents: write
   pull-requests: write
-  actions: write
 
 jobs:
   merge-upstream-release:
@@ -101,15 +100,14 @@ jobs:
           git checkout -B "${BRANCH}" origin/main
           git merge "${TAG_REF}" -m "Merging upstream tag ${TAG}"
 
-          # Keep fork-owned workflows as-is so this automation never tries to
-          # push upstream workflow changes and does not need workflows:write.
-          git checkout origin/main -- .github/workflows
+          # Keep only our allow-listed workflow actions in .github/workflows/
+          find .github/workflows -type f ! -name 'sync_upstream_release.yml' ! -name 'snapcraft_pr_check.yml' -delete
 
           sed "s/VERSION/${SNAP_VERSION}/g" snapbuild/snapcraft.yaml.template > snapcraft.yaml
 
-          if ! git diff --quiet -- snapcraft.yaml; then
-            git add snapcraft.yaml
-            git commit -m "Setting version ${SNAP_VERSION} in snapcraft.yaml (upstream tag ${TAG})"
+          git add snapcraft.yaml .github/workflows
+          if ! git diff --quiet --staged; then
+            git commit -m "Setting version ${SNAP_VERSION} in snapcraft.yaml and keeping snap workflows (upstream tag ${TAG})"
           fi
 
       - name: Push sync branch
@@ -118,43 +116,6 @@ jobs:
           BRANCH: ${{ steps.resolve_tag.outputs.branch }}
         run: |
           git push --force-with-lease origin "${BRANCH}"
-
-      - name: Disable non-whitelisted repository workflows
-        if: steps.needs_sync.outputs.skip != 'true'
-        uses: actions/github-script@v8
-        with:
-          script: |
-            const keep = new Set([
-              '.github/workflows/sync_upstream_release.yml',
-              '.github/workflows/snapcraft_pr_check.yml',
-            ]);
-
-            const { owner, repo } = context.repo;
-            const workflows = await github.paginate(github.rest.actions.listRepoWorkflows, {
-              owner,
-              repo,
-              per_page: 100,
-            });
-
-            for (const workflow of workflows) {
-              if (keep.has(workflow.path)) {
-                core.info(`Keeping enabled: ${workflow.name} (${workflow.path})`);
-                continue;
-              }
-
-              core.info(`Disabling: ${workflow.name} (${workflow.path})`);
-              try {
-                await github.rest.actions.disableWorkflow({
-                  owner,
-                  repo,
-                  workflow_id: workflow.id,
-                });
-              } catch (error) {
-                const status = error.status || 'unknown';
-                const message = error.message || 'unknown error';
-                core.warning(`Could not disable ${workflow.name} (${workflow.path}): [${status}] ${message}`);
-              }
-            }
 
       - name: Create or update pull request
         if: steps.needs_sync.outputs.skip != 'true'
