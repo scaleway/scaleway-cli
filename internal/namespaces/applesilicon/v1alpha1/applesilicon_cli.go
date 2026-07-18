@@ -385,7 +385,7 @@ func appleSiliconOsList() *core.Command {
 func appleSiliconOsGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an Operating System (OS)`,
-		Long:      `Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.`,
+		Long:      `Get an Operating System (OS). The response will include the OS's unique ID as well as its name and label.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 		Verb:      "get",

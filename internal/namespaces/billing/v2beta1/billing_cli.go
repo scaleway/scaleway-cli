@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		billingInvoice(),
 		billingConsumption(),
 		billingDiscount(),
+		billingCharge(),
 		billingConsumptionList(),
 		billingConsumptionListTaxes(),
 		billingInvoiceList(),
@@ -30,6 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 		billingInvoiceGet(),
 		billingInvoiceDownload(),
 		billingDiscountList(),
+		billingChargeList(),
 	)
 }
 
@@ -65,6 +67,15 @@ func billingDiscount() *core.Command {
 		Long:      `Discount management commands.`,
 		Namespace: "billing",
 		Resource:  "discount",
+	}
+}
+
+func billingCharge() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "billing",
+		Resource:  "charge",
 	}
 }
 
@@ -475,6 +486,110 @@ func billingDiscountList() *core.Command {
 			}
 
 			return resp.Discounts, nil
+		},
+	}
+}
+
+func billingChargeList() *core.Command {
+	return &core.Command{
+		Short:     `List charges`,
+		Long:      `List charges for organizations or projects. You must specify at least ` + "`" + `organization_ids` + "`" + ` or ` + "`" + `project_ids` + "`" + `.`,
+		Namespace: "billing",
+		Resource:  "charge",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(billing.FinOpsAPIListChargesRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of charges in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"start_date_asc",
+					"start_date_desc",
+				},
+			},
+			{
+				Name:       "page-token",
+				Short:      `Token returned by previous call to list next paginated charges, omitted for first page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of charges to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "start-date-after",
+				Short:      `Minimum start date of charges to filter for, defaults to the start of the billing period`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "end-date-before",
+				Short:      `Maximum end date of charges to filter for, defaults to the end of the billing period`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "invoice-ids.{index}",
+				Short:      `Invoice IDs to filter for, only charges from these invoices will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-ids.{index}",
+				Short:      `Project IDs to filter for, only charges for these projects will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource-ids.{index}",
+				Short:      `Resource IDs to filter for, only charges for these resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource-names.{index}",
+				Short:      `Resource display names to filter for, only charges for these resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "skus.{index}",
+				Short:      `SKU IDs to filter for, only charges for these SKUs will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "clamp-to-time-range",
+				Short:      `Clamp charges to the requested time range`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*billing.FinOpsAPIListChargesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := billing.NewFinOpsAPI(client)
+
+			return api.ListCharges(request)
 		},
 	}
 }

@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 version: 2
 before:
   hooks:
@@ -52,6 +53,7 @@ dockers_v2:
       - "{{ .Tag }}"
       - "{{ .Major }}"
       - "{{ .Major }}.{{ .Minor }}"
+      - "{{ .Version }}"
     extra_files:
       - go.mod
       - go.sum
@@ -82,10 +84,10 @@ mcp:
     url: "https://github.com/scaleway/scaleway-cli"
     source: github
     id: "32575663"
-    subfolder: ./internal/namespaces/mcp
+    subfolder: internal/namespaces/mcp
   packages:
     - registry_type: oci
-      identifier: "ghcr.io/scaleway/cli:{{ .Version }}"
+      identifier: "scaleway/cli:{{ .Version }}"
       transport:
         type: stdio
 
@@ -100,3 +102,26 @@ release:
   prerelease: auto
   draft: true
   name_template: "{{ .Tag }}"
+
+winget:
+  - name: cli
+    publisher: Scaleway
+    short_description: Command Line Interface for Scaleway
+    package_identifier: "Scaleway.cli"
+    license: Apache-2.0
+    release_notes: "{{ .Changelog }}"
+    repository:
+      owner: scaleway
+      name: winget-pkgs
+      branch: "{{ .ProjectName }}-{{ .Version }}"
+      token: "{{ .Env.WINGET_TOKEN }}"
+      pull_request:
+        enabled: true
+        draft: false
+        base:
+          owner: microsoft
+          name: winget-pkgs
+          branch: master
+    tags:
+      - golang
+      - cli

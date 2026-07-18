@@ -71,5 +71,6 @@ foo  bar    NoSchedule
       "effect": "NoSchedule"
     }
   ],
+  "private_network_id": null,
   "region": "fr-par"
 }

@@ -6,8 +6,15 @@ USAGE:
   scw search resource search <query ...> [arg=value ...]
 
 ARGS:
-  query               Search query
-  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  query                   Search query
+  [project-ids.{index}]   List of Project IDs to filter the resources by
+  [types.{index}]         List of resource types to filter the resources by (unknown_type | instance_server | instance_volume | instance_image | instance_security_group | instance_private_nic | instance_snapshot | instance_placement_group | k8s_cluster | k8s_pool | k8s_node | domain_domain | dns_zone | vpc_private_network | vpc_vpc | vpg_gateway | apple_silicon_server | rdb_instance | rdb_snapshot | rdb_backup | baremetal_server | tem_domain | lb_server | serverless_functions_function | serverless_containers_container | wbh_hosting | redis_cluster | sm_secret | kms_key | edg_pipeline | mnq_nats_account | sbs_volume | sbs_snapshot | serverless_job_definition | serverless_sqldb_database | serverless_sqldb_backup | ddl_datalab | mgdb_instance | mgdb_snapshot | ifr_deployment | ifr_model | gapi_batch | dtwh_deployment | obs_datasource | obs_exporter | svpn_vpn_gateway | svpn_customer_gateway | svpn_connection | svpn_routing_policy | kafk_cluster | iam_api_key | iam_application | iam_user | iam_group | iam_policy | sedb_cluster | autoscaling_group)
+  [localities.{index}]    List of scopes (zones, regions, or global) to filter the resources by (unknown_locality | global | fr_rz | fr_srr | fr_srr_1 | fr_par | fr_par_1 | fr_par_2 | fr_par_3 | fr_par_4 | nl_ams | nl_ams_1 | nl_ams_2 | nl_ams_3 | pl_waw | pl_waw_1 | pl_waw_2 | pl_waw_3 | fr_int | fr_int_1 | fr_lab | fr_lab_1 | it_mil | it_mil_1)
+  [created-after]         Filter resources created after this timestamp
+  [created-before]        Filter resources created before this timestamp
+  [modified-after]        Filter resources modified after this timestamp
+  [modified-before]       Filter resources modified before this timestamp
+  [organization-id]       Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
   -h, --help                help for search

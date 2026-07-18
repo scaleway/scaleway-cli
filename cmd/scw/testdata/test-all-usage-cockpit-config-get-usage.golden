@@ -4,6 +4,7 @@ Generate a ready-to-use configuration snippet for a Cockpit data source.
 
 Supported tools:
   - prometheus: generates a remote_write block for prometheus.yml (metrics data sources only).
+  - fluent-bit: generates a fluent-bit.conf snippet with a dummy input and an OpenTelemetry output (logs data sources only).
 
 Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
 The token is created with the minimum required write scope for the data source type.
@@ -21,9 +22,15 @@ EXAMPLES:
   Generate a Prometheus remote_write snippet with a named token
     scw cockpit config get 11111111-1111-1111-1111-111111111111 type=prometheus generate-token=true token-name=my-prometheus
 
+  Generate a Fluent Bit configuration snippet
+    scw cockpit config get 11111111-1111-1111-1111-111111111111 type=fluent-bit
+
+  Generate a Fluent Bit configuration snippet with a new token
+    scw cockpit config get 11111111-1111-1111-1111-111111111111 type=fluent-bit generate-token=true
+
 ARGS:
   data-source-id                 ID of the data source to generate the configuration for
-  type                           Configuration template type (prometheus)
+  type                           Configuration template type (prometheus | fluent-bit)
   [generate-token]               Create a new Cockpit token and inject it in the generated snippet
   [token-name=prometheus-push]   Name of the token to create when generate-token=true
   [region=fr-par]                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)

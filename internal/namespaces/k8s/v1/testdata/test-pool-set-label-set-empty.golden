@@ -66,5 +66,6 @@ KEY  VALUE  EFFECT
   },
   "taints": [],
   "startup_taints": [],
+  "private_network_id": null,
   "region": "fr-par"
 }

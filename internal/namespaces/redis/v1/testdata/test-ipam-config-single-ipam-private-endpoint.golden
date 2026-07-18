@@ -4,7 +4,7 @@ ID           61099418-0242-49de-9d2e-b99257cbbebe
 Name         1-ipam-priv-endpoint
 ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
 Status       ready
-Version      7.0.5
+Version      8.4.0
 NodeType     RED1-micro
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
@@ -25,7 +25,7 @@ ID   IP CIDR  DESCRIPTION
   "name": "1-ipam-priv-endpoint",
   "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
   "status": "ready",
-  "version": "7.0.5",
+  "version": "8.4.0",
   "endpoints": [
     {
       "port": 6379,
