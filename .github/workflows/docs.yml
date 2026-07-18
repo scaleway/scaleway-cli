@@ -4,8 +4,7 @@ permissions:
   contents: read
 
 on:
-  pull_request:
-  merge_group:
+  workflow_dispatch:
 jobs:
   ensure-docs-generated:
     name: Ensure docs are generated
