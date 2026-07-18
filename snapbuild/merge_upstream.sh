@@ -55,13 +55,7 @@ sed "s/VERSION/${SNAP_VERSION}/g" snapbuild/snapcraft.yaml.template > snapcraft.
 git add snapcraft.yaml snapbuild/snapcraft.yaml.template
 git commit -m "Set snapcraft version to ${SNAP_VERSION} (upstream tag ${TAG})"
 
-# Move the tag so it points at our commit (which includes snapcraft.yaml)
-echo "Re-tagging ${TAG} at HEAD"
-git tag -d "${TAG}" 2>/dev/null || true
-git tag -a "${TAG}" -m "Release ${TAG}"
-
 echo "Pushing to origin"
 git push origin "$BRANCH"
-git push origin "${TAG}"
 
 echo "Done. Snap version will be: ${SNAP_VERSION}"

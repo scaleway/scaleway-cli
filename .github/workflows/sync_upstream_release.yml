@@ -1,0 +1,261 @@
+name: Sync upstream release tag
+
+on:
+  workflow_dispatch:
+    inputs:
+      tag:
+        description: "Optional upstream tag (e.g. v2.58.3). If omitted, use latest upstream release tag."
+        required: false
+        type: string
+  schedule:
+    - cron: "17 3 * * *"
+
+permissions:
+  contents: write
+  pull-requests: write
+  actions: write
+
+jobs:
+  merge-upstream-release:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout repository
+        uses: actions/checkout@v4
+        with:
+          fetch-depth: 0
+
+      - name: Configure git identity
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "41898282+github-actions[bot]@users.noreply.github.com"
+
+      - name: Add upstream remote
+        run: |
+          if ! git remote get-url upstream >/dev/null 2>&1; then
+            git remote add upstream https://github.com/scaleway/scaleway-cli.git
+          fi
+
+      - name: Resolve tag
+        id: resolve_tag
+        env:
+          INPUT_TAG: ${{ inputs.tag }}
+        run: |
+          set -euo pipefail
+
+          if [[ -n "${INPUT_TAG}" ]]; then
+            tag="${INPUT_TAG}"
+          else
+            tag="$(curl -sSfL https://api.github.com/repos/scaleway/scaleway-cli/releases/latest | jq -r '.tag_name')"
+          fi
+
+          if [[ -z "${tag}" || "${tag}" == "null" ]]; then
+            echo "Failed to resolve upstream tag"
+            exit 1
+          fi
+
+          if [[ ! "${tag}" =~ ^v[0-9]+\.[0-9]+\.[0-9]+$ ]]; then
+            echo "Tag ${tag} does not match required format vX.Y.Z"
+            exit 1
+          fi
+
+          if ! git ls-remote --exit-code --tags upstream "refs/tags/${tag}" >/dev/null 2>&1; then
+            echo "Tag ${tag} was not found on upstream"
+            exit 1
+          fi
+
+          # Keep upstream tag refs isolated to avoid collisions with this fork's local tags.
+          tag_ref="refs/tags/upstream/${tag}"
+          git fetch upstream "refs/tags/${tag}:${tag_ref}"
+
+          snap_version="${tag#v}"
+
+          echo "tag=${tag}" >> "${GITHUB_OUTPUT}"
+          echo "snap_version=${snap_version}" >> "${GITHUB_OUTPUT}"
+          echo "branch=sync-upstream-${tag}" >> "${GITHUB_OUTPUT}"
+          echo "tag_ref=${tag_ref}" >> "${GITHUB_OUTPUT}"
+
+      - name: Decide whether sync is needed
+        id: needs_sync
+        env:
+          SNAP_VERSION: ${{ steps.resolve_tag.outputs.snap_version }}
+        run: |
+          current_version="$(awk '/^version:/ { print $2 }' snapcraft.yaml)"
+
+          if [[ "${current_version}" == "${SNAP_VERSION}" ]]; then
+            echo "Snap version already set to ${SNAP_VERSION}; nothing to do"
+            echo "skip=true" >> "${GITHUB_OUTPUT}"
+          else
+            echo "skip=false" >> "${GITHUB_OUTPUT}"
+          fi
+
+      - name: Merge upstream tag on sync branch
+        if: steps.needs_sync.outputs.skip != 'true'
+        env:
+          TAG: ${{ steps.resolve_tag.outputs.tag }}
+          SNAP_VERSION: ${{ steps.resolve_tag.outputs.snap_version }}
+          TAG_REF: ${{ steps.resolve_tag.outputs.tag_ref }}
+          BRANCH: ${{ steps.resolve_tag.outputs.branch }}
+        run: |
+          set -euo pipefail
+
+          git checkout -B "${BRANCH}" origin/main
+          git merge "${TAG_REF}" -m "Merging upstream tag ${TAG}"
+
+          # Keep fork-owned workflows as-is so this automation never tries to
+          # push upstream workflow changes and does not need workflows:write.
+          git checkout origin/main -- .github/workflows
+
+          sed "s/VERSION/${SNAP_VERSION}/g" snapbuild/snapcraft.yaml.template > snapcraft.yaml
+
+          if ! git diff --quiet -- snapcraft.yaml; then
+            git add snapcraft.yaml
+            git commit -m "Setting version ${SNAP_VERSION} in snapcraft.yaml (upstream tag ${TAG})"
+          fi
+
+      - name: Push sync branch
+        if: steps.needs_sync.outputs.skip != 'true'
+        env:
+          BRANCH: ${{ steps.resolve_tag.outputs.branch }}
+        run: |
+          git push --force-with-lease origin "${BRANCH}"
+
+      - name: Disable non-whitelisted repository workflows
+        if: steps.needs_sync.outputs.skip != 'true'
+        uses: actions/github-script@v7
+        with:
+          script: |
+            const keep = new Set([
+              '.github/workflows/sync_upstream_release.yml',
+              '.github/workflows/snapcraft_pr_check.yml'
+            ]);
+
+            const { owner, repo } = context.repo;
+            const workflows = await github.paginate(github.rest.actions.listRepoWorkflows, {
+              owner,
+              repo,
+              per_page: 100,
+            });
+
+            for (const workflow of workflows) {
+              if (keep.has(workflow.path)) {
+                core.info(`Keeping enabled: ${workflow.name} (${workflow.path})`);
+                continue;
+              }
+
+              core.info(`Disabling: ${workflow.name} (${workflow.path})`);
+              try {
+                await github.rest.actions.disableWorkflow({
+                  owner,
+                  repo,
+                  workflow_id: workflow.id,
+                });
+              } catch (error) {
+                const status = error.status || 'unknown';
+                const message = error.message || 'unknown error';
+                core.warning(`Could not disable ${workflow.name} (${workflow.path}): [${status}] ${message}`);
+              }
+            }
+
+      - name: Create or update pull request
+        if: steps.needs_sync.outputs.skip != 'true'
+        uses: actions/github-script@v7
+        env:
+          TAG: ${{ steps.resolve_tag.outputs.tag }}
+          SNAP_VERSION: ${{ steps.resolve_tag.outputs.snap_version }}
+          BRANCH: ${{ steps.resolve_tag.outputs.branch }}
+        with:
+          script: |
+            const { owner, repo } = context.repo;
+            const base = 'main';
+            const head = `${owner}:${process.env.BRANCH}`;
+            const title = `Merge upstream tag ${process.env.TAG}`;
+            const body = [
+              `Automated sync for upstream release tag ${process.env.TAG}.`,
+              '',
+              '- Merges upstream tag into this fork',
+              '- Updates snapcraft.yaml version to ' + process.env.SNAP_VERSION + ' from template',
+            ].join('\n');
+
+            async function ensureAutoMergeEnabled(number) {
+              const prData = await github.graphql(
+                `query($owner: String!, $repo: String!, $number: Int!) {
+                  repository(owner: $owner, name: $repo) {
+                    pullRequest(number: $number) {
+                      id
+                      autoMergeRequest {
+                        enabledAt
+                      }
+                    }
+                  }
+                }`,
+                { owner, repo, number }
+              );
+
+              const pr = prData.repository.pullRequest;
+              if (!pr) {
+                core.setFailed(`Pull request #${number} not found`);
+                return;
+              }
+
+              if (pr.autoMergeRequest) {
+                core.info(`Auto-merge already enabled for PR #${number}`);
+                return;
+              }
+
+              try {
+                await github.graphql(
+                  `mutation($pullRequestId: ID!, $mergeMethod: PullRequestMergeMethod!) {
+                    enablePullRequestAutoMerge(input: {
+                      pullRequestId: $pullRequestId,
+                      mergeMethod: $mergeMethod
+                    }) {
+                      clientMutationId
+                    }
+                  }`,
+                  {
+                    pullRequestId: pr.id,
+                    mergeMethod: 'MERGE',
+                  }
+                );
+
+                core.info(`Enabled auto-merge for PR #${number}`);
+              } catch (error) {
+                const message = error?.errors?.[0]?.message || error?.message || String(error);
+                if (
+                  message.includes('Protected branch rules not configured for this branch') ||
+                  message.includes('Auto merge is not allowed for this repository')
+                ) {
+                  core.warning(`Auto-merge not enabled for PR #${number}: ${message}`);
+                  return;
+                }
+
+                throw error;
+              }
+            }
+
+            const existing = await github.paginate(github.rest.pulls.list, {
+              owner,
+              repo,
+              state: 'open',
+              base,
+              head,
+              per_page: 100,
+            });
+
+            if (existing.length > 0) {
+              core.info(`PR already open: #${existing[0].number}`);
+              await ensureAutoMergeEnabled(existing[0].number);
+              return;
+            }
+
+            const created = await github.rest.pulls.create({
+              owner,
+              repo,
+              title,
+              head: process.env.BRANCH,
+              base,
+              body,
+            });
+
+            core.info(`Created PR #${created.data.number}`);
+            await ensureAutoMergeEnabled(created.data.number);
