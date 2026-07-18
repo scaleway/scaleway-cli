@@ -1,6 +1,6 @@
 name: tingdahl-scw
 base: core24
-version: 2.56.1
+version: 2.58.3
 title: Scaleway CLI
 summary: Scaleway command-line interface
 description: |
@@ -54,7 +54,7 @@ parts:
 
       export CGO_ENABLED=0
       LDFLAGS="-s -w -extldflags -static"
-      LDFLAGS="$LDFLAGS -X main.Version=2.56.1"
+      LDFLAGS="$LDFLAGS -X main.Version=2.58.3"
       LDFLAGS="$LDFLAGS -X main.GitCommit=$(git rev-parse --short HEAD || echo unknown)"
       LDFLAGS="$LDFLAGS -X main.GitBranch=$(git symbolic-ref -q --short HEAD || echo HEAD)"
       LDFLAGS="$LDFLAGS -X main.BuildDate=$(date -u '+%Y-%m-%dT%H:%M:%SZ')"
