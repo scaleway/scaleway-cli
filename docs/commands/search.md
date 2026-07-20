@@ -30,6 +30,9 @@ scw search resource search <query ...> [arg=value ...]
 | created-before |  | Filter resources created before this timestamp |
 | modified-after |  | Filter resources modified after this timestamp |
 | modified-before |  | Filter resources modified before this timestamp |
+| page-token |  | Opaque token used to retrieve the next page of results (cursor-based pagination). |
+| page-size |  | Number of resources to retrieve per page |
+| order-by | One of: `created_at_asc`, `created_at_desc`, `modified_at_asc`, `modified_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order in the response |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
 
 
