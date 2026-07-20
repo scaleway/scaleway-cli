@@ -78,6 +78,7 @@ type BootstrapConfig struct {
 func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Handles Flags
 	var debug bool
+	var betaFlag bool
 	var profileFlag string
 	var configPathFlag string
 	var outputFlag string
@@ -93,6 +94,13 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		"Output format: json or human",
 	)
 	flags.BoolVarP(&debug, "debug", "D", os.Getenv("SCW_DEBUG") == "true", "Enable debug mode")
+	flags.BoolVarP(
+		&betaFlag,
+		"beta",
+		"B",
+		os.Getenv(scw.ScwEnableBeta) == "true",
+		"Enable beta mode",
+	)
 	// Ignore unknown flag
 	flags.ParseErrorsWhitelist.UnknownFlags = true
 	// Make sure usage is never print by the parse method. (It should only be print by cobra)
@@ -105,6 +113,14 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	// Furthermore additional flag can be added on a per-command basis inside cobra
 	// parse would fail as these flag are not known at this time.
 	_ = flags.Parse(config.Args)
+
+	// The --beta flag enables beta namespaces and features. It overrides the
+	// SCW_ENABLE_BETA environment variable when set. We keep config.BetaMode as
+	// is when the flag is not set so that callers (e.g. main.go) that already
+	// resolved beta mode before calling Bootstrap are respected.
+	if betaFlag {
+		config.BetaMode = true
+	}
 
 	// If debug flag is set enable debug mode in SDK logger
 	logLevel := logger.LogLevelWarning
@@ -276,6 +292,7 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	rootCmd.PersistentFlags().
 		StringVarP(&outputFlag, "output", "o", cliConfig.DefaultOutput, "Output format: json or human, see 'scw help output' for more info")
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
+	rootCmd.PersistentFlags().BoolVarP(&betaFlag, "beta", "B", false, "Enable beta mode")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
 	err = rootCmd.Execute()
