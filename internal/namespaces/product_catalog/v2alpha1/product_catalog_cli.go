@@ -84,6 +84,8 @@ func productCatalogProductList() *core.Command {
 					"serverless_jobs",
 					"apache_kafka",
 					"open_search",
+					"instance_local_ssd_snapshot",
+					"instance_local_ssd_storage",
 				},
 			},
 			{
