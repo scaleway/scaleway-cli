@@ -1784,6 +1784,13 @@ func webhostingHostingUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "delete-hosting-after-commitment",
+				Short:      `Whether the hosting is deleted at the end of the commitment period`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,

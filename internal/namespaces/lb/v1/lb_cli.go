@@ -230,6 +230,13 @@ func lbLBList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "lb-ids.{index}",
+				Short:      `Filter by lb_ids, only Load Balancers with these IDs will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Load Balancers from this Organization will be returned`,
 				Required:   false,
