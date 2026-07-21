@@ -28,6 +28,9 @@ func GetGeneratedCommands() *core.Commands {
 		ipamIPGet(),
 		ipamIPUpdate(),
 		ipamIPList(),
+		ipamIPAttach(),
+		ipamIPDetach(),
+		ipamIPMove(),
 	)
 }
 
@@ -559,6 +562,167 @@ func ipamIPList() *core.Command {
 			}
 
 			return resp.IPs, nil
+		},
+	}
+}
+
+func ipamIPAttach() *core.Command {
+	return &core.Command{
+		Short:     `Attach private IP to custom resource`,
+		Long:      `Attach an existing reserved private IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.`,
+		Namespace: "ipam",
+		Resource:  "ip",
+		Verb:      "attach",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipam.AttachIPRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-id",
+				Short:      `IP ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*ipam.AttachIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+
+			return api.AttachIP(request)
+		},
+	}
+}
+
+func ipamIPDetach() *core.Command {
+	return &core.Command{
+		Short:     `Detach private IP from a custom resource`,
+		Long:      `Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for detaching IP addresses from standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.`,
+		Namespace: "ipam",
+		Resource:  "ip",
+		Verb:      "detach",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipam.DetachIPRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-id",
+				Short:      `IP ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*ipam.DetachIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+
+			return api.DetachIP(request)
+		},
+	}
+}
+
+func ipamIPMove() *core.Command {
+	return &core.Command{
+		Short:     `Move private IP to a custom resource`,
+		Long:      `Move an existing reserved private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.`,
+		Namespace: "ipam",
+		Resource:  "ip",
+		Verb:      "move",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeOf(ipam.MoveIPRequest{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-id",
+				Short:      `IP ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "from-resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "from-resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "to-resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "to-resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*ipam.MoveIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+
+			return api.MoveIP(request)
 		},
 	}
 }
