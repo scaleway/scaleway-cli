@@ -6,6 +6,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
+	annotations "github.com/scaleway/scaleway-cli/v2/internal/namespaces/annotations/v1"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
@@ -85,6 +86,7 @@ func GetCommands() *core.Commands {
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
 		accountv3.GetCommands(),
+		annotations.GetCommands(),
 		autocompleteNamespace.GetCommands(),
 		object.GetCommands(),
 		versionNamespace.GetCommands(),
