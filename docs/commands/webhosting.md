@@ -831,7 +831,6 @@ scw webhosting hosting update [arg=value ...]
 | offer-options.{index}.quantity |  | The option requested quantity to set for the Web Hosting plan |
 | offer-id |  | ID of the new offer for the Web Hosting plan |
 | protected |  | Whether the hosting is protected or not |
-| delete-hosting-after-commitment |  | Whether the hosting is deleted at the end of the commitment period |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

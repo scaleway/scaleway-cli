@@ -13,15 +13,14 @@ EXAMPLES:
     scw webhosting hosting update hosting-id=11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
 
 ARGS:
-  hosting-id                          Hosting ID
-  [email]                             New contact email for the Web Hosting plan
-  [tags.{index}]                      New tags for the Web Hosting plan
-  [offer-options.{index}.id]          Offer option ID
-  [offer-options.{index}.quantity]    The option requested quantity to set for the Web Hosting plan
-  [offer-id]                          ID of the new offer for the Web Hosting plan
-  [protected]                         Whether the hosting is protected or not
-  [delete-hosting-after-commitment]   Whether the hosting is deleted at the end of the commitment period
-  [region=fr-par]                     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  hosting-id                         Hosting ID
+  [email]                            New contact email for the Web Hosting plan
+  [tags.{index}]                     New tags for the Web Hosting plan
+  [offer-options.{index}.id]         Offer option ID
+  [offer-options.{index}.quantity]   The option requested quantity to set for the Web Hosting plan
+  [offer-id]                         ID of the new offer for the Web Hosting plan
+  [protected]                        Whether the hosting is protected or not
+  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for update
