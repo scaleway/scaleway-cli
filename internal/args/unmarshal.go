@@ -279,6 +279,11 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 
 			return nil
 		}
+		if dest.Elem().Kind() == reflect.Struct && len(argNameWords) == 0 &&
+			value == emptyStructValue {
+			dest.Set(reflect.New(dest.Elem().Type()))
+			return nil
+		}
 
 		// Call set with the pointer.Elem()
 		return set(dest.Elem(), argNameWords, value)
