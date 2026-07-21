@@ -95,6 +95,7 @@ UTILITY COMMANDS:
   version                 Display cli version
 
 FLAGS:
+  -B, --beta                Enable beta mode
   -c, --config string       The path to the config file
   -D, --debug               Enable debug mode
   -h, --help                help for scw
