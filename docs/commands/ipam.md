@@ -7,6 +7,28 @@ This API allows you to manage your Scaleway IP addresses with our IP Address Man
 *ips_long.
 
 
+### Attach private IP to custom resource
+
+Attach an existing reserved private IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.
+
+**Usage:**
+
+```shell
+scw ipam ip attach <ip-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| ip-id | Required | IP ID |
+| resource.mac-address |  | MAC address of the custom resource |
+| resource.name |  | Name of the custom resource |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
 ### Reserve a new IP
 
 Reserve a new IP from the specified source. Currently IPs can only be reserved from a Private Network.
@@ -52,6 +74,28 @@ scw ipam ip delete <ip-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | ip-id | Required | IP ID |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Detach private IP from a custom resource
+
+Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for detaching IP addresses from standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
+
+**Usage:**
+
+```shell
+scw ipam ip detach <ip-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| ip-id | Required | IP ID |
+| resource.mac-address |  | MAC address of the custom resource |
+| resource.name |  | Name of the custom resource |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -110,6 +154,30 @@ scw ipam ip list [arg=value ...]
 | source-vpc-id |  |  |
 | organization-id |  | Organization ID to filter for. Only IPs belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+
+
+
+### Move private IP to a custom resource
+
+Move an existing reserved private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.
+
+**Usage:**
+
+```shell
+scw ipam ip move <ip-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| ip-id | Required | IP ID |
+| from-resource.mac-address |  | MAC address of the custom resource |
+| from-resource.name |  | Name of the custom resource |
+| to-resource.mac-address |  | MAC address of the custom resource |
+| to-resource.name |  | Name of the custom resource |
+| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
