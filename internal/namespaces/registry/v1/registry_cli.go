@@ -137,7 +137,7 @@ func registryNamespaceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithContext(ctx), scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -426,7 +426,7 @@ func registryImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithContext(ctx), scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -637,7 +637,7 @@ func registryTagList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithContext(ctx), scw.WithAllPages()}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
