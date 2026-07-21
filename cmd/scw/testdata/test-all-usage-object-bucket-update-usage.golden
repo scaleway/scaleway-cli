@@ -10,6 +10,7 @@ ARGS:
   [tags.{index}]              List of new tags to set on the bucket
   [enable-versioning=false]   Whether or not objects in the bucket should have multiple versions
   [acl=private]               The permissions given to users (grantees) to read or write objects
+  [s3-endpoint]               Custom S3 endpoint to use instead of the default
   [region=fr-par]             Region to target. If none is passed will use default region from the config
 
 FLAGS:
