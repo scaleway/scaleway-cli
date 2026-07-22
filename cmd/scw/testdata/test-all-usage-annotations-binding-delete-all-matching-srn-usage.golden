@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Delete ALL bindings associated with a Scaleway Resource Number.
+
+USAGE:
+  scw annotations binding delete-all-matching-srn [arg=value ...]
+
+ARGS:
+  [srn]               Scaleway Resource Number for which all bindings should be deleted.
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help                help for delete-all-matching-srn
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
