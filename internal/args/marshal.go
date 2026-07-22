@@ -134,6 +134,9 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 		if src.Elem().Kind() == reflect.Slice && src.Elem().Len() == 0 {
 			return append(args, marshalKeyValue(keys, emptySliceValue)), nil
 		}
+		if src.Elem().Kind() == reflect.Struct && src.Elem().NumField() == 0 {
+			return append(args, marshalKeyValue(keys, emptyStructValue)), nil
+		}
 
 		// If type is a pointer we Marshal pointer.Elem()
 		return marshal(src.Elem(), keys)

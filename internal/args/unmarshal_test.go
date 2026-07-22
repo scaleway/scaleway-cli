@@ -283,11 +283,13 @@ func TestUnmarshalStruct(t *testing.T) {
 	t.Run("nested-basic", run(TestCase{
 		args: []string{
 			"basic.string=test",
+			"empty={}",
 		},
 		expected: &Nested{
 			Basic: Basic{
 				String: "test",
 			},
+			Empty: &Empty{},
 		},
 	}))
 
@@ -320,9 +322,22 @@ func TestUnmarshalStruct(t *testing.T) {
 	t.Run("insane", run(TestCase{
 		args: []string{
 			"map.key1.key2.basic.string=test",
+			"map.key1.key2.empty={}",
 		},
 		expected: func() any {
-			n1 := &Nested{Basic: Basic{String: "test"}}
+			n1 := &Nested{Basic: Basic{String: "test"}, Empty: &Empty{}}
+			m1 := &map[string]**Nested{"key2": &n1}
+			m2 := map[string]**map[string]**Nested{"key1": &m1}
+
+			return &Insane{Map: &m2}
+		}(),
+	}))
+	t.Run("insane empty struct", run(TestCase{
+		args: []string{
+			"map.key1.key2={}",
+		},
+		expected: func() any {
+			n1 := &Nested{}
 			m1 := &map[string]**Nested{"key2": &n1}
 			m2 := map[string]**map[string]**Nested{"key1": &m1}
 
