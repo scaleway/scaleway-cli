@@ -239,6 +239,8 @@ func RegisterUnmarshalFunc(i any, unmarshalFunc UnmarshalFunc) {
 // value: the value to be set, represented as a string
 //
 // Example: argNameWords ["contacts", "0", "address", "city"] will set value "city" for your first contact in your phone book.
+//
+//nolint:gocyclo
 func set(dest reflect.Value, argNameWords []string, value string) error {
 	// If dest has a custom unmarshaler, we use it.
 	// dest can either implement Unmarshaler
@@ -282,6 +284,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		if dest.Elem().Kind() == reflect.Struct && len(argNameWords) == 0 &&
 			value == emptyStructValue {
 			dest.Set(reflect.New(dest.Elem().Type()))
+
 			return nil
 		}
 
