@@ -2479,7 +2479,7 @@ func k8sNodeReplace() *core.Command {
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "replace",
-		// Deprecated:    true,
+		// Deprecated:    false,
 		ArgsType: reflect.TypeOf(k8s.ReplaceNodeRequest{}),
 		ArgSpecs: core.ArgSpecs{
 			{
@@ -2557,7 +2557,7 @@ func k8sNodeReboot() *core.Command {
 func k8sNodeDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Node in a Cluster`,
-		Long:      `Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.`,
+		Long:      `Delete a specific Node. Pool size is reduced by 1. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "delete",
