@@ -3,7 +3,7 @@ module github.com/scaleway/scaleway-cli/v2
 go 1.26.0
 
 require (
-	github.com/aws/aws-sdk-go-v2 v1.42.1
+	github.com/aws/aws-sdk-go-v2 v1.43.0
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.105.2
 	github.com/aws/smithy-go v1.27.4
 	github.com/buildpacks/pack v0.40.8
