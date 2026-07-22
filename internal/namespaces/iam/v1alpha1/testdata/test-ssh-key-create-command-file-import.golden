@@ -9,6 +9,7 @@ UpdatedAt       few seconds ago
 OrganizationID  9e9389ca-503a-44c3-bbd5-7a3812303bb0
 ProjectID       9e9389ca-503a-44c3-bbd5-7a3812303bb0
 Disabled        false
+Srn             srn://iam.scw.eu/ssh-keys/35d4a543-ba4f-46b8-94a1-3e7d1caeccb9
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "35d4a543-ba4f-46b8-94a1-3e7d1caeccb9",
@@ -19,5 +20,6 @@ Disabled        false
   "updated_at": "1970-01-01T00:00:00.0Z",
   "organization_id": "9e9389ca-503a-44c3-bbd5-7a3812303bb0",
   "project_id": "9e9389ca-503a-44c3-bbd5-7a3812303bb0",
-  "disabled": false
+  "disabled": false,
+  "srn": "srn://iam.scw.eu/ssh-keys/35d4a543-ba4f-46b8-94a1-3e7d1caeccb9"
 }
