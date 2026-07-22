@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-732a2e80-760c-49f6-9137-70a3c58051c9  [IPAMReadOnly]        projects                    -          [9c3120c4-adb4-4ea4-bd9b-79834955d02f]  -                -
-415dcb71-d6d8-4ef5-9f56-a091ac6b88c2  [VPCReadOnly]         projects                    -          [9c3120c4-adb4-4ea4-bd9b-79834955d02f]  -                -
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
+732a2e80-760c-49f6-9137-70a3c58051c9  [IPAMReadOnly]        projects                    -          [9c3120c4-adb4-4ea4-bd9b-79834955d02f]  -                -                     -
+415dcb71-d6d8-4ef5-9f56-a091ac6b88c2  [VPCReadOnly]         projects                    -          [9c3120c4-adb4-4ea4-bd9b-79834955d02f]  -                -                     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
