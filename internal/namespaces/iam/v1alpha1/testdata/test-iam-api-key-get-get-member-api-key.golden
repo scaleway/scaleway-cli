@@ -14,6 +14,7 @@ Editable          true
 Deletable         true
 Managed           false
 CreationIP        51.159.73.9
+Srn               srn://iam.scw.eu/api-keys/SCWVHZ094TMXVJS6571R
 
 Policies:
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
@@ -30,7 +31,8 @@ Policies:
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.73.9"
+    "creation_ip": "51.159.73.9",
+    "srn": "srn://iam.scw.eu/api-keys/SCWVHZ094TMXVJS6571R"
   },
   "entity_type": "member",
   "policies": {}
