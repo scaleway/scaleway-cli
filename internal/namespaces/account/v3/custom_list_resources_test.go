@@ -279,21 +279,43 @@ func TestProductFetchersCompleteness(t *testing.T) {
 	t.Run("all_expected_products_are_in_ProductFetchers", func(t *testing.T) {
 		for expectedProduct := range expectedProducts {
 			fetcher, exists := account.ProductFetchers[expectedProduct]
-			assert.True(t, exists, "product %q is expected but missing from ProductFetchers - add it to ProductFetchers in custom_list_resources.go", expectedProduct)
-			assert.NotNil(t, fetcher, "product %q has a nil fetcher in ProductFetchers", expectedProduct)
+			assert.True(
+				t,
+				exists,
+				"product %q is expected but missing from ProductFetchers - add it to ProductFetchers in custom_list_resources.go",
+				expectedProduct,
+			)
+			assert.NotNil(
+				t,
+				fetcher,
+				"product %q has a nil fetcher in ProductFetchers",
+				expectedProduct,
+			)
 		}
 	})
 
 	t.Run("no_unexpected_products_in_ProductFetchers", func(t *testing.T) {
 		for product := range account.ProductFetchers {
 			_, expected := expectedProducts[product]
-			assert.True(t, expected, "product %q is in ProductFetchers but not in ExpectedProductsFromCommands - add it to getNamespaceToProductMap() or verify it should be removed", product)
+			assert.True(
+				t,
+				expected,
+				"product %q is in ProductFetchers but not in ExpectedProductsFromCommands - add it to getNamespaceToProductMap() or verify it should be removed",
+				product,
+			)
 		}
 	})
 
 	t.Run("ProductFetchers_has_exactly_expected_count", func(t *testing.T) {
 		expectedCount := len(expectedProducts)
 		actualCount := len(account.ProductFetchers)
-		assert.Equal(t, expectedCount, actualCount, "ProductFetchers count mismatch - expected %d, got %d. Check for missing or extra products.", expectedCount, actualCount)
+		assert.Equal(
+			t,
+			expectedCount,
+			actualCount,
+			"ProductFetchers count mismatch - expected %d, got %d. Check for missing or extra products.",
+			expectedCount,
+			actualCount,
+		)
 	})
 }
