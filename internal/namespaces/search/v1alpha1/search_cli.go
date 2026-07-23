@@ -214,6 +214,7 @@ func searchResourceSearch() *core.Command {
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{
+					"relevance",
 					"created_at_asc",
 					"created_at_desc",
 					"modified_at_asc",
