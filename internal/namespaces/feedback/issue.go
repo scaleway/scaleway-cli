@@ -61,7 +61,7 @@ const featureBodyTemplate = `
 {{ .BuildInfoStr }}
 `
 
-func (i issue) getURL() string {
+func (i *issue) getURL() string {
 	u, err := url.Parse(githubURL)
 	if err != nil {
 		log.Fatal(err)
@@ -86,7 +86,7 @@ func (i issue) getURL() string {
 	return u.String()
 }
 
-func (i issue) openInBrowser(ctx context.Context) error {
+func (i *issue) openInBrowser(ctx context.Context) error {
 	var err error
 	var openCmd *exec.Cmd
 
@@ -109,7 +109,7 @@ func (i issue) openInBrowser(ctx context.Context) error {
 	return err
 }
 
-func (i issue) renderTemplate(bodyTemplate string) (string, error) {
+func (i *issue) renderTemplate(bodyTemplate string) (string, error) {
 	tmpl, err := template.New("configuration").Parse(bodyTemplate)
 	if err != nil {
 		return "", err

@@ -45,7 +45,7 @@ type entity interface {
 	getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error)
 }
 
-func (u userEntity) entityType(ctx context.Context, api *iam.API) (string, error) {
+func (u *userEntity) entityType(ctx context.Context, api *iam.API) (string, error) {
 	user, err := api.GetUser(&iam.GetUserRequest{
 		UserID: u.UserID,
 	}, scw.WithContext(ctx))
@@ -56,7 +56,7 @@ func (u userEntity) entityType(ctx context.Context, api *iam.API) (string, error
 	return string(user.Type), nil
 }
 
-func (a applicationEntity) entityType(ctx context.Context, api *iam.API) (string, error) {
+func (a *applicationEntity) entityType(ctx context.Context, api *iam.API) (string, error) {
 	return "application", nil
 }
 
@@ -65,16 +65,16 @@ func buildEntity(apiKey *iam.APIKey) (entity, error) {
 		return nil, errors.New("invalid API key")
 	}
 	if apiKey.UserID != nil {
-		return userEntity{UserID: *apiKey.UserID}, nil
+		return &userEntity{UserID: *apiKey.UserID}, nil
 	}
 	if apiKey.ApplicationID != nil {
-		return applicationEntity{ApplicationID: *apiKey.ApplicationID}, nil
+		return &applicationEntity{ApplicationID: *apiKey.ApplicationID}, nil
 	}
 
 	return nil, errors.New("invalid API key")
 }
 
-func (u userEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
+func (u *userEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
 	policies, err := api.ListPolicies(&iam.ListPoliciesRequest{
 		UserIDs: []string{u.UserID},
 	}, scw.WithContext(ctx), scw.WithAllPages())
@@ -88,7 +88,7 @@ func (u userEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Polic
 	return policies.Policies, nil
 }
 
-func (a applicationEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
+func (a *applicationEntity) getPolicies(ctx context.Context, api *iam.API) ([]*iam.Policy, error) {
 	policies, err := api.ListPolicies(&iam.ListPoliciesRequest{
 		ApplicationIDs: []string{a.ApplicationID},
 	}, scw.WithContext(ctx), scw.WithAllPages())

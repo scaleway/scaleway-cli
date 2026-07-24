@@ -13,7 +13,7 @@ type BastionHost struct {
 	Hosts []SimpleHost
 }
 
-func (b BastionHost) Config() string {
+func (b *BastionHost) Config() string {
 	var builder strings.Builder
 	fmt.Fprintf(&builder, `Host %s
   ProxyJump bastion@%s
@@ -33,10 +33,10 @@ func (b BastionHost) Config() string {
 	return builder.String()
 }
 
-func (b BastionHost) name() string {
+func (b *BastionHost) name() string {
 	return "*." + b.Name
 }
 
-func (b BastionHost) address() string {
+func (b *BastionHost) address() string {
 	return fmt.Sprintf("%s:%d", b.Address, b.Port)
 }

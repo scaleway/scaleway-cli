@@ -34,7 +34,7 @@ type ShortMustNotEndWithDotError struct {
 	Command *core.Command
 }
 
-func (err ShortMustNotEndWithDotError) Error() string {
+func (err *ShortMustNotEndWithDotError) Error() string {
 	return "short must not end with '.' for command '" + err.Command.GetCommandLine("scw") + "'"
 }
 
@@ -55,7 +55,7 @@ type ShortMustBePresentError struct {
 	Command *core.Command
 }
 
-func (err ShortMustBePresentError) Error() string {
+func (err *ShortMustBePresentError) Error() string {
 	return "short must be present for command '" + err.Command.GetCommandLine("scw") + "'"
 }
 
@@ -77,7 +77,7 @@ type WellKnownArgOrderError struct {
 	Argspec *core.ArgSpec
 }
 
-func (err WellKnownArgOrderError) Error() string {
+func (err *WellKnownArgOrderError) Error() string {
 	return "well-known arg order must be respected '" + err.Command.GetCommandLine(
 		"scw",
 	) + "', arg '" + err.Argspec.Name + "'"
@@ -88,7 +88,7 @@ type WellKnownArgAtTheEndError struct {
 	Argspec *core.ArgSpec
 }
 
-func (err WellKnownArgAtTheEndError) Error() string {
+func (err *WellKnownArgAtTheEndError) Error() string {
 	return "well-known arg must be at the end'" + err.Command.GetCommandLine(
 		"scw",
 	) + "', arg '" + err.Argspec.Name + "'"
@@ -161,7 +161,7 @@ type ArgMustUseDashError struct {
 	Argspec *core.ArgSpec
 }
 
-func (err ArgMustUseDashError) Error() string {
+func (err *ArgMustUseDashError) Error() string {
 	return "arg must use dash for command '" + err.Command.GetCommandLine(
 		"scw",
 	) + "', arg '" + err.Argspec.Name + "'"
@@ -188,7 +188,7 @@ type PositionalArgMustBeRequiredError struct {
 	Argspec *core.ArgSpec
 }
 
-func (err PositionalArgMustBeRequiredError) Error() string {
+func (err *PositionalArgMustBeRequiredError) Error() string {
 	return "positional argument must be required '" + err.Command.GetCommandLine(
 		"scw",
 	) + "', arg '" + err.Argspec.Name + "'"
@@ -215,7 +215,7 @@ type ExampleCanHaveOnlyOneTypeOfExampleError struct {
 	ExampleIndex int
 }
 
-func (err ExampleCanHaveOnlyOneTypeOfExampleError) Error() string {
+func (err *ExampleCanHaveOnlyOneTypeOfExampleError) Error() string {
 	return "arg must use dash for command '" + err.Command.GetCommandLine(
 		"scw",
 	) + "', example #" + strconv.Itoa(
@@ -247,7 +247,7 @@ type DifferentLocalizationForNamespaceError struct {
 	ArgNames2 []string
 }
 
-func (err DifferentLocalizationForNamespaceError) Error() string {
+func (err *DifferentLocalizationForNamespaceError) Error() string {
 	return fmt.Sprintf(
 		"different localization for commands '%v', '%v': %v, %v",
 		err.Command1.GetCommandLine(
@@ -349,7 +349,7 @@ type DuplicatedCommandError struct {
 	Command *core.Command
 }
 
-func (err DuplicatedCommandError) Error() string {
+func (err *DuplicatedCommandError) Error() string {
 	return fmt.Sprintf("duplicated command '%s'", err.Command.GetCommandLine("scw"))
 }
 
@@ -377,7 +377,7 @@ type MissingExampleError struct {
 	Command *core.Command
 }
 
-func (err MissingExampleError) Error() string {
+func (err *MissingExampleError) Error() string {
 	return fmt.Sprintf("command without examples '%s'", err.Command.GetCommandLine("scw"))
 }
 
