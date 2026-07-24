@@ -212,3 +212,54 @@ func (f FetchSnapshots) Fetch(
 
 	return results, nil
 }
+
+type FetchSecurityGroups struct{}
+
+func (f FetchSecurityGroups) Product() string {
+	return "instance"
+}
+
+func (f FetchSecurityGroups) Resource() string {
+	return "security-group"
+}
+
+func (f FetchSecurityGroups) LocalityType() fetch.LocalityType {
+	return fetch.LocalityTypeZone
+}
+
+// Fetch fetches all instance security groups in a given zone.
+func (f FetchSecurityGroups) Fetch(
+	ctx context.Context,
+	zone scw.Zone,
+	projectID string,
+) ([]fetch.ResourceResult, error) {
+	client := core.ExtractClient(ctx)
+	api := instance.NewAPI(client)
+
+	req := &instance.ListSecurityGroupsRequest{
+		Zone: zone,
+	}
+	if projectID != "" {
+		req.Project = &projectID
+	}
+
+	resp, err := api.ListSecurityGroups(req, scw.WithAllPages(), scw.WithContext(ctx))
+	if err != nil {
+		if fetch.ShouldIgnoreError(err) {
+			return nil, nil
+		}
+
+		return nil, err
+	}
+
+	results := make([]fetch.ResourceResult, 0, len(resp.SecurityGroups))
+	for _, sg := range resp.SecurityGroups {
+		results = append(results, fetch.ResourceResult{
+			Locality: zone.String(),
+			ID:       sg.ID,
+			Name:     sg.Name,
+		})
+	}
+
+	return results, nil
+}
