@@ -2,24 +2,24 @@
 version: 1
 interactions:
 - request:
-    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
+    body: '{"access_key":"SCWHHBSCFNYC4ERE6AVP","secret_key":null,"description":"rleone-macbook","created_at":"2026-04-01T08:17:23.679481Z","updated_at":"2026-04-01T08:17:23.679481Z","expires_at":null,"default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","editable":true,"deletable":true,"managed":false,"creation_ip":"51.159.73.145","user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWXXXXXXXXXXXXXXXXX
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.4; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWHHBSCFNYC4ERE6AVP
     method: GET
   response:
-    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
+    body: '{"access_key":"SCWHHBSCFNYC4ERE6AVP","secret_key":null,"description":"rleone-macbook","created_at":"2026-04-01T08:17:23.679481Z","updated_at":"2026-04-01T08:17:23.679481Z","expires_at":null,"default_project_id":"951df375-e094-4d26-97c1-ba548eeb9c42","editable":true,"deletable":true,"managed":false,"creation_ip":"51.159.73.145","user_id":"b49d82c1-ce3a-473f-9cef-420acc5256bf"}'
     headers:
       Content-Length:
-      - "109"
+      - "378"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Mon, 11 May 2026 15:20:27 GMT
+      - Thu, 02 Jul 2026 15:57:31 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -29,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - cf49fc43-fc94-4a0e-bc67-4bcc7b2ad4d4
-    status: 401 Unauthorized
-    code: 401
+      - 91ca93d5-b8b8-43f6-8651-079e2fa9c040
+    status: 200 OK
+    code: 200
     duration: ""
