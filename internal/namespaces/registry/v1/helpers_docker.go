@@ -10,7 +10,6 @@ import (
 	"path"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -106,8 +105,4 @@ func setupDockerConfigFile(ctx context.Context, registries []string, binaryName 
 	}
 
 	return nil
-}
-
-func getRegistryEndpoint(region scw.Region) string {
-	return endpointPrefix + region.String() + endpointSuffix
 }
