@@ -15,7 +15,7 @@ func (s *FetchSnapshots) Resource() string {
 	return "snapshot"
 }
 
-func (*FetchSnapshots) Product() string {
+func (s *FetchSnapshots) Product() string {
 	return "block"
 }
 
@@ -24,7 +24,7 @@ func (s *FetchSnapshots) LocalityType() fetch.LocalityType {
 }
 
 // Fetch fetches all block storage snapshots in a given zone.
-func (*FetchSnapshots) Fetch(
+func (s *FetchSnapshots) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
@@ -62,20 +62,20 @@ func (*FetchSnapshots) Fetch(
 
 type FetchVolumes struct{}
 
-func (f FetchVolumes) Product() string {
+func (f *FetchVolumes) Product() string {
 	return "block"
 }
 
-func (f FetchVolumes) Resource() string {
+func (f *FetchVolumes) Resource() string {
 	return "volume"
 }
 
-func (f FetchVolumes) LocalityType() fetch.LocalityType {
+func (f *FetchVolumes) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
 // Fetch fetches all block volumes in a given zone.
-func (f FetchVolumes) Fetch(
+func (f *FetchVolumes) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

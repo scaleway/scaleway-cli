@@ -15,7 +15,7 @@ func (s *FetchServers) Resource() string {
 	return "server"
 }
 
-func (*FetchServers) Product() string {
+func (s *FetchServers) Product() string {
 	return "apple-silicon"
 }
 
@@ -24,7 +24,7 @@ func (s *FetchServers) LocalityType() fetch.LocalityType {
 }
 
 // Fetch fetches all Apple Silicon servers in a given zone.
-func (*FetchServers) Fetch(
+func (s *FetchServers) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
