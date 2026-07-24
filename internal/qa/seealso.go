@@ -12,7 +12,7 @@ type CommandInvalidSeeAlsoError struct {
 	SeeAlsoCommand string
 }
 
-func (err CommandInvalidSeeAlsoError) Error() string {
+func (err *CommandInvalidSeeAlsoError) Error() string {
 	return fmt.Sprintf("command has invalid see_also commands, '%s' has '%s'",
 		err.Command.GetCommandLine("scw"),
 		err.SeeAlsoCommand,
@@ -49,7 +49,7 @@ type MissingSeeAlsoError struct {
 	Command *core.Command
 }
 
-func (err MissingSeeAlsoError) Error() string {
+func (err *MissingSeeAlsoError) Error() string {
 	return fmt.Sprintf("command has no see_also commands '%s'",
 		err.Command.GetCommandLine("scw"),
 	)
