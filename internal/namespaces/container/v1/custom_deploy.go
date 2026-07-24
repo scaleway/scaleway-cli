@@ -16,11 +16,13 @@ import (
 
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
+	"github.com/containerd/platforms"
 	dockerregistry "github.com/docker/docker/api/types/registry"
 	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
 	"github.com/moby/moby/client"
+	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -43,6 +45,7 @@ type containerDeployRequest struct {
 	BuildSource string
 	Cache       bool
 	BuildArgs   map[string]*string
+	Platform    string
 
 	NamespaceID *string
 	Port        uint32
@@ -95,6 +98,10 @@ func containerDeployCommand() *core.Command {
 				Name:     "build-args.{key}",
 				Short:    "Build-time variables",
 				Required: false,
+			},
+			{
+				Name:  "platform",
+				Short: "Target platform to build for (e.g. linux/amd64, linux/arm64)",
 			},
 			{
 				Name:    "port",
@@ -184,6 +191,21 @@ type DeployStepData struct {
 	Client *scw.Client
 	API    *container.API
 	Args   *containerDeployRequest
+}
+
+// parsePlatforms parses a platform string (e.g. "linux/amd64", "linux/arm64/v8")
+// into a slice of OCI platforms suitable for the Docker ImageBuildOptions.
+func parsePlatforms(platform string) []ocispec.Platform {
+	if platform == "" {
+		return nil
+	}
+
+	p, err := platforms.Parse(platform)
+	if err != nil {
+		return nil
+	}
+
+	return []ocispec.Platform{p}
 }
 
 type DeployStepCreateNamespaceResponse struct {
@@ -310,6 +332,7 @@ func DeployStepDockerBuildImage(
 			Tags:       []string{tag},
 			NoCache:    !data.Args.Cache,
 			BuildArgs:  data.Args.BuildArgs,
+			Platforms:  parsePlatforms(data.Args.Platform),
 		},
 	)
 	if err != nil {
@@ -378,6 +401,7 @@ func DeployStepBuildpackBuildImage(
 		RunImage:     data.Args.RunImage,
 		ClearCache:   !data.Args.Cache,
 		TrustBuilder: func(string) bool { return true },
+		Platform:     data.Args.Platform,
 	})
 	if err != nil {
 		return nil, fmt.Errorf("could not build: %w", err)
