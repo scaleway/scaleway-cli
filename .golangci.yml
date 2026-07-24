@@ -67,6 +67,7 @@ linters:
     - promlinter # Check Prometheus metrics naming via promlint [fast: true, auto-fix: false]
     - protogetter # Reports direct reads from proto message fields when getters should be used [fast: false, auto-fix: true]
     - reassign # Checks that package variables are not reassigned [fast: false, auto-fix: false]
+    - recvcheck # Checks for receiver type consistency.
     - revive # Fast, configurable, extensible, flexible, and beautiful linter for Go. Drop-in replacement of golint. [fast: false, auto-fix: false]
     - rowserrcheck # checks whether Err of rows is checked successfully [fast: false, auto-fix: false]
     - sloglint # ensure consistent code style when using log/slog [fast: false, auto-fix: false]
