@@ -11,17 +11,18 @@ import (
 
 type FetchNamespaces struct{}
 
-func (f FetchNamespaces) Product() string {
-	return "function"
+func (f FetchNamespaces) Namespace() string {
+	return functionNamespace().Namespace
 }
 
 func (f FetchNamespaces) Resource() string {
-	return "namespace"
+	return functionNamespace().Resource
 }
 
 func (f FetchNamespaces) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all serverless function namespaces in a given region.
 func (f FetchNamespaces) Fetch(

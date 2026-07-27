@@ -11,17 +11,18 @@ import (
 
 type FetchServers struct{}
 
-func (f FetchServers) Product() string {
-	return "instance"
+func (f FetchServers) Namespace() string {
+	return instanceServer().Namespace
 }
 
 func (f FetchServers) Resource() string {
-	return "server"
+	return instanceServer().Resource
 }
 
 func (f FetchServers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all instances in a given zone.
 func (f FetchServers) Fetch(
@@ -62,17 +63,18 @@ func (f FetchServers) Fetch(
 
 type FetchIPs struct{}
 
-func (f FetchIPs) Product() string {
-	return "instance"
+func (f FetchIPs) Namespace() string {
+	return instanceIP().Namespace
 }
 
 func (f FetchIPs) Resource() string {
-	return "ip"
+	return instanceIP().Resource
 }
 
 func (f FetchIPs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all instance IPs in a given zone.
 func (f FetchIPs) Fetch(
@@ -113,17 +115,18 @@ func (f FetchIPs) Fetch(
 
 type FetchVolumes struct{}
 
-func (f FetchVolumes) Product() string {
-	return "instance"
+func (f FetchVolumes) Namespace() string {
+	return instanceVolume().Namespace
 }
 
 func (f FetchVolumes) Resource() string {
-	return "volume"
+	return instanceVolume().Resource
 }
 
 func (f FetchVolumes) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all instance volumes in a given zone.
 func (f FetchVolumes) Fetch(
@@ -164,17 +167,18 @@ func (f FetchVolumes) Fetch(
 
 type FetchSnapshots struct{}
 
-func (f FetchSnapshots) Product() string {
-	return "instance"
+func (f FetchSnapshots) Namespace() string {
+	return instanceSnapshot().Namespace
 }
 
 func (f FetchSnapshots) Resource() string {
-	return "snapshot"
+	return instanceSnapshot().Resource
 }
 
 func (f FetchSnapshots) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all instance snapshots in a given zone.
 func (f FetchSnapshots) Fetch(
@@ -215,17 +219,18 @@ func (f FetchSnapshots) Fetch(
 
 type FetchSecurityGroups struct{}
 
-func (f FetchSecurityGroups) Product() string {
-	return "instance"
+func (f FetchSecurityGroups) Namespace() string {
+	return instanceSecurityGroup().Namespace
 }
 
 func (f FetchSecurityGroups) Resource() string {
-	return "security-group"
+	return instanceSecurityGroup().Resource
 }
 
 func (f FetchSecurityGroups) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all instance security groups in a given zone.
 func (f FetchSecurityGroups) Fetch(

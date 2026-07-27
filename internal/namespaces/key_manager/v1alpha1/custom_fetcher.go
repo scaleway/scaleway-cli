@@ -11,17 +11,18 @@ import (
 
 type FetchKey struct{}
 
-func (f FetchKey) Product() string {
-	return "keymanager"
+func (f FetchKey) Namespace() string {
+	return keymanagerKey().Namespace
 }
 
 func (f FetchKey) Resource() string {
-	return "key"
+	return keymanagerKey().Resource
 }
 
 func (f FetchKey) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all key manager keys in a given region.
 func (f FetchKey) Fetch(

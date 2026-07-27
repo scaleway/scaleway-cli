@@ -11,17 +11,18 @@ import (
 
 type FetchNamespaces struct{}
 
-func (f FetchNamespaces) Product() string {
-	return "container"
+func (f FetchNamespaces) Namespace() string {
+	return containerNamespace().Namespace
 }
 
 func (f FetchNamespaces) Resource() string {
-	return "namespace"
+	return containerNamespace().Resource
 }
 
 func (f FetchNamespaces) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all container namespaces in a given region.
 func (f FetchNamespaces) Fetch(

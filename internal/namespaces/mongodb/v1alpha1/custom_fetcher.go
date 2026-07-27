@@ -11,17 +11,18 @@ import (
 
 type FetchInstances struct{}
 
-func (f FetchInstances) Product() string {
-	return "mongodb"
+func (f FetchInstances) Namespace() string {
+	return mongodbInstance().Namespace
 }
 
 func (f FetchInstances) Resource() string {
-	return "instance"
+	return mongodbInstance().Resource
 }
 
 func (f FetchInstances) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all MongoDB instances in a given region.
 func (f FetchInstances) Fetch(
@@ -62,17 +63,18 @@ func (f FetchInstances) Fetch(
 
 type FetchSnapshot struct{}
 
-func (f FetchSnapshot) Product() string {
-	return "mongodb"
+func (f FetchSnapshot) Namespace() string {
+	return mongodbSnapshot().Namespace
 }
 
 func (f FetchSnapshot) Resource() string {
-	return "snapshot"
+	return mongodbSnapshot().Resource
 }
 
 func (f FetchSnapshot) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all MongoDB snapshots in a given region.
 func (f FetchSnapshot) Fetch(

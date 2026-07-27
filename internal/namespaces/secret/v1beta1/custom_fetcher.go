@@ -11,12 +11,12 @@ import (
 
 type FetchSecrets struct{}
 
-func (f FetchSecrets) Product() string {
-	return "secret"
+func (f FetchSecrets) Namespace() string {
+	return secretSecret().Namespace
 }
 
 func (f FetchSecrets) Resource() string {
-	return "secrets"
+	return secretSecret().Resource
 }
 
 func (f FetchSecrets) LocalityType() fetch.LocalityType {

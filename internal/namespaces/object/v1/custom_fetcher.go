@@ -13,12 +13,12 @@ import (
 
 type FetchBuckets struct{}
 
-func (f FetchBuckets) Product() string {
-	return "object"
+func (f FetchBuckets) Namespace() string {
+	return objectBucket().Namespace
 }
 
 func (f FetchBuckets) Resource() string {
-	return "bucket"
+	return objectBucket().Resource
 }
 
 func (f FetchBuckets) LocalityType() fetch.LocalityType {

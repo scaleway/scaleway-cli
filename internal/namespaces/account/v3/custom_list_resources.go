@@ -43,45 +43,56 @@ type ListRequest struct {
 	Products  []string `arg:"products"   json:"products"`
 }
 
-// ProductFetchers maps product names to their fetcher instances.
-var ProductFetchers = map[string]fetch.FetcherAny{
-	"baremetal-servers":        fetch.WrapFetcher(&baremetal.FetchServers{}),
-	"applesilicon-servers":     fetch.WrapFetcher(&applesilicon.FetchServers{}),
-	"instance-servers":         fetch.WrapFetcher(&instance.FetchServers{}),
-	"instance-ips":             fetch.WrapFetcher(&instance.FetchIPs{}),
-	"instance-volumes":         fetch.WrapFetcher(&instance.FetchVolumes{}),
-	"instance-snapshots":       fetch.WrapFetcher(&instance.FetchSnapshots{}),
-	"instance-security-groups": fetch.WrapFetcher(&instance.FetchSecurityGroups{}),
-	"ipam-ip":                  fetch.WrapFetcher(&ipam.FetchIPs{}),
-	"block-volumes":            fetch.WrapFetcher(&block.FetchVolumes{}),
-	"block-snapshots":          fetch.WrapFetcher(&block.FetchSnapshots{}),
-	"object-buckets":           fetch.WrapFetcher(&object.FetchBuckets{}),
-	"rdb-instances":            fetch.WrapFetcher(&rdb.FetchInstances{}),
-	"redis-cluster":            fetch.WrapFetcher(&redis.FetchClusters{}),
-	"lb-lb":                    fetch.WrapFetcher(&lb.FetchLoadBalancers{}),
-	"k8s-cluster":              fetch.WrapFetcher(&k8s.FetchClusters{}),
-	"container-namespaces":     fetch.WrapFetcher(&container.FetchNamespaces{}),
-	"function-namespaces":      fetch.WrapFetcher(&function.FetchNamespaces{}),
-	"fip-ip":                   fetch.WrapFetcher(&flexibleip.FetchFlexibleIPs{}),
-	"secret-secrets":           fetch.WrapFetcher(&secret.FetchSecrets{}),
-	"vpc-vpc":                  fetch.WrapFetcher(&vpc.FetchVPCs{}),
-	"file-filesystem":          fetch.WrapFetcher(&file.FetchFileSystem{}),
-	"webhosting-hosting":       fetch.WrapFetcher(&webhosting.FetchHostings{}),
-	"vpc-gw-vpc-gw":            fetch.WrapFetcher(&vpcgw.FetchGateways{}),
-	"vpc-gw-ip":                fetch.WrapFetcher(&vpcgw.FetchIPs{}),
-	"mongodb-instance":         fetch.WrapFetcher(&mongodb.FetchInstances{}),
-	"mongodb-snapshot":         fetch.WrapFetcher(&mongodb.FetchSnapshot{}),
-	"key-manager":              fetch.WrapFetcher(&key_manager.FetchKey{}),
-	"inference-deployment":     fetch.WrapFetcher(&inference.FetchDeployment{}),
-	"cockpit-token":            fetch.WrapFetcher(&cockpit.FetchToken{}),
-	"cockpit-datasource":       fetch.WrapFetcher(&cockpit.FetchDataSource{}),
-	"registry-namespaces":      fetch.WrapFetcher(&registry.FetchNamespaces{}),
-	"searchdb-deployments":     fetch.WrapFetcher(&searchdb.FetchDeployments{}),
-	"s2s-vpn-vpn-gateway":      fetch.WrapFetcher(&s2s_vpn.FetchVpnGateways{}),
+// registerFetchers registers all product fetcher factories in the central
+// registry. The product key of each fetcher is deduced from its Namespace()
+// and Resource() (i.e. Namespace() + "-" + Resource()), so there is no string
+// literal to keep in sync. Fetchers are built lazily by the registry when the
+// user requests a given product.
+// Registration runs at most once via sync.Once.
+var registerOnce sync.Once
+
+func registerFetchers() {
+	registerOnce.Do(func() {
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &baremetal.FetchServers{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &applesilicon.FetchServers{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchServers{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchIPs{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchVolumes{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchSnapshots{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchSecurityGroups{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &ipam.FetchIPs{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &block.FetchVolumes{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &block.FetchSnapshots{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &object.FetchBuckets{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &rdb.FetchInstances{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &redis.FetchClusters{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &lb.FetchLoadBalancers{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &k8s.FetchClusters{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &container.FetchNamespaces{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &function.FetchNamespaces{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &flexibleip.FetchFlexibleIPs{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &secret.FetchSecrets{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &vpc.FetchVPCs{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &file.FetchFileSystem{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &webhosting.FetchHostings{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &vpcgw.FetchGateways{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &vpcgw.FetchIPs{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchInstances{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchSnapshot{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &key_manager.FetchKey{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &inference.FetchDeployment{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchToken{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchDataSource{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &registry.FetchNamespaces{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &searchdb.FetchDeployments{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &s2s_vpn.FetchVpnGateways{} })
+	})
 }
 
 // listResources returns the command for listing all resources.
 func listResources() *core.Command {
+	registerFetchers()
+
 	return &core.Command{
 		Short:     `List all resources across all zones`,
 		Long:      `List all resources across all zones and products. Results are grouped by locality and product. Errors are aggregated and not fail-fast.`,
@@ -105,18 +116,13 @@ func listResources() *core.Command {
 				},
 			},
 			{
-				Name:       "zones",
-				Short:      `Filter by zones (comma-separated, e.g. fr-par-1,nl-ams-1). If empty, all zones are queried`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
+				Name:  "zones.{index}",
+				Short: `Filter by zones (comma-separated, e.g. fr-par-1,nl-ams-1). If empty, all zones are queried`,
 			},
 			{
-				Name:       "products",
+				Name:       "products.{index}",
 				Short:      `Filter by products (comma-separated: instances,instance-ips,instance-volumes,instance-snapshots,instance-security-groups,ipam,block-volumes,block-snapshots,buckets,rdb,redis,lb,k8s,containers,functions,flexibleip,secrets,vpc,file,webhosting,registry,searchdb,s2s-vpn-vpn-gateway). If empty, all products are queried`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
+				EnumValues: fetch.AllProductKeys(),
 			},
 		},
 		Run: runListResources,
@@ -185,7 +191,7 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 				sem <- struct{}{}
 				defer func() { <-sem }()
 
-				fetcher, ok := ProductFetchers[product]
+				fetcher, ok := fetch.GetFetcher(product)
 				if !ok {
 					return
 				}
@@ -218,7 +224,7 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 				}
 
 				// Populate Product and Resource fields from the fetcher
-				productName := fetcher.Product()
+				productName := fetcher.Namespace()
 				resourceName := fetcher.Resource()
 				for i := range resources {
 					resources[i].Product = productName
@@ -292,15 +298,12 @@ func ResolveZones(requested []string) []scw.Zone {
 
 // ResolveProducts returns the list of products to query.
 func ResolveProducts(requested []string) []string {
+	registerFetchers()
+
 	if len(requested) > 0 {
 		return requested
 	}
 
 	// Return all known products
-	products := make([]string, 0, len(ProductFetchers))
-	for product := range ProductFetchers {
-		products = append(products, product)
-	}
-
-	return products
+	return fetch.AllProductKeys()
 }

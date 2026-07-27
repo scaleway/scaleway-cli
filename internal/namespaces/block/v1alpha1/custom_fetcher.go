@@ -12,11 +12,11 @@ import (
 type FetchSnapshots struct{}
 
 func (s *FetchSnapshots) Resource() string {
-	return "snapshot"
+	return blockSnapshot().Resource
 }
 
-func (s *FetchSnapshots) Product() string {
-	return "block"
+func (s *FetchSnapshots) Namespace() string {
+	return blockSnapshot().Namespace
 }
 
 func (s *FetchSnapshots) LocalityType() fetch.LocalityType {
@@ -62,12 +62,12 @@ func (s *FetchSnapshots) Fetch(
 
 type FetchVolumes struct{}
 
-func (f *FetchVolumes) Product() string {
-	return "block"
+func (f *FetchVolumes) Namespace() string {
+	return blockVolume().Namespace
 }
 
 func (f *FetchVolumes) Resource() string {
-	return "volume"
+	return blockVolume().Resource
 }
 
 func (f *FetchVolumes) LocalityType() fetch.LocalityType {

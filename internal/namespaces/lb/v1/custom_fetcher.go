@@ -11,12 +11,12 @@ import (
 
 type FetchLoadBalancers struct{}
 
-func (f FetchLoadBalancers) Product() string {
-	return "lb"
+func (f FetchLoadBalancers) Namespace() string {
+	return lbLB().Namespace
 }
 
 func (f FetchLoadBalancers) Resource() string {
-	return "lb"
+	return lbLB().Resource
 }
 
 func (f FetchLoadBalancers) LocalityType() fetch.LocalityType {

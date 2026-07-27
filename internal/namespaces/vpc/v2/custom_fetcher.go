@@ -11,12 +11,12 @@ import (
 
 type FetchVPCs struct{}
 
-func (f FetchVPCs) Product() string {
-	return "vpc"
+func (f FetchVPCs) Namespace() string {
+	return vpcVpc().Namespace
 }
 
 func (f FetchVPCs) Resource() string {
-	return "vpc"
+	return vpcVpc().Resource
 }
 
 func (f FetchVPCs) LocalityType() fetch.LocalityType {

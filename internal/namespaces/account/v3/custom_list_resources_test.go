@@ -104,7 +104,7 @@ func TestResolveProducts(t *testing.T) {
 	t.Run("with empty requested uses all products", func(t *testing.T) {
 		result := account.ResolveProducts(nil)
 		assert.NotEmpty(t, result)
-		assert.Len(t, result, len(account.ProductFetchers))
+		assert.Len(t, result, len(fetch.AllProductKeys()))
 	})
 }
 
@@ -172,42 +172,42 @@ var ExceptionProducts = map[string]struct{}{
 // getNamespaceToProductMap returns the mapping between CLI namespaces/resources
 // and product names in ProductFetchers.
 //
-// This map is needed because some products have different naming between
-// their CLI namespace and their ProductFetchers key (e.g., "baremetal" -> "baremetal-servers").
+// Product keys are now deduced as Namespace()+"-"+Resource(), so they match
+// the fetcher's CLI namespace and resource names directly.
 func getNamespaceToProductMap() map[string]string {
 	return map[string]string{
-		"baremetal":                "baremetal-servers",
-		"apple-silicon":            "applesilicon-servers",
-		"instance":                 "instance-servers",
-		"instance-ips":             "instance-ips",
-		"instance-volumes":         "instance-volumes",
-		"instance-snapshots":       "instance-snapshots",
-		"instance-security-groups": "instance-security-groups",
+		"baremetal":                "baremetal-server",
+		"apple-silicon":            "apple-silicon-server",
+		"instance":                 "instance-server",
+		"instance-ips":             "instance-ip",
+		"instance-volumes":         "instance-volume",
+		"instance-snapshots":       "instance-snapshot",
+		"instance-security-groups": "instance-security-group",
 		"ipam":                     "ipam-ip",
-		"block":                    "block-volumes",
-		"block-snapshots":          "block-snapshots",
-		"object":                   "object-buckets",
-		"rdb":                      "rdb-instances",
+		"block":                    "block-volume",
+		"block-snapshots":          "block-snapshot",
+		"object":                   "object-bucket",
+		"rdb":                      "rdb-instance",
 		"redis":                    "redis-cluster",
 		"lb":                       "lb-lb",
 		"k8s":                      "k8s-cluster",
-		"container":                "container-namespaces",
-		"function":                 "function-namespaces",
+		"container":                "container-namespace",
+		"function":                 "function-namespace",
 		"fip":                      "fip-ip",
-		"secret":                   "secret-secrets",
+		"secret":                   "secret-secret",
 		"vpc":                      "vpc-vpc",
 		"file":                     "file-filesystem",
 		"webhosting":               "webhosting-hosting",
-		"vpc-gw":                   "vpc-gw-vpc-gw",
+		"vpc-gw":                   "vpc-gw-gateway",
 		"vpc-gw-ip":                "vpc-gw-ip",
 		"mongodb":                  "mongodb-instance",
 		"mongodb-snapshot":         "mongodb-snapshot",
-		"keymanager":               "key-manager",
+		"keymanager":               "keymanager-key",
 		"inference":                "inference-deployment",
 		"cockpit":                  "cockpit-token",
-		"cockpit-datasource":       "cockpit-datasource",
-		"registry":                 "registry-namespaces",
-		"searchdb":                 "searchdb-deployments",
+		"cockpit-datasource":       "cockpit-data-source",
+		"registry":                 "registry-namespace",
+		"searchdb":                 "searchdb-deployment",
 		"s2s-vpn":                  "s2s-vpn-vpn-gateway",
 	}
 }
@@ -259,13 +259,13 @@ func computeExpectedProductsFromCommands() map[string]struct{} {
 	// but have dedicated fetchers (e.g., instance-ips, block-snapshots, etc.)
 	// These products share the same namespace as other resources.
 	extraProducts := []string{
-		"instance-ips",
-		"instance-volumes",
-		"instance-snapshots",
-		"instance-security-groups",
-		"block-snapshots",
+		"instance-ip",
+		"instance-volume",
+		"instance-snapshot",
+		"instance-security-group",
+		"block-snapshot",
 		"vpc-gw-ip",
-		"cockpit-datasource",
+		"cockpit-data-source",
 		"mongodb-snapshot",
 	}
 	for _, p := range extraProducts {
@@ -277,27 +277,25 @@ func computeExpectedProductsFromCommands() map[string]struct{} {
 
 func TestProductFetchersCompleteness(t *testing.T) {
 	expectedProducts := computeExpectedProductsFromCommands()
+	registeredProducts := make(map[string]struct{})
+	for _, key := range fetch.AllProductKeys() {
+		registeredProducts[key] = struct{}{}
+	}
 
 	t.Run("all_expected_products_are_in_ProductFetchers", func(t *testing.T) {
 		for expectedProduct := range expectedProducts {
-			fetcher, exists := account.ProductFetchers[expectedProduct]
+			_, exists := registeredProducts[expectedProduct]
 			assert.True(
 				t,
 				exists,
 				"product %q is expected but missing from ProductFetchers - add it to ProductFetchers in custom_list_resources.go",
 				expectedProduct,
 			)
-			assert.NotNil(
-				t,
-				fetcher,
-				"product %q has a nil fetcher in ProductFetchers",
-				expectedProduct,
-			)
 		}
 	})
 
 	t.Run("no_unexpected_products_in_ProductFetchers", func(t *testing.T) {
-		for product := range account.ProductFetchers {
+		for product := range registeredProducts {
 			_, expected := expectedProducts[product]
 			assert.True(
 				t,
@@ -310,7 +308,7 @@ func TestProductFetchersCompleteness(t *testing.T) {
 
 	t.Run("ProductFetchers_has_exactly_expected_count", func(t *testing.T) {
 		expectedCount := len(expectedProducts)
-		actualCount := len(account.ProductFetchers)
+		actualCount := len(registeredProducts)
 		assert.Equal(
 			t,
 			expectedCount,

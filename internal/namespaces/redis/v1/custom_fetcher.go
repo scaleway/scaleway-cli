@@ -11,17 +11,18 @@ import (
 
 type FetchClusters struct{}
 
-func (f FetchClusters) Product() string {
-	return "redis"
+func (f FetchClusters) Namespace() string {
+	return redisCluster().Namespace
 }
 
 func (f FetchClusters) Resource() string {
-	return "clusters"
+	return redisCluster().Resource
 }
 
 func (f FetchClusters) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all Redis clusters in a given zone.
 func (f FetchClusters) Fetch(
