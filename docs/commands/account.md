@@ -105,7 +105,7 @@ scw account project list-resources <project-id ...> [arg=value ...]
 |------|---|-------------|
 | project-id | Default: `` | Filter by project ID. If none is passed the default project ID will be used |
 | zones |  | Filter by zones (comma-separated, e.g. fr-par-1,nl-ams-1). If empty, all zones are queried |
-| products |  | Filter by products (comma-separated: instances,instance-ips,instance-volumes,instance-snapshots,ipam,block-volumes,block-snapshots,buckets,rdb,redis,lb,k8s,containers,functions,flexibleip,secrets,vpc,file,webhosting,registry,searchdb,s2s-vpn-vpn-gateway). If empty, all products are queried |
+| products |  | Filter by products (comma-separated: instances,instance-ips,instance-volumes,instance-snapshots,instance-security-groups,ipam,block-volumes,block-snapshots,buckets,rdb,redis,lb,k8s,containers,functions,flexibleip,secrets,vpc,file,webhosting,registry,searchdb,s2s-vpn-vpn-gateway). If empty, all products are queried |
 
 
 
