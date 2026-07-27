@@ -289,7 +289,7 @@ func rdbEngineList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -333,7 +333,7 @@ func rdbNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -413,7 +413,7 @@ func rdbBackupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -479,7 +479,7 @@ func rdbBackupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateDatabaseBackup(request)
+			return api.CreateDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -513,7 +513,7 @@ func rdbBackupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetDatabaseBackup(request)
+			return api.GetDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -561,7 +561,7 @@ func rdbBackupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateDatabaseBackup(request)
+			return api.UpdateDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -595,7 +595,7 @@ func rdbBackupDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteDatabaseBackup(request)
+			return api.DeleteDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -643,7 +643,7 @@ func rdbBackupRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.RestoreDatabaseBackup(request)
+			return api.RestoreDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -677,7 +677,7 @@ func rdbBackupExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ExportDatabaseBackup(request)
+			return api.ExportDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -773,7 +773,7 @@ func rdbInstanceUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpgradeInstance(request)
+			return api.UpgradeInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -851,7 +851,7 @@ func rdbInstanceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -927,7 +927,7 @@ func rdbInstanceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstance(request)
+			return api.GetInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1033,6 +1033,13 @@ func rdbInstanceCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "init-endpoints.{index}.load-balancer",
+				Short:      `Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "init-endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network to be connected to the Database Instance`,
 				Required:   false,
@@ -1042,6 +1049,13 @@ func rdbInstanceCreate() *core.Command {
 			{
 				Name:       "init-endpoints.{index}.private-network.service-ip",
 				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "init-endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1072,7 +1086,7 @@ func rdbInstanceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateInstance(request)
+			return api.CreateInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1169,7 +1183,7 @@ func rdbInstanceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateInstance(request)
+			return api.UpdateInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1203,7 +1217,7 @@ func rdbInstanceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteInstance(request)
+			return api.DeleteInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1251,7 +1265,7 @@ func rdbInstanceClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CloneInstance(request)
+			return api.CloneInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1285,7 +1299,7 @@ func rdbInstanceRestart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.RestartInstance(request)
+			return api.RestartInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1319,7 +1333,7 @@ func rdbInstanceGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstanceCertificate(request)
+			return api.GetInstanceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1352,7 +1366,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.RenewInstanceCertificate(request)
+			e = api.RenewInstanceCertificate(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1415,7 +1429,7 @@ func rdbInstanceGetMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstanceMetrics(request)
+			return api.GetInstanceMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1438,6 +1452,13 @@ func rdbReadReplicaCreate() *core.Command {
 				Positional: true,
 			},
 			{
+				Name:       "endpoint-spec.{index}.direct-access",
+				Short:      `Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoint-spec.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network to be connected to the Read Replica`,
 				Required:   false,
@@ -1447,6 +1468,13 @@ func rdbReadReplicaCreate() *core.Command {
 			{
 				Name:       "endpoint-spec.{index}.private-network.service-ip",
 				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1470,7 +1498,7 @@ func rdbReadReplicaCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateReadReplica(request)
+			return api.CreateReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1504,7 +1532,7 @@ func rdbReadReplicaGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetReadReplica(request)
+			return api.GetReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1538,7 +1566,7 @@ func rdbReadReplicaDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteReadReplica(request)
+			return api.DeleteReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1573,7 +1601,7 @@ The configured endpoints do not change.`,
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ResetReadReplica(request)
+			return api.ResetReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1596,6 +1624,13 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 				Positional: true,
 			},
 			{
+				Name:       "endpoint-spec.{index}.direct-access",
+				Short:      `Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoint-spec.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network to be connected to the Read Replica`,
 				Required:   false,
@@ -1605,6 +1640,13 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 			{
 				Name:       "endpoint-spec.{index}.private-network.service-ip",
 				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1621,7 +1663,7 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateReadReplicaEndpoint(request)
+			return api.CreateReadReplicaEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1669,7 +1711,7 @@ func rdbLogPrepare() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.PrepareInstanceLogs(request)
+			return api.PrepareInstanceLogs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1714,7 +1756,7 @@ func rdbLogList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ListInstanceLogs(request)
+			return api.ListInstanceLogs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1748,7 +1790,7 @@ func rdbLogGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstanceLog(request)
+			return api.GetInstanceLog(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1788,7 +1830,7 @@ func rdbLogPurge() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.PurgeInstanceLogs(request)
+			e = api.PurgeInstanceLogs(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1830,7 +1872,7 @@ func rdbLogListDetails() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ListInstanceLogsDetails(request)
+			return api.ListInstanceLogsDetails(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1876,7 +1918,7 @@ func rdbSettingAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.AddInstanceSettings(request)
+			return api.AddInstanceSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1917,7 +1959,7 @@ func rdbSettingDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteInstanceSettings(request)
+			return api.DeleteInstanceSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1963,7 +2005,7 @@ func rdbSettingSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.SetInstanceSettings(request)
+			return api.SetInstanceSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1997,7 +2039,7 @@ func rdbACLList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2053,7 +2095,7 @@ func rdbACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.AddInstanceACLRules(request)
+			return api.AddInstanceACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2099,7 +2141,7 @@ func rdbACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.SetInstanceACLRules(request)
+			return api.SetInstanceACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2140,7 +2182,7 @@ func rdbACLDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteInstanceACLRules(request)
+			return api.DeleteInstanceACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2194,7 +2236,7 @@ func rdbUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2259,7 +2301,7 @@ func rdbUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2314,7 +2356,7 @@ func rdbUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2354,7 +2396,7 @@ func rdbUserDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2437,7 +2479,7 @@ func rdbDatabaseList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2488,7 +2530,7 @@ func rdbDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2528,7 +2570,7 @@ func rdbDatabaseDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.DeleteDatabase(request)
+			e = api.DeleteDatabase(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2597,7 +2639,7 @@ func rdbPrivilegeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2669,7 +2711,7 @@ func rdbPrivilegeSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.SetPrivilege(request)
+			return api.SetPrivilege(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2739,7 +2781,7 @@ func rdbSnapshotList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2783,7 +2825,7 @@ func rdbSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetSnapshot(request)
+			return api.GetSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2832,7 +2874,7 @@ func rdbSnapshotCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateSnapshot(request)
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2880,7 +2922,7 @@ func rdbSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateSnapshot(request)
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2914,7 +2956,7 @@ func rdbSnapshotDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteSnapshot(request)
+			return api.DeleteSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2969,7 +3011,7 @@ func rdbSnapshotRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateInstanceFromSnapshot(request)
+			return api.CreateInstanceFromSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2992,6 +3034,13 @@ func rdbEndpointCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoint-spec.load-balancer",
+				Short:      `Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoint-spec.private-network.private-network-id",
 				Short:      `UUID of the Private Network to be connected to the Database Instance`,
 				Required:   false,
@@ -3001,6 +3050,13 @@ func rdbEndpointCreate() *core.Command {
 			{
 				Name:       "endpoint-spec.private-network.service-ip",
 				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3017,7 +3073,7 @@ func rdbEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3050,7 +3106,7 @@ func rdbEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3092,7 +3148,7 @@ func rdbEndpointGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetEndpoint(request)
+			return api.GetEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3133,7 +3189,7 @@ func rdbEndpointMigrate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.MigrateEndpoint(request)
+			return api.MigrateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }

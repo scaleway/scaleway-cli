@@ -281,7 +281,7 @@ func auditTrailEventList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListEvents(request)
+			return api.ListEvents(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -308,7 +308,7 @@ func auditTrailProductList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListProducts(request)
+			return api.ListProducts(request, scw.WithContext(ctx))
 		},
 	}
 }

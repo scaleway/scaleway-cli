@@ -30,9 +30,11 @@ scw kafka cluster create [arg=value ...]
 | node-type | Required | Type of node to use for the Kafka cluster |
 | volume.size-bytes |  | Volume size |
 | volume.type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
+| endpoints.{index}.public-network |  |  |
 | endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
 | user-name |  | Username for the kafka user |
 | password |  | Password for the kafka user |
+| multi-az |  | MultiAZ tell the cluster is deployed on multiple availability zones in the region. |
 | mono-az.zone |  | Zone is the zone on which the cluster nodes are deployed. |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

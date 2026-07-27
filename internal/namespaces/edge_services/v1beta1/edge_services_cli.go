@@ -235,7 +235,7 @@ func edgeServicesPipelineList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPipelines(request, opts...)
 			if err != nil {
 				return nil, err
@@ -278,7 +278,7 @@ func edgeServicesPipelineCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreatePipeline(request)
+			return api.CreatePipeline(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -307,7 +307,7 @@ func edgeServicesPipelineGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetPipeline(request)
+			return api.GetPipeline(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -350,7 +350,7 @@ func edgeServicesPipelineUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdatePipeline(request)
+			return api.UpdatePipeline(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -378,7 +378,7 @@ func edgeServicesPipelineDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeletePipeline(request)
+			e = api.DeletePipeline(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -414,7 +414,7 @@ func edgeServicesPipelineListHead() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListHeadStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -473,7 +473,7 @@ func edgeServicesPipelineSetHead() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.SetHeadStage(request)
+			return api.SetHeadStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -519,7 +519,7 @@ func edgeServicesDNSStageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -589,7 +589,7 @@ func edgeServicesDNSStageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreateDNSStage(request)
+			return api.CreateDNSStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -618,7 +618,7 @@ func edgeServicesDNSStageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetDNSStage(request)
+			return api.GetDNSStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -682,7 +682,7 @@ func edgeServicesDNSStageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdateDNSStage(request)
+			return api.UpdateDNSStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -710,7 +710,7 @@ func edgeServicesDNSStageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteDNSStage(request)
+			e = api.DeleteDNSStage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -771,7 +771,7 @@ func edgeServicesTLSStageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTLSStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -853,7 +853,7 @@ func edgeServicesTLSStageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreateTLSStage(request)
+			return api.CreateTLSStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -882,7 +882,7 @@ func edgeServicesTLSStageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetTLSStage(request)
+			return api.GetTLSStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -958,7 +958,7 @@ func edgeServicesTLSStageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdateTLSStage(request)
+			return api.UpdateTLSStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -986,7 +986,7 @@ func edgeServicesTLSStageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteTLSStage(request)
+			e = api.DeleteTLSStage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1033,7 +1033,7 @@ func edgeServicesCacheStageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListCacheStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1102,7 +1102,7 @@ func edgeServicesCacheStageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreateCacheStage(request)
+			return api.CreateCacheStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1131,7 +1131,7 @@ func edgeServicesCacheStageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetCacheStage(request)
+			return api.GetCacheStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1193,7 +1193,7 @@ func edgeServicesCacheStageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdateCacheStage(request)
+			return api.UpdateCacheStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1221,7 +1221,7 @@ func edgeServicesCacheStageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteCacheStage(request)
+			e = api.DeleteCacheStage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1289,7 +1289,7 @@ func edgeServicesBackendStageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListBackendStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1411,7 +1411,7 @@ func edgeServicesBackendStageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreateBackendStage(request)
+			return api.CreateBackendStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1440,7 +1440,7 @@ func edgeServicesBackendStageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetBackendStage(request)
+			return api.GetBackendStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1563,7 +1563,7 @@ func edgeServicesBackendStageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdateBackendStage(request)
+			return api.UpdateBackendStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1591,7 +1591,7 @@ func edgeServicesBackendStageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteBackendStage(request)
+			e = api.DeleteBackendStage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1638,7 +1638,7 @@ func edgeServicesWafStageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListWafStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1700,7 +1700,7 @@ func edgeServicesWafStageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreateWafStage(request)
+			return api.CreateWafStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1729,7 +1729,7 @@ func edgeServicesWafStageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetWafStage(request)
+			return api.GetWafStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1785,7 +1785,7 @@ func edgeServicesWafStageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdateWafStage(request)
+			return api.UpdateWafStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1813,7 +1813,7 @@ func edgeServicesWafStageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteWafStage(request)
+			e = api.DeleteWafStage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1860,7 +1860,7 @@ func edgeServicesRouteStageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRouteStages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1909,7 +1909,7 @@ func edgeServicesRouteStageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreateRouteStage(request)
+			return api.CreateRouteStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1938,7 +1938,7 @@ func edgeServicesRouteStageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetRouteStage(request)
+			return api.GetRouteStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1981,7 +1981,7 @@ func edgeServicesRouteStageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.UpdateRouteStage(request)
+			return api.UpdateRouteStage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2009,7 +2009,7 @@ func edgeServicesRouteStageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteRouteStage(request)
+			e = api.DeleteRouteStage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2046,7 +2046,7 @@ func edgeServicesRouteRulesList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.ListRouteRules(request)
+			return api.ListRouteRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2140,7 +2140,7 @@ func edgeServicesRouteRulesSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.SetRouteRules(request)
+			return api.SetRouteRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2248,7 +2248,7 @@ func edgeServicesRouteRulesAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.AddRouteRules(request)
+			return api.AddRouteRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2301,7 +2301,7 @@ func edgeServicesPurgeRequestList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPurgeRequests(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2350,7 +2350,7 @@ func edgeServicesPurgeRequestCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.CreatePurgeRequest(request)
+			return api.CreatePurgeRequest(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2379,7 +2379,7 @@ func edgeServicesPurgeRequestGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetPurgeRequest(request)
+			return api.GetPurgeRequest(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2432,7 +2432,7 @@ func edgeServicesPlanSelect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.SelectPlan(request)
+			return api.SelectPlan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2455,7 +2455,7 @@ func edgeServicesPlanGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
-			return api.GetCurrentPlan(request)
+			return api.GetCurrentPlan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2477,7 +2477,7 @@ func edgeServicesPlanDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
-			e = api.DeleteCurrentPlan(request)
+			e = api.DeleteCurrentPlan(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

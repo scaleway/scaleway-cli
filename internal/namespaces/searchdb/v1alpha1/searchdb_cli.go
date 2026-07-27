@@ -175,6 +175,12 @@ func searchdbDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Required:   false,
 				Deprecated: false,
@@ -195,7 +201,7 @@ func searchdbDeploymentCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.CreateDeployment(request)
+			return api.CreateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -239,7 +245,7 @@ func searchdbDeploymentUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.UpdateDeployment(request)
+			return api.UpdateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -290,7 +296,7 @@ func searchdbDeploymentUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.UpgradeDeployment(request)
+			return api.UpgradeDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -320,7 +326,7 @@ func searchdbDeploymentGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.GetDeployment(request)
+			return api.GetDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -350,7 +356,7 @@ func searchdbDeploymentDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.DeleteDeployment(request)
+			return api.DeleteDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -418,7 +424,7 @@ func searchdbDeploymentList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -471,7 +477,7 @@ func searchdbVersionsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -521,7 +527,7 @@ func searchdbNodeTypesList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -554,6 +560,12 @@ func searchdbEndpointCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoint-spec.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoint-spec.private-network.private-network-id",
 				Required:   false,
 				Deprecated: false,
@@ -567,7 +579,7 @@ func searchdbEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -596,7 +608,7 @@ func searchdbEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -651,7 +663,7 @@ func searchdbUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -705,7 +717,7 @@ func searchdbUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -749,7 +761,7 @@ func searchdbUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -785,7 +797,7 @@ func searchdbUserDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := searchdb.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

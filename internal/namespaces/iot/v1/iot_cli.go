@@ -160,7 +160,7 @@ func iotHubList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -283,7 +283,7 @@ func iotHubCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateHub(request)
+			return api.CreateHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -313,7 +313,7 @@ func iotHubGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetHub(request)
+			return api.GetHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -390,7 +390,7 @@ func iotHubUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.UpdateHub(request)
+			return api.UpdateHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -420,7 +420,7 @@ func iotHubEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.EnableHub(request)
+			return api.EnableHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -450,7 +450,7 @@ func iotHubDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.DisableHub(request)
+			return api.DisableHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -486,7 +486,7 @@ func iotHubDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteHub(request)
+			e = api.DeleteHub(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -538,7 +538,7 @@ func iotHubSetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.SetHubCA(request)
+			return api.SetHubCA(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -567,7 +567,7 @@ func iotHubGetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetHubCA(request)
+			return api.GetHubCA(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -647,7 +647,7 @@ func iotDeviceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -792,7 +792,7 @@ func iotDeviceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateDevice(request)
+			return api.CreateDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -822,7 +822,7 @@ func iotDeviceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetDevice(request)
+			return api.GetDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -918,7 +918,7 @@ func iotDeviceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.UpdateDevice(request)
+			return api.UpdateDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -948,7 +948,7 @@ func iotDeviceEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.EnableDevice(request)
+			return api.EnableDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -978,7 +978,7 @@ func iotDeviceDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.DisableDevice(request)
+			return api.DisableDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1008,7 +1008,7 @@ func iotDeviceRenewCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.RenewDeviceCertificate(request)
+			return api.RenewDeviceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1045,7 +1045,7 @@ func iotDeviceSetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.SetDeviceCertificate(request)
+			return api.SetDeviceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1075,7 +1075,7 @@ func iotDeviceGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetDeviceCertificate(request)
+			return api.GetDeviceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1104,7 +1104,7 @@ func iotDeviceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteDevice(request)
+			e = api.DeleteDevice(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1149,7 +1149,7 @@ func iotDeviceGetMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetDeviceMetrics(request)
+			return api.GetDeviceMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1205,7 +1205,7 @@ func iotRouteList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1391,7 +1391,7 @@ func iotRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateRoute(request)
+			return api.CreateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1537,7 +1537,7 @@ func iotRouteUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.UpdateRoute(request)
+			return api.UpdateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1567,7 +1567,7 @@ func iotRouteGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetRoute(request)
+			return api.GetRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1596,7 +1596,7 @@ func iotRouteDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteRoute(request)
+			e = api.DeleteRoute(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1665,7 +1665,7 @@ func iotNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1755,7 +1755,7 @@ func iotNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateNetwork(request)
+			return api.CreateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1785,7 +1785,7 @@ func iotNetworkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetNetwork(request)
+			return api.GetNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1814,7 +1814,7 @@ func iotNetworkDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteNetwork(request)
+			e = api.DeleteNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

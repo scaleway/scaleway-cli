@@ -95,7 +95,7 @@ func billingBudgetList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListBudgets(request, opts...)
 			if err != nil {
 				return nil, err
@@ -130,7 +130,7 @@ func billingBudgetGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.GetBudget(request)
+			return api.GetBudget(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -167,7 +167,7 @@ func billingBudgetCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.CreateBudget(request)
+			return api.CreateBudget(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -210,7 +210,7 @@ func billingBudgetUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.UpdateBudget(request)
+			return api.UpdateBudget(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -238,7 +238,7 @@ func billingBudgetDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			e = api.DeleteBudget(request)
+			e = api.DeleteBudget(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -282,7 +282,7 @@ func billingBudgetAlertCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.CreateBudgetAlert(request)
+			return api.CreateBudgetAlert(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -318,7 +318,7 @@ func billingBudgetAlertUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.UpdateBudgetAlert(request)
+			return api.UpdateBudgetAlert(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -346,7 +346,7 @@ func billingBudgetAlertDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			e = api.DeleteBudgetAlert(request)
+			e = api.DeleteBudgetAlert(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -404,7 +404,7 @@ func billingBudgetAlertNotificationCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.CreateBudgetAlertNotification(request)
+			return api.CreateBudgetAlertNotification(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -454,7 +454,7 @@ func billingBudgetAlertNotificationUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.UpdateBudgetAlertNotification(request)
+			return api.UpdateBudgetAlertNotification(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -482,7 +482,7 @@ func billingBudgetAlertNotificationDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			e = api.DeleteBudgetAlertNotification(request)
+			e = api.DeleteBudgetAlertNotification(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

@@ -79,7 +79,7 @@ func accountProjectCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 
-			return api.CreateProject(request)
+			return api.CreateProject(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -128,7 +128,7 @@ func accountProjectList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListProjects(request, opts...)
 			if err != nil {
 				return nil, err
@@ -157,7 +157,7 @@ func accountProjectGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 
-			return api.GetProject(request)
+			return api.GetProject(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -179,7 +179,7 @@ func accountProjectDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
-			e = api.DeleteProject(request)
+			e = api.DeleteProject(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -224,7 +224,7 @@ func accountProjectUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 
-			return api.UpdateProject(request)
+			return api.UpdateProject(request, scw.WithContext(ctx))
 		},
 	}
 }

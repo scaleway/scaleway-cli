@@ -203,7 +203,7 @@ func vpcVpcList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -271,7 +271,7 @@ func vpcVpcCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.CreateVPC(request)
+			return api.CreateVPC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -306,7 +306,7 @@ func vpcVpcGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.GetVPC(request)
+			return api.GetVPC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -355,7 +355,7 @@ func vpcVpcUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.UpdateVPC(request)
+			return api.UpdateVPC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -389,7 +389,7 @@ func vpcVpcDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			e = api.DeleteVPC(request)
+			e = api.DeleteVPC(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -487,7 +487,7 @@ func vpcPrivateNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -562,7 +562,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.CreatePrivateNetwork(request)
+			return api.CreatePrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -597,7 +597,7 @@ func vpcPrivateNetworkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.GetPrivateNetwork(request)
+			return api.GetPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -653,7 +653,7 @@ func vpcPrivateNetworkUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.UpdatePrivateNetwork(request)
+			return api.UpdatePrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -687,7 +687,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			e = api.DeletePrivateNetwork(request)
+			e = api.DeletePrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -730,7 +730,7 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.EnableDHCP(request)
+			return api.EnableDHCP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -765,7 +765,7 @@ func vpcRouteEnableRouting() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.EnableRouting(request)
+			return api.EnableRouting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -842,7 +842,7 @@ func vpcRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.CreateRoute(request)
+			return api.CreateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -877,7 +877,7 @@ func vpcRouteGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.GetRoute(request)
+			return api.GetRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -954,7 +954,7 @@ func vpcRouteUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.UpdateRoute(request)
+			return api.UpdateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -988,7 +988,7 @@ func vpcRouteDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			e = api.DeleteRoute(request)
+			e = api.DeleteRoute(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1038,7 +1038,7 @@ func vpcRuleGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.GetACL(request)
+			return api.GetACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1166,7 +1166,7 @@ func vpcRuleSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.SetACL(request)
+			return api.SetACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1262,7 +1262,7 @@ func vpcVpcConnectorList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1329,7 +1329,7 @@ func vpcVpcConnectorCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.CreateVPCConnector(request)
+			return api.CreateVPCConnector(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1364,7 +1364,7 @@ func vpcVpcConnectorGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.GetVPCConnector(request)
+			return api.GetVPCConnector(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1413,7 +1413,7 @@ func vpcVpcConnectorUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.UpdateVPCConnector(request)
+			return api.UpdateVPCConnector(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1447,7 +1447,7 @@ func vpcVpcConnectorDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			e = api.DeleteVPCConnector(request)
+			e = api.DeleteVPCConnector(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1547,7 +1547,7 @@ func vpcIngressRuleList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1627,7 +1627,7 @@ func vpcIngressRuleCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.CreateIngressRule(request)
+			return api.CreateIngressRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1662,7 +1662,7 @@ func vpcIngressRuleGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.GetIngressRule(request)
+			return api.GetIngressRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1732,7 +1732,7 @@ func vpcIngressRuleUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
 
-			return api.UpdateIngressRule(request)
+			return api.UpdateIngressRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1766,7 +1766,7 @@ func vpcIngressRuleDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewAPI(client)
-			e = api.DeleteIngressRule(request)
+			e = api.DeleteIngressRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1875,7 +1875,7 @@ func vpcRouteList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpc.NewRoutesWithNexthopAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRoutesWithNexthop(request, opts...)
 			if err != nil {
 				return nil, err

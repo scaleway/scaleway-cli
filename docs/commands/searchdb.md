@@ -32,6 +32,7 @@ scw searchdb deployment create [arg=value ...]
 | password |  | Password for the deployment user |
 | volume.type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Define the type of the Volume |
 | volume.size-bytes |  | Define the size of the Volume |
+| endpoints.{index}.public |  |  |
 | endpoints.{index}.private-network.private-network-id |  |  |
 | version |  | The Opensearch version to use |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
@@ -168,6 +169,7 @@ scw searchdb endpoint create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | deployment-id |  | ID of the deployment for which to create an endpoint |
+| endpoint-spec.public |  |  |
 | endpoint-spec.private-network.private-network-id |  |  |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

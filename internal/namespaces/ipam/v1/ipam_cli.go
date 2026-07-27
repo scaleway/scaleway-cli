@@ -146,7 +146,7 @@ func ipamIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.BookIP(request)
+			return api.BookIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -180,7 +180,7 @@ func ipamIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			e = api.ReleaseIP(request)
+			e = api.ReleaseIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -221,7 +221,7 @@ func ipamIPSetRelease() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			e = api.ReleaseIPSet(request)
+			e = api.ReleaseIPSet(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -264,7 +264,7 @@ func ipamIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -320,7 +320,7 @@ func ipamIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -551,7 +551,7 @@ func ipamIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -610,7 +610,7 @@ func ipamIPAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.AttachIP(request)
+			return api.AttachIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -659,7 +659,7 @@ func ipamIPDetach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.DetachIP(request)
+			return api.DetachIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -722,7 +722,7 @@ func ipamIPMove() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.MoveIP(request)
+			return api.MoveIP(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -130,7 +130,7 @@ func s2sVpnVpnGatewayTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -243,7 +243,7 @@ func s2sVpnVpnGatewayList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -288,7 +288,7 @@ func s2sVpnVpnGatewayGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetVpnGateway(request)
+			return api.GetVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -402,7 +402,7 @@ func s2sVpnVpnGatewayCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateVpnGateway(request)
+			return api.CreateVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -451,7 +451,7 @@ func s2sVpnVpnGatewayUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateVpnGateway(request)
+			return api.UpdateVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -486,7 +486,7 @@ func s2sVpnVpnGatewayDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.DeleteVpnGateway(request)
+			return api.DeleteVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -606,7 +606,7 @@ func s2sVpnConnectionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -651,7 +651,7 @@ func s2sVpnConnectionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetConnection(request)
+			return api.GetConnection(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -874,7 +874,7 @@ func s2sVpnConnectionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateConnection(request)
+			return api.CreateConnection(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1027,7 +1027,7 @@ func s2sVpnConnectionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateConnection(request)
+			return api.UpdateConnection(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1061,7 +1061,7 @@ func s2sVpnConnectionDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			e = api.DeleteConnection(request)
+			e = api.DeleteConnection(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1112,7 +1112,7 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.RenewConnectionPsk(request)
+			return api.RenewConnectionPsk(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1161,7 +1161,7 @@ func s2sVpnConnectionSetRoutingPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.SetRoutingPolicy(request)
+			return api.SetRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1210,7 +1210,7 @@ func s2sVpnConnectionDetachRoutingPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.DetachRoutingPolicy(request)
+			return api.DetachRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1245,7 +1245,7 @@ func s2sVpnConnectionEnableRoutePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.EnableRoutePropagation(request)
+			return api.EnableRoutePropagation(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1280,7 +1280,7 @@ func s2sVpnConnectionDisableRoutePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.DisableRoutePropagation(request)
+			return api.DisableRoutePropagation(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1349,7 +1349,7 @@ func s2sVpnCustomerGatewayList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1394,7 +1394,7 @@ func s2sVpnCustomerGatewayGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetCustomerGateway(request)
+			return api.GetCustomerGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1458,7 +1458,7 @@ func s2sVpnCustomerGatewayCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateCustomerGateway(request)
+			return api.CreateCustomerGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1528,7 +1528,7 @@ func s2sVpnCustomerGatewayUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateCustomerGateway(request)
+			return api.UpdateCustomerGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1562,7 +1562,7 @@ func s2sVpnCustomerGatewayDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			e = api.DeleteCustomerGateway(request)
+			e = api.DeleteCustomerGateway(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1646,7 +1646,7 @@ func s2sVpnRoutingPolicyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1691,7 +1691,7 @@ func s2sVpnRoutingPolicyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetRoutingPolicy(request)
+			return api.GetRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1755,7 +1755,7 @@ func s2sVpnRoutingPolicyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateRoutingPolicy(request)
+			return api.CreateRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1818,7 +1818,7 @@ func s2sVpnRoutingPolicyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateRoutingPolicy(request)
+			return api.UpdateRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1852,7 +1852,7 @@ func s2sVpnRoutingPolicyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			e = api.DeleteRoutingPolicy(request)
+			e = api.DeleteRoutingPolicy(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

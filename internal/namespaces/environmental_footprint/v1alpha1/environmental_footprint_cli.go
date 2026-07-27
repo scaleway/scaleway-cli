@@ -88,7 +88,7 @@ func environmentalFootprintReportList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := environmental_footprint.NewUserAPI(client)
 
-			return api.GetImpactReportAvailability(request)
+			return api.GetImpactReportAvailability(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -130,7 +130,7 @@ func environmentalFootprintReportGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := environmental_footprint.NewUserAPI(client)
 
-			return api.DownloadImpactReport(request)
+			return api.DownloadImpactReport(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -232,7 +232,7 @@ func environmentalFootprintDataGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := environmental_footprint.NewUserAPI(client)
 
-			return api.GetImpactData(request)
+			return api.GetImpactData(request, scw.WithContext(ctx))
 		},
 	}
 }

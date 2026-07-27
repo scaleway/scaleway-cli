@@ -263,7 +263,7 @@ func temEmailCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.CreateEmail(request)
+			return api.CreateEmail(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -293,7 +293,7 @@ func temEmailGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.GetEmail(request)
+			return api.GetEmail(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -442,7 +442,7 @@ func temEmailList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -510,7 +510,7 @@ func temEmailGetStatistics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.GetStatistics(request)
+			return api.GetStatistics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -540,7 +540,7 @@ func temEmailCancel() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.CancelEmail(request)
+			return api.CancelEmail(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -585,7 +585,7 @@ func temDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.CreateDomain(request)
+			return api.CreateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -615,7 +615,7 @@ func temDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -678,7 +678,7 @@ func temDomainList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -718,7 +718,7 @@ func temDomainRevoke() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.RevokeDomain(request)
+			return api.RevokeDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -748,7 +748,7 @@ func temDomainCheck() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.CheckDomain(request)
+			return api.CheckDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -778,7 +778,7 @@ func temDomainGetLastStatus() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.GetDomainLastStatus(request)
+			return api.GetDomainLastStatus(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -815,7 +815,7 @@ func temDomainUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.UpdateDomain(request)
+			return api.UpdateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -878,7 +878,7 @@ func temWebhookCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.CreateWebhook(request)
+			return api.CreateWebhook(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -935,7 +935,7 @@ func temWebhookList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -975,7 +975,7 @@ func temWebhookGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.GetWebhook(request)
+			return api.GetWebhook(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1037,7 +1037,7 @@ func temWebhookUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.UpdateWebhook(request)
+			return api.UpdateWebhook(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1066,7 +1066,7 @@ func temWebhookDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			e = api.DeleteWebhook(request)
+			e = api.DeleteWebhook(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1176,7 +1176,7 @@ func temWebhookListEvents() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1257,7 +1257,7 @@ func temBlocklistsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1323,7 +1323,7 @@ func temBlocklistsCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.BulkCreateBlocklists(request)
+			return api.BulkCreateBlocklists(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1352,7 +1352,7 @@ func temBlocklistsDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
-			e = api.DeleteBlocklist(request)
+			e = api.DeleteBlocklist(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1396,7 +1396,7 @@ func temOffersUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.UpdateOfferSubscription(request)
+			return api.UpdateOfferSubscription(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1419,7 +1419,7 @@ func temOffersList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.ListOffers(request)
+			return api.ListOffers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1443,7 +1443,7 @@ func temProjectConsumptionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := tem.NewAPI(client)
 
-			return api.GetProjectConsumption(request)
+			return api.GetProjectConsumption(request, scw.WithContext(ctx))
 		},
 	}
 }

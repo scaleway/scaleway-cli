@@ -233,7 +233,7 @@ func searchResourceSearch() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := search.NewAPI(client)
 
-			return api.SearchResources(request)
+			return api.SearchResources(request, scw.WithContext(ctx))
 		},
 	}
 }

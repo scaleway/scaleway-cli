@@ -107,7 +107,7 @@ func sdbSQLDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -137,7 +137,7 @@ func sdbSQLDatabaseGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.GetDatabase(request)
+			return api.GetDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -167,7 +167,7 @@ func sdbSQLDatabaseDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.DeleteDatabase(request)
+			return api.DeleteDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -220,7 +220,7 @@ func sdbSQLDatabaseList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -274,7 +274,7 @@ func sdbSQLDatabaseUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.UpdateDatabase(request)
+			return api.UpdateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -311,7 +311,7 @@ func sdbSQLDatabaseRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.RestoreDatabaseFromBackup(request)
+			return api.RestoreDatabaseFromBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -341,7 +341,7 @@ func sdbSQLBackupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.GetDatabaseBackup(request)
+			return api.GetDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -398,7 +398,7 @@ func sdbSQLBackupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -438,7 +438,7 @@ func sdbSQLBackupExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.ExportDatabaseBackup(request)
+			return api.ExportDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -100,6 +100,7 @@ scw datawarehouse deployment create [arg=value ...]
 | password |  | Password for the initial user |
 | cpu-min |  | Minimum CPU count for the deployment |
 | cpu-max |  | Maximum CPU count for the deployment |
+| endpoints.{index}.public |  |  |
 | endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
 | ram-per-cpu |  | RAM per CPU count for the deployment (in GB) |
 | move-factor |  | For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full). |
@@ -238,6 +239,7 @@ scw datawarehouse endpoint create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | deployment-id |  | UUID of the deployment |
+| endpoint.public |  |  |
 | endpoint.private-network.private-network-id |  | UUID of the Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

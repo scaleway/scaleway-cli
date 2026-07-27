@@ -45,10 +45,12 @@ scw container container create [arg=value ...]
 | liveness-probe.failure-threshold |  | Number of consecutive failures before considering the container as unhealthy |
 | liveness-probe.interval |  | Time interval between checks. |
 | liveness-probe.timeout |  | Duration before the check times out. |
+| liveness-probe.tcp |  | Perform TCP check on the container. |
 | liveness-probe.http.path |  | HTTP path to perform the check on. |
 | startup-probe.failure-threshold |  | Number of consecutive failures before considering the container as unhealthy |
 | startup-probe.interval |  | Time interval between checks. |
 | startup-probe.timeout |  | Duration before the check times out. |
+| startup-probe.tcp |  | Perform TCP check on the container. |
 | startup-probe.http.path |  | HTTP path to perform the check on. |
 | tags.{index} |  | Tags of the Serverless Container. |
 | private-network-id |  | ID of the Private Network the container is connected to. |
@@ -207,11 +209,13 @@ scw container container update <container-id ...> [arg=value ...]
 | liveness-probe.failure-threshold |  | Number of consecutive failures before considering the container as unhealthy |
 | liveness-probe.interval |  | Time interval between checks. |
 | liveness-probe.timeout |  | Duration before the check times out. |
+| liveness-probe.tcp |  | Perform TCP check on the container. |
 | liveness-probe.http.path |  | HTTP path to perform the check on. |
 | startup-probe.failure-threshold |  |  |
 | startup-probe.interval |  |  |
 | startup-probe.timeout |  |  |
 | startup-probe.http.path |  |  |
+| startup-probe.tcp |  |  |
 | tags.{index} |  | Tags of the Serverless Container. |
 | private-network-id |  | ID of the Private Network the container is connected to. |
 | command.{index} |  | Container command |

@@ -210,7 +210,7 @@ func jobsDefinitionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.CreateJobDefinition(request)
+			return api.CreateJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -244,7 +244,7 @@ func jobsDefinitionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetJobDefinition(request)
+			return api.GetJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -293,7 +293,7 @@ func jobsDefinitionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -432,7 +432,7 @@ func jobsDefinitionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.UpdateJobDefinition(request)
+			return api.UpdateJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -465,7 +465,7 @@ func jobsDefinitionDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			e = api.DeleteJobDefinition(request)
+			e = api.DeleteJobDefinition(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -542,7 +542,7 @@ func jobsDefinitionStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.StartJobDefinition(request)
+			return api.StartJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -576,7 +576,7 @@ func jobsRunGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetJobRun(request)
+			return api.GetJobRun(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -688,7 +688,7 @@ func jobsRunList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -732,7 +732,7 @@ func jobsRunStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.StopJobRun(request)
+			return api.StopJobRun(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -790,7 +790,7 @@ func jobsSecretCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.CreateSecrets(request)
+			return api.CreateSecrets(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -824,7 +824,7 @@ func jobsSecretGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetSecret(request)
+			return api.GetSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -858,7 +858,7 @@ func jobsSecretList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.ListSecrets(request)
+			return api.ListSecrets(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -913,7 +913,7 @@ func jobsSecretUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.UpdateSecret(request)
+			return api.UpdateSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -946,7 +946,7 @@ func jobsSecretDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			e = api.DeleteSecret(request)
+			e = api.DeleteSecret(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1023,7 +1023,7 @@ func jobsTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.CreateTrigger(request)
+			return api.CreateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1057,7 +1057,7 @@ func jobsTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetTrigger(request)
+			return api.GetTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1102,7 +1102,7 @@ func jobsTriggerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1181,7 +1181,7 @@ func jobsTriggerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.UpdateTrigger(request)
+			return api.UpdateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1214,7 +1214,7 @@ func jobsTriggerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			e = api.DeleteTrigger(request)
+			e = api.DeleteTrigger(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
