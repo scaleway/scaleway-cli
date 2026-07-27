@@ -120,7 +120,7 @@ func annotationsKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.CreateKey(request)
+			return api.CreateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -142,7 +142,7 @@ func annotationsKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListKeys(request, opts...)
 			if err != nil {
 				return nil, err
@@ -177,7 +177,7 @@ func annotationsKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.GetKey(request)
+			return api.GetKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -220,7 +220,7 @@ func annotationsKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.UpdateKey(request)
+			return api.UpdateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -248,7 +248,7 @@ func annotationsKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			e = api.DeleteKey(request)
+			e = api.DeleteKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -299,7 +299,7 @@ func annotationsValueCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.CreateValue(request)
+			return api.CreateValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -328,7 +328,7 @@ func annotationsValueList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListValues(request, opts...)
 			if err != nil {
 				return nil, err
@@ -363,7 +363,7 @@ func annotationsValueGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.GetValue(request)
+			return api.GetValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -406,7 +406,7 @@ func annotationsValueUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.UpdateValue(request)
+			return api.UpdateValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -434,7 +434,7 @@ func annotationsValueDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			e = api.DeleteValue(request)
+			e = api.DeleteValue(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -471,7 +471,7 @@ func annotationsValueDeleteAllMatchingKey() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.DeleteAllValuesMatchingKey(request)
+			return api.DeleteAllValuesMatchingKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -494,7 +494,7 @@ func annotationsKeyValueList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.ListAllKeysAndValues(request)
+			return api.ListAllKeysAndValues(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -530,7 +530,7 @@ func annotationsBindingCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.CreateBinding(request)
+			return api.CreateBinding(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -566,7 +566,7 @@ func annotationsBindingList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListBindings(request, opts...)
 			if err != nil {
 				return nil, err
@@ -600,7 +600,7 @@ func annotationsBindingDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			e = api.DeleteBinding(request)
+			e = api.DeleteBinding(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -637,7 +637,7 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.DeleteAllBindingsMatchingValue(request)
+			return api.DeleteAllBindingsMatchingValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -667,7 +667,7 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.DeleteAllBindingsMatchingSRN(request)
+			return api.DeleteAllBindingsMatchingSRN(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -120,7 +120,7 @@ func partnerOrganizationCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.CreateOrganization(request)
+			return api.CreateOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -143,7 +143,7 @@ func partnerOrganizationGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.GetOrganization(request)
+			return api.GetOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -213,7 +213,7 @@ func partnerOrganizationList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListOrganizations(request, opts...)
 			if err != nil {
 				return nil, err
@@ -242,7 +242,7 @@ func partnerOrganizationLock() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.LockOrganization(request)
+			return api.LockOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -265,7 +265,7 @@ func partnerOrganizationUnlock() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.UnlockOrganization(request)
+			return api.UnlockOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -337,7 +337,7 @@ func partnerOrganizationUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.UpdateOrganization(request)
+			return api.UpdateOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }

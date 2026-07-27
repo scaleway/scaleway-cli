@@ -313,7 +313,7 @@ func iamSSHKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListSSHKeys(request, opts...)
 			if err != nil {
 				return nil, err
@@ -377,7 +377,7 @@ func iamSSHKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateSSHKey(request)
+			return api.CreateSSHKey(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -422,7 +422,7 @@ func iamSSHKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetSSHKey(request)
+			return api.GetSSHKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -464,7 +464,7 @@ func iamSSHKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateSSHKey(request)
+			return api.UpdateSSHKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -491,7 +491,7 @@ func iamSSHKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteSSHKey(request)
+			e = api.DeleteSSHKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -596,7 +596,7 @@ func iamUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListUsers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -631,7 +631,7 @@ func iamUserGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetUser(request)
+			return api.GetUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -702,7 +702,7 @@ func iamUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -730,7 +730,7 @@ func iamUserDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -838,7 +838,7 @@ func iamUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -874,7 +874,7 @@ func iamUserUpdateUsername() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateUserUsername(request)
+			return api.UpdateUserUsername(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -910,7 +910,7 @@ func iamUserUpdatePassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateUserPassword(request)
+			return api.UpdateUserPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -939,7 +939,7 @@ func iamUserLock() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.LockUser(request)
+			return api.LockUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -968,7 +968,7 @@ func iamUserUnlock() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UnlockUser(request)
+			return api.UnlockUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1034,7 +1034,7 @@ func iamApplicationList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListApplications(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1085,7 +1085,7 @@ func iamApplicationCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateApplication(request)
+			return api.CreateApplication(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1114,7 +1114,7 @@ func iamApplicationGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetApplication(request)
+			return api.GetApplication(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1164,7 +1164,7 @@ func iamApplicationUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateApplication(request)
+			return api.UpdateApplication(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1192,7 +1192,7 @@ func iamApplicationDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteApplication(request)
+			e = api.DeleteApplication(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1273,7 +1273,7 @@ func iamGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListGroups(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1338,7 +1338,7 @@ func iamGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateGroup(request)
+			return api.CreateGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1387,7 +1387,7 @@ func iamGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetGroup(request)
+			return api.GetGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1437,7 +1437,7 @@ func iamGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateGroup(request)
+			return api.UpdateGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1477,7 +1477,7 @@ func iamGroupSetMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.SetGroupMembers(request)
+			return api.SetGroupMembers(request, scw.WithContext(ctx))
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -1530,7 +1530,7 @@ func iamGroupAddMember() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.AddGroupMember(request)
+			return api.AddGroupMember(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1573,7 +1573,7 @@ func iamGroupAddMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.AddGroupMembers(request)
+			return api.AddGroupMembers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1616,7 +1616,7 @@ func iamGroupRemoveMember() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.RemoveGroupMember(request)
+			return api.RemoveGroupMember(request, scw.WithContext(ctx))
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -1654,7 +1654,7 @@ func iamGroupDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteGroup(request)
+			e = api.DeleteGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1770,7 +1770,7 @@ func iamPolicyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPolicies(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1877,7 +1877,7 @@ func iamPolicyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreatePolicy(request)
+			return api.CreatePolicy(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1912,7 +1912,7 @@ func iamPolicyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetPolicy(request)
+			return api.GetPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1990,7 +1990,7 @@ func iamPolicyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdatePolicy(request)
+			return api.UpdatePolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2018,7 +2018,7 @@ func iamPolicyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeletePolicy(request)
+			e = api.DeletePolicy(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2054,7 +2054,7 @@ func iamPolicyClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.ClonePolicy(request)
+			return api.ClonePolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2111,7 +2111,7 @@ func iamRuleUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.SetRules(request)
+			return api.SetRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2139,7 +2139,7 @@ func iamRuleList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRules(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2181,7 +2181,7 @@ func iamPermissionSetList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPermissionSets(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2301,7 +2301,7 @@ func iamAPIKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListAPIKeys(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2384,7 +2384,7 @@ func iamAPIKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateAPIKey(request)
+			return api.CreateAPIKey(request, scw.WithContext(ctx))
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -2423,7 +2423,7 @@ func iamAPIKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetAPIKey(request)
+			return api.GetAPIKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2473,7 +2473,7 @@ func iamAPIKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateAPIKey(request)
+			return api.UpdateAPIKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2501,7 +2501,7 @@ func iamAPIKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteAPIKey(request)
+			e = api.DeleteAPIKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2574,7 +2574,7 @@ func iamJwtList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListJWTs(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2609,7 +2609,7 @@ func iamJwtGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetJWT(request)
+			return api.GetJWT(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2637,7 +2637,7 @@ func iamJwtDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteJWT(request)
+			e = api.DeleteJWT(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2728,7 +2728,7 @@ func iamLogList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListLogs(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2763,7 +2763,7 @@ func iamLogGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetLog(request)
+			return api.GetLog(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2786,7 +2786,7 @@ func iamSecuritySettingsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetOrganizationSecuritySettings(request)
+			return api.GetOrganizationSecuritySettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2844,7 +2844,7 @@ func iamSecuritySettingsUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateOrganizationSecuritySettings(request)
+			return api.UpdateOrganizationSecuritySettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2867,7 +2867,7 @@ func iamOrganizationGetSaml() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetOrganizationSaml(request)
+			return api.GetOrganizationSaml(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2890,7 +2890,7 @@ func iamOrganizationEnableSaml() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.EnableOrganizationSaml(request)
+			return api.EnableOrganizationSaml(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2933,7 +2933,7 @@ func iamSamlUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateSaml(request)
+			return api.UpdateSaml(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2961,7 +2961,7 @@ func iamSamlDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteSaml(request)
+			e = api.DeleteSaml(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2998,7 +2998,7 @@ func iamSamlCertificatesList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.ListSamlCertificates(request)
+			return api.ListSamlCertificates(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3046,7 +3046,7 @@ func iamSamlCertificatesAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.AddSamlCertificate(request)
+			return api.AddSamlCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3074,7 +3074,7 @@ func iamSamlCertificatesDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteSamlCertificate(request)
+			e = api.DeleteSamlCertificate(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3105,7 +3105,7 @@ func iamOrganizationGetScim() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetOrganizationScim(request)
+			return api.GetOrganizationScim(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3128,7 +3128,7 @@ func iamOrganizationEnableScim() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.EnableOrganizationScim(request)
+			return api.EnableOrganizationScim(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3156,7 +3156,7 @@ func iamScimDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteScim(request)
+			e = api.DeleteScim(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3204,7 +3204,7 @@ func iamScimTokensList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListScimTokens(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3239,7 +3239,7 @@ func iamScimTokensCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateScimToken(request)
+			return api.CreateScimToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3267,7 +3267,7 @@ func iamScimTokensDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteScimToken(request)
+			e = api.DeleteScimToken(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

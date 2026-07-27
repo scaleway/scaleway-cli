@@ -217,7 +217,7 @@ func vpcGwGatewayList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -267,7 +267,7 @@ func vpcGwGatewayGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetGateway(request)
+			return api.GetGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -352,7 +352,7 @@ func vpcGwGatewayCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreateGateway(request)
+			return api.CreateGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -427,7 +427,7 @@ func vpcGwGatewayUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdateGateway(request)
+			return api.UpdateGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -474,7 +474,7 @@ func vpcGwGatewayDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.DeleteGateway(request)
+			return api.DeleteGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -521,7 +521,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpgradeGateway(request)
+			return api.UpgradeGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -603,7 +603,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -653,7 +653,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetGatewayNetwork(request)
+			return api.GetGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -721,7 +721,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreateGatewayNetwork(request)
+			return api.CreateGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -782,7 +782,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdateGatewayNetwork(request)
+			return api.UpdateGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -822,7 +822,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.DeleteGatewayNetwork(request)
+			return api.DeleteGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -895,7 +895,7 @@ func vpcGwPatRuleList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -945,7 +945,7 @@ func vpcGwPatRuleGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetPatRule(request)
+			return api.GetPatRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1019,7 +1019,7 @@ func vpcGwPatRuleCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreatePatRule(request)
+			return api.CreatePatRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1093,7 +1093,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdatePatRule(request)
+			return api.UpdatePatRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1167,7 +1167,7 @@ func vpcGwPatRuleSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.SetPatRules(request)
+			return api.SetPatRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1206,7 +1206,7 @@ func vpcGwPatRuleDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			e = api.DeletePatRule(request)
+			e = api.DeletePatRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1247,7 +1247,7 @@ func vpcGwGatewayTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.ListGatewayTypes(request)
+			return api.ListGatewayTypes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1330,7 +1330,7 @@ func vpcGwIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1380,7 +1380,7 @@ func vpcGwIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1421,7 +1421,7 @@ func vpcGwIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreateIP(request)
+			return api.CreateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1482,7 +1482,7 @@ func vpcGwIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1521,7 +1521,7 @@ func vpcGwIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			e = api.DeleteIP(request)
+			e = api.DeleteIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1569,7 +1569,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.RefreshSSHKeys(request)
+			return api.RefreshSSHKeys(request, scw.WithContext(ctx))
 		},
 	}
 }

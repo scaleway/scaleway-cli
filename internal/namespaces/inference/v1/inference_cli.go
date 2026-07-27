@@ -146,7 +146,7 @@ func inferenceDeploymentList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -186,7 +186,7 @@ func inferenceDeploymentGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.GetDeployment(request)
+			return api.GetDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -253,6 +253,13 @@ func inferenceDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Set the endpoint as public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Required:   false,
 				Deprecated: false,
@@ -281,7 +288,7 @@ func inferenceDeploymentCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.CreateDeployment(request)
+			return api.CreateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -353,7 +360,7 @@ func inferenceDeploymentUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.UpdateDeployment(request)
+			return api.UpdateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -383,7 +390,7 @@ func inferenceDeploymentDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.DeleteDeployment(request)
+			return api.DeleteDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -413,7 +420,7 @@ The CA certificate will be returned as a PEM file.`,
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.GetDeploymentCertificate(request)
+			return api.GetDeploymentCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -434,6 +441,13 @@ func inferenceEndpointCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "endpoint.public-network",
+				Short:      `Set the endpoint as public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "endpoint.private-network.private-network-id",
@@ -457,7 +471,7 @@ func inferenceEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -494,7 +508,7 @@ func inferenceEndpointUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.UpdateEndpoint(request)
+			return api.UpdateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -523,7 +537,7 @@ func inferenceEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -598,7 +612,7 @@ func inferenceModelList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -638,7 +652,7 @@ func inferenceModelGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.GetModel(request)
+			return api.GetModel(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -682,7 +696,7 @@ func inferenceModelImport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.CreateModel(request)
+			return api.CreateModel(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -711,7 +725,7 @@ func inferenceModelDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			e = api.DeleteModel(request)
+			e = api.DeleteModel(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -751,7 +765,7 @@ func inferenceNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

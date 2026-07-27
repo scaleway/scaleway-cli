@@ -210,7 +210,7 @@ func baremetalServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -263,7 +263,7 @@ func baremetalServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -530,7 +530,7 @@ func baremetalServerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.CreateServer(request)
+			return api.CreateServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -833,7 +833,7 @@ func baremetalServerBatchCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.BatchCreateServers(request)
+			return api.BatchCreateServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -905,7 +905,7 @@ func baremetalServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1140,7 +1140,7 @@ func baremetalServerInstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.InstallServer(request)
+			return api.InstallServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1197,7 +1197,7 @@ func baremetalServerGetMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetServerMetrics(request)
+			return api.GetServerMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1234,7 +1234,7 @@ func baremetalServerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.DeleteServer(request)
+			return api.DeleteServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1296,7 +1296,7 @@ func baremetalServerReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.RebootServer(request)
+			return api.RebootServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1362,7 +1362,7 @@ func baremetalServerStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.StartServer(request)
+			return api.StartServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1409,7 +1409,7 @@ func baremetalServerStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.StopServer(request)
+			return api.StopServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1463,7 +1463,7 @@ func baremetalServerListEvents() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1520,7 +1520,7 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.StartBMCAccess(request)
+			return api.StartBMCAccess(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1557,7 +1557,7 @@ func baremetalBmcGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetBMCAccess(request)
+			return api.GetBMCAccess(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1593,7 +1593,7 @@ func baremetalBmcStop() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			e = api.StopBMCAccess(request)
+			e = api.StopBMCAccess(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1652,7 +1652,7 @@ func baremetalServerUpdateIP() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1703,7 +1703,7 @@ func baremetalOptionsAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.AddOptionServer(request)
+			return api.AddOptionServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1753,7 +1753,7 @@ func baremetalOptionsDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.DeleteOptionServer(request)
+			return api.DeleteOptionServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1808,7 +1808,7 @@ func baremetalOfferList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1865,7 +1865,7 @@ func baremetalOfferGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetOffer(request)
+			return api.GetOffer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1908,7 +1908,7 @@ func baremetalOptionsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetOption(request)
+			return api.GetOption(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1958,7 +1958,7 @@ func baremetalOptionsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2026,7 +2026,7 @@ func baremetalSettingsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2080,7 +2080,7 @@ func baremetalSettingsUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.UpdateSetting(request)
+			return api.UpdateSetting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2117,7 +2117,7 @@ func baremetalOsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2164,7 +2164,7 @@ func baremetalOsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetOS(request)
+			return api.GetOS(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{

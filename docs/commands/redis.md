@@ -185,6 +185,8 @@ scw redis cluster create [arg=value ...]
 | endpoints.{index}.private-network.enable-ipam | Default: `false` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
 | endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
+| endpoints.{index}.public-network |  | Public network specification details |
 | tls-enabled |  | Defines whether or not TLS is enabled |
 | cluster-settings.{index}.value |  | Value of the setting |
 | cluster-settings.{index}.name |  | Name of the setting |
@@ -421,6 +423,8 @@ scw redis endpoint add [arg=value ...]
 | cluster-id | Required | UUID of the Database Instance you want to add endpoints to |
 | endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
+| endpoints.{index}.public-network |  | Public network specification details |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -483,6 +487,8 @@ scw redis endpoint set [arg=value ...]
 | cluster-id | Required | UUID of the Database Instance where the endpoints have to be set |
 | endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
+| endpoints.{index}.public-network |  | Public network specification details |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 
@@ -505,6 +511,8 @@ scw redis endpoint update <endpoint-id ...> [arg=value ...]
 | endpoint-id | Required | UUID of the endpoint you want to get |
 | private-network.id |  | UUID of the Private Network to connect to the Database Instance |
 | private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
+| private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
+| public-network |  | Public network details |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
 
 

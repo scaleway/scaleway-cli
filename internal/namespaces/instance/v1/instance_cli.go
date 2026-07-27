@@ -306,7 +306,7 @@ func instanceServerTypeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServerTypesAvailability(request)
+			return api.GetServerTypesAvailability(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -340,7 +340,7 @@ func instanceServerTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServersTypes(request)
+			return api.ListServersTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -384,7 +384,7 @@ func instanceVolumeTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListVolumesTypes(request)
+			return api.ListVolumesTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -540,7 +540,7 @@ func instanceServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -609,7 +609,7 @@ func instanceServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -819,7 +819,7 @@ func instanceServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -881,7 +881,7 @@ func instanceServerListActions() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServerActions(request)
+			return api.ListServerActions(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -922,7 +922,7 @@ func instanceUserDataList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServerUserData(request)
+			return api.ListServerUserData(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -969,7 +969,7 @@ func instanceUserDataDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteServerUserData(request)
+			e = api.DeleteServerUserData(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1042,7 +1042,7 @@ func instanceUserDataSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.SetServerUserData(request)
+			e = api.SetServerUserData(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1098,7 +1098,7 @@ func instanceUserDataGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServerUserData(request)
+			return api.GetServerUserData(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1144,7 +1144,7 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServerCompatibleTypes(request)
+			return api.GetServerCompatibleTypes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1208,7 +1208,7 @@ func instanceServerAttachVolume() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.AttachServerVolume(request)
+			return api.AttachServerVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1254,7 +1254,7 @@ func instanceServerDetachVolume() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.DetachServerVolume(request)
+			return api.DetachServerVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1300,7 +1300,7 @@ func instanceServerAttachFilesystem() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.AttachServerFileSystem(request)
+			return api.AttachServerFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1346,7 +1346,7 @@ func instanceServerDetachFilesystem() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.DetachServerFileSystem(request)
+			return api.DetachServerFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1416,7 +1416,7 @@ func instanceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1479,7 +1479,7 @@ func instanceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetImage(request)
+			return api.GetImage(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1617,7 +1617,7 @@ func instanceImageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateImage(request)
+			return api.CreateImage(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1705,7 +1705,7 @@ func instanceImageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateImage(request)
+			return api.UpdateImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1745,7 +1745,7 @@ func instanceImageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteImage(request)
+			e = api.DeleteImage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1832,7 +1832,7 @@ func instanceSnapshotList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1944,7 +1944,7 @@ func instanceSnapshotCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateSnapshot(request)
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2003,7 +2003,7 @@ func instanceSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetSnapshot(request)
+			return api.GetSnapshot(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2068,7 +2068,7 @@ func instanceSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateSnapshot(request)
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2108,7 +2108,7 @@ func instanceSnapshotDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSnapshot(request)
+			e = api.DeleteSnapshot(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2181,7 +2181,7 @@ func instanceSnapshotExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ExportSnapshot(request)
+			return api.ExportSnapshot(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2264,7 +2264,7 @@ func instanceVolumeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2402,7 +2402,7 @@ func instanceVolumeCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateVolume(request)
+			return api.CreateVolume(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2453,7 +2453,7 @@ func instanceVolumeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetVolume(request)
+			return api.GetVolume(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2521,7 +2521,7 @@ func instanceVolumeUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateVolume(request)
+			return api.UpdateVolume(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2575,7 +2575,7 @@ func instanceVolumeDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteVolume(request)
+			e = api.DeleteVolume(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2658,7 +2658,7 @@ func instanceSecurityGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2787,7 +2787,7 @@ func instanceSecurityGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateSecurityGroup(request)
+			return api.CreateSecurityGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2850,7 +2850,7 @@ func instanceSecurityGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetSecurityGroup(request)
+			return api.GetSecurityGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2896,7 +2896,7 @@ func instanceSecurityGroupDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSecurityGroup(request)
+			e = api.DeleteSecurityGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3024,7 +3024,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateSecurityGroup(request)
+			return api.UpdateSecurityGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3058,7 +3058,7 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListDefaultSecurityGroupRules(request)
+			return api.ListDefaultSecurityGroupRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3099,7 +3099,7 @@ func instanceSecurityGroupListRules() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3220,7 +3220,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateSecurityGroupRule(request)
+			return api.CreateSecurityGroupRule(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3370,7 +3370,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.SetSecurityGroupRules(request)
+			return api.SetSecurityGroupRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3415,7 +3415,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSecurityGroupRule(request)
+			e = api.DeleteSecurityGroupRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3475,7 +3475,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetSecurityGroupRule(request)
+			return api.GetSecurityGroupRule(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3595,7 +3595,7 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateSecurityGroupRule(request)
+			return api.UpdateSecurityGroupRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3657,7 +3657,7 @@ func instancePlacementGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3750,7 +3750,7 @@ func instancePlacementGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreatePlacementGroup(request)
+			return api.CreatePlacementGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3817,7 +3817,7 @@ func instancePlacementGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetPlacementGroup(request)
+			return api.GetPlacementGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3897,7 +3897,7 @@ func instancePlacementGroupSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.SetPlacementGroup(request)
+			return api.SetPlacementGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3974,7 +3974,7 @@ func instancePlacementGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdatePlacementGroup(request)
+			return api.UpdatePlacementGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4028,7 +4028,7 @@ func instancePlacementGroupDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeletePlacementGroup(request)
+			e = api.DeletePlacementGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4087,7 +4087,7 @@ func instancePlacementGroupGetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetPlacementGroupServers(request)
+			return api.GetPlacementGroupServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4135,7 +4135,7 @@ func instancePlacementGroupSetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.SetPlacementGroupServers(request)
+			return api.SetPlacementGroupServers(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4189,7 +4189,7 @@ func instancePlacementGroupUpdateServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdatePlacementGroupServers(request)
+			return api.UpdatePlacementGroupServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4258,7 +4258,7 @@ func instanceIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -4375,7 +4375,7 @@ func instanceIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateIP(request)
+			return api.CreateIP(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4430,7 +4430,7 @@ func instanceIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4511,7 +4511,7 @@ func instanceIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4565,7 +4565,7 @@ func instanceIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteIP(request)
+			e = api.DeleteIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4635,7 +4635,7 @@ func instancePrivateNicList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -4724,7 +4724,7 @@ func instancePrivateNicCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreatePrivateNIC(request)
+			return api.CreatePrivateNIC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4772,7 +4772,7 @@ func instancePrivateNicGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetPrivateNIC(request)
+			return api.GetPrivateNIC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4827,7 +4827,7 @@ func instancePrivateNicUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdatePrivateNIC(request)
+			return api.UpdatePrivateNIC(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4880,7 +4880,7 @@ func instancePrivateNicDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeletePrivateNIC(request)
+			e = api.DeletePrivateNIC(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4940,7 +4940,7 @@ The endpoint also returns the validation_key, which must be provided to the [Mig
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.PlanBlockMigration(request)
+			return api.PlanBlockMigration(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4994,7 +4994,7 @@ func instanceVolumeApplyMigration() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.ApplyBlockMigration(request)
+			e = api.ApplyBlockMigration(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

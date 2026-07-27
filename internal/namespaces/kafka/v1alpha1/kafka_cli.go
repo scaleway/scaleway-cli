@@ -122,7 +122,7 @@ func kafkaNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -164,7 +164,7 @@ func kafkaVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -242,7 +242,7 @@ func kafkaClusterList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -282,7 +282,7 @@ func kafkaClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.GetCluster(request)
+			return api.GetCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -354,6 +354,12 @@ func kafkaClusterCreate() *core.Command {
 				},
 			},
 			{
+				Name:       "endpoints.{index}.public-network",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network`,
 				Required:   false,
@@ -375,6 +381,13 @@ func kafkaClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "multi-az",
+				Short:      `MultiAZ tell the cluster is deployed on multiple availability zones in the region.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "mono-az.zone",
 				Short:      `Zone is the zone on which the cluster nodes are deployed.`,
 				Required:   false,
@@ -389,7 +402,7 @@ func kafkaClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.CreateCluster(request)
+			return api.CreateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -440,7 +453,7 @@ func kafkaClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.UpdateCluster(request)
+			return api.UpdateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -470,7 +483,7 @@ func kafkaClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.DeleteCluster(request)
+			return api.DeleteCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -500,7 +513,7 @@ func kafkaClusterGetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.GetClusterCertificateAuthority(request)
+			return api.GetClusterCertificateAuthority(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -529,7 +542,7 @@ func kafkaClusterRenewCa() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			e = api.RenewClusterCertificateAuthority(request)
+			e = api.RenewClusterCertificateAuthority(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -584,7 +597,7 @@ func kafkaUsersList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -638,7 +651,7 @@ func kafkaUsersUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }

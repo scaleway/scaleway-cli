@@ -177,7 +177,7 @@ func datalabDatalabCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.CreateDatalab(request)
+			return api.CreateDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -210,7 +210,7 @@ func datalabDatalabGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.GetDatalab(request)
+			return api.GetDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -279,7 +279,7 @@ func datalabDatalabList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -350,7 +350,7 @@ func datalabDatalabUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.UpdateDatalab(request)
+			return api.UpdateDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -383,7 +383,7 @@ func datalabDatalabDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.DeleteDatalab(request)
+			return api.DeleteDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -452,7 +452,7 @@ func datalabNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -499,7 +499,7 @@ func datalabNotebookVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -546,7 +546,7 @@ func datalabClusterVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

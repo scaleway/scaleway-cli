@@ -225,7 +225,7 @@ func k8sClusterList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -793,7 +793,7 @@ func k8sClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.CreateCluster(request)
+			return api.CreateCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -838,7 +838,7 @@ func k8sClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetCluster(request)
+			return api.GetCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1097,7 +1097,7 @@ func k8sClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpdateCluster(request)
+			return api.UpdateCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1149,7 +1149,7 @@ func k8sClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.DeleteCluster(request)
+			return api.DeleteCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1208,7 +1208,7 @@ func k8sClusterUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpgradeCluster(request)
+			return api.UpgradeCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1260,7 +1260,7 @@ func k8sClusterSetType() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.SetClusterType(request)
+			return api.SetClusterType(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1301,7 +1301,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ListClusterAvailableVersions(request)
+			return api.ListClusterAvailableVersions(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1350,7 +1350,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ListClusterAvailableTypes(request)
+			return api.ListClusterAvailableTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1422,7 +1422,7 @@ func k8sClusterResetAdminToken() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			e = api.ResetClusterAdminToken(request)
+			e = api.ResetClusterAdminToken(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1471,7 +1471,7 @@ func k8sACLList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1537,7 +1537,7 @@ func k8sACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.AddClusterACLRules(request)
+			return api.AddClusterACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1593,7 +1593,7 @@ func k8sACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.SetClusterACLRules(request)
+			return api.SetClusterACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1627,7 +1627,7 @@ func k8sACLDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			e = api.DeleteACLRule(request)
+			e = api.DeleteACLRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1713,7 +1713,7 @@ func k8sPoolList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2019,7 +2019,7 @@ func k8sPoolCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.CreatePool(request)
+			return api.CreatePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2068,7 +2068,7 @@ func k8sPoolGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetPool(request)
+			return api.GetPool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2117,7 +2117,7 @@ This will drain and replace the nodes in that pool.`,
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpgradePool(request)
+			return api.UpgradePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2228,7 +2228,7 @@ func k8sPoolUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpdatePool(request)
+			return api.UpdatePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2281,7 +2281,7 @@ func k8sPoolDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.DeletePool(request)
+			return api.DeletePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2376,7 +2376,7 @@ func k8sNodeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2461,7 +2461,7 @@ func k8sNodeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetNode(request)
+			return api.GetNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2502,7 +2502,7 @@ func k8sNodeReplace() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ReplaceNode(request)
+			return api.ReplaceNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2543,7 +2543,7 @@ func k8sNodeReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.RebootNode(request)
+			return api.RebootNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2591,7 +2591,7 @@ func k8sNodeDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.DeleteNode(request)
+			return api.DeleteNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2629,7 +2629,7 @@ func k8sVersionList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ListVersions(request)
+			return api.ListVersions(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2690,7 +2690,7 @@ func k8sVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetVersion(request)
+			return api.GetVersion(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2724,7 +2724,7 @@ func k8sClusterTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
