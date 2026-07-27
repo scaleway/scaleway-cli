@@ -27,10 +27,10 @@ type infoResult struct {
 	Settings  []*setting      `json:"settings"`
 }
 
-func (i infoResult) MarshalHuman() (string, error) {
+func (i *infoResult) MarshalHuman() (string, error) {
 	type tmp infoResult
 
-	return human.Marshal(tmp(i), &human.MarshalOpt{
+	return human.Marshal(tmp(*i), &human.MarshalOpt{
 		Sections: []*human.MarshalSection{
 			{
 				FieldName: "BuildInfo",

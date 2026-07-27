@@ -22,8 +22,8 @@ const (
 type RawArgs []string
 
 // ExistsArgByName checks if the given argument exists in the raw args
-func (a RawArgs) ExistsArgByName(name string) bool {
-	argsMap := SplitRawMap(a)
+func (a *RawArgs) ExistsArgByName(name string) bool {
+	argsMap := SplitRawMap(*a)
 	_, ok := argsMap[name]
 
 	return ok
@@ -81,9 +81,9 @@ func getInterfaceFromReflectValue(reflectValue reflect.Value) any {
 	return i
 }
 
-func (a RawArgs) GetPositionalArgs() []string {
+func (a *RawArgs) GetPositionalArgs() []string {
 	positionalArgs := []string(nil)
-	for _, arg := range a {
+	for _, arg := range *a {
 		if isPositionalArg(arg) {
 			positionalArgs = append(positionalArgs, arg)
 		}
@@ -92,8 +92,8 @@ func (a RawArgs) GetPositionalArgs() []string {
 	return positionalArgs
 }
 
-func (a RawArgs) Get(argName string) (string, bool) {
-	for _, arg := range a {
+func (a *RawArgs) Get(argName string) (string, bool) {
+	for _, arg := range *a {
 		name, value := splitArg(arg)
 		if name == argName {
 			return value, true
@@ -108,7 +108,7 @@ const (
 	mapSchema   = "{key}"
 )
 
-func (a RawArgs) GetAll(argName string) []string {
+func (a *RawArgs) GetAll(argName string) []string {
 	// If argSpec is part of a map or slice we must lookup for existing index in other args
 	// Example:
 	//    argSpec = { Name: "friends.{index}.Age", "Default": 42 }
@@ -143,7 +143,7 @@ func (a RawArgs) GetAll(argName string) []string {
 
 	res := []string(nil)
 	for _, p := range prefixes {
-		for _, arg := range a {
+		for _, arg := range *a {
 			name, value := splitArg(arg)
 			if name == p {
 				res = append(res, value)
@@ -154,21 +154,21 @@ func (a RawArgs) GetAll(argName string) []string {
 	return res
 }
 
-func (a RawArgs) Has(argName string) bool {
+func (a *RawArgs) Has(argName string) bool {
 	return a.GetAll(argName) != nil
 }
 
-func (a RawArgs) RemoveAllPositional() RawArgs {
+func (a *RawArgs) RemoveAllPositional() RawArgs {
 	return a.filter(func(arg string) bool {
 		return !isPositionalArg(arg)
 	})
 }
 
-func (a RawArgs) Add(name string, value string) RawArgs {
-	return append(a, name+"="+value)
+func (a *RawArgs) Add(name string, value string) RawArgs {
+	return append(*a, name+"="+value)
 }
 
-func (a RawArgs) Remove(argName string) RawArgs {
+func (a *RawArgs) Remove(argName string) RawArgs {
 	return a.filter(func(arg string) bool {
 		name, _ := splitArg(arg)
 
@@ -176,9 +176,9 @@ func (a RawArgs) Remove(argName string) RawArgs {
 	})
 }
 
-func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
+func (a *RawArgs) GetSliceOrMapKeys(prefix string) []string {
 	keys := []string(nil)
-	for _, arg := range a {
+	for _, arg := range *a {
 		name, _ := splitArg(arg)
 		if !strings.HasPrefix(name, prefix+".") {
 			continue
@@ -191,9 +191,9 @@ func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
 	return keys
 }
 
-func (a RawArgs) filter(test func(string) bool) RawArgs {
+func (a *RawArgs) filter(test func(string) bool) RawArgs {
 	argsCopy := RawArgs{}
-	for _, arg := range a {
+	for _, arg := range *a {
 		if test(arg) {
 			argsCopy = append(argsCopy, arg)
 		}

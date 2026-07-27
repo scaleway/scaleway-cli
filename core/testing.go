@@ -101,8 +101,8 @@ var testRenderHelpers = map[string]any{
 type TestMetadata map[string]any
 
 // Render renders a go template using where content of Meta can be used
-func (meta TestMetadata) Render(strTpl string) string {
-	t := meta["t"].(*testing.T)
+func (meta *TestMetadata) Render(strTpl string) string {
+	t := (*meta)["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(
 		t,

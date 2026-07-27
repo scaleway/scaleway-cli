@@ -80,9 +80,9 @@ func (s *SuccessResult) getMessage() string {
 
 type MultiResults []any
 
-func (mr MultiResults) MarshalHuman() (string, error) {
+func (mr *MultiResults) MarshalHuman() (string, error) {
 	strs := []string(nil)
-	for _, r := range mr {
+	for _, r := range *mr {
 		str, err := human.Marshal(r, nil)
 		if err != nil {
 			return "", err
