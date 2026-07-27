@@ -131,7 +131,7 @@ func marketplaceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListImages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -201,7 +201,7 @@ func marketplaceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetImage(request)
+			return api.GetImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -238,7 +238,7 @@ func marketplaceVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListVersions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -272,7 +272,7 @@ func marketplaceVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetVersion(request)
+			return api.GetVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -353,7 +353,7 @@ func marketplaceLocalImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListLocalImages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -407,7 +407,7 @@ func marketplaceLocalImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetLocalImage(request)
+			return api.GetLocalImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -427,7 +427,7 @@ func marketplaceCategoryList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListCategories(request, opts...)
 			if err != nil {
 				return nil, err
@@ -461,7 +461,7 @@ func marketplaceCategoryGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetCategory(request)
+			return api.GetCategory(request, scw.WithContext(ctx))
 		},
 	}
 }

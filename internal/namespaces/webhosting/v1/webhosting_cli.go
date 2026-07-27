@@ -266,7 +266,7 @@ func webhostingBackupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -317,7 +317,7 @@ func webhostingBackupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
 
-			return api.GetBackup(request)
+			return api.GetBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -358,7 +358,7 @@ func webhostingBackupRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
 
-			return api.RestoreBackup(request)
+			return api.RestoreBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -399,7 +399,7 @@ func webhostingBackupItemList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
 
-			return api.ListBackupItems(request)
+			return api.ListBackupItems(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -440,7 +440,7 @@ func webhostingBackupItemRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
 
-			return api.RestoreBackupItems(request)
+			return api.RestoreBackupItems(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -481,7 +481,7 @@ func webhostingProgressGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
 
-			return api.GetProgress(request)
+			return api.GetProgress(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -515,7 +515,7 @@ func webhostingProgressList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewBackupAPI(client)
 
-			return api.ListRecentProgresses(request)
+			return api.ListRecentProgresses(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -542,7 +542,7 @@ func webhostingControlPanelList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewControlPanelAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -612,7 +612,7 @@ func webhostingDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -657,7 +657,7 @@ func webhostingDatabaseList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -708,7 +708,7 @@ func webhostingDatabaseGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.GetDatabase(request)
+			return api.GetDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -749,7 +749,7 @@ func webhostingDatabaseDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.DeleteDatabase(request)
+			return api.DeleteDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -797,7 +797,7 @@ func webhostingDatabaseUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.CreateDatabaseUser(request)
+			return api.CreateDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -842,7 +842,7 @@ func webhostingDatabaseUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -893,7 +893,7 @@ func webhostingDatabaseUserGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.GetDatabaseUser(request)
+			return api.GetDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -934,7 +934,7 @@ func webhostingDatabaseUserDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.DeleteDatabaseUser(request)
+			return api.DeleteDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -982,7 +982,7 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.ChangeDatabaseUserPassword(request)
+			return api.ChangeDatabaseUserPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1030,7 +1030,7 @@ func webhostingDatabaseUserAssign() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.AssignDatabaseUser(request)
+			return api.AssignDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1078,7 +1078,7 @@ func webhostingDatabaseUserUnassign() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.UnassignDatabaseUser(request)
+			return api.UnassignDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1112,7 +1112,7 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.GetDomainDNSRecords(request)
+			return api.GetDomainDNSRecords(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1153,7 +1153,7 @@ func webhostingDomainCheckOwnership() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.CheckUserOwnsDomain(request)
+			return api.CheckUserOwnsDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1271,7 +1271,7 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.SyncDomainDNSRecords(request)
+			return api.SyncDomainDNSRecords(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1306,7 +1306,7 @@ func webhostingDomainAvailabilitySearch() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.SearchDomains(request)
+			return api.SearchDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1341,7 +1341,7 @@ func webhostingDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1392,7 +1392,7 @@ func webhostingOfferList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewOfferAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1565,7 +1565,7 @@ func webhostingHostingCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.CreateHosting(request)
+			return api.CreateHosting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1664,7 +1664,7 @@ func webhostingHostingList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1714,7 +1714,7 @@ func webhostingHostingGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.GetHosting(request)
+			return api.GetHosting(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1803,7 +1803,7 @@ func webhostingHostingUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.UpdateHosting(request)
+			return api.UpdateHosting(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1847,7 +1847,7 @@ func webhostingHostingDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.DeleteHosting(request)
+			return api.DeleteHosting(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1887,7 +1887,7 @@ func webhostingHostingCreateSession() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.CreateSession(request)
+			return api.CreateSession(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1928,7 +1928,7 @@ func webhostingFreedomainCheckAvailability() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFreeDomainAPI(client)
 
-			return api.CheckFreeDomainAvailability(request)
+			return api.CheckFreeDomainAvailability(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1955,7 +1955,7 @@ func webhostingFreedomainList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFreeDomainAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2020,7 +2020,7 @@ func webhostingFtpAccountCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
 
-			return api.CreateFtpAccount(request)
+			return api.CreateFtpAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2072,7 +2072,7 @@ func webhostingFtpAccountList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2123,7 +2123,7 @@ func webhostingFtpAccountDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
 
-			return api.RemoveFtpAccount(request)
+			return api.RemoveFtpAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2178,7 +2178,7 @@ func webhostingMailAccountCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 
-			return api.CreateMailAccount(request)
+			return api.CreateMailAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2232,7 +2232,7 @@ func webhostingMailAccountList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2290,7 +2290,7 @@ func webhostingMailAccountDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 
-			return api.RemoveMailAccount(request)
+			return api.RemoveMailAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2345,7 +2345,7 @@ func webhostingMailAccountChangePassword() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 
-			return api.ChangeMailAccountPassword(request)
+			return api.ChangeMailAccountPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2390,7 +2390,7 @@ func webhostingWebsiteList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewWebsiteAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

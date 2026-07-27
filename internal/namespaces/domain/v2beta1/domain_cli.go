@@ -309,7 +309,7 @@ func dnsZoneList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZones(request, opts...)
 			if err != nil {
 				return nil, err
@@ -384,7 +384,7 @@ func dnsZoneCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.CreateDNSZone(request)
+			return api.CreateDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -421,7 +421,7 @@ func dnsZoneUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.UpdateDNSZone(request)
+			return api.UpdateDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -471,7 +471,7 @@ func dnsZoneClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.CloneDNSZone(request)
+			return api.CloneDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -501,7 +501,7 @@ func dnsZoneDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.DeleteDNSZone(request)
+			return api.DeleteDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -593,7 +593,7 @@ You can filter records by type and name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZoneRecords(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1074,6 +1074,12 @@ All edits will be versioned.`,
 				Positional: false,
 			},
 			{
+				Name:       "changes.{index}.clear",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "return-all-records",
 				Short:      `Specifies whether or not to return all the records`,
 				Required:   false,
@@ -1101,7 +1107,7 @@ All edits will be versioned.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.UpdateDNSZoneRecords(request)
+			return api.UpdateDNSZoneRecords(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1137,7 +1143,7 @@ func dnsRecordListNameservers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ListDNSZoneNameservers(request)
+			return api.ListDNSZoneNameservers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1178,7 +1184,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.UpdateDNSZoneNameservers(request)
+			return api.UpdateDNSZoneNameservers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1208,7 +1214,7 @@ All edits will be versioned.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ClearDNSZoneRecords(request)
+			return api.ClearDNSZoneRecords(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1249,7 +1255,7 @@ func dnsZoneExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ExportRawDNSZone(request)
+			return api.ExportRawDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1325,7 +1331,7 @@ func dnsZoneImport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ImportRawDNSZone(request)
+			return api.ImportRawDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1369,7 +1375,7 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.RefreshDNSZone(request)
+			return api.RefreshDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1397,7 +1403,7 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZoneVersions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1438,7 +1444,7 @@ func dnsVersionShow() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZoneVersionRecords(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1472,7 +1478,7 @@ func dnsVersionDiff() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.GetDNSZoneVersionDiff(request)
+			return api.GetDNSZoneVersionDiff(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1500,7 +1506,7 @@ func dnsVersionRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.RestoreDNSZoneVersion(request)
+			return api.RestoreDNSZoneVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1528,7 +1534,7 @@ func dnsCertificateGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.GetSSLCertificate(request)
+			return api.GetSSLCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1562,7 +1568,7 @@ func dnsCertificateCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.CreateSSLCertificate(request)
+			return api.CreateSSLCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1595,7 +1601,7 @@ func dnsCertificateList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListSSLCertificates(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1629,7 +1635,7 @@ func dnsCertificateDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.DeleteSSLCertificate(request)
+			return api.DeleteSSLCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1657,7 +1663,7 @@ func dnsTsigKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.GetDNSZoneTsigKey(request)
+			return api.GetDNSZoneTsigKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1684,7 +1690,7 @@ func dnsTsigKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			e = api.DeleteDNSZoneTsigKey(request)
+			e = api.DeleteDNSZoneTsigKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1794,7 +1800,7 @@ You can filter the list of tasks by domain name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTasks(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1830,7 +1836,7 @@ You can filter the list of inbound transfers by domain name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListInboundTransfers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1873,7 +1879,7 @@ func domainTaskRetryInboundTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.RetryInboundTransfer(request)
+			return api.RetryInboundTransfer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2701,7 +2707,7 @@ You can provide a domain's already existing contact or a new contact.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.BuyDomains(request)
+			return api.BuyDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2741,7 +2747,7 @@ func domainOrderRenew() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.RenewDomains(request)
+			return api.RenewDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3568,7 +3574,7 @@ func domainOrderTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.TransferInDomain(request)
+			return api.TransferInDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3869,7 +3875,7 @@ If the new owner has never created a contact to register domains before, an erro
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.TradeDomain(request)
+			return api.TradeDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3898,7 +3904,7 @@ func domainExternalDomainRegister() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.RegisterExternalDomain(request)
+			return api.RegisterExternalDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3926,7 +3932,7 @@ func domainExternalDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DeleteExternalDomain(request)
+			return api.DeleteExternalDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4753,7 +4759,7 @@ If contacts are not compatible with either the domain or the TLD, the informatio
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.CheckContactsCompatibility(request)
+			return api.CheckContactsCompatibility(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4817,7 +4823,7 @@ You can filter the list by domain name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListContacts(request, opts...)
 			if err != nil {
 				return nil, err
@@ -4851,7 +4857,7 @@ func domainContactGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.GetContact(request)
+			return api.GetContact(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -5106,7 +5112,7 @@ func domainContactUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UpdateContact(request)
+			return api.UpdateContact(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -5189,7 +5195,7 @@ func domainDomainList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDomains(request, opts...)
 			if err != nil {
 				return nil, err
@@ -5238,7 +5244,7 @@ func domainDomainListRenewable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRenewableDomains(request, opts...)
 			if err != nil {
 				return nil, err
@@ -5272,7 +5278,7 @@ func domainDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6093,7 +6099,7 @@ If you add the same contact for multiple roles (owner, administrative, technical
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UpdateDomain(request)
+			return api.UpdateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6121,7 +6127,7 @@ func domainDomainLockTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.LockDomainTransfer(request)
+			return api.LockDomainTransfer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6149,7 +6155,7 @@ func domainDomainUnlockTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UnlockDomainTransfer(request)
+			return api.UnlockDomainTransfer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6177,7 +6183,7 @@ func domainDomainEnableAutoRenew() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.EnableDomainAutoRenew(request)
+			return api.EnableDomainAutoRenew(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6205,7 +6211,7 @@ func domainDomainDisableAutoRenew() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DisableDomainAutoRenew(request)
+			return api.DisableDomainAutoRenew(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6234,7 +6240,7 @@ Some TLDs may have a different procedure to retrieve the authorization code. In 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.GetDomainAuthCode(request)
+			return api.GetDomainAuthCode(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6319,7 +6325,7 @@ func domainDomainEnableDnssec() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.EnableDomainDNSSEC(request)
+			return api.EnableDomainDNSSEC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6347,7 +6353,7 @@ func domainDomainDisableDnssec() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DisableDomainDNSSEC(request)
+			return api.DisableDomainDNSSEC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6399,7 +6405,7 @@ If the TLD list is empty or not set, the search returns the results from the mos
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.SearchAvailableDomains(request)
+			return api.SearchAvailableDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6438,7 +6444,7 @@ func domainTldList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTlds(request, opts...)
 			if err != nil {
 				return nil, err
@@ -6484,7 +6490,7 @@ func domainHostCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.CreateDomainHost(request)
+			return api.CreateDomainHost(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6511,7 +6517,7 @@ func domainHostList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDomainHosts(request, opts...)
 			if err != nil {
 				return nil, err
@@ -6557,7 +6563,7 @@ func domainHostUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UpdateDomainHost(request)
+			return api.UpdateDomainHost(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6591,7 +6597,7 @@ func domainHostDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DeleteDomainHost(request)
+			return api.DeleteDomainHost(request, scw.WithContext(ctx))
 		},
 	}
 }

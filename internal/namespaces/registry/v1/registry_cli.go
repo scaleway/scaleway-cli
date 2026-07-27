@@ -137,7 +137,7 @@ func registryNamespaceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -225,7 +225,7 @@ func registryNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.GetNamespace(request)
+			return api.GetNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -276,7 +276,7 @@ func registryNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.CreateNamespace(request)
+			return api.CreateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -324,7 +324,7 @@ func registryNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.UpdateNamespace(request)
+			return api.UpdateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -358,7 +358,7 @@ func registryNamespaceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.DeleteNamespace(request)
+			return api.DeleteNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -426,7 +426,7 @@ func registryImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -502,7 +502,7 @@ func registryImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.GetImage(request)
+			return api.GetImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -549,7 +549,7 @@ func registryImageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.UpdateImage(request)
+			return api.UpdateImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -583,7 +583,7 @@ func registryImageDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.DeleteImage(request)
+			return api.DeleteImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -637,7 +637,7 @@ func registryTagList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -681,7 +681,7 @@ func registryTagGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.GetTag(request)
+			return api.GetTag(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -722,7 +722,7 @@ func registryTagDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := registry.NewAPI(client)
 
-			return api.DeleteTag(request)
+			return api.DeleteTag(request, scw.WithContext(ctx))
 		},
 	}
 }

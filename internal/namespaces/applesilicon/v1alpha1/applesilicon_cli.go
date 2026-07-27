@@ -124,7 +124,7 @@ func appleSiliconServerTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.ListServerTypes(request)
+			return api.ListServerTypes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -154,7 +154,7 @@ func appleSiliconServerTypeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetServerType(request)
+			return api.GetServerType(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -268,7 +268,7 @@ func appleSiliconServerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.CreateServer(request)
+			return api.CreateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -318,7 +318,7 @@ func appleSiliconServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -367,7 +367,7 @@ func appleSiliconOsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -407,7 +407,7 @@ func appleSiliconOsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetOS(request)
+			return api.GetOS(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -437,7 +437,7 @@ func appleSiliconServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -512,7 +512,7 @@ func appleSiliconServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -541,7 +541,7 @@ func appleSiliconServerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			e = api.DeleteServer(request)
+			e = api.DeleteServer(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -579,7 +579,7 @@ func appleSiliconServerReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.RebootServer(request)
+			return api.RebootServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -623,7 +623,7 @@ func appleSiliconServerReinstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.ReinstallServer(request)
+			return api.ReinstallServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -694,7 +694,7 @@ func appleSiliconRunnerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.CreateRunner(request)
+			return api.CreateRunner(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -724,7 +724,7 @@ func appleSiliconRunnerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetRunner(request)
+			return api.GetRunner(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -770,7 +770,7 @@ func appleSiliconRunnerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -857,7 +857,7 @@ func appleSiliconRunnerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.UpdateRunner(request)
+			return api.UpdateRunner(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -886,7 +886,7 @@ func appleSiliconRunnerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			e = api.DeleteRunner(request)
+			e = api.DeleteRunner(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -941,7 +941,7 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
 
-			return api.AddServerPrivateNetwork(request)
+			return api.AddServerPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -981,7 +981,7 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
 
-			return api.SetServerPrivateNetworks(request)
+			return api.SetServerPrivateNetworks(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1055,7 +1055,7 @@ func appleSiliconPrivateNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1104,7 +1104,7 @@ func appleSiliconPrivateNetworkDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
-			e = api.DeleteServerPrivateNetwork(request)
+			e = api.DeleteServerPrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

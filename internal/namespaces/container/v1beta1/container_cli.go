@@ -95,7 +95,7 @@ func containerTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -129,7 +129,7 @@ func containerTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -181,7 +181,7 @@ func containerTokenList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -225,7 +225,7 @@ func containerTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteToken(request)
+			return api.DeleteToken(request, scw.WithContext(ctx))
 		},
 	}
 }

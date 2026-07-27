@@ -685,10 +685,12 @@ scw rdb instance create [arg=value ...]
 | init-settings.{index}.value |  |  |
 | volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored (lssd, bssd, ...) |
 | volume-size |  | Volume size when volume_type is not lssd |
+| init-endpoints.{index}.load-balancer |  | Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance |
 | init-endpoints.{index}.load-balancer | Default: `false` | Will configure a load-balancer endpoint along with your private network endpoint if true |
 | init-endpoints.{index}.private-network.enable-ipam |  | Will configure your Private Network endpoint with Scaleway IPAM service if true |
 | init-endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
 | init-endpoints.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| init-endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated) |
 | backup-same-region |  | Defines whether to or not to store logical backups in the same region as the Database Instance |
 | encryption.enabled |  |  |
 | organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
@@ -1224,8 +1226,10 @@ scw rdb read-replica create <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance you want to create a Read Replica from |
+| endpoint-spec.{index}.direct-access |  | Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica |
 | endpoint-spec.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Read Replica |
 | endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| endpoint-spec.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated) |
 | same-zone |  | Defines whether to create the replica in the same availability zone as the main instance nodes or not. |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
@@ -1247,8 +1251,10 @@ scw rdb read-replica create-endpoint <read-replica-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | read-replica-id | Required | UUID of the Read Replica |
+| endpoint-spec.{index}.direct-access |  | Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica |
 | endpoint-spec.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Read Replica |
 | endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
+| endpoint-spec.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated) |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 

@@ -150,7 +150,7 @@ func containerNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateNamespace(request)
+			return api.CreateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -184,7 +184,7 @@ func containerNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetNamespace(request)
+			return api.GetNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -243,7 +243,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -315,7 +315,7 @@ func containerNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateNamespace(request)
+			return api.UpdateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -351,7 +351,7 @@ This action **cannot** be undone.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteNamespace(request)
+			return api.DeleteNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -548,6 +548,13 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "liveness-probe.tcp",
+				Short:      `Perform TCP check on the container.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "liveness-probe.http.path",
 				Short:      `HTTP path to perform the check on.`,
 				Required:   false,
@@ -571,6 +578,13 @@ func containerContainerCreate() *core.Command {
 			{
 				Name:       "startup-probe.timeout",
 				Short:      `Duration before the check times out.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "startup-probe.tcp",
+				Short:      `Perform TCP check on the container.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -622,7 +636,7 @@ func containerContainerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateContainer(request)
+			return api.CreateContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -656,7 +670,7 @@ func containerContainerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetContainer(request)
+			return api.GetContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -721,7 +735,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -916,6 +930,13 @@ func containerContainerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "liveness-probe.tcp",
+				Short:      `Perform TCP check on the container.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "liveness-probe.http.path",
 				Short:      `HTTP path to perform the check on.`,
 				Required:   false,
@@ -942,6 +963,12 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "startup-probe.http.path",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "startup-probe.tcp",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -986,7 +1013,7 @@ func containerContainerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateContainer(request)
+			return api.UpdateContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1022,7 +1049,7 @@ This action **cannot** be undone.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteContainer(request)
+			return api.DeleteContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1070,7 +1097,7 @@ func containerDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateDomain(request)
+			return api.CreateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1104,7 +1131,7 @@ func containerDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1169,7 +1196,7 @@ Additional parameters can be set in the query to filter the output, such as ` + 
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1220,7 +1247,7 @@ func containerDomainUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateDomain(request)
+			return api.UpdateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1254,7 +1281,7 @@ func containerDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteDomain(request)
+			return api.DeleteDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1290,7 +1317,7 @@ the most recent image version available in the registry.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.RedeployContainer(request)
+			return api.RedeployContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1451,7 +1478,7 @@ func containerTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateTrigger(request)
+			return api.CreateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1485,7 +1512,7 @@ func containerTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetTrigger(request)
+			return api.GetTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1562,7 +1589,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1734,7 +1761,7 @@ Only fields present in the request are updated; others are left untouched.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateTrigger(request)
+			return api.UpdateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1768,7 +1795,7 @@ func containerTriggerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteTrigger(request)
+			return api.DeleteTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }

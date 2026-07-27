@@ -30,6 +30,7 @@ scw inference deployment create [arg=value ...]
 | tags.{index} |  | List of tags to apply to the deployment |
 | min-size |  | Defines the minimum size of the pool |
 | max-size |  | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |
+| endpoints.{index}.public-network |  | Set the endpoint as public |
 | endpoints.{index}.is-public | Default: `true` | Will configure your public endpoint if true |
 | endpoints.{index}.private-network.private-network-id |  |  |
 | endpoints.{index}.disable-auth | Default: `false` | Disable the authentication on the endpoint. |
@@ -170,6 +171,7 @@ scw inference endpoint create <deployment-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | deployment-id | Required | ID of the deployment to create the endpoint for |
+| endpoint.public-network |  | Set the endpoint as public |
 | endpoint.private-network.private-network-id |  |  |
 | endpoint.disable-auth | Default: `false` | Disable the authentication on the endpoint. |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
