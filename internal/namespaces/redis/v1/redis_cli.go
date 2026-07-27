@@ -206,6 +206,20 @@ func redisClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Public network specification details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tls-enabled",
 				Short:      `Defines whether or not TLS is enabled`,
 				Required:   false,
@@ -241,7 +255,7 @@ func redisClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.CreateCluster(request)
+			return api.CreateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -306,7 +320,7 @@ func redisClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.UpdateCluster(request)
+			return api.UpdateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -343,7 +357,7 @@ func redisClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetCluster(request)
+			return api.GetCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -421,7 +435,7 @@ func redisClusterList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -489,7 +503,7 @@ func redisClusterMigrate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.MigrateCluster(request)
+			return api.MigrateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -526,7 +540,7 @@ func redisClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteCluster(request)
+			return api.DeleteCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -584,7 +598,7 @@ func redisClusterMetrics() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetClusterMetrics(request)
+			return api.GetClusterMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -621,7 +635,7 @@ func redisNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -689,7 +703,7 @@ func redisVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -736,7 +750,7 @@ func redisClusterGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetClusterCertificate(request)
+			return api.GetClusterCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -773,7 +787,7 @@ func redisClusterRenewCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.RenewClusterCertificate(request)
+			return api.RenewClusterCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -824,7 +838,7 @@ func redisSettingAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.AddClusterSettings(request)
+			return api.AddClusterSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -868,7 +882,7 @@ func redisSettingDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteClusterSetting(request)
+			return api.DeleteClusterSetting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -919,7 +933,7 @@ func redisSettingSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.SetClusterSettings(request)
+			return api.SetClusterSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -970,7 +984,7 @@ func redisACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.SetACLRules(request)
+			return api.SetACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1021,7 +1035,7 @@ func redisACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.AddACLRules(request)
+			return api.AddACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1058,7 +1072,7 @@ func redisACLDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteACLRule(request)
+			return api.DeleteACLRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1095,7 +1109,7 @@ func redisACLGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetACLRule(request)
+			return api.GetACLRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1131,6 +1145,20 @@ func redisEndpointSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Public network specification details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1146,7 +1174,7 @@ func redisEndpointSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.SetEndpoints(request)
+			return api.SetEndpoints(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1182,6 +1210,20 @@ func redisEndpointAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Public network specification details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1197,7 +1239,7 @@ func redisEndpointAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.AddEndpoints(request)
+			return api.AddEndpoints(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1234,7 +1276,7 @@ func redisEndpointDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteEndpoint(request)
+			return api.DeleteEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1271,7 +1313,7 @@ func redisEndpointGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetEndpoint(request)
+			return api.GetEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1307,6 +1349,20 @@ func redisEndpointUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-network",
+				Short:      `Public network details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1322,7 +1378,7 @@ func redisEndpointUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.UpdateEndpoint(request)
+			return api.UpdateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }

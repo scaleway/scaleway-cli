@@ -124,7 +124,7 @@ func billingConsumptionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListConsumptions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -172,7 +172,7 @@ func billingConsumptionListTaxes() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTaxes(request, opts...)
 			if err != nil {
 				return nil, err
@@ -256,7 +256,7 @@ func billingInvoiceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListInvoices(request, opts...)
 			if err != nil {
 				return nil, err
@@ -367,7 +367,7 @@ func billingInvoiceExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.ExportInvoices(request)
+			return api.ExportInvoices(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -396,7 +396,7 @@ func billingInvoiceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.GetInvoice(request)
+			return api.GetInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -435,7 +435,7 @@ func billingInvoiceDownload() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.DownloadInvoice(request)
+			return api.DownloadInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -481,7 +481,7 @@ func billingDiscountList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDiscounts(request, opts...)
 			if err != nil {
 				return nil, err
@@ -591,7 +591,7 @@ func billingChargeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewFinOpsAPI(client)
 
-			return api.ListCharges(request)
+			return api.ListCharges(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -141,7 +141,7 @@ func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 		if len(results) == 1 {
 			meta.result = results[0]
 		} else {
-			meta.result = results
+			meta.result = &results
 		}
 
 		return nil

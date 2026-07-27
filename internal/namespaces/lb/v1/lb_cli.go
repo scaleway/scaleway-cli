@@ -260,7 +260,7 @@ func lbLBList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -376,7 +376,7 @@ func lbLBCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateLB(request)
+			return api.CreateLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -415,7 +415,7 @@ func lbLBGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetLB(request)
+			return api.GetLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -488,7 +488,7 @@ func lbLBUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateLB(request)
+			return api.UpdateLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -533,7 +533,7 @@ func lbLBDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteLB(request)
+			e = api.DeleteLB(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -587,7 +587,7 @@ func lbLBMigrate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.MigrateLB(request)
+			return api.MigrateLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -659,7 +659,7 @@ func lbIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -724,7 +724,7 @@ func lbIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateIP(request)
+			return api.CreateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -763,7 +763,7 @@ func lbIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -801,7 +801,7 @@ func lbIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.ReleaseIP(request)
+			e = api.ReleaseIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -869,7 +869,7 @@ func lbIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -928,7 +928,7 @@ func lbBackendList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1050,6 +1050,13 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "health-check.tcp-config",
+				Short:      `Object to configure a basic TCP health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "health-check.mysql-config.user",
 				Short:      `MySQL user to use for the health check`,
 				Required:   false,
@@ -1059,6 +1066,20 @@ func lbBackendCreate() *core.Command {
 			{
 				Name:       "health-check.pgsql-config.user",
 				Short:      `PostgreSQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.ldap-config",
+				Short:      `Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.redis-config",
+				Short:      `Object to configure a Redis health check. The response is analyzed to find the +PONG response message`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1271,7 +1292,7 @@ func lbBackendCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateBackend(request)
+			return api.CreateBackend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1310,7 +1331,7 @@ func lbBackendGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetBackend(request)
+			return api.GetBackend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1511,7 +1532,7 @@ func lbBackendUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateBackend(request)
+			return api.UpdateBackend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1549,7 +1570,7 @@ func lbBackendDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteBackend(request)
+			e = api.DeleteBackend(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1603,7 +1624,7 @@ func lbBackendAddServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.AddBackendServers(request)
+			return api.AddBackendServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1649,7 +1670,7 @@ func lbBackendRemoveServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.RemoveBackendServers(request)
+			return api.RemoveBackendServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1695,7 +1716,7 @@ func lbBackendSetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.SetBackendServers(request)
+			return api.SetBackendServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1753,6 +1774,13 @@ func lbBackendUpdateHealthcheck() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tcp-config",
+				Short:      `Object to configure a basic TCP health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "mysql-config.user",
 				Short:      `MySQL user to use for the health check`,
 				Required:   false,
@@ -1762,6 +1790,20 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			{
 				Name:       "pgsql-config.user",
 				Short:      `PostgreSQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ldap-config",
+				Short:      `Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "redis-config",
+				Short:      `Object to configure a Redis health check. The response is analyzed to find the +PONG response message`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1854,7 +1896,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateHealthCheck(request)
+			return api.UpdateHealthCheck(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1913,7 +1955,7 @@ func lbFrontendList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2027,7 +2069,7 @@ func lbFrontendCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateFrontend(request)
+			return api.CreateFrontend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2066,7 +2108,7 @@ func lbFrontendGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetFrontend(request)
+			return api.GetFrontend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2169,7 +2211,7 @@ func lbFrontendUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateFrontend(request)
+			return api.UpdateFrontend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2207,7 +2249,7 @@ func lbFrontendDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteFrontend(request)
+			e = api.DeleteFrontend(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2265,7 +2307,7 @@ func lbRouteList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2349,7 +2391,7 @@ func lbRouteCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateRoute(request)
+			return api.CreateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2388,7 +2430,7 @@ func lbRouteGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetRoute(request)
+			return api.GetRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2462,7 +2504,7 @@ func lbRouteUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateRoute(request)
+			return api.UpdateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2500,7 +2542,7 @@ func lbRouteDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteRoute(request)
+			e = api.DeleteRoute(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2554,7 +2596,7 @@ func lbLBGetStats() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetLBStats(request)
+			return api.GetLBStats(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2600,7 +2642,7 @@ func lbBackendListStatistics() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2669,7 +2711,7 @@ func lbACLList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2826,7 +2868,7 @@ func lbACLCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateACL(request)
+			return api.CreateACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2865,7 +2907,7 @@ func lbACLGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetACL(request)
+			return api.GetACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3011,7 +3053,7 @@ func lbACLUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateACL(request)
+			return api.UpdateACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3049,7 +3091,7 @@ func lbACLDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteACL(request)
+			e = api.DeleteACL(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3203,7 +3245,7 @@ func lbACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.SetACLs(request)
+			return api.SetACLs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3271,7 +3313,7 @@ func lbCertificateCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateCertificate(request)
+			return api.CreateCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3330,7 +3372,7 @@ func lbCertificateList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3417,7 +3459,7 @@ func lbCertificateGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetCertificate(request)
+			return api.GetCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3463,7 +3505,7 @@ func lbCertificateUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateCertificate(request)
+			return api.UpdateCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3501,7 +3543,7 @@ func lbCertificateDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteCertificate(request)
+			e = api.DeleteCertificate(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3541,7 +3583,7 @@ func lbLBTypesList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3606,7 +3648,7 @@ func lbSubscriberCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateSubscriber(request)
+			return api.CreateSubscriber(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3645,7 +3687,7 @@ func lbSubscriberGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetSubscriber(request)
+			return api.GetSubscriber(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3711,7 +3753,7 @@ func lbSubscriberList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3781,7 +3823,7 @@ func lbSubscriberUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateSubscriber(request)
+			return api.UpdateSubscriber(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3819,7 +3861,7 @@ func lbSubscriberDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteSubscriber(request)
+			e = api.DeleteSubscriber(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3873,7 +3915,7 @@ func lbSubscriberSubscribe() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.SubscribeToLB(request)
+			return api.SubscribeToLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3912,7 +3954,7 @@ func lbSubscriberUnsubscribe() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UnsubscribeFromLB(request)
+			return api.UnsubscribeFromLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3962,7 +4004,7 @@ func lbPrivateNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -4025,7 +4067,7 @@ func lbPrivateNetworkAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.AttachPrivateNetwork(request)
+			return api.AttachPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4070,7 +4112,7 @@ func lbPrivateNetworkDetach() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DetachPrivateNetwork(request)
+			e = api.DetachPrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

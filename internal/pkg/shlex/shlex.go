@@ -117,9 +117,9 @@ const (
 // tokenClassifier is used for classifying rune characters.
 type tokenClassifier map[rune]runeTokenClass
 
-func (typeMap tokenClassifier) addRuneClass(runes string, tokenType runeTokenClass) {
+func (typeMap *tokenClassifier) addRuneClass(runes string, tokenType runeTokenClass) {
 	for _, runeChar := range runes {
-		typeMap[runeChar] = tokenType
+		(*typeMap)[runeChar] = tokenType
 	}
 }
 
@@ -136,8 +136,8 @@ func newDefaultClassifier() tokenClassifier {
 }
 
 // ClassifyRune classifiees a rune
-func (t tokenClassifier) ClassifyRune(runeVal rune) runeTokenClass {
-	return t[runeVal]
+func (t *tokenClassifier) ClassifyRune(runeVal rune) runeTokenClass {
+	return (*t)[runeVal]
 }
 
 // Lexer turns an input stream into a sequence of tokens. Whitespace and comments are skipped.

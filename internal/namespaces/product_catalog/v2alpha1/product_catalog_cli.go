@@ -149,7 +149,7 @@ func productCatalogProductList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := product_catalog.NewPublicCatalogAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPublicCatalogProducts(request, opts...)
 			if err != nil {
 				return nil, err

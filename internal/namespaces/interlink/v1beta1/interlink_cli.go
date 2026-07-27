@@ -149,7 +149,7 @@ func interlinkPartnerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -194,7 +194,7 @@ func interlinkPartnerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.GetPartner(request)
+			return api.GetPartner(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -275,7 +275,7 @@ func interlinkPopList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -320,7 +320,7 @@ func interlinkPopGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.GetPop(request)
+			return api.GetPop(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -502,7 +502,7 @@ func interlinkLinkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -547,7 +547,7 @@ func interlinkLinkGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.GetLink(request)
+			return api.GetLink(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -646,7 +646,7 @@ func interlinkLinkCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.CreateLink(request)
+			return api.CreateLink(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -702,7 +702,7 @@ func interlinkLinkUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.UpdateLink(request)
+			return api.UpdateLink(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -737,7 +737,7 @@ func interlinkLinkDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.DeleteLink(request)
+			return api.DeleteLink(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -779,7 +779,7 @@ func interlinkLinkAttachVpc() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.AttachVpc(request)
+			return api.AttachVpc(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -814,7 +814,7 @@ func interlinkLinkDetachVpc() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.DetachVpc(request)
+			return api.DetachVpc(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -856,7 +856,7 @@ func interlinkLinkAttachPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.AttachRoutingPolicy(request)
+			return api.AttachRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -898,7 +898,7 @@ func interlinkLinkDetachPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.DetachRoutingPolicy(request)
+			return api.DetachRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -933,7 +933,7 @@ func interlinkLinkEnablePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.EnableRoutePropagation(request)
+			return api.EnableRoutePropagation(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -968,7 +968,7 @@ func interlinkLinkDisablePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.DisableRoutePropagation(request)
+			return api.DisableRoutePropagation(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1044,7 +1044,7 @@ func interlinkRoutingPolicyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1089,7 +1089,7 @@ func interlinkRoutingPolicyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.GetRoutingPolicy(request)
+			return api.GetRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1153,7 +1153,7 @@ func interlinkRoutingPolicyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.CreateRoutingPolicy(request)
+			return api.CreateRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1216,7 +1216,7 @@ func interlinkRoutingPolicyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
 
-			return api.UpdateRoutingPolicy(request)
+			return api.UpdateRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1250,7 +1250,7 @@ func interlinkRoutingPolicyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := interlink.NewAPI(client)
-			e = api.DeleteRoutingPolicy(request)
+			e = api.DeleteRoutingPolicy(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

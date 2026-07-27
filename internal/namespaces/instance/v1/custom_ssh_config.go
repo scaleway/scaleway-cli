@@ -28,7 +28,7 @@ type sshConfigServer struct {
 	PrivateNetworksID []string
 }
 
-func (s sshConfigServer) InPrivateNetwork(id string) bool {
+func (s *sshConfigServer) InPrivateNetwork(id string) bool {
 	return slices.Contains(s.PrivateNetworksID, id)
 }
 
@@ -83,7 +83,7 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 				if server.Address == "" {
 					continue
 				}
-				hosts = append(hosts, sshconfig.SimpleHost{
+				hosts = append(hosts, &sshconfig.SimpleHost{
 					Name:    server.Name,
 					Address: server.Address,
 				})
@@ -344,7 +344,7 @@ func sshConfigBastionHosts(
 				}
 			}
 
-			hosts = append(hosts, bastionHost)
+			hosts = append(hosts, &bastionHost)
 		}
 	}
 

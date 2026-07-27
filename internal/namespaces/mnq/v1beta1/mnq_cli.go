@@ -116,7 +116,7 @@ func mnqNatsCreateAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.CreateNatsAccount(request)
+			return api.CreateNatsAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -148,7 +148,7 @@ func mnqNatsDeleteAccount() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			e = api.DeleteNatsAccount(request)
+			e = api.DeleteNatsAccount(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -196,7 +196,7 @@ func mnqNatsUpdateAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.UpdateNatsAccount(request)
+			return api.UpdateNatsAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -229,7 +229,7 @@ func mnqNatsGetAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.GetNatsAccount(request)
+			return api.GetNatsAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -277,7 +277,7 @@ func mnqNatsListAccounts() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -328,7 +328,7 @@ func mnqNatsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.CreateNatsCredentials(request)
+			return api.CreateNatsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -360,7 +360,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			e = api.DeleteNatsCredentials(request)
+			e = api.DeleteNatsCredentials(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -401,7 +401,7 @@ func mnqNatsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.GetNatsCredentials(request)
+			return api.GetNatsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -456,7 +456,7 @@ func mnqNatsListCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -493,7 +493,7 @@ func mnqSnsActivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.ActivateSns(request)
+			return api.ActivateSns(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -520,7 +520,7 @@ func mnqSnsGetInfo() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.GetSnsInfo(request)
+			return api.GetSnsInfo(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -547,7 +547,7 @@ func mnqSnsDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.DeactivateSns(request)
+			return api.DeactivateSns(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -603,7 +603,7 @@ func mnqSnsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.CreateSnsCredentials(request)
+			return api.CreateSnsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -635,7 +635,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			e = api.DeleteSnsCredentials(request)
+			e = api.DeleteSnsCredentials(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -704,7 +704,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.UpdateSnsCredentials(request)
+			return api.UpdateSnsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -737,7 +737,7 @@ func mnqSnsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.GetSnsCredentials(request)
+			return api.GetSnsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -785,7 +785,7 @@ func mnqSnsListCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -822,7 +822,7 @@ func mnqSqsActivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.ActivateSqs(request)
+			return api.ActivateSqs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -849,7 +849,7 @@ func mnqSqsGetInfo() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.GetSqsInfo(request)
+			return api.GetSqsInfo(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -876,7 +876,7 @@ func mnqSqsDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.DeactivateSqs(request)
+			return api.DeactivateSqs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -932,7 +932,7 @@ func mnqSqsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.CreateSqsCredentials(request)
+			return api.CreateSqsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -964,7 +964,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			e = api.DeleteSqsCredentials(request)
+			e = api.DeleteSqsCredentials(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1033,7 +1033,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.UpdateSqsCredentials(request)
+			return api.UpdateSqsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1066,7 +1066,7 @@ func mnqSqsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.GetSqsCredentials(request)
+			return api.GetSqsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1114,7 +1114,7 @@ func mnqSqsListCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

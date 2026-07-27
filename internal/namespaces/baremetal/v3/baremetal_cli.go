@@ -98,7 +98,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 
-			return api.AddServerPrivateNetwork(request)
+			return api.AddServerPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -142,7 +142,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 
-			return api.SetServerPrivateNetworks(request)
+			return api.SetServerPrivateNetworks(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -220,7 +220,7 @@ func baremetalPrivateNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -273,7 +273,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
-			e = api.DeleteServerPrivateNetwork(request)
+			e = api.DeleteServerPrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

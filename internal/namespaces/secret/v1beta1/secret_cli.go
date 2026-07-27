@@ -175,7 +175,7 @@ func secretSecretCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.CreateSecret(request)
+			return api.CreateSecret(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -215,7 +215,7 @@ func secretSecretGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.GetSecret(request)
+			return api.GetSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -303,7 +303,7 @@ func secretSecretUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.UpdateSecret(request)
+			return api.UpdateSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -336,7 +336,7 @@ func secretSecretDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			e = api.DeleteSecret(request)
+			e = api.DeleteSecret(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -459,7 +459,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -503,7 +503,7 @@ func secretSecretProtect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.ProtectSecret(request)
+			return api.ProtectSecret(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -543,7 +543,7 @@ func secretSecretUnprotect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.UnprotectSecret(request)
+			return api.UnprotectSecret(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -594,7 +594,7 @@ func secretSecretAddOwner() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			e = api.AddSecretOwner(request)
+			e = api.AddSecretOwner(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -664,7 +664,7 @@ func secretVersionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.CreateSecretVersion(request)
+			return api.CreateSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -705,7 +705,7 @@ func secretVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.GetSecretVersion(request)
+			return api.GetSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -779,7 +779,7 @@ func secretVersionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.UpdateSecretVersion(request)
+			return api.UpdateSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -819,7 +819,7 @@ func secretVersionDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			e = api.DeleteSecretVersion(request)
+			e = api.DeleteSecretVersion(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -881,7 +881,7 @@ func secretVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -932,7 +932,7 @@ func secretVersionAccess() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.AccessSecretVersion(request)
+			return api.AccessSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -981,7 +981,7 @@ func secretVersionAccessByPath() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.AccessSecretVersionByPath(request)
+			return api.AccessSecretVersionByPath(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1022,7 +1022,7 @@ func secretVersionEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.EnableSecretVersion(request)
+			return api.EnableSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1063,7 +1063,7 @@ func secretVersionDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.DisableSecretVersion(request)
+			return api.DisableSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }

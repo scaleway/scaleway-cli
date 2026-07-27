@@ -128,7 +128,7 @@ func datawarehousePresetList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -169,7 +169,7 @@ func datawarehouseVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -245,7 +245,7 @@ func datawarehouseDeploymentList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -285,7 +285,7 @@ func datawarehouseDeploymentGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.GetDeployment(request)
+			return api.GetDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -358,6 +358,12 @@ func datawarehouseDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network`,
 				Required:   false,
@@ -386,7 +392,7 @@ func datawarehouseDeploymentCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateDeployment(request)
+			return api.CreateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -458,7 +464,7 @@ func datawarehouseDeploymentUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.UpdateDeployment(request)
+			return api.UpdateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -488,7 +494,7 @@ func datawarehouseDeploymentDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.DeleteDeployment(request)
+			return api.DeleteDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -518,7 +524,7 @@ func datawarehouseDeploymentGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.GetDeploymentCertificate(request)
+			return api.GetDeploymentCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -568,7 +574,7 @@ func datawarehouseUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -629,7 +635,7 @@ func datawarehouseUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -680,7 +686,7 @@ func datawarehouseUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -716,7 +722,7 @@ func datawarehouseUserDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -753,7 +759,7 @@ func datawarehouseEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -784,6 +790,12 @@ func datawarehouseEndpointCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoint.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoint.private-network.private-network-id",
 				Short:      `UUID of the Private Network`,
 				Required:   false,
@@ -798,7 +810,7 @@ func datawarehouseEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -850,7 +862,7 @@ func datawarehouseDatabaseList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -897,7 +909,7 @@ func datawarehouseDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -933,7 +945,7 @@ func datawarehouseDatabaseDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			e = api.DeleteDatabase(request)
+			e = api.DeleteDatabase(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

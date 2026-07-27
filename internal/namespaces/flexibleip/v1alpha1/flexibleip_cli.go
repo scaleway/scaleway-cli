@@ -124,7 +124,7 @@ func fipIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.CreateFlexibleIP(request)
+			return api.CreateFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -161,7 +161,7 @@ func fipIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.GetFlexibleIP(request)
+			return api.GetFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -246,7 +246,7 @@ func fipIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -349,7 +349,7 @@ func fipIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.UpdateFlexibleIP(request)
+			return api.UpdateFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -385,7 +385,7 @@ func fipIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
-			e = api.DeleteFlexibleIP(request)
+			e = api.DeleteFlexibleIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -437,7 +437,7 @@ func fipIPAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.AttachFlexibleIP(request)
+			return api.AttachFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -474,7 +474,7 @@ func fipIPDetach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.DetachFlexibleIP(request)
+			return api.DetachFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -524,7 +524,7 @@ func fipMacCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.GenerateMACAddr(request)
+			return api.GenerateMACAddr(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -568,7 +568,7 @@ func fipMacDuplicate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.DuplicateMACAddr(request)
+			return api.DuplicateMACAddr(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -610,7 +610,7 @@ func fipMacMove() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.MoveMACAddr(request)
+			return api.MoveMACAddr(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -646,7 +646,7 @@ func fipMacDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
-			e = api.DeleteMACAddr(request)
+			e = api.DeleteMACAddr(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

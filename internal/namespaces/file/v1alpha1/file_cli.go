@@ -92,7 +92,7 @@ func fileFilesystemGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
 
-			return api.GetFileSystem(request)
+			return api.GetFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -172,7 +172,7 @@ func fileFilesystemList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -240,7 +240,7 @@ By default, the attachments listed are ordered by creation date in ascending ord
 
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -302,7 +302,7 @@ func fileFilesystemCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
 
-			return api.CreateFileSystem(request)
+			return api.CreateFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -331,7 +331,7 @@ func fileFilesystemDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
-			e = api.DeleteFileSystem(request)
+			e = api.DeleteFileSystem(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -390,7 +390,7 @@ func fileFilesystemUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
 
-			return api.UpdateFileSystem(request)
+			return api.UpdateFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }

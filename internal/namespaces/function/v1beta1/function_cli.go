@@ -189,7 +189,7 @@ func functionNamespaceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -268,7 +268,7 @@ func functionNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetNamespace(request)
+			return api.GetNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -343,7 +343,7 @@ func functionNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateNamespace(request)
+			return api.CreateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -410,7 +410,7 @@ func functionNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateNamespace(request)
+			return api.UpdateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -444,7 +444,7 @@ func functionNamespaceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteNamespace(request)
+			return api.DeleteNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -512,7 +512,7 @@ func functionFunctionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -556,7 +556,7 @@ func functionFunctionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetFunction(request)
+			return api.GetFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -761,7 +761,7 @@ func functionFunctionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateFunction(request)
+			return api.CreateFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -967,7 +967,7 @@ This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateFunction(request)
+			return api.UpdateFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1001,7 +1001,7 @@ func functionFunctionDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteFunction(request)
+			return api.DeleteFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1035,7 +1035,7 @@ func functionFunctionDeploy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeployFunction(request)
+			return api.DeployFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1062,7 +1062,7 @@ func functionRuntimeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.ListFunctionRuntimes(request)
+			return api.ListFunctionRuntimes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1103,7 +1103,7 @@ func functionFunctionGetUploadURL() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetFunctionUploadURL(request)
+			return api.GetFunctionUploadURL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1137,7 +1137,7 @@ func functionFunctionGetDownloadURL() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetFunctionDownloadURL(request)
+			return api.GetFunctionDownloadURL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1182,7 +1182,7 @@ func functionCronList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1226,7 +1226,7 @@ func functionCronGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetCron(request)
+			return api.GetCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1281,7 +1281,7 @@ func functionCronCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateCron(request)
+			return api.CreateCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1343,7 +1343,7 @@ func functionCronUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateCron(request)
+			return api.UpdateCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1377,7 +1377,7 @@ func functionCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteCron(request)
+			return api.DeleteCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1424,7 +1424,7 @@ func functionDomainList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1468,7 +1468,7 @@ func functionDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1509,7 +1509,7 @@ func functionDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateDomain(request)
+			return api.CreateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1543,7 +1543,7 @@ func functionDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteDomain(request)
+			return api.DeleteDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1598,7 +1598,7 @@ func functionTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1632,7 +1632,7 @@ func functionTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1684,7 +1684,7 @@ func functionTokenList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1728,7 +1728,7 @@ func functionTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteToken(request)
+			return api.DeleteToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1825,7 +1825,7 @@ func functionTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateTrigger(request)
+			return api.CreateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1859,7 +1859,7 @@ func functionTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetTrigger(request)
+			return api.GetTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1912,7 +1912,7 @@ func functionTriggerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1970,7 +1970,7 @@ func functionTriggerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateTrigger(request)
+			return api.UpdateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2004,7 +2004,7 @@ func functionTriggerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteTrigger(request)
+			return api.DeleteTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }

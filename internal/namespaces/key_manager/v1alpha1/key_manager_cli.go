@@ -178,7 +178,7 @@ func keymanagerKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.CreateKey(request)
+			return api.CreateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -212,7 +212,7 @@ func keymanagerKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.GetKey(request)
+			return api.GetKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -281,7 +281,7 @@ func keymanagerKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.UpdateKey(request)
+			return api.UpdateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -314,7 +314,7 @@ func keymanagerKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
-			e = api.DeleteKey(request)
+			e = api.DeleteKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -356,7 +356,7 @@ func keymanagerKeyRotate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.RotateKey(request)
+			return api.RotateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -390,7 +390,7 @@ func keymanagerKeyProtect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.ProtectKey(request)
+			return api.ProtectKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -424,7 +424,7 @@ func keymanagerKeyUnprotect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.UnprotectKey(request)
+			return api.UnprotectKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -458,7 +458,7 @@ func keymanagerKeyEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.EnableKey(request)
+			return api.EnableKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -492,7 +492,7 @@ func keymanagerKeyDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.DisableKey(request)
+			return api.DisableKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -584,7 +584,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -649,7 +649,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.GenerateDataKey(request)
+			return api.GenerateDataKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -697,7 +697,7 @@ func keymanagerKeyEncrypt() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.Encrypt(request)
+			return api.Encrypt(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -745,7 +745,7 @@ func keymanagerKeyDecrypt() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.Decrypt(request)
+			return api.Decrypt(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -793,7 +793,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.ImportKeyMaterial(request)
+			return api.ImportKeyMaterial(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -826,7 +826,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
-			e = api.DeleteKeyMaterial(request)
+			e = api.DeleteKeyMaterial(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
