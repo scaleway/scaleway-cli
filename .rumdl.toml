@@ -38,7 +38,10 @@ disable = [
 
 # Additional rules to enable on top of defaults (additive, does not replace)
 # Use this to activate opt-in rules like MD060, MD063, MD072, MD073, MD074
-# extend-enable = ["MD060", "MD063"]
+extend-enable = [
+    "MD060",
+    "MD074"
+]
 
 # Additional rules to disable on top of the disable list (additive)
 # extend-disable = ["MD041"]
@@ -92,3 +95,7 @@ respect-gitignore = true
 # [MD044]
 # names = ["rumdl", "Markdown", "GitHub"]  # Proper names that should be capitalized correctly
 # code-blocks = false  # Check code blocks for proper names (default: false, skips code blocks)
+
+[MD060]
+enabled = true
+style = "aligned-no-space"

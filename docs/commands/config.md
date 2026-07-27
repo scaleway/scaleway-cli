@@ -12,17 +12,17 @@ In this CLI, environment variables have priority over the configuration file.
 
 The following environment variables are supported:
 
-|Environment Variable|Description|
-|--|--|
-|SCW_ACCESS_KEY|The access key of a token (create a token at https://console.scaleway.com/iam/api-keys)|
-|SCW_SECRET_KEY|The secret key of a token (create a token at https://console.scaleway.com/iam/api-keys)|
-|SCW_DEFAULT_ORGANIZATION_ID|The default organization ID (get your organization ID at https://console.scaleway.com/iam/api-keys)|
-|SCW_DEFAULT_PROJECT_ID|The default project ID (get your project ID at https://console.scaleway.com/iam/api-keys)|
-|SCW_DEFAULT_REGION|The default region|
-|SCW_DEFAULT_ZONE|The default availability zone|
-|SCW_API_URL|URL of the API|
-|SCW_INSECURE|Set this to true to enable the insecure mode|
-|SCW_PROFILE|Set the config profile to use|
+| Environment Variable        | Description                                                                                         |
+|-----------------------------|-----------------------------------------------------------------------------------------------------|
+| SCW_ACCESS_KEY              | The access key of a token (create a token at https://console.scaleway.com/iam/api-keys)             |
+| SCW_SECRET_KEY              | The secret key of a token (create a token at https://console.scaleway.com/iam/api-keys)             |
+| SCW_DEFAULT_ORGANIZATION_ID | The default organization ID (get your organization ID at https://console.scaleway.com/iam/api-keys) |
+| SCW_DEFAULT_PROJECT_ID      | The default project ID (get your project ID at https://console.scaleway.com/iam/api-keys)           |
+| SCW_DEFAULT_REGION          | The default region                                                                                  |
+| SCW_DEFAULT_ZONE            | The default availability zone                                                                       |
+| SCW_API_URL                 | URL of the API                                                                                      |
+| SCW_INSECURE                | Set this to true to enable the insecure mode                                                        |
+| SCW_PROFILE                 | Set the config profile to use                                                                       |
 
 Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
 
@@ -83,9 +83,9 @@ scw config get <key ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
+| Name |                                                                                                                                                                                             | Description                    |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------|
+| key  | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
 
 
 **Examples:**
@@ -119,8 +119,8 @@ scw config import <file ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name |          | Description                              |
+|------|----------|------------------------------------------|
 | file | Required | Path to the configuration file to import |
 
 
@@ -172,9 +172,9 @@ scw config profile activate <profile-name ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| profile-name | Required |  |
+| Name         |          | Description |
+|--------------|----------|-------------|
+| profile-name | Required |             |
 
 
 
@@ -191,9 +191,9 @@ scw config profile delete <name ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required |  |
+| Name |          | Description |
+|------|----------|-------------|
+| name | Required |             |
 
 
 
@@ -240,17 +240,17 @@ scw config set [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| access-key |  | A Scaleway access key |
-| secret-key |  | A Scaleway secret key |
-| api-url |  | Scaleway API URL |
-| insecure |  | Set to true to allow insecure HTTPS connections |
-| default-organization-id |  | A default Scaleway organization id |
-| default-project-id |  | A default Scaleway project id |
-| default-region | One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | A default Scaleway region |
-| default-zone | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | A default Scaleway zone |
-| send-telemetry |  | Set to false to disable telemetry |
+| Name                    |                                                                                                                                | Description                                     |
+|-------------------------|--------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------|
+| access-key              |                                                                                                                                | A Scaleway access key                           |
+| secret-key              |                                                                                                                                | A Scaleway secret key                           |
+| api-url                 |                                                                                                                                | Scaleway API URL                                |
+| insecure                |                                                                                                                                | Set to true to allow insecure HTTPS connections |
+| default-organization-id |                                                                                                                                | A default Scaleway organization id              |
+| default-project-id      |                                                                                                                                | A default Scaleway project id                   |
+| default-region          | One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`                                                                                 | A default Scaleway region                       |
+| default-zone            | One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | A default Scaleway zone                         |
+| send-telemetry          |                                                                                                                                | Set to false to disable telemetry               |
 
 
 **Examples:**
@@ -284,9 +284,9 @@ scw config unset <key ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
+| Name |                                                                                                                                                                                             | Description                         |
+|------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------|
+| key  | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
 
 
 

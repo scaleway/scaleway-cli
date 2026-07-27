@@ -20,13 +20,13 @@ scw object bucket create <name ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| tags.{index} |  | List of tags to set on the bucket |
-| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
-| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              |                    | Description                                                                 |
+|-------------------|--------------------|-----------------------------------------------------------------------------|
+| name              | Required           | The unique name of the bucket                                               |
+| tags.{index}      |                    | List of tags to set on the bucket                                           |
+| enable-versioning | Default: `false`   | Whether or not objects in the bucket should have multiple versions          |
+| acl               | Default: `private` | The permissions given to users (grantees) to read or write objects          |
+| region            | Default: `fr-par`  | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -43,9 +43,9 @@ scw object bucket delete <name ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
+| Name   |                   | Description                                                                 |
+|--------|-------------------|-----------------------------------------------------------------------------|
+| name   | Required          | The unique name of the bucket                                               |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -63,11 +63,11 @@ scw object bucket get <name ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| with-size | Default: `false` | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                   | Description                                                                                                               |
+|-----------|-------------------|---------------------------------------------------------------------------------------------------------------------------|
+| name      | Required          | The unique name of the bucket                                                                                             |
+| with-size | Default: `false`  | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. |
+| region    | Default: `fr-par` | Region to target. If none is passed will use default region from the config                                               |
 
 
 
@@ -84,8 +84,8 @@ scw object bucket list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name   |                   | Description                                                                 |
+|--------|-------------------|-----------------------------------------------------------------------------|
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -103,13 +103,13 @@ scw object bucket update <name ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| tags.{index} |  | List of new tags to set on the bucket |
-| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
-| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              |                    | Description                                                                 |
+|-------------------|--------------------|-----------------------------------------------------------------------------|
+| name              | Required           | The unique name of the bucket                                               |
+| tags.{index}      |                    | List of new tags to set on the bucket                                       |
+| enable-versioning | Default: `false`   | Whether or not objects in the bucket should have multiple versions          |
+| acl               | Default: `private` | The permissions given to users (grantees) to read or write objects          |
+| region            | Default: `fr-par`  | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -131,12 +131,12 @@ scw object config get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
-| name | Default: `scaleway` | Name of the s3 remote you want to generate |
-| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       |                                                   | Description                                                                 |
+|------------|---------------------------------------------------|-----------------------------------------------------------------------------|
+| type       | Required<br />One of: `rclone`, `s3cmd`, `mc`     | Type of S3 tool you want to generate a config for                           |
+| name       | Default: `scaleway`                               | Name of the s3 remote you want to generate                                  |
+| project-id |                                                   | Scaleway project ID to use with IAM Access Key syntax                       |
+| region     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**
@@ -173,12 +173,12 @@ scw object config install [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
-| name | Default: `scaleway` | Name of the s3 remote you want to generate |
-| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       |                                                   | Description                                                                 |
+|------------|---------------------------------------------------|-----------------------------------------------------------------------------|
+| type       | Required<br />One of: `rclone`, `s3cmd`, `mc`     | Type of S3 tool you want to generate a config for                           |
+| name       | Default: `scaleway`                               | Name of the s3 remote you want to generate                                  |
+| project-id |                                                   | Scaleway project ID to use with IAM Access Key syntax                       |
+| region     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
 
 
 **Examples:**

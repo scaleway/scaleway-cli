@@ -20,16 +20,16 @@ scw partner organization create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| partner-id | Required | Your personal `partner_id`. This is the same as your Organization ID. |
-| email | Required | The email of the new organization owner |
+| Name              |          | Description                                                               |
+|-------------------|----------|---------------------------------------------------------------------------|
+| partner-id        | Required | Your personal `partner_id`. This is the same as your Organization ID.     |
+| email             | Required | The email of the new organization owner                                   |
 | organization-name | Required | The name of the organization you want to create. Usually the company name |
-| owner-firstname | Required | The first name of the new organization owner |
-| owner-lastname | Required | The last name of the new organization owner |
-| phone-number |  | The phone number of the new organization owner |
-| customer-id | Required | A custom ID for the customer in your own infrastructure |
-| siren-number |  | A SIREN number for the customer |
+| owner-firstname   | Required | The first name of the new organization owner                              |
+| owner-lastname    | Required | The last name of the new organization owner                               |
+| phone-number      |          | The phone number of the new organization owner                            |
+| customer-id       | Required | A custom ID for the customer in your own infrastructure                   |
+| siren-number      |          | A SIREN number for the customer                                           |
 
 
 
@@ -46,9 +46,9 @@ scw partner organization get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -65,13 +65,13 @@ scw partner organization list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| status | One of: `unknown_status`, `opened`, `locked`, `closed` | Only list organizations with this status |
-| email |  | Only list organizations created with this email |
-| customer-id |  | Only list organizations attached to this Customer ID |
-| locked-by | One of: `unknown_locked_by`, `partner`, `scaleway` | Only list organizations locked by a certain entity |
+| Name        |                                                        | Description                                          |
+|-------------|--------------------------------------------------------|------------------------------------------------------|
+| order-by    | One of: `created_at_asc`, `created_at_desc`            |                                                      |
+| status      | One of: `unknown_status`, `opened`, `locked`, `closed` | Only list organizations with this status             |
+| email       |                                                        | Only list organizations created with this email      |
+| customer-id |                                                        | Only list organizations attached to this Customer ID |
+| locked-by   | One of: `unknown_locked_by`, `partner`, `scaleway`     | Only list organizations locked by a certain entity   |
 
 
 
@@ -88,9 +88,9 @@ scw partner organization lock [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -107,9 +107,9 @@ scw partner organization unlock [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -126,16 +126,16 @@ scw partner organization update [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| email |  | The new email |
-| name |  | The new name |
-| owner-firstname |  | The first name of the new owner |
-| owner-lastname |  | The last name of the new owner |
-| phone-number |  | The phone number of the new owner |
-| customer-id |  | Customer ID associated with this organization |
-| comment |  | A comment about the organization |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| email           |     | The new email                                                                      |
+| name            |     | The new name                                                                       |
+| owner-firstname |     | The first name of the new owner                                                    |
+| owner-lastname  |     | The last name of the new owner                                                     |
+| phone-number    |     | The phone number of the new owner                                                  |
+| customer-id     |     | Customer ID associated with this organization                                      |
+| comment         |     | A comment about the organization                                                   |
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 

@@ -20,18 +20,18 @@ scw iot device create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Device name |
-| hub-id | Required | Hub ID of the device |
-| allow-insecure |  | Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones |
-| allow-multiple-connections |  | Defines whether to allow multiple physical devices to connect with this device's credentials |
-| message-filters.publish.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
-| message-filters.publish.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
-| message-filters.subscribe.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
-| message-filters.subscribe.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
-| description |  | Device description |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                     |                                         | Description                                                                                                        |
+|------------------------------------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| name                                     | Required<br />Default: `<generated>`    | Device name                                                                                                        |
+| hub-id                                   | Required                                | Hub ID of the device                                                                                               |
+| allow-insecure                           |                                         | Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones |
+| allow-multiple-connections               |                                         | Defines whether to allow multiple physical devices to connect with this device's credentials                       |
+| message-filters.publish.policy           | One of: `unknown`, `accept`, `reject`   | How to use the topic list                                                                                          |
+| message-filters.publish.topics.{index}   |                                         | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters                        |
+| message-filters.subscribe.policy         | One of: `unknown`, `accept`, `reject`   | How to use the topic list                                                                                          |
+| message-filters.subscribe.topics.{index} |                                         | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters                        |
+| description                              |                                         | Device description                                                                                                 |
+| region                                   | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config                                        |
 
 
 
@@ -48,10 +48,10 @@ scw iot device delete <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                                         | Description                                                                 |
+|-----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id | Required                                | Device ID                                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -68,10 +68,10 @@ scw iot device disable <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                                         | Description                                                                 |
+|-----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id | Required                                | Device ID                                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -88,10 +88,10 @@ scw iot device enable <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                                         | Description                                                                 |
+|-----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id | Required                                | Device ID                                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -108,10 +108,10 @@ scw iot device get <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                                         | Description                                                                 |
+|-----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id | Required                                | Device ID                                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -128,10 +128,10 @@ scw iot device get-certificate <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                                         | Description                                                                 |
+|-----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id | Required                                | Device ID                                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -148,11 +148,11 @@ scw iot device get-metrics <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| start-date | Required | Start date used to compute the best scale for the returned metrics |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       |                                         | Description                                                                 |
+|------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id  | Required                                | Device ID                                                                   |
+| start-date | Required                                | Start date used to compute the best scale for the returned metrics          |
+| region     | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -169,14 +169,14 @@ scw iot device list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc`, `status_asc`, `status_desc`, `hub_id_asc`, `hub_id_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `allow_insecure_asc`, `allow_insecure_desc` | Ordering of requested devices |
-| name |  | Name to filter for, only devices with this name will be returned |
-| hub-id |  | Hub ID to filter for, only devices attached to this Hub will be returned |
-| allow-insecure |  | Defines whether to filter the allow_insecure flag |
-| status | One of: `unknown`, `error`, `enabled`, `disabled` | Device status (enabled, disabled, etc.) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name           |                                                                                                                                                                                                                  | Description                                                                 |
+|----------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by       | One of: `name_asc`, `name_desc`, `status_asc`, `status_desc`, `hub_id_asc`, `hub_id_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `allow_insecure_asc`, `allow_insecure_desc` | Ordering of requested devices                                               |
+| name           |                                                                                                                                                                                                                  | Name to filter for, only devices with this name will be returned            |
+| hub-id         |                                                                                                                                                                                                                  | Hub ID to filter for, only devices attached to this Hub will be returned    |
+| allow-insecure |                                                                                                                                                                                                                  | Defines whether to filter the allow_insecure flag                           |
+| status         | One of: `unknown`, `error`, `enabled`, `disabled`                                                                                                                                                                | Device status (enabled, disabled, etc.)                                     |
+| region         | Default: `fr-par`<br />One of: `fr-par`, `all`                                                                                                                                                                   | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -193,10 +193,10 @@ scw iot device renew-certificate <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      |                                         | Description                                                                 |
+|-----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id | Required                                | Device ID                                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -213,11 +213,11 @@ scw iot device set-certificate <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| certificate-pem | Required | PEM-encoded custom certificate |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name            |                                         | Description                                                                 |
+|-----------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| device-id       | Required                                | Device ID                                                                   |
+| certificate-pem | Required                                | PEM-encoded custom certificate                                              |
+| region          | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -234,18 +234,18 @@ scw iot device update <device-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| device-id | Required | Device ID |
-| description |  | Description for the device |
-| allow-insecure |  | Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones |
-| allow-multiple-connections |  | Defines whether to allow multiple physical devices to connect with this device's credentials |
-| message-filters.publish.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
-| message-filters.publish.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
-| message-filters.subscribe.policy | One of: `unknown`, `accept`, `reject` | How to use the topic list |
-| message-filters.subscribe.topics.{index} |  | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters |
-| hub-id |  | Change Hub for this device, additional fees may apply, see IoT Hub pricing |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                     |                                         | Description                                                                                                        |
+|------------------------------------------|-----------------------------------------|--------------------------------------------------------------------------------------------------------------------|
+| device-id                                | Required                                | Device ID                                                                                                          |
+| description                              |                                         | Description for the device                                                                                         |
+| allow-insecure                           |                                         | Defines whether to allow plain and server-authenticated SSL connections in addition to mutually-authenticated ones |
+| allow-multiple-connections               |                                         | Defines whether to allow multiple physical devices to connect with this device's credentials                       |
+| message-filters.publish.policy           | One of: `unknown`, `accept`, `reject`   | How to use the topic list                                                                                          |
+| message-filters.publish.topics.{index}   |                                         | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters                        |
+| message-filters.subscribe.policy         | One of: `unknown`, `accept`, `reject`   | How to use the topic list                                                                                          |
+| message-filters.subscribe.topics.{index} |                                         | List of topics to accept or reject. It must be valid MQTT topics and up to 65535 characters                        |
+| hub-id                                   |                                         | Change Hub for this device, additional fees may apply, see IoT Hub pricing                                         |
+| region                                   | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config                                        |
 
 
 
@@ -267,15 +267,15 @@ scw iot hub create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Hub name (up to 255 characters) |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| product-plan | Required<br />Default: `plan_shared`<br />One of: `plan_unknown`, `plan_shared`, `plan_dedicated`, `plan_ha` | Hub product plan |
-| disable-events |  | Disable Hub events |
-| events-topic-prefix |  | Topic prefix (default '$SCW/events') of Hub events |
-| twins-graphite-config.push-uri |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                           |                                                                                                              | Description                                                                 |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| name                           | Required<br />Default: `<generated>`                                                                         | Hub name (up to 255 characters)                                             |
+| project-id                     |                                                                                                              | Project ID to use. If none is passed the default project ID will be used    |
+| product-plan                   | Required<br />Default: `plan_shared`<br />One of: `plan_unknown`, `plan_shared`, `plan_dedicated`, `plan_ha` | Hub product plan                                                            |
+| disable-events                 |                                                                                                              | Disable Hub events                                                          |
+| events-topic-prefix            |                                                                                                              | Topic prefix (default '$SCW/events') of Hub events                          |
+| twins-graphite-config.push-uri |                                                                                                              |                                                                             |
+| region                         | Default: `fr-par`<br />One of: `fr-par`                                                                      | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -292,11 +292,11 @@ scw iot hub delete <hub-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required | Hub ID |
-| delete-devices |  | Defines whether to force the deletion of devices added to this Hub or reject the operation |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name           |                                         | Description                                                                                |
+|----------------|-----------------------------------------|--------------------------------------------------------------------------------------------|
+| hub-id         | Required                                | Hub ID                                                                                     |
+| delete-devices |                                         | Defines whether to force the deletion of devices added to this Hub or reject the operation |
+| region         | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config                |
 
 
 
@@ -313,9 +313,9 @@ scw iot hub disable <hub-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required | Hub ID |
+| Name   |                                         | Description                                                                 |
+|--------|-----------------------------------------|-----------------------------------------------------------------------------|
+| hub-id | Required                                | Hub ID                                                                      |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -333,9 +333,9 @@ scw iot hub enable <hub-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required | Hub ID |
+| Name   |                                         | Description                                                                 |
+|--------|-----------------------------------------|-----------------------------------------------------------------------------|
+| hub-id | Required                                | Hub ID                                                                      |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -353,9 +353,9 @@ scw iot hub get <hub-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required | Hub ID |
+| Name   |                                         | Description                                                                 |
+|--------|-----------------------------------------|-----------------------------------------------------------------------------|
+| hub-id | Required                                | Hub ID                                                                      |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -373,9 +373,9 @@ scw iot hub get-ca [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required |  |
+| Name   |                                         | Description                                                                 |
+|--------|-----------------------------------------|-----------------------------------------------------------------------------|
+| hub-id | Required                                |                                                                             |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -393,13 +393,13 @@ scw iot hub list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc`, `status_asc`, `status_desc`, `product_plan_asc`, `product_plan_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Sort order of Hubs in the response |
-| project-id |  | Only list Hubs of this Project ID |
-| name |  | Hub name |
-| organization-id |  | Only list Hubs of this Organization ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                                                                                                                                 | Description                                                                 |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by        | One of: `name_asc`, `name_desc`, `status_asc`, `status_desc`, `product_plan_asc`, `product_plan_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Sort order of Hubs in the response                                          |
+| project-id      |                                                                                                                                                                                 | Only list Hubs of this Project ID                                           |
+| name            |                                                                                                                                                                                 | Hub name                                                                    |
+| organization-id |                                                                                                                                                                                 | Only list Hubs of this Organization ID                                      |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `all`                                                                                                                                  | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -416,12 +416,12 @@ scw iot hub set-ca <hub-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required | Hub ID |
-| ca-cert-pem | Required | CA's PEM-encoded certificate |
-| challenge-cert-pem | Required | Proof of possession of PEM-encoded certificate |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name               |                                         | Description                                                                 |
+|--------------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| hub-id             | Required                                | Hub ID                                                                      |
+| ca-cert-pem        | Required                                | CA's PEM-encoded certificate                                                |
+| challenge-cert-pem | Required                                | Proof of possession of PEM-encoded certificate                              |
+| region             | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -438,16 +438,16 @@ scw iot hub update <hub-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hub-id | Required | ID of the Hub you want to update |
-| name |  | Hub name (up to 255 characters) |
-| product-plan | One of: `plan_unknown`, `plan_shared`, `plan_dedicated`, `plan_ha` | Hub product plan |
-| disable-events |  | Disable Hub events |
-| events-topic-prefix |  | Topic prefix of Hub events |
-| enable-device-auto-provisioning |  | Enable device auto provisioning |
-| twins-graphite-config.push-uri |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                            |                                                                    | Description                                                                 |
+|---------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| hub-id                          | Required                                                           | ID of the Hub you want to update                                            |
+| name                            |                                                                    | Hub name (up to 255 characters)                                             |
+| product-plan                    | One of: `plan_unknown`, `plan_shared`, `plan_dedicated`, `plan_ha` | Hub product plan                                                            |
+| disable-events                  |                                                                    | Disable Hub events                                                          |
+| events-topic-prefix             |                                                                    | Topic prefix of Hub events                                                  |
+| enable-device-auto-provisioning |                                                                    | Enable device auto provisioning                                             |
+| twins-graphite-config.push-uri  |                                                                    |                                                                             |
+| region                          | Default: `fr-par`<br />One of: `fr-par`                            | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -469,13 +469,13 @@ scw iot network create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Network name |
-| type | Required<br />One of: `unknown`, `sigfox`, `rest` | Type of network to connect with |
-| hub-id | Required | Hub ID to connect the Network to |
-| topic-prefix | Required | Topic prefix for the Network |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                   | Description                                                                 |
+|--------------|---------------------------------------------------|-----------------------------------------------------------------------------|
+| name         | Required<br />Default: `<generated>`              | Network name                                                                |
+| type         | Required<br />One of: `unknown`, `sigfox`, `rest` | Type of network to connect with                                             |
+| hub-id       | Required                                          | Hub ID to connect the Network to                                            |
+| topic-prefix | Required                                          | Topic prefix for the Network                                                |
+| region       | Default: `fr-par`<br />One of: `fr-par`           | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -492,10 +492,10 @@ scw iot network delete <network-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| network-id | Required | Network ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       |                                         | Description                                                                 |
+|------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| network-id | Required                                | Network ID                                                                  |
+| region     | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -512,10 +512,10 @@ scw iot network get <network-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| network-id | Required | Network ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       |                                         | Description                                                                 |
+|------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| network-id | Required                                | Network ID                                                                  |
+| region     | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -532,13 +532,13 @@ scw iot network list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc`, `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering of requested routes |
-| name |  | Network name to filter for |
-| hub-id |  | Hub ID to filter for |
-| topic-prefix |  | Topic prefix to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                                                               | Description                                                                 |
+|--------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by     | One of: `name_asc`, `name_desc`, `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering of requested routes                                                |
+| name         |                                                                                               | Network name to filter for                                                  |
+| hub-id       |                                                                                               | Hub ID to filter for                                                        |
+| topic-prefix |                                                                                               | Topic prefix to filter for                                                  |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `all`                                                | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -569,26 +569,26 @@ scw iot route create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Default: `<generated>` | Route name |
-| hub-id |  | Hub ID of the route |
-| topic |  | Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters |
-| s3-config.bucket-region |  |  |
-| s3-config.bucket-name |  |  |
-| s3-config.object-prefix |  |  |
-| s3-config.strategy | One of: `unknown`, `per_topic`, `per_message` |  |
-| db-config.host |  |  |
-| db-config.port |  |  |
-| db-config.dbname |  |  |
-| db-config.username |  |  |
-| db-config.password |  |  |
-| db-config.query |  |  |
-| db-config.engine | One of: `unknown`, `postgresql`, `mysql` |  |
-| rest-config.verb | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |  |
-| rest-config.uri |  |  |
-| rest-config.headers.{key} |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                      |                                                            | Description                                                                             |
+|---------------------------|------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| name                      | Default: `<generated>`                                     | Route name                                                                              |
+| hub-id                    |                                                            | Hub ID of the route                                                                     |
+| topic                     |                                                            | Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters |
+| s3-config.bucket-region   |                                                            |                                                                                         |
+| s3-config.bucket-name     |                                                            |                                                                                         |
+| s3-config.object-prefix   |                                                            |                                                                                         |
+| s3-config.strategy        | One of: `unknown`, `per_topic`, `per_message`              |                                                                                         |
+| db-config.host            |                                                            |                                                                                         |
+| db-config.port            |                                                            |                                                                                         |
+| db-config.dbname          |                                                            |                                                                                         |
+| db-config.username        |                                                            |                                                                                         |
+| db-config.password        |                                                            |                                                                                         |
+| db-config.query           |                                                            |                                                                                         |
+| db-config.engine          | One of: `unknown`, `postgresql`, `mysql`                   |                                                                                         |
+| rest-config.verb          | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |                                                                                         |
+| rest-config.uri           |                                                            |                                                                                         |
+| rest-config.headers.{key} |                                                            |                                                                                         |
+| region                    | Default: `fr-par`<br />One of: `fr-par`                    | Region to target. If none is passed will use default region from the config             |
 
 
 
@@ -605,10 +605,10 @@ scw iot route delete <route-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-id | Required | Route ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name     |                                         | Description                                                                 |
+|----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| route-id | Required                                | Route ID                                                                    |
+| region   | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -625,10 +625,10 @@ scw iot route get <route-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-id | Required | Route ID |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name     |                                         | Description                                                                 |
+|----------|-----------------------------------------|-----------------------------------------------------------------------------|
+| route-id | Required                                | Route ID                                                                    |
+| region   | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -645,12 +645,12 @@ scw iot route list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc`, `hub_id_asc`, `hub_id_desc`, `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering of requested routes |
-| hub-id |  | Hub ID to filter for |
-| name |  | Route name to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name     |                                                                                                                            | Description                                                                 |
+|----------|----------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by | One of: `name_asc`, `name_desc`, `hub_id_asc`, `hub_id_desc`, `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` | Ordering of requested routes                                                |
+| hub-id   |                                                                                                                            | Hub ID to filter for                                                        |
+| name     |                                                                                                                            | Route name to filter for                                                    |
+| region   | Default: `fr-par`<br />One of: `fr-par`, `all`                                                                             | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -667,26 +667,26 @@ scw iot route update [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-id | Required | Route id |
-| name |  | Route name |
-| topic |  | Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters |
-| s3-config.bucket-region |  |  |
-| s3-config.bucket-name |  |  |
-| s3-config.object-prefix |  |  |
-| s3-config.strategy | One of: `unknown`, `per_topic`, `per_message` |  |
-| db-config.host |  |  |
-| db-config.port |  |  |
-| db-config.dbname |  |  |
-| db-config.username |  |  |
-| db-config.password |  |  |
-| db-config.query |  |  |
-| db-config.engine | One of: `unknown`, `postgresql`, `mysql` |  |
-| rest-config.verb | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |  |
-| rest-config.uri |  |  |
-| rest-config.headers.{key} |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                      |                                                            | Description                                                                             |
+|---------------------------|------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| route-id                  | Required                                                   | Route id                                                                                |
+| name                      |                                                            | Route name                                                                              |
+| topic                     |                                                            | Topic the route subscribes to. It must be a valid MQTT topic and up to 65535 characters |
+| s3-config.bucket-region   |                                                            |                                                                                         |
+| s3-config.bucket-name     |                                                            |                                                                                         |
+| s3-config.object-prefix   |                                                            |                                                                                         |
+| s3-config.strategy        | One of: `unknown`, `per_topic`, `per_message`              |                                                                                         |
+| db-config.host            |                                                            |                                                                                         |
+| db-config.port            |                                                            |                                                                                         |
+| db-config.dbname          |                                                            |                                                                                         |
+| db-config.username        |                                                            |                                                                                         |
+| db-config.password        |                                                            |                                                                                         |
+| db-config.query           |                                                            |                                                                                         |
+| db-config.engine          | One of: `unknown`, `postgresql`, `mysql`                   |                                                                                         |
+| rest-config.verb          | One of: `unknown`, `get`, `post`, `put`, `patch`, `delete` |                                                                                         |
+| rest-config.uri           |                                                            |                                                                                         |
+| rest-config.headers.{key} |                                                            |                                                                                         |
+| region                    | Default: `fr-par`<br />One of: `fr-par`                    | Region to target. If none is passed will use default region from the config             |
 
 
 

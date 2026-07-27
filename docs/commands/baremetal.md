@@ -24,10 +24,10 @@ scw baremetal bmc get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server                                                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -47,11 +47,11 @@ scw baremetal bmc start [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| ip | Required | The IP authorized to connect to the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server                                                        |
+| ip        | Required                                                                                                | The IP authorized to connect to the server                              |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -68,10 +68,10 @@ scw baremetal bmc stop [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server                                                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -94,10 +94,10 @@ scw baremetal offer get <offer-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id | Required | ID of the researched Offer |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name     |                                                                                                         | Description                                                             |
+|----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| offer-id | Required                                                                                                | ID of the researched Offer                                              |
+| zone     | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -124,11 +124,11 @@ scw baremetal offer list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| subscription-period | One of: `unknown_subscription_period`, `hourly`, `monthly` | Subscription period type to filter offers by |
-| name |  | Offer name to filter offers by |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name                |                                                                                                                | Description                                                             |
+|---------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| subscription-period | One of: `unknown_subscription_period`, `hourly`, `monthly`                                                     | Subscription period type to filter offers by                            |
+| name                |                                                                                                                | Offer name to filter offers by                                          |
+| zone                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -165,12 +165,12 @@ scw baremetal options add [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| option-id | Required | ID of the option to add |
-| expires-at |  | Auto expire the option after this date |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                                                         | Description                                                             |
+|------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id  | Required                                                                                                | ID of the server                                                        |
+| option-id  | Required                                                                                                | ID of the option to add                                                 |
+| expires-at |                                                                                                         | Auto expire the option after this date                                  |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -197,11 +197,11 @@ scw baremetal options delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| option-id | Required | ID of the option to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server                                                        |
+| option-id | Required                                                                                                | ID of the option to delete                                              |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -228,10 +228,10 @@ scw baremetal options get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| option-id | Required | ID of the option |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| option-id | Required                                                                                                | ID of the option                                                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -258,11 +258,11 @@ scw baremetal options list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id |  | Offer ID to filter options for |
-| name |  | Name to filter options for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name     |                                                                                                                | Description                                                             |
+|----------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| offer-id |                                                                                                                | Offer ID to filter options for                                          |
+| name     |                                                                                                                | Name to filter options for                                              |
+| zone     | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -299,10 +299,10 @@ scw baremetal os get <os-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| os-id | Required | ID of the OS |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name  |                                                                                                         | Description                                                             |
+|-------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| os-id | Required                                                                                                | ID of the OS                                                            |
+| zone  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -329,10 +329,10 @@ scw baremetal os list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id |  | Offer IDs to filter OSes for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name     |                                                                                                                | Description                                                             |
+|----------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| offer-id |                                                                                                                | Offer IDs to filter OSes for                                            |
+| zone     | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -375,12 +375,12 @@ scw baremetal private-network add [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | UUID of the server |
-| private-network-id | Required | UUID of the Private Network |
-| ipam-ip-ids.{index} |  | IPAM IDs of an IPs to attach to the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                |                                                                                                         | Description                                                             |
+|---------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id           | Required                                                                                                | UUID of the server                                                      |
+| private-network-id  | Required                                                                                                | UUID of the Private Network                                             |
+| ipam-ip-ids.{index} |                                                                                                         | IPAM IDs of an IPs to attach to the server                              |
+| zone                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -397,11 +397,11 @@ scw baremetal private-network delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | UUID of the server |
-| private-network-id | Required | UUID of the Private Network |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name               |                                                                                                         | Description                                                             |
+|--------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id          | Required                                                                                                | UUID of the server                                                      |
+| private-network-id | Required                                                                                                | UUID of the Private Network                                             |
+| zone               | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -418,15 +418,15 @@ scw baremetal private-network list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Sort order for the returned Private Networks |
-| server-id |  | Filter Private Networks by server UUID |
-| private-network-id |  | Filter Private Networks by Private Network UUID |
-| project-id |  | Filter Private Networks by project UUID |
-| ipam-ip-ids.{index} |  | Filter Private Networks by IPAM IP UUIDs |
-| organization-id |  | Filter Private Networks by organization UUID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name                |                                                                                                                | Description                                                             |
+|---------------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by            | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`                               | Sort order for the returned Private Networks                            |
+| server-id           |                                                                                                                | Filter Private Networks by server UUID                                  |
+| private-network-id  |                                                                                                                | Filter Private Networks by Private Network UUID                         |
+| project-id          |                                                                                                                | Filter Private Networks by project UUID                                 |
+| ipam-ip-ids.{index} |                                                                                                                | Filter Private Networks by IPAM IP UUIDs                                |
+| organization-id     |                                                                                                                | Filter Private Networks by organization UUID                            |
+| zone                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -443,11 +443,11 @@ scw baremetal private-network set [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | UUID of the server |
-| per-private-network-ipam-ip-ids.{key} | Required | Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                  |                                                                                                         | Description                                                                                                                                                                                                                                                                                                                                    |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| server-id                             | Required                                                                                                | UUID of the server                                                                                                                                                                                                                                                                                                                             |
+| per-private-network-ipam-ip-ids.{key} | Required                                                                                                | Object where the keys are the UUIDs of Private Networks and the values are arrays of IPAM IDs representing the IPs to assign to this Elastic Metal server on the Private Network. If the array supplied for a Private Network is empty, the next available IP from the Private Network's CIDR block will automatically be used for attachment. |
+| zone                                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                        |
 
 
 
@@ -469,13 +469,13 @@ scw baremetal server add-flexible-ip <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to which the newly created flexible IP will be attached. |
-| description |  | Flexible IP description (max. of 255 characters) |
-| ip-type | One of: `IPv4`, `IPv6` | Define whether the flexible IP is an IPv4 or IPv6 |
-| tags.{index} |  | Tags to associate to the flexible IP |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name         |                                                                     | Description                                                               |
+|--------------|---------------------------------------------------------------------|---------------------------------------------------------------------------|
+| server-id    | Required                                                            | ID of the server to which the newly created flexible IP will be attached. |
+| description  |                                                                     | Flexible IP description (max. of 255 characters)                          |
+| ip-type      | One of: `IPv4`, `IPv6`                                              | Define whether the flexible IP is an IPv4 or IPv6                         |
+| tags.{index} |                                                                     | Tags to associate to the flexible IP                                      |
+| zone         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config   |
 
 
 
@@ -492,45 +492,45 @@ scw baremetal server batch-create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| common-configuration.offer-id |  | Offer ID of the new server |
-| common-configuration.project-id |  | Project ID with which the server will be created |
-| common-configuration.name |  | Name of the server (≠hostname) |
-| common-configuration.description |  | Description associated with the server, max 255 characters |
-| common-configuration.tags.{index} |  | Tags to associate to the server |
-| common-configuration.install.os-id |  | ID of the OS to installation on the server |
-| common-configuration.install.hostname |  | Hostname of the server |
-| common-configuration.install.ssh-key-ids.{index} |  | SSH key IDs authorized on the server |
-| common-configuration.install.user |  | User for the installation |
-| common-configuration.install.password |  | Password for the installation |
-| common-configuration.install.service-user |  | Regular user that runs the service to be installed on the server |
-| common-configuration.install.service-password |  | Password used for the service to install |
-| common-configuration.install.partitioning-schema.disks.{index}.device |  |  |
-| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
-| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
-| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
-| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |  |  |
-| common-configuration.install.partitioning-schema.raids.{index}.name |  |  |
-| common-configuration.install.partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
-| common-configuration.install.partitioning-schema.raids.{index}.devices.{index} |  |  |
-| common-configuration.install.partitioning-schema.filesystems.{index}.device |  |  |
-| common-configuration.install.partitioning-schema.filesystems.{index}.format | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs` |  |
-| common-configuration.install.partitioning-schema.filesystems.{index}.mountpoint |  |  |
-| common-configuration.install.partitioning-schema.zfs.pools.{index}.name |  |  |
-| common-configuration.install.partitioning-schema.zfs.pools.{index}.type | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2` |  |
-| common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
-| common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
-| common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
-| common-configuration.option-ids.{index} |  | IDs of options to enable on server |
-| common-configuration.protected |  | If enabled, the server can not be deleted |
-| common-configuration.user-data |  | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
-| ~~common-configuration.organization-id~~ | Deprecated | Organization ID with which the server will be created |
-| common-configuration.zone |  |  |
-| servers.{index}.hostname |  |  |
-| servers.{index}.description |  |  |
-| servers.{index}.tags.{index} |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                                                                      |                                                                                                               | Description                                                                                     |
+|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| common-configuration.offer-id                                                                             |                                                                                                               | Offer ID of the new server                                                                      |
+| common-configuration.project-id                                                                           |                                                                                                               | Project ID with which the server will be created                                                |
+| common-configuration.name                                                                                 |                                                                                                               | Name of the server (≠hostname)                                                                  |
+| common-configuration.description                                                                          |                                                                                                               | Description associated with the server, max 255 characters                                      |
+| common-configuration.tags.{index}                                                                         |                                                                                                               | Tags to associate to the server                                                                 |
+| common-configuration.install.os-id                                                                        |                                                                                                               | ID of the OS to installation on the server                                                      |
+| common-configuration.install.hostname                                                                     |                                                                                                               | Hostname of the server                                                                          |
+| common-configuration.install.ssh-key-ids.{index}                                                          |                                                                                                               | SSH key IDs authorized on the server                                                            |
+| common-configuration.install.user                                                                         |                                                                                                               | User for the installation                                                                       |
+| common-configuration.install.password                                                                     |                                                                                                               | Password for the installation                                                                   |
+| common-configuration.install.service-user                                                                 |                                                                                                               | Regular user that runs the service to be installed on the server                                |
+| common-configuration.install.service-password                                                             |                                                                                                               | Password used for the service to install                                                        |
+| common-configuration.install.partitioning-schema.disks.{index}.device                                     |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.label                   | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs`    |                                                                                                 |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.number                  |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.size                    |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.raids.{index}.name                                       |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.raids.{index}.level                                      | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |                                                                                                 |
+| common-configuration.install.partitioning-schema.raids.{index}.devices.{index}                            |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.filesystems.{index}.device                               |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.filesystems.{index}.format                               | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs`                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.filesystems.{index}.mountpoint                           |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.name                                   |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.type                                   | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2`                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index}                        |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index}                        |                                                                                                               |                                                                                                 |
+| common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}             |                                                                                                               |                                                                                                 |
+| common-configuration.option-ids.{index}                                                                   |                                                                                                               | IDs of options to enable on server                                                              |
+| common-configuration.protected                                                                            |                                                                                                               | If enabled, the server can not be deleted                                                       |
+| common-configuration.user-data                                                                            |                                                                                                               | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
+| ~~common-configuration.organization-id~~                                                                  | Deprecated                                                                                                    | Organization ID with which the server will be created                                           |
+| common-configuration.zone                                                                                 |                                                                                                               |                                                                                                 |
+| servers.{index}.hostname                                                                                  |                                                                                                               |                                                                                                 |
+| servers.{index}.description                                                                               |                                                                                                               |                                                                                                 |
+| servers.{index}.tags.{index}                                                                              |                                                                                                               |                                                                                                 |
+| zone                                                                                                      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`       | Zone to target. If none is passed will use default zone from the config                         |
 
 
 
@@ -547,41 +547,41 @@ scw baremetal server create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required<br />Default: `<generated>` | Name of the server (≠hostname) |
-| description |  | Description associated with the server, max 255 characters |
-| type |  | Server commercial type |
-| tags.{index} |  | Tags to associate to the server |
-| install.os-id |  | ID of the OS to installation on the server |
-| install.hostname |  | Hostname of the server |
-| install.ssh-key-ids.{index} |  | SSH key IDs authorized on the server |
-| install.user |  | User for the installation |
-| install.password |  | Password for the installation |
-| install.service-user |  | Regular user that runs the service to be installed on the server |
-| install.service-password |  | Password used for the service to install |
-| install.partitioning-schema.disks.{index}.device |  |  |
-| install.partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
-| install.partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
-| install.partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
-| install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |  |  |
-| install.partitioning-schema.raids.{index}.name |  |  |
-| install.partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
-| install.partitioning-schema.raids.{index}.devices.{index} |  |  |
-| install.partitioning-schema.filesystems.{index}.device |  |  |
-| install.partitioning-schema.filesystems.{index}.format | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs` |  |
-| install.partitioning-schema.filesystems.{index}.mountpoint |  |  |
-| install.partitioning-schema.zfs.pools.{index}.name |  |  |
-| install.partitioning-schema.zfs.pools.{index}.type | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2` |  |
-| install.partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
-| install.partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
-| install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
-| option-ids.{index} |  | IDs of options to enable on server |
-| protected |  | If enabled, the server can not be deleted |
-| user-data |  | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                                                 |                                                                                                               | Description                                                                                     |
+|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| project-id                                                                           |                                                                                                               | Project ID to use. If none is passed the default project ID will be used                        |
+| name                                                                                 | Required<br />Default: `<generated>`                                                                          | Name of the server (≠hostname)                                                                  |
+| description                                                                          |                                                                                                               | Description associated with the server, max 255 characters                                      |
+| type                                                                                 |                                                                                                               | Server commercial type                                                                          |
+| tags.{index}                                                                         |                                                                                                               | Tags to associate to the server                                                                 |
+| install.os-id                                                                        |                                                                                                               | ID of the OS to installation on the server                                                      |
+| install.hostname                                                                     |                                                                                                               | Hostname of the server                                                                          |
+| install.ssh-key-ids.{index}                                                          |                                                                                                               | SSH key IDs authorized on the server                                                            |
+| install.user                                                                         |                                                                                                               | User for the installation                                                                       |
+| install.password                                                                     |                                                                                                               | Password for the installation                                                                   |
+| install.service-user                                                                 |                                                                                                               | Regular user that runs the service to be installed on the server                                |
+| install.service-password                                                             |                                                                                                               | Password used for the service to install                                                        |
+| install.partitioning-schema.disks.{index}.device                                     |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.disks.{index}.partitions.{index}.label                   | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs`    |                                                                                                 |
+| install.partitioning-schema.disks.{index}.partitions.{index}.number                  |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.disks.{index}.partitions.{index}.size                    |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.raids.{index}.name                                       |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.raids.{index}.level                                      | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |                                                                                                 |
+| install.partitioning-schema.raids.{index}.devices.{index}                            |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.filesystems.{index}.device                               |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.filesystems.{index}.format                               | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs`                                               |                                                                                                 |
+| install.partitioning-schema.filesystems.{index}.mountpoint                           |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.zfs.pools.{index}.name                                   |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.zfs.pools.{index}.type                                   | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2`                                               |                                                                                                 |
+| install.partitioning-schema.zfs.pools.{index}.devices.{index}                        |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.zfs.pools.{index}.options.{index}                        |                                                                                                               |                                                                                                 |
+| install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}             |                                                                                                               |                                                                                                 |
+| option-ids.{index}                                                                   |                                                                                                               | IDs of options to enable on server                                                              |
+| protected                                                                            |                                                                                                               | If enabled, the server can not be deleted                                                       |
+| user-data                                                                            |                                                                                                               | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
+| organization-id                                                                      |                                                                                                               | Organization ID to use. If none is passed the default organization ID will be used              |
+| zone                                                                                 | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`       | Zone to target. If none is passed will use default zone from the config                         |
 
 
 **Examples:**
@@ -608,10 +608,10 @@ scw baremetal server delete <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server to delete                                              |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -638,10 +638,10 @@ scw baremetal server get <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server                                                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -668,10 +668,10 @@ scw baremetal server get-metrics [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to get the metrics |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | Server ID to get the metrics                                            |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -688,37 +688,37 @@ scw baremetal server install <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to install |
-| os-id | Required | ID of the OS to installation on the server |
-| hostname | Required | Hostname of the server |
-| all-ssh-keys |  | Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids) |
-| ssh-key-ids.{index} | Required | SSH key IDs authorized on the server (cannot be used with all-ssh-keys) |
-| user |  | User used for the installation |
-| password |  | Password used for the installation |
-| service-user |  | User used for the service to install |
-| service-password |  | Password used for the service to install |
-| partitioning-schema.disks.{index}.device |  |  |
-| partitioning-schema.disks.{index}.partitions.{index}.label | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs` |  |
-| partitioning-schema.disks.{index}.partitions.{index}.number |  |  |
-| partitioning-schema.disks.{index}.partitions.{index}.size |  |  |
-| partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |  |  |
-| partitioning-schema.raids.{index}.name |  |  |
-| partitioning-schema.raids.{index}.level | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |  |
-| partitioning-schema.raids.{index}.devices.{index} |  |  |
-| partitioning-schema.filesystems.{index}.device |  |  |
-| partitioning-schema.filesystems.{index}.format | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs` |  |
-| partitioning-schema.filesystems.{index}.mountpoint |  |  |
-| partitioning-schema.zfs.pools.{index}.name |  |  |
-| partitioning-schema.zfs.pools.{index}.type | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2` |  |
-| partitioning-schema.zfs.pools.{index}.devices.{index} |  |  |
-| partitioning-schema.zfs.pools.{index}.options.{index} |  |  |
-| partitioning-schema.zfs.pools.{index}.filesystem-options.{index} |  |  |
-| ~~user-data.name~~ | Deprecated |  |
-| ~~user-data.content-type~~ | Deprecated |  |
-| ~~user-data.content~~ | Deprecated |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                                         |                                                                                                               | Description                                                                   |
+|------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------|
+| server-id                                                                    | Required                                                                                                      | Server ID to install                                                          |
+| os-id                                                                        | Required                                                                                                      | ID of the OS to installation on the server                                    |
+| hostname                                                                     | Required                                                                                                      | Hostname of the server                                                        |
+| all-ssh-keys                                                                 |                                                                                                               | Add all SSH keys on your baremetal instance (cannot be used with ssh-key-ids) |
+| ssh-key-ids.{index}                                                          | Required                                                                                                      | SSH key IDs authorized on the server (cannot be used with all-ssh-keys)       |
+| user                                                                         |                                                                                                               | User used for the installation                                                |
+| password                                                                     |                                                                                                               | Password used for the installation                                            |
+| service-user                                                                 |                                                                                                               | User used for the service to install                                          |
+| service-password                                                             |                                                                                                               | Password used for the service to install                                      |
+| partitioning-schema.disks.{index}.device                                     |                                                                                                               |                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.label                   | One of: `unknown_partition_label`, `uefi`, `legacy`, `root`, `boot`, `swap`, `data`, `home`, `raid`, `zfs`    |                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.number                  |                                                                                                               |                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.size                    |                                                                                                               |                                                                               |
+| partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space |                                                                                                               |                                                                               |
+| partitioning-schema.raids.{index}.name                                       |                                                                                                               |                                                                               |
+| partitioning-schema.raids.{index}.level                                      | One of: `unknown_raid_level`, `raid_level_0`, `raid_level_1`, `raid_level_5`, `raid_level_6`, `raid_level_10` |                                                                               |
+| partitioning-schema.raids.{index}.devices.{index}                            |                                                                                                               |                                                                               |
+| partitioning-schema.filesystems.{index}.device                               |                                                                                                               |                                                                               |
+| partitioning-schema.filesystems.{index}.format                               | One of: `unknown_format`, `fat32`, `ext4`, `swap`, `zfs`, `xfs`                                               |                                                                               |
+| partitioning-schema.filesystems.{index}.mountpoint                           |                                                                                                               |                                                                               |
+| partitioning-schema.zfs.pools.{index}.name                                   |                                                                                                               |                                                                               |
+| partitioning-schema.zfs.pools.{index}.type                                   | One of: `unknown_type`, `no_raid`, `mirror`, `raidz1`, `raidz2`                                               |                                                                               |
+| partitioning-schema.zfs.pools.{index}.devices.{index}                        |                                                                                                               |                                                                               |
+| partitioning-schema.zfs.pools.{index}.options.{index}                        |                                                                                                               |                                                                               |
+| partitioning-schema.zfs.pools.{index}.filesystem-options.{index}             |                                                                                                               |                                                                               |
+| ~~user-data.name~~                                                           | Deprecated                                                                                                    |                                                                               |
+| ~~user-data.content-type~~                                                   | Deprecated                                                                                                    |                                                                               |
+| ~~user-data.content~~                                                        | Deprecated                                                                                                    |                                                                               |
+| zone                                                                         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`       | Zone to target. If none is passed will use default zone from the config       |
 
 
 **Examples:**
@@ -745,16 +745,16 @@ scw baremetal server list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the servers |
-| tags.{index} |  | Tags to filter for |
-| status.{index} |  | Status to filter for |
-| name |  | Names to filter for |
-| project-id |  | Project ID to filter for |
-| option-id |  | Option ID to filter for |
-| organization-id |  | Organization ID to filter for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name            |                                                                                                                | Description                                                             |
+|-----------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by        | One of: `created_at_asc`, `created_at_desc`                                                                    | Order of the servers                                                    |
+| tags.{index}    |                                                                                                                | Tags to filter for                                                      |
+| status.{index}  |                                                                                                                | Status to filter for                                                    |
+| name            |                                                                                                                | Names to filter for                                                     |
+| project-id      |                                                                                                                | Project ID to filter for                                                |
+| option-id       |                                                                                                                | Option ID to filter for                                                 |
+| organization-id |                                                                                                                | Organization ID to filter for                                           |
+| zone            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -781,11 +781,11 @@ scw baremetal server list-events [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server events searched |
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the server events |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                                | Description                                                             |
+|-----------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                       | ID of the server events searched                                        |
+| order-by  | One of: `created_at_asc`, `created_at_desc`                                                                    | Order of the server events                                              |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -802,12 +802,12 @@ scw baremetal server reboot <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to reboot |
-| boot-type | Default: `normal`<br />One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
-| ssh-key-ids.{index} |  | Additional SSH public key IDs to configure on rescue image |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                |                                                                                                         | Description                                                             |
+|---------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id           | Required                                                                                                | ID of the server to reboot                                              |
+| boot-type           | Default: `normal`<br />One of: `unknown_boot_type`, `normal`, `rescue`                                  | The type of boot                                                        |
+| ssh-key-ids.{index} |                                                                                                         | Additional SSH public key IDs to configure on rescue image              |
+| zone                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -839,12 +839,12 @@ scw baremetal server start <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to start |
-| boot-type | One of: `unknown_boot_type`, `normal`, `rescue` | The type of boot |
-| ssh-key-ids.{index} |  | Additional SSH public key IDs to configure on rescue image |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                |                                                                                                         | Description                                                             |
+|---------------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id           | Required                                                                                                | ID of the server to start                                               |
+| boot-type           | One of: `unknown_boot_type`, `normal`, `rescue`                                                         | The type of boot                                                        |
+| ssh-key-ids.{index} |                                                                                                         | Additional SSH public key IDs to configure on rescue image              |
+| zone                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -876,10 +876,10 @@ scw baremetal server stop <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to stop |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server to stop                                                |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 **Examples:**
@@ -906,15 +906,15 @@ scw baremetal server update <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to update |
-| name |  | Name of the server (≠hostname), not updated if null |
-| description |  | Description associated with the server, max 255 characters, not updated if null |
-| tags.{index} |  | Tags associated with the server, not updated if null |
-| protected |  | If enabled, the server can not be deleted |
-| user-data |  | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name         |                                                                                                         | Description                                                                                     |
+|--------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------|
+| server-id    | Required                                                                                                | ID of the server to update                                                                      |
+| name         |                                                                                                         | Name of the server (≠hostname), not updated if null                                             |
+| description  |                                                                                                         | Description associated with the server, max 255 characters, not updated if null                 |
+| tags.{index} |                                                                                                         | Tags associated with the server, not updated if null                                            |
+| protected    |                                                                                                         | If enabled, the server can not be deleted                                                       |
+| user-data    |                                                                                                         | Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script |
+| zone         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config                         |
 
 
 
@@ -931,12 +931,12 @@ scw baremetal server update-ip [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| ip-id | Required | ID of the IP to update |
-| reverse |  | New reverse IP to update, not updated if null |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                                                         | Description                                                             |
+|-----------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                                                | ID of the server                                                        |
+| ip-id     | Required                                                                                                | ID of the IP to update                                                  |
+| reverse   |                                                                                                         | New reverse IP to update, not updated if null                           |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -953,11 +953,11 @@ scw baremetal server wait <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server affected by the action. |
-| zone | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
-| timeout | Default: `20m0s` | Timeout of the wait |
+| Name      |                     | Description                                                             |
+|-----------|---------------------|-------------------------------------------------------------------------|
+| server-id | Required            | ID of the server affected by the action.                                |
+| zone      | Default: `fr-par-1` | Zone to target. If none is passed will use default zone from the config |
+| timeout   | Default: `20m0s`    | Timeout of the wait                                                     |
 
 
 **Examples:**
@@ -989,11 +989,11 @@ scw baremetal settings list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for items in the response |
-| project-id | Required | ID of the Project |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                                                                | Description                                                             |
+|------------|----------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc`                                                                    | Sort order for items in the response                                    |
+| project-id | Required                                                                                                       | ID of the Project                                                       |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1010,11 +1010,11 @@ scw baremetal settings update [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| setting-id | Required | ID of the setting |
-| enabled |  | Defines whether the setting is enabled |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                                                         | Description                                                             |
+|------------|---------------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| setting-id | Required                                                                                                | ID of the setting                                                       |
+| enabled    |                                                                                                         | Defines whether the setting is enabled                                  |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
 
 
 

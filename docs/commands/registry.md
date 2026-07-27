@@ -22,10 +22,10 @@ scw registry image delete <image-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| image-id | Required | UUID of the image |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name     |                                                             | Description                                                                 |
+|----------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| image-id | Required                                                    | UUID of the image                                                           |
+| region   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -42,10 +42,10 @@ scw registry image get <image-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| image-id | Required | UUID of the image |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name     |                                                             | Description                                                                 |
+|----------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| image-id | Required                                                    | UUID of the image                                                           |
+| region   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -62,14 +62,14 @@ scw registry image list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. |
-| namespace-id |  | Filter by the namespace ID |
-| name |  | Filter by the image name (exact match) |
-| project-id |  | Filter by Project ID |
-| organization-id |  | Filter by Organization ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                      | Description                                                                                                                                                                                                      |
+|-----------------|----------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by        | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering image listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. |
+| namespace-id    |                                                                      | Filter by the namespace ID                                                                                                                                                                                       |
+| name            |                                                                      | Filter by the image name (exact match)                                                                                                                                                                           |
+| project-id      |                                                                      | Filter by Project ID                                                                                                                                                                                             |
+| organization-id |                                                                      | Filter by Organization ID                                                                                                                                                                                        |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   | Region to target. If none is passed will use default region from the config                                                                                                                                      |
 
 
 
@@ -86,11 +86,11 @@ scw registry image update <image-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| image-id | Required | ID of the image to update |
+| Name       |                                                              | Description                                                                                                                                                                 |
+|------------|--------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| image-id   | Required                                                     | ID of the image to update                                                                                                                                                   |
 | visibility | One of: `visibility_unknown`, `inherit`, `public`, `private` | Set to `public` to allow the image to be pulled without authentication. Else, set to `private`. Set to `inherit` to keep the same visibility configuration as the namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| region     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  | Region to target. If none is passed will use default region from the config                                                                                                 |
 
 
 
@@ -119,8 +119,8 @@ scw registry install-docker-helper [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name |                           | Description                                                                                    |
+|------|---------------------------|------------------------------------------------------------------------------------------------|
 | path | Default: `/usr/local/bin` | Directory in which the Docker helper will be installed. This directory should be in your $PATH |
 
 
@@ -142,10 +142,10 @@ scw registry login [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| program | Default: `docker`<br />One of: `docker`, `podman` | Program used to log in to the namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    |                                                                       | Description                                                                 |
+|---------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| program | Default: `docker`<br />One of: `docker`, `podman`                     | Program used to log in to the namespace                                     |
+| region  | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -166,10 +166,10 @@ scw registry logout [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| program | Default: `docker`<br />One of: `docker`, `podman` | Program used to log in to the namespace |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    |                                                   | Description                                                                 |
+|---------|---------------------------------------------------|-----------------------------------------------------------------------------|
+| program | Default: `docker`<br />One of: `docker`, `podman` | Program used to log in to the namespace                                     |
+| region  | Default: `fr-par`                                 | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -195,14 +195,14 @@ scw registry namespace create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the namespace |
-| description |  | Description of the namespace |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| is-public |  | Defines whether or not namespace is public |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                             | Description                                                                        |
+|-----------------|-------------------------------------------------------------|------------------------------------------------------------------------------------|
+| name            | Required<br />Default: `<generated>`                        | Name of the namespace                                                              |
+| description     |                                                             | Description of the namespace                                                       |
+| project-id      |                                                             | Project ID to use. If none is passed the default project ID will be used           |
+| is-public       |                                                             | Defines whether or not namespace is public                                         |
+| organization-id |                                                             | Organization ID to use. If none is passed the default organization ID will be used |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config        |
 
 
 
@@ -219,10 +219,10 @@ scw registry namespace delete <namespace-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id | Required | UUID of the namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                             | Description                                                                 |
+|--------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| namespace-id | Required                                                    | UUID of the namespace                                                       |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -239,10 +239,10 @@ scw registry namespace get <namespace-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id | Required | UUID of the namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                             | Description                                                                 |
+|--------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| namespace-id | Required                                                    | UUID of the namespace                                                       |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -259,13 +259,13 @@ scw registry namespace list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `description_asc`, `description_desc`, `name_asc`, `name_desc` | Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. |
-| project-id |  | Filter by Project ID |
-| name |  | Filter by the namespace name (exact match) |
-| organization-id |  | Filter by Organization ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                                                             | Description                                                                                                                                                                                                          |
+|-----------------|-------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by        | One of: `created_at_asc`, `created_at_desc`, `description_asc`, `description_desc`, `name_asc`, `name_desc` | Criteria to use when ordering namespace listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. |
+| project-id      |                                                                                                             | Filter by Project ID                                                                                                                                                                                                 |
+| name            |                                                                                                             | Filter by the namespace name (exact match)                                                                                                                                                                           |
+| organization-id |                                                                                                             | Filter by Organization ID                                                                                                                                                                                            |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                          | Region to target. If none is passed will use default region from the config                                                                                                                                          |
 
 
 
@@ -282,12 +282,12 @@ scw registry namespace update <namespace-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id | Required | ID of the namespace to update |
-| description |  | Namespace description |
-| is-public |  | Defines whether or not the namespace is public |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                             | Description                                                                 |
+|--------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| namespace-id | Required                                                    | ID of the namespace to update                                               |
+| description  |                                                             | Namespace description                                                       |
+| is-public    |                                                             | Defines whether or not the namespace is public                              |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -309,12 +309,12 @@ scw registry tag delete <tag-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tag-id | Required | UUID of the tag |
-| timeout |  | Maximum time to handle the request |
-| ~~force~~ | Deprecated | If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      |                                                             | Description                                                                                                |
+|-----------|-------------------------------------------------------------|------------------------------------------------------------------------------------------------------------|
+| tag-id    | Required                                                    | UUID of the tag                                                                                            |
+| timeout   |                                                             | Maximum time to handle the request                                                                         |
+| ~~force~~ | Deprecated                                                  | If two tags share the same digest the deletion will fail unless this parameter is set to true (deprecated) |
+| region    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config                                |
 
 
 
@@ -331,9 +331,9 @@ scw registry tag get <tag-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tag-id | Required | UUID of the tag |
+| Name   |                                                             | Description                                                                 |
+|--------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| tag-id | Required                                                    | UUID of the tag                                                             |
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -351,12 +351,12 @@ scw registry tag list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |                                                                      | Description                                                                                                                                                                                                    |
+|----------|----------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
 | order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering tag listings. Possible values are `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc` and `status_desc`. The default value is `created_at_asc`. |
-| image-id | Required | UUID of the image |
-| name |  | Filter by the tag name (exact match) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| image-id | Required                                                             | UUID of the image                                                                                                                                                                                              |
+| name     |                                                                      | Filter by the tag name (exact match)                                                                                                                                                                           |
+| region   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   | Region to target. If none is passed will use default region from the config                                                                                                                                    |
 
 
 

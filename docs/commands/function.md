@@ -20,13 +20,13 @@ scw function cron create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id |  | UUID of the function to use the cron with |
-| schedule |  | Schedule of the cron in UNIX cron format |
-| args |  | Arguments to use with the cron |
-| name |  | Name of the cron |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id |                                                             | UUID of the function to use the cron with                                   |
+| schedule    |                                                             | Schedule of the cron in UNIX cron format                                    |
+| args        |                                                             | Arguments to use with the cron                                              |
+| name        |                                                             | Name of the cron                                                            |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -43,10 +43,10 @@ scw function cron delete <cron-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cron-id | Required | UUID of the cron to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    |                                                             | Description                                                                 |
+|---------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| cron-id | Required                                                    | UUID of the cron to delete                                                  |
+| region  | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -63,10 +63,10 @@ scw function cron get <cron-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cron-id | Required | UUID of the cron to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    |                                                             | Description                                                                 |
+|---------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| cron-id | Required                                                    | UUID of the cron to get                                                     |
+| region  | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -83,11 +83,11 @@ scw function cron list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the crons |
-| function-id |  | UUID of the function |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                                    | Description                                                                 |
+|-------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by    | One of: `created_at_asc`, `created_at_desc`                        | Order of the crons                                                          |
+| function-id |                                                                    | UUID of the function                                                        |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -104,14 +104,14 @@ scw function cron update <cron-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cron-id | Required | UUID of the cron to update |
-| function-id |  | UUID of the function to use the cron with |
-| schedule |  | Schedule of the cron in UNIX cron format |
-| args |  | Arguments to use with the cron |
-| name |  | Name of the cron |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| cron-id     | Required                                                    | UUID of the cron to update                                                  |
+| function-id |                                                             | UUID of the function to use the cron with                                   |
+| schedule    |                                                             | Schedule of the cron in UNIX cron format                                    |
+| args        |                                                             | Arguments to use with the cron                                              |
+| name        |                                                             | Name of the cron                                                            |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -130,13 +130,13 @@ scw function deploy [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id |  | Function Namespace ID to deploy to |
-| name | Required | Name of the function to deploy, will be used in namespace's name if no ID is provided |
-| runtime | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84`, `node24`, `node26`, `go125`, `go126`, `php85`, `python314`, `rust196` |  |
-| zip-file | Required | Path of the zip file that contains your code |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Description                                                                           |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------|
+| namespace-id |                                                                                                                                                                                                                                                                                                                                                                                                                                                                             | Function Namespace ID to deploy to                                                    |
+| name         | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Name of the function to deploy, will be used in namespace's name if no ID is provided |
+| runtime      | Required<br />One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84`, `node24`, `node26`, `go125`, `go126`, `php85`, `python314`, `rust196` |                                                                                       |
+| zip-file     | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                                    | Path of the zip file that contains your code                                          |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                                                                                                                                                                                                                                                                 | Region to target. If none is passed will use default region from the config           |
 
 
 
@@ -158,11 +158,11 @@ scw function domain create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| hostname |  | Hostname to create |
-| function-id |  | UUID of the function to associate the domain with |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| hostname    |                                                             | Hostname to create                                                          |
+| function-id |                                                             | UUID of the function to associate the domain with                           |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -179,10 +179,10 @@ scw function domain delete <domain-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | UUID of the domain to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      |                                                             | Description                                                                 |
+|-----------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| domain-id | Required                                                    | UUID of the domain to delete                                                |
+| region    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -199,10 +199,10 @@ scw function domain get <domain-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | UUID of the domain to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      |                                                             | Description                                                                 |
+|-----------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| domain-id | Required                                                    | UUID of the domain to get                                                   |
+| region    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -219,11 +219,11 @@ scw function domain list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` | Order of the domains |
-| function-id |  | UUID of the function the domain is associated with |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                                              | Description                                                                 |
+|-------------|------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by    | One of: `created_at_asc`, `created_at_desc`, `hostname_asc`, `hostname_desc` | Order of the domains                                                        |
+| function-id |                                                                              | UUID of the function the domain is associated with                          |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`           | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -245,26 +245,26 @@ scw function function create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Default: `<generated>` | Name of the function to create |
-| namespace-id |  | UUID of the namespace the function will be created in |
-| environment-variables.{key} |  | Environment variables of the function |
-| min-scale |  | Minimum number of instances to scale the function to |
-| max-scale |  | Maximum number of instances to scale the function to |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84`, `node24`, `node26`, `go125`, `go126`, `php85`, `python314`, `rust196` | Runtime to use with the function |
-| memory-limit |  | Memory limit of the function in MB |
-| timeout |  | Request processing time limit for the function |
-| handler |  | Handler to use with the function |
-| privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the function |
-| description |  | Description of the function |
-| secret-environment-variables.{index}.key |  |  |
-| secret-environment-variables.{index}.value |  |  |
-| http-option | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
-| sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the function |
-| tags.{index} |  | Tags of the Serverless Function |
-| private-network-id |  | ID of the Private Network the function is connected to. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Description                                                                 |
+|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| name                                       | Default: `<generated>`                                                                                                                                                                                                                                                                                                                                                                                                                                        | Name of the function to create                                              |
+| namespace-id                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | UUID of the namespace the function will be created in                       |
+| environment-variables.{key}                |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Environment variables of the function                                       |
+| min-scale                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Minimum number of instances to scale the function to                        |
+| max-scale                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Maximum number of instances to scale the function to                        |
+| runtime                                    | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84`, `node24`, `node26`, `go125`, `go126`, `php85`, `python314`, `rust196` | Runtime to use with the function                                            |
+| memory-limit                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Memory limit of the function in MB                                          |
+| timeout                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Request processing time limit for the function                              |
+| handler                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Handler to use with the function                                            |
+| privacy                                    | One of: `unknown_privacy`, `public`, `private`                                                                                                                                                                                                                                                                                                                                                                                                                | Privacy setting of the function                                             |
+| description                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Description of the function                                                 |
+| secret-environment-variables.{index}.key   |                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                             |
+| secret-environment-variables.{index}.value |                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                             |
+| http-option                                | Default: `enabled`<br />One of: `unknown_http_option`, `enabled`, `redirected`                                                                                                                                                                                                                                                                                                                                                                                | Configure how HTTP and HTTPS requests are handled                           |
+| sandbox                                    | One of: `unknown_sandbox`, `v1`, `v2`                                                                                                                                                                                                                                                                                                                                                                                                                         | Execution environment of the function                                       |
+| tags.{index}                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Tags of the Serverless Function                                             |
+| private-network-id                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | ID of the Private Network the function is connected to.                     |
+| region                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                                                                                                                                                                                                                                                   | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -281,10 +281,10 @@ scw function function delete <function-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id | Required                                                    | UUID of the function to delete                                              |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -301,10 +301,10 @@ scw function function deploy <function-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to deploy |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id | Required                                                    | UUID of the function to deploy                                              |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -321,10 +321,10 @@ scw function function get <function-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id | Required                                                    | UUID of the function                                                        |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -341,10 +341,10 @@ scw function function get-download-url <function-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to get the download URL for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id | Required                                                    | UUID of the function to get the download URL for                            |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -361,11 +361,11 @@ scw function function get-upload-url <function-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to get the upload URL for |
-| content-length | Required | Size of the archive to upload in bytes |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           |                                                             | Description                                                                 |
+|----------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id    | Required                                                    | UUID of the function to get the upload URL for                              |
+| content-length | Required                                                    | Size of the archive to upload in bytes                                      |
+| region         | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -382,14 +382,14 @@ scw function function list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order of the functions |
-| namespace-id |  | UUID of the namespace the function belongs to |
-| name |  | Name of the function |
-| project-id |  | UUID of the Project the function belongs to |
-| organization-id |  | UUID of the Organization the function belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                      | Description                                                                 |
+|-----------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by        | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order of the functions                                                      |
+| namespace-id    |                                                                      | UUID of the namespace the function belongs to                               |
+| name            |                                                                      | Name of the function                                                        |
+| project-id      |                                                                      | UUID of the Project the function belongs to                                 |
+| organization-id |                                                                      | UUID of the Organization the function belongs to                            |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -409,26 +409,26 @@ scw function function update <function-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id | Required | UUID of the function to update |
-| environment-variables.{key} |  | Environment variables of the function to update |
-| min-scale |  | Minimum number of instances to scale the function to |
-| max-scale |  | Maximum number of instances to scale the function to |
-| runtime | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84`, `node24`, `node26`, `go125`, `go126`, `php85`, `python314`, `rust196` | Runtime to use with the function |
-| memory-limit |  | Memory limit of the function in MB |
-| timeout |  | Processing time limit for the function |
-| redeploy |  | Redeploy failed function |
-| handler |  | Handler to use with the function |
-| privacy | One of: `unknown_privacy`, `public`, `private` | Privacy setting of the function |
-| description |  | Description of the function |
-| secret-environment-variables.{index}.key |  |  |
-| secret-environment-variables.{index}.value |  |  |
-| http-option | One of: `unknown_http_option`, `enabled`, `redirected` | Configure how HTTP and HTTPS requests are handled |
-| sandbox | One of: `unknown_sandbox`, `v1`, `v2` | Execution environment of the function |
-| tags.{index} |  | Tags of the Serverless Function |
-| private-network-id |  | ID of the Private Network the function is connected to. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                       |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Description                                                                 |
+|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id                                | Required                                                                                                                                                                                                                                                                                                                                                                                                                                                      | UUID of the function to update                                              |
+| environment-variables.{key}                |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Environment variables of the function to update                             |
+| min-scale                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Minimum number of instances to scale the function to                        |
+| max-scale                                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Maximum number of instances to scale the function to                        |
+| runtime                                    | One of: `unknown_runtime`, `golang`, `python`, `python3`, `node8`, `node10`, `node14`, `node16`, `node17`, `python37`, `python38`, `python39`, `python310`, `go113`, `go117`, `go118`, `node18`, `rust165`, `go119`, `python311`, `php82`, `node19`, `go120`, `node20`, `go121`, `node22`, `python312`, `php83`, `go122`, `rust179`, `go123`, `go124`, `python313`, `rust185`, `php84`, `node24`, `node26`, `go125`, `go126`, `php85`, `python314`, `rust196` | Runtime to use with the function                                            |
+| memory-limit                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Memory limit of the function in MB                                          |
+| timeout                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Processing time limit for the function                                      |
+| redeploy                                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Redeploy failed function                                                    |
+| handler                                    |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Handler to use with the function                                            |
+| privacy                                    | One of: `unknown_privacy`, `public`, `private`                                                                                                                                                                                                                                                                                                                                                                                                                | Privacy setting of the function                                             |
+| description                                |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Description of the function                                                 |
+| secret-environment-variables.{index}.key   |                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                             |
+| secret-environment-variables.{index}.value |                                                                                                                                                                                                                                                                                                                                                                                                                                                               |                                                                             |
+| http-option                                | One of: `unknown_http_option`, `enabled`, `redirected`                                                                                                                                                                                                                                                                                                                                                                                                        | Configure how HTTP and HTTPS requests are handled                           |
+| sandbox                                    | One of: `unknown_sandbox`, `v1`, `v2`                                                                                                                                                                                                                                                                                                                                                                                                                         | Execution environment of the function                                       |
+| tags.{index}                               |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Tags of the Serverless Function                                             |
+| private-network-id                         |                                                                                                                                                                                                                                                                                                                                                                                                                                                               | ID of the Private Network the function is connected to.                     |
+| region                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                                                                                                                                                                                                                                                   | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -450,17 +450,17 @@ scw function namespace create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Default: `<generated>` |  |
-| environment-variables.{key} |  | Environment variables of the namespace |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| description |  | Description of the namespace |
-| secret-environment-variables.{index}.key |  |  |
-| secret-environment-variables.{index}.value |  |  |
-| tags.{index} |  | Tags of the Serverless Function Namespace |
-| ~~activate-vpc-integration~~ | Deprecated | [DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                       |                                                             | Description                                                                            |
+|--------------------------------------------|-------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| name                                       | Default: `<generated>`                                      |                                                                                        |
+| environment-variables.{key}                |                                                             | Environment variables of the namespace                                                 |
+| project-id                                 |                                                             | Project ID to use. If none is passed the default project ID will be used               |
+| description                                |                                                             | Description of the namespace                                                           |
+| secret-environment-variables.{index}.key   |                                                             |                                                                                        |
+| secret-environment-variables.{index}.value |                                                             |                                                                                        |
+| tags.{index}                               |                                                             | Tags of the Serverless Function Namespace                                              |
+| ~~activate-vpc-integration~~               | Deprecated                                                  | [DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC. |
+| region                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config            |
 
 
 
@@ -477,10 +477,10 @@ scw function namespace delete <namespace-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id | Required | UUID of the namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                             | Description                                                                 |
+|--------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| namespace-id | Required                                                    | UUID of the namespace                                                       |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -497,10 +497,10 @@ scw function namespace get <namespace-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id | Required | UUID of the namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                             | Description                                                                 |
+|--------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| namespace-id | Required                                                    | UUID of the namespace                                                       |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -517,13 +517,13 @@ scw function namespace list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order of the namespaces |
-| name |  | Name of the namespace |
-| project-id |  | UUID of the Project the namespace belongs to |
-| organization-id |  | UUID of the Organization the namespace belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                      | Description                                                                 |
+|-----------------|----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by        | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order of the namespaces                                                     |
+| name            |                                                                      | Name of the namespace                                                       |
+| project-id      |                                                                      | UUID of the Project the namespace belongs to                                |
+| organization-id |                                                                      | UUID of the Organization the namespace belongs to                           |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -540,15 +540,15 @@ scw function namespace update <namespace-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespace-id | Required | UUID of the namespapce |
-| environment-variables.{key} |  | Environment variables of the namespace |
-| description |  | Description of the namespace |
-| secret-environment-variables.{index}.key |  |  |
-| secret-environment-variables.{index}.value |  |  |
-| tags.{index} |  | Tags of the Serverless Function Namespace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                       |                                                             | Description                                                                 |
+|--------------------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| namespace-id                               | Required                                                    | UUID of the namespapce                                                      |
+| environment-variables.{key}                |                                                             | Environment variables of the namespace                                      |
+| description                                |                                                             | Description of the namespace                                                |
+| secret-environment-variables.{index}.key   |                                                             |                                                                             |
+| secret-environment-variables.{index}.value |                                                             |                                                                             |
+| tags.{index}                               |                                                             | Tags of the Serverless Function Namespace                                   |
+| region                                     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -570,8 +570,8 @@ scw function runtime list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name   |                                                             | Description                                                                 |
+|--------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
 | region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -594,13 +594,13 @@ scw function token create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| function-id |  | UUID of the function to associate the token with |
-| namespace-id |  | UUID of the namespace to associate the token with |
-| description |  | Description of the token |
-| expires-at |  | Date on which the token expires |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                             | Description                                                                 |
+|--------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| function-id  |                                                             | UUID of the function to associate the token with                            |
+| namespace-id |                                                             | UUID of the namespace to associate the token with                           |
+| description  |                                                             | Description of the token                                                    |
+| expires-at   |                                                             | Date on which the token expires                                             |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -617,10 +617,10 @@ scw function token delete <token-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| token-id | Required | UUID of the token to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name     |                                                             | Description                                                                 |
+|----------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| token-id | Required                                                    | UUID of the token to delete                                                 |
+| region   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -637,10 +637,10 @@ scw function token get <token-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| token-id | Required | UUID of the token to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name     |                                                             | Description                                                                 |
+|----------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| token-id | Required                                                    | UUID of the token to get                                                    |
+| region   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -657,12 +657,12 @@ scw function token list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order for the tokens |
-| function-id |  | UUID of the function the token is associated with |
-| namespace-id |  | UUID of the namespace the token is associated with |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                                    | Description                                                                 |
+|--------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by     | One of: `created_at_asc`, `created_at_desc`                        | Sort order for the tokens                                                   |
+| function-id  |                                                                    | UUID of the function the token is associated with                           |
+| namespace-id |                                                                    | UUID of the namespace the token is associated with                          |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -684,19 +684,19 @@ scw function trigger create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | Name of the trigger |
-| function-id | Required | ID of the function to trigger |
-| description |  | Description of the trigger |
-| scw-sqs-config.queue |  | Name of the SQS queue the trigger should listen to |
-| scw-sqs-config.mnq-project-id |  | ID of the Messaging and Queuing project |
-| scw-sqs-config.mnq-region |  | Region in which the Messaging and Queuing project is activated. |
-| scw-nats-config.subject |  | Name of the NATS subject the trigger should listen to |
-| scw-nats-config.mnq-nats-account-id |  | ID of the Messaging and Queuing NATS account |
-| scw-nats-config.mnq-project-id |  | ID of the Messaging and Queuing project |
-| scw-nats-config.mnq-region |  | Region in which the Messaging and Queuing project is activated. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                |                                                             | Description                                                                 |
+|-------------------------------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| name                                | Required                                                    | Name of the trigger                                                         |
+| function-id                         | Required                                                    | ID of the function to trigger                                               |
+| description                         |                                                             | Description of the trigger                                                  |
+| scw-sqs-config.queue                |                                                             | Name of the SQS queue the trigger should listen to                          |
+| scw-sqs-config.mnq-project-id       |                                                             | ID of the Messaging and Queuing project                                     |
+| scw-sqs-config.mnq-region           |                                                             | Region in which the Messaging and Queuing project is activated.             |
+| scw-nats-config.subject             |                                                             | Name of the NATS subject the trigger should listen to                       |
+| scw-nats-config.mnq-nats-account-id |                                                             | ID of the Messaging and Queuing NATS account                                |
+| scw-nats-config.mnq-project-id      |                                                             | ID of the Messaging and Queuing project                                     |
+| scw-nats-config.mnq-region          |                                                             | Region in which the Messaging and Queuing project is activated.             |
+| region                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -713,10 +713,10 @@ scw function trigger delete <trigger-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| trigger-id | Required | ID of the trigger to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       |                                                             | Description                                                                 |
+|------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| trigger-id | Required                                                    | ID of the trigger to delete                                                 |
+| region     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -733,10 +733,10 @@ scw function trigger get <trigger-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| trigger-id | Required | ID of the trigger to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       |                                                             | Description                                                                 |
+|------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| trigger-id | Required                                                    | ID of the trigger to get                                                    |
+| region     | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -753,13 +753,13 @@ scw function trigger list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order in which to return results |
-| function-id |  | ID of the function the triggers belongs to |
-| namespace-id |  | ID of the namespace the triggers belongs to |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name         |                                                                    | Description                                                                 |
+|--------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| order-by     | One of: `created_at_asc`, `created_at_desc`                        | Order in which to return results                                            |
+| function-id  |                                                                    | ID of the function the triggers belongs to                                  |
+| namespace-id |                                                                    | ID of the namespace the triggers belongs to                                 |
+| project-id   |                                                                    | Project ID to use. If none is passed the default project ID will be used    |
+| region       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -776,12 +776,12 @@ scw function trigger update <trigger-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| trigger-id | Required | ID of the trigger to update |
-| name |  | Name of the trigger |
-| description |  | Description of the trigger |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                             | Description                                                                 |
+|-------------|-------------------------------------------------------------|-----------------------------------------------------------------------------|
+| trigger-id  | Required                                                    | ID of the trigger to update                                                 |
+| name        |                                                             | Name of the trigger                                                         |
+| description |                                                             | Description of the trigger                                                  |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

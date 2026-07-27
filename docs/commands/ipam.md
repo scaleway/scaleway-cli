@@ -20,12 +20,12 @@ scw ipam ip attach <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP ID |
-| resource.mac-address |  | MAC address of the custom resource |
-| resource.name |  | Name of the custom resource |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                 |                                                                       | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-id                | Required                                                              | IP ID                                                                       |
+| resource.mac-address |                                                                       | MAC address of the custom resource                                          |
+| resource.name        |                                                                       | Name of the custom resource                                                 |
+| region               | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -42,19 +42,19 @@ scw ipam ip create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| source.zonal |  | Zone the IP lives in if the IP is a public zoned IP. |
-| source.private-network-id |  | Private Network the IP lives in if the IP is a private IP. |
-| source.subnet-id |  | Private Network subnet the IP lives in if the IP is a private IP in a Private Network. |
-| source.vpc-id |  |  |
-| is-ipv6 |  | Request an IPv6 instead of an IPv4 |
-| address |  | Request this specific IP address in the specified source pool |
-| tags.{index} |  | Tags for the IP |
-| resource.mac-address |  | MAC address of the custom resource |
-| resource.name |  | Name of the custom resource |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                      |                                                                       | Description                                                                            |
+|---------------------------|-----------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| project-id                |                                                                       | Project ID to use. If none is passed the default project ID will be used               |
+| source.zonal              |                                                                       | Zone the IP lives in if the IP is a public zoned IP.                                   |
+| source.private-network-id |                                                                       | Private Network the IP lives in if the IP is a private IP.                             |
+| source.subnet-id          |                                                                       | Private Network subnet the IP lives in if the IP is a private IP in a Private Network. |
+| source.vpc-id             |                                                                       |                                                                                        |
+| is-ipv6                   |                                                                       | Request an IPv6 instead of an IPv4                                                     |
+| address                   |                                                                       | Request this specific IP address in the specified source pool                          |
+| tags.{index}              |                                                                       | Tags for the IP                                                                        |
+| resource.mac-address      |                                                                       | MAC address of the custom resource                                                     |
+| resource.name             |                                                                       | Name of the custom resource                                                            |
+| region                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config            |
 
 
 
@@ -71,9 +71,9 @@ scw ipam ip delete <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP ID |
+| Name   |                                                                       | Description                                                                 |
+|--------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-id  | Required                                                              | IP ID                                                                       |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -91,12 +91,12 @@ scw ipam ip detach <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP ID |
-| resource.mac-address |  | MAC address of the custom resource |
-| resource.name |  | Name of the custom resource |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                 |                                                                       | Description                                                                 |
+|----------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-id                | Required                                                              | IP ID                                                                       |
+| resource.mac-address |                                                                       | MAC address of the custom resource                                          |
+| resource.name        |                                                                       | Name of the custom resource                                                 |
+| region               | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -113,9 +113,9 @@ scw ipam ip get <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP ID |
+| Name   |                                                                       | Description                                                                 |
+|--------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-id  | Required                                                              | IP ID                                                                       |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
@@ -133,27 +133,27 @@ scw ipam ip list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `attached_at_desc`, `attached_at_asc`, `ip_address_desc`, `ip_address_asc`, `mac_address_desc`, `mac_address_asc` | Sort order of the returned IPs |
-| project-id |  | Project ID to filter for. Only IPs belonging to this Project will be returned |
-| zonal |  | Zone to filter for. Only IPs that are zonal, and in this zone, will be returned |
-| private-network-id |  | Private Network to filter for. |
-| subnet-id |  | Subnet ID to filter for. |
-| vpc-id |  | VPC ID to filter for. |
-| attached |  | Defines whether to filter only for IPs which are attached to a resource |
-| resource-name |  | Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned. |
-| resource-id |  | Resource ID to filter for. Only IPs attached to this resource will be returned |
-| resource-ids.{index} |  | Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned |
-| resource-type | One of: `unknown_type`, `custom`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment`, `mgdb_instance`, `apple_silicon_server`, `apple_silicon_private_nic`, `serverless_container`, `serverless_function`, `vpn_gateway`, `ddl_datalab`, `kafka_cluster`, `bgp_endpoint`, `scbl_sedb_cluster`, `dtwh_deployment`, `sedb_cluster`, `msgq_cluster`, `edge_vpc_endpoint`, `dviz_cluster` | Resource type to filter for. Only IPs attached to this type of resource will be returned |
-| resource-types.{index} | One of: `unknown_type`, `custom`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment`, `mgdb_instance`, `apple_silicon_server`, `apple_silicon_private_nic`, `serverless_container`, `serverless_function`, `vpn_gateway`, `ddl_datalab`, `kafka_cluster`, `bgp_endpoint`, `scbl_sedb_cluster`, `dtwh_deployment`, `sedb_cluster`, `msgq_cluster`, `edge_vpc_endpoint`, `dviz_cluster` | Resource types to filter for. Only IPs attached to these types of resources will be returned |
-| mac-address |  | MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned |
-| tags.{index} |  | Tags to filter for, only IPs with one or more matching tags will be returned |
-| is-ipv6 |  | Defines whether to filter only for IPv4s or IPv6s |
-| ip-ids.{index} |  | IP IDs to filter for. Only IPs with these UUIDs will be returned |
-| source-vpc-id |  |  |
-| organization-id |  | Organization ID to filter for. Only IPs belonging to this Organization will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Description                                                                                                                |
+|------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| order-by               | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `attached_at_desc`, `attached_at_asc`, `ip_address_desc`, `ip_address_asc`, `mac_address_desc`, `mac_address_asc`                                                                                                                                                                                                                                                                                                                                                                                 | Sort order of the returned IPs                                                                                             |
+| project-id             |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Project ID to filter for. Only IPs belonging to this Project will be returned                                              |
+| zonal                  |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Zone to filter for. Only IPs that are zonal, and in this zone, will be returned                                            |
+| private-network-id     |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Private Network to filter for.                                                                                             |
+| subnet-id              |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Subnet ID to filter for.                                                                                                   |
+| vpc-id                 |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | VPC ID to filter for.                                                                                                      |
+| attached               |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Defines whether to filter only for IPs which are attached to a resource                                                    |
+| resource-name          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned. |
+| resource-id            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Resource ID to filter for. Only IPs attached to this resource will be returned                                             |
+| resource-ids.{index}   |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned                          |
+| resource-type          | One of: `unknown_type`, `custom`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment`, `mgdb_instance`, `apple_silicon_server`, `apple_silicon_private_nic`, `serverless_container`, `serverless_function`, `vpn_gateway`, `ddl_datalab`, `kafka_cluster`, `bgp_endpoint`, `scbl_sedb_cluster`, `dtwh_deployment`, `sedb_cluster`, `msgq_cluster`, `edge_vpc_endpoint`, `dviz_cluster` | Resource type to filter for. Only IPs attached to this type of resource will be returned                                   |
+| resource-types.{index} | One of: `unknown_type`, `custom`, `instance_server`, `instance_ip`, `instance_private_nic`, `lb_server`, `fip_ip`, `vpc_gateway`, `vpc_gateway_network`, `k8s_node`, `k8s_cluster`, `rdb_instance`, `redis_cluster`, `baremetal_server`, `baremetal_private_nic`, `llm_deployment`, `mgdb_instance`, `apple_silicon_server`, `apple_silicon_private_nic`, `serverless_container`, `serverless_function`, `vpn_gateway`, `ddl_datalab`, `kafka_cluster`, `bgp_endpoint`, `scbl_sedb_cluster`, `dtwh_deployment`, `sedb_cluster`, `msgq_cluster`, `edge_vpc_endpoint`, `dviz_cluster` | Resource types to filter for. Only IPs attached to these types of resources will be returned                               |
+| mac-address            |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned                          |
+| tags.{index}           |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Tags to filter for, only IPs with one or more matching tags will be returned                                               |
+| is-ipv6                |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Defines whether to filter only for IPv4s or IPv6s                                                                          |
+| ip-ids.{index}         |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | IP IDs to filter for. Only IPs with these UUIDs will be returned                                                           |
+| source-vpc-id          |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     |                                                                                                                            |
+| organization-id        |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                     | Organization ID to filter for. Only IPs belonging to this Organization will be returned                                    |
+| region                 | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`                                                                                                                                                                                                                                                                                                                                                                                                                                                                                                        | Region to target. If none is passed will use default region from the config                                                |
 
 
 
@@ -170,14 +170,14 @@ scw ipam ip move <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP ID |
-| from-resource.mac-address |  | MAC address of the custom resource |
-| from-resource.name |  | Name of the custom resource |
-| to-resource.mac-address |  | MAC address of the custom resource |
-| to-resource.name |  | Name of the custom resource |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                      |                                                                       | Description                                                                 |
+|---------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-id                     | Required                                                              | IP ID                                                                       |
+| from-resource.mac-address |                                                                       | MAC address of the custom resource                                          |
+| from-resource.name        |                                                                       | Name of the custom resource                                                 |
+| to-resource.mac-address   |                                                                       | MAC address of the custom resource                                          |
+| to-resource.name          |                                                                       | Name of the custom resource                                                 |
+| region                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -194,13 +194,13 @@ scw ipam ip update <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP ID |
-| tags.{index} |  | Tags for the IP |
-| reverses.{index}.hostname |  | Reverse domain name |
-| reverses.{index}.address |  | IP corresponding to the hostname |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                      |                                                                       | Description                                                                 |
+|---------------------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-id                     | Required                                                              | IP ID                                                                       |
+| tags.{index}              |                                                                       | Tags for the IP                                                             |
+| reverses.{index}.hostname |                                                                       | Reverse domain name                                                         |
+| reverses.{index}.address  |                                                                       | IP corresponding to the hostname                                            |
+| region                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -222,10 +222,10 @@ scw ipam ip-set release [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-ids.{index} |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           |                                                                       | Description                                                                 |
+|----------------|-----------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| ip-ids.{index} |                                                                       |                                                                             |
+| region         | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
 
 
 

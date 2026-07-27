@@ -20,13 +20,13 @@ scw iam api-key create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| application-id |  | ID of the application |
-| user-id |  | ID of the user |
-| expires-at |  | Expiration date of the API key |
-| default-project-id |  | Default Project ID to use with Object Storage |
-| description |  | Description of the API key (max length is 200 characters) |
+| Name               |     | Description                                               |
+|--------------------|-----|-----------------------------------------------------------|
+| application-id     |     | ID of the application                                     |
+| user-id            |     | ID of the user                                            |
+| expires-at         |     | Expiration date of the API key                            |
+| default-project-id |     | Default Project ID to use with Object Storage             |
+| description        |     | Description of the API key (max length is 200 characters) |
 
 
 
@@ -43,8 +43,8 @@ scw iam api-key delete <access-key ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name       |          | Description          |
+|------------|----------|----------------------|
 | access-key | Required | Access key to delete |
 
 
@@ -72,9 +72,9 @@ scw iam api-key get <access-key ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| access-key | Required | Access key to search for |
+| Name          |                 | Description                                             |
+|---------------|-----------------|---------------------------------------------------------|
+| access-key    | Required        | Access key to search for                                |
 | with-policies | Default: `true` | Display the set of policies associated with the API key |
 
 
@@ -92,19 +92,19 @@ scw iam api-key list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `expires_at_asc`, `expires_at_desc`, `access_key_asc`, `access_key_desc` | Criteria for sorting results |
-| ~~application-id~~ | Deprecated | ID of application that bears the API key |
-| ~~user-id~~ | Deprecated | ID of user that bears the API key |
-| editable |  | Defines whether to filter out editable API keys or not |
-| expired |  | Defines whether to filter out expired API keys or not |
-| ~~access-key~~ | Deprecated | Filter by access key (deprecated in favor of `access_keys`) |
-| description |  | Filter by description |
-| bearer-id |  | Filter by bearer ID |
-| bearer-type | One of: `unknown_bearer_type`, `user`, `application` | Filter by type of bearer |
-| access-keys.{index} |  | Filter by a list of access keys |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of Organization |
+| Name                |                                                                                                                                                                                           | Description                                                 |
+|---------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| order-by            | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `expires_at_asc`, `expires_at_desc`, `access_key_asc`, `access_key_desc` | Criteria for sorting results                                |
+| ~~application-id~~  | Deprecated                                                                                                                                                                                | ID of application that bears the API key                    |
+| ~~user-id~~         | Deprecated                                                                                                                                                                                | ID of user that bears the API key                           |
+| editable            |                                                                                                                                                                                           | Defines whether to filter out editable API keys or not      |
+| expired             |                                                                                                                                                                                           | Defines whether to filter out expired API keys or not       |
+| ~~access-key~~      | Deprecated                                                                                                                                                                                | Filter by access key (deprecated in favor of `access_keys`) |
+| description         |                                                                                                                                                                                           | Filter by description                                       |
+| bearer-id           |                                                                                                                                                                                           | Filter by bearer ID                                         |
+| bearer-type         | One of: `unknown_bearer_type`, `user`, `application`                                                                                                                                      | Filter by type of bearer                                    |
+| access-keys.{index} |                                                                                                                                                                                           | Filter by a list of access keys                             |
+| organization-id     | Required<br />Default: `<retrieved from config>`                                                                                                                                          | ID of Organization                                          |
 
 
 
@@ -121,12 +121,12 @@ scw iam api-key update <access-key ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| access-key | Required | Access key to update |
-| default-project-id |  | New default Project ID to set |
-| description |  | New description to update |
-| expires-at |  | New expiration date of the API key |
+| Name               |          | Description                        |
+|--------------------|----------|------------------------------------|
+| access-key         | Required | Access key to update               |
+| default-project-id |          | New default Project ID to set      |
+| description        |          | New description to update          |
+| expires-at         |          | New expiration date of the API key |
 
 
 
@@ -148,12 +148,12 @@ scw iam application create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the application to create (max length is 64 characters) |
-| description |  | Description of the application (max length is 200 characters) |
-| tags.{index} |  | Tags associated with the application (maximum of 10 tags) |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |                                      | Description                                                                        |
+|-----------------|--------------------------------------|------------------------------------------------------------------------------------|
+| name            | Required<br />Default: `<generated>` | Name of the application to create (max length is 64 characters)                    |
+| description     |                                      | Description of the application (max length is 200 characters)                      |
+| tags.{index}    |                                      | Tags associated with the application (maximum of 10 tags)                          |
+| organization-id |                                      | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -170,8 +170,8 @@ scw iam application delete <application-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name           |          | Description                     |
+|----------------|----------|---------------------------------|
 | application-id | Required | ID of the application to delete |
 
 
@@ -189,8 +189,8 @@ scw iam application get <application-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name           |          | Description                   |
+|----------------|----------|-------------------------------|
 | application-id | Required | ID of the application to find |
 
 
@@ -208,14 +208,14 @@ scw iam application list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Criteria for sorting results |
-| name |  | Name of the application to filter |
-| editable |  | Defines whether to filter out editable applications or not |
-| application-ids.{index} |  | Filter by list of IDs |
-| tag |  | Filter by tags containing a given string |
-| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                    |                                                                                                                                          | Description                                                                        |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| order-by                | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Criteria for sorting results                                                       |
+| name                    |                                                                                                                                          | Name of the application to filter                                                  |
+| editable                |                                                                                                                                          | Defines whether to filter out editable applications or not                         |
+| application-ids.{index} |                                                                                                                                          | Filter by list of IDs                                                              |
+| tag                     |                                                                                                                                          | Filter by tags containing a given string                                           |
+| organization-id         | Default: `<retrieved from config>`                                                                                                       | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -232,12 +232,12 @@ scw iam application update <application-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| application-id | Required | ID of the application to update |
-| name |  | New name for the application (max length is 64 chars) |
-| description |  | New description for the application (max length is 200 chars) |
-| tags.{index} |  | New tags for the application (maximum of 10 tags) |
+| Name           |          | Description                                                   |
+|----------------|----------|---------------------------------------------------------------|
+| application-id | Required | ID of the application to update                               |
+| name           |          | New name for the application (max length is 64 chars)         |
+| description    |          | New description for the application (max length is 200 chars) |
+| tags.{index}   |          | New tags for the application (maximum of 10 tags)             |
 
 
 
@@ -259,11 +259,11 @@ scw iam group add-member <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group |
-| user-id |  | ID of the user to add |
-| application-id |  | ID of the application to add |
+| Name           |          | Description                  |
+|----------------|----------|------------------------------|
+| group-id       | Required | ID of the group              |
+| user-id        |          | ID of the user to add        |
+| application-id |          | ID of the application to add |
 
 
 
@@ -280,11 +280,11 @@ scw iam group add-members [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group |
-| user-ids.{index} |  | IDs of the users to add |
-| application-ids.{index} |  | IDs of the applications to add |
+| Name                    |          | Description                    |
+|-------------------------|----------|--------------------------------|
+| group-id                | Required | ID of the group                |
+| user-ids.{index}        |          | IDs of the users to add        |
+| application-ids.{index} |          | IDs of the applications to add |
 
 
 
@@ -301,12 +301,12 @@ scw iam group create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the group to create (max length is 64 chars). MUST be unique inside an Organization |
-| description |  | Description of the group to create (max length is 200 chars) |
-| tags.{index} |  | Tags associated with the group (maximum of 10 tags) |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |                                      | Description                                                                                 |
+|-----------------|--------------------------------------|---------------------------------------------------------------------------------------------|
+| name            | Required<br />Default: `<generated>` | Name of the group to create (max length is 64 chars). MUST be unique inside an Organization |
+| description     |                                      | Description of the group to create (max length is 200 chars)                                |
+| tags.{index}    |                                      | Tags associated with the group (maximum of 10 tags)                                         |
+| organization-id |                                      | Organization ID to use. If none is passed the default organization ID will be used          |
 
 
 **Examples:**
@@ -333,8 +333,8 @@ scw iam group delete <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description               |
+|----------|----------|---------------------------|
 | group-id | Required | ID of the group to delete |
 
 
@@ -362,8 +362,8 @@ scw iam group get <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description     |
+|----------|----------|-----------------|
 | group-id | Required | ID of the group |
 
 
@@ -381,15 +381,15 @@ scw iam group list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of groups |
-| name |  | Name of group to find |
-| application-ids.{index} |  | Filter by a list of application IDs |
-| user-ids.{index} |  | Filter by a list of user IDs |
-| group-ids.{index} |  | Filter by a list of group IDs |
-| tag |  | Filter by tags containing a given string |
-| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                    |                                                                                                                                          | Description                                                                        |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| order-by                | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of groups                                                               |
+| name                    |                                                                                                                                          | Name of group to find                                                              |
+| application-ids.{index} |                                                                                                                                          | Filter by a list of application IDs                                                |
+| user-ids.{index}        |                                                                                                                                          | Filter by a list of user IDs                                                       |
+| group-ids.{index}       |                                                                                                                                          | Filter by a list of group IDs                                                      |
+| tag                     |                                                                                                                                          | Filter by tags containing a given string                                           |
+| organization-id         | Default: `<retrieved from config>`                                                                                                       | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -406,11 +406,11 @@ scw iam group remove-member <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group |
-| user-id |  | ID of the user to remove |
-| application-id |  | ID of the application to remove |
+| Name           |          | Description                     |
+|----------------|----------|---------------------------------|
+| group-id       | Required | ID of the group                 |
+| user-id        |          | ID of the user to remove        |
+| application-id |          | ID of the application to remove |
 
 
 
@@ -427,11 +427,11 @@ scw iam group set-members [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required |  |
-| user-ids.{index} | Required |  |
-| application-ids.{index} | Required |  |
+| Name                    |          | Description |
+|-------------------------|----------|-------------|
+| group-id                | Required |             |
+| user-ids.{index}        | Required |             |
+| application-ids.{index} | Required |             |
 
 
 
@@ -448,12 +448,12 @@ scw iam group update <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group to update |
-| name |  | New name for the group (max length is 64 chars). MUST be unique inside an Organization |
-| description |  | New description for the group (max length is 200 chars) |
-| tags.{index} |  | New tags for the group (maximum of 10 tags) |
+| Name         |          | Description                                                                            |
+|--------------|----------|----------------------------------------------------------------------------------------|
+| group-id     | Required | ID of the group to update                                                              |
+| name         |          | New name for the group (max length is 64 chars). MUST be unique inside an Organization |
+| description  |          | New description for the group (max length is 200 chars)                                |
+| tags.{index} |          | New tags for the group (maximum of 10 tags)                                            |
 
 
 
@@ -475,9 +475,9 @@ scw iam jwt delete <jti ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| jti | Required | JWT ID of the JWT to delete |
+| Name |          | Description                 |
+|------|----------|-----------------------------|
+| jti  | Required | JWT ID of the JWT to delete |
 
 
 
@@ -494,9 +494,9 @@ scw iam jwt get <jti ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| jti | Required | JWT ID of the JWT to get |
+| Name |          | Description              |
+|------|----------|--------------------------|
+| jti  | Required | JWT ID of the JWT to get |
 
 
 
@@ -513,11 +513,11 @@ scw iam jwt list <audience-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Criteria for sorting results |
-| audience-id | Required | ID of the user to search |
-| expired |  | Filter out expired JWTs or not |
+| Name        |                                                                                                                 | Description                    |
+|-------------|-----------------------------------------------------------------------------------------------------------------|--------------------------------|
+| order-by    | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Criteria for sorting results   |
+| audience-id | Required                                                                                                        | ID of the user to search       |
+| expired     |                                                                                                                 | Filter out expired JWTs or not |
 
 
 
@@ -539,8 +539,8 @@ scw iam log get <log-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name   |          | Description   |
+|--------|----------|---------------|
 | log-id | Required | ID of the log |
 
 
@@ -558,15 +558,15 @@ scw iam log list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc` | Criteria for sorting results |
-| created-after |  | Defined whether or not to filter out logs created after this timestamp |
-| created-before |  | Defined whether or not to filter out logs created before this timestamp |
-| action | One of: `unknown_action`, `created`, `updated`, `deleted` | Defined whether or not to filter out by a specific action |
-| resource-type | One of: `unknown_resource_type`, `api_key`, `user`, `application`, `group`, `policy` | Defined whether or not to filter out by a specific type of resource |
-| search |  | Defined whether or not to filter out log by bearer ID or resource ID |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |                                                                                      | Description                                                                        |
+|-----------------|--------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| order-by        | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`           | Criteria for sorting results                                                       |
+| created-after   |                                                                                      | Defined whether or not to filter out logs created after this timestamp             |
+| created-before  |                                                                                      | Defined whether or not to filter out logs created before this timestamp            |
+| action          | One of: `unknown_action`, `created`, `updated`, `deleted`                            | Defined whether or not to filter out by a specific action                          |
+| resource-type   | One of: `unknown_resource_type`, `api_key`, `user`, `application`, `group`, `policy` | Defined whether or not to filter out by a specific type of resource                |
+| search          |                                                                                      | Defined whether or not to filter out log by bearer ID or resource ID               |
+| organization-id |                                                                                      | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -588,9 +588,9 @@ scw iam organization enable-saml [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -607,9 +607,9 @@ scw iam organization enable-scim [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -626,9 +626,9 @@ scw iam organization get-saml [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -645,9 +645,9 @@ scw iam organization get-scim [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -669,10 +669,10 @@ scw iam permission-set list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc` | Criteria for sorting results |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |                                                                                                     | Description                                                                        |
+|-----------------|-----------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| order-by        | Default: `created_at_asc`<br />One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc` | Criteria for sorting results                                                       |
+| organization-id |                                                                                                     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -694,9 +694,9 @@ scw iam policy clone [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| policy-id | Required |  |
+| Name      |          | Description |
+|-----------|----------|-------------|
+| policy-id | Required |             |
 
 
 
@@ -713,20 +713,20 @@ scw iam policy create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the policy to create (max length is 64 characters) |
-| description |  | Description of the policy to create (max length is 200 characters) |
-| rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
-| rules.{index}.condition |  | Condition expression to evaluate |
-| rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
-| rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
-| tags.{index} |  | Tags associated with the policy (maximum of 10 tags) |
-| user-id |  | ID of user attributed to the policy |
-| group-id |  | ID of group attributed to the policy |
-| application-id |  | ID of application attributed to the policy |
-| no-principal |  | Defines whether or not a policy is attributed to a principal |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                                       |                                      | Description                                                                        |
+|--------------------------------------------|--------------------------------------|------------------------------------------------------------------------------------|
+| name                                       | Required<br />Default: `<generated>` | Name of the policy to create (max length is 64 characters)                         |
+| description                                |                                      | Description of the policy to create (max length is 200 characters)                 |
+| rules.{index}.permission-set-names.{index} |                                      | Names of permission sets bound to the rule                                         |
+| rules.{index}.condition                    |                                      | Condition expression to evaluate                                                   |
+| rules.{index}.project-ids.{index}          |                                      | List of Project IDs the rule is scoped to                                          |
+| rules.{index}.organization-id              |                                      | ID of Organization the rule is scoped to                                           |
+| tags.{index}                               |                                      | Tags associated with the policy (maximum of 10 tags)                               |
+| user-id                                    |                                      | ID of user attributed to the policy                                                |
+| group-id                                   |                                      | ID of group attributed to the policy                                               |
+| application-id                             |                                      | ID of application attributed to the policy                                         |
+| no-principal                               |                                      | Defines whether or not a policy is attributed to a principal                       |
+| organization-id                            |                                      | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 **Examples:**
@@ -753,8 +753,8 @@ scw iam policy delete <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name      |          | Description            |
+|-----------|----------|------------------------|
 | policy-id | Required | Id of policy to delete |
 
 
@@ -772,8 +772,8 @@ scw iam policy get <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name      |          | Description            |
+|-----------|----------|------------------------|
 | policy-id | Required | Id of policy to search |
 
 
@@ -791,18 +791,18 @@ scw iam policy list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `policy_name_asc`, `policy_name_desc`, `created_at_asc`, `created_at_desc` | Criteria for sorting results |
-| editable |  | Defines whether or not filter out editable policies |
-| user-ids.{index} |  | Defines whether or not to filter by list of user IDs |
-| group-ids.{index} |  | Defines whether or not to filter by list of group IDs |
-| application-ids.{index} |  | Filter by a list of application IDs |
-| no-principal |  | Defines whether or not the policy is attributed to a principal |
-| policy-name |  | Name of the policy to fetch |
-| tag |  | Filter by tags containing a given string |
-| policy-ids.{index} |  | Filter by a list of IDs |
-| organization-id | Default: `<retrieved from config>` | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                    |                                                                                                                   | Description                                                                        |
+|-------------------------|-------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------|
+| order-by                | Default: `created_at_asc`<br />One of: `policy_name_asc`, `policy_name_desc`, `created_at_asc`, `created_at_desc` | Criteria for sorting results                                                       |
+| editable                |                                                                                                                   | Defines whether or not filter out editable policies                                |
+| user-ids.{index}        |                                                                                                                   | Defines whether or not to filter by list of user IDs                               |
+| group-ids.{index}       |                                                                                                                   | Defines whether or not to filter by list of group IDs                              |
+| application-ids.{index} |                                                                                                                   | Filter by a list of application IDs                                                |
+| no-principal            |                                                                                                                   | Defines whether or not the policy is attributed to a principal                     |
+| policy-name             |                                                                                                                   | Name of the policy to fetch                                                        |
+| tag                     |                                                                                                                   | Filter by tags containing a given string                                           |
+| policy-ids.{index}      |                                                                                                                   | Filter by a list of IDs                                                            |
+| organization-id         | Default: `<retrieved from config>`                                                                                | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -819,16 +819,16 @@ scw iam policy update <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| policy-id | Required | Id of policy to update |
-| name |  | New name for the policy (max length is 64 characters) |
-| description |  | New description of policy (max length is 200 characters) |
-| tags.{index} |  | New tags for the policy (maximum of 10 tags) |
-| user-id |  | New ID of user attributed to the policy |
-| group-id |  | New ID of group attributed to the policy |
-| application-id |  | New ID of application attributed to the policy |
-| no-principal |  | Defines whether or not the policy is attributed to a principal |
+| Name           |          | Description                                                    |
+|----------------|----------|----------------------------------------------------------------|
+| policy-id      | Required | Id of policy to update                                         |
+| name           |          | New name for the policy (max length is 64 characters)          |
+| description    |          | New description of policy (max length is 200 characters)       |
+| tags.{index}   |          | New tags for the policy (maximum of 10 tags)                   |
+| user-id        |          | New ID of user attributed to the policy                        |
+| group-id       |          | New ID of group attributed to the policy                       |
+| application-id |          | New ID of application attributed to the policy                 |
+| no-principal   |          | Defines whether or not the policy is attributed to a principal |
 
 
 
@@ -850,12 +850,12 @@ scw iam rule create <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| policy-id |  | Id of policy to update |
-| permission-set-names.{index} |  | Names of permission sets bound to the rule |
-| project-ids.{index} |  | List of Project IDs the rule is scoped to |
-| organization-id |  | ID of Organization the rule is scoped to |
+| Name                         |     | Description                                |
+|------------------------------|-----|--------------------------------------------|
+| policy-id                    |     | Id of policy to update                     |
+| permission-set-names.{index} |     | Names of permission sets bound to the rule |
+| project-ids.{index}          |     | List of Project IDs the rule is scoped to  |
+| organization-id              |     | ID of Organization the rule is scoped to   |
 
 
 
@@ -872,10 +872,10 @@ scw iam rule delete <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| policy-id |  | Id of policy to update |
-| rule-id |  | Id of rule to delete |
+| Name      |     | Description            |
+|-----------|-----|------------------------|
+| policy-id |     | Id of policy to update |
+| rule-id   |     | Id of rule to delete   |
 
 
 
@@ -892,8 +892,8 @@ scw iam rule list <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name      |          | Description            |
+|-----------|----------|------------------------|
 | policy-id | Required | Id of policy to search |
 
 
@@ -911,13 +911,13 @@ scw iam rule update <policy-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| policy-id | Required | Id of policy to update |
-| rules.{index}.permission-set-names.{index} |  | Names of permission sets bound to the rule |
-| rules.{index}.condition |  | Condition expression to evaluate |
-| rules.{index}.project-ids.{index} |  | List of Project IDs the rule is scoped to |
-| rules.{index}.organization-id |  | ID of Organization the rule is scoped to |
+| Name                                       |          | Description                                |
+|--------------------------------------------|----------|--------------------------------------------|
+| policy-id                                  | Required | Id of policy to update                     |
+| rules.{index}.permission-set-names.{index} |          | Names of permission sets bound to the rule |
+| rules.{index}.condition                    |          | Condition expression to evaluate           |
+| rules.{index}.project-ids.{index}          |          | List of Project IDs the rule is scoped to  |
+| rules.{index}.organization-id              |          | ID of Organization the rule is scoped to   |
 
 
 
@@ -939,8 +939,8 @@ scw iam saml delete <saml-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description                  |
+|---------|----------|------------------------------|
 | saml-id | Required | ID of the SAML configuration |
 
 
@@ -958,11 +958,11 @@ scw iam saml update <saml-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| saml-id | Required | ID of the SAML configuration |
-| entity-id |  | Entity ID of the SAML Identity Provider |
-| single-sign-on-url |  | Single Sign-On URL of the SAML Identity Provider |
+| Name               |          | Description                                      |
+|--------------------|----------|--------------------------------------------------|
+| saml-id            | Required | ID of the SAML configuration                     |
+| entity-id          |          | Entity ID of the SAML Identity Provider          |
+| single-sign-on-url |          | Single Sign-On URL of the SAML Identity Provider |
 
 
 
@@ -984,11 +984,11 @@ scw iam saml-certificates add <saml-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| saml-id | Required | ID of the SAML configuration |
-| type | Required<br />One of: `unknown_certificate_type`, `signing`, `encryption` | Type of the SAML certificate |
-| content | Required | Content of the SAML certificate |
+| Name    |                                                                           | Description                     |
+|---------|---------------------------------------------------------------------------|---------------------------------|
+| saml-id | Required                                                                  | ID of the SAML configuration    |
+| type    | Required<br />One of: `unknown_certificate_type`, `signing`, `encryption` | Type of the SAML certificate    |
+| content | Required                                                                  | Content of the SAML certificate |
 
 
 
@@ -1005,8 +1005,8 @@ scw iam saml-certificates delete <certificate-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name           |          | Description                     |
+|----------------|----------|---------------------------------|
 | certificate-id | Required | ID of the certificate to delete |
 
 
@@ -1024,8 +1024,8 @@ scw iam saml-certificates list <saml-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description                  |
+|---------|----------|------------------------------|
 | saml-id | Required | ID of the SAML configuration |
 
 
@@ -1048,8 +1048,8 @@ scw iam scim delete <scim-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description                  |
+|---------|----------|------------------------------|
 | scim-id | Required | ID of the SCIM configuration |
 
 
@@ -1072,8 +1072,8 @@ scw iam scim-tokens create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description                  |
+|---------|----------|------------------------------|
 | scim-id | Required | ID of the SCIM configuration |
 
 
@@ -1091,8 +1091,8 @@ scw iam scim-tokens delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description       |
+|----------|----------|-------------------|
 | token-id | Required | The SCIM token ID |
 
 
@@ -1110,10 +1110,10 @@ scw iam scim-tokens list <scim-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| scim-id | Required | ID of the SCIM configuration |
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc` | Sort order of SCIM tokens |
+| Name     |                                                                            | Description                  |
+|----------|----------------------------------------------------------------------------|------------------------------|
+| scim-id  | Required                                                                   | ID of the SCIM configuration |
+| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc` | Sort order of SCIM tokens    |
 
 
 
@@ -1135,9 +1135,9 @@ scw iam security-settings get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            |     | Description                                                                        |
+|-----------------|-----|------------------------------------------------------------------------------------|
+| organization-id |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -1154,14 +1154,14 @@ scw iam security-settings update [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| enforce-password-renewal |  | Defines whether password renewal is enforced during first login |
-| grace-period-duration |  | Duration of the grace period to renew password or enable MFA. |
-| login-attempts-before-locked |  | Number of login attempts before the account is locked |
-| max-login-session-duration |  | Maximum duration a login session will stay active before needing to relogin. |
-| max-api-key-expiration-duration |  | Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration. |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                            |     | Description                                                                                                           |
+|---------------------------------|-----|-----------------------------------------------------------------------------------------------------------------------|
+| enforce-password-renewal        |     | Defines whether password renewal is enforced during first login                                                       |
+| grace-period-duration           |     | Duration of the grace period to renew password or enable MFA.                                                         |
+| login-attempts-before-locked    |     | Number of login attempts before the account is locked                                                                 |
+| max-login-session-duration      |     | Maximum duration a login session will stay active before needing to relogin.                                          |
+| max-api-key-expiration-duration |     | Maximum duration the `expires_at` field of an API key can represent. A value of 0 means there is no maximum duration. |
+| organization-id                 |     | Organization ID to use. If none is passed the default organization ID will be used                                    |
 
 
 
@@ -1183,11 +1183,11 @@ scw iam ssh-key create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the SSH key. Max length is 1000 |
-| public-key | Required | SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       |                                      | Description                                                                                                                               |
+|------------|--------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------|
+| name       | Required<br />Default: `<generated>` | Name of the SSH key. Max length is 1000                                                                                                   |
+| public-key | Required                             | SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 |
+| project-id |                                      | Project ID to use. If none is passed the default project ID will be used                                                                  |
 
 
 **Examples:**
@@ -1214,9 +1214,9 @@ scw iam ssh-key delete <ssh-key-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ssh-key-id | Required |  |
+| Name       |          | Description |
+|------------|----------|-------------|
+| ssh-key-id | Required |             |
 
 
 **Examples:**
@@ -1243,8 +1243,8 @@ scw iam ssh-key get <ssh-key-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name       |          | Description       |
+|------------|----------|-------------------|
 | ssh-key-id | Required | ID of the SSH key |
 
 
@@ -1274,13 +1274,13 @@ scw iam ssh-key list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of the SSH keys |
-| name |  | Name of group to find |
-| project-id |  | Filter by Project ID |
-| disabled |  | Defines whether to include disabled SSH keys or not |
-| organization-id | Default: `<retrieved from config>` | Filter by Organization ID |
+| Name            |                                                                                                                                          | Description                                         |
+|-----------------|------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------|
+| order-by        | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Sort order of the SSH keys                          |
+| name            |                                                                                                                                          | Name of group to find                               |
+| project-id      |                                                                                                                                          | Filter by Project ID                                |
+| disabled        |                                                                                                                                          | Defines whether to include disabled SSH keys or not |
+| organization-id | Default: `<retrieved from config>`                                                                                                       | Filter by Organization ID                           |
 
 
 
@@ -1297,11 +1297,11 @@ scw iam ssh-key update <ssh-key-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ssh-key-id | Required |  |
-| name |  | Name of the SSH key. Max length is 1000 |
-| disabled |  | Enable or disable the SSH key |
+| Name       |          | Description                             |
+|------------|----------|-----------------------------------------|
+| ssh-key-id | Required |                                         |
+| name       |          | Name of the SSH key. Max length is 1000 |
+| disabled   |          | Enable or disable the SSH key           |
 
 
 
@@ -1323,20 +1323,20 @@ scw iam user create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| email |  | Email of the user |
-| tags.{index} |  | Tags associated with the user |
-| member.email |  | Email of the user to create |
-| member.send-password-email |  | Whether or not to send an email containing the member's password. |
-| member.send-welcome-email |  | Whether or not to send a welcome email that includes onboarding information. |
-| member.username |  | The member's username |
-| member.password |  | The member's password |
-| member.first-name |  | The member's first name |
-| member.last-name |  | The member's last name |
-| member.phone-number |  | The member's phone number |
-| member.locale |  | The member's locale |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                       |     | Description                                                                        |
+|----------------------------|-----|------------------------------------------------------------------------------------|
+| email                      |     | Email of the user                                                                  |
+| tags.{index}               |     | Tags associated with the user                                                      |
+| member.email               |     | Email of the user to create                                                        |
+| member.send-password-email |     | Whether or not to send an email containing the member's password.                  |
+| member.send-welcome-email  |     | Whether or not to send a welcome email that includes onboarding information.       |
+| member.username            |     | The member's username                                                              |
+| member.password            |     | The member's password                                                              |
+| member.first-name          |     | The member's first name                                                            |
+| member.last-name           |     | The member's last name                                                             |
+| member.phone-number        |     | The member's phone number                                                          |
+| member.locale              |     | The member's locale                                                                |
+| organization-id            |     | Organization ID to use. If none is passed the default organization ID will be used |
 
 
 
@@ -1353,8 +1353,8 @@ scw iam user delete <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description              |
+|---------|----------|--------------------------|
 | user-id | Required | ID of the user to delete |
 
 
@@ -1372,8 +1372,8 @@ scw iam user get <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description            |
+|---------|----------|------------------------|
 | user-id | Required | ID of the user to find |
 
 
@@ -1391,14 +1391,14 @@ scw iam user list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc`, `username_asc`, `username_desc` | Criteria for sorting results |
-| user-ids.{index} |  | Filter by list of IDs |
-| mfa |  | Filter by MFA status |
-| tag |  | Filter by tags containing a given string |
-| type | One of: `unknown_type`, `owner`, `member` | Filter by user type |
-| organization-id | Required<br />Default: `<retrieved from config>` | ID of the Organization to filter |
+| Name             |                                                                                                                                                                                                                  | Description                              |
+|------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------|
+| order-by         | Default: `created_at_asc`<br />One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `email_asc`, `email_desc`, `last_login_asc`, `last_login_desc`, `username_asc`, `username_desc` | Criteria for sorting results             |
+| user-ids.{index} |                                                                                                                                                                                                                  | Filter by list of IDs                    |
+| mfa              |                                                                                                                                                                                                                  | Filter by MFA status                     |
+| tag              |                                                                                                                                                                                                                  | Filter by tags containing a given string |
+| type             | One of: `unknown_type`, `owner`, `member`                                                                                                                                                                        | Filter by user type                      |
+| organization-id  | Required<br />Default: `<retrieved from config>`                                                                                                                                                                 | ID of the Organization to filter         |
 
 
 
@@ -1415,8 +1415,8 @@ scw iam user lock <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description            |
+|---------|----------|------------------------|
 | user-id | Required | ID of the user to lock |
 
 
@@ -1434,8 +1434,8 @@ scw iam user unlock <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name    |          | Description              |
+|---------|----------|--------------------------|
 | user-id | Required | ID of the user to unlock |
 
 
@@ -1453,15 +1453,15 @@ scw iam user update <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| user-id | Required | ID of the user to update |
-| tags.{index} |  | New tags for the user (maximum of 10 tags) |
-| email |  | IAM member email |
-| first-name |  | IAM member first name |
-| last-name |  | IAM member last name |
-| phone-number |  | IAM member phone number |
-| locale |  | IAM member locale |
+| Name         |          | Description                                |
+|--------------|----------|--------------------------------------------|
+| user-id      | Required | ID of the user to update                   |
+| tags.{index} |          | New tags for the user (maximum of 10 tags) |
+| email        |          | IAM member email                           |
+| first-name   |          | IAM member first name                      |
+| last-name    |          | IAM member last name                       |
+| phone-number |          | IAM member phone number                    |
+| locale       |          | IAM member locale                          |
 
 
 
@@ -1478,10 +1478,10 @@ scw iam user update-password <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| user-id | Required | ID of the user to update |
-| password | Required | The new password |
+| Name     |          | Description              |
+|----------|----------|--------------------------|
+| user-id  | Required | ID of the user to update |
+| password | Required | The new password         |
 
 
 
@@ -1498,10 +1498,10 @@ scw iam user update-username <user-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| user-id | Required | ID of the user to update |
-| username | Required | The new username |
+| Name     |          | Description              |
+|----------|----------|--------------------------|
+| user-id  | Required | ID of the user to update |
+| username | Required | The new username         |
 
 
 
