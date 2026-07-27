@@ -18,15 +18,15 @@ scw autoscaling alerts list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id |  |  |
-| page-token |  |  |
-| page-size |  |  |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                              | Argument Specifications                                             |
+|------------|--------------------------------------------------------------------------|---------------------------------------------------------------------|
+| group-id   |                                                                          |                                                                     |
+| page-token |                                                                          |                                                                     |
+| page-size  |                                                                          |                                                                     |
+| project-id | Project ID to use. If none is passed the default project ID will be used |                                                                     |
+| zone       | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -59,30 +59,30 @@ scw autoscaling group create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the autoscaling group |
-| tags.{index} |  | Tags associated with the group |
-| template-id |  | Template ID for instances in this group |
-| scaling-policy-spec.minimum-size | Required | Minimum number of instances in the group |
-| scaling-policy-spec.maximum-size | Required | Maximum number of instances in the group |
-| scaling-policy-spec.scale-out-cooldown |  | Cooldown period after a scale out event |
-| scaling-policy-spec.scale-in-cooldown |  | Cooldown period after a scale in event |
-| scaling-policy-spec.scale-in-step |  | Number of instances to remove in a single scale in event |
-| scaling-policy-spec.scale-out-step |  | Number of instances to add in a single scale out event |
-| scaling-policy-spec.fixed-size.size |  |  |
-| scaling-policy-spec.cpu-target.target-avg-percent |  |  |
-| scaling-policy-spec.memory-target.target-avg-percent |  |  |
-| load-balancer-configuration-spec.load-balancer-id |  | ID of the load balancer (set to empty to disable) |
-| load-balancer-configuration-spec.backends.{index}.backend-id |  | ID of the load balancer backend |
-| load-balancer-configuration-spec.backends.{index}.address-family | One of: `unknown_address_family`, `ipv4`, `ipv6` | IP address family (IPv4 or IPv6) |
-| load-balancer-configuration-spec.backends.{index}.private-network-id |  | Optional private network ID |
-| load-balancer-configuration-spec.auto-healing.enabled |  | Whether auto-healing is enabled |
-| load-balancer-configuration-spec.auto-healing.grace-period |  | Grace period for health checks |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                                 | Description                                                              | Argument Specifications                                             |
+|----------------------------------------------------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------|
+| project-id                                                           | Project ID to use. If none is passed the default project ID will be used |                                                                     |
+| name                                                                 | Name of the autoscaling group                                            | Default: `<generated>`                                              |
+| tags.{index}                                                         | Tags associated with the group                                           |                                                                     |
+| template-id                                                          | Template ID for instances in this group                                  |                                                                     |
+| scaling-policy-spec.minimum-size                                     | Minimum number of instances in the group                                 | Required                                                            |
+| scaling-policy-spec.maximum-size                                     | Maximum number of instances in the group                                 | Required                                                            |
+| scaling-policy-spec.scale-out-cooldown                               | Cooldown period after a scale out event                                  |                                                                     |
+| scaling-policy-spec.scale-in-cooldown                                | Cooldown period after a scale in event                                   |                                                                     |
+| scaling-policy-spec.scale-in-step                                    | Number of instances to remove in a single scale in event                 |                                                                     |
+| scaling-policy-spec.scale-out-step                                   | Number of instances to add in a single scale out event                   |                                                                     |
+| scaling-policy-spec.fixed-size.size                                  |                                                                          |                                                                     |
+| scaling-policy-spec.cpu-target.target-avg-percent                    |                                                                          |                                                                     |
+| scaling-policy-spec.memory-target.target-avg-percent                 |                                                                          |                                                                     |
+| load-balancer-configuration-spec.load-balancer-id                    | ID of the load balancer (set to empty to disable)                        |                                                                     |
+| load-balancer-configuration-spec.backends.{index}.backend-id         | ID of the load balancer backend                                          |                                                                     |
+| load-balancer-configuration-spec.backends.{index}.address-family     | IP address family (IPv4 or IPv6)                                         | One of: `unknown_address_family`, `ipv4`, `ipv6`                    |
+| load-balancer-configuration-spec.backends.{index}.private-network-id | Optional private network ID                                              |                                                                     |
+| load-balancer-configuration-spec.auto-healing.enabled                | Whether auto-healing is enabled                                          |                                                                     |
+| load-balancer-configuration-spec.auto-healing.grace-period           | Grace period for health checks                                           |                                                                     |
+| zone                                                                 | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -108,12 +108,12 @@ scw autoscaling group delete <group-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                             |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------------|
+| group-id | ID of the group to delete                                               | Required                                                            |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -139,12 +139,12 @@ scw autoscaling group get <group-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                             |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------------|
+| group-id | ID of the group to get                                                  | Required                                                            |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -169,17 +169,17 @@ scw autoscaling group list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_desc`, `created_at_asc` | Order criteria for listing groups |
-| page-size |  | Page size for pagination |
-| page-token |  | Token for pagination |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| template-id |  | Template ID to filter groups |
-| load-balancer-id |  | Load balancer ID to filter groups |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name             | Description                                                              | Argument Specifications                                             |
+|------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------|
+| order-by         | Order criteria for listing groups                                        | One of: `created_at_desc`, `created_at_asc`                         |
+| page-size        | Page size for pagination                                                 |                                                                     |
+| page-token       | Token for pagination                                                     |                                                                     |
+| project-id       | Project ID to use. If none is passed the default project ID will be used |                                                                     |
+| template-id      | Template ID to filter groups                                             |                                                                     |
+| load-balancer-id | Load balancer ID to filter groups                                        |                                                                     |
+| zone             | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -215,30 +215,30 @@ scw autoscaling group update <group-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | ID of the group to update |
-| name |  | New name for the group |
-| tags.{index} |  | New tags for the group |
-| template-id |  | New template ID for instances |
-| scaling-policy-spec.minimum-size |  | Minimum number of instances in the group |
-| scaling-policy-spec.maximum-size |  | Maximum number of instances in the group |
-| scaling-policy-spec.scale-out-cooldown |  | Cooldown period after a scale out event |
-| scaling-policy-spec.scale-in-cooldown |  | Cooldown period after a scale in event |
-| scaling-policy-spec.scale-in-step |  | Number of instances to remove in a single scale in event |
-| scaling-policy-spec.scale-out-step |  | Number of instances to add in a single scale out event |
-| scaling-policy-spec.fixed-size.size |  |  |
-| scaling-policy-spec.cpu-target.target-avg-percent |  |  |
-| scaling-policy-spec.memory-target.target-avg-percent |  |  |
-| load-balancer-configuration-spec.load-balancer-id |  | ID of the load balancer (set to empty to disable) |
-| load-balancer-configuration-spec.backends.{index}.backend-id |  | ID of the load balancer backend |
-| load-balancer-configuration-spec.backends.{index}.address-family | One of: `unknown_address_family`, `ipv4`, `ipv6` | IP address family (IPv4 or IPv6) |
-| load-balancer-configuration-spec.backends.{index}.private-network-id |  | Optional private network ID |
-| load-balancer-configuration-spec.auto-healing.enabled |  | Whether auto-healing is enabled |
-| load-balancer-configuration-spec.auto-healing.grace-period |  | Grace period for health checks |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                                 | Description                                                             | Argument Specifications                                             |
+|----------------------------------------------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------|
+| group-id                                                             | ID of the group to update                                               | Required                                                            |
+| name                                                                 | New name for the group                                                  |                                                                     |
+| tags.{index}                                                         | New tags for the group                                                  |                                                                     |
+| template-id                                                          | New template ID for instances                                           |                                                                     |
+| scaling-policy-spec.minimum-size                                     | Minimum number of instances in the group                                |                                                                     |
+| scaling-policy-spec.maximum-size                                     | Maximum number of instances in the group                                |                                                                     |
+| scaling-policy-spec.scale-out-cooldown                               | Cooldown period after a scale out event                                 |                                                                     |
+| scaling-policy-spec.scale-in-cooldown                                | Cooldown period after a scale in event                                  |                                                                     |
+| scaling-policy-spec.scale-in-step                                    | Number of instances to remove in a single scale in event                |                                                                     |
+| scaling-policy-spec.scale-out-step                                   | Number of instances to add in a single scale out event                  |                                                                     |
+| scaling-policy-spec.fixed-size.size                                  |                                                                         |                                                                     |
+| scaling-policy-spec.cpu-target.target-avg-percent                    |                                                                         |                                                                     |
+| scaling-policy-spec.memory-target.target-avg-percent                 |                                                                         |                                                                     |
+| load-balancer-configuration-spec.load-balancer-id                    | ID of the load balancer (set to empty to disable)                       |                                                                     |
+| load-balancer-configuration-spec.backends.{index}.backend-id         | ID of the load balancer backend                                         |                                                                     |
+| load-balancer-configuration-spec.backends.{index}.address-family     | IP address family (IPv4 or IPv6)                                        | One of: `unknown_address_family`, `ipv4`, `ipv6`                    |
+| load-balancer-configuration-spec.backends.{index}.private-network-id | Optional private network ID                                             |                                                                     |
+| load-balancer-configuration-spec.auto-healing.enabled                | Whether auto-healing is enabled                                         |                                                                     |
+| load-balancer-configuration-spec.auto-healing.grace-period           | Grace period for health checks                                          |                                                                     |
+| zone                                                                 | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -275,16 +275,16 @@ scw autoscaling logs list <group-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required |  |
-| page-token |  |  |
-| page-size |  |  |
-| start-time |  |  |
-| end-time |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                             |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------|
+| group-id   |                                                                         | Required                                                            |
+| page-token |                                                                         |                                                                     |
+| page-size  |                                                                         |                                                                     |
+| start-time |                                                                         |                                                                     |
+| end-time   |                                                                         |                                                                     |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**
@@ -314,14 +314,14 @@ scw autoscaling servers list <group-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required |  |
-| page-token |  |  |
-| page-size |  |  |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                             |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------|
+| group-id   |                                                                         | Required                                                            |
+| page-token |                                                                         |                                                                     |
+| page-size  |                                                                         |                                                                     |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` |
 
 
 **Examples:**

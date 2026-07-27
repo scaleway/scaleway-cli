@@ -18,24 +18,24 @@ scw searchdb deployment create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the deployment |
-| tags.{index} |  | Tags |
-| ~~node-amount~~ | Deprecated | DEPRECATED: Use node_count instead. Number of nodes |
-| node-count |  | Number of nodes. |
-| node-type |  | Node type |
-| user-name |  | Username for the deployment user |
-| password |  | Password for the deployment user |
-| volume.type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Define the type of the Volume |
-| volume.size-bytes |  | Define the size of the Volume |
-| endpoints.{index}.public |  |  |
-| endpoints.{index}.private-network.private-network-id |  |  |
-| version |  | The Opensearch version to use |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                                 | Description                                                                 | Argument Specifications                     |
+|------------------------------------------------------|-----------------------------------------------------------------------------|---------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used    |                                             |
+| name                                                 | Name of the deployment                                                      |                                             |
+| tags.{index}                                         | Tags                                                                        |                                             |
+| ~~node-amount~~                                      | DEPRECATED: Use node_count instead. Number of nodes                         | Deprecated                                  |
+| node-count                                           | Number of nodes.                                                            |                                             |
+| node-type                                            | Node type                                                                   |                                             |
+| user-name                                            | Username for the deployment user                                            |                                             |
+| password                                             | Password for the deployment user                                            |                                             |
+| volume.type                                          | Define the type of the Volume                                               | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| volume.size-bytes                                    | Define the size of the Volume                                               |                                             |
+| endpoints.{index}.public                             |                                                                             |                                             |
+| endpoints.{index}.private-network.private-network-id |                                                                             |                                             |
+| version                                              | The Opensearch version to use                                               |                                             |
+| region                                               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`     |
 
 
 
@@ -50,12 +50,12 @@ scw searchdb deployment delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | ID of the deployment |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment                                                        | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -70,12 +70,12 @@ scw searchdb deployment get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | ID of the deployment |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment                                                        | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -90,16 +90,16 @@ scw searchdb deployment list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | ID of the Project containing the deployments |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `updated_at_asc`, `updated_at_desc` | Define the order of the returned deployments |
-| tags.{index} |  | Filter by tag, only deployments with one or more matching tags will be returned |
-| name |  | Deployment name to filter for |
-| organization-id |  | ID of the Organization containing the deployments |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                     | Argument Specifications                                                                                   |
+|-----------------|---------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| project-id      | ID of the Project containing the deployments                                    |                                                                                                           |
+| order-by        | Define the order of the returned deployments                                    | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `updated_at_asc`, `updated_at_desc` |
+| tags.{index}    | Filter by tag, only deployments with one or more matching tags will be returned |                                                                                                           |
+| name            | Deployment name to filter for                                                   |                                                                                                           |
+| organization-id | ID of the Organization containing the deployments                               |                                                                                                           |
+| region          | Region to target. If none is passed will use default region from the config     | Default: `fr-par`<br />One of: `fr-par`, `all`                                                            |
 
 
 
@@ -114,14 +114,14 @@ scw searchdb deployment update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment to update |
-| name |  | Name of the deployment |
-| tags.{index} |  | Tags of a deployment |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment to update                                            | Required                                |
+| name          | Name of the deployment                                                      |                                         |
+| tags.{index}  | Tags of a deployment                                                        |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -136,15 +136,15 @@ scw searchdb deployment upgrade [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the Deployment to upgrade |
-| ~~node-amount~~ | Deprecated | DEPRECATED: Use node_count instead. Amount of node upgrade target |
-| node-count |  | The target number of nodes for the upgrade. |
-| volume-size-bytes |  | Volume size upgrade target |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                 |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id     | UUID of the Deployment to upgrade                                           | Required                                |
+| ~~node-amount~~   | DEPRECATED: Use node_count instead. Amount of node upgrade target           | Deprecated                              |
+| node-count        | The target number of nodes for the upgrade.                                 |                                         |
+| volume-size-bytes | Volume size upgrade target                                                  |                                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -164,14 +164,14 @@ scw searchdb endpoint create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id |  | ID of the deployment for which to create an endpoint |
-| endpoint-spec.public |  |  |
-| endpoint-spec.private-network.private-network-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                             | Description                                                                 | Argument Specifications                 |
+|--------------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id                                    | ID of the deployment for which to create an endpoint                        |                                         |
+| endpoint-spec.public                             |                                                                             |                                         |
+| endpoint-spec.private-network.private-network-id |                                                                             |                                         |
+| region                                           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -186,12 +186,12 @@ scw searchdb endpoint delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | ID of the endpoint to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| endpoint-id | ID of the endpoint to delete                                                | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -211,12 +211,12 @@ scw searchdb node-types list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_asc`, `memory_desc` | Sort order of nodes in the response (name, vcpus or memory) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications                                                                 |
+|----------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------|
+| order-by | Sort order of nodes in the response (name, vcpus or memory)                 | One of: `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_asc`, `memory_desc` |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                          |
 
 
 
@@ -236,14 +236,14 @@ scw searchdb user create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | ID of the deployment in which to create the user |
-| username |  | Username of the deployment user |
-| password |  | Password of the deployment user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment in which to create the user                            | Required                                |
+| username      | Username of the deployment user                                             |                                         |
+| password      | Password of the deployment user                                             |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -258,13 +258,13 @@ scw searchdb user delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | ID of the deployment in which to create the user |
-| username | Required | Username of the deployment user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment in which to create the user                            | Required                                |
+| username      | Username of the deployment user                                             | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -279,14 +279,14 @@ scw searchdb user list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc` |  |
-| name |  |  |
-| deployment-id | Required |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                        |
+|---------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| order-by      |                                                                             | One of: `name_asc`, `name_desc`                |
+| name          |                                                                             |                                                |
+| deployment-id |                                                                             | Required                                       |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -301,14 +301,14 @@ scw searchdb user update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | ID of the deployment in which to create the user |
-| username | Required | Username of the deployment user |
-| password |  | Password of the deployment user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment in which to create the user                            | Required                                |
+| username      | Username of the deployment user                                             | Required                                |
+| password      | Password of the deployment user                                             |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -328,13 +328,13 @@ scw searchdb versions list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `version_asc`, `version_desc` | Define the order of the returned version |
-| version |  | Filter by version |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications                        |
+|----------|-----------------------------------------------------------------------------|------------------------------------------------|
+| order-by | Define the order of the returned version                                    | One of: `version_asc`, `version_desc`          |
+| version  | Filter by version                                                           |                                                |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 

@@ -18,13 +18,13 @@ scw datawarehouse database create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name |  | Name of the database |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| name          | Name of the database                                                        |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -39,13 +39,13 @@ scw datawarehouse database delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name | Required | Name of the database to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| name          | Name of the database to delete                                              | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -60,14 +60,14 @@ scw datawarehouse database list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name |  | Name of the database to filter by |
-| order-by | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc` | Criteria to use when ordering database listings |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                                  |
+|---------------|-----------------------------------------------------------------------------|----------------------------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                                 |
+| name          | Name of the database to filter by                                           |                                                          |
+| order-by      | Criteria to use when ordering database listings                             | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc` |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`           |
 
 
 
@@ -87,24 +87,24 @@ scw datawarehouse deployment create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the deployment |
-| tags.{index} |  | Tags to apply to the deployment |
-| version |  | ClickHouse® version to use for the deployment |
-| replica-count |  | Number of replicas for the deployment |
-| shard-count |  | Number of shard for the deployment |
-| password |  | Password for the initial user |
-| cpu-min |  | Minimum CPU count for the deployment |
-| cpu-max |  | Maximum CPU count for the deployment |
-| endpoints.{index}.public |  |  |
-| endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
-| ram-per-cpu |  | RAM per CPU count for the deployment (in GB) |
-| move-factor |  | For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full). |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                                 | Description                                                                                                                                                                                                                                                                                                               | Argument Specifications                 |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                                                                                                                                                                                                                                  |                                         |
+| name                                                 | Name of the deployment                                                                                                                                                                                                                                                                                                    |                                         |
+| tags.{index}                                         | Tags to apply to the deployment                                                                                                                                                                                                                                                                                           |                                         |
+| version                                              | ClickHouse® version to use for the deployment                                                                                                                                                                                                                                                                             |                                         |
+| replica-count                                        | Number of replicas for the deployment                                                                                                                                                                                                                                                                                     |                                         |
+| shard-count                                          | Number of shard for the deployment                                                                                                                                                                                                                                                                                        |                                         |
+| password                                             | Password for the initial user                                                                                                                                                                                                                                                                                             |                                         |
+| cpu-min                                              | Minimum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
+| cpu-max                                              | Maximum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
+| endpoints.{index}.public                             |                                                                                                                                                                                                                                                                                                                           |                                         |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                                                                                                                                                                                                                                                               |                                         |
+| ram-per-cpu                                          | RAM per CPU count for the deployment (in GB)                                                                                                                                                                                                                                                                              |                                         |
+| move-factor                                          | For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full). |                                         |
+| region                                               | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -119,12 +119,12 @@ scw datawarehouse deployment delete <deployment-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment to delete                                            | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -139,12 +139,12 @@ scw datawarehouse deployment get <deployment-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -159,12 +159,12 @@ scw datawarehouse deployment get-certificate <deployment-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -179,16 +179,16 @@ scw datawarehouse deployment list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tags.{index} |  | List deployments with a given tag |
-| name |  | Lists deployments that match a name pattern |
-| order-by | One of: `created_at_desc`, `created_at_asc`, `name_asc`, `name_desc` | Criteria to use when ordering deployment listings |
-| project-id |  | Project ID the deployment belongs to |
-| organization-id |  | Organization ID the deployment belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                              |
+|-----------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|
+| tags.{index}    | List deployments with a given tag                                           |                                                                      |
+| name            | Lists deployments that match a name pattern                                 |                                                                      |
+| order-by        | Criteria to use when ordering deployment listings                           | One of: `created_at_desc`, `created_at_asc`, `name_asc`, `name_desc` |
+| project-id      | Project ID the deployment belongs to                                        |                                                                      |
+| organization-id | Organization ID the deployment belongs to                                   |                                                                      |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                       |
 
 
 
@@ -203,18 +203,18 @@ scw datawarehouse deployment update <deployment-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment to update |
-| name |  | Name of the deployment |
-| tags.{index} |  | Tags of a deployment |
-| cpu-min |  | Minimum CPU count for the deployment |
-| cpu-max |  | Maximum CPU count for the deployment |
-| replica-count |  | Number of replicas for the deployment |
-| move-factor |  | For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full). |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                                                                                                                                                                                                                                                               | Argument Specifications                 |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment to update                                                                                                                                                                                                                                                                                          | Required                                |
+| name          | Name of the deployment                                                                                                                                                                                                                                                                                                    |                                         |
+| tags.{index}  | Tags of a deployment                                                                                                                                                                                                                                                                                                      |                                         |
+| cpu-min       | Minimum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
+| cpu-max       | Maximum CPU count for the deployment                                                                                                                                                                                                                                                                                      |                                         |
+| replica-count | Number of replicas for the deployment                                                                                                                                                                                                                                                                                     |                                         |
+| move-factor   | For the `tiered` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full). |                                         |
+| region        | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                                                               | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -234,14 +234,14 @@ scw datawarehouse endpoint create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id |  | UUID of the deployment |
-| endpoint.public |  |  |
-| endpoint.private-network.private-network-id |  | UUID of the Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                        | Description                                                                 | Argument Specifications                 |
+|---------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id                               | UUID of the deployment                                                      |                                         |
+| endpoint.public                             |                                                                             |                                         |
+| endpoint.private-network.private-network-id | UUID of the Private Network                                                 |                                         |
+| region                                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -256,12 +256,12 @@ scw datawarehouse endpoint delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the Endpoint to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| endpoint-id | UUID of the Endpoint to delete                                              | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -281,11 +281,11 @@ scw datawarehouse preset list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name   | Description                                                                 | Argument Specifications                        |
+|--------|-----------------------------------------------------------------------------|------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -305,15 +305,15 @@ scw datawarehouse user create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name |  | Name of the user |
-| password |  | Password for the user |
-| is-admin |  | Indicates if the user is an administrator |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| name          | Name of the user                                                            |                                         |
+| password      | Password for the user                                                       |                                         |
+| is-admin      | Indicates if the user is an administrator                                   |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -328,13 +328,13 @@ scw datawarehouse user delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name | Required | Name of the user to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| name          | Name of the user to delete                                                  | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -349,14 +349,14 @@ scw datawarehouse user list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name |  | Name of the user to filter by |
-| order-by | One of: `name_asc`, `name_desc` | Criteria to use when ordering user listings |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                        |
+|---------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                       |
+| name          | Name of the user to filter by                                               |                                                |
+| order-by      | Criteria to use when ordering user listings                                 | One of: `name_asc`, `name_desc`                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -371,15 +371,15 @@ scw datawarehouse user update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| deployment-id | Required | UUID of the deployment |
-| name | Required | Name of the user |
-| password |  | New password for the user |
-| is-admin |  | Updates the user administrator permissions |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | UUID of the deployment                                                      | Required                                |
+| name          | Name of the user                                                            | Required                                |
+| password      | New password for the user                                                   |                                         |
+| is-admin      | Updates the user administrator permissions                                  |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -399,12 +399,12 @@ scw datawarehouse version list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| version |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                        |
+|---------|-----------------------------------------------------------------------------|------------------------------------------------|
+| version |                                                                             |                                                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 

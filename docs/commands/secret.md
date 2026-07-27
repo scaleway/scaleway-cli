@@ -18,13 +18,13 @@ scw secret secret add-owner <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| product | One of: `unknown_product`, `edge_services`, `s2s_vpn` | ID of the product to add |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| product   | ID of the product to add                                                    | One of: `unknown_product`, `edge_services`, `s2s_vpn`       |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -39,22 +39,22 @@ scw secret secret create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the secret |
-| tags.{index} |  | List of the secret's tags |
-| description |  | Description of the secret |
-| type | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` | Type of the secret |
-| path |  | Path of the secret |
-| ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
-| ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
-| ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
-| protected |  | Returns `true` if secret protection is applied to a given secret |
-| key-id |  | ID of the Scaleway Key Manager key |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                   | Description                                                                                   | Argument Specifications                                                                                              |
+|----------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| project-id                             | Project ID to use. If none is passed the default project ID will be used                      |                                                                                                                      |
+| name                                   | Name of the secret                                                                            |                                                                                                                      |
+| tags.{index}                           | List of the secret's tags                                                                     |                                                                                                                      |
+| description                            | Description of the secret                                                                     |                                                                                                                      |
+| type                                   | Type of the secret                                                                            | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` |
+| path                                   | Path of the secret                                                                            |                                                                                                                      |
+| ephemeral-policy.time-to-live          | Time frame, from one second and up to one year, during which the secret's versions are valid. |                                                                                                                      |
+| ephemeral-policy.expires-once-accessed | Returns `true` if the version expires after a single user access.                             |                                                                                                                      |
+| ephemeral-policy.action                | Action to perform when the version of a secret expires                                        | One of: `unknown_action`, `delete`, `disable`                                                                        |
+| protected                              | Returns `true` if secret protection is applied to a given secret                              |                                                                                                                      |
+| key-id                                 | ID of the Scaleway Key Manager key                                                            |                                                                                                                      |
+| region                                 | Region to target. If none is passed will use default region from the config                   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                          |
 
 
 **Examples:**
@@ -79,12 +79,12 @@ scw secret secret delete <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -109,12 +109,12 @@ scw secret secret get <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -132,20 +132,20 @@ scw secret secret list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Filter by Project ID (optional) |
-| order-by | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |  |
-| tags.{index} |  | List of tags to filter on (optional) |
-| name |  | Filter by secret name (optional) |
-| path |  | Filter by exact path (optional) |
-| ephemeral |  | Filter by ephemeral / not ephemeral (optional) |
-| type | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` | Filter by secret type (optional) |
-| scheduled-for-deletion |  | Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets. |
-| organization-id |  | Filter by Organization ID (optional) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                                                                                                | Argument Specifications                                                                                              |
+|------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------|
+| project-id             | Filter by Project ID (optional)                                                                                                                            |                                                                                                                      |
+| order-by               |                                                                                                                                                            | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`            |
+| tags.{index}           | List of tags to filter on (optional)                                                                                                                       |                                                                                                                      |
+| name                   | Filter by secret name (optional)                                                                                                                           |                                                                                                                      |
+| path                   | Filter by exact path (optional)                                                                                                                            |                                                                                                                      |
+| ephemeral              | Filter by ephemeral / not ephemeral (optional)                                                                                                             |                                                                                                                      |
+| type                   | Filter by secret type (optional)                                                                                                                           | One of: `unknown_type`, `opaque`, `certificate`, `key_value`, `basic_credentials`, `database_credentials`, `ssh_key` |
+| scheduled-for-deletion | Filter by whether the secret was scheduled for deletion / not scheduled for deletion. By default, it will display only not scheduled for deletion secrets. |                                                                                                                      |
+| organization-id        | Filter by Organization ID (optional)                                                                                                                       |                                                                                                                      |
+| region                 | Region to target. If none is passed will use default region from the config                                                                                | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                   |
 
 
 
@@ -160,12 +160,12 @@ scw secret secret protect <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret to enable secret protection for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret to enable secret protection for                            | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -190,12 +190,12 @@ scw secret secret unprotect <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret to disable secret protection for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret to disable secret protection for                           | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -220,19 +220,19 @@ scw secret secret update <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| name |  | Secret's updated name (optional) |
-| tags.{index} |  | Secret's updated list of tags (optional) |
-| description |  | Description of the secret |
-| path |  | Path of the folder |
-| ephemeral-policy.time-to-live |  | Time frame, from one second and up to one year, during which the secret's versions are valid. |
-| ephemeral-policy.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
-| ephemeral-policy.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                   | Description                                                                                   | Argument Specifications                                     |
+|----------------------------------------|-----------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id                              | ID of the secret                                                                              | Required                                                    |
+| name                                   | Secret's updated name (optional)                                                              |                                                             |
+| tags.{index}                           | Secret's updated list of tags (optional)                                                      |                                                             |
+| description                            | Description of the secret                                                                     |                                                             |
+| path                                   | Path of the folder                                                                            |                                                             |
+| ephemeral-policy.time-to-live          | Time frame, from one second and up to one year, during which the secret's versions are valid. |                                                             |
+| ephemeral-policy.expires-once-accessed | Returns `true` if the version expires after a single user access.                             |                                                             |
+| ephemeral-policy.action                | Action to perform when the version of a secret expires                                        | One of: `unknown_action`, `delete`, `disable`               |
+| region                                 | Region to target. If none is passed will use default region from the config                   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -252,15 +252,15 @@ scw secret version access <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| revision | Required | Version number |
-| field |  | Return only the JSON field of the given name |
-| raw |  | Return only the raw payload |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| revision  | Version number                                                              | Required                                                    |
+| field     | Return only the JSON field of the given name                                |                                                             |
+| raw       | Return only the raw payload                                                 |                                                             |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -285,15 +285,15 @@ scw secret version access-by-path [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-path |  | Secret's path |
-| secret-name |  | Secret's name |
-| revision | Required | Version number |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-path | Secret's path                                                               |                                                             |
+| secret-name | Secret's name                                                               |                                                             |
+| revision    | Version number                                                              | Required                                                    |
+| project-id  | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -308,16 +308,16 @@ scw secret version create <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| data | Required | Content of the secret version. |
-| description |  | Description of the version |
-| disable-previous |  | Disable the previous secret version |
-| data-crc32 |  | (Optional.) The CRC32 checksum of the data as a base-10 integer |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name             | Description                                                                 | Argument Specifications                                     |
+|------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id        | ID of the secret                                                            | Required                                                    |
+| data             | Content of the secret version.                                              | Required                                                    |
+| description      | Description of the version                                                  |                                                             |
+| disable-previous | Disable the previous secret version                                         |                                                             |
+| data-crc32       | (Optional.) The CRC32 checksum of the data as a base-10 integer             |                                                             |
+| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -342,13 +342,13 @@ scw secret version delete <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| revision  | Version number                                                              | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -373,13 +373,13 @@ scw secret version disable <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| revision  | Version number                                                              | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -394,13 +394,13 @@ scw secret version enable <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| revision  | Version number                                                              | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -415,13 +415,13 @@ scw secret version get <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| revision | Required | Version number |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | ID of the secret                                                            | Required                                                    |
+| revision  | Version number                                                              | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -436,13 +436,13 @@ scw secret version list <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| status.{index} | One of: `unknown_status`, `enabled`, `disabled`, `deleted`, `scheduled_for_deletion` | Filter results by status |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                                              |
+|----------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| secret-id      | ID of the secret                                                            | Required                                                                             |
+| status.{index} | Filter results by status                                                    | One of: `unknown_status`, `enabled`, `disabled`, `deleted`, `scheduled_for_deletion` |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                   |
 
 
 
@@ -457,17 +457,17 @@ scw secret version update <secret-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | ID of the secret |
-| revision | Required | Version number |
-| description |  | Description of the version |
-| ephemeral-properties.expires-at |  | The version's expiration date |
-| ephemeral-properties.expires-once-accessed |  | Returns `true` if the version expires after a single user access. |
-| ephemeral-properties.action | One of: `unknown_action`, `delete`, `disable` | Action to perform when the version of a secret expires |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                       | Description                                                                 | Argument Specifications                                     |
+|--------------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id                                  | ID of the secret                                                            | Required                                                    |
+| revision                                   | Version number                                                              | Required                                                    |
+| description                                | Description of the version                                                  |                                                             |
+| ephemeral-properties.expires-at            | The version's expiration date                                               |                                                             |
+| ephemeral-properties.expires-once-accessed | Returns `true` if the version expires after a single user access.           |                                                             |
+| ephemeral-properties.action                | Action to perform when the version of a secret expires                      | One of: `unknown_action`, `delete`, `disable`               |
+| region                                     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
