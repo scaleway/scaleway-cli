@@ -11,12 +11,12 @@ import (
 
 type FetchToken struct{}
 
-func (f FetchToken) Product() string {
-	return "cockpit"
+func (f FetchToken) Namespace() string {
+	return cockpitToken().Namespace
 }
 
 func (f FetchToken) Resource() string {
-	return "token"
+	return cockpitToken().Resource
 }
 
 func (f FetchToken) LocalityType() fetch.LocalityType {
@@ -59,12 +59,12 @@ func (f FetchToken) Fetch(
 
 type FetchDataSource struct{}
 
-func (f FetchDataSource) Product() string {
-	return "cockpit"
+func (f FetchDataSource) Namespace() string {
+	return cockpitDataSource().Namespace
 }
 
 func (f FetchDataSource) Resource() string {
-	return "data-source"
+	return cockpitDataSource().Resource
 }
 
 func (f FetchDataSource) LocalityType() fetch.LocalityType {

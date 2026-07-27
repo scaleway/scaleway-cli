@@ -11,17 +11,18 @@ import (
 
 type FetchIPs struct{}
 
-func (f FetchIPs) Product() string {
-	return "ipam"
+func (f FetchIPs) Namespace() string {
+	return ipamIP().Namespace
 }
 
 func (f FetchIPs) Resource() string {
-	return "ip"
+	return ipamIP().Resource
 }
 
 func (f FetchIPs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all IPAM IPs in a given region.
 func (f FetchIPs) Fetch(

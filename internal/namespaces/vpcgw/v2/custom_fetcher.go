@@ -11,12 +11,12 @@ import (
 
 type FetchGateways struct{}
 
-func (f FetchGateways) Product() string {
-	return "vpc-gw"
+func (f FetchGateways) Namespace() string {
+	return vpcGwGateway().Namespace
 }
 
 func (f FetchGateways) Resource() string {
-	return "gateway"
+	return vpcGwGateway().Resource
 }
 
 func (f FetchGateways) LocalityType() fetch.LocalityType {
@@ -62,7 +62,7 @@ func (f FetchGateways) Fetch(
 
 type FetchIPs struct{}
 
-func (f FetchIPs) Product() string {
+func (f FetchIPs) Namespace() string {
 	return "vpc-gw"
 }
 

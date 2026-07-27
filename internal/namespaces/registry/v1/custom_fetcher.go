@@ -11,12 +11,12 @@ import (
 
 type FetchNamespaces struct{}
 
-func (f FetchNamespaces) Product() string {
-	return "registry"
+func (f FetchNamespaces) Namespace() string {
+	return registryNamespace().Namespace
 }
 
 func (f FetchNamespaces) Resource() string {
-	return "namespace"
+	return registryNamespace().Resource
 }
 
 func (f FetchNamespaces) LocalityType() fetch.LocalityType {

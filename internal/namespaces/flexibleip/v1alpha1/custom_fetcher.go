@@ -11,17 +11,18 @@ import (
 
 type FetchFlexibleIPs struct{}
 
-func (f FetchFlexibleIPs) Product() string {
-	return "fip"
+func (f FetchFlexibleIPs) Namespace() string {
+	return fipIP().Namespace
 }
 
 func (f FetchFlexibleIPs) Resource() string {
-	return "ip"
+	return fipIP().Resource
 }
 
 func (f FetchFlexibleIPs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all flexible IPs in a given zone.
 func (f FetchFlexibleIPs) Fetch(

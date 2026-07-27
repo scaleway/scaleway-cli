@@ -11,17 +11,18 @@ import (
 
 type FetchInstances struct{}
 
-func (f FetchInstances) Product() string {
-	return "rdb"
+func (f FetchInstances) Namespace() string {
+	return rdbInstance().Namespace
 }
 
 func (f FetchInstances) Resource() string {
-	return "instances"
+	return rdbInstance().Resource
 }
 
 func (f FetchInstances) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all RDB instances in a given region.
 func (f FetchInstances) Fetch(

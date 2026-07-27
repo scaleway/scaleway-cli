@@ -12,16 +12,17 @@ import (
 type FetchServers struct{}
 
 func (s *FetchServers) Resource() string {
-	return "server"
+	return baremetalServer().Resource
 }
 
-func (s *FetchServers) Product() string {
-	return "baremetal"
+func (s *FetchServers) Namespace() string {
+	return baremetalServer().Namespace
 }
 
 func (s *FetchServers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all baremetal servers in a given zone.
 func (s *FetchServers) Fetch(

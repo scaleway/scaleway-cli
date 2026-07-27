@@ -11,17 +11,18 @@ import (
 
 type FetchHostings struct{}
 
-func (f FetchHostings) Product() string {
-	return "webhosting"
+func (f FetchHostings) Namespace() string {
+	return webhostingHosting().Namespace
 }
 
 func (f FetchHostings) Resource() string {
-	return "hosting"
+	return webhostingHosting().Resource
 }
 
 func (f FetchHostings) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all Web Hosting plans in a given region.
 func (f FetchHostings) Fetch(

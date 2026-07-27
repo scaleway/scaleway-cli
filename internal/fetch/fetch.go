@@ -5,6 +5,7 @@ import (
 	"errors"
 	"net/http"
 	"strings"
+	"sync"
 
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -30,7 +31,7 @@ type Locality interface {
 // Fetchers should use core.ExtractClient(ctx) to obtain the client.
 type Fetcher[L Locality] interface {
 	Fetch(ctx context.Context, locality L, projectID string) ([]ResourceResult, error)
-	Product() string
+	Namespace() string
 	Resource() string
 	LocalityType() LocalityType
 }
@@ -39,9 +40,10 @@ type Fetcher[L Locality] interface {
 // fetchers in a common map or slice.
 type FetcherAny interface {
 	FetchAny(ctx context.Context, zone scw.Zone, projectID string) ([]ResourceResult, error)
-	Product() string
+	Namespace() string
 	Resource() string
 	LocalityType() LocalityType
+	ProductKey() string
 }
 
 // ZoneFetcher is a type alias for zone-based fetchers.
@@ -94,8 +96,8 @@ func (w *fetcherWrapper[L]) FetchAny(
 	}
 }
 
-func (w *fetcherWrapper[L]) Product() string {
-	return w.fetcher.Product()
+func (w *fetcherWrapper[L]) Namespace() string {
+	return w.fetcher.Namespace()
 }
 
 func (w *fetcherWrapper[L]) Resource() string {
@@ -104,6 +106,10 @@ func (w *fetcherWrapper[L]) Resource() string {
 
 func (w *fetcherWrapper[L]) LocalityType() LocalityType {
 	return w.fetcher.LocalityType()
+}
+
+func (w *fetcherWrapper[L]) ProductKey() string {
+	return w.fetcher.Namespace() + "-" + w.fetcher.Resource()
 }
 
 // ResourceResult represents a single resource in the output.
@@ -147,4 +153,66 @@ func isHTTP501Error(err error) bool {
 	}
 
 	return false
+}
+
+// Registry of product fetchers. Fetchers are registered as factory functions
+// (so they are only built when actually requested by the user) and keyed by
+// the product name derived from the fetcher's Namespace() and Resource()
+// (i.e. Namespace() + "-" + Resource()).
+var (
+	fetchersMu sync.Mutex
+	factories  = make(map[string]func() FetcherAny)
+)
+
+// RegisterFetcher registers a factory that builds a generic fetcher.
+// The product key is deduced as Namespace() + "-" + Resource() by instantiating
+// the factory once. The factory is called again on each GetFetcher call so the
+// fetcher is built dynamically based on user input.
+// It panics on duplicate keys to catch registration mistakes early.
+func RegisterFetcher[L Locality](factory func() Fetcher[L]) {
+	wrapped := func() FetcherAny { return WrapFetcher(factory()) }
+	RegisterFetcherAny(wrapped)
+}
+
+// RegisterFetcherAny registers a factory that builds a FetcherAny.
+// The product key is deduced as Namespace() + "-" + Resource() by instantiating
+// the factory once. It panics on duplicate keys to catch registration mistakes early.
+func RegisterFetcherAny(factory func() FetcherAny) {
+	key := productKeyOf(factory)
+
+	fetchersMu.Lock()
+	defer fetchersMu.Unlock()
+	if _, exists := factories[key]; exists {
+		panic("fetch: duplicate fetcher registration for product key: " + key)
+	}
+	factories[key] = factory
+}
+
+// GetFetcher builds and returns the fetcher registered for the given product key.
+func GetFetcher(product string) (FetcherAny, bool) {
+	fetchersMu.Lock()
+	factory, ok := factories[product]
+	fetchersMu.Unlock()
+	if !ok {
+		return nil, false
+	}
+	return factory(), true
+}
+
+// AllProductKeys returns the product keys of all registered fetchers.
+func AllProductKeys() []string {
+	fetchersMu.Lock()
+	defer fetchersMu.Unlock()
+	keys := make([]string, 0, len(factories))
+	for k := range factories {
+		keys = append(keys, k)
+	}
+	return keys
+}
+
+// productKeyOf instantiates the factory once to read Namespace() and Resource()
+// and returns the deduced product key.
+func productKeyOf(factory func() FetcherAny) string {
+	f := factory()
+	return f.Namespace() + "-" + f.Resource()
 }

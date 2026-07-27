@@ -11,17 +11,18 @@ import (
 
 type FetchClusters struct{}
 
-func (f FetchClusters) Product() string {
-	return "k8s"
+func (f FetchClusters) Namespace() string {
+	return k8sCluster().Namespace
 }
 
 func (f FetchClusters) Resource() string {
-	return "clusters"
+	return k8sCluster().Resource
 }
 
 func (f FetchClusters) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all Kubernetes clusters in a given region.
 func (f FetchClusters) Fetch(

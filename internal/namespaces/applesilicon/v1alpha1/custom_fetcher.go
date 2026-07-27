@@ -12,16 +12,17 @@ import (
 type FetchServers struct{}
 
 func (s *FetchServers) Resource() string {
-	return "server"
+	return appleSiliconServer().Resource
 }
 
-func (s *FetchServers) Product() string {
-	return "apple-silicon"
+func (s *FetchServers) Namespace() string {
+	return appleSiliconServer().Namespace
 }
 
 func (s *FetchServers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
+
 
 // Fetch fetches all Apple Silicon servers in a given zone.
 func (s *FetchServers) Fetch(

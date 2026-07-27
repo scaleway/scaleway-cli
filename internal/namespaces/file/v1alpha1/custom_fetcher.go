@@ -11,17 +11,18 @@ import (
 
 type FetchFileSystem struct{}
 
-func (f FetchFileSystem) Product() string {
-	return "file"
+func (f FetchFileSystem) Namespace() string {
+	return fileFilesystem().Namespace
 }
 
 func (f FetchFileSystem) Resource() string {
-	return "filesystem"
+	return fileFilesystem().Resource
 }
 
 func (f FetchFileSystem) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all file systems in a given region.
 func (f FetchFileSystem) Fetch(

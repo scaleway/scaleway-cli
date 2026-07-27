@@ -11,17 +11,18 @@ import (
 
 type FetchDeployment struct{}
 
-func (f FetchDeployment) Product() string {
-	return "inference"
+func (f FetchDeployment) Namespace() string {
+	return inferenceDeployment().Namespace
 }
 
 func (f FetchDeployment) Resource() string {
-	return "deployment"
+	return inferenceDeployment().Resource
 }
 
 func (f FetchDeployment) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
+
 
 // Fetch fetches all inference deployments in a given region.
 func (f FetchDeployment) Fetch(

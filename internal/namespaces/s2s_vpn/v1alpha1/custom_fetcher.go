@@ -11,12 +11,12 @@ import (
 
 type FetchVpnGateways struct{}
 
-func (f FetchVpnGateways) Product() string {
-	return "s2s-vpn"
+func (f FetchVpnGateways) Namespace() string {
+	return s2sVpnVpnGateway().Namespace
 }
 
 func (f FetchVpnGateways) Resource() string {
-	return "vpn-gateway"
+	return s2sVpnVpnGateway().Resource
 }
 
 func (f FetchVpnGateways) LocalityType() fetch.LocalityType {
