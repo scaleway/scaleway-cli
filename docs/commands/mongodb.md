@@ -20,12 +20,12 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| endpoint.public |  |  |
-| endpoint.private-network.private-network-id |  | UUID of the Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                        |                                         | Description                                                                 |
+|---------------------------------------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id                                 | Required                                | UUID of the Database Instance                                               |
+| endpoint.public                             |                                         |                                                                             |
+| endpoint.private-network.private-network-id |                                         | UUID of the Private Network                                                 |
+| region                                      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -42,10 +42,10 @@ scw mongodb endpoint delete <endpoint-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the Endpoint to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| endpoint-id | Required                                | UUID of the Endpoint to delete                                              |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -67,21 +67,21 @@ scw mongodb instance create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the Database Instance |
-| version | Required<br />Default: `` | Version of the MongoDB® engine |
-| tags.{index} |  | Tags to apply to the Database Instance |
-| node-number | Required<br />Default: `1` | Number of node to use for the Database Instance |
-| node-type | Required | Type of node to use for the Database Instance |
-| user-name | Required | Username created when the Database Instance is created |
-| password | Required | Password of the initial user |
-| volume.volume-size | Default: `5GB` | Volume size |
-| volume.volume-type | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
-| endpoints.{index}.public |  |  |
-| endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                                 |                                                                    | Description                                                                 |
+|------------------------------------------------------|--------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| project-id                                           |                                                                    | Project ID to use. If none is passed the default project ID will be used    |
+| name                                                 | Default: `<generated>`                                             | Name of the Database Instance                                               |
+| version                                              | Required<br />Default: ``                                          | Version of the MongoDB® engine                                              |
+| tags.{index}                                         |                                                                    | Tags to apply to the Database Instance                                      |
+| node-number                                          | Required<br />Default: `1`                                         | Number of node to use for the Database Instance                             |
+| node-type                                            | Required                                                           | Type of node to use for the Database Instance                               |
+| user-name                                            | Required                                                           | Username created when the Database Instance is created                      |
+| password                                             | Required                                                           | Password of the initial user                                                |
+| volume.volume-size                                   | Default: `5GB`                                                     | Volume size                                                                 |
+| volume.volume-type                                   | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored                                         |
+| endpoints.{index}.public                             |                                                                    |                                                                             |
+| endpoints.{index}.private-network.private-network-id |                                                                    | UUID of the Private Network                                                 |
+| region                                               | Default: `fr-par`<br />One of: `fr-par`                            | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -98,10 +98,10 @@ scw mongodb instance delete <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance to delete                                     |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -118,10 +118,10 @@ scw mongodb instance get <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance                                               |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -138,10 +138,10 @@ scw mongodb instance get-certificate <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance                                               |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -158,14 +158,14 @@ scw mongodb instance list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tags.{index} |  | List Database Instances that have a given tag |
-| name |  | Lists Database Instances that match a name pattern |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Criteria to use when ordering Database Instance listings |
-| project-id |  | Project ID |
-| organization-id |  | Organization ID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                                                   | Description                                                                 |
+|-----------------|---------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| tags.{index}    |                                                                                                   | List Database Instances that have a given tag                               |
+| name            |                                                                                                   | Lists Database Instances that match a name pattern                          |
+| order-by        | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Criteria to use when ordering Database Instance listings                    |
+| project-id      |                                                                                                   | Project ID                                                                  |
+| organization-id |                                                                                                   | Organization ID of the Database Instance                                    |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `all`                                                    | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -182,12 +182,12 @@ scw mongodb instance update <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to update |
-| name |  | Name of the Database Instance |
-| tags.{index} |  | Tags of a Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         |                                         | Description                                                                 |
+|--------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id  | Required                                | UUID of the Database Instance to update                                     |
+| name         |                                         | Name of the Database Instance                                               |
+| tags.{index} |                                         | Tags of a Database Instance                                                 |
+| region       | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -204,11 +204,11 @@ scw mongodb instance upgrade <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to upgrade |
-| volume-size |  | Increase your Block Storage volume size |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance you want to upgrade                           |
+| volume-size |                                         | Increase your Block Storage volume size                                     |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -225,11 +225,11 @@ scw mongodb instance wait <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the instance you want to wait for. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-| timeout | Default: `20m0s` | Timeout of the wait |
+| Name        |                                                   | Description                                                                 |
+|-------------|---------------------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                          | ID of the instance you want to wait for.                                    |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| timeout     | Default: `20m0s`                                  | Timeout of the wait                                                         |
 
 
 **Examples:**
@@ -264,10 +264,10 @@ scw mongodb node-type list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| include-disabled-types |  | Defines whether or not to include disabled types |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                   |                                                | Description                                                                 |
+|------------------------|------------------------------------------------|-----------------------------------------------------------------------------|
+| include-disabled-types |                                                | Defines whether or not to include disabled types                            |
+| region                 | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -289,12 +289,12 @@ scw mongodb snapshot create <instance-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to snapshot |
-| name |  | Name of the snapshot |
-| expires-at |  | Expiration date of the snapshot (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance to snapshot                                   |
+| name        |                                         | Name of the snapshot                                                        |
+| expires-at  |                                         | Expiration date of the snapshot (must follow the ISO 8601 format)           |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -311,10 +311,10 @@ scw mongodb snapshot delete <snapshot-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| snapshot-id | Required                                | UUID of the snapshot                                                        |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -331,10 +331,10 @@ scw mongodb snapshot get <snapshot-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| snapshot-id | Required                                | UUID of the snapshot                                                        |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -351,14 +351,14 @@ scw mongodb snapshot list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id |  | Instance ID the snapshots belongs to |
-| name |  | Lists database snapshots that match a name pattern |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` | Criteria to use when ordering snapshot listings |
-| project-id |  | Project ID to list the snapshots of |
-| organization-id |  | Organization ID the snapshots belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            |                                                                                                           | Description                                                                 |
+|-----------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| instance-id     |                                                                                                           | Instance ID the snapshots belongs to                                        |
+| name            |                                                                                                           | Lists database snapshots that match a name pattern                          |
+| order-by        | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` | Criteria to use when ordering snapshot listings                             |
+| project-id      |                                                                                                           | Project ID to list the snapshots of                                         |
+| organization-id |                                                                                                           | Organization ID the snapshots belongs to                                    |
+| region          | Default: `fr-par`<br />One of: `fr-par`, `all`                                                            | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -375,14 +375,14 @@ scw mongodb snapshot restore <snapshot-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot |
-| instance-name | Required | Name of the new Database Instance |
-| node-type | Required | Node type to use for the new Database Instance |
-| node-number | Required | Number of nodes to use for the new Database Instance |
-| volume.volume-type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name               |                                             | Description                                                                 |
+|--------------------|---------------------------------------------|-----------------------------------------------------------------------------|
+| snapshot-id        | Required                                    | UUID of the snapshot                                                        |
+| instance-name      | Required                                    | Name of the new Database Instance                                           |
+| node-type          | Required                                    | Node type to use for the new Database Instance                              |
+| node-number        | Required                                    | Number of nodes to use for the new Database Instance                        |
+| volume.volume-type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored                                         |
+| region             | Default: `fr-par`<br />One of: `fr-par`     | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -399,12 +399,12 @@ scw mongodb snapshot update <snapshot-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the Snapshot |
-| name |  | Name of the snapshot |
-| expires-at |  | Expiration date of the snapshot (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| snapshot-id | Required                                | UUID of the Snapshot                                                        |
+| name        |                                         | Name of the snapshot                                                        |
+| expires-at  |                                         | Expiration date of the snapshot (must follow the ISO 8601 format)           |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -426,12 +426,12 @@ scw mongodb user create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance the user belongs to |
-| name |  | Name of the database user |
-| password |  | Password of the database user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance the user belongs to                           |
+| name        |                                         | Name of the database user                                                   |
+| password    |                                         | Password of the database user                                               |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -448,11 +448,11 @@ scw mongodb user delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance the user belongs to |
-| name | Required | Name of the database user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance the user belongs to                           |
+| name        | Required                                | Name of the database user                                                   |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -469,12 +469,12 @@ scw mongodb user list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the user |
-| order-by | One of: `name_asc`, `name_desc` | Criteria to use when requesting user listing |
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name        |                                                | Description                                                                 |
+|-------------|------------------------------------------------|-----------------------------------------------------------------------------|
+| name        |                                                | Name of the user                                                            |
+| order-by    | One of: `name_asc`, `name_desc`                | Criteria to use when requesting user listing                                |
+| instance-id | Required                                       | UUID of the Database Instance                                               |
+| region      | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -491,14 +491,14 @@ scw mongodb user set-role [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance the user belongs to |
-| user-name |  | Name of the database user |
-| roles.{index}.role | One of: `unknown_role`, `read`, `read_write`, `db_admin`, `sync` | Name of the preset role |
-| roles.{index}.database |  | Name of the database on which the preset role will be used |
-| roles.{index}.any-database |  | Flag to enable the preset role in all databases |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                       |                                                                  | Description                                                                 |
+|----------------------------|------------------------------------------------------------------|-----------------------------------------------------------------------------|
+| instance-id                | Required                                                         | UUID of the Database Instance the user belongs to                           |
+| user-name                  |                                                                  | Name of the database user                                                   |
+| roles.{index}.role         | One of: `unknown_role`, `read`, `read_write`, `db_admin`, `sync` | Name of the preset role                                                     |
+| roles.{index}.database     |                                                                  | Name of the database on which the preset role will be used                  |
+| roles.{index}.any-database |                                                                  | Flag to enable the preset role in all databases                             |
+| region                     | Default: `fr-par`<br />One of: `fr-par`                          | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -515,12 +515,12 @@ scw mongodb user update [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance the user belongs to |
-| name | Required | Name of the database user |
-| password |  | Password of the database user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        |                                         | Description                                                                 |
+|-------------|-----------------------------------------|-----------------------------------------------------------------------------|
+| instance-id | Required                                | UUID of the Database Instance the user belongs to                           |
+| name        | Required                                | Name of the database user                                                   |
+| password    |                                         | Password of the database user                                               |
+| region      | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
 
@@ -542,10 +542,10 @@ scw mongodb version list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| version |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name    |                                                | Description                                                                 |
+|---------|------------------------------------------------|-----------------------------------------------------------------------------|
+| version |                                                |                                                                             |
+| region  | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
 
 
 

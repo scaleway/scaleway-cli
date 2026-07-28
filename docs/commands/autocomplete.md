@@ -17,10 +17,10 @@ scw autocomplete install [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell |  |  |
-| basename | Default: `` |  |
+| Name     |             | Description |
+|----------|-------------|-------------|
+| shell    |             |             |
+| basename | Default: `` |             |
 
 
 
@@ -39,10 +39,10 @@ scw autocomplete script [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell | Default: `/bin/bash` |  |
-| basename | Default: `` |  |
+| Name     |                      | Description |
+|----------|----------------------|-------------|
+| shell    | Default: `/bin/bash` |             |
+| basename | Default: ``          |             |
 
 
 
