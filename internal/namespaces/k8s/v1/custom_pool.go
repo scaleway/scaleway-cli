@@ -283,9 +283,9 @@ func buildNodeInitScript(poolID string, region scw.Region) string {
 	return fmt.Sprintf(`#!/usr/bin/env sh
 
 set -e
-wget https://scwcontainermulticloud.s3.fr-par.scw.cloud/node-agent_linux_amd64 --no-verbose
-chmod +x node-agent_linux_amd64
-export POOL_ID=%s  POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
-sudo -E ./node-agent_linux_amd64 -loglevel 0 -no-controller
+sudo wget -O /usr/local/bin/k8s-agent https://github.com/scaleway/k8s-agent/releases/latest/download/k8s-agent_linux_amd64
+sudo chmod +x /usr/local/bin/k8s-agent
+export POOL_ID=%s POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
+sudo -E /usr/local/bin/k8s-agent -kosmos
 EOF`, poolID, region.String())
 }
