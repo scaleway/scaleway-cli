@@ -1,3 +1,5 @@
+[![MCP Toplist](https://mcptoplist.com/badge/io.github.scaleway%2Fscaleway-mcp.svg)](https://mcptoplist.com/server/io.github.scaleway%2Fscaleway-mcp)
+
 <p align="center"><img width="50%" src="docs/static_files/cli-artwork.png" /></p>
 
 <p align="center">
