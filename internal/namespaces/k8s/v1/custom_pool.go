@@ -299,6 +299,7 @@ set -e
 sudo wget -O /usr/local/bin/k8s-agent https://github.com/scaleway/k8s-agent/releases/latest/download/k8s-agent_linux_amd64
 sudo chmod +x /usr/local/bin/k8s-agent
 export POOL_ID=%s POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
-sudo -E /usr/local/bin/k8s-agent -kosmos
+echo "Launching k8s-agent..."
+sudo --preserve-env=POOL_ID,POOL_REGION,SCW_SECRET_KEY /usr/local/bin/k8s-agent -kosmos
 EOF`, poolID, region.String())
 }
