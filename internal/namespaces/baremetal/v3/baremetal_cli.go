@@ -60,7 +60,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 		Resource:  "private-network",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -111,7 +111,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 		Resource:  "private-network",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -155,7 +155,7 @@ func baremetalPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -243,7 +243,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 		Resource:  "private-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",

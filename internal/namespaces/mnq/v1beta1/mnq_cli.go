@@ -94,7 +94,7 @@ func mnqNatsCreateAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "create-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPICreateNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPICreateNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -129,7 +129,7 @@ func mnqNatsDeleteAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "delete-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIDeleteNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIDeleteNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -169,7 +169,7 @@ func mnqNatsUpdateAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "update-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIUpdateNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIUpdateNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -209,7 +209,7 @@ func mnqNatsGetAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "get-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIGetNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIGetNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -242,7 +242,7 @@ func mnqNatsListAccounts() *core.Command {
 		Resource:  "nats",
 		Verb:      "list-accounts",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsAccountsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIListNatsAccountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -300,7 +300,7 @@ func mnqNatsCreateCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "create-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPICreateNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPICreateNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -341,7 +341,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "delete-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIDeleteNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIDeleteNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-credentials-id",
@@ -381,7 +381,7 @@ func mnqNatsGetCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "get-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIGetNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIGetNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-credentials-id",
@@ -414,7 +414,7 @@ func mnqNatsListCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "list-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIListNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -479,7 +479,7 @@ func mnqSnsActivate() *core.Command {
 		Resource:  "sns",
 		Verb:      "activate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIActivateSnsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIActivateSnsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -506,7 +506,7 @@ func mnqSnsGetInfo() *core.Command {
 		Resource:  "sns",
 		Verb:      "get-info",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsInfoRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIGetSnsInfoRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -533,7 +533,7 @@ func mnqSnsDeactivate() *core.Command {
 		Resource:  "sns",
 		Verb:      "deactivate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIDeactivateSnsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIDeactivateSnsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -560,7 +560,7 @@ func mnqSnsCreateCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "create-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPICreateSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPICreateSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -616,7 +616,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "delete-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIDeleteSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIDeleteSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
@@ -656,7 +656,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "update-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIUpdateSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIUpdateSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
@@ -717,7 +717,7 @@ func mnqSnsGetCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "get-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIGetSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
@@ -750,7 +750,7 @@ func mnqSnsListCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "list-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIListSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIListSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -808,7 +808,7 @@ func mnqSqsActivate() *core.Command {
 		Resource:  "sqs",
 		Verb:      "activate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIActivateSqsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIActivateSqsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -835,7 +835,7 @@ func mnqSqsGetInfo() *core.Command {
 		Resource:  "sqs",
 		Verb:      "get-info",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsInfoRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIGetSqsInfoRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -862,7 +862,7 @@ func mnqSqsDeactivate() *core.Command {
 		Resource:  "sqs",
 		Verb:      "deactivate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIDeactivateSqsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIDeactivateSqsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -889,7 +889,7 @@ func mnqSqsCreateCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "create-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPICreateSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPICreateSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -945,7 +945,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "delete-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIDeleteSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIDeleteSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
@@ -985,7 +985,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "update-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIUpdateSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIUpdateSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
@@ -1046,7 +1046,7 @@ func mnqSqsGetCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "get-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIGetSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
@@ -1079,7 +1079,7 @@ func mnqSqsListCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "list-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIListSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIListSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",

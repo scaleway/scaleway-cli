@@ -103,7 +103,7 @@ func searchdbDeploymentCreate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.CreateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.CreateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -214,7 +214,7 @@ func searchdbDeploymentUpdate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.UpdateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.UpdateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -258,7 +258,7 @@ func searchdbDeploymentUpgrade() *core.Command {
 		Resource:  "deployment",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.UpgradeDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.UpgradeDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -309,7 +309,7 @@ func searchdbDeploymentGet() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.GetDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.GetDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -339,7 +339,7 @@ func searchdbDeploymentDelete() *core.Command {
 		Resource:  "deployment",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.DeleteDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.DeleteDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -369,7 +369,7 @@ func searchdbDeploymentList() *core.Command {
 		Resource:  "deployment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.ListDeploymentsRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.ListDeploymentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -447,7 +447,7 @@ func searchdbVersionsList() *core.Command {
 		Resource:  "versions",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -500,7 +500,7 @@ func searchdbNodeTypesList() *core.Command {
 		Resource:  "node-types",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -550,7 +550,7 @@ func searchdbEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -592,7 +592,7 @@ func searchdbEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -629,7 +629,7 @@ func searchdbUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -686,7 +686,7 @@ func searchdbUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -730,7 +730,7 @@ func searchdbUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -774,7 +774,7 @@ func searchdbUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(searchdb.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[searchdb.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",

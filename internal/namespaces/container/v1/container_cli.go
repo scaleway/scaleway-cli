@@ -100,7 +100,7 @@ func containerNamespaceCreate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -163,7 +163,7 @@ func containerNamespaceGet() *core.Command {
 		Resource:  "namespace",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.GetNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -199,7 +199,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 		Resource:  "namespace",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListNamespacesRequest{}),
+		ArgsType: reflect.TypeFor[container.ListNamespacesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -266,7 +266,7 @@ func containerNamespaceUpdate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -330,7 +330,7 @@ This action **cannot** be undone.`,
 		Resource:  "namespace",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -364,7 +364,7 @@ func containerContainerCreate() *core.Command {
 		Resource:  "container",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -649,7 +649,7 @@ func containerContainerGet() *core.Command {
 		Resource:  "container",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.GetContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -685,7 +685,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 		Resource:  "container",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListContainersRequest{}),
+		ArgsType: reflect.TypeFor[container.ListContainersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -758,7 +758,7 @@ func containerContainerUpdate() *core.Command {
 		Resource:  "container",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1028,7 +1028,7 @@ This action **cannot** be undone.`,
 		Resource:  "container",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1062,7 +1062,7 @@ func containerDomainCreate() *core.Command {
 		Resource:  "domain",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1110,7 +1110,7 @@ func containerDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.GetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1146,7 +1146,7 @@ Additional parameters can be set in the query to filter the output, such as ` + 
 		Resource:  "domain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListDomainsRequest{}),
+		ArgsType: reflect.TypeFor[container.ListDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1219,7 +1219,7 @@ func containerDomainUpdate() *core.Command {
 		Resource:  "domain",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1260,7 +1260,7 @@ func containerDomainDelete() *core.Command {
 		Resource:  "domain",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1296,7 +1296,7 @@ the most recent image version available in the registry.`,
 		Resource:  "container",
 		Verb:      "redeploy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.RedeployContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.RedeployContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1330,7 +1330,7 @@ func containerTriggerCreate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1491,7 +1491,7 @@ func containerTriggerGet() *core.Command {
 		Resource:  "trigger",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.GetTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1527,7 +1527,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 		Resource:  "trigger",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListTriggersRequest{}),
+		ArgsType: reflect.TypeFor[container.ListTriggersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1613,7 +1613,7 @@ Only fields present in the request are updated; others are left untouched.`,
 		Resource:  "trigger",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1774,7 +1774,7 @@ func containerTriggerDelete() *core.Command {
 		Resource:  "trigger",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",

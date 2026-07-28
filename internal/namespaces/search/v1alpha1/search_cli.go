@@ -50,7 +50,7 @@ func searchResourceSearch() *core.Command {
 		Resource:  "resource",
 		Verb:      "search",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(search.SearchResourcesRequest{}),
+		ArgsType: reflect.TypeFor[search.SearchResourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "query",

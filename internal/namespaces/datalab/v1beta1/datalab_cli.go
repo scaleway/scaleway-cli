@@ -87,7 +87,7 @@ func datalabDatalabCreate() *core.Command {
 		Resource:  "datalab",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.CreateDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.CreateDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -190,7 +190,7 @@ func datalabDatalabGet() *core.Command {
 		Resource:  "datalab",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.GetDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.GetDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "datalab-id",
@@ -223,7 +223,7 @@ func datalabDatalabList() *core.Command {
 		Resource:  "datalab",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListDatalabsRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListDatalabsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -302,7 +302,7 @@ func datalabDatalabUpdate() *core.Command {
 		Resource:  "datalab",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.UpdateDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.UpdateDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "datalab-id",
@@ -363,7 +363,7 @@ func datalabDatalabDelete() *core.Command {
 		Resource:  "datalab",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.DeleteDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.DeleteDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "datalab-id",
@@ -396,7 +396,7 @@ func datalabNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -475,7 +475,7 @@ func datalabNotebookVersionList() *core.Command {
 		Resource:  "notebook-version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListNotebookVersionsRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListNotebookVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -522,7 +522,7 @@ func datalabClusterVersionList() *core.Command {
 		Resource:  "cluster-version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListClusterVersionsRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListClusterVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",

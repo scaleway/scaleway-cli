@@ -186,7 +186,7 @@ func edgeServicesPipelineList() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListPipelinesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListPipelinesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -254,7 +254,7 @@ func edgeServicesPipelineCreate() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreatePipelineRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreatePipelineRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -291,7 +291,7 @@ func edgeServicesPipelineGet() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetPipelineRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetPipelineRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -320,7 +320,7 @@ func edgeServicesPipelineUpdate() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdatePipelineRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdatePipelineRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -363,7 +363,7 @@ func edgeServicesPipelineDelete() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeletePipelineRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeletePipelineRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -399,7 +399,7 @@ func edgeServicesPipelineListHead() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "list-head",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListHeadStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListHeadStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -433,7 +433,7 @@ func edgeServicesPipelineSetHead() *core.Command {
 		Resource:  "pipeline",
 		Verb:      "set-head",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.SetHeadStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.SetHeadStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -486,7 +486,7 @@ func edgeServicesDNSStageList() *core.Command {
 		Resource:  "dns-stage",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListDNSStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListDNSStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -538,7 +538,7 @@ func edgeServicesDNSStageCreate() *core.Command {
 		Resource:  "dns-stage",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreateDNSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreateDNSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fqdns.{index}",
@@ -602,7 +602,7 @@ func edgeServicesDNSStageGet() *core.Command {
 		Resource:  "dns-stage",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetDNSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetDNSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-stage-id",
@@ -631,7 +631,7 @@ func edgeServicesDNSStageUpdate() *core.Command {
 		Resource:  "dns-stage",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdateDNSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdateDNSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-stage-id",
@@ -695,7 +695,7 @@ func edgeServicesDNSStageDelete() *core.Command {
 		Resource:  "dns-stage",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteDNSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteDNSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-stage-id",
@@ -731,7 +731,7 @@ func edgeServicesTLSStageList() *core.Command {
 		Resource:  "tls-stage",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListTLSStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListTLSStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -790,7 +790,7 @@ func edgeServicesTLSStageCreate() *core.Command {
 		Resource:  "tls-stage",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreateTLSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreateTLSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secrets.{index}.secret-id",
@@ -866,7 +866,7 @@ func edgeServicesTLSStageGet() *core.Command {
 		Resource:  "tls-stage",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetTLSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetTLSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tls-stage-id",
@@ -895,7 +895,7 @@ func edgeServicesTLSStageUpdate() *core.Command {
 		Resource:  "tls-stage",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdateTLSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdateTLSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tls-stage-id",
@@ -971,7 +971,7 @@ func edgeServicesTLSStageDelete() *core.Command {
 		Resource:  "tls-stage",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteTLSStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteTLSStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tls-stage-id",
@@ -1007,7 +1007,7 @@ func edgeServicesCacheStageList() *core.Command {
 		Resource:  "cache-stage",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListCacheStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListCacheStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1052,7 +1052,7 @@ func edgeServicesCacheStageCreate() *core.Command {
 		Resource:  "cache-stage",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreateCacheStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreateCacheStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fallback-ttl",
@@ -1115,7 +1115,7 @@ func edgeServicesCacheStageGet() *core.Command {
 		Resource:  "cache-stage",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetCacheStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetCacheStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cache-stage-id",
@@ -1144,7 +1144,7 @@ func edgeServicesCacheStageUpdate() *core.Command {
 		Resource:  "cache-stage",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdateCacheStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdateCacheStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cache-stage-id",
@@ -1206,7 +1206,7 @@ func edgeServicesCacheStageDelete() *core.Command {
 		Resource:  "cache-stage",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteCacheStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteCacheStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cache-stage-id",
@@ -1242,7 +1242,7 @@ func edgeServicesBackendStageList() *core.Command {
 		Resource:  "backend-stage",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListBackendStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListBackendStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1308,7 +1308,7 @@ func edgeServicesBackendStageCreate() *core.Command {
 		Resource:  "backend-stage",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreateBackendStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreateBackendStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "scaleway-s3.bucket-name",
@@ -1424,7 +1424,7 @@ func edgeServicesBackendStageGet() *core.Command {
 		Resource:  "backend-stage",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetBackendStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetBackendStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-stage-id",
@@ -1453,7 +1453,7 @@ func edgeServicesBackendStageUpdate() *core.Command {
 		Resource:  "backend-stage",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdateBackendStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdateBackendStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-stage-id",
@@ -1576,7 +1576,7 @@ func edgeServicesBackendStageDelete() *core.Command {
 		Resource:  "backend-stage",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteBackendStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteBackendStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-stage-id",
@@ -1612,7 +1612,7 @@ func edgeServicesWafStageList() *core.Command {
 		Resource:  "waf-stage",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListWafStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListWafStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1657,7 +1657,7 @@ func edgeServicesWafStageCreate() *core.Command {
 		Resource:  "waf-stage",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreateWafStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreateWafStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -1713,7 +1713,7 @@ func edgeServicesWafStageGet() *core.Command {
 		Resource:  "waf-stage",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetWafStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetWafStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "waf-stage-id",
@@ -1742,7 +1742,7 @@ func edgeServicesWafStageUpdate() *core.Command {
 		Resource:  "waf-stage",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdateWafStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdateWafStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "waf-stage-id",
@@ -1798,7 +1798,7 @@ func edgeServicesWafStageDelete() *core.Command {
 		Resource:  "waf-stage",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteWafStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteWafStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "waf-stage-id",
@@ -1834,7 +1834,7 @@ func edgeServicesRouteStageList() *core.Command {
 		Resource:  "route-stage",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListRouteStagesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListRouteStagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1879,7 +1879,7 @@ func edgeServicesRouteStageCreate() *core.Command {
 		Resource:  "route-stage",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreateRouteStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreateRouteStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -1922,7 +1922,7 @@ func edgeServicesRouteStageGet() *core.Command {
 		Resource:  "route-stage",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetRouteStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetRouteStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",
@@ -1951,7 +1951,7 @@ func edgeServicesRouteStageUpdate() *core.Command {
 		Resource:  "route-stage",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.UpdateRouteStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.UpdateRouteStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",
@@ -1994,7 +1994,7 @@ func edgeServicesRouteStageDelete() *core.Command {
 		Resource:  "route-stage",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteRouteStageRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteRouteStageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",
@@ -2030,7 +2030,7 @@ func edgeServicesRouteRulesList() *core.Command {
 		Resource:  "route-rules",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListRouteRulesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListRouteRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",
@@ -2059,7 +2059,7 @@ func edgeServicesRouteRulesSet() *core.Command {
 		Resource:  "route-rules",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.SetRouteRulesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.SetRouteRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",
@@ -2153,7 +2153,7 @@ func edgeServicesRouteRulesAdd() *core.Command {
 		Resource:  "route-rules",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.AddRouteRulesRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.AddRouteRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",
@@ -2261,7 +2261,7 @@ func edgeServicesPurgeRequestList() *core.Command {
 		Resource:  "purge-request",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.ListPurgeRequestsRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.ListPurgeRequestsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2320,7 +2320,7 @@ func edgeServicesPurgeRequestCreate() *core.Command {
 		Resource:  "purge-request",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.CreatePurgeRequestRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.CreatePurgeRequestRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pipeline-id",
@@ -2363,7 +2363,7 @@ func edgeServicesPurgeRequestGet() *core.Command {
 		Resource:  "purge-request",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetPurgeRequestRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetPurgeRequestRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "purge-request-id",
@@ -2410,7 +2410,7 @@ func edgeServicesPlanSelect() *core.Command {
 		Resource:  "plan",
 		Verb:      "select",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.SelectPlanRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.SelectPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -2445,7 +2445,7 @@ func edgeServicesPlanGet() *core.Command {
 		Resource:  "plan",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.GetCurrentPlanRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.GetCurrentPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -2468,7 +2468,7 @@ func edgeServicesPlanDelete() *core.Command {
 		Resource:  "plan",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(edge_services.DeleteCurrentPlanRequest{}),
+		ArgsType: reflect.TypeFor[edge_services.DeleteCurrentPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},

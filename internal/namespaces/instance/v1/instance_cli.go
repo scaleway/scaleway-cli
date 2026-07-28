@@ -285,7 +285,7 @@ func instanceServerTypeGet() *core.Command {
 		Resource:  "server-type",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerTypesAvailabilityRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerTypesAvailabilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -319,7 +319,7 @@ func instanceServerTypeList() *core.Command {
 		Resource:  "server-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServersTypesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServersTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -363,7 +363,7 @@ func instanceVolumeTypeList() *core.Command {
 		Resource:  "volume-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListVolumesTypesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListVolumesTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -407,7 +407,7 @@ func instanceServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -581,7 +581,7 @@ func instanceServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -628,7 +628,7 @@ func instanceServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -854,7 +854,7 @@ func instanceServerListActions() *core.Command {
 		Resource:  "server",
 		Verb:      "list-actions",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServerActionsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServerActionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -894,7 +894,7 @@ func instanceUserDataList() *core.Command {
 		Resource:  "user-data",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -935,7 +935,7 @@ func instanceUserDataDelete() *core.Command {
 		Resource:  "user-data",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -990,7 +990,7 @@ func instanceUserDataSet() *core.Command {
 		Resource:  "user-data",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1063,7 +1063,7 @@ func instanceUserDataGet() *core.Command {
 		Resource:  "user-data",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1116,7 +1116,7 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 		Resource:  "server",
 		Verb:      "get-compatible-types",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerCompatibleTypesRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerCompatibleTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1157,7 +1157,7 @@ func instanceServerAttachVolume() *core.Command {
 		Resource:  "server",
 		Verb:      "attach-volume",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.AttachServerVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.AttachServerVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1221,7 +1221,7 @@ func instanceServerDetachVolume() *core.Command {
 		Resource:  "server",
 		Verb:      "detach-volume",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DetachServerVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.DetachServerVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1267,7 +1267,7 @@ func instanceServerAttachFilesystem() *core.Command {
 		Resource:  "server",
 		Verb:      "attach-filesystem",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.AttachServerFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[instance.AttachServerFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1313,7 +1313,7 @@ func instanceServerDetachFilesystem() *core.Command {
 		Resource:  "server",
 		Verb:      "detach-filesystem",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DetachServerFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[instance.DetachServerFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1359,7 +1359,7 @@ func instanceImageList() *core.Command {
 		Resource:  "image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListImagesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1451,7 +1451,7 @@ func instanceImageGet() *core.Command {
 		Resource:  "image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -1502,7 +1502,7 @@ func instanceImageCreate() *core.Command {
 		Resource:  "image",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1636,7 +1636,7 @@ func instanceImageUpdate() *core.Command {
 		Resource:  "image",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -1718,7 +1718,7 @@ func instanceImageDelete() *core.Command {
 		Resource:  "image",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -1776,7 +1776,7 @@ func instanceSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -1865,7 +1865,7 @@ func instanceSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1975,7 +1975,7 @@ func instanceSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2026,7 +2026,7 @@ func instanceSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2081,7 +2081,7 @@ func instanceSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2139,7 +2139,7 @@ func instanceSnapshotExport() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ExportSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.ExportSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -2200,7 +2200,7 @@ func instanceVolumeList() *core.Command {
 		Resource:  "volume",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListVolumesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListVolumesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-type",
@@ -2335,7 +2335,7 @@ func instanceVolumeCreate() *core.Command {
 		Resource:  "volume",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2425,7 +2425,7 @@ func instanceVolumeGet() *core.Command {
 		Resource:  "volume",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -2472,7 +2472,7 @@ func instanceVolumeUpdate() *core.Command {
 		Resource:  "volume",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -2548,7 +2548,7 @@ func instanceVolumeDelete() *core.Command {
 		Resource:  "volume",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -2602,7 +2602,7 @@ func instanceSecurityGroupList() *core.Command {
 		Resource:  "security-group",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListSecurityGroupsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListSecurityGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2687,7 +2687,7 @@ func instanceSecurityGroupCreate() *core.Command {
 		Resource:  "security-group",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2822,7 +2822,7 @@ func instanceSecurityGroupGet() *core.Command {
 		Resource:  "security-group",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -2869,7 +2869,7 @@ func instanceSecurityGroupDelete() *core.Command {
 		Resource:  "security-group",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -2923,7 +2923,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 		Resource:  "security-group",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3037,7 +3037,7 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 		Resource:  "security-group",
 		Verb:      "list-default-rules",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListDefaultSecurityGroupRulesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListDefaultSecurityGroupRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -3071,7 +3071,7 @@ func instanceSecurityGroupListRules() *core.Command {
 		Resource:  "security-group",
 		Verb:      "list-rules",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListSecurityGroupRulesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListSecurityGroupRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3122,7 +3122,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "create-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3255,7 +3255,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 		Resource:  "security-group",
 		Verb:      "set-rules",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetSecurityGroupRulesRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetSecurityGroupRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3383,7 +3383,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "delete-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3442,7 +3442,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "get-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3494,7 +3494,7 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "update-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3608,7 +3608,7 @@ func instancePlacementGroupList() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListPlacementGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -3690,7 +3690,7 @@ func instancePlacementGroupCreate() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreatePlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreatePlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -3789,7 +3789,7 @@ func instancePlacementGroupGet() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetPlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetPlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -3836,7 +3836,7 @@ func instancePlacementGroupSet() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetPlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetPlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -3910,7 +3910,7 @@ func instancePlacementGroupUpdate() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdatePlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdatePlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4001,7 +4001,7 @@ func instancePlacementGroupDelete() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeletePlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeletePlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4059,7 +4059,7 @@ func instancePlacementGroupGetServers() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "get-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetPlacementGroupServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetPlacementGroupServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4100,7 +4100,7 @@ func instancePlacementGroupSetServers() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "set-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetPlacementGroupServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4154,7 +4154,7 @@ func instancePlacementGroupUpdateServers() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "update-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdatePlacementGroupServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdatePlacementGroupServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4202,7 +4202,7 @@ func instanceIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -4326,7 +4326,7 @@ func instanceIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectArgSpec(),
 			{
@@ -4402,7 +4402,7 @@ func instanceIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
@@ -4457,7 +4457,7 @@ func instanceIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
@@ -4538,7 +4538,7 @@ func instanceIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
@@ -4600,7 +4600,7 @@ func instancePrivateNicList() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListPrivateNICsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListPrivateNICsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4668,7 +4668,7 @@ func instancePrivateNicCreate() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreatePrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreatePrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4737,7 +4737,7 @@ func instancePrivateNicGet() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetPrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetPrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4785,7 +4785,7 @@ func instancePrivateNicUpdate() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdatePrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdatePrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4846,7 +4846,7 @@ func instancePrivateNicDelete() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeletePrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeletePrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4905,7 +4905,7 @@ The endpoint also returns the validation_key, which must be provided to the [Mig
 		Resource:  "volume",
 		Verb:      "plan-migration",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.PlanBlockMigrationRequest{}),
+		ArgsType: reflect.TypeFor[instance.PlanBlockMigrationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -4953,7 +4953,7 @@ func instanceVolumeApplyMigration() *core.Command {
 		Resource:  "volume",
 		Verb:      "apply-migration",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ApplyBlockMigrationRequest{}),
+		ArgsType: reflect.TypeFor[instance.ApplyBlockMigrationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",

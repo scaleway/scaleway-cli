@@ -116,7 +116,7 @@ func datawarehousePresetList() *core.Command {
 		Resource:  "preset",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListPresetsRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListPresetsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -151,7 +151,7 @@ func datawarehouseVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -192,7 +192,7 @@ func datawarehouseDeploymentList() *core.Command {
 		Resource:  "deployment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListDeploymentsRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListDeploymentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -268,7 +268,7 @@ func datawarehouseDeploymentGet() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.GetDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.GetDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -298,7 +298,7 @@ func datawarehouseDeploymentCreate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -405,7 +405,7 @@ func datawarehouseDeploymentUpdate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.UpdateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.UpdateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -477,7 +477,7 @@ func datawarehouseDeploymentDelete() *core.Command {
 		Resource:  "deployment",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -507,7 +507,7 @@ func datawarehouseDeploymentGetCertificate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.GetDeploymentCertificateRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.GetDeploymentCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -537,7 +537,7 @@ func datawarehouseUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -597,7 +597,7 @@ func datawarehouseUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -648,7 +648,7 @@ func datawarehouseUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -699,7 +699,7 @@ func datawarehouseUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -743,7 +743,7 @@ func datawarehouseEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -780,7 +780,7 @@ func datawarehouseEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -823,7 +823,7 @@ func datawarehouseDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -885,7 +885,7 @@ func datawarehouseDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -922,7 +922,7 @@ func datawarehouseDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",

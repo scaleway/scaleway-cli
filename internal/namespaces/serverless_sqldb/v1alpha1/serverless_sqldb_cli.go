@@ -68,7 +68,7 @@ func sdbSQLDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.CreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -120,7 +120,7 @@ func sdbSQLDatabaseGet() *core.Command {
 		Resource:  "database",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.GetDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.GetDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -150,7 +150,7 @@ func sdbSQLDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.DeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -180,7 +180,7 @@ func sdbSQLDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.ListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -243,7 +243,7 @@ func sdbSQLDatabaseUpdate() *core.Command {
 		Resource:  "database",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.UpdateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.UpdateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -287,7 +287,7 @@ func sdbSQLDatabaseRestore() *core.Command {
 		Resource:  "database",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.RestoreDatabaseFromBackupRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.RestoreDatabaseFromBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -324,7 +324,7 @@ func sdbSQLBackupGet() *core.Command {
 		Resource:  "backup",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.GetDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.GetDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-id",
@@ -354,7 +354,7 @@ func sdbSQLBackupList() *core.Command {
 		Resource:  "backup",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.ListDatabaseBackupsRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.ListDatabaseBackupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -421,7 +421,7 @@ func sdbSQLBackupExport() *core.Command {
 		Resource:  "backup",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.ExportDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.ExportDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-id",

@@ -55,7 +55,7 @@ func partnerOrganizationCreate() *core.Command {
 		Resource:  "organization",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.CreateOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.CreateOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "partner-id",
@@ -133,7 +133,7 @@ func partnerOrganizationGet() *core.Command {
 		Resource:  "organization",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.GetOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.GetOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -156,7 +156,7 @@ func partnerOrganizationList() *core.Command {
 		Resource:  "organization",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.ListOrganizationsRequest{}),
+		ArgsType: reflect.TypeFor[partner.ListOrganizationsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -232,7 +232,7 @@ func partnerOrganizationLock() *core.Command {
 		Resource:  "organization",
 		Verb:      "lock",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.LockOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.LockOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -255,7 +255,7 @@ func partnerOrganizationUnlock() *core.Command {
 		Resource:  "organization",
 		Verb:      "unlock",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.UnlockOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.UnlockOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -278,7 +278,7 @@ func partnerOrganizationUpdate() *core.Command {
 		Resource:  "organization",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.UpdateOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.UpdateOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "email",

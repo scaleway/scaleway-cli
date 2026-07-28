@@ -87,7 +87,7 @@ func registryNamespaceList() *core.Command {
 		Resource:  "namespace",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.ListNamespacesRequest{}),
+		ArgsType: reflect.TypeFor[registry.ListNamespacesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -204,7 +204,7 @@ func registryNamespaceGet() *core.Command {
 		Resource:  "namespace",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.GetNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[registry.GetNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -238,7 +238,7 @@ func registryNamespaceCreate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.CreateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[registry.CreateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -289,7 +289,7 @@ func registryNamespaceUpdate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.UpdateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[registry.UpdateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -337,7 +337,7 @@ func registryNamespaceDelete() *core.Command {
 		Resource:  "namespace",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.DeleteNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[registry.DeleteNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -371,7 +371,7 @@ func registryImageList() *core.Command {
 		Resource:  "image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.ListImagesRequest{}),
+		ArgsType: reflect.TypeFor[registry.ListImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -481,7 +481,7 @@ func registryImageGet() *core.Command {
 		Resource:  "image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.GetImageRequest{}),
+		ArgsType: reflect.TypeFor[registry.GetImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -515,7 +515,7 @@ func registryImageUpdate() *core.Command {
 		Resource:  "image",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.UpdateImageRequest{}),
+		ArgsType: reflect.TypeFor[registry.UpdateImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -562,7 +562,7 @@ func registryImageDelete() *core.Command {
 		Resource:  "image",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.DeleteImageRequest{}),
+		ArgsType: reflect.TypeFor[registry.DeleteImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -596,7 +596,7 @@ func registryTagList() *core.Command {
 		Resource:  "tag",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.ListTagsRequest{}),
+		ArgsType: reflect.TypeFor[registry.ListTagsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -660,7 +660,7 @@ func registryTagGet() *core.Command {
 		Resource:  "tag",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.GetTagRequest{}),
+		ArgsType: reflect.TypeFor[registry.GetTagRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",
@@ -694,7 +694,7 @@ func registryTagDelete() *core.Command {
 		Resource:  "tag",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(registry.DeleteTagRequest{}),
+		ArgsType: reflect.TypeFor[registry.DeleteTagRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tag-id",

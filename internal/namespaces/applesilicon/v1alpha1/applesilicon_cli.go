@@ -114,7 +114,7 @@ func appleSiliconServerTypeList() *core.Command {
 		Resource:  "server-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListServerTypesRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListServerTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
@@ -137,7 +137,7 @@ func appleSiliconServerTypeGet() *core.Command {
 		Resource:  "server-type",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetServerTypeRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetServerTypeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-type",
@@ -167,7 +167,7 @@ func appleSiliconServerCreate() *core.Command {
 		Resource:  "server",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.CreateServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.CreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -281,7 +281,7 @@ func appleSiliconServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -341,7 +341,7 @@ func appleSiliconOsList() *core.Command {
 		Resource:  "os",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListOSRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-type",
@@ -390,7 +390,7 @@ func appleSiliconOsGet() *core.Command {
 		Resource:  "os",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetOSRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
@@ -420,7 +420,7 @@ func appleSiliconServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -450,7 +450,7 @@ func appleSiliconServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -525,7 +525,7 @@ func appleSiliconServerDelete() *core.Command {
 		Resource:  "server",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.DeleteServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.DeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -562,7 +562,7 @@ func appleSiliconServerReboot() *core.Command {
 		Resource:  "server",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.RebootServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.RebootServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -592,7 +592,7 @@ func appleSiliconServerReinstall() *core.Command {
 		Resource:  "server",
 		Verb:      "reinstall",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ReinstallServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ReinstallServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -636,7 +636,7 @@ func appleSiliconRunnerCreate() *core.Command {
 		Resource:  "runner",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.CreateRunnerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.CreateRunnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -707,7 +707,7 @@ func appleSiliconRunnerGet() *core.Command {
 		Resource:  "runner",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetRunnerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetRunnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "runner-id",
@@ -737,7 +737,7 @@ func appleSiliconRunnerList() *core.Command {
 		Resource:  "runner",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListRunnersRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListRunnersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -793,7 +793,7 @@ func appleSiliconRunnerUpdate() *core.Command {
 		Resource:  "runner",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.UpdateRunnerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.UpdateRunnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "runner-id",
@@ -870,7 +870,7 @@ func appleSiliconRunnerDelete() *core.Command {
 		Resource:  "runner",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.DeleteRunnerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.DeleteRunnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "runner-id",
@@ -907,7 +907,7 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 		Resource:  "private-network",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -954,7 +954,7 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 		Resource:  "private-network",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -994,7 +994,7 @@ func appleSiliconPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1078,7 +1078,7 @@ func appleSiliconPrivateNetworkDelete() *core.Command {
 		Resource:  "private-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",

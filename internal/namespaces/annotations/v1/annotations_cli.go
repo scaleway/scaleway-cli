@@ -96,7 +96,7 @@ func annotationsKeyCreate() *core.Command {
 		Resource:  "key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.CreateKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.CreateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -133,7 +133,7 @@ func annotationsKeyList() *core.Command {
 		Resource:  "key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListKeysRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -161,7 +161,7 @@ func annotationsKeyGet() *core.Command {
 		Resource:  "key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.GetKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.GetKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -190,7 +190,7 @@ func annotationsKeyUpdate() *core.Command {
 		Resource:  "key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.UpdateKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.UpdateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -233,7 +233,7 @@ func annotationsKeyDelete() *core.Command {
 		Resource:  "key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -269,7 +269,7 @@ func annotationsValueCreate() *core.Command {
 		Resource:  "value",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.CreateValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.CreateValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -312,7 +312,7 @@ func annotationsValueList() *core.Command {
 		Resource:  "value",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListValuesRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListValuesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -347,7 +347,7 @@ func annotationsValueGet() *core.Command {
 		Resource:  "value",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.GetValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.GetValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -376,7 +376,7 @@ func annotationsValueUpdate() *core.Command {
 		Resource:  "value",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.UpdateValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.UpdateValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -419,7 +419,7 @@ func annotationsValueDelete() *core.Command {
 		Resource:  "value",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -455,7 +455,7 @@ func annotationsValueDeleteAllMatchingKey() *core.Command {
 		Resource:  "value",
 		Verb:      "delete-all-matching-key",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteAllValuesMatchingKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteAllValuesMatchingKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -484,7 +484,7 @@ func annotationsKeyValueList() *core.Command {
 		Resource:  "key-value",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListAllKeysAndValuesRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListAllKeysAndValuesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -507,7 +507,7 @@ func annotationsBindingCreate() *core.Command {
 		Resource:  "binding",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.CreateBindingRequest{}),
+		ArgsType: reflect.TypeFor[annotations.CreateBindingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
@@ -543,7 +543,7 @@ func annotationsBindingList() *core.Command {
 		Resource:  "binding",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListBindingsRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListBindingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
@@ -585,7 +585,7 @@ func annotationsBindingDelete() *core.Command {
 		Resource:  "binding",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteBindingRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteBindingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "binding-id",
@@ -621,7 +621,7 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 		Resource:  "binding",
 		Verb:      "delete-all-matching-value",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteAllBindingsMatchingValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -650,7 +650,7 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteAllBindingsMatchingSRNRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingSRNRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",

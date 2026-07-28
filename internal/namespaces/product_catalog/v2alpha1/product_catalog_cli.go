@@ -52,9 +52,7 @@ func productCatalogProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(
-			product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{},
-		),
+		ArgsType: reflect.TypeFor[product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "product-types.{index}",

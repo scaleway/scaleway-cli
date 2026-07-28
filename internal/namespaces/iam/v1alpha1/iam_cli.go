@@ -261,7 +261,7 @@ func iamSSHKeyList() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListSSHKeysRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListSSHKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -352,7 +352,7 @@ func iamSSHKeyCreate() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -406,7 +406,7 @@ func iamSSHKeyGet() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
@@ -435,7 +435,7 @@ func iamSSHKeyUpdate() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
@@ -477,7 +477,7 @@ func iamSSHKeyDelete() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
@@ -528,7 +528,7 @@ func iamUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -615,7 +615,7 @@ func iamUserGet() *core.Command {
 		Resource:  "user",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -644,7 +644,7 @@ func iamUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -715,7 +715,7 @@ func iamUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -751,7 +751,7 @@ func iamUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "email",
@@ -851,7 +851,7 @@ func iamUserUpdateUsername() *core.Command {
 		Resource:  "user",
 		Verb:      "update-username",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserUsernameRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateUserUsernameRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -887,7 +887,7 @@ func iamUserUpdatePassword() *core.Command {
 		Resource:  "user",
 		Verb:      "update-password",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserPasswordRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -923,7 +923,7 @@ func iamUserLock() *core.Command {
 		Resource:  "user",
 		Verb:      "lock",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.LockUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.LockUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -952,7 +952,7 @@ func iamUserUnlock() *core.Command {
 		Resource:  "user",
 		Verb:      "unlock",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UnlockUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.UnlockUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -981,7 +981,7 @@ func iamApplicationList() *core.Command {
 		Resource:  "application",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListApplicationsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListApplicationsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1053,7 +1053,7 @@ func iamApplicationCreate() *core.Command {
 		Resource:  "application",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1098,7 +1098,7 @@ func iamApplicationGet() *core.Command {
 		Resource:  "application",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -1127,7 +1127,7 @@ func iamApplicationUpdate() *core.Command {
 		Resource:  "application",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -1177,7 +1177,7 @@ func iamApplicationDelete() *core.Command {
 		Resource:  "application",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -1213,7 +1213,7 @@ func iamGroupList() *core.Command {
 		Resource:  "group",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListGroupsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1306,7 +1306,7 @@ func iamGroupCreate() *core.Command {
 		Resource:  "group",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1371,7 +1371,7 @@ func iamGroupGet() *core.Command {
 		Resource:  "group",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1400,7 +1400,7 @@ func iamGroupUpdate() *core.Command {
 		Resource:  "group",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1450,7 +1450,7 @@ func iamGroupSetMembers() *core.Command {
 		Resource:  "group",
 		Verb:      "set-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.SetGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[iam.SetGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1500,7 +1500,7 @@ func iamGroupAddMember() *core.Command {
 		Resource:  "group",
 		Verb:      "add-member",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.AddGroupMemberRequest{}),
+		ArgsType: reflect.TypeFor[iam.AddGroupMemberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1543,7 +1543,7 @@ func iamGroupAddMembers() *core.Command {
 		Resource:  "group",
 		Verb:      "add-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.AddGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[iam.AddGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1586,7 +1586,7 @@ func iamGroupRemoveMember() *core.Command {
 		Resource:  "group",
 		Verb:      "remove-member",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.RemoveGroupMemberRequest{}),
+		ArgsType: reflect.TypeFor[iam.RemoveGroupMemberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1639,7 +1639,7 @@ func iamGroupDelete() *core.Command {
 		Resource:  "group",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1691,7 +1691,7 @@ func iamPolicyList() *core.Command {
 		Resource:  "policy",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListPoliciesRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListPoliciesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1789,7 +1789,7 @@ func iamPolicyCreate() *core.Command {
 		Resource:  "policy",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreatePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreatePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1896,7 +1896,7 @@ func iamPolicyGet() *core.Command {
 		Resource:  "policy",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetPolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -1925,7 +1925,7 @@ func iamPolicyUpdate() *core.Command {
 		Resource:  "policy",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdatePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdatePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -2003,7 +2003,7 @@ func iamPolicyDelete() *core.Command {
 		Resource:  "policy",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeletePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeletePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -2039,7 +2039,7 @@ func iamPolicyClone() *core.Command {
 		Resource:  "policy",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ClonePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.ClonePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -2067,7 +2067,7 @@ func iamRuleUpdate() *core.Command {
 		Resource:  "rule",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.SetRulesRequest{}),
+		ArgsType: reflect.TypeFor[iam.SetRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -2124,7 +2124,7 @@ func iamRuleList() *core.Command {
 		Resource:  "rule",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListRulesRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -2158,7 +2158,7 @@ func iamPermissionSetList() *core.Command {
 		Resource:  "permission-set",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListPermissionSetsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListPermissionSetsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2200,7 +2200,7 @@ func iamAPIKeyList() *core.Command {
 		Resource:  "api-key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListAPIKeysRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListAPIKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2340,7 +2340,7 @@ func iamAPIKeyCreate() *core.Command {
 		Resource:  "api-key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -2407,7 +2407,7 @@ func iamAPIKeyGet() *core.Command {
 		Resource:  "api-key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "access-key",
@@ -2436,7 +2436,7 @@ func iamAPIKeyUpdate() *core.Command {
 		Resource:  "api-key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "access-key",
@@ -2486,7 +2486,7 @@ func iamAPIKeyDelete() *core.Command {
 		Resource:  "api-key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "access-key",
@@ -2538,7 +2538,7 @@ func iamJwtList() *core.Command {
 		Resource:  "jwt",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListJWTsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListJWTsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2593,7 +2593,7 @@ func iamJwtGet() *core.Command {
 		Resource:  "jwt",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetJWTRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetJWTRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "jti",
@@ -2622,7 +2622,7 @@ func iamJwtDelete() *core.Command {
 		Resource:  "jwt",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteJWTRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteJWTRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "jti",
@@ -2658,7 +2658,7 @@ func iamLogList() *core.Command {
 		Resource:  "log",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListLogsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2747,7 +2747,7 @@ func iamLogGet() *core.Command {
 		Resource:  "log",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetLogRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetLogRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "log-id",
@@ -2776,7 +2776,7 @@ func iamSecuritySettingsGet() *core.Command {
 		Resource:  "security-settings",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetOrganizationSecuritySettingsRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetOrganizationSecuritySettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -2799,7 +2799,7 @@ func iamSecuritySettingsUpdate() *core.Command {
 		Resource:  "security-settings",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateOrganizationSecuritySettingsRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateOrganizationSecuritySettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "enforce-password-renewal",
@@ -2857,7 +2857,7 @@ func iamOrganizationGetSaml() *core.Command {
 		Resource:  "organization",
 		Verb:      "get-saml",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetOrganizationSamlRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetOrganizationSamlRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -2880,7 +2880,7 @@ func iamOrganizationEnableSaml() *core.Command {
 		Resource:  "organization",
 		Verb:      "enable-saml",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.EnableOrganizationSamlRequest{}),
+		ArgsType: reflect.TypeFor[iam.EnableOrganizationSamlRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -2903,7 +2903,7 @@ func iamSamlUpdate() *core.Command {
 		Resource:  "saml",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateSamlRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateSamlRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "saml-id",
@@ -2946,7 +2946,7 @@ func iamSamlDelete() *core.Command {
 		Resource:  "saml",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteSamlRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteSamlRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "saml-id",
@@ -2982,7 +2982,7 @@ func iamSamlCertificatesList() *core.Command {
 		Resource:  "saml-certificates",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListSamlCertificatesRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListSamlCertificatesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "saml-id",
@@ -3011,7 +3011,7 @@ func iamSamlCertificatesAdd() *core.Command {
 		Resource:  "saml-certificates",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.AddSamlCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iam.AddSamlCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "saml-id",
@@ -3059,7 +3059,7 @@ func iamSamlCertificatesDelete() *core.Command {
 		Resource:  "saml-certificates",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteSamlCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteSamlCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "certificate-id",
@@ -3095,7 +3095,7 @@ func iamOrganizationGetScim() *core.Command {
 		Resource:  "organization",
 		Verb:      "get-scim",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetOrganizationScimRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetOrganizationScimRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -3118,7 +3118,7 @@ func iamOrganizationEnableScim() *core.Command {
 		Resource:  "organization",
 		Verb:      "enable-scim",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.EnableOrganizationScimRequest{}),
+		ArgsType: reflect.TypeFor[iam.EnableOrganizationScimRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -3141,7 +3141,7 @@ func iamScimDelete() *core.Command {
 		Resource:  "scim",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteScimRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteScimRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "scim-id",
@@ -3177,7 +3177,7 @@ func iamScimTokensList() *core.Command {
 		Resource:  "scim-tokens",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListScimTokensRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListScimTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "scim-id",
@@ -3223,7 +3223,7 @@ func iamScimTokensCreate() *core.Command {
 		Resource:  "scim-tokens",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateScimTokenRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateScimTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "scim-id",
@@ -3252,7 +3252,7 @@ func iamScimTokensDelete() *core.Command {
 		Resource:  "scim-tokens",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteScimTokenRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteScimTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",

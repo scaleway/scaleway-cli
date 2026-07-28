@@ -283,7 +283,7 @@ func dediboxServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -345,7 +345,7 @@ func dediboxServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -379,7 +379,7 @@ func dediboxServerListOptions() *core.Command {
 		Resource:  "server",
 		Verb:      "list-options",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListSubscribableServerOptionsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListSubscribableServerOptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -423,7 +423,7 @@ func dediboxServerSubscribeOption() *core.Command {
 		Resource:  "server",
 		Verb:      "subscribe-option",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.SubscribeServerOptionRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.SubscribeServerOptionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -464,7 +464,7 @@ func dediboxServerCreate() *core.Command {
 		Resource:  "server",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.CreateServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.CreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -513,7 +513,7 @@ func dediboxServerSubscribeStorage() *core.Command {
 		Resource:  "server",
 		Verb:      "subscribe-storage",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.SubscribeStorageOptionsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.SubscribeStorageOptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -554,7 +554,7 @@ func dediboxServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -602,7 +602,7 @@ func dediboxServerReboot() *core.Command {
 		Resource:  "server",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RebootServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RebootServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -643,7 +643,7 @@ func dediboxServerStart() *core.Command {
 		Resource:  "server",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StartServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StartServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -684,7 +684,7 @@ func dediboxServerStop() *core.Command {
 		Resource:  "server",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StopServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StopServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -725,7 +725,7 @@ func dediboxServerDelete() *core.Command {
 		Resource:  "server",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DeleteServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -766,7 +766,7 @@ func dediboxServerListEvents() *core.Command {
 		Resource:  "server",
 		Verb:      "list-events",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServerEventsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServerEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -821,7 +821,7 @@ func dediboxServerListDisks() *core.Command {
 		Resource:  "server",
 		Verb:      "list-disks",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServerDisksRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServerDisksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -876,7 +876,7 @@ func dediboxServiceGet() *core.Command {
 		Resource:  "service",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "service-id",
@@ -910,7 +910,7 @@ func dediboxServiceDelete() *core.Command {
 		Resource:  "service",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DeleteServiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DeleteServiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "service-id",
@@ -944,7 +944,7 @@ func dediboxServiceList() *core.Command {
 		Resource:  "service",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServicesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -999,7 +999,7 @@ func dediboxServerInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.InstallServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.InstallServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1151,7 +1151,7 @@ func dediboxServerGetInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "get-install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServerInstallRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServerInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1185,7 +1185,7 @@ func dediboxServerCancelInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "cancel-install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.CancelServerInstallRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.CancelServerInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1226,7 +1226,7 @@ func dediboxServerGetPartitioning() *core.Command {
 		Resource:  "server",
 		Verb:      "get-partitioning",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServerDefaultPartitioningRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServerDefaultPartitioningRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1268,7 +1268,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 		Resource:  "bmc",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StartBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StartBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1316,7 +1316,7 @@ func dediboxBmcGet() *core.Command {
 		Resource:  "bmc",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1350,7 +1350,7 @@ func dediboxBmcStop() *core.Command {
 		Resource:  "bmc",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StopBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StopBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1391,7 +1391,7 @@ func dediboxOfferList() *core.Command {
 		Resource:  "offer",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListOffersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1509,7 +1509,7 @@ func dediboxOfferGet() *core.Command {
 		Resource:  "offer",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetOfferRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetOfferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1550,7 +1550,7 @@ func dediboxOsList() *core.Command {
 		Resource:  "os",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListOSRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1630,7 +1630,7 @@ func dediboxOsGet() *core.Command {
 		Resource:  "os",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetOSRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
@@ -1678,7 +1678,7 @@ func dediboxReverseIPUpdate() *core.Command {
 		Resource:  "reverse-ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.UpdateReverseRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.UpdateReverseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1719,7 +1719,7 @@ func dediboxFipCreate() *core.Command {
 		Resource:  "fip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.CreateFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.CreateFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1761,7 +1761,7 @@ func dediboxFipAttach() *core.Command {
 		Resource:  "fip",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.AttachFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.AttachFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1809,7 +1809,7 @@ func dediboxFipDetach() *core.Command {
 		Resource:  "fip",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DetachFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DetachFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
@@ -1850,7 +1850,7 @@ func dediboxFipAttachMac() *core.Command {
 		Resource:  "fip",
 		Verb:      "attach-mac",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.AttachFailoverIPToMacAddressRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.AttachFailoverIPToMacAddressRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1904,7 +1904,7 @@ func dediboxFipDetachMac() *core.Command {
 		Resource:  "fip",
 		Verb:      "detach-mac",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DetachFailoverIPFromMacAddressRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DetachFailoverIPFromMacAddressRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1938,7 +1938,7 @@ func dediboxFipDelete() *core.Command {
 		Resource:  "fip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DeleteFailoverIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DeleteFailoverIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1979,7 +1979,7 @@ func dediboxFipList() *core.Command {
 		Resource:  "fip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2048,7 +2048,7 @@ func dediboxFipGet() *core.Command {
 		Resource:  "fip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetFailoverIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetFailoverIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -2082,7 +2082,7 @@ func dediboxFipGetQuota() *core.Command {
 		Resource:  "fip",
 		Verb:      "get-quota",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetRemainingQuotaRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetRemainingQuotaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2116,7 +2116,7 @@ func dediboxRaidGet() *core.Command {
 		Resource:  "raid",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetRaidRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetRaidRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2150,7 +2150,7 @@ func dediboxRaidUpdate() *core.Command {
 		Resource:  "raid",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.UpdateRaidRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.UpdateRaidRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2213,7 +2213,7 @@ func dediboxRescueStart() *core.Command {
 		Resource:  "rescue",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StartRescueRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StartRescueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2254,7 +2254,7 @@ func dediboxRescueGet() *core.Command {
 		Resource:  "rescue",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetRescueRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetRescueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2288,7 +2288,7 @@ func dediboxRescueStop() *core.Command {
 		Resource:  "rescue",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StopRescueRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StopRescueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2329,7 +2329,7 @@ func dediboxBillingListInvoice() *core.Command {
 		Resource:  "billing",
 		Verb:      "list-invoice",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIListInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIListInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2372,7 +2372,7 @@ func dediboxBillingGetInvoice() *core.Command {
 		Resource:  "billing",
 		Verb:      "get-invoice",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIGetInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIGetInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -2400,7 +2400,7 @@ func dediboxBillingDownloadInvoice() *core.Command {
 		Resource:  "billing",
 		Verb:      "download-invoice",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIDownloadInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIDownloadInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -2428,7 +2428,7 @@ func dediboxBillingListRefund() *core.Command {
 		Resource:  "billing",
 		Verb:      "list-refund",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIListRefundsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIListRefundsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2471,7 +2471,7 @@ func dediboxBillingGetRefund() *core.Command {
 		Resource:  "billing",
 		Verb:      "get-refund",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIGetRefundRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIGetRefundRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "refund-id",
@@ -2499,7 +2499,7 @@ func dediboxBillingDownloadRefund() *core.Command {
 		Resource:  "billing",
 		Verb:      "download-refund",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIDownloadRefundRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIDownloadRefundRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "refund-id",
@@ -2527,7 +2527,7 @@ func dediboxBillingGetOrderCapacity() *core.Command {
 		Resource:  "billing",
 		Verb:      "get-order-capacity",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPICanOrderRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPICanOrderRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -2553,7 +2553,7 @@ func dediboxIPv6BlockGetQuota() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "get-quota",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIGetIPv6BlockQuotasRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIGetIPv6BlockQuotasRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2582,7 +2582,7 @@ func dediboxIPv6BlockCreate() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPICreateIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPICreateIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2611,7 +2611,7 @@ func dediboxIPv6BlockGet() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIGetIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIGetIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2641,7 +2641,7 @@ If DNS is used, minimum of 2 is necessary and maximum of 5 (no duplicate).`,
 		Resource:  "ipv6-block",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIUpdateIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIUpdateIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2677,7 +2677,7 @@ func dediboxIPv6BlockDelete() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIDeleteIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIDeleteIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2715,7 +2715,7 @@ func dediboxIPv6BlockCreateSubnet() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "create-subnet",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPICreateIPv6BlockSubnetRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPICreateIPv6BlockSubnetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2758,7 +2758,7 @@ func dediboxIPv6BlockListSubnet() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "list-subnet",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIListIPv6BlockSubnetsAvailableRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIListIPv6BlockSubnetsAvailableRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2787,7 +2787,7 @@ func dediboxRpnInfoList() *core.Command {
 		Resource:  "rpn-info",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnAPIListRpnServerCapabilitiesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnAPIListRpnServerCapabilitiesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2832,7 +2832,7 @@ func dediboxRpnInfoGet() *core.Command {
 		Resource:  "rpn-info",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnAPIGetRpnStatusRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnAPIGetRpnStatusRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2875,7 +2875,7 @@ func dediboxSanList() *core.Command {
 		Resource:  "san",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIListRpnSansRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIListRpnSansRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2920,7 +2920,7 @@ func dediboxSanGet() *core.Command {
 		Resource:  "san",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIGetRpnSanRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIGetRpnSanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -2949,7 +2949,7 @@ func dediboxSanDelete() *core.Command {
 		Resource:  "san",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIDeleteRpnSanRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIDeleteRpnSanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -2985,7 +2985,7 @@ func dediboxSanCreate() *core.Command {
 		Resource:  "san",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPICreateRpnSanRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPICreateRpnSanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -3015,7 +3015,7 @@ func dediboxSanListIPs() *core.Command {
 		Resource:  "san",
 		Verb:      "list-ips",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIListIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3056,7 +3056,7 @@ func dediboxSanAddIP() *core.Command {
 		Resource:  "san",
 		Verb:      "add-ip",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIAddIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIAddIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3099,7 +3099,7 @@ func dediboxSanRemoveIP() *core.Command {
 		Resource:  "san",
 		Verb:      "remove-ip",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIRemoveIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIRemoveIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3142,7 +3142,7 @@ func dediboxSanListAvailableIPs() *core.Command {
 		Resource:  "san",
 		Verb:      "list-available-ips",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIListAvailableIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIListAvailableIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3183,7 +3183,7 @@ func dediboxRpnV1List() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnGroupsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3228,7 +3228,7 @@ func dediboxRpnV1Get() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiGetRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiGetRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3257,7 +3257,7 @@ func dediboxRpnV1Create() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiCreateRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiCreateRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -3301,7 +3301,7 @@ func dediboxRpnV1Delete() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiDeleteRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiDeleteRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3337,7 +3337,7 @@ func dediboxRpnV1Update() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiUpdateRpnGroupNameRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiUpdateRpnGroupNameRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3373,7 +3373,7 @@ func dediboxRpnV1ListMembers() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3425,7 +3425,7 @@ func dediboxRpnV1Invite() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "invite",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiRpnGroupInviteRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiRpnGroupInviteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3469,7 +3469,7 @@ func dediboxRpnV1Leave() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "leave",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiLeaveRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiLeaveRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3512,7 +3512,7 @@ func dediboxRpnV1AddMembers() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "add-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiAddRpnGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiAddRpnGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3555,7 +3555,7 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "delete-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiDeleteRpnGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiDeleteRpnGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3591,7 +3591,7 @@ func dediboxRpnV1ListCapableServer() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-capable-server",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnCapableServersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnCapableServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3636,7 +3636,7 @@ func dediboxRpnV1ListCapableSanServer() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-capable-san-server",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnCapableSanServersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnCapableSanServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3681,7 +3681,7 @@ func dediboxRpnV1ListInvites() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-invites",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnInvitesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnInvitesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3720,7 +3720,7 @@ func dediboxRpnV1AcceptInvite() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "accept-invite",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiAcceptRpnInviteRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiAcceptRpnInviteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "member-id",
@@ -3756,7 +3756,7 @@ func dediboxRpnV1RefuseInvite() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "refuse-invite",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiRefuseRpnInviteRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiRefuseRpnInviteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "member-id",
@@ -3792,7 +3792,7 @@ func dediboxRpnV2List() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2GroupsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2GroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3837,7 +3837,7 @@ func dediboxRpnV2ListMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2MembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2MembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3894,7 +3894,7 @@ func dediboxRpnV2Get() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiGetRpnV2GroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiGetRpnV2GroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3923,7 +3923,7 @@ func dediboxRpnV2Create() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiCreateRpnV2GroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiCreateRpnV2GroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -3972,7 +3972,7 @@ func dediboxRpnV2Delete() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiDeleteRpnV2GroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiDeleteRpnV2GroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4008,7 +4008,7 @@ func dediboxRpnV2Update() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiUpdateRpnV2GroupNameRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiUpdateRpnV2GroupNameRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4044,7 +4044,7 @@ func dediboxRpnV2AddMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "add-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiAddRpnV2MembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiAddRpnV2MembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4087,7 +4087,7 @@ func dediboxRpnV2DeleteMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "delete-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiDeleteRpnV2MembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiDeleteRpnV2MembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4130,7 +4130,7 @@ func dediboxRpnV2ListCapableResources() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list-capable-resources",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2CapableResourcesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2CapableResourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -4175,7 +4175,7 @@ func dediboxRpnV2ListLogs() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list-logs",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2GroupLogsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2GroupLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -4220,7 +4220,7 @@ func dediboxRpnV2UpdateVlanMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "update-vlan-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiUpdateRpnV2VlanForMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiUpdateRpnV2VlanForMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4270,7 +4270,7 @@ func dediboxRpnV2EnableCompatibility() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "enable-compatibility",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiEnableRpnV2GroupCompatibilityRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiEnableRpnV2GroupCompatibilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4313,7 +4313,7 @@ func dediboxRpnV2DisableCompatibility() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "disable-compatibility",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiDisableRpnV2GroupCompatibilityRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiDisableRpnV2GroupCompatibilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",

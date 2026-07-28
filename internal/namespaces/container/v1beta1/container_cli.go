@@ -53,7 +53,7 @@ func containerTokenCreate() *core.Command {
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.CreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -108,7 +108,7 @@ func containerTokenGet() *core.Command {
 		Resource:  "token",
 		Verb:      "get",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.GetTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.GetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -142,7 +142,7 @@ func containerTokenList() *core.Command {
 		Resource:  "token",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.ListTokensRequest{}),
+		ArgsType: reflect.TypeFor[container.ListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -204,7 +204,7 @@ func containerTokenDelete() *core.Command {
 		Resource:  "token",
 		Verb:      "delete",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.DeleteTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",

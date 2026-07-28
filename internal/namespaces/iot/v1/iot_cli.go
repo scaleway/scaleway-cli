@@ -108,7 +108,7 @@ func iotHubList() *core.Command {
 		Resource:  "hub",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListHubsRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListHubsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -230,7 +230,7 @@ func iotHubCreate() *core.Command {
 		Resource:  "hub",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -296,7 +296,7 @@ func iotHubGet() *core.Command {
 		Resource:  "hub",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -326,7 +326,7 @@ func iotHubUpdate() *core.Command {
 		Resource:  "hub",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.UpdateHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.UpdateHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -403,7 +403,7 @@ func iotHubEnable() *core.Command {
 		Resource:  "hub",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.EnableHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.EnableHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -433,7 +433,7 @@ func iotHubDisable() *core.Command {
 		Resource:  "hub",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DisableHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.DisableHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -463,7 +463,7 @@ func iotHubDelete() *core.Command {
 		Resource:  "hub",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -507,7 +507,7 @@ func iotHubSetCa() *core.Command {
 		Resource:  "hub",
 		Verb:      "set-ca",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.SetHubCARequest{}),
+		ArgsType: reflect.TypeFor[iot.SetHubCARequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -551,7 +551,7 @@ func iotHubGetCa() *core.Command {
 		Resource:  "hub",
 		Verb:      "get-ca",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetHubCARequest{}),
+		ArgsType: reflect.TypeFor[iot.GetHubCARequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -580,7 +580,7 @@ func iotDeviceList() *core.Command {
 		Resource:  "device",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListDevicesRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListDevicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -708,7 +708,7 @@ func iotDeviceCreate() *core.Command {
 		Resource:  "device",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -805,7 +805,7 @@ func iotDeviceGet() *core.Command {
 		Resource:  "device",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -835,7 +835,7 @@ func iotDeviceUpdate() *core.Command {
 		Resource:  "device",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.UpdateDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.UpdateDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -931,7 +931,7 @@ func iotDeviceEnable() *core.Command {
 		Resource:  "device",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.EnableDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.EnableDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -961,7 +961,7 @@ func iotDeviceDisable() *core.Command {
 		Resource:  "device",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DisableDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.DisableDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -991,7 +991,7 @@ func iotDeviceRenewCertificate() *core.Command {
 		Resource:  "device",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.RenewDeviceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iot.RenewDeviceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1021,7 +1021,7 @@ func iotDeviceSetCertificate() *core.Command {
 		Resource:  "device",
 		Verb:      "set-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.SetDeviceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iot.SetDeviceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1058,7 +1058,7 @@ func iotDeviceGetCertificate() *core.Command {
 		Resource:  "device",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetDeviceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetDeviceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1088,7 +1088,7 @@ func iotDeviceDelete() *core.Command {
 		Resource:  "device",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1125,7 +1125,7 @@ func iotDeviceGetMetrics() *core.Command {
 		Resource:  "device",
 		Verb:      "get-metrics",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(iot.GetDeviceMetricsRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetDeviceMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1162,7 +1162,7 @@ func iotRouteList() *core.Command {
 		Resource:  "route",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListRoutesRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListRoutesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1257,7 +1257,7 @@ func iotRouteCreate() *core.Command {
 		Resource:  "route",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1404,7 +1404,7 @@ func iotRouteUpdate() *core.Command {
 		Resource:  "route",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.UpdateRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.UpdateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1550,7 +1550,7 @@ func iotRouteGet() *core.Command {
 		Resource:  "route",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1580,7 +1580,7 @@ func iotRouteDelete() *core.Command {
 		Resource:  "route",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1617,7 +1617,7 @@ func iotNetworkList() *core.Command {
 		Resource:  "network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListNetworksRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1711,7 +1711,7 @@ func iotNetworkCreate() *core.Command {
 		Resource:  "network",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1768,7 +1768,7 @@ func iotNetworkGet() *core.Command {
 		Resource:  "network",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetNetworkRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "network-id",
@@ -1798,7 +1798,7 @@ func iotNetworkDelete() *core.Command {
 		Resource:  "network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteNetworkRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "network-id",

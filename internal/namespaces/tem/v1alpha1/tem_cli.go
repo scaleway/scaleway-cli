@@ -133,7 +133,7 @@ func temEmailCreate() *core.Command {
 		Resource:  "email",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.CreateEmailRequest{}),
+		ArgsType: reflect.TypeFor[tem.CreateEmailRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "from.email",
@@ -276,7 +276,7 @@ func temEmailGet() *core.Command {
 		Resource:  "email",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetEmailRequest{}),
+		ArgsType: reflect.TypeFor[tem.GetEmailRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "email-id",
@@ -306,7 +306,7 @@ func temEmailList() *core.Command {
 		Resource:  "email",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListEmailsRequest{}),
+		ArgsType: reflect.TypeFor[tem.ListEmailsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -465,7 +465,7 @@ func temEmailGetStatistics() *core.Command {
 		Resource:  "email",
 		Verb:      "get-statistics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetStatisticsRequest{}),
+		ArgsType: reflect.TypeFor[tem.GetStatisticsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -523,7 +523,7 @@ func temEmailCancel() *core.Command {
 		Resource:  "email",
 		Verb:      "cancel",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.CancelEmailRequest{}),
+		ArgsType: reflect.TypeFor[tem.CancelEmailRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "email-id",
@@ -553,7 +553,7 @@ func temDomainCreate() *core.Command {
 		Resource:  "domain",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.CreateDomainRequest{}),
+		ArgsType: reflect.TypeFor[tem.CreateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -598,7 +598,7 @@ func temDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetDomainRequest{}),
+		ArgsType: reflect.TypeFor[tem.GetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -628,7 +628,7 @@ func temDomainList() *core.Command {
 		Resource:  "domain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListDomainsRequest{}),
+		ArgsType: reflect.TypeFor[tem.ListDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -701,7 +701,7 @@ func temDomainRevoke() *core.Command {
 		Resource:  "domain",
 		Verb:      "revoke",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.RevokeDomainRequest{}),
+		ArgsType: reflect.TypeFor[tem.RevokeDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -731,7 +731,7 @@ func temDomainCheck() *core.Command {
 		Resource:  "domain",
 		Verb:      "check",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.CheckDomainRequest{}),
+		ArgsType: reflect.TypeFor[tem.CheckDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -761,7 +761,7 @@ func temDomainGetLastStatus() *core.Command {
 		Resource:  "domain",
 		Verb:      "get-last-status",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetDomainLastStatusRequest{}),
+		ArgsType: reflect.TypeFor[tem.GetDomainLastStatusRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -791,7 +791,7 @@ func temDomainUpdate() *core.Command {
 		Resource:  "domain",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.UpdateDomainRequest{}),
+		ArgsType: reflect.TypeFor[tem.UpdateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -828,7 +828,7 @@ func temWebhookCreate() *core.Command {
 		Resource:  "webhook",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.CreateWebhookRequest{}),
+		ArgsType: reflect.TypeFor[tem.CreateWebhookRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -891,7 +891,7 @@ func temWebhookList() *core.Command {
 		Resource:  "webhook",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListWebhooksRequest{}),
+		ArgsType: reflect.TypeFor[tem.ListWebhooksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -958,7 +958,7 @@ func temWebhookGet() *core.Command {
 		Resource:  "webhook",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetWebhookRequest{}),
+		ArgsType: reflect.TypeFor[tem.GetWebhookRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "webhook-id",
@@ -988,7 +988,7 @@ func temWebhookUpdate() *core.Command {
 		Resource:  "webhook",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.UpdateWebhookRequest{}),
+		ArgsType: reflect.TypeFor[tem.UpdateWebhookRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "webhook-id",
@@ -1050,7 +1050,7 @@ func temWebhookDelete() *core.Command {
 		Resource:  "webhook",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.DeleteWebhookRequest{}),
+		ArgsType: reflect.TypeFor[tem.DeleteWebhookRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "webhook-id",
@@ -1087,7 +1087,7 @@ func temWebhookListEvents() *core.Command {
 		Resource:  "webhook",
 		Verb:      "list-events",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListWebhookEventsRequest{}),
+		ArgsType: reflect.TypeFor[tem.ListWebhookEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1199,7 +1199,7 @@ func temBlocklistsList() *core.Command {
 		Resource:  "blocklists",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListBlocklistsRequest{}),
+		ArgsType: reflect.TypeFor[tem.ListBlocklistsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1280,7 +1280,7 @@ func temBlocklistsCreate() *core.Command {
 		Resource:  "blocklists",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.BulkCreateBlocklistsRequest{}),
+		ArgsType: reflect.TypeFor[tem.BulkCreateBlocklistsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1336,7 +1336,7 @@ func temBlocklistsDelete() *core.Command {
 		Resource:  "blocklists",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.DeleteBlocklistRequest{}),
+		ArgsType: reflect.TypeFor[tem.DeleteBlocklistRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "blocklist-id",
@@ -1373,7 +1373,7 @@ func temOffersUpdate() *core.Command {
 		Resource:  "offers",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.UpdateOfferSubscriptionRequest{}),
+		ArgsType: reflect.TypeFor[tem.UpdateOfferSubscriptionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1409,7 +1409,7 @@ func temOffersList() *core.Command {
 		Resource:  "offers",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.ListOffersRequest{}),
+		ArgsType: reflect.TypeFor[tem.ListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -1432,7 +1432,7 @@ func temProjectConsumptionGet() *core.Command {
 		Resource:  "project-consumption",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(tem.GetProjectConsumptionRequest{}),
+		ArgsType: reflect.TypeFor[tem.GetProjectConsumptionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(scw.RegionFrPar),

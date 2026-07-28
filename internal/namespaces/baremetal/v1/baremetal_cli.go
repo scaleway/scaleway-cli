@@ -140,7 +140,7 @@ func baremetalServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -239,7 +239,7 @@ func baremetalServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -282,7 +282,7 @@ func baremetalServerCreate() *core.Command {
 		Resource:  "server",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.CreateServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.CreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -549,7 +549,7 @@ func baremetalServerBatchCreate() *core.Command {
 		Resource:  "server",
 		Verb:      "batch-create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.BatchCreateServersRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.BatchCreateServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "common-configuration.offer-id",
@@ -846,7 +846,7 @@ func baremetalServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -918,7 +918,7 @@ func baremetalServerInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.InstallServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.InstallServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1173,7 +1173,7 @@ func baremetalServerGetMetrics() *core.Command {
 		Resource:  "server",
 		Verb:      "get-metrics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetServerMetricsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetServerMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1210,7 +1210,7 @@ func baremetalServerDelete() *core.Command {
 		Resource:  "server",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.DeleteServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.DeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1253,7 +1253,7 @@ func baremetalServerReboot() *core.Command {
 		Resource:  "server",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.RebootServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.RebootServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1319,7 +1319,7 @@ func baremetalServerStart() *core.Command {
 		Resource:  "server",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StartServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StartServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1385,7 +1385,7 @@ func baremetalServerStop() *core.Command {
 		Resource:  "server",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StopServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StopServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1428,7 +1428,7 @@ func baremetalServerListEvents() *core.Command {
 		Resource:  "server",
 		Verb:      "list-events",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListServerEventsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListServerEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1489,7 +1489,7 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 		Resource:  "bmc",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StartBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StartBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1533,7 +1533,7 @@ func baremetalBmcGet() *core.Command {
 		Resource:  "bmc",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1570,7 +1570,7 @@ func baremetalBmcStop() *core.Command {
 		Resource:  "bmc",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StopBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StopBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1614,7 +1614,7 @@ func baremetalServerUpdateIP() *core.Command {
 		Resource:  "server",
 		Verb:      "update-ip",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1665,7 +1665,7 @@ func baremetalOptionsAdd() *core.Command {
 		Resource:  "options",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.AddOptionServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.AddOptionServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1722,7 +1722,7 @@ func baremetalOptionsDelete() *core.Command {
 		Resource:  "options",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.DeleteOptionServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.DeleteOptionServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1772,7 +1772,7 @@ func baremetalOfferList() *core.Command {
 		Resource:  "offer",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOffersRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "subscription-period",
@@ -1841,7 +1841,7 @@ func baremetalOfferGet() *core.Command {
 		Resource:  "offer",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOfferRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetOfferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1884,7 +1884,7 @@ func baremetalOptionsGet() *core.Command {
 		Resource:  "options",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOptionRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetOptionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "option-id",
@@ -1927,7 +1927,7 @@ func baremetalOptionsList() *core.Command {
 		Resource:  "options",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOptionsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListOptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1991,7 +1991,7 @@ func baremetalSettingsList() *core.Command {
 		Resource:  "settings",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListSettingsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2049,7 +2049,7 @@ func baremetalSettingsUpdate() *core.Command {
 		Resource:  "settings",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.UpdateSettingRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.UpdateSettingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "setting-id",
@@ -2093,7 +2093,7 @@ func baremetalOsList() *core.Command {
 		Resource:  "os",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOSRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -2140,7 +2140,7 @@ func baremetalOsGet() *core.Command {
 		Resource:  "os",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOSRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
