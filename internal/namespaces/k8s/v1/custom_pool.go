@@ -244,7 +244,6 @@ Keep in mind that your external node needs to have wget in order to download the
 			client := core.ExtractClient(ctx)
 			secretKey, _ := client.GetSecretKey()
 			execScriptArgs := []string{
-				"", // Adding a space to prevent the command from being logged in history as it shows the secret key
 				"SCW_SECRET_KEY=" + secretKey,
 				"./init_kosmos_node.sh",
 			}
@@ -263,7 +262,21 @@ Keep in mind that your external node needs to have wget in order to download the
 
 func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
 	remoteCmd := exec.Command("ssh", args...)
-	_, _ = interactive.Println(remoteCmd)
+
+	cmdToPrint := make([]string, 0, len(remoteCmd.Args))
+	for _, arg := range remoteCmd.Args {
+		if strings.HasPrefix(arg, "SCW_SECRET_KEY=") {
+			if len(arg) > 24 {
+				cmdToPrint = append(cmdToPrint, arg[:24]+"xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+			} else {
+				cmdToPrint = append(cmdToPrint, arg)
+			}
+		} else {
+			cmdToPrint = append(cmdToPrint, arg)
+		}
+	}
+
+	_, _ = interactive.Println(cmdToPrint)
 
 	exitCode, err := core.ExecCmd(ctx, remoteCmd)
 	if err != nil {
