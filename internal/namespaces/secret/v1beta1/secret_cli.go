@@ -76,7 +76,7 @@ func secretSecretCreate() *core.Command {
 		Resource:  "secret",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.CreateSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.CreateSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -175,7 +175,7 @@ func secretSecretCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.CreateSecret(request)
+			return api.CreateSecret(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -194,7 +194,7 @@ func secretSecretGet() *core.Command {
 		Resource:  "secret",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.GetSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.GetSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -215,7 +215,7 @@ func secretSecretGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.GetSecret(request)
+			return api.GetSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -228,7 +228,7 @@ func secretSecretUpdate() *core.Command {
 		Resource:  "secret",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.UpdateSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.UpdateSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -303,7 +303,7 @@ func secretSecretUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.UpdateSecret(request)
+			return api.UpdateSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -316,7 +316,7 @@ func secretSecretDelete() *core.Command {
 		Resource:  "secret",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DeleteSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.DeleteSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -336,7 +336,7 @@ func secretSecretDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			e = api.DeleteSecret(request)
+			e = api.DeleteSecret(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -366,7 +366,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 		Resource:  "secret",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.ListSecretsRequest{}),
+		ArgsType: reflect.TypeFor[secret.ListSecretsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -459,7 +459,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -482,7 +482,7 @@ func secretSecretProtect() *core.Command {
 		Resource:  "secret",
 		Verb:      "protect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.ProtectSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.ProtectSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -503,7 +503,7 @@ func secretSecretProtect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.ProtectSecret(request)
+			return api.ProtectSecret(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -522,7 +522,7 @@ func secretSecretUnprotect() *core.Command {
 		Resource:  "secret",
 		Verb:      "unprotect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.UnprotectSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.UnprotectSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -543,7 +543,7 @@ func secretSecretUnprotect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.UnprotectSecret(request)
+			return api.UnprotectSecret(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -562,7 +562,7 @@ func secretSecretAddOwner() *core.Command {
 		Resource:  "secret",
 		Verb:      "add-owner",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.AddSecretOwnerRequest{}),
+		ArgsType: reflect.TypeFor[secret.AddSecretOwnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -594,7 +594,7 @@ func secretSecretAddOwner() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			e = api.AddSecretOwner(request)
+			e = api.AddSecretOwner(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -615,7 +615,7 @@ func secretVersionCreate() *core.Command {
 		Resource:  "version",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.CreateSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.CreateSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -664,7 +664,7 @@ func secretVersionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.CreateSecretVersion(request)
+			return api.CreateSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -677,7 +677,7 @@ func secretVersionGet() *core.Command {
 		Resource:  "version",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.GetSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.GetSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -705,7 +705,7 @@ func secretVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.GetSecretVersion(request)
+			return api.GetSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -718,7 +718,7 @@ func secretVersionUpdate() *core.Command {
 		Resource:  "version",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.UpdateSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.UpdateSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -779,7 +779,7 @@ func secretVersionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.UpdateSecretVersion(request)
+			return api.UpdateSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -792,7 +792,7 @@ func secretVersionDelete() *core.Command {
 		Resource:  "version",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DeleteSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.DeleteSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -819,7 +819,7 @@ func secretVersionDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			e = api.DeleteSecretVersion(request)
+			e = api.DeleteSecretVersion(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -846,7 +846,7 @@ func secretVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.ListSecretVersionsRequest{}),
+		ArgsType: reflect.TypeFor[secret.ListSecretVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -881,7 +881,7 @@ func secretVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -904,7 +904,7 @@ func secretVersionAccess() *core.Command {
 		Resource:  "version",
 		Verb:      "access",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.AccessSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.AccessSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -932,7 +932,7 @@ func secretVersionAccess() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.AccessSecretVersion(request)
+			return api.AccessSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -945,7 +945,7 @@ func secretVersionAccessByPath() *core.Command {
 		Resource:  "version",
 		Verb:      "access-by-path",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.AccessSecretVersionByPathRequest{}),
+		ArgsType: reflect.TypeFor[secret.AccessSecretVersionByPathRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-path",
@@ -981,7 +981,7 @@ func secretVersionAccessByPath() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.AccessSecretVersionByPath(request)
+			return api.AccessSecretVersionByPath(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -994,7 +994,7 @@ func secretVersionEnable() *core.Command {
 		Resource:  "version",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.EnableSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.EnableSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -1022,7 +1022,7 @@ func secretVersionEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.EnableSecretVersion(request)
+			return api.EnableSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1035,7 +1035,7 @@ func secretVersionDisable() *core.Command {
 		Resource:  "version",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DisableSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.DisableSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -1063,7 +1063,7 @@ func secretVersionDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := secret.NewAPI(client)
 
-			return api.DisableSecretVersion(request)
+			return api.DisableSecretVersion(request, scw.WithContext(ctx))
 		},
 	}
 }

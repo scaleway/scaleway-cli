@@ -225,8 +225,11 @@ scw lb backend create [arg=value ...]
 | health-check.check-delay | Default: `3s` | Time to wait between two consecutive health checks |
 | health-check.check-timeout | Default: `1s` | Maximum time a backend server has to reply to the health check |
 | health-check.check-max-retries |  | Number of consecutive unsuccessful health checks after which the server will be considered dead |
+| health-check.tcp-config |  | Object to configure a basic TCP health check |
 | health-check.mysql-config.user |  | MySQL user to use for the health check |
 | health-check.pgsql-config.user |  | PostgreSQL user to use for the health check |
+| health-check.ldap-config |  | Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message |
+| health-check.redis-config |  | Object to configure a Redis health check. The response is analyzed to find the +PONG response message |
 | health-check.http-config.uri |  | HTTP path used for the health check |
 | health-check.http-config.method |  | HTTP method used for the health check |
 | health-check.http-config.code |  | HTTP response code expected for a successful health check |
@@ -456,8 +459,11 @@ scw lb backend update-healthcheck [arg=value ...]
 | check-max-retries | Required | Number of consecutive unsuccessful health checks after which the server will be considered dead |
 | backend-id | Required | Backend ID |
 | check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
+| tcp-config |  | Object to configure a basic TCP health check |
 | mysql-config.user |  | MySQL user to use for the health check |
 | pgsql-config.user |  | PostgreSQL user to use for the health check |
+| ldap-config |  | Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message |
+| redis-config |  | Object to configure a Redis health check. The response is analyzed to find the +PONG response message |
 | http-config.uri |  | HTTP path used for the health check |
 | http-config.method |  | HTTP method used for the health check |
 | http-config.code |  | HTTP response code expected for a successful health check |

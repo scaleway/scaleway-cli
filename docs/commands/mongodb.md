@@ -23,6 +23,7 @@ scw mongodb endpoint create <instance-id ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | instance-id | Required | UUID of the Database Instance |
+| endpoint.public |  |  |
 | endpoint.private-network.private-network-id |  | UUID of the Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 
@@ -78,6 +79,7 @@ scw mongodb instance create [arg=value ...]
 | password | Required | Password of the initial user |
 | volume.volume-size | Default: `5GB` | Volume size |
 | volume.volume-type | Default: `sbs_5k`<br />One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
+| endpoints.{index}.public |  |  |
 | endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
 | region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
 

@@ -82,7 +82,7 @@ func blockVolumeTypeList() *core.Command {
 		Resource:  "volume-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ListVolumeTypesRequest{}),
+		ArgsType: reflect.TypeFor[block.ListVolumeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -102,7 +102,7 @@ func blockVolumeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -125,7 +125,7 @@ func blockVolumeList() *core.Command {
 		Resource:  "volume",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ListVolumesRequest{}),
+		ArgsType: reflect.TypeFor[block.ListVolumesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -193,7 +193,7 @@ func blockVolumeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -217,7 +217,7 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 		Resource:  "volume",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.CreateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.CreateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -281,7 +281,7 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.CreateVolume(request)
+			return api.CreateVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -294,7 +294,7 @@ func blockVolumeGet() *core.Command {
 		Resource:  "volume",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.GetVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.GetVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -321,7 +321,7 @@ func blockVolumeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.GetVolume(request)
+			return api.GetVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -334,7 +334,7 @@ func blockVolumeDelete() *core.Command {
 		Resource:  "volume",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.DeleteVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.DeleteVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -360,7 +360,7 @@ func blockVolumeDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			e = api.DeleteVolume(request)
+			e = api.DeleteVolume(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -382,7 +382,7 @@ You can only resize a volume to a larger size. It is currently not possible to c
 		Resource:  "volume",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.UpdateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.UpdateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -437,7 +437,7 @@ You can only resize a volume to a larger size. It is currently not possible to c
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.UpdateVolume(request)
+			return api.UpdateVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -450,7 +450,7 @@ func blockSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[block.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -518,7 +518,7 @@ func blockSnapshotList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -541,7 +541,7 @@ func blockSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -568,7 +568,7 @@ func blockSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.GetSnapshot(request)
+			return api.GetSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -582,7 +582,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -625,7 +625,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.CreateSnapshot(request)
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -639,7 +639,7 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 		Resource:  "snapshot",
 		Verb:      "import-from-object-storage",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ImportSnapshotFromObjectStorageRequest{}),
+		ArgsType: reflect.TypeFor[block.ImportSnapshotFromObjectStorageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -695,7 +695,7 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.ImportSnapshotFromObjectStorage(request)
+			return api.ImportSnapshotFromObjectStorage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -709,7 +709,7 @@ The snapshot must not be in transient state.`,
 		Resource:  "snapshot",
 		Verb:      "export-to-object-storage",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ExportSnapshotToObjectStorageRequest{}),
+		ArgsType: reflect.TypeFor[block.ExportSnapshotToObjectStorageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -750,7 +750,7 @@ The snapshot must not be in transient state.`,
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.ExportSnapshotToObjectStorage(request)
+			return api.ExportSnapshotToObjectStorage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -763,7 +763,7 @@ func blockSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -789,7 +789,7 @@ func blockSnapshotDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
-			e = api.DeleteSnapshot(request)
+			e = api.DeleteSnapshot(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -810,7 +810,7 @@ func blockSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -851,7 +851,7 @@ func blockSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := block.NewAPI(client)
 
-			return api.UpdateSnapshot(request)
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }

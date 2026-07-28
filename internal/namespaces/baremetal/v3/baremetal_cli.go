@@ -60,7 +60,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 		Resource:  "private-network",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPIAddServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -98,7 +98,7 @@ func baremetalPrivateNetworkAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 
-			return api.AddServerPrivateNetwork(request)
+			return api.AddServerPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -111,7 +111,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 		Resource:  "private-network",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPISetServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -142,7 +142,7 @@ func baremetalPrivateNetworkSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
 
-			return api.SetServerPrivateNetworks(request)
+			return api.SetServerPrivateNetworks(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -155,7 +155,7 @@ func baremetalPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPIListServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -220,7 +220,7 @@ func baremetalPrivateNetworkList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -243,7 +243,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 		Resource:  "private-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.PrivateNetworkAPIDeleteServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -273,7 +273,7 @@ func baremetalPrivateNetworkDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewPrivateNetworkAPI(client)
-			e = api.DeleteServerPrivateNetwork(request)
+			e = api.DeleteServerPrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

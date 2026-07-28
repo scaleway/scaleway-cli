@@ -96,7 +96,7 @@ func annotationsKeyCreate() *core.Command {
 		Resource:  "key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.CreateKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.CreateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -120,7 +120,7 @@ func annotationsKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.CreateKey(request)
+			return api.CreateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -133,7 +133,7 @@ func annotationsKeyList() *core.Command {
 		Resource:  "key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListKeysRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -142,7 +142,7 @@ func annotationsKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListKeys(request, opts...)
 			if err != nil {
 				return nil, err
@@ -161,7 +161,7 @@ func annotationsKeyGet() *core.Command {
 		Resource:  "key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.GetKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.GetKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -177,7 +177,7 @@ func annotationsKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.GetKey(request)
+			return api.GetKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -190,7 +190,7 @@ func annotationsKeyUpdate() *core.Command {
 		Resource:  "key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.UpdateKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.UpdateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -220,7 +220,7 @@ func annotationsKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.UpdateKey(request)
+			return api.UpdateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -233,7 +233,7 @@ func annotationsKeyDelete() *core.Command {
 		Resource:  "key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -248,7 +248,7 @@ func annotationsKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			e = api.DeleteKey(request)
+			e = api.DeleteKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -269,7 +269,7 @@ func annotationsValueCreate() *core.Command {
 		Resource:  "value",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.CreateValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.CreateValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -299,7 +299,7 @@ func annotationsValueCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.CreateValue(request)
+			return api.CreateValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -312,7 +312,7 @@ func annotationsValueList() *core.Command {
 		Resource:  "value",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListValuesRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListValuesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -328,7 +328,7 @@ func annotationsValueList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListValues(request, opts...)
 			if err != nil {
 				return nil, err
@@ -347,7 +347,7 @@ func annotationsValueGet() *core.Command {
 		Resource:  "value",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.GetValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.GetValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -363,7 +363,7 @@ func annotationsValueGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.GetValue(request)
+			return api.GetValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -376,7 +376,7 @@ func annotationsValueUpdate() *core.Command {
 		Resource:  "value",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.UpdateValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.UpdateValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -406,7 +406,7 @@ func annotationsValueUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.UpdateValue(request)
+			return api.UpdateValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -419,7 +419,7 @@ func annotationsValueDelete() *core.Command {
 		Resource:  "value",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -434,7 +434,7 @@ func annotationsValueDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			e = api.DeleteValue(request)
+			e = api.DeleteValue(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -455,7 +455,7 @@ func annotationsValueDeleteAllMatchingKey() *core.Command {
 		Resource:  "value",
 		Verb:      "delete-all-matching-key",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteAllValuesMatchingKeyRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteAllValuesMatchingKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -471,7 +471,7 @@ func annotationsValueDeleteAllMatchingKey() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.DeleteAllValuesMatchingKey(request)
+			return api.DeleteAllValuesMatchingKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -484,7 +484,7 @@ func annotationsKeyValueList() *core.Command {
 		Resource:  "key-value",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListAllKeysAndValuesRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListAllKeysAndValuesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -494,7 +494,7 @@ func annotationsKeyValueList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.ListAllKeysAndValues(request)
+			return api.ListAllKeysAndValues(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -507,7 +507,7 @@ func annotationsBindingCreate() *core.Command {
 		Resource:  "binding",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.CreateBindingRequest{}),
+		ArgsType: reflect.TypeFor[annotations.CreateBindingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
@@ -530,7 +530,7 @@ func annotationsBindingCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.CreateBinding(request)
+			return api.CreateBinding(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -543,7 +543,7 @@ func annotationsBindingList() *core.Command {
 		Resource:  "binding",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.ListBindingsRequest{}),
+		ArgsType: reflect.TypeFor[annotations.ListBindingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
@@ -566,7 +566,7 @@ func annotationsBindingList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListBindings(request, opts...)
 			if err != nil {
 				return nil, err
@@ -585,7 +585,7 @@ func annotationsBindingDelete() *core.Command {
 		Resource:  "binding",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteBindingRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteBindingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "binding-id",
@@ -600,7 +600,7 @@ func annotationsBindingDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
-			e = api.DeleteBinding(request)
+			e = api.DeleteBinding(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -621,7 +621,7 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 		Resource:  "binding",
 		Verb:      "delete-all-matching-value",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteAllBindingsMatchingValueRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingValueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "value-id",
@@ -637,7 +637,7 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.DeleteAllBindingsMatchingValue(request)
+			return api.DeleteAllBindingsMatchingValue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -650,7 +650,7 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(annotations.DeleteAllBindingsMatchingSRNRequest{}),
+		ArgsType: reflect.TypeFor[annotations.DeleteAllBindingsMatchingSRNRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
@@ -667,7 +667,7 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := annotations.NewAPI(client)
 
-			return api.DeleteAllBindingsMatchingSRN(request)
+			return api.DeleteAllBindingsMatchingSRN(request, scw.WithContext(ctx))
 		},
 	}
 }

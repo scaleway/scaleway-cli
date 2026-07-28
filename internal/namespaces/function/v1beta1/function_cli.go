@@ -141,7 +141,7 @@ func functionNamespaceList() *core.Command {
 		Resource:  "namespace",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListNamespacesRequest{}),
+		ArgsType: reflect.TypeFor[function.ListNamespacesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -189,7 +189,7 @@ func functionNamespaceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -247,7 +247,7 @@ func functionNamespaceGet() *core.Command {
 		Resource:  "namespace",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[function.GetNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -268,7 +268,7 @@ func functionNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetNamespace(request)
+			return api.GetNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -281,7 +281,7 @@ func functionNamespaceCreate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.CreateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[function.CreateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -343,7 +343,7 @@ func functionNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateNamespace(request)
+			return api.CreateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -356,7 +356,7 @@ func functionNamespaceUpdate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.UpdateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[function.UpdateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -410,7 +410,7 @@ func functionNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateNamespace(request)
+			return api.UpdateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -423,7 +423,7 @@ func functionNamespaceDelete() *core.Command {
 		Resource:  "namespace",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeleteNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[function.DeleteNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -444,7 +444,7 @@ func functionNamespaceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteNamespace(request)
+			return api.DeleteNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -457,7 +457,7 @@ func functionFunctionList() *core.Command {
 		Resource:  "function",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListFunctionsRequest{}),
+		ArgsType: reflect.TypeFor[function.ListFunctionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -512,7 +512,7 @@ func functionFunctionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -535,7 +535,7 @@ func functionFunctionGet() *core.Command {
 		Resource:  "function",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetFunctionRequest{}),
+		ArgsType: reflect.TypeFor[function.GetFunctionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -556,7 +556,7 @@ func functionFunctionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetFunction(request)
+			return api.GetFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -569,7 +569,7 @@ func functionFunctionCreate() *core.Command {
 		Resource:  "function",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.CreateFunctionRequest{}),
+		ArgsType: reflect.TypeFor[function.CreateFunctionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -761,7 +761,7 @@ func functionFunctionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateFunction(request)
+			return api.CreateFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -777,7 +777,7 @@ This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field
 		Resource:  "function",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.UpdateFunctionRequest{}),
+		ArgsType: reflect.TypeFor[function.UpdateFunctionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -967,7 +967,7 @@ This behavior can be changed by setting the ` + "`" + `redeploy` + "`" + ` field
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateFunction(request)
+			return api.UpdateFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -980,7 +980,7 @@ func functionFunctionDelete() *core.Command {
 		Resource:  "function",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeleteFunctionRequest{}),
+		ArgsType: reflect.TypeFor[function.DeleteFunctionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -1001,7 +1001,7 @@ func functionFunctionDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteFunction(request)
+			return api.DeleteFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1014,7 +1014,7 @@ func functionFunctionDeploy() *core.Command {
 		Resource:  "function",
 		Verb:      "deploy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeployFunctionRequest{}),
+		ArgsType: reflect.TypeFor[function.DeployFunctionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -1035,7 +1035,7 @@ func functionFunctionDeploy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeployFunction(request)
+			return api.DeployFunction(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1048,7 +1048,7 @@ func functionRuntimeList() *core.Command {
 		Resource:  "runtime",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListFunctionRuntimesRequest{}),
+		ArgsType: reflect.TypeFor[function.ListFunctionRuntimesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -1062,7 +1062,7 @@ func functionRuntimeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.ListFunctionRuntimes(request)
+			return api.ListFunctionRuntimes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1075,7 +1075,7 @@ func functionFunctionGetUploadURL() *core.Command {
 		Resource:  "function",
 		Verb:      "get-upload-url",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetFunctionUploadURLRequest{}),
+		ArgsType: reflect.TypeFor[function.GetFunctionUploadURLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -1103,7 +1103,7 @@ func functionFunctionGetUploadURL() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetFunctionUploadURL(request)
+			return api.GetFunctionUploadURL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1116,7 +1116,7 @@ func functionFunctionGetDownloadURL() *core.Command {
 		Resource:  "function",
 		Verb:      "get-download-url",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetFunctionDownloadURLRequest{}),
+		ArgsType: reflect.TypeFor[function.GetFunctionDownloadURLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -1137,7 +1137,7 @@ func functionFunctionGetDownloadURL() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetFunctionDownloadURL(request)
+			return api.GetFunctionDownloadURL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1150,7 +1150,7 @@ func functionCronList() *core.Command {
 		Resource:  "cron",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListCronsRequest{}),
+		ArgsType: reflect.TypeFor[function.ListCronsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1182,7 +1182,7 @@ func functionCronList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1205,7 +1205,7 @@ func functionCronGet() *core.Command {
 		Resource:  "cron",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetCronRequest{}),
+		ArgsType: reflect.TypeFor[function.GetCronRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
@@ -1226,7 +1226,7 @@ func functionCronGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetCron(request)
+			return api.GetCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1239,7 +1239,7 @@ func functionCronCreate() *core.Command {
 		Resource:  "cron",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.CreateCronRequest{}),
+		ArgsType: reflect.TypeFor[function.CreateCronRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -1281,7 +1281,7 @@ func functionCronCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateCron(request)
+			return api.CreateCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1294,7 +1294,7 @@ func functionCronUpdate() *core.Command {
 		Resource:  "cron",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.UpdateCronRequest{}),
+		ArgsType: reflect.TypeFor[function.UpdateCronRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
@@ -1343,7 +1343,7 @@ func functionCronUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateCron(request)
+			return api.UpdateCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1356,7 +1356,7 @@ func functionCronDelete() *core.Command {
 		Resource:  "cron",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeleteCronRequest{}),
+		ArgsType: reflect.TypeFor[function.DeleteCronRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cron-id",
@@ -1377,7 +1377,7 @@ func functionCronDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteCron(request)
+			return api.DeleteCron(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1390,7 +1390,7 @@ func functionDomainList() *core.Command {
 		Resource:  "domain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListDomainsRequest{}),
+		ArgsType: reflect.TypeFor[function.ListDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1424,7 +1424,7 @@ func functionDomainList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1447,7 +1447,7 @@ func functionDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetDomainRequest{}),
+		ArgsType: reflect.TypeFor[function.GetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1468,7 +1468,7 @@ func functionDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1481,7 +1481,7 @@ func functionDomainCreate() *core.Command {
 		Resource:  "domain",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.CreateDomainRequest{}),
+		ArgsType: reflect.TypeFor[function.CreateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hostname",
@@ -1509,7 +1509,7 @@ func functionDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateDomain(request)
+			return api.CreateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1522,7 +1522,7 @@ func functionDomainDelete() *core.Command {
 		Resource:  "domain",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeleteDomainRequest{}),
+		ArgsType: reflect.TypeFor[function.DeleteDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1543,7 +1543,7 @@ func functionDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteDomain(request)
+			return api.DeleteDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1556,7 +1556,7 @@ func functionTokenCreate() *core.Command {
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(function.CreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[function.CreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "function-id",
@@ -1598,7 +1598,7 @@ func functionTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1611,7 +1611,7 @@ func functionTokenGet() *core.Command {
 		Resource:  "token",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetTokenRequest{}),
+		ArgsType: reflect.TypeFor[function.GetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -1632,7 +1632,7 @@ func functionTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1645,7 +1645,7 @@ func functionTokenList() *core.Command {
 		Resource:  "token",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListTokensRequest{}),
+		ArgsType: reflect.TypeFor[function.ListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1684,7 +1684,7 @@ func functionTokenList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1707,7 +1707,7 @@ func functionTokenDelete() *core.Command {
 		Resource:  "token",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeleteTokenRequest{}),
+		ArgsType: reflect.TypeFor[function.DeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -1728,7 +1728,7 @@ func functionTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteToken(request)
+			return api.DeleteToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1741,7 +1741,7 @@ func functionTriggerCreate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.CreateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[function.CreateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1825,7 +1825,7 @@ func functionTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.CreateTrigger(request)
+			return api.CreateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1838,7 +1838,7 @@ func functionTriggerGet() *core.Command {
 		Resource:  "trigger",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.GetTriggerRequest{}),
+		ArgsType: reflect.TypeFor[function.GetTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1859,7 +1859,7 @@ func functionTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.GetTrigger(request)
+			return api.GetTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1872,7 +1872,7 @@ func functionTriggerList() *core.Command {
 		Resource:  "trigger",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.ListTriggersRequest{}),
+		ArgsType: reflect.TypeFor[function.ListTriggersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1912,7 +1912,7 @@ func functionTriggerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1935,7 +1935,7 @@ func functionTriggerUpdate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.UpdateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[function.UpdateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1970,7 +1970,7 @@ func functionTriggerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.UpdateTrigger(request)
+			return api.UpdateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1983,7 +1983,7 @@ func functionTriggerDelete() *core.Command {
 		Resource:  "trigger",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(function.DeleteTriggerRequest{}),
+		ArgsType: reflect.TypeFor[function.DeleteTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -2004,7 +2004,7 @@ func functionTriggerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := function.NewAPI(client)
 
-			return api.DeleteTrigger(request)
+			return api.DeleteTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -219,6 +219,7 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 | changes.{index}.delete.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
 | changes.{index}.delete.id-fields.data |  |  |
 | changes.{index}.delete.id-fields.ttl |  |  |
+| changes.{index}.clear |  |  |
 | return-all-records |  | Specifies whether or not to return all the records |
 | disallow-new-zone-creation |  | Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default |
 | serial |  | Use the provided serial (0) instead of the auto-increment serial |
