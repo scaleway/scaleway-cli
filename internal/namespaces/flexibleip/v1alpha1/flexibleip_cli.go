@@ -71,7 +71,7 @@ func fipIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.CreateFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.CreateFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -137,7 +137,7 @@ func fipIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.GetFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.GetFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -174,7 +174,7 @@ func fipIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.ListFlexibleIPsRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.ListFlexibleIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -304,7 +304,7 @@ func fipIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.UpdateFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.UpdateFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -362,7 +362,7 @@ func fipIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DeleteFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DeleteFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -406,7 +406,7 @@ func fipIPAttach() *core.Command {
 		Resource:  "ip",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.AttachFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.AttachFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
@@ -450,7 +450,7 @@ func fipIPDetach() *core.Command {
 		Resource:  "ip",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DetachFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DetachFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
@@ -487,7 +487,7 @@ func fipMacCreate() *core.Command {
 		Resource:  "mac",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.GenerateMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.GenerateMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -537,7 +537,7 @@ func fipMacDuplicate() *core.Command {
 		Resource:  "mac",
 		Verb:      "duplicate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DuplicateMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DuplicateMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -581,7 +581,7 @@ func fipMacMove() *core.Command {
 		Resource:  "mac",
 		Verb:      "move",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.MoveMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.MoveMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -623,7 +623,7 @@ func fipMacDelete() *core.Command {
 		Resource:  "mac",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DeleteMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DeleteMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",

@@ -64,7 +64,7 @@ func keymanagerKeyCreate() *core.Command {
 		Resource:  "key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.CreateKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.CreateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -191,7 +191,7 @@ func keymanagerKeyGet() *core.Command {
 		Resource:  "key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.GetKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.GetKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -225,7 +225,7 @@ func keymanagerKeyUpdate() *core.Command {
 		Resource:  "key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.UpdateKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.UpdateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -294,7 +294,7 @@ func keymanagerKeyDelete() *core.Command {
 		Resource:  "key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DeleteKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DeleteKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -335,7 +335,7 @@ func keymanagerKeyRotate() *core.Command {
 		Resource:  "key",
 		Verb:      "rotate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.RotateKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.RotateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -369,7 +369,7 @@ func keymanagerKeyProtect() *core.Command {
 		Resource:  "key",
 		Verb:      "protect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.ProtectKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.ProtectKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -403,7 +403,7 @@ func keymanagerKeyUnprotect() *core.Command {
 		Resource:  "key",
 		Verb:      "unprotect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.UnprotectKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.UnprotectKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -437,7 +437,7 @@ func keymanagerKeyEnable() *core.Command {
 		Resource:  "key",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.EnableKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.EnableKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -471,7 +471,7 @@ func keymanagerKeyDisable() *core.Command {
 		Resource:  "key",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DisableKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DisableKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -508,7 +508,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 		Resource:  "key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.ListKeysRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.ListKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -609,7 +609,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 		Resource:  "key",
 		Verb:      "generate-data-key",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.GenerateDataKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.GenerateDataKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -662,7 +662,7 @@ func keymanagerKeyEncrypt() *core.Command {
 		Resource:  "key",
 		Verb:      "encrypt",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.EncryptRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.EncryptRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -710,7 +710,7 @@ func keymanagerKeyDecrypt() *core.Command {
 		Resource:  "key",
 		Verb:      "decrypt",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DecryptRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DecryptRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -758,7 +758,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 		Resource:  "key",
 		Verb:      "import-key-material",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.ImportKeyMaterialRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.ImportKeyMaterialRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -806,7 +806,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 		Resource:  "key",
 		Verb:      "delete-key-material",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DeleteKeyMaterialRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DeleteKeyMaterialRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",

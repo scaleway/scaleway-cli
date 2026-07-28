@@ -113,7 +113,7 @@ func vpcGwGatewayList() *core.Command {
 		Resource:  "gateway",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListGatewaysRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListGatewaysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -240,7 +240,7 @@ func vpcGwGatewayGet() *core.Command {
 		Resource:  "gateway",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -280,7 +280,7 @@ func vpcGwGatewayCreate() *core.Command {
 		Resource:  "gateway",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreateGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreateGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -365,7 +365,7 @@ func vpcGwGatewayUpdate() *core.Command {
 		Resource:  "gateway",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdateGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdateGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -440,7 +440,7 @@ func vpcGwGatewayDelete() *core.Command {
 		Resource:  "gateway",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeleteGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeleteGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -487,7 +487,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 		Resource:  "gateway",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpgradeGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpgradeGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -534,7 +534,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListGatewayNetworksRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListGatewayNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -626,7 +626,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
@@ -666,7 +666,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreateGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreateGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -734,7 +734,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdateGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdateGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
@@ -795,7 +795,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeleteGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeleteGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
@@ -835,7 +835,7 @@ func vpcGwPatRuleList() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListPatRulesRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListPatRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -918,7 +918,7 @@ func vpcGwPatRuleGet() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetPatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetPatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
@@ -958,7 +958,7 @@ func vpcGwPatRuleCreate() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreatePatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreatePatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1032,7 +1032,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdatePatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdatePatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
@@ -1106,7 +1106,7 @@ func vpcGwPatRuleSet() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.SetPatRulesRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.SetPatRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1180,7 +1180,7 @@ func vpcGwPatRuleDelete() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeletePatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeletePatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
@@ -1227,7 +1227,7 @@ func vpcGwGatewayTypeList() *core.Command {
 		Resource:  "gateway-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListGatewayTypesRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListGatewayTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -1260,7 +1260,7 @@ func vpcGwIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1353,7 +1353,7 @@ func vpcGwIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1393,7 +1393,7 @@ func vpcGwIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreateIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1434,7 +1434,7 @@ func vpcGwIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1495,7 +1495,7 @@ func vpcGwIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeleteIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeleteIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1542,7 +1542,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 		Resource:  "gateway",
 		Verb:      "refresh-ssh-keys",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.RefreshSSHKeysRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.RefreshSSHKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",

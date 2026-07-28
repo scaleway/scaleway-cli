@@ -87,7 +87,7 @@ func marketplaceImageList() *core.Command {
 		Resource:  "image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListImagesRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -185,7 +185,7 @@ func marketplaceImageGet() *core.Command {
 		Resource:  "image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetImageRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -214,7 +214,7 @@ func marketplaceVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -257,7 +257,7 @@ func marketplaceVersionGet() *core.Command {
 		Resource:  "version",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetVersionRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version-id",
@@ -285,7 +285,7 @@ func marketplaceLocalImageList() *core.Command {
 		Resource:  "local-image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListLocalImagesRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListLocalImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -392,7 +392,7 @@ func marketplaceLocalImageGet() *core.Command {
 		Resource:  "local-image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetLocalImageRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetLocalImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "local-image-id",
@@ -420,7 +420,7 @@ func marketplaceCategoryList() *core.Command {
 		Resource:  "category",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListCategoriesRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListCategoriesRequest](),
 		ArgSpecs: core.ArgSpecs{},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.ListCategoriesRequest)
@@ -446,7 +446,7 @@ func marketplaceCategoryGet() *core.Command {
 		Resource:  "category",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetCategoryRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetCategoryRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "category-id",

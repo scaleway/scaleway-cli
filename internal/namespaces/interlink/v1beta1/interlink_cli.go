@@ -109,7 +109,7 @@ func interlinkPartnerList() *core.Command {
 		Resource:  "partner",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.ListPartnersRequest{}),
+		ArgsType: reflect.TypeFor[interlink.ListPartnersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -172,7 +172,7 @@ func interlinkPartnerGet() *core.Command {
 		Resource:  "partner",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.GetPartnerRequest{}),
+		ArgsType: reflect.TypeFor[interlink.GetPartnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "partner-id",
@@ -207,7 +207,7 @@ func interlinkPopList() *core.Command {
 		Resource:  "pop",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.ListPopsRequest{}),
+		ArgsType: reflect.TypeFor[interlink.ListPopsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -298,7 +298,7 @@ func interlinkPopGet() *core.Command {
 		Resource:  "pop",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.GetPopRequest{}),
+		ArgsType: reflect.TypeFor[interlink.GetPopRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pop-id",
@@ -333,7 +333,7 @@ func interlinkLinkList() *core.Command {
 		Resource:  "link",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.ListLinksRequest{}),
+		ArgsType: reflect.TypeFor[interlink.ListLinksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -525,7 +525,7 @@ func interlinkLinkGet() *core.Command {
 		Resource:  "link",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.GetLinkRequest{}),
+		ArgsType: reflect.TypeFor[interlink.GetLinkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -560,7 +560,7 @@ func interlinkLinkCreate() *core.Command {
 		Resource:  "link",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.CreateLinkRequest{}),
+		ArgsType: reflect.TypeFor[interlink.CreateLinkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -659,7 +659,7 @@ func interlinkLinkUpdate() *core.Command {
 		Resource:  "link",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.UpdateLinkRequest{}),
+		ArgsType: reflect.TypeFor[interlink.UpdateLinkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -715,7 +715,7 @@ func interlinkLinkDelete() *core.Command {
 		Resource:  "link",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.DeleteLinkRequest{}),
+		ArgsType: reflect.TypeFor[interlink.DeleteLinkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -750,7 +750,7 @@ func interlinkLinkAttachVpc() *core.Command {
 		Resource:  "link",
 		Verb:      "attach_vpc",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.AttachVpcRequest{}),
+		ArgsType: reflect.TypeFor[interlink.AttachVpcRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -792,7 +792,7 @@ func interlinkLinkDetachVpc() *core.Command {
 		Resource:  "link",
 		Verb:      "detach_vpc",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.DetachVpcRequest{}),
+		ArgsType: reflect.TypeFor[interlink.DetachVpcRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -827,7 +827,7 @@ func interlinkLinkAttachPolicy() *core.Command {
 		Resource:  "link",
 		Verb:      "attach_policy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.AttachRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[interlink.AttachRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -869,7 +869,7 @@ func interlinkLinkDetachPolicy() *core.Command {
 		Resource:  "link",
 		Verb:      "detach_policy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.DetachRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[interlink.DetachRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -911,7 +911,7 @@ func interlinkLinkEnablePropagation() *core.Command {
 		Resource:  "link",
 		Verb:      "enable_propagation",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.EnableRoutePropagationRequest{}),
+		ArgsType: reflect.TypeFor[interlink.EnableRoutePropagationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -946,7 +946,7 @@ func interlinkLinkDisablePropagation() *core.Command {
 		Resource:  "link",
 		Verb:      "disable_propagation",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.DisableRoutePropagationRequest{}),
+		ArgsType: reflect.TypeFor[interlink.DisableRoutePropagationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "link-id",
@@ -981,7 +981,7 @@ func interlinkRoutingPolicyList() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.ListRoutingPoliciesRequest{}),
+		ArgsType: reflect.TypeFor[interlink.ListRoutingPoliciesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1067,7 +1067,7 @@ func interlinkRoutingPolicyGet() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.GetRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[interlink.GetRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "routing-policy-id",
@@ -1102,7 +1102,7 @@ func interlinkRoutingPolicyCreate() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.CreateRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[interlink.CreateRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1166,7 +1166,7 @@ func interlinkRoutingPolicyUpdate() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.UpdateRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[interlink.UpdateRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "routing-policy-id",
@@ -1229,7 +1229,7 @@ func interlinkRoutingPolicyDelete() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(interlink.DeleteRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[interlink.DeleteRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "routing-policy-id",

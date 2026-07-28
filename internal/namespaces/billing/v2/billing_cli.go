@@ -80,7 +80,7 @@ func billingBudgetList() *core.Command {
 		Resource:  "budget",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListBudgetsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListBudgetsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "organization-id",
@@ -114,7 +114,7 @@ func billingBudgetGet() *core.Command {
 		Resource:  "budget",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.GetBudgetRequest{}),
+		ArgsType: reflect.TypeFor[billing.GetBudgetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-id",
@@ -143,7 +143,7 @@ func billingBudgetCreate() *core.Command {
 		Resource:  "budget",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.CreateBudgetRequest{}),
+		ArgsType: reflect.TypeFor[billing.CreateBudgetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "consumption-limit",
@@ -180,7 +180,7 @@ func billingBudgetUpdate() *core.Command {
 		Resource:  "budget",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.UpdateBudgetRequest{}),
+		ArgsType: reflect.TypeFor[billing.UpdateBudgetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-id",
@@ -223,7 +223,7 @@ func billingBudgetDelete() *core.Command {
 		Resource:  "budget",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.DeleteBudgetRequest{}),
+		ArgsType: reflect.TypeFor[billing.DeleteBudgetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-id",
@@ -259,7 +259,7 @@ func billingBudgetAlertCreate() *core.Command {
 		Resource:  "budget-alert",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.CreateBudgetAlertRequest{}),
+		ArgsType: reflect.TypeFor[billing.CreateBudgetAlertRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-id",
@@ -295,7 +295,7 @@ func billingBudgetAlertUpdate() *core.Command {
 		Resource:  "budget-alert",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.UpdateBudgetAlertRequest{}),
+		ArgsType: reflect.TypeFor[billing.UpdateBudgetAlertRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-alert-id",
@@ -331,7 +331,7 @@ func billingBudgetAlertDelete() *core.Command {
 		Resource:  "budget-alert",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.DeleteBudgetAlertRequest{}),
+		ArgsType: reflect.TypeFor[billing.DeleteBudgetAlertRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-alert-id",
@@ -367,7 +367,7 @@ func billingBudgetAlertNotificationCreate() *core.Command {
 		Resource:  "budget-alert-notification",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.CreateBudgetAlertNotificationRequest{}),
+		ArgsType: reflect.TypeFor[billing.CreateBudgetAlertNotificationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-alert-id",
@@ -417,7 +417,7 @@ func billingBudgetAlertNotificationUpdate() *core.Command {
 		Resource:  "budget-alert-notification",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.UpdateBudgetAlertNotificationRequest{}),
+		ArgsType: reflect.TypeFor[billing.UpdateBudgetAlertNotificationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-alert-notification-id",
@@ -467,7 +467,7 @@ func billingBudgetAlertNotificationDelete() *core.Command {
 		Resource:  "budget-alert-notification",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.DeleteBudgetAlertNotificationRequest{}),
+		ArgsType: reflect.TypeFor[billing.DeleteBudgetAlertNotificationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "budget-alert-notification-id",

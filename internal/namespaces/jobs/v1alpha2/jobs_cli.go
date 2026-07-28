@@ -98,7 +98,7 @@ func jobsDefinitionCreate() *core.Command {
 		Resource:  "definition",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.CreateJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.CreateJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -223,7 +223,7 @@ func jobsDefinitionGet() *core.Command {
 		Resource:  "definition",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -257,7 +257,7 @@ func jobsDefinitionList() *core.Command {
 		Resource:  "definition",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListJobDefinitionsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListJobDefinitionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -316,7 +316,7 @@ func jobsDefinitionUpdate() *core.Command {
 		Resource:  "definition",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.UpdateJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.UpdateJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -445,7 +445,7 @@ func jobsDefinitionDelete() *core.Command {
 		Resource:  "definition",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.DeleteJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.DeleteJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -486,7 +486,7 @@ func jobsDefinitionStart() *core.Command {
 		Resource:  "definition",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.StartJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.StartJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -555,7 +555,7 @@ func jobsRunGet() *core.Command {
 		Resource:  "run",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetJobRunRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetJobRunRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",
@@ -589,7 +589,7 @@ func jobsRunList() *core.Command {
 		Resource:  "run",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListJobRunsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListJobRunsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -711,7 +711,7 @@ func jobsRunStop() *core.Command {
 		Resource:  "run",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.StopJobRunRequest{}),
+		ArgsType: reflect.TypeFor[jobs.StopJobRunRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",
@@ -745,7 +745,7 @@ func jobsSecretCreate() *core.Command {
 		Resource:  "secret",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.CreateSecretsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.CreateSecretsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -803,7 +803,7 @@ func jobsSecretGet() *core.Command {
 		Resource:  "secret",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetSecretRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -837,7 +837,7 @@ func jobsSecretList() *core.Command {
 		Resource:  "secret",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListSecretsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListSecretsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -871,7 +871,7 @@ func jobsSecretUpdate() *core.Command {
 		Resource:  "secret",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.UpdateSecretRequest{}),
+		ArgsType: reflect.TypeFor[jobs.UpdateSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -926,7 +926,7 @@ func jobsSecretDelete() *core.Command {
 		Resource:  "secret",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.DeleteSecretRequest{}),
+		ArgsType: reflect.TypeFor[jobs.DeleteSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -967,7 +967,7 @@ func jobsTriggerCreate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.CreateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.CreateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -1036,7 +1036,7 @@ func jobsTriggerGet() *core.Command {
 		Resource:  "trigger",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1070,7 +1070,7 @@ func jobsTriggerList() *core.Command {
 		Resource:  "trigger",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListTriggersRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListTriggersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -1125,7 +1125,7 @@ func jobsTriggerUpdate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.UpdateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.UpdateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1194,7 +1194,7 @@ func jobsTriggerDelete() *core.Command {
 		Resource:  "trigger",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.DeleteTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.DeleteTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",

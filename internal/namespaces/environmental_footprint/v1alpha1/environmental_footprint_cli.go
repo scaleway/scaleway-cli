@@ -62,9 +62,7 @@ func environmentalFootprintReportList() *core.Command {
 		Resource:  "report",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(
-			environmental_footprint.UserAPIGetImpactReportAvailabilityRequest{},
-		),
+		ArgsType: reflect.TypeFor[environmental_footprint.UserAPIGetImpactReportAvailabilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "start-date",
@@ -101,7 +99,7 @@ func environmentalFootprintReportGet() *core.Command {
 		Resource:  "report",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(environmental_footprint.UserAPIDownloadImpactReportRequest{}),
+		ArgsType: reflect.TypeFor[environmental_footprint.UserAPIDownloadImpactReportRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "date",
@@ -143,7 +141,7 @@ func environmentalFootprintDataGet() *core.Command {
 		Resource:  "data",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(environmental_footprint.UserAPIGetImpactDataRequest{}),
+		ArgsType: reflect.TypeFor[environmental_footprint.UserAPIGetImpactDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "start-date",

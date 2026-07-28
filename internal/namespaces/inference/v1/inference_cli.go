@@ -93,7 +93,7 @@ func inferenceDeploymentList() *core.Command {
 		Resource:  "deployment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListDeploymentsRequest{}),
+		ArgsType: reflect.TypeFor[inference.ListDeploymentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -169,7 +169,7 @@ func inferenceDeploymentGet() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.GetDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.GetDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -199,7 +199,7 @@ func inferenceDeploymentCreate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.CreateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.CreateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -301,7 +301,7 @@ func inferenceDeploymentUpdate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.UpdateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.UpdateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -373,7 +373,7 @@ func inferenceDeploymentDelete() *core.Command {
 		Resource:  "deployment",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.DeleteDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -404,7 +404,7 @@ The CA certificate will be returned as a PEM file.`,
 		Resource:  "deployment",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.GetDeploymentCertificateRequest{}),
+		ArgsType: reflect.TypeFor[inference.GetDeploymentCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -433,7 +433,7 @@ func inferenceEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[inference.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -484,7 +484,7 @@ func inferenceEndpointUpdate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.UpdateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[inference.UpdateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -521,7 +521,7 @@ func inferenceEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[inference.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -558,7 +558,7 @@ func inferenceModelList() *core.Command {
 		Resource:  "model",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListModelsRequest{}),
+		ArgsType: reflect.TypeFor[inference.ListModelsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -635,7 +635,7 @@ func inferenceModelGet() *core.Command {
 		Resource:  "model",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.GetModelRequest{}),
+		ArgsType: reflect.TypeFor[inference.GetModelRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "model-id",
@@ -665,7 +665,7 @@ func inferenceModelImport() *core.Command {
 		Resource:  "model",
 		Verb:      "import",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.CreateModelRequest{}),
+		ArgsType: reflect.TypeFor[inference.CreateModelRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -709,7 +709,7 @@ func inferenceModelDelete() *core.Command {
 		Resource:  "model",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteModelRequest{}),
+		ArgsType: reflect.TypeFor[inference.DeleteModelRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "model-id",
@@ -746,7 +746,7 @@ func inferenceNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[inference.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",

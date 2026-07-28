@@ -87,7 +87,7 @@ func billingConsumptionList() *core.Command {
 		Resource:  "consumption",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListConsumptionsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListConsumptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -143,7 +143,7 @@ func billingConsumptionListTaxes() *core.Command {
 		Resource:  "consumption",
 		Verb:      "list-taxes",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListTaxesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListTaxesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -191,7 +191,7 @@ func billingInvoiceList() *core.Command {
 		Resource:  "invoice",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "billing-period-start-after",
@@ -275,7 +275,7 @@ func billingInvoiceExport() *core.Command {
 		Resource:  "invoice",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ExportInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ExportInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "billing-period-start-after",
@@ -380,7 +380,7 @@ func billingInvoiceGet() *core.Command {
 		Resource:  "invoice",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.GetInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[billing.GetInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -409,7 +409,7 @@ func billingInvoiceDownload() *core.Command {
 		Resource:  "invoice",
 		Verb:      "download",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.DownloadInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[billing.DownloadInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -451,7 +451,7 @@ func billingDiscountList() *core.Command {
 		Resource:  "discount",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListDiscountsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListDiscountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -500,7 +500,7 @@ func billingChargeList() *core.Command {
 		Resource:  "charge",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.FinOpsAPIListChargesRequest{}),
+		ArgsType: reflect.TypeFor[billing.FinOpsAPIListChargesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",

@@ -221,7 +221,7 @@ func dnsZoneList() *core.Command {
 		Resource:  "zone",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZonesRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZonesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -360,7 +360,7 @@ func dnsZoneCreate() *core.Command {
 		Resource:  "zone",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.CreateDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.CreateDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -397,7 +397,7 @@ func dnsZoneUpdate() *core.Command {
 		Resource:  "zone",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.UpdateDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.UpdateDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -434,7 +434,7 @@ func dnsZoneClone() *core.Command {
 		Resource:  "zone",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.CloneDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.CloneDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -484,7 +484,7 @@ func dnsZoneDelete() *core.Command {
 		Resource:  "zone",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.DeleteDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.DeleteDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -515,7 +515,7 @@ You can filter records by type and name.`,
 		Resource:  "record",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -646,7 +646,7 @@ All edits will be versioned.`,
 		Resource:  "record",
 		Verb:      "bulk-update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.UpdateDNSZoneRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.UpdateDNSZoneRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1120,7 +1120,7 @@ func dnsRecordListNameservers() *core.Command {
 		Resource:  "record",
 		Verb:      "list-nameservers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneNameserversRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneNameserversRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -1156,7 +1156,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 		Resource:  "record",
 		Verb:      "update-nameservers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.UpdateDNSZoneNameserversRequest{}),
+		ArgsType: reflect.TypeFor[domain.UpdateDNSZoneNameserversRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1198,7 +1198,7 @@ All edits will be versioned.`,
 		Resource:  "record",
 		Verb:      "clear",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ClearDNSZoneRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ClearDNSZoneRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1227,7 +1227,7 @@ func dnsZoneExport() *core.Command {
 		Resource:  "zone",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ExportRawDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.ExportRawDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1268,7 +1268,7 @@ func dnsZoneImport() *core.Command {
 		Resource:  "zone",
 		Verb:      "import",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ImportRawDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.ImportRawDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1345,7 +1345,7 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 		Resource:  "zone",
 		Verb:      "refresh",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RefreshDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.RefreshDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1389,7 +1389,7 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneVersionsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1430,7 +1430,7 @@ func dnsVersionShow() *core.Command {
 		Resource:  "version",
 		Verb:      "show",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneVersionRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneVersionRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone-version-id",
@@ -1463,7 +1463,7 @@ func dnsVersionDiff() *core.Command {
 		Resource:  "version",
 		Verb:      "diff",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.GetDNSZoneVersionDiffRequest{}),
+		ArgsType: reflect.TypeFor[domain.GetDNSZoneVersionDiffRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone-version-id",
@@ -1491,7 +1491,7 @@ func dnsVersionRestore() *core.Command {
 		Resource:  "version",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RestoreDNSZoneVersionRequest{}),
+		ArgsType: reflect.TypeFor[domain.RestoreDNSZoneVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone-version-id",
@@ -1519,7 +1519,7 @@ func dnsCertificateGet() *core.Command {
 		Resource:  "certificate",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.GetSSLCertificateRequest{}),
+		ArgsType: reflect.TypeFor[domain.GetSSLCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1547,7 +1547,7 @@ func dnsCertificateCreate() *core.Command {
 		Resource:  "certificate",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.CreateSSLCertificateRequest{}),
+		ArgsType: reflect.TypeFor[domain.CreateSSLCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1581,7 +1581,7 @@ func dnsCertificateList() *core.Command {
 		Resource:  "certificate",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListSSLCertificatesRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListSSLCertificatesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1620,7 +1620,7 @@ func dnsCertificateDelete() *core.Command {
 		Resource:  "certificate",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.DeleteSSLCertificateRequest{}),
+		ArgsType: reflect.TypeFor[domain.DeleteSSLCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1648,7 +1648,7 @@ func dnsTsigKeyGet() *core.Command {
 		Resource:  "tsig-key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.GetDNSZoneTsigKeyRequest{}),
+		ArgsType: reflect.TypeFor[domain.GetDNSZoneTsigKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1676,7 +1676,7 @@ func dnsTsigKeyDelete() *core.Command {
 		Resource:  "tsig-key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.DeleteDNSZoneTsigKeyRequest{}),
+		ArgsType: reflect.TypeFor[domain.DeleteDNSZoneTsigKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1712,7 +1712,7 @@ You can filter the list of tasks by domain name.`,
 		Resource:  "task",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListTasksRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListTasksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -1820,7 +1820,7 @@ You can filter the list of inbound transfers by domain name.`,
 		Resource:  "task",
 		Verb:      "list-inbound-transfers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListInboundTransfersRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListInboundTransfersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1855,7 +1855,7 @@ func domainTaskRetryInboundTransfer() *core.Command {
 		Resource:  "task",
 		Verb:      "retry-inbound-transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIRetryInboundTransferRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIRetryInboundTransferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -1893,7 +1893,7 @@ You can provide a domain's already existing contact or a new contact.`,
 		Resource:  "order",
 		Verb:      "buy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIBuyDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIBuyDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -2720,7 +2720,7 @@ func domainOrderRenew() *core.Command {
 		Resource:  "order",
 		Verb:      "renew",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIRenewDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIRenewDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -2760,7 +2760,7 @@ func domainOrderTransfer() *core.Command {
 		Resource:  "order",
 		Verb:      "transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPITransferInDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPITransferInDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}.domain",
@@ -3590,7 +3590,7 @@ If the new owner has never created a contact to register domains before, an erro
 		Resource:  "order",
 		Verb:      "trade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPITradeDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPITradeDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -3888,7 +3888,7 @@ func domainExternalDomainRegister() *core.Command {
 		Resource:  "external-domain",
 		Verb:      "register",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIRegisterExternalDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIRegisterExternalDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -3917,7 +3917,7 @@ func domainExternalDomainDelete() *core.Command {
 		Resource:  "external-domain",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDeleteExternalDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDeleteExternalDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -3946,7 +3946,7 @@ If contacts are not compatible with either the domain or the TLD, the informatio
 		Resource:  "contact",
 		Verb:      "check-compatibility",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPICheckContactsCompatibilityRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPICheckContactsCompatibilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -4773,7 +4773,7 @@ You can filter the list by domain name.`,
 		Resource:  "contact",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListContactsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListContactsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -4842,7 +4842,7 @@ func domainContactGet() *core.Command {
 		Resource:  "contact",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIGetContactRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIGetContactRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "contact-id",
@@ -4870,7 +4870,7 @@ func domainContactUpdate() *core.Command {
 		Resource:  "contact",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUpdateContactRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUpdateContactRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "contact-id",
@@ -5125,7 +5125,7 @@ func domainDomainList() *core.Command {
 		Resource:  "domain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -5214,7 +5214,7 @@ func domainDomainListRenewable() *core.Command {
 		Resource:  "domain",
 		Verb:      "list-renewable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListRenewableDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListRenewableDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -5263,7 +5263,7 @@ func domainDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIGetDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIGetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -5292,7 +5292,7 @@ If you add the same contact for multiple roles (owner, administrative, technical
 		Resource:  "domain",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUpdateDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUpdateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6112,7 +6112,7 @@ func domainDomainLockTransfer() *core.Command {
 		Resource:  "domain",
 		Verb:      "lock-transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPILockDomainTransferRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPILockDomainTransferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6140,7 +6140,7 @@ func domainDomainUnlockTransfer() *core.Command {
 		Resource:  "domain",
 		Verb:      "unlock-transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUnlockDomainTransferRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUnlockDomainTransferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6168,7 +6168,7 @@ func domainDomainEnableAutoRenew() *core.Command {
 		Resource:  "domain",
 		Verb:      "enable-auto-renew",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIEnableDomainAutoRenewRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIEnableDomainAutoRenewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6196,7 +6196,7 @@ func domainDomainDisableAutoRenew() *core.Command {
 		Resource:  "domain",
 		Verb:      "disable-auto-renew",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDisableDomainAutoRenewRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDisableDomainAutoRenewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6225,7 +6225,7 @@ Some TLDs may have a different procedure to retrieve the authorization code. In 
 		Resource:  "domain",
 		Verb:      "get-auth-code",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIGetDomainAuthCodeRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIGetDomainAuthCodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6253,7 +6253,7 @@ func domainDomainEnableDnssec() *core.Command {
 		Resource:  "domain",
 		Verb:      "enable-dnssec",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIEnableDomainDNSSECRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIEnableDomainDNSSECRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6338,7 +6338,7 @@ func domainDomainDisableDnssec() *core.Command {
 		Resource:  "domain",
 		Verb:      "disable-dnssec",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDisableDomainDNSSECRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDisableDomainDNSSECRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6368,7 +6368,7 @@ If the TLD list is empty or not set, the search returns the results from the mos
 		Resource:  "domain",
 		Verb:      "search",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPISearchAvailableDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPISearchAvailableDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -6418,7 +6418,7 @@ func domainTldList() *core.Command {
 		Resource:  "tld",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListTldsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListTldsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tlds.{index}",
@@ -6463,7 +6463,7 @@ func domainHostCreate() *core.Command {
 		Resource:  "host",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPICreateDomainHostRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPICreateDomainHostRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6503,7 +6503,7 @@ func domainHostList() *core.Command {
 		Resource:  "host",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListDomainHostsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListDomainHostsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6536,7 +6536,7 @@ func domainHostUpdate() *core.Command {
 		Resource:  "host",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUpdateDomainHostRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUpdateDomainHostRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6576,7 +6576,7 @@ func domainHostDelete() *core.Command {
 		Resource:  "host",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDeleteDomainHostRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDeleteDomainHostRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",

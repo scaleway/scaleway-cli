@@ -75,7 +75,7 @@ func fileFilesystemGet() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.GetFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.GetFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -105,7 +105,7 @@ func fileFilesystemList() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.ListFileSystemsRequest{}),
+		ArgsType: reflect.TypeFor[file.ListFileSystemsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -196,7 +196,7 @@ By default, the attachments listed are ordered by creation date in ascending ord
 		Resource:  "attachment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.ListAttachmentsRequest{}),
+		ArgsType: reflect.TypeFor[file.ListAttachmentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -263,7 +263,7 @@ func fileFilesystemCreate() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.CreateFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.CreateFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -315,7 +315,7 @@ func fileFilesystemDelete() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.DeleteFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.DeleteFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -352,7 +352,7 @@ func fileFilesystemUpdate() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.UpdateFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.UpdateFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",

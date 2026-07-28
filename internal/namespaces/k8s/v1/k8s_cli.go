@@ -132,7 +132,7 @@ func k8sClusterList() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClustersRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClustersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -300,7 +300,7 @@ func k8sClusterCreate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.CreateClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.CreateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -816,7 +816,7 @@ func k8sClusterGet() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -857,7 +857,7 @@ func k8sClusterUpdate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpdateClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpdateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1120,7 +1120,7 @@ func k8sClusterDelete() *core.Command {
 		Resource:  "cluster",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeleteClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeleteClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1172,7 +1172,7 @@ func k8sClusterUpgrade() *core.Command {
 		Resource:  "cluster",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpgradeClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpgradeClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1231,7 +1231,7 @@ func k8sClusterSetType() *core.Command {
 		Resource:  "cluster",
 		Verb:      "set-type",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.SetClusterTypeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.SetClusterTypeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1279,7 +1279,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list-available-versions",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableVersionsRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterAvailableVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1328,7 +1328,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list-available-types",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableTypesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterAvailableTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1401,7 +1401,7 @@ func k8sClusterResetAdminToken() *core.Command {
 		Resource:  "cluster",
 		Verb:      "reset-admin-token",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ResetClusterAdminTokenRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ResetClusterAdminTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1449,7 +1449,7 @@ func k8sACLList() *core.Command {
 		Resource:  "acl",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1494,7 +1494,7 @@ func k8sACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.AddClusterACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.AddClusterACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1550,7 +1550,7 @@ func k8sACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.SetClusterACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.SetClusterACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1606,7 +1606,7 @@ func k8sACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeleteACLRuleRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeleteACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -1648,7 +1648,7 @@ func k8sPoolList() *core.Command {
 		Resource:  "pool",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListPoolsRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListPoolsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1798,7 +1798,7 @@ func k8sPoolCreate() *core.Command {
 		Resource:  "pool",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.CreatePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.CreatePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -2046,7 +2046,7 @@ func k8sPoolGet() *core.Command {
 		Resource:  "pool",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetPoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetPoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2088,7 +2088,7 @@ This will drain and replace the nodes in that pool.`,
 		Resource:  "pool",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpgradePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpgradePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2136,7 +2136,7 @@ func k8sPoolUpdate() *core.Command {
 		Resource:  "pool",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpdatePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpdatePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2259,7 +2259,7 @@ func k8sPoolDelete() *core.Command {
 		Resource:  "pool",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeletePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeletePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2300,7 +2300,7 @@ func k8sNodeList() *core.Command {
 		Resource:  "node",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListNodesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListNodesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -2439,7 +2439,7 @@ func k8sNodeGet() *core.Command {
 		Resource:  "node",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2480,7 +2480,7 @@ func k8sNodeReplace() *core.Command {
 		Resource:  "node",
 		Verb:      "replace",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ReplaceNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ReplaceNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2521,7 +2521,7 @@ func k8sNodeReboot() *core.Command {
 		Resource:  "node",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.RebootNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.RebootNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2562,7 +2562,7 @@ func k8sNodeDelete() *core.Command {
 		Resource:  "node",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeleteNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeleteNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2614,7 +2614,7 @@ func k8sVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -2668,7 +2668,7 @@ func k8sVersionGet() *core.Command {
 		Resource:  "version",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetVersionRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version-name",
@@ -2709,7 +2709,7 @@ func k8sClusterTypeList() *core.Command {
 		Resource:  "cluster-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterTypesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,

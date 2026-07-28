@@ -61,7 +61,7 @@ func auditTrailEventList() *core.Command {
 		Resource:  "event",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListEventsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -294,7 +294,7 @@ func auditTrailProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(

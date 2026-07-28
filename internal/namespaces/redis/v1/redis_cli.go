@@ -124,7 +124,7 @@ func redisClusterCreate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.CreateClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.CreateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -268,7 +268,7 @@ func redisClusterUpdate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.UpdateClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.UpdateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -333,7 +333,7 @@ func redisClusterGet() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -370,7 +370,7 @@ func redisClusterList() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListClustersRequest{}),
+		ArgsType: reflect.TypeFor[redis.ListClustersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -458,7 +458,7 @@ func redisClusterMigrate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "migrate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.MigrateClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.MigrateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -516,7 +516,7 @@ func redisClusterDelete() *core.Command {
 		Resource:  "cluster",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -553,7 +553,7 @@ func redisClusterMetrics() *core.Command {
 		Resource:  "cluster",
 		Verb:      "metrics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetClusterMetricsRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetClusterMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -611,7 +611,7 @@ func redisNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[redis.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -658,7 +658,7 @@ func redisVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListClusterVersionsRequest{}),
+		ArgsType: reflect.TypeFor[redis.ListClusterVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled",
@@ -726,7 +726,7 @@ func redisClusterGetCertificate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetClusterCertificateRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetClusterCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -763,7 +763,7 @@ func redisClusterRenewCertificate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.RenewClusterCertificateRequest{}),
+		ArgsType: reflect.TypeFor[redis.RenewClusterCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -800,7 +800,7 @@ func redisSettingAdd() *core.Command {
 		Resource:  "setting",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.AddClusterSettingsRequest{}),
+		ArgsType: reflect.TypeFor[redis.AddClusterSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -851,7 +851,7 @@ func redisSettingDelete() *core.Command {
 		Resource:  "setting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteClusterSettingRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteClusterSettingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -895,7 +895,7 @@ func redisSettingSet() *core.Command {
 		Resource:  "setting",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.SetClusterSettingsRequest{}),
+		ArgsType: reflect.TypeFor[redis.SetClusterSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -946,7 +946,7 @@ func redisACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.SetACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[redis.SetACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -997,7 +997,7 @@ func redisACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.AddACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[redis.AddACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1048,7 +1048,7 @@ func redisACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteACLRuleRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -1085,7 +1085,7 @@ func redisACLGet() *core.Command {
 		Resource:  "acl",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetACLRuleRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -1122,7 +1122,7 @@ func redisEndpointSet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.SetEndpointsRequest{}),
+		ArgsType: reflect.TypeFor[redis.SetEndpointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1187,7 +1187,7 @@ func redisEndpointAdd() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.AddEndpointsRequest{}),
+		ArgsType: reflect.TypeFor[redis.AddEndpointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1252,7 +1252,7 @@ func redisEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1289,7 +1289,7 @@ func redisEndpointGet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetEndpointRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1326,7 +1326,7 @@ func redisEndpointUpdate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.UpdateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[redis.UpdateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",

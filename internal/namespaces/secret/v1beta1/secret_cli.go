@@ -76,7 +76,7 @@ func secretSecretCreate() *core.Command {
 		Resource:  "secret",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.CreateSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.CreateSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -194,7 +194,7 @@ func secretSecretGet() *core.Command {
 		Resource:  "secret",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.GetSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.GetSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -228,7 +228,7 @@ func secretSecretUpdate() *core.Command {
 		Resource:  "secret",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.UpdateSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.UpdateSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -316,7 +316,7 @@ func secretSecretDelete() *core.Command {
 		Resource:  "secret",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DeleteSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.DeleteSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -366,7 +366,7 @@ The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 		Resource:  "secret",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.ListSecretsRequest{}),
+		ArgsType: reflect.TypeFor[secret.ListSecretsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -482,7 +482,7 @@ func secretSecretProtect() *core.Command {
 		Resource:  "secret",
 		Verb:      "protect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.ProtectSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.ProtectSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -522,7 +522,7 @@ func secretSecretUnprotect() *core.Command {
 		Resource:  "secret",
 		Verb:      "unprotect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.UnprotectSecretRequest{}),
+		ArgsType: reflect.TypeFor[secret.UnprotectSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -562,7 +562,7 @@ func secretSecretAddOwner() *core.Command {
 		Resource:  "secret",
 		Verb:      "add-owner",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.AddSecretOwnerRequest{}),
+		ArgsType: reflect.TypeFor[secret.AddSecretOwnerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -615,7 +615,7 @@ func secretVersionCreate() *core.Command {
 		Resource:  "version",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.CreateSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.CreateSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -677,7 +677,7 @@ func secretVersionGet() *core.Command {
 		Resource:  "version",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.GetSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.GetSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -718,7 +718,7 @@ func secretVersionUpdate() *core.Command {
 		Resource:  "version",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.UpdateSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.UpdateSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -792,7 +792,7 @@ func secretVersionDelete() *core.Command {
 		Resource:  "version",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DeleteSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.DeleteSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -846,7 +846,7 @@ func secretVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.ListSecretVersionsRequest{}),
+		ArgsType: reflect.TypeFor[secret.ListSecretVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -904,7 +904,7 @@ func secretVersionAccess() *core.Command {
 		Resource:  "version",
 		Verb:      "access",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.AccessSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.AccessSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -945,7 +945,7 @@ func secretVersionAccessByPath() *core.Command {
 		Resource:  "version",
 		Verb:      "access-by-path",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.AccessSecretVersionByPathRequest{}),
+		ArgsType: reflect.TypeFor[secret.AccessSecretVersionByPathRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-path",
@@ -994,7 +994,7 @@ func secretVersionEnable() *core.Command {
 		Resource:  "version",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.EnableSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.EnableSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -1035,7 +1035,7 @@ func secretVersionDisable() *core.Command {
 		Resource:  "version",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(secret.DisableSecretVersionRequest{}),
+		ArgsType: reflect.TypeFor[secret.DisableSecretVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",

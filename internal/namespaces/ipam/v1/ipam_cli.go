@@ -68,7 +68,7 @@ func ipamIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.BookIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.BookIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -159,7 +159,7 @@ func ipamIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ReleaseIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ReleaseIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -201,7 +201,7 @@ func ipamIPSetRelease() *core.Command {
 		Resource:  "ip-set",
 		Verb:      "release",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ReleaseIPSetRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ReleaseIPSetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-ids.{index}",
@@ -242,7 +242,7 @@ func ipamIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -277,7 +277,7 @@ func ipamIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -333,7 +333,7 @@ func ipamIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -574,7 +574,7 @@ func ipamIPAttach() *core.Command {
 		Resource:  "ip",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.AttachIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.AttachIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -623,7 +623,7 @@ func ipamIPDetach() *core.Command {
 		Resource:  "ip",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.DetachIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.DetachIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -672,7 +672,7 @@ func ipamIPMove() *core.Command {
 		Resource:  "ip",
 		Verb:      "move",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.MoveIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.MoveIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",

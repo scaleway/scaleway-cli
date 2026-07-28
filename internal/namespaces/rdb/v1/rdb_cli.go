@@ -261,7 +261,7 @@ func rdbEngineList() *core.Command {
 		Resource:  "engine",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListDatabaseEnginesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -312,7 +312,7 @@ func rdbNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -356,7 +356,7 @@ func rdbBackupList() *core.Command {
 		Resource:  "backup",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabaseBackupsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListDatabaseBackupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -436,7 +436,7 @@ func rdbBackupCreate() *core.Command {
 		Resource:  "backup",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -492,7 +492,7 @@ func rdbBackupGet() *core.Command {
 		Resource:  "backup",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -526,7 +526,7 @@ func rdbBackupUpdate() *core.Command {
 		Resource:  "backup",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -574,7 +574,7 @@ func rdbBackupDelete() *core.Command {
 		Resource:  "backup",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -608,7 +608,7 @@ func rdbBackupRestore() *core.Command {
 		Resource:  "backup",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RestoreDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.RestoreDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-name",
@@ -656,7 +656,7 @@ func rdbBackupExport() *core.Command {
 		Resource:  "backup",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ExportDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ExportDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -690,7 +690,7 @@ func rdbInstanceUpgrade() *core.Command {
 		Resource:  "instance",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpgradeInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpgradeInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -786,7 +786,7 @@ func rdbInstanceList() *core.Command {
 		Resource:  "instance",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstancesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstancesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -906,7 +906,7 @@ func rdbInstanceGet() *core.Command {
 		Resource:  "instance",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -940,7 +940,7 @@ func rdbInstanceCreate() *core.Command {
 		Resource:  "instance",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1099,7 +1099,7 @@ func rdbInstanceUpdate() *core.Command {
 		Resource:  "instance",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-schedule-frequency",
@@ -1196,7 +1196,7 @@ func rdbInstanceDelete() *core.Command {
 		Resource:  "instance",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1230,7 +1230,7 @@ func rdbInstanceClone() *core.Command {
 		Resource:  "instance",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CloneInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CloneInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1278,7 +1278,7 @@ func rdbInstanceRestart() *core.Command {
 		Resource:  "instance",
 		Verb:      "restart",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RestartInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.RestartInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1312,7 +1312,7 @@ func rdbInstanceGetCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1346,7 +1346,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RenewInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[rdb.RenewInstanceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1387,7 +1387,7 @@ func rdbInstanceGetMetrics() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-metrics",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1442,7 +1442,7 @@ func rdbReadReplicaCreate() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1511,7 +1511,7 @@ func rdbReadReplicaGet() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1545,7 +1545,7 @@ func rdbReadReplicaDelete() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1580,7 +1580,7 @@ The configured endpoints do not change.`,
 		Resource:  "read-replica",
 		Verb:      "reset",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ResetReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ResetReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1614,7 +1614,7 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "create-endpoint",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateReadReplicaEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateReadReplicaEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1676,7 +1676,7 @@ func rdbLogPrepare() *core.Command {
 		Resource:  "log",
 		Verb:      "prepare",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.PrepareInstanceLogsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.PrepareInstanceLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1724,7 +1724,7 @@ func rdbLogList() *core.Command {
 		Resource:  "log",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceLogsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstanceLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1769,7 +1769,7 @@ func rdbLogGet() *core.Command {
 		Resource:  "log",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceLogRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceLogRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-log-id",
@@ -1803,7 +1803,7 @@ func rdbLogPurge() *core.Command {
 		Resource:  "log",
 		Verb:      "purge",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.PurgeInstanceLogsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.PurgeInstanceLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1851,7 +1851,7 @@ func rdbLogListDetails() *core.Command {
 		Resource:  "log",
 		Verb:      "list-details",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceLogsDetailsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstanceLogsDetailsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1885,7 +1885,7 @@ func rdbSettingAdd() *core.Command {
 		Resource:  "setting",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.AddInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.AddInstanceSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1931,7 +1931,7 @@ func rdbSettingDelete() *core.Command {
 		Resource:  "setting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteInstanceSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1972,7 +1972,7 @@ func rdbSettingSet() *core.Command {
 		Resource:  "setting",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.SetInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.SetInstanceSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2018,7 +2018,7 @@ func rdbACLList() *core.Command {
 		Resource:  "acl",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2062,7 +2062,7 @@ func rdbACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.AddInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.AddInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2108,7 +2108,7 @@ func rdbACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.SetInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.SetInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2154,7 +2154,7 @@ func rdbACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2195,7 +2195,7 @@ func rdbUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2259,7 +2259,7 @@ func rdbUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2314,7 +2314,7 @@ func rdbUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2369,7 +2369,7 @@ func rdbUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2417,7 +2417,7 @@ func rdbDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2502,7 +2502,7 @@ func rdbDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2543,7 +2543,7 @@ func rdbDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2591,7 +2591,7 @@ func rdbPrivilegeList() *core.Command {
 		Resource:  "privilege",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListPrivilegesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListPrivilegesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2662,7 +2662,7 @@ func rdbPrivilegeSet() *core.Command {
 		Resource:  "privilege",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.SetPrivilegeRequest{}),
+		ArgsType: reflect.TypeFor[rdb.SetPrivilegeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2724,7 +2724,7 @@ func rdbSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2804,7 +2804,7 @@ func rdbSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2838,7 +2838,7 @@ func rdbSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2887,7 +2887,7 @@ func rdbSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2935,7 +2935,7 @@ func rdbSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2969,7 +2969,7 @@ func rdbSnapshotRestore() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateInstanceFromSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateInstanceFromSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -3024,7 +3024,7 @@ func rdbEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -3086,7 +3086,7 @@ func rdbEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -3127,7 +3127,7 @@ func rdbEndpointGet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -3161,7 +3161,7 @@ func rdbEndpointMigrate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "migrate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.MigrateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.MigrateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",

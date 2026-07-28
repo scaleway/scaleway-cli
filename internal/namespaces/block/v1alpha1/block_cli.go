@@ -82,7 +82,7 @@ func blockVolumeTypeList() *core.Command {
 		Resource:  "volume-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ListVolumeTypesRequest{}),
+		ArgsType: reflect.TypeFor[block.ListVolumeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -125,7 +125,7 @@ func blockVolumeList() *core.Command {
 		Resource:  "volume",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ListVolumesRequest{}),
+		ArgsType: reflect.TypeFor[block.ListVolumesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -217,7 +217,7 @@ To create a volume from an existing snapshot, specify ` + "`" + `from_snapshot` 
 		Resource:  "volume",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.CreateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.CreateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -294,7 +294,7 @@ func blockVolumeGet() *core.Command {
 		Resource:  "volume",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.GetVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.GetVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -334,7 +334,7 @@ func blockVolumeDelete() *core.Command {
 		Resource:  "volume",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.DeleteVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.DeleteVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -382,7 +382,7 @@ You can only resize a volume to a larger size. It is currently not possible to c
 		Resource:  "volume",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.UpdateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[block.UpdateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -450,7 +450,7 @@ func blockSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[block.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -541,7 +541,7 @@ func blockSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -582,7 +582,7 @@ If your volume is in a transient state, you need to wait until the end of the cu
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -639,7 +639,7 @@ The bucket can be imported into any Availability Zone as long as it is in the sa
 		Resource:  "snapshot",
 		Verb:      "import-from-object-storage",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ImportSnapshotFromObjectStorageRequest{}),
+		ArgsType: reflect.TypeFor[block.ImportSnapshotFromObjectStorageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -709,7 +709,7 @@ The snapshot must not be in transient state.`,
 		Resource:  "snapshot",
 		Verb:      "export-to-object-storage",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.ExportSnapshotToObjectStorageRequest{}),
+		ArgsType: reflect.TypeFor[block.ExportSnapshotToObjectStorageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -763,7 +763,7 @@ func blockSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -810,7 +810,7 @@ func blockSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(block.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[block.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",

@@ -234,7 +234,7 @@ func webhostingBackupList() *core.Command {
 		Resource:  "backup",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIListBackupsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIListBackupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -289,7 +289,7 @@ func webhostingBackupGet() *core.Command {
 		Resource:  "backup",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIGetBackupRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIGetBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -330,7 +330,7 @@ func webhostingBackupRestore() *core.Command {
 		Resource:  "backup",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIRestoreBackupRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIRestoreBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -371,7 +371,7 @@ func webhostingBackupItemList() *core.Command {
 		Resource:  "backup-item",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIListBackupItemsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIListBackupItemsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -412,7 +412,7 @@ func webhostingBackupItemRestore() *core.Command {
 		Resource:  "backup-item",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIRestoreBackupItemsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIRestoreBackupItemsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -453,7 +453,7 @@ func webhostingProgressGet() *core.Command {
 		Resource:  "progress",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIGetProgressRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIGetProgressRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -494,7 +494,7 @@ func webhostingProgressList() *core.Command {
 		Resource:  "progress",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.BackupAPIListRecentProgressesRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIListRecentProgressesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -528,7 +528,7 @@ func webhostingControlPanelList() *core.Command {
 		Resource:  "control-panel",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.ControlPanelAPIListControlPanelsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.ControlPanelAPIListControlPanelsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -565,7 +565,7 @@ func webhostingDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPICreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPICreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -625,7 +625,7 @@ func webhostingDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -680,7 +680,7 @@ func webhostingDatabaseGet() *core.Command {
 		Resource:  "database",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIGetDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIGetDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -721,7 +721,7 @@ func webhostingDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIDeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIDeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -762,7 +762,7 @@ func webhostingDatabaseUserCreate() *core.Command {
 		Resource:  "database-user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPICreateDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPICreateDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -810,7 +810,7 @@ func webhostingDatabaseUserList() *core.Command {
 		Resource:  "database-user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIListDatabaseUsersRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIListDatabaseUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -865,7 +865,7 @@ func webhostingDatabaseUserGet() *core.Command {
 		Resource:  "database-user",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIGetDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIGetDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -906,7 +906,7 @@ func webhostingDatabaseUserDelete() *core.Command {
 		Resource:  "database-user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIDeleteDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIDeleteDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -947,7 +947,7 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 		Resource:  "database-user",
 		Verb:      "change-password",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -995,7 +995,7 @@ func webhostingDatabaseUserAssign() *core.Command {
 		Resource:  "database-user",
 		Verb:      "assign",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIAssignDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIAssignDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1043,7 +1043,7 @@ func webhostingDatabaseUserUnassign() *core.Command {
 		Resource:  "database-user",
 		Verb:      "unassign",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIUnassignDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIUnassignDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1091,7 +1091,7 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 		Resource:  "dns-records",
 		Verb:      "get-dns-records",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPIGetDomainDNSRecordsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPIGetDomainDNSRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -1131,7 +1131,7 @@ func webhostingDomainCheckOwnership() *core.Command {
 		Resource:  "domain",
 		Verb:      "check-ownership",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPICheckUserOwnsDomainRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPICheckUserOwnsDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1166,7 +1166,7 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 		Resource:  "domain",
 		Verb:      "sync-dns-records",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPISyncDomainDNSRecordsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPISyncDomainDNSRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -1284,7 +1284,7 @@ func webhostingDomainAvailabilitySearch() *core.Command {
 		Resource:  "domain-availability",
 		Verb:      "search",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPISearchDomainsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPISearchDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-name",
@@ -1319,7 +1319,7 @@ func webhostingDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPIGetDomainRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPIGetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-name",
@@ -1354,7 +1354,7 @@ func webhostingOfferList() *core.Command {
 		Resource:  "offer",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.OfferAPIListOffersRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.OfferAPIListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1415,7 +1415,7 @@ func webhostingHostingCreate() *core.Command {
 		Resource:  "hosting",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPICreateHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPICreateHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1578,7 +1578,7 @@ func webhostingHostingList() *core.Command {
 		Resource:  "hosting",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIListHostingsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIListHostingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1693,7 +1693,7 @@ func webhostingHostingGet() *core.Command {
 		Resource:  "hosting",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIGetHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIGetHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1733,7 +1733,7 @@ func webhostingHostingUpdate() *core.Command {
 		Resource:  "hosting",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIUpdateHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIUpdateHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1826,7 +1826,7 @@ func webhostingHostingDelete() *core.Command {
 		Resource:  "hosting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIDeleteHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIDeleteHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1866,7 +1866,7 @@ func webhostingHostingCreateSession() *core.Command {
 		Resource:  "hosting",
 		Verb:      "create-session",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPICreateSessionRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPICreateSessionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1900,7 +1900,7 @@ func webhostingFreedomainCheckAvailability() *core.Command {
 		Resource:  "freedomain",
 		Verb:      "check-availability",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FreeDomainAPICheckFreeDomainAvailabilityRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FreeDomainAPICheckFreeDomainAvailabilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "slug",
@@ -1941,7 +1941,7 @@ func webhostingFreedomainList() *core.Command {
 		Resource:  "freedomain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FreeDomainAPIListFreeRootDomainsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FreeDomainAPIListFreeRootDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -1978,7 +1978,7 @@ func webhostingFtpAccountCreate() *core.Command {
 		Resource:  "ftp-account",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FtpAccountAPICreateFtpAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FtpAccountAPICreateFtpAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -2033,7 +2033,7 @@ func webhostingFtpAccountList() *core.Command {
 		Resource:  "ftp-account",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FtpAccountAPIListFtpAccountsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FtpAccountAPIListFtpAccountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2095,7 +2095,7 @@ func webhostingFtpAccountDelete() *core.Command {
 		Resource:  "ftp-account",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FtpAccountAPIRemoveFtpAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FtpAccountAPIRemoveFtpAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -2136,7 +2136,7 @@ func webhostingMailAccountCreate() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPICreateMailAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPICreateMailAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -2191,7 +2191,7 @@ func webhostingMailAccountList() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPIListMailAccountsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPIListMailAccountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2255,7 +2255,7 @@ func webhostingMailAccountDelete() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPIRemoveMailAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPIRemoveMailAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -2303,7 +2303,7 @@ func webhostingMailAccountChangePassword() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "change-password",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPIChangeMailAccountPasswordRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPIChangeMailAccountPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -2358,7 +2358,7 @@ func webhostingWebsiteList() *core.Command {
 		Resource:  "website",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.WebsiteAPIListWebsitesRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.WebsiteAPIListWebsitesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",

@@ -133,7 +133,7 @@ func vpcVpcList() *core.Command {
 		Resource:  "vpc",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.ListVPCsRequest{}),
+		ArgsType: reflect.TypeFor[vpc.ListVPCsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -226,7 +226,7 @@ func vpcVpcCreate() *core.Command {
 		Resource:  "vpc",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.CreateVPCRequest{}),
+		ArgsType: reflect.TypeFor[vpc.CreateVPCRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -284,7 +284,7 @@ func vpcVpcGet() *core.Command {
 		Resource:  "vpc",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.GetVPCRequest{}),
+		ArgsType: reflect.TypeFor[vpc.GetVPCRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -319,7 +319,7 @@ func vpcVpcUpdate() *core.Command {
 		Resource:  "vpc",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.UpdateVPCRequest{}),
+		ArgsType: reflect.TypeFor[vpc.UpdateVPCRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -368,7 +368,7 @@ func vpcVpcDelete() *core.Command {
 		Resource:  "vpc",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.DeleteVPCRequest{}),
+		ArgsType: reflect.TypeFor[vpc.DeleteVPCRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -410,7 +410,7 @@ func vpcPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.ListPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[vpc.ListPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -510,7 +510,7 @@ func vpcPrivateNetworkCreate() *core.Command {
 		Resource:  "private-network",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.CreatePrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpc.CreatePrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -575,7 +575,7 @@ func vpcPrivateNetworkGet() *core.Command {
 		Resource:  "private-network",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.GetPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpc.GetPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
@@ -610,7 +610,7 @@ func vpcPrivateNetworkUpdate() *core.Command {
 		Resource:  "private-network",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.UpdatePrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpc.UpdatePrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
@@ -666,7 +666,7 @@ func vpcPrivateNetworkDelete() *core.Command {
 		Resource:  "private-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.DeletePrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpc.DeletePrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
@@ -708,7 +708,7 @@ func vpcPrivateNetworkEnableDHCP() *core.Command {
 		Resource:  "private-network",
 		Verb:      "enable-dhcp",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.EnableDHCPRequest{}),
+		ArgsType: reflect.TypeFor[vpc.EnableDHCPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "private-network-id",
@@ -743,7 +743,7 @@ func vpcRouteEnableRouting() *core.Command {
 		Resource:  "route",
 		Verb:      "enable-routing",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.EnableRoutingRequest{}),
+		ArgsType: reflect.TypeFor[vpc.EnableRoutingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -778,7 +778,7 @@ func vpcRouteCreate() *core.Command {
 		Resource:  "route",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.CreateRouteRequest{}),
+		ArgsType: reflect.TypeFor[vpc.CreateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "description",
@@ -855,7 +855,7 @@ func vpcRouteGet() *core.Command {
 		Resource:  "route",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.GetRouteRequest{}),
+		ArgsType: reflect.TypeFor[vpc.GetRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -890,7 +890,7 @@ func vpcRouteUpdate() *core.Command {
 		Resource:  "route",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.UpdateRouteRequest{}),
+		ArgsType: reflect.TypeFor[vpc.UpdateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -967,7 +967,7 @@ func vpcRouteDelete() *core.Command {
 		Resource:  "route",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.DeleteRouteRequest{}),
+		ArgsType: reflect.TypeFor[vpc.DeleteRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1009,7 +1009,7 @@ func vpcRuleGet() *core.Command {
 		Resource:  "rule",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.GetACLRequest{}),
+		ArgsType: reflect.TypeFor[vpc.GetACLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -1051,7 +1051,7 @@ func vpcRuleSet() *core.Command {
 		Resource:  "rule",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.SetACLRequest{}),
+		ArgsType: reflect.TypeFor[vpc.SetACLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -1179,7 +1179,7 @@ func vpcVpcConnectorList() *core.Command {
 		Resource:  "vpc-connector",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.ListVPCConnectorsRequest{}),
+		ArgsType: reflect.TypeFor[vpc.ListVPCConnectorsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1285,7 +1285,7 @@ func vpcVpcConnectorCreate() *core.Command {
 		Resource:  "vpc-connector",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.CreateVPCConnectorRequest{}),
+		ArgsType: reflect.TypeFor[vpc.CreateVPCConnectorRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1342,7 +1342,7 @@ func vpcVpcConnectorGet() *core.Command {
 		Resource:  "vpc-connector",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.GetVPCConnectorRequest{}),
+		ArgsType: reflect.TypeFor[vpc.GetVPCConnectorRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-connector-id",
@@ -1377,7 +1377,7 @@ func vpcVpcConnectorUpdate() *core.Command {
 		Resource:  "vpc-connector",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.UpdateVPCConnectorRequest{}),
+		ArgsType: reflect.TypeFor[vpc.UpdateVPCConnectorRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-connector-id",
@@ -1426,7 +1426,7 @@ func vpcVpcConnectorDelete() *core.Command {
 		Resource:  "vpc-connector",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.DeleteVPCConnectorRequest{}),
+		ArgsType: reflect.TypeFor[vpc.DeleteVPCConnectorRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-connector-id",
@@ -1468,7 +1468,7 @@ func vpcIngressRuleList() *core.Command {
 		Resource:  "ingress-rule",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.ListIngressRulesRequest{}),
+		ArgsType: reflect.TypeFor[vpc.ListIngressRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1570,7 +1570,7 @@ func vpcIngressRuleCreate() *core.Command {
 		Resource:  "ingress-rule",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.CreateIngressRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpc.CreateIngressRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",
@@ -1640,7 +1640,7 @@ func vpcIngressRuleGet() *core.Command {
 		Resource:  "ingress-rule",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.GetIngressRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpc.GetIngressRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rule-id",
@@ -1675,7 +1675,7 @@ func vpcIngressRuleUpdate() *core.Command {
 		Resource:  "ingress-rule",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.UpdateIngressRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpc.UpdateIngressRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rule-id",
@@ -1745,7 +1745,7 @@ func vpcIngressRuleDelete() *core.Command {
 		Resource:  "ingress-rule",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.DeleteIngressRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpc.DeleteIngressRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rule-id",
@@ -1787,7 +1787,7 @@ func vpcRouteList() *core.Command {
 		Resource:  "route",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpc.RoutesWithNexthopAPIListRoutesWithNexthopRequest{}),
+		ArgsType: reflect.TypeFor[vpc.RoutesWithNexthopAPIListRoutesWithNexthopRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",

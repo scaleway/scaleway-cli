@@ -124,7 +124,7 @@ func mongodbNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -166,7 +166,7 @@ func mongodbVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -207,7 +207,7 @@ func mongodbInstanceList() *core.Command {
 		Resource:  "instance",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListInstancesRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListInstancesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -285,7 +285,7 @@ func mongodbInstanceGet() *core.Command {
 		Resource:  "instance",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.GetInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.GetInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -315,7 +315,7 @@ func mongodbInstanceCreate() *core.Command {
 		Resource:  "instance",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -421,7 +421,7 @@ func mongodbInstanceUpdate() *core.Command {
 		Resource:  "instance",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpdateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpdateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -465,7 +465,7 @@ func mongodbInstanceDelete() *core.Command {
 		Resource:  "instance",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -495,7 +495,7 @@ func mongodbInstanceUpgrade() *core.Command {
 		Resource:  "instance",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpgradeInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpgradeInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -532,7 +532,7 @@ func mongodbInstanceGetCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.GetInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.GetInstanceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -562,7 +562,7 @@ func mongodbSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -606,7 +606,7 @@ func mongodbSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -636,7 +636,7 @@ func mongodbSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -680,7 +680,7 @@ func mongodbSnapshotRestore() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.RestoreSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.RestoreSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -743,7 +743,7 @@ func mongodbSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -821,7 +821,7 @@ func mongodbSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -851,7 +851,7 @@ func mongodbUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -911,7 +911,7 @@ func mongodbUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -955,7 +955,7 @@ func mongodbUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -999,7 +999,7 @@ func mongodbUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1043,7 +1043,7 @@ func mongodbUserSetRole() *core.Command {
 		Resource:  "user",
 		Verb:      "set-role",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.SetUserRoleRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.SetUserRoleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1108,7 +1108,7 @@ func mongodbEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1145,7 +1145,7 @@ func mongodbEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

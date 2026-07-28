@@ -178,7 +178,7 @@ The output returned displays the URL to access your Cockpit's Grafana.`,
 		Resource:  "grafana",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetGrafanaRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetGrafanaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -201,7 +201,7 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 		Resource:  "grafana",
 		Verb:      "sync-data-sources",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPISyncGrafanaDataSourcesRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPISyncGrafanaDataSourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -233,7 +233,7 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 		Resource:  "grafana-user",
 		Verb:      "create",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPICreateGrafanaUserRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPICreateGrafanaUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -276,7 +276,7 @@ List all Grafana users created in your Cockpit's Grafana. By default, the Grafan
 		Resource:  "grafana-user",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaUsersRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListGrafanaUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -316,7 +316,7 @@ Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Pr
 		Resource:  "grafana-user",
 		Verb:      "delete",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIDeleteGrafanaUserRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIDeleteGrafanaUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -355,7 +355,7 @@ A new password regenerates and only displays once. Make sure that you save it.`,
 		Resource:  "grafana-user",
 		Verb:      "reset-password",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIResetGrafanaUserPasswordRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIResetGrafanaUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -385,7 +385,7 @@ func cockpitProductDashboardsList() *core.Command {
 		Resource:  "product-dashboards",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaProductDashboardsRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListGrafanaProductDashboardsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -420,7 +420,7 @@ func cockpitProductDashboardsGet() *core.Command {
 		Resource:  "product-dashboards",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetGrafanaProductDashboardRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetGrafanaProductDashboardRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -451,7 +451,7 @@ Deprecated due to retention now being managed at the data source level.`,
 		Resource:  "plan",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListPlansRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListPlansRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -489,7 +489,7 @@ Deprecated due to retention now being managed at the data source level.`,
 		Resource:  "plan",
 		Verb:      "select",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPISelectPlanRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPISelectPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -526,7 +526,7 @@ Deprecated due to retention now being managed at the data source level.`,
 		Resource:  "plan",
 		Verb:      "get",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetCurrentPlanRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetCurrentPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -550,7 +550,7 @@ The name of the data source will then be used as reference to name the associate
 		Resource:  "data-source",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -605,7 +605,7 @@ func cockpitDataSourceGet() *core.Command {
 		Resource:  "data-source",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
@@ -639,7 +639,7 @@ func cockpitDataSourceDelete() *core.Command {
 		Resource:  "data-source",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
@@ -680,7 +680,7 @@ func cockpitDataSourceList() *core.Command {
 		Resource:  "data-source",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListDataSourcesRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListDataSourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -759,7 +759,7 @@ func cockpitDataSourceUpdate() *core.Command {
 		Resource:  "data-source",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIUpdateDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIUpdateDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
@@ -807,7 +807,7 @@ func cockpitUsageOverviewGet() *core.Command {
 		Resource:  "usage-overview",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetUsageOverviewRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetUsageOverviewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -842,7 +842,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -897,7 +897,7 @@ You can filter tokens by Project ID and token scopes.`,
 		Resource:  "token",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListTokensRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -967,7 +967,7 @@ func cockpitTokenGet() *core.Command {
 		Resource:  "token",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -1001,7 +1001,7 @@ func cockpitTokenDelete() *core.Command {
 		Resource:  "token",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -1043,7 +1043,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 		Resource:  "alert-manager",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1071,7 +1071,7 @@ func cockpitAlertManagerEnable() *core.Command {
 		Resource:  "alert-manager",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIEnableAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIEnableAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1099,7 +1099,7 @@ func cockpitAlertManagerDisable() *core.Command {
 		Resource:  "alert-manager",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDisableAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDisableAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1129,7 +1129,7 @@ If you need to receive alerts for other receivers, you can create additional con
 		Resource:  "contact-point",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateContactPointRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateContactPointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1170,7 +1170,7 @@ func cockpitContactPointList() *core.Command {
 		Resource:  "contact-point",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListContactPointsRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListContactPointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1208,7 +1208,7 @@ func cockpitContactPointDelete() *core.Command {
 		Resource:  "contact-point",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteContactPointRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteContactPointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1249,7 +1249,7 @@ func cockpitTestAlertTrigger() *core.Command {
 		Resource:  "test-alert",
 		Verb:      "trigger",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPITriggerTestAlertRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPITriggerTestAlertRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
