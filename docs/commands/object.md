@@ -26,6 +26,7 @@ scw object bucket create <name ...> [arg=value ...]
 | tags.{index} |  | List of tags to set on the bucket |
 | enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
 | acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -46,6 +47,7 @@ scw object bucket delete <name ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | name | Required | The unique name of the bucket |
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -67,6 +69,7 @@ scw object bucket get <name ...> [arg=value ...]
 |------|---|-------------|
 | name | Required | The unique name of the bucket |
 | with-size | Default: `false` | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. |
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -86,6 +89,7 @@ scw object bucket list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
@@ -109,6 +113,7 @@ scw object bucket update <name ...> [arg=value ...]
 | tags.{index} |  | List of new tags to set on the bucket |
 | enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
 | acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
+| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
 | region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
 
 
