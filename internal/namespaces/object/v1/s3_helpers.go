@@ -16,7 +16,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
+func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -27,6 +27,16 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 	secretKey, ok := scwClient.GetSecretKey()
 	if !ok {
 		return nil
+	}
+
+	// Use provided projectID if available, otherwise fall back to client's
+	// default project ID
+	if projectID == "" {
+		projectID, _ = scwClient.GetDefaultProjectID()
+	}
+
+	if projectID != "" {
+		accessKey += "@" + projectID
 	}
 
 	var customEndpoint string
