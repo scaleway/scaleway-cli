@@ -244,7 +244,6 @@ Keep in mind that your external node needs to have wget in order to download the
 			client := core.ExtractClient(ctx)
 			secretKey, _ := client.GetSecretKey()
 			execScriptArgs := []string{
-				"", // Adding a space to prevent the command from being logged in history as it shows the secret key
 				"SCW_SECRET_KEY=" + secretKey,
 				"./init_kosmos_node.sh",
 			}
@@ -263,7 +262,21 @@ Keep in mind that your external node needs to have wget in order to download the
 
 func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
 	remoteCmd := exec.Command("ssh", args...)
-	_, _ = interactive.Println(remoteCmd)
+
+	cmdToPrint := make([]string, 0, len(remoteCmd.Args))
+	for _, arg := range remoteCmd.Args {
+		if strings.HasPrefix(arg, "SCW_SECRET_KEY=") {
+			if len(arg) > 24 {
+				cmdToPrint = append(cmdToPrint, arg[:24]+"xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+			} else {
+				cmdToPrint = append(cmdToPrint, arg)
+			}
+		} else {
+			cmdToPrint = append(cmdToPrint, arg)
+		}
+	}
+
+	_, _ = interactive.Println(cmdToPrint)
 
 	exitCode, err := core.ExecCmd(ctx, remoteCmd)
 	if err != nil {
@@ -283,9 +296,10 @@ func buildNodeInitScript(poolID string, region scw.Region) string {
 	return fmt.Sprintf(`#!/usr/bin/env sh
 
 set -e
-wget https://scwcontainermulticloud.s3.fr-par.scw.cloud/node-agent_linux_amd64 --no-verbose
-chmod +x node-agent_linux_amd64
-export POOL_ID=%s  POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
-sudo -E ./node-agent_linux_amd64 -loglevel 0 -no-controller
+sudo wget -O /usr/local/bin/k8s-agent https://github.com/scaleway/k8s-agent/releases/latest/download/k8s-agent_linux_amd64
+sudo chmod +x /usr/local/bin/k8s-agent
+export POOL_ID=%s POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
+echo "Launching k8s-agent..."
+sudo --preserve-env=POOL_ID,POOL_REGION,SCW_SECRET_KEY /usr/local/bin/k8s-agent -kosmos
 EOF`, poolID, region.String())
 }
