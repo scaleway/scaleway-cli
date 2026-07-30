@@ -184,13 +184,6 @@ func vpcVpcList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "s3-integration-enabled",
-				Short:      `Defines whether to filter only for VPCs with S3 integration enabled`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for. Only VPCs belonging to this Organization will be returned`,
 				Required:   false,
@@ -470,13 +463,6 @@ func vpcPrivateNetworkList() *core.Command {
 			{
 				Name:       "dhcp-enabled",
 				Short:      `DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "s3-integration-enabled",
-				Short:      `Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

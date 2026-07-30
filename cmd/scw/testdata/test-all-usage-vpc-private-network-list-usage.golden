@@ -13,7 +13,6 @@ ARGS:
   [private-network-ids.{index}]   Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned
   [vpc-id]                        VPC ID to filter for. Only Private Networks belonging to this VPC will be returned
   [dhcp-enabled]                  DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned
-  [s3-integration-enabled]        Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned
   [organization-id]               Organization ID to filter for. Only Private Networks belonging to this Organization will be returned
   [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 

@@ -239,7 +239,6 @@ scw vpc private-network list [arg=value ...]
 | private-network-ids.{index} |  | Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned |
 | vpc-id |  | VPC ID to filter for. Only Private Networks belonging to this VPC will be returned |
 | dhcp-enabled |  | DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned |
-| s3-integration-enabled |  | Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned |
 | organization-id |  | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
@@ -586,7 +585,6 @@ scw vpc vpc list [arg=value ...]
 | project-id |  | Project ID to filter for. Only VPCs belonging to this Project will be returned |
 | is-default |  | Defines whether to filter only for VPCs which are the default one for their Project |
 | routing-enabled |  | Defines whether to filter only for VPCs which route traffic between their Private Networks |
-| s3-integration-enabled |  | Defines whether to filter only for VPCs with S3 integration enabled |
 | organization-id |  | Organization ID to filter for. Only VPCs belonging to this Organization will be returned |
 | region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
 
