@@ -99,6 +99,13 @@ func ipamIPCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "source.regional",
+				Short:      `Defines whether the IP is a public regional IP.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "is-ipv6",
 				Short:      `Request an IPv6 instead of an IPv4`,
 				Required:   false,
@@ -364,6 +371,13 @@ func ipamIPList() *core.Command {
 			{
 				Name:       "zonal",
 				Short:      `Zone to filter for. Only IPs that are zonal, and in this zone, will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "regional",
+				Short:      `Filter on regional IPs only.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
