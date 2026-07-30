@@ -49,6 +49,7 @@ scw ipam ip create [arg=value ...]
 | source.private-network-id |  | Private Network the IP lives in if the IP is a private IP. |
 | source.subnet-id |  | Private Network subnet the IP lives in if the IP is a private IP in a Private Network. |
 | source.vpc-id |  |  |
+| source.regional |  | Defines whether the IP is a public regional IP. |
 | is-ipv6 |  | Request an IPv6 instead of an IPv4 |
 | address |  | Request this specific IP address in the specified source pool |
 | tags.{index} |  | Tags for the IP |
@@ -138,6 +139,7 @@ scw ipam ip list [arg=value ...]
 | order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `attached_at_desc`, `attached_at_asc`, `ip_address_desc`, `ip_address_asc`, `mac_address_desc`, `mac_address_asc` | Sort order of the returned IPs |
 | project-id |  | Project ID to filter for. Only IPs belonging to this Project will be returned |
 | zonal |  | Zone to filter for. Only IPs that are zonal, and in this zone, will be returned |
+| regional |  | Filter on regional IPs only. |
 | private-network-id |  | Private Network to filter for. |
 | subnet-id |  | Subnet ID to filter for. |
 | vpc-id |  | VPC ID to filter for. |
