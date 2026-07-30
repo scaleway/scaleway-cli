@@ -25,7 +25,7 @@ require (
 	github.com/moby/buildkit v0.31.2
 	github.com/moby/go-archive v0.2.1
 	github.com/moby/moby/client v0.5.1
-	github.com/modelcontextprotocol/go-sdk v1.6.1
+	github.com/modelcontextprotocol/go-sdk v1.7.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.36.0.20260728072515-06ce6827839d
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
