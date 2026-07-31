@@ -2,7 +2,11 @@
 version: 1
 interactions:
 - request:
-    body: ""
+    body: '{"access_key":"SCWPAXSFMY8TSNBBBDJV", "secret_key":null, "description":"2026-05-06,
+      test \"backend s3\"", "created_at":"2026-05-06T14:00:26.793493Z", "updated_at":"2026-05-06T14:00:26.793493Z",
+      "expires_at":null, "default_project_id":"4d333544-41be-4b0b-8907-0b9036859747",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.145",
+      "user_id":"91a93231-b51f-40ba-ab24-e6eecf7318de"}'
     form: {}
     headers:
       User-Agent:
@@ -23,7 +27,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Aug 2026 10:02:33 GMT
+      - Fri, 31 Jul 2026 14:52:11 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -33,39 +37,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0dd0b715-801d-4d6c-baae-8c25f1eab14f
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/metadata
-    method: GET
-  response:
-    body: '{"platform":"external","partition":"scw","domain":"scw.eu"}'
-    headers:
-      Content-Length:
-      - "59"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 19 Aug 2026 10:02:33 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-3;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - fb2e3c81-0e34-4094-9f2c-8f3181787b3e
+      - ff8c63ac-041c-44ef-917d-8a4d47d4ed23
     status: 200 OK
     code: 200
     duration: ""
