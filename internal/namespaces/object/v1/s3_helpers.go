@@ -74,7 +74,7 @@ func newS3Client(
 		BaseEndpoint: new(customEndpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
-		UsePathStyle: true, // Required for custom S3 path
+		UsePathStyle: false, // TODO: make it a flag argument
 	})
 }
 
