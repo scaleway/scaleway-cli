@@ -15,7 +15,9 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-func newS3Client(ctx context.Context, region scw.Region, s3Endpoint string) *s3.Client {
+func newS3Client(
+	ctx context.Context, region scw.Region, s3Endpoint string, s3UsePathStyle bool,
+) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -49,7 +51,7 @@ func newS3Client(ctx context.Context, region scw.Region, s3Endpoint string) *s3.
 		BaseEndpoint: new(s3Endpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
-		UsePathStyle: false, // TODO: make it a flag argument
+		UsePathStyle: s3UsePathStyle,
 	})
 }
 
