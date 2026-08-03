@@ -23,7 +23,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Aug 2026 10:02:33 GMT
+      - Wed, 19 Aug 2026 10:03:26 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -33,7 +33,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5a1f7d3e-ad6b-43cc-90f7-a267ea82c15c
+      - 714ee429-9c78-4fe2-9fe5-d3fc22c4fed4
     status: 200 OK
     code: 200
     duration: ""
@@ -55,7 +55,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Aug 2026 10:02:33 GMT
+      - Wed, 19 Aug 2026 10:03:26 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -65,7 +65,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0dda4d9d-e3ed-4187-99a9-b10b9b008377
+      - 7826b55d-690d-43d5-915b-08878400cbe5
     status: 200 OK
     code: 200
     duration: ""
