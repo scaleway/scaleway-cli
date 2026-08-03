@@ -23,6 +23,7 @@ func newS3Client(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
+	s3UsePathStyle bool,
 	endpoint ...string,
 ) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
@@ -74,7 +75,7 @@ func newS3Client(
 		BaseEndpoint: new(customEndpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
-		UsePathStyle: false, // TODO: make it a flag argument
+		UsePathStyle: s3UsePathStyle,
 	})
 }
 
