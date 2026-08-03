@@ -2,34 +2,26 @@
 version: 1
 interactions:
 - request:
-    body: '{"access_key":"SCWPAXSFMY8TSNBBBDJV", "secret_key":null, "description":"2026-05-06,
-      test \"backend s3\"", "created_at":"2026-05-06T14:00:26.793493Z", "updated_at":"2026-05-06T14:00:26.793493Z",
-      "expires_at":null, "default_project_id":"4d333544-41be-4b0b-8907-0b9036859747",
-      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.145",
-      "user_id":"91a93231-b51f-40ba-ab24-e6eecf7318de"}'
+    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWPAXSFMY8TSNBBBDJV
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWB8MJ0KH1H7J27A61E
     method: GET
   response:
-    body: '{"access_key":"SCWPAXSFMY8TSNBBBDJV", "secret_key":null, "description":"2026-05-06,
-      test \"backend s3\"", "created_at":"2026-05-06T14:00:26.793493Z", "updated_at":"2026-05-06T14:00:26.793493Z",
-      "expires_at":null, "default_project_id":"4d333544-41be-4b0b-8907-0b9036859747",
-      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.145",
-      "user_id":"91a93231-b51f-40ba-ab24-e6eecf7318de"}'
+    body: '{"message":"authentication is denied","method":"api_key","reason":"not_found","type":"denied_authentication"}'
     headers:
       Content-Length:
-      - "406"
+      - "109"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Fri, 31 Jul 2026 14:52:38 GMT
+      - Mon, 03 Aug 2026 05:44:23 GMT
       Server:
-      - Scaleway API Gateway (fr-par-3;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -37,7 +29,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 576e1d8c-459c-4475-a56c-8ce4e5595052
-    status: 200 OK
-    code: 200
+      - 412e1eda-cf26-4180-9d2c-dbf1a53b0aba
+    status: 401 Unauthorized
+    code: 401
     duration: ""
