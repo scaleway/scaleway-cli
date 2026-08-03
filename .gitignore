@@ -12,3 +12,6 @@ docs/commands/autocomplete.md
 
 # Ignore the binary
 /scw
+
+# Go workspaces
+go.work*
