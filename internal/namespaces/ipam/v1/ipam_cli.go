@@ -469,6 +469,7 @@ func ipamIPList() *core.Command {
 					"msgq_cluster",
 					"edge_vpc_endpoint",
 					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
@@ -509,6 +510,7 @@ func ipamIPList() *core.Command {
 					"msgq_cluster",
 					"edge_vpc_endpoint",
 					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
