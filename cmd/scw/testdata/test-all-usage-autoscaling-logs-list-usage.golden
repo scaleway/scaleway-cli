@@ -4,14 +4,14 @@ List logs for a specified autoscaling group to view scaling events
 and activities.
 
 USAGE:
-  scw autoscaling logs list [arg=value ...]
+  scw autoscaling logs list <group-id ...> [arg=value ...]
 
 EXAMPLES:
   List all logs for an autoscaling group
-    scw autoscaling logs list group-id=11111111-1111-1111-1111-111111111111
+    scw autoscaling logs list 11111111-1111-1111-1111-111111111111
 
 ARGS:
-  [group-id]        
+  group-id          
   [page-token]      
   [page-size]       
   [start-time]      

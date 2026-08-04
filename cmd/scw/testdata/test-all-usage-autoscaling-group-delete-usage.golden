@@ -4,11 +4,11 @@ Delete a specified autoscaling group and all its associated
 resources.
 
 USAGE:
-  scw autoscaling group delete [arg=value ...]
+  scw autoscaling group delete <group-id ...> [arg=value ...]
 
 EXAMPLES:
   Delete a specified autoscaling group
-    scw autoscaling group delete group-id=11111111-1111-1111-1111-111111111111
+    scw autoscaling group delete 11111111-1111-1111-1111-111111111111
 
 ARGS:
   group-id          ID of the group to delete
