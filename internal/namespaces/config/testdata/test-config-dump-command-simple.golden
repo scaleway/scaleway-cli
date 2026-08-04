@@ -2,7 +2,6 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 access_key: SCWXXXXXXXXXXXXXXXXX
 secret_key: 11111111-xxxx-xxxx-xxxx-xxxxxxxxxxxx
-api_url: https://mock-api-url.com
 insecure: true
 default_organization_id: 11111111-1111-1111-1111-111111111111
 default_region: fr-par
@@ -30,7 +29,6 @@ profiles:
 {
   "access_key": "SCWXXXXXXXXXXXXXXXXX",
   "secret_key": "11111111-1111-1111-1111-111111111111",
-  "api_url": "https://mock-api-url.com",
   "insecure": true,
   "default_organization_id": "11111111-1111-1111-1111-111111111111",
   "default_region": "fr-par",
