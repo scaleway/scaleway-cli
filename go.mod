@@ -5,7 +5,7 @@ go 1.26.3
 require (
 	github.com/aws/aws-sdk-go-v2 v1.43.2
 	github.com/aws/aws-sdk-go-v2/service/s3 v1.106.2
-	github.com/aws/smithy-go v1.27.5
+	github.com/aws/smithy-go v1.27.6
 	github.com/buildpacks/pack v0.40.8
 	github.com/c-bata/go-prompt v0.2.6
 	github.com/charmbracelet/bubbletea v1.3.10
