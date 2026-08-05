@@ -1,15 +1,17 @@
-name: CodeCov Coverage
+name: Coverage
 
 permissions:
   contents: read
 
 on:
   push:
+    branches:
+      - master
   pull_request:
   merge_group:
 
 jobs:
-  build:
+  coverage:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       # Checkout should always be before setup-go to ensure caching is working
@@ -20,11 +22,30 @@ jobs:
         with:
           go-version: stable
       - name: Run coverage
-        run: go tool gotestsum --format github-actions --junitfile junit.xml -- -coverprofile=coverage.out -covermode=count ./...
-      - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
-      - name: Upload test results to Codecov
-        if: ${{ !cancelled() }}
-        uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1.2.1
+        run: go tool gotestsum --format github-actions -- -coverprofile=coverage.out -covermode=count ./...
+      - name: Convert coverage to Cobertura XML
+        run: go tool gocover-cobertura < coverage.out > coverage.xml
+      - name: Upload coverage artifact
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/upload-artifact@v4
         with:
-          token: ${{ secrets.CODECOV_TOKEN }}
+          name: coverage-report-go
+          path: coverage.xml
+
+  upload-coverage-go:
+    needs: coverage
+    if: ${{ !cancelled() && needs.coverage.result == 'success' && (github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository) }}
+    runs-on: ubuntu-latest
+    permissions:
+      contents: read
+      code-quality: write
+    steps:
+      - name: Download coverage artifact
+        uses: actions/download-artifact@v4
+        with:
+          name: coverage-report-go
+      - uses: actions/upload-code-coverage@v1
+        with:
+          file: coverage.xml
+          language: Go
+          label: code-coverage-agent

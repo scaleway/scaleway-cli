@@ -12,3 +12,7 @@ docs/commands/autocomplete.md
 
 # Ignore the binary
 /scw
+
+# Coverage artifacts
+coverage.out
+coverage.xml
