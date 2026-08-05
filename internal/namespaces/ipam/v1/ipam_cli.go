@@ -99,6 +99,13 @@ func ipamIPCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "source.regional",
+				Short:      `Defines whether the IP is a public regional IP.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "is-ipv6",
 				Short:      `Request an IPv6 instead of an IPv4`,
 				Required:   false,
@@ -369,6 +376,13 @@ func ipamIPList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "regional",
+				Short:      `Filter on regional IPs only.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "private-network-id",
 				Short:      `Private Network to filter for.`,
 				Required:   false,
@@ -455,6 +469,7 @@ func ipamIPList() *core.Command {
 					"msgq_cluster",
 					"edge_vpc_endpoint",
 					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
@@ -495,6 +510,7 @@ func ipamIPList() *core.Command {
 					"msgq_cluster",
 					"edge_vpc_endpoint",
 					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
