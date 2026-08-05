@@ -78,6 +78,7 @@ require (
 	github.com/aymanbagabas/go-osc52/v2 v2.0.1 // indirect
 	github.com/beorn7/perks v1.0.1 // indirect
 	github.com/bitfield/gotestdox v0.2.2 // indirect
+	github.com/boumenot/gocover-cobertura v1.5.0 // indirect
 	github.com/buildpacks/imgutil v0.0.0-20251202182233-51c1c8c186ea // indirect
 	github.com/buildpacks/lifecycle v0.21.0 // indirect
 	github.com/cespare/xxhash/v2 v2.3.0 // indirect
@@ -220,7 +221,10 @@ require (
 	gotest.tools/gotestsum v1.12.3 // indirect
 )
 
-tool gotest.tools/gotestsum
+tool (
+	github.com/boumenot/gocover-cobertura
+	gotest.tools/gotestsum
+)
 
 ignore (
 	./docs
