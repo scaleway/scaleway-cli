@@ -6,10 +6,12 @@ USAGE:
   scw object bucket-policy create <bucket ...> [arg=value ...]
 
 ARGS:
-  bucket            The name of the bucket to which assign the policy.
-  policy            The path to the local JSON file containing the bucket policy.
-  [project-id]      Project ID to use. If none is passed the default project ID will be used
-  [region=fr-par]   Region to target. If none is passed will use default region from the config
+  bucket                The name of the bucket to which assign the policy.
+  policy                The path to the local JSON file containing the bucket policy.
+  [s3-endpoint]         Custom S3 endpoint to use instead of the default
+  [s3-use-path-style]   Whether to use path style addressing for S3 API calls or not
+  [project-id]          Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]       Region to target. If none is passed will use default region from the config
 
 FLAGS:
   -h, --help                help for create
