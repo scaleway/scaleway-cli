@@ -77,7 +77,7 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(simplePath, "Dockerfile", testdataDockerDockerfile),
 		),
 		Cmd: fmt.Sprintf(
-			"scw container deploy name=%s build-source=%s port=80",
+			"scw container deploy name=%s build-source=%s port=80 build-args.platform=linux/amd64",
 			appName+"-s",
 			simplePath,
 		),
@@ -100,7 +100,7 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(appNameFromPathPath, "index.html", testdataDockerIndexHTML),
 			loadTestdataBeforeFunc(appNameFromPathPath, "Dockerfile", testdataDockerDockerfile),
 		),
-		Cmd: fmt.Sprintf("scw container deploy build-source=%s port=80", appNameFromPathPath),
+		Cmd: fmt.Sprintf("scw container deploy build-source=%s port=80 build-args.platform=linux/amd64", appNameFromPathPath),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -121,7 +121,7 @@ func Test_Deploy(t *testing.T) {
 			loadTestdataBeforeFunc(buildArgsPath, "Dockerfile", testdataDockerDockerfileBuildArgs),
 		),
 		Cmd: fmt.Sprintf(
-			"scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest",
+			"scw container deploy name=%s build-source=%s port=80 build-args.TEST=thisisatest build-args.platform=linux/amd64",
 			appName+"-ba",
 			buildArgsPath,
 		),
@@ -150,7 +150,7 @@ func Test_Deploy(t *testing.T) {
 			),
 		),
 		Cmd: fmt.Sprintf(
-			"scw container deploy name=%s build-source=%s port=3000",
+			"scw container deploy name=%s build-source=%s port=3000 build-args.platform=linux/amd64",
 			appName+"-bp",
 			buildpackPath,
 		),

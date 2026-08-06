@@ -19,9 +19,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:38:47 GMT
+      - Thu, 06 Aug 2026 16:21:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -29,15 +29,15 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 2b349bb8-26c3-4c25-ba00-fa20013d9959
+      - 601563ae-4607-46bb-b49e-0bcde3002447
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}'
     form: {}
     headers:
@@ -48,10 +48,10 @@ interactions:
     url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
     method: POST
   response:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -61,9 +61,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:38:49 GMT
+      - Thu, 06 Aug 2026 16:21:54 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -71,27 +71,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 25df1056-fd0b-493f-af60-957d71c38278
+      - d55d1d0c-3fa8-4062-bc0f-9289e34ee15e
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/fea71aef-9989-43f7-bb8e-640b69a84d08
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/1b9c4447-282c-4843-b3ca-163e59c217df
     method: GET
   response:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -101,9 +101,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:38:49 GMT
+      - Thu, 06 Aug 2026 16:21:54 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -111,27 +111,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - a36056a9-6474-49e0-9348-f564ace6db6a
+      - 16fbef73-8aff-4360-a8b3-064e6486c3c5
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/fea71aef-9989-43f7-bb8e-640b69a84d08
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/1b9c4447-282c-4843-b3ca-163e59c217df
     method: GET
   response:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -141,9 +141,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:04 GMT
+      - Thu, 06 Aug 2026 16:22:09 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -151,7 +151,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 96f55029-4d90-4889-bdf7-8c49a2ae6bab
+      - 6da4a80a-9d72-443d-aa93-e345e401ebf7
     status: 200 OK
     code: 200
     duration: ""
@@ -173,9 +173,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:04 GMT
+      - Thu, 06 Aug 2026 16:22:09 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -183,16 +183,16 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c4cc608d-25a1-4507-9c6b-940e8fc79014
+      - 6d53f697-6b75-4e3e-a631-81a90e9aa47b
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"dd33796d-f67e-4419-8c0e-1b15c090ec03", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"4396a38d-18e8-4216-a22a-b56c7f338daa", "name":"cli-t-ctnr-deploy-ba",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
       "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":0,
-      "created_at":"2026-08-06T14:39:04.729433233Z", "updated_at":"2026-08-06T14:39:04.729433233Z",
+      "created_at":"2026-08-06T16:22:09.917291265Z", "updated_at":"2026-08-06T16:22:09.917291265Z",
       "image_count":0, "region":"fr-par"}'
     form: {}
     headers:
@@ -203,11 +203,11 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
     method: POST
   response:
-    body: '{"id":"dd33796d-f67e-4419-8c0e-1b15c090ec03", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"4396a38d-18e8-4216-a22a-b56c7f338daa", "name":"cli-t-ctnr-deploy-ba",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
       "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":0,
-      "created_at":"2026-08-06T14:39:04.729433233Z", "updated_at":"2026-08-06T14:39:04.729433233Z",
+      "created_at":"2026-08-06T16:22:09.917291265Z", "updated_at":"2026-08-06T16:22:09.917291265Z",
       "image_count":0, "region":"fr-par"}'
     headers:
       Content-Length:
@@ -217,9 +217,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:04 GMT
+      - Thu, 06 Aug 2026 16:22:09 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -227,7 +227,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b70c7e47-f674-46cc-bb7c-b594721e0522
+      - 5490234d-cc31-4f09-8a61-923e5e75a337
     status: 200 OK
     code: 200
     duration: ""
@@ -237,7 +237,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers?name=cli-t-ctnr-deploy-ba&namespace_id=fea71aef-9989-43f7-bb8e-640b69a84d08&order_by=created_at_asc&page=1
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers?name=cli-t-ctnr-deploy-ba&namespace_id=1b9c4447-282c-4843-b3ca-163e59c217df&order_by=created_at_asc&page=1
     method: GET
   response:
     body: '{"containers":[], "total_count":0}'
@@ -249,9 +249,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:15 GMT
+      - Thu, 06 Aug 2026 16:22:21 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -259,19 +259,19 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0a881ac2-2ba3-4fb7-9569-acc8a50a8c29
+      - a78cb673-e157-4bf8-9d9e-f4ef8d5536de
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"969298da-08bd-44d3-b157-ae2338bae826", "name":"cli-t-ctnr-deploy-ba",
-      "namespace_id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "description":"", "status":"creating",
-      "created_at":"2026-08-06T14:39:15.291964Z", "updated_at":"2026-08-06T14:39:15.291964Z",
+    body: '{"id":"f131377e-aba1-49a2-b9f2-21921d398bd3", "name":"cli-t-ctnr-deploy-ba",
+      "namespace_id":"1b9c4447-282c-4843-b3ca-163e59c217df", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:22:21.882499Z", "updated_at":"2026-08-06T16:22:21.882499Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba/cli-t-ctnr-deploy-ba:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploybafea71aef-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeployba1b9c4447-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     form: {}
@@ -283,14 +283,14 @@ interactions:
     url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
     method: POST
   response:
-    body: '{"id":"969298da-08bd-44d3-b157-ae2338bae826", "name":"cli-t-ctnr-deploy-ba",
-      "namespace_id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "description":"", "status":"creating",
-      "created_at":"2026-08-06T14:39:15.291964Z", "updated_at":"2026-08-06T14:39:15.291964Z",
+    body: '{"id":"f131377e-aba1-49a2-b9f2-21921d398bd3", "name":"cli-t-ctnr-deploy-ba",
+      "namespace_id":"1b9c4447-282c-4843-b3ca-163e59c217df", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:22:21.882499Z", "updated_at":"2026-08-06T16:22:21.882499Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba/cli-t-ctnr-deploy-ba:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploybafea71aef-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeployba1b9c4447-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     headers:
@@ -301,9 +301,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:15 GMT
+      - Thu, 06 Aug 2026 16:22:22 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -311,36 +311,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9fd52370-63a5-4897-8ed4-0f39753dd977
+      - 9e444ed8-81f7-495d-8f7d-46cb5e8d85f3
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"969298da-08bd-44d3-b157-ae2338bae826", "name":"cli-t-ctnr-deploy-ba",
-      "namespace_id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "description":"", "status":"creating",
-      "created_at":"2026-08-06T14:39:15.291964Z", "updated_at":"2026-08-06T14:39:15.291964Z",
+    body: '{"id":"f131377e-aba1-49a2-b9f2-21921d398bd3", "name":"cli-t-ctnr-deploy-ba",
+      "namespace_id":"1b9c4447-282c-4843-b3ca-163e59c217df", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:22:21.882499Z", "updated_at":"2026-08-06T16:22:21.882499Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba/cli-t-ctnr-deploy-ba:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploybafea71aef-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeployba1b9c4447-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/969298da-08bd-44d3-b157-ae2338bae826
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/f131377e-aba1-49a2-b9f2-21921d398bd3
     method: GET
   response:
-    body: '{"id":"969298da-08bd-44d3-b157-ae2338bae826", "name":"cli-t-ctnr-deploy-ba",
-      "namespace_id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "description":"", "status":"creating",
-      "created_at":"2026-08-06T14:39:15.291964Z", "updated_at":"2026-08-06T14:39:15.291964Z",
+    body: '{"id":"f131377e-aba1-49a2-b9f2-21921d398bd3", "name":"cli-t-ctnr-deploy-ba",
+      "namespace_id":"1b9c4447-282c-4843-b3ca-163e59c217df", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:22:21.882499Z", "updated_at":"2026-08-06T16:22:21.882499Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba/cli-t-ctnr-deploy-ba:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploybafea71aef-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeployba1b9c4447-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     headers:
@@ -351,9 +351,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:15 GMT
+      - Thu, 06 Aug 2026 16:22:22 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -361,55 +361,49 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - fda8e721-3671-4dd5-878a-87539fe77fe1
+      - 857cc6e4-e81a-4064-b45d-51fe74119133
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"969298da-08bd-44d3-b157-ae2338bae826", "name":"cli-t-ctnr-deploy-ba",
-      "namespace_id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "description":"", "status":"error",
-      "error_message":"Invalid Image architecture. Serverless Containers only support
-      the amd64 architecture, but the image was built for the following architectures:
-      arm64. Please rebuild the image for the correct architecture using the `--platform=linux/amd64`
-      Docker build argument.", "created_at":"2026-08-06T14:39:15.291964Z", "updated_at":"2026-08-06T14:39:15.892124Z",
+    body: '{"id":"f131377e-aba1-49a2-b9f2-21921d398bd3", "name":"cli-t-ctnr-deploy-ba",
+      "namespace_id":"1b9c4447-282c-4843-b3ca-163e59c217df", "description":"", "status":"ready",
+      "error_message":"", "created_at":"2026-08-06T16:22:21.882499Z", "updated_at":"2026-08-06T16:22:28Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba/cli-t-ctnr-deploy-ba:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploybafea71aef-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeployba1b9c4447-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/969298da-08bd-44d3-b157-ae2338bae826
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/f131377e-aba1-49a2-b9f2-21921d398bd3
     method: GET
   response:
-    body: '{"id":"969298da-08bd-44d3-b157-ae2338bae826", "name":"cli-t-ctnr-deploy-ba",
-      "namespace_id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "description":"", "status":"error",
-      "error_message":"Invalid Image architecture. Serverless Containers only support
-      the amd64 architecture, but the image was built for the following architectures:
-      arm64. Please rebuild the image for the correct architecture using the `--platform=linux/amd64`
-      Docker build argument.", "created_at":"2026-08-06T14:39:15.291964Z", "updated_at":"2026-08-06T14:39:15.892124Z",
+    body: '{"id":"f131377e-aba1-49a2-b9f2-21921d398bd3", "name":"cli-t-ctnr-deploy-ba",
+      "namespace_id":"1b9c4447-282c-4843-b3ca-163e59c217df", "description":"", "status":"ready",
+      "error_message":"", "created_at":"2026-08-06T16:22:21.882499Z", "updated_at":"2026-08-06T16:22:28Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba/cli-t-ctnr-deploy-ba:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploybafea71aef-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeployba1b9c4447-cli-t-ctnr-deploy-ba.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "1245"
+      - "976"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:30 GMT
+      - Thu, 06 Aug 2026 16:22:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -417,15 +411,15 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 46910e3a-9bcc-460e-814e-7df4fd198d20
+      - 8f7ca78f-c7e7-4b24-b6ca-415168450516
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"namespaces":[{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"namespaces":[{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}], "total_count":1}'
     form: {}
     headers:
@@ -434,10 +428,10 @@ interactions:
     url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces?name=cli-t-ctnr-deploy-ba&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"namespaces":[{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"namespaces":[{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:38:48.323658Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:21:52.844083Z",
       "region":"fr-par"}], "total_count":1}'
     headers:
       Content-Length:
@@ -447,9 +441,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:30 GMT
+      - Thu, 06 Aug 2026 16:22:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -457,27 +451,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f35e425b-6f01-446e-8d58-25fc7c37ee45
+      - bc2d6ce9-e59f-4201-84ea-cc3abf0f8eb1
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:39:30.808785Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:22:37.416816Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/fea71aef-9989-43f7-bb8e-640b69a84d08
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/1b9c4447-282c-4843-b3ca-163e59c217df
     method: DELETE
   response:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:39:30.808785Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:22:37.416816Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -487,9 +481,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:30 GMT
+      - Thu, 06 Aug 2026 16:22:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -497,27 +491,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 97f6e95c-d209-4cab-b82b-7dc50c039e1a
+      - 4dc745af-4f61-455c-8de3-3bbea4ec9bcc
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:39:30.808785Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:22:37.416816Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/fea71aef-9989-43f7-bb8e-640b69a84d08
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/1b9c4447-282c-4843-b3ca-163e59c217df
     method: GET
   response:
-    body: '{"id":"fea71aef-9989-43f7-bb8e-640b69a84d08", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"1b9c4447-282c-4843-b3ca-163e59c217df", "name":"cli-t-ctnr-deploy-ba",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T14:38:48.323658Z", "updated_at":"2026-08-06T14:39:30.808785Z",
+      "tags":[], "created_at":"2026-08-06T16:21:52.844083Z", "updated_at":"2026-08-06T16:22:37.416816Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -527,9 +521,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:30 GMT
+      - Thu, 06 Aug 2026 16:22:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -537,20 +531,20 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ccd38e38-59ba-4c3e-9699-2388183d1f29
+      - f85ac656-7274-4072-aa65-78fc421342a6
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"message":"resource is not found","resource":"namespace","resource_id":"fea71aef-9989-43f7-bb8e-640b69a84d08","type":"not_found"}'
+    body: '{"message":"resource is not found","resource":"namespace","resource_id":"1b9c4447-282c-4843-b3ca-163e59c217df","type":"not_found"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/fea71aef-9989-43f7-bb8e-640b69a84d08
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/1b9c4447-282c-4843-b3ca-163e59c217df
     method: GET
   response:
-    body: '{"message":"resource is not found","resource":"namespace","resource_id":"fea71aef-9989-43f7-bb8e-640b69a84d08","type":"not_found"}'
+    body: '{"message":"resource is not found","resource":"namespace","resource_id":"1b9c4447-282c-4843-b3ca-163e59c217df","type":"not_found"}'
     headers:
       Content-Length:
       - "130"
@@ -559,9 +553,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:45 GMT
+      - Thu, 06 Aug 2026 16:22:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -569,16 +563,16 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 0a4a2caa-fa3c-4fc4-b034-365e71645cbe
+      - e4af048f-bf18-49e5-b4ef-5c48cb31ddc1
     status: 404 Not Found
     code: 404
     duration: ""
 - request:
-    body: '{"namespaces":[{"id":"dd33796d-f67e-4419-8c0e-1b15c090ec03", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"namespaces":[{"id":"4396a38d-18e8-4216-a22a-b56c7f338daa", "name":"cli-t-ctnr-deploy-ba",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30474294,
-      "created_at":"2026-08-06T14:39:04.729433Z", "updated_at":"2026-08-06T14:39:15.030759Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30442082,
+      "created_at":"2026-08-06T16:22:09.917291Z", "updated_at":"2026-08-06T16:22:21.655788Z",
       "image_count":1, "region":"fr-par"}], "total_count":1}'
     form: {}
     headers:
@@ -587,11 +581,11 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=cli-t-ctnr-deploy-ba&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"namespaces":[{"id":"dd33796d-f67e-4419-8c0e-1b15c090ec03", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"namespaces":[{"id":"4396a38d-18e8-4216-a22a-b56c7f338daa", "name":"cli-t-ctnr-deploy-ba",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30474294,
-      "created_at":"2026-08-06T14:39:04.729433Z", "updated_at":"2026-08-06T14:39:15.030759Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30442082,
+      "created_at":"2026-08-06T16:22:09.917291Z", "updated_at":"2026-08-06T16:22:21.655788Z",
       "image_count":1, "region":"fr-par"}], "total_count":1}'
     headers:
       Content-Length:
@@ -601,9 +595,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:46 GMT
+      - Thu, 06 Aug 2026 16:22:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -611,29 +605,29 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ad30be3b-b61f-4249-b34b-512e20eee063
+      - 5d8ee187-93cb-4d5e-a914-acaf4c30d633
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"dd33796d-f67e-4419-8c0e-1b15c090ec03", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"4396a38d-18e8-4216-a22a-b56c7f338daa", "name":"cli-t-ctnr-deploy-ba",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30474294,
-      "created_at":"2026-08-06T14:39:04.729433Z", "updated_at":"2026-08-06T14:39:46.093673666Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30442082,
+      "created_at":"2026-08-06T16:22:09.917291Z", "updated_at":"2026-08-06T16:22:52.644689794Z",
       "image_count":1, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/dd33796d-f67e-4419-8c0e-1b15c090ec03
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/4396a38d-18e8-4216-a22a-b56c7f338daa
     method: DELETE
   response:
-    body: '{"id":"dd33796d-f67e-4419-8c0e-1b15c090ec03", "name":"cli-t-ctnr-deploy-ba",
+    body: '{"id":"4396a38d-18e8-4216-a22a-b56c7f338daa", "name":"cli-t-ctnr-deploy-ba",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30474294,
-      "created_at":"2026-08-06T14:39:04.729433Z", "updated_at":"2026-08-06T14:39:46.093673666Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-ba", "is_public":false, "size":30442082,
+      "created_at":"2026-08-06T16:22:09.917291Z", "updated_at":"2026-08-06T16:22:52.644689794Z",
       "image_count":1, "region":"fr-par"}'
     headers:
       Content-Length:
@@ -643,9 +637,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 14:39:46 GMT
+      - Thu, 06 Aug 2026 16:22:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge03)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -653,7 +647,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1b7d22f5-0bf0-4189-96ac-d738756b34f3
+      - 811b50e0-68cc-4508-bbe5-7eec17e69d2b
     status: 200 OK
     code: 200
     duration: ""

@@ -19,9 +19,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:15 GMT
+      - Thu, 06 Aug 2026 16:19:50 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -29,15 +29,15 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7f9ecb7c-ecce-4397-a465-3d5e24edc14b
+      - 28e531db-0234-496f-b52f-b0baac38dc39
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}'
     form: {}
     headers:
@@ -48,10 +48,10 @@ interactions:
     url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
     method: POST
   response:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -61,9 +61,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:17 GMT
+      - Thu, 06 Aug 2026 16:19:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -71,27 +71,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8e88c5f6-5531-46ca-bd58-04e7a1826825
+      - d75ba0b3-ba9c-4094-a63b-28206e9d076c
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/167479bd-5c8f-4009-84ab-f5e201e14a19
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/42cc3647-9058-40ba-8a1e-8417665cb0ed
     method: GET
   response:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -101,9 +101,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:17 GMT
+      - Thu, 06 Aug 2026 16:19:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -111,27 +111,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 70b9b169-f2b4-4b44-9c45-d6847d9314ab
+      - 6471c638-7a32-40e8-8f2e-9809c74980dd
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/167479bd-5c8f-4009-84ab-f5e201e14a19
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/42cc3647-9058-40ba-8a1e-8417665cb0ed
     method: GET
   response:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -141,9 +141,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:32 GMT
+      - Thu, 06 Aug 2026 16:20:07 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -151,7 +151,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 5564fa3c-722b-442f-9ad5-0c00ba11944e
+      - 49a958b8-4b44-44db-9656-c98be9032aa4
     status: 200 OK
     code: 200
     duration: ""
@@ -173,9 +173,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:32 GMT
+      - Thu, 06 Aug 2026 16:20:07 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -183,16 +183,16 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 80ceec50-68c8-4af9-a862-ad30632b6c51
+      - fad223d2-11f2-43e2-bad8-6a8d0d0f152a
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"b69b2588-08e8-4e51-ba67-dacd3e9f0929", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"9fc114c9-e5a0-434e-b11d-f53c69c83925", "name":"cli-t-ctnr-deploy-s",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
       "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":0,
-      "created_at":"2026-08-06T13:10:32.758333594Z", "updated_at":"2026-08-06T13:10:32.758333594Z",
+      "created_at":"2026-08-06T16:20:07.674060706Z", "updated_at":"2026-08-06T16:20:07.674060706Z",
       "image_count":0, "region":"fr-par"}'
     form: {}
     headers:
@@ -203,11 +203,11 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
     method: POST
   response:
-    body: '{"id":"b69b2588-08e8-4e51-ba67-dacd3e9f0929", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"9fc114c9-e5a0-434e-b11d-f53c69c83925", "name":"cli-t-ctnr-deploy-s",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
       "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":0,
-      "created_at":"2026-08-06T13:10:32.758333594Z", "updated_at":"2026-08-06T13:10:32.758333594Z",
+      "created_at":"2026-08-06T16:20:07.674060706Z", "updated_at":"2026-08-06T16:20:07.674060706Z",
       "image_count":0, "region":"fr-par"}'
     headers:
       Content-Length:
@@ -217,9 +217,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:32 GMT
+      - Thu, 06 Aug 2026 16:20:07 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -227,117 +227,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 82c4e37f-cc57-4539-8832-464d1331586c
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      User-Agent:
-      - moby-client/v0.0.0+unknown darwin/arm64
-    url: http://%2Fvar%2Frun%2Fdocker.sock/_ping
-    method: HEAD
-  response:
-    body: ""
-    headers:
-      Api-Version:
-      - "1.55"
-      Builder-Version:
-      - "2"
-      Cache-Control:
-      - no-cache, no-store, must-revalidate
-      Content-Type:
-      - text/plain; charset=utf-8
-      Date:
-      - Thu, 06 Aug 2026 13:10:32 GMT
-      Docker-Experimental:
-      - "false"
-      Ostype:
-      - linux
-      Pragma:
-      - no-cache
-      Server:
-      - Docker/29.6.2 (linux)
-      Swarm:
-      - inactive
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: "{\"stream\":\"Step 1/4 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e 4a73073bd557\\n\"}\r\n{\"stream\":\"Step 2/4 : RUN apk add --no-cache
-      curl git bash\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e 9c526d9e736a\\n\"}\r\n{\"stream\":\"Step
-      3/4 : COPY ./index.html /usr/share/nginx/html/index.html\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e 810848a59477\\n\"}\r\n{\"stream\":\"Step
-      4/4 : EXPOSE 80\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e 731cf8bf6cc5\\n\"}\r\n{\"aux\":{\"ID\":\"sha256:731cf8bf6cc5970450825e3ed13934310f319c3e9c0cc41a08fd4058e8675071\"}}\r\n{\"stream\":\"Successfully
-      built 731cf8bf6cc5\\n\"}\r\n{\"stream\":\"Successfully tagged rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest\\n\"}\r\n"
-    form: {}
-    headers:
-      Content-Type:
-      - application/x-tar
-      User-Agent:
-      - moby-client/v0.0.0+unknown darwin/arm64
-      X-Registry-Config:
-      - bnVsbA==
-    url: http://%2Fvar%2Frun%2Fdocker.sock/v1.55/build?dockerfile=Dockerfile&rm=0&t=rg.fr-par.scw.cloud%2Fcli-t-ctnr-deploy-s%2Fcli-t-ctnr-deploy-s%3Alatest
-    method: POST
-  response:
-    body: "{\"stream\":\"Step 1/4 : FROM nginx:alpine\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e 4a73073bd557\\n\"}\r\n{\"stream\":\"Step 2/4 : RUN apk add --no-cache
-      curl git bash\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e 9c526d9e736a\\n\"}\r\n{\"stream\":\"Step
-      3/4 : COPY ./index.html /usr/share/nginx/html/index.html\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\"
-      ---\\u003e Using cache\\n\"}\r\n{\"stream\":\" ---\\u003e 810848a59477\\n\"}\r\n{\"stream\":\"Step
-      4/4 : EXPOSE 80\"}\r\n{\"stream\":\"\\n\"}\r\n{\"stream\":\" ---\\u003e Using
-      cache\\n\"}\r\n{\"stream\":\" ---\\u003e 731cf8bf6cc5\\n\"}\r\n{\"aux\":{\"ID\":\"sha256:731cf8bf6cc5970450825e3ed13934310f319c3e9c0cc41a08fd4058e8675071\"}}\r\n{\"stream\":\"Successfully
-      built 731cf8bf6cc5\\n\"}\r\n{\"stream\":\"Successfully tagged rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest\\n\"}\r\n"
-    headers:
-      Api-Version:
-      - "1.55"
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 06 Aug 2026 13:10:32 GMT
-      Docker-Experimental:
-      - "false"
-      Ostype:
-      - linux
-      Server:
-      - Docker/29.6.2 (linux)
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s]\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3145728,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3145728,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4194304,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7340032,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"latest:
-      digest: sha256:731cf8bf6cc5970450825e3ed13934310f319c3e9c0cc41a08fd4058e8675071
-      size: 2479\"}\r\n"
-    form: {}
-    headers:
-      User-Agent:
-      - moby-client/v0.0.0+unknown darwin/arm64
-    url: http://%2Fvar%2Frun%2Fdocker.sock/v1.55/images/rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s/push?tag=latest
-    method: POST
-  response:
-    body: "{\"status\":\"The push refers to repository [rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s]\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3145728,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":3145728,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4194304,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":626,\"total\":626},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e42993d4c6ec\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1399,\"total\":1399},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"ba4be3b26f08\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":956,\"total\":956},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":302,\"total\":302},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"d0e9565ba4ff\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":5242880,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"4cff946977b9\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1210,\"total\":1210},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"e1f13a453c9d\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":6291456,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":7340032,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":1909562,\"total\":1909562},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"7b1fb50ff9dc\"}\r\n{\"status\":\"Waiting\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":8388608,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":9437184,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4183037,\"total\":4183037},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"5de55e5ef9c0\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":405,\"total\":405},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":4515021,\"total\":4515021},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"c4a042f5cf71\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"bf67ed63a708\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":11534336,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":12582912,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":13631488,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":15728640,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":16777216,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":18874368,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushing\",\"progressDetail\":{\"current\":19848667,\"total\":19848667},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"Pushed\",\"progressDetail\":{},\"id\":\"977aedb192ad\"}\r\n{\"status\":\"latest:
-      digest: sha256:731cf8bf6cc5970450825e3ed13934310f319c3e9c0cc41a08fd4058e8675071
-      size: 2479\"}\r\n"
-    headers:
-      Api-Version:
-      - "1.55"
-      Content-Type:
-      - application/json
-      Date:
-      - Thu, 06 Aug 2026 13:10:32 GMT
-      Docker-Experimental:
-      - "false"
-      Ostype:
-      - linux
-      Server:
-      - Docker/29.6.2 (linux)
+      - 4c05d70c-cba4-49cb-a444-711c3d3505d3
     status: 200 OK
     code: 200
     duration: ""
@@ -347,7 +237,7 @@ interactions:
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers?name=cli-t-ctnr-deploy-s&namespace_id=167479bd-5c8f-4009-84ab-f5e201e14a19&order_by=created_at_asc&page=1
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers?name=cli-t-ctnr-deploy-s&namespace_id=42cc3647-9058-40ba-8a1e-8417665cb0ed&order_by=created_at_asc&page=1
     method: GET
   response:
     body: '{"containers":[], "total_count":0}'
@@ -359,9 +249,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:48 GMT
+      - Thu, 06 Aug 2026 16:20:22 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -369,19 +259,19 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 3c63a1a6-27d7-4042-acc2-a46dcafdd0b6
+      - 704ec1ca-4e57-412b-aa7f-783de2c146f3
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fee3f784-9688-4c33-a2db-12f61d965734", "name":"cli-t-ctnr-deploy-s",
-      "namespace_id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "description":"", "status":"creating",
-      "created_at":"2026-08-06T13:10:48.206564Z", "updated_at":"2026-08-06T13:10:48.206564Z",
+    body: '{"id":"846fb49c-a080-42dc-b83f-c692b0d01519", "name":"cli-t-ctnr-deploy-s",
+      "namespace_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:20:22.318678Z", "updated_at":"2026-08-06T16:20:22.318678Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys167479bd-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys42cc3647-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     form: {}
@@ -393,14 +283,14 @@ interactions:
     url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
     method: POST
   response:
-    body: '{"id":"fee3f784-9688-4c33-a2db-12f61d965734", "name":"cli-t-ctnr-deploy-s",
-      "namespace_id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "description":"", "status":"creating",
-      "created_at":"2026-08-06T13:10:48.206564Z", "updated_at":"2026-08-06T13:10:48.206564Z",
+    body: '{"id":"846fb49c-a080-42dc-b83f-c692b0d01519", "name":"cli-t-ctnr-deploy-s",
+      "namespace_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:20:22.318678Z", "updated_at":"2026-08-06T16:20:22.318678Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys167479bd-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys42cc3647-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     headers:
@@ -411,9 +301,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:48 GMT
+      - Thu, 06 Aug 2026 16:20:22 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -421,36 +311,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c472c45b-1470-4811-95fc-5a137f084a19
+      - 2cf7e8a2-f606-4442-a393-ebbc59592ff8
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fee3f784-9688-4c33-a2db-12f61d965734", "name":"cli-t-ctnr-deploy-s",
-      "namespace_id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "description":"", "status":"creating",
-      "created_at":"2026-08-06T13:10:48.206564Z", "updated_at":"2026-08-06T13:10:48.206564Z",
+    body: '{"id":"846fb49c-a080-42dc-b83f-c692b0d01519", "name":"cli-t-ctnr-deploy-s",
+      "namespace_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:20:22.318678Z", "updated_at":"2026-08-06T16:20:22.318678Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys167479bd-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys42cc3647-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/fee3f784-9688-4c33-a2db-12f61d965734
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/846fb49c-a080-42dc-b83f-c692b0d01519
     method: GET
   response:
-    body: '{"id":"fee3f784-9688-4c33-a2db-12f61d965734", "name":"cli-t-ctnr-deploy-s",
-      "namespace_id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "description":"", "status":"creating",
-      "created_at":"2026-08-06T13:10:48.206564Z", "updated_at":"2026-08-06T13:10:48.206564Z",
+    body: '{"id":"846fb49c-a080-42dc-b83f-c692b0d01519", "name":"cli-t-ctnr-deploy-s",
+      "namespace_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "description":"", "status":"creating",
+      "created_at":"2026-08-06T16:20:22.318678Z", "updated_at":"2026-08-06T16:20:22.318678Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys167479bd-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys42cc3647-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     headers:
@@ -461,9 +351,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:10:48 GMT
+      - Thu, 06 Aug 2026 16:20:22 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -471,55 +361,49 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f52866f5-dbeb-4a00-ab80-538bd1de25dc
+      - a1f5743c-60a8-4644-b692-37eb9ac387fc
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"fee3f784-9688-4c33-a2db-12f61d965734", "name":"cli-t-ctnr-deploy-s",
-      "namespace_id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "description":"", "status":"error",
-      "error_message":"Invalid Image architecture. Serverless Containers only support
-      the amd64 architecture, but the image was built for the following architectures:
-      arm64. Please rebuild the image for the correct architecture using the `--platform=linux/amd64`
-      Docker build argument.", "created_at":"2026-08-06T13:10:48.206564Z", "updated_at":"2026-08-06T13:10:48.761374Z",
+    body: '{"id":"846fb49c-a080-42dc-b83f-c692b0d01519", "name":"cli-t-ctnr-deploy-s",
+      "namespace_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "description":"", "status":"ready",
+      "error_message":"", "created_at":"2026-08-06T16:20:22.318678Z", "updated_at":"2026-08-06T16:20:30Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys167479bd-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys42cc3647-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/fee3f784-9688-4c33-a2db-12f61d965734
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/846fb49c-a080-42dc-b83f-c692b0d01519
     method: GET
   response:
-    body: '{"id":"fee3f784-9688-4c33-a2db-12f61d965734", "name":"cli-t-ctnr-deploy-s",
-      "namespace_id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "description":"", "status":"error",
-      "error_message":"Invalid Image architecture. Serverless Containers only support
-      the amd64 architecture, but the image was built for the following architectures:
-      arm64. Please rebuild the image for the correct architecture using the `--platform=linux/amd64`
-      Docker build argument.", "created_at":"2026-08-06T13:10:48.206564Z", "updated_at":"2026-08-06T13:10:48.761374Z",
+    body: '{"id":"846fb49c-a080-42dc-b83f-c692b0d01519", "name":"cli-t-ctnr-deploy-s",
+      "namespace_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "description":"", "status":"ready",
+      "error_message":"", "created_at":"2026-08-06T16:20:22.318678Z", "updated_at":"2026-08-06T16:20:30Z",
       "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000,
       "timeout":"300s", "privacy":"public", "image":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s/cli-t-ctnr-deploy-s:latest",
       "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2",
       "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50},
-      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys167479bd-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
+      "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clitctnrdeploys42cc3647-cli-t-ctnr-deploy-s.functions.fnc.fr-par.scw.cloud",
       "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s",
       "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "1240"
+      - "971"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:03 GMT
+      - Thu, 06 Aug 2026 16:20:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -527,15 +411,15 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 76a72210-c222-4dda-bbd0-5975393d147e
+      - b9b3817b-1f0e-4eb7-91ab-f84e3c966f87
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"namespaces":[{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"namespaces":[{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}], "total_count":1}'
     form: {}
     headers:
@@ -544,10 +428,10 @@ interactions:
     url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces?name=cli-t-ctnr-deploy-s&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"namespaces":[{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"namespaces":[{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:10:16.309471Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:19:51.528636Z",
       "region":"fr-par"}], "total_count":1}'
     headers:
       Content-Length:
@@ -557,9 +441,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:04 GMT
+      - Thu, 06 Aug 2026 16:20:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -567,27 +451,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8312493d-38ec-4bac-9ea8-74501f186811
+      - 2edee54e-f347-4ae9-baf4-fe5a6a72147c
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:11:04.243425Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:20:37.824602Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/167479bd-5c8f-4009-84ab-f5e201e14a19
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/42cc3647-9058-40ba-8a1e-8417665cb0ed
     method: DELETE
   response:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:11:04.243425Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:20:37.824602Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -597,9 +481,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:04 GMT
+      - Thu, 06 Aug 2026 16:20:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -607,27 +491,27 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 7de791d8-32b4-484b-aeb7-719e64cac349
+      - 7567e4d8-27cb-40fe-9456-8c0a93329d63
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:11:04.243425Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:20:37.824602Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/167479bd-5c8f-4009-84ab-f5e201e14a19
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/42cc3647-9058-40ba-8a1e-8417665cb0ed
     method: GET
   response:
-    body: '{"id":"167479bd-5c8f-4009-84ab-f5e201e14a19", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"42cc3647-9058-40ba-8a1e-8417665cb0ed", "name":"cli-t-ctnr-deploy-s",
       "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{},
-      "tags":[], "created_at":"2026-08-06T13:10:16.309471Z", "updated_at":"2026-08-06T13:11:04.243425Z",
+      "tags":[], "created_at":"2026-08-06T16:19:51.528636Z", "updated_at":"2026-08-06T16:20:37.824602Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
@@ -637,9 +521,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:04 GMT
+      - Thu, 06 Aug 2026 16:20:37 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -647,20 +531,20 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 9913fb94-fbf1-4075-9c8e-763d49f70ef7
+      - a4788574-05b0-4fb3-bfd9-7bb8bd42a5c7
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"message":"resource is not found","resource":"namespace","resource_id":"167479bd-5c8f-4009-84ab-f5e201e14a19","type":"not_found"}'
+    body: '{"message":"resource is not found","resource":"namespace","resource_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed","type":"not_found"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/167479bd-5c8f-4009-84ab-f5e201e14a19
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/42cc3647-9058-40ba-8a1e-8417665cb0ed
     method: GET
   response:
-    body: '{"message":"resource is not found","resource":"namespace","resource_id":"167479bd-5c8f-4009-84ab-f5e201e14a19","type":"not_found"}'
+    body: '{"message":"resource is not found","resource":"namespace","resource_id":"42cc3647-9058-40ba-8a1e-8417665cb0ed","type":"not_found"}'
     headers:
       Content-Length:
       - "130"
@@ -669,9 +553,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:19 GMT
+      - Thu, 06 Aug 2026 16:20:52 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -679,16 +563,16 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 21658e9b-ede0-4f1c-8880-c8992e2aa6e3
+      - d00029e4-e4b7-40ed-8893-fd092b665d3d
     status: 404 Not Found
     code: 404
     duration: ""
 - request:
-    body: '{"namespaces":[{"id":"b69b2588-08e8-4e51-ba67-dacd3e9f0929", "name":"cli-t-ctnr-deploy-s",
+    body: '{"namespaces":[{"id":"9fc114c9-e5a0-434e-b11d-f53c69c83925", "name":"cli-t-ctnr-deploy-s",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30474059,
-      "created_at":"2026-08-06T13:10:32.758334Z", "updated_at":"2026-08-06T13:10:47.941893Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30441682,
+      "created_at":"2026-08-06T16:20:07.674061Z", "updated_at":"2026-08-06T16:20:21.930610Z",
       "image_count":1, "region":"fr-par"}], "total_count":1}'
     form: {}
     headers:
@@ -697,11 +581,11 @@ interactions:
     url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?name=cli-t-ctnr-deploy-s&order_by=created_at_asc&page=1
     method: GET
   response:
-    body: '{"namespaces":[{"id":"b69b2588-08e8-4e51-ba67-dacd3e9f0929", "name":"cli-t-ctnr-deploy-s",
+    body: '{"namespaces":[{"id":"9fc114c9-e5a0-434e-b11d-f53c69c83925", "name":"cli-t-ctnr-deploy-s",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"ready", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30474059,
-      "created_at":"2026-08-06T13:10:32.758334Z", "updated_at":"2026-08-06T13:10:47.941893Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30441682,
+      "created_at":"2026-08-06T16:20:07.674061Z", "updated_at":"2026-08-06T16:20:21.930610Z",
       "image_count":1, "region":"fr-par"}], "total_count":1}'
     headers:
       Content-Length:
@@ -711,9 +595,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:19 GMT
+      - Thu, 06 Aug 2026 16:20:53 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -721,29 +605,29 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1a15b20c-0d78-4b3f-901a-547471220131
+      - a2aa3d0b-40ee-43f7-835b-dbbfb8c5d7e9
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"b69b2588-08e8-4e51-ba67-dacd3e9f0929", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"9fc114c9-e5a0-434e-b11d-f53c69c83925", "name":"cli-t-ctnr-deploy-s",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30474059,
-      "created_at":"2026-08-06T13:10:32.758334Z", "updated_at":"2026-08-06T13:11:19.455301439Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30441682,
+      "created_at":"2026-08-06T16:20:07.674061Z", "updated_at":"2026-08-06T16:20:53.094935081Z",
       "image_count":1, "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
       - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/b69b2588-08e8-4e51-ba67-dacd3e9f0929
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/9fc114c9-e5a0-434e-b11d-f53c69c83925
     method: DELETE
   response:
-    body: '{"id":"b69b2588-08e8-4e51-ba67-dacd3e9f0929", "name":"cli-t-ctnr-deploy-s",
+    body: '{"id":"9fc114c9-e5a0-434e-b11d-f53c69c83925", "name":"cli-t-ctnr-deploy-s",
       "description":"", "organization_id":"951df375-e094-4d26-97c1-ba548eeb9c42",
       "project_id":"951df375-e094-4d26-97c1-ba548eeb9c42", "status":"deleting", "status_message":"",
-      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30474059,
-      "created_at":"2026-08-06T13:10:32.758334Z", "updated_at":"2026-08-06T13:11:19.455301439Z",
+      "endpoint":"rg.fr-par.scw.cloud/cli-t-ctnr-deploy-s", "is_public":false, "size":30441682,
+      "created_at":"2026-08-06T16:20:07.674061Z", "updated_at":"2026-08-06T16:20:53.094935081Z",
       "image_count":1, "region":"fr-par"}'
     headers:
       Content-Length:
@@ -753,9 +637,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 06 Aug 2026 13:11:19 GMT
+      - Thu, 06 Aug 2026 16:20:53 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -763,7 +647,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 312af185-ec1c-4769-bc93-3d64e29515b8
+      - b200032c-4340-4078-9702-57c39063d8f1
     status: 200 OK
     code: 200
     duration: ""
