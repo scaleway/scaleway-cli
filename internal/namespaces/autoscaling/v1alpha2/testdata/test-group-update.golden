@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           019fceb8-e359-7a58-ad6f-0a8b65046e2a
+ID           019fd720-7a09-7381-a969-32e9a7ef383b
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name         cli-asg-keen-babbage
+Name         cli-asg-adoring-heisenberg
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
 Status       active
 CurrentSize  0
 TargetSize   0
-TemplateID   9a51e876-813d-44de-9fcf-24869100786c
+TemplateID   5ab3e2a8-9624-4711-bfe2-a5706945f171
 
 Tags:
 [tags were updated]
@@ -26,9 +26,9 @@ Open Alerts:
 TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "019fceb8-e359-7a58-ad6f-0a8b65046e2a",
+  "id": "019fd720-7a09-7381-a969-32e9a7ef383b",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-asg-keen-babbage",
+  "name": "cli-asg-adoring-heisenberg",
   "tags": [
     "tags",
     "were",
@@ -42,7 +42,7 @@ TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
   "target_size": 0,
   "last_scale_out_at": null,
   "last_scale_in_at": null,
-  "template_id": "9a51e876-813d-44de-9fcf-24869100786c",
+  "template_id": "5ab3e2a8-9624-4711-bfe2-a5706945f171",
   "scaling_policy": {
     "minimum_size": 0,
     "maximum_size": 25,
