@@ -19,6 +19,7 @@ import (
 func cassetteRequestFilter(i *cassette.Interaction) error {
 	delete(i.Request.Headers, "x-auth-token")
 	delete(i.Request.Headers, "X-Auth-Token")
+	delete(i.Request.Headers, "X-Registry-Auth")
 	orgIDRegex := regexp.MustCompile(`(.+)organization_id=[0-9a-f-]{36}(.+)`)
 	tokenRegex := regexp.MustCompile(`^https://api\.scaleway\.com/account/v1/tokens/[0-9a-f-]{36}$`)
 
@@ -207,6 +208,10 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	// Add a filter which removes Authorization headers from all requests:
 	r.AddFilter(cassetteRequestFilter)
 
+	r.Passthroughs = []recorder.Passthrough{
+		ignoreMoby,
+	}
+
 	// Remove secrets from response
 	r.AddSaveFilter(cassetteResponseFilter)
 
@@ -215,6 +220,10 @@ func getHTTPRecoder(t *testing.T, update bool) (client *http.Client, cleanup fun
 	return &http.Client{Transport: &retryableHTTPTransport{transport: r}}, func() {
 		assert.NoError(t, r.Stop()) // Make sure recorder is stopped once done with it
 	}, nil
+}
+
+func ignoreMoby(req *http.Request) bool {
+	return strings.HasPrefix(req.UserAgent(), "moby")
 }
 
 func newHTTPRecorder(t *testing.T, folder string, update bool) (*http.Client, func(), error) {
