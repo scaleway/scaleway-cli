@@ -27,7 +27,7 @@ require (
 	github.com/moby/moby/client v0.5.1
 	github.com/modelcontextprotocol/go-sdk v1.7.0
 	github.com/opencontainers/go-digest v1.0.0
-	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.37.0.20260804103741-8d3a51b2226f
+	github.com/scaleway/scaleway-sdk-go v1.0.0-beta.37.0.20260806102135-b185601b6864
 	github.com/skratchdot/open-golang v0.0.0-20200116055534-eef842397966
 	github.com/spf13/cobra v1.10.2
 	github.com/spf13/pflag v1.0.10
