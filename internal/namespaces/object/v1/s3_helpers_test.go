@@ -57,7 +57,11 @@ func Test_FormatAccessKey(t *testing.T) {
 
 	for _, c := range cases {
 		t.Run(c.testName, func(t *testing.T) {
-			resultAccessKey := object.FormatAccessKey(c.accessKey, c.argProjectID, c.defaultProjectID)
+			resultAccessKey := object.FormatAccessKey(
+				c.accessKey,
+				c.argProjectID,
+				c.defaultProjectID,
+			)
 			if resultAccessKey != c.expectedFormat {
 				t.Fatalf("expected '%s', got '%s'", c.expectedFormat, resultAccessKey)
 			}
