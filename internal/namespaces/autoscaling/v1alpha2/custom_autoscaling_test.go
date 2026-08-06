@@ -32,6 +32,8 @@ func Test_Group(t *testing.T) {
 			" scaling-policy-spec.memory-target.target-avg-percent=80 template-id={{ .Template.ID }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
 				if group, ok := ctx.Result.(*autoscalingSDK.Group); !ok {
 					t.Errorf("expected result of type *autoscalingSDK.Group, got %T", ctx.Result)
 				} else {
@@ -75,6 +77,8 @@ func Test_Group(t *testing.T) {
 			" scaling-policy-spec.scale-out-step=5 template-id={{ .Tmpl2.ID }}",
 		Check: core.TestCheckCombine(
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
 				if group, ok := ctx.Result.(*autoscalingSDK.Group); !ok {
 					t.Errorf("expected result of type *autoscalingSDK.Group, got %T", ctx.Result)
 				} else {
