@@ -16,12 +16,21 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+type BoolString string
+
+const (
+	TrueBoolString  BoolString = "true"
+	FalseBoolString BoolString = "false"
+)
+
 type bucketConfigArgs struct {
 	Region           scw.Region
 	Name             string
 	Tags             []string
 	EnableVersioning bool `json:"enable-versioning"`
 	ACL              string
+	S3Endpoint       string     `json:"s3-endpoint"`
+	S3UsePathStyle   BoolString `json:"s3-use-path-style"`
 }
 
 func bucketCreateCommand() *core.Command {
@@ -61,11 +70,25 @@ func bucketCreateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region)
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, s3Endpoint, s3UsePathStyle)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
@@ -92,7 +115,13 @@ func bucketCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not put bucket tags: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Name)
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Name,
+				s3UsePathStyle,
+				args.S3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -109,8 +138,10 @@ func bucketCreateCommand() *core.Command {
 }
 
 type bucketDeleteArgs struct {
-	Region scw.Region
-	Name   string
+	Region         scw.Region
+	Name           string
+	S3Endpoint     string `json:"s3-endpoint"`
+	S3UsePathStyle bool   `json:"s3-use-path-style"`
 }
 
 func bucketDeleteCommand() *core.Command {
@@ -129,11 +160,25 @@ func bucketDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
-			client := newS3Client(ctx, args.Region)
+
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			client := newS3Client(ctx, args.Region, s3Endpoint, args.S3UsePathStyle)
 
 			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
@@ -173,13 +218,33 @@ func bucketGetCommand() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 				Short:      "Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.",
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
-			client := newS3Client(ctx, args.Region)
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Name)
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			client := newS3Client(ctx, args.Region, s3Endpoint, args.S3UsePathStyle)
+
+			bucket, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Name,
+				args.S3UsePathStyle,
+				args.S3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -209,7 +274,9 @@ func bucketGetCommand() *core.Command {
 }
 
 type bucketListArgs struct {
-	Region scw.Region
+	Region         scw.Region
+	S3Endpoint     string     `json:"s3-endpoint"`
+	S3UsePathStyle BoolString `json:"s3-use-path-style"`
 }
 
 func bucketListCommand() *core.Command {
@@ -221,11 +288,20 @@ func bucketListCommand() *core.Command {
 		Long:      "List all existing S3 buckets in the specified region",
 		ArgsType:  reflect.TypeOf(bucketListArgs{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
-			client := newS3Client(ctx, args.Region)
+
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, s3Endpoint, s3UsePathStyle)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
@@ -274,11 +350,20 @@ func bucketUpdateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region)
+
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, s3Endpoint, s3UsePathStyle)
 
 			err := putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
 			if err != nil {
@@ -295,7 +380,13 @@ func bucketUpdateCommand() *core.Command {
 				return nil, fmt.Errorf("could not update bucket ACL: %w", err)
 			}
 
-			bucketResponse, err := getBucketInfo(ctx, args.Region, args.Name)
+			bucketResponse, err := getBucketInfo(
+				ctx,
+				args.Region,
+				args.Name,
+				s3UsePathStyle,
+				args.S3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -311,8 +402,15 @@ func bucketUpdateCommand() *core.Command {
 	}
 }
 
-func getBucketInfo(ctx context.Context, region scw.Region, name string) (*bucketInfo, error) {
-	client := newS3Client(ctx, region)
+func getBucketInfo(
+	ctx context.Context,
+	region scw.Region,
+	name string,
+	s3UsePathStyle bool,
+	endpoint ...string,
+) (*bucketInfo, error) {
+	s3Endpoint := getS3Endpoint(ctx, region.String(), endpoint...)
+	client := newS3Client(ctx, region, s3Endpoint, s3UsePathStyle)
 	bucket := &bucketInfo{
 		ID:     name,
 		Region: region,
@@ -352,9 +450,14 @@ func getBucketInfo(ctx context.Context, region scw.Region, name string) (*bucket
 	bucket.Owner = normalizeOwnerID(acl.Owner.ID)
 	bucket.ACL = awsACLToCustomGrants(acl)
 
-	// get endpoints
-	bucket.APIEndpoint = getAPIEndpoint(region.String())
-	bucket.BucketEndpoint, err = getBucketEndpoint(name, region.String())
+	// Get endpoints
+	bucket.APIEndpoint = s3Endpoint
+	bucket.BucketEndpoint, err = getBucketEndpoint(
+		ctx,
+		name,
+		region.String(),
+		s3UsePathStyle,
+		endpoint...)
 	if err != nil {
 		return nil, err
 	}
@@ -362,23 +465,103 @@ func getBucketInfo(ctx context.Context, region scw.Region, name string) (*bucket
 	return bucket, nil
 }
 
-func getAPIEndpoint(region string) string {
-	if customEndpoint := os.Getenv("SCW_S3_ENDPOINT"); customEndpoint != "" {
-		return customEndpoint
+// getS3Endpoint retrieves the S3 API URL according to various configuration
+// variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - AWS configuration
+// - Profile field value
+// - Default value, built with the provided region
+func getS3Endpoint(ctx context.Context, region string, customEndpoint ...string) string {
+	// CLI argument
+	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
+		return customEndpoint[0]
 	}
 
+	// SCW environment variable
+	if ep := os.Getenv(scw.ScwS3EndpointEnv); ep != "" {
+		return ep
+	}
+
+	// AWS configuration, by environment variable or config file
+	ep := scw.GetS3EndpointFromAWSConf()
+	if ep != "" {
+		return ep
+	}
+
+	// Profile field value
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+	if s3EndpointOk && profileS3Endpoint != "" {
+		return profileS3Endpoint
+	}
+
+	// Default value
 	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
 }
 
-func getBucketEndpoint(name, region string) (string, error) {
-	if customEndpoint := os.Getenv("SCW_S3_ENDPOINT"); customEndpoint != "" {
-		u, err := url.Parse(customEndpoint)
-		if err != nil {
-			return "", fmt.Errorf("could not parse custom endpoint %s: %w", customEndpoint, err)
+// getS3UsePathStyle retrieves the S3UsePathStyle flag value from various
+// configuration variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - Profile field value
+func getS3UsePathStyle(ctx context.Context, usePathStyle BoolString) bool {
+	// CLI argument
+	if usePathStyle != "" {
+		if usePathStyle == TrueBoolString {
+			return true
+		} else {
+			return false
 		}
-		u = u.JoinPath(name, u.Path)
+	}
+
+	// SCW environment variable
+	if flag := os.Getenv(scw.ScwS3UsePathStyleEnv); flag == "true" {
+		return true
+	}
+
+	// Profile field value
+	scwClient := core.ExtractClient(ctx)
+
+	return scwClient.GetS3UsePathStyle()
+}
+
+func getBucketEndpoint(
+	ctx context.Context,
+	name, region string,
+	s3UsePathStyle bool,
+	customEndpoint ...string,
+) (string, error) {
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+	// Priority: 1) provided custom endpoint, 2) env var, 3) profile, 4) default
+	var ep string
+	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
+		ep = customEndpoint[0]
+	} else if envVarEp := os.Getenv("SCW_S3_ENDPOINT"); envVarEp != "" {
+		ep = envVarEp
+	} else if s3EndpointOk && profileS3Endpoint != "" {
+		ep = profileS3Endpoint
+	}
+
+	if ep != "" {
+		u, err := url.Parse(ep)
+		if err != nil {
+			return "", fmt.Errorf("could not parse custom endpoint %s: %w", ep, err)
+		}
+		if s3UsePathStyle {
+			u = u.JoinPath(u.Path, name)
+		} else {
+			u.Host = name + "." + u.Host
+		}
 
 		return u.String(), nil
+	}
+
+	if s3UsePathStyle {
+		return fmt.Sprintf("https://s3.%s.scw.cloud/%s", region, name), nil
 	}
 
 	return fmt.Sprintf("https://%s.s3.%s.scw.cloud", name, region), nil
@@ -507,7 +690,9 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client := newS3Client(ctx, region)
+	s3Endpoint := getS3Endpoint(ctx, region.String())
+	s3UsePathStyle := getS3UsePathStyle(ctx, FalseBoolString)
+	client := newS3Client(ctx, region, s3Endpoint, s3UsePathStyle)
 
 	if completeListBucketsCache == nil {
 		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})

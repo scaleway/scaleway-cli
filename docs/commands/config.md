@@ -21,6 +21,7 @@ The following environment variables are supported:
 |SCW_DEFAULT_REGION|The default region|
 |SCW_DEFAULT_ZONE|The default availability zone|
 |SCW_API_URL|URL of the API|
+|SCW_S3_ENDPOINT|URL of the S3 API|
 |SCW_INSECURE|Set this to true to enable the insecure mode|
 |SCW_PROFILE|Set the config profile to use|
 
@@ -85,7 +86,7 @@ scw config get <key ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
+| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `s3-use-path-style`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
 
 
 **Examples:**
@@ -286,7 +287,7 @@ scw config unset <key ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
+| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `s3-use-path-style`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
 
 
 

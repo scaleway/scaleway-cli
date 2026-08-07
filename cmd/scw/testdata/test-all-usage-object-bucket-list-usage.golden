@@ -6,6 +6,7 @@ USAGE:
   scw object bucket list [arg=value ...]
 
 ARGS:
+  [s3-endpoint]     Custom S3 endpoint to use instead of the default
   [region=fr-par]   Region to target. If none is passed will use default region from the config
 
 FLAGS:
