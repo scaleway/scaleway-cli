@@ -64,11 +64,11 @@ scw autoscaling group create [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the autoscaling group |
+| name | Default: `<generated>` | Name of the autoscaling group |
 | tags.{index} |  | Tags associated with the group |
 | template-id |  | Template ID for instances in this group |
-| scaling-policy-spec.minimum-size |  | Minimum number of instances in the group |
-| scaling-policy-spec.maximum-size |  | Maximum number of instances in the group |
+| scaling-policy-spec.minimum-size | Required | Minimum number of instances in the group |
+| scaling-policy-spec.maximum-size | Required | Maximum number of instances in the group |
 | scaling-policy-spec.scale-out-cooldown |  | Cooldown period after a scale out event |
 | scaling-policy-spec.scale-in-cooldown |  | Cooldown period after a scale in event |
 | scaling-policy-spec.scale-in-step |  | Number of instances to remove in a single scale in event |
@@ -104,7 +104,7 @@ resources.
 **Usage:**
 
 ```shell
-scw autoscaling group delete [arg=value ...]
+scw autoscaling group delete <group-id ...> [arg=value ...]
 ```
 
 
@@ -121,7 +121,7 @@ scw autoscaling group delete [arg=value ...]
 
 Delete a specified autoscaling group
 ```shell
-scw autoscaling group delete group-id=11111111-1111-1111-1111-111111111111
+scw autoscaling group delete 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -135,7 +135,7 @@ configuration, current size, and status.
 **Usage:**
 
 ```shell
-scw autoscaling group get [arg=value ...]
+scw autoscaling group get <group-id ...> [arg=value ...]
 ```
 
 
@@ -152,7 +152,7 @@ scw autoscaling group get [arg=value ...]
 
 Get a specified autoscaling group
 ```shell
-scw autoscaling group get group-id=11111111-1111-1111-1111-111111111111
+scw autoscaling group get 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -211,7 +211,7 @@ name, tags, template, scaling policy, and load balancer settings.
 **Usage:**
 
 ```shell
-scw autoscaling group update [arg=value ...]
+scw autoscaling group update <group-id ...> [arg=value ...]
 ```
 
 
@@ -246,7 +246,7 @@ scw autoscaling group update [arg=value ...]
 
 Update the name of an autoscaling group
 ```shell
-scw autoscaling group update group-id=11111111-1111-1111-1111-111111111111 name=new-name
+scw autoscaling group update 11111111-1111-1111-1111-111111111111 name=new-name
 ```
 
 Update the scaling policy of an autoscaling group
@@ -271,7 +271,7 @@ and activities.
 **Usage:**
 
 ```shell
-scw autoscaling logs list [arg=value ...]
+scw autoscaling logs list <group-id ...> [arg=value ...]
 ```
 
 
@@ -279,7 +279,7 @@ scw autoscaling logs list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id |  |  |
+| group-id | Required |  |
 | page-token |  |  |
 | page-size |  |  |
 | start-time |  |  |
@@ -292,7 +292,7 @@ scw autoscaling logs list [arg=value ...]
 
 List all logs for an autoscaling group
 ```shell
-scw autoscaling logs list group-id=11111111-1111-1111-1111-111111111111
+scw autoscaling logs list 11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -310,7 +310,7 @@ List all Instances belonging to a specified autoscaling group.
 **Usage:**
 
 ```shell
-scw autoscaling servers list [arg=value ...]
+scw autoscaling servers list <group-id ...> [arg=value ...]
 ```
 
 
@@ -318,7 +318,7 @@ scw autoscaling servers list [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| group-id |  |  |
+| group-id | Required |  |
 | page-token |  |  |
 | page-size |  |  |
 | zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3` | Zone to target. If none is passed will use default zone from the config |
@@ -329,7 +329,7 @@ scw autoscaling servers list [arg=value ...]
 
 List all servers in an autoscaling group
 ```shell
-scw autoscaling servers list group-id=11111111-1111-1111-1111-111111111111
+scw autoscaling servers list 11111111-1111-1111-1111-111111111111
 ```
 
 

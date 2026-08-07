@@ -4,11 +4,11 @@ Update the configuration of a specified autoscaling group including
 name, tags, template, scaling policy, and load balancer settings.
 
 USAGE:
-  scw autoscaling group update [arg=value ...]
+  scw autoscaling group update <group-id ...> [arg=value ...]
 
 EXAMPLES:
   Update the name of an autoscaling group
-    scw autoscaling group update group-id=11111111-1111-1111-1111-111111111111 name=new-name
+    scw autoscaling group update 11111111-1111-1111-1111-111111111111 name=new-name
 
   Update the scaling policy of an autoscaling group
     scw autoscaling group update group-id=11111111-1111-1111-1111-111111111111 scaling_policy_spec.cpu_target.target_avg_percent=70
