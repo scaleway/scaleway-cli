@@ -86,7 +86,12 @@ func Container(
 	}
 
 	if matchingContainer != nil {
-		return matchingContainer, nil
+		return api.UpdateContainer(&container.UpdateContainerRequest{
+			Region:      region,
+			ContainerID: matchingContainer.ID,
+			Image:       &image,
+			Port:        &port,
+		}, scw.WithContext(ctx))
 	}
 
 	ctn, err := api.CreateContainer(&container.CreateContainerRequest{

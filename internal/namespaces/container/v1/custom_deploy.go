@@ -18,10 +18,12 @@ import (
 	"github.com/buildpacks/pack/pkg/logging"
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
+	"github.com/moby/moby/api/types/build"
 	"github.com/moby/moby/api/types/jsonstream"
 	dockerregistry "github.com/moby/moby/api/types/registry"
 	"github.com/moby/moby/client"
 	"github.com/moby/moby/client/pkg/jsonmessage"
+	v1 "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -311,6 +313,15 @@ func DeployStepDockerBuildImage(
 			Tags:       []string{tag},
 			NoCache:    !data.Args.Cache,
 			BuildArgs:  data.Args.BuildArgs,
+			// only linux/amd64 is supported by Scaleway container
+			Platforms: []v1.Platform{
+				{
+					Architecture: "amd64",
+					OS:           "linux",
+				},
+			},
+			// BuildKit is required to cross-build for a different platform
+			Version: build.BuilderBuildKit,
 		},
 	)
 	if err != nil {
@@ -379,6 +390,7 @@ func DeployStepBuildpackBuildImage(
 		RunImage:     data.Args.RunImage,
 		ClearCache:   !data.Args.Cache,
 		TrustBuilder: func(string) bool { return true },
+		Platform:     "linux/amd64",
 	})
 	if err != nil {
 		return nil, fmt.Errorf("could not build: %w", err)
@@ -482,6 +494,15 @@ func DeployStepCreateContainer(
 	}, scw.WithContext(ctx))
 	if err != nil {
 		return nil, fmt.Errorf("failed to deploy container: %w", err)
+	}
+
+	if targetContainer.Status == container.ContainerStatusError {
+		msg := "unknown error"
+		if targetContainer.ErrorMessage != nil {
+			msg = *targetContainer.ErrorMessage
+		}
+
+		return nil, fmt.Errorf("failed to deploy container: %s", msg)
 	}
 
 	return &DeployStepCreateContainerResponse{
