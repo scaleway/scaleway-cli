@@ -6,9 +6,10 @@ USAGE:
   scw object bucket delete <name ...> [arg=value ...]
 
 ARGS:
-  name              The unique name of the bucket
-  [s3-endpoint]     Custom S3 endpoint to use instead of the default
-  [region=fr-par]   Region to target. If none is passed will use default region from the config
+  name                  The unique name of the bucket
+  [s3-endpoint]         Custom S3 endpoint to use instead of the default
+  [s3-use-path-style]   Whether to use path style addressing for S3 API calls or not
+  [region=fr-par]       Region to target. If none is passed will use default region from the config
 
 FLAGS:
   -h, --help                help for delete
