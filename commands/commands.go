@@ -35,6 +35,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
@@ -80,6 +81,7 @@ func GetCommands() *core.Commands {
 	commands := core.NewCommandsMerge(
 		iam.GetCommands(),
 		instance.GetCommands(),
+		instanceV2.GetCommands(),
 		baremetal.GetCommands(),
 		cockpit.GetCommands(),
 		k8s.GetCommands(),

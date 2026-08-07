@@ -2781,6 +2781,326 @@ scw instance ssh remove-key [arg=value ...]
 
 
 
+## Template management commands
+
+Templates are blueprints for creating Instances with predefined configurations.
+A template includes specifications such as Instance type, attached volumes, security groups, placement groups, private networks, and public IP settings.
+Using templates allows you to standardize and automate Instance deployment across your infrastructure.
+
+
+### Check a template
+
+Validate that a template is usable.
+
+**Usage:**
+
+```shell
+scw instance template check <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template to check |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Create a template
+
+Create a new template from an Instance.
+
+**Usage:**
+
+```shell
+scw instance template create [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| name | Default: `<generated>` | Name of the template |
+| tags.{index} |  | Tags to associate with the template |
+| server-tags.{index} |  | Tags to associate with servers created from the template |
+| server-type | Required | Commercial type of the server defined by the template |
+| security-group-id |  | Security group ID for the template |
+| placement-group-id |  | Placement group ID for the template |
+| volumes.{index}.volume-type | One of: `unknown_volume_type`, `l_ssd`, `sbs`, `scratch` | Type of the volume |
+| volumes.{index}.name |  | Name of the volume |
+| volumes.{index}.tags.{index} |  | Tags associated with the volume |
+| volumes.{index}.size |  | Size of the volume in bytes |
+| volumes.{index}.base-snapshot-id |  | ID of the base snapshot for the volume |
+| volumes.{index}.image-label |  | Label of the image used as base for the volume |
+| volumes.{index}.perf-iops |  | Performance IOPS for the volume |
+| private-networks.{index}.private-network-id |  | ID of the private network |
+| filesystem-ids.{index} |  | List of filesystem IDs to associate with the template |
+| public-ipv4-count |  | Number of IPv4 public IPs to attach to servers created from this template |
+| public-ipv6-count |  | Number of IPv6 public IPs to attach to servers created from this template |
+| windows-rdp-ssh-key-id |  | IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Create a server from a template
+
+Create a new Instance using a specified template.
+
+**Usage:**
+
+```shell
+scw instance template create-server <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template to use |
+| name | Default: `<generated>` | Name of the new server |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete a template
+
+Delete a specified template.
+
+**Usage:**
+
+```shell
+scw instance template delete <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template to delete |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Delete template user data
+
+Delete a specific user data key of a template.
+
+**Usage:**
+
+```shell
+scw instance template delete-user-data <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template |
+| key | Required | Key of the user data to delete |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Get a template
+
+Get details of a specified template.
+
+**Usage:**
+
+```shell
+scw instance template get <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template to retrieve |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Get template cloud-init
+
+Get the cloud-init configuration of a template.
+
+**Usage:**
+
+```shell
+scw instance template get-cloud-init <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Get template user data
+
+Get a specific user data key of a template.
+
+**Usage:**
+
+```shell
+scw instance template get-user-data <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template |
+| key | Required | Key of the user data to retrieve |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List templates
+
+List all available templates.
+
+**Usage:**
+
+```shell
+scw instance template list [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| page-token |  | Token for pagination |
+| page-size |  | Number of items to return per page |
+| order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc` | Field to sort results by |
+| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| template-ids.{index} |  | Filter by specific template IDs |
+| name |  | Filter by template name |
+| tags.{index} |  | Filter by tags |
+| server-tags.{index} |  | Filter by server tags |
+| security-group-ids.{index} |  | Filter by security group IDs |
+| placement-group-ids.{index} |  | Filter by placement group IDs |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### List template user data keys
+
+List all user data keys of a template.
+
+**Usage:**
+
+```shell
+scw instance template list-user-data-keys <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| page-token |  | Token for pagination |
+| page-size |  | Number of items to return per page |
+| template-id | Required | Unique ID of the template |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Set template cloud-init
+
+Set the cloud-init configuration of a template.
+
+**Usage:**
+
+```shell
+scw instance template set-cloud-init <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template |
+| content |  | Cloud-init configuration content |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Set template user data
+
+Set a user data key of a template.
+
+**Usage:**
+
+```shell
+scw instance template set-user-data <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| template-id | Required | Unique ID of the template |
+| key | Required | Key of the user data to set |
+| content |  | Content of the user data |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
+### Update a template
+
+Update the properties of a template.
+
+**Usage:**
+
+```shell
+scw instance template update <template-id ...> [arg=value ...]
+```
+
+
+**Args:**
+
+| Name |   | Description |
+|------|---|-------------|
+| name |  | New name for the template |
+| template-id | Required | Unique ID of the template to update |
+| tags.{index} |  | New tags for the template |
+| server-tags.{index} |  | New server tags for the template |
+| server-type |  | New server type for the template |
+| security-group-id |  | New security group ID for the template |
+| placement-group-id |  | New placement group ID for the template |
+| volumes.{index}.volume-type | One of: `unknown_volume_type`, `l_ssd`, `sbs`, `scratch` | Type of the volume |
+| volumes.{index}.name |  | Name of the volume |
+| volumes.{index}.tags.{index} |  | Tags associated with the volume |
+| volumes.{index}.size |  | Size of the volume in bytes |
+| volumes.{index}.base-snapshot-id |  | ID of the base snapshot for the volume |
+| volumes.{index}.image-label |  | Label of the image used as base for the volume |
+| volumes.{index}.perf-iops |  | Performance IOPS for the volume |
+| private-networks.{index}.private-network-id |  | ID of the private network |
+| filesystem-ids.{index} |  | New list of filesystem IDs for the template |
+| public-ipv4-count |  | New number of IPv4 public IPs to attach to servers |
+| public-ipv6-count |  | New number of IPv6 public IPs to attach to servers |
+| windows-rdp-ssh-key-id |  | New IAM ID of the SSH key used to encrypt the Windows `Administrator` password for RDP use |
+| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` | Zone to target. If none is passed will use default zone from the config |
+
+
+
 ## User data management commands
 
 User data is a key/value store you can use to provide your instance with introspective data.
