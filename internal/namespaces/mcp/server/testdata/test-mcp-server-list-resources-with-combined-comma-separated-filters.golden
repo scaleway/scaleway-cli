@@ -2,6 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 NAMESPACE  RESOURCE  URI                    SHORT
 account    project   scw://account/project  List all Projects of an Organization
+account    project   scw://account/project  List all resources across all zones
 k8s        cluster   scw://k8s/cluster      List Clusters
 k8s        cluster   scw://k8s/cluster      List available versions for a Cluster
 k8s        cluster   scw://k8s/cluster      List available cluster types for a cluster
@@ -12,6 +13,12 @@ k8s        cluster   scw://k8s/cluster      List available cluster types for a c
     "resource": "project",
     "uri": "scw://account/project",
     "short": "List all Projects of an Organization"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "uri": "scw://account/project",
+    "short": "List all resources across all zones"
   },
   {
     "namespace": "k8s",
