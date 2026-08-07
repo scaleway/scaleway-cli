@@ -16,11 +16,12 @@ import (
 
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
-	dockerregistry "github.com/docker/docker/api/types/registry"
-	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
+	"github.com/moby/moby/api/types/jsonstream"
+	dockerregistry "github.com/moby/moby/api/types/registry"
 	"github.com/moby/moby/client"
+	"github.com/moby/moby/client/pkg/jsonmessage"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
 	"github.com/scaleway/scaleway-cli/v2/internal/tasks"
@@ -325,7 +326,7 @@ func DeployStepDockerBuildImage(
 		nil,
 	)
 	if err != nil {
-		if jerr, ok := err.(*jsonmessage.JSONError); ok {
+		if jerr, ok := err.(*jsonstream.Error); ok {
 			// If no error code is set, default to 1
 			if jerr.Code == 0 {
 				jerr.Code = 1
@@ -427,7 +428,7 @@ func DeployStepPushImage(
 
 	err = jsonmessage.DisplayJSONMessagesStream(imagePushResponse, t.Logs, t.Logs.Fd(), true, nil)
 	if err != nil {
-		if jerr, ok := err.(*jsonmessage.JSONError); ok {
+		if jerr, ok := err.(*jsonstream.Error); ok {
 			// If no error code is set, default to 1
 			if jerr.Code == 0 {
 				jerr.Code = 1

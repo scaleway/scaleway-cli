@@ -10,6 +10,7 @@ import (
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	autoscaling "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autoscaling/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2"
 	billingV2beta1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
@@ -136,6 +137,7 @@ func GetCommands() *core.Commands {
 		search.GetCommands(),
 		billing.GetCommands(),
 		kafka.GetCommands(),
+		autoscaling.GetCommands(),
 	)
 
 	if beta {
