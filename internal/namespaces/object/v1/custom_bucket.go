@@ -22,6 +22,7 @@ type bucketConfigArgs struct {
 	Tags             []string
 	EnableVersioning bool `json:"enable-versioning"`
 	ACL              string
+	ProjectID        string
 }
 
 func bucketCreateCommand() *core.Command {
@@ -61,11 +62,17 @@ func bucketCreateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
@@ -92,7 +99,9 @@ func bucketCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not put bucket tags: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Name)
+			bucket, err := getBucketInfo(
+				ctx, args.Region, args.Name, args.ProjectID,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -109,8 +118,9 @@ func bucketCreateCommand() *core.Command {
 }
 
 type bucketDeleteArgs struct {
-	Region scw.Region
-	Name   string
+	Region    scw.Region
+	Name      string
+	ProjectID string
 }
 
 func bucketDeleteCommand() *core.Command {
@@ -129,11 +139,17 @@ func bucketDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 
 			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
@@ -173,13 +189,21 @@ func bucketGetCommand() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 				Short:      "Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.",
 			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Name)
+			bucket, err := getBucketInfo(
+				ctx, args.Region, args.Name, args.ProjectID,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -209,7 +233,8 @@ func bucketGetCommand() *core.Command {
 }
 
 type bucketListArgs struct {
-	Region scw.Region
+	Region    scw.Region
+	ProjectID string
 }
 
 func bucketListCommand() *core.Command {
@@ -221,11 +246,17 @@ func bucketListCommand() *core.Command {
 		Long:      "List all existing S3 buckets in the specified region",
 		ArgsType:  reflect.TypeOf(bucketListArgs{}),
 		ArgSpecs: core.ArgSpecs{
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
@@ -274,11 +305,17 @@ func bucketUpdateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
+			{
+				Name:         "project-id",
+				Short:        "Scaleway project ID to use with IAM Access Key syntax",
+				Required:     false,
+				ValidateFunc: core.ValidateProjectID(),
+			},
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 
 			err := putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
 			if err != nil {
@@ -295,7 +332,9 @@ func bucketUpdateCommand() *core.Command {
 				return nil, fmt.Errorf("could not update bucket ACL: %w", err)
 			}
 
-			bucketResponse, err := getBucketInfo(ctx, args.Region, args.Name)
+			bucketResponse, err := getBucketInfo(
+				ctx, args.Region, args.Name, args.ProjectID,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -311,8 +350,13 @@ func bucketUpdateCommand() *core.Command {
 	}
 }
 
-func getBucketInfo(ctx context.Context, region scw.Region, name string) (*bucketInfo, error) {
-	client := newS3Client(ctx, region)
+func getBucketInfo(
+	ctx context.Context,
+	region scw.Region,
+	name,
+	projectID string,
+) (*bucketInfo, error) {
+	client := newS3Client(ctx, region, projectID)
 	bucket := &bucketInfo{
 		ID:     name,
 		Region: region,
@@ -497,17 +541,21 @@ func autocompleteBucketName(
 	request any,
 ) core.AutocompleteSuggestions {
 	var region scw.Region
+	var projectID string
 	switch t := request.(type) {
 	case bucketConfigArgs:
 		region = t.Region
+		projectID = t.ProjectID
 	case bucketDeleteArgs:
 		region = t.Region
+		projectID = t.ProjectID
 	case bucketGetArgs:
 		region = t.Region
+		projectID = t.ProjectID
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	client := newS3Client(ctx, region)
+	client := newS3Client(ctx, region, projectID)
 
 	if completeListBucketsCache == nil {
 		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
