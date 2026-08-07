@@ -11,7 +11,7 @@ VpcID                           086a5171-f7ab-4667-a231-840a81203f19
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 HasS3Integration                false
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/4715b0f1-7db9-47e1-a857-c2d25c6734df
+Srn                             -
 
 Subnets:
 ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
@@ -78,7 +78,6 @@ f546daa5-be42-4c48-a6c3-54771576a628  fd46:78ab:30b8:e2da:deca:54ba:ba68:5d10/64
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "has_s3_integration": false,
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/4715b0f1-7db9-47e1-a857-c2d25c6734df",
   "instance_servers": [
     {
       "id": "32ac2c08-28d6-4fbc-89ff-b196b3b6cdba",
