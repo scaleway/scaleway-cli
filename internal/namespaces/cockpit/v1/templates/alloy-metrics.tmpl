@@ -1,0 +1,33 @@
+// Snippet of Grafana Alloy configuration to add to cockpit.alloy
+// Collects host metrics and pushes them to your Cockpit metrics data source.
+// Run with: alloy run cockpit.alloy
+
+prometheus.exporter.unix "node" {
+    set_collectors = [
+        "uname",
+        "cpu",
+        "cpufreq",
+        "loadavg",
+        "meminfo",
+        "filesystem",
+        "netdev",
+    ]
+}
+
+prometheus.scrape "node" {
+    scrape_interval = "60s"
+    scrape_timeout  = "4s"
+
+    targets    = prometheus.exporter.unix.node.targets
+    forward_to = [prometheus.remote_write.cockpit.receiver]
+}
+
+prometheus.remote_write "cockpit" {
+    endpoint {
+        url = "{{ .RemoteWriteURL }}"
+        headers = {
+            "X-TOKEN" = "{{ .Token }}",
+        }
+    }
+}
+
