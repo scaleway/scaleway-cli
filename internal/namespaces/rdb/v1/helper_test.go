@@ -3,6 +3,7 @@ package rdb_test
 import (
 	"errors"
 	"fmt"
+	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
@@ -111,4 +112,86 @@ func deleteInstance() core.AfterFunc {
 
 func deleteInstanceAndWait() core.AfterFunc {
 	return core.ExecAfterCmd("scw rdb instance delete {{ .Instance.ID }} --wait")
+}
+
+func createInstanceDirect(_ string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		result := ctx.ExecuteCmd([]string{
+			"scw", "rdb", "instance", "create",
+			"node-type=DB-DEV-S",
+			"is-ha-cluster=false",
+			"name=" + name,
+			"engine=" + engine,
+			"user-name=" + user,
+			"password=" + password,
+			"--wait",
+		})
+		ctx.Meta["Instance"] = result
+
+		return nil
+	}
+}
+
+func createBackupDirect(metaKey string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		instanceResult := ctx.Meta["Instance"].(rdb.CreateInstanceResult)
+		instance := instanceResult.Instance
+
+		result := ctx.ExecuteCmd([]string{
+			"scw", "rdb", "backup", "create",
+			"name=cli-test-backup",
+			"expires-at=2032-01-02T15:04:05-07:00",
+			"instance-id=" + instance.ID,
+			"database-name=rdb",
+			"--wait",
+		})
+		ctx.Meta[metaKey] = result
+
+		return nil
+	}
+}
+
+func deleteBackupDirect(metaKey string) core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		backup := ctx.Meta[metaKey].(*rdbSDK.DatabaseBackup)
+		ctx.ExecuteCmd([]string{
+			"scw", "rdb", "backup", "delete",
+			backup.ID,
+		})
+
+		return nil
+	}
+}
+
+func deleteInstanceDirect() core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		instance := ctx.Meta["Instance"].(rdb.CreateInstanceResult).Instance
+		ctx.ExecuteCmd([]string{
+			"scw", "rdb", "instance", "delete",
+			instance.ID,
+		})
+
+		return nil
+	}
+}
+
+func waitForInstanceReady(client *scw.Client, instanceID string) error {
+	api := rdbSDK.NewAPI(client)
+
+	_, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+		InstanceID: instanceID,
+		Timeout:    scw.TimeDurationPtr(3 * time.Minute),
+	})
+	if err != nil {
+		return fmt.Errorf(
+			"timeout waiting for instance %s to be ready for operations: %w",
+			instanceID,
+			err,
+		)
+	}
+
+	// Give control plane a short settling window before dependent operations.
+	time.Sleep(5 * time.Second)
+
+	return nil
 }
