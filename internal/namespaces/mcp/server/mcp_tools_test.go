@@ -196,7 +196,7 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 // TestToolMetaSerialization verifies that the Meta field is properly
 // serialized to JSON as _meta when tools are listed.
 func TestToolMetaSerialization(t *testing.T) {
-	allCommands := commands.GetCommands().GetAll()
+	allCommands := commands.GetCommands(context.Background()).GetAll()
 
 	filteredCommands := server.FilterCommands(allCommands, server.CommandFilterConfig{})
 	mcpServer := server.NewMCPServer(filteredCommands, core.BuildInfo{})
