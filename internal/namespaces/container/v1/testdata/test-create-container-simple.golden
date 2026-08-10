@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                         6ffa735f-07a7-4ad2-93e2-61e55096ac1e
-Name                                       cli-test-objective-driscoll
-NamespaceID                                3f4c016a-5dcb-4cd5-8760-70a485f152e7
+ID                                         0a1826ab-6f6e-4e77-9ed3-dd6db801e176
+Name                                       cli-test-eager-curran
+NamespaceID                                aa7e929d-6282-460b-8f85-ce815640d1ca
 Description                                -
 Status                                     creating
 CreatedAt                                  few seconds ago
@@ -23,13 +23,13 @@ ScalingOption.ConcurrentRequestsThreshold  50
 LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
-PublicEndpoint                             https://clinsagitatedpoincar3f4c016a-cli-test-objective-driscoll.functions.fnc.fr-par.scw.cloud
+PublicEndpoint                             https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "6ffa735f-07a7-4ad2-93e2-61e55096ac1e",
-  "name": "cli-test-objective-driscoll",
-  "namespace_id": "3f4c016a-5dcb-4cd5-8760-70a485f152e7",
+  "id": "0a1826ab-6f6e-4e77-9ed3-dd6db801e176",
+  "name": "cli-test-eager-curran",
+  "namespace_id": "aa7e929d-6282-460b-8f85-ce815640d1ca",
   "description": "",
   "status": "creating",
   "error_message": null,
@@ -63,6 +63,6 @@ Region                                     fr-par
   "private_network_id": null,
   "command": [],
   "args": [],
-  "public_endpoint": "https://clinsagitatedpoincar3f4c016a-cli-test-objective-driscoll.functions.fnc.fr-par.scw.cloud",
+  "public_endpoint": "https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud",
   "region": "fr-par"
 }

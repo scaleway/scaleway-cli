@@ -6,36 +6,36 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 160
+        content_length: 167
         host: api.scaleway.com
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-ns-dazzling-jang","environment_variables":null,"secret_environment_variables":null,"tags":null}'
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-ns-wonderful-chatterjee","environment_variables":null,"secret_environment_variables":null,"tags":null}'
         headers:
             Content-Type:
                 - application/json
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
         url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
         method: POST
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 396
-        body: '{"id":"a051f156-d2ef-4e56-9cba-220539e5b24a","name":"cli-ns-dazzling-jang","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-19T12:31:44.164514Z","updated_at":"2026-05-19T12:31:44.164514Z","region":"fr-par"}'
+        content_length: 414
+        body: '{"id":"bca677ed-caf9-4569-b230-087ab5343ea5", "name":"cli-ns-wonderful-chatterjee", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:16:32.641578Z", "updated_at":"2026-08-07T16:16:32.641578Z", "region":"fr-par"}'
         headers:
             Content-Length:
-                - "396"
+                - "414"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:31:44 GMT
+                - Fri, 07 Aug 2026 16:16:33 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - 7e7720f3-93a3-4f28-a590-48cb0f194db3
+                - 7c6cecec-0a34-4611-9f04-636b965b136f
         status: 200 OK
         code: 200
-        duration: 1.239700032s
+        duration: 1.176218634s
     - id: 1
       request:
         proto: HTTP/1.1
@@ -45,29 +45,29 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/a051f156-d2ef-4e56-9cba-220539e5b24a
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/bca677ed-caf9-4569-b230-087ab5343ea5
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 396
-        body: '{"id":"a051f156-d2ef-4e56-9cba-220539e5b24a","name":"cli-ns-dazzling-jang","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-19T12:31:44.164514Z","updated_at":"2026-05-19T12:31:44.164514Z","region":"fr-par"}'
+        content_length: 414
+        body: '{"id":"bca677ed-caf9-4569-b230-087ab5343ea5", "name":"cli-ns-wonderful-chatterjee", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"creating", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:16:32.641578Z", "updated_at":"2026-08-07T16:16:32.641578Z", "region":"fr-par"}'
         headers:
             Content-Length:
-                - "396"
+                - "414"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:31:44 GMT
+                - Fri, 07 Aug 2026 16:16:33 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - b7c309dc-e552-4127-89c7-63bf97168c6a
+                - d8602a15-3fa4-4ce4-9013-61f0eaf9bcf0
         status: 200 OK
         code: 200
-        duration: 50.858822ms
+        duration: 34.993792ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -77,64 +77,64 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/a051f156-d2ef-4e56-9cba-220539e5b24a
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/bca677ed-caf9-4569-b230-087ab5343ea5
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 393
-        body: '{"id":"a051f156-d2ef-4e56-9cba-220539e5b24a","name":"cli-ns-dazzling-jang","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-19T12:31:44.164514Z","updated_at":"2026-05-19T12:31:44.164514Z","region":"fr-par"}'
+        content_length: 411
+        body: '{"id":"bca677ed-caf9-4569-b230-087ab5343ea5", "name":"cli-ns-wonderful-chatterjee", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"ready", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:16:32.641578Z", "updated_at":"2026-08-07T16:16:32.641578Z", "region":"fr-par"}'
         headers:
             Content-Length:
-                - "393"
+                - "411"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:31:59 GMT
+                - Fri, 07 Aug 2026 16:16:48 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - 377c5132-35e2-48af-a0c8-7c33a62dd334
+                - 9e3fb006-69f5-4ba7-a23d-88a834c4ba11
         status: 200 OK
         code: 200
-        duration: 47.488056ms
+        duration: 34.053499ms
     - id: 3
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 311
+        content_length: 305
         host: api.scaleway.com
-        body: '{"namespace_id":"a051f156-d2ef-4e56-9cba-220539e5b24a","name":"cli-test-practical-turing","environment_variables":null,"secret_environment_variables":null,"privacy":"public","image":"nginx:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","tags":null,"command":null,"args":null}'
+        body: '{"namespace_id":"bca677ed-caf9-4569-b230-087ab5343ea5","name":"cli-test-zen-lamarr","environment_variables":null,"secret_environment_variables":null,"privacy":"public","image":"nginx:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","tags":null,"command":null,"args":null}'
         headers:
             Content-Type:
                 - application/json
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
         url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
         method: POST
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 890
-        body: '{"id":"87c75c03-b24f-4ac7-8ad4-077afd53c726","name":"cli-test-practical-turing","namespace_id":"a051f156-d2ef-4e56-9cba-220539e5b24a","description":"","status":"creating","created_at":"2026-05-19T12:32:00.029458Z","updated_at":"2026-05-19T12:32:00.029458Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"nginx:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        content_length: 912
+        body: '{"id":"3e4360d0-9683-4402-a904-e52145d04809", "name":"cli-test-zen-lamarr", "namespace_id":"bca677ed-caf9-4569-b230-087ab5343ea5", "description":"", "status":"creating", "created_at":"2026-08-07T16:16:48.275376Z", "updated_at":"2026-08-07T16:16:48.275376Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"nginx:latest", "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
         headers:
             Content-Length:
-                - "890"
+                - "912"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:32:00 GMT
+                - Fri, 07 Aug 2026 16:16:48 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - 7a784a0d-e96e-4511-bcc8-aac2403e18de
+                - bbed54b2-150e-42d5-8b1e-c129f84d442e
         status: 200 OK
         code: 200
-        duration: 273.472669ms
+        duration: 261.377042ms
     - id: 4
       request:
         proto: HTTP/1.1
@@ -144,29 +144,29 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/87c75c03-b24f-4ac7-8ad4-077afd53c726
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/3e4360d0-9683-4402-a904-e52145d04809
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 890
-        body: '{"id":"87c75c03-b24f-4ac7-8ad4-077afd53c726","name":"cli-test-practical-turing","namespace_id":"a051f156-d2ef-4e56-9cba-220539e5b24a","description":"","status":"creating","created_at":"2026-05-19T12:32:00.029458Z","updated_at":"2026-05-19T12:32:00.029458Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"nginx:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        content_length: 912
+        body: '{"id":"3e4360d0-9683-4402-a904-e52145d04809", "name":"cli-test-zen-lamarr", "namespace_id":"bca677ed-caf9-4569-b230-087ab5343ea5", "description":"", "status":"creating", "created_at":"2026-08-07T16:16:48.275376Z", "updated_at":"2026-08-07T16:16:48.275376Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"nginx:latest", "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
         headers:
             Content-Length:
-                - "890"
+                - "912"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:32:00 GMT
+                - Fri, 07 Aug 2026 16:16:48 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - 5164246e-efdf-480c-aae9-69ef6adf5956
+                - a86bad5a-940c-4473-bce4-bf02f475d490
         status: 200 OK
         code: 200
-        duration: 51.675836ms
+        duration: 46.448544ms
     - id: 5
       request:
         proto: HTTP/1.1
@@ -176,62 +176,30 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/87c75c03-b24f-4ac7-8ad4-077afd53c726
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/3e4360d0-9683-4402-a904-e52145d04809
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 890
-        body: '{"id":"87c75c03-b24f-4ac7-8ad4-077afd53c726","name":"cli-test-practical-turing","namespace_id":"a051f156-d2ef-4e56-9cba-220539e5b24a","description":"","status":"creating","created_at":"2026-05-19T12:32:00.029458Z","updated_at":"2026-05-19T12:32:00.029458Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"nginx:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        content_length: 922
+        body: '{"id":"3e4360d0-9683-4402-a904-e52145d04809", "name":"cli-test-zen-lamarr", "namespace_id":"bca677ed-caf9-4569-b230-087ab5343ea5", "description":"", "status":"ready", "error_message":"", "created_at":"2026-08-07T16:16:48.275376Z", "updated_at":"2026-08-07T16:16:57Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1000, "timeout":"300s", "privacy":"public", "image":"nginx:latest", "protocol":"http1", "port":80, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":[], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
         headers:
             Content-Length:
-                - "890"
+                - "922"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:32:15 GMT
+                - Fri, 07 Aug 2026 16:17:03 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - d19c7efe-ba2e-48b7-b9be-2b9aef50fc0e
+                - 21081ec9-27d2-4094-b470-3b949df46276
         status: 200 OK
         code: 200
-        duration: 42.492935ms
+        duration: 45.366302ms
     - id: 6
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        host: api.scaleway.com
-        headers:
-            User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/87c75c03-b24f-4ac7-8ad4-077afd53c726
-        method: GET
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        content_length: 899
-        body: '{"id":"87c75c03-b24f-4ac7-8ad4-077afd53c726","name":"cli-test-practical-turing","namespace_id":"a051f156-d2ef-4e56-9cba-220539e5b24a","description":"","status":"ready","error_message":"","created_at":"2026-05-19T12:32:00.029458Z","updated_at":"2026-05-19T12:32:18Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"nginx:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
-        headers:
-            Content-Length:
-                - "899"
-            Content-Type:
-                - application/json
-            Date:
-                - Tue, 19 May 2026 12:32:30 GMT
-            Server:
-                - Scaleway API Gateway (fr-par-1;edge02)
-            X-Request-Id:
-                - bcb1be05-7a32-4b0f-aca8-18bb72c51f89
-        status: 200 OK
-        code: 200
-        duration: 57.650981ms
-    - id: 7
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -243,30 +211,30 @@ interactions:
             Content-Type:
                 - application/json
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/87c75c03-b24f-4ac7-8ad4-077afd53c726
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/3e4360d0-9683-4402-a904-e52145d04809
         method: PATCH
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 901
-        body: '{"id":"87c75c03-b24f-4ac7-8ad4-077afd53c726","name":"cli-test-practical-turing","namespace_id":"a051f156-d2ef-4e56-9cba-220539e5b24a","description":"","status":"updating","created_at":"2026-05-19T12:32:00.029458Z","updated_at":"2026-05-19T12:32:30.480156Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1500,"timeout":"300s","privacy":"public","image":"nginx:latest","protocol":"http1","port":8080,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":["new_tag"],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinsdazzlingjanga051f156-cli-test-practical-turing.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+        content_length: 923
+        body: '{"id":"3e4360d0-9683-4402-a904-e52145d04809", "name":"cli-test-zen-lamarr", "namespace_id":"bca677ed-caf9-4569-b230-087ab5343ea5", "description":"", "status":"updating", "created_at":"2026-08-07T16:16:48.275376Z", "updated_at":"2026-08-07T16:17:03.633218Z", "min_scale":0, "max_scale":5, "memory_limit_bytes":2048000000, "mvcpu_limit":1500, "timeout":"300s", "privacy":"public", "image":"nginx:latest", "protocol":"http1", "port":8080, "https_connections_only":false, "sandbox":"v2", "local_storage_limit_bytes":1000000000, "scaling_option":{"concurrent_requests_threshold":50}, "tags":["new_tag"], "command":[], "args":[], "environment_variables":{}, "public_endpoint":"https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud", "liveness_probe":{"failure_threshold":30, "interval":"10s", "timeout":"1s", "tcp":{}}, "startup_probe":null, "secret_environment_variables":{}, "region":"fr-par"}'
         headers:
             Content-Length:
-                - "901"
+                - "923"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:32:30 GMT
+                - Fri, 07 Aug 2026 16:17:03 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - d955d1c5-1957-413e-ac49-acedab060d80
+                - 4af7443e-6c28-4139-a4bc-2d78e825e990
         status: 200 OK
         code: 200
-        duration: 75.206413ms
-    - id: 8
+        duration: 58.09769ms
+    - id: 7
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -275,26 +243,26 @@ interactions:
         host: api.scaleway.com
         headers:
             User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/a051f156-d2ef-4e56-9cba-220539e5b24a
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.3; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/bca677ed-caf9-4569-b230-087ab5343ea5
         method: DELETE
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 396
-        body: '{"id":"a051f156-d2ef-4e56-9cba-220539e5b24a","name":"cli-ns-dazzling-jang","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-19T12:31:44.164514Z","updated_at":"2026-05-19T12:32:30.541503Z","region":"fr-par"}'
+        content_length: 414
+        body: '{"id":"bca677ed-caf9-4569-b230-087ab5343ea5", "name":"cli-ns-wonderful-chatterjee", "organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "description":"", "status":"deleting", "environment_variables":{}, "secret_environment_variables":{}, "tags":[], "created_at":"2026-08-07T16:16:32.641578Z", "updated_at":"2026-08-07T16:17:03.690361Z", "region":"fr-par"}'
         headers:
             Content-Length:
-                - "396"
+                - "414"
             Content-Type:
                 - application/json
             Date:
-                - Tue, 19 May 2026 12:32:30 GMT
+                - Fri, 07 Aug 2026 16:17:03 GMT
             Server:
                 - Scaleway API Gateway (fr-par-1;edge02)
             X-Request-Id:
-                - c271db36-0227-4ad7-8add-d784d285ae35
+                - 2e24a128-61b4-4495-bbbd-73cbd9972a88
         status: 200 OK
         code: 200
-        duration: 81.55639ms
+        duration: 57.700261ms
