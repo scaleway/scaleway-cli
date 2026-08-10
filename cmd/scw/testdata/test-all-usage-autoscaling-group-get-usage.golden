@@ -4,11 +4,11 @@ Get details of a specified autoscaling group including its
 configuration, current size, and status.
 
 USAGE:
-  scw autoscaling group get [arg=value ...]
+  scw autoscaling group get <group-id ...> [arg=value ...]
 
 EXAMPLES:
   Get a specified autoscaling group
-    scw autoscaling group get group-id=11111111-1111-1111-1111-111111111111
+    scw autoscaling group get 11111111-1111-1111-1111-111111111111
 
 ARGS:
   group-id          ID of the group to get

@@ -182,6 +182,10 @@ func auditTrailEventList() *core.Command {
 					"autoscaling_group",
 					"gapi_dedicated_deployment",
 					"gapi_dedicated_model",
+					"serverless_containers_namespace",
+					"serverless_containers_container",
+					"serverless_containers_domain",
+					"serverless_containers_trigger",
 				},
 			},
 			{

@@ -13,11 +13,11 @@ EXAMPLES:
 
 ARGS:
   [project-id]                                                             Project ID to use. If none is passed the default project ID will be used
-  [name]                                                                   Name of the autoscaling group
+  [name=<generated>]                                                       Name of the autoscaling group
   [tags.{index}]                                                           Tags associated with the group
   [template-id]                                                            Template ID for instances in this group
-  [scaling-policy-spec.minimum-size]                                       Minimum number of instances in the group
-  [scaling-policy-spec.maximum-size]                                       Maximum number of instances in the group
+  scaling-policy-spec.minimum-size                                         Minimum number of instances in the group
+  scaling-policy-spec.maximum-size                                         Maximum number of instances in the group
   [scaling-policy-spec.scale-out-cooldown]                                 Cooldown period after a scale out event
   [scaling-policy-spec.scale-in-cooldown]                                  Cooldown period after a scale in event
   [scaling-policy-spec.scale-in-step]                                      Number of instances to remove in a single scale in event

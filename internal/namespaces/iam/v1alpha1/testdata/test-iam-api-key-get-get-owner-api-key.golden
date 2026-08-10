@@ -14,7 +14,7 @@ Editable          true
 Deletable         true
 Managed           false
 CreationIP        51.159.46.153
-Srn               srn://iam.scw.eu/api-keys/SCW3508ENX0JCKRW0DKZ
+Srn               -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
@@ -29,8 +29,7 @@ Srn               srn://iam.scw.eu/api-keys/SCW3508ENX0JCKRW0DKZ
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.46.153",
-    "srn": "srn://iam.scw.eu/api-keys/SCW3508ENX0JCKRW0DKZ"
+    "creation_ip": "51.159.46.153"
   },
   "entity_type": "owner (owner has all permissions over the organization)",
   "policies": null
