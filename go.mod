@@ -22,7 +22,7 @@ require (
 	github.com/mattn/go-colorable v0.1.15
 	github.com/mattn/go-isatty v0.0.24
 	github.com/moby/buildkit v0.32.0
-	github.com/moby/go-archive v0.3.2
+	github.com/moby/go-archive v0.3.3
 	github.com/moby/moby/api v1.55.0
 	github.com/moby/moby/client v0.5.1
 	github.com/modelcontextprotocol/go-sdk v1.7.0
