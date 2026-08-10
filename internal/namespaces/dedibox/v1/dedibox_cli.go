@@ -459,7 +459,7 @@ func dediboxServerSubscribeOption() *core.Command {
 func dediboxServerCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a baremetal server`,
-		Long:      `Create a new baremetal server. The order return you a service ID to follow the provisionning status you could call GetService.`,
+		Long:      `Create a new baremetal server. The order return you a service ID to follow the provisioning status you could call GetService.`,
 		Namespace: "dedibox",
 		Resource:  "server",
 		Verb:      "create",
