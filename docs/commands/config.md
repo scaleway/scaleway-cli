@@ -85,7 +85,7 @@ scw config get <key ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
+| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `s3-use-path-style`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the key to get from the config |
 
 
 **Examples:**
@@ -286,7 +286,7 @@ scw config unset <key ...> [arg=value ...]
 
 | Name |   | Description |
 |------|---|-------------|
-| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
+| key | Required<br />One of: `access-key`, `secret-key`, `api-url`, `s3-endpoint`, `s3-use-path-style`, `insecure`, `default-organization-id`, `default-project-id`, `default-region`, `default-zone`, `send-telemetry` | the config config key name to unset |
 
 
 

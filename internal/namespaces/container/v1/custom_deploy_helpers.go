@@ -15,7 +15,7 @@ import (
 	docker "github.com/moby/moby/client"
 )
 
-type DockerClient interface {
+type PackDockerClient interface {
 	pack.DockerClient
 
 	ImagePush(
