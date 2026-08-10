@@ -1711,7 +1711,7 @@ scw dedibox server cancel-install <server-id ...> [arg=value ...]
 
 ### Create a baremetal server
 
-Create a new baremetal server. The order return you a service ID to follow the provisionning status you could call GetService.
+Create a new baremetal server. The order return you a service ID to follow the provisioning status you could call GetService.
 
 **Usage:**
 
