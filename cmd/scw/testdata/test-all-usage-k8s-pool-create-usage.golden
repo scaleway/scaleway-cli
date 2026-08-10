@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new pool in a specific Kubernetes cluster.
 
 USAGE:
@@ -26,20 +26,28 @@ ARGS:
   [max-size]                         Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [container-runtime]                Customization of the container runtime is available for each pool (unknown_runtime | docker | containerd | crio)
   [autohealing]                      Defines whether the autohealing feature is enabled for the pool
-  [tags.{index}]                     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/containers/kubernetes/api-cli/managing-tags)
+  [tags.{index}]                     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)
   [kubelet-args.{key}]               Kubelet arguments to be used by this pool. Note that this feature is experimental
-  [upgrade-policy.max-unavailable]   
-  [upgrade-policy.max-surge]         
+  [upgrade-policy.max-unavailable]   The maximum number of nodes that can be `upgrading` at the same time
+  [upgrade-policy.max-surge]         The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades
   [zone]                             Zone in which the pool's nodes will be spawned
   [root-volume-type]                 Defines the system volume disk type. Several types of volume (`volume_type`) are provided: (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [root-volume-size]                 System volume disk size
   [public-ip-disabled]               Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway
   [security-group-id]                Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone
-  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [labels.{key}]                     Kubernetes labels applied and reconciled on the nodes
+  [taints.{index}.key]               The taint key to be applied to a node
+  [taints.{index}.value]             The taint value corresponding to the taint key
+  [taints.{index}.effect]            Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
+  [startup-taints.{index}.key]       The taint key to be applied to a node
+  [startup-taints.{index}.value]     The taint value corresponding to the taint key
+  [startup-taints.{index}.effect]    Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
+  [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the pool is ready
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the pool is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

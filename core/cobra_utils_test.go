@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"reflect"
+	"strings"
 	"testing"
 	"time"
 
@@ -37,7 +38,7 @@ func testGetCommands() *core.Commands {
 			},
 			AllowAnonymousClient: true,
 			ArgsType:             reflect.TypeOf(testType{}),
-			Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, _ any) (i any, e error) {
 				return "", nil
 			},
 		},
@@ -55,7 +56,7 @@ func testGetCommands() *core.Commands {
 			},
 			AllowAnonymousClient: true,
 			ArgsType:             reflect.TypeOf(testType{}),
-			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, argsI any) (i any, e error) {
 				return argsI, nil
 			},
 		},
@@ -74,7 +75,7 @@ func testGetCommands() *core.Commands {
 			AcceptMultiplePositionalArgs: true,
 			AllowAnonymousClient:         true,
 			ArgsType:                     reflect.TypeOf(testAcceptMultiPositionalArgsType{}),
-			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, argsI any) (i any, e error) {
 				return argsI, nil
 			},
 		},
@@ -83,17 +84,10 @@ func testGetCommands() *core.Commands {
 			Resource:             "raw-args",
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
-			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
-				res := ""
+			Run: func(_ context.Context, argsI any) (i any, e error) {
 				rawArgs := *argsI.(*args.RawArgs)
-				for i, arg := range rawArgs {
-					res += arg
-					if i != len(rawArgs)-1 {
-						res += " "
-					}
-				}
 
-				return res, nil
+				return strings.Join(rawArgs, " "), nil
 			},
 		},
 		&core.Command{
@@ -101,7 +95,7 @@ func testGetCommands() *core.Commands {
 			Resource:             "date",
 			ArgsType:             reflect.TypeOf(testDate{}),
 			AllowAnonymousClient: true,
-			Run: func(_ context.Context, argsI interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, argsI any) (i any, e error) {
 				a := argsI.(*testDate)
 
 				return a.Date, nil

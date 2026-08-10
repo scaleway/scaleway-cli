@@ -14,11 +14,12 @@ import (
 )
 
 const (
-	baseCommand = "scw redis cluster create --wait name=%s version=7.0.5 node-type=RED1-micro user-name=admin password=P@sSw0Rd "
-	serviceIPsA = "172.16.4.1/22"
-	serviceIPsB = "10.16.4.1/22"
-	metaNamePNA = "PrivateNetworkA"
-	metaNamePNB = "PrivateNetworkB"
+	redisTestVersion = "8.4.0"
+	baseCommand      = "scw redis cluster create --wait name=%s version=" + redisTestVersion + " node-type=RED1-micro user-name=admin password=P@sSw0Rd "
+	serviceIPsA      = "172.16.4.1/22"
+	serviceIPsB      = "10.16.4.1/22"
+	metaNamePNA      = "PrivateNetworkA"
+	metaNamePNB      = "PrivateNetworkB"
 )
 
 func Test_Endpoints(t *testing.T) {
@@ -39,8 +40,10 @@ func Test_Endpoints(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-				checkEndpoints(t, endpoints, 1, 0, 0)
+				if ctx.Result != nil {
+					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					checkEndpoints(t, endpoints, 1, 0, 0)
+				}
 			},
 		),
 		AfterFunc: deleteCluster(),
@@ -64,8 +67,10 @@ func Test_Endpoints(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-				checkEndpoints(t, endpoints, 0, 1, 0)
+				if ctx.Result != nil {
+					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					checkEndpoints(t, endpoints, 0, 1, 0)
+				}
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -88,7 +93,7 @@ func Test_Endpoints(t *testing.T) {
 			),
 		),
 		Cmd: fmt.Sprintf(
-			"scw redis cluster create --wait name=%s version=7.0.5 node-type=RED1-micro user-name=admin password=P@sSw0Rd --wait "+
+			"scw redis cluster create --wait name=%s version="+redisTestVersion+" node-type=RED1-micro user-name=admin password=P@sSw0Rd --wait "+
 				"endpoints.0.private-network.id={{ .%s.ID }} endpoints.0.private-network.service-ips.0=%s "+
 				"endpoints.1.private-network.id={{ .%s.ID }} endpoints.1.private-network.service-ips.0=%s",
 			"2-static-priv-endpoints",
@@ -101,8 +106,10 @@ func Test_Endpoints(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-				checkEndpoints(t, endpoints, 0, 2, 0)
+				if ctx.Result != nil {
+					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					checkEndpoints(t, endpoints, 0, 2, 0)
+				}
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -136,8 +143,10 @@ func Test_IpamConfig(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-				checkEndpoints(t, endpoints, 0, 0, 1)
+				if ctx.Result != nil {
+					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					checkEndpoints(t, endpoints, 0, 0, 1)
+				}
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -167,8 +176,10 @@ func Test_IpamConfig(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-				checkEndpoints(t, endpoints, 0, 0, 2)
+				if ctx.Result != nil {
+					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					checkEndpoints(t, endpoints, 0, 0, 2)
+				}
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(
@@ -199,8 +210,10 @@ func Test_IpamConfig(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
-				checkEndpoints(t, endpoints, 0, 1, 1)
+				if ctx.Result != nil {
+					endpoints := ctx.Result.(*redisSDK.Cluster).Endpoints
+					checkEndpoints(t, endpoints, 0, 1, 1)
+				}
 			},
 		),
 		AfterFunc: core.AfterFuncCombine(

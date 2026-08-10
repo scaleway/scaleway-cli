@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.
 
 USAGE:
@@ -17,8 +17,11 @@ ARGS:
   [health-check.check-delay=3s]               Time to wait between two consecutive health checks
   [health-check.check-timeout=1s]             Maximum time a backend server has to reply to the health check
   [health-check.check-max-retries]            Number of consecutive unsuccessful health checks after which the server will be considered dead
+  [health-check.tcp-config]                   Object to configure a basic TCP health check
   [health-check.mysql-config.user]            MySQL user to use for the health check
   [health-check.pgsql-config.user]            PostgreSQL user to use for the health check
+  [health-check.ldap-config]                  Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message
+  [health-check.redis-config]                 Object to configure a Redis health check. The response is analyzed to find the +PONG response message
   [health-check.http-config.uri]              HTTP path used for the health check
   [health-check.http-config.method]           HTTP method used for the health check
   [health-check.http-config.code]             HTTP response code expected for a successful health check
@@ -54,7 +57,8 @@ DEPRECATED ARGS:
   [send-proxy-v2]   Deprecated in favor of proxy_protocol field
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

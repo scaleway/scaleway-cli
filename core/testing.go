@@ -2,7 +2,6 @@ package core
 
 import (
 	"bytes"
-	"context"
 	"encoding/json"
 	"flag"
 	"fmt"
@@ -14,6 +13,7 @@ import (
 	"path"
 	"path/filepath"
 	"regexp"
+	"slices"
 	"strconv"
 	"strings"
 	"testing"
@@ -71,7 +71,7 @@ type CheckFuncCtx struct {
 	Err error
 
 	// Command result
-	Result interface{}
+	Result any
 
 	// Meta bag
 	Meta TestMetadata
@@ -98,11 +98,11 @@ var testRenderHelpers = map[string]any{
 }
 
 // TestMetadata contains arbitrary data that can be passed along a test lifecycle.
-type TestMetadata map[string]interface{}
+type TestMetadata map[string]any
 
 // Render renders a go template using where content of Meta can be used
-func (meta TestMetadata) Render(strTpl string) string {
-	t := meta["t"].(*testing.T)
+func (meta *TestMetadata) Render(strTpl string) string {
+	t := (*meta)["t"].(*testing.T)
 	buf := &bytes.Buffer{}
 	require.NoError(
 		t,
@@ -113,7 +113,7 @@ func (meta TestMetadata) Render(strTpl string) string {
 	return buf.String()
 }
 
-func BeforeFuncStoreInMeta(key string, value interface{}) BeforeFunc {
+func BeforeFuncStoreInMeta(key string, value any) BeforeFunc {
 	return func(ctx *BeforeFuncCtx) error {
 		ctx.Meta[key] = value
 
@@ -139,7 +139,7 @@ type OverrideExecTestFunc func(ctx *ExecFuncCtx, cmd *exec.Cmd) (exitCode int, e
 type BeforeFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
-	ExecuteCmd  func(args []string) interface{}
+	ExecuteCmd  func(args []string) any
 	Meta        TestMetadata
 	OverrideEnv map[string]string
 	Logger      *Logger
@@ -148,9 +148,9 @@ type BeforeFuncCtx struct {
 type AfterFuncCtx struct {
 	T           *testing.T
 	Client      *scw.Client
-	ExecuteCmd  func(args []string) interface{}
+	ExecuteCmd  func(args []string) any
 	Meta        TestMetadata
-	CmdResult   interface{}
+	CmdResult   any
 	OverrideEnv map[string]string
 	Logger      *Logger
 }
@@ -208,9 +208,6 @@ type TestConfig struct {
 	// Custom client to use for test, if none are provided will create one automatically
 	Client *scw.Client
 
-	// Context that will be forwarded to Bootstrap
-	Ctx context.Context
-
 	// If this is specified this value will be passed to interactive.InjectMockResponseToContext ans will allow
 	// to mock response a user would have enter in a prompt.
 	// Warning: All prompts MUST be mocked or test will hang.
@@ -221,6 +218,10 @@ type TestConfig struct {
 
 	// EnabledAliases enables aliases that are disabled in tests
 	EnableAliases bool
+}
+
+func (config *TestConfig) DebugString() string {
+	return config.Cmd
 }
 
 // getTestFilePath returns a valid filename path based on the go test name and suffix. (Take care of non fs friendly char)
@@ -306,6 +307,20 @@ func createTestClient(
 // because they will be executed without waiting.
 var DefaultRetryInterval *time.Duration
 
+var foldersUsingVCRv4 = []string{
+	"instance",
+	"k8s",
+	"marketplace",
+}
+
+func folderUsesVCRv4(fullFolderPath string) bool {
+	fullPathSplit := strings.Split(fullFolderPath, string(os.PathSeparator))
+
+	folder := fullPathSplit[len(fullPathSplit)-2]
+
+	return slices.Contains(foldersUsingVCRv4, folder)
+}
+
 // Run a CLI integration test. See TestConfig for configuration option
 func Test(config *TestConfig) func(t *testing.T) {
 	return func(t *testing.T) {
@@ -324,31 +339,43 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// We need to set up this variable to ensure that relative date parsing stay consistent
-		args.TestForceNow = scw.TimePtr(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
+		args.TestForceNow = new(time.Date(1970, 1, 1, 0, 0, 0, 0, time.UTC))
 
 		// Because human marshal of date is relative (e.g 3 minutes ago) we must make sure it stay consistent for golden to works.
 		// Here we return a constant string. We may need to find a better place to put this.
 		human.RegisterMarshalerFunc(
 			time.Time{},
-			func(_ interface{}, _ *human.MarshalOpt) (string, error) {
+			func(_ any, _ *human.MarshalOpt) (string, error) {
 				return "few seconds ago", nil
 			},
 		)
 
 		if !*UpdateCassettes {
-			tmp := 0 * time.Second
-			DefaultRetryInterval = &tmp
+			DefaultRetryInterval = new(0 * time.Second)
 		}
 
-		ctx := config.Ctx
-		if ctx == nil {
-			ctx = t.Context()
-		}
+		ctx := t.Context()
 		if len(config.PromptResponseMocks) > 0 {
 			ctx = interactive.InjectMockResponseToContext(ctx, config.PromptResponseMocks)
 		}
 
-		httpClient, cleanup, err := getHTTPRecoder(t, *UpdateCassettes)
+		folder, err := os.Getwd()
+		if err != nil {
+			t.Fatalf("cannot detect working directory for testing")
+		}
+
+		// Create an HTTP client with recording capabilities
+		var (
+			httpClient *http.Client
+			cleanup    func()
+		)
+
+		if folderUsesVCRv4(folder) {
+			httpClient, cleanup, err = newHTTPRecorder(t, folder, *UpdateCassettes)
+		} else {
+			httpClient, cleanup, err = getHTTPRecoder(t, *UpdateCassettes)
+		}
+
 		require.NoError(t, err)
 		defer cleanup()
 
@@ -406,10 +433,10 @@ func Test(config *TestConfig) func(t *testing.T) {
 			}
 		}
 
-		executeCmd := func(args []string) interface{} {
+		executeCmd := func(args []string) any {
 			stdoutBuffer := &bytes.Buffer{}
 			stderrBuffer := &bytes.Buffer{}
-			_, result, err := Bootstrap(&BootstrapConfig{
+			_, result, err := Bootstrap(ctx, &BootstrapConfig{
 				Args:             args,
 				Commands:         config.Commands.Copy(), // Copy commands to ensure they are not modified
 				BuildInfo:        buildInfo,
@@ -420,7 +447,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
-				Ctx:              ctx,
 				Logger:           testLogger,
 				HTTPClient:       httpClient,
 				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
@@ -452,7 +478,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		}
 
 		// Run config.Cmd
-		var result interface{}
+		var result any
 		var exitCode int
 		renderedArgs := []string(nil)
 		rawArgs := config.Args
@@ -476,7 +502,7 @@ func Test(config *TestConfig) func(t *testing.T) {
 		if len(renderedArgs) > 0 {
 			stdout := &bytes.Buffer{}
 			stderr := &bytes.Buffer{}
-			exitCode, result, err = Bootstrap(&BootstrapConfig{
+			exitCode, result, err = Bootstrap(ctx, &BootstrapConfig{
 				Args:             renderedArgs,
 				Commands:         config.Commands,
 				BuildInfo:        buildInfo,
@@ -488,7 +514,6 @@ func Test(config *TestConfig) func(t *testing.T) {
 				DisableAliases:   !config.EnableAliases,
 				OverrideEnv:      overrideEnv,
 				OverrideExec:     overrideExec,
-				Ctx:              ctx,
 				Logger:           cmdLogger,
 				HTTPClient:       httpClient,
 				Platform:         terminal.NewPlatform(buildInfo.GetUserAgent()),
@@ -641,6 +666,14 @@ func ExecBeforeCmdArgs(args []string) BeforeFunc {
 	}
 }
 
+// ExecBeforeCmdWithResult executes the given command and returns its result.
+func ExecBeforeCmdWithResult(ctx *BeforeFuncCtx, cmd string) any {
+	args := cmdToArgs(ctx.Meta, cmd)
+	ctx.Logger.Debugf("ExecBeforeCmd: args=%s\n", args)
+
+	return ctx.ExecuteCmd(args)
+}
+
 // ExecAfterCmd executes the given before command.
 func ExecAfterCmd(cmd string) AfterFunc {
 	return func(ctx *AfterFuncCtx) error {
@@ -744,7 +777,11 @@ func TestCheckGolden() TestCheck {
 
 		expected, err := os.ReadFile(goldenPath)
 		require.NoError(t, err, "expected to find golden file %s", goldenPath)
-		assert.Equal(t, string(expected), actual)
+		assert.Equal(
+			t,
+			uniformTimestampsWithOffSet(string(expected)),
+			uniformTimestampsWithOffSet(actual),
+		)
 	}
 }
 
@@ -809,16 +846,28 @@ func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	}
 }
 
-var regTimestamp = regexp.MustCompile(`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`)
+var (
+	regTimestamp = regexp.MustCompile(
+		`(\d+-\d+-\d+T\d+:\d+:\d+\.\d+Z)`,
+	) // 1970-01-01T00:00:00.0Z
+	regTimestampWithOffset = regexp.MustCompile(
+		`(\d{4}-\d{2}-\d{2}T\d{2}:\d{2}:\d{2}\.\d+[+-]\d{2}:\d{2})`,
+	) // 1970-01-01T00:00:00.000000000+00:00
+)
 
 // uniformTimestamps replaces all timestamp to the date "1970-01-01T00:00:00.0Z"
 func uniformTimestamps(input string) string {
 	return regTimestamp.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
 }
 
+// uniformTimestampsOffSet replaces all timestamps of the form "2026-06-22T12:40:57.180528946+02:00" to the date "1970-01-01T00:00:00.000000000+00:00"
+func uniformTimestampsWithOffSet(input string) string {
+	return regTimestampWithOffset.ReplaceAllString(input, "1970-01-01T00:00:00.0Z")
+}
+
 func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
 	t.Helper()
-	var jsonInterface interface{}
+	var jsonInterface any
 	if jsonStdout.Len() > 0 {
 		err := json.Unmarshal(jsonStdout.Bytes(), &jsonInterface)
 		require.NoError(t, err, "json stdout is invalid (%s)", getTestFilePath(t, ".cassette"))

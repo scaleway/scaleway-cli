@@ -40,8 +40,11 @@ type WellKnownTypes struct {
 	Time time.Time
 }
 
+type Empty struct{}
+
 type Nested struct {
 	Basic Basic
+	Empty *Empty
 }
 
 type Merge1 struct {
@@ -129,13 +132,13 @@ type CustomArgs struct {
 
 type height int
 
-func marshalHeight(src interface{}) (string, error) {
+func marshalHeight(src any) (string, error) {
 	h := src.(*height)
 
 	return fmt.Sprintf("%dcm", *h), nil
 }
 
-func unmarshalHeight(value string, dest interface{}) error {
+func unmarshalHeight(value string, dest any) error {
 	h := dest.(*height)
 	_, err := fmt.Sscanf(value, "%dcm", h)
 
@@ -218,6 +221,11 @@ func TestGetArgType(t *testing.T) {
 		ArgType:      reflect.TypeOf(&Nested{}),
 		Name:         "basic.string",
 		ExpectedKind: reflect.String,
+	}))
+	t.Run("nested empty", run(&TestCase{
+		ArgType:      reflect.TypeOf(&Nested{}),
+		Name:         "empty",
+		ExpectedKind: reflect.Struct,
 	}))
 	t.Run("merge simple", run(&TestCase{
 		ArgType:      reflect.TypeOf(&Merge{}),

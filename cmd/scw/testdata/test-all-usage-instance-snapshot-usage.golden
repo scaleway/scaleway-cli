@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Snapshots contain the data of a specified volume at a particular point in time.
 The data can include the Instance's operating system,
 configuration information and/or files stored on the volume.
@@ -9,7 +9,6 @@ have one Instance with a volume containing the OS and another one
 containing the application data, and you want to use different
 snapshot strategies on both volumes.
 
-A snapshot's volume type is its original volume's type (`l_ssd` or `b_ssd`).
 Volumes can be created from snapshots of their own type.
 
 USAGE:
@@ -29,8 +28,9 @@ WORKFLOW COMMANDS:
   wait            Wait for snapshot to reach a stable state
 
 FLAGS:
-  -h, --help   help for snapshot
-      --web    open console page for the current ressource
+  -h, --help                help for snapshot
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

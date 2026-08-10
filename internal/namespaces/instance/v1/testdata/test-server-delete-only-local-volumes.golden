@@ -1,6 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+successfully deleted volume Ubuntu 22.04 Jammy Jellyfish (20 GB l_ssd)
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "message": "Success",

@@ -1,21 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Update a given data source name, specified by the data source ID.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Update a given data source attributes (name and/or retention_days).
 
 USAGE:
-  scw cockpit data-source update [arg=value ...]
+  scw cockpit data-source update <data-source-id ...> [arg=value ...]
 
 ARGS:
   data-source-id     ID of the data source to update
   [name]             Updated name of the data source
-  [retention-days]   BETA - Duration for which the data will be retained in the data source
+  [retention-days]   Duration for which the data will be retained in the data source
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for update
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Generate a data source configuration snippet
+  scw cockpit config get

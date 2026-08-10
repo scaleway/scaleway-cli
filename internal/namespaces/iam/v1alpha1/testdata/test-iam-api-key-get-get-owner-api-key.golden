@@ -1,35 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-User Type:
+Entity Type:
 owner (owner has all permissions over the organization)
 
 Api Key:
-AccessKey         SCWEBEM4J7VT79C0T0GA
-UserID            3153ad6d-2866-4471-b0b3-6728cf875a1c
+AccessKey         SCW3508ENX0JCKRW0DKZ
+UserID            791cc87f-3379-402f-bba0-f76ddf294f70
 Description       -
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
-DefaultProjectID  6867048b-fe12-4e96-835e-41c79a39604b
+DefaultProjectID  5ebc0159-7cb7-406c-9521-9347d1987fb2
 Editable          true
 Deletable         true
 Managed           false
-CreationIP        51.159.73.9
+CreationIP        51.159.46.153
+Srn               -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "APIKey": {
-    "access_key": "SCWEBEM4J7VT79C0T0GA",
+    "access_key": "SCW3508ENX0JCKRW0DKZ",
     "secret_key": null,
-    "user_id": "3153ad6d-2866-4471-b0b3-6728cf875a1c",
+    "user_id": "791cc87f-3379-402f-bba0-f76ddf294f70",
     "description": "",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z",
     "expires_at": null,
-    "default_project_id": "6867048b-fe12-4e96-835e-41c79a39604b",
+    "default_project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
     "editable": true,
     "deletable": true,
     "managed": false,
-    "creation_ip": "51.159.73.9"
+    "creation_ip": "51.159.46.153"
   },
-  "user_type": "owner (owner has all permissions over the organization)",
+  "entity_type": "owner (owner has all permissions over the organization)",
   "policies": null
 }

@@ -45,18 +45,18 @@ If the current context points to this cluster, it will be set to an empty contex
 				Short:   "Install a kubeconfig",
 			},
 		},
+
+		// avoid calling checkAPIKey (Check if API Key is about to expire)
+		DisableAfterChecks: true,
+		ExcludeFromMCP:     true, // Shell-centric command
 	}
 }
 
 // k8sKubeconfigUninstallRun use the specified cluster ID to remove it from the wanted kubeconfig file
 // it removes all the users, contexts and clusters that contains this ID from the file
-func k8sKubeconfigUninstallRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func k8sKubeconfigUninstallRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*k8sKubeconfigUninstallRequest)
-
-	kubeconfigPath, err := getKubeconfigPath(ctx)
-	if err != nil {
-		return nil, err
-	}
+	kubeconfigPath := getKubeconfigPath(ctx)
 
 	// if the file does not exist, the cluster is not there
 	if _, err := os.Stat(kubeconfigPath); os.IsNotExist(err) {

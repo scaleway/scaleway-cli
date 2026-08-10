@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Placement groups allow the user to express a preference regarding
 the physical position of a group of Instances. The feature lets the user
 choose to either group Instances on the same physical hardware for
@@ -34,8 +34,9 @@ AVAILABLE COMMANDS:
   update-servers Update placement group servers
 
 FLAGS:
-  -h, --help   help for placement-group
-      --web    open console page for the current ressource
+  -h, --help                help for placement-group
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Date parsing
 
 You have two ways for managing date in the CLI: Absolute and Relative
@@ -36,7 +36,8 @@ USAGE:
   scw help date
 
 FLAGS:
-  -h, --help   help for date
+  -h, --help                help for date
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

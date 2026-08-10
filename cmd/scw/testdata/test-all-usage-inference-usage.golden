@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-This API allows you to handle your Managed Inference services.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+This API allows you to handle your Generative APIs - Dedicated Deployment services.
 
 USAGE:
   scw inference <command>
@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   node-type   Node types management commands
 
 FLAGS:
-  -h, --help   help for inference
+  -h, --help                help for inference
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

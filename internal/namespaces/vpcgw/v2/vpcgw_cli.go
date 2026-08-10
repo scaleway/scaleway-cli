@@ -113,7 +113,7 @@ func vpcGwGatewayList() *core.Command {
 		Resource:  "gateway",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListGatewaysRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListGatewaysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -202,6 +202,7 @@ func vpcGwGatewayList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -211,12 +212,12 @@ func vpcGwGatewayList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListGatewaysRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -239,7 +240,7 @@ func vpcGwGatewayGet() *core.Command {
 		Resource:  "gateway",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -251,6 +252,7 @@ func vpcGwGatewayGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -259,13 +261,13 @@ func vpcGwGatewayGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetGateway(request)
+			return api.GetGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -278,7 +280,7 @@ func vpcGwGatewayCreate() *core.Command {
 		Resource:  "gateway",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreateGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreateGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -335,6 +337,7 @@ func vpcGwGatewayCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -343,13 +346,13 @@ func vpcGwGatewayCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreateGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreateGateway(request)
+			return api.CreateGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -362,7 +365,7 @@ func vpcGwGatewayUpdate() *core.Command {
 		Resource:  "gateway",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdateGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdateGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -409,6 +412,7 @@ func vpcGwGatewayUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -417,13 +421,13 @@ func vpcGwGatewayUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdateGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdateGateway(request)
+			return api.UpdateGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -436,7 +440,7 @@ func vpcGwGatewayDelete() *core.Command {
 		Resource:  "gateway",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeleteGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeleteGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -455,6 +459,7 @@ func vpcGwGatewayDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -463,13 +468,13 @@ func vpcGwGatewayDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeleteGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.DeleteGateway(request)
+			return api.DeleteGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -482,7 +487,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 		Resource:  "gateway",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpgradeGatewayRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpgradeGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -501,6 +506,7 @@ func vpcGwGatewayUpgrade() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -509,13 +515,13 @@ func vpcGwGatewayUpgrade() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpgradeGatewayRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpgradeGateway(request)
+			return api.UpgradeGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -528,7 +534,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListGatewayNetworksRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListGatewayNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -582,6 +588,7 @@ func vpcGwGatewayNetworkList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -591,12 +598,12 @@ func vpcGwGatewayNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListGatewayNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -619,7 +626,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
@@ -631,6 +638,7 @@ func vpcGwGatewayNetworkGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -639,13 +647,13 @@ func vpcGwGatewayNetworkGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetGatewayNetwork(request)
+			return api.GetGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -658,7 +666,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreateGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreateGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -698,6 +706,7 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -706,13 +715,13 @@ func vpcGwGatewayNetworkCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreateGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreateGatewayNetwork(request)
+			return api.CreateGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -725,7 +734,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdateGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdateGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
@@ -758,6 +767,7 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -766,13 +776,13 @@ func vpcGwGatewayNetworkUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdateGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdateGatewayNetwork(request)
+			return api.UpdateGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -785,7 +795,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 		Resource:  "gateway-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeleteGatewayNetworkRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeleteGatewayNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-network-id",
@@ -797,6 +807,7 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -805,13 +816,13 @@ func vpcGwGatewayNetworkDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeleteGatewayNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.DeleteGatewayNetwork(request)
+			return api.DeleteGatewayNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -824,7 +835,7 @@ func vpcGwPatRuleList() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListPatRulesRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListPatRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -869,6 +880,7 @@ func vpcGwPatRuleList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -878,12 +890,12 @@ func vpcGwPatRuleList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListPatRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -906,7 +918,7 @@ func vpcGwPatRuleGet() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetPatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetPatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
@@ -918,6 +930,7 @@ func vpcGwPatRuleGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -926,13 +939,13 @@ func vpcGwPatRuleGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetPatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetPatRule(request)
+			return api.GetPatRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -945,7 +958,7 @@ func vpcGwPatRuleCreate() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreatePatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreatePatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -991,6 +1004,7 @@ func vpcGwPatRuleCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -999,13 +1013,13 @@ func vpcGwPatRuleCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreatePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreatePatRule(request)
+			return api.CreatePatRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1018,7 +1032,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdatePatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdatePatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
@@ -1064,6 +1078,7 @@ func vpcGwPatRuleUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1072,13 +1087,13 @@ func vpcGwPatRuleUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdatePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdatePatRule(request)
+			return api.UpdatePatRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1091,7 +1106,7 @@ func vpcGwPatRuleSet() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.SetPatRulesRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.SetPatRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1137,6 +1152,7 @@ func vpcGwPatRuleSet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1145,13 +1161,13 @@ func vpcGwPatRuleSet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.SetPatRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.SetPatRules(request)
+			return api.SetPatRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1164,7 +1180,7 @@ func vpcGwPatRuleDelete() *core.Command {
 		Resource:  "pat-rule",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeletePatRuleRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeletePatRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pat-rule-id",
@@ -1176,6 +1192,7 @@ func vpcGwPatRuleDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1184,12 +1201,12 @@ func vpcGwPatRuleDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeletePatRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			e = api.DeletePatRule(request)
+			e = api.DeletePatRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1210,11 +1227,12 @@ func vpcGwGatewayTypeList() *core.Command {
 		Resource:  "gateway-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListGatewayTypesRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListGatewayTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1223,13 +1241,13 @@ func vpcGwGatewayTypeList() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListGatewayTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.ListGatewayTypes(request)
+			return api.ListGatewayTypes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1242,7 +1260,7 @@ func vpcGwIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1297,6 +1315,7 @@ func vpcGwIPList() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1306,12 +1325,12 @@ func vpcGwIPList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.ListIPsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1334,7 +1353,7 @@ func vpcGwIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1346,6 +1365,7 @@ func vpcGwIPGet() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1354,13 +1374,13 @@ func vpcGwIPGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1373,7 +1393,7 @@ func vpcGwIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.CreateIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.CreateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1386,6 +1406,7 @@ func vpcGwIPCreate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1394,13 +1415,13 @@ func vpcGwIPCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.CreateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.CreateIP(request)
+			return api.CreateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1413,7 +1434,7 @@ func vpcGwIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1446,6 +1467,7 @@ func vpcGwIPUpdate() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1454,13 +1476,13 @@ func vpcGwIPUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1473,7 +1495,7 @@ func vpcGwIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.DeleteIPRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.DeleteIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1485,6 +1507,7 @@ func vpcGwIPDelete() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1493,12 +1516,12 @@ func vpcGwIPDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.DeleteIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
-			e = api.DeleteIP(request)
+			e = api.DeleteIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1519,7 +1542,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 		Resource:  "gateway",
 		Verb:      "refresh-ssh-keys",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(vpcgw.RefreshSSHKeysRequest{}),
+		ArgsType: reflect.TypeFor[vpcgw.RefreshSSHKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1531,6 +1554,7 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
+				scw.ZoneItMil1,
 				scw.ZoneNlAms1,
 				scw.ZoneNlAms2,
 				scw.ZoneNlAms3,
@@ -1539,13 +1563,13 @@ func vpcGwGatewayRefreshSSHKeys() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*vpcgw.RefreshSSHKeysRequest)
 
 			client := core.ExtractClient(ctx)
 			api := vpcgw.NewAPI(client)
 
-			return api.RefreshSSHKeys(request)
+			return api.RefreshSSHKeys(request, scw.WithContext(ctx))
 		},
 	}
 }

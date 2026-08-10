@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Security Group:
-ID                     4e02d7f0-1f93-4478-ab2d-e64a6aacbd47
-Name                   cli-sg-hungry-borg
-State                  syncing
+ID                     6bbed5ce-6b01-4841-9adb-c18fc2b80774
+Name                   cli-sg-charming-rubin
+State                  available
 Description            -
 EnableDefaultSecurity  true
-OrganizationID         ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-ProjectID              ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+OrganizationID         fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID              fa1e3217-dc80-42ac-85c3-3f034b78b552
 OrganizationDefault    false
 ProjectDefault         false
 CreationDate           few seconds ago
@@ -19,25 +19,25 @@ ID   DIRECTION  PROTOCOL  ACTION  IP RANGE  DEST
 
 Outbound Rules (default policy accept):
 ID                                    DIRECTION  PROTOCOL  ACTION  IP RANGE   DEST
-58909be7-d17c-4ac8-9eb3-23d5fc58abc5  outbound   TCP       drop    0.0.0.0/0  25
-25680235-108b-4bbc-8e25-114303d950bd  outbound   TCP       drop    0.0.0.0/0  465
-4a31b633-118e-4900-bd52-facf1085fc8d  outbound   TCP       drop    0.0.0.0/0  587
-e7dd28e8-3747-4c7c-9a4f-35ae3f0ae2cd  outbound   TCP       drop    ::/0       25
-f37d9e7c-8ed7-4e0f-baff-7f5e7ede0baf  outbound   TCP       drop    ::/0       465
-68054851-54e3-46c9-9cd7-83219751248b  outbound   TCP       drop    ::/0       587
+11111111-2222-4333-8444-000000000001  outbound   TCP       drop    0.0.0.0/0  25
+11111111-2222-4333-8444-000000000002  outbound   TCP       drop    0.0.0.0/0  465
+11111111-2222-4333-8444-000000000003  outbound   TCP       drop    0.0.0.0/0  587
+11111111-2222-4333-8444-000000000004  outbound   TCP       drop    ::/0       25
+11111111-2222-4333-8444-000000000005  outbound   TCP       drop    ::/0       465
+11111111-2222-4333-8444-000000000006  outbound   TCP       drop    ::/0       587
 
 Servers:
 ID   NAME
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4e02d7f0-1f93-4478-ab2d-e64a6aacbd47",
-  "name": "cli-sg-hungry-borg",
+  "id": "6bbed5ce-6b01-4841-9adb-c18fc2b80774",
+  "name": "cli-sg-charming-rubin",
   "description": "",
   "enable_default_security": true,
   "inbound_default_policy": "accept",
   "outbound_default_policy": "accept",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "tags": [],
   "organization_default": false,
   "project_default": false,
@@ -45,11 +45,11 @@ ID   NAME
   "modification_date": "1970-01-01T00:00:00.0Z",
   "servers": [],
   "stateful": true,
-  "state": "syncing",
+  "state": "available",
   "zone": "fr-par-1",
   "Rules": [
     {
-      "id": "58909be7-d17c-4ac8-9eb3-23d5fc58abc5",
+      "id": "11111111-2222-4333-8444-000000000001",
       "protocol": "TCP",
       "direction": "outbound",
       "action": "drop",
@@ -61,7 +61,7 @@ ID   NAME
       "zone": "fr-par-1"
     },
     {
-      "id": "25680235-108b-4bbc-8e25-114303d950bd",
+      "id": "11111111-2222-4333-8444-000000000002",
       "protocol": "TCP",
       "direction": "outbound",
       "action": "drop",
@@ -73,7 +73,7 @@ ID   NAME
       "zone": "fr-par-1"
     },
     {
-      "id": "4a31b633-118e-4900-bd52-facf1085fc8d",
+      "id": "11111111-2222-4333-8444-000000000003",
       "protocol": "TCP",
       "direction": "outbound",
       "action": "drop",
@@ -85,7 +85,7 @@ ID   NAME
       "zone": "fr-par-1"
     },
     {
-      "id": "e7dd28e8-3747-4c7c-9a4f-35ae3f0ae2cd",
+      "id": "11111111-2222-4333-8444-000000000004",
       "protocol": "TCP",
       "direction": "outbound",
       "action": "drop",
@@ -97,7 +97,7 @@ ID   NAME
       "zone": "fr-par-1"
     },
     {
-      "id": "f37d9e7c-8ed7-4e0f-baff-7f5e7ede0baf",
+      "id": "11111111-2222-4333-8444-000000000005",
       "protocol": "TCP",
       "direction": "outbound",
       "action": "drop",
@@ -109,7 +109,7 @@ ID   NAME
       "zone": "fr-par-1"
     },
     {
-      "id": "68054851-54e3-46c9-9cd7-83219751248b",
+      "id": "11111111-2222-4333-8444-000000000006",
       "protocol": "TCP",
       "direction": "outbound",
       "action": "drop",

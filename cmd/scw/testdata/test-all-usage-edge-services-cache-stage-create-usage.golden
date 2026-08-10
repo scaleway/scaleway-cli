@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new cache stage. You must specify the `fallback_ttl` field to customize the TTL of the cache.
 
 USAGE:
@@ -7,13 +7,15 @@ USAGE:
 
 ARGS:
   [fallback-ttl=3600s]   Time To Live (TTL) in seconds. Defines how long content is cached
+  [include-cookies]      Defines whether responses to requests with cookies must be stored in the cache
   [backend-stage-id]     Backend stage ID the cache stage will be linked to
   pipeline-id            Pipeline ID the Cache stage belongs to
   [waf-stage-id]         
   [route-stage-id]       
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

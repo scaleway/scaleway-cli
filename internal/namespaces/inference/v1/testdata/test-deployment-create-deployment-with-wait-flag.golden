@@ -1,0 +1,50 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                 85d5ddd1-c199-4373-8258-28d81e6a8ab0
+Name               cli-inference-festive-mendel
+ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+Status             ready
+NodeTypeName       H100-2
+Size               1
+MinSize            1
+MaxSize            1
+ErrorMessage       -
+ModelID            739d51ae-4f1e-4193-a4bf-f7380c090d46
+Quantization.Bits  4
+ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
+CreatedAt          few seconds ago
+UpdatedAt          few seconds ago
+Region             fr-par
+
+Endpoints:
+ID                                    URL                                                                   DISABLE AUTH
+afe74bcb-384e-4db0-9292-838ea75d3d59  https://85d5ddd1-c199-4373-8258-28d81e6a8ab0.ifr.fr-par.scaleway.com  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "85d5ddd1-c199-4373-8258-28d81e6a8ab0",
+  "name": "cli-inference-festive-mendel",
+  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "status": "ready",
+  "tags": [],
+  "node_type_name": "H100-2",
+  "endpoints": [
+    {
+      "id": "afe74bcb-384e-4db0-9292-838ea75d3d59",
+      "url": "https://85d5ddd1-c199-4373-8258-28d81e6a8ab0.ifr.fr-par.scaleway.com",
+      "public_network": {},
+      "disable_auth": false
+    }
+  ],
+  "size": 1,
+  "min_size": 1,
+  "max_size": 1,
+  "error_message": "",
+  "model_id": "739d51ae-4f1e-4193-a4bf-f7380c090d46",
+  "quantization": {
+    "bits": 4
+  },
+  "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "region": "fr-par"
+}

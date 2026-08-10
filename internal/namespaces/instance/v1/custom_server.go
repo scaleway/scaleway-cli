@@ -47,7 +47,7 @@ var (
 )
 
 // serverLocationMarshalerFunc marshals a instance.ServerLocation.
-func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func serverLocationMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	location := i.(instance.ServerLocation)
 	zone, err := scw.ParseZone(location.ZoneID)
 	if err != nil {
@@ -58,7 +58,7 @@ func serverLocationMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, er
 }
 
 // serversMarshalerFunc marshals a Server.
-func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func serversMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	// humanServerInList is the custom Server type used for list view.
 	type humanServerInList struct {
 		ID                string
@@ -81,10 +81,11 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 		StateDetail       string
 		Arch              instance.Arch
 		ImageID           string
+		ProjectID         string
 	}
 
 	servers := i.([]*instance.Server)
-	humanServers := make([]*humanServerInList, 0)
+	humanServers := make([]*humanServerInList, 0, len(servers))
 	for _, server := range servers {
 		publicIPAddress := net.IP(nil)
 		if server.PublicIP != nil {
@@ -117,6 +118,7 @@ func serversMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 			StateDetail:       server.StateDetail,
 			Arch:              server.Arch,
 			ImageID:           serverImageID,
+			ProjectID:         server.Project,
 		})
 	}
 
@@ -138,7 +140,7 @@ type customVolume struct {
 
 // orderVolumes return an ordered slice based on the volume map key "0", "1", "2",...
 func orderVolumes(v map[string]*customVolume) []*customVolume {
-	indexes := []string(nil)
+	indexes := make([]string, 0, len(v))
 	for index := range v {
 		indexes = append(indexes, index)
 	}
@@ -158,7 +160,7 @@ type ServerWithWarningsResponse struct {
 }
 
 // serversMarshalerFunc marshals a BootscriptID.
-func bootscriptMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func bootscriptMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	bootscript := i.(instance.Bootscript)
 
 	return bootscript.Title, nil
@@ -181,7 +183,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListServersRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListServersRequest)
 
 			if args.ListServersRequest == nil {
@@ -240,7 +242,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		CanLoadFile: true,
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		customRequest := argsI.(*instanceUpdateServerRequestCustom)
 
 		updateServerRequest := customRequest.UpdateServerRequest
@@ -323,13 +325,13 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 
 				if volumeIsFromSBS(block.NewAPI(client), customRequest.Zone, volumeID) {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:         scw.StringPtr(volumeID),
+						ID:         new(volumeID),
 						VolumeType: instance.VolumeVolumeTypeSbsVolume,
 					}
 				} else {
 					volumes[index] = &instance.VolumeServerTemplate{
-						ID:   scw.StringPtr(volumeID),
-						Name: scw.StringPtr(getServerResponse.Server.Name + "-" + index),
+						ID:   new(volumeID),
+						Name: new(getServerResponse.Server.Name + "-" + index),
 					}
 				}
 			}
@@ -377,16 +379,82 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		},
 	}
 
+	// clarify how to address attached volumes, specific to the cli.
+	c.Examples = append(c.Examples, &core.Example{
+		Short: "Boot an Instance from a specific volume",
+		Raw:   `scw instance server update 11111111-1111-1111-1111-111111111111 volumes.0.id=11111111-1111-1111-1111-111111111111 volumes.0.boot=true`,
+	})
+
 	return c
 }
 
-func volumeIsFromSBS(api *block.API, zone scw.Zone, volumeID string) bool {
-	_, err := api.GetVolume(&block.GetVolumeRequest{
-		Zone:     zone,
-		VolumeID: volumeID,
-	})
+// customServer is a copy of instance.Server without the fields that are deprecated or duplicated in another section.
+// It is used by the `instance server get` command.
+type customServer struct {
+	ID                              string                         `json:"id"`
+	Name                            string                         `json:"name"`
+	Organization                    string                         `json:"organization"`
+	Project                         string                         `json:"project"`
+	AllowedActions                  []instance.ServerAction        `json:"allowed_actions"`
+	Tags                            []string                       `json:"tags"`
+	CommercialType                  string                         `json:"commercial_type"`
+	CreationDate                    *time.Time                     `json:"creation_date"`
+	DynamicIPRequired               bool                           `json:"dynamic_ip_required"`
+	RoutedIPEnabled                 *bool                          `json:"routed_ip_enabled"`
+	Hostname                        string                         `json:"hostname"`
+	Image                           *instance.Image                `json:"image"`
+	Protected                       bool                           `json:"protected"`
+	PrivateIP                       *string                        `json:"private_ip"`
+	PublicIPs                       []*instance.ServerIP           `json:"public_ips"`
+	MacAddress                      string                         `json:"mac_address"`
+	ModificationDate                *time.Time                     `json:"modification_date"`
+	State                           instance.ServerState           `json:"state"`
+	StateDetail                     string                         `json:"state_detail"`
+	IPv6                            *instance.ServerIPv6           `json:"ipv6"`
+	BootType                        instance.BootType              `json:"boot_type"`
+	SecurityGroup                   *instance.SecurityGroupSummary `json:"security_group"`
+	Arch                            instance.Arch                  `json:"arch"`
+	PlacementGroup                  *instance.PlacementGroup       `json:"placement_group"`
+	Zone                            scw.Zone                       `json:"zone"`
+	Location                        *instance.ServerLocation       `json:"location"`
+	AdminPasswordEncryptionSSHKeyID *string                        `json:"admin_password_encryption_ssh_key_id"`
+	AdminPasswordEncryptedValue     *string                        `json:"admin_password_encrypted_value"`
+	Filesystems                     []*instance.ServerFilesystem   `json:"filesystems"`
+	EndOfService                    bool                           `json:"end_of_service"`
+}
 
-	return err == nil
+func customServerFromInstanceServer(server *instance.Server) *customServer {
+	return &customServer{
+		ID:                              server.ID,
+		Name:                            server.Name,
+		Organization:                    server.Organization,
+		Project:                         server.Project,
+		AllowedActions:                  server.AllowedActions,
+		Tags:                            server.Tags,
+		CommercialType:                  server.CommercialType,
+		CreationDate:                    server.CreationDate,
+		DynamicIPRequired:               server.DynamicIPRequired,
+		RoutedIPEnabled:                 server.RoutedIPEnabled,
+		Hostname:                        server.Hostname,
+		Image:                           server.Image,
+		Protected:                       server.Protected,
+		PrivateIP:                       server.PrivateIP,
+		PublicIPs:                       server.PublicIPs,
+		MacAddress:                      server.MacAddress,
+		ModificationDate:                server.ModificationDate,
+		State:                           server.State,
+		StateDetail:                     server.StateDetail,
+		BootType:                        server.BootType,
+		SecurityGroup:                   server.SecurityGroup,
+		Arch:                            server.Arch,
+		PlacementGroup:                  server.PlacementGroup,
+		Zone:                            server.Zone,
+		Location:                        server.Location,
+		AdminPasswordEncryptionSSHKeyID: server.AdminPasswordEncryptionSSHKeyID,
+		AdminPasswordEncryptedValue:     server.AdminPasswordEncryptedValue,
+		Filesystems:                     server.Filesystems,
+		EndOfService:                    server.EndOfService,
+	}
 }
 
 func serverGetBuilder(c *core.Command) *core.Command {
@@ -411,7 +479,7 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		return suggestion
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return rawResp, err
@@ -506,12 +574,12 @@ func serverGetBuilder(c *core.Command) *core.Command {
 		}
 
 		return &struct {
-			*instance.Server
+			*customServer
 			Volumes     []*customVolume
 			PrivateNics []customNICs `json:"private_nics"`
 			Warnings    []string     `json:"warnings"`
 		}{
-			server,
+			customServerFromInstanceServer(server),
 			orderVolumes(volumes),
 			nics,
 			warnings,
@@ -537,10 +605,6 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				FieldName: "PublicIPs",
 			},
 			{
-				Title:     "IPv6",
-				FieldName: "IPv6",
-			},
-			{
 				FieldName: "PrivateNics",
 				Title:     "Private NICs",
 			},
@@ -549,83 +613,14 @@ func serverGetBuilder(c *core.Command) *core.Command {
 				Title:       "Warnings",
 				HideIfEmpty: true,
 			},
+			{
+				FieldName: "Filesystems",
+				Title:     "Server Filesystems",
+			},
 		},
 	}
 
 	return c
-}
-
-//
-// Commands
-//
-
-func serverAttachVolumeCommand() *core.Command {
-	return &core.Command{
-		Short:     `Attach a volume to a server`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "attach-volume",
-		ArgsType:  reflect.TypeOf(instance.AttachVolumeRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:     "server-id",
-				Short:    `ID of the server`,
-				Required: true,
-			},
-			{
-				Name:     "volume-id",
-				Short:    `ID of the volume to attach`,
-				Required: true,
-			},
-			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			request := argsI.(*instance.AttachVolumeRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-
-			return api.AttachVolume(request)
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "Attach a volume to a server",
-				ArgsJSON: `{"server_id": "11111111-1111-1111-1111-111111111111","volume_id": "22222222-1111-5555-2222-666666111111"}`,
-			},
-		},
-	}
-}
-
-func serverDetachVolumeCommand() *core.Command {
-	return &core.Command{
-		Short:     `Detach a volume from its server`,
-		Namespace: "instance",
-		Resource:  "server",
-		Verb:      "detach-volume",
-		ArgsType:  reflect.TypeOf(instance.DetachVolumeRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			{
-				Name:     "volume-id",
-				Short:    `ID of the volume to detach`,
-				Required: true,
-			},
-			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
-		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
-			request := argsI.(*instance.DetachVolumeRequest)
-
-			client := core.ExtractClient(ctx)
-			api := instance.NewAPI(client)
-
-			return api.DetachVolume(request)
-		},
-		Examples: []*core.Example{
-			{
-				Short:    "Detach a volume from its server",
-				ArgsJSON: `{"volume_id": "22222222-1111-5555-2222-666666111111"}`,
-			},
-		},
-	}
 }
 
 func serverAttachIPCommand() *core.Command {
@@ -658,7 +653,7 @@ func serverAttachIPCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 			args := argsI.(*customIPAttachRequest)
 
@@ -733,7 +728,7 @@ func serverDetachIPCommand() *core.Command {
 			},
 			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customIPDetachRequest)
 
 			client := core.ExtractClient(ctx)
@@ -791,14 +786,14 @@ func serverWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*serverWaitRequest)
 
 			return instance.NewAPI(core.ExtractClient(ctx)).
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          args.Zone,
 					ServerID:      args.ServerID,
-					Timeout:       scw.TimeDurationPtr(args.Timeout),
+					Timeout:       new(args.Timeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},

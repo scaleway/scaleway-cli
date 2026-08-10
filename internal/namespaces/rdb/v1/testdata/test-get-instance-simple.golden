@@ -43,8 +43,8 @@ max_parallel_workers_per_gather  0
 work_mem                         4
 
 ACLs:
-IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  27851  tcp       inbound    allow   Allow All
+IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
+0.0.0.0/0  tcp       inbound    allow   Allow All    27851
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -126,11 +126,11 @@ IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
   "acls": [
     {
       "ip": "0.0.0.0/0",
-      "port": 27851,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "Allow All"
+      "description": "Allow All",
+      "port": 27851
     }
   ]
 }

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Restore and activate a version of a specific DNS zone.
 
 USAGE:
@@ -9,7 +9,8 @@ ARGS:
   dns-zone-version-id   
 
 FLAGS:
-  -h, --help   help for restore
+  -h, --help                help for restore
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

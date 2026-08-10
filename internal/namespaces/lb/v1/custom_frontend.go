@@ -8,7 +8,7 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/api/lb/v1"
 )
 
-func lbFrontendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbFrontendMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Frontend
 	frontend := tmp(i.(lb.Frontend))
 
@@ -54,7 +54,7 @@ func frontendDeleteBuilder(c *core.Command) *core.Command {
 }
 
 func interceptFrontend() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		var getFrontend *lb.Frontend
 		var err error
 

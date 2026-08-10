@@ -3,11 +3,14 @@ package applesilicon
 import (
 	"context"
 	"fmt"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
+	productcatalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
@@ -25,13 +28,13 @@ var serverTypeStockMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
-func cpuMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func cpuMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	cpu := i.(applesilicon.ServerTypeCPU)
 
 	return fmt.Sprintf("%s (%d cores)", cpu.Name, cpu.CoreCount), nil
 }
 
-func diskMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func diskMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	disk := i.(applesilicon.ServerTypeDisk)
 	capacityStr, err := human.Marshal(disk.Capacity, nil)
 	if err != nil {
@@ -41,7 +44,7 @@ func diskMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	return capacityStr, nil
 }
 
-func memoryMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func memoryMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	memory := i.(applesilicon.ServerTypeMemory)
 	capacityStr, err := human.Marshal(memory.Capacity, nil)
 	if err != nil {
@@ -49,6 +52,12 @@ func memoryMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	}
 
 	return capacityStr, nil
+}
+
+type customServerType struct {
+	*applesilicon.ServerType
+	KgCo2Equivalent *float32 `json:"kg_co2_equivalent"`
+	M3WaterUsage    *float32 `json:"m3_water_usage"`
 }
 
 func serverTypeBuilder(c *core.Command) *core.Command {
@@ -78,19 +87,66 @@ func serverTypeBuilder(c *core.Command) *core.Command {
 				Label:     "Minimum Lease Duration",
 				FieldName: "MinimumLeaseDuration",
 			},
+			{
+				Label:     "CO2 (kg/hour)",
+				FieldName: "KgCo2Equivalent",
+			},
+			{
+				Label:     "Water (m³/hour)",
+				FieldName: "M3WaterUsage",
+			},
 		},
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalRes, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err
 			}
 
-			versionsResponse := originalRes.(*applesilicon.ListServerTypesResponse)
+			client := core.ExtractClient(ctx)
 
-			return versionsResponse.ServerTypes, nil
+			req := argsI.(*applesilicon.ListServerTypesRequest)
+			serverTypes := originalRes.(*applesilicon.ListServerTypesResponse).ServerTypes
+
+			productAPI := productcatalog.NewPublicCatalogAPI(client)
+			environmentalImpact, err := productAPI.ListPublicCatalogProducts(
+				&productcatalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+					ProductTypes: []productcatalog.ListPublicCatalogProductsRequestProductType{
+						productcatalog.ListPublicCatalogProductsRequestProductTypeAppleSilicon,
+					},
+					Zone: &req.Zone,
+				},
+				scw.WithAllPages(),
+			)
+			if err != nil {
+				return nil, err
+			}
+
+			impactMap := make(map[string]*productcatalog.PublicCatalogProduct)
+			for _, impact := range environmentalImpact.Products {
+				if impact != nil {
+					key := strings.TrimSpace(strings.TrimPrefix(impact.Product, "Mac Mini "))
+					key = strings.ReplaceAll(key, " - ", "-")
+					impactMap[key] = impact
+				}
+			}
+
+			var customServerTypeList []customServerType
+			for _, severType := range serverTypes {
+				impact, ok := impactMap[severType.Name]
+				if !ok {
+					continue
+				}
+				customServerTypeList = append(customServerTypeList, customServerType{
+					ServerType:      severType,
+					KgCo2Equivalent: impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
+					M3WaterUsage:    impact.EnvironmentalImpactEstimation.M3WaterUsage,
+				})
+			}
+
+			return customServerTypeList, nil
 		},
 	)
 

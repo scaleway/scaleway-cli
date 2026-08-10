@@ -193,7 +193,7 @@ func lbLBList() *core.Command {
 		Resource:  "lb",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListLBsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -230,6 +230,13 @@ func lbLBList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "lb-ids.{index}",
+				Short:      `Filter by lb_ids, only Load Balancers with these IDs will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Load Balancers from this Organization will be returned`,
 				Required:   false,
@@ -248,12 +255,12 @@ func lbLBList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListLBsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -276,7 +283,7 @@ func lbLBCreate() *core.Command {
 		Resource:  "lb",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -340,7 +347,7 @@ func lbLBCreate() *core.Command {
 			},
 			{
 				Name:       "ssl-compatibility-level",
-				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort`,
+				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -363,13 +370,13 @@ func lbLBCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateLB(request)
+			return api.CreateLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -382,7 +389,7 @@ func lbLBGet() *core.Command {
 		Resource:  "lb",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -402,13 +409,13 @@ func lbLBGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetLB(request)
+			return api.GetLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -421,7 +428,7 @@ func lbLBUpdate() *core.Command {
 		Resource:  "lb",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -453,7 +460,7 @@ func lbLBUpdate() *core.Command {
 			},
 			{
 				Name:       "ssl-compatibility-level",
-				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems. Modern is suitable for services with clients that support TLS 1.3 and don't need backward compatibility. Old is compatible with a small number of very old clients and should be used only as a last resort`,
+				Short:      `Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -475,13 +482,13 @@ func lbLBUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateLB(request)
+			return api.UpdateLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -494,7 +501,7 @@ func lbLBDelete() *core.Command {
 		Resource:  "lb",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -521,12 +528,12 @@ func lbLBDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteLB(request)
+			e = api.DeleteLB(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -547,7 +554,7 @@ func lbLBMigrate() *core.Command {
 		Resource:  "lb",
 		Verb:      "migrate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIMigrateLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIMigrateLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -574,13 +581,13 @@ func lbLBMigrate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIMigrateLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.MigrateLB(request)
+			return api.MigrateLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -593,7 +600,7 @@ func lbIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListIPsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-address",
@@ -647,12 +654,12 @@ func lbIPList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListIPsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -675,7 +682,7 @@ func lbIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateIPRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -711,13 +718,13 @@ func lbIPCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateIP(request)
+			return api.CreateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -730,7 +737,7 @@ func lbIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetIPRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -750,13 +757,13 @@ func lbIPGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -769,7 +776,7 @@ func lbIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIReleaseIPRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIReleaseIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -789,12 +796,12 @@ func lbIPDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIReleaseIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.ReleaseIP(request)
+			e = api.ReleaseIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -815,7 +822,7 @@ func lbIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -856,13 +863,13 @@ func lbIPUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -875,7 +882,7 @@ func lbBackendList() *core.Command {
 		Resource:  "backend",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListBackendsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListBackendsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -916,12 +923,12 @@ func lbBackendList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListBackendsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -944,7 +951,7 @@ func lbBackendCreate() *core.Command {
 		Resource:  "backend",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateBackendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateBackendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1043,6 +1050,13 @@ func lbBackendCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "health-check.tcp-config",
+				Short:      `Object to configure a basic TCP health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "health-check.mysql-config.user",
 				Short:      `MySQL user to use for the health check`,
 				Required:   false,
@@ -1052,6 +1066,20 @@ func lbBackendCreate() *core.Command {
 			{
 				Name:       "health-check.pgsql-config.user",
 				Short:      `PostgreSQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.ldap-config",
+				Short:      `Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "health-check.redis-config",
+				Short:      `Object to configure a Redis health check. The response is analyzed to find the +PONG response message`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1258,13 +1286,13 @@ func lbBackendCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateBackendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateBackend(request)
+			return api.CreateBackend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1277,7 +1305,7 @@ func lbBackendGet() *core.Command {
 		Resource:  "backend",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetBackendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetBackendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
@@ -1297,13 +1325,13 @@ func lbBackendGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetBackendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetBackend(request)
+			return api.GetBackend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1316,7 +1344,7 @@ func lbBackendUpdate() *core.Command {
 		Resource:  "backend",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateBackendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateBackendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
@@ -1498,13 +1526,13 @@ func lbBackendUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateBackendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateBackend(request)
+			return api.UpdateBackend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1517,7 +1545,7 @@ func lbBackendDelete() *core.Command {
 		Resource:  "backend",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteBackendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteBackendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
@@ -1537,12 +1565,12 @@ func lbBackendDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteBackendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteBackend(request)
+			e = api.DeleteBackend(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1563,7 +1591,7 @@ func lbBackendAddServers() *core.Command {
 		Resource:  "backend",
 		Verb:      "add-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIAddBackendServersRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIAddBackendServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
@@ -1590,13 +1618,13 @@ func lbBackendAddServers() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIAddBackendServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.AddBackendServers(request)
+			return api.AddBackendServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1609,7 +1637,7 @@ func lbBackendRemoveServers() *core.Command {
 		Resource:  "backend",
 		Verb:      "remove-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIRemoveBackendServersRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIRemoveBackendServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
@@ -1636,13 +1664,13 @@ func lbBackendRemoveServers() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIRemoveBackendServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.RemoveBackendServers(request)
+			return api.RemoveBackendServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1655,7 +1683,7 @@ func lbBackendSetServers() *core.Command {
 		Resource:  "backend",
 		Verb:      "set-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPISetBackendServersRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPISetBackendServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backend-id",
@@ -1682,13 +1710,13 @@ func lbBackendSetServers() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPISetBackendServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.SetBackendServers(request)
+			return api.SetBackendServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1701,7 +1729,7 @@ func lbBackendUpdateHealthcheck() *core.Command {
 		Resource:  "backend",
 		Verb:      "update-healthcheck",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateHealthCheckRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateHealthCheckRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "port",
@@ -1746,6 +1774,13 @@ func lbBackendUpdateHealthcheck() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "tcp-config",
+				Short:      `Object to configure a basic TCP health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "mysql-config.user",
 				Short:      `MySQL user to use for the health check`,
 				Required:   false,
@@ -1755,6 +1790,20 @@ func lbBackendUpdateHealthcheck() *core.Command {
 			{
 				Name:       "pgsql-config.user",
 				Short:      `PostgreSQL user to use for the health check`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "ldap-config",
+				Short:      `Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "redis-config",
+				Short:      `Object to configure a Redis health check. The response is analyzed to find the +PONG response message`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1841,13 +1890,13 @@ func lbBackendUpdateHealthcheck() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateHealthCheckRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateHealthCheck(request)
+			return api.UpdateHealthCheck(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1860,7 +1909,7 @@ func lbFrontendList() *core.Command {
 		Resource:  "frontend",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListFrontendsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListFrontendsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -1901,12 +1950,12 @@ func lbFrontendList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListFrontendsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1929,7 +1978,7 @@ func lbFrontendCreate() *core.Command {
 		Resource:  "frontend",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateFrontendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateFrontendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1996,6 +2045,13 @@ func lbFrontendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-access-logs",
+				Short:      `Defines whether to enable access logs on the frontend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -2007,13 +2063,13 @@ func lbFrontendCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateFrontendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateFrontend(request)
+			return api.CreateFrontend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2026,7 +2082,7 @@ func lbFrontendGet() *core.Command {
 		Resource:  "frontend",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetFrontendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetFrontendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
@@ -2046,13 +2102,13 @@ func lbFrontendGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetFrontendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetFrontend(request)
+			return api.GetFrontend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2065,7 +2121,7 @@ func lbFrontendUpdate() *core.Command {
 		Resource:  "frontend",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateFrontendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateFrontendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
@@ -2131,6 +2187,13 @@ func lbFrontendUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-access-logs",
+				Short:      `Defines whether to enable access logs on the frontend`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -2142,13 +2205,13 @@ func lbFrontendUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateFrontendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateFrontend(request)
+			return api.UpdateFrontend(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2161,7 +2224,7 @@ func lbFrontendDelete() *core.Command {
 		Resource:  "frontend",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteFrontendRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteFrontendRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
@@ -2181,12 +2244,12 @@ func lbFrontendDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteFrontendRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteFrontend(request)
+			e = api.DeleteFrontend(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2202,12 +2265,12 @@ func lbFrontendDelete() *core.Command {
 func lbRouteList() *core.Command {
 	return &core.Command{
 		Short:     `List all routes`,
-		Long:      `List all routes for a given frontend. The response is an array of routes, each one  with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
+		Long:      `List all routes for a given frontend. The response is an array of routes, each one with a specified backend to direct to if a certain condition is matched (based on the value of the SNI field or HTTP Host header).`,
 		Namespace: "lb",
 		Resource:  "route",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListRoutesRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListRoutesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2239,12 +2302,12 @@ func lbRouteList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListRoutesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2267,7 +2330,7 @@ func lbRouteCreate() *core.Command {
 		Resource:  "route",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateRouteRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
@@ -2322,13 +2385,13 @@ func lbRouteCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateRoute(request)
+			return api.CreateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2341,7 +2404,7 @@ func lbRouteGet() *core.Command {
 		Resource:  "route",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetRouteRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -2361,13 +2424,13 @@ func lbRouteGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetRoute(request)
+			return api.GetRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2380,7 +2443,7 @@ func lbRouteUpdate() *core.Command {
 		Resource:  "route",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateRouteRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -2435,13 +2498,13 @@ func lbRouteUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateRoute(request)
+			return api.UpdateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2454,7 +2517,7 @@ func lbRouteDelete() *core.Command {
 		Resource:  "route",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteRouteRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -2474,12 +2537,12 @@ func lbRouteDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteRoute(request)
+			e = api.DeleteRoute(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2500,7 +2563,7 @@ func lbLBGetStats() *core.Command {
 		Resource:  "lb",
 		Verb:      "get-stats",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetLBStatsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetLBStatsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -2527,13 +2590,13 @@ func lbLBGetStats() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetLBStatsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetLBStats(request)
+			return api.GetLBStats(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2546,7 +2609,7 @@ func lbBackendListStatistics() *core.Command {
 		Resource:  "backend",
 		Verb:      "list-statistics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListBackendStatsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListBackendStatsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -2574,12 +2637,12 @@ func lbBackendListStatistics() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListBackendStatsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2602,7 +2665,7 @@ func lbACLList() *core.Command {
 		Resource:  "acl",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListACLsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListACLsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
@@ -2643,12 +2706,12 @@ func lbACLList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListACLsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2671,7 +2734,7 @@ func lbACLCreate() *core.Command {
 		Resource:  "acl",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateACLRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateACLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "frontend-id",
@@ -2799,13 +2862,13 @@ func lbACLCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateACLRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateACL(request)
+			return api.CreateACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2818,7 +2881,7 @@ func lbACLGet() *core.Command {
 		Resource:  "acl",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetACLRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetACLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -2838,13 +2901,13 @@ func lbACLGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetACLRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetACL(request)
+			return api.GetACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2857,7 +2920,7 @@ func lbACLUpdate() *core.Command {
 		Resource:  "acl",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateACLRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateACLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -2984,13 +3047,13 @@ func lbACLUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateACLRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateACL(request)
+			return api.UpdateACL(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3003,7 +3066,7 @@ func lbACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteACLRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteACLRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -3023,12 +3086,12 @@ func lbACLDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteACLRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteACL(request)
+			e = api.DeleteACL(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3049,7 +3112,7 @@ func lbACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPISetACLsRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPISetACLsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acls.{index}.name",
@@ -3176,13 +3239,13 @@ func lbACLSet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPISetACLsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.SetACLs(request)
+			return api.SetACLs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3195,7 +3258,7 @@ func lbCertificateCreate() *core.Command {
 		Resource:  "certificate",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateCertificateRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -3244,13 +3307,13 @@ func lbCertificateCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateCertificate(request)
+			return api.CreateCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3263,7 +3326,7 @@ func lbCertificateList() *core.Command {
 		Resource:  "certificate",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListCertificatesRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListCertificatesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -3304,12 +3367,12 @@ func lbCertificateList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListCertificatesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3370,7 +3433,7 @@ func lbCertificateGet() *core.Command {
 		Resource:  "certificate",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetCertificateRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "certificate-id",
@@ -3390,13 +3453,13 @@ func lbCertificateGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetCertificate(request)
+			return api.GetCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3409,7 +3472,7 @@ func lbCertificateUpdate() *core.Command {
 		Resource:  "certificate",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateCertificateRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "certificate-id",
@@ -3436,13 +3499,13 @@ func lbCertificateUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateCertificate(request)
+			return api.UpdateCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3455,7 +3518,7 @@ func lbCertificateDelete() *core.Command {
 		Resource:  "certificate",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteCertificateRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "certificate-id",
@@ -3475,12 +3538,12 @@ func lbCertificateDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteCertificate(request)
+			e = api.DeleteCertificate(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3501,7 +3564,7 @@ func lbLBTypesList() *core.Command {
 		Resource:  "lb-types",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBTypesRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListLBTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -3515,12 +3578,12 @@ func lbLBTypesList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListLBTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3543,7 +3606,7 @@ func lbSubscriberCreate() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPICreateSubscriberRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPICreateSubscriberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -3579,13 +3642,13 @@ func lbSubscriberCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPICreateSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.CreateSubscriber(request)
+			return api.CreateSubscriber(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3598,7 +3661,7 @@ func lbSubscriberGet() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIGetSubscriberRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIGetSubscriberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "subscriber-id",
@@ -3618,13 +3681,13 @@ func lbSubscriberGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIGetSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.GetSubscriber(request)
+			return api.GetSubscriber(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3637,7 +3700,7 @@ func lbSubscriberList() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListSubscriberRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListSubscriberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3685,12 +3748,12 @@ func lbSubscriberList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3713,7 +3776,7 @@ func lbSubscriberUpdate() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUpdateSubscriberRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUpdateSubscriberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "subscriber-id",
@@ -3754,13 +3817,13 @@ func lbSubscriberUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUpdateSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UpdateSubscriber(request)
+			return api.UpdateSubscriber(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3773,7 +3836,7 @@ func lbSubscriberDelete() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDeleteSubscriberRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDeleteSubscriberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "subscriber-id",
@@ -3793,12 +3856,12 @@ func lbSubscriberDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDeleteSubscriberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DeleteSubscriber(request)
+			e = api.DeleteSubscriber(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3819,7 +3882,7 @@ func lbSubscriberSubscribe() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "subscribe",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPISubscribeToLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPISubscribeToLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -3846,13 +3909,13 @@ func lbSubscriberSubscribe() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPISubscribeToLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.SubscribeToLB(request)
+			return api.SubscribeToLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3865,7 +3928,7 @@ func lbSubscriberUnsubscribe() *core.Command {
 		Resource:  "subscriber",
 		Verb:      "unsubscribe",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIUnsubscribeFromLBRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIUnsubscribeFromLBRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -3885,13 +3948,13 @@ func lbSubscriberUnsubscribe() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIUnsubscribeFromLBRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.UnsubscribeFromLB(request)
+			return api.UnsubscribeFromLB(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3904,7 +3967,7 @@ func lbPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIListLBPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIListLBPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3936,12 +3999,12 @@ func lbPrivateNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIListLBPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3964,7 +4027,7 @@ func lbPrivateNetworkAttach() *core.Command {
 		Resource:  "private-network",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIAttachPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIAttachPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -3998,13 +4061,13 @@ func lbPrivateNetworkAttach() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIAttachPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
 
-			return api.AttachPrivateNetwork(request)
+			return api.AttachPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4017,7 +4080,7 @@ func lbPrivateNetworkDetach() *core.Command {
 		Resource:  "private-network",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(lb.ZonedAPIDetachPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[lb.ZonedAPIDetachPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "lb-id",
@@ -4044,12 +4107,12 @@ func lbPrivateNetworkDetach() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*lb.ZonedAPIDetachPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := lb.NewZonedAPI(client)
-			e = api.DetachPrivateNetwork(request)
+			e = api.DetachPrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

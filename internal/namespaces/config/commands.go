@@ -6,11 +6,14 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"os/exec"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/tabwriter"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
@@ -27,6 +30,7 @@ func GetCommands() *core.Commands {
 		configUnsetCommand(),
 		configDumpCommand(),
 		configProfileCommand(),
+		configListProfilesCommand(),
 		configDeleteProfileCommand(),
 		configActivateProfileCommand(),
 		configResetCommand(),
@@ -34,6 +38,7 @@ func GetCommands() *core.Commands {
 		configInfoCommand(),
 		configImportCommand(),
 		configValidateCommand(),
+		configEditCommand(),
 	)
 }
 
@@ -136,7 +141,7 @@ func configGetCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Get the default organization ID",
-				Raw:   "scw config get default_organization_id",
+				Raw:   "scw config get default-organization-id",
 			},
 			{
 				Short: "Get the default region of the profile 'prod'",
@@ -149,7 +154,7 @@ func configGetCommand() *core.Command {
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			if err != nil {
 				return nil, err
@@ -169,11 +174,11 @@ func configGetCommand() *core.Command {
 
 // configSetCommand sets a value for the scaleway config
 func configSetCommand() *core.Command {
-	allRegions := []string(nil)
+	allRegions := make([]string, 0, len(scw.AllRegions))
 	for _, region := range scw.AllRegions {
 		allRegions = append(allRegions, region.String())
 	}
-	allZones := []string(nil)
+	allZones := make([]string, 0, len(scw.AllZones))
 	for _, zone := range scw.AllZones {
 		allZones = append(allZones, zone.String())
 	}
@@ -191,7 +196,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "access-key",
 				Short: "A Scaleway access key",
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if !reflect.ValueOf(value).IsNil() &&
 						!validation.IsAccessKey(*value.(*string)) {
 						return core.InvalidAccessKeyError(*value.(*string))
@@ -203,7 +208,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "secret-key",
 				Short: "A Scaleway secret key",
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if !reflect.ValueOf(value).IsNil() &&
 						!validation.IsSecretKey(*value.(*string)) {
 						return core.InvalidSecretKeyError(*value.(*string))
@@ -215,7 +220,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "api-url",
 				Short: "Scaleway API URL",
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if !reflect.ValueOf(value).IsNil() && !validation.IsURL(*value.(*string)) {
 						return fmt.Errorf("%s is not a valid URL", *value.(*string))
 					}
@@ -230,7 +235,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "default-organization-id",
 				Short: "A default Scaleway organization id",
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if !reflect.ValueOf(value).IsNil() &&
 						!validation.IsOrganizationID(*value.(*string)) {
 						return core.InvalidOrganizationIDError(*value.(*string))
@@ -242,7 +247,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			{
 				Name:  "default-project-id",
 				Short: "A default Scaleway project id",
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					if !reflect.ValueOf(value).IsNil() &&
 						!validation.IsProjectID(*value.(*string)) {
 						return core.InvalidProjectIDError(*value.(*string))
@@ -282,7 +287,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			// Validate arguments
 			args := argsI.(*scw.Profile)
 
@@ -290,12 +295,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
-				if strings.Contains(err.Error(), "no such file or directory") {
-					fmt.Fprintln(os.Stdout, "config file not found, will attempt to create it")
-					config = &scw.Config{}
-				} else {
-					return nil, err
-				}
+				return nil, err
 			}
 
 			// send_telemetry is the only key that is not in a profile but in the config object directly
@@ -321,6 +321,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 					profileValue.Field(i).Set(field)
 				}
 			}
+
 			// Save
 			err = config.SaveTo(configPath)
 			if err != nil {
@@ -356,7 +357,7 @@ func configUnsetCommand() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
@@ -403,7 +404,7 @@ func configDumpCommand() *core.Command {
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
@@ -422,6 +423,54 @@ func configProfileCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "profile",
 		AllowAnonymousClient: true,
+	}
+}
+
+// configListProfilesCommand lists all profiles in the config file
+func configListProfilesCommand() *core.Command {
+	return &core.Command{
+		Groups:               []string{"config"},
+		Short:                `List all profiles in the config file`,
+		Namespace:            "config",
+		Resource:             "profile",
+		Verb:                 "list",
+		AllowAnonymousClient: true,
+		ArgsType:             reflect.TypeOf(struct{}{}),
+		ArgSpecs:             core.ArgSpecs{},
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+			config, err := scw.LoadConfigFromPath(configPath)
+			type profile struct {
+				Name                  string
+				DefaultZone           *string
+				DefaultRegion         *string
+				DefaultProjectID      *string
+				DefaultOrganizationID *string
+				APIURL                *string
+			}
+			if err != nil {
+				return nil, err
+			}
+
+			profiles := []profile{}
+
+			for key, value := range config.Profiles {
+				profiles = append(profiles, profile{
+					Name:                  key,
+					DefaultRegion:         value.DefaultRegion,
+					DefaultZone:           value.DefaultZone,
+					DefaultOrganizationID: value.DefaultOrganizationID,
+					DefaultProjectID:      value.DefaultProjectID,
+					APIURL:                value.APIURL,
+				})
+			}
+
+			sort.Slice(profiles, func(i, j int) bool {
+				return profiles[i].Name < profiles[j].Name
+			})
+
+			return profiles, nil
+		},
 	}
 }
 
@@ -446,7 +495,7 @@ func configDeleteProfileCommand() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			profileName := argsI.(*configDeleteProfileArgs).Name
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
@@ -492,7 +541,7 @@ func configActivateProfileCommand() *core.Command {
 				AutoCompleteFunc: core.AutocompleteProfileName(),
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			profileName := argsI.(*configActiveProfileArgs).ProfileName
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
@@ -532,7 +581,7 @@ func configResetCommand() *core.Command {
 		Resource:             "reset",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configResetArgs{}),
-		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ any) (i any, e error) {
 			_, err := scw.LoadConfig()
 			if err != nil {
 				return nil, err
@@ -561,7 +610,7 @@ func configDestroyCommand() *core.Command {
 		Resource:             "destroy",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configDestroyArgs{}),
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			err := os.Remove(configPath)
 			if err != nil {
@@ -603,7 +652,7 @@ func configInfoCommand() *core.Command {
 				Command: "scw config",
 			},
 		},
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			config, err := scw.LoadConfigFromPath(core.ExtractConfigPath(ctx))
 			if err != nil {
 				return nil, err
@@ -613,11 +662,11 @@ func configInfoCommand() *core.Command {
 
 			// Search for env variable that will override profile
 			// Will be used to display them
-			overridedVariables := []string(nil)
+			overriddenVariables := []string(nil)
 			for _, key := range getProfileKeys() {
 				value, err := getProfileField(profileEnv, key)
 				if err == nil && !value.IsZero() {
-					overridedVariables = append(overridedVariables, key)
+					overriddenVariables = append(overriddenVariables, key)
 				}
 			}
 
@@ -638,9 +687,9 @@ func configInfoCommand() *core.Command {
 				}
 			}
 
-			if len(overridedVariables) > 0 {
+			if len(overriddenVariables) > 0 {
 				msg := "Some variables are overridden by the environment: " + strings.Join(
-					overridedVariables,
+					overriddenVariables,
 					", ",
 				)
 				fmt.Println(terminal.Style(msg, color.FgRed))
@@ -680,7 +729,7 @@ func configImportCommand() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*configImportArgs)
 			configPath := core.ExtractConfigPath(ctx)
 
@@ -698,11 +747,8 @@ func configImportCommand() *core.Command {
 			importedConfig, err := scw.LoadConfigFromPath(args.File)
 			if err != nil {
 				return nil, err
-			}
-			importedProfile := importedConfig.Profile
-
-			// Merge the imported configurations into the existing configuration
-			currentConfig.Profile = *scw.MergeProfiles(currentProfile, &importedProfile)
+			} // Merge the imported configurations into the existing configuration
+			currentConfig.Profile = *scw.MergeProfiles(currentProfile, new(importedConfig.Profile))
 
 			for profileName, profile := range importedConfig.Profiles {
 				existingProfile, exists := currentConfig.Profiles[profileName]
@@ -747,7 +793,7 @@ The command goes through each profile present in the config file and validates i
 		Resource:             "validate",
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(configValidateArgs{}),
-		Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
@@ -774,8 +820,40 @@ The command goes through each profile present in the config file and validates i
 	}
 }
 
+func configEditCommand() *core.Command {
+	type configEditArgs struct{}
+
+	return &core.Command{
+		Namespace:            "config",
+		Resource:             "edit",
+		Short:                "Edit the configuration file",
+		Long:                 "Edit the configuration file with the default editor",
+		ArgsType:             reflect.TypeOf(configEditArgs{}),
+		AllowAnonymousClient: true,
+		Run: func(ctx context.Context, _ any) (i any, e error) {
+			configPath := core.ExtractConfigPath(ctx)
+
+			defaultEditor := config.GetDefaultEditor()
+			args := []string{configPath}
+
+			cmd := exec.Command(defaultEditor, args...)
+			cmd.Stdin = os.Stdin
+			cmd.Stdout = os.Stdout
+
+			err := cmd.Run()
+			if err != nil {
+				return nil, fmt.Errorf("failed to edit file %q: %w", configPath, err)
+			}
+
+			return &core.SuccessResult{
+				Message: "successfully wrote config",
+			}, nil
+		},
+	}
+}
+
 // Helper functions
-func getProfileValue(profile *scw.Profile, fieldName string) (interface{}, error) {
+func getProfileValue(profile *scw.Profile, fieldName string) (any, error) {
 	field, err := getProfileField(profile, fieldName)
 	if err != nil {
 		return nil, err
@@ -806,13 +884,12 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 func getProfileKeys() []string {
 	t := reflect.TypeOf(scw.Profile{})
 	keys := []string{}
-	for i := range t.NumField() {
-		field := t.Field(i)
+	for field := range t.Fields() {
 		switch field.Name {
 		case "APIURL":
 			keys = append(keys, "api-url")
 		default:
-			keys = append(keys, strcase.ToBashArg(t.Field(i).Name))
+			keys = append(keys, strcase.ToBashArg(field.Name))
 		}
 	}
 

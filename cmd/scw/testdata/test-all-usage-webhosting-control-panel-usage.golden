@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Control panels represent the kind of administration panel to manage your Web Hosting plan, cPanel or plesk.
 
 USAGE:
@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        "List the control panels type: cpanel or plesk."
 
 FLAGS:
-  -h, --help   help for control-panel
+  -h, --help                help for control-panel
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

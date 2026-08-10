@@ -25,14 +25,15 @@ var (
 	}
 )
 
-type customImage struct {
+type CustomImage struct {
 	registry.Image
 	FullName           string
 	ExplicitVisibility string `json:"-"`
 }
 
 func imageGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*registry.GetImageRequest)
 		getImageResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -43,13 +44,14 @@ func imageGetBuilder(c *core.Command) *core.Command {
 		api := registry.NewAPI(client)
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			Region:      request.Region,
 			NamespaceID: image.NamespaceID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return getImageResp, err
 		}
 
-		res := customImage{
+		res := CustomImage{
 			Image:    *image,
 			FullName: fmt.Sprintf("%s/%s", namespace.Endpoint, image.Name),
 		}
@@ -94,7 +96,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		listImageResp, err := runner(ctx, argsI)
 		if err != nil {
 			return listImageResp, err
@@ -104,7 +106,10 @@ func imageListBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := registry.NewAPI(client)
 
-		namespaces, err := api.ListNamespaces(&registry.ListNamespacesRequest{}, scw.WithAllPages())
+		request := argsI.(*registry.ListImagesRequest)
+		namespaces, err := api.ListNamespaces(&registry.ListNamespacesRequest{
+			Region: request.Region,
+		}, scw.WithContext(ctx), scw.WithAllPages())
 		if err != nil {
 			return listImageResp, err
 		}
@@ -120,9 +125,9 @@ func imageListBuilder(c *core.Command) *core.Command {
 			}
 		}
 
-		var customRes []customImage
+		var customRes []CustomImage
 		for _, image := range listImage {
-			img := customImage{
+			img := CustomImage{
 				Image: *image,
 				FullName: fmt.Sprintf(
 					"%s/%s",

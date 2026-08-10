@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   update      Update a DHCP entry
 
 FLAGS:
-  -h, --help   help for dhcp-entry
+  -h, --help                help for dhcp-entry
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

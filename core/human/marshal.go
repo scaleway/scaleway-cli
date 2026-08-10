@@ -26,7 +26,15 @@ type Marshaler interface {
 	MarshalHuman() (string, error)
 }
 
-func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
+// Validates fields containing <index> placeholders
+func validateIndexedField(t reflect.Type, fieldName string) error {
+	testFieldName := strings.ReplaceAll(fieldName, "<index>", "0")
+	_, err := gofields.GetType(t, testFieldName)
+
+	return err
+}
+
+func Marshal(data any, opt *MarshalOpt) (string, error) {
 	if opt == nil {
 		opt = &MarshalOpt{}
 	}
@@ -72,7 +80,7 @@ func Marshal(data interface{}, opt *MarshalOpt) (string, error) {
 		return rValue.Interface().(fmt.Stringer).String(), nil
 
 	// If data is a pointer dereference an call Marshal again
-	case rType.Kind() == reflect.Ptr:
+	case rType.Kind() == reflect.Pointer:
 		return Marshal(rValue.Elem().Interface(), opt)
 
 	// If data is a slice uses marshalSlice
@@ -140,7 +148,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 				{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()},
 			}, nil
 
-		case rType.Kind() == reflect.Ptr:
+		case rType.Kind() == reflect.Pointer:
 			// If type is a pointer we Marshal pointer.Elem()
 			return marshal(value.Elem(), keys)
 
@@ -240,7 +248,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 
 	var recFunc func(v reflect.Type, parent []int)
 	recFunc = func(v reflect.Type, parent []int) {
-		for v.Kind() == reflect.Ptr {
+		for v.Kind() == reflect.Pointer {
 			v = v.Elem()
 		}
 
@@ -257,7 +265,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 	}
 	recFunc(v, []int(nil))
 
-	result := [][]int(nil)
+	result := make([][]int, 0, len(found))
 	for _, value := range found {
 		result = append(result, value)
 	}
@@ -280,7 +288,7 @@ func GetStructFieldsIndex(v reflect.Type) [][]int {
 func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 	// Resole itemType and get rid of all pointer level if needed.
 	itemType := slice.Type().Elem()
-	for itemType.Kind() == reflect.Ptr {
+	for itemType.Kind() == reflect.Pointer {
 		itemType = itemType.Elem()
 	}
 
@@ -298,11 +306,20 @@ func marshalSlice(slice reflect.Value, opt *MarshalOpt) (string, error) {
 
 	// Validate that all field exist
 	for _, f := range opt.Fields {
-		_, err := gofields.GetType(itemType, f.FieldName)
-		if err != nil {
-			return "", &UnknownFieldError{
-				FieldName:   f.FieldName,
-				ValidFields: gofields.ListFields(itemType),
+		if strings.Contains(f.FieldName, "<index>") {
+			if err := validateIndexedField(itemType, f.FieldName); err != nil {
+				return "", &UnknownFieldError{
+					FieldName:   f.FieldName,
+					ValidFields: gofields.ListFields(itemType),
+				}
+			}
+		} else {
+			_, err := gofields.GetType(itemType, f.FieldName)
+			if err != nil {
+				return "", &UnknownFieldError{
+					FieldName:   f.FieldName,
+					ValidFields: gofields.ListFields(itemType),
+				}
 			}
 		}
 	}
@@ -361,7 +378,7 @@ func marshalInlineSlice(slice reflect.Value) (string, error) {
 	}
 
 	itemType := slice.Type().Elem()
-	for itemType.Kind() == reflect.Ptr {
+	for itemType.Kind() == reflect.Pointer {
 		itemType = itemType.Elem()
 	}
 
@@ -461,8 +478,7 @@ func computeMaxCols(grid [][]string) int {
 func getDefaultFieldsOpt(t reflect.Type) []*MarshalFieldOpt {
 	results := []*MarshalFieldOpt(nil)
 	// Loop through all struct field
-	for fieldIdx := range t.NumField() {
-		field := t.Field(fieldIdx)
+	for field := range t.Fields() {
 		fieldType := field.Type
 
 		if field.Anonymous {

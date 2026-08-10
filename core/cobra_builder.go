@@ -2,6 +2,8 @@ package core
 
 import (
 	"context"
+	"fmt"
+	"sort"
 	"strings"
 
 	"github.com/spf13/cobra"
@@ -21,7 +23,6 @@ func init() {
 type cobraBuilder struct {
 	commands *Commands
 	meta     *Meta
-	ctx      context.Context
 }
 
 // build creates the cobra root command.
@@ -50,7 +51,7 @@ func (b *cobraBuilder) build() *cobra.Command {
 	// Disable autocomplete commands from Cobra we should study whether or not we could use instead of our own logic
 	rootCmd.CompletionOptions.DisableDefaultCmd = true
 
-	rootCmd.SetOut(b.meta.stderr)
+	rootCmd.SetOut(b.meta.stdout)
 
 	for _, cmd := range commands {
 		// If namespace command has not yet been created. We create an empty cobra command to allow leaf to be attached.
@@ -104,6 +105,37 @@ func (b *cobraBuilder) build() *cobra.Command {
 // hydrateCobra hydrates a cobra command from a *Command.
 // Field like Short, Long will be copied over.
 // More complex field like PreRun or Run will also be generated if needed.
+// printAllSubCommands prints all subcommands of a given cobra command in a hierarchical format
+func printAllSubCommands(cmd *cobra.Command, level int) {
+	indent := strings.Repeat("  ", level)
+
+	// Format the command name and description
+	var desc string
+	if cmd.Short != "" {
+		desc = " - " + cmd.Short
+	}
+	fmt.Printf("%s%s%s\n", indent, cmd.Name(), desc)
+
+	// Collect and sort subcommands alphabetically
+	var subCommands []*cobra.Command
+	for _, subCmd := range cmd.Commands() {
+		if !subCmd.IsAvailableCommand() || subCmd.Hidden {
+			continue
+		}
+		subCommands = append(subCommands, subCmd)
+	}
+
+	// Sort subcommands by name
+	sort.Slice(subCommands, func(i, j int) bool {
+		return subCommands[i].Name() < subCommands[j].Name()
+	})
+
+	// Recursively print all subcommands
+	for _, subCmd := range subCommands {
+		printAllSubCommands(subCmd, level+1)
+	}
+}
+
 func (b *cobraBuilder) hydrateCobra(
 	cobraCmd *cobra.Command,
 	cmd *Command,
@@ -118,21 +150,21 @@ func (b *cobraBuilder) hydrateCobra(
 
 	// Use a custom function to print usage
 	// This function will build usage to avoid building it for each commands
-	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func() {
+	cobraCmd.SetUsageFunc(usageFuncBuilder(cobraCmd, func(ctx context.Context) {
 		if cobraCmd.Annotations == nil {
 			cobraCmd.Annotations = make(map[string]string)
 		}
 
 		if len(cmd.Aliases) > 0 {
-			cobraCmd.Annotations["Aliases"] = buildUsageAliases(b.ctx, cmd)
+			cobraCmd.Annotations["Aliases"] = buildUsageAliases(ctx, cmd)
 		}
 
 		if cmd.ArgsType != nil {
-			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(b.ctx, cmd, false)
+			cobraCmd.Annotations["UsageArgs"] = BuildUsageArgs(ctx, cmd, false)
 		}
 
 		if cmd.ArgSpecs != nil {
-			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(b.ctx, cmd, true)
+			cobraCmd.Annotations["UsageDeprecatedArgs"] = BuildUsageArgs(ctx, cmd, true)
 		}
 
 		if cmd.Examples != nil {
@@ -143,11 +175,11 @@ func (b *cobraBuilder) hydrateCobra(
 			cobraCmd.Annotations["SeeAlsos"] = cmd.seeAlsosAsStr()
 		}
 
-		cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(b.ctx), b.commands)
+		cobraCmd.Annotations["CommandUsage"] = cmd.GetUsage(ExtractBinaryName(ctx), b.commands)
 	}))
 
 	if cmd.Run != nil {
-		cobraCmd.RunE = cobraRun(b.ctx, cmd)
+		cobraCmd.RunE = cobraRun(cmd)
 	} else {
 		// If command is not runnable we create a default run function that
 		// will print usage of the parent command and exit with code 1
@@ -184,8 +216,11 @@ func (b *cobraBuilder) hydrateCobra(
 	}
 
 	if commandHasWeb(cmd) {
-		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current ressource")
+		cobraCmd.PersistentFlags().Bool("web", false, "open console page for the current resource")
 	}
+
+	// Add --list-sub-commands flag to list all subcommands
+	cobraCmd.PersistentFlags().Bool("list-sub-commands", false, "List all subcommands")
 }
 
 const usageTemplate = `USAGE:

@@ -160,7 +160,7 @@ func dnsRecordAddCommand() *core.Command {
 	}
 }
 
-func dnsRecordAddRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func dnsRecordAddRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*dnsRecordAddRequest)
 
 	dnsRecordAddReq := &domain.UpdateDNSZoneRecordsRequest{

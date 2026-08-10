@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new group. You must define the `name` and `organization_id` parameters in the request.
 
 USAGE:
@@ -16,7 +16,8 @@ ARGS:
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,15 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.
 
 USAGE:
   scw vpc-gw gateway-type <command>
 
 AVAILABLE COMMANDS:
-  list-v2     List Public Gateway types
+  list        List Public Gateway types
 
 FLAGS:
-  -h, --help   help for gateway-type
+  -h, --help                help for gateway-type
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"path"
 	"regexp"
+	"strings"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -26,12 +27,13 @@ func checkConfig(
 }
 
 func appendArgs(prefix string, args map[string]string) string {
-	cmd := prefix
+	var builder strings.Builder
+	builder.WriteString(prefix)
 	for k, v := range args {
-		cmd += fmt.Sprintf(" %s=%s", k, v)
+		fmt.Fprintf(&builder, " %s=%s", k, v)
 	}
 
-	return cmd
+	return builder.String()
 }
 
 func beforeFuncSaveConfig(config *scw.Config) core.BeforeFunc {
@@ -122,7 +124,7 @@ func TestInit(t *testing.T) {
 				"test": {
 					AccessKey:   &dummyAccessKey,
 					SecretKey:   &dummySecretKey,
-					DefaultZone: scw.StringPtr("fr-test"), // Used to check profile override
+					DefaultZone: new("fr-test"), // Used to check profile override
 				},
 			},
 		}

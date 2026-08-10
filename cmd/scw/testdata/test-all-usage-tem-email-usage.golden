@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This section lists your emails and shows you how to manage them.
 
 USAGE:
@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   list           List emails
 
 FLAGS:
-  -h, --help   help for email
+  -h, --help                help for email
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

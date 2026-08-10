@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Instances are computing units providing resources to run your applications on.
 Scaleway offers various Instance types including **Virtual Instances** and **dedicated GPU Instances**.
 **Note: Instances can be referenced as "servers" in API endpoints.**
@@ -9,14 +9,16 @@ USAGE:
 
 AVAILABLE COMMANDS:
   action               Perform a raw API action on a server
+  attach-filesystem    Attach a filesystem volume to an Instance
   attach-ip            Attach an IP to a server
-  attach-volume        Attach a volume to a server
+  attach-volume        Attach a volume to an Instance
   backup               Backup server
   console              Connect to the serial console of an instance
   create               Create server
   delete               Delete server
+  detach-filesystem    Detach a filesystem volume from an Instance
   detach-ip            Detach an IP from a server
-  detach-volume        Detach a volume from its server
+  detach-volume        Detach a volume from an Instance
   enable-routed-ip     Migrate server to IP mobility
   get                  Get an Instance
   get-compatible-types Get Instance compatible types
@@ -35,8 +37,9 @@ WORKFLOW COMMANDS:
   wait                 Wait for server to reach a stable state
 
 FLAGS:
-  -h, --help   help for server
-      --web    open console page for the current ressource
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,6 +1,7 @@
 package iam_test
 
 import (
+	"os"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -9,7 +10,15 @@ import (
 	iamSdk "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
 )
 
+const (
+	TestMemberID = "e7a35342-d125-42e3-a0d8-f2f378abd1de" // ID for the test-cli-iam-membership-api-key Member
+)
+
 func Test_iamAPIKeyGet(t *testing.T) {
+	if isNightly := os.Getenv("SLACK_WEBHOOK_NIGHTLY"); isNightly != "" {
+		t.Skip()
+	}
+
 	commands := iam.GetCommands()
 	commands.Merge(account.GetCommands())
 
@@ -26,70 +35,101 @@ func Test_iamAPIKeyGet(t *testing.T) {
 		create a member API Key from the organization owner (no impersonation).
 	*/
 
-	userResulter := func(result any) any {
-		users := result.([]*iamSdk.User)
-		if users == nil {
-			panic("users is nil")
-		}
-		if len(users) == 0 {
-			panic("no user found")
-		}
+	t.Run("GetOwnerAPIKey", func(t *testing.T) {
+		userResulter := newSliceResulter(t, "*iamSdk.User", func(users []*iamSdk.User) any {
+			return users[0].ID
+		})
 
-		return users[0].ID
-	}
+		apiKeyResulter := newSliceResulter(t, "*iamSdk.APIKey", func(keys []*iamSdk.APIKey) any {
+			return keys[0].AccessKey
+		})
 
-	apiKeyResulter := func(result any) any {
-		apiKeys := result.([]*iamSdk.APIKey)
-		if apiKeys == nil {
-			panic("apiKeys is nil")
-		}
-		if len(apiKeys) == 0 {
-			panic("no api key found")
-		}
+		core.Test(&core.TestConfig{
+			Commands: commands,
+			BeforeFunc: core.BeforeFuncCombine(
+				core.ExecStoreBeforeCmdWithResulter(
+					"owner",
+					"scw iam user list type=owner",
+					userResulter,
+				),
 
-		return apiKeys[0].AccessKey
-	}
-
-	t.Run("GetOwnerAPIKey", core.Test(&core.TestConfig{
-		Commands: commands,
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmdWithResulter(
-				"owner",
-				"scw iam user list type=owner",
-				userResulter,
+				core.ExecStoreBeforeCmdWithResulter(
+					"ownerAPIKey",
+					"scw iam api-key list bearer-id={{ .owner }}",
+					apiKeyResulter,
+				),
 			),
+			Cmd: `scw iam api-key get {{ .ownerAPIKey }}`,
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+		})(t)
+	})
 
-			core.ExecStoreBeforeCmdWithResulter(
-				"ownerAPIKey",
-				"scw iam api-key list bearer-id={{ .owner }}",
-				apiKeyResulter,
-			),
-		),
-		Cmd: `scw iam api-key get {{ .ownerAPIKey }}`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
+	t.Run("GetMemberAPIKey", func(t *testing.T) {
+		userResulter := newSliceResulter(t, "*iamSdk.User", func(users []*iamSdk.User) any {
+			return users[0].ID
+		})
 
-	t.Run("GetMemberAPIKey", core.Test(&core.TestConfig{
-		Commands: commands,
-		BeforeFunc: core.BeforeFuncCombine(
-			core.ExecStoreBeforeCmdWithResulter(
-				"member",
-				"scw iam user list type=member",
-				userResulter,
+		apiKeyResulter := newSliceResulter(t, "*iamSdk.APIKey", func(keys []*iamSdk.APIKey) any {
+			return keys[0].AccessKey
+		})
+
+		core.Test(&core.TestConfig{
+			Commands: commands,
+			BeforeFunc: core.BeforeFuncCombine(
+				core.ExecStoreBeforeCmdWithResulter(
+					"member",
+					"scw iam user list type=member user-ids.0="+TestMemberID,
+					userResulter,
+				),
+				core.ExecStoreBeforeCmdWithResulter(
+					"memberAPIKey",
+					"scw iam api-key list bearer-id={{ .member }}",
+					apiKeyResulter,
+				),
 			),
-			core.ExecStoreBeforeCmdWithResulter(
-				"memberAPIKey",
-				"scw iam api-key list bearer-id={{ .member }}",
-				apiKeyResulter,
+			Cmd: `scw iam api-key get {{ .memberAPIKey }}`,
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
 			),
-		),
-		Cmd: `scw iam api-key get {{ .memberAPIKey }}`,
-		Check: core.TestCheckCombine(
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-	}))
+		})(t)
+	})
+
+	t.Run("GetApplicationAPIKey", func(t *testing.T) {
+		appResulter := newSliceResulter(
+			t,
+			"*iamSdk.Application",
+			func(apps []*iamSdk.Application) any {
+				return apps[0].ID
+			},
+		)
+
+		apiKeyResulter := newSliceResulter(t, "*iamSdk.APIKey", func(keys []*iamSdk.APIKey) any {
+			return keys[0].AccessKey
+		})
+
+		core.Test(&core.TestConfig{
+			Commands: commands,
+			BeforeFunc: core.BeforeFuncCombine(
+				core.ExecStoreBeforeCmdWithResulter(
+					"application",
+					"scw iam application list name=test-cli-iam-application-api-key",
+					appResulter,
+				),
+				core.ExecStoreBeforeCmdWithResulter(
+					"applicationAPIKey",
+					"scw iam api-key list bearer-id={{ .application }}",
+					apiKeyResulter,
+				),
+			),
+			Cmd: `scw iam api-key get {{ .applicationAPIKey }}`,
+			Check: core.TestCheckCombine(
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+		})(t)
+	})
 }

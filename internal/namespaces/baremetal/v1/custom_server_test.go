@@ -10,19 +10,14 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-const (
-	offerName = "EM-B220E-NVME"
-	region    = "fr-par-1"
-)
-
 func Test_StartServerErrors(t *testing.T) {
 	t.Run("Error: cannot be started while not delivered", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			func(ctx *core.BeforeFuncCtx) error {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: "EM-B111X-SATA",
-					Zone:      region,
+					OfferName: offerNameSATA,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -30,10 +25,10 @@ func Test_StartServerErrors(t *testing.T) {
 
 				return nil
 			},
-			createServer("Server", "EM-B111X-SATA"),
+			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
-		Cmd:      "scw baremetal server start zone=" + region + " {{ .Server.ID }}",
+		Cmd:      "scw baremetal server start zone=" + zone + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -45,7 +40,7 @@ func Test_StartServerErrors(t *testing.T) {
 				_, err := api.WaitForServer(&baremetalSDK.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
-					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
+					Timeout:       new(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 
@@ -62,8 +57,8 @@ func Test_StopServerErrors(t *testing.T) {
 			func(ctx *core.BeforeFuncCtx) error {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: "EM-B111X-SATA",
-					Zone:      region,
+					OfferName: offerNameSATA,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -71,10 +66,10 @@ func Test_StopServerErrors(t *testing.T) {
 
 				return nil
 			},
-			createServer("Server", "EM-B111X-SATA"),
+			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
-		Cmd:      "scw baremetal server stop zone=" + region + " {{ .Server.ID }}",
+		Cmd:      "scw baremetal server stop zone=" + zone + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -86,7 +81,7 @@ func Test_StopServerErrors(t *testing.T) {
 				_, err := api.WaitForServer(&baremetalSDK.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
-					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
+					Timeout:       new(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 
@@ -103,8 +98,8 @@ func Test_RebootServerErrors(t *testing.T) {
 			func(ctx *core.BeforeFuncCtx) error {
 				api := baremetalSDK.NewAPI(ctx.Client)
 				server, _ := api.GetOfferByName(&baremetalSDK.GetOfferByNameRequest{
-					OfferName: "EM-B111X-SATA",
-					Zone:      region,
+					OfferName: offerNameSATA,
+					Zone:      scw.Zone(zone),
 				})
 				if server.Stock != baremetalSDK.OfferStockAvailable {
 					return errors.New("offer out of stock")
@@ -112,10 +107,10 @@ func Test_RebootServerErrors(t *testing.T) {
 
 				return nil
 			},
-			createServer("Server", "EM-B111X-SATA"),
+			createServer("Server", offerNameSATA),
 		),
 		Commands: baremetal.GetCommands(),
-		Cmd:      "scw baremetal server reboot zone=" + region + " {{ .Server.ID }}",
+		Cmd:      "scw baremetal server reboot zone=" + zone + " {{ .Server.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
@@ -127,7 +122,7 @@ func Test_RebootServerErrors(t *testing.T) {
 				_, err := api.WaitForServer(&baremetalSDK.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
-					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
+					Timeout:       new(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 

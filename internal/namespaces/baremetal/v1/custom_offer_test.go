@@ -15,3 +15,11 @@ func Test_baremetalGetOffer(t *testing.T) {
 		Check:    core.TestCheckGolden(),
 	}))
 }
+
+func Test_baremetalListOffer(t *testing.T) {
+	t.Run("Simple", core.Test(&core.TestConfig{
+		Commands: baremetal.GetCommands(),
+		Cmd:      "scw baremetal offer list",
+		Check:    core.TestCheckGolden(),
+	}))
+}

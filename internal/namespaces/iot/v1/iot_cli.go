@@ -108,7 +108,7 @@ func iotHubList() *core.Command {
 		Resource:  "hub",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListHubsRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListHubsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -155,12 +155,12 @@ func iotHubList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListHubsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -230,7 +230,7 @@ func iotHubCreate() *core.Command {
 		Resource:  "hub",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -277,13 +277,13 @@ func iotHubCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateHubRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateHub(request)
+			return api.CreateHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -296,7 +296,7 @@ func iotHubGet() *core.Command {
 		Resource:  "hub",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -307,13 +307,13 @@ func iotHubGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetHubRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetHub(request)
+			return api.GetHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -326,7 +326,7 @@ func iotHubUpdate() *core.Command {
 		Resource:  "hub",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.UpdateHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.UpdateHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -384,13 +384,13 @@ func iotHubUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.UpdateHubRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.UpdateHub(request)
+			return api.UpdateHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -403,7 +403,7 @@ func iotHubEnable() *core.Command {
 		Resource:  "hub",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.EnableHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.EnableHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -414,13 +414,13 @@ func iotHubEnable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.EnableHubRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.EnableHub(request)
+			return api.EnableHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -433,7 +433,7 @@ func iotHubDisable() *core.Command {
 		Resource:  "hub",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DisableHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.DisableHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -444,13 +444,13 @@ func iotHubDisable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DisableHubRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.DisableHub(request)
+			return api.DisableHub(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -463,7 +463,7 @@ func iotHubDelete() *core.Command {
 		Resource:  "hub",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteHubRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteHubRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -481,12 +481,12 @@ func iotHubDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteHubRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteHub(request)
+			e = api.DeleteHub(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -507,7 +507,7 @@ func iotHubSetCa() *core.Command {
 		Resource:  "hub",
 		Verb:      "set-ca",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.SetHubCARequest{}),
+		ArgsType: reflect.TypeFor[iot.SetHubCARequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -532,13 +532,13 @@ func iotHubSetCa() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.SetHubCARequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.SetHubCA(request)
+			return api.SetHubCA(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -551,7 +551,7 @@ func iotHubGetCa() *core.Command {
 		Resource:  "hub",
 		Verb:      "get-ca",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetHubCARequest{}),
+		ArgsType: reflect.TypeFor[iot.GetHubCARequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hub-id",
@@ -561,13 +561,13 @@ func iotHubGetCa() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetHubCARequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetHubCA(request)
+			return api.GetHubCA(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -580,7 +580,7 @@ func iotDeviceList() *core.Command {
 		Resource:  "device",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListDevicesRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListDevicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -642,12 +642,12 @@ func iotDeviceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListDevicesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -708,7 +708,7 @@ func iotDeviceCreate() *core.Command {
 		Resource:  "device",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -786,13 +786,13 @@ func iotDeviceCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateDeviceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateDevice(request)
+			return api.CreateDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -805,7 +805,7 @@ func iotDeviceGet() *core.Command {
 		Resource:  "device",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -816,13 +816,13 @@ func iotDeviceGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetDeviceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetDevice(request)
+			return api.GetDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -835,7 +835,7 @@ func iotDeviceUpdate() *core.Command {
 		Resource:  "device",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.UpdateDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.UpdateDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -912,13 +912,13 @@ func iotDeviceUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.UpdateDeviceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.UpdateDevice(request)
+			return api.UpdateDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -931,7 +931,7 @@ func iotDeviceEnable() *core.Command {
 		Resource:  "device",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.EnableDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.EnableDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -942,13 +942,13 @@ func iotDeviceEnable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.EnableDeviceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.EnableDevice(request)
+			return api.EnableDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -961,7 +961,7 @@ func iotDeviceDisable() *core.Command {
 		Resource:  "device",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DisableDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.DisableDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -972,13 +972,13 @@ func iotDeviceDisable() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DisableDeviceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.DisableDevice(request)
+			return api.DisableDevice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -991,7 +991,7 @@ func iotDeviceRenewCertificate() *core.Command {
 		Resource:  "device",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.RenewDeviceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iot.RenewDeviceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1002,13 +1002,13 @@ func iotDeviceRenewCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.RenewDeviceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.RenewDeviceCertificate(request)
+			return api.RenewDeviceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1021,7 +1021,7 @@ func iotDeviceSetCertificate() *core.Command {
 		Resource:  "device",
 		Verb:      "set-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.SetDeviceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iot.SetDeviceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1039,13 +1039,13 @@ func iotDeviceSetCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.SetDeviceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.SetDeviceCertificate(request)
+			return api.SetDeviceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1058,7 +1058,7 @@ func iotDeviceGetCertificate() *core.Command {
 		Resource:  "device",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetDeviceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetDeviceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1069,13 +1069,13 @@ func iotDeviceGetCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetDeviceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetDeviceCertificate(request)
+			return api.GetDeviceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1088,7 +1088,7 @@ func iotDeviceDelete() *core.Command {
 		Resource:  "device",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteDeviceRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteDeviceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1099,12 +1099,12 @@ func iotDeviceDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteDeviceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteDevice(request)
+			e = api.DeleteDevice(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1125,7 +1125,7 @@ func iotDeviceGetMetrics() *core.Command {
 		Resource:  "device",
 		Verb:      "get-metrics",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(iot.GetDeviceMetricsRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetDeviceMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "device-id",
@@ -1143,13 +1143,13 @@ func iotDeviceGetMetrics() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetDeviceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetDeviceMetrics(request)
+			return api.GetDeviceMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1162,7 +1162,7 @@ func iotRouteList() *core.Command {
 		Resource:  "route",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListRoutesRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListRoutesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1200,12 +1200,12 @@ func iotRouteList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListRoutesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1257,7 +1257,7 @@ func iotRouteCreate() *core.Command {
 		Resource:  "route",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1385,13 +1385,13 @@ func iotRouteCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateRoute(request)
+			return api.CreateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1404,7 +1404,7 @@ func iotRouteUpdate() *core.Command {
 		Resource:  "route",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.UpdateRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.UpdateRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1531,13 +1531,13 @@ func iotRouteUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.UpdateRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.UpdateRoute(request)
+			return api.UpdateRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1550,7 +1550,7 @@ func iotRouteGet() *core.Command {
 		Resource:  "route",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1561,13 +1561,13 @@ func iotRouteGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetRoute(request)
+			return api.GetRoute(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1580,7 +1580,7 @@ func iotRouteDelete() *core.Command {
 		Resource:  "route",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteRouteRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteRouteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-id",
@@ -1591,12 +1591,12 @@ func iotRouteDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteRouteRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteRoute(request)
+			e = api.DeleteRoute(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1617,7 +1617,7 @@ func iotNetworkList() *core.Command {
 		Resource:  "network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.ListNetworksRequest{}),
+		ArgsType: reflect.TypeFor[iot.ListNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1660,12 +1660,12 @@ func iotNetworkList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.ListNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1706,12 +1706,12 @@ func iotNetworkList() *core.Command {
 func iotNetworkCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new network`,
-		Long:      `Create a new network for an existing hub.  Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.`,
+		Long:      `Create a new network for an existing hub. Beside the default network, you can add networks for different data providers. Possible network types are Sigfox and REST.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.CreateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[iot.CreateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1749,13 +1749,13 @@ func iotNetworkCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.CreateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.CreateNetwork(request)
+			return api.CreateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1763,12 +1763,12 @@ func iotNetworkCreate() *core.Command {
 func iotNetworkGet() *core.Command {
 	return &core.Command{
 		Short:     `Retrieve a specific network`,
-		Long:      `Retrieve an existing network, specified by its network ID.  The response returns full details of the network, including its type, the topic prefix and its endpoint.`,
+		Long:      `Retrieve an existing network, specified by its network ID. The response returns full details of the network, including its type, the topic prefix and its endpoint.`,
 		Namespace: "iot",
 		Resource:  "network",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.GetNetworkRequest{}),
+		ArgsType: reflect.TypeFor[iot.GetNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "network-id",
@@ -1779,13 +1779,13 @@ func iotNetworkGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.GetNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
 
-			return api.GetNetwork(request)
+			return api.GetNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1798,7 +1798,7 @@ func iotNetworkDelete() *core.Command {
 		Resource:  "network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iot.DeleteNetworkRequest{}),
+		ArgsType: reflect.TypeFor[iot.DeleteNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "network-id",
@@ -1809,12 +1809,12 @@ func iotNetworkDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iot.DeleteNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iot.NewAPI(client)
-			e = api.DeleteNetwork(request)
+			e = api.DeleteNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

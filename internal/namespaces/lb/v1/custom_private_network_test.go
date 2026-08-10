@@ -5,6 +5,7 @@ import (
 	"time"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 )
@@ -12,12 +13,14 @@ import (
 func Test_ListLBPrivateNetwork(t *testing.T) {
 	cmds := lb.GetCommands()
 	cmds.Merge(vpc.GetCommands())
+	cmds.Merge(ipam.GetCommands())
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: cmds,
 		BeforeFunc: core.BeforeFuncCombine(
 			createLB(),
 			createPN(),
+			createIPAMIP(),
 			attachPN(),
 		),
 		Cmd:   "scw lb private-network list {{ .LB.ID }}",
@@ -32,6 +35,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 					return nil
 				},
 			),
+			deleteIPAMIP(),
 			deletePN(),
 			deleteLBFlexibleIP(),
 		),

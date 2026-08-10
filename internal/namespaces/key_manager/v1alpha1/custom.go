@@ -27,7 +27,7 @@ func plaintextEncrypt(c *core.Command) *core.Command {
 		CanLoadFile: true,
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*key_manager.EncryptRequest)
 
 		p, err := base64.StdEncoding.DecodeString(string(args.Plaintext))
@@ -51,7 +51,7 @@ func cipherDecrypt(c *core.Command) *core.Command {
 		CanLoadFile: true,
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*key_manager.DecryptRequest)
 
 		c, err := base64.StdEncoding.DecodeString(string(args.Ciphertext))

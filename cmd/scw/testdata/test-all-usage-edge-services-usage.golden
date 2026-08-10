@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Edge Services API
 
 USAGE:
@@ -10,6 +10,7 @@ AVAILABLE COMMANDS:
   cache-stage   Cache-stage management commands
   dns-stage     DNS-stage management commands
   pipeline      Pipeline management commands
+  plan          Plan management commands
   purge-request Purge-request management commands
   route-rules   Route-rules management commands
   route-stage   Route-stage management commands
@@ -17,7 +18,8 @@ AVAILABLE COMMANDS:
   waf-stage     WAF-stage management commands
 
 FLAGS:
-  -h, --help   help for edge-services
+  -h, --help                help for edge-services
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

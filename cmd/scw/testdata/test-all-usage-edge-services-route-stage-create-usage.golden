@@ -1,16 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Create a new route stage. You must specify the `waf_stage_id` field to customize the route.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Create a new route stage. You must specify the `waf_stage_id` or `backend_stage_id` fields to customize the route.
 
 USAGE:
   scw edge-services route-stage create [arg=value ...]
 
 ARGS:
-  pipeline-id      Pipeline ID the route stage belongs to
-  [waf-stage-id]   ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
+  pipeline-id          Pipeline ID the route stage belongs to
+  [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
+  [backend-stage-id]   ID of the backend stage HTTP requests should be forwarded to when no rules are matched
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

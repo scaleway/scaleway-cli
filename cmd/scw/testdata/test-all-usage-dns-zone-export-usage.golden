@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Export a DNS zone with default name servers, in a specific format.
 
 USAGE:
@@ -10,7 +10,8 @@ ARGS:
   [format=bind]   DNS zone format (unknown_raw_format | bind)
 
 FLAGS:
-  -h, --help   help for export
+  -h, --help                help for export
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

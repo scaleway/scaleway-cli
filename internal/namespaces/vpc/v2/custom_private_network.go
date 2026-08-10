@@ -7,7 +7,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
-	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1beta1"
+	inference "github.com/scaleway/scaleway-sdk-go/api/inference/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/ipam/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
@@ -21,7 +21,7 @@ import (
 	"golang.org/x/sync/errgroup"
 )
 
-func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func privateNetworkMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp vpc.PrivateNetwork
 	pn := tmp(i.(vpc.PrivateNetwork))
 
@@ -43,7 +43,7 @@ func privateNetworkMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 }
 
 func privateNetworkGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		getPNResp, err := runner(ctx, argsI)
 		if err != nil {
 			return getPNResp, err
@@ -70,63 +70,94 @@ func privateNetworkGetBuilder(c *core.Command) *core.Command {
 
 		g.Go(func() (err error) {
 			instanceServers, err = listCustomInstanceServers(groupCtx, client, pn)
+			if err != nil {
+				instanceServers = []customInstanceServer{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			baremetalServers, err = listCustomBaremetalServers(groupCtx, client, pn)
+			if err != nil {
+				baremetalServers = []customBaremetalServer{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			k8sClusters, err = listCustomK8sClusters(groupCtx, client, pn)
+			if err != nil {
+				k8sClusters = []customK8sCluster{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			lbs, err = listCustomLBs(groupCtx, client, pn)
+			if err != nil {
+				lbs = []customLB{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			rdbs, err = listCustomRdbs(groupCtx, client, pn)
+			if err != nil {
+				rdbs = []customRdb{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			redisClusters, err = listCustomRedisClusters(groupCtx, client, pn)
+			if err != nil {
+				redisClusters = []customRedis{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			gateways, err = listCustomGateways(groupCtx, client, pn)
+			if err != nil {
+				gateways = []customGateway{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			appleSiliconServers, err = listCustomAppleSiliconServers(groupCtx, client, pn)
+			if err != nil {
+				appleSiliconServers = []customAppleSiliconServer{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			mongoDBs, err = listCustomMongoDBs(groupCtx, client, pn)
+			if err != nil {
+				mongoDBs = []customMongoDB{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			ipamIPs, err = listCustomIPAMIPs(groupCtx, client, pn)
+			if err != nil {
+				ipamIPs = []customIPAMIP{}
+			}
 
-			return
+			return nil
 		})
 		g.Go(func() (err error) {
 			inferenceDeployments, err = listCustomInferenceDeployments(groupCtx, client, pn)
+			if err != nil {
+				inferenceDeployments = []customInferenceDeployment{}
+			}
 
-			return
+			return nil
 		})
 
-		if err = g.Wait(); err != nil {
-			return nil, err
-		}
+		_ = g.Wait()
 
 		return &struct {
 			*vpc.PrivateNetwork
@@ -714,4 +745,17 @@ func intersectZones(regionZones, apiZones []scw.Zone) []scw.Zone {
 	}
 
 	return intersect
+}
+
+func privateNetworkDeleteBuilder(c *core.Command) *core.Command {
+	c.Run = func(ctx context.Context, args any) (i any, e error) {
+		request := args.(*vpc.DeletePrivateNetworkRequest)
+
+		client := core.ExtractClient(ctx)
+		api := vpc.NewAPI(client)
+
+		return api.TryDeletingPrivateNetwork(request, 5, scw.WithContext(ctx))
+	}
+
+	return c
 }

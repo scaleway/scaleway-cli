@@ -20,7 +20,9 @@ const (
 )
 
 func Test_ExecCredential(t *testing.T) {
-	// expect to return default secret_key
+	////
+	// Simple expect to return current secret_key
+	////
 	t.Run("simple", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -37,7 +39,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return 66666666-6666-6666-6666-666666666666
+	////
 	t.Run("with scw_secret_key env", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -53,7 +57,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return p2 secret_key
+	////
 	t.Run("with profile env", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -71,7 +77,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return p3 secret_key
+	////
 	t.Run("with profile flag", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -88,7 +96,9 @@ func Test_ExecCredential(t *testing.T) {
 		),
 	}))
 
+	////
 	// expect to return p3 secret_key
+	////
 	t.Run("with profile env and flag", core.Test(&core.TestConfig{
 		Commands:   k8s.GetCommands(),
 		TmpHomeDir: true,
@@ -111,50 +121,54 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		homeDir := ctx.OverrideEnv["HOME"]
 		scwDir := path.Join(homeDir, ".config", "scw")
-		err := os.MkdirAll(scwDir, 0o0755)
-		if err != nil {
+		if err := os.MkdirAll(scwDir, 0o0755); err != nil {
 			return err
 		}
 
-		return c.SaveTo(path.Join(scwDir, "config.yaml"))
+		scwPath := path.Join(scwDir, "config.yaml")
+		if err := c.SaveTo(scwPath); err != nil {
+			return err
+		}
+
+		return nil
 	}
 }
 
 func beforeFuncCreateFullConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
 		Profile: scw.Profile{
-			AccessKey:             scw.StringPtr("SCWXXXXXXXXXXXXXXXXX"),
-			SecretKey:             scw.StringPtr(p1Secret),
-			APIURL:                scw.StringPtr("https://mock-api-url.com"),
-			Insecure:              scw.BoolPtr(true),
-			DefaultOrganizationID: scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
-			DefaultProjectID:      scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
-			DefaultRegion:         scw.StringPtr("fr-par"),
-			DefaultZone:           scw.StringPtr("fr-par-1"),
-			SendTelemetry:         scw.BoolPtr(true),
+			AccessKey:             new("SCWXXXXXXXXXXXXXXXXX"),
+			SecretKey:             new(p1Secret),
+			APIURL:                new("https://mock-api-url.com"),
+			Insecure:              new(true),
+			DefaultOrganizationID: new("deadbeef-dead-dead-dead-deaddeafbeef"),
+			DefaultProjectID:      new("deadbeef-dead-dead-dead-deaddeafbeef"),
+			DefaultRegion:         new("fr-par"),
+			DefaultZone:           new("fr-par-1"),
+			SendTelemetry:         new(true),
 		},
 		Profiles: map[string]*scw.Profile{
 			"p2": {
-				AccessKey:             scw.StringPtr("SCWP2XXXXXXXXXXXXXXX"),
-				SecretKey:             scw.StringPtr(p2Secret),
-				APIURL:                scw.StringPtr("https://p2-mock-api-url.com"),
-				Insecure:              scw.BoolPtr(true),
-				DefaultOrganizationID: scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
-				DefaultProjectID:      scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
-				DefaultRegion:         scw.StringPtr("fr-par"),
-				DefaultZone:           scw.StringPtr("fr-par-1"),
-				SendTelemetry:         scw.BoolPtr(true),
+				AccessKey:             new("SCWP2XXXXXXXXXXXXXXX"),
+				SecretKey:             new(p2Secret),
+				APIURL:                new("https://p2-mock-api-url.com"),
+				Insecure:              new(true),
+				DefaultOrganizationID: new("deadbeef-dead-dead-dead-deaddeafbeef"),
+				DefaultProjectID:      new("deadbeef-dead-dead-dead-deaddeafbeef"),
+				DefaultRegion:         new("fr-par"),
+				DefaultZone:           new("fr-par-1"),
+				SendTelemetry:         new(true),
 			},
 			"p3": {
-				AccessKey:             scw.StringPtr("SCWP3XXXXXXXXXXXXXXX"),
-				SecretKey:             scw.StringPtr(p3Secret),
-				APIURL:                scw.StringPtr("https://p3-mock-api-url.com"),
-				Insecure:              scw.BoolPtr(true),
-				DefaultOrganizationID: scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
-				DefaultProjectID:      scw.StringPtr("deadbeef-dead-dead-dead-deaddeafbeef"),
-				DefaultRegion:         scw.StringPtr("fr-par"),
-				DefaultZone:           scw.StringPtr("fr-par-1"),
-				SendTelemetry:         scw.BoolPtr(true),
+				AccessKey:             new("SCWP3XXXXXXXXXXXXXXX"),
+				SecretKey:             new(p3Secret),
+				APIURL:                new("https://p3-mock-api-url.com"),
+				Insecure:              new(true),
+				DefaultOrganizationID: new("deadbeef-dead-dead-dead-deaddeafbeef"),
+				DefaultProjectID:      new("deadbeef-dead-dead-dead-deaddeafbeef"),
+				DefaultRegion:         new("fr-par"),
+				DefaultZone:           new("fr-par-1"),
+				SendTelemetry:         new(true),
 			},
 		},
 	})

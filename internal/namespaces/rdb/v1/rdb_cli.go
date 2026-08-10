@@ -261,7 +261,7 @@ func rdbEngineList() *core.Command {
 		Resource:  "engine",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabaseEnginesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListDatabaseEnginesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -284,12 +284,12 @@ func rdbEngineList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListDatabaseEnginesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -312,7 +312,7 @@ func rdbNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -328,12 +328,12 @@ func rdbNodeTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -356,7 +356,7 @@ func rdbBackupList() *core.Command {
 		Resource:  "backup",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabaseBackupsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListDatabaseBackupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -408,12 +408,12 @@ func rdbBackupList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListDatabaseBackupsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -436,19 +436,19 @@ func rdbBackupCreate() *core.Command {
 		Resource:  "backup",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
 				Short:      `UUID of the Database Instance`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "database-name",
 				Short:      `Name of the database you want to back up`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -473,13 +473,13 @@ func rdbBackupCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateDatabaseBackup(request)
+			return api.CreateDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -492,7 +492,7 @@ func rdbBackupGet() *core.Command {
 		Resource:  "backup",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -507,13 +507,13 @@ func rdbBackupGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetDatabaseBackup(request)
+			return api.GetDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -526,7 +526,7 @@ func rdbBackupUpdate() *core.Command {
 		Resource:  "backup",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -555,13 +555,13 @@ func rdbBackupUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateDatabaseBackup(request)
+			return api.UpdateDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -574,7 +574,7 @@ func rdbBackupDelete() *core.Command {
 		Resource:  "backup",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -589,13 +589,13 @@ func rdbBackupDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteDatabaseBackup(request)
+			return api.DeleteDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -608,7 +608,7 @@ func rdbBackupRestore() *core.Command {
 		Resource:  "backup",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RestoreDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.RestoreDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-name",
@@ -637,13 +637,13 @@ func rdbBackupRestore() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.RestoreDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.RestoreDatabaseBackup(request)
+			return api.RestoreDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -656,7 +656,7 @@ func rdbBackupExport() *core.Command {
 		Resource:  "backup",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ExportDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ExportDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-backup-id",
@@ -671,13 +671,13 @@ func rdbBackupExport() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ExportDatabaseBackupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ExportDatabaseBackup(request)
+			return api.ExportDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -690,7 +690,7 @@ func rdbInstanceUpgrade() *core.Command {
 		Resource:  "instance",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpgradeInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpgradeInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -767,13 +767,13 @@ func rdbInstanceUpgrade() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpgradeInstance(request)
+			return api.UpgradeInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -786,7 +786,7 @@ func rdbInstanceList() *core.Command {
 		Resource:  "instance",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstancesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstancesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -826,6 +826,13 @@ func rdbInstanceList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "has-maintenances",
+				Short:      `Filter to only list instances with a scheduled maintenance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Please use project_id instead`,
 				Required:   false,
@@ -839,12 +846,12 @@ func rdbInstanceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -899,7 +906,7 @@ func rdbInstanceGet() *core.Command {
 		Resource:  "instance",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -914,13 +921,13 @@ func rdbInstanceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstance(request)
+			return api.GetInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -933,7 +940,7 @@ func rdbInstanceCreate() *core.Command {
 		Resource:  "instance",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1026,6 +1033,13 @@ func rdbInstanceCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "init-endpoints.{index}.load-balancer",
+				Short:      `Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "init-endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network to be connected to the Database Instance`,
 				Required:   false,
@@ -1035,6 +1049,13 @@ func rdbInstanceCreate() *core.Command {
 			{
 				Name:       "init-endpoints.{index}.private-network.service-ip",
 				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "init-endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1059,13 +1080,13 @@ func rdbInstanceCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateInstance(request)
+			return api.CreateInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1078,7 +1099,7 @@ func rdbInstanceUpdate() *core.Command {
 		Resource:  "instance",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-schedule-frequency",
@@ -1156,13 +1177,13 @@ func rdbInstanceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateInstance(request)
+			return api.UpdateInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1175,7 +1196,7 @@ func rdbInstanceDelete() *core.Command {
 		Resource:  "instance",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1190,13 +1211,13 @@ func rdbInstanceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteInstance(request)
+			return api.DeleteInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1209,7 +1230,7 @@ func rdbInstanceClone() *core.Command {
 		Resource:  "instance",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CloneInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CloneInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1238,13 +1259,13 @@ func rdbInstanceClone() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CloneInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CloneInstance(request)
+			return api.CloneInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1257,7 +1278,7 @@ func rdbInstanceRestart() *core.Command {
 		Resource:  "instance",
 		Verb:      "restart",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RestartInstanceRequest{}),
+		ArgsType: reflect.TypeFor[rdb.RestartInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1272,13 +1293,13 @@ func rdbInstanceRestart() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.RestartInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.RestartInstance(request)
+			return api.RestartInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1291,7 +1312,7 @@ func rdbInstanceGetCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1306,13 +1327,13 @@ func rdbInstanceGetCertificate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstanceCertificate(request)
+			return api.GetInstanceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1325,7 +1346,7 @@ func rdbInstanceRenewCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.RenewInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[rdb.RenewInstanceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1340,12 +1361,12 @@ func rdbInstanceRenewCertificate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.RenewInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.RenewInstanceCertificate(request)
+			e = api.RenewInstanceCertificate(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1360,13 +1381,13 @@ func rdbInstanceRenewCertificate() *core.Command {
 
 func rdbInstanceGetMetrics() *core.Command {
 	return &core.Command{
-		Short:     `Get Database Instance metrics`,
-		Long:      `Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + `.`,
+		Short:     `[deprecated] Get Database Instance metrics`,
+		Long:      `Retrieve the time series metrics of a given Database Instance. You can define the period from which to retrieve metrics by specifying the ` + "`" + `start_date` + "`" + ` and ` + "`" + `end_date` + "`" + `. This method is deprecated and will be removed in a future version.`,
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "get-metrics",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceMetricsRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[rdb.GetInstanceMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1402,13 +1423,13 @@ func rdbInstanceGetMetrics() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceMetricsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstanceMetrics(request)
+			return api.GetInstanceMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1421,7 +1442,7 @@ func rdbReadReplicaCreate() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1429,6 +1450,13 @@ func rdbReadReplicaCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "endpoint-spec.{index}.direct-access",
+				Short:      `Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "endpoint-spec.{index}.private-network.private-network-id",
@@ -1440,6 +1468,13 @@ func rdbReadReplicaCreate() *core.Command {
 			{
 				Name:       "endpoint-spec.{index}.private-network.service-ip",
 				Short:      `Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1457,13 +1492,13 @@ func rdbReadReplicaCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateReadReplica(request)
+			return api.CreateReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1471,12 +1506,12 @@ func rdbReadReplicaCreate() *core.Command {
 func rdbReadReplicaGet() *core.Command {
 	return &core.Command{
 		Short:     `Get a Read Replica`,
-		Long:      `Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like ` + "`" + `endpoints` + "`" + `, ` + "`" + `status` + "`" + `  and ` + "`" + `region` + "`" + ` are returned in the response.`,
+		Long:      `Retrieve information about a Database Instance Read Replica. Full details about the Read Replica, like ` + "`" + `endpoints` + "`" + `, ` + "`" + `status` + "`" + ` and ` + "`" + `region` + "`" + ` are returned in the response.`,
 		Namespace: "rdb",
 		Resource:  "read-replica",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1491,13 +1526,13 @@ func rdbReadReplicaGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetReadReplica(request)
+			return api.GetReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1510,7 +1545,7 @@ func rdbReadReplicaDelete() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1525,13 +1560,13 @@ func rdbReadReplicaDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteReadReplica(request)
+			return api.DeleteReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1545,7 +1580,7 @@ The configured endpoints do not change.`,
 		Resource:  "read-replica",
 		Verb:      "reset",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ResetReadReplicaRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ResetReadReplicaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1560,13 +1595,13 @@ The configured endpoints do not change.`,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ResetReadReplicaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ResetReadReplica(request)
+			return api.ResetReadReplica(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1579,7 +1614,7 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 		Resource:  "read-replica",
 		Verb:      "create-endpoint",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateReadReplicaEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateReadReplicaEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "read-replica-id",
@@ -1587,6 +1622,13 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "endpoint-spec.{index}.direct-access",
+				Short:      `Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "endpoint-spec.{index}.private-network.private-network-id",
@@ -1602,19 +1644,26 @@ func rdbReadReplicaCreateEndpoint() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "endpoint-spec.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateReadReplicaEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateReadReplicaEndpoint(request)
+			return api.CreateReadReplicaEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1627,7 +1676,7 @@ func rdbLogPrepare() *core.Command {
 		Resource:  "log",
 		Verb:      "prepare",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.PrepareInstanceLogsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.PrepareInstanceLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1656,13 +1705,13 @@ func rdbLogPrepare() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.PrepareInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.PrepareInstanceLogs(request)
+			return api.PrepareInstanceLogs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1675,7 +1724,7 @@ func rdbLogList() *core.Command {
 		Resource:  "log",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceLogsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstanceLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1701,13 +1750,13 @@ func rdbLogList() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ListInstanceLogs(request)
+			return api.ListInstanceLogs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1720,7 +1769,7 @@ func rdbLogGet() *core.Command {
 		Resource:  "log",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetInstanceLogRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetInstanceLogRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-log-id",
@@ -1735,13 +1784,13 @@ func rdbLogGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetInstanceLogRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetInstanceLog(request)
+			return api.GetInstanceLog(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1754,7 +1803,7 @@ func rdbLogPurge() *core.Command {
 		Resource:  "log",
 		Verb:      "purge",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.PurgeInstanceLogsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.PurgeInstanceLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1776,12 +1825,12 @@ func rdbLogPurge() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.PurgeInstanceLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.PurgeInstanceLogs(request)
+			e = api.PurgeInstanceLogs(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1802,7 +1851,7 @@ func rdbLogListDetails() *core.Command {
 		Resource:  "log",
 		Verb:      "list-details",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceLogsDetailsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstanceLogsDetailsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1817,13 +1866,13 @@ func rdbLogListDetails() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstanceLogsDetailsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.ListInstanceLogsDetails(request)
+			return api.ListInstanceLogsDetails(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1836,7 +1885,7 @@ func rdbSettingAdd() *core.Command {
 		Resource:  "setting",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.AddInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.AddInstanceSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1863,13 +1912,13 @@ func rdbSettingAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.AddInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.AddInstanceSettings(request)
+			return api.AddInstanceSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1882,7 +1931,7 @@ func rdbSettingDelete() *core.Command {
 		Resource:  "setting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteInstanceSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1904,13 +1953,13 @@ func rdbSettingDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteInstanceSettings(request)
+			return api.DeleteInstanceSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1923,7 +1972,7 @@ func rdbSettingSet() *core.Command {
 		Resource:  "setting",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.SetInstanceSettingsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.SetInstanceSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1950,13 +1999,13 @@ func rdbSettingSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.SetInstanceSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.SetInstanceSettings(request)
+			return api.SetInstanceSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1969,7 +2018,7 @@ func rdbACLList() *core.Command {
 		Resource:  "acl",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1985,12 +2034,12 @@ func rdbACLList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2013,7 +2062,7 @@ func rdbACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.AddInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.AddInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2040,13 +2089,13 @@ func rdbACLAdd() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.AddInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.AddInstanceACLRules(request)
+			return api.AddInstanceACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2059,7 +2108,7 @@ func rdbACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.SetInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.SetInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2086,13 +2135,13 @@ func rdbACLSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.SetInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.SetInstanceACLRules(request)
+			return api.SetInstanceACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2105,7 +2154,7 @@ func rdbACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteInstanceACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteInstanceACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2127,13 +2176,13 @@ func rdbACLDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteInstanceACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteInstanceACLRules(request)
+			return api.DeleteInstanceACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2146,7 +2195,7 @@ func rdbUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2182,12 +2231,12 @@ func rdbUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2210,7 +2259,7 @@ func rdbUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2246,13 +2295,13 @@ func rdbUserCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2265,7 +2314,7 @@ func rdbUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2301,13 +2350,13 @@ func rdbUserUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2315,12 +2364,12 @@ func rdbUserUpdate() *core.Command {
 func rdbUserDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a user on a Database Instance`,
-		Long:      `Delete a given user on a Database Instance. You must specify, in the endpoint,  the ` + "`" + `region` + "`" + `, ` + "`" + `instance_id` + "`" + ` and ` + "`" + `name` + "`" + ` parameters of the user you want to delete.`,
+		Long:      `Delete a given user on a Database Instance. You must specify, in the endpoint, the ` + "`" + `region` + "`" + `, ` + "`" + `instance_id` + "`" + ` and ` + "`" + `name` + "`" + ` parameters of the user you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2342,12 +2391,12 @@ func rdbUserDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2368,7 +2417,7 @@ func rdbDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2411,6 +2460,13 @@ func rdbDatabaseList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "skip-size-retrieval",
+				Short:      `Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2418,12 +2474,12 @@ func rdbDatabaseList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2446,7 +2502,7 @@ func rdbDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2468,13 +2524,13 @@ func rdbDatabaseCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2487,7 +2543,7 @@ func rdbDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2509,12 +2565,12 @@ func rdbDatabaseDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.DeleteDatabase(request)
+			e = api.DeleteDatabase(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2535,7 +2591,7 @@ func rdbPrivilegeList() *core.Command {
 		Resource:  "privilege",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListPrivilegesRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListPrivilegesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2578,12 +2634,12 @@ func rdbPrivilegeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListPrivilegesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2606,7 +2662,7 @@ func rdbPrivilegeSet() *core.Command {
 		Resource:  "privilege",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.SetPrivilegeRequest{}),
+		ArgsType: reflect.TypeFor[rdb.SetPrivilegeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2649,13 +2705,13 @@ func rdbPrivilegeSet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.SetPrivilegeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.SetPrivilege(request)
+			return api.SetPrivilege(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2668,7 +2724,7 @@ func rdbSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[rdb.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2720,12 +2776,12 @@ func rdbSnapshotList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2748,7 +2804,7 @@ func rdbSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2763,13 +2819,13 @@ func rdbSnapshotGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetSnapshot(request)
+			return api.GetSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2782,7 +2838,7 @@ func rdbSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -2812,13 +2868,13 @@ func rdbSnapshotCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateSnapshot(request)
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2831,7 +2887,7 @@ func rdbSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2860,13 +2916,13 @@ func rdbSnapshotUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.UpdateSnapshot(request)
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2874,12 +2930,12 @@ func rdbSnapshotUpdate() *core.Command {
 func rdbSnapshotDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Database Instance snapshot`,
-		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint,  the ` + "`" + `region` + "`" + ` and ` + "`" + `snapshot_id` + "`" + ` parameters of the snapshot you want to delete.`,
+		Long:      `Delete a given snapshot of a Database Instance. You must specify, in the endpoint, the ` + "`" + `region` + "`" + ` and ` + "`" + `snapshot_id` + "`" + ` parameters of the snapshot you want to delete.`,
 		Namespace: "rdb",
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2894,13 +2950,13 @@ func rdbSnapshotDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.DeleteSnapshot(request)
+			return api.DeleteSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2913,7 +2969,7 @@ func rdbSnapshotRestore() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateInstanceFromSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateInstanceFromSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2949,13 +3005,13 @@ func rdbSnapshotRestore() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateInstanceFromSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateInstanceFromSnapshot(request)
+			return api.CreateInstanceFromSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2968,12 +3024,19 @@ func rdbEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
 				Short:      `UUID of the Database Instance you to which you want to add an endpoint`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint-spec.load-balancer",
+				Short:      `Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -2991,19 +3054,26 @@ func rdbEndpointCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "endpoint-spec.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3016,7 +3086,7 @@ func rdbEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -3031,12 +3101,12 @@ func rdbEndpointDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3057,7 +3127,7 @@ func rdbEndpointGet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.GetEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.GetEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -3072,13 +3142,13 @@ func rdbEndpointGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.GetEndpoint(request)
+			return api.GetEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3091,7 +3161,7 @@ func rdbEndpointMigrate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "migrate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(rdb.MigrateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[rdb.MigrateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -3113,13 +3183,13 @@ func rdbEndpointMigrate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*rdb.MigrateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 
-			return api.MigrateEndpoint(request)
+			return api.MigrateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }

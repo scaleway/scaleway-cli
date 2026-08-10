@@ -3,7 +3,7 @@ package editor
 import "reflect"
 
 // CreateGetRequest creates a GetRequest from given type and populate it with content from updateRequest
-func CreateGetRequest(updateRequest interface{}, getRequestType reflect.Type) interface{} {
+func CreateGetRequest(updateRequest any, getRequestType reflect.Type) any {
 	updateRequestV := reflect.ValueOf(updateRequest)
 
 	getRequest := reflect.New(getRequestType).Interface()
@@ -17,7 +17,7 @@ func CreateGetRequest(updateRequest interface{}, getRequestType reflect.Type) in
 }
 
 // copyAndCompleteUpdateRequest return a copy of updateRequest completed with resource content
-func copyAndCompleteUpdateRequest(updateRequest interface{}, resource interface{}) interface{} {
+func copyAndCompleteUpdateRequest(updateRequest any, resource any) any {
 	resourceV := reflect.ValueOf(resource)
 	updateRequestV := reflect.ValueOf(updateRequest)
 
@@ -30,7 +30,7 @@ func copyAndCompleteUpdateRequest(updateRequest interface{}, resource interface{
 	return newUpdateRequestV.Interface()
 }
 
-func newRequest(request interface{}) interface{} {
+func newRequest(request any) any {
 	requestType := reflect.TypeOf(request)
 
 	if requestType.Kind() == reflect.Pointer {
@@ -41,6 +41,6 @@ func newRequest(request interface{}) interface{} {
 }
 
 // copyRequestPathParameters will copy all path parameters present in src to their correct fields in dest
-func copyRequestPathParameters(dest interface{}, src interface{}) {
+func copyRequestPathParameters(dest any, src any) {
 	ValueMapper(reflect.ValueOf(dest), reflect.ValueOf(src), MapWithTag("-"))
 }

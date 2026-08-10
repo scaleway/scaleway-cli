@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 SSH keys management commands.
 
 USAGE:
@@ -16,7 +16,8 @@ WORKFLOW COMMANDS:
   init        Initialize SSH key
 
 FLAGS:
-  -h, --help   help for ssh-key
+  -h, --help                help for ssh-key
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

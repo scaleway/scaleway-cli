@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Get config values from the config file for the current profile
 
 USAGE:
@@ -13,7 +13,8 @@ EXAMPLES:
     scw -p prod config info
 
 FLAGS:
-  -h, --help   help for info
+  -h, --help                help for info
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

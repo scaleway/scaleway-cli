@@ -26,11 +26,11 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 		}
 
 		previousInterceptor := combinedInterceptors
-		combinedInterceptors = func(ctx context.Context, args interface{}, runner CommandRunner) (interface{}, error) {
+		combinedInterceptors = func(ctx context.Context, args any, runner CommandRunner) (any, error) {
 			return previousInterceptor(
 				ctx,
 				args,
-				func(ctx context.Context, _ interface{}) (interface{}, error) {
+				func(ctx context.Context, _ any) (any, error) {
 					return localInterceptor(ctx, args, runner)
 				},
 			)
@@ -43,15 +43,19 @@ func CombineCommandInterceptor(interceptors ...CommandInterceptor) CommandInterc
 // sdkStdErrorInterceptor is a command interceptor that will catch sdk standard error and return more friendly CLI error.
 func sdkStdErrorInterceptor(
 	ctx context.Context,
-	args interface{},
+	args any,
 	runner CommandRunner,
-) (interface{}, error) {
+) (any, error) {
 	res, err := runner(ctx, args)
 	switch sdkError := err.(type) {
 	case *scw.ResourceNotFoundError:
 		return nil, &CliError{
-			Message: fmt.Sprintf("cannot find resource '%v' with ID '%v'", sdkError.Resource, sdkError.ResourceID),
-			Err:     err,
+			Message: fmt.Sprintf(
+				"cannot find resource '%v' with ID '%v'",
+				sdkError.Resource,
+				sdkError.ResourceID,
+			),
+			Err: err,
 		}
 	case *scw.ResponseError:
 		return nil, &CliError{
@@ -86,7 +90,12 @@ func sdkStdErrorInterceptor(
 		invalidArgs := make([]string, len(sdkError.Details))
 		resources := make([]string, len(sdkError.Details))
 		for i, d := range sdkError.Details {
-			invalidArgs[i] = fmt.Sprintf("- %s has reached its quota (%d/%d)", d.Resource, d.Current, d.Quota)
+			invalidArgs[i] = fmt.Sprintf(
+				"- %s has reached its quota (%d/%d)",
+				d.Resource,
+				d.Current,
+				d.Quota,
+			)
 			resources[i] = fmt.Sprintf("'%v'", d.Resource)
 		}
 
@@ -118,9 +127,14 @@ func sdkStdErrorInterceptor(
 		}
 
 		return nil, &CliError{
-			Message: fmt.Sprintf("resource %s with ID %s expired since %s", sdkError.Resource, sdkError.ResourceID, sdkError.ExpiredSince.String()),
-			Err:     err,
-			Hint:    hint,
+			Message: fmt.Sprintf(
+				"resource %s with ID %s expired since %s",
+				sdkError.Resource,
+				sdkError.ResourceID,
+				sdkError.ExpiredSince.String(),
+			),
+			Err:  err,
+			Hint: hint,
 		}
 	}
 
@@ -130,9 +144,9 @@ func sdkStdErrorInterceptor(
 // sdkStdErrorInterceptor is a command interceptor that will catch sdk standard error and return more friendly CLI error.
 func sdkStdTypeInterceptor(
 	ctx context.Context,
-	args interface{},
+	args any,
 	runner CommandRunner,
-) (interface{}, error) {
+) (any, error) {
 	res, err := runner(ctx, args)
 	if err != nil {
 		return res, err

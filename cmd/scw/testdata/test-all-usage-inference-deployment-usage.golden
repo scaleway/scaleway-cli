@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Deployment commands.
 
 USAGE:
@@ -14,7 +14,8 @@ AVAILABLE COMMANDS:
   update          Update a deployment
 
 FLAGS:
-  -h, --help   help for deployment
+  -h, --help                help for deployment
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

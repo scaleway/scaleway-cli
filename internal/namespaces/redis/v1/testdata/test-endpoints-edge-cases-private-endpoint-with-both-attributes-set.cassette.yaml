@@ -2,28 +2,48 @@
 version: 1
 interactions:
 - request:
-    body: '{"id":"272416ea-cbac-4560-906a-e31a8b37f5b8","name":"cli-pn-practical-benz","tags":[],"organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","created_at":"2023-11-23T13:27:15.926509Z","updated_at":"2023-11-23T13:27:15.926509Z","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","subnets":[{"id":"a1f4aeff-f085-44c4-8ff1-0221ad0c25d6","created_at":"2023-11-23T13:27:15.926509Z","updated_at":"2023-11-23T13:27:15.926509Z","subnet":"172.16.220.0/22"},{"id":"eceaabad-9987-43ad-9769-fef6bd4c68a4","created_at":"2023-11-23T13:27:15.926509Z","updated_at":"2023-11-23T13:27:15.926509Z","subnet":"fd63:256c:45f7:5c80::/64"}],"vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c","dhcp_enabled":true,"region":"fr-par"}'
+    body: '{"id":"90a302d4-93e7-485d-b0cd-cca5a6b12a99", "name":"cli-pn-serene-gates",
+      "tags":[], "organization_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "created_at":"2025-10-28T05:25:38.335846Z",
+      "updated_at":"2025-10-28T05:25:38.335846Z", "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+      "subnets":[{"id":"e5f31897-e574-478f-bc5e-3ca45de523c2", "created_at":"2025-10-28T05:25:38.335846Z",
+      "updated_at":"2025-10-28T05:25:38.335846Z", "subnet":"172.16.108.0/22", "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+      "private_network_id":"90a302d4-93e7-485d-b0cd-cca5a6b12a99", "vpc_id":"b1972fa8-5349-4d37-8777-f4f205bbd322"},
+      {"id":"81ad89e3-774b-4493-8f11-f3a7c901589b", "created_at":"2025-10-28T05:25:38.335846Z",
+      "updated_at":"2025-10-28T05:25:38.335846Z", "subnet":"fd5d:9132:befe:4597::/64",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "private_network_id":"90a302d4-93e7-485d-b0cd-cca5a6b12a99",
+      "vpc_id":"b1972fa8-5349-4d37-8777-f4f205bbd322"}], "vpc_id":"b1972fa8-5349-4d37-8777-f4f205bbd322",
+      "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks
     method: POST
   response:
-    body: '{"id":"272416ea-cbac-4560-906a-e31a8b37f5b8","name":"cli-pn-practical-benz","tags":[],"organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","created_at":"2023-11-23T13:27:15.926509Z","updated_at":"2023-11-23T13:27:15.926509Z","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","subnets":[{"id":"a1f4aeff-f085-44c4-8ff1-0221ad0c25d6","created_at":"2023-11-23T13:27:15.926509Z","updated_at":"2023-11-23T13:27:15.926509Z","subnet":"172.16.220.0/22"},{"id":"eceaabad-9987-43ad-9769-fef6bd4c68a4","created_at":"2023-11-23T13:27:15.926509Z","updated_at":"2023-11-23T13:27:15.926509Z","subnet":"fd63:256c:45f7:5c80::/64"}],"vpc_id":"1ec1ecb6-8f58-4f7c-92cc-53c2a5ae519c","dhcp_enabled":true,"region":"fr-par"}'
+    body: '{"id":"90a302d4-93e7-485d-b0cd-cca5a6b12a99", "name":"cli-pn-serene-gates",
+      "tags":[], "organization_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "created_at":"2025-10-28T05:25:38.335846Z",
+      "updated_at":"2025-10-28T05:25:38.335846Z", "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+      "subnets":[{"id":"e5f31897-e574-478f-bc5e-3ca45de523c2", "created_at":"2025-10-28T05:25:38.335846Z",
+      "updated_at":"2025-10-28T05:25:38.335846Z", "subnet":"172.16.108.0/22", "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+      "private_network_id":"90a302d4-93e7-485d-b0cd-cca5a6b12a99", "vpc_id":"b1972fa8-5349-4d37-8777-f4f205bbd322"},
+      {"id":"81ad89e3-774b-4493-8f11-f3a7c901589b", "created_at":"2025-10-28T05:25:38.335846Z",
+      "updated_at":"2025-10-28T05:25:38.335846Z", "subnet":"fd5d:9132:befe:4597::/64",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "private_network_id":"90a302d4-93e7-485d-b0cd-cca5a6b12a99",
+      "vpc_id":"b1972fa8-5349-4d37-8777-f4f205bbd322"}], "vpc_id":"b1972fa8-5349-4d37-8777-f4f205bbd322",
+      "dhcp_enabled":true, "default_route_propagation_enabled":false, "region":"fr-par"}'
     headers:
       Content-Length:
-      - "706"
+      - "1090"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Thu, 23 Nov 2023 13:27:16 GMT
+      - Tue, 28 Oct 2025 05:25:38 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -31,7 +51,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - d6c18ef5-cf1e-405f-b1ee-3a2bd684561d
+      - dc1fe495-fa00-4897-94bb-0c6681f8eaa1
     status: 200 OK
     code: 200
     duration: ""
@@ -44,7 +64,7 @@ interactions:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; darwin; amd64) cli-e2e-test
     url: https://api.scaleway.com/redis/v1/zones/fr-par-1/clusters
     method: POST
   response:
@@ -59,9 +79,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 23 Nov 2023 13:28:17 GMT
+      - Tue, 28 Oct 2025 05:26:39 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -69,7 +89,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - c3766538-fc6d-409c-af9a-7170eab4929f
+      - b5682526-93bb-4676-9fcf-c90aacf75f33
     status: 400 Bad Request
     code: 400
     duration: ""
@@ -78,8 +98,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.20.4; linux; amd64) cli-e2e-test
-    url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/272416ea-cbac-4560-906a-e31a8b37f5b8
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/vpc/v2/regions/fr-par/private-networks/90a302d4-93e7-485d-b0cd-cca5a6b12a99
     method: DELETE
   response:
     body: ""
@@ -89,9 +109,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Thu, 23 Nov 2023 13:28:17 GMT
+      - Tue, 28 Oct 2025 05:26:40 GMT
       Server:
-      - Scaleway API-Gateway
+      - Scaleway API Gateway (fr-par-2;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -99,7 +119,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 630fcf7d-0a1b-42ec-8df6-0b15d80dab90
+      - f1e471b8-81d7-463e-b1f0-556b7e8c3bd0
     status: 204 No Content
     code: 204
     duration: ""

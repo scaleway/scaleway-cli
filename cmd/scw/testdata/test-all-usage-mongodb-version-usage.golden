@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A database engine is the core software that handles the storage, retrieval, and management of data in your Database Instance.
 
 USAGE:
@@ -9,7 +9,8 @@ AVAILABLE COMMANDS:
   list        List available MongoDB® versions
 
 FLAGS:
-  -h, --help   help for version
+  -h, --help                help for version
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

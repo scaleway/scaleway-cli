@@ -12,7 +12,7 @@ type CommandInvalidSeeAlsoError struct {
 	SeeAlsoCommand string
 }
 
-func (err CommandInvalidSeeAlsoError) Error() string {
+func (err *CommandInvalidSeeAlsoError) Error() string {
 	return fmt.Sprintf("command has invalid see_also commands, '%s' has '%s'",
 		err.Command.GetCommandLine("scw"),
 		err.SeeAlsoCommand,
@@ -39,6 +39,31 @@ func testCommandInvalidSeeAlsoError(commands *core.Commands) []error {
 					SeeAlsoCommand: seeAlso.Command,
 				})
 			}
+		}
+	}
+
+	return errors
+}
+
+type MissingSeeAlsoError struct {
+	Command *core.Command
+}
+
+func (err *MissingSeeAlsoError) Error() string {
+	return fmt.Sprintf("command has no see_also commands '%s'",
+		err.Command.GetCommandLine("scw"),
+	)
+}
+
+// testAtLeastOneSeeAlsoIsPresentError testes that there is at least one SeeAlso defined by command
+func testAtLeastOneSeeAlsoIsPresentError(commands *core.Commands) []error {
+	errors := []error(nil)
+
+	for _, command := range commands.GetAll() {
+		if len(command.SeeAlsos) == 0 {
+			errors = append(errors, &MissingSeeAlsoError{Command: command})
+
+			continue
 		}
 	}
 

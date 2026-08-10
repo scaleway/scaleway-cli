@@ -52,6 +52,8 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("iam", "policy", "create").Override(iamPolicyCreateBuilder)
 	cmds.MustFind("iam", "policy", "get").Override(iamPolicyGetBuilder)
 
+	cmds.MustFind("iam", "ssh-key", "create").ArgSpecs.GetByName("public-key").CanLoadFile = true
+
 	iamCmd := cmds.MustFind("iam", "api-key", "get")
 	iamCmd.ArgsType = iamApiKeyCustomBuilder.argType
 	iamCmd.ArgSpecs = iamApiKeyCustomBuilder.argSpecs
@@ -63,15 +65,16 @@ func GetCommands() *core.Commands {
 
 func initWithSSHCommand() *core.Command {
 	return &core.Command{
-		Short:     `Initialize SSH key`,
-		Long:      `Initialize SSH key.`,
-		Namespace: "iam",
-		Resource:  "ssh-key",
-		Verb:      "init",
-		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(args.RawArgs{}),
-		ArgSpecs:  core.ArgSpecs{},
-		Run:       InitWithSSHKeyRun,
+		Short:          `Initialize SSH key`,
+		Long:           `Initialize SSH key.`,
+		Namespace:      "iam",
+		Resource:       "ssh-key",
+		Verb:           "init",
+		Groups:         []string{"workflow"},
+		ArgsType:       reflect.TypeOf(args.RawArgs{}),
+		ArgSpecs:       core.ArgSpecs{},
+		Run:            InitWithSSHKeyRun,
+		ExcludeFromMCP: true,
 	}
 }
 
@@ -85,7 +88,7 @@ func setOrganizationDefaultValue(c *core.Command) *core.Command {
 	return c
 }
 
-func InitWithSSHKeyRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
+func InitWithSSHKeyRun(ctx context.Context, _ any) (i any, e error) {
 	// Get default local SSH key
 	var shortenedFilename string
 	var err error
@@ -129,8 +132,7 @@ func InitWithSSHKeyRun(ctx context.Context, _ interface{}) (i interface{}, e err
 	_, _ = interactive.Println(
 		"An SSH key is required if you want to connect to a server. More info at https://www.scaleway.com/en/docs/identity-and-access-management/iam/how-to/create-api-keys/",
 	)
-	addSSHKey, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Ctx:          ctx,
+	addSSHKey, err := interactive.PromptBoolWithConfig(ctx, &interactive.PromptBoolConfig{
 		Prompt:       "We found an SSH key in " + shortenedFilename + ". Do you want to add it to your Scaleway project?",
 		DefaultValue: true,
 	})

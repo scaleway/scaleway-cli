@@ -124,7 +124,7 @@ func mongodbNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -138,12 +138,12 @@ func mongodbNodeTypeList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -166,7 +166,7 @@ func mongodbVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -179,12 +179,12 @@ func mongodbVersionList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListVersionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -207,7 +207,7 @@ func mongodbInstanceList() *core.Command {
 		Resource:  "instance",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListInstancesRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListInstancesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -257,12 +257,12 @@ func mongodbInstanceList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListInstancesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -285,7 +285,7 @@ func mongodbInstanceGet() *core.Command {
 		Resource:  "instance",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.GetInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.GetInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -296,13 +296,13 @@ func mongodbInstanceGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.GetInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.GetInstance(request)
+			return api.GetInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -315,7 +315,7 @@ func mongodbInstanceCreate() *core.Command {
 		Resource:  "instance",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -388,6 +388,12 @@ func mongodbInstanceCreate() *core.Command {
 				},
 			},
 			{
+				Name:       "endpoints.{index}.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network`,
 				Required:   false,
@@ -396,13 +402,13 @@ func mongodbInstanceCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.CreateInstance(request)
+			return api.CreateInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -415,7 +421,7 @@ func mongodbInstanceUpdate() *core.Command {
 		Resource:  "instance",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpdateInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpdateInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -440,13 +446,13 @@ func mongodbInstanceUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpdateInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.UpdateInstance(request)
+			return api.UpdateInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -459,7 +465,7 @@ func mongodbInstanceDelete() *core.Command {
 		Resource:  "instance",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -470,13 +476,13 @@ func mongodbInstanceDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.DeleteInstance(request)
+			return api.DeleteInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -489,7 +495,7 @@ func mongodbInstanceUpgrade() *core.Command {
 		Resource:  "instance",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpgradeInstanceRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpgradeInstanceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -507,13 +513,13 @@ func mongodbInstanceUpgrade() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpgradeInstanceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.UpgradeInstance(request)
+			return api.UpgradeInstance(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -526,7 +532,7 @@ func mongodbInstanceGetCertificate() *core.Command {
 		Resource:  "instance",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.GetInstanceCertificateRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.GetInstanceCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -537,13 +543,13 @@ func mongodbInstanceGetCertificate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.GetInstanceCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.GetInstanceCertificate(request)
+			return api.GetInstanceCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -556,7 +562,7 @@ func mongodbSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -581,13 +587,13 @@ func mongodbSnapshotCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.CreateSnapshot(request)
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -600,7 +606,7 @@ func mongodbSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -611,13 +617,13 @@ func mongodbSnapshotGet() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.GetSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.GetSnapshot(request)
+			return api.GetSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -630,7 +636,7 @@ func mongodbSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -655,13 +661,13 @@ func mongodbSnapshotUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpdateSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.UpdateSnapshot(request)
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -674,7 +680,7 @@ func mongodbSnapshotRestore() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.RestoreSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.RestoreSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -718,13 +724,13 @@ func mongodbSnapshotRestore() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.RestoreSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.RestoreSnapshot(request)
+			return api.RestoreSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -737,7 +743,7 @@ func mongodbSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -787,12 +793,12 @@ func mongodbSnapshotList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListSnapshotsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -815,7 +821,7 @@ func mongodbSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -826,13 +832,13 @@ func mongodbSnapshotDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteSnapshotRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.DeleteSnapshot(request)
+			return api.DeleteSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -845,7 +851,7 @@ func mongodbUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -877,12 +883,12 @@ func mongodbUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -905,7 +911,7 @@ func mongodbUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -930,13 +936,13 @@ func mongodbUserCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -949,7 +955,7 @@ func mongodbUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -974,13 +980,13 @@ func mongodbUserUpdate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -993,7 +999,7 @@ func mongodbUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1011,12 +1017,12 @@ func mongodbUserDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1037,7 +1043,7 @@ func mongodbUserSetRole() *core.Command {
 		Resource:  "user",
 		Verb:      "set-role",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.SetUserRoleRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.SetUserRoleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1083,13 +1089,13 @@ func mongodbUserSetRole() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.SetUserRoleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.SetUserRole(request)
+			return api.SetUserRole(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1102,7 +1108,7 @@ func mongodbEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1113,12 +1119,12 @@ func mongodbEndpointDelete() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1139,7 +1145,7 @@ func mongodbEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mongodb.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[mongodb.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
@@ -1147,6 +1153,12 @@ func mongodbEndpointCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "endpoint.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "endpoint.private-network.private-network-id",
@@ -1157,13 +1169,13 @@ func mongodbEndpointCreate() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*mongodb.CreateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := mongodb.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }

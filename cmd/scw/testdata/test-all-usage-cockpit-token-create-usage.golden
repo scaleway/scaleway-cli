@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Give your token the relevant scopes to ensure it has the right permissions to interact with your data sources and the Alert manager. Make sure that you create your token in the same regions as the data sources you want to use it for.
 Upon creation, your token's secret key display only once. Make sure that you save it.
 
@@ -8,15 +8,20 @@ USAGE:
 
 ARGS:
   [project-id]             Project ID to use. If none is passed the default project ID will be used
-  [name]                   Name of the token
+  name                     Name of the token
   [token-scopes.{index}]   Token permission scopes (unknown_scope | read_only_metrics | write_only_metrics | full_access_metrics_rules | read_only_logs | write_only_logs | full_access_logs_rules | full_access_alert_manager | read_only_traces | write_only_traces)
   [region=fr-par]          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+SEE ALSO:
+  # Generate a data source configuration snippet
+  scw cockpit config get

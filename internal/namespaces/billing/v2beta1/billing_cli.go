@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		billingInvoice(),
 		billingConsumption(),
 		billingDiscount(),
+		billingCharge(),
 		billingConsumptionList(),
 		billingConsumptionListTaxes(),
 		billingInvoiceList(),
@@ -30,6 +31,7 @@ func GetGeneratedCommands() *core.Commands {
 		billingInvoiceGet(),
 		billingInvoiceDownload(),
 		billingDiscountList(),
+		billingChargeList(),
 	)
 }
 
@@ -68,6 +70,15 @@ func billingDiscount() *core.Command {
 	}
 }
 
+func billingCharge() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "billing",
+		Resource:  "charge",
+	}
+}
+
 func billingConsumptionList() *core.Command {
 	return &core.Command{
 		Short:     `Get monthly consumption`,
@@ -76,7 +87,7 @@ func billingConsumptionList() *core.Command {
 		Resource:  "consumption",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListConsumptionsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListConsumptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -108,12 +119,12 @@ func billingConsumptionList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListConsumptionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListConsumptions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -132,7 +143,7 @@ func billingConsumptionListTaxes() *core.Command {
 		Resource:  "consumption",
 		Verb:      "list-taxes",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListTaxesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListTaxesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -156,12 +167,12 @@ func billingConsumptionListTaxes() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListTaxesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTaxes(request, opts...)
 			if err != nil {
 				return nil, err
@@ -180,7 +191,7 @@ func billingInvoiceList() *core.Command {
 		Resource:  "invoice",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "billing-period-start-after",
@@ -198,7 +209,7 @@ func billingInvoiceList() *core.Command {
 			},
 			{
 				Name:       "invoice-type",
-				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
+				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + `, ` + "`" + `purchase` + "`" + ` or ` + "`" + `credit_note` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -206,6 +217,7 @@ func billingInvoiceList() *core.Command {
 					"unknown_type",
 					"periodic",
 					"purchase",
+					"credit_note",
 				},
 			},
 			{
@@ -239,12 +251,12 @@ func billingInvoiceList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListInvoicesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListInvoices(request, opts...)
 			if err != nil {
 				return nil, err
@@ -263,7 +275,7 @@ func billingInvoiceExport() *core.Command {
 		Resource:  "invoice",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ExportInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ExportInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "billing-period-start-after",
@@ -281,7 +293,7 @@ func billingInvoiceExport() *core.Command {
 			},
 			{
 				Name:       "invoice-type",
-				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
+				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + `, ` + "`" + `purchase` + "`" + ` or ` + "`" + `credit_note` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -289,6 +301,7 @@ func billingInvoiceExport() *core.Command {
 					"unknown_type",
 					"periodic",
 					"purchase",
+					"credit_note",
 				},
 			},
 			{
@@ -348,13 +361,13 @@ func billingInvoiceExport() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ExportInvoicesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.ExportInvoices(request)
+			return api.ExportInvoices(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -367,7 +380,7 @@ func billingInvoiceGet() *core.Command {
 		Resource:  "invoice",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.GetInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[billing.GetInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -377,13 +390,13 @@ func billingInvoiceGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.GetInvoiceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.GetInvoice(request)
+			return api.GetInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -396,7 +409,7 @@ func billingInvoiceDownload() *core.Command {
 		Resource:  "invoice",
 		Verb:      "download",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.DownloadInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[billing.DownloadInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -416,13 +429,13 @@ func billingInvoiceDownload() *core.Command {
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.DownloadInvoiceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.DownloadInvoice(request)
+			return api.DownloadInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -438,7 +451,7 @@ func billingDiscountList() *core.Command {
 		Resource:  "discount",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListDiscountsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListDiscountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -463,18 +476,122 @@ func billingDiscountList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*billing.ListDiscountsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDiscounts(request, opts...)
 			if err != nil {
 				return nil, err
 			}
 
 			return resp.Discounts, nil
+		},
+	}
+}
+
+func billingChargeList() *core.Command {
+	return &core.Command{
+		Short:     `List charges`,
+		Long:      `List charges for organizations or projects. You must specify at least ` + "`" + `organization_ids` + "`" + ` or ` + "`" + `project_ids` + "`" + `.`,
+		Namespace: "billing",
+		Resource:  "charge",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[billing.FinOpsAPIListChargesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "order-by",
+				Short:      `Sort order of charges in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"start_date_asc",
+					"start_date_desc",
+				},
+			},
+			{
+				Name:       "page-token",
+				Short:      `Token returned by previous call to list next paginated charges, omitted for first page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of charges to return per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "start-date-after",
+				Short:      `Minimum start date of charges to filter for, defaults to the start of the billing period`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "end-date-before",
+				Short:      `Maximum end date of charges to filter for, defaults to the end of the billing period`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "invoice-ids.{index}",
+				Short:      `Invoice IDs to filter for, only charges from these invoices will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "project-ids.{index}",
+				Short:      `Project IDs to filter for, only charges for these projects will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource-ids.{index}",
+				Short:      `Resource IDs to filter for, only charges for these resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource-names.{index}",
+				Short:      `Resource display names to filter for, only charges for these resources will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "skus.{index}",
+				Short:      `SKU IDs to filter for, only charges for these SKUs will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "clamp-to-time-range",
+				Short:      `Clamp charges to the requested time range`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*billing.FinOpsAPIListChargesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := billing.NewFinOpsAPI(client)
+
+			return api.ListCharges(request, scw.WithContext(ctx))
 		},
 	}
 }

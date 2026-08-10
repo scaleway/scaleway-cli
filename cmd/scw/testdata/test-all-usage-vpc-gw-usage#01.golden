@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   pat-rule        PAT rules management
 
 FLAGS:
-  -h, --help   help for vpc-gw
+  -h, --help                help for vpc-gw
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

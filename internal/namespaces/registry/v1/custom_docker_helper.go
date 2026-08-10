@@ -45,7 +45,7 @@ It avoid running docker login commands.
 				Name:    "path",
 				Short:   "Directory in which the Docker helper will be installed. This directory should be in your $PATH",
 				Default: core.DefaultValueSetter("/usr/local/bin"),
-				ValidateFunc: func(_ *core.ArgSpec, value interface{}) error {
+				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					stat, err := os.Stat(value.(string))
 					if err != nil || !stat.IsDir() {
 						return fmt.Errorf("%s is not a directory", value)
@@ -55,11 +55,12 @@ It avoid running docker login commands.
 				},
 			},
 		},
-		Run: registrySetupDockerHelperRun,
+		Run:            registrySetupDockerHelperRun,
+		ExcludeFromMCP: true,
 	}
 }
 
-func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registrySetupDockerHelperRun(ctx context.Context, argsI any) (i any, e error) {
 	// TODO add windows support
 	if runtime.GOOS == "windows" {
 		return nil, core.WindowIsNotSupportedError()
@@ -95,11 +96,13 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 
 	// Early exit if user disagrees
 	_, _ = interactive.Println()
-	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Ctx:          ctx,
-		Prompt:       "Do you want to proceed with these changes?",
-		DefaultValue: true,
-	})
+	continueInstallation, err := interactive.PromptBoolWithConfig(
+		ctx,
+		&interactive.PromptBoolConfig{
+			Prompt:       "Do you want to proceed with these changes?",
+			DefaultValue: true,
+		},
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -140,8 +143,12 @@ func registrySetupDockerHelperRun(ctx context.Context, argsI interface{}) (i int
 		)
 	} else {
 		_, _ = interactive.PrintlnWithoutIndent("Docker credential helper successfully installed.")
-		_, _ = interactive.PrintlnWithoutIndent("The Docker credential helper will now take care of the authentication for you.")
-		_, _ = interactive.PrintlnWithoutIndent("You don't have to login to your registries anymore.")
+		_, _ = interactive.PrintlnWithoutIndent(
+			"The Docker credential helper will now take care of the authentication for you.",
+		)
+		_, _ = interactive.PrintlnWithoutIndent(
+			"You don't have to login to your registries anymore.",
+		)
 	}
 
 	return &core.SuccessResult{}, nil
@@ -174,7 +181,7 @@ func registryDockerHelperGetCommand() *core.Command {
 	}
 }
 
-func registryDockerHelperGetRun(ctx context.Context, _ interface{}) (i interface{}, e error) {
+func registryDockerHelperGetRun(ctx context.Context, _ any) (i any, e error) {
 	var serverURL string
 	serverURL, err := bufio.NewReader(core.ExtractStdin(ctx)).ReadString('\n')
 	if err != nil && err != io.EOF {
@@ -221,7 +228,7 @@ func registryDockerHelperStoreCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "store",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ any) (i any, e error) {
 			return nil, nil
 		},
 	}
@@ -237,7 +244,7 @@ func registryDockerHelperEraseCommand() *core.Command {
 		ArgSpecs: []*core.ArgSpec{
 			{},
 		},
-		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ any) (i any, e error) {
 			return nil, nil
 		},
 	}
@@ -250,7 +257,7 @@ func registryDockerHelperListCommand() *core.Command {
 		Resource:  "docker-helper",
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(emptyRequest{}),
-		Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+		Run: func(_ context.Context, _ any) (i any, e error) {
 			registryEndpoints := make(map[string]string)
 			for _, region := range scw.AllRegions {
 				registryEndpoints[getRegistryEndpoint(region)] = "scaleway"

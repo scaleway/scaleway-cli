@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your InterLink services.
 
 USAGE:
@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   routing-policy Routing policy commands
 
 FLAGS:
-  -h, --help   help for interlink
+  -h, --help                help for interlink
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -31,11 +31,12 @@ You will need to have the chosen binary installed on your system and in your PAT
 			},
 			core.RegionArgSpec(),
 		},
-		Run: registryLogoutRun,
+		Run:            registryLogoutRun,
+		ExcludeFromMCP: true,
 	}
 }
 
-func registryLogoutRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registryLogoutRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*registryLogoutArgs)
 
 	region := args.Region.String()

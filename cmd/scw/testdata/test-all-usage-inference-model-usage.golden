@@ -1,18 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Models commands.
 
 USAGE:
   scw inference model <command>
 
 AVAILABLE COMMANDS:
-  delete      Delete a model
-  get         Get a model
-  import      Import a model
-  list        List models
+  delete          Delete a model
+  get             Get a model
+  import          Import a model
+  list            List models
+  list-serverless List available serverless models
 
 FLAGS:
-  -h, --help   help for model
+  -h, --help                help for model
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

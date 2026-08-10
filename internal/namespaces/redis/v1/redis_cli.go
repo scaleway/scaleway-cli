@@ -124,7 +124,7 @@ func redisClusterCreate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.CreateClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.CreateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -206,6 +206,20 @@ func redisClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Public network specification details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tls-enabled",
 				Short:      `Defines whether or not TLS is enabled`,
 				Required:   false,
@@ -235,13 +249,13 @@ func redisClusterCreate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.CreateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.CreateCluster(request)
+			return api.CreateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -254,7 +268,7 @@ func redisClusterUpdate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.UpdateClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.UpdateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -300,13 +314,13 @@ func redisClusterUpdate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.UpdateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.UpdateCluster(request)
+			return api.UpdateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -319,7 +333,7 @@ func redisClusterGet() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -337,13 +351,13 @@ func redisClusterGet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetCluster(request)
+			return api.GetCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -356,7 +370,7 @@ func redisClusterList() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListClustersRequest{}),
+		ArgsType: reflect.TypeFor[redis.ListClustersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -416,12 +430,12 @@ func redisClusterList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.ListClustersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -444,7 +458,7 @@ func redisClusterMigrate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "migrate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.MigrateClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.MigrateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -483,13 +497,13 @@ func redisClusterMigrate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.MigrateClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.MigrateCluster(request)
+			return api.MigrateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -502,7 +516,7 @@ func redisClusterDelete() *core.Command {
 		Resource:  "cluster",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteClusterRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -520,13 +534,13 @@ func redisClusterDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteClusterRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteCluster(request)
+			return api.DeleteCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -539,7 +553,7 @@ func redisClusterMetrics() *core.Command {
 		Resource:  "cluster",
 		Verb:      "metrics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetClusterMetricsRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetClusterMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -578,13 +592,13 @@ func redisClusterMetrics() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetClusterMetricsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetClusterMetrics(request)
+			return api.GetClusterMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -597,7 +611,7 @@ func redisNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[redis.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -616,12 +630,12 @@ func redisNodeTypeList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.ListNodeTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -644,7 +658,7 @@ func redisVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.ListClusterVersionsRequest{}),
+		ArgsType: reflect.TypeFor[redis.ListClusterVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled",
@@ -684,12 +698,12 @@ func redisVersionList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.ListClusterVersionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -712,7 +726,7 @@ func redisClusterGetCertificate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetClusterCertificateRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetClusterCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -730,13 +744,13 @@ func redisClusterGetCertificate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetClusterCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetClusterCertificate(request)
+			return api.GetClusterCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -749,7 +763,7 @@ func redisClusterRenewCertificate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "renew-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.RenewClusterCertificateRequest{}),
+		ArgsType: reflect.TypeFor[redis.RenewClusterCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -767,13 +781,13 @@ func redisClusterRenewCertificate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.RenewClusterCertificateRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.RenewClusterCertificate(request)
+			return api.RenewClusterCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -786,7 +800,7 @@ func redisSettingAdd() *core.Command {
 		Resource:  "setting",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.AddClusterSettingsRequest{}),
+		ArgsType: reflect.TypeFor[redis.AddClusterSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -818,13 +832,13 @@ func redisSettingAdd() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.AddClusterSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.AddClusterSettings(request)
+			return api.AddClusterSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -837,7 +851,7 @@ func redisSettingDelete() *core.Command {
 		Resource:  "setting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteClusterSettingRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteClusterSettingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -862,13 +876,13 @@ func redisSettingDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteClusterSettingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteClusterSetting(request)
+			return api.DeleteClusterSetting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -881,7 +895,7 @@ func redisSettingSet() *core.Command {
 		Resource:  "setting",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.SetClusterSettingsRequest{}),
+		ArgsType: reflect.TypeFor[redis.SetClusterSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -913,13 +927,13 @@ func redisSettingSet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.SetClusterSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.SetClusterSettings(request)
+			return api.SetClusterSettings(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -932,7 +946,7 @@ func redisACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.SetACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[redis.SetACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -964,13 +978,13 @@ func redisACLSet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.SetACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.SetACLRules(request)
+			return api.SetACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -983,7 +997,7 @@ func redisACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.AddACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[redis.AddACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1015,13 +1029,13 @@ func redisACLAdd() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.AddACLRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.AddACLRules(request)
+			return api.AddACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1034,7 +1048,7 @@ func redisACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteACLRuleRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -1052,13 +1066,13 @@ func redisACLDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteACLRule(request)
+			return api.DeleteACLRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1071,7 +1085,7 @@ func redisACLGet() *core.Command {
 		Resource:  "acl",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetACLRuleRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -1089,13 +1103,13 @@ func redisACLGet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetACLRuleRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetACLRule(request)
+			return api.GetACLRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1108,7 +1122,7 @@ func redisEndpointSet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.SetEndpointsRequest{}),
+		ArgsType: reflect.TypeFor[redis.SetEndpointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1131,6 +1145,20 @@ func redisEndpointSet() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Public network specification details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1140,13 +1168,13 @@ func redisEndpointSet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.SetEndpointsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.SetEndpoints(request)
+			return api.SetEndpoints(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1159,7 +1187,7 @@ func redisEndpointAdd() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.AddEndpointsRequest{}),
+		ArgsType: reflect.TypeFor[redis.AddEndpointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1182,6 +1210,20 @@ func redisEndpointAdd() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "endpoints.{index}.private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Public network specification details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1191,13 +1233,13 @@ func redisEndpointAdd() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.AddEndpointsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.AddEndpoints(request)
+			return api.AddEndpoints(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1210,7 +1252,7 @@ func redisEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[redis.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1228,13 +1270,13 @@ func redisEndpointDelete() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.DeleteEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.DeleteEndpoint(request)
+			return api.DeleteEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1247,7 +1289,7 @@ func redisEndpointGet() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.GetEndpointRequest{}),
+		ArgsType: reflect.TypeFor[redis.GetEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1265,13 +1307,13 @@ func redisEndpointGet() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.GetEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.GetEndpoint(request)
+			return api.GetEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1284,7 +1326,7 @@ func redisEndpointUpdate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(redis.UpdateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[redis.UpdateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -1307,6 +1349,20 @@ func redisEndpointUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "private-network.ipam-config",
+				Short:      `Automated configuration of your Private Network endpoint with Scaleway IPAM service.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "public-network",
+				Short:      `Public network details`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1316,13 +1372,13 @@ func redisEndpointUpdate() *core.Command {
 				scw.ZonePlWaw2,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*redis.UpdateEndpointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := redis.NewAPI(client)
 
-			return api.UpdateEndpoint(request)
+			return api.UpdateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }

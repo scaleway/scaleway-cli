@@ -164,7 +164,7 @@ func dnsRecordSetCommand() *core.Command {
 	}
 }
 
-func dnsRecordSetRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func dnsRecordSetRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*dnsRecordSetRequest)
 
 	dnsRecordSetReq := &domain.UpdateDNSZoneRecordsRequest{

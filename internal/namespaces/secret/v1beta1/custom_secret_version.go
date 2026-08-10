@@ -44,7 +44,7 @@ func secretVersionAccessBuilder(c *core.Command) *core.Command {
 		Raw:   "scw secret version access 11111111-1111-1111-111111111111 revision=1 field=key raw=true",
 	})
 
-	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, args any) (i any, e error) {
 		client := core.ExtractClient(ctx)
 		api := secret.NewAPI(client)
 
@@ -77,12 +77,12 @@ func secretVersionAccessBuilder(c *core.Command) *core.Command {
 }
 
 func getSecretVersionField(data []byte, field string) ([]byte, error) {
-	var rawFields interface{}
+	var rawFields any
 	if err := json.Unmarshal(data, &rawFields); err != nil {
 		return nil, errors.New("cannot unmarshal JSON data")
 	}
 
-	rawField, ok := rawFields.(map[string]interface{})[field]
+	rawField, ok := rawFields.(map[string]any)[field]
 	if !ok {
 		return nil, errors.New("JSON field is not present")
 	}

@@ -1,11 +1,24 @@
 🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Cannot find resource 'volume' with ID '11111111-1111-1111-1111-111111111111'
+Invalid arguments 'volume_id'
+
+Details:
+- 'volume_id' does not respect constraints
+
+Hint:
+Volume 11111111-1111-1111-1111-111111111111 is not attached to this server
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "message": "cannot find resource 'volume' with ID '11111111-1111-1111-1111-111111111111'",
+  "message": "invalid arguments 'volume_id'",
   "error": {
-    "resource": "volume",
-    "resource_id": "11111111-1111-1111-1111-111111111111"
-  }
+    "details": [
+      {
+        "argument_name": "volume_id",
+        "reason": "constraint",
+        "help_message": "Volume 11111111-1111-1111-1111-111111111111 is not attached to this server"
+      }
+    ]
+  },
+  "details": "- 'volume_id' does not respect constraints",
+  "hint": "Volume 11111111-1111-1111-1111-111111111111 is not attached to this server"
 }

@@ -1,103 +1,35 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"versions":[{"region":"fr-par", "name":"1.32.3", "label":"Kubernetes 1.32.3",
-      "available_cnis":["cilium", "calico", "kilo", "none"], "available_container_runtimes":["containerd"],
-      "available_feature_gates":["HPAScaleToZero", "InPlacePodVerticalScaling", "SidecarContainers",
-      "DRAAdminAccess", "DRAResourceClaimDeviceStatus", "DynamicResourceAllocation"],
-      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
-      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
-      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
-      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
-      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
-      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}, {"region":"fr-par",
-      "name":"1.31.7", "label":"Kubernetes 1.31.7", "available_cnis":["cilium", "calico",
-      "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
-      "InPlacePodVerticalScaling", "SidecarContainers"], "available_admission_plugins":["AlwaysPullImages",
-      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
-      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
-      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
-      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
-      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
-      {"region":"fr-par", "name":"1.30.11", "label":"Kubernetes 1.30.11", "available_cnis":["cilium",
-      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
-      "SidecarContainers", "InPlacePodVerticalScaling"], "available_admission_plugins":["AlwaysPullImages",
-      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
-      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
-      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
-      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
-      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
-      {"region":"fr-par", "name":"1.29.15", "label":"Kubernetes 1.29.15", "available_cnis":["cilium",
-      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
-      "SidecarContainers", "ValidatingAdmissionPolicy", "InPlacePodVerticalScaling"],
-      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
-      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
-      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
-      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
-      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
-      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}]}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.24.2; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/k8s/v1/regions/fr-par/versions
-    method: GET
-  response:
-    body: '{"versions":[{"region":"fr-par", "name":"1.32.3", "label":"Kubernetes 1.32.3",
-      "available_cnis":["cilium", "calico", "kilo", "none"], "available_container_runtimes":["containerd"],
-      "available_feature_gates":["HPAScaleToZero", "InPlacePodVerticalScaling", "SidecarContainers",
-      "DRAAdminAccess", "DRAResourceClaimDeviceStatus", "DynamicResourceAllocation"],
-      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
-      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
-      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
-      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
-      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
-      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}, {"region":"fr-par",
-      "name":"1.31.7", "label":"Kubernetes 1.31.7", "available_cnis":["cilium", "calico",
-      "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
-      "InPlacePodVerticalScaling", "SidecarContainers"], "available_admission_plugins":["AlwaysPullImages",
-      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
-      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
-      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
-      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
-      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
-      {"region":"fr-par", "name":"1.30.11", "label":"Kubernetes 1.30.11", "available_cnis":["cilium",
-      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
-      "SidecarContainers", "InPlacePodVerticalScaling"], "available_admission_plugins":["AlwaysPullImages",
-      "PodNodeSelector", "PodTolerationRestriction"], "available_kubelet_args":{"containerLogMaxFiles":"uint16",
-      "containerLogMaxSize":"quantity", "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration",
-      "cpuManagerPolicy":"enum:none|static", "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32",
-      "imageGCLowThresholdPercent":"uint32", "maxParallelImagePulls":"int32", "maxPods":"uint16",
-      "registryBurst":"int32", "registryPullQPS":"int32", "serializeImagePulls":"bool"}},
-      {"region":"fr-par", "name":"1.29.15", "label":"Kubernetes 1.29.15", "available_cnis":["cilium",
-      "calico", "kilo", "none"], "available_container_runtimes":["containerd"], "available_feature_gates":["HPAScaleToZero",
-      "SidecarContainers", "ValidatingAdmissionPolicy", "InPlacePodVerticalScaling"],
-      "available_admission_plugins":["AlwaysPullImages", "PodNodeSelector", "PodTolerationRestriction"],
-      "available_kubelet_args":{"containerLogMaxFiles":"uint16", "containerLogMaxSize":"quantity",
-      "cpuCFSQuota":"bool", "cpuCFSQuotaPeriod":"duration", "cpuManagerPolicy":"enum:none|static",
-      "enableDebuggingHandlers":"bool", "imageGCHighThresholdPercent":"uint32", "imageGCLowThresholdPercent":"uint32",
-      "maxParallelImagePulls":"int32", "maxPods":"uint16", "registryBurst":"int32",
-      "registryPullQPS":"int32", "serializeImagePulls":"bool"}}]}'
-    headers:
-      Content-Length:
-      - "3321"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Wed, 14 May 2025 12:01:24 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 191b11ef-6ef0-4cc2-9408-56e09f07f982
-    status: 200 OK
-    code: 200
-    duration: ""
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/k8s/v1/regions/fr-par/versions
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 3198
+        body: '{"versions":[{"region":"fr-par","name":"1.35.3","label":"Kubernetes 1.35.3","available_cnis":["cilium","cilium_native","calico","kilo","none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","CPUManagerPolicyAlphaOptions","ImageVolume","MutatingAdmissionPolicy"],"available_admission_plugins":["AlwaysPullImages","PodNodeSelector","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","cpuManagerPolicyOptions":"map[string]string","enableDebuggingHandlers":"bool","evictionHard":"map[string]string","evictionMinimumReclaim":"map[string]string","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxParallelImagePulls":"int32","maxPods":"uint16","registryBurst":"int32","registryPullQPS":"int32","serializeImagePulls":"bool"},"deprecated_at":"2027-01-19T00:00:00Z","end_of_life_at":"2027-03-19T00:00:00Z","released_at":"2026-01-19T00:00:00Z"},{"region":"fr-par","name":"1.34.6","label":"Kubernetes 1.34.6","available_cnis":["cilium","cilium_native","calico","kilo","none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","CPUManagerPolicyAlphaOptions","ImageVolume","MutatingAdmissionPolicy"],"available_admission_plugins":["AlwaysPullImages","PodNodeSelector","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","cpuManagerPolicyOptions":"map[string]string","enableDebuggingHandlers":"bool","evictionHard":"map[string]string","evictionMinimumReclaim":"map[string]string","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxParallelImagePulls":"int32","maxPods":"uint16","registryBurst":"int32","registryPullQPS":"int32","serializeImagePulls":"bool"},"deprecated_at":"2026-09-29T00:00:00Z","end_of_life_at":"2026-11-29T00:00:00Z","released_at":"2025-09-29T00:00:00Z"},{"region":"fr-par","name":"1.33.10","label":"Kubernetes 1.33.10","available_cnis":["cilium","calico","kilo","none"],"available_container_runtimes":["containerd"],"available_feature_gates":["HPAScaleToZero","DRAAdminAccess","DynamicResourceAllocation","PodLevelResources","CPUManagerPolicyAlphaOptions","ImageVolume"],"available_admission_plugins":["AlwaysPullImages","PodNodeSelector","PodTolerationRestriction"],"available_kubelet_args":{"containerLogMaxFiles":"uint16","containerLogMaxSize":"quantity","cpuCFSQuota":"bool","cpuCFSQuotaPeriod":"duration","cpuManagerPolicy":"enum:none|static","cpuManagerPolicyOptions":"map[string]string","enableDebuggingHandlers":"bool","evictionHard":"map[string]string","evictionMinimumReclaim":"map[string]string","imageGCHighThresholdPercent":"uint32","imageGCLowThresholdPercent":"uint32","maxParallelImagePulls":"int32","maxPods":"uint16","registryBurst":"int32","registryPullQPS":"int32","serializeImagePulls":"bool"},"deprecated_at":"2026-09-04T00:00:00Z","end_of_life_at":"2026-11-04T00:00:00Z","released_at":"2025-09-04T00:00:00Z"}]}'
+        headers:
+            Content-Length:
+                - "3198"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 03 Jul 2026 14:28:27 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-1;edge02)
+            X-Request-Id:
+                - 4c305670-81c2-4d6a-9a71-d91485445c02
+        status: 200 OK
+        code: 200
+        duration: 21.984349ms

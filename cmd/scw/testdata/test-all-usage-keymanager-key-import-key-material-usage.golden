@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Import externally generated key material into Key Manager to derive a new cryptographic key. The key's origin must be `external`.
 
 USAGE:
@@ -7,12 +7,13 @@ USAGE:
 
 ARGS:
   key-id            ID of the key in which to import key material
-  [key-material]    The key material The key material is a random sequence of bytes used to derive a cryptographic key.
+  [key-material]    The key material
   [salt]            (Optional) Salt value to pass the key derivation function
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for import-key-material
+  -h, --help                help for import-key-material
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your CPU and GPU Instances.
 
 USAGE:
@@ -15,13 +15,15 @@ AVAILABLE COMMANDS:
   server-type     Instance type management commands
   snapshot        Snapshot management commands
   ssh             SSH Utilities
+  template        Template management commands
   user-data       User data management commands
   volume          Volume management commands
   volume-type     Volume type management commands
 
 FLAGS:
-  -h, --help   help for instance
-      --web    open console page for the current ressource
+  -h, --help                help for instance
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

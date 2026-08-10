@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID                    STATUS   CREATED AT       UPDATED AT
-[]        -                 -                         f6dd3849-441c-4dae-988a-93a673ad72d7  pending  few seconds ago  few seconds ago
+IPAM IDS                                DHCP CONFIG IPID                      STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID                    STATUS   CREATED AT       UPDATED AT
+[a514ca32-0d99-4369-bf2a-364119bf81f9]  a514ca32-0d99-4369-bf2a-364119bf81f9  -                         ee1711fb-c70e-4b49-ad20-69bc7058f2d9  pending  few seconds ago  few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "lb": {
-      "id": "7a0c3a08-e13a-46f8-b0a2-1423625bb0ef",
+      "id": "745d4b3d-402b-480a-a728-d408b7c61f3e",
       "name": "cli-test",
       "description": "cli-test",
       "status": "ready",
@@ -15,12 +15,12 @@ IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID        
       "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
       "ip": [
         {
-          "id": "10f0e543-9cf1-4fcc-b939-c9ec675c01db",
-          "ip_address": "51.159.25.215",
+          "id": "a6c7b704-a64c-450c-9313-dd6e559516ee",
+          "ip_address": "51.15.227.121",
           "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
           "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-          "lb_id": "7a0c3a08-e13a-46f8-b0a2-1423625bb0ef",
-          "reverse": "51-159-25-215.lb.fr-par.scw.cloud",
+          "lb_id": "745d4b3d-402b-480a-a728-d408b7c61f3e",
+          "reverse": "51-15-227-121.lb.fr-par.scw.cloud",
           "tags": [],
           "region": "fr-par",
           "zone": "fr-par-1"
@@ -39,9 +39,13 @@ IPAM IDS  DHCP CONFIG IPID  STATIC CONFIG IP ADDRESS  PRIVATE NETWORK ID        
       "region": "fr-par",
       "zone": "fr-par-1"
     },
-    "ipam_ids": [],
-    "dhcp_config": {},
-    "private_network_id": "f6dd3849-441c-4dae-988a-93a673ad72d7",
+    "ipam_ids": [
+      "a514ca32-0d99-4369-bf2a-364119bf81f9"
+    ],
+    "dhcp_config": {
+      "ip_id": "a514ca32-0d99-4369-bf2a-364119bf81f9"
+    },
+    "private_network_id": "ee1711fb-c70e-4b49-ad20-69bc7058f2d9",
     "status": "pending",
     "created_at": "1970-01-01T00:00:00.0Z",
     "updated_at": "1970-01-01T00:00:00.0Z"

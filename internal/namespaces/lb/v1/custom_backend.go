@@ -59,7 +59,7 @@ var (
 	}
 )
 
-func lbBackendMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbBackendMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Backend
 	backend := tmp(i.(lb.Backend))
 
@@ -126,7 +126,7 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -183,8 +183,12 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -246,8 +250,12 @@ func backendCreateBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.ID,
+								server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -336,7 +344,7 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -378,8 +386,12 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -441,8 +453,12 @@ func backendAddServersBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.ID,
+								server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -519,7 +535,7 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -561,8 +577,12 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -624,8 +644,12 @@ func backendRemoveServersBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.ID,
+								server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -702,7 +726,7 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 		Short: "Tag of the baremetal server.",
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -744,8 +768,12 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.Server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.Server.ID, server.Server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.Server.ID,
+								server.Server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.Server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.Server.PrivateIP)
@@ -807,8 +835,12 @@ func backendSetServersBuilder(c *core.Command) *core.Command {
 				} else {
 					if server.PrivateIP == nil {
 						return nil, &core.CliError{
-							Message: fmt.Sprintf("server %s (%s) does not have a private ip", server.ID, server.Name),
-							Hint:    "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
+							Message: fmt.Sprintf(
+								"server %s (%s) does not have a private ip",
+								server.ID,
+								server.Name,
+							),
+							Hint: "Private ip are assigned when the server boots, start yours with: scw instance server start " + server.ID,
 						}
 					}
 					serverIPs = append(serverIPs, *server.PrivateIP)
@@ -855,7 +887,7 @@ func backendUpdateHealthcheckBuilder(c *core.Command) *core.Command {
 }
 
 func interceptBackend() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
@@ -866,8 +898,7 @@ func interceptBackend() core.CommandInterceptor {
 
 		res, err := runner(ctx, argsI)
 		if err != nil {
-			var invalidArgErr *scw.InvalidArgumentsError
-			if errors.As(err, &invalidArgErr) {
+			if invalidArgErr, ok := errors.AsType[*scw.InvalidArgumentsError](err); ok {
 				for _, detail := range invalidArgErr.Details {
 					switch detail.ArgumentName {
 					case "Port":
@@ -898,7 +929,7 @@ func interceptBackend() core.CommandInterceptor {
 	}
 }
 
-func getBackendBeforeAction(api *lb.ZonedAPI, argsI interface{}) (*lb.Backend, error) {
+func getBackendBeforeAction(api *lb.ZonedAPI, argsI any) (*lb.Backend, error) {
 	switch args := argsI.(type) {
 	case *lb.ZonedAPIDeleteBackendRequest:
 		return api.GetBackend(&lb.ZonedAPIGetBackendRequest{

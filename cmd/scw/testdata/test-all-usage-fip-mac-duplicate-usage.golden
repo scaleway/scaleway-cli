@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Duplicate a virtual MAC address from a given flexible IP to another flexible IP attached to the same server.
 
 USAGE:
@@ -11,7 +11,8 @@ ARGS:
   [zone=fr-par-1]         Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
-  -h, --help   help for duplicate
+  -h, --help                help for duplicate
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

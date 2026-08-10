@@ -1,39 +1,39 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                b1105364-893f-40cd-ae64-34200ad98117
-Name              cli-img-sleepy-albattani
+ID                ff1fbf20-9c7c-4ac8-9a7c-5e3fdaaf6917
+Name              cli-img-reverent-hoover
 Arch              x86_64
 CreationDate      few seconds ago
 ModificationDate  few seconds ago
 ExtraVolumes      0
 FromServer        -
-Organization      105bdce1-64c0-48ab-899d-868455867ecf
+Organization      fa1e3217-dc80-42ac-85c3-3f034b78b552
 Public            false
-RootVolume        5130ddc8-602f-4347-8de8-ae3562f2eac2
+RootVolume        5f3920a8-ba8c-42d3-ad7d-1f68cd1d29a5
 State             available
-Project           105bdce1-64c0-48ab-899d-868455867ecf
+Project           fa1e3217-dc80-42ac-85c3-3f034b78b552
 Zone              fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "image": {
-    "id": "b1105364-893f-40cd-ae64-34200ad98117",
-    "name": "cli-img-sleepy-albattani",
+    "id": "ff1fbf20-9c7c-4ac8-9a7c-5e3fdaaf6917",
+    "name": "cli-img-reverent-hoover",
     "arch": "x86_64",
     "creation_date": "1970-01-01T00:00:00.0Z",
     "modification_date": "1970-01-01T00:00:00.0Z",
     "default_bootscript": null,
     "extra_volumes": {},
     "from_server": "",
-    "organization": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "public": false,
     "root_volume": {
-      "id": "5130ddc8-602f-4347-8de8-ae3562f2eac2",
+      "id": "5f3920a8-ba8c-42d3-ad7d-1f68cd1d29a5",
       "name": "cli-test-image-create-snapshotA",
       "size": 10000000000,
       "volume_type": "l_ssd"
     },
     "state": "available",
-    "project": "105bdce1-64c0-48ab-899d-868455867ecf",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
     "zone": "fr-par-1"
   }

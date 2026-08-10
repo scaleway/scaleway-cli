@@ -19,7 +19,7 @@ var certificateStatusMarshalSpecs = human.EnumMarshalSpecs{
 	lb.CertificateStatusReady:   &human.EnumMarshalSpec{Attribute: color.FgGreen, Value: "ready"},
 }
 
-func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbCertificateMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.Certificate
 	certificate := tmp(i.(lb.Certificate))
 
@@ -40,17 +40,17 @@ func lbCertificateMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, e
 func certificateCreateBuilder(c *core.Command) *core.Command {
 	leCommonNameArgSpecs := c.ArgSpecs.GetByName("letsencrypt.common-name")
 	leAlternativeNames := c.ArgSpecs.GetByName("letsencrypt.subject-alternative-name.{index}")
-	customeCertificateArgSpecs := c.ArgSpecs.GetByName("custom-certificate.certificate-chain")
+	customCertificateArgSpecs := c.ArgSpecs.GetByName("custom-certificate.certificate-chain")
 
 	leCommonNameArgSpecs.Required = false
 	leCommonNameArgSpecs.Name = "letsencrypt-common-name"
-	leCommonNameArgSpecs.ConflictWith(customeCertificateArgSpecs)
+	leCommonNameArgSpecs.ConflictWith(customCertificateArgSpecs)
 
 	leAlternativeNames.Name = "letsencrypt-alternative-name.{index}"
-	leCommonNameArgSpecs.ConflictWith(customeCertificateArgSpecs)
+	leCommonNameArgSpecs.ConflictWith(customCertificateArgSpecs)
 
-	customeCertificateArgSpecs.Name = "custom-certificate-chain"
-	customeCertificateArgSpecs.Required = false
+	customCertificateArgSpecs.Name = "custom-certificate-chain"
+	customCertificateArgSpecs.Required = false
 
 	type lbCreateCertificateRequestCustom struct {
 		Zone scw.Zone `json:"-"`
@@ -66,7 +66,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(lbCreateCertificateRequestCustom{})
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*lbCreateCertificateRequestCustom)
 		var createCertificateRequest *lb.ZonedAPICreateCertificateRequest
 		if args.CustomCertificateChain != "" {
@@ -119,7 +119,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 			Hint: fmt.Sprintf(
 				"You need to specify %s or %s",
 				leCommonNameArgSpecs.Name,
-				customeCertificateArgSpecs.Name,
+				customCertificateArgSpecs.Name,
 			),
 			Code: 1,
 		}
@@ -147,7 +147,7 @@ func certificateDeleteBuilder(c *core.Command) *core.Command {
 }
 
 func interceptCertificate() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		var getCertificate *lb.Certificate
 		var err error
 

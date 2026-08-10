@@ -45,7 +45,11 @@ interactions:
       "default_value":"50", "hot_configurable":true, "description":"The length of
       time in seconds an InnoDB transaction waits for a row lock before giving up",
       "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":600,
-      "float_min":null, "float_max":null}, {"name":"innodb_stats_persistent_sample_pages",
+      "float_min":null, "float_max":null}, {"name":"innodb_print_all_deadlocks", "default_value":"OFF",
+      "hot_configurable":true, "description":"Indicates whether information about
+      deadlocks in InnoDB transactions should be included in the server error logs",
+      "property_type":"BOOLEAN", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":null, "float_max":null}, {"name":"innodb_stats_persistent_sample_pages",
       "default_value":"200", "hot_configurable":true, "description":"The number of
       index pages to sample when estimating cardinality and other statistics for an
       indexed column", "property_type":"INT", "unit":null, "string_constraint":null,
@@ -76,6 +80,10 @@ interactions:
       {"name":"max_connections", "default_value":"100", "hot_configurable":true, "description":"The
       maximum permitted number of simultaneous client connections", "property_type":"INT",
       "unit":null, "string_constraint":null, "int_min":50, "int_max":5000, "float_min":null,
+      "float_max":null}, {"name":"max_digest_length", "default_value":"1024", "hot_configurable":false,
+      "description":"The maximum number of bytes of memory reserved per session for
+      computation of normalized statement digests", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":1024, "int_max":8192, "float_min":null,
       "float_max":null}, {"name":"max_prepared_stmt_count", "default_value":"16382",
       "hot_configurable":false, "description":"Limit the total number of prepared
       statements in the server", "property_type":"INT", "unit":null, "string_constraint":null,
@@ -83,6 +91,14 @@ interactions:
       "default_value":"0", "hot_configurable":true, "description":"Queries that examine
       fewer than this number of rows are not logged to the slow query log.", "property_type":"INT",
       "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"performance_schema_max_digest_length", "default_value":"1024",
+      "hot_configurable":false, "description":"The maximum number of bytes of memory
+      reserved per statement for computation of normalized statement digest values
+      in the Performance Schema", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":1024, "int_max":8192, "float_min":null, "float_max":null}, {"name":"performance_schema_max_sql_text_length",
+      "default_value":"1024", "hot_configurable":false, "description":"The maximum
+      number of bytes used to store SQL statements", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":1024, "int_max":8192, "float_min":null,
       "float_max":null}, {"name":"slow_query_log", "default_value":"OFF", "hot_configurable":false,
       "description":"Whether the slow query log is enabled", "property_type":"BOOLEAN",
       "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
@@ -93,7 +109,7 @@ interactions:
       "default_value":"ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
       "hot_configurable":true, "description":"Modes affect the SQL syntax MySQL supports
       and the data validation checks it performs", "property_type":"STRING", "unit":null,
-      "string_constraint":"^((ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION)(,(ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION))*)?$",
+      "string_constraint":"^((ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|ALLOW_INVALID_DATES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION)(,(ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|ALLOW_INVALID_DATES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION))*)?$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"table_definition_cache",
       "default_value":"2000", "hot_configurable":true, "description":"The number of
       table definitions that can be stored in the definition cache", "property_type":"INT",
@@ -125,7 +141,200 @@ interactions:
       stored in lowercase on disk and comparisons are not case sensitive.", "property_type":"INT",
       "unit":null, "string_constraint":null, "int_min":0, "int_max":1, "float_min":null,
       "float_max":null}]}], "region":"fr-par"}, {"name":"PostgreSQL", "logo_url":"https://s3.nl-ams.scw.cloud/scw-rdb-logos/postgresql.svg",
-      "versions":[{"version":"15", "name":"PostgreSQL-15", "end_of_life":"2027-11-11T00:00:00Z",
+      "versions":[{"version":"16", "name":"PostgreSQL-16", "end_of_life":"2028-11-09T00:00:00Z",
+      "available_settings":[{"name":"autovacuum_vacuum_insert_scale_factor", "default_value":"0.2",
+      "hot_configurable":true, "description":"Specifies a fraction of the table size
+      to add to autovacuum_vacuum_insert_threshold when deciding whether to trigger
+      a VACUUM.", "property_type":"FLOAT", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":0.1, "float_max":100}, {"name":"autovacuum_vacuum_insert_threshold",
+      "default_value":"1000", "hot_configurable":true, "description":"Specifies the
+      number of inserted tuples needed to trigger a VACUUM in any one table.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":-1, "int_max":1147483647, "float_min":null,
+      "float_max":null}, {"name":"autovacuum_vacuum_scale_factor", "default_value":"0.2",
+      "hot_configurable":true, "description":"Specifies a fraction of the table size
+      to add to autovacuum_vacuum_threshold when deciding whether to trigger a VACUUM.",
+      "property_type":"FLOAT", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":0.1, "float_max":100}, {"name":"autovacuum_vacuum_threshold",
+      "default_value":"50", "hot_configurable":true, "description":"Specifies the
+      minimum number of updated or deleted tuples needed to trigger a VACUUM in any
+      one table.", "property_type":"INT", "unit":null, "string_constraint":null, "int_min":50,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"bgwriter_delay",
+      "default_value":"200", "hot_configurable":true, "description":"Background writer
+      sleep time between rounds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
+      "int_min":10, "int_max":10000, "float_min":null, "float_max":null}, {"name":"bgwriter_flush_after",
+      "default_value":"512", "hot_configurable":true, "description":"Number of pages
+      after which previously performed writes are flushed to disk.", "property_type":"INT",
+      "unit":"kB", "string_constraint":null, "int_min":0, "int_max":2048, "float_min":null,
+      "float_max":null}, {"name":"bgwriter_lru_maxpages", "default_value":"100", "hot_configurable":true,
+      "description":"Background writer maximum number of LRU pages to flush per round.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":1073741823,
+      "float_min":null, "float_max":null}, {"name":"bgwriter_lru_multiplier", "default_value":"2",
+      "hot_configurable":true, "description":"Multiple of the average buffer usage
+      to free per round.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":10, "float_min":null, "float_max":null}, {"name":"checkpoint_timeout",
+      "default_value":"30", "hot_configurable":true, "description":"Sets the maximum
+      time between automatic WAL checkpoints.", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":30, "int_max":21600, "float_min":null, "float_max":null},
+      {"name":"commit_delay", "default_value":"0", "hot_configurable":true, "description":"Sets
+      the delay in microseconds between transaction commit and flushing WAL to disk.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":100000,
+      "float_min":null, "float_max":null}, {"name":"cron.timezone", "default_value":"GMT",
+      "hot_configurable":false, "description":"Specifies the timezone in which the
+      pg_cron background worker should run.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"deadlock_timeout",
+      "default_value":"1000", "hot_configurable":true, "description":"Sets the time
+      to wait on a lock before checking for deadlock.", "property_type":"INT", "unit":"ms",
+      "string_constraint":null, "int_min":100, "int_max":60000, "float_min":null,
+      "float_max":null}, {"name":"default_statistics_target", "default_value":"100",
+      "hot_configurable":true, "description":"Sets the default statistics target.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":10000,
+      "float_min":null, "float_max":null}, {"name":"default_transaction_deferrable",
+      "default_value":"off", "hot_configurable":true, "description":"Sets the default
+      deferrable status of new transactions.", "property_type":"BOOLEAN", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
+      "description":"Sets the planner s assumption about the size of the data cache.",
+      "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms.", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
+      "hot_configurable":true, "description":"Sets the minimum execution time above
+      which autovacuum actions will be logged.", "property_type":"INT", "unit":"ms",
+      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"log_checkpoints", "default_value":"on", "hot_configurable":true,
+      "description":"Causes checkpoints and restartpoints to be logged in the server
+      log.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":null, "float_max":null}, {"name":"log_lock_waits",
+      "default_value":"on", "hot_configurable":true, "description":"Logs long lock
+      waits", "property_type":"BOOLEAN", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":null, "float_max":null}, {"name":"log_min_duration_statement",
+      "default_value":"5000", "hot_configurable":true, "description":"Sets the minimum
+      execution time above which all statements will be logged", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"log_replication_commands", "default_value":"on",
+      "hot_configurable":false, "description":"Logs each replication command", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"log_temp_files", "default_value":"0", "hot_configurable":true,
+      "description":"Log the use of temporary files larger than this number of kilobytes",
+      "property_type":"INT", "unit":"kB", "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"maintenance_work_mem",
+      "default_value":"64", "hot_configurable":true, "description":"Sets the maximum
+      memory to be used for maintenance operations.", "property_type":"INT", "unit":"MB",
+      "string_constraint":null, "int_min":1, "int_max":2097151, "float_min":null,
+      "float_max":null}, {"name":"max_connections", "default_value":"100", "hot_configurable":false,
+      "description":"Sets the maximum number of concurrent connections.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":50, "int_max":10000, "float_min":null,
+      "float_max":null}, {"name":"max_locks_per_transaction", "default_value":"64",
+      "hot_configurable":false, "description":"Sets the maximum number of locks per
+      transaction.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":10, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"max_parallel_workers",
+      "default_value":"8", "hot_configurable":true, "description":"Sets the maximum
+      number of parallel workers that can be active at one time.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":1024, "float_min":null,
+      "float_max":null}, {"name":"max_parallel_workers_per_gather", "default_value":"2",
+      "hot_configurable":true, "description":"Sets the maximum number of parallel
+      processes per executor node.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":1024, "float_min":null, "float_max":null}, {"name":"max_standby_streaming_delay",
+      "default_value":"30000", "hot_configurable":true, "description":"Sets the maximum
+      delay before canceling queries when a hot standby server is processing streamed
+      WAL data.", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":0,
+      "int_max":180000, "float_min":null, "float_max":null}, {"name":"max_wal_size",
+      "default_value":"1024", "hot_configurable":true, "description":"Maximum size
+      to let the WAL grow during automatic checkpoints. Be careful adjusting this
+      setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pg_stat_statements.max",
+      "default_value":"5000", "hot_configurable":false, "description":"Specifies the
+      maximum number of statements tracked by the module.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":100, "int_max":15000, "float_min":null,
+      "float_max":null}, {"name":"pg_stat_statements.track", "default_value":"top",
+      "hot_configurable":true, "description":"Controls which statements are counted
+      by the module.", "property_type":"STRING", "unit":null, "string_constraint":"^(top|all|none)$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pg_stat_statements.track_utility",
+      "default_value":"on", "hot_configurable":true, "description":"Controls whether
+      utility commands are tracked by the module.", "property_type":"BOOLEAN", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"pgaudit.log", "default_value":"none", "hot_configurable":true,
+      "description":"Specifies which classes of statements will be logged by session
+      audit logging", "property_type":"STRING", "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":"kB", "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
+      "default_value":"1024", "hot_configurable":false, "description":"Sets the size
+      reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
+      in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
+      "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
+      "default_value":"200", "hot_configurable":true, "description":"Vacuum cost amount
+      available before napping.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":1, "int_max":10000, "float_min":null, "float_max":null}, {"name":"vacuum_cost_page_dirty",
+      "default_value":"20", "hot_configurable":true, "description":"Vacuum cost for
+      a page dirtied by vacuum.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":10000, "float_min":null, "float_max":null}, {"name":"vacuum_cost_page_hit",
+      "default_value":"1", "hot_configurable":true, "description":"Vacuum cost for
+      a page found in the buffer cache.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":10000, "float_min":null, "float_max":null}, {"name":"vacuum_cost_page_miss",
+      "default_value":"10", "hot_configurable":true, "description":"Vacuum cost for
+      a page not found in the buffer cache.", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":0, "int_max":10000, "float_min":null, "float_max":null},
+      {"name":"work_mem", "default_value":"4", "hot_configurable":true, "description":"Sets
+      the maximum memory to be used for query workspaces.", "property_type":"INT",
+      "unit":"MB", "string_constraint":null, "int_min":1, "int_max":2097151, "float_min":null,
+      "float_max":null}], "disabled":false, "beta":false, "available_init_settings":[]},
+      {"version":"15", "name":"PostgreSQL-15", "end_of_life":"2027-11-11T00:00:00Z",
       "available_settings":[{"name":"bgwriter_delay", "default_value":"200", "hot_configurable":true,
       "description":"Background writer sleep time between rounds.", "property_type":"INT",
       "unit":"ms", "string_constraint":null, "int_min":10, "int_max":10000, "float_min":null,
@@ -1043,7 +1252,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/rdb/v1/regions/fr-par/database-engines
     method: GET
   response:
@@ -1090,7 +1299,11 @@ interactions:
       "default_value":"50", "hot_configurable":true, "description":"The length of
       time in seconds an InnoDB transaction waits for a row lock before giving up",
       "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":600,
-      "float_min":null, "float_max":null}, {"name":"innodb_stats_persistent_sample_pages",
+      "float_min":null, "float_max":null}, {"name":"innodb_print_all_deadlocks", "default_value":"OFF",
+      "hot_configurable":true, "description":"Indicates whether information about
+      deadlocks in InnoDB transactions should be included in the server error logs",
+      "property_type":"BOOLEAN", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":null, "float_max":null}, {"name":"innodb_stats_persistent_sample_pages",
       "default_value":"200", "hot_configurable":true, "description":"The number of
       index pages to sample when estimating cardinality and other statistics for an
       indexed column", "property_type":"INT", "unit":null, "string_constraint":null,
@@ -1121,6 +1334,10 @@ interactions:
       {"name":"max_connections", "default_value":"100", "hot_configurable":true, "description":"The
       maximum permitted number of simultaneous client connections", "property_type":"INT",
       "unit":null, "string_constraint":null, "int_min":50, "int_max":5000, "float_min":null,
+      "float_max":null}, {"name":"max_digest_length", "default_value":"1024", "hot_configurable":false,
+      "description":"The maximum number of bytes of memory reserved per session for
+      computation of normalized statement digests", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":1024, "int_max":8192, "float_min":null,
       "float_max":null}, {"name":"max_prepared_stmt_count", "default_value":"16382",
       "hot_configurable":false, "description":"Limit the total number of prepared
       statements in the server", "property_type":"INT", "unit":null, "string_constraint":null,
@@ -1128,6 +1345,14 @@ interactions:
       "default_value":"0", "hot_configurable":true, "description":"Queries that examine
       fewer than this number of rows are not logged to the slow query log.", "property_type":"INT",
       "unit":null, "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"performance_schema_max_digest_length", "default_value":"1024",
+      "hot_configurable":false, "description":"The maximum number of bytes of memory
+      reserved per statement for computation of normalized statement digest values
+      in the Performance Schema", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":1024, "int_max":8192, "float_min":null, "float_max":null}, {"name":"performance_schema_max_sql_text_length",
+      "default_value":"1024", "hot_configurable":false, "description":"The maximum
+      number of bytes used to store SQL statements", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":1024, "int_max":8192, "float_min":null,
       "float_max":null}, {"name":"slow_query_log", "default_value":"OFF", "hot_configurable":false,
       "description":"Whether the slow query log is enabled", "property_type":"BOOLEAN",
       "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
@@ -1138,7 +1363,7 @@ interactions:
       "default_value":"ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION",
       "hot_configurable":true, "description":"Modes affect the SQL syntax MySQL supports
       and the data validation checks it performs", "property_type":"STRING", "unit":null,
-      "string_constraint":"^((ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION)(,(ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION))*)?$",
+      "string_constraint":"^((ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|ALLOW_INVALID_DATES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION)(,(ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|ALLOW_INVALID_DATES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION))*)?$",
       "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"table_definition_cache",
       "default_value":"2000", "hot_configurable":true, "description":"The number of
       table definitions that can be stored in the definition cache", "property_type":"INT",
@@ -1170,7 +1395,200 @@ interactions:
       stored in lowercase on disk and comparisons are not case sensitive.", "property_type":"INT",
       "unit":null, "string_constraint":null, "int_min":0, "int_max":1, "float_min":null,
       "float_max":null}]}], "region":"fr-par"}, {"name":"PostgreSQL", "logo_url":"https://s3.nl-ams.scw.cloud/scw-rdb-logos/postgresql.svg",
-      "versions":[{"version":"15", "name":"PostgreSQL-15", "end_of_life":"2027-11-11T00:00:00Z",
+      "versions":[{"version":"16", "name":"PostgreSQL-16", "end_of_life":"2028-11-09T00:00:00Z",
+      "available_settings":[{"name":"autovacuum_vacuum_insert_scale_factor", "default_value":"0.2",
+      "hot_configurable":true, "description":"Specifies a fraction of the table size
+      to add to autovacuum_vacuum_insert_threshold when deciding whether to trigger
+      a VACUUM.", "property_type":"FLOAT", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":0.1, "float_max":100}, {"name":"autovacuum_vacuum_insert_threshold",
+      "default_value":"1000", "hot_configurable":true, "description":"Specifies the
+      number of inserted tuples needed to trigger a VACUUM in any one table.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":-1, "int_max":1147483647, "float_min":null,
+      "float_max":null}, {"name":"autovacuum_vacuum_scale_factor", "default_value":"0.2",
+      "hot_configurable":true, "description":"Specifies a fraction of the table size
+      to add to autovacuum_vacuum_threshold when deciding whether to trigger a VACUUM.",
+      "property_type":"FLOAT", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":0.1, "float_max":100}, {"name":"autovacuum_vacuum_threshold",
+      "default_value":"50", "hot_configurable":true, "description":"Specifies the
+      minimum number of updated or deleted tuples needed to trigger a VACUUM in any
+      one table.", "property_type":"INT", "unit":null, "string_constraint":null, "int_min":50,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"bgwriter_delay",
+      "default_value":"200", "hot_configurable":true, "description":"Background writer
+      sleep time between rounds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
+      "int_min":10, "int_max":10000, "float_min":null, "float_max":null}, {"name":"bgwriter_flush_after",
+      "default_value":"512", "hot_configurable":true, "description":"Number of pages
+      after which previously performed writes are flushed to disk.", "property_type":"INT",
+      "unit":"kB", "string_constraint":null, "int_min":0, "int_max":2048, "float_min":null,
+      "float_max":null}, {"name":"bgwriter_lru_maxpages", "default_value":"100", "hot_configurable":true,
+      "description":"Background writer maximum number of LRU pages to flush per round.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":1073741823,
+      "float_min":null, "float_max":null}, {"name":"bgwriter_lru_multiplier", "default_value":"2",
+      "hot_configurable":true, "description":"Multiple of the average buffer usage
+      to free per round.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":10, "float_min":null, "float_max":null}, {"name":"checkpoint_timeout",
+      "default_value":"30", "hot_configurable":true, "description":"Sets the maximum
+      time between automatic WAL checkpoints.", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":30, "int_max":21600, "float_min":null, "float_max":null},
+      {"name":"commit_delay", "default_value":"0", "hot_configurable":true, "description":"Sets
+      the delay in microseconds between transaction commit and flushing WAL to disk.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":0, "int_max":100000,
+      "float_min":null, "float_max":null}, {"name":"cron.timezone", "default_value":"GMT",
+      "hot_configurable":false, "description":"Specifies the timezone in which the
+      pg_cron background worker should run.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"deadlock_timeout",
+      "default_value":"1000", "hot_configurable":true, "description":"Sets the time
+      to wait on a lock before checking for deadlock.", "property_type":"INT", "unit":"ms",
+      "string_constraint":null, "int_min":100, "int_max":60000, "float_min":null,
+      "float_max":null}, {"name":"default_statistics_target", "default_value":"100",
+      "hot_configurable":true, "description":"Sets the default statistics target.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":10000,
+      "float_min":null, "float_max":null}, {"name":"default_transaction_deferrable",
+      "default_value":"off", "hot_configurable":true, "description":"Sets the default
+      deferrable status of new transactions.", "property_type":"BOOLEAN", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"effective_cache_size", "default_value":"4096", "hot_configurable":true,
+      "description":"Sets the planner s assumption about the size of the data cache.",
+      "property_type":"INT", "unit":"MB", "string_constraint":null, "int_min":64,
+      "int_max":1048576, "float_min":null, "float_max":null}, {"name":"effective_io_concurrency",
+      "default_value":"1", "hot_configurable":true, "description":"Sets the number
+      of concurrent disk I/O operations that PostgreSQL expects can be executed simultaneously.",
+      "property_type":"INT", "unit":null, "string_constraint":null, "int_min":1, "int_max":32,
+      "float_min":null, "float_max":null}, {"name":"hot_standby_feedback", "default_value":"off",
+      "hot_configurable":true, "description":"Specifies whether or not a hot standby
+      will send feedback to the primary or upstream standby about queries currently
+      executing on the standby.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"idle_in_transaction_session_timeout",
+      "default_value":"3600000", "hot_configurable":true, "description":"Sets the
+      maximum allowed duration of any idling transaction. Value in ms.", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"lock_timeout", "default_value":"0", "hot_configurable":false,
+      "description":"Sets the maximum allowed duration of any wait for a lock.", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":0, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"log_autovacuum_min_duration", "default_value":"-1",
+      "hot_configurable":true, "description":"Sets the minimum execution time above
+      which autovacuum actions will be logged.", "property_type":"INT", "unit":"ms",
+      "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"log_checkpoints", "default_value":"on", "hot_configurable":true,
+      "description":"Causes checkpoints and restartpoints to be logged in the server
+      log.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":null, "float_max":null}, {"name":"log_lock_waits",
+      "default_value":"on", "hot_configurable":true, "description":"Logs long lock
+      waits", "property_type":"BOOLEAN", "unit":null, "string_constraint":null, "int_min":null,
+      "int_max":null, "float_min":null, "float_max":null}, {"name":"log_min_duration_statement",
+      "default_value":"5000", "hot_configurable":true, "description":"Sets the minimum
+      execution time above which all statements will be logged", "property_type":"INT",
+      "unit":"ms", "string_constraint":null, "int_min":-1, "int_max":2147483647, "float_min":null,
+      "float_max":null}, {"name":"log_replication_commands", "default_value":"on",
+      "hot_configurable":false, "description":"Logs each replication command", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"log_temp_files", "default_value":"0", "hot_configurable":true,
+      "description":"Log the use of temporary files larger than this number of kilobytes",
+      "property_type":"INT", "unit":"kB", "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"maintenance_work_mem",
+      "default_value":"64", "hot_configurable":true, "description":"Sets the maximum
+      memory to be used for maintenance operations.", "property_type":"INT", "unit":"MB",
+      "string_constraint":null, "int_min":1, "int_max":2097151, "float_min":null,
+      "float_max":null}, {"name":"max_connections", "default_value":"100", "hot_configurable":false,
+      "description":"Sets the maximum number of concurrent connections.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":50, "int_max":10000, "float_min":null,
+      "float_max":null}, {"name":"max_locks_per_transaction", "default_value":"64",
+      "hot_configurable":false, "description":"Sets the maximum number of locks per
+      transaction.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":10, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"max_parallel_workers",
+      "default_value":"8", "hot_configurable":true, "description":"Sets the maximum
+      number of parallel workers that can be active at one time.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":0, "int_max":1024, "float_min":null,
+      "float_max":null}, {"name":"max_parallel_workers_per_gather", "default_value":"2",
+      "hot_configurable":true, "description":"Sets the maximum number of parallel
+      processes per executor node.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":1024, "float_min":null, "float_max":null}, {"name":"max_standby_streaming_delay",
+      "default_value":"30000", "hot_configurable":true, "description":"Sets the maximum
+      delay before canceling queries when a hot standby server is processing streamed
+      WAL data.", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":0,
+      "int_max":180000, "float_min":null, "float_max":null}, {"name":"max_wal_size",
+      "default_value":"1024", "hot_configurable":true, "description":"Maximum size
+      to let the WAL grow during automatic checkpoints. Be careful adjusting this
+      setting will use disk space", "property_type":"INT", "unit":"MB", "string_constraint":null,
+      "int_min":256, "int_max":10240, "float_min":null, "float_max":null}, {"name":"pg_stat_statements.max",
+      "default_value":"5000", "hot_configurable":false, "description":"Specifies the
+      maximum number of statements tracked by the module.", "property_type":"INT",
+      "unit":null, "string_constraint":null, "int_min":100, "int_max":15000, "float_min":null,
+      "float_max":null}, {"name":"pg_stat_statements.track", "default_value":"top",
+      "hot_configurable":true, "description":"Controls which statements are counted
+      by the module.", "property_type":"STRING", "unit":null, "string_constraint":"^(top|all|none)$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pg_stat_statements.track_utility",
+      "default_value":"on", "hot_configurable":true, "description":"Controls whether
+      utility commands are tracked by the module.", "property_type":"BOOLEAN", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"pgaudit.log", "default_value":"none", "hot_configurable":true,
+      "description":"Specifies which classes of statements will be logged by session
+      audit logging", "property_type":"STRING", "unit":null, "string_constraint":"^none$|^ALL$|^(?:(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\1))(?:(,)(READ|WRITE|FUNCTION|ROLE|DDL|MISC|MISC_SET)(?!.*\\2\\3))*$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"pgaudit.role",
+      "default_value":"", "hot_configurable":true, "description":"Specifies the master
+      role to use for object audit logging.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^[a-zA-Z][a-zA-Z0-9_$-]{0,62}$", "int_min":null, "int_max":null,
+      "float_min":null, "float_max":null}, {"name":"random_page_cost", "default_value":"4.0",
+      "hot_configurable":true, "description":"Sets the planner''s estimate of the
+      cost of a non-sequentially-fetched disk page.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"rdb.enable_pgaudit", "default_value":"off", "hot_configurable":false,
+      "description":"Enable pgaudit extension on the instance.", "property_type":"BOOLEAN",
+      "unit":null, "string_constraint":null, "int_min":null, "int_max":null, "float_min":null,
+      "float_max":null}, {"name":"seq_page_cost", "default_value":"1.0", "hot_configurable":true,
+      "description":"Sets the planner''s estimate of the cost of a disk page fetch
+      that is part of a series of sequential fetches.", "property_type":"FLOAT", "unit":null,
+      "string_constraint":null, "int_min":null, "int_max":null, "float_min":0.1, "float_max":10},
+      {"name":"statement_timeout", "default_value":"86400000", "hot_configurable":true,
+      "description":"Sets the maximum allowed duration of any statement. Value in
+      ms", "property_type":"INT", "unit":"ms", "string_constraint":null, "int_min":30000,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_count",
+      "default_value":"0", "hot_configurable":true, "description":"Maximum number
+      of TCP keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_idle",
+      "default_value":"0", "hot_configurable":true, "description":"Time between issuing
+      TCP keepalives.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"tcp_keepalives_interval",
+      "default_value":"0", "hot_configurable":true, "description":"Time between TCP
+      keepalive retransmits.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"temp_buffers",
+      "default_value":"8192", "hot_configurable":true, "description":"Sets the maximum
+      number of temporary buffers used by each session.", "property_type":"INT", "unit":"kB",
+      "string_constraint":null, "int_min":800, "int_max":1073741824, "float_min":null,
+      "float_max":null}, {"name":"temp_file_limit", "default_value":"-1", "hot_configurable":false,
+      "description":"Limits the total size of all temporary files used by each session.",
+      "property_type":"INT", "unit":"kB", "string_constraint":null, "int_min":-1,
+      "int_max":2147483647, "float_min":null, "float_max":null}, {"name":"timezone",
+      "default_value":"GMT", "hot_configurable":true, "description":"This option sets
+      the global timezone system variable.", "property_type":"STRING", "unit":null,
+      "string_constraint":"^((Africa\\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\\/Buenos_Aires|Argentina\\/Catamarca|Argentina\\/Cordoba|Argentina\\/Jujuy|Argentina\\/La_Rioja|Argentina\\/Mendoza|Argentina\\/Rio_Gallegos|Argentina\\/Salta|Argentina\\/San_Juan|Argentina\\/San_Luis|Argentina\\/Tucuman|Argentina\\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\\/Indianapolis|Indiana\\/Knox|Indiana\\/Marengo|Indiana\\/Petersburg|Indiana\\/Tell_City|Indiana\\/Vevay|Indiana\\/Vincennes|Indiana\\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\\/Louisville|Kentucky\\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\\/Beulah|North_Dakota\\/Center|North_Dakota\\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\\/Longyearbyen)|(Asia\\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$",
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"track_activity_query_size",
+      "default_value":"1024", "hot_configurable":false, "description":"Sets the size
+      reserved for pg_stat_activity.query.", "property_type":"INT", "unit":"B", "string_constraint":null,
+      "int_min":100, "int_max":8192, "float_min":null, "float_max":null}, {"name":"track_commit_timestamp",
+      "default_value":"off", "hot_configurable":false, "description":"Record commit
+      time of transactions.", "property_type":"BOOLEAN", "unit":null, "string_constraint":null,
+      "int_min":null, "int_max":null, "float_min":null, "float_max":null}, {"name":"vacuum_cost_delay",
+      "default_value":"0", "hot_configurable":true, "description":"Vacuum cost delay
+      in milliseconds.", "property_type":"INT", "unit":"ms", "string_constraint":null,
+      "int_min":0, "int_max":100, "float_min":null, "float_max":null}, {"name":"vacuum_cost_limit",
+      "default_value":"200", "hot_configurable":true, "description":"Vacuum cost amount
+      available before napping.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":1, "int_max":10000, "float_min":null, "float_max":null}, {"name":"vacuum_cost_page_dirty",
+      "default_value":"20", "hot_configurable":true, "description":"Vacuum cost for
+      a page dirtied by vacuum.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":10000, "float_min":null, "float_max":null}, {"name":"vacuum_cost_page_hit",
+      "default_value":"1", "hot_configurable":true, "description":"Vacuum cost for
+      a page found in the buffer cache.", "property_type":"INT", "unit":null, "string_constraint":null,
+      "int_min":0, "int_max":10000, "float_min":null, "float_max":null}, {"name":"vacuum_cost_page_miss",
+      "default_value":"10", "hot_configurable":true, "description":"Vacuum cost for
+      a page not found in the buffer cache.", "property_type":"INT", "unit":null,
+      "string_constraint":null, "int_min":0, "int_max":10000, "float_min":null, "float_max":null},
+      {"name":"work_mem", "default_value":"4", "hot_configurable":true, "description":"Sets
+      the maximum memory to be used for query workspaces.", "property_type":"INT",
+      "unit":"MB", "string_constraint":null, "int_min":1, "int_max":2097151, "float_min":null,
+      "float_max":null}], "disabled":false, "beta":false, "available_init_settings":[]},
+      {"version":"15", "name":"PostgreSQL-15", "end_of_life":"2027-11-11T00:00:00Z",
       "available_settings":[{"name":"bgwriter_delay", "default_value":"200", "hot_configurable":true,
       "description":"Background writer sleep time between rounds.", "property_type":"INT",
       "unit":"ms", "string_constraint":null, "int_min":10, "int_max":10000, "float_min":null,
@@ -2087,15 +2505,15 @@ interactions:
       "region":"fr-par"}], "total_count":2}'
     headers:
       Content-Length:
-      - "124206"
+      - "150730"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:58:54 GMT
+      - Wed, 15 Oct 2025 10:18:45 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2103,38 +2521,38 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - cdb6f8bf-f220-4fe2-b0a5-b75e90921ace
+      - 26c5f400-5e12-488f-ba05-6710132023dd
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"provisioning",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances
     method: POST
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"provisioning",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2143,9 +2561,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:58:55 GMT
+      - Wed, 15 Oct 2025 10:18:45 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2153,36 +2571,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - a6296ce5-5c28-42e0-a6a2-139d8a5c3f27
+      - e3e7e72c-61de-444d-b51a-7b5f1042dea1
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"provisioning",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"provisioning",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2191,9 +2609,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:58:55 GMT
+      - Wed, 15 Oct 2025 10:18:45 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2201,36 +2619,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 8a463695-3679-42a9-b20a-6edd581794a9
+      - a0502542-6c4d-4443-a61e-93480daa1fad
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"provisioning",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"provisioning",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2239,9 +2657,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:59:10 GMT
+      - Wed, 15 Oct 2025 10:19:01 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2249,36 +2667,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 4ba3d797-4a4b-440d-923a-4a9c3f3c2ad4
+      - 623924a7-cb29-4747-aff1-d0fb6d03095b
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"provisioning",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2287,9 +2705,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:59:25 GMT
+      - Wed, 15 Oct 2025 10:19:16 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2297,36 +2715,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 1f061abf-bd0b-4938-a5f7-01c987c383f1
+      - f1f957bc-e9ac-4e02-877d-14e0feb6385e
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2335,9 +2753,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:59:41 GMT
+      - Wed, 15 Oct 2025 10:19:31 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2345,36 +2763,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 82add25c-98b0-4b8b-8ef5-03472d5e30d0
+      - 51ea0309-d078-4ecf-a055-1cccaa38ed4c
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2383,9 +2801,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 14:59:56 GMT
+      - Wed, 15 Oct 2025 10:19:46 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2393,36 +2811,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - ed4c6cb3-298e-49f6-b28c-e510c6608b0e
+      - 1f2319b2-a604-44ac-930b-8e1345f42d21
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2431,9 +2849,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:00:11 GMT
+      - Wed, 15 Oct 2025 10:20:01 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2441,36 +2859,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 2ed76232-2535-4e5a-92b2-8365e5520752
+      - 3bcc7748-c1b4-4ee0-bedb-c01edc750b1c
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2479,9 +2897,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:00:26 GMT
+      - Wed, 15 Oct 2025 10:20:17 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2489,36 +2907,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - dda7d48f-ec22-4f24-8837-a545758976b6
+      - 708fd334-3917-4143-99d9-aff49d1c3086
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2527,9 +2945,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:00:41 GMT
+      - Wed, 15 Oct 2025 10:20:32 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2537,36 +2955,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - b9218a9d-722b-40c8-9a37-b7fd2eb9b554
+      - 82efa7ab-e6b8-4665-8954-ea2f468a17ba
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2575,9 +2993,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:00:56 GMT
+      - Wed, 15 Oct 2025 10:20:47 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2585,36 +3003,36 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - d804bbc3-5379-42cb-b4e3-93de52178325
+      - d81bd007-f13d-4fb9-9186-dd043726e110
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "783"
@@ -2623,9 +3041,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:01:11 GMT
+      - Wed, 15 Oct 2025 10:21:02 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2633,138 +3051,42 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - bdc01df8-fddd-45d9-b8f3-e796b65e9051
+      - 10179fc8-dbe3-415c-bee8-f4f0ad61b918
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
-    method: GET
-  response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "783"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 15:01:26 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - f0643467-0403-4c76-8926-472c7644ca96
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
-    form: {}
-    headers:
-      User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
-    method: GET
-  response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
-      "settings":[], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
-      "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
-      "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
-    headers:
-      Content-Length:
-      - "783"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
-      Content-Type:
-      - application/json
-      Date:
-      - Tue, 07 Jan 2025 15:01:42 GMT
-      Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
-      X-Request-Id:
-      - 9a887ce0-3af7-4f83-b040-37ae1f5ba437
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"initializing",
-      "engine":"PostgreSQL-15", "upgradable_version":[], "endpoint":null, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"initializing",
+      "engine":"PostgreSQL-16", "upgradable_version":[], "endpoint":null, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
       "init_settings":[], "endpoints":[], "logs_policy":{"max_age_retention":30, "total_disk_retention":null},
       "backup_same_region":false, "maintenances":[], "encryption":{"enabled":false},
-      "created_at":"2025-01-07T14:58:55.217936Z", "region":"fr-par"}'
+      "created_at":"2025-10-15T10:18:45.601718Z", "region":"fr-par"}'
     headers:
       Content-Length:
       - "1058"
@@ -2773,9 +3095,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:01:57 GMT
+      - Wed, 15 Oct 2025 10:21:17 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2783,59 +3105,59 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 73ee3ab4-5079-489f-ac91-5497a3a9a987
+      - 879423b7-8108-487c-a35b-ca58934aee21
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"ready", "engine":"PostgreSQL-16",
+      "upgradable_version":[], "endpoint":{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
+      "init_settings":[], "endpoints":[{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
       "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:58:55.217936Z",
+      "encryption":{"enabled":false}, "created_at":"2025-10-15T10:18:45.601718Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"ready", "engine":"PostgreSQL-16",
+      "upgradable_version":[], "endpoint":{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
+      "init_settings":[], "endpoints":[{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
       "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:58:55.217936Z",
+      "encryption":{"enabled":false}, "created_at":"2025-10-15T10:18:45.601718Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
-      - "1273"
+      - "1277"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:02:12 GMT
+      - Wed, 15 Oct 2025 10:21:33 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2843,59 +3165,59 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - f2320dc6-d81c-477a-b411-d0c774832049
+      - afbfaab7-bf99-4e1a-95be-6c228ab8c0c6
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"ready", "engine":"PostgreSQL-16",
+      "upgradable_version":[], "endpoint":{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
+      "init_settings":[], "endpoints":[{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
       "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:58:55.217936Z",
+      "encryption":{"enabled":false}, "created_at":"2025-10-15T10:18:45.601718Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: GET
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"ready", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"ready", "engine":"PostgreSQL-16",
+      "upgradable_version":[], "endpoint":{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
+      "init_settings":[], "endpoints":[{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
       "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:58:55.217936Z",
+      "encryption":{"enabled":false}, "created_at":"2025-10-15T10:18:45.601718Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
-      - "1273"
+      - "1277"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:02:12 GMT
+      - Wed, 15 Oct 2025 10:21:33 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2903,7 +3225,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 65e0f353-bf37-46a1-b9c9-e304d4f52a70
+      - acc257b9-0211-441a-abc6-752c7a734490
     status: 200 OK
     code: 200
     duration: ""
@@ -2912,8 +3234,8 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757/users?name=&order_by=name_asc&page=1
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772/users?name=&order_by=name_asc&page=1
     method: GET
   response:
     body: '{"users":[{"name":"foobar", "is_admin":true}], "total_count":1}'
@@ -2925,9 +3247,9 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:02:12 GMT
+      - Wed, 15 Oct 2025 10:21:33 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2935,59 +3257,59 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - cb21c2dc-15eb-4bd3-9466-89f4149f5554
+      - 3175bc27-b42a-4e95-9e78-6a67d9a2aa85
     status: 200 OK
     code: 200
     duration: ""
 - request:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"deleting", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"deleting", "engine":"PostgreSQL-16",
+      "upgradable_version":[], "endpoint":{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
+      "init_settings":[], "endpoints":[{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
       "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:58:55.217936Z",
+      "encryption":{"enabled":false}, "created_at":"2025-10-15T10:18:45.601718Z",
       "region":"fr-par"}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.23.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/c3a3278c-13a7-49bd-ad39-36f49fd60757
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/rdb/v1/regions/fr-par/instances/f6662895-56df-4af2-8277-527378321772
     method: DELETE
   response:
-    body: '{"id":"c3a3278c-13a7-49bd-ad39-36f49fd60757", "name":"cli-test", "organization_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2",
-      "project_id":"5ebc0159-7cb7-406c-9521-9347d1987fb2", "status":"deleting", "engine":"PostgreSQL-15",
-      "upgradable_version":[], "endpoint":{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}, "tags":[],
+    body: '{"id":"f6662895-56df-4af2-8277-527378321772", "name":"cli-test", "organization_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0",
+      "project_id":"9e9389ca-503a-44c3-bbd5-7a3812303bb0", "status":"deleting", "engine":"PostgreSQL-16",
+      "upgradable_version":[], "endpoint":{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}, "tags":[],
       "settings":[{"name":"effective_cache_size", "value":"1300"}, {"name":"maintenance_work_mem",
       "value":"150"}, {"name":"max_connections", "value":"100"}, {"name":"max_parallel_workers",
       "value":"0"}, {"name":"max_parallel_workers_per_gather", "value":"0"}, {"name":"work_mem",
       "value":"4"}], "backup_schedule":{"frequency":24, "retention":7, "disabled":false,
-      "next_run_at":"2025-01-08T14:58:55.217936Z"}, "is_ha_cluster":false, "read_replicas":[],
+      "next_run_at":"2025-10-16T10:18:45.601718Z"}, "is_ha_cluster":false, "read_replicas":[],
       "node_type":"db-dev-s", "volume":{"type":"lssd", "size":5000000000, "class":"lssd"},
-      "init_settings":[], "endpoints":[{"ip":"51.159.74.117", "port":6970, "name":null,
-      "id":"8862200b-bb1c-4d7b-8ec7-5f49389c682e", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
+      "init_settings":[], "endpoints":[{"ip":"163.172.166.66", "port":11646, "name":null,
+      "id":"30f259ac-714a-414a-b1cb-64c6b0314391", "load_balancer":{}}], "logs_policy":{"max_age_retention":30,
       "total_disk_retention":null}, "backup_same_region":false, "maintenances":[],
-      "encryption":{"enabled":false}, "created_at":"2025-01-07T14:58:55.217936Z",
+      "encryption":{"enabled":false}, "created_at":"2025-10-15T10:18:45.601718Z",
       "region":"fr-par"}'
     headers:
       Content-Length:
-      - "1276"
+      - "1280"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 07 Jan 2025 15:02:12 GMT
+      - Wed, 15 Oct 2025 10:21:33 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge02)
+      - Scaleway API Gateway (fr-par-1;edge03)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
@@ -2995,7 +3317,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 72d17be1-d2ac-4037-9448-7b9b0c31a5bb
+      - aea202e6-36ab-45bf-b345-6540447ff5ec
     status: 200 OK
     code: 200
     duration: ""

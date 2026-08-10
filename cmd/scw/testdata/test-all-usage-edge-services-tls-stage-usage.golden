@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 TLS-stage management commands.
 
 USAGE:
@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update TLS stage
 
 FLAGS:
-  -h, --help   help for tls-stage
+  -h, --help                help for tls-stage
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A Managed MongoDB® Database Instance is composed of one or multiple dedicated compute nodes running a single database engine.
 
 USAGE:
@@ -18,7 +18,8 @@ WORKFLOW COMMANDS:
   wait            Wait for an instance to reach a stable state
 
 FLAGS:
-  -h, --help   help for instance
+  -h, --help                help for instance
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

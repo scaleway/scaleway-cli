@@ -1,33 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-IP.ID            bf0e239d-7331-415a-adfd-ebf90a264d21
-IP.Address       51.15.134.67
-IP.Server.ID     f53d575b-0baa-44c7-9da2-25629d0ecdcd
-IP.Server.Name   cli-srv-lucid-shannon
-IP.Organization  ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-IP.Project       ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+IP.ID            fe3afc1e-a1ea-48d8-8df4-663952b362a7
+IP.Address       51.15.129.35
+IP.Server.ID     d7b609b5-586c-4023-b948-9e35ea4ef9da
+IP.Server.Name   cli-srv-dreamy-bartik
+IP.Organization  fa1e3217-dc80-42ac-85c3-3f034b78b552
+IP.Project       fa1e3217-dc80-42ac-85c3-3f034b78b552
 IP.Type          routed_ipv4
 IP.State         attached
 IP.Prefix        -
-IP.IpamID        cc3eb72c-864e-4ccb-99d0-7777cfebab52
+IP.IpamID        cff46b41-76f4-477e-8bcd-44eb2cf14308
 IP.Zone          fr-par-1
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "ip": {
-    "id": "bf0e239d-7331-415a-adfd-ebf90a264d21",
-    "address": "51.15.134.67",
+    "id": "fe3afc1e-a1ea-48d8-8df4-663952b362a7",
+    "address": "51.15.129.35",
     "reverse": null,
     "server": {
-      "id": "f53d575b-0baa-44c7-9da2-25629d0ecdcd",
-      "name": "cli-srv-lucid-shannon"
+      "id": "d7b609b5-586c-4023-b948-9e35ea4ef9da",
+      "name": "cli-srv-dreamy-bartik"
     },
-    "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "tags": [],
-    "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+    "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
     "type": "routed_ipv4",
     "state": "attached",
     "prefix": "",
-    "ipam_id": "cc3eb72c-864e-4ccb-99d0-7777cfebab52",
+    "ipam_id": "cff46b41-76f4-477e-8bcd-44eb2cf14308",
     "zone": "fr-par-1"
   }
 }

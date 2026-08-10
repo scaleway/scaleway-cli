@@ -1,0 +1,23 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.
+
+USAGE:
+  scw mcp server <command>
+
+UTILITY COMMANDS:
+  list-resources List available MCP resources
+  list-tools     List available MCP tools
+  serve          Start the MCP server
+
+FLAGS:
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw mcp server [command] --help" for more information about a command.

@@ -1,24 +1,25 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              0c5f11e0-be52-4657-b61f-c673cff1ac4a
-OrganizationID  5ebc0159-7cb7-406c-9521-9347d1987fb2
-ProjectID       5ebc0159-7cb7-406c-9521-9347d1987fb2
-Name            cli-bm-elegant-hermann
+ID              db68aaf1-853b-47f9-a511-405c84411b9c
+OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
+ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name            cli-bm-infallible-lewin
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
-OfferID         206ea234-9097-4ae1-af68-6d2be09f47ed
-OfferName       EM-B220E-NVME
-Domain          0c5f11e0-be52-4657-b61f-c673cff1ac4a.fr-par-1.baremetal.scw.cloud
+OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
+OfferName       EM-I215E-NVME
+Domain          db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud
 BootType        normal
-Zone            fr-par-1
-PingStatus      up
+Zone            fr-par-2
+PingStatus      unknown
+Protected       false
 
 IPs:
-ID                                    ADDRESS                               REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-9fdaf8e0-6c33-4820-bf73-8e020d923e2b  2001:bc8:701:702:3eec:efff:feff:18b4  0c5f11e0-be52-4657-b61f-c673cff1ac4a.fr-par-1.baremetal.scw.cloud  IPv6     active          -
-cf21f206-02dc-42b1-aa0a-4a9f05fd8dc6  62.210.158.100                        0c5f11e0-be52-4657-b61f-c673cff1ac4a.fr-par-1.baremetal.scw.cloud  IPv4     active          -
+ID                                    ADDRESS                                REVERSE                                                            VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
+09b54f1e-4b6a-4b94-b096-7163846c12b7  195.154.100.198                        db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud  IPv4     active          -
+f9c31c6e-6b3a-46e3-ab62-1f3f0de770d4  2001:bc8:1201:a22:b683:51ff:fe0f:60fc  db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud  IPv6     active          -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
@@ -26,8 +27,12 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 Install:
 OsID                                                          03b7f4ba-a6a1-4305-984e-b54fafbf1681
 Hostname                                                      test-install-server
-SSHKeyIDs.0                                                   054babb2-9689-45d4-8d24-7dced70e37b5
-SSHKeyIDs.1                                                   5a9adaf5-43a0-4714-9c95-8036b3e688d8
+SSHKeyIDs.0                                                   3ab0be8a-e59d-4c0b-a079-abb9672aff40
+SSHKeyIDs.1                                                   348ed8cb-6181-4234-a6c9-0593426492aa
+SSHKeyIDs.2                                                   162ae3fb-a711-48a1-8a5c-620fcc8df4b4
+SSHKeyIDs.3                                                   b2d28dc5-4189-4a1b-bb7c-bdfaafc2481b
+SSHKeyIDs.4                                                   75339543-ccc9-4cda-b750-dd5eead444e2
+SSHKeyIDs.5                                                   516cdd3c-1462-460a-927f-e5eeee1da2b8
 Status                                                        completed
 User                                                          ubuntu
 ServiceUser                                                   -
@@ -47,7 +52,7 @@ PartitioningSchema.Disks.0.Partitions.2.Size                  512 MiB
 PartitioningSchema.Disks.0.Partitions.2.UseAllAvailableSpace  false
 PartitioningSchema.Disks.0.Partitions.3.Label                 root
 PartitioningSchema.Disks.0.Partitions.3.Number                4
-PartitioningSchema.Disks.0.Partitions.3.Size                  949 GiB
+PartitioningSchema.Disks.0.Partitions.3.Size                  1.7 TiB
 PartitioningSchema.Disks.0.Partitions.3.UseAllAvailableSpace  false
 PartitioningSchema.Disks.1.Device                             /dev/nvme1n1
 PartitioningSchema.Disks.1.Partitions.0.Label                 swap
@@ -60,7 +65,7 @@ PartitioningSchema.Disks.1.Partitions.1.Size                  512 MiB
 PartitioningSchema.Disks.1.Partitions.1.UseAllAvailableSpace  false
 PartitioningSchema.Disks.1.Partitions.2.Label                 root
 PartitioningSchema.Disks.1.Partitions.2.Number                3
-PartitioningSchema.Disks.1.Partitions.2.Size                  949 GiB
+PartitioningSchema.Disks.1.Partitions.2.Size                  1.7 TiB
 PartitioningSchema.Disks.1.Partitions.2.UseAllAvailableSpace  false
 PartitioningSchema.Raids.0.Name                               /dev/md0
 PartitioningSchema.Raids.0.Level                              raid_level_1
@@ -81,44 +86,48 @@ PartitioningSchema.Filesystems.2.Format                       ext4
 PartitioningSchema.Filesystems.2.Mountpoint                   /
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "0c5f11e0-be52-4657-b61f-c673cff1ac4a",
-  "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-  "name": "cli-bm-elegant-hermann",
+  "id": "db68aaf1-853b-47f9-a511-405c84411b9c",
+  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-bm-infallible-lewin",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
   "status": "ready",
-  "offer_id": "206ea234-9097-4ae1-af68-6d2be09f47ed",
-  "offer_name": "EM-B220E-NVME",
+  "offer_id": "ddb09834-8680-4339-b5e3-19ca5205fa1f",
+  "offer_name": "EM-I215E-NVME",
   "tags": [],
   "ips": [
     {
-      "id": "9fdaf8e0-6c33-4820-bf73-8e020d923e2b",
-      "address": "2001:bc8:701:702:3eec:efff:feff:18b4",
-      "reverse": "0c5f11e0-be52-4657-b61f-c673cff1ac4a.fr-par-1.baremetal.scw.cloud",
-      "version": "IPv6",
+      "id": "09b54f1e-4b6a-4b94-b096-7163846c12b7",
+      "address": "195.154.100.198",
+      "reverse": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv4",
       "reverse_status": "active",
       "reverse_status_message": ""
     },
     {
-      "id": "cf21f206-02dc-42b1-aa0a-4a9f05fd8dc6",
-      "address": "62.210.158.100",
-      "reverse": "0c5f11e0-be52-4657-b61f-c673cff1ac4a.fr-par-1.baremetal.scw.cloud",
-      "version": "IPv4",
+      "id": "f9c31c6e-6b3a-46e3-ab62-1f3f0de770d4",
+      "address": "2001:bc8:1201:a22:b683:51ff:fe0f:60fc",
+      "reverse": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
+      "version": "IPv6",
       "reverse_status": "active",
       "reverse_status_message": ""
     }
   ],
-  "domain": "0c5f11e0-be52-4657-b61f-c673cff1ac4a.fr-par-1.baremetal.scw.cloud",
+  "domain": "db68aaf1-853b-47f9-a511-405c84411b9c.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
-  "zone": "fr-par-1",
+  "zone": "fr-par-2",
   "install": {
     "os_id": "03b7f4ba-a6a1-4305-984e-b54fafbf1681",
     "hostname": "test-install-server",
     "ssh_key_ids": [
-      "054babb2-9689-45d4-8d24-7dced70e37b5",
-      "5a9adaf5-43a0-4714-9c95-8036b3e688d8"
+      "3ab0be8a-e59d-4c0b-a079-abb9672aff40",
+      "348ed8cb-6181-4234-a6c9-0593426492aa",
+      "162ae3fb-a711-48a1-8a5c-620fcc8df4b4",
+      "b2d28dc5-4189-4a1b-bb7c-bdfaafc2481b",
+      "75339543-ccc9-4cda-b750-dd5eead444e2",
+      "516cdd3c-1462-460a-927f-e5eeee1da2b8"
     ],
     "status": "completed",
     "user": "ubuntu",
@@ -150,7 +159,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
             {
               "label": "root",
               "number": 4,
-              "size": 1018839433216,
+              "size": 1915003863040,
               "use_all_available_space": false
             }
           ]
@@ -173,7 +182,7 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
             {
               "label": "root",
               "number": 3,
-              "size": 1018839433216,
+              "size": 1915003863040,
               "use_all_available_space": false
             }
           ]
@@ -219,7 +228,9 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
       }
     }
   },
-  "ping_status": "ping_status_up",
+  "ping_status": "ping_status_unknown",
   "options": [],
-  "rescue_server": null
+  "rescue_server": null,
+  "protected": false,
+  "user_data": null
 }

@@ -18,6 +18,7 @@ func Test_ConfigInstall(t *testing.T) {
 			"11111111-1111-1111-1111-111111111111",
 		),
 		scw.WithDefaultOrganizationID("11111111-1111-1111-1111-111111111111"),
+		scw.WithDefaultProjectID("11111111-1111-1111-1111-111111111111"),
 		scw.WithDefaultZone(scw.ZoneFrPar1),
 		scw.WithDefaultRegion(scw.RegionFrPar),
 	)

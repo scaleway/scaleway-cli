@@ -1,6 +1,7 @@
 package main
 
 import (
+	"context"
 	"fmt"
 	"os"
 	"runtime"
@@ -83,7 +84,7 @@ func mainNoExit() int {
 	}
 	defer cleanup(buildInfo)
 
-	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
+	exitCode, _, _ := core.Bootstrap(context.Background(), &core.BootstrapConfig{
 		Args:      os.Args,
 		Commands:  commands.GetCommands(),
 		BuildInfo: buildInfo,

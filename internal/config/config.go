@@ -8,15 +8,15 @@ import (
 	"runtime"
 	"text/template"
 
+	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/internal/alias"
 	"github.com/scaleway/scaleway-sdk-go/scw"
-	"gopkg.in/yaml.v3"
 )
 
 const (
 	ScwConfigPathEnv = "SCW_CLI_CONFIG_PATH"
 
-	DefaultConfigFileName   = "config.yaml"
+	DefaultConfigFileName   = "cli.yaml"
 	defaultConfigPermission = 0o644
 
 	DefaultOutput      = "human"

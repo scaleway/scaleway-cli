@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to find available images for use when launching a Scaleway Instance.
 
 USAGE:
@@ -12,7 +12,8 @@ AVAILABLE COMMANDS:
   version     Marketplace version management commands
 
 FLAGS:
-  -h, --help   help for marketplace
+  -h, --help                help for marketplace
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

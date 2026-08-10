@@ -21,7 +21,7 @@ func TestCheckAPIKey(t *testing.T) {
 			Namespace: "test",
 			ArgSpecs:  core.ArgSpecs{},
 			ArgsType:  reflect.TypeOf(testType{}),
-			Run: func(ctx context.Context, _ interface{}) (i interface{}, e error) {
+			Run: func(ctx context.Context, _ any) (i any, e error) {
 				// Test command reload the client so the profile used is the edited one
 				return "", core.ReloadClient(ctx)
 			},
@@ -44,11 +44,10 @@ func TestCheckAPIKey(t *testing.T) {
 			if err != nil {
 				return err
 			}
-			expiresAt := time.Now().Add(time.Hour)
 			apiKey, err = api.CreateAPIKey(&iam.CreateAPIKeyRequest{
 				ApplicationID: apiKey.ApplicationID,
 				UserID:        apiKey.UserID,
-				ExpiresAt:     &expiresAt,
+				ExpiresAt:     new(time.Now().Add(time.Hour)),
 				Description:   "test-cli-TestCheckAPIKey",
 			})
 			if err != nil {

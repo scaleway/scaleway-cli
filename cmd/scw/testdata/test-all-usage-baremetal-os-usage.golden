@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 An Operating System (OS) is the underlying software installed on your server.
 
 USAGE:
@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   list        List available OSes
 
 FLAGS:
-  -h, --help   help for os
+  -h, --help                help for os
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

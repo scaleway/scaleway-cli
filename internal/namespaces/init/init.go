@@ -131,7 +131,7 @@ Default path for configuration file is based on the following priority order:
 				Command: "scw login",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			args := argsI.(*Args)
 
 			profileName := core.ExtractProfileName(ctx)
@@ -226,8 +226,8 @@ Default path for configuration file is based on the following priority order:
 			profile := &scw.Profile{
 				AccessKey:             &args.AccessKey,
 				SecretKey:             &args.SecretKey,
-				DefaultZone:           scw.StringPtr(args.Zone.String()),
-				DefaultRegion:         scw.StringPtr(args.Region.String()),
+				DefaultZone:           new(args.Zone.String()),
+				DefaultRegion:         new(args.Region.String()),
 				DefaultOrganizationID: &args.OrganizationID,
 				DefaultProjectID:      &args.ProjectID, // An API key is always bound to a project.
 			}
@@ -354,8 +354,10 @@ func isHTTPCodeError(err error, statusCode int) bool {
 		return false
 	}
 
-	responseError := &scw.ResponseError{}
-	if errors.As(err, &responseError) && responseError.StatusCode == statusCode {
+	if responseError, ok := errors.AsType[*scw.ResponseError](
+		err,
+	); ok &&
+		responseError.StatusCode == statusCode {
 		return true
 	}
 

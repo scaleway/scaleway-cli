@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Function namespace management commands.
 
 USAGE:
@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update an existing namespace
 
 FLAGS:
-  -h, --help   help for namespace
+  -h, --help                help for namespace
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

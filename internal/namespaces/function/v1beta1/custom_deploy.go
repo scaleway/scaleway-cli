@@ -56,7 +56,7 @@ func functionDeploy() *core.Command {
 			},
 			core.RegionArgSpec((&function.API{}).Regions()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*functionDeployRequest)
 			scwClient := core.ExtractClient(ctx)
 			httpClient := core.ExtractHTTPClient(ctx)
@@ -84,7 +84,11 @@ func functionDeploy() *core.Command {
 					DeployStepFetchNamespace(api, args.Region, args.NamespaceID),
 				)
 			} else {
-				tasks.Add(ts, "Creating or fetching namespace", DeployStepCreateNamespace(api, args.Region, args.Name))
+				tasks.Add(
+					ts,
+					"Creating or fetching namespace",
+					DeployStepCreateNamespace(api, args.Region, args.Name),
+				)
 			}
 			tasks.Add(
 				ts,
@@ -132,7 +136,7 @@ func DeployStepCreateNamespace(
 	region scw.Region,
 	functionName string,
 ) tasks.TaskFunc[any, *function.Namespace] {
-	return func(t *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
+	return func(ctx context.Context, t *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespaceName := functionName
 
 		namespaces, err := api.ListNamespaces(&function.ListNamespacesRequest{
@@ -151,7 +155,7 @@ func DeployStepCreateNamespace(
 		namespace, err := api.CreateNamespace(&function.CreateNamespaceRequest{
 			Name:   namespaceName,
 			Region: region,
-		}, scw.WithContext(t.Ctx))
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return nil, fmt.Errorf("could not create namespace: %w", err)
 		}
@@ -166,8 +170,9 @@ func DeployStepCreateNamespace(
 		})
 
 		namespace, err = api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID: namespace.ID,
-			Region:      namespace.Region,
+			NamespaceID:   namespace.ID,
+			Region:        namespace.Region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch created namespace: %w", err)
@@ -182,10 +187,11 @@ func DeployStepFetchNamespace(
 	region scw.Region,
 	namespaceID string,
 ) tasks.TaskFunc[any, *function.Namespace] {
-	return func(_ *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
+	return func(ctx context.Context, _ *tasks.Task, _ any) (nextArgs *function.Namespace, err error) {
 		namespace, err := api.WaitForNamespace(&function.WaitForNamespaceRequest{
-			NamespaceID: namespaceID,
-			Region:      region,
+			NamespaceID:   namespaceID,
+			Region:        region,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return nil, fmt.Errorf("could not fetch namespace: %w", err)
@@ -200,7 +206,7 @@ func DeployStepCreateFunction(
 	functionName string,
 	runtime function.FunctionRuntime,
 ) tasks.TaskFunc[*function.Namespace, *function.Function] {
-	return func(t *tasks.Task, namespace *function.Namespace) (*function.Function, error) {
+	return func(ctx context.Context, t *tasks.Task, namespace *function.Namespace) (*function.Function, error) {
 		functions, err := api.ListFunctions(&function.ListFunctionsRequest{
 			Name:        &functionName,
 			NamespaceID: namespace.ID,
@@ -220,7 +226,7 @@ func DeployStepCreateFunction(
 			NamespaceID: namespace.ID,
 			Runtime:     runtime,
 			Region:      namespace.Region,
-		}, scw.WithContext(t.Ctx))
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return nil, fmt.Errorf("could not create function: %w", err)
 		}
@@ -245,7 +251,7 @@ func DeployStepFunctionUpload(
 	zipPath string,
 	zipSize int64,
 ) tasks.TaskFunc[*function.Function, *function.Function] {
-	return func(t *tasks.Task, fc *function.Function) (nextArgs *function.Function, err error) {
+	return func(ctx context.Context, t *tasks.Task, fc *function.Function) (nextArgs *function.Function, err error) {
 		uploadURL, err := api.GetFunctionUploadURL(&function.GetFunctionUploadURLRequest{
 			Region:        fc.Region,
 			FunctionID:    fc.ID,
@@ -265,7 +271,7 @@ func DeployStepFunctionUpload(
 		if err != nil {
 			return nil, fmt.Errorf("failed to init request: %w", err)
 		}
-		req = req.WithContext(t.Ctx)
+		req = req.WithContext(ctx)
 		req.ContentLength = zipSize
 
 		for headerName, headerList := range uploadURL.Headers {
@@ -295,12 +301,12 @@ func DeployStepFunctionDeploy(
 	api *function.API,
 	runtime function.FunctionRuntime,
 ) tasks.TaskFunc[*function.Function, *function.Function] {
-	return func(_ *tasks.Task, fc *function.Function) (*function.Function, error) {
+	return func(ctx context.Context, _ *tasks.Task, fc *function.Function) (*function.Function, error) {
 		fc, err := api.UpdateFunction(&function.UpdateFunctionRequest{
 			Region:     fc.Region,
 			FunctionID: fc.ID,
 			Runtime:    runtime,
-			Redeploy:   scw.BoolPtr(true),
+			Redeploy:   new(true),
 		})
 		if err != nil {
 			return nil, err

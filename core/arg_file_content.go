@@ -12,7 +12,7 @@ import (
 )
 
 // loadArgsFileContent will hydrate args with default values.
-func loadArgsFileContent(cmd *Command, cmdArgs interface{}) error {
+func loadArgsFileContent(cmd *Command, cmdArgs any) error {
 	for _, argSpec := range cmd.ArgSpecs {
 		if !argSpec.CanLoadFile {
 			continue

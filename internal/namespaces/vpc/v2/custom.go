@@ -13,6 +13,7 @@ func GetCommands() *core.Commands {
 
 	cmds.Remove("vpc", "post")
 	cmds.MustFind("vpc", "private-network", "get").Override(privateNetworkGetBuilder)
+	cmds.MustFind("vpc", "private-network", "delete").Override(privateNetworkDeleteBuilder)
 	human.RegisterMarshalerFunc(vpc.PrivateNetwork{}, privateNetworkMarshalerFunc)
 
 	cmds.Merge(core.NewCommands(

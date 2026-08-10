@@ -17,39 +17,19 @@ func InjectMockResponseToContext(ctx context.Context, mockValues []string) conte
 	return context.WithValue(ctx, contextKey, &mockValues)
 }
 
-func popMockResponseFromContext(ctx context.Context) (string, bool) {
-	contextValue := ctx.Value(contextKey)
-	if contextValue == nil {
-		return "", false
-	}
-
-	mockValues := contextValue.(*[]string)
-	if mockValues == nil || len(*mockValues) == 0 {
-		return "", false
-	}
-	str := (*mockValues)[0]
-	*mockValues = (*mockValues)[1:]
-
-	return str, true
-}
-
-func hasMockedResponse(ctx context.Context) bool {
-	return ctx.Value(contextKey) != nil
-}
-
 type mockResponseReader struct {
-	ctx           context.Context
+	mockResponses *[]string
 	defaultReader io.ReadCloser
 }
 
 func (m *mockResponseReader) Read(p []byte) (n int, err error) {
-	if m.ctx != nil {
-		if mockResponse, exist := popMockResponseFromContext(m.ctx); exist {
-			buff := []byte(mockResponse + "\n")
-			copy(p, buff)
+	if m.mockResponses != nil && len(*m.mockResponses) > 0 {
+		mockResponse := (*m.mockResponses)[0]
+		*m.mockResponses = (*m.mockResponses)[1:]
+		buff := []byte(mockResponse + "\n")
+		copy(p, buff)
 
-			return len(buff), nil
-		}
+		return len(buff), nil
 	}
 
 	return m.defaultReader.Read(p)

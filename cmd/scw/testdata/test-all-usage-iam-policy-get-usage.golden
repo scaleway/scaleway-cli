@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Retrieve information about a policy, speficified by the `policy_id` parameter. The policy's full details, including `id`, `name`, `organization_id`, `nb_rules` and `nb_scopes`, `nb_permission_sets` are returned in the response.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Retrieve information about a policy, specified by the `policy_id` parameter. The policy's full details, including `id`, `name`, `organization_id`, `nb_rules` and `nb_scopes`, `nb_permission_sets` are returned in the response.
 
 USAGE:
   scw iam policy get <policy-id ...> [arg=value ...]
@@ -9,7 +9,8 @@ ARGS:
   policy-id   Id of policy to search
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

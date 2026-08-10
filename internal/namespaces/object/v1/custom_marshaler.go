@@ -19,7 +19,7 @@ type BucketResponse struct {
 	BucketInfo    *bucketInfo
 }
 
-func bucketResponseMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func bucketResponseMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	resp := i.(BucketResponse)
 
 	messageStr, err := resp.SuccessResult.MarshalHuman()
@@ -48,7 +48,7 @@ type bucketInfo struct {
 	Owner            string
 }
 
-func bucketInfoMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func bucketInfoMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	// To avoid recursion of human.Marshal we create a dummy type
 	type tmp bucketInfo
 	info := tmp(i.(bucketInfo))
@@ -78,7 +78,7 @@ type BucketGetResult struct {
 	NbParts   *int64
 }
 
-func bucketGetResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func bucketGetResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp BucketGetResult
 	result := tmp(i.(BucketGetResult))
 	opt.Sections = []*human.MarshalSection{
@@ -105,7 +105,7 @@ type bucketGetArgs struct {
 	WithSize bool `json:"with-size"`
 }
 
-func bucketMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp []types.Bucket
 	result := tmp(i.([]types.Bucket))
 	opt.Fields = []*human.MarshalFieldOpt{

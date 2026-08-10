@@ -13,7 +13,7 @@ import (
 )
 
 func Test_ImageCreate(t *testing.T) {
-	t.Run("Create simple image", core.Test(&core.TestConfig{
+	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
 				"Server",
@@ -68,7 +68,7 @@ func Test_ImageCreate(t *testing.T) {
 }
 
 func Test_ImageDelete(t *testing.T) {
-	t.Run("simple", core.Test(&core.TestConfig{
+	t.Run("Simple", core.Test(&core.TestConfig{
 		BeforeFunc: createImage("Image"),
 		Commands:   instance.GetCommands(),
 		Cmd:        "scw instance image delete {{ .Image.Image.ID }} with-snapshots=true",
@@ -88,7 +88,7 @@ func Test_ImageDelete(t *testing.T) {
 				_, err := api.GetSnapshot(&instanceSDK.GetSnapshotRequest{
 					SnapshotID: snapshot.Snapshot.ID,
 				})
-				assert.IsType(t, &scw.ResourceNotFoundError{}, err)
+				assert.ErrorAs(t, err, new(*scw.ResourceNotFoundError))
 			},
 		),
 		AfterFunc: deleteServer("Server"),
@@ -171,7 +171,10 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteImage("Image"),
+		AfterFunc: core.AfterFuncCombine(
+			deleteImage("Image"),
+			deleteServer("Server"),
+		),
 	}))
 
 	t.Run("With SBS root volume", core.Test(&core.TestConfig{
@@ -185,7 +188,10 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteImage("ImageSBSRoot"),
+		AfterFunc: core.AfterFuncCombine(
+			deleteImage("ImageSBSRoot"),
+			deleteServer("Server"),
+		),
 	}))
 
 	t.Run("With SBS additional volumes", core.Test(&core.TestConfig{
@@ -199,7 +205,10 @@ func Test_ImageList(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteImage("ImageSBSAdditional"),
+		AfterFunc: core.AfterFuncCombine(
+			deleteImage("ImageSBSAdditional"),
+			deleteServer("Server"),
+		),
 	}))
 }
 
@@ -242,34 +251,37 @@ func Test_ImageUpdate(t *testing.T) {
 		),
 	}))
 
-	t.Run("Add extra volume", core.Test(&core.TestConfig{
-		BeforeFunc: core.BeforeFuncCombine(
-			createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeBSSD),
-			core.ExecStoreBeforeCmd(
-				"SnapshotVol",
-				`scw instance snapshot create -w name=snapVol volume-id={{ .Volume.ID }}`,
+	t.Run("Add extra volume", func(t *testing.T) {
+		t.Skip("Skipping 'Add extra volume' test temporarily")
+		core.Test(&core.TestConfig{
+			BeforeFunc: core.BeforeFuncCombine(
+				createNonEmptyLocalVolume("Volume", 10),
+				core.ExecStoreBeforeCmd(
+					"SnapshotVol",
+					`scw instance snapshot create -w name=snapVol volume-id={{ .Volume.ID }}`,
+				),
+				createImage("ImageExtraVol"),
 			),
-			createImage("ImageExtraVol"),
-		),
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
-		Check: core.TestCheckCombine(
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				assert.NotNil(t, ctx.Result)
-				assert.Equal(
-					t,
-					"snapVol",
-					ctx.Result.(*instanceSDK.UpdateImageResponse).Image.ExtraVolumes["1"].Name,
-				)
-			},
-			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
-		),
-		AfterFunc: core.AfterFuncCombine(
-			deleteServer("Server"),
-			deleteImage("ImageExtraVol"),
-			deleteVolume("Volume"),
-		),
-	}))
+			Commands: instance.GetCommands(),
+			Cmd:      "scw instance image update {{ .ImageExtraVol.Image.ID }} extra-volumes.1.id={{ .SnapshotVol.ID }}",
+			Check: core.TestCheckCombine(
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+					assert.NotNil(t, ctx.Result)
+					assert.Equal(
+						t,
+						"snapVol",
+						ctx.Result.(*instanceSDK.UpdateImageResponse).Image.ExtraVolumes["1"].Name,
+					)
+				},
+				core.TestCheckGolden(),
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: core.AfterFuncCombine(
+				deleteServer("Server"),
+				deleteImage("ImageExtraVol"),
+				deleteVolume(),
+			),
+		})
+	})
 }

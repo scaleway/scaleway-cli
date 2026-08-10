@@ -91,29 +91,27 @@ func serverDeleteCommand() *core.Command {
 			},
 		},
 		WaitUsage: "wait until the server and its resources are deleted",
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
 			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			notFoundErr := &scw.ResourceNotFoundError{}
-
 			_, err := api.WaitForServer(&instance.WaitForServerRequest{
 				Zone:          server.Zone,
 				ServerID:      server.ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
 				err = errors.Unwrap(err)
-				if !errors.As(err, &notFoundErr) {
+				if _, ok := errors.AsType[*scw.ResourceNotFoundError](err); !ok {
 					return nil, err
 				}
 			}
 
 			return respI, nil
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			deleteServerArgs := argsI.(*customDeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -131,7 +129,7 @@ func serverDeleteCommand() *core.Command {
 				finalStateServer, err := api.WaitForServer(&instance.WaitForServerRequest{
 					Zone:          deleteServerArgs.Zone,
 					ServerID:      deleteServerArgs.ServerID,
-					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					Timeout:       new(serverActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 				if err != nil {
@@ -143,7 +141,7 @@ func serverDeleteCommand() *core.Command {
 						Zone:          deleteServerArgs.Zone,
 						ServerID:      deleteServerArgs.ServerID,
 						Action:        instance.ServerActionPoweroff,
-						Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+						Timeout:       new(serverActionTimeout),
 						RetryInterval: core.DefaultRetryInterval,
 					})
 					if err != nil {
@@ -239,11 +237,10 @@ func serverDeleteVolume(
 	var err error
 
 	if volume.VolumeType == instance.VolumeServerVolumeTypeSbsVolume {
-		volumeAvailable := block.VolumeStatusAvailable
 		_, err = blockAPI.WaitForVolumeAndReferences(&block.WaitForVolumeAndReferencesRequest{
 			Zone:                 volume.Zone,
 			VolumeID:             volume.ID,
-			VolumeTerminalStatus: &volumeAvailable,
+			VolumeTerminalStatus: new(block.VolumeStatusAvailable),
 		})
 		if err != nil {
 			return errorDeletingResource(err)

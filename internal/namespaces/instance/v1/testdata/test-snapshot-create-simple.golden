@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                   92b97c2f-8a84-4db0-bcc1-152ffcb78621
-Name                 cli-snp-hopeful-tu
-ParentVolume.ID      57b0e2ad-ea4a-4c29-8cc7-72f7b68ae3b2
+ID                   3c41d834-2d87-4acc-92db-a887a3fc6320
+Name                 cli-snp-eager-joliot
+ParentVolume.ID      87503651-bc4b-46cb-ae91-68f734ebdf78
 ParentVolume.Name    Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0
 ParentVolume.Type    sbs_5k
 ParentVolume.Status  in_use
 Size                 10 GB
-ProjectID            ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ProjectID            fa1e3217-dc80-42ac-85c3-3f034b78b552
 CreatedAt            few seconds ago
 UpdatedAt            few seconds ago
 Status               available
@@ -15,16 +15,16 @@ Zone                 fr-par-1
 Class                sbs
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "92b97c2f-8a84-4db0-bcc1-152ffcb78621",
-  "name": "cli-snp-hopeful-tu",
+  "id": "3c41d834-2d87-4acc-92db-a887a3fc6320",
+  "name": "cli-snp-eager-joliot",
   "parent_volume": {
-    "id": "57b0e2ad-ea4a-4c29-8cc7-72f7b68ae3b2",
+    "id": "87503651-bc4b-46cb-ae91-68f734ebdf78",
     "name": "Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0",
     "type": "sbs_5k",
     "status": "in_use"
   },
   "size": 10000000000,
-  "project_id": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "references": [],

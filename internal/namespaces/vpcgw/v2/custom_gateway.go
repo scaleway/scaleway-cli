@@ -8,7 +8,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -28,14 +27,14 @@ var gatewayStatusMarshalSpecs = human.EnumMarshalSpecs{
 }
 
 func gatewayCreateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*vpcgw.Gateway)
 		api := vpcgw.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForGateway(&vpcgw.WaitForGatewayRequest{
 			GatewayID:     getResp.ID,
 			Zone:          getResp.Zone,
-			Timeout:       scw.TimeDurationPtr(gatewayActionTimeout),
+			Timeout:       new(gatewayActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -43,13 +42,13 @@ func gatewayCreateBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func gatewayMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func gatewayMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp vpcgw.Gateway
 	vpcgtw := tmp(i.(vpcgw.Gateway))
 	opt.Sections = []*human.MarshalSection{
 		{
-			FieldName: "IP",
-			Title:     "IP",
+			FieldName: "IPv4",
+			Title:     "IPv4",
 		},
 		{
 			FieldName: "GatewayNetworks",

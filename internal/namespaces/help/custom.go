@@ -17,10 +17,16 @@ func GetCommands() *core.Commands {
 
 func helpRoot() *core.Command {
 	return &core.Command{
-		Short:                "Get help about how the CLI works",
+		Short:                "Get help about how specific topics inside the CLI work",
 		Namespace:            "help",
 		AllowAnonymousClient: true,
 		Groups:               []string{"utility"},
+		SeeAlsos: []*core.SeeAlso{
+			{
+				Short:   "Print general help",
+				Command: "scw --help",
+			},
+		},
 	}
 }
 
@@ -33,7 +39,7 @@ func newHelpCommand(resource string, short string, long string) *core.Command {
 		AllowAnonymousClient: true,
 		ArgsType:             reflect.TypeOf(struct{}{}),
 		ArgSpecs:             core.ArgSpecs{},
-		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ any) (any, error) {
 			return long, nil
 		},
 	}

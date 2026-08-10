@@ -1,11 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A server is a denomination of a type of instances provided by Scaleway.
 
 USAGE:
   scw baremetal server <command>
 
 AVAILABLE COMMANDS:
+  batch-create    Create multiple Elastic Metal servers
   create          Create an Elastic Metal server
   delete          Delete an Elastic Metal server
   get             Get a specific Elastic Metal server
@@ -26,7 +27,8 @@ WORKFLOW COMMANDS:
   wait            Wait for a server to reach a stable state (delivery and installation)
 
 FLAGS:
-  -h, --help   help for server
+  -h, --help                help for server
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

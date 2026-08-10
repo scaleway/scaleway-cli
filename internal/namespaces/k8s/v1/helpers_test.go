@@ -1,8 +1,10 @@
 package k8s_test
 
 import (
+	"errors"
 	"fmt"
 	"os"
+	"path"
 	"strings"
 
 	"github.com/ghodss/yaml"
@@ -12,7 +14,10 @@ import (
 )
 
 const (
-	kapsuleVersion = "1.32.3"
+	kapsuleVersion    = "1.35.3"
+	clusterMetaKey    = "Cluster"
+	kubeconfigMetaKey = "Kubeconfig"
+	poolMetaKey       = "DefaultPool"
 )
 
 //
@@ -23,195 +28,105 @@ const (
 // register it in the context Meta at metaKey.
 func createCluster(
 	clusterNameSuffix string,
-	metaKey string,
-	version string,
-	poolSize int,
-	nodeType string,
+	wait bool,
 ) core.BeforeFunc {
+	format := "scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default"
+	if wait {
+		format += " --wait"
+	}
+
 	return core.ExecStoreBeforeCmd(
-		metaKey,
+		clusterMetaKey,
 		fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=%s pools.0.size=%d pools.0.name=default",
+			format,
 			clusterNameSuffix,
-			version,
-			nodeType,
-			poolSize,
+			kapsuleVersion,
 		),
 	)
 }
 
-// createClusterAndWaitAndKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
-// register it in the context Meta at metaKey.
-func createClusterAndWaitAndKubeconfig(
-	clusterNameSuffix string,
-	metaKey string,
-	kubeconfigMetaKey string,
-	version string,
+// fetchPoolMetadata fetch pool data of previously created cluster.
+//
+//nolint:unparam
+func fetchPoolMetadata(clusterMetaKey, poolMetaKey, poolName string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cluster := ctx.Meta[clusterMetaKey].(*k8s.Cluster)
+
+		poolsList, err := k8s.NewAPI(ctx.Client).
+			ListPools(&k8s.ListPoolsRequest{
+				Region:    cluster.Region,
+				ClusterID: cluster.ID,
+				Name:      &poolName,
+			})
+		if err != nil {
+			return err
+		}
+
+		if len(poolsList.Pools) != 1 {
+			return fmt.Errorf("expected 1 pool, got %d", len(poolsList.Pools))
+		}
+
+		ctx.Meta[poolMetaKey] = poolsList.Pools[0]
+
+		return nil
+	}
+}
+
+// fetchClusterKubeconfigMetadata fetch kubeconfig of previously created cluster.
+func fetchClusterKubeconfigMetadata(
+	redacted bool,
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
-			clusterNameSuffix,
-			version,
-		)
-		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		cluster := res.(*k8s.Cluster)
-		ctx.Meta[metaKey] = cluster
-		api := k8s.NewAPI(ctx.Client)
-		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
-			Region:    cluster.Region,
-			ClusterID: cluster.ID,
-		})
+		cluster := ctx.Meta[clusterMetaKey].(*k8s.Cluster)
+
+		apiKubeconfig, err := k8s.NewAPI(ctx.Client).
+			GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
+				Region:    cluster.Region,
+				ClusterID: cluster.ID,
+				Redacted:  new(redacted),
+			})
 		if err != nil {
 			return err
 		}
 
 		var kubeconfig go_api.Config
-
-		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
-		if err != nil {
+		if err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig); err != nil {
 			return err
 		}
-
 		ctx.Meta[kubeconfigMetaKey] = kubeconfig
 
 		return nil
 	}
 }
 
-// createClusterAndWaitAndInstallKubeconfig creates a basic cluster with 1 dev1-m as node, the given version and
-// register it in the context Meta at metaKey. And install the kubeconfig
-func createClusterAndWaitAndInstallKubeconfig(
-	clusterNameSuffix string,
-	metaKey string,
-	kubeconfigMetaKey string,
-	version string,
-) core.BeforeFunc {
+func writeKubeconfigFile(kubeconfigRaw []byte) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
-			clusterNameSuffix,
-			version,
-		)
-		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		cluster := res.(*k8s.Cluster)
-		ctx.Meta[metaKey] = cluster
-		api := k8s.NewAPI(ctx.Client)
-		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
-			Region:    cluster.Region,
-			ClusterID: cluster.ID,
-		})
-		if err != nil {
+		// Populate $HOME/.kube/config with existing data
+		kubeconfigPath := path.Join(ctx.Meta["HOME"].(string), ".kube", "config")
+		if err := os.MkdirAll(path.Dir(kubeconfigPath), 0o755); err != nil {
 			return err
 		}
 
-		var kubeconfig go_api.Config
-
-		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
-		if err != nil {
-			return err
-		}
-
-		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		cmd = "scw k8s kubeconfig install " + cluster.ID
-		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
-
-		return nil
+		return os.WriteFile(kubeconfigPath, kubeconfigRaw, 0o600)
 	}
 }
 
-// createClusterAndWaitAndKubeconfigAndPopulateFile creates a basic cluster with 1 dev1-m as node, the given version and
-// register it in the context Meta at metaKey. It also populates the given file with the given content
-func createClusterAndWaitAndKubeconfigAndPopulateFile(
-	clusterNameSuffix string,
-	metaKey string,
-	kubeconfigMetaKey string,
-	version string,
-	file string,
-	content []byte,
-) core.BeforeFunc {
+func cliInstallKubeconfig() core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
-			clusterNameSuffix,
-			version,
-		)
-		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		cluster := res.(*k8s.Cluster)
-		ctx.Meta[metaKey] = cluster
-		api := k8s.NewAPI(ctx.Client)
-		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
-			Region:    cluster.Region,
-			ClusterID: cluster.ID,
-		})
-		if err != nil {
-			return err
+		cluster := ctx.Meta[clusterMetaKey].(*k8s.Cluster)
+		cmd := "scw k8s kubeconfig install " + cluster.ID
+		installOut := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		if !strings.Contains(installOut.(string), "successfully written") {
+			return errors.New("kubeconfig install failed")
 		}
-
-		var kubeconfig go_api.Config
-
-		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
-		if err != nil {
-			return err
-		}
-
-		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = os.WriteFile(file, content, 0o644)
-
-		return err
-	}
-}
-
-// createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall creates a basic cluster with 1 dev1-m as node, the given version and
-// register it in the context Meta at metaKey. It also populates the given file with the given content and install the new kubeconfig
-func createClusterAndWaitAndKubeconfigAndPopulateFileAndInstall(
-	clusterNameSuffix string,
-	metaKey string,
-	kubeconfigMetaKey string,
-	version string,
-	file string,
-	content []byte,
-) core.BeforeFunc {
-	return func(ctx *core.BeforeFuncCtx) error {
-		cmd := fmt.Sprintf(
-			"scw k8s cluster create name=cli-test-%s version=%s cni=cilium pools.0.node-type=DEV1-M pools.0.size=1 pools.0.name=default --wait",
-			clusterNameSuffix,
-			version,
-		)
-		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
-		cluster := res.(*k8s.Cluster)
-		ctx.Meta[metaKey] = cluster
-		api := k8s.NewAPI(ctx.Client)
-		apiKubeconfig, err := api.GetClusterKubeConfig(&k8s.GetClusterKubeConfigRequest{
-			Region:    cluster.Region,
-			ClusterID: cluster.ID,
-		})
-		if err != nil {
-			return err
-		}
-
-		var kubeconfig go_api.Config
-
-		err = yaml.Unmarshal(apiKubeconfig.GetRaw(), &kubeconfig)
-		if err != nil {
-			return err
-		}
-
-		ctx.Meta[kubeconfigMetaKey] = kubeconfig
-		err = os.WriteFile(file, content, 0o644)
-		if err != nil {
-			return err
-		}
-		cmd = "scw k8s kubeconfig install " + cluster.ID
-		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 
 		return nil
 	}
 }
 
 // deleteCluster deletes a cluster previously registered in the context Meta at metaKey.
-func deleteCluster(metaKey string) core.AfterFunc {
+func deleteCluster() core.AfterFunc {
 	return core.ExecAfterCmd(
-		"scw k8s cluster delete {{ ." + metaKey + ".ID }} with-additional-resources=true --wait",
+		"scw k8s cluster delete {{ ." + clusterMetaKey + ".ID }} with-additional-resources=true --wait",
 	)
 }

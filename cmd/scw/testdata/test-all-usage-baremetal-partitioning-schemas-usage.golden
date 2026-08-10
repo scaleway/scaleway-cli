@@ -1,12 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Allows to customize the partitioning schemas of your servers (available on some offers and OSs).
 
 USAGE:
   scw baremetal partitioning-schemas
 
 FLAGS:
-  -h, --help   help for partitioning-schemas
+  -h, --help                help for partitioning-schemas
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

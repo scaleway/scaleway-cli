@@ -85,7 +85,6 @@ func writeFile(
 
 func getNATSContextDir(ctx context.Context) (string, error) {
 	xdgConfigHome := core.ExtractEnv(ctx, "XDG_CONFIG_HOME")
-	interactive.Println("xdgConfigHome:", xdgConfigHome)
 	if xdgConfigHome == "" {
 		homeDir := core.ExtractEnv(ctx, "HOME")
 		if homeDir == "" {
@@ -95,7 +94,7 @@ func getNATSContextDir(ctx context.Context) (string, error) {
 		return filepath.Join(homeDir, ".config", "nats", "context"), nil
 	}
 
-	return xdgConfigHome, nil
+	return filepath.Join(xdgConfigHome, "nats", "context"), nil
 }
 
 func saveNATSCredentials(

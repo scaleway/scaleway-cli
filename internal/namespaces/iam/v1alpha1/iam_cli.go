@@ -31,6 +31,11 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwt(),
 		iamLog(),
 		iamOrganization(),
+		iamSaml(),
+		iamSamlCertificates(),
+		iamSecuritySettings(),
+		iamScim(),
+		iamScimTokens(),
 		iamSSHKeyList(),
 		iamSSHKeyCreate(),
 		iamSSHKeyGet(),
@@ -43,6 +48,8 @@ func GetGeneratedCommands() *core.Commands {
 		iamUserCreate(),
 		iamUserUpdateUsername(),
 		iamUserUpdatePassword(),
+		iamUserLock(),
+		iamUserUnlock(),
 		iamApplicationList(),
 		iamApplicationCreate(),
 		iamApplicationGet(),
@@ -76,6 +83,21 @@ func GetGeneratedCommands() *core.Commands {
 		iamJwtDelete(),
 		iamLogList(),
 		iamLogGet(),
+		iamSecuritySettingsGet(),
+		iamSecuritySettingsUpdate(),
+		iamOrganizationGetSaml(),
+		iamOrganizationEnableSaml(),
+		iamSamlUpdate(),
+		iamSamlDelete(),
+		iamSamlCertificatesList(),
+		iamSamlCertificatesAdd(),
+		iamSamlCertificatesDelete(),
+		iamOrganizationGetScim(),
+		iamOrganizationEnableScim(),
+		iamScimDelete(),
+		iamScimTokensList(),
+		iamScimTokensCreate(),
+		iamScimTokensDelete(),
 	)
 }
 
@@ -186,6 +208,51 @@ func iamOrganization() *core.Command {
 	}
 }
 
+func iamSaml() *core.Command {
+	return &core.Command{
+		Short:     `SAML management commands`,
+		Long:      `SAML management commands.`,
+		Namespace: "iam",
+		Resource:  "saml",
+	}
+}
+
+func iamSamlCertificates() *core.Command {
+	return &core.Command{
+		Short:     `SAML Certificates management commands`,
+		Long:      `SAML Certificates management commands.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+	}
+}
+
+func iamSecuritySettings() *core.Command {
+	return &core.Command{
+		Short:     `Security settings management commands`,
+		Long:      `Security settings management commands.`,
+		Namespace: "iam",
+		Resource:  "security-settings",
+	}
+}
+
+func iamScim() *core.Command {
+	return &core.Command{
+		Short:     `SCIM management commands`,
+		Long:      `SCIM management commands.`,
+		Namespace: "iam",
+		Resource:  "scim",
+	}
+}
+
+func iamScimTokens() *core.Command {
+	return &core.Command{
+		Short:     `SCIM tokens management commands`,
+		Long:      `SCIM tokens management commands.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+	}
+}
+
 func iamSSHKeyList() *core.Command {
 	return &core.Command{
 		Short:     `List SSH keys`,
@@ -194,7 +261,7 @@ func iamSSHKeyList() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListSSHKeysRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListSSHKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -241,12 +308,12 @@ func iamSSHKeyList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListSSHKeysRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListSSHKeys(request, opts...)
 			if err != nil {
 				return nil, err
@@ -285,7 +352,7 @@ func iamSSHKeyCreate() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -304,13 +371,13 @@ func iamSSHKeyCreate() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateSSHKey(request)
+			return api.CreateSSHKey(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -339,7 +406,7 @@ func iamSSHKeyGet() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
@@ -349,13 +416,13 @@ func iamSSHKeyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetSSHKey(request)
+			return api.GetSSHKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -368,7 +435,7 @@ func iamSSHKeyUpdate() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
@@ -391,13 +458,13 @@ func iamSSHKeyUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateSSHKey(request)
+			return api.UpdateSSHKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -410,7 +477,7 @@ func iamSSHKeyDelete() *core.Command {
 		Resource:  "ssh-key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteSSHKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteSSHKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ssh-key-id",
@@ -419,12 +486,12 @@ func iamSSHKeyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteSSHKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteSSHKey(request)
+			e = api.DeleteSSHKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -461,7 +528,7 @@ func iamUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -512,7 +579,6 @@ func iamUserList() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_type",
-					"guest",
 					"owner",
 					"member",
 				},
@@ -525,12 +591,12 @@ func iamUserList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListUsersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListUsers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -549,7 +615,7 @@ func iamUserGet() *core.Command {
 		Resource:  "user",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -559,13 +625,13 @@ func iamUserGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetUser(request)
+			return api.GetUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -578,7 +644,7 @@ func iamUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -630,13 +696,13 @@ func iamUserUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -649,7 +715,7 @@ func iamUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -659,12 +725,12 @@ func iamUserDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -685,7 +751,7 @@ func iamUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "email",
@@ -766,13 +832,13 @@ func iamUserCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -785,7 +851,7 @@ func iamUserUpdateUsername() *core.Command {
 		Resource:  "user",
 		Verb:      "update-username",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserUsernameRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateUserUsernameRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -802,13 +868,13 @@ func iamUserUpdateUsername() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateUserUsernameRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateUserUsername(request)
+			return api.UpdateUserUsername(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -821,7 +887,7 @@ func iamUserUpdatePassword() *core.Command {
 		Resource:  "user",
 		Verb:      "update-password",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateUserPasswordRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "user-id",
@@ -838,13 +904,71 @@ func iamUserUpdatePassword() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateUserPasswordRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateUserPassword(request)
+			return api.UpdateUserPassword(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamUserLock() *core.Command {
+	return &core.Command{
+		Short:     `Lock a member`,
+		Long:      `Lock a member. A locked member cannot log in or use API keys until the locked status is removed.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "lock",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.LockUserRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to lock`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.LockUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.LockUser(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamUserUnlock() *core.Command {
+	return &core.Command{
+		Short:     `Unlock a member`,
+		Long:      `Unlock a member.`,
+		Namespace: "iam",
+		Resource:  "user",
+		Verb:      "unlock",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.UnlockUserRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "user-id",
+				Short:      `ID of the user to unlock`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.UnlockUserRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.UnlockUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -857,7 +981,7 @@ func iamApplicationList() *core.Command {
 		Resource:  "application",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListApplicationsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListApplicationsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -905,12 +1029,12 @@ func iamApplicationList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListApplicationsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListApplications(request, opts...)
 			if err != nil {
 				return nil, err
@@ -929,7 +1053,7 @@ func iamApplicationCreate() *core.Command {
 		Resource:  "application",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -955,13 +1079,13 @@ func iamApplicationCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateApplicationRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateApplication(request)
+			return api.CreateApplication(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -974,7 +1098,7 @@ func iamApplicationGet() *core.Command {
 		Resource:  "application",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -984,13 +1108,13 @@ func iamApplicationGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetApplicationRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetApplication(request)
+			return api.GetApplication(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1003,7 +1127,7 @@ func iamApplicationUpdate() *core.Command {
 		Resource:  "application",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -1034,13 +1158,13 @@ func iamApplicationUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateApplicationRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateApplication(request)
+			return api.UpdateApplication(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1053,7 +1177,7 @@ func iamApplicationDelete() *core.Command {
 		Resource:  "application",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteApplicationRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteApplicationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -1063,12 +1187,12 @@ func iamApplicationDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteApplicationRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteApplication(request)
+			e = api.DeleteApplication(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1089,7 +1213,7 @@ func iamGroupList() *core.Command {
 		Resource:  "group",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListGroupsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1144,12 +1268,12 @@ func iamGroupList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListGroupsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListGroups(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1182,7 +1306,7 @@ func iamGroupCreate() *core.Command {
 		Resource:  "group",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1208,13 +1332,13 @@ func iamGroupCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateGroup(request)
+			return api.CreateGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1247,7 +1371,7 @@ func iamGroupGet() *core.Command {
 		Resource:  "group",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1257,13 +1381,13 @@ func iamGroupGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetGroup(request)
+			return api.GetGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1276,7 +1400,7 @@ func iamGroupUpdate() *core.Command {
 		Resource:  "group",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1307,13 +1431,13 @@ func iamGroupUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateGroup(request)
+			return api.UpdateGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1326,7 +1450,7 @@ func iamGroupSetMembers() *core.Command {
 		Resource:  "group",
 		Verb:      "set-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.SetGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[iam.SetGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1347,13 +1471,13 @@ func iamGroupSetMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.SetGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.SetGroupMembers(request)
+			return api.SetGroupMembers(request, scw.WithContext(ctx))
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -1376,7 +1500,7 @@ func iamGroupAddMember() *core.Command {
 		Resource:  "group",
 		Verb:      "add-member",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.AddGroupMemberRequest{}),
+		ArgsType: reflect.TypeFor[iam.AddGroupMemberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1400,13 +1524,13 @@ func iamGroupAddMember() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.AddGroupMemberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.AddGroupMember(request)
+			return api.AddGroupMember(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1419,7 +1543,7 @@ func iamGroupAddMembers() *core.Command {
 		Resource:  "group",
 		Verb:      "add-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.AddGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[iam.AddGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1443,13 +1567,13 @@ func iamGroupAddMembers() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.AddGroupMembersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.AddGroupMembers(request)
+			return api.AddGroupMembers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1462,7 +1586,7 @@ func iamGroupRemoveMember() *core.Command {
 		Resource:  "group",
 		Verb:      "remove-member",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.RemoveGroupMemberRequest{}),
+		ArgsType: reflect.TypeFor[iam.RemoveGroupMemberRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1486,13 +1610,13 @@ func iamGroupRemoveMember() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.RemoveGroupMemberRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.RemoveGroupMember(request)
+			return api.RemoveGroupMember(request, scw.WithContext(ctx))
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -1515,7 +1639,7 @@ func iamGroupDelete() *core.Command {
 		Resource:  "group",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteGroupRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -1525,12 +1649,12 @@ func iamGroupDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteGroupRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteGroup(request)
+			e = api.DeleteGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1567,7 +1691,7 @@ func iamPolicyList() *core.Command {
 		Resource:  "policy",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListPoliciesRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListPoliciesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1641,12 +1765,12 @@ func iamPolicyList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListPoliciesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPolicies(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1665,7 +1789,7 @@ func iamPolicyCreate() *core.Command {
 		Resource:  "policy",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreatePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreatePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1747,13 +1871,13 @@ func iamPolicyCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreatePolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreatePolicy(request)
+			return api.CreatePolicy(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1767,12 +1891,12 @@ func iamPolicyCreate() *core.Command {
 func iamPolicyGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an existing policy`,
-		Long:      `Retrieve information about a policy, speficified by the ` + "`" + `policy_id` + "`" + ` parameter. The policy's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `nb_rules` + "`" + ` and ` + "`" + `nb_scopes` + "`" + `, ` + "`" + `nb_permission_sets` + "`" + ` are returned in the response.`,
+		Long:      `Retrieve information about a policy, specified by the ` + "`" + `policy_id` + "`" + ` parameter. The policy's full details, including ` + "`" + `id` + "`" + `, ` + "`" + `name` + "`" + `, ` + "`" + `organization_id` + "`" + `, ` + "`" + `nb_rules` + "`" + ` and ` + "`" + `nb_scopes` + "`" + `, ` + "`" + `nb_permission_sets` + "`" + ` are returned in the response.`,
 		Namespace: "iam",
 		Resource:  "policy",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetPolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -1782,13 +1906,13 @@ func iamPolicyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetPolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetPolicy(request)
+			return api.GetPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1801,7 +1925,7 @@ func iamPolicyUpdate() *core.Command {
 		Resource:  "policy",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdatePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdatePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -1860,13 +1984,13 @@ func iamPolicyUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdatePolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdatePolicy(request)
+			return api.UpdatePolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1879,7 +2003,7 @@ func iamPolicyDelete() *core.Command {
 		Resource:  "policy",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeletePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeletePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -1889,12 +2013,12 @@ func iamPolicyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeletePolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeletePolicy(request)
+			e = api.DeletePolicy(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1915,7 +2039,7 @@ func iamPolicyClone() *core.Command {
 		Resource:  "policy",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ClonePolicyRequest{}),
+		ArgsType: reflect.TypeFor[iam.ClonePolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -1924,13 +2048,13 @@ func iamPolicyClone() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ClonePolicyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.ClonePolicy(request)
+			return api.ClonePolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1943,7 +2067,7 @@ func iamRuleUpdate() *core.Command {
 		Resource:  "rule",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.SetRulesRequest{}),
+		ArgsType: reflect.TypeFor[iam.SetRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -1981,13 +2105,13 @@ func iamRuleUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.SetRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.SetRules(request)
+			return api.SetRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2000,7 +2124,7 @@ func iamRuleList() *core.Command {
 		Resource:  "rule",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListRulesRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "policy-id",
@@ -2010,12 +2134,12 @@ func iamRuleList() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListRulesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRules(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2034,7 +2158,7 @@ func iamPermissionSetList() *core.Command {
 		Resource:  "permission-set",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListPermissionSetsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListPermissionSetsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2052,12 +2176,12 @@ func iamPermissionSetList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListPermissionSetsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPermissionSets(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2076,7 +2200,7 @@ func iamAPIKeyList() *core.Command {
 		Resource:  "api-key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListAPIKeysRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListAPIKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2172,12 +2296,12 @@ func iamAPIKeyList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListAPIKeysRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListAPIKeys(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2216,7 +2340,7 @@ func iamAPIKeyCreate() *core.Command {
 		Resource:  "api-key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.CreateAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.CreateAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "application-id",
@@ -2254,13 +2378,13 @@ func iamAPIKeyCreate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.CreateAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.CreateAPIKey(request)
+			return api.CreateAPIKey(request, scw.WithContext(ctx))
 		},
 		SeeAlsos: []*core.SeeAlso{
 			{
@@ -2283,7 +2407,7 @@ func iamAPIKeyGet() *core.Command {
 		Resource:  "api-key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "access-key",
@@ -2293,13 +2417,13 @@ func iamAPIKeyGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetAPIKey(request)
+			return api.GetAPIKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2312,7 +2436,7 @@ func iamAPIKeyUpdate() *core.Command {
 		Resource:  "api-key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.UpdateAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.UpdateAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "access-key",
@@ -2335,14 +2459,21 @@ func iamAPIKeyUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "expires-at",
+				Short:      `New expiration date of the API key`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.UpdateAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.UpdateAPIKey(request)
+			return api.UpdateAPIKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2355,7 +2486,7 @@ func iamAPIKeyDelete() *core.Command {
 		Resource:  "api-key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteAPIKeyRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteAPIKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "access-key",
@@ -2365,12 +2496,12 @@ func iamAPIKeyDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteAPIKeyRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteAPIKey(request)
+			e = api.DeleteAPIKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2407,7 +2538,7 @@ func iamJwtList() *core.Command {
 		Resource:  "jwt",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListJWTsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListJWTsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2438,12 +2569,12 @@ func iamJwtList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListJWTsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListJWTs(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2462,7 +2593,7 @@ func iamJwtGet() *core.Command {
 		Resource:  "jwt",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetJWTRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetJWTRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "jti",
@@ -2472,13 +2603,13 @@ func iamJwtGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetJWTRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetJWT(request)
+			return api.GetJWT(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2491,7 +2622,7 @@ func iamJwtDelete() *core.Command {
 		Resource:  "jwt",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.DeleteJWTRequest{}),
+		ArgsType: reflect.TypeFor[iam.DeleteJWTRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "jti",
@@ -2501,12 +2632,12 @@ func iamJwtDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.DeleteJWTRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			e = api.DeleteJWT(request)
+			e = api.DeleteJWT(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2527,7 +2658,7 @@ func iamLogList() *core.Command {
 		Resource:  "log",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.ListLogsRequest{}),
+		ArgsType: reflect.TypeFor[iam.ListLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2592,12 +2723,12 @@ func iamLogList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.ListLogsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListLogs(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2616,7 +2747,7 @@ func iamLogGet() *core.Command {
 		Resource:  "log",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(iam.GetLogRequest{}),
+		ArgsType: reflect.TypeFor[iam.GetLogRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "log-id",
@@ -2626,13 +2757,525 @@ func iamLogGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*iam.GetLogRequest)
 
 			client := core.ExtractClient(ctx)
 			api := iam.NewAPI(client)
 
-			return api.GetLog(request)
+			return api.GetLog(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamSecuritySettingsGet() *core.Command {
+	return &core.Command{
+		Short:     `Get security settings of an Organization`,
+		Long:      `Retrieve information about the security settings of an Organization, specified by the ` + "`" + `organization_id` + "`" + ` parameter.`,
+		Namespace: "iam",
+		Resource:  "security-settings",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.GetOrganizationSecuritySettingsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.GetOrganizationSecuritySettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.GetOrganizationSecuritySettings(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamSecuritySettingsUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update the security settings of an Organization`,
+		Long:      `Update the security settings of an Organization.`,
+		Namespace: "iam",
+		Resource:  "security-settings",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.UpdateOrganizationSecuritySettingsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "enforce-password-renewal",
+				Short:      `Defines whether password renewal is enforced during first login`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "grace-period-duration",
+				Short:      `Duration of the grace period to renew password or enable MFA.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "login-attempts-before-locked",
+				Short:      `Number of login attempts before the account is locked`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-login-session-duration",
+				Short:      `Maximum duration a login session will stay active before needing to relogin.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-api-key-expiration-duration",
+				Short:      `Maximum duration the ` + "`" + `expires_at` + "`" + ` field of an API key can represent. A value of 0 means there is no maximum duration.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.UpdateOrganizationSecuritySettingsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.UpdateOrganizationSecuritySettings(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamOrganizationGetSaml() *core.Command {
+	return &core.Command{
+		Short:     `Get SAML Identity Provider configuration of an Organization`,
+		Long:      `Get SAML Identity Provider configuration of an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "get-saml",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.GetOrganizationSamlRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.GetOrganizationSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.GetOrganizationSaml(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamOrganizationEnableSaml() *core.Command {
+	return &core.Command{
+		Short:     `Enable SAML Identity Provider for an Organization`,
+		Long:      `Enable SAML Identity Provider for an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "enable-saml",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.EnableOrganizationSamlRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.EnableOrganizationSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.EnableOrganizationSaml(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamSamlUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Update SAML Identity Provider configuration`,
+		Long:      `Update SAML Identity Provider configuration.`,
+		Namespace: "iam",
+		Resource:  "saml",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.UpdateSamlRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "entity-id",
+				Short:      `Entity ID of the SAML Identity Provider`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "single-sign-on-url",
+				Short:      `Single Sign-On URL of the SAML Identity Provider`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.UpdateSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.UpdateSaml(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamSamlDelete() *core.Command {
+	return &core.Command{
+		Short:     `Disable SAML Identity Provider for an Organization`,
+		Long:      `Disable SAML Identity Provider for an Organization.`,
+		Namespace: "iam",
+		Resource:  "saml",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.DeleteSamlRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteSamlRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteSaml(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "saml",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func iamSamlCertificatesList() *core.Command {
+	return &core.Command{
+		Short:     `List SAML certificates`,
+		Long:      `List SAML certificates.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.ListSamlCertificatesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.ListSamlCertificatesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.ListSamlCertificates(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamSamlCertificatesAdd() *core.Command {
+	return &core.Command{
+		Short:     `Add a SAML certificate`,
+		Long:      `Add a SAML certificate.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+		Verb:      "add",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.AddSamlCertificateRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "saml-id",
+				Short:      `ID of the SAML configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of the SAML certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_certificate_type",
+					"signing",
+					"encryption",
+				},
+			},
+			{
+				Name:       "content",
+				Short:      `Content of the SAML certificate`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.AddSamlCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.AddSamlCertificate(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamSamlCertificatesDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a SAML certificate`,
+		Long:      `Delete a SAML certificate.`,
+		Namespace: "iam",
+		Resource:  "saml-certificates",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.DeleteSamlCertificateRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "certificate-id",
+				Short:      `ID of the certificate to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteSamlCertificateRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteSamlCertificate(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "saml-certificates",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func iamOrganizationGetScim() *core.Command {
+	return &core.Command{
+		Short:     `Get SCIM configuration of an Organization`,
+		Long:      `Get SCIM configuration of an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "get-scim",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.GetOrganizationScimRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.GetOrganizationScimRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.GetOrganizationScim(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamOrganizationEnableScim() *core.Command {
+	return &core.Command{
+		Short:     `Enable SCIM for an Organization`,
+		Long:      `Enable SCIM for an Organization.`,
+		Namespace: "iam",
+		Resource:  "organization",
+		Verb:      "enable-scim",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.EnableOrganizationScimRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.OrganizationIDArgSpec(),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.EnableOrganizationScimRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.EnableOrganizationScim(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamScimDelete() *core.Command {
+	return &core.Command{
+		Short:     `Disable SCIM for an Organization`,
+		Long:      `Disable SCIM for an Organization.`,
+		Namespace: "iam",
+		Resource:  "scim",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.DeleteScimRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "scim-id",
+				Short:      `ID of the SCIM configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteScimRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteScim(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "scim",
+				Verb:     "delete",
+			}, nil
+		},
+	}
+}
+
+func iamScimTokensList() *core.Command {
+	return &core.Command{
+		Short:     `List SCIM tokens`,
+		Long:      `List SCIM tokens.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.ListScimTokensRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "scim-id",
+				Short:      `ID of the SCIM configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sort order of SCIM tokens`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				Default:    core.DefaultValueSetter("created_at_asc"),
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+				},
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.ListScimTokensRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			resp, err := api.ListScimTokens(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.ScimTokens, nil
+		},
+	}
+}
+
+func iamScimTokensCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a SCIM token`,
+		Long:      `Create a SCIM token.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.CreateScimTokenRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "scim-id",
+				Short:      `ID of the SCIM configuration`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.CreateScimTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+
+			return api.CreateScimToken(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func iamScimTokensDelete() *core.Command {
+	return &core.Command{
+		Short:     `Delete a SCIM token`,
+		Long:      `Delete a SCIM token.`,
+		Namespace: "iam",
+		Resource:  "scim-tokens",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[iam.DeleteScimTokenRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "token-id",
+				Short:      `The SCIM token ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*iam.DeleteScimTokenRequest)
+
+			client := core.ExtractClient(ctx)
+			api := iam.NewAPI(client)
+			e = api.DeleteScimToken(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "scim-tokens",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }

@@ -20,16 +20,28 @@ var (
 func GetGeneratedCommands() *core.Commands {
 	return core.NewCommands(
 		webhostingRoot(),
+		webhostingBackup(),
+		webhostingBackupItem(),
+		webhostingProgress(),
 		webhostingControlPanel(),
 		webhostingDatabase(),
 		webhostingDatabaseUser(),
 		webhostingDNSRecords(),
 		webhostingDomain(),
+		webhostingDomainAvailability(),
 		webhostingOffer(),
 		webhostingHosting(),
+		webhostingFreedomain(),
 		webhostingFtpAccount(),
 		webhostingMailAccount(),
 		webhostingWebsite(),
+		webhostingBackupList(),
+		webhostingBackupGet(),
+		webhostingBackupRestore(),
+		webhostingBackupItemList(),
+		webhostingBackupItemRestore(),
+		webhostingProgressGet(),
+		webhostingProgressList(),
 		webhostingControlPanelList(),
 		webhostingDatabaseCreate(),
 		webhostingDatabaseList(),
@@ -45,6 +57,8 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingDNSRecordsGetDNSRecords(),
 		webhostingDomainCheckOwnership(),
 		webhostingDomainSyncDNSRecords(),
+		webhostingDomainAvailabilitySearch(),
+		webhostingDomainGet(),
 		webhostingOfferList(),
 		webhostingHostingCreate(),
 		webhostingHostingList(),
@@ -52,6 +66,8 @@ func GetGeneratedCommands() *core.Commands {
 		webhostingHostingUpdate(),
 		webhostingHostingDelete(),
 		webhostingHostingCreateSession(),
+		webhostingFreedomainCheckAvailability(),
+		webhostingFreedomainList(),
 		webhostingFtpAccountCreate(),
 		webhostingFtpAccountList(),
 		webhostingFtpAccountDelete(),
@@ -65,9 +81,40 @@ func GetGeneratedCommands() *core.Commands {
 
 func webhostingRoot() *core.Command {
 	return &core.Command{
-		Short:     `This API allows you to manage your Web Hosting services`,
-		Long:      `This API allows you to manage your Web Hosting services.`,
+		Short:     `This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.`,
+		Long:      `This API allows you to list and restore backups for your cPanel and WordPress Web Hosting service.`,
 		Namespace: "webhosting",
+	}
+}
+
+func webhostingBackup() *core.Command {
+	return &core.Command{
+		Short: `Backups`,
+		Long: `Backups represent snapshots of your hosting environment.
+You can list and restore individual items such as files, databases,
+or mailboxes.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+	}
+}
+
+func webhostingBackupItem() *core.Command {
+	return &core.Command{
+		Short: `Backups items`,
+		Long: `Backups represent dedicated snapshots of services of your hosting.
+You can list and restore individual items such as files, databases,
+or mailboxes.`,
+		Namespace: "webhosting",
+		Resource:  "backup-item",
+	}
+}
+
+func webhostingProgress() *core.Command {
+	return &core.Command{
+		Short:     `Progresses`,
+		Long:      `Progresses give details on the advancement of a backup,.`,
+		Namespace: "webhosting",
+		Resource:  "progress",
 	}
 }
 
@@ -116,6 +163,15 @@ func webhostingDomain() *core.Command {
 	}
 }
 
+func webhostingDomainAvailability() *core.Command {
+	return &core.Command{
+		Short:     `Domain information commands`,
+		Long:      `With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Get dns records status and check if you own the domain with these calls.`,
+		Namespace: "webhosting",
+		Resource:  "domain-availability",
+	}
+}
+
 func webhostingOffer() *core.Command {
 	return &core.Command{
 		Short:     `Offer`,
@@ -131,6 +187,15 @@ func webhostingHosting() *core.Command {
 		Long:      `With a Scaleway Web Hosting plan, you can manage your domain, configure your web hosting services, manage your emails and more. Create, list, update and delete your Web Hosting plans with these calls.`,
 		Namespace: "webhosting",
 		Resource:  "hosting",
+	}
+}
+
+func webhostingFreedomain() *core.Command {
+	return &core.Command{
+		Short:     `Free domains`,
+		Long:      `A free subdomain provided by Scaleway for your hosting.`,
+		Namespace: "webhosting",
+		Resource:  "freedomain",
 	}
 }
 
@@ -161,6 +226,300 @@ func webhostingWebsite() *core.Command {
 	}
 }
 
+func webhostingBackupList() *core.Command {
+	return &core.Command{
+		Short:     `List all available backups for a hosting account.`,
+		Long:      `List all available backups for a hosting account.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIListBackupsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Order in which to return the list of backups`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_desc",
+					"created_at_asc",
+				},
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIListBackupsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListBackups(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Backups, nil
+		},
+	}
+}
+
+func webhostingBackupGet() *core.Command {
+	return &core.Command{
+		Short:     `Get info about a backup specified by the backup ID.`,
+		Long:      `Get info about a backup specified by the backup ID.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIGetBackupRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup to retrieve`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIGetBackupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.GetBackup(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingBackupRestore() *core.Command {
+	return &core.Command{
+		Short:     `Restore an entire backup to your hosting environment.`,
+		Long:      `Restore an entire backup to your hosting environment.`,
+		Namespace: "webhosting",
+		Resource:  "backup",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIRestoreBackupRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup to fully restore`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIRestoreBackupRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.RestoreBackup(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingBackupItemList() *core.Command {
+	return &core.Command{
+		Short:     `List items within a specific backup, grouped by type.`,
+		Long:      `List items within a specific backup, grouped by type.`,
+		Namespace: "webhosting",
+		Resource:  "backup-item",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIListBackupItemsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "backup-id",
+				Short:      `ID of the backup to list items from`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIListBackupItemsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.ListBackupItems(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingBackupItemRestore() *core.Command {
+	return &core.Command{
+		Short:     `Restore specific items from a backup (e.g., a database or mailbox).`,
+		Long:      `Restore specific items from a backup (e.g., a database or mailbox).`,
+		Namespace: "webhosting",
+		Resource:  "backup-item",
+		Verb:      "restore",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIRestoreBackupItemsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `UUID of the hosting account`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "item-ids.{index}",
+				Short:      `List of backup item IDs to restore individually`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIRestoreBackupItemsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.RestoreBackupItems(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingProgressGet() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve detailed information about a specific progress by its ID.`,
+		Long:      `Retrieve detailed information about a specific progress by its ID.`,
+		Namespace: "webhosting",
+		Resource:  "progress",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIGetProgressRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `ID of the hosting associated with the progress.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "progress-id",
+				Short:      `ID of the progress to retrieve.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIGetProgressRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.GetProgress(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingProgressList() *core.Command {
+	return &core.Command{
+		Short:     `List recent progresses associated with a specific backup, grouped by type.`,
+		Long:      `List recent progresses associated with a specific backup, grouped by type.`,
+		Namespace: "webhosting",
+		Resource:  "progress",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.BackupAPIListRecentProgressesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "hosting-id",
+				Short:      `ID of the hosting linked to the progress.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.BackupAPIListRecentProgressesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewBackupAPI(client)
+
+			return api.ListRecentProgresses(request, scw.WithContext(ctx))
+		},
+	}
+}
+
 func webhostingControlPanelList() *core.Command {
 	return &core.Command{
 		Short:     `"List the control panels type: cpanel or plesk."`,
@@ -169,7 +528,7 @@ func webhostingControlPanelList() *core.Command {
 		Resource:  "control-panel",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.ControlPanelAPIListControlPanelsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.ControlPanelAPIListControlPanelsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -178,12 +537,12 @@ func webhostingControlPanelList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.ControlPanelAPIListControlPanelsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewControlPanelAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -206,7 +565,7 @@ func webhostingDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPICreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPICreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -247,13 +606,13 @@ func webhostingDatabaseCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPICreateDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -266,7 +625,7 @@ func webhostingDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -293,12 +652,12 @@ func webhostingDatabaseList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIListDatabasesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -321,7 +680,7 @@ func webhostingDatabaseGet() *core.Command {
 		Resource:  "database",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIGetDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIGetDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -343,13 +702,13 @@ func webhostingDatabaseGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIGetDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.GetDatabase(request)
+			return api.GetDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -362,7 +721,7 @@ func webhostingDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIDeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIDeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -384,13 +743,13 @@ func webhostingDatabaseDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIDeleteDatabaseRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.DeleteDatabase(request)
+			return api.DeleteDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -403,7 +762,7 @@ func webhostingDatabaseUserCreate() *core.Command {
 		Resource:  "database-user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPICreateDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPICreateDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -432,13 +791,13 @@ func webhostingDatabaseUserCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPICreateDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.CreateDatabaseUser(request)
+			return api.CreateDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -451,7 +810,7 @@ func webhostingDatabaseUserList() *core.Command {
 		Resource:  "database-user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIListDatabaseUsersRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIListDatabaseUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -478,12 +837,12 @@ func webhostingDatabaseUserList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIListDatabaseUsersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -506,7 +865,7 @@ func webhostingDatabaseUserGet() *core.Command {
 		Resource:  "database-user",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIGetDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIGetDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -528,13 +887,13 @@ func webhostingDatabaseUserGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIGetDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.GetDatabaseUser(request)
+			return api.GetDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -547,7 +906,7 @@ func webhostingDatabaseUserDelete() *core.Command {
 		Resource:  "database-user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIDeleteDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIDeleteDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -569,13 +928,13 @@ func webhostingDatabaseUserDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIDeleteDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.DeleteDatabaseUser(request)
+			return api.DeleteDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -588,7 +947,7 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 		Resource:  "database-user",
 		Verb:      "change-password",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -617,13 +976,13 @@ func webhostingDatabaseUserChangePassword() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIChangeDatabaseUserPasswordRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.ChangeDatabaseUserPassword(request)
+			return api.ChangeDatabaseUserPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -636,7 +995,7 @@ func webhostingDatabaseUserAssign() *core.Command {
 		Resource:  "database-user",
 		Verb:      "assign",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIAssignDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIAssignDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -665,13 +1024,13 @@ func webhostingDatabaseUserAssign() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIAssignDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.AssignDatabaseUser(request)
+			return api.AssignDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -684,7 +1043,7 @@ func webhostingDatabaseUserUnassign() *core.Command {
 		Resource:  "database-user",
 		Verb:      "unassign",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DatabaseAPIUnassignDatabaseUserRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DatabaseAPIUnassignDatabaseUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -713,13 +1072,13 @@ func webhostingDatabaseUserUnassign() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DatabaseAPIUnassignDatabaseUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDatabaseAPI(client)
 
-			return api.UnassignDatabaseUser(request)
+			return api.UnassignDatabaseUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -732,7 +1091,7 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 		Resource:  "dns-records",
 		Verb:      "get-dns-records",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPIGetDomainDNSRecordsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPIGetDomainDNSRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -747,13 +1106,13 @@ func webhostingDNSRecordsGetDNSRecords() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DNSAPIGetDomainDNSRecordsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.GetDomainDNSRecords(request)
+			return api.GetDomainDNSRecords(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -771,8 +1130,8 @@ func webhostingDomainCheckOwnership() *core.Command {
 		Namespace: "webhosting",
 		Resource:  "domain",
 		Verb:      "check-ownership",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPICheckUserOwnsDomainRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[webhosting.DNSAPICheckUserOwnsDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -788,13 +1147,13 @@ func webhostingDomainCheckOwnership() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DNSAPICheckUserOwnsDomainRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.CheckUserOwnsDomain(request)
+			return api.CheckUserOwnsDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -807,7 +1166,7 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 		Resource:  "domain",
 		Verb:      "sync-dns-records",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.DNSAPISyncDomainDNSRecordsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.DNSAPISyncDomainDNSRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -906,13 +1265,83 @@ func webhostingDomainSyncDNSRecords() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.DNSAPISyncDomainDNSRecordsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewDnsAPI(client)
 
-			return api.SyncDomainDNSRecords(request)
+			return api.SyncDomainDNSRecords(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingDomainAvailabilitySearch() *core.Command {
+	return &core.Command{
+		Short:     `Search for available domains based on domain name.`,
+		Long:      `Search for available domains based on domain name.`,
+		Namespace: "webhosting",
+		Resource:  "domain-availability",
+		Verb:      "search",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.DNSAPISearchDomainsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-name",
+				Short:      `Domain name to search.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.DNSAPISearchDomainsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewDnsAPI(client)
+
+			return api.SearchDomains(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingDomainGet() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.`,
+		Long:      `Retrieve detailed information about a specific domain, including its status, DNS configuration, and ownership.`,
+		Namespace: "webhosting",
+		Resource:  "domain",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.DNSAPIGetDomainRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "domain-name",
+				Short:      `Domain name to get.`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ProjectIDArgSpec(),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.DNSAPIGetDomainRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewDnsAPI(client)
+
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -925,7 +1354,7 @@ func webhostingOfferList() *core.Command {
 		Resource:  "offer",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.OfferAPIListOffersRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.OfferAPIListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -958,12 +1387,12 @@ func webhostingOfferList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.OfferAPIListOffersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewOfferAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -986,7 +1415,7 @@ func webhostingHostingCreate() *core.Command {
 		Resource:  "hosting",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPICreateHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPICreateHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1013,6 +1442,13 @@ func webhostingHostingCreate() *core.Command {
 			{
 				Name:       "domain",
 				Short:      `Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "subdomain",
+				Short:      `The name prefix to use as a free subdomain (for example, ` + "`" + `mysite` + "`" + `) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. ` + "`" + `mysite.scw.site` + "`" + `). You do not need to include the base domain yourself.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -1110,19 +1546,26 @@ func webhostingHostingCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "offer-commitment-id",
+				Short:      `Offer commitment ID to which the hosting will be engaged`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPICreateHostingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.CreateHosting(request)
+			return api.CreateHosting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1135,7 +1578,7 @@ func webhostingHostingList() *core.Command {
 		Resource:  "hosting",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIListHostingsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIListHostingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1169,6 +1612,9 @@ func webhostingHostingList() *core.Command {
 					"error",
 					"locked",
 					"migrating",
+					"updating",
+					"payment_pending",
+					"payment_failed",
 				},
 			},
 			{
@@ -1193,6 +1639,13 @@ func webhostingHostingList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "subdomain",
+				Short:      `Optional free subdomain linked to the Web Hosting plan`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "organization-id",
 				Short:      `Organization ID to filter for, only Web Hosting plans from this Organization will be returned`,
 				Required:   false,
@@ -1206,12 +1659,12 @@ func webhostingHostingList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIListHostingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1240,7 +1693,7 @@ func webhostingHostingGet() *core.Command {
 		Resource:  "hosting",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIGetHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIGetHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1255,13 +1708,13 @@ func webhostingHostingGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIGetHostingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.GetHosting(request)
+			return api.GetHosting(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1280,7 +1733,7 @@ func webhostingHostingUpdate() *core.Command {
 		Resource:  "hosting",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIUpdateHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIUpdateHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1331,19 +1784,26 @@ func webhostingHostingUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "delete-hosting-after-commitment",
+				Short:      `Whether the hosting is deleted at the end of the commitment period`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIUpdateHostingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.UpdateHosting(request)
+			return api.UpdateHosting(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1366,7 +1826,7 @@ func webhostingHostingDelete() *core.Command {
 		Resource:  "hosting",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPIDeleteHostingRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPIDeleteHostingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1381,13 +1841,13 @@ func webhostingHostingDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPIDeleteHostingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.DeleteHosting(request)
+			return api.DeleteHosting(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1406,7 +1866,7 @@ func webhostingHostingCreateSession() *core.Command {
 		Resource:  "hosting",
 		Verb:      "create-session",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.HostingAPICreateSessionRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.HostingAPICreateSessionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1421,13 +1881,91 @@ func webhostingHostingCreateSession() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.HostingAPICreateSessionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewHostingAPI(client)
 
-			return api.CreateSession(request)
+			return api.CreateSession(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingFreedomainCheckAvailability() *core.Command {
+	return &core.Command{
+		Short:     `Check whether a given slug and free domain combination is available.`,
+		Long:      `Check whether a given slug and free domain combination is available.`,
+		Namespace: "webhosting",
+		Resource:  "freedomain",
+		Verb:      "check-availability",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.FreeDomainAPICheckFreeDomainAvailabilityRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "slug",
+				Short:      `Custom prefix used for the free domain.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "root-domain",
+				Short:      `Free root domain provided by Web Hosting, selected from the list returned by ` + "`" + `ListFreeRootDomains` + "`" + `.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.FreeDomainAPICheckFreeDomainAvailabilityRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewFreeDomainAPI(client)
+
+			return api.CheckFreeDomainAvailability(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func webhostingFreedomainList() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve the list of free root domains available for a Web Hosting.`,
+		Long:      `Retrieve the list of free root domains available for a Web Hosting.`,
+		Namespace: "webhosting",
+		Resource:  "freedomain",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[webhosting.FreeDomainAPIListFreeRootDomainsRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*webhosting.FreeDomainAPIListFreeRootDomainsRequest)
+
+			client := core.ExtractClient(ctx)
+			api := webhosting.NewFreeDomainAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFreeRootDomains(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.RootDomains, nil
 		},
 	}
 }
@@ -1440,7 +1978,7 @@ func webhostingFtpAccountCreate() *core.Command {
 		Resource:  "ftp-account",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FtpAccountAPICreateFtpAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FtpAccountAPICreateFtpAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1476,13 +2014,13 @@ func webhostingFtpAccountCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.FtpAccountAPICreateFtpAccountRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
 
-			return api.CreateFtpAccount(request)
+			return api.CreateFtpAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1495,7 +2033,7 @@ func webhostingFtpAccountList() *core.Command {
 		Resource:  "ftp-account",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FtpAccountAPIListFtpAccountsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FtpAccountAPIListFtpAccountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1529,12 +2067,12 @@ func webhostingFtpAccountList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.FtpAccountAPIListFtpAccountsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1557,7 +2095,7 @@ func webhostingFtpAccountDelete() *core.Command {
 		Resource:  "ftp-account",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.FtpAccountAPIRemoveFtpAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.FtpAccountAPIRemoveFtpAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1579,13 +2117,13 @@ func webhostingFtpAccountDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.FtpAccountAPIRemoveFtpAccountRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewFtpAccountAPI(client)
 
-			return api.RemoveFtpAccount(request)
+			return api.RemoveFtpAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1598,7 +2136,7 @@ func webhostingMailAccountCreate() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPICreateMailAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPICreateMailAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1634,13 +2172,13 @@ func webhostingMailAccountCreate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPICreateMailAccountRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 
-			return api.CreateMailAccount(request)
+			return api.CreateMailAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1653,7 +2191,7 @@ func webhostingMailAccountList() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPIListMailAccountsRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPIListMailAccountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1689,12 +2227,12 @@ func webhostingMailAccountList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPIListMailAccountsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1717,7 +2255,7 @@ func webhostingMailAccountDelete() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPIRemoveMailAccountRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPIRemoveMailAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1746,13 +2284,13 @@ func webhostingMailAccountDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPIRemoveMailAccountRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 
-			return api.RemoveMailAccount(request)
+			return api.RemoveMailAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1765,7 +2303,7 @@ func webhostingMailAccountChangePassword() *core.Command {
 		Resource:  "mail-account",
 		Verb:      "change-password",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.MailAccountAPIChangeMailAccountPasswordRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.MailAccountAPIChangeMailAccountPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1801,13 +2339,13 @@ func webhostingMailAccountChangePassword() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.MailAccountAPIChangeMailAccountPasswordRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewMailAccountAPI(client)
 
-			return api.ChangeMailAccountPassword(request)
+			return api.ChangeMailAccountPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1820,7 +2358,7 @@ func webhostingWebsiteList() *core.Command {
 		Resource:  "website",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(webhosting.WebsiteAPIListWebsitesRequest{}),
+		ArgsType: reflect.TypeFor[webhosting.WebsiteAPIListWebsitesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "hosting-id",
@@ -1847,12 +2385,12 @@ func webhostingWebsiteList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*webhosting.WebsiteAPIListWebsitesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := webhosting.NewWebsiteAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

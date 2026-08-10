@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List all routing policies in a given region. A routing policy can be attached to one or multiple links (InterLink connections).
 
 USAGE:
@@ -10,11 +10,13 @@ ARGS:
   [project-id]        Project ID to filter for
   [name]              Routing policy name to filter for
   [tags.{index}]      Tags to filter for
+  [ipv6]              Filter for the routing policies based on IP prefixes version
   [organization-id]   Organization ID to filter for
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

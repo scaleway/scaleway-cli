@@ -9,16 +9,16 @@ import (
 	"strings"
 	"text/template"
 
+	"github.com/ghodss/yaml"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-cli/v2/internal/gofields"
-	"gopkg.in/yaml.v3"
 )
 
 // Type defines an formatter format.
 type PrinterType string
 
-func (p PrinterType) String() string {
-	return string(p)
+func (p *PrinterType) String() string {
+	return string(*p)
 }
 
 const (
@@ -47,6 +47,21 @@ type PrinterConfig struct {
 	Stderr     io.Writer
 }
 
+type Printer struct {
+	printerType PrinterType
+	stdout      io.Writer
+	stderr      io.Writer
+
+	// Enable pretty print on json output
+	jsonPretty bool
+
+	// go template to use on template output
+	template *template.Template
+
+	// Allow to select specifics column in a table with human printer
+	humanFields []string
+}
+
 // NewPrinter returns an initialized formatter corresponding to a given FormatterType.
 func NewPrinter(config *PrinterConfig) (*Printer, error) {
 	printer := &Printer{
@@ -64,18 +79,18 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 
 	// We call the correct setup method depending on the printer type
 	switch printerName {
-	case PrinterTypeHuman.String():
+	case string(PrinterTypeHuman):
 		setupHumanPrinter(printer, printerOpt)
-	case PrinterTypeWide.String():
+	case string(PrinterTypeWide):
 		setupWidePrinter(printer, printerOpt)
-	case PrinterTypeJSON.String():
+	case string(PrinterTypeJSON):
 		err := setupJSONPrinter(printer, printerOpt)
 		if err != nil {
 			return nil, err
 		}
-	case PrinterTypeYAML.String():
+	case string(PrinterTypeYAML):
 		printer.printerType = PrinterTypeYAML
-	case PrinterTypeTemplate.String():
+	case string(PrinterTypeTemplate):
 		err := setupTemplatePrinter(printer, printerOpt)
 		if err != nil {
 			return nil, err
@@ -96,7 +111,7 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 	case "":
 	default:
 		return fmt.Errorf(
-			"invalid option %s for json outout. Valid options are: %s",
+			"invalid option %s for json output. Valid options are: %s",
 			opts,
 			PrinterOptJSONPretty,
 		)
@@ -107,7 +122,7 @@ func setupJSONPrinter(printer *Printer, opts string) error {
 
 func setupTemplatePrinter(printer *Printer, opts string) error {
 	funcMap := template.FuncMap{
-		"json": func(v interface{}) string {
+		"json": func(v any) string {
 			b, err := json.Marshal(v)
 			if err != nil {
 				return fmt.Sprintf("Error: %s", err)
@@ -147,22 +162,7 @@ func setupWidePrinter(printer *Printer, opts string) {
 	printer.printerType = PrinterTypeWide
 }
 
-type Printer struct {
-	printerType PrinterType
-	stdout      io.Writer
-	stderr      io.Writer
-
-	// Enable pretty print on json output
-	jsonPretty bool
-
-	// go template to use on template output
-	template *template.Template
-
-	// Allow to select specifics column in a table with human printer
-	humanFields []string
-}
-
-func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) Print(data any, opt *human.MarshalOpt) error {
 	// No matter the printer type if data is a RawResult we should print it as is.
 	if rawResult, isRawResult := data.(RawResult); isRawResult {
 		_, err := p.stdout.Write(rawResult)
@@ -196,7 +196,7 @@ func (p *Printer) Print(data interface{}, opt *human.MarshalOpt) error {
 	return nil
 }
 
-func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) printHuman(data any, opt *human.MarshalOpt) error {
 	_, isError := data.(error)
 
 	if !isError {
@@ -250,7 +250,7 @@ func (p *Printer) printHuman(data interface{}, opt *human.MarshalOpt) error {
 	return err
 }
 
-func (p *Printer) printWide(data interface{}, opt *human.MarshalOpt) error {
+func (p *Printer) printWide(data any, opt *human.MarshalOpt) error {
 	if opt != nil {
 		opt.DisableShrinking = true
 	} else {
@@ -262,7 +262,7 @@ func (p *Printer) printWide(data interface{}, opt *human.MarshalOpt) error {
 	return p.printHuman(data, opt)
 }
 
-func (p *Printer) printJSON(data interface{}) error {
+func (p *Printer) printJSON(data any) error {
 	_, implementMarshaler := data.(json.Marshaler)
 	err, isError := data.(error)
 
@@ -291,11 +291,10 @@ func (p *Printer) printJSON(data interface{}) error {
 	return encoder.Encode(data)
 }
 
-func (p *Printer) printYAML(data interface{}) error {
-	_, implementMarshaler := data.(yaml.Marshaler)
+func (p *Printer) printYAML(data any) error {
 	err, isError := data.(error)
 
-	if isError && !implementMarshaler {
+	if isError {
 		data = map[string]string{
 			"error": err.Error(),
 		}
@@ -305,12 +304,19 @@ func (p *Printer) printYAML(data interface{}) error {
 	if isError {
 		writer = p.stderr
 	}
-	encoder := yaml.NewEncoder(writer)
+	bytes, err := yaml.Marshal(data)
+	if err != nil {
+		return err
+	}
+	_, err = writer.Write(bytes)
+	if err != nil {
+		return err
+	}
 
-	return encoder.Encode(data)
+	return nil
 }
 
-func (p *Printer) printTemplate(data interface{}) error {
+func (p *Printer) printTemplate(data any) error {
 	writer := p.stdout
 	if _, isError := data.(error); isError {
 		return p.printHuman(data, nil)

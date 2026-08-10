@@ -7,7 +7,6 @@ import (
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -35,7 +34,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreateSnapshotRequest)
 
 			if args.CreateSnapshotRequest == nil {
@@ -68,13 +67,13 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		},
 	)
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		api := instance.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 			SnapshotID:    respI.(*instance.CreateSnapshotResponse).Snapshot.ID,
 			Zone:          argsI.(*customCreateSnapshotRequest).Zone,
-			Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+			Timeout:       new(serverActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -95,7 +94,7 @@ func snapshotListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListSnapshotsRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListSnapshotsRequest)
 
 			if args.ListSnapshotsRequest == nil {
@@ -122,7 +121,7 @@ func snapshotWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForSnapshotRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
@@ -152,14 +151,14 @@ func snapshotWaitCommand() *core.Command {
 }
 
 func snapshotUpdateBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		snapshot := respI.(*instance.UpdateSnapshotResponse).Snapshot
 		api := instance.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForSnapshot(&instance.WaitForSnapshotRequest{
 			SnapshotID:    snapshot.ID,
 			Zone:          snapshot.Zone,
-			Timeout:       scw.TimeDurationPtr(snapshotActionTimeout),
+			Timeout:       new(snapshotActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

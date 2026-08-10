@@ -1,19 +1,23 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 *ips_long.
 
 USAGE:
   scw ipam ip <command>
 
 AVAILABLE COMMANDS:
+  attach      Attach private IP to custom resource
   create      Reserve a new IP
   delete      Release an IP
+  detach      Detach private IP from a custom resource
   get         Get an IP
   list        List existing IPs
+  move        Move private IP to a custom resource
   update      Update an IP
 
 FLAGS:
-  -h, --help   help for ip
+  -h, --help                help for ip
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

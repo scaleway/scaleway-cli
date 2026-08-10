@@ -2,7 +2,7 @@
 
 # Scaleway CLI v2 Documentation
 
-<p align="center"><img width="50%" src="../static_files/cli-artwork.png" /></p>
+<p align="center"><img width="50%" src="cli-artwork.png" /></p>
 
 <p align="center">
   <a href="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2"><img src="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2.svg?style=shield" alt="CircleCI" /></a>
@@ -85,7 +85,7 @@ It will set up your profile, the authentication, and the auto-completion.
 
 ## Basic commands
 
-```
+```shell
 # Create an instance server
 scw instance server create type=DEV1-S image=ubuntu_focal zone=fr-par-1 tags.0="scw-cli"
 

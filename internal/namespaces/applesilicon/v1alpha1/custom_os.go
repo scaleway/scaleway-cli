@@ -5,7 +5,7 @@ import (
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 )
 
-func OSMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func OSMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp applesilicon.OS
 	os := tmp(i.(applesilicon.OS))
 	opt.Sections = []*human.MarshalSection{

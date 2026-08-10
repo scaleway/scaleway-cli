@@ -69,12 +69,12 @@ func serverRebootBuilder(c *core.Command) *core.Command {
 }
 
 func waitForServerFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		server, err := applesilicon.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&applesilicon.WaitForServerRequest{
 				Zone:          respI.(*applesilicon.Server).Zone,
 				ServerID:      respI.(*applesilicon.Server).ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 
@@ -87,9 +87,9 @@ func waitForServerFunc(action int) core.WaitFunc {
 			if err != nil {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
-				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) &&
-					responseError.StatusCode == http.StatusNotFound ||
+				if responseError, ok := errors.AsType[*scw.ResponseError](
+					err,
+				); ok && responseError.StatusCode == http.StatusNotFound ||
 					errors.As(err, &notFoundError) {
 					return fmt.Sprintf(
 						"Server %s successfully deleted.",
@@ -116,7 +116,7 @@ func serverWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(customServerWaitArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customServerWaitArgs)
 
 			api := applesilicon.NewAPI(core.ExtractClient(ctx))

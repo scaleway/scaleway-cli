@@ -9,7 +9,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	k8s "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 const (
@@ -37,11 +36,11 @@ func nodeRebootBuilder(c *core.Command) *core.Command {
 }
 
 func waitForNodeFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		node, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForNode(&k8s.WaitForNodeRequest{
 			Region:        respI.(*k8s.Node).Region,
 			NodeID:        respI.(*k8s.Node).ID,
-			Timeout:       scw.TimeDurationPtr(nodeActionTimeout),
+			Timeout:       new(nodeActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if action == nodeActionReboot {
@@ -61,7 +60,7 @@ func k8sNodeWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForNodeRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForNode(&k8s.WaitForNodeRequest{

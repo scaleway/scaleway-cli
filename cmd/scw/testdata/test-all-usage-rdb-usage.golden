@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 
 USAGE:
@@ -21,7 +21,8 @@ AVAILABLE COMMANDS:
   user         User management commands
 
 FLAGS:
-  -h, --help   help for rdb
+  -h, --help                help for rdb
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

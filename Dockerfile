@@ -1,6 +1,6 @@
-FROM golang:1.24-alpine3.21 AS builder
+FROM golang:1.26-alpine3.23 AS builder
 
-ENV BUILD_IN_DOCKER true
+ENV BUILD_IN_DOCKER=true
 ARG VERSION
 
 # ca-certificates is needed to add the certificates on the next image
@@ -23,8 +23,11 @@ COPY .git/ .git/
 
 RUN ./scripts/build.sh
 
-FROM alpine:3.22
+FROM alpine:3.24
 WORKDIR /
 RUN apk update && apk add --no-cache bash ca-certificates openssh-client && update-ca-certificates
+RUN addgroup -g 1000 -S scw && adduser -u 1000 -S scw -G scw
 COPY --from=builder /go/src/github.com/scaleway/scaleway-cli/scw .
+RUN chown scw:scw /scw && ln -s /scw /usr/local/bin/scw
+USER scw
 ENTRYPOINT ["/scw"]

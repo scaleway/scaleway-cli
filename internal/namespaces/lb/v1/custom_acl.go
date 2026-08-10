@@ -14,7 +14,7 @@ var aclMarshalSpecs = human.EnumMarshalSpecs{
 	lb.ACLActionTypeDeny:  &human.EnumMarshalSpec{Attribute: color.FgRed, Value: "deny"},
 }
 
-func lbACLMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func lbACLMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp lb.ACL
 	acl := tmp(i.(lb.ACL))
 
@@ -57,14 +57,14 @@ func ACLDeleteBuilder(c *core.Command) *core.Command {
 }
 
 func interceptACL() core.CommandInterceptor {
-	return func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	return func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		var getACL *lb.ACL
 		var err error
 
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
-		if _, ok := argsI.(*lb.ZonedAPIDeleteCertificateRequest); ok {
+		if _, ok := argsI.(*lb.ZonedAPIDeleteACLRequest); ok {
 			getACL, err = api.GetACL(&lb.ZonedAPIGetACLRequest{
 				Zone:  argsI.(*lb.ZonedAPIDeleteACLRequest).Zone,
 				ACLID: argsI.(*lb.ZonedAPIDeleteACLRequest).ACLID,
@@ -80,7 +80,9 @@ func interceptACL() core.CommandInterceptor {
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			if len(getACL.Frontend.LB.Tags) != 0 && getACL.Frontend.LB.Tags[0] == kapsuleTag {
+			if getACL != nil && getACL.Frontend != nil && getACL.Frontend.LB != nil &&
+				len(getACL.Frontend.LB.Tags) != 0 &&
+				getACL.Frontend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}
 		}

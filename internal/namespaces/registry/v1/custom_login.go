@@ -33,11 +33,12 @@ You will need to have the chosen binary installed on your system and in your PAT
 			},
 			core.RegionArgSpec(scw.AllRegions...),
 		},
-		Run: registryLoginRun,
+		Run:            registryLoginRun,
+		ExcludeFromMCP: true,
 	}
 }
 
-func registryLoginRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func registryLoginRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*registryLoginArgs)
 	client := core.ExtractClient(ctx)
 

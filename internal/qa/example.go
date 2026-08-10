@@ -11,7 +11,7 @@ type CommandInvalidJSONExampleError struct {
 	Command *core.Command
 }
 
-func (err CommandInvalidJSONExampleError) Error() string {
+func (err *CommandInvalidJSONExampleError) Error() string {
 	return fmt.Sprintf("command has invalid json examples '%s'",
 		err.Command.GetCommandLine("scw"),
 	)

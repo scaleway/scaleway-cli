@@ -61,7 +61,7 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 		},
 	}
 	command.Run = billingDownloadRun
-	command.PreValidateFunc = func(ctx context.Context, argsI interface{}) error {
+	command.PreValidateFunc = func(ctx context.Context, argsI any) error {
 		args := argsI.(*billingDownloadRequest)
 		askPrompt := false
 		request := &billing.DownloadInvoiceRequest{
@@ -124,11 +124,16 @@ func invoiceDownloadBuilder(command *core.Command) *core.Command {
 		if askPrompt {
 			_, _ = interactive.PrintlnWithoutIndent(`
 					Current file exist is located at ` + terminal.Style(args.FilePath, color.Faint))
-			overrideFile, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-				Prompt:       fmt.Sprintf("Do you want to override the current file: %s ?", file),
-				DefaultValue: false,
-				Ctx:          ctx,
-			})
+			overrideFile, err := interactive.PromptBoolWithConfig(
+				ctx,
+				&interactive.PromptBoolConfig{
+					Prompt: fmt.Sprintf(
+						"Do you want to override the current file: %s ?",
+						file,
+					),
+					DefaultValue: false,
+				},
+			)
 			if err != nil {
 				return err
 			}
@@ -155,7 +160,7 @@ func checkDownloadInvoiceExt(ext string) bool {
 	return ext == ".pdf"
 }
 
-func billingDownloadRun(ctx context.Context, argsI interface{}) (interface{}, error) {
+func billingDownloadRun(ctx context.Context, argsI any) (any, error) {
 	argsDownload := argsI.(*billingDownloadRequest)
 
 	request := &billing.DownloadInvoiceRequest{

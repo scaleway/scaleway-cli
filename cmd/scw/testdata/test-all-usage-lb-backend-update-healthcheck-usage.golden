@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Update the configuration of the health check performed by a given backend to verify the health of its backend servers, identified by its backend ID. Note that the request type is PUT and not PATCH. You must set all parameters.
 
 USAGE:
@@ -12,8 +12,11 @@ ARGS:
   check-max-retries              Number of consecutive unsuccessful health checks after which the server will be considered dead
   backend-id                     Backend ID
   [check-send-proxy]             Defines whether proxy protocol should be activated for the health check
+  [tcp-config]                   Object to configure a basic TCP health check
   [mysql-config.user]            MySQL user to use for the health check
   [pgsql-config.user]            PostgreSQL user to use for the health check
+  [ldap-config]                  Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message
+  [redis-config]                 Object to configure a Redis health check. The response is analyzed to find the +PONG response message
   [http-config.uri]              HTTP path used for the health check
   [http-config.method]           HTTP method used for the health check
   [http-config.code]             HTTP response code expected for a successful health check
@@ -27,7 +30,8 @@ ARGS:
   [zone=fr-par-1]                Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
-  -h, --help   help for update-healthcheck
+  -h, --help                help for update-healthcheck
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

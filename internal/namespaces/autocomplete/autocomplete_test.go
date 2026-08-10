@@ -9,27 +9,27 @@ import (
 
 func TestTrimText(t *testing.T) {
 	type testCase struct {
-		Script       string
-		TrimedScript string
+		Script        string
+		TrimmedScript string
 	}
 
 	run := func(tc *testCase) func(*testing.T) {
 		return func(t *testing.T) {
 			t.Helper()
 			result := autocomplete.TrimText(tc.Script)
-			assert.Equal(t, tc.TrimedScript, result)
+			assert.Equal(t, tc.TrimmedScript, result)
 		}
 	}
 
 	t.Run("empty script", run(&testCase{
-		Script:       "",
-		TrimedScript: "",
+		Script:        "",
+		TrimmedScript: "",
 	}))
 	t.Run("no indentation on first line", run(&testCase{
 		Script: `aaaaa
 		bb bb bbbbb
             ccccccccc`,
-		TrimedScript: `aaaaa
+		TrimmedScript: `aaaaa
 		bb bb bbbbb
             ccccccccc`,
 	}))
@@ -40,7 +40,7 @@ func TestTrimText(t *testing.T) {
 			ccccccccc
 	
 	`,
-		TrimedScript: `aaaaa
+		TrimmedScript: `aaaaa
 	b bbbbbbbb
 		ccccccccc`,
 	}))
@@ -51,7 +51,7 @@ func TestTrimText(t *testing.T) {
   	  			ccccccc	cc
   	  	
   	  	`,
-		TrimedScript: `aaa  aa
+		TrimmedScript: `aaa  aa
 	bb bbbbbbb
 		ccccccc	cc`,
 	}))
@@ -66,7 +66,7 @@ func TestTrimText(t *testing.T) {
 			}
 			complete -F _scw scw
 		`,
-		TrimedScript: `_scw()
+		TrimmedScript: `_scw()
 {
 	output=$(scw autocomplete complete bash "$COMP_LINE" "$COMP_CWORD" "${COMP_WORDS[@]}")
 	COMPREPLY=($output)

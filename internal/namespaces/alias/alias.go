@@ -25,12 +25,12 @@ func aliasRootCommand() *core.Command {
 		Groups: []string{"config"},
 		Short:  "Alias related commands",
 		Long: `This namespace allows you to manage your aliases
-Aliases are stored in cli config file, Default path for this configuration file is based on the following priority order:
+Aliases are store in cli config file, Default path for this configuration file is based on the following priority order:
 
 - $SCW_CLI_CONFIG_PATH
-- $XDG_CONFIG_HOME/scw/config.yaml
-- $HOME/.config/scw/config.yaml
-- $USERPROFILE/.config/scw/config.yaml
+- $XDG_CONFIG_HOME/scw/cli.yaml
+- $HOME/.config/scw/cli.yaml
+- $USERPROFILE/.config/scw/cli.yaml
 
 You can use multiple aliases in one command
 aliases in your commands are evaluated and you get completion
@@ -88,7 +88,7 @@ func aliasCreateCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(CreateRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*CreateRequest)
 			cfg := core.ExtractCliConfig(ctx)
 
@@ -181,7 +181,7 @@ func aliasListCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(ListRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*ListRequest)
 			aliasCfg := core.ExtractAliases(ctx)
 			aliases := make(aliasListResponse, 0, len(aliasCfg.Aliases))
@@ -233,7 +233,7 @@ func aliasDeleteCommand() *core.Command {
 			},
 		},
 		ArgsType: reflect.TypeOf(DeleteRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*DeleteRequest)
 			cfg := core.ExtractCliConfig(ctx)
 

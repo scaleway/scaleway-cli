@@ -38,6 +38,7 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("baremetal", "server", "start").Override(serverStartBuilder)
 	cmds.MustFind("baremetal", "server", "stop").Override(serverStopBuilder)
 	cmds.MustFind("baremetal", "server", "reboot").Override(serverRebootBuilder)
+	cmds.MustFind("baremetal", "offer", "list").Override(serverOfferListBuilder)
 
 	cmds.MergeAll(baremetalV3.GetCommands())
 

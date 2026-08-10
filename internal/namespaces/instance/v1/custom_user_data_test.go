@@ -83,21 +83,24 @@ func Test_UserDataFileUploadOn(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-		AfterFunc: func(_ *core.AfterFuncCtx) error {
-			// We need to close this file explicitly because it is not closed by the os.Remove call on windows
-			// https://github.com/golang/go/issues/50510
-			err = file.Close()
-			if err != nil {
-				return err
-			}
+		AfterFunc: core.AfterFuncCombine(
+			func(_ *core.AfterFuncCtx) error {
+				// We need to close this file explicitly because it is not closed by the os.Remove call on windows
+				// https://github.com/golang/go/issues/50510
+				err = file.Close()
+				if err != nil {
+					return err
+				}
 
-			err = os.RemoveAll(file.Name())
-			if err != nil {
-				return err
-			}
+				err = os.RemoveAll(file.Name())
+				if err != nil {
+					return err
+				}
 
-			return nil
-		},
+				return nil
+			},
+			deleteServer("Server"),
+		),
 	}))
 }
 
@@ -126,20 +129,23 @@ func Test_UserDataFileUploadOnRandom(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 		),
-		AfterFunc: func(_ *core.AfterFuncCtx) error {
-			// We need to close this file explicitly because it is not closed by the os.Remove call on windows
-			// https://github.com/golang/go/issues/50510
-			err = file.Close()
-			if err != nil {
-				return err
-			}
+		AfterFunc: core.AfterFuncCombine(
+			func(_ *core.AfterFuncCtx) error {
+				// We need to close this file explicitly because it is not closed by the os.Remove call on windows
+				// https://github.com/golang/go/issues/50510
+				err = file.Close()
+				if err != nil {
+					return err
+				}
 
-			err = os.RemoveAll(file.Name())
-			if err != nil {
-				return err
-			}
+				err = os.RemoveAll(file.Name())
+				if err != nil {
+					return err
+				}
 
-			return nil
-		},
+				return nil
+			},
+			deleteServer("Server"),
+		),
 	}))
 }

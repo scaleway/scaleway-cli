@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A cluster is a fully managed Kubernetes cluster
 It is composed of different pools, each pool containing the same kind of nodes.
 
@@ -22,7 +22,8 @@ WORKFLOW COMMANDS:
   wait                    Wait for a cluster to reach a stable state
 
 FLAGS:
-  -h, --help   help for cluster
+  -h, --help                help for cluster
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

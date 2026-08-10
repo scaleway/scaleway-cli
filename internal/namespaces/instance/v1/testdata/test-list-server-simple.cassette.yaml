@@ -1,39 +1,44 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: '{"servers": []}'
-    form: {}
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
+    form:
+      order:
+      - creation_date_desc
+      page:
+      - "1"
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.21.1; linux; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers?order=creation_date_desc&page=1
     method: GET
   response:
-    body: '{"servers": []}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 5925
+    body: "{\"servers\": [{\"id\": \"6ab3aeee-069c-493c-895c-f7328500e45b\", \"name\": \"cli-srv-priceless-black\", \"arch\": \"x86_64\", \"commercial_type\": \"DEV1-S\", \"boot_type\": \"local\", \"organization\": \"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project\": \"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"hostname\": \"cli-srv-priceless-black\", \"image\": {\"id\": \"6d3c053e-c728-4294-b23a-560b62a4d592\", \"name\": \"Ubuntu 22.04 Jammy Jellyfish\", \"organization\": \"51b656e3-4865-41e8-adbc-0c45bdd780db\", \"project\": \"51b656e3-4865-41e8-adbc-0c45bdd780db\", \"root_volume\": {\"volume_type\": \"sbs_snapshot\", \"id\": \"36b4ce54-c67a-4f68-ab74-839515834352\", \"size\": 0, \"name\": \"\"}, \"extra_volumes\": {}, \"public\": true, \"arch\": \"x86_64\", \"creation_date\": \"2025-09-12T09:11:41.420846+00:00\", \"modification_date\": \"2025-09-12T09:11:41.420846+00:00\", \"default_bootscript\": null, \"from_server\": \"\", \"state\": \"available\", \"tags\": [], \"zone\": \"fr-par-1\"}, \"volumes\": {\"0\": {\"boot\": false, \"volume_type\": \"sbs_volume\", \"id\": \"76171770-4e20-429a-9d47-16697a75f7ac\", \"state\": \"available\", \"zone\": \"fr-par-1\"}}, \"tags\": [], \"state\": \"stopped\", \"protected\": false, \"state_detail\": \"\", \"public_ip\": {\"id\": \"9ff6f7a8-d4b1-44c9-a51e-636185d6e60d\", \"address\": \"51.158.97.101\", \"dynamic\": false, \"gateway\": \"62.210.0.1\", \"netmask\": \"32\", \"family\": \"inet\", \"provisioning_mode\": \"dhcp\", \"tags\": [], \"state\": \"attached\", \"ipam_id\": \"4421046d-395f-44c0-aebc-6453fafd27f7\"}, \"public_ips\": [{\"id\": \"9ff6f7a8-d4b1-44c9-a51e-636185d6e60d\", \"address\": \"51.158.97.101\", \"dynamic\": false, \"gateway\": \"62.210.0.1\", \"netmask\": \"32\", \"family\": \"inet\", \"provisioning_mode\": \"dhcp\", \"tags\": [], \"state\": \"attached\", \"ipam_id\": \"4421046d-395f-44c0-aebc-6453fafd27f7\"}], \"mac_address\": \"de:00:00:d1:23:f7\", \"routed_ip_enabled\": true, \"ipv6\": null, \"extra_networks\": [], \"dynamic_ip_required\": true, \"enable_ipv6\": false, \"private_ip\": null, \"creation_date\": \"2025-11-03T17:15:36.733100+00:00\", \"modification_date\": \"2025-11-03T17:16:16.182087+00:00\", \"bootscript\": null, \"security_group\": {\"id\": \"da505169-540e-4c2b-b0da-c854139224e0\", \"name\": \"Default security group\"}, \"location\": null, \"maintenances\": [], \"allowed_actions\": [\"poweron\", \"backup\"], \"placement_group\": null, \"private_nics\": [], \"zone\": \"fr-par-1\", \"filesystems\": [], \"end_of_service\": false, \"admin_password_encryption_ssh_key_id\": null}, {\"id\": \"fbe2e3c3-411c-4ba5-b3f1-2eded5a8b985\", \"name\": \"tf-srv-naughty-colden\", \"arch\": \"x86_64\", \"commercial_type\": \"POP2-2C-8G-WIN\", \"boot_type\": \"local\", \"organization\": \"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project\": \"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"hostname\": \"tf-srv-naughty-colden\", \"image\": {\"id\": \"5d355a7d-8abb-4418-9599-e26621bf7ca8\", \"name\": \"Windows Server 2022\", \"organization\": \"51b656e3-4865-41e8-adbc-0c45bdd780db\", \"project\": \"51b656e3-4865-41e8-adbc-0c45bdd780db\", \"root_volume\": {\"volume_type\": \"sbs_snapshot\", \"id\": \"de729856-029a-44a0-8737-5ec5227304fe\", \"size\": 0, \"name\": \"\"}, \"extra_volumes\": {}, \"public\": true, \"arch\": \"x86_64\", \"creation_date\": \"2025-07-25T14:07:31.902597+00:00\", \"modification_date\": \"2025-07-25T14:07:31.902597+00:00\", \"default_bootscript\": null, \"from_server\": \"\", \"state\": \"available\", \"tags\": [], \"zone\": \"fr-par-1\"}, \"volumes\": {\"0\": {\"boot\": false, \"volume_type\": \"sbs_volume\", \"id\": \"425394e3-34de-4afc-9fd2-461c3fc5b8a7\", \"state\": \"available\", \"zone\": \"fr-par-1\"}}, \"tags\": [], \"state\": \"stopped\", \"protected\": false, \"state_detail\": \"\", \"public_ip\": null, \"public_ips\": [], \"mac_address\": \"de:00:00:cd:83:35\", \"routed_ip_enabled\": true, \"ipv6\": null, \"extra_networks\": [], \"dynamic_ip_required\": false, \"enable_ipv6\": false, \"private_ip\": null, \"creation_date\": \"2025-10-14T16:47:25.152354+00:00\", \"modification_date\": \"2025-10-14T17:19:17.615971+00:00\", \"bootscript\": null, \"security_group\": {\"id\": \"da505169-540e-4c2b-b0da-c854139224e0\", \"name\": \"Default security group\"}, \"location\": null, \"maintenances\": [], \"allowed_actions\": [\"poweron\", \"backup\"], \"placement_group\": null, \"private_nics\": [], \"zone\": \"fr-par-1\", \"filesystems\": [], \"end_of_service\": false, \"admin_password_encryption_ssh_key_id\": null}, {\"id\": \"6ffbe4b0-3cf0-407e-8e87-2c67defd8897\", \"name\": \"tf-tests-instance-block-external-root-volume\", \"arch\": \"x86_64\", \"commercial_type\": \"PLAY2-PICO\", \"boot_type\": \"local\", \"organization\": \"fa1e3217-dc80-42ac-85c3-3f034b78b552\", \"project\": \"44693172-d6a3-49b0-b56f-011f492e4dfa\", \"hostname\": \"tf-tests-instance-block-external-root-volume\", \"image\": {\"id\": \"6d3c053e-c728-4294-b23a-560b62a4d592\", \"name\": \"Ubuntu 22.04 Jammy Jellyfish\", \"organization\": \"51b656e3-4865-41e8-adbc-0c45bdd780db\", \"project\": \"51b656e3-4865-41e8-adbc-0c45bdd780db\", \"root_volume\": {\"volume_type\": \"sbs_snapshot\", \"id\": \"36b4ce54-c67a-4f68-ab74-839515834352\", \"size\": 0, \"name\": \"\"}, \"extra_volumes\": {}, \"public\": true, \"arch\": \"x86_64\", \"creation_date\": \"2025-09-12T09:11:41.420846+00:00\", \"modification_date\": \"2025-09-12T09:11:41.420846+00:00\", \"default_bootscript\": null, \"from_server\": \"\", \"state\": \"available\", \"tags\": [], \"zone\": \"fr-par-1\"}, \"volumes\": {\"0\": {\"boot\": false, \"volume_type\": \"sbs_volume\", \"id\": \"2a83e34f-4f40-4b93-bca0-8f1c2a3d8222\", \"state\": \"available\", \"zone\": \"fr-par-1\"}}, \"tags\": [], \"state\": \"stopped\", \"protected\": false, \"state_detail\": \"\", \"public_ip\": null, \"public_ips\": [], \"mac_address\": \"de:00:00:cc:76:99\", \"routed_ip_enabled\": true, \"ipv6\": null, \"extra_networks\": [], \"dynamic_ip_required\": false, \"enable_ipv6\": false, \"private_ip\": null, \"creation_date\": \"2025-10-08T23:05:08.758218+00:00\", \"modification_date\": \"2025-10-08T23:05:08.758218+00:00\", \"bootscript\": null, \"security_group\": {\"id\": \"c30bff3f-a276-4c5b-bb3e-92ecab6e962e\", \"name\": \"Default security group\"}, \"location\": null, \"maintenances\": [], \"allowed_actions\": [\"poweron\", \"backup\"], \"placement_group\": null, \"private_nics\": [], \"zone\": \"fr-par-1\", \"filesystems\": [], \"end_of_service\": false, \"admin_password_encryption_ssh_key_id\": null}]}"
     headers:
       Content-Length:
-      - "15"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "5925"
       Content-Type:
       - application/json
       Date:
-      - Tue, 12 Dec 2023 08:44:54 GMT
+      - Tue, 04 Nov 2025 10:25:40 GMT
       Link:
-      - </servers?page=0&per_page=50&order=creation_date_desc>; rel="last"
+      - </servers?page=1&per_page=50&order=creation_date_desc>; rel="last"
       Server:
-      - Scaleway API-Gateway
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - b21eef2c-3ce1-434d-b320-855cf93bf8e2
+      - 8c5c8f8a-b0bb-454a-b2b8-e52492f7e23b
       X-Total-Count:
-      - "0"
+      - "3"
     status: 200 OK
     code: 200
-    duration: ""
+    duration: 158.31329ms

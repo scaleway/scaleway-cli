@@ -130,6 +130,7 @@ e0bdad0c-1940-4514-b82c-80c726e2eb83  pending  -           few seconds ago  few 
   "max_retries": null,
   "max_connections": null,
   "timeout_queue": null,
+  "host": null,
   "timeout_server": 300000,
   "timeout_connect": 5000,
   "timeout_tunnel": 900000

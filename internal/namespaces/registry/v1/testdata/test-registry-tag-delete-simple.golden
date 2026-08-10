@@ -1,0 +1,19 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID         0bd7b99b-a1f2-4ba0-9099-5661073f8ad9
+Name       latest
+ImageID    320fc700-c3fa-4c65-9a0a-427df20781ca
+Status     deleting
+Digest     sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e
+CreatedAt  few seconds ago
+UpdatedAt  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "0bd7b99b-a1f2-4ba0-9099-5661073f8ad9",
+  "name": "latest",
+  "image_id": "320fc700-c3fa-4c65-9a0a-427df20781ca",
+  "status": "deleting",
+  "digest": "sha256:19459a6bbefb63f83f137f08c1df645f8846e2cd1f44fe209294ebc505e6495e",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z"
+}

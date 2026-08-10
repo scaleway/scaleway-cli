@@ -1,20 +1,21 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new backup. You must set the `instance_id`, `database_name`, `name` and `expires_at` parameters.
 
 USAGE:
   scw rdb backup create [arg=value ...]
 
 ARGS:
-  [instance-id]        UUID of the Database Instance
-  [database-name]      Name of the database you want to back up
+  instance-id          UUID of the Database Instance
+  database-name        Name of the database you want to back up
   [name=<generated>]   Name of the backup
   [expires-at]         Expiration date (must follow the ISO 8601 format)
   [region=fr-par]      Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the backup is ready
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the backup is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

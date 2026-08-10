@@ -8,6 +8,7 @@ import (
 	"errors"
 	"fmt"
 	"os"
+	"strings"
 
 	tea "github.com/charmbracelet/bubbletea"
 )
@@ -52,19 +53,20 @@ func (m *ListPrompt) Update(msg tea.Msg) (tea.Model, tea.Cmd) {
 }
 
 func (m *ListPrompt) View() string {
-	s := m.Prompt + "\n\n"
+	var builder strings.Builder
+	builder.WriteString(m.Prompt + "\n\n")
 
 	for i, choice := range m.Choices {
 		if m.cursor == i {
-			s += fmt.Sprintf("> %s\n", choice)
+			fmt.Fprintf(&builder, "> %s\n", choice)
 		} else {
-			s += choice + "\n"
+			builder.WriteString(choice + "\n")
 		}
 	}
 
-	s += "\nPress enter or space for select.\n"
+	builder.WriteString("\nPress enter or space for select.\n")
 
-	return s
+	return builder.String()
 }
 
 // Execute start the prompt and return the selected index
@@ -75,9 +77,17 @@ func (m *ListPrompt) Execute(ctx context.Context) (int, error) {
 		tea.WithContext(ctx),
 	}
 
-	if hasMockedResponse(ctx) {
+	// Extract mock responses from context for testing
+	var mockResponses *[]string
+	if contextValue := ctx.Value(contextKey); contextValue != nil {
+		if mockValues, ok := contextValue.(*[]string); ok && mockValues != nil {
+			mockResponses = mockValues
+		}
+	}
+
+	if mockResponses != nil && len(*mockResponses) > 0 {
 		opts = append(opts, tea.WithInput(&mockResponseReader{
-			ctx:           ctx,
+			mockResponses: mockResponses,
 			defaultReader: os.Stdin,
 		}))
 		opts = append(opts, tea.WithOutput(bytes.NewBuffer([]byte{})))

@@ -1,71 +1,22 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ ACL rule 1.2.3.4/32 was not set.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       10511  tcp       inbound    allow   Allow All
-192.168.1.0/32  10511  tcp       inbound    allow   Allow 192.168.1.0/32
-✅ ACL rule 192.168.1.0/32 successfully deleted.
-IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10511  tcp       inbound    allow   Allow All
-✅ ACL rule 10.10.10.10/32 was not set.
-IP         PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0  10511  tcp       inbound    allow   Allow All
+✅ 1 ACL rules successfully deleted (2 were not set).
+IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
+0.0.0.0/0  tcp       inbound    allow   Allow All    5849
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-[
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 10511,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      },
-      {
-        "ip": "192.168.1.0/32",
-        "port": 10511,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow 192.168.1.0/32"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 1.2.3.4/32 was not set",
-      "details": ""
+{
+  "Rules": [
+    {
+      "ip": "0.0.0.0/0",
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow All",
+      "port": 5849
     }
-  },
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 10511,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 192.168.1.0/32 successfully deleted",
-      "details": ""
-    }
-  },
-  {
-    "Rules": [
-      {
-        "ip": "0.0.0.0/0",
-        "port": 10511,
-        "protocol": "tcp",
-        "direction": "inbound",
-        "action": "allow",
-        "description": "Allow All"
-      }
-    ],
-    "Success": {
-      "message": "ACL rule 10.10.10.10/32 was not set",
-      "details": ""
-    }
+  ],
+  "Success": {
+    "message": "1 ACL rules successfully deleted (2 were not set)",
+    "details": ""
   }
-]
+}

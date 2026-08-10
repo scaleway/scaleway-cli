@@ -1,5 +1,8 @@
 name: Nightly Acceptance Tests
 
+permissions:
+  contents: read
+
 on:
   schedule:
     # Will run at 00:00 every day
@@ -13,13 +16,13 @@ jobs:
         products:
           - account
           - applesilicon
+          - autoscaling
           - baremetal
           - billing
           - block
           - cockpit
           - container
           - dedibox
-          - documentdb
           - domain
           - edge_services
           - flexibleip
@@ -48,17 +51,17 @@ jobs:
           - vpc
           - vpcgw
           - webhosting
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       # Checkout should always be before setup-go to ensure caching is working
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
-          go-version: 1.24
+          go-version: stable
       - name: Run Acceptance Tests
-        run: go test -v ./internal/namespaces/${{ matrix.products }}/... -timeout=4h
+        run: go tool gotestsum --format github-actions -- -v ./internal/namespaces/${{ matrix.products }}/... -timeout=4h
         env:
           CLI_UPDATE_CASSETTES: true
           CLI_UPDATE_GOLDENS: true
@@ -91,21 +94,20 @@ jobs:
           FAILED_PRODUCT: ${{ matrix.products }}
 
   sweepers:
-    runs-on: ubuntu-latest
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     needs: nightly
     if: always()
     steps:
       # Checkout should always be before setup-go to ensure caching is working
       - name: Checkout
-        uses: actions/checkout@v4
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: Install Go
-        uses: actions/setup-go@v5
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
         with:
-          go-version: 1.24
+          go-version: stable
       - name: Run Sweepers
         run: go run -v ./cmd/scw-sweeper
         env:
-          SCW_DEBUG: 1
           SCW_ACCESS_KEY: ${{ secrets.SCW_ACCESS_KEY }}
           SCW_SECRET_KEY: ${{ secrets.SCW_SECRET_KEY }}
           SCW_DEFAULT_ORGANIZATION_ID: ${{ secrets.SCW_DEFAULT_ORGANIZATION_ID }}

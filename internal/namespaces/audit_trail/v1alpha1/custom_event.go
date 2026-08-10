@@ -16,7 +16,7 @@ func eventListBuilder(c *core.Command) *core.Command {
 			},
 			{
 				Label:     "Name",
-				FieldName: "Resource.Name",
+				FieldName: "Resources.<index>.Name",
 			},
 			{
 				Label:     "StatusCode",
@@ -64,25 +64,17 @@ func eventListBuilder(c *core.Command) *core.Command {
 			},
 			{
 				Label:     "Type",
-				FieldName: "Resource.Type",
+				FieldName: "Resources.<index>.Type",
 			},
 			{
 				Label:     "ResourceID",
-				FieldName: "Resource.ID",
-			},
-			{
-				Label:     "Resource Created At",
-				FieldName: "Resource.CreatedAt",
-			},
-			{
-				Label:     "Resource Updated At",
-				FieldName: "Resource.UpdatedAt",
+				FieldName: "Resources.<index>.ID",
 			},
 		},
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalRes, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err

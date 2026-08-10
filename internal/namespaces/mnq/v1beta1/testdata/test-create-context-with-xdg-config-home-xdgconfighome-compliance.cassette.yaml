@@ -1,0 +1,201 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
+      "created_at":"2025-12-04T05:08:07.797431533Z", "updated_at":"2025-12-04T05:08:07.797431533Z",
+      "id":"AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75", "name":"cli-mnq-vibrant-antonelli",
+      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts
+    method: POST
+  response:
+    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
+      "created_at":"2025-12-04T05:08:07.797431533Z", "updated_at":"2025-12-04T05:08:07.797431533Z",
+      "id":"AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75", "name":"cli-mnq-vibrant-antonelli",
+      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+    headers:
+      Content-Length:
+      - "322"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 04 Dec 2025 05:08:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - edffd555-1943-4ed1-a5bf-76b020ab1d9b
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"access_key":"SCW8XSQX472BP8SNX6HA", "secret_key":null, "description":"",
+      "created_at":"2025-11-21T09:36:03.459154Z", "updated_at":"2025-11-21T09:36:03.459154Z",
+      "expires_at":null, "default_project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.46.153",
+      "user_id":"a52be78d-a4f2-4d4f-a4e6-8bf74589bfd8"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCW8XSQX472BP8SNX6HA
+    method: GET
+  response:
+    body: '{"access_key":"SCW8XSQX472BP8SNX6HA", "secret_key":null, "description":"",
+      "created_at":"2025-11-21T09:36:03.459154Z", "updated_at":"2025-11-21T09:36:03.459154Z",
+      "expires_at":null, "default_project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.46.153",
+      "user_id":"a52be78d-a4f2-4d4f-a4e6-8bf74589bfd8"}'
+    headers:
+      Content-Length:
+      - "375"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 04 Dec 2025 05:08:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8031e99a-c130-455c-a74b-a48a68c9c92a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
+      "created_at":"2025-12-04T05:08:07.797431Z", "updated_at":"2025-12-04T05:08:07.797431Z",
+      "id":"AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75", "name":"cli-mnq-vibrant-antonelli",
+      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75
+    method: GET
+  response:
+    body: '{"project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "region":"fr-par",
+      "created_at":"2025-12-04T05:08:07.797431Z", "updated_at":"2025-12-04T05:08:07.797431Z",
+      "id":"AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75", "name":"cli-mnq-vibrant-antonelli",
+      "endpoint":"nats://nats.mnq.fr-par.scaleway.com:4222"}'
+    headers:
+      Content-Length:
+      - "316"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 04 Dec 2025 05:08:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6eeac215-6850-424b-b7c3-8ef6fda6184e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"nats_account_id":"AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75",
+      "region":"fr-par", "created_at":"2025-12-04T05:08:08.325079040Z", "updated_at":"2025-12-04T05:08:08.325079290Z",
+      "id":"d21c9f77-e065-490e-b4fc-a2feb3e4d90f", "name":"cli-mnq-vibrant-antonellicli-creds-priceless-bhabha",
+      "credentials":{"name":"user.creds", "content":"-----BEGIN NATS USER JWT-----\neyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJSNDNZRVhBT1NZTExJUkFDR01WUDJMU1JDWEMyWVk2UlVQN1hQRUxDNlBJQ1pQNlRLNEtBIiwiaWF0IjoxNzY0ODI0ODg4LCJpc3MiOiJBREFXV0dMVVJLTVdYWlYyVldJWktDNkMzUUNZMjNKN1BJRU5BTDZaUlhSRzJLTUtKT0FUSEJNSSIsIm5hbWUiOiJjbGktbW5xLXZpYnJhbnQtYW50b25lbGxpY2xpLWNyZWRzLXByaWNlbGVzcy1iaGFiaGEiLCJzdWIiOiJVQkFYVzMzQTc2UFY3SUQ0UUtHWFdaUkpSQlJRT1ZHWVNCM1NRNDVQQldNUFBBT0VOMlFMSlJZVyIsIm5hdHMiOnsicHViIjp7fSwic3ViIjp7fSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaXNzdWVyX2FjY291bnQiOiJBQUZKSDdXR0dVMllSTklYREM1SVJSQk9GWU1QVTZENVVKTEdQV0NWSTNWV0lKUUZMT1gySkI3NSIsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.zaqi9Sf5iBSWXbj-THzcti2GFxpim8O_MhgWsYbDIEc0M39Er-Wgyspw4APxYDsqqBQRNnKfaYSxmUbz-mPUBg\n------END
+      NATS USER JWT------\n\n************************* IMPORTANT *************************\nNKEY
+      Seed printed below can be used to sign and prove identity.\nNKEYs are sensitive
+      and should be treated as secrets.\n\n-----BEGIN USER NKEY SEED-----\nSUAGEIKEUA7L46FYGMVMDQSQEBIVRPJAHEEC23SEMCAR4X5VFAXQPPPC7Q\n------END
+      USER NKEY SEED------\n\n*************************************************************\n"},
+      "checksum":"1313cedb5035d6df3ad1b43112fd6b0ba32dd1dd"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-credentials
+    method: POST
+  response:
+    body: '{"nats_account_id":"AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75",
+      "region":"fr-par", "created_at":"2025-12-04T05:08:08.325079040Z", "updated_at":"2025-12-04T05:08:08.325079290Z",
+      "id":"d21c9f77-e065-490e-b4fc-a2feb3e4d90f", "name":"cli-mnq-vibrant-antonellicli-creds-priceless-bhabha",
+      "credentials":{"name":"user.creds", "content":"-----BEGIN NATS USER JWT-----\neyJ0eXAiOiJKV1QiLCJhbGciOiJlZDI1NTE5LW5rZXkifQ.eyJqdGkiOiJSNDNZRVhBT1NZTExJUkFDR01WUDJMU1JDWEMyWVk2UlVQN1hQRUxDNlBJQ1pQNlRLNEtBIiwiaWF0IjoxNzY0ODI0ODg4LCJpc3MiOiJBREFXV0dMVVJLTVdYWlYyVldJWktDNkMzUUNZMjNKN1BJRU5BTDZaUlhSRzJLTUtKT0FUSEJNSSIsIm5hbWUiOiJjbGktbW5xLXZpYnJhbnQtYW50b25lbGxpY2xpLWNyZWRzLXByaWNlbGVzcy1iaGFiaGEiLCJzdWIiOiJVQkFYVzMzQTc2UFY3SUQ0UUtHWFdaUkpSQlJRT1ZHWVNCM1NRNDVQQldNUFBBT0VOMlFMSlJZVyIsIm5hdHMiOnsicHViIjp7fSwic3ViIjp7fSwic3VicyI6LTEsImRhdGEiOi0xLCJwYXlsb2FkIjotMSwiaXNzdWVyX2FjY291bnQiOiJBQUZKSDdXR0dVMllSTklYREM1SVJSQk9GWU1QVTZENVVKTEdQV0NWSTNWV0lKUUZMT1gySkI3NSIsInR5cGUiOiJ1c2VyIiwidmVyc2lvbiI6Mn19.zaqi9Sf5iBSWXbj-THzcti2GFxpim8O_MhgWsYbDIEc0M39Er-Wgyspw4APxYDsqqBQRNnKfaYSxmUbz-mPUBg\n------END
+      NATS USER JWT------\n\n************************* IMPORTANT *************************\nNKEY
+      Seed printed below can be used to sign and prove identity.\nNKEYs are sensitive
+      and should be treated as secrets.\n\n-----BEGIN USER NKEY SEED-----\nSUAGEIKEUA7L46FYGMVMDQSQEBIVRPJAHEEC23SEMCAR4X5VFAXQPPPC7Q\n------END
+      USER NKEY SEED------\n\n*************************************************************\n"},
+      "checksum":"1313cedb5035d6df3ad1b43112fd6b0ba32dd1dd"}'
+    headers:
+      Content-Length:
+      - "1554"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 04 Dec 2025 05:08:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 628cf359-ba2b-4963-9d5d-4b20dec718e4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: ""
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; amd64) cli-e2e-test
+    url: https://api.scaleway.com/mnq/v1beta1/regions/fr-par/nats-accounts/AAFJH7WGGU2YRNIXDC5IRRBOFYMPU6D5UJLGPWCVI3VWIJQFLOX2JB75
+    method: DELETE
+  response:
+    body: ""
+    headers:
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Thu, 04 Dec 2025 05:08:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 19e34f27-9202-436b-9f8b-884e58cb49a4
+    status: 204 No Content
+    code: 204
+    duration: ""

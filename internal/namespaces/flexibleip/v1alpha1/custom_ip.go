@@ -8,7 +8,6 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	flexibleip "github.com/scaleway/scaleway-sdk-go/api/flexibleip/v1alpha1"
-	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var ipStatusMarshalSpecs = human.EnumMarshalSpecs{
@@ -26,14 +25,14 @@ const (
 )
 
 func createIPBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		getResp := respI.(*flexibleip.FlexibleIP)
 		api := flexibleip.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForFlexibleIP(&flexibleip.WaitForFlexibleIPRequest{
 			FipID:         getResp.ID,
 			Zone:          getResp.Zone,
-			Timeout:       scw.TimeDurationPtr(FlexibleIPTimeout),
+			Timeout:       new(FlexibleIPTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}

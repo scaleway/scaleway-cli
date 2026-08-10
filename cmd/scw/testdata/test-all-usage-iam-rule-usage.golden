@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Rules management commands.
 
 USAGE:
@@ -14,7 +14,8 @@ UTILITY COMMANDS:
   delete      Delete a rule for a specific IAM policy
 
 FLAGS:
-  -h, --help   help for rule
+  -h, --help                help for rule
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

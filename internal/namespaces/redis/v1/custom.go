@@ -13,12 +13,15 @@ func GetCommands() *core.Commands {
 
 	human.RegisterMarshalerFunc(redis.Cluster{}, redisClusterGetMarshalerFunc)
 
-	cmds.Merge(core.NewCommands(clusterWaitCommand()))
+	cmds.Merge(core.NewCommands(clusterWaitCommand(), clusterConnectCommand()))
 	cmds.MustFind("redis", "cluster", "create").Override(clusterCreateBuilder)
 	cmds.MustFind("redis", "cluster", "delete").Override(clusterDeleteBuilder)
 	cmds.MustFind("redis", "acl", "add").Override(ACLAddListBuilder)
 	cmds.MustFind("redis", "setting", "add").Override(redisSettingAddBuilder)
 	cmds.MustFind("redis", "cluster", "migrate").Override(redisClusterMigrateBuilder)
+
+	cmds.Merge(core.NewCommands(redisACLUpdateCommand()))
+	cmds.Merge(core.NewCommands(redisVersionSettingsCommand()))
 
 	return cmds
 }

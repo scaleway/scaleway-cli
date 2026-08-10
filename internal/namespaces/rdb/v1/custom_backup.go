@@ -70,13 +70,13 @@ func backupWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: argsI.(*backupWaitRequest).BackupID,
 				Region:           argsI.(*backupWaitRequest).Region,
-				Timeout:          scw.TimeDurationPtr(argsI.(*backupWaitRequest).Timeout),
+				Timeout:          new(argsI.(*backupWaitRequest).Timeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			})
 		},
@@ -101,7 +101,7 @@ func backupWaitCommand() *core.Command {
 
 func backupCreateBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -117,7 +117,7 @@ func backupCreateBuilder(c *core.Command) *core.Command {
 
 func backupExportBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -133,7 +133,7 @@ func backupExportBuilder(c *core.Command) *core.Command {
 
 func backupRestoreBuilder(c *core.Command) *core.Command {
 	timeout := backupActionTimeout
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForDatabaseBackup(&rdb.WaitForDatabaseBackupRequest{
@@ -148,6 +148,89 @@ func backupRestoreBuilder(c *core.Command) *core.Command {
 }
 
 func backupListBuilder(c *core.Command) *core.Command {
+	type backupListArgs struct {
+		Name           *string
+		OrderBy        rdb.ListDatabaseBackupsRequestOrderBy
+		InstanceID     *string
+		ProjectID      *string
+		OrganizationID *string
+		Region         scw.Region
+		CreatedAfter   *time.Time
+		CreatedBefore  *time.Time
+	}
+
+	c.ArgsType = reflect.TypeOf(backupListArgs{})
+
+	// Insert created-after / created-before date filters before region, keeping
+	// existing arguments (name, order-by, instance-id, project-id, organization-id)
+	// unchanged and still passed to the API request.
+	c.ArgSpecs.AddBefore("region", &core.ArgSpec{
+		Name: "created-before",
+		Short: "Only list backups created before this date. " +
+			"Supports absolute RFC3339 timestamps and relative times (see `scw help date`).",
+		Required: false,
+	})
+	c.ArgSpecs.AddBefore("region", &core.ArgSpec{
+		Name: "created-after",
+		Short: "Only list backups created after this date. " +
+			"Supports absolute RFC3339 timestamps and relative times (see `scw help date`).",
+		Required: false,
+	})
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		args := argsI.(*backupListArgs)
+
+		client := core.ExtractClient(ctx)
+		api := rdb.NewAPI(client)
+
+		req := &rdb.ListDatabaseBackupsRequest{
+			Name:           args.Name,
+			OrderBy:        args.OrderBy,
+			InstanceID:     args.InstanceID,
+			ProjectID:      args.ProjectID,
+			OrganizationID: args.OrganizationID,
+			Region:         args.Region,
+		}
+
+		opts := []scw.RequestOption{scw.WithAllPages()}
+		if req.Region == scw.Region(core.AllLocalities) {
+			opts = append(opts, scw.WithRegions(api.Regions()...))
+			req.Region = ""
+		}
+
+		resp, err := api.ListDatabaseBackups(req, opts...)
+		if err != nil {
+			return nil, err
+		}
+
+		backups := resp.DatabaseBackups
+
+		// Client-side filtering on CreatedAt using parsed absolute or relative dates.
+		if args.CreatedAfter != nil || args.CreatedBefore != nil {
+			filtered := make([]*rdb.DatabaseBackup, 0, len(backups))
+			for _, b := range backups {
+				createdAt := b.CreatedAt
+
+				if args.CreatedAfter != nil {
+					if createdAt == nil || createdAt.Before(*args.CreatedAfter) {
+						continue
+					}
+				}
+
+				if args.CreatedBefore != nil {
+					if createdAt == nil || createdAt.After(*args.CreatedBefore) {
+						continue
+					}
+				}
+
+				filtered = append(filtered, b)
+			}
+			backups = filtered
+		}
+
+		return backups, nil
+	}
+
 	type customBackup struct {
 		ID           string                   `json:"ID"`
 		InstanceID   string                   `json:"instance_ID"`
@@ -223,7 +306,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 	}
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			listBackupResp, err := runner(ctx, argsI)
 			if err != nil {
 				return listBackupResp, err
@@ -285,7 +368,7 @@ type backupDownloadResult struct {
 	FileName string   `json:"file_name"`
 }
 
-func backupResultMarshallerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func backupResultMarshallerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	backupResult := i.(backupDownloadResult)
 	sizeStr, err := human.Marshal(backupResult.Size, nil)
 	if err != nil {
@@ -313,13 +396,13 @@ func backupDownloadCommand() *core.Command {
 		Resource:  "backup",
 		Verb:      "download",
 		ArgsType:  reflect.TypeOf(backupDownloadArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*backupDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 			backupRequest := &rdb.WaitForDatabaseBackupRequest{
 				DatabaseBackupID: args.BackupID,
 				Region:           args.Region,
-				Timeout:          scw.TimeDurationPtr(backupActionTimeout),
+				Timeout:          new(backupActionTimeout),
 				RetryInterval:    core.DefaultRetryInterval,
 			}
 

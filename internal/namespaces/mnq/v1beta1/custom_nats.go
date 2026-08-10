@@ -58,7 +58,7 @@ Credentials and context file are saved in your nats context folder with 0600 per
 			core.RegionArgSpec((*mnq.NatsAPI)(nil).Regions()...),
 		},
 		ArgsType: reflect.TypeOf(CreateContextRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*CreateContextRequest)
 			api := mnq.NewNatsAPI(core.ExtractClient(ctx))
 			natsAccount, err := getNatsAccountID(ctx, args, api)

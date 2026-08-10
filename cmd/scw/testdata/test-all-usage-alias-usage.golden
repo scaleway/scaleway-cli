@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This namespace allows you to manage your aliases
-Aliases are stored in cli config file, Default path for this configuration file is based on the following priority order:
+Aliases are store in cli config file, Default path for this configuration file is based on the following priority order:
 
 - $SCW_CLI_CONFIG_PATH
-- $XDG_CONFIG_HOME/scw/config.yaml
-- $HOME/.config/scw/config.yaml
-- $USERPROFILE/.config/scw/config.yaml
+- $XDG_CONFIG_HOME/scw/cli.yaml
+- $HOME/.config/scw/cli.yaml
+- $USERPROFILE/.config/scw/cli.yaml
 
 You can use multiple aliases in one command
 aliases in your commands are evaluated and you get completion
@@ -30,7 +30,8 @@ AVAILABLE COMMANDS:
   list        List aliases and their commands
 
 FLAGS:
-  -h, --help   help for alias
+  -h, --help                help for alias
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

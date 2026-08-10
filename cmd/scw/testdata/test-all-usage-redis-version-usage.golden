@@ -1,15 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 The Redis™ database engine versions available at Scaleway for your clusters.
 
 USAGE:
   scw redis version <command>
 
 AVAILABLE COMMANDS:
-  list        List available Redis™ versions
+  list          List available Redis™ versions
+  list-settings List available settings from a Redis™ version
 
 FLAGS:
-  -h, --help   help for version
+  -h, --help                help for version
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

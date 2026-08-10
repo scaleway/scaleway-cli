@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-postgresql://foobar@51.159.74.117:6970
+postgresql://foobar@163.172.166.66:11646
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-"postgresql://foobar@51.159.74.117:6970"
+"postgresql://foobar@163.172.166.66:11646"

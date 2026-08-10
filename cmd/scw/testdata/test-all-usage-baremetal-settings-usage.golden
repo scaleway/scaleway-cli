@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Allows to configure the general settings for your Elastic Metal server.
 
 USAGE:
@@ -10,7 +10,8 @@ AVAILABLE COMMANDS:
   update      Update setting
 
 FLAGS:
-  -h, --help   help for settings
+  -h, --help                help for settings
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

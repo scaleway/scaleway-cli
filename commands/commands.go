@@ -6,19 +6,25 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
+	annotations "github.com/scaleway/scaleway-cli/v2/internal/namespaces/annotations/v1"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	autoscaling "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autoscaling/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
-	billing "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2"
+	billingV2beta1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/cockpit/v1"
 	configNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/config"
-	container "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1"
+	containerBeta "github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1beta1"
+	datalab "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datalab/v1beta1"
+	datawarehouse "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
-	documentdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/documentdb/v1beta1"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
+	environmental_footprint "github.com/scaleway/scaleway-cli/v2/internal/namespaces/environmental_footprint/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/feedback"
 	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	flexibleip "github.com/scaleway/scaleway-cli/v2/internal/namespaces/flexibleip/v1alpha1"
@@ -29,29 +35,36 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
-	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha1"
+	jobs "github.com/scaleway/scaleway-cli/v2/internal/namespaces/jobs/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
+	kafka "github.com/scaleway/scaleway-cli/v2/internal/namespaces/kafka/v1alpha1"
 	keymanager "github.com/scaleway/scaleway-cli/v2/internal/namespaces/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
+	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/partner/v1"
+	product_catalog "github.com/scaleway/scaleway-cli/v2/internal/namespaces/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/redis/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/registry/v1"
+	s2s_vpn "github.com/scaleway/scaleway-cli/v2/internal/namespaces/s2s_vpn/v1alpha1"
+	search "github.com/scaleway/scaleway-cli/v2/internal/namespaces/search/v1alpha1"
+	searchdb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/searchdb/v1alpha1"
 	secret "github.com/scaleway/scaleway-cli/v2/internal/namespaces/secret/v1beta1"
 	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
-	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v1"
-	vpcgwV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/webhosting/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -68,6 +81,7 @@ func GetCommands() *core.Commands {
 	commands := core.NewCommandsMerge(
 		iam.GetCommands(),
 		instance.GetCommands(),
+		instanceV2.GetCommands(),
 		baremetal.GetCommands(),
 		cockpit.GetCommands(),
 		k8s.GetCommands(),
@@ -75,6 +89,7 @@ func GetCommands() *core.Commands {
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
 		accountv3.GetCommands(),
+		annotations.GetCommands(),
 		autocompleteNamespace.GetCommands(),
 		object.GetCommands(),
 		versionNamespace.GetCommands(),
@@ -90,10 +105,11 @@ func GetCommands() *core.Commands {
 		domain.GetCommands(),
 		applesilicon.GetCommands(),
 		flexibleip.GetCommands(),
+		file.GetCommands(),
 		container.GetCommands(),
+		containerBeta.GetCommands(),
 		function.GetCommands(),
 		vpcgw.GetCommands(),
-		vpcgwV2.GetCommands(),
 		redis.GetCommands(),
 		secret.GetCommands(),
 		keymanager.GetCommands(),
@@ -101,8 +117,7 @@ func GetCommands() *core.Commands {
 		tem.GetCommands(),
 		alias.GetCommands(),
 		webhosting.GetCommands(),
-		billing.GetCommands(),
-		documentdb.GetCommands(),
+		billingV2beta1.GetCommands(),
 		mnq.GetCommands(),
 		block.GetCommands(),
 		ipam.GetCommands(),
@@ -113,12 +128,23 @@ func GetCommands() *core.Commands {
 		mongodb.GetCommands(),
 		audit_trail.GetCommands(),
 		interlink.GetCommands(),
+		s2s_vpn.GetCommands(),
+		searchdb.GetCommands(),
+		datalab.GetCommands(),
+		datawarehouse.GetCommands(),
+		partner.GetCommands(),
+		environmental_footprint.GetCommands(),
+		product_catalog.GetCommands(),
+		mcp.GetCommands(),
+		search.GetCommands(),
+		billing.GetCommands(),
+		kafka.GetCommands(),
+		autoscaling.GetCommands(),
 	)
 
 	if beta {
-		commands.MergeAll(
+		commands.Merge(
 			dedibox.GetCommands(),
-			file.GetCommands(),
 		)
 	}
 

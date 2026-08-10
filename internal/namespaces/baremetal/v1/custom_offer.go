@@ -1,9 +1,16 @@
 package baremetal
 
 import (
+	"context"
+	"slices"
+	"strings"
+
 	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
+	productcatalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
@@ -15,7 +22,7 @@ var offerAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
-func listOfferMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func listOfferMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type tmp baremetal.Offer
 	baremetalOffer := tmp(i.(baremetal.Offer))
 	opt.Sections = []*human.MarshalSection{
@@ -52,4 +59,104 @@ func listOfferMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error
 	}
 
 	return str, nil
+}
+
+type customOffer struct {
+	*baremetal.Offer
+	KgCo2Equivalent    *float32 `json:"kg_co2_equivalent"`
+	M3WaterUsage       *float32 `json:"m3_water_usage"`
+	CloudInitSupported bool     `json:"cloud_init_supported"`
+}
+
+func serverOfferListBuilder(c *core.Command) *core.Command {
+	c.View = &core.View{
+		Fields: []*core.ViewField{
+			{Label: "ID", FieldName: "ID"},
+			{Label: "Name", FieldName: "Name"},
+			{Label: "Stock", FieldName: "Stock"},
+			{Label: "Disks", FieldName: "Disks"},
+			{Label: "CPUs", FieldName: "CPUs"},
+			{Label: "Memories", FieldName: "Memories"},
+			{Label: "Bandwidth", FieldName: "Bandwidth"},
+			{Label: "PrivateBandwidth", FieldName: "PrivateBandwidth"},
+			{Label: "CloudInit supported", FieldName: "CloudInitSupported"},
+		},
+	}
+
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		req := argsI.(*baremetal.ListOffersRequest)
+
+		client := core.ExtractClient(ctx)
+		baremetalAPI := baremetal.NewAPI(client)
+		offers, err := baremetalAPI.ListOffers(req, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
+
+		productAPI := productcatalog.NewPublicCatalogAPI(client)
+		environmentalImpact, err := productAPI.ListPublicCatalogProducts(
+			&productcatalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+				ProductTypes: []productcatalog.ListPublicCatalogProductsRequestProductType{
+					productcatalog.ListPublicCatalogProductsRequestProductTypeElasticMetal,
+				},
+				Zone: &req.Zone,
+			},
+			scw.WithAllPages(),
+		)
+		if err != nil {
+			return nil, err
+		}
+
+		var unitOfMeasure productcatalog.PublicCatalogProductUnitOfMeasureCountableUnit
+		if req.SubscriptionPeriod == "monthly" {
+			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitMonth
+			c.View.Fields = append(c.View.Fields, []*core.ViewField{
+				{Label: "CO2 (kg/month)", FieldName: "KgCo2Equivalent"},
+				{Label: "Water (m³/month)", FieldName: "M3WaterUsage"},
+				{Label: "Price per month", FieldName: "PricePerMonth"},
+			}...)
+		} else {
+			unitOfMeasure = productcatalog.PublicCatalogProductUnitOfMeasureCountableUnitHour
+			c.View.Fields = append(c.View.Fields, []*core.ViewField{
+				{Label: "CO2 (kg/hour)", FieldName: "KgCo2Equivalent"},
+				{Label: "Water (m³/hour)", FieldName: "M3WaterUsage"},
+				{Label: "Price per hour", FieldName: "PricePerHour"},
+			}...)
+		}
+
+		impactMap := make(map[string]*productcatalog.PublicCatalogProduct)
+		for _, impact := range environmentalImpact.Products {
+			if impact != nil && impact.UnitOfMeasure.Unit == unitOfMeasure {
+				key := strings.TrimSpace(strings.TrimPrefix(impact.Product, "Elastic Metal "))
+				impactMap[key] = impact
+			}
+		}
+
+		var customOfferRes []customOffer
+		for _, offer := range offers.Offers {
+			cloudInitSupported := slices.Contains(offer.Tags, "cloud-init")
+			impact, ok := impactMap[offer.Name]
+			if !ok {
+				customOfferRes = append(customOfferRes, customOffer{
+					Offer:              offer,
+					KgCo2Equivalent:    nil,
+					M3WaterUsage:       nil,
+					CloudInitSupported: cloudInitSupported,
+				})
+
+				continue
+			}
+
+			customOfferRes = append(customOfferRes, customOffer{
+				Offer:              offer,
+				KgCo2Equivalent:    impact.EnvironmentalImpactEstimation.KgCo2Equivalent,
+				M3WaterUsage:       impact.EnvironmentalImpactEstimation.M3WaterUsage,
+				CloudInitSupported: cloudInitSupported,
+			})
+		}
+
+		return customOfferRes, nil
+	}
+
+	return c
 }

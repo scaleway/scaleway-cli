@@ -28,7 +28,7 @@ type SSHKeyFormat struct {
 	Key  string `json:"key"`
 }
 
-func marshalSSHKeys(i interface{}, opts *human.MarshalOpt) (string, error) {
+func marshalSSHKeys(i any, opts *human.MarshalOpt) (string, error) {
 	// Custom type to avoid recursion when marshaling
 	type humanKey struct {
 		Name string
@@ -94,7 +94,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			},
 			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshAddKeyRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
@@ -165,7 +165,7 @@ Keep in mind that SSH keys are scoped by project.`,
 			},
 			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshFetchKeysRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
@@ -222,7 +222,10 @@ Keep in mind that SSH keys are scoped by project.`,
 						if err != nil {
 							_, _ = interactive.Println("Failed:", err)
 						} else {
-							_, _ = interactive.Println("Failed: ssh command failed with exit code", exitCode)
+							_, _ = interactive.Println(
+								"Failed: ssh command failed with exit code",
+								exitCode,
+							)
 						}
 					} else {
 						_, _ = interactive.Println("Success")
@@ -260,7 +263,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			},
 			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshListKeysRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
@@ -322,7 +325,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 			},
 			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshRemoveKeyRequest)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 

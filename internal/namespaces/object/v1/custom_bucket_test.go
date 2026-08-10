@@ -59,12 +59,12 @@ func Test_BucketCreate(t *testing.T) {
 				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag{
 					{
-						Key:   scw.StringPtr("key1"),
-						Value: scw.StringPtr("value1"),
+						Key:   new("key1"),
+						Value: new("value1"),
 					},
 					{
-						Key:   scw.StringPtr("key2"),
-						Value: scw.StringPtr("value2"),
+						Key:   new("key2"),
+						Value: new("value2"),
 					},
 				}, bucket.Tags)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
@@ -168,7 +168,7 @@ func Test_BucketGet(t *testing.T) {
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
 				assert.Equal(t, int64(0), *bucket.NbObjects)
 				assert.Equal(t, int64(0), *bucket.NbParts)
-				assert.Equal(t, scw.SizePtr(0), bucket.Size)
+				assert.Equal(t, new(scw.Size(0)), bucket.Size)
 			},
 		),
 		AfterFunc: deleteBucket(bucketName2),
@@ -214,8 +214,8 @@ func Test_BucketUpdate(t *testing.T) {
 				assert.False(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag{
 					{
-						Key:   scw.StringPtr("key1"),
-						Value: scw.StringPtr("value1"),
+						Key:   new("key1"),
+						Value: new("value1"),
 					},
 				}, bucket.Tags)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
@@ -243,12 +243,12 @@ func Test_BucketUpdate(t *testing.T) {
 				assert.True(t, bucket.EnableVersioning)
 				assert.Equal(t, []types.Tag{
 					{
-						Key:   scw.StringPtr("key1"),
-						Value: scw.StringPtr("value1"),
+						Key:   new("key1"),
+						Value: new("value1"),
 					},
 					{
-						Key:   scw.StringPtr("key2"),
-						Value: scw.StringPtr("value2"),
+						Key:   new("key2"),
+						Value: new("value2"),
 					},
 				}, bucket.Tags)
 				checkACL(t, "public-read-write", bucket.ACL, bucket.Owner)

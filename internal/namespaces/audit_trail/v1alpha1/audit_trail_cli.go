@@ -61,7 +61,7 @@ func auditTrailEventList() *core.Command {
 		Resource:  "event",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListEventsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -72,7 +72,7 @@ func auditTrailEventList() *core.Command {
 			},
 			{
 				Name:       "resource-type",
-				Short:      `(Optional) Returns a paginated list of Scaleway resources' features`,
+				Short:      `(Optional) Type of the Scaleway resource`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -92,11 +92,100 @@ func auditTrailEventList() *core.Command {
 					"iam_api_key",
 					"iam_ssh_key",
 					"iam_rule",
+					"iam_saml",
+					"iam_saml_certificate",
+					"iam_scim",
+					"iam_scim_token",
 					"secret_manager_secret",
 					"secret_manager_version",
 					"key_manager_key",
 					"account_user",
 					"account_organization",
+					"account_project",
+					"account_contract_signature",
+					"instance_server",
+					"instance_placement_group",
+					"instance_security_group",
+					"instance_volume",
+					"instance_snapshot",
+					"instance_image",
+					"instance_template",
+					"instance_private_network_interface",
+					"apple_silicon_server",
+					"baremetal_server",
+					"baremetal_setting",
+					"ipam_ip",
+					"sbs_volume",
+					"sbs_snapshot",
+					"load_balancer_lb",
+					"load_balancer_ip",
+					"load_balancer_frontend",
+					"load_balancer_backend",
+					"load_balancer_route",
+					"load_balancer_acl",
+					"load_balancer_certificate",
+					"sfs_filesystem",
+					"vpc_private_network",
+					"vpc_vpc",
+					"vpc_subnet",
+					"vpc_route",
+					"vpc_acl",
+					"vpc_connector",
+					"vpc_ingress_rule",
+					"edge_services_plan",
+					"edge_services_pipeline",
+					"edge_services_vpc_endpoint",
+					"edge_services_dns_stage",
+					"edge_services_tls_stage",
+					"edge_services_cache_stage",
+					"edge_services_route_stage",
+					"edge_services_route_rules",
+					"edge_services_waf_stage",
+					"edge_services_backend_stage",
+					"s2s_vpn_gateway",
+					"s2s_customer_gateway",
+					"s2s_routing_policy",
+					"s2s_connection",
+					"vpc_gw_gateway",
+					"vpc_gw_gateway_network",
+					"vpc_gw_dhcp",
+					"vpc_gw_dhcp_entry",
+					"vpc_gw_pat_rule",
+					"vpc_gw_ip",
+					"audit_trail_export_job",
+					"rdb_instance",
+					"rdb_instance_backup",
+					"rdb_instance_endpoint",
+					"rdb_instance_logs",
+					"rdb_instance_read_replica",
+					"rdb_instance_snapshot",
+					"mongodb_instance",
+					"mongodb_instance_snapshot",
+					"mongodb_instance_endpoint",
+					"mongodb_instance_maintenance",
+					"apple_silicon_runner",
+					"audit_trail_alert_rule",
+					"audit_trail_custom_alert_rule",
+					"dtwh_deployment",
+					"dtwh_deployment_endpoint",
+					"dtwh_deployment_database",
+					"dtwh_deployment_user",
+					"ssdb_database",
+					"ssdb_database_backup",
+					"observability_datasource",
+					"observability_token",
+					"observability_exporter",
+					"ili_partner",
+					"ili_connection",
+					"ili_link",
+					"ili_routing_policy",
+					"autoscaling_group",
+					"gapi_dedicated_deployment",
+					"gapi_dedicated_model",
+					"serverless_containers_namespace",
+					"serverless_containers_container",
+					"serverless_containers_domain",
+					"serverless_containers_trigger",
 				},
 			},
 			{
@@ -151,7 +240,7 @@ func auditTrailEventList() *core.Command {
 			},
 			{
 				Name:       "product-name",
-				Short:      `(Optional) Name of the Scaleway resource in a hyphenated format`,
+				Short:      `(Optional) Name of the Scaleway product in a hyphenated format`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -163,19 +252,40 @@ func auditTrailEventList() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "resource-id",
+				Short:      `(Optional) ID of the Scaleway resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "principal-id",
+				Short:      `(Optional) ID of the User or IAM application at the origin of the event`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source-ip",
+				Short:      `(Optional) IP address at the origin of the event`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*audit_trail.ListEventsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListEvents(request)
+			return api.ListEvents(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -188,7 +298,7 @@ func auditTrailProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(
@@ -196,13 +306,13 @@ func auditTrailProductList() *core.Command {
 				scw.RegionNlAms,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*audit_trail.ListProductsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListProducts(request)
+			return api.ListProducts(request, scw.WithContext(ctx))
 		},
 	}
 }

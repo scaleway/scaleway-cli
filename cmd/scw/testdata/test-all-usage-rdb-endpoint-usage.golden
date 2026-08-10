@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A point of connection to a Database Instance. The endpoint is associated with an IPv4 address and a port. It contains the information about whether the endpoint is read-write or not. The endpoints always point to the main node of a Database Instance.
 
 All endpoints have TLS enabled. You can use TLS to make your data and your passwords unreadable in transit to anyone but you.
@@ -19,7 +19,8 @@ AVAILABLE COMMANDS:
   migrate     Migrate an existing instance endpoint to another instance
 
 FLAGS:
-  -h, --help   help for endpoint
+  -h, --help                help for endpoint
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

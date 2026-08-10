@@ -17,7 +17,7 @@ type rdbEndpointCustomResult struct {
 	Success   core.SuccessResult
 }
 
-func rdbEndpointCustomResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func rdbEndpointCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	result := i.(rdbEndpointCustomResult)
 	messageStr, err := result.Success.MarshalHuman()
 	if err != nil {
@@ -86,7 +86,7 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 		core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 		args := argsI.(*rdbCreateEndpointRequestCustom)
@@ -119,14 +119,15 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 		}, nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 		args := argsI.(*rdbCreateEndpointRequestCustom)
 
 		instance, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID: args.InstanceID,
-			Region:     args.Region,
+			InstanceID:    args.InstanceID,
+			Region:        args.Region,
+			RetryInterval: core.DefaultRetryInterval,
 		}, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
@@ -169,7 +170,7 @@ func endpointDeleteBuilder(c *core.Command) *core.Command {
 		Positional: false,
 	})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 		args := argsI.(*rdbDeleteEndpointRequestCustom)
@@ -188,14 +189,15 @@ func endpointDeleteBuilder(c *core.Command) *core.Command {
 		}, nil
 	}
 
-	c.WaitFunc = func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, argsI, respI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdb.NewAPI(client)
 		args := argsI.(*rdbDeleteEndpointRequestCustom)
 
 		_, err := api.WaitForInstance(&rdb.WaitForInstanceRequest{
-			InstanceID: args.InstanceID,
-			Region:     args.Region,
+			InstanceID:    args.InstanceID,
+			Region:        args.Region,
+			RetryInterval: core.DefaultRetryInterval,
 		}, scw.WithContext(ctx))
 		if err != nil {
 			return nil, err
@@ -234,7 +236,7 @@ func endpointListCommand() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			client := core.ExtractClient(ctx)
 			api := rdb.NewAPI(client)
 			args := argsI.(*rdbEndpointListCustomArgs)

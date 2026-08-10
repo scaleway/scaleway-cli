@@ -84,7 +84,7 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.RegisterRequest)
 
 			client := core.ExtractClient(ctx)
@@ -132,7 +132,7 @@ func testHumanList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.ListHumansRequest)
 
 			client := core.ExtractClient(ctx)
@@ -166,7 +166,7 @@ func testHumanGet() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.GetHumanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -255,7 +255,7 @@ func testHumanCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.CreateHumanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -355,7 +355,7 @@ func testHumanUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.UpdateHumanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -384,7 +384,7 @@ func testHumanDelete() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.DeleteHumanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -413,7 +413,7 @@ func testHumanRun() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.RunHumanRequest)
 
 			client := core.ExtractClient(ctx)
@@ -449,7 +449,7 @@ func testHumanSmoke() *core.Command {
 				Positional: true,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*test.SmokeHumanRequest)
 
 			client := core.ExtractClient(ctx)

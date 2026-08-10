@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete an existing Load Balancer, specified by its Load Balancer ID. Deleting a Load Balancer is permanent, and cannot be undone. The Load Balancer's flexible IP address can either be deleted with the Load Balancer, or kept in your account for future use.
 
 USAGE:
@@ -11,8 +11,9 @@ ARGS:
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 FLAGS:
-  -h, --help   help for delete
-  -w, --wait   wait until the lb is ready
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the lb is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

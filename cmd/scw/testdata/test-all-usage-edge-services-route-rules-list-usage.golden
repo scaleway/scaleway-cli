@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List all route rules of an existing route stage, specified by its `route_stage_id`.
 
 USAGE:
@@ -9,7 +9,8 @@ ARGS:
   route-stage-id   Route stage ID to filter for. Only route rules from this route stage will be returned
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

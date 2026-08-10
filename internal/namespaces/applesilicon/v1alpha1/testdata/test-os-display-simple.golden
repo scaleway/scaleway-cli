@@ -1,13 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID            e08d1e5d-b4b9-402a-9f9a-97732d17e374
-Name          macos-sonoma-14.4
-Label         macOS Sonoma 14.4
-ImageURL      https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png
-Family        Sonoma
-IsBeta        false
-Version       14.4
-XcodeVersion  15
+ID               e08d1e5d-b4b9-402a-9f9a-97732d17e374
+Name             macos-sonoma-14.4
+Label            macOS Sonoma 14.4
+ImageURL         https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png
+Family           Sonoma
+IsBeta           false
+Version          14.4
+XcodeVersion     15
+ReleaseNotesURL  -
+Description      -
 
 CompatibleServerTypes:
 [M1-M M2-M M2-L]
@@ -25,5 +27,9 @@ CompatibleServerTypes:
     "M1-M",
     "M2-M",
     "M2-L"
-  ]
+  ],
+  "release_notes_url": "",
+  "description": "",
+  "tags": null,
+  "supported_server_types": null
 }

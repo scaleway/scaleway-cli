@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Subscriber management commands.
 
 USAGE:
@@ -15,7 +15,8 @@ AVAILABLE COMMANDS:
   update      Update a subscriber
 
 FLAGS:
-  -h, --help   help for subscriber
+  -h, --help                help for subscriber
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

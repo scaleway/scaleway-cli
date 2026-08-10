@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new cron.
 
 USAGE:
@@ -7,13 +7,14 @@ USAGE:
 
 ARGS:
   [container-id]    UUID of the container to invoke by the cron
-  [schedule]        UNIX cron shedule
+  [schedule]        UNIX cron schedule
   [args]            Arguments to pass with the cron
   [name]            Name of the cron to create
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

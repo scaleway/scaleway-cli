@@ -27,7 +27,7 @@ func (e *DataMustBeAMarshalableValueError) Error() string {
 }
 
 type ValueIsNotMarshalableError struct {
-	Interface interface{}
+	Interface any
 }
 
 func (e *ValueIsNotMarshalableError) Error() string {
@@ -35,7 +35,7 @@ func (e *ValueIsNotMarshalableError) Error() string {
 }
 
 type NotMarshalableTypeError struct {
-	Src interface{}
+	Src any
 }
 
 func (e *NotMarshalableTypeError) Error() string {
@@ -89,7 +89,7 @@ func (e *DuplicateArgError) Error() string {
 }
 
 type CannotSetNestedFieldError struct {
-	Dest interface{}
+	Dest any
 }
 
 func (e *CannotSetNestedFieldError) Error() string {
@@ -139,7 +139,7 @@ func (e *MissingMapKeyError) Error() string {
 }
 
 type MissingStructFieldError struct {
-	Dest interface{}
+	Dest any
 }
 
 func (e *MissingStructFieldError) Error() string {
@@ -147,7 +147,7 @@ func (e *MissingStructFieldError) Error() string {
 }
 
 type UnmarshalableTypeError struct {
-	Dest interface{}
+	Dest any
 }
 
 func (e *UnmarshalableTypeError) Error() string {
@@ -155,7 +155,7 @@ func (e *UnmarshalableTypeError) Error() string {
 }
 
 type CannotUnmarshalError struct {
-	Dest interface{}
+	Dest any
 	Err  error
 }
 

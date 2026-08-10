@@ -28,12 +28,15 @@ func createServer(metaKey string) core.BeforeFunc {
 
 // testServerCommand creates returns a create server command with the instance type and the given arguments
 func testServerCommand(params string) string {
-	baseCommand := "scw instance server create type=DEV1-S "
+	baseCommand := "scw instance server create "
 	if !strings.Contains(params, "ip=") {
 		baseCommand += "ip=none "
 	}
 	if !strings.Contains(params, "image=") {
 		baseCommand += "image=ubuntu_jammy "
+	}
+	if !strings.Contains(params, "type=") {
+		baseCommand += "type=DEV1-S "
 	}
 
 	return baseCommand + params
@@ -84,38 +87,31 @@ func deleteServer(metaKey string) core.AfterFunc {
 //
 
 // createVolume creates a volume of the given size and type and
-// register it in the context Meta at metaKey.
-//
-//nolint:unparam
+// register it in the context Meta at "Volume".
 func createVolume(
-	metaKey string,
 	sizeInGb int,
-	volumeType instanceSDK.VolumeVolumeType,
 ) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
-			"scw instance volume create name=cli-test size=%dGB volume-type=%s",
+			"scw instance volume create name=cli-test size=%dGB volume-type=l_ssd",
 			sizeInGb,
-			volumeType,
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		createVolumeResponse := res.(*instanceSDK.CreateVolumeResponse)
-		ctx.Meta[metaKey] = createVolumeResponse.Volume
+		ctx.Meta["Volume"] = createVolumeResponse.Volume
 
 		return nil
 	}
 }
 
-// deleteVolume deletes a volume previously registered in the context Meta at metaKey.
-func deleteVolume(metaKey string) core.AfterFunc { //nolint: unparam
-	return core.ExecAfterCmd("scw instance volume delete {{ ." + metaKey + ".ID }}")
+// deleteVolume deletes a volume previously registered in the context Meta at "Volume".
+func deleteVolume() core.AfterFunc {
+	return core.ExecAfterCmd("scw instance volume delete {{ .Volume.ID }}")
 }
 
 // createSbsVolume creates a volume of the given size and
-// register it in the context Meta at metaKey
-//
-//nolint:unparam
-func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
+// register it in the context Meta at "Volume".
+func createSbsVolume(sizeInGb int) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		cmd := fmt.Sprintf(
 			"scw block volume create name=%s from-empty.size=%dGB perf-iops=5000 -w",
@@ -124,7 +120,32 @@ func createSbsVolume(metaKey string, sizeInGb int) core.BeforeFunc {
 		)
 		res := ctx.ExecuteCmd(strings.Split(cmd, " "))
 		volume := res.(*block.Volume)
+		ctx.Meta["Volume"] = volume
+
+		return nil
+	}
+}
+
+// createNonEmptyLocalVolume creates a server with a local root volume of the given size and registers the volume in
+// the context Meta at metaKey. The volume is then detached, and the server deleted, leaving a non-empty volume
+// ready to be snapshot, or any other use case that requires a non-empty local volume.
+func createNonEmptyLocalVolume(metaKey string, sizeInGB int) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		cmd := fmt.Sprintf(
+			"scw instance server create type=DEV1-S root-volume=local:%dGB stopped=true",
+			sizeInGB,
+		)
+		server := ctx.ExecuteCmd(strings.Split(cmd, " "))
+		createServerResponse := server.(*instance.ServerWithWarningsResponse)
+		serverID := createServerResponse.Server.ID
+		volume := createServerResponse.Server.Volumes["0"]
 		ctx.Meta[metaKey] = volume
+
+		cmd = "scw instance server detach-volume volume-id=" + volume.ID + " server-id=" + serverID
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
+
+		cmd = "scw instance server delete " + serverID
+		_ = ctx.ExecuteCmd(strings.Split(cmd, " "))
 
 		return nil
 	}
@@ -206,13 +227,6 @@ func deleteSnapshot(metaKey string) core.AfterFunc {
 // deleteSnapshot deletes a snapshot previously registered in the context Meta at metaKey.
 func deleteBlockSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw block snapshot delete {{ ." + metaKey + ".ID }}")
-}
-
-func createPN() core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(
-		"PN",
-		"scw vpc private-network create",
-	)
 }
 
 func createNIC() core.BeforeFunc {

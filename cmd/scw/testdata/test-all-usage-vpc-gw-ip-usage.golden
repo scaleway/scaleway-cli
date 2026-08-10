@@ -1,19 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Public, flexible IP addresses for Public Gateways, allowing the gateway to reach the public internet, as well as forward (masquerade) traffic from member devices of attached Private Networks.
 
 USAGE:
   scw vpc-gw ip <command>
 
 AVAILABLE COMMANDS:
-  create-v2   Reserve an IP
-  delete-v2   Delete an IP
-  get-v2      Get an IP
-  list-v2     List IPs
-  update-v2   Update an IP
+  create      Reserve an IP
+  delete      Delete an IP
+  get         Get an IP
+  list        List IPs
+  update      Update an IP
 
 FLAGS:
-  -h, --help   help for ip
+  -h, --help                help for ip
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

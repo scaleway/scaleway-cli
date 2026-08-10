@@ -53,11 +53,12 @@ func serverSSHCommand() *core.Command {
 			},
 			core.ZoneArgSpec(),
 		},
-		Run: serverSSHRun,
+		Run:            serverSSHRun,
+		ExcludeFromMCP: true,
 	}
 }
 
-func serverSSHRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func serverSSHRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*serverSSHConnectRequest)
 
 	client := core.ExtractClient(ctx)

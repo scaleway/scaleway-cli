@@ -30,6 +30,7 @@ func GetGeneratedCommands() *core.Commands {
 		baremetalServerList(),
 		baremetalServerGet(),
 		baremetalServerCreate(),
+		baremetalServerBatchCreate(),
 		baremetalServerUpdate(),
 		baremetalServerInstall(),
 		baremetalServerGetMetrics(),
@@ -75,7 +76,7 @@ func baremetalServer() *core.Command {
 func baremetalOffer() *core.Command {
 	return &core.Command{
 		Short: `Server offer management commands`,
-		Long: `Server offers will answer with all different Elastic Metal server ranges available in a  zone.
+		Long: `Server offers will answer with all different Elastic Metal server ranges available in a zone.
 Each of them will contain all the features of the server (CPUs, memory, disks) with their associated pricing.`,
 		Namespace: "baremetal",
 		Resource:  "offer",
@@ -139,7 +140,7 @@ func baremetalServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -204,12 +205,12 @@ func baremetalServerList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -238,7 +239,7 @@ func baremetalServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -256,13 +257,13 @@ func baremetalServerGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -281,7 +282,7 @@ func baremetalServerCreate() *core.Command {
 		Resource:  "server",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.CreateServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.CreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -499,6 +500,20 @@ func baremetalServerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "protected",
+				Short:      `If enabled, the server can not be deleted`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-data",
+				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.OrganizationIDArgSpec(),
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -509,13 +524,13 @@ func baremetalServerCreate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.CreateServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.CreateServer(request)
+			return api.CreateServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -526,15 +541,312 @@ func baremetalServerCreate() *core.Command {
 	}
 }
 
+func baremetalServerBatchCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create multiple Elastic Metal servers`,
+		Long:      `Create multiple new Elastic Metal servers. Once the servers are created, proceed with the [installation of an OS](#post-3e949e).`,
+		Namespace: "baremetal",
+		Resource:  "server",
+		Verb:      "batch-create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[baremetal.BatchCreateServersRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "common-configuration.offer-id",
+				Short:      `Offer ID of the new server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.project-id",
+				Short:      `Project ID with which the server will be created`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.name",
+				Short:      `Name of the server (≠hostname)`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.description",
+				Short:      `Description associated with the server, max 255 characters`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.tags.{index}",
+				Short:      `Tags to associate to the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.os-id",
+				Short:      `ID of the OS to installation on the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.hostname",
+				Short:      `Hostname of the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.ssh-key-ids.{index}",
+				Short:      `SSH key IDs authorized on the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.user",
+				Short:      `User for the installation`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.password",
+				Short:      `Password for the installation`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.service-user",
+				Short:      `Regular user that runs the service to be installed on the server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.service-password",
+				Short:      `Password used for the service to install`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.device",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.label",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_partition_label",
+					"uefi",
+					"legacy",
+					"root",
+					"boot",
+					"swap",
+					"data",
+					"home",
+					"raid",
+					"zfs",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.number",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.size",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.disks.{index}.partitions.{index}.use-all-available-space",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.raids.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.raids.{index}.level",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_raid_level",
+					"raid_level_0",
+					"raid_level_1",
+					"raid_level_5",
+					"raid_level_6",
+					"raid_level_10",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.raids.{index}.devices.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.filesystems.{index}.device",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.filesystems.{index}.format",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_format",
+					"fat32",
+					"ext4",
+					"swap",
+					"zfs",
+					"xfs",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.filesystems.{index}.mountpoint",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.type",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_type",
+					"no_raid",
+					"mirror",
+					"raidz1",
+					"raidz2",
+				},
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.devices.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.install.partitioning-schema.zfs.pools.{index}.filesystem-options.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.option-ids.{index}",
+				Short:      `IDs of options to enable on server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.protected",
+				Short:      `If enabled, the server can not be deleted`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.user-data",
+				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.organization-id",
+				Short:      `Organization ID with which the server will be created`,
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "common-configuration.zone",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}.hostname",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}.description",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "servers.{index}.tags.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar1,
+				scw.ZoneFrPar2,
+				scw.ZoneNlAms1,
+				scw.ZoneNlAms2,
+				scw.ZonePlWaw2,
+				scw.ZonePlWaw3,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*baremetal.BatchCreateServersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := baremetal.NewAPI(client)
+
+			return api.BatchCreateServers(request, scw.WithContext(ctx))
+		},
+	}
+}
+
 func baremetalServerUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update an Elastic Metal server`,
-		Long:      `Update the server associated with the ID. You can update parameters such as the server's name, tags and description. Any parameters left null in the request body are not updated.`,
+		Long:      `Update the server associated with the ID. You can update parameters such as the server's name, tags, description and protection flag. Any parameters left null in the request body are not updated.`,
 		Namespace: "baremetal",
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -564,6 +876,20 @@ func baremetalServerUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "protected",
+				Short:      `If enabled, the server can not be deleted`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "user-data",
+				Short:      `Configuration data to pass to cloud-init such as a YAML cloud config data or a user-data script`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -573,13 +899,13 @@ func baremetalServerUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.UpdateServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -592,7 +918,7 @@ func baremetalServerInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.InstallServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.InstallServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -781,6 +1107,24 @@ func baremetalServerInstall() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "user-data.name",
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "user-data.content-type",
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
+			{
+				Name:       "user-data.content",
+				Required:   false,
+				Deprecated: true,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -790,17 +1134,17 @@ func baremetalServerInstall() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.InstallServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.InstallServer(request)
+			return api.InstallServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "Install an OS on a  server with a particular SSH key ID",
+				Short:    "Install an OS on a server with a particular SSH key ID",
 				ArgsJSON: `{"os_id":"11111111-1111-1111-1111-111111111111","server_id":"11111111-1111-1111-1111-111111111111","ssh_key_ids":["11111111-1111-1111-1111-111111111111"]}`,
 			},
 		},
@@ -829,7 +1173,7 @@ func baremetalServerGetMetrics() *core.Command {
 		Resource:  "server",
 		Verb:      "get-metrics",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetServerMetricsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetServerMetricsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -847,13 +1191,13 @@ func baremetalServerGetMetrics() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetServerMetricsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetServerMetrics(request)
+			return api.GetServerMetrics(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -866,7 +1210,7 @@ func baremetalServerDelete() *core.Command {
 		Resource:  "server",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.DeleteServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.DeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -884,13 +1228,13 @@ func baremetalServerDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.DeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.DeleteServer(request)
+			return api.DeleteServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -909,7 +1253,7 @@ func baremetalServerReboot() *core.Command {
 		Resource:  "server",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.RebootServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.RebootServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -930,6 +1274,13 @@ func baremetalServerReboot() *core.Command {
 					"rescue",
 				},
 			},
+			{
+				Name:       "ssh-key-ids.{index}",
+				Short:      `Additional SSH public key IDs to configure on rescue image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -939,13 +1290,13 @@ func baremetalServerReboot() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.RebootServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.RebootServer(request)
+			return api.RebootServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -968,7 +1319,7 @@ func baremetalServerStart() *core.Command {
 		Resource:  "server",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StartServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StartServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -989,6 +1340,13 @@ func baremetalServerStart() *core.Command {
 					"rescue",
 				},
 			},
+			{
+				Name:       "ssh-key-ids.{index}",
+				Short:      `Additional SSH public key IDs to configure on rescue image`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -998,13 +1356,13 @@ func baremetalServerStart() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StartServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.StartServer(request)
+			return api.StartServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1027,7 +1385,7 @@ func baremetalServerStop() *core.Command {
 		Resource:  "server",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StopServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StopServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1045,13 +1403,13 @@ func baremetalServerStop() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StopServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.StopServer(request)
+			return api.StopServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1070,7 +1428,7 @@ func baremetalServerListEvents() *core.Command {
 		Resource:  "server",
 		Verb:      "list-events",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListServerEventsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListServerEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1100,12 +1458,12 @@ func baremetalServerListEvents() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListServerEventsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1131,7 +1489,7 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 		Resource:  "bmc",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StartBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StartBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1156,13 +1514,13 @@ After adding the BMC option, you need to Get Remote Access to get the login/pass
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StartBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.StartBMCAccess(request)
+			return api.StartBMCAccess(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1175,7 +1533,7 @@ func baremetalBmcGet() *core.Command {
 		Resource:  "bmc",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1193,13 +1551,13 @@ func baremetalBmcGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetBMCAccess(request)
+			return api.GetBMCAccess(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1212,7 +1570,7 @@ func baremetalBmcStop() *core.Command {
 		Resource:  "bmc",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.StopBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.StopBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1230,12 +1588,12 @@ func baremetalBmcStop() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.StopBMCAccessRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			e = api.StopBMCAccess(request)
+			e = api.StopBMCAccess(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1256,7 +1614,7 @@ func baremetalServerUpdateIP() *core.Command {
 		Resource:  "server",
 		Verb:      "update-ip",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1288,13 +1646,13 @@ func baremetalServerUpdateIP() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1307,7 +1665,7 @@ func baremetalOptionsAdd() *core.Command {
 		Resource:  "options",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.AddOptionServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.AddOptionServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1339,13 +1697,13 @@ func baremetalOptionsAdd() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.AddOptionServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.AddOptionServer(request)
+			return api.AddOptionServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1364,7 +1722,7 @@ func baremetalOptionsDelete() *core.Command {
 		Resource:  "options",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.DeleteOptionServerRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.DeleteOptionServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1389,13 +1747,13 @@ func baremetalOptionsDelete() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.DeleteOptionServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.DeleteOptionServer(request)
+			return api.DeleteOptionServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1414,7 +1772,7 @@ func baremetalOfferList() *core.Command {
 		Resource:  "offer",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOffersRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "subscription-period",
@@ -1445,12 +1803,12 @@ func baremetalOfferList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListOffersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1483,7 +1841,7 @@ func baremetalOfferGet() *core.Command {
 		Resource:  "offer",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOfferRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetOfferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1501,13 +1859,13 @@ func baremetalOfferGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetOfferRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetOffer(request)
+			return api.GetOffer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1526,7 +1884,7 @@ func baremetalOptionsGet() *core.Command {
 		Resource:  "options",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOptionRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetOptionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "option-id",
@@ -1544,13 +1902,13 @@ func baremetalOptionsGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetOptionRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetOption(request)
+			return api.GetOption(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1569,7 +1927,7 @@ func baremetalOptionsList() *core.Command {
 		Resource:  "options",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOptionsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListOptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1595,12 +1953,12 @@ func baremetalOptionsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListOptionsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1633,7 +1991,7 @@ func baremetalSettingsList() *core.Command {
 		Resource:  "settings",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListSettingsRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListSettingsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1663,12 +2021,12 @@ func baremetalSettingsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListSettingsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1691,7 +2049,7 @@ func baremetalSettingsUpdate() *core.Command {
 		Resource:  "settings",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.UpdateSettingRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.UpdateSettingRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "setting-id",
@@ -1716,13 +2074,13 @@ func baremetalSettingsUpdate() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.UpdateSettingRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.UpdateSetting(request)
+			return api.UpdateSetting(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1735,7 +2093,7 @@ func baremetalOsList() *core.Command {
 		Resource:  "os",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.ListOSRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.ListOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1754,12 +2112,12 @@ func baremetalOsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1782,7 +2140,7 @@ func baremetalOsGet() *core.Command {
 		Resource:  "os",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(baremetal.GetOSRequest{}),
+		ArgsType: reflect.TypeFor[baremetal.GetOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
@@ -1800,13 +2158,13 @@ func baremetalOsGet() *core.Command {
 				scw.ZonePlWaw3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*baremetal.GetOSRequest)
 
 			client := core.ExtractClient(ctx)
 			api := baremetal.NewAPI(client)
 
-			return api.GetOS(request)
+			return api.GetOS(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{

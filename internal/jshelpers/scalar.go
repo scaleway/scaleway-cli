@@ -5,7 +5,6 @@ package jshelpers
 import (
 	"fmt"
 	"math"
-
 	"syscall/js"
 )
 

@@ -15,7 +15,7 @@ func iamPolicyCreateBuilder(c *core.Command) *core.Command {
 		api := iam.NewAPI(client)
 		// TODO: store result in a CLI cache
 		resp, err := api.ListPermissionSets(&iam.ListPermissionSetsRequest{
-			PageSize: scw.Uint32Ptr(100),
+			PageSize: new(uint32(100)),
 		}, scw.WithAllPages())
 		if err != nil {
 			return nil
@@ -47,7 +47,7 @@ func iamPolicyGetBuilder(c *core.Command) *core.Command {
 		},
 	}
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			args := argsI.(*iam.GetPolicyRequest)
 			api := iam.NewAPI(core.ExtractClient(ctx))
 

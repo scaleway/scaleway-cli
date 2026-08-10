@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get the DNS zone's TLS certificate. If you do not have a certificate, the ouptut returns `no certificate found`.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Get the DNS zone's TLS certificate. If you do not have a certificate, the output returns `no certificate found`.
 
 USAGE:
   scw dns certificate get <dns-zone ...> [arg=value ...]
@@ -9,7 +9,8 @@ ARGS:
   dns-zone   
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

@@ -15,7 +15,7 @@ func volumeTypeListBuilder(cmd *core.Command) *core.Command {
 	}
 
 	cmd.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			res, err := runner(ctx, argsI)
 			if err != nil {
 				return res, err

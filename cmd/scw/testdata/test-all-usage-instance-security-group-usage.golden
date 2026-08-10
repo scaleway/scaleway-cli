@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A security group is a set of firewall rules on a set of Instances.
 Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 
@@ -26,8 +26,9 @@ AVAILABLE COMMANDS:
   update-rule        Update security group rule
 
 FLAGS:
-  -h, --help   help for security-group
-      --web    open console page for the current ressource
+  -h, --help                help for security-group
+      --list-sub-commands   List all subcommands
+      --web                 open console page for the current resource
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

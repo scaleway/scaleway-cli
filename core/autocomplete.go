@@ -57,13 +57,6 @@ type FlagSpec struct {
 	EnumValues       []string
 }
 
-func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
-	for i := range flags {
-		flag := &flags[i]
-		node.Children[flag.Name] = NewAutoCompleteFlagNode(node, flag)
-	}
-}
-
 // newAutoCompleteResponse builds a new AutocompleteResponse
 func newAutoCompleteResponse(suggestions []string) *AutocompleteResponse {
 	sort.Strings(suggestions)
@@ -174,6 +167,17 @@ func (node *AutoCompleteNode) GetChildMatch(name string) (*AutoCompleteNode, boo
 	}
 
 	return nil, false
+}
+
+func (node *AutoCompleteNode) DebugString() string {
+	return node.Name
+}
+
+func (node *AutoCompleteNode) addFlags(flags []FlagSpec) {
+	for i := range flags {
+		flag := &flags[i]
+		node.Children[flag.Name] = NewAutoCompleteFlagNode(node, flag)
+	}
 }
 
 // isLeafCommand returns true only if n is a node with no child command (namespace, verb, resource) or a positional arg.
@@ -463,7 +467,7 @@ func isFlag(wordToComplete string) bool {
 }
 
 // hasPrefix will look if the word to complete prefixes the given key.
-// It also handle complexe key schema such as slices and maps. E.g.:
+// It also handles complex key schema such as slices and maps. E.g.:
 // `security-gr` prefixes `security-group-id`
 // `image-ids.0` prefixes `image-ids.{index}`
 // `volumes.0.s` prefixes `volumes.{index}.size`

@@ -32,12 +32,11 @@ var (
 	}
 )
 
-func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
+func imagesMarshalerFunc(i any, _ *human.MarshalOpt) (string, error) {
 	type humanImage struct {
 		ID               string
 		Name             string
 		State            instance.ImageState
-		Public           bool
 		Zone             scw.Zone
 		Volumes          []scw.Size
 		ServerName       string
@@ -50,19 +49,19 @@ func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 	}
 
 	images := i.([]*imageListItem)
-	humanImages := []*humanImage(nil)
+	humanImages := make([]*humanImage, 0, len(images))
 	for _, image := range images {
-		// For each image we want to display a list of volume size sepatated with `,`
-		// e.g: 10 GB, 20 GB
-		volumes := []scw.Size{
-			image.RootVolume.Size,
-		}
 		// We must sort map key to make sure volume size are in the correct order.
-		extraVolumeKeys := []string(nil)
+		extraVolumeKeys := make([]string, 0, len(image.ExtraVolumes))
 		for key := range image.ExtraVolumes {
 			extraVolumeKeys = append(extraVolumeKeys, key)
 		}
 		sort.Strings(extraVolumeKeys)
+
+		// For each image we want to display a list of volume size separated with `,`
+		// e.g: 10 GB, 20 GB
+		volumes := make([]scw.Size, 0, len(extraVolumeKeys)+1)
+		volumes = append(volumes, image.RootVolume.Size)
 
 		for _, key := range extraVolumeKeys {
 			volumes = append(volumes, image.ExtraVolumes[key].Size)
@@ -72,7 +71,6 @@ func imagesMarshalerFunc(i interface{}, _ *human.MarshalOpt) (string, error) {
 			ID:               image.ID,
 			Name:             image.Name,
 			State:            image.State,
-			Public:           image.Public,
 			Zone:             image.Zone,
 			Volumes:          volumes,
 			ServerName:       image.ServerName,
@@ -131,7 +129,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreateImageRequest)
 
 			request := args.CreateImageRequest
@@ -167,28 +165,36 @@ type imageListItem struct {
 // A call to GetServer(..) with the ID contained in Image.FromServer retrieves more information about the server.
 func imageListBuilder(c *core.Command) *core.Command {
 	type customListImageRequest struct {
-		*instance.ListImagesRequest
+		Zone           scw.Zone `json:"-"`
+		PerPage        *uint32  `json:"-"`
+		Page           *int32   `json:"-"`
+		Name           *string  `json:"-"`
+		Arch           *string  `json:"-"`
+		Tags           *string  `json:"-"`
 		OrganizationID *string
 		ProjectID      *string
 	}
 
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
+	c.ArgSpecs.DeleteByName("public")
 
 	c.ArgsType = reflect.TypeOf(customListImageRequest{})
 
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		// Get images
 		args := argsI.(*customListImageRequest)
 
-		if args.ListImagesRequest == nil {
-			args.ListImagesRequest = &instance.ListImagesRequest{}
+		req := &instance.ListImagesRequest{
+			Organization: args.OrganizationID,
+			Name:         args.Name,
+			Public:       new(false),
+			Arch:         args.Arch,
+			Project:      args.ProjectID,
+			Tags:         args.Tags,
+			Zone:         args.Zone,
 		}
 
-		req := args.ListImagesRequest
-		req.Organization = args.OrganizationID
-		req.Project = args.ProjectID
-		req.Public = scw.BoolPtr(false)
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
 		blockAPI := block.NewAPI(client)
@@ -228,7 +234,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 				if volume.VolumeType == instance.VolumeVolumeTypeSbsSnapshot {
 					blockVolume, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
 						SnapshotID: volume.ID,
-						Zone:       volume.Zone,
+						Zone:       image.Zone,
 					}, scw.WithContext(ctx))
 					if err != nil {
 						return nil, err
@@ -283,7 +289,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 	})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customDeleteImageRequest)
 
 			api := instance.NewAPI(core.ExtractClient(ctx))
@@ -329,11 +335,11 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 				}
 				for _, snapshot := range snapshots {
 					if snapshot.Type == instance.VolumeVolumeTypeSbsSnapshot {
-						terminalStatus := block.SnapshotStatusAvailable
 						_, err := blockAPI.WaitForSnapshot(&block.WaitForSnapshotRequest{
 							SnapshotID:     snapshot.ID,
 							Zone:           args.Zone,
-							TerminalStatus: &terminalStatus,
+							TerminalStatus: new(block.SnapshotStatusAvailable),
+							RetryInterval:  core.DefaultRetryInterval,
 						})
 						if err != nil {
 							return nil, err
@@ -377,7 +383,7 @@ func imageWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForImage(&instance.WaitForImageRequest{

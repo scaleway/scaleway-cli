@@ -58,8 +58,6 @@ func GetGeneratedCommands() *core.Commands {
 		cockpitContactPointCreate(),
 		cockpitContactPointList(),
 		cockpitContactPointDelete(),
-		cockpitManagedAlertsEnable(),
-		cockpitManagedAlertsDisable(),
 		cockpitTestAlertTrigger(),
 	)
 }
@@ -180,17 +178,17 @@ The output returned displays the URL to access your Cockpit's Grafana.`,
 		Resource:  "grafana",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetGrafanaRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetGrafanaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIGetGrafanaRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.GetGrafana(request)
+			return api.GetGrafana(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -203,16 +201,16 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 		Resource:  "grafana",
 		Verb:      "sync-data-sources",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPISyncGrafanaDataSourcesRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPISyncGrafanaDataSourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPISyncGrafanaDataSourcesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			e = api.SyncGrafanaDataSources(request)
+			e = api.SyncGrafanaDataSources(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -227,14 +225,15 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 
 func cockpitGrafanaUserCreate() *core.Command {
 	return &core.Command{
-		Short: `Create a Grafana user`,
-		Long: `Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `Create a Grafana user
+Create a Grafana user to connect to your Cockpit's Grafana. Upon creation, your user password displays only once, so make sure that you save it.
 Each Grafana user is associated with a role: viewer or editor. A viewer can only view dashboards, whereas an editor can create and edit dashboards. Note that the ` + "`" + `admin` + "`" + ` username is not available for creation.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "create",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPICreateGrafanaUserRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPICreateGrafanaUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -257,26 +256,27 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPICreateGrafanaUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.CreateGrafanaUser(request)
+			return api.CreateGrafanaUser(request, scw.WithContext(ctx))
 		},
 	}
 }
 
 func cockpitGrafanaUserList() *core.Command {
 	return &core.Command{
-		Short:     `List Grafana users`,
-		Long:      `List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.`,
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `List Grafana users
+List all Grafana users created in your Cockpit's Grafana. By default, the Grafana users returned in the list are ordered in ascending order.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaUsersRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListGrafanaUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -291,12 +291,12 @@ func cockpitGrafanaUserList() *core.Command {
 			},
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIListGrafanaUsersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListGrafanaUsers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -309,13 +309,14 @@ func cockpitGrafanaUserList() *core.Command {
 
 func cockpitGrafanaUserDelete() *core.Command {
 	return &core.Command{
-		Short:     `Delete a Grafana user`,
-		Long:      `Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `Delete a Grafana user
+Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "delete",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIDeleteGrafanaUserRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIDeleteGrafanaUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -326,12 +327,12 @@ func cockpitGrafanaUserDelete() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIDeleteGrafanaUserRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			e = api.DeleteGrafanaUser(request)
+			e = api.DeleteGrafanaUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -346,14 +347,15 @@ func cockpitGrafanaUserDelete() *core.Command {
 
 func cockpitGrafanaUserResetPassword() *core.Command {
 	return &core.Command{
-		Short: `Reset a Grafana user password`,
-		Long: `Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
+		Short: `(Deprecated) EOL 2026-01-20`,
+		Long: `Reset a Grafana user password
+Reset the password of a Grafana user, specified by the ID of the Project the Cockpit belongs to, and the ID of the Grafana user.
 A new password regenerates and only displays once. Make sure that you save it.`,
 		Namespace: "cockpit",
 		Resource:  "grafana-user",
 		Verb:      "reset-password",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIResetGrafanaUserPasswordRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIResetGrafanaUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -364,13 +366,13 @@ A new password regenerates and only displays once. Make sure that you save it.`,
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIResetGrafanaUserPasswordRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.ResetGrafanaUserPassword(request)
+			return api.ResetGrafanaUserPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -383,7 +385,7 @@ func cockpitProductDashboardsList() *core.Command {
 		Resource:  "product-dashboards",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaProductDashboardsRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListGrafanaProductDashboardsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -394,12 +396,12 @@ func cockpitProductDashboardsList() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIListGrafanaProductDashboardsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListGrafanaProductDashboards(request, opts...)
 			if err != nil {
 				return nil, err
@@ -418,7 +420,7 @@ func cockpitProductDashboardsGet() *core.Command {
 		Resource:  "product-dashboards",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetGrafanaProductDashboardRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetGrafanaProductDashboardRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -429,13 +431,13 @@ func cockpitProductDashboardsGet() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIGetGrafanaProductDashboardRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.GetGrafanaProductDashboard(request)
+			return api.GetGrafanaProductDashboard(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -444,12 +446,12 @@ func cockpitPlanList() *core.Command {
 	return &core.Command{
 		Short: `List plan types`,
 		Long: `Retrieve a list of available pricing plan types.
-Deprecated: retention is now managed at the data source level.`,
+Deprecated due to retention now being managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListPlansRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListPlansRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -462,12 +464,12 @@ Deprecated: retention is now managed at the data source level.`,
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIListPlansRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPlans(request, opts...)
 			if err != nil {
 				return nil, err
@@ -482,12 +484,12 @@ func cockpitPlanSelect() *core.Command {
 	return &core.Command{
 		Short: `Apply a pricing plan`,
 		Long: `Apply a pricing plan on a given Project. You must specify the ID of the pricing plan type. Note that you will be billed for the plan you apply.
-Deprecated: retention is now managed at the data source level.`,
+Deprecated due to retention now being managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "select",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPISelectPlanRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPISelectPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -504,13 +506,13 @@ Deprecated: retention is now managed at the data source level.`,
 				},
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPISelectPlanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.SelectPlan(request)
+			return api.SelectPlan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -519,22 +521,22 @@ func cockpitPlanGet() *core.Command {
 	return &core.Command{
 		Short: `Get current plan`,
 		Long: `Retrieve a pricing plan for the given Project, specified by the ID of the Project.
-Deprecated: retention is now managed at the data source level.`,
+Deprecated due to retention now being managed at the data source level.`,
 		Namespace: "cockpit",
 		Resource:  "plan",
 		Verb:      "get",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetCurrentPlanRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetCurrentPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.GlobalAPIGetCurrentPlanRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.GetCurrentPlan(request)
+			return api.GetCurrentPlan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -542,29 +544,26 @@ Deprecated: retention is now managed at the data source level.`,
 func cockpitDataSourceCreate() *core.Command {
 	return &core.Command{
 		Short: `Create a data source`,
-		Long: `You must specify the data source type upon creation. Available data source types include:
-  - metrics
-  - logs
-  - traces
+		Long: `You must specify the data source name and type (metrics, logs, traces) upon creation.
 The name of the data source will then be used as reference to name the associated Grafana data source.`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `Data source name`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "type",
 				Short:      `Data source type`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 				EnumValues: []string{
@@ -576,7 +575,7 @@ The name of the data source will then be used as reference to name the associate
 			},
 			{
 				Name:       "retention-days",
-				Short:      `BETA - Duration for which the data will be retained in the data source`,
+				Short:      `Duration for which the data will be retained in the data source`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -587,13 +586,13 @@ The name of the data source will then be used as reference to name the associate
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPICreateDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.CreateDataSource(request)
+			return api.CreateDataSource(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -606,14 +605,14 @@ func cockpitDataSourceGet() *core.Command {
 		Resource:  "data-source",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
 				Short:      `ID of the relevant data source`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -621,13 +620,13 @@ func cockpitDataSourceGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetDataSource(request)
+			return api.GetDataSource(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -635,19 +634,19 @@ func cockpitDataSourceGet() *core.Command {
 func cockpitDataSourceDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a data source`,
-		Long:      `Delete a given data source, specified by the data source ID. Note that deleting a data source is irreversible, and cannot be undone.`,
+		Long:      `Delete a given data source. Note that this action will permanently delete this data source and any data associated with it.`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
 				Short:      `ID of the data source to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -655,12 +654,12 @@ func cockpitDataSourceDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDeleteDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.DeleteDataSource(request)
+			e = api.DeleteDataSource(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -675,15 +674,41 @@ func cockpitDataSourceDelete() *core.Command {
 
 func cockpitDataSourceList() *core.Command {
 	return &core.Command{
-		Short: `List data sources`,
-		Long: `Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.
-You can list data sources by Project, type and origin.`,
+		Short:     `List data sources`,
+		Long:      `Retrieve the list of data sources available in the specified region. By default, the data sources returned in the list are ordered by creation date, in ascending order.`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListDataSourcesRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListDataSourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "origin",
+				Short:      `Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_origin",
+					"scaleway",
+					"external",
+					"custom",
+				},
+			},
+			{
+				Name:       "types.{index}",
+				Short:      `Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_type",
+					"metrics",
+					"logs",
+					"traces",
+				},
+			},
 			{
 				Name:       "order-by",
 				Short:      `Sort order for data sources in the response`,
@@ -699,33 +724,6 @@ You can list data sources by Project, type and origin.`,
 					"type_desc",
 				},
 			},
-			core.ProjectIDArgSpec(),
-			{
-				Name:       "origin",
-				Short:      `Origin to filter for, only data sources with matching origin will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"unknown_origin",
-					"scaleway",
-					"external",
-					"custom",
-				},
-			},
-			{
-				Name:       "types.{index}",
-				Short:      `Types to filter for, only data sources with matching types will be returned`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"unknown_type",
-					"metrics",
-					"logs",
-					"traces",
-				},
-			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -733,12 +731,12 @@ You can list data sources by Project, type and origin.`,
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIListDataSourcesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -756,19 +754,19 @@ You can list data sources by Project, type and origin.`,
 func cockpitDataSourceUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a data source`,
-		Long:      `Update a given data source name, specified by the data source ID.`,
+		Long:      `Update a given data source attributes (name and/or retention_days).`,
 		Namespace: "cockpit",
 		Resource:  "data-source",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIUpdateDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIUpdateDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
 				Short:      `ID of the data source to update`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -779,7 +777,7 @@ func cockpitDataSourceUpdate() *core.Command {
 			},
 			{
 				Name:       "retention-days",
-				Short:      `BETA - Duration for which the data will be retained in the data source`,
+				Short:      `Duration for which the data will be retained in the data source`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -790,13 +788,13 @@ func cockpitDataSourceUpdate() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIUpdateDataSourceRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.UpdateDataSource(request)
+			return api.UpdateDataSource(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -804,12 +802,12 @@ func cockpitDataSourceUpdate() *core.Command {
 func cockpitUsageOverviewGet() *core.Command {
 	return &core.Command{
 		Short:     `Get data source usage overview`,
-		Long:      `Retrieve the data source usage overview per type for the specified Project.`,
+		Long:      `Retrieve the volume of data ingested for each of your data sources in the specified project and region.`,
 		Namespace: "cockpit",
 		Resource:  "usage-overview",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetUsageOverviewRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetUsageOverviewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -824,13 +822,13 @@ func cockpitUsageOverviewGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetUsageOverviewRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetUsageOverview(request)
+			return api.GetUsageOverview(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -844,13 +842,13 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
 				Short:      `Name of the token`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -879,13 +877,13 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPICreateTokenRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -899,21 +897,8 @@ You can filter tokens by Project ID and token scopes.`,
 		Resource:  "token",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListTokensRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
-			{
-				Name:       "order-by",
-				Short:      `Order in which to return results`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"created_at_asc",
-					"created_at_desc",
-					"name_asc",
-					"name_desc",
-				},
-			},
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "token-scopes.{index}",
@@ -934,6 +919,19 @@ You can filter tokens by Project ID and token scopes.`,
 					"write_only_traces",
 				},
 			},
+			{
+				Name:       "order-by",
+				Short:      `Order in which to return results`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"created_at_asc",
+					"created_at_desc",
+					"name_asc",
+					"name_desc",
+				},
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -941,12 +939,12 @@ You can filter tokens by Project ID and token scopes.`,
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIListTokensRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -969,14 +967,14 @@ func cockpitTokenGet() *core.Command {
 		Resource:  "token",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
 				Short:      `Token ID`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -984,13 +982,13 @@ func cockpitTokenGet() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetTokenRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1003,14 +1001,14 @@ func cockpitTokenDelete() *core.Command {
 		Resource:  "token",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
 				Short:      `ID of the token to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -1018,12 +1016,12 @@ func cockpitTokenDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDeleteTokenRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.DeleteToken(request)
+			e = api.DeleteToken(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1045,7 +1043,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 		Resource:  "alert-manager",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1054,13 +1052,13 @@ The output returned displays a URL to access the Alert manager, and whether the 
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIGetAlertManagerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetAlertManager(request)
+			return api.GetAlertManager(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1073,7 +1071,7 @@ func cockpitAlertManagerEnable() *core.Command {
 		Resource:  "alert-manager",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIEnableAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIEnableAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1082,13 +1080,13 @@ func cockpitAlertManagerEnable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIEnableAlertManagerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.EnableAlertManager(request)
+			return api.EnableAlertManager(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1101,7 +1099,7 @@ func cockpitAlertManagerDisable() *core.Command {
 		Resource:  "alert-manager",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDisableAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDisableAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1110,13 +1108,13 @@ func cockpitAlertManagerDisable() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDisableAlertManagerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.DisableAlertManager(request)
+			return api.DisableAlertManager(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1131,7 +1129,7 @@ If you need to receive alerts for other receivers, you can create additional con
 		Resource:  "contact-point",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateContactPointRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateContactPointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1153,13 +1151,13 @@ If you need to receive alerts for other receivers, you can create additional con
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPICreateContactPointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.CreateContactPoint(request)
+			return api.CreateContactPoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1172,7 +1170,7 @@ func cockpitContactPointList() *core.Command {
 		Resource:  "contact-point",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListContactPointsRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListContactPointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1182,12 +1180,12 @@ func cockpitContactPointList() *core.Command {
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIListContactPointsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1210,7 +1208,7 @@ func cockpitContactPointDelete() *core.Command {
 		Resource:  "contact-point",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteContactPointRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteContactPointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1225,12 +1223,12 @@ func cockpitContactPointDelete() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPIDeleteContactPointRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.DeleteContactPoint(request)
+			e = api.DeleteContactPoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1243,62 +1241,6 @@ func cockpitContactPointDelete() *core.Command {
 	}
 }
 
-func cockpitManagedAlertsEnable() *core.Command {
-	return &core.Command{
-		Short:     `Enable managed alerts`,
-		Long:      `Enable the sending of managed alerts for the specified Project. Managed alerts are predefined alerts that apply to Scaleway recources integrated with Cockpit by default.`,
-		Namespace: "cockpit",
-		Resource:  "managed-alerts",
-		Verb:      "enable",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIEnableManagedAlertsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.RegionNlAms,
-				scw.RegionPlWaw,
-			),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*cockpit.RegionalAPIEnableManagedAlertsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := cockpit.NewRegionalAPI(client)
-
-			return api.EnableManagedAlerts(request)
-		},
-	}
-}
-
-func cockpitManagedAlertsDisable() *core.Command {
-	return &core.Command{
-		Short:     `Disable managed alerts`,
-		Long:      `Disable the sending of managed alerts for the specified Project.`,
-		Namespace: "cockpit",
-		Resource:  "managed-alerts",
-		Verb:      "disable",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDisableManagedAlertsRequest{}),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.RegionNlAms,
-				scw.RegionPlWaw,
-			),
-		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
-			request := args.(*cockpit.RegionalAPIDisableManagedAlertsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := cockpit.NewRegionalAPI(client)
-
-			return api.DisableManagedAlerts(request)
-		},
-	}
-}
-
 func cockpitTestAlertTrigger() *core.Command {
 	return &core.Command{
 		Short:     `Trigger a test alert`,
@@ -1307,7 +1249,7 @@ func cockpitTestAlertTrigger() *core.Command {
 		Resource:  "test-alert",
 		Verb:      "trigger",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPITriggerTestAlertRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPITriggerTestAlertRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1316,12 +1258,12 @@ func cockpitTestAlertTrigger() *core.Command {
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*cockpit.RegionalAPITriggerTestAlertRequest)
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.TriggerTestAlert(request)
+			e = api.TriggerTestAlert(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

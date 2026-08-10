@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new namespace in a specified Organization or Project.
 
 USAGE:
@@ -15,8 +15,12 @@ ARGS:
   [tags.{index}]                                 Tags of the Serverless Function Namespace
   [region=fr-par]                                Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
+DEPRECATED ARGS:
+  [activate-vpc-integration]   [DEPRECATED] By default, as of 2025/08/20, all namespaces are now compatible with VPC.
+
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

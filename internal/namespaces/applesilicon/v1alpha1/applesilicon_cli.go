@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconServer(),
 		appleSiliconOs(),
 		appleSiliconServerType(),
+		appleSiliconRunner(),
 		appleSiliconPrivateNetwork(),
 		appleSiliconServerTypeList(),
 		appleSiliconServerTypeGet(),
@@ -35,6 +36,11 @@ func GetGeneratedCommands() *core.Commands {
 		appleSiliconServerDelete(),
 		appleSiliconServerReboot(),
 		appleSiliconServerReinstall(),
+		appleSiliconRunnerCreate(),
+		appleSiliconRunnerGet(),
+		appleSiliconRunnerList(),
+		appleSiliconRunnerUpdate(),
+		appleSiliconRunnerDelete(),
 		appleSiliconPrivateNetworkAdd(),
 		appleSiliconPrivateNetworkSet(),
 		appleSiliconPrivateNetworkList(),
@@ -77,6 +83,15 @@ func appleSiliconServerType() *core.Command {
 	}
 }
 
+func appleSiliconRunner() *core.Command {
+	return &core.Command{
+		Short:     `Runner management commands`,
+		Long:      `Runner management commands.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+	}
+}
+
 func appleSiliconPrivateNetwork() *core.Command {
 	return &core.Command{
 		Short: `Private network management command`,
@@ -99,17 +114,17 @@ func appleSiliconServerTypeList() *core.Command {
 		Resource:  "server-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListServerTypesRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListServerTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ListServerTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.ListServerTypes(request)
+			return api.ListServerTypes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -122,7 +137,7 @@ func appleSiliconServerTypeGet() *core.Command {
 		Resource:  "server-type",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetServerTypeRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetServerTypeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-type",
@@ -133,13 +148,13 @@ func appleSiliconServerTypeGet() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.GetServerTypeRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetServerType(request)
+			return api.GetServerType(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -152,7 +167,7 @@ func appleSiliconServerCreate() *core.Command {
 		Resource:  "server",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.CreateServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.CreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -196,15 +211,64 @@ func appleSiliconServerCreate() *core.Command {
 					"none",
 				},
 			},
+			{
+				Name:       "public-bandwidth-bps",
+				Short:      `Public bandwidth to configure for this server. Expressed in bits per second.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.provider",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_provider",
+					"github",
+					"gitlab",
+				},
+			},
+			{
+				Name:       "applied-runner-configurations.runner-configuration-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-kext",
+				Short:      `Enable kernel extensions`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.CreateServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.CreateServer(request)
+			return api.CreateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -217,7 +281,7 @@ func appleSiliconServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -249,12 +313,12 @@ func appleSiliconServerList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ListServersRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -277,7 +341,7 @@ func appleSiliconOsList() *core.Command {
 		Resource:  "os",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ListOSRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ListOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-type",
@@ -298,12 +362,12 @@ func appleSiliconOsList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ListOSRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -321,12 +385,12 @@ func appleSiliconOsList() *core.Command {
 func appleSiliconOsGet() *core.Command {
 	return &core.Command{
 		Short:     `Get an Operating System (OS)`,
-		Long:      `Get an Operating System (OS).  The response will include the OS's unique ID as well as its name and label.`,
+		Long:      `Get an Operating System (OS). The response will include the OS's unique ID as well as its name and label.`,
 		Namespace: "apple-silicon",
 		Resource:  "os",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetOSRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
@@ -337,13 +401,13 @@ func appleSiliconOsGet() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.GetOSRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetOS(request)
+			return api.GetOS(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -356,7 +420,7 @@ func appleSiliconServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -367,13 +431,13 @@ func appleSiliconServerGet() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.GetServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -386,7 +450,7 @@ func appleSiliconServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -427,15 +491,28 @@ func appleSiliconServerUpdate() *core.Command {
 					"none",
 				},
 			},
+			{
+				Name:       "public-bandwidth-bps",
+				Short:      `Public bandwidth configured for this server`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "applied-runner-configurations.runner-configuration-ids.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.UpdateServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -448,7 +525,7 @@ func appleSiliconServerDelete() *core.Command {
 		Resource:  "server",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.DeleteServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.DeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -459,12 +536,12 @@ func appleSiliconServerDelete() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.DeleteServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
-			e = api.DeleteServer(request)
+			e = api.DeleteServer(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -485,7 +562,7 @@ func appleSiliconServerReboot() *core.Command {
 		Resource:  "server",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.RebootServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.RebootServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -496,13 +573,13 @@ func appleSiliconServerReboot() *core.Command {
 			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.RebootServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.RebootServer(request)
+			return api.RebootServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -510,12 +587,12 @@ func appleSiliconServerReboot() *core.Command {
 func appleSiliconServerReinstall() *core.Command {
 	return &core.Command{
 		Short:     `Reinstall a server`,
-		Long:      `Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the defailt configuration values of the image (OS).`,
+		Long:      `Reinstall an existing Apple silicon server (specified by its server ID) from a new image (OS). All the data on the disk is deleted and all configuration is reset to the default configuration values of the image (OS).`,
 		Namespace: "apple-silicon",
 		Resource:  "server",
 		Verb:      "reinstall",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.ReinstallServerRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.ReinstallServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -531,15 +608,293 @@ func appleSiliconServerReinstall() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-kext",
+				Short:      `Enable kernel extensions`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(scw.ZoneFrPar3),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.ReinstallServerRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewAPI(client)
 
-			return api.ReinstallServer(request)
+			return api.ReinstallServer(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func appleSiliconRunnerCreate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new runner configuration`,
+		Long:      `Create a new runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "create",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[applesilicon.CreateRunnerRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.ProjectIDArgSpec(),
+			{
+				Name:       "runner-configuration.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.provider",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_provider",
+					"github",
+					"gitlab",
+				},
+			},
+			{
+				Name:       "runner-configuration.github-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.labels.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.CreateRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+
+			return api.CreateRunner(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func appleSiliconRunnerGet() *core.Command {
+	return &core.Command{
+		Short:     `Retrieve a runner configuration`,
+		Long:      `Retrieve a runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[applesilicon.GetRunnerRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "runner-id",
+				Short:      `ID of the runner configuration to get`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.GetRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+
+			return api.GetRunner(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func appleSiliconRunnerList() *core.Command {
+	return &core.Command{
+		Short:     `List runner configurations associated with a server`,
+		Long:      `List runner configurations associated with a server.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[applesilicon.ListRunnersRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "server-id",
+				Short:      `ID of the server for which to list applied runner configurations`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "project-id",
+				Short:      `Only list servers of this project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "organization-id",
+				Short:      `Only list servers of this Organization ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(
+				scw.ZoneFrPar3,
+				scw.Zone(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.ListRunnersRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			if request.Zone == scw.Zone(core.AllLocalities) {
+				opts = append(opts, scw.WithZones(api.Zones()...))
+				request.Zone = ""
+			}
+			resp, err := api.ListRunners(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.Runners, nil
+		},
+	}
+}
+
+func appleSiliconRunnerUpdate() *core.Command {
+	return &core.Command{
+		Short:     `Create a new runner configuration`,
+		Long:      `Create a new runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "update",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[applesilicon.UpdateRunnerRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "runner-id",
+				Short:      `ID of the runner configuration to update`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "runner-configuration.name",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.provider",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_provider",
+					"github",
+					"gitlab",
+				},
+			},
+			{
+				Name:       "runner-configuration.github-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.github-configuration.labels.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.url",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.gitlab-configuration.token",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.UpdateRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+
+			return api.UpdateRunner(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func appleSiliconRunnerDelete() *core.Command {
+	return &core.Command{
+		Short:     `Create a new runner configuration`,
+		Long:      `Create a new runner configuration.`,
+		Namespace: "apple-silicon",
+		Resource:  "runner",
+		Verb:      "delete",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[applesilicon.DeleteRunnerRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "runner-id",
+				Short:      `ID of the runner configuration to delete`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			core.ZoneArgSpec(scw.ZoneFrPar3),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*applesilicon.DeleteRunnerRequest)
+
+			client := core.ExtractClient(ctx)
+			api := applesilicon.NewAPI(client)
+			e = api.DeleteRunner(request, scw.WithContext(ctx))
+			if e != nil {
+				return nil, e
+			}
+
+			return &core.SuccessResult{
+				Resource: "runner",
+				Verb:     "delete",
+			}, nil
 		},
 	}
 }
@@ -552,7 +907,7 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 		Resource:  "private-network",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -580,13 +935,13 @@ func appleSiliconPrivateNetworkAdd() *core.Command {
 				scw.ZoneFrPar3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPIAddServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
 
-			return api.AddServerPrivateNetwork(request)
+			return api.AddServerPrivateNetwork(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -599,7 +954,7 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 		Resource:  "private-network",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -620,13 +975,13 @@ func appleSiliconPrivateNetworkSet() *core.Command {
 				scw.ZoneFrPar3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPISetServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
 
-			return api.SetServerPrivateNetworks(request)
+			return api.SetServerPrivateNetworks(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -639,7 +994,7 @@ func appleSiliconPrivateNetworkList() *core.Command {
 		Resource:  "private-network",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -695,12 +1050,12 @@ func appleSiliconPrivateNetworkList() *core.Command {
 				scw.Zone(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPIListServerPrivateNetworksRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -723,7 +1078,7 @@ func appleSiliconPrivateNetworkDelete() *core.Command {
 		Resource:  "private-network",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest{}),
+		ArgsType: reflect.TypeFor[applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -744,12 +1099,12 @@ func appleSiliconPrivateNetworkDelete() *core.Command {
 				scw.ZoneFrPar3,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*applesilicon.PrivateNetworkAPIDeleteServerPrivateNetworkRequest)
 
 			client := core.ExtractClient(ctx)
 			api := applesilicon.NewPrivateNetworkAPI(client)
-			e = api.DeleteServerPrivateNetwork(request)
+			e = api.DeleteServerPrivateNetwork(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

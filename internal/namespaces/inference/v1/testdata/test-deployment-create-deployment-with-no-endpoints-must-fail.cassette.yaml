@@ -1,0 +1,39 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"details":[{"argument_name":"endpoints","help_message":"Deployments must
+      have at least one endpoint","reason":"required"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments
+    method: POST
+  response:
+    body: '{"details":[{"argument_name":"endpoints","help_message":"Deployments must
+      have at least one endpoint","reason":"required"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
+    headers:
+      Content-Length:
+      - "183"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Nov 2025 09:08:18 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge01)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 82b7e8cf-68cc-4f10-9168-87fc8f021e86
+    status: 400 Bad Request
+    code: 400
+    duration: ""

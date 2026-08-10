@@ -78,7 +78,7 @@ func Test_valueMapperPointersWithPointers(t *testing.T) {
 	src := struct {
 		Arg1 *string
 		Arg2 *int32
-	}{scw.StringPtr("1"), scw.Int32Ptr(1)}
+	}{new("1"), new(int32(1))}
 	dest := struct {
 		Arg1 *string
 		Arg2 *int32
@@ -155,8 +155,8 @@ func Test_valueMapperSliceStructPointer(t *testing.T) {
 				IPRange: scw.IPNet{
 					IPNet: *ipnet,
 				},
-				DestPortFrom: scw.Uint32Ptr(1000),
-				DestPortTo:   scw.Uint32Ptr(2000),
+				DestPortFrom: new(uint32(1000)),
+				DestPortTo:   new(uint32(2000)),
 				Position:     12,
 				Editable:     true,
 				Zone:         "zone",
@@ -205,7 +205,7 @@ func Test_valueMapperTags(t *testing.T) {
 }
 
 func Test_deleteRecursive(t *testing.T) {
-	m := map[string]interface{}{
+	m := map[string]any{
 		"delete":   "1",
 		"nodelete": 1,
 	}
@@ -220,8 +220,8 @@ func Test_deleteRecursive(t *testing.T) {
 }
 
 func Test_deleteRecursiveSlice(t *testing.T) {
-	m := map[string]interface{}{
-		"slice": []map[string]interface{}{
+	m := map[string]any{
+		"slice": []map[string]any{
 			{
 				"delete":   "1",
 				"nodelete": 1,
@@ -231,7 +231,7 @@ func Test_deleteRecursiveSlice(t *testing.T) {
 
 	editor.DeleteRecursive(m, "delete")
 
-	slice := m["slice"].([]map[string]interface{})
+	slice := m["slice"].([]map[string]any)
 	_, deleteExists := slice[0]["delete"]
 	_, nodeleteExists := slice[0]["nodelete"]
 

@@ -12,20 +12,20 @@ type Alias struct {
 	args []string
 }
 
-func (a *Alias) computeArgs() {
-	a.args = []string{}
-	for _, cmd := range a.Command {
-		argSplitterIndex := strings.Index(cmd, "=")
-		if argSplitterIndex != -1 {
-			a.args = append(a.args, cmd[:argSplitterIndex])
-		}
-	}
-}
-
 func (a *Alias) Args() []string {
 	if a.args == nil {
 		a.computeArgs()
 	}
 
 	return a.args
+}
+
+func (a *Alias) computeArgs() {
+	a.args = []string{}
+	for _, cmd := range a.Command {
+		before, _, ok := strings.Cut(cmd, "=")
+		if ok {
+			a.args = append(a.args, before)
+		}
+	}
 }

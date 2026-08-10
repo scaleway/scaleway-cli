@@ -1,11 +1,11 @@
 package instance_test
 
 import (
-	"fmt"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
+	file "github.com/scaleway/scaleway-cli/v2/internal/namespaces/file/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
@@ -327,7 +327,7 @@ func Test_CreateServer(t *testing.T) {
 				block.GetCommands(),
 			),
 			BeforeFunc: core.BeforeFuncCombine(
-				createSbsVolume("Volume", 20),
+				createSbsVolume(20),
 			),
 			Cmd: testServerCommand(
 				"image=ubuntu_jammy additional-volumes.0={{.Volume.ID}} stopped=true",
@@ -380,7 +380,7 @@ func Test_CreateServer(t *testing.T) {
 				block.GetCommands(),
 			),
 			BeforeFunc: core.BeforeFuncCombine(
-				createSbsVolume("Volume", 20),
+				createSbsVolume(20),
 			),
 			Cmd: testServerCommand("image=none root-volume={{.Volume.ID}} stopped=true"),
 			Check: core.TestCheckCombine(
@@ -453,8 +453,9 @@ func Test_CreateServer(t *testing.T) {
 
 					api := blockSDK.NewAPI(ctx.Client)
 					vol, err := api.WaitForVolume(&blockSDK.WaitForVolumeRequest{
-						VolumeID: rootVolume.ID,
-						Zone:     rootVolume.Zone,
+						VolumeID:      rootVolume.ID,
+						Zone:          rootVolume.Zone,
+						RetryInterval: core.DefaultRetryInterval,
 					})
 					require.NoError(t, err)
 					assert.NotNil(t, vol.Specs)
@@ -687,12 +688,13 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too low 3", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createVolume("Volume", 5, instanceSDK.VolumeVolumeTypeLSSD),
+		BeforeFunc: createVolume(5),
 		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }}"),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
+		AfterFunc:       deleteVolume(),
 		DisableParallel: true,
 	}))
 
@@ -720,7 +722,7 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: invalid total local volumes size: too high 3", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
+		BeforeFunc: createVolume(20),
 		Cmd: testServerCommand(
 			"image=ubuntu_jammy root-volume={{ .Volume.ID }} additional-volumes.0=local:10GB",
 		),
@@ -728,7 +730,7 @@ func Test_CreateServerErrors(t *testing.T) {
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
+		AfterFunc:       deleteVolume(),
 		DisableParallel: true,
 	}))
 
@@ -746,13 +748,13 @@ func Test_CreateServerErrors(t *testing.T) {
 
 	t.Run("Error: disallow existing root volume ID", core.Test(&core.TestConfig{
 		Commands:   instance.GetCommands(),
-		BeforeFunc: createVolume("Volume", 20, instanceSDK.VolumeVolumeTypeLSSD),
+		BeforeFunc: createVolume(20),
 		Cmd:        testServerCommand("image=ubuntu_jammy root-volume={{ .Volume.ID }}"),
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
 		),
-		AfterFunc:       deleteVolume("Volume"),
+		AfterFunc:       deleteVolume(),
 		DisableParallel: true,
 	}))
 
@@ -873,36 +875,35 @@ func Test_CreateServerErrors(t *testing.T) {
 	}))
 }
 
-func Test_CreateServerScratchStorage(t *testing.T) {
-	t.Run("Default scratch storage", core.Test(&core.TestConfig{
-		Commands: instance.GetCommands(),
-		Cmd:      "scw instance server create type=H100-1-80G image=ubuntu_jammy_gpu_os_12 zone=fr-par-2",
+func Test_AttachFilesystem(t *testing.T) {
+	t.Run("attach filesystem", core.Test(&core.TestConfig{
+		Commands: core.NewCommandsMerge(
+			instance.GetCommands(),
+			file.GetCommands(),
+		),
+		BeforeFunc: core.BeforeFuncCombine(
+			core.ExecStoreBeforeCmd(
+				"FileSystem",
+				"scw file filesystem create name=instance-fs-cli size=100000000000",
+			),
+			core.ExecStoreBeforeCmd(
+				"Server",
+				testServerCommand("stopped=true image=ubuntu-jammy type=POP2-2C-8G"),
+			),
+		),
+		Cmd: "scw instance server attach-filesystem server-id={{ .Server.ID }} filesystem-id={{ .FileSystem.ID }}",
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
-			func(_ *testing.T, ctx *core.CheckFuncCtx) {
-				fmt.Println(ctx.LogBuffer)
-			},
 			core.TestCheckExitCode(0),
-			func(t *testing.T, ctx *core.CheckFuncCtx) {
-				t.Helper()
-				serverResponse, isServerResponse := ctx.Result.(*instance.ServerWithWarningsResponse)
-				if !isServerResponse {
-					t.Fatalf("Result is not a server")
-				}
-				server := serverResponse.Server
-				additionalVolume, exist := server.Volumes["1"]
-				if !exist {
-					t.Fatalf("Expected an additional scratch volume, found none")
-				}
-				assert.Equal(
-					t,
-					instanceSDK.VolumeServerVolumeTypeScratch,
-					additionalVolume.VolumeType,
-				)
-			},
 		),
-		AfterFunc: core.ExecAfterCmd(
-			"scw instance server delete {{ .CmdResult.ID }} zone=fr-par-2 with-volumes=all with-ip=true force-shutdown=true",
+		AfterFunc: core.AfterFuncCombine(
+			core.ExecAfterCmd(
+				"scw instance server detach-filesystem server-id={{ .Server.ID }} filesystem-id={{ .FileSystem.ID }}",
+			),
+			deleteServer("Server"),
+			core.ExecAfterCmd(
+				"scw file filesystem delete {{ .FileSystem.ID }}",
+			),
 		),
 		DisableParallel: true,
 	}))

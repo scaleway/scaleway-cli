@@ -3,23 +3,23 @@ package cache
 import "strings"
 
 type Cache struct {
-	m map[string]interface{}
+	m map[string]any
 }
 
 func New() *Cache {
 	return &Cache{
-		m: map[string]interface{}{},
+		m: map[string]any{},
 	}
 }
 
-func (c *Cache) Set(cmd string, resp interface{}) {
+func (c *Cache) Set(cmd string, resp any) {
 	if c == nil {
 		return
 	}
 	c.m[cmd] = resp
 }
 
-func (c *Cache) Get(cmd string) interface{} {
+func (c *Cache) Get(cmd string) any {
 	if c == nil {
 		return nil
 	}

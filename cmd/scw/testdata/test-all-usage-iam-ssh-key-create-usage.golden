@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Add a new SSH key to a Scaleway Project. You must specify the `name`, `public_key` and `project_id`.
 
 USAGE:
@@ -11,11 +11,12 @@ EXAMPLES:
 
 ARGS:
   name=<generated>   Name of the SSH key. Max length is 1000
-  public-key         SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000
+  public-key         SSH public key. Currently only the ssh-rsa, ssh-dss (DSA), ssh-ed25519 and ecdsa keys with NIST curves are supported. Max length is 65000 (Support file loading with @/path/to/file)
   [project-id]       Project ID to use. If none is passed the default project ID will be used
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

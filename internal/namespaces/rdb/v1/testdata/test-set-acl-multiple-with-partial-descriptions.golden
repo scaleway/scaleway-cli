@@ -1,0 +1,49 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ 3 ACL rules successfully added.
+IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
+0.0.0.0/0   tcp       inbound    allow   Allow All    24134
+1.1.1.1/32  tcp       inbound    allow   first        24134
+2.2.2.2/32  tcp       inbound    allow   second       24134
+3.3.3.3/32  tcp       inbound    allow   third        24134
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "Rules": [
+    {
+      "ip": "0.0.0.0/0",
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "Allow All",
+      "port": 24134
+    },
+    {
+      "ip": "1.1.1.1/32",
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "first",
+      "port": 24134
+    },
+    {
+      "ip": "2.2.2.2/32",
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "second",
+      "port": 24134
+    },
+    {
+      "ip": "3.3.3.3/32",
+      "protocol": "tcp",
+      "direction": "inbound",
+      "action": "allow",
+      "description": "third",
+      "port": 24134
+    }
+  ],
+  "Success": {
+    "message": "3 ACL rules successfully added",
+    "details": ""
+  }
+}

@@ -1,0 +1,260 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 371
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-ns-practical-tharp","tags":null,"server_tags":["cli-tpl"],"server_type":"DEV1-L","volumes":[{"volume_type":"l_ssd","name":"cli-tpl","tags":null,"size":20000000000,"image_label":"ubuntu_resolute","perf_iops":null}],"private_networks":null,"filesystem_ids":null,"public_ip_v4_count":1,"public_ip_v6_count":0}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 511
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "id":"01619053-8ad4-4bff-8372-da14fdc01cc4", "name":"cli-ns-practical-tharp", "tags":[], "server_tags":["cli-tpl"], "server_type":"DEV1-L", "public_ip_v4_count":1, "public_ip_v6_count":0, "volumes":[{"volume_type":"l_ssd", "name":"cli-tpl", "tags":[], "size":20000000000, "image_label":"ubuntu_resolute"}], "private_networks":[], "filesystem_ids":[], "created_at":"2026-08-04T12:38:13.379541Z", "updated_at":"2026-08-04T12:38:13.379541Z", "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "511"
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:13 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - 195f3263-6e03-41df-a3bc-2845c1b2d56e
+        status: 200 OK
+        code: 200
+        duration: 263.676676ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 32
+        host: api.scaleway.com
+        body: '{"name":"cli-tmpl-crazy-wilson"}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates/01619053-8ad4-4bff-8372-da14fdc01cc4/create-server
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 826
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "id":"366c0ab6-a341-42e6-8379-933b2e9e8161", "name":"cli-tmpl-crazy-wilson", "tags":["cli-tpl"], "server_type":"DEV1-L", "status":"stopped", "volumes":[{"id":"6d93a25f-c5d1-4b07-9d1c-e06ec780328f", "volume_type":"l_ssd"}], "filesystems":[], "architecture":"x86_64", "created_at":"2026-08-04T12:38:13.597092Z", "updated_at":"2026-08-04T12:38:13.597092Z", "private_network_interfaces":[], "rescue_mode":false, "status_detail":"", "public_network_interface":{"status":"available", "mac_address":"de:00:01:28:dd:e7", "security_group_id":"da505169-540e-4c2b-b0da-c854139224e0", "ips":[{"id":"43f46915-02cd-436d-84fe-dea69efaa7da", "dynamic":false, "status":"attached", "default":false}], "dns":"366c0ab6-a341-42e6-8379-933b2e9e8161.pub.instances.scw.cloud"}, "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "826"
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - f554010a-f34e-48a4-ac73-4c8c770d3b3b
+        status: 200 OK
+        code: 200
+        duration: 601.090142ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 2
+        host: api.scaleway.com
+        body: '{}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/templates/01619053-8ad4-4bff-8372-da14fdc01cc4
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - 916cf874-7774-47d6-8ba2-3f81c8401297
+        status: 204 No Content
+        code: 204
+        duration: 110.265426ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/366c0ab6-a341-42e6-8379-933b2e9e8161
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 2151
+        body: '{"server": {"id": "366c0ab6-a341-42e6-8379-933b2e9e8161", "name": "cli-tmpl-crazy-wilson", "arch": "x86_64", "commercial_type": "DEV1-L", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-tmpl-crazy-wilson", "image": null, "volumes": {"0": {"boot": false, "id": "6d93a25f-c5d1-4b07-9d1c-e06ec780328f", "name": "cli-tpl", "volume_type": "l_ssd", "export_uri": null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "server": {"id": "366c0ab6-a341-42e6-8379-933b2e9e8161", "name": "cli-tmpl-crazy-wilson"}, "size": 20000000000, "state": "available", "creation_date": "2026-08-04T12:38:13.597092+00:00", "modification_date": "2026-08-04T12:38:13.597092+00:00", "tags": [], "zone": "fr-par-1"}}, "tags": ["cli-tpl"], "state": "stopped", "protected": false, "state_detail": "", "public_ip": {"id": "43f46915-02cd-436d-84fe-dea69efaa7da", "address": "51.15.210.153", "dynamic": false, "gateway": "62.210.0.1", "netmask": "32", "family": "inet", "provisioning_mode": "dhcp", "tags": [], "state": "attached", "ipam_id": "43f46915-02cd-436d-84fe-dea69efaa7da"}, "public_ips": [{"id": "43f46915-02cd-436d-84fe-dea69efaa7da", "address": "51.15.210.153", "dynamic": false, "gateway": "62.210.0.1", "netmask": "32", "family": "inet", "provisioning_mode": "dhcp", "tags": [], "state": "attached", "ipam_id": "43f46915-02cd-436d-84fe-dea69efaa7da"}], "mac_address": "de:00:01:28:dd:e7", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-08-04T12:38:13.597092+00:00", "modification_date": "2026-08-04T12:38:13.597092+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "366c0ab6-a341-42e6-8379-933b2e9e8161.pub.instances.scw.cloud"}}'
+        headers:
+            Content-Length:
+                - "2151"
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - 2d5ca3b1-6b9f-4832-bd81-c8482254c0c4
+        status: 200 OK
+        code: 200
+        duration: 110.974129ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/366c0ab6-a341-42e6-8379-933b2e9e8161
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - bdee3392-d3a4-4e6f-9e68-3bd783657490
+        status: 204 No Content
+        code: 204
+        duration: 197.349073ms
+    - id: 5
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/ips/43f46915-02cd-436d-84fe-dea69efaa7da
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - bc001e17-422b-421a-a297-3d2240151fd3
+        status: 204 No Content
+        code: 204
+        duration: 232.420418ms
+    - id: 6
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/6d93a25f-c5d1-4b07-9d1c-e06ec780328f
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 429
+        body: '{"volume": {"id": "6d93a25f-c5d1-4b07-9d1c-e06ec780328f", "name": "cli-tpl", "volume_type": "l_ssd", "export_uri": null, "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "server": null, "size": 20000000000, "state": "available", "creation_date": "2026-08-04T12:38:13.597092+00:00", "modification_date": "2026-08-04T12:38:14.304430+00:00", "tags": [], "zone": "fr-par-1"}}'
+        headers:
+            Content-Length:
+                - "429"
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - 39fe46a1-e25a-415f-bcab-b5c166438f9f
+        status: 200 OK
+        code: 200
+        duration: 64.686766ms
+    - id: 7
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/volumes/6d93a25f-c5d1-4b07-9d1c-e06ec780328f
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Tue, 04 Aug 2026 12:38:14 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Request-Id:
+                - 496f168a-77f3-4f16-9308-54d1ef40ca2a
+        status: 204 No Content
+        code: 204
+        duration: 112.421311ms

@@ -1,16 +1,18 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Update the parameters of an existing route stage, specified by its `route_stage_id`.
 
 USAGE:
   scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 
 ARGS:
-  route-stage-id   ID of the route stage to update
-  [waf-stage-id]   ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
+  route-stage-id       ID of the route stage to update
+  [waf-stage-id]       ID of the WAF stage HTTP requests should be forwarded to when no rules are matched
+  [backend-stage-id]   ID of the backend stage HTTP requests should be forwarded to when no rules are matched
 
 FLAGS:
-  -h, --help   help for update
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

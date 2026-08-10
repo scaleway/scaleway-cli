@@ -1,0 +1,97 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
+      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments
+    method: POST
+  response:
+    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"creating", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
+      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "633"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Nov 2025 09:09:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f0106441-06b9-4823-81b4-7c37ee980386
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deleting", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
+      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
+    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments/956f2366-8cf5-439a-9dbc-5a0ee3036465
+    method: DELETE
+  response:
+    body: '{"id":"956f2366-8cf5-439a-9dbc-5a0ee3036465", "name":"cli-inference-cranky-antonelli",
+      "project_id":"d3520a52-2c75-4ba0-bda8-82dd087f07f2", "status":"deleting", "tags":[],
+      "node_type_name":"H100-2", "endpoints":[{"id":"79319256-5e07-4b5a-8c08-b81f1c585b26",
+      "url":"https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
+      "public_network":{}, "disable_auth":false}], "size":0, "min_size":1, "max_size":1,
+      "created_at":"2025-11-21T09:09:19.102950Z", "updated_at":null, "model_id":"739d51ae-4f1e-4193-a4bf-f7380c090d46",
+      "quantization":{"bits":4}, "model_name":"qwen/qwen3-235b-a22b-instruct-2507:awq",
+      "region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "633"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Fri, 21 Nov 2025 09:09:19 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-2;edge02)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - ba264636-62c4-4e7f-8246-97c02bbf99d8
+    status: 200 OK
+    code: 200
+    duration: ""

@@ -2,9 +2,8 @@ package core
 
 import (
 	"context"
-	"fmt"
 	"reflect"
-	"sort"
+	"regexp"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -94,20 +93,23 @@ type Command struct {
 	Groups []string
 	//
 	Deprecated bool
+
+	// ExcludeFromMCP will exclude the command from the MCP server (scw mcp server)
+	ExcludeFromMCP bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
-type CommandPreValidateFunc func(ctx context.Context, argsI interface{}) error
+type CommandPreValidateFunc func(ctx context.Context, argsI any) error
 
 // CommandInterceptor allow to intercept and manipulate a runner arguments and return value.
 // It can for example be used to change arguments type or catch runner errors.
-type CommandInterceptor func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error)
+type CommandInterceptor func(ctx context.Context, argsI any, runner CommandRunner) (any, error)
 
 // CommandRunner returns the command response or an error.
-type CommandRunner func(ctx context.Context, argsI interface{}) (interface{}, error)
+type CommandRunner func(ctx context.Context, argsI any) (any, error)
 
 // WaitFunc returns the updated response (respI if unchanged) or an error.
-type WaitFunc func(ctx context.Context, argsI, respI interface{}) (interface{}, error)
+type WaitFunc func(ctx context.Context, argsI, respI any) (any, error)
 
 const indexCommandSeparator = "."
 
@@ -115,26 +117,6 @@ const indexCommandSeparator = "."
 func (c *Command) Override(builder func(command *Command) *Command) {
 	// Assign the value in case the builder creates a new Command object.
 	*c = *builder(c)
-}
-
-func (c *Command) getPath() string {
-	if c.path != "" {
-		return c.path
-	}
-	path := []string(nil)
-	if c.Namespace != "" {
-		path = append(path, c.Namespace)
-	}
-	if c.Resource != "" {
-		path = append(path, c.Resource)
-	}
-	if c.Verb != "" {
-		path = append(path, c.Verb)
-	}
-
-	c.path = strings.Join(path, indexCommandSeparator)
-
-	return c.path
 }
 
 func (c *Command) GetCommandLine(binaryName string) string {
@@ -162,24 +144,6 @@ func (c *Command) GetUsage(binaryName string, commands *Commands) string {
 	return strings.Join(parts, " ")
 }
 
-// seeAlsosAsStr returns all See Alsos as a single string
-func (c *Command) seeAlsosAsStr() string {
-	seeAlsos := make([]string, 0, len(c.SeeAlsos))
-
-	for _, cmdSeeAlso := range c.SeeAlsos {
-		short := "  # " + cmdSeeAlso.Short
-		commandStr := "  " + cmdSeeAlso.Command
-
-		seeAlsoLines := []string{
-			short,
-			commandStr,
-		}
-		seeAlsos = append(seeAlsos, strings.Join(seeAlsoLines, "\n"))
-	}
-
-	return strings.Join(seeAlsos, "\n\n")
-}
-
 // AddInterceptors add one or multiple interceptors to a command.
 // These new interceptors will be added after the already present interceptors (if any).
 func (c *Command) AddInterceptors(interceptors ...CommandInterceptor) {
@@ -204,145 +168,94 @@ func (c *Command) MatchAlias(alias alias.Alias) bool {
 	return true
 }
 
-// Commands represent a list of CLI commands, with a index to allow searching.
-type Commands struct {
-	commands     []*Command
-	commandIndex map[string]*Command
-}
-
-func NewCommands(cmds ...*Command) *Commands {
-	c := &Commands{
-		commands:     make([]*Command, 0, len(cmds)),
-		commandIndex: make(map[string]*Command, len(cmds)),
+// Copy returns a copy of a command
+func (c *Command) Copy() *Command {
+	newCommand := *c
+	newCommand.Aliases = append([]string(nil), c.Aliases...)
+	newCommand.Examples = make([]*Example, len(c.Examples))
+	for i := range c.Examples {
+		newCommand.Examples[i] = new(*c.Examples[i])
+	}
+	newCommand.SeeAlsos = make([]*SeeAlso, len(c.SeeAlsos))
+	for i := range c.SeeAlsos {
+		newCommand.SeeAlsos[i] = new(*c.SeeAlsos[i])
 	}
 
-	for _, cmd := range cmds {
-		c.Add(cmd)
-	}
-
-	return c
+	return &newCommand
 }
 
-func NewCommandsMerge(cmdsList ...*Commands) *Commands {
-	cmdCount := 0
-	for _, cmds := range cmdsList {
-		cmdCount += len(cmds.commands)
-	}
-	c := &Commands{
-		commands:     make([]*Command, 0, cmdCount),
-		commandIndex: make(map[string]*Command, cmdCount),
-	}
-	for _, cmds := range cmdsList {
-		for _, cmd := range cmds.commands {
-			c.Add(cmd)
-		}
-	}
-
-	return c
+func (c *Command) DebugString() string {
+	return c.getPath()
 }
 
-func (c *Commands) MustFind(path ...string) *Command {
-	cmd, exist := c.find(path...)
-	if exist {
-		return cmd
-	}
-
-	panic(fmt.Errorf("command %v not found", strings.Join(path, " ")))
-}
-
-func (c *Commands) Find(path ...string) *Command {
-	cmd, exist := c.find(path...)
-	if exist {
-		return cmd
-	}
-
-	return nil
-}
-
-func (c *Commands) Remove(namespace, verb string) {
-	for i := range c.commands {
-		if c.commands[i].Namespace == namespace && c.commands[i].Verb == verb {
-			c.commands = append(c.commands[:i], c.commands[i+1:]...)
-
-			return
-		}
-	}
-}
-
-func (c *Commands) RemoveResource(namespace, resource string) {
-	for i := range c.commands {
-		if c.commands[i].Namespace == namespace && c.commands[i].Resource == resource &&
-			c.commands[i].Verb == "" {
-			c.commands = append(c.commands[:i], c.commands[i+1:]...)
-
-			return
-		}
-	}
-}
-
-func (c *Commands) Add(cmd *Command) {
-	c.commands = append(c.commands, cmd)
-	c.commandIndex[cmd.getPath()] = cmd
-}
-
-func (c *Commands) Merge(cmds *Commands) {
-	for _, cmd := range cmds.commands {
-		c.Add(cmd)
-	}
-}
-
-func (c *Commands) MergeAll(cmds ...*Commands) {
-	for _, command := range cmds {
-		c.Merge(command)
-	}
-}
-
-func (c *Commands) GetAll() []*Command {
-	return c.commands
-}
-
-// find must take the command path, eg. find("instance","get","server")
-func (c *Commands) find(path ...string) (*Command, bool) {
-	cmd, exist := c.commandIndex[strings.Join(path, indexCommandSeparator)]
-	if exist {
-		return cmd, true
-	}
-
-	return nil, false
-}
-
-// GetSortedCommand returns a slice of commands sorted alphabetically
-func (c *Commands) GetSortedCommand() []*Command {
-	commands := make([]*Command, len(c.commands))
-	copy(commands, c.commands)
-	sort.Slice(commands, func(i, j int) bool {
-		return commands[i].signature() < commands[j].signature()
-	})
-
-	return commands
-}
-
-func (c *Commands) HasSubCommands(cmd *Command) bool {
-	if cmd.Namespace != "" && cmd.Resource != "" && cmd.Verb != "" {
+// IsReadOnly returns true if the command is a read-only operation
+// (get, list, get-*, list-*, or wait verbs)
+func (c *Command) IsReadOnly() bool {
+	if c.Verb == "" {
 		return false
 	}
-	if cmd.Namespace == "" && cmd.Resource == "" && cmd.Verb == "" {
+
+	readOnlyPattern := regexp.MustCompile(`^(get|list)$|^get-|^list-|^wait`)
+
+	if readOnlyPattern.MatchString(c.Verb) {
 		return true
-	}
-	for _, command := range c.commands {
-		if command == cmd {
-			continue
-		}
-		if cmd.Resource == "" && cmd.Namespace == command.Namespace {
-			return true
-		}
-		if cmd.Verb == "" && cmd.Namespace == command.Namespace &&
-			cmd.Resource == command.Resource {
-			return true
-		}
 	}
 
 	return false
+}
+
+// IsList returns true if the command is a list operation
+func (c *Command) IsList() bool {
+	if c.Verb == "" {
+		return false
+	}
+
+	listPattern := regexp.MustCompile(`^(list)$|^(list-*)`)
+
+	if listPattern.MatchString(c.Verb) {
+		return true
+	}
+
+	return false
+}
+
+func (c *Command) IsDestructive() bool {
+	if c.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return false
+	}
+
+	// Non-destructive (read-only) verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	nonDestructivePattern := regexp.MustCompile(`^(get|list)$|^get-|^wait`)
+
+	if nonDestructivePattern.MatchString(c.Verb) {
+		return false
+	}
+
+	// Default: assume destructive for unknown verbs that modify state
+	return true
+}
+
+func (c *Command) IsIdempotent() bool {
+	if c.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return false
+	}
+
+	// Idempotent verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	idempotentPattern := regexp.MustCompile(`^(get|list)$|^get-|^wait`)
+
+	if idempotentPattern.MatchString(c.Verb) {
+		return true
+	}
+
+	// All other verbs are not idempotent
+	return false
+}
+
+// get a signature to sort commands
+func (c *Command) signature() string {
+	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
 }
 
 func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
@@ -353,98 +266,40 @@ func (c *Command) getHumanMarshalerOpt() *human.MarshalOpt {
 	return nil
 }
 
-// get a signature to sort commands
-func (c *Command) signature() string {
-	return c.Namespace + " " + c.Resource + " " + c.Verb + " " + c.Short
-}
+// seeAlsosAsStr returns all See Alsos as a single string
+func (c *Command) seeAlsosAsStr() string {
+	seeAlsos := make([]string, 0, len(c.SeeAlsos))
 
-// AliasIsValidCommandChild returns true is alias is a valid child command of given command
-// Useful for this case:
-// isl => instance server list
-// valid child of "instance"
-// invalid child of "rdb instance"
-func (c *Commands) AliasIsValidCommandChild(command *Command, alias alias.Alias) bool {
-	// if alias is of size one, it means it cannot be a child
-	if len(alias.Command) == 1 {
-		return true
-	}
+	for _, cmdSeeAlso := range c.SeeAlsos {
+		short := "  # " + cmdSeeAlso.Short
+		commandStr := "  " + cmdSeeAlso.Command
 
-	// if command is verb, it cannot have children
-	if command.Verb != "" {
-		return true
-	}
-
-	// if command is a resource, check command with alias' verb
-	if command.Resource != "" {
-		return c.Find(command.Namespace, command.Resource, alias.Command[1]) != nil
-	}
-
-	// if command is a namespace, check for alias' verb or resource
-	if command.Namespace != "" {
-		if len(alias.Command) > 2 {
-			return c.Find(command.Namespace, alias.Command[1], alias.Command[2]) != nil
+		seeAlsoLines := []string{
+			short,
+			commandStr,
 		}
-
-		return c.Find(command.Namespace, alias.Command[1]) != nil
+		seeAlsos = append(seeAlsos, strings.Join(seeAlsoLines, "\n"))
 	}
 
-	return false
+	return strings.Join(seeAlsos, "\n\n")
 }
 
-// addAliases add valid aliases to a command
-func (c *Commands) addAliases(command *Command, aliases []alias.Alias) {
-	names := make([]string, 0, len(aliases))
-	for i := range aliases {
-		if c.AliasIsValidCommandChild(command, aliases[i]) && command.MatchAlias(aliases[i]) {
-			names = append(names, aliases[i].Name)
-		}
+func (c *Command) getPath() string {
+	if c.path != "" {
+		return c.path
 	}
-	command.Aliases = append(command.Aliases, names...)
-}
-
-// applyAliases add resource aliases to each commands
-func (c *Commands) applyAliases(config *alias.Config) {
-	for _, command := range c.commands {
-		aliases := []alias.Alias(nil)
-		exists := false
-		switch {
-		case command.Verb != "":
-			aliases, exists = config.ResolveAliasesByFirstWord(command.Verb)
-		case command.Resource != "":
-			aliases, exists = config.ResolveAliasesByFirstWord(command.Resource)
-		case command.Namespace != "":
-			aliases, exists = config.ResolveAliasesByFirstWord(command.Namespace)
-		}
-		if exists {
-			c.addAliases(command, aliases)
-		}
+	path := []string(nil)
+	if c.Namespace != "" {
+		path = append(path, c.Namespace)
 	}
-}
-
-// Copy returns a copy of a command
-func (c *Command) Copy() *Command {
-	newCommand := *c
-	newCommand.Aliases = append([]string(nil), c.Aliases...)
-	newCommand.Examples = make([]*Example, len(c.Examples))
-	for i := range c.Examples {
-		e := *c.Examples[i]
-		newCommand.Examples[i] = &e
+	if c.Resource != "" {
+		path = append(path, c.Resource)
 	}
-	newCommand.SeeAlsos = make([]*SeeAlso, len(c.SeeAlsos))
-	for i := range c.SeeAlsos {
-		sa := *c.SeeAlsos[i]
-		newCommand.SeeAlsos[i] = &sa
+	if c.Verb != "" {
+		path = append(path, c.Verb)
 	}
 
-	return &newCommand
-}
+	c.path = strings.Join(path, indexCommandSeparator)
 
-// Copy return a copy of all commands
-func (c *Commands) Copy() *Commands {
-	newCommands := make([]*Command, len(c.commands))
-	for i := range c.commands {
-		newCommands[i] = c.commands[i].Copy()
-	}
-
-	return NewCommands(newCommands...)
+	return c.path
 }

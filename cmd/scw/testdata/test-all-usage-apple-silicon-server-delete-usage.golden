@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete an existing Apple silicon server, specified by its server ID. Deleting a server is permanent, and cannot be undone. Note that the minimum allocation period for Apple silicon-as-a-service is 24 hours, meaning you cannot delete your server prior to that.
 
 USAGE:
@@ -10,8 +10,9 @@ ARGS:
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-3)
 
 FLAGS:
-  -h, --help   help for delete
-  -w, --wait   wait until the server is ready
+  -h, --help                help for delete
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the server is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

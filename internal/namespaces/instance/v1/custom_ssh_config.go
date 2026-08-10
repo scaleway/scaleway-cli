@@ -5,6 +5,7 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -27,14 +28,8 @@ type sshConfigServer struct {
 	PrivateNetworksID []string
 }
 
-func (s sshConfigServer) InPrivateNetwork(id string) bool {
-	for _, pnID := range s.PrivateNetworksID {
-		if pnID == id {
-			return true
-		}
-	}
-
-	return false
+func (s *sshConfigServer) InPrivateNetwork(id string) bool {
+	return slices.Contains(s.PrivateNetworksID, id)
 }
 
 type sshConfigInstallRequest struct {
@@ -58,7 +53,7 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(availableZones...),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshConfigInstallRequest)
 			homeDir := core.ExtractUserHomeDir(ctx)
 
@@ -88,7 +83,7 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 				if server.Address == "" {
 					continue
 				}
-				hosts = append(hosts, sshconfig.SimpleHost{
+				hosts = append(hosts, &sshconfig.SimpleHost{
 					Name:    server.Name,
 					Address: server.Address,
 				})
@@ -119,7 +114,9 @@ Do you want the include statement to be added at the beginning of your file ?`,
 				if errors.Is(err, sshconfig.ErrFileNotFound) {
 					includePrompt += "\nFile was not found, it will be created"
 				} else {
-					logger.Warningf("Failed to check default config file, skipping include prompt\n")
+					logger.Warningf(
+						"Failed to check default config file, skipping include prompt\n",
+					)
 
 					return &core.SuccessResult{
 						Message: configFileGeneratedMessage + " " + configFilePath,
@@ -134,9 +131,8 @@ Do you want the include statement to be added at the beginning of your file ?`,
 				}, nil
 			}
 
-			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(
+			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(ctx,
 				&interactive.PromptBoolConfig{
-					Ctx:          ctx,
 					Prompt:       includePrompt,
 					DefaultValue: true,
 				},
@@ -348,7 +344,7 @@ func sshConfigBastionHosts(
 				}
 			}
 
-			hosts = append(hosts, bastionHost)
+			hosts = append(hosts, &bastionHost)
 		}
 	}
 

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Clone a policy. You must define specify the `policy_id` parameter in your request.
 
 USAGE:
@@ -9,7 +9,8 @@ ARGS:
   policy-id   
 
 FLAGS:
-  -h, --help   help for clone
+  -h, --help                help for clone
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

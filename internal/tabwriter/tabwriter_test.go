@@ -18,10 +18,6 @@ type buffer struct {
 	a []byte
 }
 
-func (b *buffer) init(n int) { b.a = make([]byte, 0, n) }
-
-func (b *buffer) clear() { b.a = b.a[0:0] }
-
 func (b *buffer) Write(buf []byte) (written int, err error) {
 	n := len(b.a)
 	m := len(buf)
@@ -38,6 +34,10 @@ func (b *buffer) Write(buf []byte) (written int, err error) {
 }
 
 func (b *buffer) String() string { return string(b.a) }
+
+func (b *buffer) init(n int) { b.a = make([]byte, 0, n) }
+
+func (b *buffer) clear() { b.a = b.a[0:0] }
 
 func write(t *testing.T, testname string, w *tabwriter.Writer, src string) {
 	t.Helper()
@@ -685,7 +685,7 @@ func Test(t *testing.T) {
 
 type panicWriter struct{}
 
-func (panicWriter) Write([]byte) (int, error) {
+func (*panicWriter) Write([]byte) (int, error) {
 	panic("cannot write")
 }
 
@@ -706,7 +706,7 @@ func TestPanicDuringFlush(t *testing.T) {
 	defer wantPanicString(t, "tabwriter: panic during Flush")
 	var p panicWriter
 	w := new(tabwriter.Writer)
-	w.Init(p, 0, 0, 5, ' ', 0)
+	w.Init(&p, 0, 0, 5, ' ', 0)
 	io.WriteString(w, "a")
 	w.Flush()
 	t.Errorf("failed to panic during Flush")
@@ -716,7 +716,7 @@ func TestPanicDuringWrite(t *testing.T) {
 	defer wantPanicString(t, "tabwriter: panic during Write")
 	var p panicWriter
 	w := new(tabwriter.Writer)
-	w.Init(p, 0, 0, 5, ' ', 0)
+	w.Init(&p, 0, 0, 5, ' ', 0)
 	io.WriteString(w, "a\n\n") // the second \n triggers a call to w.Write and thus a panic
 	t.Errorf("failed to panic during Write")
 }
@@ -840,7 +840,7 @@ lines
 
 func BenchmarkCode(b *testing.B) {
 	b.ReportAllocs()
-	for range b.N {
+	for b.Loop() {
 		w := tabwriter.NewWriter(
 			io.Discard,
 			4,

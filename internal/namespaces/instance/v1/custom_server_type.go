@@ -4,13 +4,13 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"sort"
 	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -30,6 +30,43 @@ var serverTypesAvailabilityMarshalSpecs = human.EnumMarshalSpecs{
 	},
 }
 
+// serverTypesListMarshalerFunc marshals a Server Type for the list view.
+// This is mostly done to discard local_volume_max_size from the human output but keep it in other outputs.
+func serverTypesListMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	// humanServerTypeInList is the custom ServerType type used for list view.
+	type humanServerTypeInList struct {
+		Name             string
+		HourlyPrice      *scw.Money
+		SupportedStorage string
+		CPU              uint32
+		GPU              uint32
+		RAM              scw.Size
+		Arch             string
+		Bandwidth        scw.Size
+		Availability     instance.ServerTypesAvailability
+		MaxFileSystems   *uint32
+	}
+
+	customServerTypes := i.([]*customServerType)
+	humanServerTypes := make([]*humanServerTypeInList, 0, len(customServerTypes))
+	for _, serverType := range customServerTypes {
+		humanServerTypes = append(humanServerTypes, &humanServerTypeInList{
+			Name:             serverType.Name,
+			HourlyPrice:      serverType.HourlyPrice,
+			SupportedStorage: serverType.SupportedStorage,
+			CPU:              serverType.CPU,
+			GPU:              serverType.GPU,
+			RAM:              serverType.RAM,
+			Arch:             serverType.Arch,
+			Bandwidth:        serverType.Bandwidth,
+			Availability:     serverType.Availability,
+			MaxFileSystems:   serverType.MaxFileSystems,
+		})
+	}
+
+	return human.Marshal(humanServerTypes, opt)
+}
+
 //
 // Builders
 //
@@ -38,56 +75,56 @@ type customServerType struct {
 	Name               string                           `json:"name"`
 	HourlyPrice        *scw.Money                       `json:"hourly_price"`
 	LocalVolumeMaxSize scw.Size                         `json:"local_volume_max_size"`
+	SupportedStorage   string                           `json:"supported_storage"`
 	CPU                uint32                           `json:"cpu"`
-	GPU                *uint64                          `json:"gpu"`
+	GPU                uint32                           `json:"gpu"`
 	RAM                scw.Size                         `json:"ram"`
-	Arch               instance.Arch                    `json:"arch"`
+	Arch               string                           `json:"arch"`
+	Bandwidth          scw.Size                         `json:"bandwidth"`
 	Availability       instance.ServerTypesAvailability `json:"availability"`
+	MaxFileSystems     *uint32                          `json:"max_file_systems"`
 }
 
 // serverTypeListBuilder transforms the server map into a list to display a
 // table of server types instead of a flat key/value list.
-// We need it for:
-// - [APIGW-1932] hide deprecated instance for scw instance server-type list
+// Most properties are now fetched from the PCU, including lifecycle status, and server types are displayed according
+// to said status.
 func serverTypeListBuilder(c *core.Command) *core.Command {
-	deprecatedNames := map[string]struct{}{
-		"START1-L":    {},
-		"START1-M":    {},
-		"START1-S":    {},
-		"START1-XS":   {},
-		"VC1L":        {},
-		"VC1M":        {},
-		"VC1S":        {},
-		"X64-120GB":   {},
-		"X64-15GB":    {},
-		"X64-30GB":    {},
-		"X64-60GB":    {},
-		"C1":          {},
-		"C2M":         {},
-		"C2L":         {},
-		"C2S":         {},
-		"ARM64-2GB":   {},
-		"ARM64-4GB":   {},
-		"ARM64-8GB":   {},
-		"ARM64-16GB":  {},
-		"ARM64-32GB":  {},
-		"ARM64-64GB":  {},
-		"ARM64-128GB": {},
-	}
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		pcuAPI := product_catalog.NewPublicCatalogAPI(core.ExtractClient(ctx))
+		instanceAPI := instance.NewAPI(core.ExtractClient(ctx))
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
-		api := instance.NewAPI(core.ExtractClient(ctx))
-
-		// Get server types.
+		// Get server types from Product Catalog API
 		request := argsI.(*instance.ListServersTypesRequest)
-		listServersTypesResponse, err := api.ListServersTypes(request, scw.WithAllPages())
+		instanceProductType := product_catalog.ListPublicCatalogProductsRequestProductTypeInstance
+		listServersTypesResponse, err := pcuAPI.ListPublicCatalogProducts(
+			&product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{
+				ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
+					instanceProductType,
+				},
+				Zone: &request.Zone,
+				Status: []product_catalog.ListPublicCatalogProductsRequestStatus{
+					product_catalog.ListPublicCatalogProductsRequestStatusPublicBeta,
+					product_catalog.ListPublicCatalogProductsRequestStatusPreview,
+					product_catalog.ListPublicCatalogProductsRequestStatusGeneralAvailability,
+					product_catalog.ListPublicCatalogProductsRequestStatusEndOfNewFeatures,
+				},
+			},
+			scw.WithAllPages(),
+			scw.WithContext(ctx),
+		)
 		if err != nil {
 			return nil, err
 		}
-		serverTypes := []*customServerType(nil)
+
+		// Get server types from Instance API (still needed for the number of file systems and local storage details)
+		computeServerTypes, err := instanceAPI.ListServersTypes(request, scw.WithAllPages())
+		if err != nil {
+			return nil, err
+		}
 
 		// Get server availabilities.
-		availabilitiesResponse, err := api.GetServerTypesAvailability(
+		availabilitiesResponse, err := instanceAPI.GetServerTypesAvailability(
 			&instance.GetServerTypesAvailabilityRequest{
 				Zone: request.Zone,
 			},
@@ -97,43 +134,72 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		for name, serverType := range listServersTypesResponse.Servers {
-			_, isDeprecated := deprecatedNames[name]
-			if isDeprecated {
-				continue
+		serverTypes := []*customServerType(nil)
+
+		for _, pcuServerType := range listServersTypesResponse.Products {
+			name := pcuServerType.Properties.Instance.OfferID
+			serverType := &customServerType{
+				Name: name,
 			}
 
-			serverTypeAvailability := instance.ServerTypesAvailability("unknown")
+			if pcuServerType.Price != nil && pcuServerType.Price.RetailPrice != nil {
+				serverType.HourlyPrice = pcuServerType.Price.RetailPrice
+
+				// Some instances types (GPU) are priced per minute, so we convert to an hourly price.
+				// We don't need to handle other duration for now.
+				if pcuServerType.UnitOfMeasure != nil &&
+					pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute &&
+					pcuServerType.UnitOfMeasure.Size == 1 {
+					nanos := moneyToNanos(serverType.HourlyPrice)
+					nanos *= 60
+					serverType.HourlyPrice = newMoneyFromNanos(
+						nanos,
+						serverType.HourlyPrice.CurrencyCode,
+					)
+				}
+			}
 
 			if availability, exists := availabilitiesResponse.Servers[name]; exists {
-				serverTypeAvailability = availability.Availability
+				serverType.Availability = availability.Availability
 			}
 
-			serverTypes = append(serverTypes, &customServerType{
-				Name: name,
-				HourlyPrice: scw.NewMoneyFromFloat(
-					float64(serverType.HourlyPrice),
-					"EUR",
-					3,
-				),
-				LocalVolumeMaxSize: serverType.VolumesConstraint.MaxSize,
-				CPU:                serverType.Ncpus,
-				GPU:                serverType.Gpu,
-				RAM:                scw.Size(serverType.RAM),
-				Arch:               serverType.Arch,
-				Availability:       serverTypeAvailability,
-			})
+			if computeServerType, ok := computeServerTypes.Servers[name]; ok {
+				serverType.MaxFileSystems = new(computeServerType.Capabilities.MaxFileSystems)
+				serverType.LocalVolumeMaxSize = computeServerType.VolumesConstraint.MaxSize
+			}
+
+			if pcuServerType.Properties.Hardware != nil {
+				if pcuServerType.Properties.Hardware.CPU != nil {
+					serverType.CPU = pcuServerType.Properties.Hardware.CPU.Virtual.Count
+					serverType.Arch = pcuServerType.Properties.Hardware.CPU.Arch.String()
+				}
+
+				if pcuServerType.Properties.Hardware.Gpu != nil {
+					serverType.GPU = pcuServerType.Properties.Hardware.Gpu.Count
+				}
+
+				if pcuServerType.Properties.Hardware.RAM != nil {
+					serverType.RAM = pcuServerType.Properties.Hardware.RAM.Size
+				}
+
+				if pcuServerType.Properties.Hardware.Storage != nil {
+					serverType.SupportedStorage = strings.Replace(
+						pcuServerType.Properties.Hardware.Storage.Description,
+						"Dynamic local: 1 x SSD",
+						"Local",
+						1,
+					)
+				}
+
+				if pcuServerType.Properties.Hardware.Network != nil {
+					serverType.Bandwidth = scw.Size(
+						pcuServerType.Properties.Hardware.Network.MaxPublicBandwidth,
+					)
+				}
+			}
+
+			serverTypes = append(serverTypes, serverType)
 		}
-
-		sort.Slice(serverTypes, func(i, j int) bool {
-			categoryA := serverTypeCategory(serverTypes[i].Name)
-			categoryB := serverTypeCategory(serverTypes[j].Name)
-			if categoryA != categoryB {
-				return categoryA < categoryB
-			}
-
-			return serverTypes[i].HourlyPrice.ToFloat() < serverTypes[j].HourlyPrice.ToFloat()
-		})
 
 		return serverTypes, nil
 	}
@@ -141,12 +207,22 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 	return c
 }
 
-func serverTypeCategory(serverTypeName string) (category string) {
-	return strings.Split(serverTypeName, "-")[0]
+// TODO: moneyToNanos() and newMoneyFromNanos() should be moved to the Go SDK.
+
+func moneyToNanos(m *scw.Money) int64 {
+	return m.Units*1e9 + int64(m.Nanos)
+}
+
+func newMoneyFromNanos(value int64, currencyCode string) *scw.Money {
+	return &scw.Money{
+		CurrencyCode: currencyCode,
+		Units:        value / 1e9,
+		Nanos:        int32(value % 1e9),
+	}
 }
 
 func getCompatibleTypesBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		rawResp, err := runner(ctx, argsI)
 		if err != nil {
 			return rawResp, err
@@ -184,11 +260,10 @@ func getCompatibleTypesBuilder(c *core.Command) *core.Command {
 					"EUR",
 					3,
 				),
-				LocalVolumeMaxSize: serverType.VolumesConstraint.MaxSize,
-				CPU:                serverType.Ncpus,
-				GPU:                serverType.Gpu,
-				RAM:                scw.Size(serverType.RAM),
-				Arch:               serverType.Arch,
+				CPU:  serverType.Ncpus,
+				GPU:  uint32(*serverType.Gpu),
+				RAM:  scw.Size(serverType.RAM),
+				Arch: serverType.Arch.String(),
 			})
 		}
 
@@ -218,11 +293,10 @@ func getCompatibleTypesBuilder(c *core.Command) *core.Command {
 					"EUR",
 					3,
 				),
-				LocalVolumeMaxSize: currentServerType.VolumesConstraint.MaxSize,
-				CPU:                currentServerType.Ncpus,
-				GPU:                currentServerType.Gpu,
-				RAM:                scw.Size(currentServerType.RAM),
-				Arch:               currentServerType.Arch,
+				CPU:  currentServerType.Ncpus,
+				GPU:  uint32(*currentServerType.Gpu),
+				RAM:  scw.Size(currentServerType.RAM),
+				Arch: currentServerType.Arch.String(),
 			},
 		}
 

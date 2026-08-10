@@ -11,6 +11,11 @@ formatters:
     - gofumpt # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
     - goimports # In addition to fixing imports, goimports also formats your code in the same style as gofmt. [fast: true, auto-fix: true]
     - golines
+  settings:
+    gofmt:
+      rewrite-rules:
+        - pattern: interface{}
+          replacement: any
 
 linters:
   default: none
@@ -22,6 +27,8 @@ linters:
     - bidichk # Checks for dangerous unicode character sequences [fast: true, auto-fix: false]
     - bodyclose # checks whether HTTP response body is closed successfully [fast: false, auto-fix: false]
     - canonicalheader # canonicalheader checks whether net/http.Header uses canonical header [fast: false, auto-fix: false]
+    - containedctx # Containedctx is a linter that detects struct contained context.Context field.
+    - contextcheck # Check whether the function uses a non-inherited context.
     - copyloopvar # copyloopvar is a linter detects places where loop variables are copied [fast: true, auto-fix: false]
     - decorder # check declaration order and count of types, constants, variables and functions [fast: true, auto-fix: false]
     - dogsled # Checks assignments with too many blank identifiers (e.g. x, _, _, _, := f()) [fast: true, auto-fix: false]
@@ -29,14 +36,14 @@ linters:
     - errchkjson # Checks types passed to the json encoding functions. Reports unsupported types and optionally reports occasions, where the check for the returned error can be omitted. [fast: false, auto-fix: false]
     - errname # Checks that sentinel errors are prefixed with the `Err` and error types are suffixed with the `Error`. [fast: false, auto-fix: false]
     - exptostd # Detects functions from golang.org/x/exp/ that can be replaced by std functions. [auto-fix]
+    - funcorder # Checks the order of functions, methods, and constructors. [fast]
     - gocheckcompilerdirectives # Checks that go compiler directive comments (//go:) are valid. [fast: true, auto-fix: false]
     - gochecksumtype # Run exhaustiveness checks on Go "sum types" [fast: false, auto-fix: false]
-    - goconst # Finds repeated strings that could be replaced by a constant [fast: true, auto-fix: false]
     - gocritic # Provides diagnostics that check for bugs, performance and style issues. [fast: false, auto-fix: false]
     - gocyclo # Computes and checks the cyclomatic complexity of functions [fast: true, auto-fix: false]
     - goheader # Checks is file header matches to pattern [fast: true, auto-fix: false]
     - gomoddirectives # Manage the use of 'replace', 'retract', and 'excludes' directives in go.mod. [fast: true, auto-fix: false]
-    - gomodguard # Allow and block list linter for direct Go module dependencies. This is different from depguard where there are different block types for example version constraints and module recommendations. [fast: true, auto-fix: false]
+    - gomodguard_v2 # Allow and block list linter for direct Go module dependencies. This is different from depguard where there are different block types for example version constraints and module recommendations. [fast: true, auto-fix: false]
     - goprintffuncname # Checks that printf-like functions are named with `f` at the end [fast: true, auto-fix: false]
     - govet #(vet, vetshadow): Vet examines Go source code and reports suspicious constructs, such as Printf calls whose arguments do not align with the format string [fast: false, auto-fix: false]
     - grouper # An analyzer to analyze expression groups. [fast: true, auto-fix: false]
@@ -47,6 +54,7 @@ linters:
     - makezero # Finds slice declarations with non-zero initial length [fast: false, auto-fix: false]
     - mirror # reports wrong mirror patterns of bytes/strings usage [fast: false, auto-fix: false]
     - misspell # Finds commonly misspelled English words in comments [fast: true, auto-fix: true]
+    - modernize # A suite of analyzers that suggest simplifications to Go code, using modern language and library features.
     - musttag # enforce field tags in (un)marshaled structs [fast: false, auto-fix: false]
     - nakedret # Finds naked returns in functions greater than a specified function length [fast: true, auto-fix: false]
     - nilerr # Finds the code that returns nil even if it checks that the error is not nil. [fast: false, auto-fix: false]
@@ -59,6 +67,7 @@ linters:
     - promlinter # Check Prometheus metrics naming via promlint [fast: true, auto-fix: false]
     - protogetter # Reports direct reads from proto message fields when getters should be used [fast: false, auto-fix: true]
     - reassign # Checks that package variables are not reassigned [fast: false, auto-fix: false]
+    - recvcheck # Checks for receiver type consistency.
     - revive # Fast, configurable, extensible, flexible, and beautiful linter for Go. Drop-in replacement of golint. [fast: false, auto-fix: false]
     - rowserrcheck # checks whether Err of rows is checked successfully [fast: false, auto-fix: false]
     - sloglint # ensure consistent code style when using log/slog [fast: false, auto-fix: false]
@@ -86,6 +95,9 @@ linters:
       rules:
         - name: exported
           disabled: true
+    modernize:
+      disable:
+        - reflecttypefor
 
   exclusions:
     paths:
@@ -122,6 +134,7 @@ linters:
       linters:
         - unused
         - errcheck
+        - funcorder
 
     - path: internal/tabwriter/.*_test\.go
       linters:
@@ -136,6 +149,13 @@ linters:
     - path: internal/namespaces/k8s/v1/types/types.go
       linters:
         - tagalign
+
+    # cobra API requires func(*cobra.Command) error signature; context extracted from command
+    # Only apply to core Cobra integration files where context comes from cobraCmd.Context()
+    - path: core/cobra_utils\.go
+      linters:
+        - contextcheck
+      text: "should pass the context parameter"
 
 issues:
   max-issues-per-linter: 0

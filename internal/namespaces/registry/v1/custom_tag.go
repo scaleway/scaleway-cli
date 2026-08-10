@@ -3,12 +3,15 @@ package registry
 import (
 	"context"
 	"fmt"
+	"reflect"
+	"time"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/registry/v1"
 	"github.com/scaleway/scaleway-sdk-go/logger"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 //
@@ -25,13 +28,14 @@ var (
 	}
 )
 
-type customTag struct {
+type CustomTag struct {
 	registry.Tag
 	FullName string
 }
 
 func tagGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*registry.GetTagRequest)
 		getTagResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -42,8 +46,9 @@ func tagGetBuilder(c *core.Command) *core.Command {
 		api := registry.NewAPI(client)
 
 		image, err := api.GetImage(&registry.GetImageRequest{
+			Region:  request.Region,
 			ImageID: tag.ImageID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			logger.Warningf("cannot get image %s %s", tag.ImageID, err)
 
@@ -51,15 +56,16 @@ func tagGetBuilder(c *core.Command) *core.Command {
 		}
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			Region:      request.Region,
 			NamespaceID: image.NamespaceID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			logger.Warningf("cannot get namespace %s %s", image.NamespaceID, err)
 
 			return getTagResp, nil
 		}
 
-		res := customTag{
+		res := CustomTag{
 			Tag:      *tag,
 			FullName: fmt.Sprintf("%s/%s:%s", namespace.Endpoint, image.Name, tag.Name),
 		}
@@ -88,7 +94,7 @@ func tagListBuilder(c *core.Command) *core.Command {
 		},
 	}
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		listTagResp, err := runner(ctx, argsI)
 		if err != nil {
 			return listTagResp, err
@@ -99,22 +105,24 @@ func tagListBuilder(c *core.Command) *core.Command {
 
 		request := argsI.(*registry.ListTagsRequest)
 		image, err := api.GetImage(&registry.GetImageRequest{
+			Region:  request.Region,
 			ImageID: request.ImageID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return listTagResp, err
 		}
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			Region:      request.Region,
 			NamespaceID: image.NamespaceID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return listTagResp, err
 		}
 
-		var customRes []customTag
+		var customRes []CustomTag
 		for _, tag := range listTagResp.([]*registry.Tag) {
-			customRes = append(customRes, customTag{
+			customRes = append(customRes, CustomTag{
 				Tag: *tag,
 				FullName: fmt.Sprintf("%s/%s:%s",
 					namespace.Endpoint,
@@ -125,6 +133,43 @@ func tagListBuilder(c *core.Command) *core.Command {
 		}
 
 		return customRes, nil
+	}
+
+	return c
+}
+
+type customTagDeleteArgs struct {
+	registry.DeleteTagRequest
+	Timeout *string
+}
+
+func tagDeleteBuilder(c *core.Command) *core.Command {
+	c.ArgsType = reflect.TypeOf(customTagDeleteArgs{})
+	c.ArgSpecs.AddBefore("force", &core.ArgSpec{
+		Name:       "timeout",
+		Short:      "Maximum time to handle the request",
+		Required:   false,
+		Positional: false,
+	})
+
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
+		client := core.ExtractClient(ctx)
+		api := registry.NewAPI(client)
+		args := argsI.(*customTagDeleteArgs)
+
+		if args.Timeout == nil {
+			return api.DeleteTag(&args.DeleteTagRequest, scw.WithContext(ctx))
+		}
+
+		timeout, err := time.ParseDuration(*args.Timeout)
+		if err != nil {
+			return nil, err
+		}
+
+		ctxWithTimeout, cancel := context.WithTimeout(ctx, timeout)
+		defer cancel()
+
+		return api.DeleteTag(&args.DeleteTagRequest, scw.WithContext(ctxWithTimeout))
 	}
 
 	return c

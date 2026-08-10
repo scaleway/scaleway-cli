@@ -13,7 +13,7 @@ import (
 //
 
 func placementGroupGetBuilder(c *core.Command) *core.Command {
-	c.Run = func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		req := argsI.(*instance.GetPlacementGroupRequest)
 
 		client := core.ExtractClient(ctx)
@@ -65,7 +65,7 @@ func placementGroupCreateBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customCreatePlacementGroupRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customCreatePlacementGroupRequest)
 
 			if args.CreatePlacementGroupRequest == nil {
@@ -96,7 +96,7 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 	c.ArgsType = reflect.TypeOf(customListPlacementGroupsRequest{})
 
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (i interface{}, err error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
 			args := argsI.(*customListPlacementGroupsRequest)
 
 			if args.ListPlacementGroupsRequest == nil {

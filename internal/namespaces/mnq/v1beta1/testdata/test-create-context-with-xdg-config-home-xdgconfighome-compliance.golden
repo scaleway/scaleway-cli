@@ -1,0 +1,10 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Nats context successfully created.
+  credential-placeholder nats credentials was created
+  Select context using `nats context select context-placeholder`
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "Nats context successfully created",
+  "details": "credential-placeholder nats credentials was created\nSelect context using `nats context select context-placeholder`"
+}

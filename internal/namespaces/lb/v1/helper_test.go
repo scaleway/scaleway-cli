@@ -171,7 +171,7 @@ func deletePN() core.AfterFunc {
 
 func attachPN() core.BeforeFunc {
 	return core.ExecBeforeCmd(
-		"scw lb private-network attach {{ .LB.ID }} private-network-id={{ .PN.ID }}",
+		"scw lb private-network attach {{ .LB.ID }} private-network-id={{ .PN.ID }} ipam-ids.0={{ .IPAMIP.ID }}",
 	)
 }
 
@@ -186,4 +186,15 @@ func createIP() core.BeforeFunc {
 		"IP",
 		"scw lb ip create is-ipv6=true",
 	)
+}
+
+func createIPAMIP() core.BeforeFunc {
+	return core.ExecStoreBeforeCmd(
+		"IPAMIP",
+		"scw ipam ip create source.private-network-id={{ .PN.ID }}",
+	)
+}
+
+func deleteIPAMIP() core.AfterFunc {
+	return core.ExecAfterCmd("scw ipam ip delete {{ .IPAMIP.ID }}")
 }

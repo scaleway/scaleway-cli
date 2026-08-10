@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Import configurations from another file
 
 USAGE:
@@ -9,7 +9,8 @@ ARGS:
   file   Path to the configuration file to import
 
 FLAGS:
-  -h, --help   help for import
+  -h, --help                help for import
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

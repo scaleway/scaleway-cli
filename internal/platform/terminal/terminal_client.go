@@ -66,7 +66,7 @@ func (p *Platform) CreateClient(
 		logger.Debugf("guess region from %s zone", zone)
 		region := zone[:len(zone)-2]
 		if validation.IsRegion(region) {
-			profile.DefaultRegion = scw.StringPtr(region)
+			profile.DefaultRegion = new(region)
 		} else {
 			logger.Debugf("invalid guessed region '%s'", region)
 		}
@@ -101,7 +101,7 @@ func configErrorDetails(configKey, varEnv string) string {
 
 After initialization, there are three ways to provide %s:
 - with the Scaleway config file, in the %s key: %s;
-- with the %s environement variable;
+- with the %s environment variable;
 
 Note that the last method has the highest priority.
 

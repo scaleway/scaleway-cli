@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Frontend management commands.
 
 USAGE:
@@ -13,7 +13,8 @@ AVAILABLE COMMANDS:
   update      Update a frontend
 
 FLAGS:
-  -h, --help   help for frontend
+  -h, --help                help for frontend
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

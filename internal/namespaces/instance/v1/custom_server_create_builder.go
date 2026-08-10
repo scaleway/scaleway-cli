@@ -121,26 +121,6 @@ func (sb *ServerBuilder) AddAdminPasswordEncryptionSSHKeyID(
 	return sb
 }
 
-func (sb *ServerBuilder) isWindows() bool {
-	return commercialTypeIsWindowsServer(sb.createReq.CommercialType)
-}
-
-func (sb *ServerBuilder) rootVolumeIsSBS() bool {
-	if sb.rootVolume == nil {
-		return true // Default to SBS if no volume type is requested. Local SSD is now only on explicit request.
-	}
-
-	return sb.rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume
-}
-
-func (sb *ServerBuilder) marketplaceImageType() marketplace.LocalImageType {
-	if sb.rootVolumeIsSBS() {
-		return marketplace.LocalImageTypeInstanceSbs
-	}
-
-	return marketplace.LocalImageTypeInstanceLocal
-}
-
 // AddImage handle a custom image argument.
 // image could be:
 //   - A local image UUID.
@@ -214,7 +194,7 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 			Type:    instance.IPTypeRoutedIPv6,
 		}}
 	case validation.IsUUID(ip):
-		sb.createReq.PublicIP = scw.StringPtr(ip)
+		sb.createReq.PublicIP = new(ip)
 	case net.ParseIP(ip) != nil:
 		logger.Debugf("finding public IP UUID from address: %s", ip)
 		res, err := sb.apiInstance.GetIP(&instance.GetIPRequest{
@@ -224,12 +204,12 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 		if err != nil { // FIXME: isNotFoundError
 			return sb, fmt.Errorf("%s does not belong to you", ip)
 		}
-		sb.createReq.PublicIP = scw.StringPtr(res.IP.ID)
+		sb.createReq.PublicIP = new(res.IP.ID)
 
 	case ip == "dynamic":
-		sb.createReq.DynamicIPRequired = scw.BoolPtr(true)
+		sb.createReq.DynamicIPRequired = new(true)
 	case ip == "none":
-		sb.createReq.DynamicIPRequired = scw.BoolPtr(false)
+		sb.createReq.DynamicIPRequired = new(false)
 	default:
 		return sb, fmt.Errorf(
 			`invalid IP "%s", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address`,
@@ -238,16 +218,6 @@ func (sb *ServerBuilder) AddIP(ip string) (*ServerBuilder, error) {
 	}
 
 	return sb, nil
-}
-
-func (sb *ServerBuilder) addIPID(ipID string) *ServerBuilder {
-	if sb.createReq.PublicIPs == nil {
-		sb.createReq.PublicIPs = new([]string)
-	}
-
-	*sb.createReq.PublicIPs = append(*sb.createReq.PublicIPs, ipID)
-
-	return sb
 }
 
 // AddVolumes build volume templates from arguments.
@@ -295,7 +265,12 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 
 		// Validate total local volume sizes.
 		if sb.serverType != nil && sb.serverImage != nil {
-			if err := validateLocalVolumeSizes(volumes, sb.serverType, sb.createReq.CommercialType, sb.serverImage.RootVolume.Size); err != nil {
+			if err := validateLocalVolumeSizes(
+				volumes,
+				sb.serverType,
+				sb.createReq.CommercialType,
+				sb.serverImage.RootVolume.Size,
+			); err != nil {
 				return err
 			}
 		} else {
@@ -310,8 +285,7 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 }
 
 func (sb *ServerBuilder) AddBootType(bootType string) *ServerBuilder {
-	instanceBootType := instance.BootType(bootType)
-	sb.createReq.BootType = &instanceBootType
+	sb.createReq.BootType = new(instance.BootType(bootType))
 
 	return sb
 }
@@ -344,7 +318,11 @@ func (sb *ServerBuilder) Validate() error {
 	}
 
 	if sb.serverType != nil && sb.serverImage != nil {
-		if err := validateImageServerTypeCompatibility(sb.serverImage, sb.serverType, sb.createReq.CommercialType); err != nil {
+		if err := validateImageServerTypeCompatibility(
+			sb.serverImage,
+			sb.serverType,
+			sb.createReq.CommercialType,
+		); err != nil {
 			return err
 		}
 	} else {
@@ -371,14 +349,14 @@ func (sb *ServerBuilder) BuildVolumes() error {
 			return fmt.Errorf("failed to build volume template: %w", err)
 		}
 		index := strconv.Itoa(i + 1)
-		volumeTemplate.Name = scw.StringPtr(sb.createReq.Name + "-" + index)
+		volumeTemplate.Name = new(sb.createReq.Name + "-" + index)
 		volumes[index] = volumeTemplate
 	}
 	// Sanitize the volume map to respect API schemas
 	sb.createReq.Volumes = volumes
 
 	if sb.serverType != nil {
-		sb.createReq.Volumes = addDefaultVolumes(sb.serverType, sb.createReq.Volumes)
+		sb.createReq.Volumes = addDefaultVolumes(sb.createReq.Volumes)
 	}
 
 	return nil
@@ -522,6 +500,36 @@ func (sb *ServerBuilder) BuildPostCreationSetup() PostServerCreationSetupFunc {
 	}
 }
 
+func (sb *ServerBuilder) addIPID(ipID string) *ServerBuilder {
+	if sb.createReq.PublicIPs == nil {
+		sb.createReq.PublicIPs = new([]string)
+	}
+
+	*sb.createReq.PublicIPs = append(*sb.createReq.PublicIPs, ipID)
+
+	return sb
+}
+
+func (sb *ServerBuilder) isWindows() bool {
+	return commercialTypeIsWindowsServer(sb.createReq.CommercialType)
+}
+
+func (sb *ServerBuilder) rootVolumeIsSBS() bool {
+	if sb.rootVolume == nil {
+		return true // Default to SBS if no volume type is requested. Local SSD is now only on explicit request.
+	}
+
+	return sb.rootVolume.VolumeType == instance.VolumeVolumeTypeSbsVolume
+}
+
+func (sb *ServerBuilder) marketplaceImageType() marketplace.LocalImageType {
+	if sb.rootVolumeIsSBS() {
+		return marketplace.LocalImageTypeInstanceSbs
+	}
+
+	return marketplace.LocalImageTypeInstanceLocal
+}
+
 type VolumeBuilder struct {
 	Zone       scw.Zone
 	VolumeType instance.VolumeVolumeType
@@ -555,7 +563,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		if err != nil {
 			return nil, fmt.Errorf("invalid volume iops %s in %s volume", parts[2], flagV)
 		}
-		vb.IOPS = scw.Uint32Ptr(uint32(iops))
+		vb.IOPS = new(uint32(iops))
 		parts = parts[0:2]
 	}
 
@@ -573,13 +581,13 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 		}
 
 		if validation.IsUUID(parts[1]) {
-			vb.SnapshotID = scw.StringPtr(parts[1])
+			vb.SnapshotID = new(parts[1])
 		} else {
 			size, err := humanize.ParseBytes(parts[1])
 			if err != nil {
 				return nil, fmt.Errorf("invalid size format %s in %s volume", parts[1], flagV)
 			}
-			vb.Size = scw.SizePtr(scw.Size(size))
+			vb.Size = new(scw.Size(size))
 		}
 
 		return vb, nil
@@ -587,7 +595,7 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 
 	// UUID format.
 	if len(parts) == 1 && validation.IsUUID(parts[0]) {
-		vb.VolumeID = scw.StringPtr(parts[0])
+		vb.VolumeID = new(parts[0])
 
 		return vb, nil
 	}
@@ -599,59 +607,41 @@ func NewVolumeBuilder(zone scw.Zone, flagV string) (*VolumeBuilder, error) {
 	}
 }
 
-// buildSnapshotVolume builds the requested volume template to create a new volume from a snapshot
-func (vb *VolumeBuilder) buildSnapshotVolume(
-	api *instance.API,
-	blockAPI *block.API,
+// BuildVolumeServerTemplate builds the requested volume template to be used in a CreateServerRequest
+func (vb *VolumeBuilder) BuildVolumeServerTemplate(
+	apiInstance *instance.API,
+	apiBlock *block.API,
 ) (*instance.VolumeServerTemplate, error) {
-	if vb.SnapshotID == nil {
-		return nil, errors.New("tried to build a volume from snapshot with an empty ID")
-	}
-	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
-		Zone:       vb.Zone,
-		SnapshotID: *vb.SnapshotID,
-	})
-	if err != nil && !core.IsNotFoundError(err) {
-		return nil, fmt.Errorf("invalid snapshot %s: %w", *vb.SnapshotID, err)
+	if vb.SnapshotID != nil {
+		return vb.buildSnapshotVolume(apiInstance, apiBlock)
 	}
 
-	if res != nil {
-		snapshotType := res.Snapshot.VolumeType
+	if vb.VolumeID != nil {
+		return vb.buildImportedVolume(apiInstance, apiBlock)
+	}
 
-		if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != vb.VolumeType {
-			return nil, fmt.Errorf(
-				"snapshot of type %s not compatible with requested volume type %s",
-				snapshotType,
-				vb.VolumeType,
-			)
+	return vb.buildNewVolume()
+}
+
+// ExecutePostCreationSetup executes requests that are required after volume creation.
+func (vb *VolumeBuilder) ExecutePostCreationSetup(
+	ctx context.Context,
+	apiBlock *block.API,
+	volumeID string,
+) {
+	if vb.IOPS != nil {
+		_, err := apiBlock.UpdateVolume(&block.UpdateVolumeRequest{
+			VolumeID: volumeID,
+			PerfIops: vb.IOPS,
+			Zone:     vb.Zone,
+		},
+			scw.WithContext(ctx),
+		)
+		if err != nil {
+			core.ExtractLogger(ctx).
+				Warning(fmt.Sprintf("Failed to update volume %s IOPS: %s", volumeID, err.Error()))
 		}
-
-		return &instance.VolumeServerTemplate{
-			Name:         &res.Snapshot.Name,
-			VolumeType:   vb.VolumeType,
-			BaseSnapshot: &res.Snapshot.ID,
-			Size:         &res.Snapshot.Size,
-		}, nil
 	}
-
-	blockRes, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
-		Zone:       vb.Zone,
-		SnapshotID: *vb.SnapshotID,
-	})
-	if err != nil {
-		if core.IsNotFoundError(err) {
-			return nil, fmt.Errorf("snapshot %s does not exist", *vb.SnapshotID)
-		}
-
-		return nil, err
-	}
-
-	return &instance.VolumeServerTemplate{
-		Name:         &blockRes.Name,
-		VolumeType:   vb.VolumeType,
-		BaseSnapshot: &blockRes.ID,
-		Size:         &blockRes.Size,
-	}, nil
 }
 
 // buildImportedVolume builds the requested volume template to import an existing volume
@@ -723,39 +713,57 @@ func (vb *VolumeBuilder) buildNewVolume() (*instance.VolumeServerTemplate, error
 	}, nil
 }
 
-// BuildVolumeServerTemplate builds the requested volume template to be used in a CreateServerRequest
-func (vb *VolumeBuilder) BuildVolumeServerTemplate(
-	apiInstance *instance.API,
-	apiBlock *block.API,
+// buildSnapshotVolume builds the requested volume template to create a new volume from a snapshot
+func (vb *VolumeBuilder) buildSnapshotVolume(
+	api *instance.API,
+	blockAPI *block.API,
 ) (*instance.VolumeServerTemplate, error) {
-	if vb.SnapshotID != nil {
-		return vb.buildSnapshotVolume(apiInstance, apiBlock)
+	if vb.SnapshotID == nil {
+		return nil, errors.New("tried to build a volume from snapshot with an empty ID")
+	}
+	res, err := api.GetSnapshot(&instance.GetSnapshotRequest{
+		Zone:       vb.Zone,
+		SnapshotID: *vb.SnapshotID,
+	})
+	if err != nil && !core.IsNotFoundError(err) {
+		return nil, fmt.Errorf("invalid snapshot %s: %w", *vb.SnapshotID, err)
 	}
 
-	if vb.VolumeID != nil {
-		return vb.buildImportedVolume(apiInstance, apiBlock)
-	}
+	if res != nil {
+		snapshotType := res.Snapshot.VolumeType
 
-	return vb.buildNewVolume()
-}
-
-// ExecutePostCreationSetup executes requests that are required after volume creation.
-func (vb *VolumeBuilder) ExecutePostCreationSetup(
-	ctx context.Context,
-	apiBlock *block.API,
-	volumeID string,
-) {
-	if vb.IOPS != nil {
-		_, err := apiBlock.UpdateVolume(&block.UpdateVolumeRequest{
-			VolumeID: volumeID,
-			PerfIops: vb.IOPS,
-			Zone:     vb.Zone,
-		},
-			scw.WithContext(ctx),
-		)
-		if err != nil {
-			core.ExtractLogger(ctx).
-				Warning(fmt.Sprintf("Failed to update volume %s IOPS: %s", volumeID, err.Error()))
+		if snapshotType != instance.VolumeVolumeTypeUnified && snapshotType != vb.VolumeType {
+			return nil, fmt.Errorf(
+				"snapshot of type %s not compatible with requested volume type %s",
+				snapshotType,
+				vb.VolumeType,
+			)
 		}
+
+		return &instance.VolumeServerTemplate{
+			Name:         &res.Snapshot.Name,
+			VolumeType:   vb.VolumeType,
+			BaseSnapshot: &res.Snapshot.ID,
+			Size:         &res.Snapshot.Size,
+		}, nil
 	}
+
+	blockRes, err := blockAPI.GetSnapshot(&block.GetSnapshotRequest{
+		Zone:       vb.Zone,
+		SnapshotID: *vb.SnapshotID,
+	})
+	if err != nil {
+		if core.IsNotFoundError(err) {
+			return nil, fmt.Errorf("snapshot %s does not exist", *vb.SnapshotID)
+		}
+
+		return nil, err
+	}
+
+	return &instance.VolumeServerTemplate{
+		Name:         &blockRes.Name,
+		VolumeType:   vb.VolumeType,
+		BaseSnapshot: &blockRes.ID,
+		Size:         &blockRes.Size,
+	}, nil
 }

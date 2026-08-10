@@ -36,13 +36,13 @@ type Config struct {
 	// +k8s:conversion-gen=false
 	// +optional
 	APIVersion string `json:"apiVersion,omitempty"`
-	// Preferences holds general information to be use for cli interactions
+	// Preferences holds general information to be used for cli interactions
 	Preferences Preferences `json:"preferences"`
-	// Clusters is a map of referencable names to cluster configs
+	// Clusters is a map of referenceable names to cluster configs
 	Clusters []NamedCluster `json:"clusters"`
-	// AuthInfos is a map of referencable names to user configs
+	// AuthInfos is a map of referenceable names to user configs
 	AuthInfos []NamedAuthInfo `json:"users"`
-	// Contexts is a map of referencable names to context configs
+	// Contexts is a map of referenceable names to context configs
 	Contexts []NamedContext `json:"contexts"`
 	// CurrentContext is the name of the context that you would like to use by default
 	CurrentContext string `json:"current-context"`
@@ -109,10 +109,10 @@ type AuthInfo struct {
 	ClientKey string `json:"client-key,omitempty"`
 	// ClientKeyData contains PEM-encoded data from a client key file for TLS. Overrides ClientKey
 	// +optional
-	ClientKeyData []byte `json:"client-key-data,omitempty"         datapolicy:"security-key"`
+	ClientKeyData []byte `json:"client-key-data,omitempty" datapolicy:"security-key"`
 	// Token is the bearer token for authentication to the kubernetes cluster.
 	// +optional
-	Token string `json:"token,omitempty"                   datapolicy:"token"`
+	Token string `json:"token,omitempty" datapolicy:"token"`
 	// TokenFile is a pointer to a file that contains a bearer token (as described above).  If both Token and TokenFile are present, Token takes precedence.
 	// +optional
 	TokenFile string `json:"tokenFile,omitempty"`
@@ -133,7 +133,7 @@ type AuthInfo struct {
 	Username string `json:"username,omitempty"`
 	// Password is the password for basic authentication to the kubernetes cluster.
 	// +optional
-	Password string `json:"password,omitempty"                datapolicy:"password"`
+	Password string `json:"password,omitempty" datapolicy:"password"`
 	// AuthProvider specifies a custom authentication plugin for the kubernetes cluster.
 	// +optional
 	AuthProvider *AuthProviderConfig `json:"auth-provider,omitempty"`
@@ -188,7 +188,7 @@ type NamedExtension struct {
 	// Name is the nickname for this Extension
 	Name string `json:"name"`
 	// Extension holds the extension information
-	Extension interface{} `json:"extension"`
+	Extension any `json:"extension"`
 }
 
 // AuthProviderConfig holds the configuration for a specified auth provider.
@@ -204,15 +204,15 @@ type AuthProviderConfig struct {
 // and output format
 type ExecConfig struct {
 	// Command to execute.
-	Command string `json:"command"`
+	Command string `json:"command,omitempty"`
 	// Arguments to pass to the command when executing it.
 	// +optional
-	Args []string `json:"args"`
+	Args []string `json:"args,omitempty"`
 	// Env defines additional environment variables to expose to the process. These
 	// are unioned with the host's environment, as well as variables client-go uses
 	// to pass argument to the plugin.
 	// +optional
-	Env []ExecEnvVar `json:"env"`
+	Env []ExecEnvVar `json:"env,omitempty"`
 
 	// Preferred input version of the ExecInfo. The returned ExecCredentials MUST use
 	// the same encoding version as the input.
@@ -228,7 +228,7 @@ type ExecConfig struct {
 	// part of the KUBERNETES_EXEC_INFO environment variable. By default, it is set
 	// to false. Package k8s.io/client-go/tools/auth/exec provides helper methods for
 	// reading this environment variable.
-	ProvideClusterInfo bool `json:"provideClusterInfo"`
+	ProvideClusterInfo bool `json:"provideClusterInfo,omitempty"`
 
 	// InteractiveMode determines this plugin's relationship with standard input. Valid
 	// values are "Never" (this exec plugin never uses standard input), "IfAvailable" (this

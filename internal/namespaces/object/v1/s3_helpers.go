@@ -8,8 +8,10 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	awsmiddleware "github.com/aws/aws-sdk-go-v2/aws/middleware"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
+	"github.com/aws/smithy-go/middleware"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -17,6 +19,7 @@ import (
 func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
+	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
 		return nil
@@ -33,8 +36,17 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
 	}
 
+	options := []func(*middleware.Stack) error{
+		func(stack *middleware.Stack) error {
+			return awsmiddleware.AddUserAgentKeyValue(
+				"scaleway-cli",
+				buildInfo.Version.String(),
+			)(stack)
+		},
+	}
+
 	return s3.New(s3.Options{
-		APIOptions:    nil,
+		APIOptions:    options,
 		ClientLogMode: 0,
 		Credentials: aws.CredentialsProviderFunc(func(_ context.Context) (aws.Credentials, error) {
 			return aws.Credentials{
@@ -42,7 +54,7 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 				SecretAccessKey: secretKey,
 			}, nil
 		}),
-		BaseEndpoint: scw.StringPtr(customEndpoint),
+		BaseEndpoint: new(customEndpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 	})
@@ -82,15 +94,15 @@ func verifyACLInput(aclInput string) (bool, []types.BucketCannedACL) {
 }
 
 func awsACLToCustomGrants(output *s3.GetBucketAclOutput) []CustomS3ACLGrant {
-	customGrants := []CustomS3ACLGrant(nil)
+	customGrants := make([]CustomS3ACLGrant, 0, len(output.Grants))
 	for _, grant := range output.Grants {
 		var grantee *string
 		switch grant.Grantee.Type {
 		case types.TypeCanonicalUser:
-			grantee = scw.StringPtr(normalizeOwnerID(grant.Grantee.ID))
+			grantee = new(normalizeOwnerID(grant.Grantee.ID))
 		case types.TypeGroup:
 			split := strings.Split(*grant.Grantee.URI, "/")
-			grantee = scw.StringPtr(split[len(split)-1])
+			grantee = new(split[len(split)-1])
 		}
 		customGrants = append(customGrants, CustomS3ACLGrant{
 			Grantee:    grantee,

@@ -54,7 +54,7 @@ func accountProjectCreate() *core.Command {
 		Resource:  "project",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(account.ProjectAPICreateProjectRequest{}),
+		ArgsType: reflect.TypeFor[account.ProjectAPICreateProjectRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -73,13 +73,13 @@ func accountProjectCreate() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPICreateProjectRequest)
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 
-			return api.CreateProject(request)
+			return api.CreateProject(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -92,7 +92,7 @@ func accountProjectList() *core.Command {
 		Resource:  "project",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(account.ProjectAPIListProjectsRequest{}),
+		ArgsType: reflect.TypeFor[account.ProjectAPIListProjectsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -123,12 +123,12 @@ func accountProjectList() *core.Command {
 			},
 			core.OrganizationIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIListProjectsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListProjects(request, opts...)
 			if err != nil {
 				return nil, err
@@ -147,17 +147,17 @@ func accountProjectGet() *core.Command {
 		Resource:  "project",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(account.ProjectAPIGetProjectRequest{}),
+		ArgsType: reflect.TypeFor[account.ProjectAPIGetProjectRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIGetProjectRequest)
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 
-			return api.GetProject(request)
+			return api.GetProject(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -170,16 +170,16 @@ func accountProjectDelete() *core.Command {
 		Resource:  "project",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(account.ProjectAPIDeleteProjectRequest{}),
+		ArgsType: reflect.TypeFor[account.ProjectAPIDeleteProjectRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIDeleteProjectRequest)
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
-			e = api.DeleteProject(request)
+			e = api.DeleteProject(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -200,7 +200,7 @@ func accountProjectUpdate() *core.Command {
 		Resource:  "project",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(account.ProjectAPIUpdateProjectRequest{}),
+		ArgsType: reflect.TypeFor[account.ProjectAPIUpdateProjectRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -218,13 +218,13 @@ func accountProjectUpdate() *core.Command {
 				Positional: false,
 			},
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*account.ProjectAPIUpdateProjectRequest)
 
 			client := core.ExtractClient(ctx)
 			api := account.NewProjectAPI(client)
 
-			return api.UpdateProject(request)
+			return api.UpdateProject(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -33,7 +33,7 @@ type elementCustom struct {
 func Test_DefaultCommandValidateFunc(t *testing.T) {
 	type TestCase struct {
 		command         *core.Command
-		parsedArguments interface{}
+		parsedArguments any
 		rawArgs         args.RawArgs
 	}
 
@@ -55,7 +55,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 			ArgSpecs: core.ArgSpecs{
 				{
 					Name: "name",
-					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 						return errors.New("arg validation called")
 					},
 				},
@@ -74,7 +74,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "elements-map.{key}.name",
-					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 						return errors.New("arg validation called")
 					},
 				},
@@ -102,7 +102,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "elements-slice.{index}.name",
-					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 						return errors.New("arg validation called")
 					},
 				},
@@ -130,7 +130,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "elements-slice.{index}.elements-slice.{index}.name",
-					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 						return errors.New("arg validation called")
 					},
 				},
@@ -160,7 +160,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "short",
-					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 						return errors.New("arg validation called")
 					},
 				},
@@ -179,7 +179,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 				},
 				{
 					Name: "name",
-					ValidateFunc: func(_ *core.ArgSpec, _ interface{}) error {
+					ValidateFunc: func(_ *core.ArgSpec, _ any) error {
 						return errors.New("arg validation called")
 					},
 				},
@@ -196,7 +196,7 @@ func Test_DefaultCommandValidateFunc(t *testing.T) {
 func Test_DefaultCommandRequiredFunc(t *testing.T) {
 	type TestCase struct {
 		command         *core.Command
-		parsedArguments interface{}
+		parsedArguments any
 		rawArgs         args.RawArgs
 	}
 
@@ -372,7 +372,7 @@ func Test_ValidateDeprecated(t *testing.T) {
 			Namespace:            "plop",
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
-			Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, _ any) (i any, e error) {
 				return &core.SuccessResult{}, nil
 			},
 			ArgSpecs: core.ArgSpecs{
@@ -511,7 +511,7 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 		setupManager  func() *core.OneOfGroupManager
 		rawArgs       args.RawArgs
 		expectedError string
-		ArgsType      interface{}
+		ArgsType      any
 	}{
 		{
 			name: "Required group satisfied with first argument",
@@ -569,7 +569,14 @@ func TestValidateRequiredOneOfGroups(t *testing.T) {
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
-				assert.EqualError(t, err, tt.expectedError, "Expected error message '%s', got '%v'", tt.expectedError, err)
+				assert.EqualError(
+					t,
+					err,
+					tt.expectedError,
+					"Expected error message '%s', got '%v'",
+					tt.expectedError,
+					err,
+				)
 			}
 		})
 	}
@@ -581,7 +588,7 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 		setupManager  func() *core.OneOfGroupManager
 		rawArgs       args.RawArgs
 		expectedError string
-		ArgsType      interface{}
+		ArgsType      any
 	}{
 		{
 			name: "Required group satisfied with first argument",
@@ -714,7 +721,14 @@ func TestValidateUniqueOneOfGroups(t *testing.T) {
 			if tt.expectedError == "" {
 				assert.NoError(t, err, "Expected no error, got %v", err)
 			} else {
-				assert.EqualError(t, err, tt.expectedError, "Expected error message '%s', got '%v'", tt.expectedError, err)
+				assert.EqualError(
+					t,
+					err,
+					tt.expectedError,
+					"Expected error message '%s', got '%v'",
+					tt.expectedError,
+					err,
+				)
 			}
 		})
 	}
@@ -726,7 +740,7 @@ func Test_ValidateOneOf(t *testing.T) {
 			Namespace:            "oneof",
 			ArgsType:             reflect.TypeOf(args.RawArgs{}),
 			AllowAnonymousClient: true,
-			Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+			Run: func(_ context.Context, _ any) (i any, e error) {
 				return &core.SuccessResult{}, nil
 			},
 			ArgSpecs: core.ArgSpecs{
@@ -751,7 +765,7 @@ func Test_ValidateOneOf(t *testing.T) {
 				Namespace:            "oneof",
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -780,7 +794,7 @@ func Test_ValidateOneOf(t *testing.T) {
 				Namespace:            "oneof",
 				ArgsType:             reflect.TypeOf(args.RawArgs{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -814,7 +828,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					A string
 					B string
 				}{}), AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -845,7 +859,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					B string
 					C string
 				}{}), AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -880,7 +894,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					AllSSHKeys bool
 				}{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -915,7 +929,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					AllSSHKeys bool
 				}{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -945,7 +959,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					AllSSHKeys bool
 				}{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -977,7 +991,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					AllSSHKeys bool
 				}{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{
@@ -1010,7 +1024,7 @@ func Test_ValidateOneOf(t *testing.T) {
 					Arg        bool
 				}{}),
 				AllowAnonymousClient: true,
-				Run: func(_ context.Context, _ interface{}) (i interface{}, e error) {
+				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
 				},
 				ArgSpecs: core.ArgSpecs{

@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Get a custom domain for the container with the specified ID.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Get the custom domain associated with the specified ID.
 
 USAGE:
   scw container domain get <domain-id ...> [arg=value ...]
@@ -10,7 +10,8 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for get
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

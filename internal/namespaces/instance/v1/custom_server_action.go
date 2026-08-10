@@ -5,10 +5,12 @@ import (
 	"errors"
 	"fmt"
 	"reflect"
+	"sort"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
+	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -150,7 +152,7 @@ Once your image is ready you will be able to create a new server based on this i
 		Resource:  "server",
 		Verb:      "backup",
 		ArgsType:  reflect.TypeOf(instanceBackupRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*instanceBackupRequest)
 
 			client := core.ExtractClient(ctx)
@@ -201,14 +203,14 @@ Once your image is ready you will be able to create a new server based on this i
 
 			return api.GetImage(&instance.GetImageRequest{Zone: args.Zone, ImageID: tmp[2]})
 		},
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (i interface{}, err error) {
+		WaitFunc: func(ctx context.Context, _, respI any) (i any, err error) {
 			resp := respI.(*instance.GetImageResponse)
 			api := instance.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForImage(&instance.WaitForImageRequest{
 				ImageID:       resp.Image.ID,
 				Zone:          resp.Image.Zone,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -309,7 +311,7 @@ func serverTerminateCommand() *core.Command {
 			},
 		},
 		WaitUsage: "wait until the server and its resources are deleted",
-		WaitFunc: func(ctx context.Context, argsI, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, argsI, respI any) (any, error) {
 			terminateServerArgs := argsI.(*customTerminateServerRequest)
 			server := respI.(*core.SuccessResult).TargetResource.(*instance.Server)
 			client := core.ExtractClient(ctx)
@@ -320,7 +322,7 @@ func serverTerminateCommand() *core.Command {
 			_, err := api.WaitForServer(&instance.WaitForServerRequest{
 				Zone:          server.Zone,
 				ServerID:      server.ID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 			if err != nil {
@@ -351,7 +353,7 @@ func serverTerminateCommand() *core.Command {
 
 			return respI, nil
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			terminateServerArgs := argsI.(*customTerminateServerRequest)
 
 			client := core.ExtractClient(ctx)
@@ -394,6 +396,60 @@ func serverTerminateCommand() *core.Command {
 					}
 					_, _ = interactive.Printf("successfully detached volume %s\n", volumeName)
 				}
+			} else {
+				successMessages := make(map[string]string)
+
+				for index, volume := range server.Server.Volumes {
+					if volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
+						continue
+					}
+
+					_, err = api.DetachVolume(&instance.DetachVolumeRequest{
+						VolumeID: volume.ID,
+						Zone:     volume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, fmt.Errorf(
+							"failed to detach block volume %s: %w",
+							volume.ID,
+							err,
+						)
+					}
+
+					blockAPI := block.NewAPI(client)
+					blockVolume, err := blockAPI.WaitForVolume(&block.WaitForVolumeRequest{
+						VolumeID:       volume.ID,
+						Zone:           volume.Zone,
+						TerminalStatus: new(block.VolumeStatusAvailable),
+						RetryInterval:  core.DefaultRetryInterval,
+					})
+					if err != nil {
+						return nil, fmt.Errorf(
+							"failed to wait for block volume %s: %w",
+							volume.ID,
+							err,
+						)
+					}
+
+					err = blockAPI.DeleteVolume(&block.DeleteVolumeRequest{
+						VolumeID: blockVolume.ID,
+						Zone:     blockVolume.Zone,
+					}, scw.WithContext(ctx))
+					if err != nil {
+						return nil, fmt.Errorf(
+							"failed to delete block volume %s: %w",
+							blockVolume.Name,
+							err,
+						)
+					}
+
+					successMessages[index] = fmt.Sprintf(
+						"successfully deleted block volume %q",
+						blockVolume.Name,
+					)
+				}
+
+				printSuccessMessagesInOrder(successMessages)
 			}
 
 			if _, err := api.ServerAction(&instance.ServerActionRequest{
@@ -439,20 +495,33 @@ func shouldDeleteBlockVolumes(
 	case withBlockPrompt:
 		// Only prompt user if at least one block volume is attached to the instance
 		for _, volume := range server.Server.Volumes {
-			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD {
+			if volume.VolumeType != instance.VolumeServerVolumeTypeBSSD &&
+				volume.VolumeType != instance.VolumeServerVolumeTypeSbsVolume {
 				continue
 			}
 
-			return interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
+			return interactive.PromptBoolWithConfig(ctx, &interactive.PromptBoolConfig{
 				Prompt:       "Do you also want to delete block volumes attached to this instance ?",
 				DefaultValue: false,
-				Ctx:          ctx,
 			})
 		}
 
 		return false, nil
 	default:
 		return false, fmt.Errorf("unsupported with-block value %v", terminateWithBlock)
+	}
+}
+
+// printSuccessMessagesInOrder prints volume deletion messages ordered by volume map key "0", "1", "2",...
+func printSuccessMessagesInOrder(messages map[string]string) {
+	indexes := make([]string, 0, len(messages))
+	for index := range messages {
+		indexes = append(indexes, index)
+	}
+	sort.Strings(indexes)
+
+	for _, index := range indexes {
+		_, _ = interactive.Println(messages[index])
 	}
 }
 
@@ -472,7 +541,7 @@ var serverActionArgSpecs = core.ArgSpecs{
 }
 
 func getRunServerAction(action instance.ServerAction) core.CommandRunner {
-	return func(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+	return func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*instanceUniqueActionRequest)
 
 		client := core.ExtractClient(ctx)
@@ -491,12 +560,12 @@ func getRunServerAction(action instance.ServerAction) core.CommandRunner {
 }
 
 func waitForServerFunc() core.WaitFunc {
-	return func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+	return func(ctx context.Context, argsI, _ any) (any, error) {
 		return instance.NewAPI(core.ExtractClient(ctx)).
 			WaitForServer(&instance.WaitForServerRequest{
 				Zone:          argsI.(*instanceUniqueActionRequest).Zone,
 				ServerID:      argsI.(*instanceUniqueActionRequest).ServerID,
-				Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+				Timeout:       new(serverActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 	}
@@ -522,7 +591,7 @@ func serverActionCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "action",
 		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceActionRequest)
 
 			return getRunServerAction(
@@ -535,12 +604,12 @@ func serverActionCommand() *core.Command {
 				},
 			)
 		},
-		WaitFunc: func(ctx context.Context, argsI, _ interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, argsI, _ any) (any, error) {
 			return instance.NewAPI(core.ExtractClient(ctx)).
 				WaitForServer(&instance.WaitForServerRequest{
 					Zone:          argsI.(*instanceActionRequest).Zone,
 					ServerID:      argsI.(*instanceActionRequest).ServerID,
-					Timeout:       scw.TimeDurationPtr(serverActionTimeout),
+					Timeout:       new(serverActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 		},

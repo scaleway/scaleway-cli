@@ -38,7 +38,7 @@ func ApplyDefaultValues(ctx context.Context, argSpecs ArgSpecs, rawArgs args.Raw
 		for _, part := range parts[1 : len(parts)-1] {
 			switch part {
 			case sliceSchema, mapSchema:
-				newPrefixes := []string(nil)
+				newPrefixes := make([]string, 0, len(prefixes))
 				for _, prefix := range prefixes {
 					for _, key := range rawArgs.GetSliceOrMapKeys(prefix) {
 						newPrefixes = append(newPrefixes, prefix+"."+key)

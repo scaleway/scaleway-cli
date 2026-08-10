@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Function as a Service API.
 
 USAGE:
@@ -18,7 +18,8 @@ WORKFLOW COMMANDS:
   deploy      Deploy a function
 
 FLAGS:
-  -h, --help   help for function
+  -h, --help                help for function
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

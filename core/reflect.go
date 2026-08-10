@@ -13,28 +13,28 @@ import (
 // newObjectWithForcedJSONTags returns a new object of the given Type with enforced JSON tag on every field.
 // E.g.:   struct{FieldName string `json:"-"`}
 // becomes struct{FieldName string `json:"field_name"`}
-func newObjectWithForcedJSONTags(t reflect.Type) interface{} {
+func newObjectWithForcedJSONTags(t reflect.Type) any {
 	structFieldsCopy := []reflect.StructField(nil)
-	for i := range t.NumField() {
-		fieldCopy := t.Field(i)
+	for fieldCopy := range t.Fields() {
 		if fieldCopy.Anonymous {
 			anonymousType := fieldCopy.Type
-			if anonymousType.Kind() == reflect.Ptr {
+			if anonymousType.Kind() == reflect.Pointer {
 				anonymousType = anonymousType.Elem()
 			}
-			for i := range anonymousType.NumField() {
-				fieldCopy := anonymousType.Field(i)
-				fieldCopy.Tag = reflect.StructTag(
+			for field := range anonymousType.Fields() {
+				field.Tag = reflect.StructTag(
 					`json:"` + strings.ReplaceAll(
-						strcase.ToBashArg(fieldCopy.Name),
+						strcase.ToBashArg(field.Name),
 						"-",
 						"_",
 					) + `"`,
 				)
-				structFieldsCopy = append(structFieldsCopy, fieldCopy)
+				structFieldsCopy = append(structFieldsCopy, field)
 			}
 		} else {
-			fieldCopy.Tag = reflect.StructTag(`json:"` + strings.ReplaceAll(strcase.ToBashArg(fieldCopy.Name), "-", "_") + `"`)
+			fieldCopy.Tag = reflect.StructTag(
+				`json:"` + strings.ReplaceAll(strcase.ToBashArg(fieldCopy.Name), "-", "_") + `"`,
+			)
 			structFieldsCopy = append(structFieldsCopy, fieldCopy)
 		}
 	}
@@ -52,7 +52,7 @@ func GetValuesForFieldByName(
 		return []reflect.Value{value}, nil
 	}
 	switch value.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return GetValuesForFieldByName(value.Elem(), parts)
 
 	case reflect.Slice:

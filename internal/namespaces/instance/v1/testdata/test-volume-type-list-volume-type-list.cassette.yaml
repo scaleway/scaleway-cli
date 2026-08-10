@@ -1,44 +1,39 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: ""
-    form: {}
+- id: 0
+  request:
+    proto: HTTP/1.1
+    proto_major: 1
+    proto_minor: 1
+    content_length: 0
+    host: api.scaleway.com
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.6+dev (go1.14.4; darwin; amd64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.1; linux; amd64) cli-e2e-test
     url: https://api.scaleway.com/instance/v1/zones/fr-par-1/products/volumes
     method: GET
   response:
-    body: '{"volumes": {"b_ssd": {"capabilities": {"snapshot": true}, "display_name":
-      "Block Storage SSD", "constraints": {"min": 1000000000, "max": 10000000000000}},
-      "l_ssd": {"capabilities": {"snapshot": true}, "display_name": "Local SSD", "constraints":
-      {"min": 1000000000, "max": 800000000000}}}}'
+    proto: HTTP/2.0
+    proto_major: 2
+    proto_minor: 0
+    content_length: 290
+    body: "{\"volumes\": {\"l_ssd\": {\"capabilities\": {\"snapshot\": true}, \"display_name\": \"Local SSD\", \"constraints\": {\"min\": 1000000000, \"max\": 800000000000}}, \"scratch\": {\"capabilities\": {\"snapshot\": false}, \"display_name\": \"Scratch Storage\", \"constraints\": {\"min\": 1000000000, \"max\": 60000000000000}}}}"
     headers:
-      Cache-Control:
-      - no-cache
       Content-Length:
-      - "289"
-      Content-Security-Policy:
-      - default-src 'none'; frame-ancestors 'none'
+      - "290"
       Content-Type:
       - application/json
       Date:
-      - Mon, 13 Jul 2020 13:47:48 GMT
+      - Tue, 04 Nov 2025 10:25:40 GMT
       Link:
       - </products/volumes?page=1&per_page=50&>; rel="last"
       Server:
-      - agw_listener_public_vip
-      Strict-Transport-Security:
-      - max-age=63072000
-      X-Content-Type-Options:
-      - nosniff
-      X-Frame-Options:
-      - DENY
+      - Scaleway API Gateway (fr-par-3;edge02)
       X-Request-Id:
-      - 5147d971-7070-449a-8f0b-0c2d691eb7ec
+      - 89f69c7c-23fa-4199-b37a-cbd068075fb9
       X-Total-Count:
       - "2"
     status: 200 OK
     code: 200
-    duration: ""
+    duration: 21.788567ms

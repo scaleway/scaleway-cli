@@ -17,10 +17,10 @@ var autoCompleteCache *cache.Cache
 // getGlobalFlags returns the list of flags that should be added to all commands
 func getGlobalFlags(ctx context.Context) []FlagSpec {
 	printerTypes := []string{
-		PrinterTypeHuman.String(),
-		PrinterTypeJSON.String(),
-		PrinterTypeYAML.String(),
-		PrinterTypeTemplate.String(),
+		string(PrinterTypeHuman),
+		string(PrinterTypeJSON),
+		string(PrinterTypeYAML),
+		string(PrinterTypeTemplate),
 	}
 	profiles := []string(nil)
 	cfg := extractConfig(ctx)
@@ -153,7 +153,7 @@ func AutocompleteGetArg(
 	}
 
 	if listCmd.Interceptor == nil {
-		listCmd.Interceptor = func(ctx context.Context, argsI interface{}, runner CommandRunner) (interface{}, error) {
+		listCmd.Interceptor = func(ctx context.Context, argsI any, runner CommandRunner) (any, error) {
 			return runner(ctx, argsI)
 		}
 	}
@@ -178,7 +178,7 @@ func AutocompleteGetArg(
 	// Let's iterate over the struct in the response slice and get the searched field
 	for i := range resources.Len() {
 		resource := resources.Index(i)
-		if resource.Kind() == reflect.Ptr {
+		if resource.Kind() == reflect.Pointer {
 			resource = resource.Elem()
 		}
 		resourceField := resource.FieldByName(strcase.ToPublicGoName(argName))

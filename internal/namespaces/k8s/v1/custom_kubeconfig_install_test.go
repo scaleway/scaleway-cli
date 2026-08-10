@@ -3,6 +3,7 @@ package k8s_test
 import (
 	"os"
 	"path"
+	"strings"
 	"testing"
 
 	"github.com/ghodss/yaml"
@@ -10,11 +11,12 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1"
 	api "github.com/scaleway/scaleway-cli/v2/internal/namespaces/k8s/v1/types"
 	k8sSDK "github.com/scaleway/scaleway-sdk-go/api/k8s/v1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
 )
 
-var (
+const (
 	existingKubeconfig = `apiVersion: v1
 kind: Config
 current-context: test@test
@@ -27,197 +29,355 @@ contexts:
 - name: test@test
   context:
     cluster: test
-    user: test
+    user: test-token
 users:
-- name: test
+- name: test-token
   user:
     token: qotGxuOfD74ajgWir18tMMPicxLIizKg3nt5PKHGbsbNDbGfqNojIdXI
-    username: test
-    password: test
+- name: test-cert
+  user:
     client-certificate-data: LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvekNDQWVlZ0F3SUJBZ0lJZERQak80Umphdzh3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TURBek1qTXdPRFEyTkRoYUZ3MHlNVEF6TWpNd09EUTJORGhhTUVFeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1TWXdKQVlEVlFRREV4MXJkV0psTFdGd2FYTmxjblpsCmNpMXJkV0psYkdWMExXTnNhV1Z1ZERDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQU54VjByQ0lBemNsdXIyV1VNb3NqOW1LQmlkclYzcnB5RmNwdnltMmtFVjZaOVo2TTBSRXpyTHo1c3BaWndCTwo1bHZrbEdzL2RJVndFK2pBd2tNWWNRRWlOaTQ2bHU4UFNSei9HVTFkek5mOEF2TXpnRWZER0xUY2x3eUs4di9kCklLenhTUnVOUFFseDZoTUw1bFpDeVBBZ3hqejNEdDZGWmUxUnVUdURWTUhnOWZIaHNwOFZTYnVCbWFYTTU2T0IKLzNZQXJLMXZOTlY0enRlQ3libFZnVUd3QUdKQ09zTlE0d0l4R0xSdjN5TVhtK3V3YVpGeTFxSEh6ZlpXclRpQQpKQ2lQNFVCbDV3bnUzeEhNaFZaemI0RnNCLzBmVEl1WHQ0ZjQ5L201KzdpM01vMEdrMjJNMjAvQldzNURZVmo1CnptSVVxcU9kK09UekdkcjgvcTRsdnQ4Q0F3RUFBYU1uTUNVd0RnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWQKSlFRTU1Bb0dDQ3NHQVFVRkJ3TUNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNuVFFCWlhsbm1aVWpDNEdscwpKdTZWWEYxN040ckpzWkNVOVR3SEhETlpZNGo5YlZHbG8wZzAva3JTajBId3hNNVU1NXl2WUJDaWNpZzVkSS96Cnd2ZENUQm5FQWIxRWtuZVR1ZkVPYzFtNzBtSzg0dnd3WWZtRVNkY1NXMmJieHBuUFNpak5BdnlTekZTTmZZZDEKMy9FZlRlQjQ0VFNGRGZQVk83YnpKYXBpYVJCTlZocVJQSncwc0lJWGM1Q0hiQzFEMHU5Mk4zRnhCa3JKcFN2UAp1QXBQT2dyNUgwUk5rOEk2TTBjd0FBc1RqdUkxd2Z4MjhJU0FWcmZLUjU4d1Eza1NsZzlUTTQrN01VMFA4eUZHClJXRkIrVFZiMTExYTRDc2RSbWMzQnZtcnFEbjZ2Ny9LOTJ4c0hNeDdBd3FObk1XUDQ4QStoVFNFVFh3U1Btb3cKL040RAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==
     client-key-data: LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBM0ZYU3NJZ0ROeVc2dlpaUXlpeVAyWW9HSjJ0WGV1bklWeW0vS2JhUVJYcG4xbm96ClJFVE9zdlBteWxsbkFFN21XK1NVYXo5MGhYQVQ2TURDUXhoeEFTSTJManFXN3c5SkhQOFpUVjNNMS93Qzh6T0EKUjhNWXROeVhESXJ5LzkwZ3JQRkpHNDA5Q1hIcUV3dm1Wa0xJOENER1BQY08zb1ZsN1ZHNU80TlV3ZUQxOGVHeQpueFZKdTRHWnBjem5vNEgvZGdDc3JXODAxWGpPMTRMSnVWV0JRYkFBWWtJNncxRGpBakVZdEcvZkl4ZWI2N0JwCmtYTFdvY2ZOOWxhdE9JQWtLSS9oUUdYbkNlN2ZFY3lGVm5OdmdXd0gvUjlNaTVlM2gvajMrYm43dUxjeWpRYVQKYll6YlQ4RmF6a05oV1BuT1loU3FvNTM0NVBNWjJ2eityaVcrM3dJREFRQUJBb0lCQVFESDRsdldwaTAwbEZmSwpzbGpzY0d5M2p3MXlLV0VkTW9UNi9mWmNJekRTdHU4SWxhZDRvV3RhMFFWb1FKNittdFZFUENPZy85bjNTK3ZqCjFTcm1yMytrNWFKOVljMlhaaWlQMDZUaW1OdkNmTzg0TGxxTHY2UGtQOUlRSU9XOTFKOVdCVGFyZGdBUFYzWmcKZlFVaThFZFdBSVdXdlJLU01EWjlpd3dkdjFEZTZFUmt4Z0Y2R0NTSXQ2Ri80RS81Uk1VbkJObU1ycjZHWHR5NgorK0cxWExCcWxRdExYVm1yRDAyVW05Y1Yyb2QwOEczTzdUM3VqUWl6ZjR6emx4LzVWWGk0ZTFkVEViY05PRU53Cnlwd3lSajBCdFh2TXVwUXZvdUZRM3I5UmVQL0g5dmp1Q3NiZGF3T1pGQkFDb3J0UVJxcnFodENZMERRK2tiM1AKQWV1SjNnb0JBb0dCQU56QU0rbzBqckhKWGZJVFppSWEwZkV4QkIyNHBpTE5NTmoxaHIxSEJFWjI2eXFucFg5UApTSkRIbXhWREo2UXROZFQxZ3Y5L1MwelF3S2ZzYVZ5M2VYNW9OcU5hVEZERGhPSEoxWDZZUElwREZGTUgwNGV2CnRXV1ZNd21MVU9mdmhQR3NYOW5rdFRlVmxueTlnSUZOK0dkWFRTSlgyOEVIaHE2NGg4ay9IVXFCQW9HQkFQK0UKb2pVcUN3RWJ0UTIzcGRwYjNGRnNwdXZWM0F1aENiNnNmcUlxQ1ovVDRlUXJSSWtPU2luYmlva042ZFR5MVhuNQp6cGlJTEhOQ20wYkl2cVpJZmhkdERsUlcwcGQxbmlGZ2R3c3FacjdFUlFlN29XSHZkbVRwa1NaQ2p1M04zb1NjCjRPSmUwVmxBdWdwMjRsbms2bisxb01ySjJRUjNqQkxQVGUvZ3dKbGZBb0dCQUtBcUhBQ3J6WFNWQThLbDdJNkcKSXhqNlZXQXpIdWRWTlVIVk1zT1dDVFlQQmlWV3FhOHJHUjFpbGRUaGVwdVY2ZDd2bXZKQnE2SzZPMjRiQzM4bgo1OUNkVURkSlJ1RzZXbWx3QmFUcVU5S0ZSUFBSVTlxNDA4WTJjR2RXVzRkTXM0cWRaSlkxYUg1QjNJUDVBb25PCnhwSkVOMFRadGluaGlnaXUvbVkza3NzQkFvR0JBUFZDb0ZnYmhQaUpXZDVTMnRXZnV2aEZMR3ZPbVNwb1p1d28Kc2x5QnNUOUNwOTdWVVRHbEQ3Ymh6allEcnVFQ1BicVk5NThkaGwwVUgrdHZvT0FIVVZDM0V6d05JcExUQ1BmTQptamVUZVkrKzRPdXRSQmkzTzVOZFJqL05QMWd2ZFZraEpCTGxKRmxoY2JHOXIwTE9JZkIzckdFNkloN1JpUmc4CjkvZzZhV1JOQW9HQWJSSG94d1B4MUVlRnRxVDlUdXowZWZUR3RwQTB0bkhDZTN2b2x1L201eEZ6N3BwS29HeUQKRkNPVm5jMmZ3LzQwYUFGTGdHYlFLMFBqTzFCbWZ3cjFvb09aT1hZYnExUXo3Q1cvN3A1OUFkR0VrWXFzdWZZcAp6OXlMd1dBUEdybm9jVjBVQXZ2SHcvbC9OK29NZEdpdmVTdDhRb3RHclgzdm9PTmVsWThCZDRNPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=`
-
-	testKubeconfig = api.Config{
-		APIVersion: k8s.KubeconfigAPIVersion,
-		Kind:       k8s.KubeconfigKind,
-		Clusters: []api.NamedCluster{
-			{
-				Name: "test",
-				Cluster: api.Cluster{
-					CertificateAuthorityData: []byte(`-----BEGIN CERTIFICATE-----
-MIICyDCCAbCgAwIBAgIBADANBgkqhkiG9w0BAQsFADAVMRMwEQYDVQQDEwprdWJl
-cm5ldGVzMB4XDTIwMDMwNDExMTUwMFoXDTMwMDMwNDExMTUwMFowFTETMBEGA1UE
-AxMKa3ViZXJuZXRlczCCASIwDQYJKoZIhvcNAQEBBQADggEPADCCAQoCggEBAKu/
-LHYyMQ7EZdZZaZEAl2BZd2KVhO64tpgI7CTpnz4dLS6ivdPIRLlgFw0AWpr6APxk
-yjx+Of2LqQTxNGCLQZ8Cv/1x+vRvS9arwVuHgZL/fdM19gj2Ec/eF7X8K0EZuSX1
-GoVbrANH72ocdxwoj6YsogdyRDzWnDc7joV9lfVc2QuP7G+aF8FAI6+1FiL9btQ7
-ywfaCZq83WJq1i9+j+4lEAChP5jVv/0KzuN2tnwuZWyc3zQlrGHmqld8X+cTBk0h
-7xXI5wSuOO3/W0ipT9AWVf0hYZg5V9UiJN5ADFWzmyxT8m9Uetwm3aVRmgr+5N8a
-F6GVMgvLAmyZ5mJhGDkCAwEAAaMjMCEwDgYDVR0PAQH/BAQDAgKkMA8GA1UdEwEB
-/wQFMAMBAf8wDQYJKoZIhvcNAQELBQADggEBAE/RLeOoms7NQx9H/62HroUQ2yLW
-1yiiPUhPDQBDgZyOnuMcvJO8HT+pVw9eOk51y3TOMKbbpAhqsB7tJKATVqbygkG6
-sYD+Ky0rCHO7D139Et5xB6tkCA2qJUQ2AEoI27/gkvw+NVzKTSuRUAtAvWCgb6uY
-dTkcihcRzhrWWSWNQ7s6E+tcsIKMbmBUOCl1Xz0DO3tlo9O/4LRA8otWP10xeKrk
-UlQUK/Iqi/aS7W86n/Ie5tUo52QfNM2M1fEmQP6y8X1FVl8vp/Vqx11k3y/YHG/V
-y7JHcXauRKI7bxgOugSep2d0lhYxJl65CPOCllawcu70Ds34MKi3XkCe20I=
------END CERTIFICATE-----
-`),
-					Server: "https://test:6443",
-				},
-			},
-		},
-		Contexts: []api.NamedContext{
-			{
-				Name: "test@test",
-				Context: api.Context{
-					Cluster:  "test",
-					AuthInfo: "test",
-				},
-			},
-		},
-		AuthInfos: []api.NamedAuthInfo{
-			{
-				Name: "test",
-				AuthInfo: api.AuthInfo{
-					Token:    "qotGxuOfD74ajgWir18tMMPicxLIizKg3nt5PKHGbsbNDbGfqNojIdXI",
-					Username: "test",
-					Password: "test",
-					ClientCertificateData: []byte(
-						"LS0tLS1CRUdJTiBDRVJUSUZJQ0FURS0tLS0tCk1JSUMvekNDQWVlZ0F3SUJBZ0lJZERQak80Umphdzh3RFFZSktvWklodmNOQVFFTEJRQXdGVEVUTUJFR0ExVUUKQXhNS2EzVmlaWEp1WlhSbGN6QWVGdzB5TURBek1qTXdPRFEyTkRoYUZ3MHlNVEF6TWpNd09EUTJORGhhTUVFeApGekFWQmdOVkJBb1REbk41YzNSbGJUcHRZWE4wWlhKek1TWXdKQVlEVlFRREV4MXJkV0psTFdGd2FYTmxjblpsCmNpMXJkV0psYkdWMExXTnNhV1Z1ZERDQ0FTSXdEUVlKS29aSWh2Y05BUUVCQlFBRGdnRVBBRENDQVFvQ2dnRUIKQU54VjByQ0lBemNsdXIyV1VNb3NqOW1LQmlkclYzcnB5RmNwdnltMmtFVjZaOVo2TTBSRXpyTHo1c3BaWndCTwo1bHZrbEdzL2RJVndFK2pBd2tNWWNRRWlOaTQ2bHU4UFNSei9HVTFkek5mOEF2TXpnRWZER0xUY2x3eUs4di9kCklLenhTUnVOUFFseDZoTUw1bFpDeVBBZ3hqejNEdDZGWmUxUnVUdURWTUhnOWZIaHNwOFZTYnVCbWFYTTU2T0IKLzNZQXJLMXZOTlY0enRlQ3libFZnVUd3QUdKQ09zTlE0d0l4R0xSdjN5TVhtK3V3YVpGeTFxSEh6ZlpXclRpQQpKQ2lQNFVCbDV3bnUzeEhNaFZaemI0RnNCLzBmVEl1WHQ0ZjQ5L201KzdpM01vMEdrMjJNMjAvQldzNURZVmo1CnptSVVxcU9kK09UekdkcjgvcTRsdnQ4Q0F3RUFBYU1uTUNVd0RnWURWUjBQQVFIL0JBUURBZ1dnTUJNR0ExVWQKSlFRTU1Bb0dDQ3NHQVFVRkJ3TUNNQTBHQ1NxR1NJYjNEUUVCQ3dVQUE0SUJBUUNuVFFCWlhsbm1aVWpDNEdscwpKdTZWWEYxN040ckpzWkNVOVR3SEhETlpZNGo5YlZHbG8wZzAva3JTajBId3hNNVU1NXl2WUJDaWNpZzVkSS96Cnd2ZENUQm5FQWIxRWtuZVR1ZkVPYzFtNzBtSzg0dnd3WWZtRVNkY1NXMmJieHBuUFNpak5BdnlTekZTTmZZZDEKMy9FZlRlQjQ0VFNGRGZQVk83YnpKYXBpYVJCTlZocVJQSncwc0lJWGM1Q0hiQzFEMHU5Mk4zRnhCa3JKcFN2UAp1QXBQT2dyNUgwUk5rOEk2TTBjd0FBc1RqdUkxd2Z4MjhJU0FWcmZLUjU4d1Eza1NsZzlUTTQrN01VMFA4eUZHClJXRkIrVFZiMTExYTRDc2RSbWMzQnZtcnFEbjZ2Ny9LOTJ4c0hNeDdBd3FObk1XUDQ4QStoVFNFVFh3U1Btb3cKL040RAotLS0tLUVORCBDRVJUSUZJQ0FURS0tLS0tCg==",
-					),
-					ClientKeyData: []byte(
-						"LS0tLS1CRUdJTiBSU0EgUFJJVkFURSBLRVktLS0tLQpNSUlFcFFJQkFBS0NBUUVBM0ZYU3NJZ0ROeVc2dlpaUXlpeVAyWW9HSjJ0WGV1bklWeW0vS2JhUVJYcG4xbm96ClJFVE9zdlBteWxsbkFFN21XK1NVYXo5MGhYQVQ2TURDUXhoeEFTSTJManFXN3c5SkhQOFpUVjNNMS93Qzh6T0EKUjhNWXROeVhESXJ5LzkwZ3JQRkpHNDA5Q1hIcUV3dm1Wa0xJOENER1BQY08zb1ZsN1ZHNU80TlV3ZUQxOGVHeQpueFZKdTRHWnBjem5vNEgvZGdDc3JXODAxWGpPMTRMSnVWV0JRYkFBWWtJNncxRGpBakVZdEcvZkl4ZWI2N0JwCmtYTFdvY2ZOOWxhdE9JQWtLSS9oUUdYbkNlN2ZFY3lGVm5OdmdXd0gvUjlNaTVlM2gvajMrYm43dUxjeWpRYVQKYll6YlQ4RmF6a05oV1BuT1loU3FvNTM0NVBNWjJ2eityaVcrM3dJREFRQUJBb0lCQVFESDRsdldwaTAwbEZmSwpzbGpzY0d5M2p3MXlLV0VkTW9UNi9mWmNJekRTdHU4SWxhZDRvV3RhMFFWb1FKNittdFZFUENPZy85bjNTK3ZqCjFTcm1yMytrNWFKOVljMlhaaWlQMDZUaW1OdkNmTzg0TGxxTHY2UGtQOUlRSU9XOTFKOVdCVGFyZGdBUFYzWmcKZlFVaThFZFdBSVdXdlJLU01EWjlpd3dkdjFEZTZFUmt4Z0Y2R0NTSXQ2Ri80RS81Uk1VbkJObU1ycjZHWHR5NgorK0cxWExCcWxRdExYVm1yRDAyVW05Y1Yyb2QwOEczTzdUM3VqUWl6ZjR6emx4LzVWWGk0ZTFkVEViY05PRU53Cnlwd3lSajBCdFh2TXVwUXZvdUZRM3I5UmVQL0g5dmp1Q3NiZGF3T1pGQkFDb3J0UVJxcnFodENZMERRK2tiM1AKQWV1SjNnb0JBb0dCQU56QU0rbzBqckhKWGZJVFppSWEwZkV4QkIyNHBpTE5NTmoxaHIxSEJFWjI2eXFucFg5UApTSkRIbXhWREo2UXROZFQxZ3Y5L1MwelF3S2ZzYVZ5M2VYNW9OcU5hVEZERGhPSEoxWDZZUElwREZGTUgwNGV2CnRXV1ZNd21MVU9mdmhQR3NYOW5rdFRlVmxueTlnSUZOK0dkWFRTSlgyOEVIaHE2NGg4ay9IVXFCQW9HQkFQK0UKb2pVcUN3RWJ0UTIzcGRwYjNGRnNwdXZWM0F1aENiNnNmcUlxQ1ovVDRlUXJSSWtPU2luYmlva042ZFR5MVhuNQp6cGlJTEhOQ20wYkl2cVpJZmhkdERsUlcwcGQxbmlGZ2R3c3FacjdFUlFlN29XSHZkbVRwa1NaQ2p1M04zb1NjCjRPSmUwVmxBdWdwMjRsbms2bisxb01ySjJRUjNqQkxQVGUvZ3dKbGZBb0dCQUtBcUhBQ3J6WFNWQThLbDdJNkcKSXhqNlZXQXpIdWRWTlVIVk1zT1dDVFlQQmlWV3FhOHJHUjFpbGRUaGVwdVY2ZDd2bXZKQnE2SzZPMjRiQzM4bgo1OUNkVURkSlJ1RzZXbWx3QmFUcVU5S0ZSUFBSVTlxNDA4WTJjR2RXVzRkTXM0cWRaSlkxYUg1QjNJUDVBb25PCnhwSkVOMFRadGluaGlnaXUvbVkza3NzQkFvR0JBUFZDb0ZnYmhQaUpXZDVTMnRXZnV2aEZMR3ZPbVNwb1p1d28Kc2x5QnNUOUNwOTdWVVRHbEQ3Ymh6allEcnVFQ1BicVk5NThkaGwwVUgrdHZvT0FIVVZDM0V6d05JcExUQ1BmTQptamVUZVkrKzRPdXRSQmkzTzVOZFJqL05QMWd2ZFZraEpCTGxKRmxoY2JHOXIwTE9JZkIzckdFNkloN1JpUmc4CjkvZzZhV1JOQW9HQWJSSG94d1B4MUVlRnRxVDlUdXowZWZUR3RwQTB0bkhDZTN2b2x1L201eEZ6N3BwS29HeUQKRkNPVm5jMmZ3LzQwYUFGTGdHYlFLMFBqTzFCbWZ3cjFvb09aT1hZYnExUXo3Q1cvN3A1OUFkR0VrWXFzdWZZcAp6OXlMd1dBUEdybm9jVjBVQXZ2SHcvbC9OK29NZEdpdmVTdDhRb3RHclgzdm9PTmVsWThCZDRNPQotLS0tLUVORCBSU0EgUFJJVkFURSBLRVktLS0tLQo=",
-					),
-				},
-			},
-		},
-	}
 )
-
-// testIfKubeconfigInFile checks if the given kubeconfig is in the given file
-// it test if the user, cluster and context of the kubeconfig file are in the given file
-func testIfKubeconfigInFile(t *testing.T, filePath string, suffix string, kubeconfig api.Config) {
-	t.Helper()
-	kubeconfigBytes, err := os.ReadFile(filePath)
-	require.NoError(t, err)
-	var existingKubeconfig api.Config
-	err = yaml.Unmarshal(kubeconfigBytes, &existingKubeconfig)
-	require.NoError(t, err)
-
-	found := false
-	for _, cluster := range existingKubeconfig.Clusters {
-		if cluster.Name == kubeconfig.Clusters[0].Name+suffix {
-			// t.Log(string(cluster.Cluster.CertificateAuthorityData))
-			// t.Log(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
-			// panic(string(cluster.Cluster.CertificateAuthorityData))
-			// panic(string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData))
-			assert.Equal(
-				t,
-				string(kubeconfig.Clusters[0].Cluster.CertificateAuthorityData),
-				string(cluster.Cluster.CertificateAuthorityData),
-			)
-			assert.Equal(t, kubeconfig.Clusters[0].Cluster.Server, cluster.Cluster.Server)
-			found = true
-
-			break
-		}
-	}
-	assert.True(t, found, "cluster not found in kubeconfig for cluster with suffix %s", suffix)
-
-	found = false
-	for _, context := range existingKubeconfig.Contexts {
-		if context.Name == kubeconfig.Contexts[0].Name+suffix {
-			assert.Equal(t, kubeconfig.Contexts[0].Context.Cluster+suffix, context.Context.Cluster)
-			assert.Equal(
-				t,
-				kubeconfig.Contexts[0].Context.AuthInfo+suffix,
-				context.Context.AuthInfo,
-			)
-			assert.Equal(t, kubeconfig.Contexts[0].Context.Namespace, context.Context.Namespace)
-			found = true
-
-			break
-		}
-	}
-	assert.True(t, found, "context not found in kubeconfig for cluster with suffix %s", suffix)
-
-	found = false
-	for _, user := range existingKubeconfig.AuthInfos {
-		if user.Name == kubeconfig.AuthInfos[0].Name+suffix {
-			assert.Equal(t, kubeconfig.AuthInfos[0].AuthInfo.Username, user.AuthInfo.Username)
-			found = true
-
-			break
-		}
-	}
-	assert.True(t, found, "user not found in kubeconfig with suffix %s", suffix)
-}
 
 func Test_InstallKubeconfig(t *testing.T) {
 	////
-	// Simple use cases
+	// Simple use case
+	// no flags, no env, using default path
 	////
 	t.Run("simple", core.Test(&core.TestConfig{
-		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfig(
-			"install-kubeconfig-simple",
-			"Cluster",
-			"Kubeconfig",
-			kapsuleVersion,
+		Commands:   k8s.GetCommands(),
+		TmpHomeDir: true,
+		BeforeFunc: core.BeforeFuncCombine(
+			createCluster("install-kubeconfig-simple", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
-		Cmd: "scw k8s kubeconfig install {{ .Cluster.ID }}",
+		Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigInFile(
-					t,
-					path.Join(os.TempDir(), "cli-test"),
-					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
-					ctx.Meta["Kubeconfig"].(api.Config),
-				)
+
+				kubeconfigPath := path.Join(ctx.Meta["HOME"].(string), ".kube", "config")
+				t.Logf("using kubeconfigPath: %s", kubeconfigPath)
+
+				fileKubeconfig, err := os.ReadFile(kubeconfigPath)
+				require.NoError(t, err)
+
+				var finalKubeconfig api.Config
+				err = yaml.Unmarshal(fileKubeconfig, &finalKubeconfig)
+				require.NoError(t, err)
+
+				suffix := "-" + ctx.Meta[clusterMetaKey].(*k8sSDK.Cluster).ID
+				assertKubeconfigClusterHasSuffix(t, finalKubeconfig, suffix)
+				assertKubeconfigContextHasSuffix(t, finalKubeconfig, suffix)
+
+				authInfo := api.NamedAuthInfo{
+					Name: "cli-config-00000000",
+					AuthInfo: api.AuthInfo{
+						Exec: &api.ExecConfig{
+							APIVersion:      "client.authentication.k8s.io/v1",
+							Command:         "scw",
+							Args:            []string{"k8s", "exec-credential"},
+							InstallHint:     k8s.InstallHint,
+							InteractiveMode: "Never",
+						},
+					},
+				}
+				assertKubeconfigAuthUserContains(t, finalKubeconfig, authInfo)
 			},
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteCluster("Cluster"),
+		AfterFunc: deleteCluster(),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": path.Join(os.TempDir(), "cli-test"),
+			scw.ScwAccessKeyEnv: "", // Hide keys in test env
+			scw.ScwSecretKeyEnv: "", // Hide keys in test env
 		},
 	}))
 
+	////
+	// Merge will use install on top of an existing kubeconfig
+	// no envs, no flags, using default path
+	////
 	t.Run("merge", core.Test(&core.TestConfig{
-		Commands: k8s.GetCommands(),
-		BeforeFunc: createClusterAndWaitAndKubeconfigAndPopulateFile(
-			"install-kubeconfig-merge",
-			"Cluster",
-			"Kubeconfig",
-			kapsuleVersion,
-			path.Join(os.TempDir(), "cli-merge-test"),
-			[]byte(existingKubeconfig),
+		Commands:   k8s.GetCommands(),
+		TmpHomeDir: true,
+		BeforeFunc: core.BeforeFuncCombine(
+			writeKubeconfigFile([]byte(existingKubeconfig)),
+			createCluster("install-kubeconfig-merge", true),
+			fetchClusterKubeconfigMetadata(true),
 		),
-		Cmd: "scw k8s kubeconfig install {{ .Cluster.ID }}",
+		Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }}",
 		Check: core.TestCheckCombine(
 			// no golden tests since it's os specific
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				testIfKubeconfigInFile(
-					t,
-					path.Join(os.TempDir(), "cli-merge-test"),
-					"-"+ctx.Meta["Cluster"].(*k8sSDK.Cluster).ID,
-					ctx.Meta["Kubeconfig"].(api.Config),
+
+				kubeconfigPath := path.Join(ctx.Meta["HOME"].(string), ".kube", "config")
+				t.Logf("using kubeconfigPath: %s", kubeconfigPath)
+
+				fileKubeconfig, err := os.ReadFile(kubeconfigPath)
+				require.NoError(t, err)
+
+				var finalKubeconfig api.Config
+				err = yaml.Unmarshal(fileKubeconfig, &finalKubeconfig)
+				require.NoError(t, err)
+
+				assert.NotEqualf(t,
+					[]byte(existingKubeconfig),
+					fileKubeconfig,
+					"expected kubeconfig file to be merged",
 				)
-				testIfKubeconfigInFile(
-					t,
-					path.Join(os.TempDir(), "cli-merge-test"),
-					"",
-					testKubeconfig,
-				)
+
+				suffix := "-" + ctx.Meta[clusterMetaKey].(*k8sSDK.Cluster).ID
+				assertKubeconfigClusterHasSuffix(t, finalKubeconfig, suffix)
+				assertKubeconfigContextHasSuffix(t, finalKubeconfig, suffix)
+
+				authInfo := api.NamedAuthInfo{
+					Name: "cli-config-00000000",
+					AuthInfo: api.AuthInfo{
+						Exec: &api.ExecConfig{
+							APIVersion:      "client.authentication.k8s.io/v1",
+							Command:         "scw",
+							Args:            []string{"k8s", "exec-credential"},
+							InstallHint:     k8s.InstallHint,
+							InteractiveMode: "Never",
+						},
+					},
+				}
+				assertKubeconfigAuthUserContains(t, finalKubeconfig, authInfo)
+
+				// check currentContext changed
+				found := strings.HasSuffix(finalKubeconfig.CurrentContext, suffix)
+				assert.True(t, found, "current context does not contains suffix %s", suffix)
 			},
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteCluster("Cluster"),
+		AfterFunc: deleteCluster(),
 		OverrideEnv: map[string]string{
-			"KUBECONFIG": path.Join(os.TempDir(), "cli-merge-test"),
+			scw.ScwAccessKeyEnv: "", // Hide keys in test env
+			scw.ScwSecretKeyEnv: "", // Hide keys in test env
 		},
 	}))
+
+	////
+	// Merge and keep currentContext of existing kubeconfig
+	// no envs, no flags, using default path
+	////
+	t.Run("merge-keep", core.Test(&core.TestConfig{
+		Commands:   k8s.GetCommands(),
+		TmpHomeDir: true,
+		BeforeFunc: core.BeforeFuncCombine(
+			writeKubeconfigFile([]byte(existingKubeconfig)),
+			createCluster("install-kubeconfig-merge-keep", true),
+			fetchClusterKubeconfigMetadata(true),
+		),
+		Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }} keep-current-context=true",
+		Check: core.TestCheckCombine(
+			// no golden tests since it's os specific
+			func(t *testing.T, ctx *core.CheckFuncCtx) {
+				t.Helper()
+
+				kubeconfigPath := path.Join(ctx.Meta["HOME"].(string), ".kube", "config")
+				t.Logf("using kubeconfigPath: %s", kubeconfigPath)
+
+				fileKubeconfig, err := os.ReadFile(kubeconfigPath)
+				require.NoError(t, err)
+
+				var finalKubeconfig api.Config
+				err = yaml.Unmarshal(fileKubeconfig, &finalKubeconfig)
+				require.NoError(t, err)
+
+				assert.NotEqualf(
+					t,
+					[]byte(existingKubeconfig),
+					fileKubeconfig,
+					"expected kubeconfig file to be merged",
+				)
+
+				suffix := "-" + ctx.Meta[clusterMetaKey].(*k8sSDK.Cluster).ID
+				assertKubeconfigClusterHasSuffix(t, finalKubeconfig, suffix)
+				assertKubeconfigContextHasSuffix(t, finalKubeconfig, suffix)
+
+				authInfo := api.NamedAuthInfo{
+					Name: "cli-config-00000000",
+					AuthInfo: api.AuthInfo{
+						Exec: &api.ExecConfig{
+							APIVersion:      "client.authentication.k8s.io/v1",
+							Command:         "scw",
+							Args:            []string{"k8s", "exec-credential"},
+							InstallHint:     k8s.InstallHint,
+							InteractiveMode: "Never",
+						},
+					},
+				}
+				assertKubeconfigAuthUserContains(t, finalKubeconfig, authInfo)
+
+				// check keep-current-context=true
+				assert.Equal(t, "test@test", finalKubeconfig.CurrentContext)
+			},
+			core.TestCheckExitCode(0),
+		),
+		AfterFunc: deleteCluster(),
+		OverrideEnv: map[string]string{
+			scw.ScwAccessKeyEnv: "", // Hide keys in test env
+			scw.ScwSecretKeyEnv: "", // Hide keys in test env
+		},
+	}))
+
+	////
+	// Merge will use install on top of an existing kubeconfig
+	// no flags, using KUBECONFIG env
+	////
+	t.Run("merge-kubeconfig", func(t *testing.T) {
+		f, err := os.CreateTemp(t.TempDir(), "kubeconfig")
+		require.NoError(t, err)
+		require.NotNil(t, f)
+		defer os.Remove(f.Name()) // clean up
+
+		_, err = f.WriteString(existingKubeconfig)
+		require.NoError(t, err)
+
+		err = f.Close()
+		require.NoError(t, err)
+
+		testConfig := &core.TestConfig{
+			Commands:   k8s.GetCommands(),
+			TmpHomeDir: true,
+			BeforeFunc: core.BeforeFuncCombine(
+				writeKubeconfigFile([]byte(existingKubeconfig)),
+				createCluster("install-kubeconfig-merge-kubeconfig", true),
+				fetchClusterKubeconfigMetadata(true),
+			),
+			Cmd: "scw k8s kubeconfig install {{ ." + clusterMetaKey + ".ID }}",
+			Check: core.TestCheckCombine(
+				// no golden tests since it's os specific
+				func(t *testing.T, ctx *core.CheckFuncCtx) {
+					t.Helper()
+
+					kubeconfigPath := ctx.OverrideEnv["KUBECONFIG"]
+					t.Logf("using kubeconfigPath: %s", kubeconfigPath)
+
+					fileKubeconfig, err := os.ReadFile(kubeconfigPath)
+					require.NoError(t, err)
+
+					var finalKubeconfig api.Config
+					err = yaml.Unmarshal(fileKubeconfig, &finalKubeconfig)
+					require.NoError(t, err)
+
+					assert.NotEqualf(
+						t,
+						[]byte(existingKubeconfig),
+						fileKubeconfig,
+						"expected kubeconfig file to be merged",
+					)
+
+					suffix := "-" + ctx.Meta[clusterMetaKey].(*k8sSDK.Cluster).ID
+					assertKubeconfigClusterHasSuffix(t, finalKubeconfig, suffix)
+					assertKubeconfigContextHasSuffix(t, finalKubeconfig, suffix)
+
+					authInfo := api.NamedAuthInfo{
+						Name: "cli-config-00000000",
+						AuthInfo: api.AuthInfo{
+							Exec: &api.ExecConfig{
+								APIVersion:      "client.authentication.k8s.io/v1",
+								Command:         "scw",
+								Args:            []string{"k8s", "exec-credential"},
+								InstallHint:     k8s.InstallHint,
+								InteractiveMode: "Never",
+							},
+						},
+					}
+					assertKubeconfigAuthUserContains(t, finalKubeconfig, authInfo)
+
+					// check currentContext changed
+					found := strings.HasSuffix(finalKubeconfig.CurrentContext, suffix)
+					assert.True(t, found, "current context does not contains suffix %s", suffix)
+				},
+				core.TestCheckExitCode(0),
+			),
+			AfterFunc: deleteCluster(),
+			OverrideEnv: map[string]string{
+				"KUBECONFIG":        f.Name(),
+				scw.ScwAccessKeyEnv: "", // Hide keys in test env
+				scw.ScwSecretKeyEnv: "", // Hide keys in test env
+			},
+		}
+		core.Test(testConfig)(t)
+	})
+}
+
+func assertKubeconfigClusterHasSuffix(
+	t *testing.T,
+	kubeconfig api.Config,
+	suffix string,
+) {
+	t.Helper()
+
+	found := 0
+	for _, cluster := range kubeconfig.Clusters {
+		if strings.HasSuffix(cluster.Name, suffix) {
+			found++
+		}
+	}
+	assert.Equal(
+		t,
+		1,
+		found,
+		"%d clusters with suffix %s found in kubeconfig",
+		found,
+		suffix,
+	)
+	if found == 0 {
+		config, err := yaml.Marshal(kubeconfig)
+		require.NoError(t, err)
+		t.Logf("kubeconfig: %s", config)
+	}
+}
+
+func assertKubeconfigContextHasSuffix(
+	t *testing.T,
+	kubeconfig api.Config,
+	suffix string,
+) {
+	t.Helper()
+
+	found := false
+	for _, context := range kubeconfig.Contexts {
+		if strings.HasSuffix(context.Name, suffix) {
+			assert.True(
+				t,
+				strings.HasSuffix(context.Context.Cluster, suffix),
+				"context cluster does not match cluster pattern",
+			)
+			found = true
+
+			break
+		}
+	}
+	assert.True(t, found, "no context not found in kubeconfig for cluster with suffix %s", suffix)
+	if !found {
+		config, err := yaml.Marshal(kubeconfig)
+		require.NoError(t, err)
+		t.Logf("kubeconfig: %s", config)
+	}
+}
+
+func assertKubeconfigAuthUserContains(
+	t *testing.T,
+	kubeconfig api.Config,
+	authUser api.NamedAuthInfo,
+) {
+	t.Helper()
+
+	found := false
+	for _, user := range kubeconfig.AuthInfos {
+		if user.Name == authUser.Name {
+			assert.Equal(t, user.AuthInfo, authUser.AuthInfo)
+			found = true
+
+			break
+		}
+	}
+	assert.True(t, found, "user not found in kubeconfig with name %s", authUser.Name)
 }

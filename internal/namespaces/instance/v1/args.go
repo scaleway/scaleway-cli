@@ -11,7 +11,7 @@ func init() {
 }
 
 func marshalNullableStringValue() args.MarshalFunc {
-	return func(src interface{}) (s string, e error) {
+	return func(src any) (s string, e error) {
 		nullableStringValue := src.(*instance.NullableStringValue)
 
 		return nullableStringValue.Value, nil
@@ -23,7 +23,7 @@ func marshalNullableStringValue() args.MarshalFunc {
 // value=   	=> instance.NullableStringValue{ Null:  true, Value: "", }
 // value=none	=> instance.NullableStringValue{ Null:  true, Value: "none", }
 func unmarshalNullableStringValue() args.UnmarshalFunc {
-	return func(value string, dest interface{}) error {
+	return func(value string, dest any) error {
 		nullableStringValue := dest.(*instance.NullableStringValue)
 		nullableStringValue.Value = value
 		if value == "" || value == "none" {

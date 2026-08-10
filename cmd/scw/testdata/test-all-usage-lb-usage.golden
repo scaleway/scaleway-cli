@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Scaleway Load Balancer services.
 
 USAGE:
@@ -18,7 +18,8 @@ AVAILABLE COMMANDS:
   subscriber      Subscriber management commands
 
 FLAGS:
-  -h, --help   help for lb
+  -h, --help                help for lb
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

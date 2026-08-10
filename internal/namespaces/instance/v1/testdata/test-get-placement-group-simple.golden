@@ -1,33 +1,33 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID               d9987d23-f5f7-4b8e-9b99-144cdc36c81f
-Name             cli-pg-nice-hoover
-Organization     ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project          ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID               6aaf9801-7fe1-448f-b9a4-cad5e788e7df
+Name             cli-pg-bold-kirch
+Organization     fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project          fa1e3217-dc80-42ac-85c3-3f034b78b552
 PolicyMode       optional
 PolicyType       max_availability
 PolicyRespected  true
 Zone             fr-par-1
 
 Placement Group:
-ID               d9987d23-f5f7-4b8e-9b99-144cdc36c81f
-Name             cli-pg-nice-hoover
-Organization     ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
-Project          ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+ID               6aaf9801-7fe1-448f-b9a4-cad5e788e7df
+Name             cli-pg-bold-kirch
+Organization     fa1e3217-dc80-42ac-85c3-3f034b78b552
+Project          fa1e3217-dc80-42ac-85c3-3f034b78b552
 PolicyMode       optional
 PolicyType       max_availability
 PolicyRespected  true
 Zone             fr-par-1
 
 Servers:
-ID                                    NAME                        POLICY RESPECTED
-31a58329-348f-4fe8-9cf1-4b3d0c888818  cli-srv-infallible-murdock  true
+ID                                    NAME                   POLICY RESPECTED
+531601c0-a828-4f0d-8304-c2a4d8d92f1b  cli-srv-stoic-germain  true
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d9987d23-f5f7-4b8e-9b99-144cdc36c81f",
-  "name": "cli-pg-nice-hoover",
-  "organization": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
-  "project": "ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b",
+  "id": "6aaf9801-7fe1-448f-b9a4-cad5e788e7df",
+  "name": "cli-pg-bold-kirch",
+  "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "tags": [],
   "policy_mode": "optional",
   "policy_type": "max_availability",
@@ -35,8 +35,8 @@ ID                                    NAME                        POLICY RESPECT
   "zone": "fr-par-1",
   "servers": [
     {
-      "id": "31a58329-348f-4fe8-9cf1-4b3d0c888818",
-      "name": "cli-srv-infallible-murdock",
+      "id": "531601c0-a828-4f0d-8304-c2a4d8d92f1b",
+      "name": "cli-srv-stoic-germain",
       "policy_respected": true
     }
   ]

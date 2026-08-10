@@ -43,7 +43,7 @@ const (
 	clusterActionDelete
 )
 
-func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func clusterMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type humanCluster k8s.Cluster
 	cluster := humanCluster(i.(k8s.Cluster))
 
@@ -71,7 +71,7 @@ func clusterMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) 
 	return str, nil
 }
 
-func clusterAvailableTypesListMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func clusterAvailableTypesListMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	type humanResponse k8s.ListClusterAvailableTypesResponse
 	types := humanResponse(i.(k8s.ListClusterAvailableTypesResponse))
 
@@ -93,7 +93,7 @@ func clusterAvailableTypesListMarshalerFunc(i interface{}, opt *human.MarshalOpt
 
 func clusterAvailableVersionsListBuilder(c *core.Command) *core.Command {
 	c.AddInterceptors(
-		func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+		func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 			originalRes, err := runner(ctx, argsI)
 			if err != nil {
 				return nil, err
@@ -119,7 +119,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("version").AutoCompleteFunc = autocompleteK8SVersion
 	c.ArgSpecs.GetByName("type").AutoCompleteFunc = autocompleteClusterType
 
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*k8s.CreateClusterRequest)
 
 		// Handle default latest version for k8s cluster
@@ -134,7 +134,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		return runner(ctx, args)
 	}
 
-	c.Run = func(ctx context.Context, args interface{}) (i interface{}, e error) {
+	c.Run = func(ctx context.Context, args any) (i any, e error) {
 		request := args.(*k8s.CreateClusterRequest)
 
 		client := core.ExtractClient(ctx)
@@ -144,30 +144,6 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		pnCreated := false
 		var pn *vpc.PrivateNetwork
 		var err error
-
-		types, err := k8sAPI.ListClusterTypes(&k8s.ListClusterTypesRequest{
-			Region: request.Region,
-		})
-		if err != nil {
-			return nil, err
-		}
-		if request.Type != "" {
-			validType := false
-			validTypes := []string(nil)
-			for _, clusterType := range types.ClusterTypes {
-				validTypes = append(validTypes, clusterType.Name)
-				if clusterType.Name == request.Type {
-					validType = true
-				}
-			}
-			if !validType {
-				return nil, fmt.Errorf(
-					"invalid cluster type %q, must be one of %v",
-					request.Type,
-					validTypes,
-				)
-			}
-		}
 
 		if request.Type == "" || strings.HasPrefix(request.Type, "kapsule") {
 			if request.PrivateNetworkID == nil {
@@ -182,7 +158,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 				if err != nil {
 					return nil, err
 				}
-				request.PrivateNetworkID = scw.StringPtr(pn.ID)
+				request.PrivateNetworkID = new(pn.ID)
 				pnCreated = true
 			} else {
 				pn, err = vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
@@ -245,7 +221,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 }
 
 func clusterGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -345,7 +321,7 @@ func clusterUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func waitForClusterFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		var clusterResponse *k8s.Cluster
 		if action == clusterActionCreate {
 			clusterResponse = respI.(struct {
@@ -359,7 +335,7 @@ func waitForClusterFunc(action int) core.WaitFunc {
 			WaitForCluster(&k8s.WaitForClusterRequest{
 				Region:        clusterResponse.Region,
 				ClusterID:     clusterResponse.ID,
-				Timeout:       scw.TimeDurationPtr(clusterActionTimeout),
+				Timeout:       new(clusterActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		switch action {
@@ -373,9 +349,9 @@ func waitForClusterFunc(action int) core.WaitFunc {
 			if err != nil {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
-				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) &&
-					responseError.StatusCode == http.StatusNotFound ||
+				if responseError, ok := errors.AsType[*scw.ResponseError](
+					err,
+				); ok && responseError.StatusCode == http.StatusNotFound ||
 					errors.As(err, &notFoundError) {
 					return fmt.Sprintf("Cluster %s successfully deleted.", clusterResponse.ID), nil
 				}
@@ -400,7 +376,7 @@ func k8sClusterWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(customClusterWaitArgs{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customClusterWaitArgs)
 
 			api := k8s.NewAPI(core.ExtractClient(ctx))

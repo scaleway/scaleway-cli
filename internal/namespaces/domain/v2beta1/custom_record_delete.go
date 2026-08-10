@@ -71,7 +71,7 @@ func dnsRecordDeleteCommand() *core.Command {
 	}
 }
 
-func dnsRecordDeleteRun(ctx context.Context, argsI interface{}) (i interface{}, e error) {
+func dnsRecordDeleteRun(ctx context.Context, argsI any) (i any, e error) {
 	request := argsI.(*dnsRecordDeleteRequest)
 
 	var data *string

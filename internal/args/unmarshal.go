@@ -10,6 +10,7 @@ import (
 	"io"
 	"net"
 	"reflect"
+	"slices"
 	"strconv"
 	"strings"
 	"time"
@@ -24,12 +25,12 @@ type Unmarshaler interface {
 	UnmarshalArgs(value string) error
 }
 
-type UnmarshalFunc func(value string, dest interface{}) error
+type UnmarshalFunc func(value string, dest any) error
 
 var TestForceNow *time.Time
 
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
-	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest any) error {
 		// Only support G, GB for now (case insensitive).
 		value = strings.ToLower(value)
 		if !strings.HasSuffix(value, "g") && !strings.HasSuffix(value, "gb") {
@@ -45,11 +46,11 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		return nil
 	},
 
-	reflect.TypeOf((*scw.IPNet)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*scw.IPNet)(nil)).Elem(): func(value string, dest any) error {
 		return dest.(*scw.IPNet).UnmarshalJSON([]byte(`"` + value + `"`))
 	},
 
-	reflect.TypeOf((*net.IP)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*net.IP)(nil)).Elem(): func(value string, dest any) error {
 		ip := net.ParseIP(value)
 		if ip == nil {
 			return fmt.Errorf("%s is not a valid IP", value)
@@ -59,13 +60,13 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		return nil
 	},
 
-	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest any) error {
 		*(dest.(*io.Reader)) = strings.NewReader(value)
 
 		return nil
 	},
 
-	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest any) error {
 		// Handle absolute time
 		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
 		if absoluteErr == nil {
@@ -102,7 +103,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		}
 	},
 
-	reflect.TypeOf((*time.Duration)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*time.Duration)(nil)).Elem(): func(value string, dest any) error {
 		duration, err := time.ParseDuration(value)
 		if err != nil {
 			return fmt.Errorf("failed to parse duration: %w", err)
@@ -111,7 +112,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 		return nil
 	},
-	reflect.TypeOf((*scw.JSONObject)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*scw.JSONObject)(nil)).Elem(): func(value string, dest any) error {
 		jsonObject, err := scw.DecodeJSONObject(value, scw.NoEscape)
 		if err != nil {
 			return fmt.Errorf("failed to parse json object: %w", err)
@@ -120,12 +121,12 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 		return nil
 	},
-	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest any) error {
 		*(dest.(*[]byte)) = []byte(value)
 
 		return nil
 	},
-	reflect.TypeOf((*scw.Duration)(nil)).Elem(): func(value string, dest interface{}) error {
+	reflect.TypeOf((*scw.Duration)(nil)).Elem(): func(value string, dest any) error {
 		duration, err := time.ParseDuration(value)
 		if err != nil {
 			return fmt.Errorf("failed to parse duration: %w", err)
@@ -140,7 +141,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 //
 // args: slice of args passed through the command line
 // data: Go structure to fill
-func UnmarshalStruct(args []string, data interface{}) error {
+func UnmarshalStruct(args []string, data any) error {
 	// First check if we want to retrieve a simple []string
 	if raw, ok := data.(*RawArgs); ok {
 		*raw = args
@@ -150,7 +151,7 @@ func UnmarshalStruct(args []string, data interface{}) error {
 
 	// Second make sure data is a pointer to a struct or a map.
 	dest := reflect.ValueOf(data)
-	if !(dest.Kind() == reflect.Ptr && (dest.Elem().Kind() == reflect.Struct || dest.Elem().Kind() == reflect.Map)) {
+	if !(dest.Kind() == reflect.Pointer && (dest.Elem().Kind() == reflect.Struct || dest.Elem().Kind() == reflect.Map)) {
 		return &DataMustBeAPointerError{}
 	}
 
@@ -211,13 +212,13 @@ func UnmarshalStruct(args []string, data interface{}) error {
 }
 
 // IsUmarshalableValue returns true if data type could be unmarshalled with args.UnmarshalValue
-func IsUmarshalableValue(data interface{}) bool {
+func IsUmarshalableValue(data any) bool {
 	dest := reflect.ValueOf(data)
 	if !dest.IsValid() {
 		return false
 	}
 
-	for dest.Kind() == reflect.Ptr {
+	for dest.Kind() == reflect.Pointer {
 		dest = dest.Elem()
 	}
 
@@ -226,7 +227,7 @@ func IsUmarshalableValue(data interface{}) bool {
 
 // RegisterUnmarshalFunc registers an UnmarshalFunc for a given interface.
 // i must be a pointer.
-func RegisterUnmarshalFunc(i interface{}, unmarshalFunc UnmarshalFunc) {
+func RegisterUnmarshalFunc(i any, unmarshalFunc UnmarshalFunc) {
 	unmarshalFuncs[reflect.TypeOf(i).Elem()] = unmarshalFunc
 }
 
@@ -238,6 +239,8 @@ func RegisterUnmarshalFunc(i interface{}, unmarshalFunc UnmarshalFunc) {
 // value: the value to be set, represented as a string
 //
 // Example: argNameWords ["contacts", "0", "address", "city"] will set value "city" for your first contact in your phone book.
+//
+//nolint:gocyclo
 func set(dest reflect.Value, argNameWords []string, value string) error {
 	// If dest has a custom unmarshaler, we use it.
 	// dest can either implement Unmarshaler
@@ -250,7 +253,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			}
 		}
 
-		for dest.Kind() == reflect.Ptr {
+		for dest.Kind() == reflect.Pointer {
 			dest.Set(reflect.New(dest.Type().Elem()))
 			dest = dest.Elem()
 		}
@@ -259,7 +262,7 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 	}
 
 	switch dest.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		// If type is a nil pointer we create a new Value. NB: maps and slices are pointers.
 		if dest.IsNil() {
 			dest.Set(reflect.New(dest.Type().Elem()))
@@ -275,6 +278,12 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 			value == emptySliceValue {
 			sliceDest := dest.Elem()
 			sliceDest.Set(reflect.MakeSlice(sliceDest.Type(), 0, 0))
+
+			return nil
+		}
+		if dest.Elem().Kind() == reflect.Struct && len(argNameWords) == 0 &&
+			value == emptyStructValue {
+			dest.Set(reflect.New(dest.Elem().Type()))
 
 			return nil
 		}
@@ -370,8 +379,8 @@ func set(dest reflect.Value, argNameWords []string, value string) error {
 		}
 
 		// If it does not exist we try to find it in nested anonymous field
-		for i := len(anonymousFieldIndexes) - 1; i >= 0; i-- {
-			err := set(dest.Field(anonymousFieldIndexes[i]), argNameWords, value)
+		for _, v := range slices.Backward(anonymousFieldIndexes) {
+			err := set(dest.Field(v), argNameWords, value)
 			switch err.(type) {
 			case nil:
 				// If we got no error the field was correctly set we return nil.

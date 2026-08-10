@@ -22,14 +22,14 @@ func Capitalize(s string) string {
 }
 
 // isInterfaceNil return true if data is nil no matter it's type
-func isInterfaceNil(data interface{}) bool {
+func isInterfaceNil(data any) bool {
 	if data == nil {
 		return true
 	}
 
 	value := reflect.ValueOf(data)
 	switch value.Kind() {
-	case reflect.Ptr, reflect.Slice, reflect.Map:
+	case reflect.Pointer, reflect.Slice, reflect.Map:
 		return value.IsNil()
 	default:
 		return false

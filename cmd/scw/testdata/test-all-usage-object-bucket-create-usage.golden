@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create an Object Storage Bucket with the S3 protocol. The namespace is shared between all S3 users, so its name must be unique.
 
 USAGE:
@@ -13,7 +13,8 @@ ARGS:
   [region=fr-par]             Region to target. If none is passed will use default region from the config
 
 FLAGS:
-  -h, --help   help for create
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

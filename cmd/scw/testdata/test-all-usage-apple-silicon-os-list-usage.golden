@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List all Operating Systems (OS). The response will include the total number of OS as well as their associated IDs, names and labels.
 
 USAGE:
@@ -11,7 +11,8 @@ ARGS:
   [zone=fr-par-1]   Zone to target. If none is passed will use default zone from the config (fr-par-3 | all)
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

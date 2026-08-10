@@ -1,14 +1,15 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List existing IPs in the specified region using various filters. For example, you can filter for IPs within a specified Private Network, or for public IPs within a specified Project. By default, the IPs returned in the list are ordered by creation date in ascending order, though this can be modified via the order_by field.
 
 USAGE:
   scw ipam ip list [arg=value ...]
 
 ARGS:
-  [order-by]                 Sort order of the returned IPs (created_at_desc | created_at_asc | updated_at_desc | updated_at_asc | attached_at_desc | attached_at_asc)
+  [order-by]                 Sort order of the returned IPs (created_at_desc | created_at_asc | updated_at_desc | updated_at_asc | attached_at_desc | attached_at_asc | ip_address_desc | ip_address_asc | mac_address_desc | mac_address_asc)
   [project-id]               Project ID to filter for. Only IPs belonging to this Project will be returned
   [zonal]                    Zone to filter for. Only IPs that are zonal, and in this zone, will be returned
+  [regional]                 Filter on regional IPs only.
   [private-network-id]       Private Network to filter for.
   [subnet-id]                Subnet ID to filter for.
   [vpc-id]                   VPC ID to filter for.
@@ -16,18 +17,19 @@ ARGS:
   [resource-name]            Attached resource name to filter for, only IPs attached to a resource with this string within their name will be returned.
   [resource-id]              Resource ID to filter for. Only IPs attached to this resource will be returned
   [resource-ids.{index}]     Resource IDs to filter for. Only IPs attached to at least one of these resources will be returned
-  [resource-type]            Resource type to filter for. Only IPs attached to this type of resource will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment | mgdb_instance | apple_silicon_server | apple_silicon_private_nic | serverless_container | serverless_function | vpn_gateway | ddl_datalab)
-  [resource-types.{index}]   Resource types to filter for. Only IPs attached to these types of resources will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment | mgdb_instance | apple_silicon_server | apple_silicon_private_nic | serverless_container | serverless_function | vpn_gateway | ddl_datalab)
+  [resource-type]            Resource type to filter for. Only IPs attached to this type of resource will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment | mgdb_instance | apple_silicon_server | apple_silicon_private_nic | serverless_container | serverless_function | vpn_gateway | ddl_datalab | kafka_cluster | bgp_endpoint | scbl_sedb_cluster | dtwh_deployment | sedb_cluster | msgq_cluster | edge_vpc_endpoint | dviz_cluster | nats_cluster)
+  [resource-types.{index}]   Resource types to filter for. Only IPs attached to these types of resources will be returned (unknown_type | custom | instance_server | instance_ip | instance_private_nic | lb_server | fip_ip | vpc_gateway | vpc_gateway_network | k8s_node | k8s_cluster | rdb_instance | redis_cluster | baremetal_server | baremetal_private_nic | llm_deployment | mgdb_instance | apple_silicon_server | apple_silicon_private_nic | serverless_container | serverless_function | vpn_gateway | ddl_datalab | kafka_cluster | bgp_endpoint | scbl_sedb_cluster | dtwh_deployment | sedb_cluster | msgq_cluster | edge_vpc_endpoint | dviz_cluster | nats_cluster)
   [mac-address]              MAC address to filter for. Only IPs attached to a resource with this MAC address will be returned
   [tags.{index}]             Tags to filter for, only IPs with one or more matching tags will be returned
   [is-ipv6]                  Defines whether to filter only for IPv4s or IPv6s
   [ip-ids.{index}]           IP IDs to filter for. Only IPs with these UUIDs will be returned
   [source-vpc-id]            
   [organization-id]          Organization ID to filter for. Only IPs belonging to this Organization will be returned
-  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
-  -h, --help   help for list
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

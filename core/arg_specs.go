@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"fmt"
+	"slices"
 	"strings"
 	"time"
 
@@ -16,9 +17,9 @@ type ArgSpecs []*ArgSpec
 
 // GetPositionalArg if exist returns the positional argument from the arg specs.
 // Panics when more than one positional arg is found.
-func (s ArgSpecs) GetPositionalArg() *ArgSpec {
+func (s *ArgSpecs) GetPositionalArg() *ArgSpec {
 	var positionalArg *ArgSpec
-	for _, argSpec := range s {
+	for _, argSpec := range *s {
 		if argSpec.Positional {
 			if positionalArg != nil {
 				panic(
@@ -37,9 +38,9 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 }
 
 // GetDeprecated gets all fields filtered by the deprecation state.
-func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
+func (s *ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
 	result := ArgSpecs{}
-	for _, argSpec := range s {
+	for _, argSpec := range *s {
 		if argSpec.Deprecated == deprecated {
 			result = append(result, argSpec)
 		}
@@ -48,8 +49,8 @@ func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
 	return result
 }
 
-func (s ArgSpecs) GetByName(name string) *ArgSpec {
-	for _, spec := range s {
+func (s *ArgSpecs) GetByName(name string) *ArgSpec {
+	for _, spec := range *s {
 		if spec.Name == name {
 			return spec
 		}
@@ -72,7 +73,7 @@ func (s *ArgSpecs) DeleteByName(name string) {
 func (s *ArgSpecs) AddBefore(name string, argSpec *ArgSpec) {
 	for i, spec := range *s {
 		if spec.Name == name {
-			newSpecs := ArgSpecs(nil)
+			newSpecs := make(ArgSpecs, 0, len(*s)+1)
 			newSpecs = append(newSpecs, (*s)[:i]...)
 			newSpecs = append(newSpecs, argSpec)
 			newSpecs = append(newSpecs, (*s)[i:]...)
@@ -133,10 +134,14 @@ func (a *ArgSpec) ConflictWith(b *ArgSpec) bool {
 		(a.OneOfGroup == b.OneOfGroup)
 }
 
+func (a *ArgSpec) DebugString() string {
+	return a.Name
+}
+
 type DefaultFunc func(ctx context.Context) (value string, doc string)
 
 func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
-	enumValues := []string(nil)
+	enumValues := make([]string, 0, len(zones))
 	for _, zone := range zones {
 		enumValues = append(enumValues, zone.String())
 	}
@@ -145,11 +150,9 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 		Name:       "zone",
 		Short:      "Zone to target. If none is passed will use default zone from the config",
 		EnumValues: enumValues,
-		ValidateFunc: func(_ *ArgSpec, value interface{}) error {
-			for _, zone := range zones {
-				if value.(scw.Zone) == zone {
-					return nil
-				}
+		ValidateFunc: func(_ *ArgSpec, value any) error {
+			if slices.Contains(zones, value.(scw.Zone)) {
+				return nil
 			}
 			if validation.IsZone(value.(scw.Zone).String()) {
 				return nil
@@ -170,7 +173,7 @@ func ZoneArgSpec(zones ...scw.Zone) *ArgSpec {
 }
 
 func RegionArgSpec(regions ...scw.Region) *ArgSpec {
-	enumValues := []string(nil)
+	enumValues := make([]string, 0, len(regions))
 	for _, region := range regions {
 		enumValues = append(enumValues, region.String())
 	}
@@ -179,11 +182,9 @@ func RegionArgSpec(regions ...scw.Region) *ArgSpec {
 		Name:       "region",
 		Short:      "Region to target. If none is passed will use default region from the config",
 		EnumValues: enumValues,
-		ValidateFunc: func(_ *ArgSpec, value interface{}) error {
-			for _, region := range regions {
-				if value.(scw.Region) == region {
-					return nil
-				}
+		ValidateFunc: func(_ *ArgSpec, value any) error {
+			if slices.Contains(regions, value.(scw.Region)) {
+				return nil
 			}
 			if validation.IsRegion(value.(scw.Region).String()) {
 				return nil

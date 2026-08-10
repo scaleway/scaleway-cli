@@ -96,7 +96,7 @@ type rdbCreateInstanceRequestCustom struct {
 	GeneratePassword bool
 }
 
-func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func createInstanceResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	instanceResult := i.(CreateInstanceResult)
 
 	opt.Sections = []*human.MarshalSection{
@@ -125,7 +125,7 @@ func createInstanceResultMarshalerFunc(i interface{}, opt *human.MarshalOpt) (st
 	}, "\n\n"), nil
 }
 
-func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func instanceMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	// To avoid recursion of human.Marshal we create a dummy type
 	type tmp rdbSDK.Instance
 	instance := tmp(i.(rdbSDK.Instance))
@@ -154,7 +154,7 @@ func instanceMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error)
 	return str, nil
 }
 
-func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, error) {
+func backupScheduleMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	backupSchedule := i.(rdbSDK.BackupSchedule)
 
 	if opt.TableCell {
@@ -192,13 +192,13 @@ func backupScheduleMarshalerFunc(i interface{}, opt *human.MarshalOpt) (string, 
 }
 
 func instanceCloneBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -253,7 +253,15 @@ func autoCompleteDatabaseEngines(
 	prefix string,
 	request any,
 ) core.AutocompleteSuggestions {
-	req := request.(rdbCreateInstanceRequestCustom)
+	var req *rdbCreateInstanceRequestCustom
+	switch v := request.(type) {
+	case rdbCreateInstanceRequestCustom:
+		req = &v
+	case *rdbCreateInstanceRequestCustom:
+		req = v
+	default:
+		return nil
+	}
 	suggestion := core.AutocompleteSuggestions(nil)
 	client := core.ExtractClient(ctx)
 	api := rdbSDK.NewAPI(client)
@@ -305,12 +313,12 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 
 	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(CreateInstanceResult).ID,
 			Region:        respI.(CreateInstanceResult).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
@@ -325,7 +333,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 		return result, nil
 	}
 
-	c.Run = func(ctx context.Context, argsI interface{}) (interface{}, error) {
+	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
 		api := rdbSDK.NewAPI(client)
 
@@ -364,7 +372,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	}
 
 	// Waiting for API to accept uppercase node-type
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*rdbCreateInstanceRequestCustom)
 		args.NodeType = strings.ToLower(args.NodeType)
 
@@ -375,7 +383,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 }
 
 func instanceGetBuilder(c *core.Command) *core.Command {
-	c.Interceptor = func(ctx context.Context, argsI interface{}, runner core.CommandRunner) (interface{}, error) {
+	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		res, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -432,16 +440,77 @@ func instanceGetBuilder(c *core.Command) *core.Command {
 	return c
 }
 
+func instanceUpgradeInterceptor(
+	ctx context.Context,
+	argsI any,
+	runner core.CommandRunner,
+) (any, error) {
+	req := argsI.(*rdbSDK.UpgradeInstanceRequest)
+	api := rdbSDK.NewAPI(core.ExtractClient(ctx))
+
+	instance, err := api.GetInstance(&rdbSDK.GetInstanceRequest{
+		Region:     req.Region,
+		InstanceID: req.InstanceID,
+	})
+	if err != nil {
+		return nil, err
+	}
+
+	if !needsUpgrade(req, instance) {
+		return &core.SuccessResult{Message: "Nothing to do!"}, nil
+	}
+
+	return runner(ctx, argsI)
+}
+
+func needsUpgrade(req *rdbSDK.UpgradeInstanceRequest, instance *rdbSDK.Instance) bool {
+	if req.NodeType != nil && *req.NodeType != "" {
+		if !strings.EqualFold(instance.NodeType, *req.NodeType) {
+			return true
+		}
+	}
+
+	if req.EnableHa != nil && *req.EnableHa && !instance.IsHaCluster {
+		return true
+	}
+
+	if instance.Volume != nil {
+		if req.VolumeType != nil && *req.VolumeType != instance.Volume.Type {
+			return true
+		}
+		if req.VolumeSize != nil && *req.VolumeSize > uint64(instance.Volume.Size) {
+			return true
+		}
+	}
+
+	if req.UpgradableVersionID != nil && *req.UpgradableVersionID != "" {
+		return true
+	}
+
+	if req.MajorUpgradeWorkflow != nil && req.MajorUpgradeWorkflow.UpgradableVersionID != "" {
+		return true
+	}
+
+	return false
+}
+
 func instanceUpgradeBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.Interceptor = instanceUpgradeInterceptor
+
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
+		if _, ok := respI.(*core.SuccessResult); ok {
+			return respI, nil
+		}
+
+		instance := respI.(*rdbSDK.Instance)
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 		return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-			InstanceID:    respI.(*rdbSDK.Instance).ID,
-			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			InstanceID:    instance.ID,
+			Region:        instance.Region,
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 	}
@@ -542,7 +611,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms, scw.RegionPlWaw),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			customRequest := args.(*rdbUpdateInstanceRequestCustom)
 
 			updateInstanceRequest := customRequest.UpdateInstanceRequest
@@ -594,13 +663,13 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 
 			return updateInstanceResponse, nil
 		},
-		WaitFunc: func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				InstanceID:    respI.(*rdbSDK.Instance).ID,
 				Region:        respI.(*rdbSDK.Instance).Region,
-				Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -622,19 +691,20 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 }
 
 func instanceDeleteBuilder(c *core.Command) *core.Command {
-	c.WaitFunc = func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 		instance, err := api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 			InstanceID:    respI.(*rdbSDK.Instance).ID,
 			Region:        respI.(*rdbSDK.Instance).Region,
-			Timeout:       scw.TimeDurationPtr(instanceActionTimeout),
+			Timeout:       new(instanceActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			// if we get a 404 here, it means the resource was successfully deleted
 			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+			if responseError, ok := errors.AsType[*scw.ResponseError](
+				err,
+			); ok && responseError.StatusCode == http.StatusNotFound ||
 				errors.As(err, &notFoundError) {
 				return instance, nil
 			}
@@ -657,13 +727,13 @@ func instanceWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
 				Region:        argsI.(*serverWaitRequest).Region,
 				InstanceID:    argsI.(*serverWaitRequest).InstanceID,
-				Timeout:       scw.TimeDurationPtr(argsI.(*serverWaitRequest).Timeout),
+				Timeout:       new(argsI.(*serverWaitRequest).Timeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},
@@ -702,11 +772,15 @@ const (
 	PostgreSQL     = engineFamily("PostgreSQL")
 	MySQL          = engineFamily("MySQL")
 	postgreSQLHint = `
-psql supports password file to avoid typing your password manually.
+psql supports password file (.pgpass) to avoid typing your password manually.
+Create ~/.pgpass (Linux/macOS) or %APPDATA%\postgresql\pgpass.conf (Windows) with:
+  hostname:port:database:username:password
 Learn more at: https://www.postgresql.org/docs/current/libpq-pgpass.html`
 	mySQLHint = `
-mysql supports loading your password from a file to avoid typing them manually.
-Learn more at: https://dev.mysql.com/doc/refman/8.0/en/option-files.html`
+mysql supports mysql_config_editor for secure password storage.
+Use: mysql_config_editor set --login-path=scw --host=HOST --user=USER --password
+Or create ~/.mylogin.cnf with connection credentials.
+Learn more at: https://dev.mysql.com/doc/refman/8.0/en/mysql-config-editor.html`
 )
 
 func passwordFileExist(ctx context.Context, family engineFamily) bool {
@@ -863,7 +937,7 @@ func instanceConnectCommand() *core.Command {
 			},
 			core.RegionArgSpec(scw.RegionFrPar, scw.RegionNlAms),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceConnectArgs)
 
 			client := core.ExtractClient(ctx)
@@ -924,6 +998,7 @@ func instanceConnectCommand() *core.Command {
 				Empty: true, // the program will output the success message
 			}, nil
 		},
+		ExcludeFromMCP: true,
 	}
 }
 
@@ -962,7 +1037,7 @@ You can modify the values and save the file to apply the new configuration.`,
 				Raw:   "scw rdb setting edit 12345678-1234-1234-1234-123456789abc --region=fr-par --mode=json",
 			},
 		},
-		Run: func(ctx context.Context, argsI interface{}) (interface{}, error) {
+		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*editSettingsArgs)
 
 			client := core.ExtractClient(ctx)

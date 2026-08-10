@@ -44,7 +44,7 @@ func testAutocompleteGetCommands() *core.Commands {
 					EnumValues: []string{"S", "M", "L", "XL", "XXL"},
 				},
 			},
-			WaitFunc: func(_ context.Context, _, _ interface{}) (interface{}, error) {
+			WaitFunc: func(_ context.Context, _, _ any) (any, error) {
 				return nil, nil
 			},
 		},
@@ -72,7 +72,7 @@ func testAutocompleteGetCommands() *core.Commands {
 			Verb:       "deprecated",
 			ArgsType:   reflect.TypeOf(struct{}{}),
 			Deprecated: true,
-			Short:      "this command is deprected",
+			Short:      "this command is deprecated",
 			Long:       "This command is deprecated and should not show up in autocomplete.",
 		},
 	)
@@ -378,10 +378,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					core.PrinterTypeHuman.String(),
-					core.PrinterTypeJSON.String(),
-					core.PrinterTypeTemplate.String(),
-					core.PrinterTypeYAML.String(),
+					string(core.PrinterTypeHuman),
+					string(core.PrinterTypeJSON),
+					string(core.PrinterTypeTemplate),
+					string(core.PrinterTypeYAML),
 				},
 			},
 		),
@@ -509,10 +509,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					core.PrinterTypeHuman.String(),
-					core.PrinterTypeJSON.String(),
-					core.PrinterTypeTemplate.String(),
-					core.PrinterTypeYAML.String(),
+					string(core.PrinterTypeHuman),
+					string(core.PrinterTypeJSON),
+					string(core.PrinterTypeTemplate),
+					string(core.PrinterTypeYAML),
 				},
 			},
 		),
@@ -573,7 +573,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
-		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ any) (any, error) {
 			return []*struct {
 				Name string
 			}{
@@ -592,7 +592,7 @@ func TestAutocompleteArgs(t *testing.T) {
 		Verb:      "list",
 		ArgsType:  reflect.TypeOf(struct{}{}),
 		ArgSpecs:  core.ArgSpecs{},
-		Run: func(_ context.Context, _ interface{}) (interface{}, error) {
+		Run: func(_ context.Context, _ any) (any, error) {
 			return []*struct {
 				Name string
 			}{

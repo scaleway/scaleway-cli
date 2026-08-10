@@ -28,6 +28,9 @@ func GetGeneratedCommands() *core.Commands {
 		ipamIPGet(),
 		ipamIPUpdate(),
 		ipamIPList(),
+		ipamIPAttach(),
+		ipamIPDetach(),
+		ipamIPMove(),
 	)
 }
 
@@ -65,7 +68,7 @@ func ipamIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.BookIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.BookIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -91,6 +94,13 @@ func ipamIPCreate() *core.Command {
 			},
 			{
 				Name:       "source.vpc-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source.regional",
+				Short:      `Defines whether the IP is a public regional IP.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -132,17 +142,18 @@ func ipamIPCreate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.BookIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.BookIP(request)
+			return api.BookIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -155,7 +166,7 @@ func ipamIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ReleaseIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ReleaseIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -166,16 +177,17 @@ func ipamIPDelete() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.ReleaseIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			e = api.ReleaseIP(request)
+			e = api.ReleaseIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -196,7 +208,7 @@ func ipamIPSetRelease() *core.Command {
 		Resource:  "ip-set",
 		Verb:      "release",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ReleaseIPSetRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ReleaseIPSetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-ids.{index}",
@@ -206,16 +218,17 @@ func ipamIPSetRelease() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.ReleaseIPSetRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			e = api.ReleaseIPSet(request)
+			e = api.ReleaseIPSet(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -236,7 +249,7 @@ func ipamIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -247,17 +260,18 @@ func ipamIPGet() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.GetIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -270,7 +284,7 @@ func ipamIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -302,17 +316,18 @@ func ipamIPUpdate() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.UpdateIPRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -325,7 +340,7 @@ func ipamIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -340,6 +355,10 @@ func ipamIPList() *core.Command {
 					"updated_at_asc",
 					"attached_at_desc",
 					"attached_at_asc",
+					"ip_address_desc",
+					"ip_address_asc",
+					"mac_address_desc",
+					"mac_address_asc",
 				},
 			},
 			{
@@ -352,6 +371,13 @@ func ipamIPList() *core.Command {
 			{
 				Name:       "zonal",
 				Short:      `Zone to filter for. Only IPs that are zonal, and in this zone, will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "regional",
+				Short:      `Filter on regional IPs only.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -435,6 +461,15 @@ func ipamIPList() *core.Command {
 					"serverless_function",
 					"vpn_gateway",
 					"ddl_datalab",
+					"kafka_cluster",
+					"bgp_endpoint",
+					"scbl_sedb_cluster",
+					"dtwh_deployment",
+					"sedb_cluster",
+					"msgq_cluster",
+					"edge_vpc_endpoint",
+					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
@@ -467,6 +502,15 @@ func ipamIPList() *core.Command {
 					"serverless_function",
 					"vpn_gateway",
 					"ddl_datalab",
+					"kafka_cluster",
+					"bgp_endpoint",
+					"scbl_sedb_cluster",
+					"dtwh_deployment",
+					"sedb_cluster",
+					"msgq_cluster",
+					"edge_vpc_endpoint",
+					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
@@ -512,17 +556,18 @@ func ipamIPList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
 				scw.Region(core.AllLocalities),
 			),
 		},
-		Run: func(ctx context.Context, args interface{}) (i interface{}, e error) {
+		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*ipam.ListIPsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -533,6 +578,167 @@ func ipamIPList() *core.Command {
 			}
 
 			return resp.IPs, nil
+		},
+	}
+}
+
+func ipamIPAttach() *core.Command {
+	return &core.Command{
+		Short:     `Attach private IP to custom resource`,
+		Long:      `Attach an existing reserved private IP from a Private Network subnet to a custom, named resource via its MAC address. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for attaching IP addresses to standard Scaleway resources as it will fail - see the relevant product API for an equivalent method.`,
+		Namespace: "ipam",
+		Resource:  "ip",
+		Verb:      "attach",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[ipam.AttachIPRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-id",
+				Short:      `IP ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*ipam.AttachIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+
+			return api.AttachIP(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func ipamIPDetach() *core.Command {
+	return &core.Command{
+		Short:     `Detach private IP from a custom resource`,
+		Long:      `Detach a private IP from a custom resource. An example of a custom resource is a virtual machine hosted on an Elastic Metal server. Do not use this method for detaching IP addresses from standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.`,
+		Namespace: "ipam",
+		Resource:  "ip",
+		Verb:      "detach",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[ipam.DetachIPRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-id",
+				Short:      `IP ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*ipam.DetachIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+
+			return api.DetachIP(request, scw.WithContext(ctx))
+		},
+	}
+}
+
+func ipamIPMove() *core.Command {
+	return &core.Command{
+		Short:     `Move private IP to a custom resource`,
+		Long:      `Move an existing reserved private IP from one custom resource (e.g. a virtual machine hosted on an Elastic Metal server) to another custom resource. This will detach it from the first resource, and attach it to the second. Do not use this method for moving IP addresses between standard Scaleway resources (e.g. Instances, Load Balancers) as it will fail - see the relevant product API for an equivalent method.`,
+		Namespace: "ipam",
+		Resource:  "ip",
+		Verb:      "move",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[ipam.MoveIPRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "ip-id",
+				Short:      `IP ID`,
+				Required:   true,
+				Deprecated: false,
+				Positional: true,
+			},
+			{
+				Name:       "from-resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "from-resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "to-resource.mac-address",
+				Short:      `MAC address of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "to-resource.name",
+				Short:      `Name of the custom resource`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*ipam.MoveIPRequest)
+
+			client := core.ExtractClient(ctx)
+			api := ipam.NewAPI(client)
+
+			return api.MoveIP(request, scw.WithContext(ctx))
 		},
 	}
 }

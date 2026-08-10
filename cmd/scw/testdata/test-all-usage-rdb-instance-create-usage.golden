@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new Database Instance. You must set the `engine`, `user_name`, `password` and `node_type` parameters. Optionally, you can specify the volume type and size.
 
 USAGE:
@@ -20,19 +20,22 @@ ARGS:
   [init-settings.{index}.value]                  
   [volume-type]                                  Type of volume where data is stored (lssd, bssd, ...) (lssd | bssd | sbs_5k | sbs_15k)
   [volume-size]                                  Volume size when volume_type is not lssd
+  [init-endpoints.{index}.load-balancer]         Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance
   [init-endpoints.{index}.load-balancer=false]   Will configure a load-balancer endpoint along with your private network endpoint if true
   config (one of):
     [init-endpoints.{index}.private-network.enable-ipam]        Will configure your Private Network endpoint with Scaleway IPAM service if true
   [init-endpoints.{index}.private-network.private-network-id]   UUID of the Private Network to be connected to the Database Instance
   [init-endpoints.{index}.private-network.service-ip]           Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
+  [init-endpoints.{index}.private-network.ipam-config]          Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated)
   [backup-same-region]                                          Defines whether to or not to store logical backups in the same region as the Database Instance
   [encryption.enabled]                                          
   [organization-id]                                             Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for create
-  -w, --wait   wait until the instance is ready
+  -h, --help                help for create
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the instance is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file

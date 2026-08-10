@@ -77,7 +77,7 @@ Actions are organized around a set of verbs such as `list`, `get`, `create`, `up
 
 ### Automated code generation
 
-CLI v1 did not take advantage of code generation features to easily create supports like in SDKs and other developper tools.
+CLI v1 did not take advantage of code generation features to easily create supports like in SDKs and other developer tools.
 
 We invested in our code generation features to be able to synchronize support and fixes across all our tools:
 

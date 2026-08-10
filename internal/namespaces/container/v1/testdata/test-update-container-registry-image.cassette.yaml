@@ -1,0 +1,1133 @@
+---
+version: 1
+interactions:
+- request:
+    body: '{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":0,"created_at":"2026-05-18T18:08:12.650157724Z","updated_at":"2026-05-18T18:08:12.650157724Z","image_count":0,"region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":0,"created_at":"2026-05-18T18:08:12.650157724Z","updated_at":"2026-05-18T18:08:12.650157724Z","image_count":0,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "481"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:12 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 653568d2-9ec9-4607-9212-bb6f8a807509
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"images":[{"id":"9af9f0a0-4a95-4752-b432-52afa857af4b","name":"sebp/lighttpd","namespace_id":"7c897f59-1536-49b1-9e3b-841e50d27895","status":"ready","status_message":"","visibility":"inherit","size":4436608,"created_at":"2026-05-18T18:08:19.627489Z","updated_at":"2026-05-18T18:08:20.263692Z","tags":["latest"]}],"total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=sebp%2Flighttpd&namespace_id=7c897f59-1536-49b1-9e3b-841e50d27895&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"9af9f0a0-4a95-4752-b432-52afa857af4b","name":"sebp/lighttpd","namespace_id":"7c897f59-1536-49b1-9e3b-841e50d27895","status":"ready","status_message":"","visibility":"inherit","size":4436608,"created_at":"2026-05-18T18:08:19.627489Z","updated_at":"2026-05-18T18:08:20.263692Z","tags":["latest"]}],"total_count":1}'
+    headers:
+      Content-Length:
+      - "330"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:34 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - d897fe51-4c0c-4a0f-b2f2-305eb956cf19
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad","name":"bidouille","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/bidouille","is_public":false,"size":125904904,"created_at":"2025-10-13T14:51:28.239376Z","updated_at":"2025-10-30T14:35:52.512165Z","image_count":6,"region":"fr-par"},{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":27020587,"created_at":"2026-05-18T18:08:12.650158Z","updated_at":"2026-05-18T18:08:34.205805Z","image_count":2,"region":"fr-par"}],"total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad","name":"bidouille","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/bidouille","is_public":false,"size":125904904,"created_at":"2025-10-13T14:51:28.239376Z","updated_at":"2025-10-30T14:35:52.512165Z","image_count":6,"region":"fr-par"},{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":27020587,"created_at":"2026-05-18T18:08:12.650158Z","updated_at":"2026-05-18T18:08:34.205805Z","image_count":2,"region":"fr-par"}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "941"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:34 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 69df550e-7e8c-4c52-8f57-c0aef15de150
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"images":[{"id":"2ca57b21-88a8-4424-934b-4ea433ec7fa0","name":"nginx","namespace_id":"7c897f59-1536-49b1-9e3b-841e50d27895","status":"ready","status_message":"","visibility":"inherit","size":22583979,"created_at":"2026-05-18T18:08:33.534194Z","updated_at":"2026-05-18T18:08:34.188917Z","tags":["1.29.2-alpine"]}],"total_count":1}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/images?name=nginx&namespace_id=7c897f59-1536-49b1-9e3b-841e50d27895&order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"images":[{"id":"2ca57b21-88a8-4424-934b-4ea433ec7fa0","name":"nginx","namespace_id":"7c897f59-1536-49b1-9e3b-841e50d27895","status":"ready","status_message":"","visibility":"inherit","size":22583979,"created_at":"2026-05-18T18:08:33.534194Z","updated_at":"2026-05-18T18:08:34.188917Z","tags":["1.29.2-alpine"]}],"total_count":1}'
+    headers:
+      Content-Length:
+      - "330"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:34 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - a30585a3-3e28-4e02-8357-aaf259dae914
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad","name":"bidouille","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/bidouille","is_public":false,"size":125904904,"created_at":"2025-10-13T14:51:28.239376Z","updated_at":"2025-10-30T14:35:52.512165Z","image_count":6,"region":"fr-par"},{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":27020587,"created_at":"2026-05-18T18:08:12.650158Z","updated_at":"2026-05-18T18:08:34.205805Z","image_count":2,"region":"fr-par"}],"total_count":2}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces?order_by=created_at_asc&page=1
+    method: GET
+  response:
+    body: '{"namespaces":[{"id":"681422c2-2605-485d-be8c-4caaba0e40ad","name":"bidouille","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/bidouille","is_public":false,"size":125904904,"created_at":"2025-10-13T14:51:28.239376Z","updated_at":"2025-10-30T14:35:52.512165Z","image_count":6,"region":"fr-par"},{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"ready","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":27020587,"created_at":"2026-05-18T18:08:12.650158Z","updated_at":"2026-05-18T18:08:34.205805Z","image_count":2,"region":"fr-par"}],"total_count":2}'
+    headers:
+      Content-Length:
+      - "941"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:34 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b1c3b778-8888-49f9-b4ad-79f03bcd63d8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:08:35.012299Z","region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces
+    method: POST
+  response:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:08:35.012299Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "394"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - f48d3339-56ff-4294-96a6-2c84db1936d3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:08:35.012299Z","region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/87985e88-42cb-4b38-848e-a44a9e11c3d3
+    method: GET
+  response:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"creating","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:08:35.012299Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "394"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:35 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 518579ea-5044-4c7a-b8fd-86ebea4c8198
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:08:35.012299Z","region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/87985e88-42cb-4b38-848e-a44a9e11c3d3
+    method: GET
+  response:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"ready","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:08:35.012299Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "391"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:50 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8337bf48-3373-4c32-bb84-7e38f2b61d6d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers
+    method: POST
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - c81ceb8c-364d-428d-9278-65c7e585001f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:08:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 6867466f-ac78-4091-8d3e-ebcfd1b8fb89
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:09:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3df52658-b51c-4d6f-b952-93b9d3748302
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:09:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e75cc2dd-bff5-4f49-98d1-9be1d840d31d
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:09:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8afc820c-74a0-4776-af85-3c35f33b3752
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:09:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b8b4e6e0-85fd-41af-ad99-b0a18dddeb9f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:10:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 07249e33-9bda-4973-8584-3965f4d9701e
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:10:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 536be9fa-f158-4da9-b2ac-afbf4f635184
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:10:36 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 15366ee2-3d59-4796-8bc3-2f6bbcf20864
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:10:51 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - bdce06a1-31ef-4a0f-befa-c84e0b014d41
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:11:06 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 98deaf8c-58dc-428f-be7f-7eedd9d61a63
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:11:21 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 964caa8e-ba83-44c9-a7f3-1b1c27ca1c74
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:11:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b19fe3a1-def0-4c21-b6a8-1ac172288585
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:11:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5985c980-f2a4-46ab-bce6-4cde5f96a1a2
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:12:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 155fb6ca-a892-47e3-97ce-00f2bb3a46f3
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:12:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 4b25d3df-e292-4fd3-b6b8-3d606278059a
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:12:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - e98fdb26-5a88-4f65-a17d-a03667ffba48
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:12:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 87ec7708-c80c-4ecf-b70f-bf803e28e654
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:13:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 87d47da7-163e-4a11-925e-d4b477d4bdd8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:13:22 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 8a3eabb3-c608-4d31-bcf8-1a2d5620b3bf
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"creating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:08:51.098080Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "949"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:13:37 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 3f6b36cf-a896-4c66-b8dd-c9b66b8722f0
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"error","error_message":"Container
+      is unable to start OR is not listening on port 80","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:13:52Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"error","error_message":"Container
+      is unable to start OR is not listening on port 80","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:13:52Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/sebp/lighttpd:latest","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "1017"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:13:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - b833bf4d-cf03-4407-981c-5f0c85b09fd6
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"updating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:13:52.788481Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      Content-Type:
+      - application/json
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: PATCH
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"updating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:13:52.788481Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "948"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:13:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 95fbe8ad-d531-4885-92fd-ca30675d6cc8
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"updating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:13:52.788481Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"updating","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:13:52.788481Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "948"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:13:52 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 7838a996-0976-4cad-9377-622edd51ffc4
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"ready","error_message":"","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:14:03Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/containers/6150688c-7791-41c3-8bf4-ff66206e984a
+    method: GET
+  response:
+    body: '{"id":"6150688c-7791-41c3-8bf4-ff66206e984a","name":"cli-test-nifty-wescoff","namespace_id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","description":"","status":"ready","error_message":"","created_at":"2026-05-18T18:08:51.098080Z","updated_at":"2026-05-18T18:14:03Z","min_scale":0,"max_scale":5,"memory_limit_bytes":2048000000,"mvcpu_limit":1000,"timeout":"300s","privacy":"public","image":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan/nginx:1.29.2-alpine","protocol":"http1","port":80,"https_connections_only":false,"sandbox":"v2","local_storage_limit_bytes":1000000000,"scaling_option":{"concurrent_requests_threshold":50},"tags":[],"command":[],"args":[],"environment_variables":{},"public_endpoint":"https://clinskindminsky87985e88-cli-test-nifty-wescoff.functions.fnc.fr-par.scw.cloud","liveness_probe":{"failure_threshold":30,"interval":"10s","timeout":"1s","tcp":{}},"startup_probe":null,"secret_environment_variables":{},"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "957"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:14:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 55e3f2aa-d2cc-4da6-b0ad-89a7e6b2b19f
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:14:07.958741Z","region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/containers/v1/regions/fr-par/namespaces/87985e88-42cb-4b38-848e-a44a9e11c3d3
+    method: DELETE
+  response:
+    body: '{"id":"87985e88-42cb-4b38-848e-a44a9e11c3d3","name":"cli-ns-kind-minsky","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","description":"","status":"deleting","environment_variables":{},"secret_environment_variables":{},"tags":[],"created_at":"2026-05-18T18:08:35.012299Z","updated_at":"2026-05-18T18:14:07.958741Z","region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "394"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:14:07 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 56ff3b7c-67fd-4564-b531-1acc8876bef7
+    status: 200 OK
+    code: 200
+    duration: ""
+- request:
+    body: '{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":27020587,"created_at":"2026-05-18T18:08:12.650158Z","updated_at":"2026-05-18T18:14:08.044274553Z","image_count":2,"region":"fr-par"}'
+    form: {}
+    headers:
+      User-Agent:
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.0; linux; amd64) cli-e2e-test
+    url: https://api.scaleway.com/registry/v1/regions/fr-par/namespaces/7c897f59-1536-49b1-9e3b-841e50d27895
+    method: DELETE
+  response:
+    body: '{"id":"7c897f59-1536-49b1-9e3b-841e50d27895","name":"cli-test-ctn-update-rg-img-busy-dhawan","description":"","organization_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","status":"deleting","status_message":"","endpoint":"rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-busy-dhawan","is_public":false,"size":27020587,"created_at":"2026-05-18T18:08:12.650158Z","updated_at":"2026-05-18T18:14:08.044274553Z","image_count":2,"region":"fr-par"}'
+    headers:
+      Content-Length:
+      - "488"
+      Content-Security-Policy:
+      - default-src 'none'; frame-ancestors 'none'
+      Content-Type:
+      - application/json
+      Date:
+      - Mon, 18 May 2026 18:14:08 GMT
+      Server:
+      - Scaleway API Gateway (fr-par-3;edge03)
+      Strict-Transport-Security:
+      - max-age=63072000
+      X-Content-Type-Options:
+      - nosniff
+      X-Frame-Options:
+      - DENY
+      X-Request-Id:
+      - 5dcd6bb0-6515-43ce-927f-d5717af80bd9
+    status: 200 OK
+    code: 200
+    duration: ""

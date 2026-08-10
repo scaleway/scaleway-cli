@@ -44,6 +44,39 @@ const (
 	poolActionDelete
 )
 
+func poolMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
+	type humanPool k8s.Pool
+	pool := humanPool(i.(k8s.Pool))
+
+	// Sections
+	opt.Sections = []*human.MarshalSection{
+		{
+			FieldName: "UpgradePolicy",
+			Title:     "Upgrade Policy",
+		},
+		{
+			FieldName: "Labels",
+			Title:     "Node labels",
+		},
+		{
+			FieldName: "Taints",
+			Title:     "Node taints",
+		},
+
+		{
+			FieldName: "StartupTaints",
+			Title:     "Node startup taints",
+		},
+	}
+
+	str, err := human.Marshal(pool, opt)
+	if err != nil {
+		return "", err
+	}
+
+	return str, nil
+}
+
 func poolCreateBuilder(c *core.Command) *core.Command {
 	c.WaitFunc = waitForPoolFunc(poolActionCreate)
 
@@ -72,11 +105,11 @@ func poolUpdateBuilder(c *core.Command) *core.Command {
 }
 
 func waitForPoolFunc(action int) core.WaitFunc {
-	return func(ctx context.Context, _, respI interface{}) (interface{}, error) {
+	return func(ctx context.Context, _, respI any) (any, error) {
 		pool, err := k8s.NewAPI(core.ExtractClient(ctx)).WaitForPool(&k8s.WaitForPoolRequest{
 			Region:        respI.(*k8s.Pool).Region,
 			PoolID:        respI.(*k8s.Pool).ID,
-			Timeout:       scw.TimeDurationPtr(poolActionTimeout),
+			Timeout:       new(poolActionTimeout),
 			RetryInterval: core.DefaultRetryInterval,
 		})
 		switch action {
@@ -90,9 +123,9 @@ func waitForPoolFunc(action int) core.WaitFunc {
 			if err != nil {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
-				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) &&
-					responseError.StatusCode == http.StatusNotFound ||
+				if responseError, ok := errors.AsType[*scw.ResponseError](
+					err,
+				); ok && responseError.StatusCode == http.StatusNotFound ||
 					errors.As(err, &notFoundError) {
 					return fmt.Sprintf("Pool %s successfully deleted.", respI.(*k8s.Pool).ID), nil
 				}
@@ -112,7 +145,7 @@ func k8sPoolWaitCommand() *core.Command {
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
 		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForPool(&k8s.WaitForPoolRequest{
@@ -176,7 +209,7 @@ Keep in mind that your external node needs to have wget in order to download the
 			},
 			core.RegionArgSpec(),
 		},
-		Run: func(ctx context.Context, argsI interface{}) (i interface{}, err error) {
+		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*k8sPoolAddExternalNodeRequest)
 			sshCommonArgs := []string{
 				args.NodeIP,
@@ -190,13 +223,16 @@ Keep in mind that your external node needs to have wget in order to download the
 				homeDir = "/home/" + args.Username
 			}
 			nodeInitScript := buildNodeInitScript(args.PoolID, args.Region)
-			copyScriptArgs := []string{
+			copyScriptArgs := append(append([]string{},
 				"cat", "<<", "EOF",
-				">", homeDir + "/init_kosmos_node.sh",
-				"\n",
-			}
-			copyScriptArgs = append(copyScriptArgs, strings.Split(nodeInitScript, " \n")...)
-			if err = execSSHCommand(ctx, append(sshCommonArgs, copyScriptArgs...), true); err != nil {
+				">", homeDir+"/init_kosmos_node.sh",
+				"\n"),
+				strings.Split(nodeInitScript, " \n")...)
+			if err = execSSHCommand(
+				ctx,
+				append(sshCommonArgs, copyScriptArgs...),
+				true,
+			); err != nil {
 				return nil, err
 			}
 			chmodArgs := []string{"chmod", "+x", homeDir + "/init_kosmos_node.sh"}
@@ -208,11 +244,14 @@ Keep in mind that your external node needs to have wget in order to download the
 			client := core.ExtractClient(ctx)
 			secretKey, _ := client.GetSecretKey()
 			execScriptArgs := []string{
-				"", // Adding a space to prevent the command from being logged in history as it shows the secret key
 				"SCW_SECRET_KEY=" + secretKey,
 				"./init_kosmos_node.sh",
 			}
-			if err = execSSHCommand(ctx, append(sshCommonArgs, execScriptArgs...), false); err != nil {
+			if err = execSSHCommand(
+				ctx,
+				append(sshCommonArgs, execScriptArgs...),
+				false,
+			); err != nil {
 				return nil, err
 			}
 
@@ -223,7 +262,21 @@ Keep in mind that your external node needs to have wget in order to download the
 
 func execSSHCommand(ctx context.Context, args []string, printSeparator bool) error {
 	remoteCmd := exec.Command("ssh", args...)
-	_, _ = interactive.Println(remoteCmd)
+
+	cmdToPrint := make([]string, 0, len(remoteCmd.Args))
+	for _, arg := range remoteCmd.Args {
+		if strings.HasPrefix(arg, "SCW_SECRET_KEY=") {
+			if len(arg) > 24 {
+				cmdToPrint = append(cmdToPrint, arg[:24]+"xxxx-xxxx-xxxx-xxxxxxxxxxxx")
+			} else {
+				cmdToPrint = append(cmdToPrint, arg)
+			}
+		} else {
+			cmdToPrint = append(cmdToPrint, arg)
+		}
+	}
+
+	_, _ = interactive.Println(cmdToPrint)
 
 	exitCode, err := core.ExecCmd(ctx, remoteCmd)
 	if err != nil {
@@ -243,9 +296,10 @@ func buildNodeInitScript(poolID string, region scw.Region) string {
 	return fmt.Sprintf(`#!/usr/bin/env sh
 
 set -e
-wget https://scwcontainermulticloud.s3.fr-par.scw.cloud/node-agent_linux_amd64 --no-verbose
-chmod +x node-agent_linux_amd64
-export POOL_ID=%s  POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
-sudo -E ./node-agent_linux_amd64 -loglevel 0 -no-controller
+sudo wget -O /usr/local/bin/k8s-agent https://github.com/scaleway/k8s-agent/releases/latest/download/k8s-agent_linux_amd64
+sudo chmod +x /usr/local/bin/k8s-agent
+export POOL_ID=%s POOL_REGION=%s SCW_SECRET_KEY=\$SCW_SECRET_KEY
+echo "Launching k8s-agent..."
+sudo --preserve-env=POOL_ID,POOL_REGION,SCW_SECRET_KEY /usr/local/bin/k8s-agent -kosmos
 EOF`, poolID, region.String())
 }

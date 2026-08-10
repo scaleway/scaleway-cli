@@ -4,6 +4,7 @@ import (
 	"fmt"
 	"reflect"
 	"regexp"
+	"slices"
 	"strings"
 
 	"github.com/scaleway/scaleway-sdk-go/strcase"
@@ -12,14 +13,17 @@ import (
 // validArgNameRegex regex to check that args words are lower-case or digit starting and ending with a letter.
 var validArgNameRegex = regexp.MustCompile(`^[a-z][a-z0-9-]*$`)
 
-const emptySliceValue = "none"
+const (
+	emptySliceValue  = "none"
+	emptyStructValue = "{}"
+)
 
 // RawArgs allows to retrieve a simple []string using UnmarshalStruct()
 type RawArgs []string
 
 // ExistsArgByName checks if the given argument exists in the raw args
-func (a RawArgs) ExistsArgByName(name string) bool {
-	argsMap := SplitRawMap(a)
+func (a *RawArgs) ExistsArgByName(name string) bool {
+	argsMap := SplitRawMap(*a)
 	_, ok := argsMap[name]
 
 	return ok
@@ -56,7 +60,7 @@ func SplitRawMap(rawArgs []string) map[string]struct{} {
 // SplitRaw creates a slice that maps arg names to their values.
 // ["arg1=1", "arg2=2", "arg3"] => { {"arg1", "1"}, {"arg2", "2"}, {"arg3",""} }
 func SplitRaw(rawArgs []string) [][2]string {
-	keyValue := [][2]string{}
+	keyValue := make([][2]string, 0, len(rawArgs))
 	for _, arg := range rawArgs {
 		tmp := strings.SplitN(arg, "=", 2)
 		if len(tmp) < 2 {
@@ -68,7 +72,7 @@ func SplitRaw(rawArgs []string) [][2]string {
 	return keyValue
 }
 
-func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
+func getInterfaceFromReflectValue(reflectValue reflect.Value) any {
 	i := reflectValue.Interface()
 	if reflectValue.CanAddr() {
 		i = reflectValue.Addr().Interface()
@@ -77,9 +81,9 @@ func getInterfaceFromReflectValue(reflectValue reflect.Value) interface{} {
 	return i
 }
 
-func (a RawArgs) GetPositionalArgs() []string {
+func (a *RawArgs) GetPositionalArgs() []string {
 	positionalArgs := []string(nil)
-	for _, arg := range a {
+	for _, arg := range *a {
 		if isPositionalArg(arg) {
 			positionalArgs = append(positionalArgs, arg)
 		}
@@ -88,8 +92,8 @@ func (a RawArgs) GetPositionalArgs() []string {
 	return positionalArgs
 }
 
-func (a RawArgs) Get(argName string) (string, bool) {
-	for _, arg := range a {
+func (a *RawArgs) Get(argName string) (string, bool) {
+	for _, arg := range *a {
 		name, value := splitArg(arg)
 		if name == argName {
 			return value, true
@@ -104,7 +108,7 @@ const (
 	mapSchema   = "{key}"
 )
 
-func (a RawArgs) GetAll(argName string) []string {
+func (a *RawArgs) GetAll(argName string) []string {
 	// If argSpec is part of a map or slice we must lookup for existing index in other args
 	// Example:
 	//    argSpec = { Name: "friends.{index}.Age", "Default": 42 }
@@ -139,7 +143,7 @@ func (a RawArgs) GetAll(argName string) []string {
 
 	res := []string(nil)
 	for _, p := range prefixes {
-		for _, arg := range a {
+		for _, arg := range *a {
 			name, value := splitArg(arg)
 			if name == p {
 				res = append(res, value)
@@ -150,21 +154,21 @@ func (a RawArgs) GetAll(argName string) []string {
 	return res
 }
 
-func (a RawArgs) Has(argName string) bool {
+func (a *RawArgs) Has(argName string) bool {
 	return a.GetAll(argName) != nil
 }
 
-func (a RawArgs) RemoveAllPositional() RawArgs {
+func (a *RawArgs) RemoveAllPositional() RawArgs {
 	return a.filter(func(arg string) bool {
 		return !isPositionalArg(arg)
 	})
 }
 
-func (a RawArgs) Add(name string, value string) RawArgs {
-	return append(a, name+"="+value)
+func (a *RawArgs) Add(name string, value string) RawArgs {
+	return append(*a, name+"="+value)
 }
 
-func (a RawArgs) Remove(argName string) RawArgs {
+func (a *RawArgs) Remove(argName string) RawArgs {
 	return a.filter(func(arg string) bool {
 		name, _ := splitArg(arg)
 
@@ -172,20 +176,9 @@ func (a RawArgs) Remove(argName string) RawArgs {
 	})
 }
 
-func (a RawArgs) filter(test func(string) bool) RawArgs {
-	argsCopy := RawArgs{}
-	for _, arg := range a {
-		if test(arg) {
-			argsCopy = append(argsCopy, arg)
-		}
-	}
-
-	return argsCopy
-}
-
-func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
+func (a *RawArgs) GetSliceOrMapKeys(prefix string) []string {
 	keys := []string(nil)
-	for _, arg := range a {
+	for _, arg := range *a {
 		name, _ := splitArg(arg)
 		if !strings.HasPrefix(name, prefix+".") {
 			continue
@@ -196,6 +189,17 @@ func (a RawArgs) GetSliceOrMapKeys(prefix string) []string {
 	}
 
 	return keys
+}
+
+func (a *RawArgs) filter(test func(string) bool) RawArgs {
+	argsCopy := RawArgs{}
+	for _, arg := range *a {
+		if test(arg) {
+			argsCopy = append(argsCopy, arg)
+		}
+	}
+
+	return argsCopy
 }
 
 func splitArg(arg string) (name string, value string) {
@@ -218,7 +222,7 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 	var recursiveFunc func(argType reflect.Type, parts []string) (reflect.Type, error)
 	recursiveFunc = func(argType reflect.Type, parts []string) (reflect.Type, error) {
 		switch {
-		case argType.Kind() == reflect.Ptr:
+		case argType.Kind() == reflect.Pointer:
 			return recursiveFunc(argType.Elem(), parts)
 		case len(parts) == 0:
 			return argType, nil
@@ -253,8 +257,8 @@ func GetArgType(argType reflect.Type, name string) (reflect.Type, error) {
 			}
 
 			// If it does not exist we try to find it in nested anonymous field
-			for i := len(anonymousFieldIndexes) - 1; i >= 0; i-- {
-				argType, err := recursiveFunc(argType.Field(anonymousFieldIndexes[i]).Type, parts)
+			for _, v := range slices.Backward(anonymousFieldIndexes) {
+				argType, err := recursiveFunc(argType.Field(v).Type, parts)
 				if err == nil {
 					return argType, nil
 				}
@@ -274,7 +278,7 @@ var listArgTypeFieldsSkippedArguments = []string{
 }
 
 func listArgTypeFields(base string, argType reflect.Type) []string {
-	if argType.Kind() != reflect.Ptr {
+	if argType.Kind() != reflect.Pointer {
 		// Can be a handled type like time.Time
 		// If so, use it like a scalar type
 		_, isHandled := unmarshalFuncs[argType]
@@ -284,7 +288,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 	}
 
 	switch argType.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		return listArgTypeFields(base, argType.Elem())
 
 	case reflect.Slice:
@@ -296,8 +300,7 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 	case reflect.Struct:
 		fields := []string(nil)
 
-		for i := range argType.NumField() {
-			field := argType.Field(i)
+		for field := range argType.Fields() {
 			fieldBase := base
 
 			// If this is an embedded struct, skip adding its name to base
@@ -317,10 +320,8 @@ func listArgTypeFields(base string, argType reflect.Type) []string {
 
 		return fields
 	default:
-		for _, skippedArg := range listArgTypeFieldsSkippedArguments {
-			if base == skippedArg {
-				return []string{}
-			}
+		if slices.Contains(listArgTypeFieldsSkippedArguments, base) {
+			return []string{}
 		}
 
 		return []string{base}

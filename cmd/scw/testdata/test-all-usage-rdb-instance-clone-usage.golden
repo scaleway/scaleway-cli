@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Clone a given Database Instance, specified by the `region` and `instance_id` parameters. The clone feature allows you to create a new Database Instance from an existing one. The clone includes all existing databases, users and permissions. You can create a clone on a Database Instance bigger than your current one.
 
 USAGE:
@@ -12,8 +12,9 @@ ARGS:
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
-  -h, --help   help for clone
-  -w, --wait   wait until the instance is ready
+  -h, --help                help for clone
+      --list-sub-commands   List all subcommands
+  -w, --wait                wait until the instance is ready
 
 GLOBAL FLAGS:
   -c, --config string    The path to the config file
