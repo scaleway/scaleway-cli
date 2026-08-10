@@ -57,6 +57,7 @@ func Test_UnmarshalStringList(t *testing.T) {
 			err := got.UnmarshalJSON([]byte(tt.input))
 			if (err != nil) != tt.wantErr {
 				t.Errorf("UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 
@@ -116,6 +117,7 @@ func TestPrincipal_UnmarshalJSON(t *testing.T) {
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Principal.UnmarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 
@@ -154,6 +156,7 @@ func TestPrincipal_MarshalJSON(t *testing.T) {
 
 			if (err != nil) != tt.wantErr {
 				t.Errorf("Principal.MarshalJSON() error = %v, wantErr %v", err, tt.wantErr)
+
 				return
 			}
 
@@ -234,7 +237,11 @@ func TestBucketPolicy_RoundTrip(t *testing.T) {
 	}
 
 	if !reflect.DeepEqual(parsedBucketPolicy, expectedStruct) {
-		t.Errorf("Parsed struct mismatch.\nGot:  %+v\nWant: %+v", parsedBucketPolicy, expectedStruct)
+		t.Errorf(
+			"Parsed struct mismatch.\nGot:  %+v\nWant: %+v",
+			parsedBucketPolicy,
+			expectedStruct,
+		)
 	}
 
 	marshaledBytes, err := json.MarshalIndent(parsedBucketPolicy, "", "  ")
@@ -243,6 +250,10 @@ func TestBucketPolicy_RoundTrip(t *testing.T) {
 	}
 
 	if string(marshaledBytes) != jsonInput {
-		t.Errorf("Marshaled output mismatch.\nGot:\n%s\n\nWant:\n%s", string(marshaledBytes), jsonInput)
+		t.Errorf(
+			"Marshaled output mismatch.\nGot:\n%s\n\nWant:\n%s",
+			string(marshaledBytes),
+			jsonInput,
+		)
 	}
 }
