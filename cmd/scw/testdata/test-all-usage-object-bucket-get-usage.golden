@@ -8,6 +8,7 @@ USAGE:
 ARGS:
   name                The unique name of the bucket
   [with-size=false]   Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.
+  [project-id]        Scaleway project ID to use with IAM Access Key syntax
   [region=fr-par]     Region to target. If none is passed will use default region from the config
 
 FLAGS:
