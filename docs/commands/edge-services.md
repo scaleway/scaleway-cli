@@ -18,24 +18,24 @@ scw edge-services backend-stage create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| scaleway-s3.bucket-name |  | Name of the Bucket |
-| scaleway-s3.bucket-region |  | Region of the Bucket |
-| scaleway-s3.is-website |  | Defines whether the bucket website feature is enabled |
-| scaleway-lb.lbs.{index}.id |  | ID of the Load Balancer |
-| scaleway-lb.lbs.{index}.zone |  | Zone of the Load Balancer |
-| scaleway-lb.lbs.{index}.frontend-id |  | ID of the frontend linked to the Load Balancer |
-| scaleway-lb.lbs.{index}.is-ssl |  | Defines whether the Load Balancer's frontend handles SSL connections |
-| scaleway-lb.lbs.{index}.domain-name |  | Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer |
-| scaleway-lb.lbs.{index}.has-websocket |  | Defines whether to forward websocket requests to the load balancer |
-| pipeline-id | Required | Pipeline ID the Backend stage belongs to |
-| scaleway-serverless-container.region |  |  |
-| scaleway-serverless-container.container-id |  |  |
-| scaleway-serverless-function.region |  |  |
-| scaleway-serverless-function.function-id |  |  |
+| Name                                       | Description                                                                                                               | Argument Specifications |
+|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| scaleway-s3.bucket-name                    | Name of the Bucket                                                                                                        |                         |
+| scaleway-s3.bucket-region                  | Region of the Bucket                                                                                                      |                         |
+| scaleway-s3.is-website                     | Defines whether the bucket website feature is enabled                                                                     |                         |
+| scaleway-lb.lbs.{index}.id                 | ID of the Load Balancer                                                                                                   |                         |
+| scaleway-lb.lbs.{index}.zone               | Zone of the Load Balancer                                                                                                 |                         |
+| scaleway-lb.lbs.{index}.frontend-id        | ID of the frontend linked to the Load Balancer                                                                            |                         |
+| scaleway-lb.lbs.{index}.is-ssl             | Defines whether the Load Balancer's frontend handles SSL connections                                                      |                         |
+| scaleway-lb.lbs.{index}.domain-name        | Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer |                         |
+| scaleway-lb.lbs.{index}.has-websocket      | Defines whether to forward websocket requests to the load balancer                                                        |                         |
+| pipeline-id                                | Pipeline ID the Backend stage belongs to                                                                                  | Required                |
+| scaleway-serverless-container.region       |                                                                                                                           |                         |
+| scaleway-serverless-container.container-id |                                                                                                                           |                         |
+| scaleway-serverless-function.region        |                                                                                                                           |                         |
+| scaleway-serverless-function.function-id   |                                                                                                                           |                         |
 
 
 
@@ -50,11 +50,11 @@ scw edge-services backend-stage delete <backend-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-stage-id | Required | ID of the backend stage to delete |
+| Name             | Description                       | Argument Specifications |
+|------------------|-----------------------------------|-------------------------|
+| backend-stage-id | ID of the backend stage to delete | Required                |
 
 
 
@@ -69,11 +69,11 @@ scw edge-services backend-stage get <backend-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-stage-id | Required | ID of the requested backend stage |
+| Name             | Description                       | Argument Specifications |
+|------------------|-----------------------------------|-------------------------|
+| backend-stage-id | ID of the requested backend stage | Required                |
 
 
 
@@ -88,15 +88,15 @@ scw edge-services backend-stage list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of backend stages in the response |
-| pipeline-id | Required | Pipeline ID to filter for. Only backend stages from this pipeline will be returned |
-| bucket-name |  | Bucket name to filter for. Only backend stages from this Bucket will be returned |
-| bucket-region |  | Bucket region to filter for. Only backend stages with buckets in this region will be returned |
-| lb-id |  | Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned |
+| Name          | Description                                                                                   | Argument Specifications                     |
+|---------------|-----------------------------------------------------------------------------------------------|---------------------------------------------|
+| order-by      | Sort order of backend stages in the response                                                  | One of: `created_at_asc`, `created_at_desc` |
+| pipeline-id   | Pipeline ID to filter for. Only backend stages from this pipeline will be returned            | Required                                    |
+| bucket-name   | Bucket name to filter for. Only backend stages from this Bucket will be returned              |                                             |
+| bucket-region | Bucket region to filter for. Only backend stages with buckets in this region will be returned |                                             |
+| lb-id         | Load Balancer ID to filter for. Only backend stages with this Load Balancer will be returned  |                                             |
 
 
 
@@ -111,25 +111,25 @@ scw edge-services backend-stage update <backend-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-stage-id | Required | ID of the backend stage to update |
-| scaleway-s3.bucket-name |  | Name of the Bucket |
-| scaleway-s3.bucket-region |  | Region of the Bucket |
-| scaleway-s3.is-website |  | Defines whether the bucket website feature is enabled |
-| scaleway-lb.lbs.{index}.id |  | ID of the Load Balancer |
-| scaleway-lb.lbs.{index}.zone |  | Zone of the Load Balancer |
-| scaleway-lb.lbs.{index}.frontend-id |  | ID of the frontend linked to the Load Balancer |
-| scaleway-lb.lbs.{index}.is-ssl |  | Defines whether the Load Balancer's frontend handles SSL connections |
-| scaleway-lb.lbs.{index}.domain-name |  | Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer |
-| scaleway-lb.lbs.{index}.has-websocket |  | Defines whether to forward websocket requests to the load balancer |
-| scaleway-serverless-container.region |  |  |
-| scaleway-serverless-container.container-id |  |  |
-| scaleway-serverless-function.region |  |  |
-| scaleway-serverless-function.function-id |  |  |
-| pipeline-id |  | Pipeline ID the Backend stage belongs to |
+| Name                                       | Description                                                                                                               | Argument Specifications |
+|--------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| backend-stage-id                           | ID of the backend stage to update                                                                                         | Required                |
+| scaleway-s3.bucket-name                    | Name of the Bucket                                                                                                        |                         |
+| scaleway-s3.bucket-region                  | Region of the Bucket                                                                                                      |                         |
+| scaleway-s3.is-website                     | Defines whether the bucket website feature is enabled                                                                     |                         |
+| scaleway-lb.lbs.{index}.id                 | ID of the Load Balancer                                                                                                   |                         |
+| scaleway-lb.lbs.{index}.zone               | Zone of the Load Balancer                                                                                                 |                         |
+| scaleway-lb.lbs.{index}.frontend-id        | ID of the frontend linked to the Load Balancer                                                                            |                         |
+| scaleway-lb.lbs.{index}.is-ssl             | Defines whether the Load Balancer's frontend handles SSL connections                                                      |                         |
+| scaleway-lb.lbs.{index}.domain-name        | Fully Qualified Domain Name (in the format subdomain.example.com) to use in HTTP requests sent towards your Load Balancer |                         |
+| scaleway-lb.lbs.{index}.has-websocket      | Defines whether to forward websocket requests to the load balancer                                                        |                         |
+| scaleway-serverless-container.region       |                                                                                                                           |                         |
+| scaleway-serverless-container.container-id |                                                                                                                           |                         |
+| scaleway-serverless-function.region        |                                                                                                                           |                         |
+| scaleway-serverless-function.function-id   |                                                                                                                           |                         |
+| pipeline-id                                | Pipeline ID the Backend stage belongs to                                                                                  |                         |
 
 
 
@@ -149,16 +149,16 @@ scw edge-services cache-stage create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| fallback-ttl | Default: `3600s` | Time To Live (TTL) in seconds. Defines how long content is cached |
-| include-cookies |  | Defines whether responses to requests with cookies must be stored in the cache |
-| backend-stage-id |  | Backend stage ID the cache stage will be linked to |
-| pipeline-id | Required | Pipeline ID the Cache stage belongs to |
-| waf-stage-id |  |  |
-| route-stage-id |  |  |
+| Name             | Description                                                                    | Argument Specifications |
+|------------------|--------------------------------------------------------------------------------|-------------------------|
+| fallback-ttl     | Time To Live (TTL) in seconds. Defines how long content is cached              | Default: `3600s`        |
+| include-cookies  | Defines whether responses to requests with cookies must be stored in the cache |                         |
+| backend-stage-id | Backend stage ID the cache stage will be linked to                             |                         |
+| pipeline-id      | Pipeline ID the Cache stage belongs to                                         | Required                |
+| waf-stage-id     |                                                                                |                         |
+| route-stage-id   |                                                                                |                         |
 
 
 
@@ -173,11 +173,11 @@ scw edge-services cache-stage delete <cache-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cache-stage-id | Required | ID of the cache stage to delete |
+| Name           | Description                     | Argument Specifications |
+|----------------|---------------------------------|-------------------------|
+| cache-stage-id | ID of the cache stage to delete | Required                |
 
 
 
@@ -192,11 +192,11 @@ scw edge-services cache-stage get <cache-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cache-stage-id | Required | ID of the requested cache stage |
+| Name           | Description                     | Argument Specifications |
+|----------------|---------------------------------|-------------------------|
+| cache-stage-id | ID of the requested cache stage | Required                |
 
 
 
@@ -211,12 +211,12 @@ scw edge-services cache-stage list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of cache stages in the response |
-| pipeline-id | Required | Pipeline ID to filter for. Only cache stages from this pipeline will be returned |
+| Name        | Description                                                                      | Argument Specifications                     |
+|-------------|----------------------------------------------------------------------------------|---------------------------------------------|
+| order-by    | Sort order of cache stages in the response                                       | One of: `created_at_asc`, `created_at_desc` |
+| pipeline-id | Pipeline ID to filter for. Only cache stages from this pipeline will be returned | Required                                    |
 
 
 
@@ -231,16 +231,16 @@ scw edge-services cache-stage update <cache-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cache-stage-id | Required | ID of the cache stage to update |
-| fallback-ttl |  | Time To Live (TTL) in seconds. Defines how long content is cached |
-| include-cookies |  | Defines whether responses to requests with cookies must be stored in the cache |
-| backend-stage-id |  | Backend stage ID the cache stage will be linked to |
-| waf-stage-id |  |  |
-| route-stage-id |  |  |
+| Name             | Description                                                                    | Argument Specifications |
+|------------------|--------------------------------------------------------------------------------|-------------------------|
+| cache-stage-id   | ID of the cache stage to update                                                | Required                |
+| fallback-ttl     | Time To Live (TTL) in seconds. Defines how long content is cached              |                         |
+| include-cookies  | Defines whether responses to requests with cookies must be stored in the cache |                         |
+| backend-stage-id | Backend stage ID the cache stage will be linked to                             |                         |
+| waf-stage-id     |                                                                                |                         |
+| route-stage-id   |                                                                                |                         |
 
 
 
@@ -260,16 +260,16 @@ scw edge-services dns-stage create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| fqdns.{index} |  | Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage |
-| tls-stage-id |  | TLS stage ID the DNS stage will be linked to |
-| cache-stage-id |  | Cache stage ID the DNS stage will be linked to |
-| backend-stage-id |  | Backend stage ID the DNS stage will be linked to |
-| pipeline-id | Required | Pipeline ID the DNS stage belongs to |
-| wildcard-domain |  | Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work) |
+| Name             | Description                                                                                                | Argument Specifications |
+|------------------|------------------------------------------------------------------------------------------------------------|-------------------------|
+| fqdns.{index}    | Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage                   |                         |
+| tls-stage-id     | TLS stage ID the DNS stage will be linked to                                                               |                         |
+| cache-stage-id   | Cache stage ID the DNS stage will be linked to                                                             |                         |
+| backend-stage-id | Backend stage ID the DNS stage will be linked to                                                           |                         |
+| pipeline-id      | Pipeline ID the DNS stage belongs to                                                                       | Required                |
+| wildcard-domain  | Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work) |                         |
 
 
 
@@ -284,11 +284,11 @@ scw edge-services dns-stage delete <dns-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-stage-id | Required | ID of the DNS stage to delete |
+| Name         | Description                   | Argument Specifications |
+|--------------|-------------------------------|-------------------------|
+| dns-stage-id | ID of the DNS stage to delete | Required                |
 
 
 
@@ -303,11 +303,11 @@ scw edge-services dns-stage get <dns-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-stage-id | Required | ID of the requested DNS stage |
+| Name         | Description                   | Argument Specifications |
+|--------------|-------------------------------|-------------------------|
+| dns-stage-id | ID of the requested DNS stage | Required                |
 
 
 
@@ -322,13 +322,13 @@ scw edge-services dns-stage list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of DNS stages in the response |
-| pipeline-id | Required | Pipeline ID to filter for. Only DNS stages from this pipeline will be returned |
-| fqdn |  | Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned |
+| Name        | Description                                                                                                                      | Argument Specifications                     |
+|-------------|----------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
+| order-by    | Sort order of DNS stages in the response                                                                                         | One of: `created_at_asc`, `created_at_desc` |
+| pipeline-id | Pipeline ID to filter for. Only DNS stages from this pipeline will be returned                                                   | Required                                    |
+| fqdn        | Fully Qualified Domain Name to filter for (in the format subdomain.example.com). Only DNS stages with this FQDN will be returned |                                             |
 
 
 
@@ -343,16 +343,16 @@ scw edge-services dns-stage update <dns-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-stage-id | Required | ID of the DNS stage to update |
-| fqdns.{index} |  | Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage |
-| tls-stage-id |  | TLS stage ID the DNS stage will be linked to |
-| cache-stage-id |  | Cache stage ID the DNS stage will be linked to |
-| backend-stage-id |  | Backend stage ID the DNS stage will be linked to |
-| wildcard-domain |  | Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work) |
+| Name             | Description                                                                                                | Argument Specifications |
+|------------------|------------------------------------------------------------------------------------------------------------|-------------------------|
+| dns-stage-id     | ID of the DNS stage to update                                                                              | Required                |
+| fqdns.{index}    | Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage                    |                         |
+| tls-stage-id     | TLS stage ID the DNS stage will be linked to                                                               |                         |
+| cache-stage-id   | Cache stage ID the DNS stage will be linked to                                                             |                         |
+| backend-stage-id | Backend stage ID the DNS stage will be linked to                                                           |                         |
+| wildcard-domain  | Support of wildcard (subdomains) for the given domain (a wildcard certificate is required to make it work) |                         |
 
 
 
@@ -372,13 +372,13 @@ scw edge-services pipeline create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required | Name of the pipeline |
-| description | Required | Description of the pipeline |
+| Name        | Description                                                              | Argument Specifications |
+|-------------|--------------------------------------------------------------------------|-------------------------|
+| project-id  | Project ID to use. If none is passed the default project ID will be used |                         |
+| name        | Name of the pipeline                                                     | Required                |
+| description | Description of the pipeline                                              | Required                |
 
 
 
@@ -393,11 +393,11 @@ scw edge-services pipeline delete <pipeline-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | ID of the pipeline to delete |
+| Name        | Description                  | Argument Specifications |
+|-------------|------------------------------|-------------------------|
+| pipeline-id | ID of the pipeline to delete | Required                |
 
 
 
@@ -412,11 +412,11 @@ scw edge-services pipeline get <pipeline-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | ID of the requested pipeline |
+| Name        | Description                  | Argument Specifications |
+|-------------|------------------------------|-------------------------|
+| pipeline-id | ID of the requested pipeline | Required                |
 
 
 
@@ -431,15 +431,15 @@ scw edge-services pipeline list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of pipelines in the response |
-| name |  | Pipeline name to filter for. Only pipelines with this string within their name will be returned |
-| project-id |  | Project ID to filter for. Only pipelines from this Project will be returned |
-| has-backend-stage-lb |  | Filter on backend stage. Only pipelines with a Load Balancer origin will be returned |
-| organization-id |  | Organization ID to filter for. Only pipelines from this Organization will be returned |
+| Name                 | Description                                                                                     | Argument Specifications                                              |
+|----------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| order-by             | Sort order of pipelines in the response                                                         | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
+| name                 | Pipeline name to filter for. Only pipelines with this string within their name will be returned |                                                                      |
+| project-id           | Project ID to filter for. Only pipelines from this Project will be returned                     |                                                                      |
+| has-backend-stage-lb | Filter on backend stage. Only pipelines with a Load Balancer origin will be returned            |                                                                      |
+| organization-id      | Organization ID to filter for. Only pipelines from this Organization will be returned           |                                                                      |
 
 
 
@@ -454,11 +454,11 @@ scw edge-services pipeline list-head <pipeline-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | ID of the pipeline to update |
+| Name        | Description                  | Argument Specifications |
+|-------------|------------------------------|-------------------------|
+| pipeline-id | ID of the pipeline to update | Required                |
 
 
 
@@ -473,15 +473,15 @@ scw edge-services pipeline set-head <pipeline-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | ID of the pipeline to update |
-| add-new-head-stage.new-stage-id |  |  |
-| remove-head-stage.remove-stage-id |  |  |
-| swap-head-stage.new-stage-id |  |  |
-| swap-head-stage.current-stage-id |  |  |
+| Name                              | Description                  | Argument Specifications |
+|-----------------------------------|------------------------------|-------------------------|
+| pipeline-id                       | ID of the pipeline to update | Required                |
+| add-new-head-stage.new-stage-id   |                              |                         |
+| remove-head-stage.remove-stage-id |                              |                         |
+| swap-head-stage.new-stage-id      |                              |                         |
+| swap-head-stage.current-stage-id  |                              |                         |
 
 
 
@@ -496,13 +496,13 @@ scw edge-services pipeline update <pipeline-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | ID of the pipeline to update |
-| name |  | Name of the pipeline |
-| description |  | Description of the pipeline |
+| Name        | Description                  | Argument Specifications |
+|-------------|------------------------------|-------------------------|
+| pipeline-id | ID of the pipeline to update | Required                |
+| name        | Name of the pipeline         |                         |
+| description | Description of the pipeline  |                         |
 
 
 
@@ -522,11 +522,11 @@ scw edge-services plan delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -541,11 +541,11 @@ scw edge-services plan get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -572,12 +572,12 @@ scw edge-services plan select [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| plan-name | One of: `unknown_name`, `starter`, `professional`, `advanced` |  |
+| Name       | Description                                                              | Argument Specifications                                       |
+|------------|--------------------------------------------------------------------------|---------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                                                               |
+| plan-name  |                                                                          | One of: `unknown_name`, `starter`, `professional`, `advanced` |
 
 
 
@@ -597,13 +597,13 @@ scw edge-services purge-request create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | Pipeline ID in which the purge request will be created |
-| assets.{index} |  | List of asserts to purge |
-| all |  | Defines whether to purge all content |
+| Name           | Description                                            | Argument Specifications |
+|----------------|--------------------------------------------------------|-------------------------|
+| pipeline-id    | Pipeline ID in which the purge request will be created | Required                |
+| assets.{index} | List of asserts to purge                               |                         |
+| all            | Defines whether to purge all content                   |                         |
 
 
 
@@ -618,11 +618,11 @@ scw edge-services purge-request get <purge-request-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| purge-request-id | Required | ID of the requested purge request |
+| Name             | Description                       | Argument Specifications |
+|------------------|-----------------------------------|-------------------------|
+| purge-request-id | ID of the requested purge request | Required                |
 
 
 
@@ -637,14 +637,14 @@ scw edge-services purge-request list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of purge requests in the response |
-| project-id |  | Project ID to filter for. Only purge requests from this Project will be returned |
-| pipeline-id |  | Pipeline ID to filter for. Only purge requests from this pipeline will be returned |
-| organization-id |  | Organization ID to filter for. Only purge requests from this Organization will be returned |
+| Name            | Description                                                                                | Argument Specifications                     |
+|-----------------|--------------------------------------------------------------------------------------------|---------------------------------------------|
+| order-by        | Sort order of purge requests in the response                                               | One of: `created_at_asc`, `created_at_desc` |
+| project-id      | Project ID to filter for. Only purge requests from this Project will be returned           |                                             |
+| pipeline-id     | Pipeline ID to filter for. Only purge requests from this pipeline will be returned         |                                             |
+| organization-id | Organization ID to filter for. Only purge requests from this Organization will be returned |                                             |
 
 
 
@@ -664,20 +664,20 @@ scw edge-services route-rules add <route-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | ID of the route stage to update |
-| route-rules.{index}.rule-http-match.method-filters.{index} | One of: `unknown_method_filter`, `get`, `post`, `put`, `patch`, `delete`, `head`, `options` | HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided |
-| route-rules.{index}.rule-http-match.path-filter.path-filter-type | One of: `unknown_path_filter`, `regex` | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type |
-| route-rules.{index}.rule-http-match.path-filter.value |  | Value to be matched for the HTTP URL path |
-| route-rules.{index}.rule-http-match.host-filter.host-filter-type | One of: `unknown_host_filter`, `regex` |  |
-| route-rules.{index}.rule-http-match.host-filter.value |  |  |
-| route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
-| route-rules.{index}.waf-stage-id |  | ID of the WAF stage that requests matching the rule should be forwarded to |
-| after-position |  | Add rules after the given position |
-| before-position |  | Add rules before the given position |
+| Name                                                             | Description                                                                                                                                                                                                                       | Argument Specifications                                                                     |
+|------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| route-stage-id                                                   | ID of the route stage to update                                                                                                                                                                                                   | Required                                                                                    |
+| route-rules.{index}.rule-http-match.method-filters.{index}       | HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided | One of: `unknown_method_filter`, `get`, `post`, `put`, `patch`, `delete`, `head`, `options` |
+| route-rules.{index}.rule-http-match.path-filter.path-filter-type | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type                                                                                                        | One of: `unknown_path_filter`, `regex`                                                      |
+| route-rules.{index}.rule-http-match.path-filter.value            | Value to be matched for the HTTP URL path                                                                                                                                                                                         |                                                                                             |
+| route-rules.{index}.rule-http-match.host-filter.host-filter-type |                                                                                                                                                                                                                                   | One of: `unknown_host_filter`, `regex`                                                      |
+| route-rules.{index}.rule-http-match.host-filter.value            |                                                                                                                                                                                                                                   |                                                                                             |
+| route-rules.{index}.backend-stage-id                             | ID of the backend stage that requests matching the rule should be forwarded to                                                                                                                                                    |                                                                                             |
+| route-rules.{index}.waf-stage-id                                 | ID of the WAF stage that requests matching the rule should be forwarded to                                                                                                                                                        |                                                                                             |
+| after-position                                                   | Add rules after the given position                                                                                                                                                                                                |                                                                                             |
+| before-position                                                  | Add rules before the given position                                                                                                                                                                                               |                                                                                             |
 
 
 
@@ -695,13 +695,13 @@ scw edge-services route-rules edit <route-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | ID of the route stage to edit |
-| backend-stage-id |  | ID of the backend stage to apply to all rules (simplifies editing when using a single backend) |
-| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
+| Name             | Description                                                                                    | Argument Specifications                     |
+|------------------|------------------------------------------------------------------------------------------------|---------------------------------------------|
+| route-stage-id   | ID of the route stage to edit                                                                  | Required                                    |
+| backend-stage-id | ID of the backend stage to apply to all rules (simplifies editing when using a single backend) |                                             |
+| mode             | marshaling used when editing data                                                              | Default: `yaml`<br />One of: `yaml`, `json` |
 
 
 
@@ -716,11 +716,11 @@ scw edge-services route-rules list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | Route stage ID to filter for. Only route rules from this route stage will be returned |
+| Name           | Description                                                                           | Argument Specifications |
+|----------------|---------------------------------------------------------------------------------------|-------------------------|
+| route-stage-id | Route stage ID to filter for. Only route rules from this route stage will be returned | Required                |
 
 
 
@@ -735,18 +735,18 @@ scw edge-services route-rules set <route-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | ID of the route stage to update |
-| route-rules.{index}.rule-http-match.method-filters.{index} | One of: `unknown_method_filter`, `get`, `post`, `put`, `patch`, `delete`, `head`, `options` | HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided |
-| route-rules.{index}.rule-http-match.path-filter.path-filter-type | One of: `unknown_path_filter`, `regex` | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type |
-| route-rules.{index}.rule-http-match.path-filter.value |  | Value to be matched for the HTTP URL path |
-| route-rules.{index}.rule-http-match.host-filter.host-filter-type | One of: `unknown_host_filter`, `regex` |  |
-| route-rules.{index}.rule-http-match.host-filter.value |  |  |
-| route-rules.{index}.backend-stage-id |  | ID of the backend stage that requests matching the rule should be forwarded to |
-| route-rules.{index}.waf-stage-id |  | ID of the WAF stage that requests matching the rule should be forwarded to |
+| Name                                                             | Description                                                                                                                                                                                                                       | Argument Specifications                                                                     |
+|------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| route-stage-id                                                   | ID of the route stage to update                                                                                                                                                                                                   | Required                                                                                    |
+| route-rules.{index}.rule-http-match.method-filters.{index}       | HTTP methods to filter for. A request using any of these methods will be considered to match the rule. Possible values are `get`, `post`, `put`, `patch`, `delete`, `head`, `options`. All methods will match if none is provided | One of: `unknown_method_filter`, `get`, `post`, `put`, `patch`, `delete`, `head`, `options` |
+| route-rules.{index}.rule-http-match.path-filter.path-filter-type | Type of filter to match for the HTTP URL path. For now, all path filters must be written in regex and use the `regex` type                                                                                                        | One of: `unknown_path_filter`, `regex`                                                      |
+| route-rules.{index}.rule-http-match.path-filter.value            | Value to be matched for the HTTP URL path                                                                                                                                                                                         |                                                                                             |
+| route-rules.{index}.rule-http-match.host-filter.host-filter-type |                                                                                                                                                                                                                                   | One of: `unknown_host_filter`, `regex`                                                      |
+| route-rules.{index}.rule-http-match.host-filter.value            |                                                                                                                                                                                                                                   |                                                                                             |
+| route-rules.{index}.backend-stage-id                             | ID of the backend stage that requests matching the rule should be forwarded to                                                                                                                                                    |                                                                                             |
+| route-rules.{index}.waf-stage-id                                 | ID of the WAF stage that requests matching the rule should be forwarded to                                                                                                                                                        |                                                                                             |
 
 
 
@@ -766,13 +766,13 @@ scw edge-services route-stage create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | Pipeline ID the route stage belongs to |
-| waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
-| backend-stage-id |  | ID of the backend stage HTTP requests should be forwarded to when no rules are matched |
+| Name             | Description                                                                            | Argument Specifications |
+|------------------|----------------------------------------------------------------------------------------|-------------------------|
+| pipeline-id      | Pipeline ID the route stage belongs to                                                 | Required                |
+| waf-stage-id     | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched     |                         |
+| backend-stage-id | ID of the backend stage HTTP requests should be forwarded to when no rules are matched |                         |
 
 
 
@@ -787,11 +787,11 @@ scw edge-services route-stage delete <route-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | ID of the route stage to delete |
+| Name           | Description                     | Argument Specifications |
+|----------------|---------------------------------|-------------------------|
+| route-stage-id | ID of the route stage to delete | Required                |
 
 
 
@@ -806,11 +806,11 @@ scw edge-services route-stage get <route-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | ID of the requested route stage |
+| Name           | Description                     | Argument Specifications |
+|----------------|---------------------------------|-------------------------|
+| route-stage-id | ID of the requested route stage | Required                |
 
 
 
@@ -825,12 +825,12 @@ scw edge-services route-stage list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of route stages in the response |
-| pipeline-id | Required | Pipeline ID to filter for. Only route stages from this pipeline will be returned |
+| Name        | Description                                                                      | Argument Specifications                     |
+|-------------|----------------------------------------------------------------------------------|---------------------------------------------|
+| order-by    | Sort order of route stages in the response                                       | One of: `created_at_asc`, `created_at_desc` |
+| pipeline-id | Pipeline ID to filter for. Only route stages from this pipeline will be returned | Required                                    |
 
 
 
@@ -845,13 +845,13 @@ scw edge-services route-stage update <route-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-stage-id | Required | ID of the route stage to update |
-| waf-stage-id |  | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched |
-| backend-stage-id |  | ID of the backend stage HTTP requests should be forwarded to when no rules are matched |
+| Name             | Description                                                                            | Argument Specifications |
+|------------------|----------------------------------------------------------------------------------------|-------------------------|
+| route-stage-id   | ID of the route stage to update                                                        | Required                |
+| waf-stage-id     | ID of the WAF stage HTTP requests should be forwarded to when no rules are matched     |                         |
+| backend-stage-id | ID of the backend stage HTTP requests should be forwarded to when no rules are matched |                         |
 
 
 
@@ -871,18 +871,18 @@ scw edge-services tls-stage create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secrets.{index}.secret-id |  | ID of the Secret |
-| secrets.{index}.region |  | Region of the Secret |
-| managed-certificate |  | True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint |
-| cache-stage-id |  | Cache stage ID the TLS stage will be linked to |
-| backend-stage-id |  | Backend stage ID the TLS stage will be linked to |
-| pipeline-id | Required | Pipeline ID the TLS stage belongs to |
-| route-stage-id |  |  |
-| waf-stage-id |  |  |
+| Name                      | Description                                                                                            | Argument Specifications |
+|---------------------------|--------------------------------------------------------------------------------------------------------|-------------------------|
+| secrets.{index}.secret-id | ID of the Secret                                                                                       |                         |
+| secrets.{index}.region    | Region of the Secret                                                                                   |                         |
+| managed-certificate       | True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint |                         |
+| cache-stage-id            | Cache stage ID the TLS stage will be linked to                                                         |                         |
+| backend-stage-id          | Backend stage ID the TLS stage will be linked to                                                       |                         |
+| pipeline-id               | Pipeline ID the TLS stage belongs to                                                                   | Required                |
+| route-stage-id            |                                                                                                        |                         |
+| waf-stage-id              |                                                                                                        |                         |
 
 
 
@@ -897,11 +897,11 @@ scw edge-services tls-stage delete <tls-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tls-stage-id | Required | ID of the TLS stage to delete |
+| Name         | Description                   | Argument Specifications |
+|--------------|-------------------------------|-------------------------|
+| tls-stage-id | ID of the TLS stage to delete | Required                |
 
 
 
@@ -916,11 +916,11 @@ scw edge-services tls-stage get <tls-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tls-stage-id | Required | ID of the requested TLS stage |
+| Name         | Description                   | Argument Specifications |
+|--------------|-------------------------------|-------------------------|
+| tls-stage-id | ID of the requested TLS stage | Required                |
 
 
 
@@ -935,14 +935,14 @@ scw edge-services tls-stage list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of TLS stages in the response |
-| pipeline-id | Required | Pipeline ID to filter for. Only TLS stages from this pipeline will be returned |
-| secret-id |  | Secret ID to filter for. Only TLS stages with this Secret ID will be returned |
-| secret-region |  | Secret region to filter for. Only TLS stages with a Secret in this region will be returned |
+| Name          | Description                                                                                | Argument Specifications                     |
+|---------------|--------------------------------------------------------------------------------------------|---------------------------------------------|
+| order-by      | Sort order of TLS stages in the response                                                   | One of: `created_at_asc`, `created_at_desc` |
+| pipeline-id   | Pipeline ID to filter for. Only TLS stages from this pipeline will be returned             | Required                                    |
+| secret-id     | Secret ID to filter for. Only TLS stages with this Secret ID will be returned              |                                             |
+| secret-region | Secret region to filter for. Only TLS stages with a Secret in this region will be returned |                                             |
 
 
 
@@ -957,18 +957,18 @@ scw edge-services tls-stage update <tls-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tls-stage-id | Required | ID of the TLS stage to update |
-| tls-secrets-config.tls-secrets.{index}.secret-id |  | ID of the Secret |
-| tls-secrets-config.tls-secrets.{index}.region |  | Region of the Secret |
-| managed-certificate |  | True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint |
-| cache-stage-id |  | Cache stage ID the TLS stage will be linked to |
-| backend-stage-id |  | Backend stage ID the TLS stage will be linked to |
-| route-stage-id |  |  |
-| waf-stage-id |  |  |
+| Name                                             | Description                                                                                            | Argument Specifications |
+|--------------------------------------------------|--------------------------------------------------------------------------------------------------------|-------------------------|
+| tls-stage-id                                     | ID of the TLS stage to update                                                                          | Required                |
+| tls-secrets-config.tls-secrets.{index}.secret-id | ID of the Secret                                                                                       |                         |
+| tls-secrets-config.tls-secrets.{index}.region    | Region of the Secret                                                                                   |                         |
+| managed-certificate                              | True when Scaleway generates and manages a Let's Encrypt certificate for the TLS stage/custom endpoint |                         |
+| cache-stage-id                                   | Cache stage ID the TLS stage will be linked to                                                         |                         |
+| backend-stage-id                                 | Backend stage ID the TLS stage will be linked to                                                       |                         |
+| route-stage-id                                   |                                                                                                        |                         |
+| waf-stage-id                                     |                                                                                                        |                         |
 
 
 
@@ -988,14 +988,14 @@ scw edge-services waf-stage create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pipeline-id | Required | Pipeline ID the WAF stage belongs to |
-| mode | One of: `unknown_mode`, `disable`, `log_only`, `enable` | Mode defining WAF behavior (`disable`/`log_only`/`enable`) |
-| paranoia-level |  | Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign. |
-| backend-stage-id |  | ID of the backend stage to forward requests to after the WAF stage |
+| Name             | Description                                                                                                                                                                                                                                                        | Argument Specifications                                 |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| pipeline-id      | Pipeline ID the WAF stage belongs to                                                                                                                                                                                                                               | Required                                                |
+| mode             | Mode defining WAF behavior (`disable`/`log_only`/`enable`)                                                                                                                                                                                                         | One of: `unknown_mode`, `disable`, `log_only`, `enable` |
+| paranoia-level   | Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign. |                                                         |
+| backend-stage-id | ID of the backend stage to forward requests to after the WAF stage                                                                                                                                                                                                 |                                                         |
 
 
 
@@ -1010,11 +1010,11 @@ scw edge-services waf-stage delete <waf-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| waf-stage-id | Required | ID of the WAF stage to delete |
+| Name         | Description                   | Argument Specifications |
+|--------------|-------------------------------|-------------------------|
+| waf-stage-id | ID of the WAF stage to delete | Required                |
 
 
 
@@ -1029,11 +1029,11 @@ scw edge-services waf-stage get <waf-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| waf-stage-id | Required | ID of the requested WAF stage |
+| Name         | Description                   | Argument Specifications |
+|--------------|-------------------------------|-------------------------|
+| waf-stage-id | ID of the requested WAF stage | Required                |
 
 
 
@@ -1048,12 +1048,12 @@ scw edge-services waf-stage list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of WAF stages in the response |
-| pipeline-id | Required | Pipeline ID to filter for. Only WAF stages from this pipeline will be returned |
+| Name        | Description                                                                    | Argument Specifications                     |
+|-------------|--------------------------------------------------------------------------------|---------------------------------------------|
+| order-by    | Sort order of WAF stages in the response                                       | One of: `created_at_asc`, `created_at_desc` |
+| pipeline-id | Pipeline ID to filter for. Only WAF stages from this pipeline will be returned | Required                                    |
 
 
 
@@ -1068,14 +1068,14 @@ scw edge-services waf-stage update <waf-stage-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| waf-stage-id | Required | ID of the WAF stage to update |
-| mode | One of: `unknown_mode`, `disable`, `log_only`, `enable` | Mode defining WAF behavior (`disable`/`log_only`/`enable`) |
-| paranoia-level |  | Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign. |
-| backend-stage-id |  | ID of the backend stage to forward requests to after the WAF stage |
+| Name             | Description                                                                                                                                                                                                                                                        | Argument Specifications                                 |
+|------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------|
+| waf-stage-id     | ID of the WAF stage to update                                                                                                                                                                                                                                      | Required                                                |
+| mode             | Mode defining WAF behavior (`disable`/`log_only`/`enable`)                                                                                                                                                                                                         | One of: `unknown_mode`, `disable`, `log_only`, `enable` |
+| paranoia-level   | Sensitivity level (`1`,`2`,`3`,`4`) to use when classifying requests as malicious. With a high level, requests are more likely to be classed as malicious, and false positives are expected. With a lower level, requests are more likely to be classed as benign. |                                                         |
+| backend-stage-id | ID of the backend stage to forward requests to after the WAF stage                                                                                                                                                                                                 |                                                         |
 
 
 

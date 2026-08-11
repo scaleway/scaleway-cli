@@ -18,12 +18,12 @@ scw cockpit alert-manager disable [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -38,12 +38,12 @@ scw cockpit alert-manager enable [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -59,12 +59,12 @@ scw cockpit alert-manager get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -91,15 +91,15 @@ scw cockpit config get <data-source-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| data-source-id | Required | ID of the data source to generate the configuration for |
-| type | Required<br />One of: `prometheus`, `fluent-bit` | Configuration template type |
-| generate-token |  | Create a new Cockpit token and inject it in the generated snippet |
-| token-name | Default: `prometheus-push` | Name of the token to create when generate-token=true |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                     |
+|----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| data-source-id | ID of the data source to generate the configuration for                     | Required                                                    |
+| type           | Configuration template type                                                 | Required<br />One of: `prometheus`, `fluent-bit`            |
+| generate-token | Create a new Cockpit token and inject it in the generated snippet           |                                                             |
+| token-name     | Name of the token to create when generate-token=true                        | Default: `prometheus-push`                                  |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -151,14 +151,14 @@ scw cockpit contact-point create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| email.to |  |  |
-| send-resolved-notifications |  | Send an email notification when an alert is marked as resolved |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                        | Description                                                                 | Argument Specifications                                     |
+|-----------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id                  | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| email.to                    |                                                                             |                                                             |
+| send-resolved-notifications | Send an email notification when an alert is marked as resolved              |                                                             |
+| region                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -173,13 +173,13 @@ scw cockpit contact-point delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| email.to |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| email.to   |                                                                             |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -194,12 +194,12 @@ scw cockpit contact-point list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                            |
+|------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -220,15 +220,15 @@ scw cockpit data-source create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required | Data source name |
-| type | Required<br />One of: `unknown_type`, `metrics`, `logs`, `traces` | Data source type |
-| retention-days |  | Duration for which the data will be retained in the data source |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                           |
+|----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------|
+| project-id     | Project ID to use. If none is passed the default project ID will be used    |                                                                   |
+| name           | Data source name                                                            | Required                                                          |
+| type           | Data source type                                                            | Required<br />One of: `unknown_type`, `metrics`, `logs`, `traces` |
+| retention-days | Duration for which the data will be retained in the data source             |                                                                   |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`       |
 
 
 
@@ -243,12 +243,12 @@ scw cockpit data-source delete <data-source-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| data-source-id | Required | ID of the data source to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                     |
+|----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| data-source-id | ID of the data source to delete                                             | Required                                                    |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -263,12 +263,12 @@ scw cockpit data-source get <data-source-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| data-source-id | Required | ID of the relevant data source |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                     |
+|----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| data-source-id | ID of the relevant data source                                              | Required                                                    |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -283,15 +283,15 @@ scw cockpit data-source list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| origin | One of: `unknown_origin`, `scaleway`, `external`, `custom` | Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned |
-| types.{index} | One of: `unknown_type`, `metrics`, `logs`, `traces` | Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` | Sort order for data sources in the response |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                                                                                 | Argument Specifications                                                                       |
+|---------------|---------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------|
+| project-id    | Project ID to use. If none is passed the default project ID will be used                                                                    |                                                                                               |
+| origin        | Origin to filter for, only data sources with matching origin will be returned. If omitted, all types will be returned                       | One of: `unknown_origin`, `scaleway`, `external`, `custom`                                    |
+| types.{index} | Types to filter for (metrics, logs, traces), only data sources with matching types will be returned. If omitted, all types will be returned | One of: `unknown_type`, `metrics`, `logs`, `traces`                                           |
+| order-by      | Sort order for data sources in the response                                                                                                 | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc` |
+| region        | Region to target. If none is passed will use default region from the config                                                                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                            |
 
 
 
@@ -306,14 +306,14 @@ scw cockpit data-source update <data-source-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| data-source-id | Required | ID of the data source to update |
-| name |  | Updated name of the data source |
-| retention-days |  | Duration for which the data will be retained in the data source |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                     |
+|----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| data-source-id | ID of the data source to update                                             | Required                                                    |
+| name           | Updated name of the data source                                             |                                                             |
+| retention-days | Duration for which the data will be retained in the data source             |                                                             |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -334,11 +334,11 @@ scw cockpit grafana get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -353,11 +353,11 @@ scw cockpit grafana sync-data-sources [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -379,13 +379,13 @@ scw cockpit grafana-user create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| login |  | Username of the Grafana user. Note that the `admin` username is not available for creation |
-| role | One of: `unknown_role`, `editor`, `viewer` | Role assigned to the Grafana user |
+| Name       | Description                                                                                | Argument Specifications                    |
+|------------|--------------------------------------------------------------------------------------------|--------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used                   |                                            |
+| login      | Username of the Grafana user. Note that the `admin` username is not available for creation |                                            |
+| role       | Role assigned to the Grafana user                                                          | One of: `unknown_role`, `editor`, `viewer` |
 
 
 
@@ -401,12 +401,12 @@ scw cockpit grafana-user delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| grafana-user-id | Required | ID of the Grafana user |
+| Name            | Description                                                              | Argument Specifications |
+|-----------------|--------------------------------------------------------------------------|-------------------------|
+| project-id      | Project ID to use. If none is passed the default project ID will be used |                         |
+| grafana-user-id | ID of the Grafana user                                                   | Required                |
 
 
 
@@ -422,12 +422,12 @@ scw cockpit grafana-user list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `login_asc`, `login_desc` | Order of the Grafana users |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications           |
+|------------|--------------------------------------------------------------------------|-----------------------------------|
+| order-by   | Order of the Grafana users                                               | One of: `login_asc`, `login_desc` |
+| project-id | Project ID to use. If none is passed the default project ID will be used |                                   |
 
 
 
@@ -444,12 +444,12 @@ scw cockpit grafana-user reset-password [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| grafana-user-id | Required | ID of the Grafana user |
+| Name            | Description                                                              | Argument Specifications |
+|-----------------|--------------------------------------------------------------------------|-------------------------|
+| project-id      | Project ID to use. If none is passed the default project ID will be used |                         |
+| grafana-user-id | ID of the Grafana user                                                   | Required                |
 
 
 
@@ -484,11 +484,11 @@ scw cockpit plan get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -504,11 +504,11 @@ scw cockpit plan list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc` |  |
+| Name     | Description | Argument Specifications         |
+|----------|-------------|---------------------------------|
+| order-by |             | One of: `name_asc`, `name_desc` |
 
 
 
@@ -524,12 +524,12 @@ scw cockpit plan select [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| plan-name | One of: `unknown_name`, `free`, `premium`, `custom` | Name of the pricing plan |
+| Name       | Description                                                              | Argument Specifications                             |
+|------------|--------------------------------------------------------------------------|-----------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                                                     |
+| plan-name  | Name of the pricing plan                                                 | One of: `unknown_name`, `free`, `premium`, `custom` |
 
 
 
@@ -549,12 +549,12 @@ scw cockpit product-dashboards get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| dashboard-name | Required | Name of the dashboard |
+| Name           | Description                                                              | Argument Specifications |
+|----------------|--------------------------------------------------------------------------|-------------------------|
+| project-id     | Project ID to use. If none is passed the default project ID will be used |                         |
+| dashboard-name | Name of the dashboard                                                    | Required                |
 
 
 
@@ -569,12 +569,12 @@ scw cockpit product-dashboards list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| tags.{index} |  | Tags to filter for |
+| Name         | Description                                                              | Argument Specifications |
+|--------------|--------------------------------------------------------------------------|-------------------------|
+| project-id   | Project ID to use. If none is passed the default project ID will be used |                         |
+| tags.{index} | Tags to filter for                                                       |                         |
 
 
 
@@ -594,12 +594,12 @@ scw cockpit test-alert trigger [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -620,14 +620,14 @@ scw cockpit token create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required | Name of the token |
-| token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token permission scopes |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                 | Description                                                                 | Argument Specifications                                                                                                                                                                                                              |
+|----------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id           | Project ID to use. If none is passed the default project ID will be used    |                                                                                                                                                                                                                                      |
+| name                 | Name of the token                                                           | Required                                                                                                                                                                                                                             |
+| token-scopes.{index} | Token permission scopes                                                     | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` |
+| region               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                          |
 
 
 
@@ -642,12 +642,12 @@ scw cockpit token delete <token-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| token-id | Required | ID of the token to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications                                     |
+|----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| token-id | ID of the token to delete                                                   | Required                                                    |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -662,12 +662,12 @@ scw cockpit token get <token-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| token-id | Required | Token ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications                                     |
+|----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| token-id | Token ID                                                                    | Required                                                    |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -683,14 +683,14 @@ scw cockpit token list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| token-scopes.{index} | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` | Token scopes to filter for |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                 | Description                                                                 | Argument Specifications                                                                                                                                                                                                              |
+|----------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id           | Project ID to use. If none is passed the default project ID will be used    |                                                                                                                                                                                                                                      |
+| token-scopes.{index} | Token scopes to filter for                                                  | One of: `unknown_scope`, `read_only_metrics`, `write_only_metrics`, `full_access_metrics_rules`, `read_only_logs`, `write_only_logs`, `full_access_logs_rules`, `full_access_alert_manager`, `read_only_traces`, `write_only_traces` |
+| order-by             | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                                                                                                                 |
+| region               | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                                                                                                                                   |
 
 
 
@@ -710,13 +710,13 @@ scw cockpit usage-overview get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| interval |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| interval   |                                                                             |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 

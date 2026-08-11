@@ -18,13 +18,13 @@ scw account project create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Default: `<generated>` | Name of the Project |
-| description |  | Description of the Project |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| name            | Name of the Project                                                                | Default: `<generated>`  |
+| description     | Description of the Project                                                         |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -39,11 +39,11 @@ scw account project delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -58,11 +58,11 @@ scw account project get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -77,14 +77,14 @@ scw account project list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the Project |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of the returned Projects |
-| project-ids.{index} |  | Project IDs to filter for. The results will be limited to any Projects with an ID in this array |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                | Description                                                                                     | Argument Specifications                                              |
+|---------------------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| name                | Name of the Project                                                                             |                                                                      |
+| order-by            | Sort order of the returned Projects                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
+| project-ids.{index} | Project IDs to filter for. The results will be limited to any Projects with an ID in this array |                                                                      |
+| organization-id     | Organization ID to use. If none is passed the default organization ID will be used              |                                                                      |
 
 
 
@@ -99,13 +99,13 @@ scw account project update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the Project |
-| description |  | Description of the Project |
+| Name        | Description                                                              | Argument Specifications |
+|-------------|--------------------------------------------------------------------------|-------------------------|
+| project-id  | Project ID to use. If none is passed the default project ID will be used |                         |
+| name        | Name of the Project                                                      |                         |
+| description | Description of the Project                                               |                         |
 
 
 

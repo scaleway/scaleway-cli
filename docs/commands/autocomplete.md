@@ -15,12 +15,12 @@ scw autocomplete install [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell |  |  |
-| basename | Default: `` |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| shell    |             |                         |
+| basename |             | Default: ``             |
 
 
 
@@ -37,12 +37,12 @@ scw autocomplete script [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell | Default: `/bin/bash` |  |
-| basename | Default: `` |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| shell    |             | Default: `/bin/bash`    |
+| basename |             | Default: ``             |
 
 
 

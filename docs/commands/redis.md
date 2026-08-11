@@ -18,14 +18,14 @@ scw redis acl add [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance you want to add ACL rules to |
-| acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
-| acl-rules.{index}.description |  | Description of the rule |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                          | Description                                                             | Argument Specifications                                                                                 |
+|-------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id                    | UUID of the Database Instance you want to add ACL rules to              | Required                                                                                                |
+| acl-rules.{index}.ip-cidr     | IPv4 network address of the rule                                        |                                                                                                         |
+| acl-rules.{index}.description | Description of the rule                                                 |                                                                                                         |
+| zone                          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -40,12 +40,12 @@ scw redis acl delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-id | Required | UUID of the ACL rule you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name   | Description                                                             | Argument Specifications                                                                                 |
+|--------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| acl-id | UUID of the ACL rule you want to delete                                 | Required                                                                                                |
+| zone   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -60,12 +60,12 @@ scw redis acl get <acl-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-id | Required | UUID of the ACL rule you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name   | Description                                                             | Argument Specifications                                                                                 |
+|--------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| acl-id | UUID of the ACL rule you want to get                                    | Required                                                                                                |
+| zone   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -80,14 +80,14 @@ scw redis acl set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance where the ACL rules have to be set |
-| acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
-| acl-rules.{index}.description |  | Description of the rule |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                          | Description                                                             | Argument Specifications                                                                                 |
+|-------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id                    | UUID of the Database Instance where the ACL rules have to be set        | Required                                                                                                |
+| acl-rules.{index}.ip-cidr     | IPv4 network address of the rule                                        |                                                                                                         |
+| acl-rules.{index}.description | Description of the rule                                                 |                                                                                                         |
+| zone                          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -102,15 +102,15 @@ scw redis acl update <acl-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Redis cluster |
-| acl-id | Required | UUID of the ACL rule to update |
-| ip-cidr |  | New IPv4 network address of the rule (optional, defaults to current) |
-| description |  | New description of the rule (optional, defaults to current) |
-| zone | Required | Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2) |
+| Name        | Description                                                                       | Argument Specifications |
+|-------------|-----------------------------------------------------------------------------------|-------------------------|
+| cluster-id  | UUID of the Redis cluster                                                         | Required                |
+| acl-id      | UUID of the ACL rule to update                                                    | Required                |
+| ip-cidr     | New IPv4 network address of the rule (optional, defaults to current)              |                         |
+| description | New description of the rule (optional, defaults to current)                       |                         |
+| zone        | Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2                | nl-ams-1 | nl-ams-2 | pl-waw-1 | pl-waw-2) | Required |
 
 
 
@@ -130,15 +130,15 @@ scw redis cluster connect <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| private-network | Default: `false` | Connect by the private network endpoint attached. |
-| cluster-id | Required | UUID of the cluster |
-| cli-redis |  | Command line tool to use, default to redis-cli |
-| cli-args |  | Additional arguments to pass to redis-cli |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name            | Description                                                             | Argument Specifications                                                                                 |
+|-----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                       | Default: `false`                                                                                        |
+| cluster-id      | UUID of the cluster                                                     | Required                                                                                                |
+| cli-redis       | Command line tool to use, default to redis-cli                          |                                                                                                         |
+| cli-args        | Additional arguments to pass to redis-cli                               |                                                                                                         |
+| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 **Examples:**
@@ -168,29 +168,29 @@ scw redis cluster create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the Database Instance |
-| version | Required | Redis™ engine version of the Database Instance |
-| tags.{index} |  | Tags to apply to the Database Instance |
-| node-type | Required | Type of node to use for the Database Instance |
-| user-name | Required | Name of the user created upon Database Instance creation |
-| password | Required | Password of the user |
-| cluster-size |  | Number of nodes in the Redis™ cluster |
-| acl-rules.{index}.ip-cidr |  | IPv4 network address of the rule |
-| acl-rules.{index}.description |  | Description of the rule |
-| endpoints.{index}.private-network.enable-ipam | Default: `false` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
-| endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
-| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
-| endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
-| endpoints.{index}.public-network |  | Public network specification details |
-| tls-enabled |  | Defines whether or not TLS is enabled |
-| cluster-settings.{index}.value |  | Value of the setting |
-| cluster-settings.{index}.name |  | Name of the setting |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                  | Description                                                                              | Argument Specifications                                                                                 |
+|-------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| project-id                                            | Project ID to use. If none is passed the default project ID will be used                 |                                                                                                         |
+| name                                                  | Name of the Database Instance                                                            | Default: `<generated>`                                                                                  |
+| version                                               | Redis™ engine version of the Database Instance                                           | Required                                                                                                |
+| tags.{index}                                          | Tags to apply to the Database Instance                                                   |                                                                                                         |
+| node-type                                             | Type of node to use for the Database Instance                                            | Required                                                                                                |
+| user-name                                             | Name of the user created upon Database Instance creation                                 | Required                                                                                                |
+| password                                              | Password of the user                                                                     | Required                                                                                                |
+| cluster-size                                          | Number of nodes in the Redis™ cluster                                                    |                                                                                                         |
+| acl-rules.{index}.ip-cidr                             | IPv4 network address of the rule                                                         |                                                                                                         |
+| acl-rules.{index}.description                         | Description of the rule                                                                  |                                                                                                         |
+| endpoints.{index}.private-network.enable-ipam         | Will configure your Private Network endpoint with Scaleway IPAM service if true          | Default: `false`                                                                                        |
+| endpoints.{index}.private-network.id                  | UUID of the Private Network to connect to the Database Instance                          |                                                                                                         |
+| endpoints.{index}.private-network.service-ips.{index} | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |                                                                                                         |
+| endpoints.{index}.private-network.ipam-config         | Automated configuration of your Private Network endpoint with Scaleway IPAM service.     |                                                                                                         |
+| endpoints.{index}.public-network                      | Public network specification details                                                     |                                                                                                         |
+| tls-enabled                                           | Defines whether or not TLS is enabled                                                    |                                                                                                         |
+| cluster-settings.{index}.value                        | Value of the setting                                                                     |                                                                                                         |
+| cluster-settings.{index}.name                         | Name of the setting                                                                      |                                                                                                         |
+| zone                                                  | Zone to target. If none is passed will use default zone from the config                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -205,12 +205,12 @@ scw redis cluster delete <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                 |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id | UUID of the Database Instance to delete                                 | Required                                                                                                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -225,12 +225,12 @@ scw redis cluster get <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the cluster |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                 |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id | UUID of the cluster                                                     | Required                                                                                                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -245,12 +245,12 @@ scw redis cluster get-certificate <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the cluster |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                 |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id | UUID of the cluster                                                     | Required                                                                                                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -265,17 +265,17 @@ scw redis cluster list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tags.{index} |  | Filter by Database Instance tags |
-| name |  | Filter by Database Instance names |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering the list |
-| project-id |  | Filter by Project ID |
-| version |  | Filter by Redis™ engine version |
-| organization-id |  | Filter by Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name            | Description                                                             | Argument Specifications                                                                                        |
+|-----------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| tags.{index}    | Filter by Database Instance tags                                        |                                                                                                                |
+| name            | Filter by Database Instance names                                       |                                                                                                                |
+| order-by        | Criteria to use when ordering the list                                  | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                           |
+| project-id      | Filter by Project ID                                                    |                                                                                                                |
+| version         | Filter by Redis™ engine version                                         |                                                                                                                |
+| organization-id | Filter by Organization ID                                               |                                                                                                                |
+| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` |
 
 
 
@@ -290,15 +290,15 @@ scw redis cluster metrics <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the cluster |
-| start-at |  | Start date |
-| end-at |  | End date |
-| metric-name |  | Name of the metric to gather |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                             | Argument Specifications                                                                                 |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id  | UUID of the cluster                                                     | Required                                                                                                |
+| start-at    | Start date                                                              |                                                                                                         |
+| end-at      | End date                                                                |                                                                                                         |
+| metric-name | Name of the metric to gather                                            |                                                                                                         |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -313,15 +313,15 @@ scw redis cluster migrate <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| version |  | Redis™ engine version of the Database Instance |
-| node-type |  | Type of node to use for the Database Instance |
-| cluster-size |  | Number of nodes for the Database Instance |
-| cluster-id | Required | UUID of the Database Instance to update |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name         | Description                                                             | Argument Specifications                                                                                 |
+|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| version      | Redis™ engine version of the Database Instance                          |                                                                                                         |
+| node-type    | Type of node to use for the Database Instance                           |                                                                                                         |
+| cluster-size | Number of nodes for the Database Instance                               |                                                                                                         |
+| cluster-id   | UUID of the Database Instance to update                                 | Required                                                                                                |
+| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -336,12 +336,12 @@ scw redis cluster renew-certificate <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the cluster |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                 |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id | UUID of the cluster                                                     | Required                                                                                                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -356,16 +356,16 @@ scw redis cluster update <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the Database Instance |
-| tags.{index} |  | Database Instance tags |
-| user-name |  | Name of the Database Instance user |
-| password |  | Password of the Database Instance user |
-| cluster-id | Required | UUID of the Database Instance to update |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name         | Description                                                             | Argument Specifications                                                                                 |
+|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| name         | Name of the Database Instance                                           |                                                                                                         |
+| tags.{index} | Database Instance tags                                                  |                                                                                                         |
+| user-name    | Name of the Database Instance user                                      |                                                                                                         |
+| password     | Password of the Database Instance user                                  |                                                                                                         |
+| cluster-id   | UUID of the Database Instance to update                                 | Required                                                                                                |
+| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -380,13 +380,13 @@ scw redis cluster wait <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster you want to wait for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
-| timeout | Default: `15m0s` | Timeout of the wait |
+| Name       | Description                                                             | Argument Specifications                                                                                 |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id | ID of the cluster you want to wait for                                  | Required                                                                                                |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
+| timeout    | Timeout of the wait                                                     | Default: `15m0s`                                                                                        |
 
 
 **Examples:**
@@ -416,16 +416,16 @@ scw redis endpoint add [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance you want to add endpoints to |
-| endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
-| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
-| endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
-| endpoints.{index}.public-network |  | Public network specification details |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                  | Description                                                                              | Argument Specifications                                                                                 |
+|-------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id                                            | UUID of the Database Instance you want to add endpoints to                               | Required                                                                                                |
+| endpoints.{index}.private-network.id                  | UUID of the Private Network to connect to the Database Instance                          |                                                                                                         |
+| endpoints.{index}.private-network.service-ips.{index} | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |                                                                                                         |
+| endpoints.{index}.private-network.ipam-config         | Automated configuration of your Private Network endpoint with Scaleway IPAM service.     |                                                                                                         |
+| endpoints.{index}.public-network                      | Public network specification details                                                     |                                                                                                         |
+| zone                                                  | Zone to target. If none is passed will use default zone from the config                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -440,12 +440,12 @@ scw redis endpoint delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the endpoint you want to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                             | Argument Specifications                                                                                 |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| endpoint-id | UUID of the endpoint you want to delete                                 | Required                                                                                                |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -460,12 +460,12 @@ scw redis endpoint get <endpoint-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the endpoint you want to get |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                             | Argument Specifications                                                                                 |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| endpoint-id | UUID of the endpoint you want to get                                    | Required                                                                                                |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -480,16 +480,16 @@ scw redis endpoint set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance where the endpoints have to be set |
-| endpoints.{index}.private-network.id |  | UUID of the Private Network to connect to the Database Instance |
-| endpoints.{index}.private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
-| endpoints.{index}.private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
-| endpoints.{index}.public-network |  | Public network specification details |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                                                  | Description                                                                              | Argument Specifications                                                                                 |
+|-------------------------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id                                            | UUID of the Database Instance where the endpoints have to be set                         | Required                                                                                                |
+| endpoints.{index}.private-network.id                  | UUID of the Private Network to connect to the Database Instance                          |                                                                                                         |
+| endpoints.{index}.private-network.service-ips.{index} | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |                                                                                                         |
+| endpoints.{index}.private-network.ipam-config         | Automated configuration of your Private Network endpoint with Scaleway IPAM service.     |                                                                                                         |
+| endpoints.{index}.public-network                      | Public network specification details                                                     |                                                                                                         |
+| zone                                                  | Zone to target. If none is passed will use default zone from the config                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -504,16 +504,16 @@ scw redis endpoint update <endpoint-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the endpoint you want to get |
-| private-network.id |  | UUID of the Private Network to connect to the Database Instance |
-| private-network.service-ips.{index} |  | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |
-| private-network.ipam-config |  | Automated configuration of your Private Network endpoint with Scaleway IPAM service. |
-| public-network |  | Public network details |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                                | Description                                                                              | Argument Specifications                                                                                 |
+|-------------------------------------|------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| endpoint-id                         | UUID of the endpoint you want to get                                                     | Required                                                                                                |
+| private-network.id                  | UUID of the Private Network to connect to the Database Instance                          |                                                                                                         |
+| private-network.service-ips.{index} | Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node. |                                                                                                         |
+| private-network.ipam-config         | Automated configuration of your Private Network endpoint with Scaleway IPAM service.     |                                                                                                         |
+| public-network                      | Public network details                                                                   |                                                                                                         |
+| zone                                | Zone to target. If none is passed will use default zone from the config                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -533,12 +533,12 @@ scw redis node-type list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| include-disabled-types |  | Defines whether or not to include disabled types |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name                   | Description                                                             | Argument Specifications                                                                                        |
+|------------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| include-disabled-types | Defines whether or not to include disabled types                        |                                                                                                                |
+| zone                   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` |
 
 
 
@@ -560,14 +560,14 @@ scw redis setting add [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance you want to add settings to |
-| settings.{index}.value |  | Value of the setting |
-| settings.{index}.name |  | Name of the setting |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                   | Description                                                             | Argument Specifications                                                                                 |
+|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id             | UUID of the Database Instance you want to add settings to               | Required                                                                                                |
+| settings.{index}.value | Value of the setting                                                    |                                                                                                         |
+| settings.{index}.name  | Name of the setting                                                     |                                                                                                         |
+| zone                   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -582,13 +582,13 @@ scw redis setting delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance where the settings must be set |
-| setting-name | Required | Setting name to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name         | Description                                                             | Argument Specifications                                                                                 |
+|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id   | UUID of the Database Instance where the settings must be set            | Required                                                                                                |
+| setting-name | Setting name to delete                                                  | Required                                                                                                |
+| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -603,14 +603,14 @@ scw redis setting set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Database Instance where the settings must be set |
-| settings.{index}.value |  | Value of the setting |
-| settings.{index}.name |  | Name of the setting |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name                   | Description                                                             | Argument Specifications                                                                                 |
+|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| cluster-id             | UUID of the Database Instance where the settings must be set            | Required                                                                                                |
+| settings.{index}.value | Value of the setting                                                    |                                                                                                         |
+| settings.{index}.name  | Name of the setting                                                     |                                                                                                         |
+| zone                   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 
@@ -630,15 +630,15 @@ scw redis version list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| include-disabled |  | Defines whether or not to include disabled Redis™ engine versions |
-| include-beta |  | Defines whether or not to include beta Redis™ engine versions |
-| include-deprecated |  | Defines whether or not to include deprecated Redis™ engine versions |
-| version |  | List Redis™ engine versions that match a given name pattern |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name               | Description                                                             | Argument Specifications                                                                                        |
+|--------------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------|
+| include-disabled   | Defines whether or not to include disabled Redis™ engine versions       |                                                                                                                |
+| include-beta       | Defines whether or not to include beta Redis™ engine versions           |                                                                                                                |
+| include-deprecated | Defines whether or not to include deprecated Redis™ engine versions     |                                                                                                                |
+| version            | List Redis™ engine versions that match a given name pattern             |                                                                                                                |
+| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2`, `all` |
 
 
 
@@ -653,12 +653,12 @@ scw redis version list-settings [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| version | Required | Redis™ engine version |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` | Zone to target. If none is passed will use default zone from the config |
+| Name    | Description                                                             | Argument Specifications                                                                                 |
+|---------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| version | Redis™ engine version                                                   | Required                                                                                                |
+| zone    | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-1`, `pl-waw-2` |
 
 
 **Examples:**

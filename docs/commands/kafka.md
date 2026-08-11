@@ -18,25 +18,25 @@ scw kafka cluster create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the Kafka cluster |
-| version | Required | Version of Kafka |
-| tags.{index} |  | Tags to apply to the Kafka cluster |
-| node-amount | Required | Number of nodes to use for the Kafka cluster |
-| node-type | Required | Type of node to use for the Kafka cluster |
-| volume.size-bytes |  | Volume size |
-| volume.type | One of: `unknown_type`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored |
-| endpoints.{index}.public-network |  |  |
-| endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network |
-| user-name |  | Username for the kafka user |
-| password |  | Password for the kafka user |
-| multi-az |  | MultiAZ tell the cluster is deployed on multiple availability zones in the region. |
-| mono-az.zone |  | Zone is the zone on which the cluster nodes are deployed. |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                                                 | Description                                                                        | Argument Specifications                     |
+|------------------------------------------------------|------------------------------------------------------------------------------------|---------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used           |                                             |
+| name                                                 | Name of the Kafka cluster                                                          | Default: `<generated>`                      |
+| version                                              | Version of Kafka                                                                   | Required                                    |
+| tags.{index}                                         | Tags to apply to the Kafka cluster                                                 |                                             |
+| node-amount                                          | Number of nodes to use for the Kafka cluster                                       | Required                                    |
+| node-type                                            | Type of node to use for the Kafka cluster                                          | Required                                    |
+| volume.size-bytes                                    | Volume size                                                                        |                                             |
+| volume.type                                          | Type of volume where data is stored                                                | One of: `unknown_type`, `sbs_5k`, `sbs_15k` |
+| endpoints.{index}.public-network                     |                                                                                    |                                             |
+| endpoints.{index}.private-network.private-network-id | UUID of the Private Network                                                        |                                             |
+| user-name                                            | Username for the kafka user                                                        |                                             |
+| password                                             | Password for the kafka user                                                        |                                             |
+| multi-az                                             | MultiAZ tell the cluster is deployed on multiple availability zones in the region. |                                             |
+| mono-az.zone                                         | Zone is the zone on which the cluster nodes are deployed.                          |                                             |
+| region                                               | Region to target. If none is passed will use default region from the config        | Default: `fr-par`<br />One of: `fr-par`     |
 
 
 
@@ -51,12 +51,12 @@ scw kafka cluster delete <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Kafka Cluster to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id | UUID of the Kafka Cluster to delete                                         | Required                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -71,12 +71,12 @@ scw kafka cluster get <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Kafka Cluster |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id | UUID of the Kafka Cluster                                                   | Required                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -91,12 +91,12 @@ scw kafka cluster get-ca <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Kafka Cluster |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id | UUID of the Kafka Cluster                                                   | Required                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -111,16 +111,16 @@ scw kafka cluster list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tags.{index} |  | List Kafka cluster with a given tag |
-| name |  | Lists Kafka clusters that match a name pattern |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Criteria to use when ordering Kafka cluster listings |
-| project-id |  | Project ID |
-| organization-id |  | Organization ID of the Kafka cluster |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                                           |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| tags.{index}    | List Kafka cluster with a given tag                                         |                                                                                                   |
+| name            | Lists Kafka clusters that match a name pattern                              |                                                                                                   |
+| order-by        | Criteria to use when ordering Kafka cluster listings                        | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` |
+| project-id      | Project ID                                                                  |                                                                                                   |
+| organization-id | Organization ID of the Kafka cluster                                        |                                                                                                   |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                                    |
 
 
 
@@ -135,12 +135,12 @@ scw kafka cluster renew-ca <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Kafka Cluster |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id | UUID of the Kafka Cluster                                                   | Required                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -155,15 +155,15 @@ scw kafka cluster update <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | UUID of the Kafka Clusters to update |
-| name |  | Name of the Kafka Cluster |
-| tags.{index} |  | Tags of a Kafka Cluster |
-| version |  | Version of Kafka |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications                 |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id   | UUID of the Kafka Clusters to update                                        | Required                                |
+| name         | Name of the Kafka Cluster                                                   |                                         |
+| tags.{index} | Tags of a Kafka Cluster                                                     |                                         |
+| version      | Version of Kafka                                                            |                                         |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -200,12 +200,12 @@ scw kafka node-type list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| include-disabled-types |  | Defines whether or not to include disabled types |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                 | Argument Specifications                        |
+|------------------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| include-disabled-types | Defines whether or not to include disabled types                            |                                                |
+| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -225,14 +225,14 @@ scw kafka users list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc` |  |
-| name |  |  |
-| cluster-id | Required |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                        |
+|------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| order-by   |                                                                             | One of: `name_asc`, `name_desc`                |
+| name       |                                                                             |                                                |
+| cluster-id |                                                                             | Required                                       |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -247,14 +247,14 @@ scw kafka users update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster in which to update the user's password |
-| username | Required | Username of the Kafka cluster user |
-| password |  | New password for the Kafka cluster user |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| cluster-id | ID of the cluster in which to update the user's password                    | Required                                |
+| username   | Username of the Kafka cluster user                                          | Required                                |
+| password   | New password for the Kafka cluster user                                     |                                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -274,12 +274,12 @@ scw kafka version list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| version |  | Kafka version to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                        |
+|---------|-----------------------------------------------------------------------------|------------------------------------------------|
+| version | Kafka version to filter for                                                 |                                                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 

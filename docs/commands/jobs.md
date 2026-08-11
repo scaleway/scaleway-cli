@@ -18,26 +18,26 @@ scw jobs definition create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name of the job definition |
-| cpu-limit | Required | CPU limit of the job (in mvCPU) |
-| memory-limit | Required | Memory limit of the job (in MiB) |
-| local-storage-capacity | Required | Local storage capacity of the job (in MiB) |
-| image-uri | Required | Image to use for the job |
-| ~~command~~ | Deprecated | Startup command. If empty or not defined, the image's default command is used. |
-| startup-command.{index} |  | Job startup command. Overrides the default defined in the job image. |
-| args.{index} |  | Job arguments. Overrides the default arguments defined in the job image. |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| environment-variables.{key} |  | Environment variables of the job |
-| description |  | Description of the job |
-| job-timeout |  | Timeout of the job in seconds |
-| cron-schedule.schedule |  |  |
-| cron-schedule.timezone |  |  |
-| retry-policy.max-retries |  | Maximum number of retries upon a job failure. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                        | Description                                                                    | Argument Specifications                                     |
+|-----------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------|
+| name                        | Name of the job definition                                                     | Required<br />Default: `<generated>`                        |
+| cpu-limit                   | CPU limit of the job (in mvCPU)                                                | Required                                                    |
+| memory-limit                | Memory limit of the job (in MiB)                                               | Required                                                    |
+| local-storage-capacity      | Local storage capacity of the job (in MiB)                                     | Required                                                    |
+| image-uri                   | Image to use for the job                                                       | Required                                                    |
+| ~~command~~                 | Startup command. If empty or not defined, the image's default command is used. | Deprecated                                                  |
+| startup-command.{index}     | Job startup command. Overrides the default defined in the job image.           |                                                             |
+| args.{index}                | Job arguments. Overrides the default arguments defined in the job image.       |                                                             |
+| project-id                  | Project ID to use. If none is passed the default project ID will be used       |                                                             |
+| environment-variables.{key} | Environment variables of the job                                               |                                                             |
+| description                 | Description of the job                                                         |                                                             |
+| job-timeout                 | Timeout of the job in seconds                                                  |                                                             |
+| cron-schedule.schedule      |                                                                                |                                                             |
+| cron-schedule.timezone      |                                                                                |                                                             |
+| retry-policy.max-retries    | Maximum number of retries upon a job failure.                                  |                                                             |
+| region                      | Region to target. If none is passed will use default region from the config    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -52,12 +52,12 @@ scw jobs definition delete <job-definition-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                     |
+|-------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id | UUID of the job definition to delete                                        | Required                                                    |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -72,12 +72,12 @@ scw jobs definition get <job-definition-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                     |
+|-------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id | UUID of the job definition to get                                           | Required                                                    |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -92,14 +92,14 @@ scw jobs definition list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| project-id |  |  |
-| organization-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                            |
+|-----------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`                        |
+| project-id      |                                                                             |                                                                    |
+| organization-id |                                                                             |                                                                    |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -114,17 +114,17 @@ scw jobs definition start <job-definition-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition to start |
-| ~~command~~ | Deprecated | Contextual startup command for this specific job run. |
-| startup-command.{index} |  | Contextual startup command for this specific job run. |
-| args.{index} |  | Contextual arguments for this specific job run. |
-| environment-variables.{key} |  | Contextual environment variables for this specific job run |
-| replicas |  | Number of jobs to run |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                        | Description                                                                 | Argument Specifications                                     |
+|-----------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id           | UUID of the job definition to start                                         | Required                                                    |
+| ~~command~~                 | Contextual startup command for this specific job run.                       | Deprecated                                                  |
+| startup-command.{index}     | Contextual startup command for this specific job run.                       |                                                             |
+| args.{index}                | Contextual arguments for this specific job run.                             |                                                             |
+| environment-variables.{key} | Contextual environment variables for this specific job run                  |                                                             |
+| replicas                    | Number of jobs to run                                                       |                                                             |
+| region                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -139,26 +139,26 @@ scw jobs definition update <job-definition-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition to update |
-| name |  | Name of the job definition |
-| cpu-limit |  | CPU limit of the job (in mvCPU) |
-| memory-limit |  | Memory limit of the job (in MiB) |
-| local-storage-capacity |  | Local storage capacity of the job (in MiB) |
-| image-uri |  | Image to use for the job |
-| ~~command~~ | Deprecated | Startup command. If empty or not defined, the image's default command is used. |
-| startup-command.{index} |  | Job startup command. Overrides the default defined in the job image. |
-| args.{index} |  | Job arguments. Overrides the default arguments defined in the job image. |
-| environment-variables.{key} |  | Environment variables of the job |
-| description |  | Description of the job |
-| job-timeout |  | Timeout of the job in seconds |
-| cron-schedule.schedule |  |  |
-| cron-schedule.timezone |  |  |
-| retry-policy.max-retries |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                        | Description                                                                    | Argument Specifications                                     |
+|-----------------------------|--------------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id           | UUID of the job definition to update                                           | Required                                                    |
+| name                        | Name of the job definition                                                     |                                                             |
+| cpu-limit                   | CPU limit of the job (in mvCPU)                                                |                                                             |
+| memory-limit                | Memory limit of the job (in MiB)                                               |                                                             |
+| local-storage-capacity      | Local storage capacity of the job (in MiB)                                     |                                                             |
+| image-uri                   | Image to use for the job                                                       |                                                             |
+| ~~command~~                 | Startup command. If empty or not defined, the image's default command is used. | Deprecated                                                  |
+| startup-command.{index}     | Job startup command. Overrides the default defined in the job image.           |                                                             |
+| args.{index}                | Job arguments. Overrides the default arguments defined in the job image.       |                                                             |
+| environment-variables.{key} | Environment variables of the job                                               |                                                             |
+| description                 | Description of the job                                                         |                                                             |
+| job-timeout                 | Timeout of the job in seconds                                                  |                                                             |
+| cron-schedule.schedule      |                                                                                |                                                             |
+| cron-schedule.timezone      |                                                                                |                                                             |
+| retry-policy.max-retries    |                                                                                |                                                             |
+| region                      | Region to target. If none is passed will use default region from the config    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -178,12 +178,12 @@ scw jobs run get <job-run-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-run-id | Required | UUID of the job run to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-run-id | UUID of the job run to get                                                  | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -198,18 +198,18 @@ scw jobs run list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| job-definition-id |  |  |
-| project-id |  |  |
-| state | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted`, `retrying` |  |
-| states.{index} | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted`, `retrying` |  |
-| reasons.{index} | One of: `unknown_reason`, `invalid_request`, `timeout`, `cancellation`, `technical_error`, `image_not_found`, `invalid_image`, `memory_usage_exceeded`, `storage_usage_exceeded`, `exited_with_error`, `secret_disabled`, `secret_not_found`, `quota_exceeded` |  |
-| organization-id |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                                                                                                                                                                                                                        |
+|-------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by          |                                                                             | One of: `created_at_asc`, `created_at_desc`                                                                                                                                                                                                                    |
+| job-definition-id |                                                                             |                                                                                                                                                                                                                                                                |
+| project-id        |                                                                             |                                                                                                                                                                                                                                                                |
+| state             |                                                                             | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted`, `retrying`                                                                                                                     |
+| states.{index}    |                                                                             | One of: `unknown_state`, `initialized`, `validated`, `queued`, `running`, `succeeded`, `failed`, `interrupting`, `interrupted`, `retrying`                                                                                                                     |
+| reasons.{index}   |                                                                             | One of: `unknown_reason`, `invalid_request`, `timeout`, `cancellation`, `technical_error`, `image_not_found`, `invalid_image`, `memory_usage_exceeded`, `storage_usage_exceeded`, `exited_with_error`, `secret_disabled`, `secret_not_found`, `quota_exceeded` |
+| organization-id   |                                                                             |                                                                                                                                                                                                                                                                |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                                                                                                                                                             |
 
 
 
@@ -224,12 +224,12 @@ scw jobs run stop [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-run-id | Required | UUID of the job run to stop |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-run-id | UUID of the job run to stop                                                 | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -244,12 +244,12 @@ scw jobs run wait <job-run-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-run-id | Required |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-run-id |                                                                             | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -269,16 +269,16 @@ scw jobs secret create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
-| secrets.{index}.secret-manager-id |  |  |
-| secrets.{index}.secret-manager-version |  |  |
-| secrets.{index}.path |  |  |
-| secrets.{index}.env-var-name |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                   | Description                                                                 | Argument Specifications                                     |
+|----------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id                      | UUID of the job definition                                                  | Required                                                    |
+| secrets.{index}.secret-manager-id      |                                                                             |                                                             |
+| secrets.{index}.secret-manager-version |                                                                             |                                                             |
+| secrets.{index}.path                   |                                                                             |                                                             |
+| secrets.{index}.env-var-name           |                                                                             |                                                             |
+| region                                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -293,12 +293,12 @@ scw jobs secret delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | UUID of the secret reference within the job |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | UUID of the secret reference within the job                                 | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -313,12 +313,12 @@ scw jobs secret get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | UUID of the secret reference within the job |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                                     |
+|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id | UUID of the secret reference within the job                                 | Required                                                    |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -333,12 +333,12 @@ scw jobs secret list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                     |
+|-------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id | UUID of the job definition                                                  | Required                                                    |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -353,15 +353,15 @@ scw jobs secret update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| secret-id | Required | UUID of the secret reference within the job |
-| secret-manager-version |  | Version of the secret in Secret Manager |
-| path |  | Path of the secret to mount inside the job (either `path` or `env_var_name` must be set) |
-| env-var-name |  | Environment variable name used to expose the secret inside the job (either `path` or `env_var_name` must be set) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                                                      | Argument Specifications                                     |
+|------------------------|------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| secret-id              | UUID of the secret reference within the job                                                                      | Required                                                    |
+| secret-manager-version | Version of the secret in Secret Manager                                                                          |                                                             |
+| path                   | Path of the secret to mount inside the job (either `path` or `env_var_name` must be set)                         |                                                             |
+| env-var-name           | Environment variable name used to expose the secret inside the job (either `path` or `env_var_name` must be set) |                                                             |
+| region                 | Region to target. If none is passed will use default region from the config                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -381,17 +381,17 @@ scw jobs trigger create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
-| name | Required | Name of the trigger |
-| cron-config.schedule |  | CRON schedule in UNIX format |
-| cron-config.timezone |  | Time zone for the CRON schedule |
-| cron-config.startup-command.{index} |  | Startup command that will be used by the triggered job |
-| cron-config.args.{index} |  | Arguments passed to the startup command used by the triggered job |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                | Description                                                                 | Argument Specifications                                     |
+|-------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| job-definition-id                   | UUID of the job definition                                                  | Required                                                    |
+| name                                | Name of the trigger                                                         | Required                                                    |
+| cron-config.schedule                | CRON schedule in UNIX format                                                |                                                             |
+| cron-config.timezone                | Time zone for the CRON schedule                                             |                                                             |
+| cron-config.startup-command.{index} | Startup command that will be used by the triggered job                      |                                                             |
+| cron-config.args.{index}            | Arguments passed to the startup command used by the triggered job           |                                                             |
+| region                              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -406,12 +406,12 @@ scw jobs trigger delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| trigger-id | Required | UUID of the trigger |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| trigger-id | UUID of the trigger                                                         | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -426,12 +426,12 @@ scw jobs trigger get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| trigger-id | Required | UUID of the trigger |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| trigger-id | UUID of the trigger                                                         | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -446,13 +446,13 @@ scw jobs trigger list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| job-definition-id | Required | UUID of the job definition |
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sorting order of triggers |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                            |
+|-------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| job-definition-id | UUID of the job definition                                                  | Required                                                           |
+| order-by          | Sorting order of triggers                                                   | One of: `created_at_asc`, `created_at_desc`                        |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -467,17 +467,17 @@ scw jobs trigger update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| trigger-id | Required | UUID of the trigger |
-| name |  | Name of the trigger |
-| cron-config.schedule |  | CRON schedule in UNIX format |
-| cron-config.timezone |  | Time zone for the CRON schedule |
-| cron-config.startup-command.{index} |  | Startup command that will be used by the triggered job |
-| cron-config.args.{index} |  | Arguments passed to the startup command used by the triggered job |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                | Description                                                                 | Argument Specifications                                     |
+|-------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| trigger-id                          | UUID of the trigger                                                         | Required                                                    |
+| name                                | Name of the trigger                                                         |                                                             |
+| cron-config.schedule                | CRON schedule in UNIX format                                                |                                                             |
+| cron-config.timezone                | Time zone for the CRON schedule                                             |                                                             |
+| cron-config.startup-command.{index} | Startup command that will be used by the triggered job                      |                                                             |
+| cron-config.args.{index}            | Arguments passed to the startup command used by the triggered job           |                                                             |
+| region                              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
