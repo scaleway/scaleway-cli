@@ -20,9 +20,9 @@ scw marketplace category get [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description | Argument Specifications |
-|-------------|-------------|-------------------------|
-| category-id |             | Required                |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| category-id |  | Required  |
 
 
 
@@ -56,9 +56,9 @@ scw marketplace image get [arg=value ...]
 
 **Arguments:**
 
-| Name  | Description | Argument Specifications |
-|-------|-------------|-------------------------|
-| label |             | Required                |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| label |  | Required  |
 
 
 
@@ -75,12 +75,12 @@ scw marketplace image list [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                            | Argument Specifications                                                                                   |
-|-------------|--------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| order-by    | Ordering to use                                        | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |
-| arch        | Choose for which machine architecture to return images |                                                                                                           |
-| category    | Choose the category of images to get                   |                                                                                                           |
-| include-eol | Choose to include end-of-life images                   |                                                                                                           |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Ordering to use | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`  |
+| arch | Choose for which machine architecture to return images |   |
+| category | Choose the category of images to get |   |
+| include-eol | Choose to include end-of-life images |   |
 
 
 
@@ -102,9 +102,9 @@ scw marketplace local-image get [arg=value ...]
 
 **Arguments:**
 
-| Name           | Description | Argument Specifications |
-|----------------|-------------|-------------------------|
-| local-image-id |             | Required                |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| local-image-id |  | Required  |
 
 
 
@@ -121,15 +121,15 @@ scw marketplace local-image list [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                 | Argument Specifications                                              |
-|-------------|-------------------------------------------------------------|----------------------------------------------------------------------|
-| order-by    | Ordering to use                                             | One of: `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc` |
-| zone        | Filter local images available on this Availability Zone     |                                                                      |
-| arch        | Filter local images available for this machine architecture |                                                                      |
-| image-id    | Filter by image id                                          |                                                                      |
-| version-id  | Filter by version id                                        |                                                                      |
-| image-label | Filter by image label                                       |                                                                      |
-| type        | Filter by type                                              | One of: `unknown_type`, `instance_local`, `instance_sbs`             |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Ordering to use | One of: `type_asc`, `type_desc`, `created_at_asc`, `created_at_desc`  |
+| zone | Filter local images available on this Availability Zone |   |
+| arch | Filter local images available for this machine architecture |   |
+| image-id | Filter by image id |   |
+| version-id | Filter by version id |   |
+| image-label | Filter by image label |   |
+| type | Filter by type | One of: `unknown_type`, `instance_local`, `instance_sbs`  |
 
 
 
@@ -151,9 +151,9 @@ scw marketplace version get [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description | Argument Specifications |
-|------------|-------------|-------------------------|
-| version-id |             | Required                |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| version-id |  | Required  |
 
 
 
@@ -170,10 +170,10 @@ scw marketplace version list [arg=value ...]
 
 **Arguments:**
 
-| Name     | Description | Argument Specifications                     |
-|----------|-------------|---------------------------------------------|
-| image-id |             |                                             |
-| order-by |             | One of: `created_at_asc`, `created_at_desc` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| image-id |  |   |
+| order-by |  | One of: `created_at_asc`, `created_at_desc`  |
 
 
 
