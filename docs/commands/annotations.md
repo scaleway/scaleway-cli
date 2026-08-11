@@ -20,10 +20,10 @@ scw annotations binding create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| srn | Scaleway Resource Number to associate. |   |
-| value-id | ID of the value to associate. |   |
+| Name     | Description                            | Argument Specifications |
+|----------|----------------------------------------|-------------------------|
+| srn      | Scaleway Resource Number to associate. |                         |
+| value-id | ID of the value to associate.          |                         |
 
 
 
@@ -40,9 +40,9 @@ scw annotations binding delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| binding-id | ID of the binding to delete. | Required  |
+| Name       | Description                  | Argument Specifications |
+|------------|------------------------------|-------------------------|
+| binding-id | ID of the binding to delete. | Required                |
 
 
 
@@ -59,10 +59,10 @@ scw annotations binding delete-all-matching-srn [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| srn | Scaleway Resource Number for which all bindings should be deleted. |   |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| srn             | Scaleway Resource Number for which all bindings should be deleted.                 |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -79,9 +79,9 @@ scw annotations binding delete-all-matching-value [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| value-id | ID of the value for which all bindings should be deleted. |   |
+| Name     | Description                                               | Argument Specifications |
+|----------|-----------------------------------------------------------|-------------------------|
+| value-id | ID of the value for which all bindings should be deleted. |                         |
 
 
 
@@ -98,11 +98,11 @@ scw annotations binding list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| srn | Scaleway Resource Number for which to list all bindings. |   |
-| value-id | Value ID for which to list all bindings. |   |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| srn             | Scaleway Resource Number for which to list all bindings.                           |                         |
+| value-id        | Value ID for which to list all bindings.                                           |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -124,11 +124,11 @@ scw annotations key create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| name | Name of the annotation key. |   |
-| description | Description of the annotation key. |   |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| name            | Name of the annotation key.                                                        |                         |
+| description     | Description of the annotation key.                                                 |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -145,9 +145,9 @@ scw annotations key delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| key-id | ID of the key to delete. | Required  |
+| Name   | Description              | Argument Specifications |
+|--------|--------------------------|-------------------------|
+| key-id | ID of the key to delete. | Required                |
 
 
 
@@ -164,9 +164,9 @@ scw annotations key get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| key-id | ID of the key to retrieve. | Required  |
+| Name   | Description                | Argument Specifications |
+|--------|----------------------------|-------------------------|
+| key-id | ID of the key to retrieve. | Required                |
 
 
 
@@ -183,9 +183,9 @@ scw annotations key list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -202,11 +202,11 @@ scw annotations key update [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| key-id | ID of the key to update. | Required  |
-| name | New name of the key. |   |
-| description | New description of the key. |   |
+| Name        | Description                 | Argument Specifications |
+|-------------|-----------------------------|-------------------------|
+| key-id      | ID of the key to update.    | Required                |
+| name        | New name of the key.        |                         |
+| description | New description of the key. |                         |
 
 
 
@@ -228,9 +228,9 @@ scw annotations key-value list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -252,11 +252,11 @@ scw annotations value create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| key-id | ID of the key the value will be bound to. |   |
-| name | Name of the value. |   |
-| description | Description of the value. |   |
+| Name        | Description                               | Argument Specifications |
+|-------------|-------------------------------------------|-------------------------|
+| key-id      | ID of the key the value will be bound to. |                         |
+| name        | Name of the value.                        |                         |
+| description | Description of the value.                 |                         |
 
 
 
@@ -273,9 +273,9 @@ scw annotations value delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| value-id | ID of the value to delete. | Required  |
+| Name     | Description                | Argument Specifications |
+|----------|----------------------------|-------------------------|
+| value-id | ID of the value to delete. | Required                |
 
 
 
@@ -292,9 +292,9 @@ scw annotations value delete-all-matching-key [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| key-id | ID of the key for which to delete all values. |   |
+| Name   | Description                                   | Argument Specifications |
+|--------|-----------------------------------------------|-------------------------|
+| key-id | ID of the key for which to delete all values. |                         |
 
 
 
@@ -311,9 +311,9 @@ scw annotations value get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| value-id | ID of the value to retrieve. | Required  |
+| Name     | Description                  | Argument Specifications |
+|----------|------------------------------|-------------------------|
+| value-id | ID of the value to retrieve. | Required                |
 
 
 
@@ -330,10 +330,10 @@ scw annotations value list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| key-id | ID of the key to list the values for. |   |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| key-id          | ID of the key to list the values for.                                              |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -350,11 +350,11 @@ scw annotations value update [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| value-id | ID of the value to update. | Required  |
-| name | New name of the value. |   |
-| description | New description of the value. |   |
+| Name        | Description                   | Argument Specifications |
+|-------------|-------------------------------|-------------------------|
+| value-id    | ID of the value to update.    | Required                |
+| name        | New name of the value.        |                         |
+| description | New description of the value. |                         |
 
 
 

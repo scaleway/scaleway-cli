@@ -20,11 +20,11 @@ scw mcp server list-resources [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| namespaces | Filter by namespaces (e.g., instance, iam, object) |   |
-| resources | Filter by resources (e.g., server, volume, bucket) |   |
-| read-only | Only list read-only resources | Default: `false`  |
+| Name       | Description                                        | Argument Specifications |
+|------------|----------------------------------------------------|-------------------------|
+| namespaces | Filter by namespaces (e.g., instance, iam, object) |                         |
+| resources  | Filter by resources (e.g., server, volume, bucket) |                         |
+| read-only  | Only list read-only resources                      | Default: `false`        |
 
 
 **Examples:**
@@ -66,12 +66,12 @@ scw mcp server list-tools [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| namespaces | Filter by namespaces (e.g., instance, iam, object) |   |
-| resources | Filter by resources (e.g., server, volume, bucket) |   |
-| verbs | Filter by verbs (e.g., get, list, create) |   |
-| read-only | Only list read-only tools (get, list operations) | Default: `false`  |
+| Name       | Description                                        | Argument Specifications |
+|------------|----------------------------------------------------|-------------------------|
+| namespaces | Filter by namespaces (e.g., instance, iam, object) |                         |
+| resources  | Filter by resources (e.g., server, volume, bucket) |                         |
+| verbs      | Filter by verbs (e.g., get, list, create)          |                         |
+| read-only  | Only list read-only tools (get, list operations)   | Default: `false`        |
 
 
 **Examples:**
@@ -118,14 +118,14 @@ scw mcp server serve [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| transport | Transport mode: stdio (default) or streamable-http | Default: `stdio`  |
-| address | Address to bind for streamable-http transports (e.g., :8080) | Default: `:8080`  |
-| read-only | Only register read-only commands (get, list operations) | Default: `false`  |
-| namespaces | Only serve commands from specified namespaces (comma-separated) |   |
-| resources | Only serve commands from specified resources (comma-separated) |   |
-| verbs | Only serve commands with specified verbs (comma-separated) |   |
+| Name       | Description                                                     | Argument Specifications |
+|------------|-----------------------------------------------------------------|-------------------------|
+| transport  | Transport mode: stdio (default) or streamable-http              | Default: `stdio`        |
+| address    | Address to bind for streamable-http transports (e.g., :8080)    | Default: `:8080`        |
+| read-only  | Only register read-only commands (get, list operations)         | Default: `false`        |
+| namespaces | Only serve commands from specified namespaces (comma-separated) |                         |
+| resources  | Only serve commands from specified resources (comma-separated)  |                         |
+| verbs      | Only serve commands with specified verbs (comma-separated)      |                         |
 
 
 **Examples:**

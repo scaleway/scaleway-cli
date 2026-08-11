@@ -20,31 +20,31 @@ scw s2s-vpn connection create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | Name of the connection | Required  |
-| tags.{index} | List of tags to apply to the connection |   |
-| is-ipv6 | Defines IP version of the IPSec Tunnel |   |
-| initiation-policy | Who initiates the IPsec tunnel | Required<br />One of: `unknown_initiation_policy`, `vpn_gateway`, `customer_gateway`  |
-| ikev2-ciphers.{index}.encryption |  | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305`  |
-| ikev2-ciphers.{index}.integrity |  | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`  |
-| ikev2-ciphers.{index}.dh-group |  | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`  |
-| esp-ciphers.{index}.encryption |  | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305`  |
-| esp-ciphers.{index}.integrity |  | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`  |
-| esp-ciphers.{index}.dh-group |  | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`  |
-| enable-route-propagation | Defines whether route propagation is enabled or not. |   |
-| secret.id |  |   |
-| secret.revision |  |   |
-| vpn-gateway-id | ID of the VPN gateway to attach to the connection | Required  |
-| customer-gateway-id | ID of the customer gateway to attach to the connection | Required  |
-| bgp-config-ipv4.routing-policy-id |  |   |
-| bgp-config-ipv4.private-ip |  |   |
-| bgp-config-ipv4.peer-private-ip |  |   |
-| bgp-config-ipv6.routing-policy-id |  |   |
-| bgp-config-ipv6.private-ip |  |   |
-| bgp-config-ipv6.peer-private-ip |  |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name                              | Description                                                                 | Argument Specifications                                                                                                                         |
+|-----------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id                        | Project ID to use. If none is passed the default project ID will be used    |                                                                                                                                                 |
+| name                              | Name of the connection                                                      | Required                                                                                                                                        |
+| tags.{index}                      | List of tags to apply to the connection                                     |                                                                                                                                                 |
+| is-ipv6                           | Defines IP version of the IPSec Tunnel                                      |                                                                                                                                                 |
+| initiation-policy                 | Who initiates the IPsec tunnel                                              | Required<br />One of: `unknown_initiation_policy`, `vpn_gateway`, `customer_gateway`                                                            |
+| ikev2-ciphers.{index}.encryption  |                                                                             | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305` |
+| ikev2-ciphers.{index}.integrity   |                                                                             | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`                                                                                       |
+| ikev2-ciphers.{index}.dh-group    |                                                                             | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`                                       |
+| esp-ciphers.{index}.encryption    |                                                                             | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305` |
+| esp-ciphers.{index}.integrity     |                                                                             | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`                                                                                       |
+| esp-ciphers.{index}.dh-group      |                                                                             | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`                                       |
+| enable-route-propagation          | Defines whether route propagation is enabled or not.                        |                                                                                                                                                 |
+| secret.id                         |                                                                             |                                                                                                                                                 |
+| secret.revision                   |                                                                             |                                                                                                                                                 |
+| vpn-gateway-id                    | ID of the VPN gateway to attach to the connection                           | Required                                                                                                                                        |
+| customer-gateway-id               | ID of the customer gateway to attach to the connection                      | Required                                                                                                                                        |
+| bgp-config-ipv4.routing-policy-id |                                                                             |                                                                                                                                                 |
+| bgp-config-ipv4.private-ip        |                                                                             |                                                                                                                                                 |
+| bgp-config-ipv4.peer-private-ip   |                                                                             |                                                                                                                                                 |
+| bgp-config-ipv6.routing-policy-id |                                                                             |                                                                                                                                                 |
+| bgp-config-ipv6.private-ip        |                                                                             |                                                                                                                                                 |
+| bgp-config-ipv6.peer-private-ip   |                                                                             |                                                                                                                                                 |
+| region                            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`                                                                           |
 
 
 
@@ -61,10 +61,10 @@ scw s2s-vpn connection delete <connection-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                               |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id | ID of the connection to delete                                              | Required                                                              |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -81,12 +81,12 @@ scw s2s-vpn connection detach-routing-policy <connection-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection from which routing policy is being detached | Required  |
-| routing-policy-v4 | ID of the routing policy to detach from the BGP IPv4 session |   |
-| routing-policy-v6 | ID of the routing policy to detach from the BGP IPv6 session |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id     | ID of the connection from which routing policy is being detached            | Required                                                              |
+| routing-policy-v4 | ID of the routing policy to detach from the BGP IPv4 session                |                                                                       |
+| routing-policy-v6 | ID of the routing policy to detach from the BGP IPv6 session                |                                                                       |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -103,10 +103,10 @@ scw s2s-vpn connection disable-route-propagation <connection-id ...> [arg=value 
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection on which to disable route propagation | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                               |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id | ID of the connection on which to disable route propagation                  | Required                                                              |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -123,10 +123,10 @@ scw s2s-vpn connection enable-route-propagation <connection-id ...> [arg=value .
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection on which to enable route propagation | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                               |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id | ID of the connection on which to enable route propagation                   | Required                                                              |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -143,10 +143,10 @@ scw s2s-vpn connection get <connection-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the requested connection | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                               |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id | ID of the requested connection                                              | Required                                                              |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -163,20 +163,20 @@ scw s2s-vpn connection list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Order in which to return results | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`  |
-| project-id | Project ID to filter for |   |
-| name | Connection name to filter for |   |
-| tags.{index} | Tags to filter for |   |
-| statuses.{index} | Connection statuses to filter for | One of: `unknown_status`, `active`, `limited_connectivity`, `down`, `locked`  |
-| is-ipv6 | Filter connections with IP version of IPSec tunnel |   |
-| routing-policy-ids.{index} | Filter for connections using these routing policies |   |
-| route-propagation-enabled | Filter for connections with route propagation enabled |   |
-| vpn-gateway-ids.{index} | Filter for connections attached to these VPN gateways |   |
-| customer-gateway-ids.{index} | Filter for connections attached to these customer gateways |   |
-| organization-id | Organization ID to filter for |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
+| Name                         | Description                                                                 | Argument Specifications                                                                           |
+|------------------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| order-by                     | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` |
+| project-id                   | Project ID to filter for                                                    |                                                                                                   |
+| name                         | Connection name to filter for                                               |                                                                                                   |
+| tags.{index}                 | Tags to filter for                                                          |                                                                                                   |
+| statuses.{index}             | Connection statuses to filter for                                           | One of: `unknown_status`, `active`, `limited_connectivity`, `down`, `locked`                      |
+| is-ipv6                      | Filter connections with IP version of IPSec tunnel                          |                                                                                                   |
+| routing-policy-ids.{index}   | Filter for connections using these routing policies                         |                                                                                                   |
+| route-propagation-enabled    | Filter for connections with route propagation enabled                       |                                                                                                   |
+| vpn-gateway-ids.{index}      | Filter for connections attached to these VPN gateways                       |                                                                                                   |
+| customer-gateway-ids.{index} | Filter for connections attached to these customer gateways                  |                                                                                                   |
+| organization-id              | Organization ID to filter for                                               |                                                                                                   |
+| region                       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`                      |
 
 
 
@@ -193,11 +193,11 @@ scw s2s-vpn connection renew-psk <connection-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection to renew the PSK | Required  |
-| generate-revision | Generate a new revision or update to the latest existing one | Default: `true`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id     | ID of the connection to renew the PSK                                       | Required                                                              |
+| generate-revision | Generate a new revision or update to the latest existing one                | Default: `true`                                                       |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -214,12 +214,12 @@ scw s2s-vpn connection set-routing-policy <connection-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection whose routing policy is being updated | Required  |
-| routing-policy-v4 | ID of the routing policy to set for the BGP IPv4 session |   |
-| routing-policy-v6 | ID of the routing policy to set for the BGP IPv6 session |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| connection-id     | ID of the connection whose routing policy is being updated                  | Required                                                              |
+| routing-policy-v4 | ID of the routing policy to set for the BGP IPv4 session                    |                                                                       |
+| routing-policy-v6 | ID of the routing policy to set for the BGP IPv6 session                    |                                                                       |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -236,19 +236,19 @@ scw s2s-vpn connection update <connection-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| connection-id | ID of the connection to update | Required  |
-| name | Name of the connection |   |
-| tags.{index} | List of tags to apply to the connection |   |
-| initiation-policy | Who initiates the IPsec tunnel | One of: `unknown_initiation_policy`, `vpn_gateway`, `customer_gateway`  |
-| ikev2-ciphers.{index}.encryption |  | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305`  |
-| ikev2-ciphers.{index}.integrity |  | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`  |
-| ikev2-ciphers.{index}.dh-group |  | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`  |
-| esp-ciphers.{index}.encryption |  | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305`  |
-| esp-ciphers.{index}.integrity |  | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`  |
-| esp-ciphers.{index}.dh-group |  | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name                             | Description                                                                 | Argument Specifications                                                                                                                         |
+|----------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------|
+| connection-id                    | ID of the connection to update                                              | Required                                                                                                                                        |
+| name                             | Name of the connection                                                      |                                                                                                                                                 |
+| tags.{index}                     | List of tags to apply to the connection                                     |                                                                                                                                                 |
+| initiation-policy                | Who initiates the IPsec tunnel                                              | One of: `unknown_initiation_policy`, `vpn_gateway`, `customer_gateway`                                                                          |
+| ikev2-ciphers.{index}.encryption |                                                                             | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305` |
+| ikev2-ciphers.{index}.integrity  |                                                                             | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`                                                                                       |
+| ikev2-ciphers.{index}.dh-group   |                                                                             | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`                                       |
+| esp-ciphers.{index}.encryption   |                                                                             | One of: `unknown_encryption`, `aes128`, `aes192`, `aes256`, `aes128gcm`, `aes192gcm`, `aes256gcm`, `aes128ccm`, `aes256ccm`, `chacha20poly1305` |
+| esp-ciphers.{index}.integrity    |                                                                             | One of: `unknown_integrity`, `sha256`, `sha384`, `sha512`                                                                                       |
+| esp-ciphers.{index}.dh-group     |                                                                             | One of: `unknown_dhgroup`, `modp2048`, `modp3072`, `modp4096`, `ecp256`, `ecp384`, `ecp521`, `curve25519`                                       |
+| region                           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`                                                                           |
 
 
 
@@ -270,15 +270,15 @@ scw s2s-vpn customer-gateway create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | Name of the customer gateway | Required  |
-| tags.{index} | List of tags to apply to the customer gateway |   |
-| ipv4-public | Public IPv4 address of the customer gateway |   |
-| ipv6-public | Public IPv6 address of the customer gateway |   |
-| asn | AS Number of the customer gateway | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id   | Project ID to use. If none is passed the default project ID will be used    |                                                                       |
+| name         | Name of the customer gateway                                                | Required                                                              |
+| tags.{index} | List of tags to apply to the customer gateway                               |                                                                       |
+| ipv4-public  | Public IPv4 address of the customer gateway                                 |                                                                       |
+| ipv6-public  | Public IPv6 address of the customer gateway                                 |                                                                       |
+| asn          | AS Number of the customer gateway                                           | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -295,10 +295,10 @@ scw s2s-vpn customer-gateway delete <gateway-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| gateway-id | ID of the customer gateway to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| gateway-id | ID of the customer gateway to delete                                        | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -315,10 +315,10 @@ scw s2s-vpn customer-gateway get <gateway-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| gateway-id | ID of the requested customer gateway | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| gateway-id | ID of the requested customer gateway                                        | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -335,14 +335,14 @@ scw s2s-vpn customer-gateway list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Order in which to return results | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
-| project-id | Project ID to filter for |   |
-| name | Customer gateway name to filter for |   |
-| tags.{index} | Tags to filter for |   |
-| organization-id | Organization ID to filter for |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
+| project-id      | Project ID to filter for                                                    |                                                                              |
+| name            | Customer gateway name to filter for                                         |                                                                              |
+| tags.{index}    | Tags to filter for                                                          |                                                                              |
+| organization-id | Organization ID to filter for                                               |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -359,15 +359,15 @@ scw s2s-vpn customer-gateway update <gateway-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| gateway-id | ID of the customer gateway to update | Required  |
-| name | Name of the customer gateway |   |
-| tags.{index} | List of tags to apply to the customer gateway |   |
-| ipv4-public | Public IPv4 address of the customer gateway |   |
-| ipv6-public | Public IPv6 address of the customer gateway |   |
-| asn | AS Number of the customer gateway |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| gateway-id   | ID of the customer gateway to update                                        | Required                                                              |
+| name         | Name of the customer gateway                                                |                                                                       |
+| tags.{index} | List of tags to apply to the customer gateway                               |                                                                       |
+| ipv4-public  | Public IPv4 address of the customer gateway                                 |                                                                       |
+| ipv6-public  | Public IPv6 address of the customer gateway                                 |                                                                       |
+| asn          | AS Number of the customer gateway                                           |                                                                       |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -389,15 +389,15 @@ scw s2s-vpn routing-policy create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | Name of the routing policy | Required  |
-| tags.{index} | List of tags to apply to the routing policy |   |
-| is-ipv6 | IP prefixes version of the routing policy |   |
-| prefix-filter-in.{index} | IP prefixes to accept from the peer (ranges of route announcements to accept) |   |
-| prefix-filter-out.{index} | IP prefix filters to advertise to the peer (ranges of routes to advertise) |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name                      | Description                                                                   | Argument Specifications                                               |
+|---------------------------|-------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id                | Project ID to use. If none is passed the default project ID will be used      |                                                                       |
+| name                      | Name of the routing policy                                                    | Required                                                              |
+| tags.{index}              | List of tags to apply to the routing policy                                   |                                                                       |
+| is-ipv6                   | IP prefixes version of the routing policy                                     |                                                                       |
+| prefix-filter-in.{index}  | IP prefixes to accept from the peer (ranges of route announcements to accept) |                                                                       |
+| prefix-filter-out.{index} | IP prefix filters to advertise to the peer (ranges of routes to advertise)    |                                                                       |
+| region                    | Region to target. If none is passed will use default region from the config   | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -414,10 +414,10 @@ scw s2s-vpn routing-policy delete <routing-policy-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| routing-policy-id | ID of the routing policy to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| routing-policy-id | ID of the routing policy to delete                                          | Required                                                              |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -434,10 +434,10 @@ scw s2s-vpn routing-policy get <routing-policy-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| routing-policy-id | ID of the routing policy to get | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| routing-policy-id | ID of the routing policy to get                                             | Required                                                              |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -454,15 +454,15 @@ scw s2s-vpn routing-policy list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Order in which to return results | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
-| project-id | Project ID to filter for |   |
-| name | Routing policy name to filter for |   |
-| tags.{index} | Tags to filter for |   |
-| ipv6 | Filter for the routing policies based on IP prefixes version |   |
-| organization-id | Organization ID to filter for |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
+| project-id      | Project ID to filter for                                                    |                                                                              |
+| name            | Routing policy name to filter for                                           |                                                                              |
+| tags.{index}    | Tags to filter for                                                          |                                                                              |
+| ipv6            | Filter for the routing policies based on IP prefixes version                |                                                                              |
+| organization-id | Organization ID to filter for                                               |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -479,14 +479,14 @@ scw s2s-vpn routing-policy update <routing-policy-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| routing-policy-id | ID of the routing policy to update | Required  |
-| name | Name of the routing policy |   |
-| tags.{index} | List of tags to apply to the routing policy |   |
-| prefix-filter-in.{index} | IP prefixes to accept from the peer (ranges of route announcements to accept) |   |
-| prefix-filter-out.{index} | IP prefix filters for routes to advertise to the peer (ranges of routes to advertise) |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name                      | Description                                                                           | Argument Specifications                                               |
+|---------------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| routing-policy-id         | ID of the routing policy to update                                                    | Required                                                              |
+| name                      | Name of the routing policy                                                            |                                                                       |
+| tags.{index}              | List of tags to apply to the routing policy                                           |                                                                       |
+| prefix-filter-in.{index}  | IP prefixes to accept from the peer (ranges of route announcements to accept)         |                                                                       |
+| prefix-filter-out.{index} | IP prefix filters for routes to advertise to the peer (ranges of routes to advertise) |                                                                       |
+| region                    | Region to target. If none is passed will use default region from the config           | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -508,23 +508,23 @@ scw s2s-vpn vpn-gateway create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | Name of the VPN gateway | Required  |
-| tags.{index} | List of tags to apply to the VPN gateway |   |
-| gateway-type | VPN gateway type (commercial offer type) | Required  |
-| public-config.ipam-ipv4-id |  |   |
-| public-config.ipam-ipv6-id |  |   |
-| private-network-id | ID of the Private Network to attach to the VPN gateway | Required  |
-| public-tunnel-config.single-ipv4-tunnel.ipam-id |  |   |
-| public-tunnel-config.single-ipv6-tunnel.ipam-id |  |   |
-| public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv4-id |  |   |
-| public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv6-id |  |   |
-| ipam-private-ipv4-id | ID of the IPAM private IPv4 address to attach to the VPN gateway |   |
-| ipam-private-ipv6-id | ID of the IPAM private IPv6 address to attach to the VPN gateway |   |
-| zone | Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name                                                 | Description                                                                                                                           | Argument Specifications                                               |
+|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                                              |                                                                       |
+| name                                                 | Name of the VPN gateway                                                                                                               | Required                                                              |
+| tags.{index}                                         | List of tags to apply to the VPN gateway                                                                                              |                                                                       |
+| gateway-type                                         | VPN gateway type (commercial offer type)                                                                                              | Required                                                              |
+| public-config.ipam-ipv4-id                           |                                                                                                                                       |                                                                       |
+| public-config.ipam-ipv6-id                           |                                                                                                                                       |                                                                       |
+| private-network-id                                   | ID of the Private Network to attach to the VPN gateway                                                                                | Required                                                              |
+| public-tunnel-config.single-ipv4-tunnel.ipam-id      |                                                                                                                                       |                                                                       |
+| public-tunnel-config.single-ipv6-tunnel.ipam-id      |                                                                                                                                       |                                                                       |
+| public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv4-id |                                                                                                                                       |                                                                       |
+| public-tunnel-config.dual-ipv4v6-tunnel.ipam-ipv6-id |                                                                                                                                       |                                                                       |
+| ipam-private-ipv4-id                                 | ID of the IPAM private IPv4 address to attach to the VPN gateway                                                                      |                                                                       |
+| ipam-private-ipv6-id                                 | ID of the IPAM private IPv6 address to attach to the VPN gateway                                                                      |                                                                       |
+| zone                                                 | Availability Zone where the VPN gateway should be provisioned. If no zone is specified, the VPN gateway will be automatically placed. |                                                                       |
+| region                                               | Region to target. If none is passed will use default region from the config                                                           | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -541,10 +541,10 @@ scw s2s-vpn vpn-gateway delete <gateway-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| gateway-id | ID of the VPN gateway to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| gateway-id | ID of the VPN gateway to delete                                             | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -561,10 +561,10 @@ scw s2s-vpn vpn-gateway get <gateway-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| gateway-id | ID of the requested VPN gateway | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| gateway-id | ID of the requested VPN gateway                                             | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -581,17 +581,17 @@ scw s2s-vpn vpn-gateway list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Order in which to return results | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc`, `status_asc`, `status_desc`  |
-| project-id | Project ID to filter for |   |
-| name | VPN gateway name to filter for |   |
-| tags.{index} | Tags to filter for |   |
-| statuses.{index} | VPN gateway statuses to filter for | One of: `unknown_status`, `configuring`, `failed`, `provisioning`, `active`, `deprovisioning`, `locked`  |
-| gateway-types.{index} | Filter for VPN gateways of these types |   |
-| private-network-ids.{index} | Filter for VPN gateways attached to these private networks |   |
-| organization-id | Organization ID to filter for |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
+| Name                        | Description                                                                 | Argument Specifications                                                                                                    |
+|-----------------------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------|
+| order-by                    | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `type_asc`, `type_desc`, `status_asc`, `status_desc` |
+| project-id                  | Project ID to filter for                                                    |                                                                                                                            |
+| name                        | VPN gateway name to filter for                                              |                                                                                                                            |
+| tags.{index}                | Tags to filter for                                                          |                                                                                                                            |
+| statuses.{index}            | VPN gateway statuses to filter for                                          | One of: `unknown_status`, `configuring`, `failed`, `provisioning`, `active`, `deprovisioning`, `locked`                    |
+| gateway-types.{index}       | Filter for VPN gateways of these types                                      |                                                                                                                            |
+| private-network-ids.{index} | Filter for VPN gateways attached to these private networks                  |                                                                                                                            |
+| organization-id             | Organization ID to filter for                                               |                                                                                                                            |
+| region                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`                                               |
 
 
 
@@ -608,12 +608,12 @@ scw s2s-vpn vpn-gateway update <gateway-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| gateway-id | ID of the VPN gateway to update | Required  |
-| name | Name of the VPN gateway |   |
-| tags.{index} | List of tags to apply to the VPN Gateway |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| gateway-id   | ID of the VPN gateway to update                                             | Required                                                              |
+| name         | Name of the VPN gateway                                                     |                                                                       |
+| tags.{index} | List of tags to apply to the VPN Gateway                                    |                                                                       |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -635,9 +635,9 @@ scw s2s-vpn vpn-gateway-type list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
+| Name   | Description                                                                 | Argument Specifications                                                      |
+|--------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
 
 
 

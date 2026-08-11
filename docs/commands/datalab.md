@@ -20,10 +20,10 @@ scw datalab cluster-version list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | The order by field. | One of: `name_asc`, `name_desc`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all`  |
+| Name     | Description                                                                 | Argument Specifications                                  |
+|----------|-----------------------------------------------------------------------------|----------------------------------------------------------|
+| order-by | The order by field.                                                         | One of: `name_asc`, `name_desc`                          |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all` |
 
 
 
@@ -45,21 +45,21 @@ scw datalab datalab create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | The name of the cluster. |   |
-| description | The description of the cluster. |   |
-| tags.{index} | The tags of the cluster. |   |
-| main.node-type |  |   |
-| worker.node-type |  |   |
-| worker.node-count |  |   |
-| has-notebook | Select this option to include a notebook as part of the cluster. |   |
-| spark-version | The version of Apache Spark™ running inside the cluster, available options can be viewed at ListClusterVersions. |   |
-| total-storage.type |  | One of: `unknown_type`, `sbs_5k`  |
-| total-storage.size |  |   |
-| private-network-id | The unique identifier of the private network the cluster will be attached to. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`  |
+| Name               | Description                                                                                                      | Argument Specifications                           |
+|--------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| project-id         | Project ID to use. If none is passed the default project ID will be used                                         |                                                   |
+| name               | The name of the cluster.                                                                                         |                                                   |
+| description        | The description of the cluster.                                                                                  |                                                   |
+| tags.{index}       | The tags of the cluster.                                                                                         |                                                   |
+| main.node-type     |                                                                                                                  |                                                   |
+| worker.node-type   |                                                                                                                  |                                                   |
+| worker.node-count  |                                                                                                                  |                                                   |
+| has-notebook       | Select this option to include a notebook as part of the cluster.                                                 |                                                   |
+| spark-version      | The version of Apache Spark™ running inside the cluster, available options can be viewed at ListClusterVersions. |                                                   |
+| total-storage.type |                                                                                                                  | One of: `unknown_type`, `sbs_5k`                  |
+| total-storage.size |                                                                                                                  |                                                   |
+| private-network-id | The unique identifier of the private network the cluster will be attached to.                                    |                                                   |
+| region             | Region to target. If none is passed will use default region from the config                                      | Default: `fr-par`<br />One of: `fr-par`, `it-mil` |
 
 
 
@@ -76,10 +76,10 @@ scw datalab datalab delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| datalab-id | The unique identifier of the cluster. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`  |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| datalab-id | The unique identifier of the cluster.                                       | Required                                          |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil` |
 
 
 
@@ -96,10 +96,10 @@ scw datalab datalab get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| datalab-id | The unique identifier of the cluster | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`  |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| datalab-id | The unique identifier of the cluster                                        | Required                                          |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil` |
 
 
 
@@ -116,14 +116,14 @@ scw datalab datalab list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | The unique identifier of the project whose clusters you want to list. |   |
-| name | The name of the cluster you want to list. |   |
-| tags.{index} | The tags associated with the cluster you want to list. |   |
-| order-by | The order by field, available options are `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`. | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`  |
-| organization-id | The unique identifier of the organization whose clusters you want to list. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all`  |
+| Name            | Description                                                                                                                                  | Argument Specifications                                                                                   |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| project-id      | The unique identifier of the project whose clusters you want to list.                                                                        |                                                                                                           |
+| name            | The name of the cluster you want to list.                                                                                                    |                                                                                                           |
+| tags.{index}    | The tags associated with the cluster you want to list.                                                                                       |                                                                                                           |
+| order-by        | The order by field, available options are `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`. | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |
+| organization-id | The unique identifier of the organization whose clusters you want to list.                                                                   |                                                                                                           |
+| region          | Region to target. If none is passed will use default region from the config                                                                  | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all`                                                  |
 
 
 
@@ -140,14 +140,14 @@ scw datalab datalab update [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| datalab-id | The unique identifier of the cluster. | Required  |
-| name | The updated name of the cluster. |   |
-| description | The updated description of the cluster. |   |
-| tags.{index} | The updated tags of the cluster. |   |
-| node-count | The updated node count of the cluster. Scale up or down the number of worker nodes. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`  |
+| Name         | Description                                                                         | Argument Specifications                           |
+|--------------|-------------------------------------------------------------------------------------|---------------------------------------------------|
+| datalab-id   | The unique identifier of the cluster.                                               | Required                                          |
+| name         | The updated name of the cluster.                                                    |                                                   |
+| description  | The updated description of the cluster.                                             |                                                   |
+| tags.{index} | The updated tags of the cluster.                                                    |                                                   |
+| node-count   | The updated node count of the cluster. Scale up or down the number of worker nodes. |                                                   |
+| region       | Region to target. If none is passed will use default region from the config         | Default: `fr-par`<br />One of: `fr-par`, `it-mil` |
 
 
 
@@ -169,12 +169,12 @@ scw datalab node-type list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`. | One of: `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`  |
-| targets.{index} | Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node. | One of: `unknown_target`, `notebook`, `worker`  |
-| resource-type | Filter based on node type ( `cpu`/`gpu`/`all` ). | One of: `all`, `gpu`, `cpu`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all`  |
+| Name            | Description                                                                                                                                                                                                 | Argument Specifications                                                                                                                                                   |
+|-----------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by        | The order by field. Available fields are `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc`. | One of: `name_asc`, `name_desc`, `vcpus_asc`, `vcpus_desc`, `memory_gigabytes_asc`, `memory_gigabytes_desc`, `vram_bytes_asc`, `vram_bytes_desc`, `gpus_asc`, `gpus_desc` |
+| targets.{index} | Filter based on the target of the nodes. Allows to filter the nodes based on their purpose which can be main or worker node.                                                                                | One of: `unknown_target`, `notebook`, `worker`                                                                                                                            |
+| resource-type   | Filter based on node type ( `cpu`/`gpu`/`all` ).                                                                                                                                                            | One of: `all`, `gpu`, `cpu`                                                                                                                                               |
+| region          | Region to target. If none is passed will use default region from the config                                                                                                                                 | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all`                                                                                                                  |
 
 
 
@@ -196,10 +196,10 @@ scw datalab notebook-version list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | The order by field. Available options are `name_asc` and `name_desc`. | One of: `name_asc`, `name_desc`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all`  |
+| Name     | Description                                                                 | Argument Specifications                                  |
+|----------|-----------------------------------------------------------------------------|----------------------------------------------------------|
+| order-by | The order by field. Available options are `name_asc` and `name_desc`.       | One of: `name_asc`, `name_desc`                          |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `all` |
 
 
 

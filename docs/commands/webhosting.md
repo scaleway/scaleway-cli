@@ -22,11 +22,11 @@ scw webhosting backup get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting account | Required  |
-| backup-id | ID of the backup to retrieve | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting account                                                 | Required                                                    |
+| backup-id  | ID of the backup to retrieve                                                | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -43,11 +43,11 @@ scw webhosting backup list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting account | Required  |
-| order-by | Order in which to return the list of backups | One of: `created_at_desc`, `created_at_asc`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name       | Description                                                                 | Argument Specifications                                            |
+|------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| hosting-id | UUID of the hosting account                                                 | Required                                                           |
+| order-by   | Order in which to return the list of backups                                | One of: `created_at_desc`, `created_at_asc`                        |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -64,11 +64,11 @@ scw webhosting backup restore [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting account | Required  |
-| backup-id | ID of the backup to fully restore | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting account                                                 | Required                                                    |
+| backup-id  | ID of the backup to fully restore                                           | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -92,11 +92,11 @@ scw webhosting backup-item list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting account | Required  |
-| backup-id | ID of the backup to list items from |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting account                                                 | Required                                                    |
+| backup-id  | ID of the backup to list items from                                         |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -113,11 +113,11 @@ scw webhosting backup-item restore [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting account | Required  |
-| item-ids.{index} | List of backup item IDs to restore individually |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name             | Description                                                                 | Argument Specifications                                     |
+|------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id       | UUID of the hosting account                                                 | Required                                                    |
+| item-ids.{index} | List of backup item IDs to restore individually                             |                                                             |
+| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -139,9 +139,9 @@ scw webhosting control-panel list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name   | Description                                                                 | Argument Specifications                                            |
+|--------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -163,14 +163,14 @@ scw webhosting database create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan where the database will be created | Required  |
-| database-name | Name of the database to be created |   |
-| new-user.username |  |   |
-| new-user.password |  |   |
-| existing-username | (Optional) Username to link an existing user to the database |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name              | Description                                                                 | Argument Specifications                                     |
+|-------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id        | UUID of the hosting plan where the database will be created                 | Required                                                    |
+| database-name     | Name of the database to be created                                          |                                                             |
+| new-user.username |                                                                             |                                                             |
+| new-user.password |                                                                             |                                                             |
+| existing-username | (Optional) Username to link an existing user to the database                |                                                             |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -187,11 +187,11 @@ scw webhosting database delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| database-name | Name of the database to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                     |
+|---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id    | UUID of the hosting plan                                                    | Required                                                    |
+| database-name | Name of the database to delete                                              | Required                                                    |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -208,11 +208,11 @@ scw webhosting database get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| database-name | Name of the database | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                     |
+|---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id    | UUID of the hosting plan                                                    | Required                                                    |
+| database-name | Name of the database                                                        | Required                                                    |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -229,11 +229,11 @@ scw webhosting database list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| order-by | Sort order of databases in the response | One of: `database_name_asc`, `database_name_desc`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name       | Description                                                                 | Argument Specifications                                            |
+|------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                           |
+| order-by   | Sort order of databases in the response                                     | One of: `database_name_asc`, `database_name_desc`                  |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -255,12 +255,12 @@ scw webhosting database-user assign [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Name of the user to assign |   |
-| database-name | Name of the database to be assigned | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                     |
+|---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id    | UUID of the hosting plan                                                    | Required                                                    |
+| username      | Name of the user to assign                                                  |                                                             |
+| database-name | Name of the database to be assigned                                         | Required                                                    |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -277,12 +277,12 @@ scw webhosting database-user change-password [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Name of the user to update | Required  |
-| password | New password |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| username   | Name of the user to update                                                  | Required                                                    |
+| password   | New password                                                                |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -299,12 +299,12 @@ scw webhosting database-user create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Name of the user to create |   |
-| password | Password of the user to create |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| username   | Name of the user to create                                                  |                                                             |
+| password   | Password of the user to create                                              |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -321,11 +321,11 @@ scw webhosting database-user delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Name of the database user to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| username   | Name of the database user to delete                                         | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -342,11 +342,11 @@ scw webhosting database-user get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Name of the database user to retrieve details | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| username   | Name of the database user to retrieve details                               | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -363,11 +363,11 @@ scw webhosting database-user list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| order-by | Sort order of database users in the response | One of: `username_asc`, `username_desc`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name       | Description                                                                 | Argument Specifications                                            |
+|------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                           |
+| order-by   | Sort order of database users in the response                                | One of: `username_asc`, `username_desc`                            |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -384,12 +384,12 @@ scw webhosting database-user unassign [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Name of the user to unassign |   |
-| database-name | Name of the database to be unassigned | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name          | Description                                                                 | Argument Specifications                                     |
+|---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id    | UUID of the hosting plan                                                    | Required                                                    |
+| username      | Name of the user to unassign                                                |                                                             |
+| database-name | Name of the database to be unassigned                                       | Required                                                    |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -411,10 +411,10 @@ scw webhosting dns-records get-dns-records [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| domain | Domain associated with the DNS records | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name   | Description                                                                 | Argument Specifications                                     |
+|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| domain | Domain associated with the DNS records                                      | Required                                                    |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -446,11 +446,11 @@ scw webhosting domain check-ownership [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| domain | Domain for which ownership is to be verified. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| domain     | Domain for which ownership is to be verified.                               | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -467,11 +467,11 @@ scw webhosting domain get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| domain-name | Domain name to get. | Required  |
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| domain-name | Domain name to get.                                                         | Required                                                    |
+| project-id  | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -488,21 +488,21 @@ scw webhosting domain sync-dns-records [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| domain | Domain for which the DNS records will be synchronized. | Required  |
-| ~~update-web-records~~ | Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns). | Deprecated  |
-| ~~update-mail-records~~ | Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns). | Deprecated  |
-| ~~update-all-records~~ | Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns). | Deprecated  |
-| ~~update-nameservers~~ | Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns). | Deprecated  |
-| custom-records.{index}.name |  |   |
-| custom-records.{index}.type |  | One of: `unknown_type`, `a`, `cname`, `mx`, `txt`, `ns`, `aaaa`  |
-| auto-config-domain-dns.nameservers | Whether or not to synchronize domain nameservers. |   |
-| auto-config-domain-dns.web-records | Whether or not to synchronize web records. |   |
-| auto-config-domain-dns.mail-records | Whether or not to synchronize mail records. |   |
-| auto-config-domain-dns.all-records | Whether or not to synchronize all types of records. Takes priority over the other fields. |   |
-| auto-config-domain-dns.none | No automatic domain configuration. Users must configure their domain for the Web Hosting to work. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name                                | Description                                                                                                         | Argument Specifications                                         |
+|-------------------------------------|---------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------|
+| domain                              | Domain for which the DNS records will be synchronized.                                                              | Required                                                        |
+| ~~update-web-records~~              | Whether or not to synchronize the web records (deprecated, use auto_config_domain_dns).                             | Deprecated                                                      |
+| ~~update-mail-records~~             | Whether or not to synchronize the mail records (deprecated, use auto_config_domain_dns).                            | Deprecated                                                      |
+| ~~update-all-records~~              | Whether or not to synchronize all types of records. This one has priority (deprecated, use auto_config_domain_dns). | Deprecated                                                      |
+| ~~update-nameservers~~              | Whether or not to synchronize domain nameservers (deprecated, use auto_config_domain_dns).                          | Deprecated                                                      |
+| custom-records.{index}.name         |                                                                                                                     |                                                                 |
+| custom-records.{index}.type         |                                                                                                                     | One of: `unknown_type`, `a`, `cname`, `mx`, `txt`, `ns`, `aaaa` |
+| auto-config-domain-dns.nameservers  | Whether or not to synchronize domain nameservers.                                                                   |                                                                 |
+| auto-config-domain-dns.web-records  | Whether or not to synchronize web records.                                                                          |                                                                 |
+| auto-config-domain-dns.mail-records | Whether or not to synchronize mail records.                                                                         |                                                                 |
+| auto-config-domain-dns.all-records  | Whether or not to synchronize all types of records. Takes priority over the other fields.                           |                                                                 |
+| auto-config-domain-dns.none         | No automatic domain configuration. Users must configure their domain for the Web Hosting to work.                   |                                                                 |
+| region                              | Region to target. If none is passed will use default region from the config                                         | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`     |
 
 
 
@@ -524,11 +524,11 @@ scw webhosting domain-availability search [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| domain-name | Domain name to search. |   |
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| domain-name | Domain name to search.                                                      |                                                             |
+| project-id  | Project ID to use. If none is passed the default project ID will be used    |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -550,11 +550,11 @@ scw webhosting freedomain check-availability [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| slug | Custom prefix used for the free domain. |   |
-| root-domain | Free root domain provided by Web Hosting, selected from the list returned by `ListFreeRootDomains`. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name        | Description                                                                                         | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| slug        | Custom prefix used for the free domain.                                                             |                                                             |
+| root-domain | Free root domain provided by Web Hosting, selected from the list returned by `ListFreeRootDomains`. |                                                             |
+| region      | Region to target. If none is passed will use default region from the config                         | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -571,9 +571,9 @@ scw webhosting freedomain list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name   | Description                                                                 | Argument Specifications                                            |
+|--------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -595,13 +595,13 @@ scw webhosting ftp-account create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Username for the new FTP account |   |
-| path | Path for the new FTP account |   |
-| password | Password for the new FTP account |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| username   | Username for the new FTP account                                            |                                                             |
+| path       | Path for the new FTP account                                                |                                                             |
+| password   | Password for the new FTP account                                            |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -618,11 +618,11 @@ scw webhosting ftp-account delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| username | Username of the FTP account to be deleted | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| username   | Username of the FTP account to be deleted                                   | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -639,12 +639,12 @@ scw webhosting ftp-account list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Sort order of FTP accounts in the response | One of: `username_asc`, `username_desc`  |
-| hosting-id | UUID of the hosting plan | Required  |
-| domain | Domain to filter the FTP accounts |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name       | Description                                                                 | Argument Specifications                                            |
+|------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| order-by   | Sort order of FTP accounts in the response                                  | One of: `username_asc`, `username_desc`                            |
+| hosting-id | UUID of the hosting plan                                                    | Required                                                           |
+| domain     | Domain to filter the FTP accounts                                           |                                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -666,29 +666,29 @@ scw webhosting hosting create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| offer-id | ID of the selected offer for the Web Hosting plan |   |
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| email | Contact email for the Web Hosting client |   |
-| tags.{index} | List of tags for the Web Hosting plan |   |
-| domain | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand |   |
-| subdomain | The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself. |   |
-| offer-options.{index}.id | Offer option ID |   |
-| offer-options.{index}.quantity | The option requested quantity to set for the Web Hosting plan |   |
-| language | Default language for the control panel interface | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE`  |
-| domain-configuration.update-nameservers |  |   |
-| domain-configuration.update-web-record |  |   |
-| domain-configuration.update-mail-record |  |   |
-| domain-configuration.update-all-records |  |   |
-| skip-welcome-email | Indicates whether to skip a welcome email to the contact email containing hosting info. |   |
-| auto-config-domain-dns.nameservers | Whether or not to synchronize domain nameservers. |   |
-| auto-config-domain-dns.web-records | Whether or not to synchronize web records. |   |
-| auto-config-domain-dns.mail-records | Whether or not to synchronize mail records. |   |
-| auto-config-domain-dns.all-records | Whether or not to synchronize all types of records. Takes priority over the other fields. |   |
-| auto-config-domain-dns.none | No automatic domain configuration. Users must configure their domain for the Web Hosting to work. |   |
-| offer-commitment-id | Offer commitment ID to which the hosting will be engaged |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name                                    | Description                                                                                                                                                                                                                                                             | Argument Specifications                                     |
+|-----------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| offer-id                                | ID of the selected offer for the Web Hosting plan                                                                                                                                                                                                                       |                                                             |
+| project-id                              | Project ID to use. If none is passed the default project ID will be used                                                                                                                                                                                                |                                                             |
+| email                                   | Contact email for the Web Hosting client                                                                                                                                                                                                                                |                                                             |
+| tags.{index}                            | List of tags for the Web Hosting plan                                                                                                                                                                                                                                   |                                                             |
+| domain                                  | Domain name to link to the Web Hosting plan. You must already own this domain name, and have completed the DNS validation process beforehand                                                                                                                            |                                                             |
+| subdomain                               | The name prefix to use as a free subdomain (for example, `mysite`) assigned to the Web Hosting plan. The full domain will be automatically created by adding it to the fixed base domain (e.g. `mysite.scw.site`). You do not need to include the base domain yourself. |                                                             |
+| offer-options.{index}.id                | Offer option ID                                                                                                                                                                                                                                                         |                                                             |
+| offer-options.{index}.quantity          | The option requested quantity to set for the Web Hosting plan                                                                                                                                                                                                           |                                                             |
+| language                                | Default language for the control panel interface                                                                                                                                                                                                                        | One of: `unknown_language_code`, `en_US`, `fr_FR`, `de_DE`  |
+| domain-configuration.update-nameservers |                                                                                                                                                                                                                                                                         |                                                             |
+| domain-configuration.update-web-record  |                                                                                                                                                                                                                                                                         |                                                             |
+| domain-configuration.update-mail-record |                                                                                                                                                                                                                                                                         |                                                             |
+| domain-configuration.update-all-records |                                                                                                                                                                                                                                                                         |                                                             |
+| skip-welcome-email                      | Indicates whether to skip a welcome email to the contact email containing hosting info.                                                                                                                                                                                 |                                                             |
+| auto-config-domain-dns.nameservers      | Whether or not to synchronize domain nameservers.                                                                                                                                                                                                                       |                                                             |
+| auto-config-domain-dns.web-records      | Whether or not to synchronize web records.                                                                                                                                                                                                                              |                                                             |
+| auto-config-domain-dns.mail-records     | Whether or not to synchronize mail records.                                                                                                                                                                                                                             |                                                             |
+| auto-config-domain-dns.all-records      | Whether or not to synchronize all types of records. Takes priority over the other fields.                                                                                                                                                                               |                                                             |
+| auto-config-domain-dns.none             | No automatic domain configuration. Users must configure their domain for the Web Hosting to work.                                                                                                                                                                       |                                                             |
+| offer-commitment-id                     | Offer commitment ID to which the hosting will be engaged                                                                                                                                                                                                                |                                                             |
+| region                                  | Region to target. If none is passed will use default region from the config                                                                                                                                                                                             | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -705,10 +705,10 @@ scw webhosting hosting create-session [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | Hosting ID | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | Hosting ID                                                                  | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -725,10 +725,10 @@ scw webhosting hosting delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | Hosting ID | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | Hosting ID                                                                  | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -755,10 +755,10 @@ scw webhosting hosting get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | Hosting ID | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | Hosting ID                                                                  | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -785,17 +785,17 @@ scw webhosting hosting list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Sort order for Web Hosting plans in the response | One of: `created_at_asc`, `created_at_desc`  |
-| tags.{index} | Tags to filter for, only Web Hosting plans with matching tags will be returned |   |
-| statuses.{index} | Statuses to filter for, only Web Hosting plans with matching statuses will be returned | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked`, `migrating`, `updating`, `payment_pending`, `payment_failed`  |
-| domain | Domain to filter for, only Web Hosting plans associated with this domain will be returned |   |
-| project-id | Project ID to filter for, only Web Hosting plans from this Project will be returned |   |
-| control-panels.{index} | Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned |   |
-| subdomain | Optional free subdomain linked to the Web Hosting plan |   |
-| organization-id | Organization ID to filter for, only Web Hosting plans from this Organization will be returned |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name                   | Description                                                                                              | Argument Specifications                                                                                                                      |
+|------------------------|----------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by               | Sort order for Web Hosting plans in the response                                                         | One of: `created_at_asc`, `created_at_desc`                                                                                                  |
+| tags.{index}           | Tags to filter for, only Web Hosting plans with matching tags will be returned                           |                                                                                                                                              |
+| statuses.{index}       | Statuses to filter for, only Web Hosting plans with matching statuses will be returned                   | One of: `unknown_status`, `delivering`, `ready`, `deleting`, `error`, `locked`, `migrating`, `updating`, `payment_pending`, `payment_failed` |
+| domain                 | Domain to filter for, only Web Hosting plans associated with this domain will be returned                |                                                                                                                                              |
+| project-id             | Project ID to filter for, only Web Hosting plans from this Project will be returned                      |                                                                                                                                              |
+| control-panels.{index} | Name of the control panel to filter for, only Web Hosting plans from this control panel will be returned |                                                                                                                                              |
+| subdomain              | Optional free subdomain linked to the Web Hosting plan                                                   |                                                                                                                                              |
+| organization-id        | Organization ID to filter for, only Web Hosting plans from this Organization will be returned            |                                                                                                                                              |
+| region                 | Region to target. If none is passed will use default region from the config                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                                                           |
 
 
 **Examples:**
@@ -822,17 +822,17 @@ scw webhosting hosting update [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | Hosting ID | Required  |
-| email | New contact email for the Web Hosting plan |   |
-| tags.{index} | New tags for the Web Hosting plan |   |
-| offer-options.{index}.id | Offer option ID |   |
-| offer-options.{index}.quantity | The option requested quantity to set for the Web Hosting plan |   |
-| offer-id | ID of the new offer for the Web Hosting plan |   |
-| protected | Whether the hosting is protected or not |   |
-| delete-hosting-after-commitment | Whether the hosting is deleted at the end of the commitment period |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name                            | Description                                                                 | Argument Specifications                                     |
+|---------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id                      | Hosting ID                                                                  | Required                                                    |
+| email                           | New contact email for the Web Hosting plan                                  |                                                             |
+| tags.{index}                    | New tags for the Web Hosting plan                                           |                                                             |
+| offer-options.{index}.id        | Offer option ID                                                             |                                                             |
+| offer-options.{index}.quantity  | The option requested quantity to set for the Web Hosting plan               |                                                             |
+| offer-id                        | ID of the new offer for the Web Hosting plan                                |                                                             |
+| protected                       | Whether the hosting is protected or not                                     |                                                             |
+| delete-hosting-after-commitment | Whether the hosting is deleted at the end of the commitment period          |                                                             |
+| region                          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -869,13 +869,13 @@ scw webhosting mail-account change-password [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| domain | Domain part of the mail account address |   |
-| username | Username part of the mail account address |   |
-| password | New password for the mail account |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| domain     | Domain part of the mail account address                                     |                                                             |
+| username   | Username part of the mail account address                                   |                                                             |
+| password   | New password for the mail account                                           |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -892,13 +892,13 @@ scw webhosting mail-account create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| domain | Domain part of the mail account address |   |
-| username | Username part address of the mail account address |   |
-| password | Password for the new mail account |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| domain     | Domain part of the mail account address                                     |                                                             |
+| username   | Username part address of the mail account address                           |                                                             |
+| password   | Password for the new mail account                                           |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -915,12 +915,12 @@ scw webhosting mail-account delete [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| domain | Domain part of the mail account address |   |
-| username | Username part of the mail account address |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                    |
+| domain     | Domain part of the mail account address                                     |                                                             |
+| username   | Username part of the mail account address                                   |                                                             |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -937,12 +937,12 @@ scw webhosting mail-account list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Sort order of mail accounts in the response | One of: `username_asc`, `username_desc`, `domain_asc`, `domain_desc`  |
-| hosting-id | UUID of the hosting plan | Required  |
-| domain | Domain to filter the mail accounts |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name       | Description                                                                 | Argument Specifications                                              |
+|------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|
+| order-by   | Sort order of mail accounts in the response                                 | One of: `username_asc`, `username_desc`, `domain_asc`, `domain_desc` |
+| hosting-id | UUID of the hosting plan                                                    | Required                                                             |
+| domain     | Domain to filter the mail accounts                                          |                                                                      |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   |
 
 
 
@@ -964,12 +964,12 @@ scw webhosting offer list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Sort order for Web Hosting offers in the response | One of: `price_asc`  |
-| hosting-id | UUID of the hosting plan |   |
-| control-panels.{index} | Name of the control panel(s) to filter for |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name                   | Description                                                                 | Argument Specifications                                            |
+|------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| order-by               | Sort order for Web Hosting offers in the response                           | One of: `price_asc`                                                |
+| hosting-id             | UUID of the hosting plan                                                    |                                                                    |
+| control-panels.{index} | Name of the control panel(s) to filter for                                  |                                                                    |
+| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -991,11 +991,11 @@ scw webhosting progress get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | ID of the hosting associated with the progress. | Required  |
-| progress-id | ID of the progress to retrieve. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id  | ID of the hosting associated with the progress.                             | Required                                                    |
+| progress-id | ID of the progress to retrieve.                                             | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1012,10 +1012,10 @@ scw webhosting progress list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | ID of the hosting linked to the progress. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
+| Name       | Description                                                                 | Argument Specifications                                     |
+|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| hosting-id | ID of the hosting linked to the progress.                                   | Required                                                    |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1037,11 +1037,11 @@ scw webhosting website list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| hosting-id | UUID of the hosting plan | Required  |
-| order-by | Sort order for Web Hosting websites in the response | One of: `domain_asc`, `domain_desc`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
+| Name       | Description                                                                 | Argument Specifications                                            |
+|------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| hosting-id | UUID of the hosting plan                                                    | Required                                                           |
+| order-by   | Sort order for Web Hosting websites in the response                         | One of: `domain_asc`, `domain_desc`                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
