@@ -8,7 +8,7 @@ USAGE:
 ARGS:
   instance-id                                      UUID of the Database Instance you want to upgrade
   [node-type]                                      Node type of the Database Instance you want to upgrade to
-  [enable-ha]                                      Defines whether or not high availability should be enabled on the Database Instance
+  [high-availability-mode]                         Defines the High-Availability mode of the instance (unknown_high_availability_mode | disabled | single_zone | multiple_zone)
   [volume-size]                                    Increase your block storage volume size
   [volume-type]                                    Change your Database Instance storage type (lssd | bssd | sbs_5k | sbs_15k)
   [upgradable-version-id]                          Update your database engine to a newer version
@@ -16,6 +16,9 @@ ARGS:
   [major-upgrade-workflow.with-endpoints]          Include endpoint during the migration
   [enable-encryption]                              Defines whether or not encryption should be enabled on the Database Instance
   [region=fr-par]                                  Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [enable-ha]   Defines whether or not high availability should be enabled on the Database Instance
 
 FLAGS:
   -h, --help                help for upgrade
