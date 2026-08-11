@@ -3,6 +3,7 @@
 NAMESPACE  RESOURCE      VERB                     TOOL NAME                            SHORT
 account    project       get                      account_project_get                  Get an existing Project
 account    project       list                     account_project_list                 List all Projects of an Organization
+account    project       list-resources           account_project_list-resources       List all resources across all zones
 k8s        acl           list                     k8s_acl_list                         List ACLs
 k8s        cluster       get                      k8s_cluster_get                      Get a Cluster
 k8s        cluster       list                     k8s_cluster_list                     List Clusters
@@ -34,6 +35,13 @@ k8s        version       list                     k8s_version_list              
     "verb": "list",
     "tool_name": "account_project_list",
     "short": "List all Projects of an Organization"
+  },
+  {
+    "namespace": "account",
+    "resource": "project",
+    "verb": "list-resources",
+    "tool_name": "account_project_list-resources",
+    "short": "List all resources across all zones"
   },
   {
     "namespace": "k8s",
