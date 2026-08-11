@@ -9,7 +9,7 @@ USAGE:
 
 EXAMPLES:
   Create an autoscaling group with a fixed size
-    scw autoscaling group create scaling-policy-spec.fixed-size.size=3 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111
+    scw autoscaling group create scaling-policy-spec.fixed-size.size=3 scaling-policy-spec.maximum-size=5 scaling-policy-spec.minimum-size=1 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111
 
 ARGS:
   [project-id]                                                             Project ID to use. If none is passed the default project ID will be used

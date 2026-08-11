@@ -90,7 +90,7 @@ scw autoscaling group create [arg=value ...]
 
 Create an autoscaling group with a fixed size
 ```shell
-scw autoscaling group create scaling-policy-spec.fixed-size.size=3 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111
+scw autoscaling group create scaling-policy-spec.fixed-size.size=3 scaling-policy-spec.maximum-size=5 scaling-policy-spec.minimum-size=1 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111
 ```
 
 

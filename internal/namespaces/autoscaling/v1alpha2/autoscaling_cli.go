@@ -361,7 +361,7 @@ settings.`,
 		Examples: []*core.Example{
 			{
 				Short: "Create an autoscaling group with a fixed size",
-				Raw:   `scw autoscaling group create scaling-policy-spec.fixed-size.size=3 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111`,
+				Raw:   `scw autoscaling group create scaling-policy-spec.fixed-size.size=3 scaling-policy-spec.maximum-size=5 scaling-policy-spec.minimum-size=1 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
