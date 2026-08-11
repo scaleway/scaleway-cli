@@ -9,27 +9,27 @@ few seconds ago  clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "timestamp": "1970-01-01T00:00:00.0Z",
+    "timestamp": "2026-08-07T18:35:42.192012312+02:00",
     "resource_instance": "clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk",
     "message": ""
   },
   {
-    "timestamp": "1970-01-01T00:00:00.0Z",
+    "timestamp": "2026-08-07T18:35:42.192009742+02:00",
     "resource_instance": "clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk",
     "message": " https://docs.docker.com/get-started/"
   },
   {
-    "timestamp": "1970-01-01T00:00:00.0Z",
+    "timestamp": "2026-08-07T18:35:42.192006842+02:00",
     "resource_instance": "clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk",
     "message": "For more examples and ideas, visit:"
   },
   {
-    "timestamp": "1970-01-01T00:00:00.0Z",
+    "timestamp": "2026-08-07T18:35:42.192002822+02:00",
     "resource_instance": "clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk",
     "message": ""
   },
   {
-    "timestamp": "1970-01-01T00:00:00.0Z",
+    "timestamp": "2026-08-07T18:35:42.192000262+02:00",
     "resource_instance": "clinsaffectionatehoo27be6a9847fd7f839151fe627966d752-deplog5zvk",
     "message": " https://hub.docker.com/"
   }
