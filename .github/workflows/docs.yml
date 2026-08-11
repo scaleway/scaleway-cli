@@ -22,7 +22,7 @@ jobs:
           # We need this to enable autocomplete documentation generation default
           SHELL: /bin/bash
       - name: Install rumdl
-        run: curl -LsSf https://github.com/rvben/rumdl/releases/download/v0.2.43/rumdl-v0.2.43-x86_64-unknown-linux-gnu.tar.gz | tar xzf - -C /usr/local/bin
+        run: curl -LsSf https://github.com/rvben/rumdl/releases/download/v0.2.54/rumdl-v0.2.54-x86_64-unknown-linux-gnu.tar.gz | tar xzf - -C /usr/local/bin
       - name: Run formatter
         run: rumdl fmt .
       - name: Exit 1 if not empty
