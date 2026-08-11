@@ -20,20 +20,20 @@ scw keymanager key create [arg=value ...]
 
 **Arguments:**
 
-| Name                             | Description                                                                                               | Argument Specifications                                                                                                                                                                                                                                         |
-|----------------------------------|-----------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id                       | Project ID to use. If none is passed the default project ID will be used                                  |                                                                                                                                                                                                                                                                 |
-| name                             | (Optional) Name of the key                                                                                |                                                                                                                                                                                                                                                                 |
-| usage.symmetric-encryption       | Encrypt and decrypt arbitrary payloads using a symmetric encryption algorithm.                            | One of: `unknown_symmetric_encryption`, `aes_256_gcm`                                                                                                                                                                                                           |
-| usage.asymmetric-encryption      | Encrypt and decrypt arbitrary payloads using an asymmetric encryption algorithm.                          | One of: `unknown_asymmetric_encryption`, `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`                                                                                                                                                 |
-| usage.asymmetric-signing         | Sign and verify arbitrary messages using an asymmetric signing algorithm.                                 | One of: `unknown_asymmetric_signing`, `ec_p256_sha256`, `ec_p384_sha384`, `rsa_pss_2048_sha256`, `rsa_pss_3072_sha256`, `rsa_pss_4096_sha256`, `rsa_pkcs1_2048_sha256`, `rsa_pkcs1_3072_sha256`, `rsa_pkcs1_4096_sha256`, `ml_dsa_44`, `ml_dsa_65`, `ml_dsa_87` |
-| description                      | (Optional) Description of the key                                                                         |                                                                                                                                                                                                                                                                 |
-| tags.{index}                     | (Optional) List of the key's tags                                                                         |                                                                                                                                                                                                                                                                 |
-| rotation-policy.rotation-period  | Rotation period                                                                                           |                                                                                                                                                                                                                                                                 |
-| rotation-policy.next-rotation-at | Key next rotation date                                                                                    |                                                                                                                                                                                                                                                                 |
-| unprotected                      | (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted |                                                                                                                                                                                                                                                                 |
-| origin                           | Key origin                                                                                                | One of: `unknown_origin`, `scaleway_kms`, `external`                                                                                                                                                                                                            |
-| region                           | Region to target. If none is passed will use default region from the config                               | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                                                                                                                                                                                                     |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used |   |
+| name | (Optional) Name of the key |   |
+| usage.symmetric-encryption | Encrypt and decrypt arbitrary payloads using a symmetric encryption algorithm. | One of: `unknown_symmetric_encryption`, `aes_256_gcm`  |
+| usage.asymmetric-encryption | Encrypt and decrypt arbitrary payloads using an asymmetric encryption algorithm. | One of: `unknown_asymmetric_encryption`, `rsa_oaep_2048_sha256`, `rsa_oaep_3072_sha256`, `rsa_oaep_4096_sha256`  |
+| usage.asymmetric-signing | Sign and verify arbitrary messages using an asymmetric signing algorithm. | One of: `unknown_asymmetric_signing`, `ec_p256_sha256`, `ec_p384_sha384`, `rsa_pss_2048_sha256`, `rsa_pss_3072_sha256`, `rsa_pss_4096_sha256`, `rsa_pkcs1_2048_sha256`, `rsa_pkcs1_3072_sha256`, `rsa_pkcs1_4096_sha256`, `ml_dsa_44`, `ml_dsa_65`, `ml_dsa_87`  |
+| description | (Optional) Description of the key |   |
+| tags.{index} | (Optional) List of the key's tags |   |
+| rotation-policy.rotation-period | Rotation period |   |
+| rotation-policy.next-rotation-at | Key next rotation date |   |
+| unprotected | (Optional) Defines whether key protection is applied to a key. Protected keys can be used but not deleted |   |
+| origin | Key origin | One of: `unknown_origin`, `scaleway_kms`, `external`  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -50,12 +50,12 @@ scw keymanager key decrypt <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                                     |
-|-----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id          | ID of the key to decrypt with                                               | Required                                                    |
-| ciphertext      | Base64 Ciphertext data to decrypt                                           | Required                                                    |
-| associated-data | (Optional) Additional authenticated data                                    |                                                             |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to decrypt with | Required  |
+| ciphertext | Base64 Ciphertext data to decrypt | Required  |
+| associated-data | (Optional) Additional authenticated data |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -72,10 +72,10 @@ scw keymanager key delete <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to delete                                                     | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to delete | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -92,10 +92,10 @@ scw keymanager key delete-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key of which to delete the key material                           | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key of which to delete the key material | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -112,10 +112,10 @@ scw keymanager key disable <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to disable                                                    | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to disable | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -132,10 +132,10 @@ scw keymanager key enable <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to enable                                                     | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to enable | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -152,12 +152,12 @@ scw keymanager key encrypt <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                                     |
-|-----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id          | ID of the key to use for encryption                                         | Required                                                    |
-| plaintext       | Base64 Plaintext data to encrypt                                            | Required                                                    |
-| associated-data | (Optional) Additional authenticated data                                    |                                                             |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to use for encryption | Required  |
+| plaintext | Base64 Plaintext data to encrypt | Required  |
+| associated-data | (Optional) Additional authenticated data |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -176,12 +176,12 @@ scw keymanager key generate-data-key <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name              | Description                                                                                         | Argument Specifications                                                           |
-|-------------------|-----------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------|
-| key-id            | ID of the key                                                                                       | Required                                                                          |
-| algorithm         | Algorithm with which the data encryption key will be used to encrypt and decrypt arbitrary payloads | Default: `aes_256_gcm`<br />One of: `unknown_symmetric_encryption`, `aes_256_gcm` |
-| without-plaintext | (Optional) Defines whether to return the data encryption key's plaintext in the response object     |                                                                                   |
-| region            | Region to target. If none is passed will use default region from the config                         | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                       |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key | Required  |
+| algorithm | Algorithm with which the data encryption key will be used to encrypt and decrypt arbitrary payloads | Default: `aes_256_gcm`<br />One of: `unknown_symmetric_encryption`, `aes_256_gcm`  |
+| without-plaintext | (Optional) Defines whether to return the data encryption key's plaintext in the response object |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -198,10 +198,10 @@ scw keymanager key get <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to target                                                     | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to target | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -218,12 +218,12 @@ scw keymanager key import-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id       | ID of the key in which to import key material                               | Required                                                    |
-| key-material | The key material                                                            |                                                             |
-| salt         | (Optional) Salt value to pass the key derivation function                   |                                                             |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key in which to import key material | Required  |
+| key-material | The key material |   |
+| salt | (Optional) Salt value to pass the key derivation function |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -243,16 +243,16 @@ scw keymanager key list [arg=value ...]
 
 **Arguments:**
 
-| Name                   | Description                                                                                                              | Argument Specifications                                                                                   |
-|------------------------|--------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
-| project-id             | (Optional) Filter by Project ID                                                                                          |                                                                                                           |
-| order-by               |                                                                                                                          | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |
-| tags.{index}           | (Optional) List of tags to filter on                                                                                     |                                                                                                           |
-| name                   | (Optional) Filter by key name                                                                                            |                                                                                                           |
-| usage                  | (Optional) Filter keys by usage.                                                                                         | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`            |
-| scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |                                                                                                           |
-| organization-id        | (Optional) Filter by Organization ID                                                                                     |                                                                                                           |
-| region                 | Region to target. If none is passed will use default region from the config                                              | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                        |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| project-id | (Optional) Filter by Project ID |   |
+| order-by |  | One of: `name_asc`, `name_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`  |
+| tags.{index} | (Optional) List of tags to filter on |   |
+| name | (Optional) Filter by key name |   |
+| usage | (Optional) Filter keys by usage. | One of: `unknown_usage`, `symmetric_encryption`, `asymmetric_encryption`, `asymmetric_signing`  |
+| scheduled-for-deletion | Filter keys based on their deletion status. By default, only keys not scheduled for deletion are returned in the output. |   |
+| organization-id | (Optional) Filter by Organization ID |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`  |
 
 
 
@@ -269,10 +269,10 @@ scw keymanager key protect <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to apply key protection to                                    | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to apply key protection to | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -289,10 +289,10 @@ scw keymanager key rotate <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to rotate                                                     | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to rotate | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -309,10 +309,10 @@ scw keymanager key unprotect <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key to remove key protection from                                 | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to remove key protection from | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -329,15 +329,15 @@ scw keymanager key update <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                             | Description                                                                 | Argument Specifications                                     |
-|----------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id                           | ID of the key to update                                                     | Required                                                    |
-| name                             | (Optional) Updated name of the key                                          |                                                             |
-| description                      | (Optional) Updated description of the key                                   |                                                             |
-| tags.{index}                     | (Optional) Updated list of the key's tags                                   |                                                             |
-| rotation-policy.rotation-period  | Rotation period                                                             |                                                             |
-| rotation-policy.next-rotation-at | Key next rotation date                                                      |                                                             |
-| region                           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| key-id | ID of the key to update | Required  |
+| name | (Optional) Updated name of the key |   |
+| description | (Optional) Updated description of the key |   |
+| tags.{index} | (Optional) Updated list of the key's tags |   |
+| rotation-policy.rotation-period | Rotation period |   |
+| rotation-policy.next-rotation-at | Key next rotation date |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`  |
 
 
 
