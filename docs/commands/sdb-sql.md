@@ -20,10 +20,10 @@ scw sdb-sql backup export <backup-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| backup-id | UUID of the Serverless SQL Database backup. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name      | Description                                                                 | Argument Specifications                 |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| backup-id | UUID of the Serverless SQL Database backup.                                 | Required                                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -40,10 +40,10 @@ scw sdb-sql backup get <backup-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| backup-id | UUID of the Serverless SQL Database backup. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name      | Description                                                                 | Argument Specifications                 |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| backup-id | UUID of the Serverless SQL Database backup.                                 | Required                                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -60,13 +60,13 @@ scw sdb-sql backup list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Filter by the UUID of the Scaleway project. |   |
-| database-id | Filter by the UUID of the Serverless SQL Database. | Required  |
-| order-by | Sorting criteria. One of `created_at_asc`, `created_at_desc`. | One of: `created_at_desc`, `created_at_asc`  |
-| organization-id | Filter by the UUID of the Scaleway organization. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`  |
+| Name            | Description                                                                 | Argument Specifications                        |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| project-id      | Filter by the UUID of the Scaleway project.                                 |                                                |
+| database-id     | Filter by the UUID of the Serverless SQL Database.                          | Required                                       |
+| order-by        | Sorting criteria. One of `created_at_asc`, `created_at_desc`.               | One of: `created_at_desc`, `created_at_asc`    |
+| organization-id | Filter by the UUID of the Scaleway organization.                            |                                                |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -88,14 +88,14 @@ scw sdb-sql database create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | The name of the Serverless SQL Database to be created. | Required  |
-| cpu-min | The minimum number of CPU units for your Serverless SQL Database. | Required  |
-| cpu-max | The maximum number of CPU units for your Serverless SQL Database. | Required  |
-| from-backup-id | The ID of the backup to create the database from. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name           | Description                                                                 | Argument Specifications                 |
+|----------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| project-id     | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| name           | The name of the Serverless SQL Database to be created.                      | Required                                |
+| cpu-min        | The minimum number of CPU units for your Serverless SQL Database.           | Required                                |
+| cpu-max        | The maximum number of CPU units for your Serverless SQL Database.           | Required                                |
+| from-backup-id | The ID of the backup to create the database from.                           |                                         |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -112,10 +112,10 @@ scw sdb-sql database delete <database-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| database-id | UUID of the Serverless SQL Database. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| database-id | UUID of the Serverless SQL Database.                                        | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -132,10 +132,10 @@ scw sdb-sql database get <database-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| database-id | UUID of the Serverless SQL DB database. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| database-id | UUID of the Serverless SQL DB database.                                     | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -152,13 +152,13 @@ scw sdb-sql database list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| name | Filter by the name of the database |   |
-| order-by | Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
-| organization-id | Filter by the UUID of the Scaleway organization |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`  |
+| Name            | Description                                                                           | Argument Specifications                                              |
+|-----------------|---------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| project-id      | Project ID to use. If none is passed the default project ID will be used              |                                                                      |
+| name            | Filter by the name of the database                                                    |                                                                      |
+| order-by        | Sorting criteria. One of `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
+| organization-id | Filter by the UUID of the Scaleway organization                                       |                                                                      |
+| region          | Region to target. If none is passed will use default region from the config           | Default: `fr-par`<br />One of: `fr-par`, `all`                       |
 
 
 
@@ -175,11 +175,11 @@ scw sdb-sql database restore [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| database-id | UUID of the Serverless SQL Database. | Required  |
-| backup-id | UUID of the Serverless SQL Database backup to restore. | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| database-id | UUID of the Serverless SQL Database.                                        | Required                                |
+| backup-id   | UUID of the Serverless SQL Database backup to restore.                      | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -196,12 +196,12 @@ scw sdb-sql database update <database-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| database-id | UUID of the Serverless SQL Database. | Required  |
-| cpu-min | The minimum number of CPU units for your Serverless SQL Database. |   |
-| cpu-max | The maximum number of CPU units for your Serverless SQL Database. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| database-id | UUID of the Serverless SQL Database.                                        | Required                                |
+| cpu-min     | The minimum number of CPU units for your Serverless SQL Database.           |                                         |
+| cpu-max     | The maximum number of CPU units for your Serverless SQL Database.           |                                         |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
