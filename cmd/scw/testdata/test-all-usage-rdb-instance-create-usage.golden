@@ -13,7 +13,7 @@ ARGS:
   [generate-password=true]                       Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols
   [password]                                     Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character
   node-type=DB-DEV-S                             Type of node to use for the Database Instance
-  [is-ha-cluster]                                Defines whether or not High-Availability is enabled
+  [high-availability-mode]                       Defines the High-Availability mode of the instance (unknown_high_availability_mode | disabled | single_zone | multiple_zone)
   [disable-backup]                               Defines whether or not backups are disabled
   [tags.{index}]                                 Tags to apply to the Database Instance
   [init-settings.{index}.name]                   
@@ -31,6 +31,9 @@ ARGS:
   [encryption.enabled]                                          
   [organization-id]                                             Organization ID to use. If none is passed the default organization ID will be used
   [region=fr-par]                                               Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
+  [is-ha-cluster]   Defines whether or not High-Availability is enabled
 
 FLAGS:
   -h, --help                help for create
