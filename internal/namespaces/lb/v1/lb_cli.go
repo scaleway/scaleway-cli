@@ -2797,7 +2797,7 @@ func lbACLCreate() *core.Command {
 			},
 			{
 				Name:       "match.ips-edge-services",
-				Short:      `Defines whether Edge Services IPs should be matched`,
+				Short:      `Defines whether Edge Services IPs should be matched. If set to ` + "`" + `true` + "`" + `, restricts all connections except for Edge Services`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2982,7 +2982,7 @@ func lbACLUpdate() *core.Command {
 			},
 			{
 				Name:       "match.ips-edge-services",
-				Short:      `Defines whether Edge Services IPs should be matched`,
+				Short:      `Defines whether Edge Services IPs should be matched. If set to ` + "`" + `true` + "`" + `, restricts all connections except for Edge Services`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -3167,7 +3167,7 @@ func lbACLSet() *core.Command {
 			},
 			{
 				Name:       "acls.{index}.match.ips-edge-services",
-				Short:      `Defines whether Edge Services IPs should be matched`,
+				Short:      `Defines whether Edge Services IPs should be matched. If set to ` + "`" + `true` + "`" + `, restricts all connections except for Edge Services`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
