@@ -104,502 +104,502 @@ few seconds ago  clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "timestamp": "2026-08-07T18:35:31.317474182+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317472459+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://docs.docker.com/get-started/"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317470586+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "For more examples and ideas, visit:"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317467489+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317465796+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://hub.docker.com/"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317463952+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Share images, automate workflows, and more with a free Docker ID:"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317462129+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317460385+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " $ docker run -it ubuntu bash"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317457831+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To try something more ambitious, you can run an Ubuntu container with:"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317455907+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317454184+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    to your terminal."
   },
   {
-    "timestamp": "2026-08-07T18:35:31.31745236+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317450567+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    executable that produces the output you are currently reading."
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317448613+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 3. The Docker daemon created a new container from that image which runs the"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317446479+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    (amd64)"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317444626+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317442672+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 1. The Docker client contacted the Docker daemon."
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317440789+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To generate this message, Docker took the following steps:"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317438775+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317435629+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "This message shows that your installation appears to be working correctly."
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317432042+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Hello from Docker!"
   },
   {
-    "timestamp": "2026-08-07T18:35:31.317395363+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213219824+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213218101+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://docs.docker.com/get-started/"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213216167+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "For more examples and ideas, visit:"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213209934+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:34:10.21319183+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://hub.docker.com/"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213189466+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Share images, automate workflows, and more with a free Docker ID:"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213187111+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213184847+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " $ docker run -it ubuntu bash"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213182373+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To try something more ambitious, you can run an Ubuntu container with:"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213179677+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213177283+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    to your terminal."
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213174498+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213171853+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    executable that produces the output you are currently reading."
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213169198+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 3. The Docker daemon created a new container from that image which runs the"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213166743+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    (amd64)"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213164349+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213161543+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 1. The Docker client contacted the Docker daemon."
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213159109+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To generate this message, Docker took the following steps:"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213156664+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213153458+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "This message shows that your installation appears to be working correctly."
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213149992+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Hello from Docker!"
   },
   {
-    "timestamp": "2026-08-07T18:34:10.213115286+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347034348+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347032615+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://docs.docker.com/get-started/"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347030731+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "For more examples and ideas, visit:"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347028587+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347026864+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://hub.docker.com/"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347025031+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Share images, automate workflows, and more with a free Docker ID:"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347023247+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347021504+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " $ docker run -it ubuntu bash"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.34701916+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To try something more ambitious, you can run an Ubuntu container with:"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347017225+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347015442+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    to your terminal."
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347013308+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347010913+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    executable that produces the output you are currently reading."
   },
   {
-    "timestamp": "2026-08-07T18:33:29.34700908+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 3. The Docker daemon created a new container from that image which runs the"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347007126+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    (amd64)"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347005273+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347003299+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 1. The Docker client contacted the Docker daemon."
   },
   {
-    "timestamp": "2026-08-07T18:33:29.347001005+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To generate this message, Docker took the following steps:"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.346999061+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:29.346996065+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "This message shows that your installation appears to be working correctly."
   },
   {
-    "timestamp": "2026-08-07T18:33:29.346992779+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Hello from Docker!"
   },
   {
-    "timestamp": "2026-08-07T18:33:29.346967432+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216044656+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216042482+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://docs.docker.com/get-started/"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216039887+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "For more examples and ideas, visit:"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216036951+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216034837+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://hub.docker.com/"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216032393+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Share images, automate workflows, and more with a free Docker ID:"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216029708+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216027233+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " $ docker run -it ubuntu bash"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216024328+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To try something more ambitious, you can run an Ubuntu container with:"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216021643+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216019248+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    to your terminal."
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216016633+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216013748+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    executable that produces the output you are currently reading."
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216011083+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 3. The Docker daemon created a new container from that image which runs the"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216008508+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    (amd64)"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216005973+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 2. The Docker daemon pulled the \"hello-world\" image from the Docker Hub."
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216003388+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 1. The Docker client contacted the Docker daemon."
   },
   {
-    "timestamp": "2026-08-07T18:33:01.216000844+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To generate this message, Docker took the following steps:"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.215997557+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:33:01.21599345+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "This message shows that your installation appears to be working correctly."
   },
   {
-    "timestamp": "2026-08-07T18:33:01.215989643+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Hello from Docker!"
   },
   {
-    "timestamp": "2026-08-07T18:33:01.215953364+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:32:44.96699286+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966991116+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://docs.docker.com/get-started/"
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966989223+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "For more examples and ideas, visit:"
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966986538+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966984805+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " https://hub.docker.com/"
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966982871+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "Share images, automate workflows, and more with a free Docker ID:"
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966980977+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966979184+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " $ docker run -it ubuntu bash"
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966976569+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "To try something more ambitious, you can run an Ubuntu container with:"
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966974676+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": ""
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966972912+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": "    to your terminal."
   },
   {
-    "timestamp": "2026-08-07T18:32:44.966970347+02:00",
+    "timestamp": "1970-01-01T00:00:00.0Z",
     "resource_instance": "clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp",
     "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
   }
