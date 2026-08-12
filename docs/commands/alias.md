@@ -30,10 +30,10 @@ scw alias create <alias ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| alias | Alias name | Required  |
-| command | Command to create an alias for |   |
+| Name    | Description                    | Argument Specifications |
+|---------|--------------------------------|-------------------------|
+| alias   | Alias name                     | Required                |
+| command | Command to create an alias for |                         |
 
 
 **Examples:**
@@ -67,9 +67,9 @@ scw alias delete <alias ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| alias | alias name |   |
+| Name  | Description | Argument Specifications |
+|-------|-------------|-------------------------|
+| alias | alias name  |                         |
 
 
 
@@ -88,11 +88,11 @@ scw alias list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by |  | Default: `command_asc`<br />One of: `command_asc`, `command_desc`, `alias_asc`, `alias_desc`  |
-| command | filter command |   |
-| alias | filter alias |   |
+| Name     | Description    | Argument Specifications                                                                      |
+|----------|----------------|----------------------------------------------------------------------------------------------|
+| order-by |                | Default: `command_asc`<br />One of: `command_asc`, `command_desc`, `alias_asc`, `alias_desc` |
+| command  | filter command |                                                                                              |
+| alias    | filter alias   |                                                                                              |
 
 
 
