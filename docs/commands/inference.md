@@ -20,22 +20,22 @@ scw inference deployment create [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| name | Name of the deployment | Required<br />Default: `<generated>`  |
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| model-id | ID of the model to use | Required  |
-| accept-eula | Accept the model's End User License Agreement (EULA). |   |
-| node-type-name | Name of the node type to use | Required  |
-| tags.{index} | List of tags to apply to the deployment |   |
-| min-size | Defines the minimum size of the pool |   |
-| max-size | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |   |
-| endpoints.{index}.public-network | Set the endpoint as public |   |
-| endpoints.{index}.is-public | Will configure your public endpoint if true | Default: `true`  |
-| endpoints.{index}.private-network.private-network-id |  |   |
-| endpoints.{index}.disable-auth | Disable the authentication on the endpoint. | Default: `false`  |
-| quantization.bits | The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name                                                 | Description                                                                                                                   | Argument Specifications                 |
+|------------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| name                                                 | Name of the deployment                                                                                                        | Required<br />Default: `<generated>`    |
+| project-id                                           | Project ID to use. If none is passed the default project ID will be used                                                      |                                         |
+| model-id                                             | ID of the model to use                                                                                                        | Required                                |
+| accept-eula                                          | Accept the model's End User License Agreement (EULA).                                                                         |                                         |
+| node-type-name                                       | Name of the node type to use                                                                                                  | Required                                |
+| tags.{index}                                         | List of tags to apply to the deployment                                                                                       |                                         |
+| min-size                                             | Defines the minimum size of the pool                                                                                          |                                         |
+| max-size                                             | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |                                         |
+| endpoints.{index}.public-network                     | Set the endpoint as public                                                                                                    |                                         |
+| endpoints.{index}.is-public                          | Will configure your public endpoint if true                                                                                   | Default: `true`                         |
+| endpoints.{index}.private-network.private-network-id |                                                                                                                               |                                         |
+| endpoints.{index}.disable-auth                       | Disable the authentication on the endpoint.                                                                                   | Default: `false`                        |
+| quantization.bits                                    | The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.        |                                         |
+| region                                               | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -52,10 +52,10 @@ scw inference deployment delete <deployment-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| deployment-id | ID of the deployment to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment to delete                                              | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -72,10 +72,10 @@ scw inference deployment get <deployment-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| deployment-id | ID of the deployment to get | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id | ID of the deployment to get                                                 | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -93,10 +93,10 @@ scw inference deployment get-certificate [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| deployment-id |  | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id |                                                                             | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -113,14 +113,14 @@ scw inference deployment list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Order in which to return results | One of: `created_at_desc`, `created_at_asc`, `name_asc`, `name_desc`  |
-| project-id | Filter by Project ID |   |
-| name | Filter by deployment name |   |
-| tags.{index} | Filter by tags |   |
-| organization-id | Filter by Organization ID |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`  |
+| Name            | Description                                                                 | Argument Specifications                                              |
+|-----------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `created_at_desc`, `created_at_asc`, `name_asc`, `name_desc` |
+| project-id      | Filter by Project ID                                                        |                                                                      |
+| name            | Filter by deployment name                                                   |                                                                      |
+| tags.{index}    | Filter by tags                                                              |                                                                      |
+| organization-id | Filter by Organization ID                                                   |                                                                      |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                       |
 
 
 
@@ -137,16 +137,16 @@ scw inference deployment update <deployment-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| deployment-id | ID of the deployment to update | Required  |
-| name | Name of the deployment |   |
-| tags.{index} | List of tags to apply to the deployment |   |
-| min-size | Defines the new minimum size of the pool |   |
-| max-size | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |   |
-| model-id | Id of the model to set to the deployment |   |
-| quantization.bits | The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name              | Description                                                                                                                   | Argument Specifications                 |
+|-------------------|-------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id     | ID of the deployment to update                                                                                                | Required                                |
+| name              | Name of the deployment                                                                                                        |                                         |
+| tags.{index}      | List of tags to apply to the deployment                                                                                       |                                         |
+| min-size          | Defines the new minimum size of the pool                                                                                      |                                         |
+| max-size          | Defines the maximum size of the pool. Currently, autoscaling is not yet supported, and this value must be equal to `min_size` |                                         |
+| model-id          | Id of the model to set to the deployment                                                                                      |                                         |
+| quantization.bits | The number of bits each model parameter should be quantized to. The quantization method is chosen based on this value.        |                                         |
+| region            | Region to target. If none is passed will use default region from the config                                                   | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -168,13 +168,13 @@ scw inference endpoint create <deployment-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| deployment-id | ID of the deployment to create the endpoint for | Required  |
-| endpoint.public-network | Set the endpoint as public |   |
-| endpoint.private-network.private-network-id |  |   |
-| endpoint.disable-auth | Disable the authentication on the endpoint. | Default: `false`  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name                                        | Description                                                                 | Argument Specifications                 |
+|---------------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| deployment-id                               | ID of the deployment to create the endpoint for                             | Required                                |
+| endpoint.public-network                     | Set the endpoint as public                                                  |                                         |
+| endpoint.private-network.private-network-id |                                                                             |                                         |
+| endpoint.disable-auth                       | Disable the authentication on the endpoint.                                 | Default: `false`                        |
+| region                                      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -191,10 +191,10 @@ scw inference endpoint delete <endpoint-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| endpoint-id | ID of the endpoint to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name        | Description                                                                 | Argument Specifications                 |
+|-------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| endpoint-id | ID of the endpoint to delete                                                | Required                                |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -211,11 +211,11 @@ scw inference endpoint update <endpoint-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| endpoint-id | ID of the endpoint to update | Required  |
-| disable-auth | Disable the authentication on the endpoint. |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name         | Description                                                                 | Argument Specifications                 |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| endpoint-id  | ID of the endpoint to update                                                | Required                                |
+| disable-auth | Disable the authentication on the endpoint.                                 |                                         |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -237,10 +237,10 @@ scw inference model delete <model-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| model-id | ID of the model to delete | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name     | Description                                                                 | Argument Specifications                 |
+|----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| model-id | ID of the model to delete                                                   | Required                                |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -257,10 +257,10 @@ scw inference model get <model-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| model-id | ID of the model to get | Required  |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name     | Description                                                                 | Argument Specifications                 |
+|----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| model-id | ID of the model to get                                                      | Required                                |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -277,13 +277,13 @@ scw inference model import [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| name | Name of the model | Required<br />Default: `<generated>`  |
-| project-id | Project ID to use. If none is passed the default project ID will be used |   |
-| source.url |  |   |
-| source.secret |  |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`  |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| name          | Name of the model                                                           | Required<br />Default: `<generated>`    |
+| project-id    | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| source.url    |                                                                             |                                         |
+| source.secret |                                                                             |                                         |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -300,14 +300,14 @@ scw inference model list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| order-by | Order in which to return results | One of: `display_rank_asc`, `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
-| project-id | Filter by Project ID |   |
-| name | Filter by model name |   |
-| tags.{index} | Filter by tags |   |
-| organization-id | Filter by Organization ID |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`  |
+| Name            | Description                                                                 | Argument Specifications                                                                  |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `display_rank_asc`, `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
+| project-id      | Filter by Project ID                                                        |                                                                                          |
+| name            | Filter by model name                                                        |                                                                                          |
+| tags.{index}    | Filter by tags                                                              |                                                                                          |
+| organization-id | Filter by Organization ID                                                   |                                                                                          |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                           |
 
 
 
@@ -341,10 +341,10 @@ scw inference node-type list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| include-disabled-types | Include disabled node types in the response |   |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`  |
+| Name                   | Description                                                                 | Argument Specifications                        |
+|------------------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| include-disabled-types | Include disabled node types in the response                                 |                                                |
+| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 

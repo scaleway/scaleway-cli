@@ -20,16 +20,16 @@ scw environmental-footprint data get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| start-date | Start date (inclusive) of the period for which you want to retrieve impact data (ISO 8601 format, e.g. 2025-05-01T00:00:00Z). | Required  |
-| end-date | End date (exclusive) of the period for which you want to retrieve impact data (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). Defaults to today's date. |   |
-| regions.{index} | List of regions to filter by (e.g. `fr-par`). Defaults to all regions. |   |
-| zones.{index} | List of zones to filter by (e.g. `fr-par-1`). Defaults to all zones. |   |
-| project-ids.{index} | List of Project IDs to filter by. Defaults to all Projects in the Organization. |   |
-| service-categories.{index} | List of service categories to filter by. Defaults to all service categories. | One of: `unknown_service_category`, `baremetal`, `compute`, `storage`, `network`, `containers`, `databases`, `ai`, `serverless`  |
-| product-categories.{index} | List of product categories to filter by. Defaults to all product categories. | One of: `unknown_product_category`, `apple_silicon`, `block_storage`, `dedibox`, `elastic_metal`, `instances`, `object_storage`, `load_balancer`, `kubernetes`, `managed_relational_databases`, `managed_mongodb`, `managed_redis`, `managed_inference`, `generative_apis`, `serverless_functions`, `serverless_containers`, `serverless_jobs`  |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name                       | Description                                                                                                                                                          | Argument Specifications                                                                                                                                                                                                                                                                                                                        |
+|----------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| start-date                 | Start date (inclusive) of the period for which you want to retrieve impact data (ISO 8601 format, e.g. 2025-05-01T00:00:00Z).                                        | Required                                                                                                                                                                                                                                                                                                                                       |
+| end-date                   | End date (exclusive) of the period for which you want to retrieve impact data (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). Defaults to today's date. |                                                                                                                                                                                                                                                                                                                                                |
+| regions.{index}            | List of regions to filter by (e.g. `fr-par`). Defaults to all regions.                                                                                               |                                                                                                                                                                                                                                                                                                                                                |
+| zones.{index}              | List of zones to filter by (e.g. `fr-par-1`). Defaults to all zones.                                                                                                 |                                                                                                                                                                                                                                                                                                                                                |
+| project-ids.{index}        | List of Project IDs to filter by. Defaults to all Projects in the Organization.                                                                                      |                                                                                                                                                                                                                                                                                                                                                |
+| service-categories.{index} | List of service categories to filter by. Defaults to all service categories.                                                                                         | One of: `unknown_service_category`, `baremetal`, `compute`, `storage`, `network`, `containers`, `databases`, `ai`, `serverless`                                                                                                                                                                                                                |
+| product-categories.{index} | List of product categories to filter by. Defaults to all product categories.                                                                                         | One of: `unknown_product_category`, `apple_silicon`, `block_storage`, `dedibox`, `elastic_metal`, `instances`, `object_storage`, `load_balancer`, `kubernetes`, `managed_relational_databases`, `managed_mongodb`, `managed_redis`, `managed_inference`, `generative_apis`, `serverless_functions`, `serverless_containers`, `serverless_jobs` |
+| organization-id            | Organization ID to use. If none is passed the default organization ID will be used                                                                                   |                                                                                                                                                                                                                                                                                                                                                |
 
 
 
@@ -51,11 +51,11 @@ scw environmental-footprint report get [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| date | The start date of the period for which you want to download a report (ISO 8601 format, e.g. 2025-05-01T00:00:00Z). | Required  |
-| type | Type of report to download (e.g. `monthly`). | One of: `unknown_report_type`, `monthly`, `yearly`  |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                                                        | Argument Specifications                            |
+|-----------------|--------------------------------------------------------------------------------------------------------------------|----------------------------------------------------|
+| date            | The start date of the period for which you want to download a report (ISO 8601 format, e.g. 2025-05-01T00:00:00Z). | Required                                           |
+| type            | Type of report to download (e.g. `monthly`).                                                                       | One of: `unknown_report_type`, `monthly`, `yearly` |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used                                 |                                                    |
 
 
 
@@ -72,11 +72,11 @@ scw environmental-footprint report list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| start-date | Start date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is inclusive. | Required  |
-| end-date | End date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is inclusive. Defaults to today's date. |   |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |   |
+| Name            | Description                                                                                                                                 | Argument Specifications |
+|-----------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| start-date      | Start date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is inclusive.                         | Required                |
+| end-date        | End date of the search period (ISO 8601 format, with time in UTC, `YYYY-MM-DDTHH:MM:SSZ`). The date is inclusive. Defaults to today's date. |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used                                                          |                         |
 
 
 
