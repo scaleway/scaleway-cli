@@ -20,15 +20,15 @@ scw vpc ingress-rule create [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                                                    | Argument Specifications                                               |
-|----------------------------|----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id                     | ID of the VPC this rule will belong to                                                                         | Required                                                              |
-| source                     | Source network to match ingress traffic on. Can be IPv6 or IPv4                                                | Required                                                              |
-| nexthop-resource-ip        | IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network | Required                                                              |
-| nexthop-private-network-id | ID of the Private Network the destination resource is in                                                       | Required                                                              |
-| description                | Description for this ingress rule                                                                              |                                                                       |
-| tags.{index}               | Tags for this ingress rule                                                                                     |                                                                       |
-| region                     | Region to target. If none is passed will use default region from the config                                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | ID of the VPC this rule will belong to | Required  |
+| source | Source network to match ingress traffic on. Can be IPv6 or IPv4 | Required  |
+| nexthop-resource-ip | IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network | Required  |
+| nexthop-private-network-id | ID of the Private Network the destination resource is in | Required  |
+| description | Description for this ingress rule |   |
+| tags.{index} | Tags for this ingress rule |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -45,10 +45,10 @@ scw vpc ingress-rule delete <rule-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name    | Description                                                                 | Argument Specifications                                               |
-|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| rule-id | ID of the ingress rule to delete                                            | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| rule-id | ID of the ingress rule to delete | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -65,10 +65,10 @@ scw vpc ingress-rule get <rule-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name    | Description                                                                 | Argument Specifications                                               |
-|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| rule-id | ID of the ingress rule to return                                            | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| rule-id | ID of the ingress rule to return | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -85,17 +85,17 @@ scw vpc ingress-rule list [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                                                          | Argument Specifications                                                                                       |
-|----------------------------|----------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------|
-| order-by                   | Sort order of the returned ingress rules                                                                             | One of: `created_at_asc`, `created_at_desc`, `source_asc`, `source_desc`, `prefix_len_asc`, `prefix_len_desc` |
-| vpc-id                     | ID of the VPC to filter for                                                                                          |                                                                                                               |
-| nexthop-resource-ip        | Next hop IP to filter for                                                                                            |                                                                                                               |
-| nexthop-private-network-id | Next hop Private Network ID to filter for. Only ingress rules with this Private Network as next hop will be returned |                                                                                                               |
-| is-ipv6                    | Whether to return only IPv4 or IPv6 ingress rules                                                                    |                                                                                                               |
-| tags.{index}               | Tags to filter for. Only ingress rules with one or more matching tags will be returned                               |                                                                                                               |
-| project-id                 | Project ID to filter for. Only ingress rules belonging to this Project will be returned                              |                                                                                                               |
-| organization-id            | Organization ID to filter for. Only ingress rules belonging to this Organization will be returned                    |                                                                                                               |
-| region                     | Region to target. If none is passed will use default region from the config                                          | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`                                  |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Sort order of the returned ingress rules | One of: `created_at_asc`, `created_at_desc`, `source_asc`, `source_desc`, `prefix_len_asc`, `prefix_len_desc`  |
+| vpc-id | ID of the VPC to filter for |   |
+| nexthop-resource-ip | Next hop IP to filter for |   |
+| nexthop-private-network-id | Next hop Private Network ID to filter for. Only ingress rules with this Private Network as next hop will be returned |   |
+| is-ipv6 | Whether to return only IPv4 or IPv6 ingress rules |   |
+| tags.{index} | Tags to filter for. Only ingress rules with one or more matching tags will be returned |   |
+| project-id | Project ID to filter for. Only ingress rules belonging to this Project will be returned |   |
+| organization-id | Organization ID to filter for. Only ingress rules belonging to this Organization will be returned |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
 
 
 
@@ -112,15 +112,15 @@ scw vpc ingress-rule update <rule-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                                                    | Argument Specifications                                               |
-|----------------------------|----------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| rule-id                    | ID of the ingress rule to update                                                                               | Required                                                              |
-| source                     | Source network to match ingress traffic on. Can be IPv4 or IPv6                                                |                                                                       |
-| nexthop-resource-ip        | IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network |                                                                       |
-| nexthop-private-network-id | ID of the Private Network the destination resource is in                                                       |                                                                       |
-| description                | Description to set for this ingress rule                                                                       |                                                                       |
-| tags.{index}               | Tags to set for this ingress rule                                                                              |                                                                       |
-| region                     | Region to target. If none is passed will use default region from the config                                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| rule-id | ID of the ingress rule to update | Required  |
+| source | Source network to match ingress traffic on. Can be IPv4 or IPv6 |   |
+| nexthop-resource-ip | IP of the local resource to redirect ingress traffic to. IP version must be consistent with the source network |   |
+| nexthop-private-network-id | ID of the Private Network the destination resource is in |   |
+| description | Description to set for this ingress rule |   |
+| tags.{index} | Tags to set for this ingress rule |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -145,15 +145,15 @@ scw vpc private-network create [arg=value ...]
 
 **Arguments:**
 
-| Name                              | Description                                                                      | Argument Specifications                                               |
-|-----------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| name                              | Name for the Private Network                                                     | Required<br />Default: `<generated>`                                  |
-| project-id                        | Project ID to use. If none is passed the default project ID will be used         |                                                                       |
-| tags.{index}                      | Tags for the Private Network                                                     |                                                                       |
-| subnets.{index}                   | Private Network subnets CIDR                                                     |                                                                       |
-| vpc-id                            | VPC in which to create the Private Network                                       |                                                                       |
-| default-route-propagation-enabled | Defines whether default v4 and v6 routes are propagated for this Private Network |                                                                       |
-| region                            | Region to target. If none is passed will use default region from the config      | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| name | Name for the Private Network | Required<br />Default: `<generated>`  |
+| project-id | Project ID to use. If none is passed the default project ID will be used |   |
+| tags.{index} | Tags for the Private Network |   |
+| subnets.{index} | Private Network subnets CIDR |   |
+| vpc-id | VPC in which to create the Private Network |   |
+| default-route-propagation-enabled | Defines whether default v4 and v6 routes are propagated for this Private Network |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -170,10 +170,10 @@ scw vpc private-network delete <private-network-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                                 | Argument Specifications                                               |
-|--------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| private-network-id | Private Network ID                                                          | Required                                                              |
-| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| private-network-id | Private Network ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -190,10 +190,10 @@ scw vpc private-network enable-dhcp [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                                 | Argument Specifications                                               |
-|--------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| private-network-id | Private Network ID                                                          | Required                                                              |
-| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| private-network-id | Private Network ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -210,10 +210,10 @@ scw vpc private-network get <private-network-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name               | Description                                                                 | Argument Specifications                                               |
-|--------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| private-network-id | Private Network ID                                                          | Required                                                              |
-| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| private-network-id | Private Network ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -230,18 +230,18 @@ scw vpc private-network list [arg=value ...]
 
 **Arguments:**
 
-| Name                        | Description                                                                                            | Argument Specifications                                                      |
-|-----------------------------|--------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| order-by                    | Sort order of the returned Private Networks                                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
-| name                        | Name to filter for. Only Private Networks with names containing this string will be returned           |                                                                              |
-| tags.{index}                | Tags to filter for. Only Private Networks with one or more matching tags will be returned              |                                                                              |
-| project-id                  | Project ID to filter for. Only Private Networks belonging to this Project will be returned             |                                                                              |
-| private-network-ids.{index} | Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned        |                                                                              |
-| vpc-id                      | VPC ID to filter for. Only Private Networks belonging to this VPC will be returned                     |                                                                              |
-| dhcp-enabled                | DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned |                                                                              |
-| s3-integration-enabled      | Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned |                                                                              |
-| organization-id             | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned   |                                                                              |
-| region                      | Region to target. If none is passed will use default region from the config                            | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Sort order of the returned Private Networks | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
+| name | Name to filter for. Only Private Networks with names containing this string will be returned |   |
+| tags.{index} | Tags to filter for. Only Private Networks with one or more matching tags will be returned |   |
+| project-id | Project ID to filter for. Only Private Networks belonging to this Project will be returned |   |
+| private-network-ids.{index} | Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned |   |
+| vpc-id | VPC ID to filter for. Only Private Networks belonging to this VPC will be returned |   |
+| dhcp-enabled | DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned |   |
+| s3-integration-enabled | Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned |   |
+| organization-id | Organization ID to filter for. Only Private Networks belonging to this Organization will be returned |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
 
 
 
@@ -258,13 +258,13 @@ scw vpc private-network update <private-network-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                              | Description                                                                      | Argument Specifications                                               |
-|-----------------------------------|----------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| private-network-id                | Private Network ID                                                               | Required                                                              |
-| name                              | Name for the Private Network                                                     |                                                                       |
-| tags.{index}                      | Tags for the Private Network                                                     |                                                                       |
-| default-route-propagation-enabled | Defines whether default v4 and v6 routes are propagated for this Private Network |                                                                       |
-| region                            | Region to target. If none is passed will use default region from the config      | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| private-network-id | Private Network ID | Required  |
+| name | Name for the Private Network |   |
+| tags.{index} | Tags for the Private Network |   |
+| default-route-propagation-enabled | Defines whether default v4 and v6 routes are propagated for this Private Network |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -286,16 +286,16 @@ scw vpc route create [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                 | Argument Specifications                                               |
-|----------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| description                | Route description                                                           |                                                                       |
-| tags.{index}               | Tags of the Route                                                           |                                                                       |
-| vpc-id                     | VPC the Route belongs to                                                    |                                                                       |
-| destination                | Destination of the Route                                                    |                                                                       |
-| nexthop-resource-id        | ID of the nexthop resource                                                  |                                                                       |
-| nexthop-private-network-id | ID of the nexthop private network                                           |                                                                       |
-| nexthop-vpc-connector-id   | ID of the nexthop VPC Connector                                             |                                                                       |
-| region                     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| description | Route description |   |
+| tags.{index} | Tags of the Route |   |
+| vpc-id | VPC the Route belongs to |   |
+| destination | Destination of the Route |   |
+| nexthop-resource-id | ID of the nexthop resource |   |
+| nexthop-private-network-id | ID of the nexthop private network |   |
+| nexthop-vpc-connector-id | ID of the nexthop VPC Connector |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -312,10 +312,10 @@ scw vpc route delete <route-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name     | Description                                                                 | Argument Specifications                                               |
-|----------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| route-id | Route ID                                                                    | Required                                                              |
-| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| route-id | Route ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -332,10 +332,10 @@ scw vpc route enable-routing <vpc-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                               |
-|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id | VPC ID                                                                      | Required                                                              |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | VPC ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -352,10 +352,10 @@ scw vpc route get <route-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name     | Description                                                                 | Argument Specifications                                               |
-|----------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| route-id | Route ID                                                                    | Required                                                              |
-| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| route-id | Route ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -372,18 +372,18 @@ scw vpc route list [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                                                         | Argument Specifications                                                                                                                    |
-|----------------------------|---------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------|
-| order-by                   | Sort order of the returned routes                                                                                   | One of: `created_at_asc`, `created_at_desc`, `destination_asc`, `destination_desc`, `prefix_len_asc`, `prefix_len_desc`                    |
-| vpc-id                     | VPC to filter for. Only routes within this VPC will be returned                                                     |                                                                                                                                            |
-| nexthop-resource-id        | Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned               |                                                                                                                                            |
-| nexthop-private-network-id | Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned |                                                                                                                                            |
-| nexthop-resource-type      | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned           | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic`, `vpn_gateway` |
-| nexthop-vpc-connector-id   | Next hop VPC connector ID to filter for. Only routes with a matching next hop VPC connector ID will be returned     |                                                                                                                                            |
-| contains                   | Only routes whose destination is contained in this subnet will be returned                                          |                                                                                                                                            |
-| tags.{index}               | Tags to filter for, only routes with one or more matching tags will be returned                                     |                                                                                                                                            |
-| is-ipv6                    | Only routes with an IPv6 destination will be returned                                                               |                                                                                                                                            |
-| region                     | Region to target. If none is passed will use default region from the config                                         | Default: `fr-par`<br />One of: `all`                                                                                                       |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Sort order of the returned routes | One of: `created_at_asc`, `created_at_desc`, `destination_asc`, `destination_desc`, `prefix_len_asc`, `prefix_len_desc`  |
+| vpc-id | VPC to filter for. Only routes within this VPC will be returned |   |
+| nexthop-resource-id | Next hop resource ID to filter for. Only routes with a matching next hop resource ID will be returned |   |
+| nexthop-private-network-id | Next hop private network ID to filter for. Only routes with a matching next hop private network ID will be returned |   |
+| nexthop-resource-type | Next hop resource type to filter for. Only Routes with a matching next hop resource type will be returned | One of: `unknown_type`, `vpc_gateway_network`, `instance_private_nic`, `baremetal_private_nic`, `apple_silicon_private_nic`, `vpn_gateway`  |
+| nexthop-vpc-connector-id | Next hop VPC connector ID to filter for. Only routes with a matching next hop VPC connector ID will be returned |   |
+| contains | Only routes whose destination is contained in this subnet will be returned |   |
+| tags.{index} | Tags to filter for, only routes with one or more matching tags will be returned |   |
+| is-ipv6 | Only routes with an IPv6 destination will be returned |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `all`  |
 
 
 
@@ -400,16 +400,16 @@ scw vpc route update <route-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                       | Description                                                                 | Argument Specifications                                               |
-|----------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| route-id                   | Route ID                                                                    | Required                                                              |
-| description                | Route description                                                           |                                                                       |
-| tags.{index}               | Tags of the Route                                                           |                                                                       |
-| destination                | Destination of the Route                                                    |                                                                       |
-| nexthop-resource-id        | ID of the nexthop resource                                                  |                                                                       |
-| nexthop-private-network-id | ID of the nexthop private network                                           |                                                                       |
-| nexthop-vpc-connector-id   | ID of the nexthop VPC connector                                             |                                                                       |
-| region                     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| route-id | Route ID | Required  |
+| description | Route description |   |
+| tags.{index} | Tags of the Route |   |
+| destination | Destination of the Route |   |
+| nexthop-resource-id | ID of the nexthop resource |   |
+| nexthop-private-network-id | ID of the nexthop private network |   |
+| nexthop-vpc-connector-id | ID of the nexthop VPC connector |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -432,13 +432,13 @@ scw vpc rule edit [arg=value ...]
 
 **Arguments:**
 
-| Name           | Description                                                                                                            | Argument Specifications                     |
-|----------------|------------------------------------------------------------------------------------------------------------------------|---------------------------------------------|
-| vpc-id         | ID of the Network ACL's VPC                                                                                            | Required                                    |
-| is-ipv6        | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type |                                             |
-| default-policy | Action to take for packets which do not match any rules                                                                |                                             |
-| mode           | marshaling used when editing data                                                                                      | Default: `yaml`<br />One of: `yaml`, `json` |
-| region         | Region to target. If none is passed will use default region from the config                                            | Default: `fr-par`                           |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | ID of the Network ACL's VPC | Required  |
+| is-ipv6 | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type |   |
+| default-policy | Action to take for packets which do not match any rules |   |
+| mode | marshaling used when editing data | Default: `yaml`<br />One of: `yaml`, `json`  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`  |
 
 
 
@@ -455,11 +455,11 @@ scw vpc rule get [arg=value ...]
 
 **Arguments:**
 
-| Name    | Description                                                                                                             | Argument Specifications                                               |
-|---------|-------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id  | ID of the Network ACL's VPC                                                                                             | Required                                                              |
-| is-ipv6 | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. | Required                                                              |
-| region  | Region to target. If none is passed will use default region from the config                                             | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | ID of the Network ACL's VPC | Required  |
+| is-ipv6 | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -476,21 +476,21 @@ scw vpc rule set [arg=value ...]
 
 **Arguments:**
 
-| Name                        | Description                                                                                                             | Argument Specifications                                               |
-|-----------------------------|-------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id                      | ID of the Network ACL's VPC                                                                                             | Required                                                              |
-| rules.{index}.protocol      | Protocol to which this rule applies                                                                                     | Required<br />One of: `ANY`, `TCP`, `UDP`, `ICMP`                     |
-| rules.{index}.source        | Source IP range to which this rule applies (CIDR notation with subnet mask)                                             | Required                                                              |
-| rules.{index}.src-port-low  | Starting port of the source port range to which this rule applies (inclusive)                                           | Required                                                              |
-| rules.{index}.src-port-high | Ending port of the source port range to which this rule applies (inclusive)                                             | Required                                                              |
-| rules.{index}.destination   | Destination IP range to which this rule applies (CIDR notation with subnet mask)                                        | Required                                                              |
-| rules.{index}.dst-port-low  | Starting port of the destination port range to which this rule applies (inclusive)                                      | Required                                                              |
-| rules.{index}.dst-port-high | Ending port of the destination port range to which this rule applies (inclusive)                                        | Required                                                              |
-| rules.{index}.action        | Policy to apply to the packet                                                                                           | Required<br />One of: `unknown_action`, `accept`, `drop`              |
-| rules.{index}.description   | Rule description                                                                                                        | Required                                                              |
-| is-ipv6                     | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. | Required                                                              |
-| default-policy              | Action to take for packets which do not match any rules                                                                 | Required<br />One of: `unknown_action`, `accept`, `drop`              |
-| region                      | Region to target. If none is passed will use default region from the config                                             | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | ID of the Network ACL's VPC | Required  |
+| rules.{index}.protocol | Protocol to which this rule applies | Required<br />One of: `ANY`, `TCP`, `UDP`, `ICMP`  |
+| rules.{index}.source | Source IP range to which this rule applies (CIDR notation with subnet mask) | Required  |
+| rules.{index}.src-port-low | Starting port of the source port range to which this rule applies (inclusive) | Required  |
+| rules.{index}.src-port-high | Ending port of the source port range to which this rule applies (inclusive) | Required  |
+| rules.{index}.destination | Destination IP range to which this rule applies (CIDR notation with subnet mask) | Required  |
+| rules.{index}.dst-port-low | Starting port of the destination port range to which this rule applies (inclusive) | Required  |
+| rules.{index}.dst-port-high | Ending port of the destination port range to which this rule applies (inclusive) | Required  |
+| rules.{index}.action | Policy to apply to the packet | Required<br />One of: `unknown_action`, `accept`, `drop`  |
+| rules.{index}.description | Rule description | Required  |
+| is-ipv6 | Defines whether this set of ACL rules is for IPv6 (false = IPv4). Each Network ACL can have rules for only one IP type. | Required  |
+| default-policy | Action to take for packets which do not match any rules | Required<br />One of: `unknown_action`, `accept`, `drop`  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -514,14 +514,14 @@ scw vpc vpc create [arg=value ...]
 
 **Arguments:**
 
-| Name                | Description                                                                 | Argument Specifications                                               |
-|---------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| name                | Name for the VPC                                                            | Required<br />Default: `<generated>`                                  |
-| project-id          | Project ID to use. If none is passed the default project ID will be used    |                                                                       |
-| tags.{index}        | Tags for the VPC                                                            |                                                                       |
-| enable-routing      | Enable routing between Private Networks in the VPC                          |                                                                       |
-| enable-transitivity | Enable packets from peered VPCs to transit through this VPC                 |                                                                       |
-| region              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| name | Name for the VPC | Required<br />Default: `<generated>`  |
+| project-id | Project ID to use. If none is passed the default project ID will be used |   |
+| tags.{index} | Tags for the VPC |   |
+| enable-routing | Enable routing between Private Networks in the VPC |   |
+| enable-transitivity | Enable packets from peered VPCs to transit through this VPC |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -538,10 +538,10 @@ scw vpc vpc delete <vpc-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                               |
-|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id | VPC ID                                                                      | Required                                                              |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | VPC ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -558,10 +558,10 @@ scw vpc vpc get <vpc-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                               |
-|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id | VPC ID                                                                      | Required                                                              |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | VPC ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -578,17 +578,17 @@ scw vpc vpc list [arg=value ...]
 
 **Arguments:**
 
-| Name                   | Description                                                                                | Argument Specifications                                                      |
-|------------------------|--------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| order-by               | Sort order of the returned VPCs                                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
-| name                   | Name to filter for. Only VPCs with names containing this string will be returned           |                                                                              |
-| tags.{index}           | Tags to filter for. Only VPCs with one or more matching tags will be returned              |                                                                              |
-| project-id             | Project ID to filter for. Only VPCs belonging to this Project will be returned             |                                                                              |
-| is-default             | Defines whether to filter only for VPCs which are the default one for their Project        |                                                                              |
-| routing-enabled        | Defines whether to filter only for VPCs which route traffic between their Private Networks |                                                                              |
-| s3-integration-enabled | Defines whether to filter only for VPCs with S3 integration enabled                        |                                                                              |
-| organization-id        | Organization ID to filter for. Only VPCs belonging to this Organization will be returned   |                                                                              |
-| region                 | Region to target. If none is passed will use default region from the config                | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Sort order of the returned VPCs | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
+| name | Name to filter for. Only VPCs with names containing this string will be returned |   |
+| tags.{index} | Tags to filter for. Only VPCs with one or more matching tags will be returned |   |
+| project-id | Project ID to filter for. Only VPCs belonging to this Project will be returned |   |
+| is-default | Defines whether to filter only for VPCs which are the default one for their Project |   |
+| routing-enabled | Defines whether to filter only for VPCs which route traffic between their Private Networks |   |
+| s3-integration-enabled | Defines whether to filter only for VPCs with S3 integration enabled |   |
+| organization-id | Organization ID to filter for. Only VPCs belonging to this Organization will be returned |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
 
 
 
@@ -605,12 +605,12 @@ scw vpc vpc update <vpc-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                               |
-|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-id       | VPC ID                                                                      | Required                                                              |
-| name         | Name for the VPC                                                            |                                                                       |
-| tags.{index} | Tags for the VPC                                                            |                                                                       |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-id | VPC ID | Required  |
+| name | Name for the VPC |   |
+| tags.{index} | Tags for the VPC |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -632,13 +632,13 @@ scw vpc vpc-connector create [arg=value ...]
 
 **Arguments:**
 
-| Name          | Description                                                                                | Argument Specifications                                               |
-|---------------|--------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| name          | Name for the VPC connector                                                                 | Required<br />Default: `<generated>`                                  |
-| tags.{index}  | Tags for the VPC connector                                                                 |                                                                       |
-| vpc-id        | VPC ID to filter for. Only connectors belonging to this VPC will be returned               |                                                                       |
-| target-vpc-id | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |                                                                       |
-| region        | Region to target. If none is passed will use default region from the config                | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| name | Name for the VPC connector | Required<br />Default: `<generated>`  |
+| tags.{index} | Tags for the VPC connector |   |
+| vpc-id | VPC ID to filter for. Only connectors belonging to this VPC will be returned |   |
+| target-vpc-id | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -655,10 +655,10 @@ scw vpc vpc-connector delete <vpc-connector-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name             | Description                                                                 | Argument Specifications                                               |
-|------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-connector-id | VPC connector ID                                                            | Required                                                              |
-| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-connector-id | VPC connector ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -675,10 +675,10 @@ scw vpc vpc-connector get <vpc-connector-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name             | Description                                                                 | Argument Specifications                                               |
-|------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-connector-id | VPC connector ID                                                            | Required                                                              |
-| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-connector-id | VPC connector ID | Required  |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
@@ -695,17 +695,17 @@ scw vpc vpc-connector list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                                    | Argument Specifications                                                      |
-|-----------------|------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
-| order-by        | Sort order of the returned VPC connectors                                                      | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
-| name            | Name to filter for. Only connectors with names containing this string will be returned         |                                                                              |
-| tags.{index}    | Tags to filter for. Only connectors with one or more matching tags will be returned            |                                                                              |
-| project-id      | Project ID to filter for. Only connectors belonging to this Project will be returned           |                                                                              |
-| vpc-id          | VPC ID to filter for. Only connectors belonging to this VPC will be returned                   |                                                                              |
-| target-vpc-id   | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned     |                                                                              |
-| status          | Status of the VPC connector                                                                    | One of: `unknown_vpc_connector_status`, `orphan`, `peered`, `conflict`       |
-| organization-id | Organization ID to filter for. Only connectors belonging to this Organization will be returned |                                                                              |
-| region          | Region to target. If none is passed will use default region from the config                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Sort order of the returned VPC connectors | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
+| name | Name to filter for. Only connectors with names containing this string will be returned |   |
+| tags.{index} | Tags to filter for. Only connectors with one or more matching tags will be returned |   |
+| project-id | Project ID to filter for. Only connectors belonging to this Project will be returned |   |
+| vpc-id | VPC ID to filter for. Only connectors belonging to this VPC will be returned |   |
+| target-vpc-id | Target VPC ID to filter for. Only connectors belonging to this target VPC will be returned |   |
+| status | Status of the VPC connector | One of: `unknown_vpc_connector_status`, `orphan`, `peered`, `conflict`  |
+| organization-id | Organization ID to filter for. Only connectors belonging to this Organization will be returned |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`  |
 
 
 
@@ -722,12 +722,12 @@ scw vpc vpc-connector update <vpc-connector-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name             | Description                                                                 | Argument Specifications                                               |
-|------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
-| vpc-connector-id | VPC connector ID                                                            | Required                                                              |
-| name             | Name for the VPC connector                                                  |                                                                       |
-| tags.{index}     | Tags for the VPC connector                                                  |                                                                       |
-| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| vpc-connector-id | VPC connector ID | Required  |
+| name | Name for the VPC connector |   |
+| tags.{index} | Tags for the VPC connector |   |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`  |
 
 
 
