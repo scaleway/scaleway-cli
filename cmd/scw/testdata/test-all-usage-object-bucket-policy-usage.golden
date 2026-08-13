@@ -6,9 +6,9 @@ USAGE:
   scw object bucket-policy <command>
 
 AVAILABLE COMMANDS:
-  Get         Retrieve an S3 bucket's policy.
   create      Create a policy for an S3 bucket
   delete      Delete an S3 bucket's policy if it exists.
+  get         Retrieve an S3 bucket's policy.
 
 FLAGS:
   -h, --help                help for bucket-policy

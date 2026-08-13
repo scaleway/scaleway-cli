@@ -7,8 +7,9 @@ USAGE:
 
 ARGS:
   bucket            The name of the bucket to which assign the policy.
-  policy            The path to the local JSON file containing the bucket policy.
-  [region=fr-snc]   Region to target. If none is passed will use default region from the config
+  policy-path       The path to the local JSON file containing the bucket policy.
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]   Region to target. If none is passed will use default region from the config
 
 FLAGS:
   -h, --help                help for create

@@ -3,14 +3,15 @@
 Retrieve an Object Bucket's policy with the S3 protocol.
 
 USAGE:
-  scw object bucket-policy Get <name ...> [arg=value ...]
+  scw object bucket-policy get <bucket ...> [arg=value ...]
 
 ARGS:
-  name              The unique name of the bucket
-  [region=fr-snc]   Region to target. If none is passed will use default region from the config
+  bucket            The unique name of the bucket
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]   Region to target. If none is passed will use default region from the config
 
 FLAGS:
-  -h, --help                help for Get
+  -h, --help                help for get
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:

@@ -6,8 +6,9 @@ USAGE:
   scw object <command>
 
 AVAILABLE COMMANDS:
-  bucket      Manage S3 buckets
-  config      Manage configuration files for popular S3 tools
+  bucket        Manage S3 buckets
+  bucket-policy Manage S3 bucket policies
+  config        Manage configuration files for popular S3 tools
 
 FLAGS:
   -h, --help                help for object
