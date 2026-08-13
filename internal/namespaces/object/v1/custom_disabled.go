@@ -43,3 +43,19 @@ func configGetCommand() *core.Command {
 func configInstallCommand() *core.Command {
 	return nil
 }
+
+func objectBucketPolicy() *core.Command {
+	return nil
+}
+
+func bucketPolicyCreateCommand() *core.Command {
+	return nil
+}
+
+func bucketPolicyDeleteCommand() *core.Command {
+	return nil
+}
+
+func bucketPolicyGetCommand() *core.Command {
+	return nil
+}
