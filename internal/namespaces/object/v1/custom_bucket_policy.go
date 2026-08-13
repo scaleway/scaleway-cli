@@ -20,6 +20,7 @@ type bucketPolicyCreateArgs struct {
 	Bucket     string
 	PolicyPath string
 	Region     scw.Region
+	ProjectID  string
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -43,6 +44,7 @@ func bucketPolicyCreateCommand() *core.Command {
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -65,7 +67,7 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			policy := string(policyBytes)
 
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.PutBucketPolicyInput{
 				Bucket: &args.Bucket,
 				Policy: &policy,
@@ -76,7 +78,7 @@ func bucketPolicyCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket policy: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket)
+			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -93,8 +95,9 @@ func bucketPolicyCreateCommand() *core.Command {
 }
 
 type bucketPolicyDeleteArgs struct {
-	Bucket string
-	Region scw.Region
+	Bucket    string
+	Region    scw.Region
+	ProjectID string
 }
 
 func bucketPolicyDeleteCommand() *core.Command {
@@ -113,6 +116,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -121,7 +125,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.DeleteBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
@@ -140,8 +144,9 @@ func bucketPolicyDeleteCommand() *core.Command {
 }
 
 type bucketPolicyGetArgs struct {
-	Bucket string
-	Region scw.Region
+	Bucket    string
+	Region    scw.Region
+	ProjectID string
 }
 
 func bucketPolicyGetCommand() *core.Command {
@@ -160,6 +165,7 @@ func bucketPolicyGetCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -168,7 +174,7 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region)
+			client := newS3Client(ctx, args.Region, args.ProjectID)
 			params := s3.GetBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
