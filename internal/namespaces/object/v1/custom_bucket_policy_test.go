@@ -49,7 +49,11 @@ func Test_BucketPolicyCreate(t *testing.T) {
 			createBucket(bucketName),
 			createPolicyFile(bucketName, testPolicyPath),
 		),
-		Cmd: fmt.Sprintf("scw object bucket-policy create %s policy-path=%s", bucketName, testPolicyPath),
+		Cmd: fmt.Sprintf(
+			"scw object bucket-policy create %s policy-path=%s",
+			bucketName,
+			testPolicyPath,
+		),
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
@@ -107,11 +111,13 @@ func createPolicyFile(bucketName, policyPath string) core.BeforeFunc {
 		policy := fmt.Sprintf(testPolicyContent, bucketName)
 
 		// Create policy file
-		err := os.WriteFile(policyPath, []byte(policy), 0644)
+		err := os.WriteFile(policyPath, []byte(policy), 0o644)
 		if err != nil {
 			fmt.Println("error writing file:", err)
+
 			return nil
 		}
+
 		return nil
 	}
 }
@@ -122,8 +128,4 @@ func createPolicy(bucketName, policyPath string) core.BeforeFunc {
 		bucketName,
 		policyPath,
 	))
-}
-
-func deletePolicy(bucketName string) core.AfterFunc {
-	return core.ExecAfterCmd("scw object bucket-policy delete " + bucketName)
 }
