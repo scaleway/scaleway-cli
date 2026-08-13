@@ -443,4 +443,3 @@ scw billing invoice list [arg=value ...]
 | organization-id             | Organization ID. If specified, only invoices from this Organization will be returned |                                                                                                                                                                                                                                                                                             |
 
 
-

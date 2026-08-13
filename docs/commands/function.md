@@ -784,4 +784,3 @@ scw function trigger update <trigger-id ...> [arg=value ...]
 | region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
-

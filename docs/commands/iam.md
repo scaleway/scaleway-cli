@@ -1504,4 +1504,3 @@ scw iam user update-username <user-id ...> [arg=value ...]
 | username | The new username         | Required                |
 
 
-

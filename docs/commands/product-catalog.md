@@ -33,4 +33,3 @@ scw product-catalog product list [arg=value ...]
 | api-ids.{index}       | Filter products by API IDs. Each ID is matched against product-specific identifiers: `dedibox.offer_id` (converted to string), `elastic_metal.offer_id`, `apple_silicon.server_type`, `instance.offer_id`, and `load_balancer.node.offer_id`. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied. |                                                                                                                                                                                                                                                                                                                                                                                                                                                                                |
 
 
-
