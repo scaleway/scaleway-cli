@@ -249,3 +249,4 @@ scw fip mac move [arg=value ...]
 | zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `pl-waw-2`, `pl-waw-3` |
 
 
+

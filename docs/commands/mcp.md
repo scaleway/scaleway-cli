@@ -163,3 +163,4 @@ scw mcp server serve namespaces=instance resources=server verbs=get,list
 
 
 
+

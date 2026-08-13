@@ -79,3 +79,4 @@ scw environmental-footprint report list [arg=value ...]
 | organization-id | Organization ID to use. If none is passed the default organization ID will be used                                                          |                         |
 
 
+

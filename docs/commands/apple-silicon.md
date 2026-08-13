@@ -532,3 +532,4 @@ scw apple-silicon server-type list [arg=value ...]
 | zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-3` |
 
 
+
