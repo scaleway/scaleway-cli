@@ -120,7 +120,7 @@ func bucketPolicyCreateCommand() *core.Command {
 			},
 			{
 				Name:       "policy",
-				Positional: true,
+				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
 			},

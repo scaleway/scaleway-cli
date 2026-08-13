@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Retrieve an Object Bucket's policy with the S3 protocol.
+
+USAGE:
+  scw object bucket-policy Get <name ...> [arg=value ...]
+
+ARGS:
+  name              The unique name of the bucket
+  [region=fr-snc]   Region to target. If none is passed will use default region from the config
+
+FLAGS:
+  -h, --help                help for Get
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
