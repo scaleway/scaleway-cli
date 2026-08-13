@@ -116,8 +116,8 @@ github.com/buildpacks/imgutil v0.0.0-20251202182233-51c1c8c186ea h1:91PTHjeL3uzj
 github.com/buildpacks/imgutil v0.0.0-20251202182233-51c1c8c186ea/go.mod h1:yw2U9Ec8KUk7jWY97K0+e6GqrUAr05uTK6LwOEZyupw=
 github.com/buildpacks/lifecycle v0.21.0 h1:s2okNv1I4rETBC4CRm4ly7DRr5eTqx1bpKXyf+ywVms=
 github.com/buildpacks/lifecycle v0.21.0/go.mod h1:5Rb9kld2v1XYQC14fJrIGESqmuJvSYHVlUxAW5MAxNU=
-github.com/buildpacks/pack v0.40.8 h1:eEv9ZcnnLjInk7t8IpoAP4XL5K9/BSYUkncvpTphb2c=
-github.com/buildpacks/pack v0.40.8/go.mod h1:Bf3Q94g0X1G//wfkOAe6ERAkMiKqoXdZfc8Kpq0tAMk=
+github.com/buildpacks/pack v0.40.9 h1:DNgCI19uIZuuQL9QEZA30xBdCVGx8G4tl01dkHwKOwg=
+github.com/buildpacks/pack v0.40.9/go.mod h1:X+FKtQMkkWcRdKLmICxgetDlccor+zbbu3jVAMKHCDc=
 github.com/c-bata/go-prompt v0.2.6 h1:POP+nrHE+DfLYx370bedwNhsqmpCUynWPxuHi0C5vZI=
 github.com/c-bata/go-prompt v0.2.6/go.mod h1:/LMAke8wD2FsNu9EXNdHxNLbd9MedkPnCdfpU9wwHfY=
 github.com/cespare/xxhash/v2 v2.3.0 h1:UL815xU9SqsFlibzuggzjXhog7bL6oX9BbNZnL2UFvs=
