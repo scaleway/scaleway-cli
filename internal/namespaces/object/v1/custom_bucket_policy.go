@@ -3,6 +3,7 @@
 package object
 
 import (
+	"bytes"
 	"context"
 	"encoding/json"
 	"errors"
@@ -119,7 +120,7 @@ func bucketPolicyCreateCommand() *core.Command {
 				Short:      "The name of the bucket to which assign the policy.",
 			},
 			{
-				Name:       "policy",
+				Name:       "policy-path",
 				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
@@ -188,7 +189,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(bucketPolicyDeleteArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:             "name",
+				Name:             "bucket",
 				Positional:       true,
 				Required:         true,
 				Short:            "The unique name of the bucket",
@@ -229,13 +230,13 @@ func bucketPolicyGetCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
 		Resource:  "bucket-policy",
-		Verb:      "Get",
+		Verb:      "get",
 		Short:     "Retrieve an S3 bucket's policy.",
 		Long:      "Retrieve an Object Bucket's policy with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketPolicyDeleteArgs{}),
+		ArgsType:  reflect.TypeOf(bucketPolicyGetArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:             "name",
+				Name:             "bucket",
 				Positional:       true,
 				Required:         true,
 				Short:            "The unique name of the bucket",
@@ -259,8 +260,13 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, fmt.Errorf("could not get bucket policy: %w", err)
 			}
 
-			// FIXME What to return here?
-			return policyResponse.Policy, nil
+			var prettyJSON bytes.Buffer
+			err = json.Indent(&prettyJSON, []byte(*policyResponse.Policy), "", "  ")
+			if err != nil {
+				return nil, fmt.Errorf("error indenting JSON: %w", err)
+			}
+
+			return prettyJSON.String(), nil
 		},
 	}
 }
