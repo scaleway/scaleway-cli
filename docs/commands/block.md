@@ -21,13 +21,13 @@ scw block snapshot create <volume-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                              | Argument Specifications                                                                                                                     |
-|--------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id    | UUID of the volume to snapshot                                           | Required                                                                                                                                    |
-| name         | Name of the snapshot                                                     | Default: `<generated>`                                                                                                                      |
-| project-id   | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                             |
-| tags.{index} | List of tags assigned to the snapshot                                    |                                                                                                                                             |
-| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| volume-id | UUID of the volume to snapshot | Required  |
+| name | Name of the snapshot | Default: `<generated>`  |
+| project-id | Project ID to use. If none is passed the default project ID will be used |   |
+| tags.{index} | List of tags assigned to the snapshot |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -44,10 +44,10 @@ scw block snapshot delete <snapshot-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                     |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | UUID of the snapshot                                                    | Required                                                                                                                                    |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| snapshot-id | UUID of the snapshot | Required  |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -65,12 +65,12 @@ scw block snapshot export-to-object-storage [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                     |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | UUID of the snapshot                                                    | Required                                                                                                                                    |
-| bucket      | Scaleway Object Storage bucket where the object is stored               |                                                                                                                                             |
-| key         | The object key inside the given bucket                                  |                                                                                                                                             |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| snapshot-id | UUID of the snapshot | Required  |
+| bucket | Scaleway Object Storage bucket where the object is stored |   |
+| key | The object key inside the given bucket |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -87,10 +87,10 @@ scw block snapshot get <snapshot-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                             | Argument Specifications                                                                                                                     |
-|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id | UUID of the snapshot                                                    | Required                                                                                                                                    |
-| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| snapshot-id | UUID of the snapshot | Required  |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -108,15 +108,15 @@ scw block snapshot import-from-object-storage [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                              | Argument Specifications                                                                                                                     |
-|--------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| bucket       | Scaleway Object Storage bucket where the object is stored                |                                                                                                                                             |
-| key          | The object key inside the given bucket                                   |                                                                                                                                             |
-| name         | Name of the snapshot                                                     |                                                                                                                                             |
-| project-id   | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                             |
-| tags.{index} | List of tags assigned to the snapshot                                    |                                                                                                                                             |
-| size         | Size of the snapshot                                                     |                                                                                                                                             |
-| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| bucket | Scaleway Object Storage bucket where the object is stored |   |
+| key | The object key inside the given bucket |   |
+| name | Name of the snapshot |   |
+| project-id | Project ID to use. If none is passed the default project ID will be used |   |
+| tags.{index} | List of tags assigned to the snapshot |   |
+| size | Size of the snapshot |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -133,15 +133,15 @@ scw block snapshot list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                    | Argument Specifications                                                                                                                            |
-|-----------------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| order-by        | Criteria to use when ordering the list                                         | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                               |
-| project-id      | Filter by Project ID                                                           |                                                                                                                                                    |
-| volume-id       | Filter snapshots by the ID of the original volume                              |                                                                                                                                                    |
-| name            | Filter snapshots by their names                                                |                                                                                                                                                    |
-| tags.{index}    | Filter by tags. Only snapshots with one or more matching tags will be returned |                                                                                                                                                    |
-| organization-id | Filter by Organization ID                                                      |                                                                                                                                                    |
-| zone            | Zone to target. If none is passed will use default zone from the config        | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Criteria to use when ordering the list | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
+| project-id | Filter by Project ID |   |
+| volume-id | Filter snapshots by the ID of the original volume |   |
+| name | Filter snapshots by their names |   |
+| tags.{index} | Filter by tags. Only snapshots with one or more matching tags will be returned |   |
+| organization-id | Filter by Organization ID |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all`  |
 
 
 
@@ -158,12 +158,12 @@ scw block snapshot update <snapshot-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                             | Argument Specifications                                                                                                                     |
-|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| snapshot-id  | UUID of the snapshot                                                    | Required                                                                                                                                    |
-| name         | When defined, is the name of the snapshot                               |                                                                                                                                             |
-| tags.{index} | List of tags assigned to the snapshot                                   |                                                                                                                                             |
-| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| snapshot-id | UUID of the snapshot | Required  |
+| name | When defined, is the name of the snapshot |   |
+| tags.{index} | List of tags assigned to the snapshot |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -180,12 +180,12 @@ scw block snapshot wait <snapshot-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| timeout         | Timeout of the wait                                                     | Default: `5m0s`                                                                                                                                         |
-| snapshot-id     | ID of the snapshot affected by the action.                              | Required                                                                                                                                                |
-| terminal-status | Expected terminal status, will wait until this status is reached.       | One of: `unknown_status`, `creating`, `available`, `error`, `deleting`, `deleted`, `in_use`, `locked`, `exporting`                                      |
-| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| timeout | Timeout of the wait | Default: `5m0s`  |
+| snapshot-id | ID of the snapshot affected by the action. | Required  |
+| terminal-status | Expected terminal status, will wait until this status is reached. | One of: `unknown_status`, `creating`, `available`, `error`, `deleting`, `deleted`, `in_use`, `locked`, `exporting`  |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`  |
 
 
 **Examples:**
@@ -218,16 +218,16 @@ scw block volume create [arg=value ...]
 
 **Arguments:**
 
-| Name                      | Description                                                                                       | Argument Specifications                                                                                                                     |
-|---------------------------|---------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| name                      | Name of the volume                                                                                | Required<br />Default: `<generated>`                                                                                                        |
-| perf-iops                 | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) | Required                                                                                                                                    |
-| project-id                | Project ID to use. If none is passed the default project ID will be used                          |                                                                                                                                             |
-| from-empty.size           | Volume size in bytes, with a granularity of 1 GB (10^9 bytes)                                     |                                                                                                                                             |
-| from-snapshot.size        | Volume size in bytes, with a granularity of 1 GB (10^9 bytes)                                     |                                                                                                                                             |
-| from-snapshot.snapshot-id | Source snapshot from which volume will be created                                                 |                                                                                                                                             |
-| tags.{index}              | List of tags assigned to the volume                                                               |                                                                                                                                             |
-| zone                      | Zone to target. If none is passed will use default zone from the config                           | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| name | Name of the volume | Required<br />Default: `<generated>`  |
+| perf-iops | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) | Required  |
+| project-id | Project ID to use. If none is passed the default project ID will be used |   |
+| from-empty.size | Volume size in bytes, with a granularity of 1 GB (10^9 bytes) |   |
+| from-snapshot.size | Volume size in bytes, with a granularity of 1 GB (10^9 bytes) |   |
+| from-snapshot.snapshot-id | Source snapshot from which volume will be created |   |
+| tags.{index} | List of tags assigned to the volume |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -244,10 +244,10 @@ scw block volume delete <volume-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                     |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id | UUID of the volume                                                      | Required                                                                                                                                    |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| volume-id | UUID of the volume | Required  |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -264,10 +264,10 @@ scw block volume get <volume-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                     |
-|-----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id | UUID of the volume                                                      | Required                                                                                                                                    |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| volume-id | UUID of the volume | Required  |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -284,15 +284,15 @@ scw block volume list [arg=value ...]
 
 **Arguments:**
 
-| Name                | Description                                                                    | Argument Specifications                                                                                                                            |
-|---------------------|--------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| order-by            | Criteria to use when ordering the list                                         | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                               |
-| project-id          | Filter by Project ID                                                           |                                                                                                                                                    |
-| name                | Filter the return volumes by their names                                       |                                                                                                                                                    |
-| product-resource-id | Filter by a product resource ID linked to this volume (such as an Instance ID) |                                                                                                                                                    |
-| tags.{index}        | Filter by tags. Only volumes with one or more matching tags will be returned   |                                                                                                                                                    |
-| organization-id     | Filter by Organization ID                                                      |                                                                                                                                                    |
-| zone                | Zone to target. If none is passed will use default zone from the config        | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| order-by | Criteria to use when ordering the list | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`  |
+| project-id | Filter by Project ID |   |
+| name | Filter the return volumes by their names |   |
+| product-resource-id | Filter by a product resource ID linked to this volume (such as an Instance ID) |   |
+| tags.{index} | Filter by tags. Only volumes with one or more matching tags will be returned |   |
+| organization-id | Filter by Organization ID |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all`  |
 
 
 
@@ -310,14 +310,14 @@ scw block volume update <volume-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                                            | Argument Specifications                                                                                                                     |
-|--------------|--------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------|
-| volume-id    | UUID of the volume                                                                                     | Required                                                                                                                                    |
-| name         | When defined, is the new name of the volume                                                            |                                                                                                                                             |
-| size         | Optional field for increasing the size of a volume (size must be equal or larger than the current one) |                                                                                                                                             |
-| tags.{index} | List of tags assigned to the volume                                                                    |                                                                                                                                             |
-| perf-iops    | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`)      |                                                                                                                                             |
-| zone         | Zone to target. If none is passed will use default zone from the config                                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| volume-id | UUID of the volume | Required  |
+| name | When defined, is the new name of the volume |   |
+| size | Optional field for increasing the size of a volume (size must be equal or larger than the current one) |   |
+| tags.{index} | List of tags assigned to the volume |   |
+| perf-iops | The maximum IO/s expected, according to the different options available in stock (`5000 | 15000`) |   |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`  |
 
 
 
@@ -334,12 +334,12 @@ scw block volume wait <volume-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                             | Argument Specifications                                                                                                                                 |
-|-----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| timeout         | Timeout of the wait                                                     | Default: `5m0s`                                                                                                                                         |
-| volume-id       | ID of the volume affected by the action.                                | Required                                                                                                                                                |
-| terminal-status | Expected terminal status, will wait until this status is reached.       | One of: `unknown_status`, `creating`, `available`, `in_use`, `deleting`, `deleted`, `resizing`, `error`, `snapshotting`, `locked`, `updating`           |
-| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| timeout | Timeout of the wait | Default: `5m0s`  |
+| volume-id | ID of the volume affected by the action. | Required  |
+| terminal-status | Expected terminal status, will wait until this status is reached. | One of: `unknown_status`, `creating`, `available`, `in_use`, `deleting`, `deleted`, `resizing`, `error`, `snapshotting`, `locked`, `updating`  |
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`  |
 
 
 **Examples:**
@@ -371,9 +371,9 @@ scw block volume-type list [arg=value ...]
 
 **Arguments:**
 
-| Name | Description                                                             | Argument Specifications                                                                                                                            |
-|------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
-| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all`  |
 
 
 
