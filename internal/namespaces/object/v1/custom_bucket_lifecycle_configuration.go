@@ -70,7 +70,10 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 			var config types.BucketLifecycleConfiguration
 			err = json.Unmarshal([]byte(configStr), &config)
 			if err != nil {
-				return nil, fmt.Errorf("failed to unmarshal bucket lifecycle configuration: %v", err)
+				return nil, fmt.Errorf(
+					"failed to unmarshal bucket lifecycle configuration: %v",
+					err,
+				)
 			}
 
 			client := newS3Client(ctx, args.Region, args.ProjectID)
@@ -190,7 +193,7 @@ func lifecycleConfigurationGetCommand() *core.Command {
 				return nil, fmt.Errorf("could not get bucket configuration: %w", err)
 			}
 			if conf == nil {
-				return nil, fmt.Errorf("could not get bucket configuration (result is nil)")
+				return nil, errors.New("could not get bucket configuration (result is nil)")
 			}
 
 			prettyJSONBytes, err := CleanAndIndentJSON(conf, "", "    ")
