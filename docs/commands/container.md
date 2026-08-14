@@ -249,6 +249,7 @@ scw container deploy [arg=value ...]
 | build-source     | Path to the build context                                                   | Default: `.`                                                       |
 | cache            | Use cache when building the image                                           | Default: `true`                                                    |
 | build-args.{key} | Build-time variables                                                        |                                                                    |
+| platform         | Target platform to build for (e.g. linux/amd64, linux/arm64)                |                                                                    |
 | port             | Port to expose                                                              | Default: `8080`                                                    |
 | namespace-id     | Container Namespace ID to deploy to                                         |                                                                    |
 | region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
