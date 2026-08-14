@@ -43,3 +43,15 @@ func configGetCommand() *core.Command {
 func configInstallCommand() *core.Command {
 	return nil
 }
+
+func lifecycleConfigurationCreateCommand() *core.Command {
+	return nil
+}
+
+func lifecycleConfigurationDeleteCommand() *core.Command {
+	return nil
+}
+
+func lifecycleConfigurationGetCommand() *core.Command {
+	return nil
+}

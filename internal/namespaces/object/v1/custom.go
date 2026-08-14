@@ -44,6 +44,15 @@ func GetCommands() *core.Commands {
 	if cmdConfigInstall := configInstallCommand(); cmdConfigInstall != nil {
 		cmds.Add(cmdConfigInstall)
 	}
+	if cmdLifecycleConfigurationCreate := lifecycleConfigurationCreateCommand(); cmdLifecycleConfigurationCreate != nil {
+		cmds.Add(cmdLifecycleConfigurationCreate)
+	}
+	if cmdLifecycleConfigurationDelete := lifecycleConfigurationDeleteCommand(); cmdLifecycleConfigurationDelete != nil {
+		cmds.Add(cmdLifecycleConfigurationDelete)
+	}
+	if cmdLifecycleConfigurationGet := lifecycleConfigurationGetCommand(); cmdLifecycleConfigurationGet != nil {
+		cmds.Add(cmdLifecycleConfigurationGet)
+	}
 
 	return cmds
 }

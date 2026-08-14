@@ -1,6 +1,8 @@
 package object
 
 import (
+	"bytes"
+	"encoding/json"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
@@ -125,4 +127,79 @@ func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 	}
 
 	return str, nil
+}
+
+// CleanAndIndentJSON takes any struct or data, marshals it,
+// strips all top-level and nested "null" fields, and returns formatted JSON.
+func CleanAndIndentJSON(v any, prefix, indent string) ([]byte, error) {
+	rawBytes, err := json.Marshal(v)
+	if err != nil {
+		return nil, err
+	}
+
+	var genericData any
+	if err := json.Unmarshal(rawBytes, &genericData); err != nil {
+		return nil, err
+	}
+
+	cleanedData := removeNulls(genericData)
+
+	cleanBytes, err := json.Marshal(cleanedData)
+	if err != nil {
+		return nil, err
+	}
+
+	var prettyBuf bytes.Buffer
+	if err := json.Indent(&prettyBuf, cleanBytes, prefix, indent); err != nil {
+		return nil, err
+	}
+
+	return prettyBuf.Bytes(), nil
+}
+
+// removeNulls recursively purges nil entries from maps and slices
+func removeNulls(v any) any {
+	switch val := v.(type) {
+	case map[string]any:
+		cleanedMap := make(map[string]any)
+
+		for k, item := range val {
+			if item == nil {
+				continue // Skip "null" fields
+			} else if item == "" {
+				continue // Skip empty strings
+			}
+
+			cleanedItem := removeNulls(item)
+			if cleanedItem == nil {
+				continue // Skip empty structs
+			}
+
+			cleanedMap[k] = removeNulls(item)
+		}
+
+		if len(cleanedMap) == 0 {
+			return nil // Skip empty maps
+		}
+
+		return cleanedMap
+
+	case []any:
+		cleanedSlice := make([]any, 0, len(val))
+
+		for _, item := range val {
+			if item != nil {
+				cleanedSlice = append(cleanedSlice, removeNulls(item))
+			}
+		}
+
+		if len(cleanedSlice) == 0 {
+			return nil // Skip empty slices
+		}
+
+		return cleanedSlice
+
+	default:
+		return v
+	}
 }
