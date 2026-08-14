@@ -55,7 +55,7 @@ func partnerOrganizationCreate() *core.Command {
 		Resource:  "organization",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.CreateOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.CreateOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "partner-id",
@@ -120,7 +120,7 @@ func partnerOrganizationCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.CreateOrganization(request)
+			return api.CreateOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -133,7 +133,7 @@ func partnerOrganizationGet() *core.Command {
 		Resource:  "organization",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.GetOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.GetOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -143,7 +143,7 @@ func partnerOrganizationGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.GetOrganization(request)
+			return api.GetOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -156,7 +156,7 @@ func partnerOrganizationList() *core.Command {
 		Resource:  "organization",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.ListOrganizationsRequest{}),
+		ArgsType: reflect.TypeFor[partner.ListOrganizationsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -213,7 +213,7 @@ func partnerOrganizationList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListOrganizations(request, opts...)
 			if err != nil {
 				return nil, err
@@ -232,7 +232,7 @@ func partnerOrganizationLock() *core.Command {
 		Resource:  "organization",
 		Verb:      "lock",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.LockOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.LockOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -242,7 +242,7 @@ func partnerOrganizationLock() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.LockOrganization(request)
+			return api.LockOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -255,7 +255,7 @@ func partnerOrganizationUnlock() *core.Command {
 		Resource:  "organization",
 		Verb:      "unlock",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.UnlockOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.UnlockOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 		},
@@ -265,7 +265,7 @@ func partnerOrganizationUnlock() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.UnlockOrganization(request)
+			return api.UnlockOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -278,7 +278,7 @@ func partnerOrganizationUpdate() *core.Command {
 		Resource:  "organization",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(partner.UpdateOrganizationRequest{}),
+		ArgsType: reflect.TypeFor[partner.UpdateOrganizationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "email",
@@ -337,7 +337,7 @@ func partnerOrganizationUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := partner.NewAPI(client)
 
-			return api.UpdateOrganization(request)
+			return api.UpdateOrganization(request, scw.WithContext(ctx))
 		},
 	}
 }

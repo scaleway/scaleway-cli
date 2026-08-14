@@ -18,13 +18,13 @@ scw billing budget create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| consumption-limit |  | Cost limit for the budget |
-| enabled |  | Whether the budget is enabled or not |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name              | Description                                                                        | Argument Specifications |
+|-------------------|------------------------------------------------------------------------------------|-------------------------|
+| consumption-limit | Cost limit for the budget                                                          |                         |
+| enabled           | Whether the budget is enabled or not                                               |                         |
+| organization-id   | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -39,11 +39,11 @@ scw billing budget delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-id | Required | The ID of the budget to delete |
+| Name      | Description                    | Argument Specifications |
+|-----------|--------------------------------|-------------------------|
+| budget-id | The ID of the budget to delete | Required                |
 
 
 
@@ -58,11 +58,11 @@ scw billing budget get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-id | Required | The ID of the budget |
+| Name      | Description          | Argument Specifications |
+|-----------|----------------------|-------------------------|
+| budget-id | The ID of the budget | Required                |
 
 
 
@@ -77,11 +77,11 @@ scw billing budget list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Filter by organization ID |
+| Name            | Description               | Argument Specifications |
+|-----------------|---------------------------|-------------------------|
+| organization-id | Filter by organization ID |                         |
 
 
 
@@ -96,13 +96,13 @@ scw billing budget update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-id | Required | The ID of the budget to update |
-| consumption-limit |  | Cost limit for the budget |
-| enabled |  | Whether the budget will be enabled or not |
+| Name              | Description                               | Argument Specifications |
+|-------------------|-------------------------------------------|-------------------------|
+| budget-id         | The ID of the budget to update            | Required                |
+| consumption-limit | Cost limit for the budget                 |                         |
+| enabled           | Whether the budget will be enabled or not |                         |
 
 
 
@@ -122,12 +122,12 @@ scw billing budget-alert create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-id |  | The ID of the budget to create alert for |
-| threshold |  | Threshold above which the alert is sent |
+| Name      | Description                              | Argument Specifications |
+|-----------|------------------------------------------|-------------------------|
+| budget-id | The ID of the budget to create alert for |                         |
+| threshold | Threshold above which the alert is sent  |                         |
 
 
 
@@ -142,11 +142,11 @@ scw billing budget-alert delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-alert-id | Required | The ID of the budget alert to delete |
+| Name            | Description                          | Argument Specifications |
+|-----------------|--------------------------------------|-------------------------|
+| budget-alert-id | The ID of the budget alert to delete | Required                |
 
 
 
@@ -161,12 +161,12 @@ scw billing budget-alert update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-alert-id | Required | The ID of the budget alert to update |
-| threshold |  | Threshold above which the alert is sent |
+| Name            | Description                             | Argument Specifications |
+|-----------------|-----------------------------------------|-------------------------|
+| budget-alert-id | The ID of the budget alert to update    | Required                |
+| threshold       | Threshold above which the alert is sent |                         |
 
 
 
@@ -186,14 +186,14 @@ scw billing budget-alert-notification create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-alert-id |  | The ID of the budget alert to create notification for |
-| sms-phone-numbers.{index} |  | List of phone numbers to receive sms notifications |
-| email-addresses.{index} |  | List of email addresses to receive email notifications |
-| webhook-urls.{index} |  | List of webhook url to receive webhook notifications |
+| Name                      | Description                                            | Argument Specifications |
+|---------------------------|--------------------------------------------------------|-------------------------|
+| budget-alert-id           | The ID of the budget alert to create notification for  |                         |
+| sms-phone-numbers.{index} | List of phone numbers to receive sms notifications     |                         |
+| email-addresses.{index}   | List of email addresses to receive email notifications |                         |
+| webhook-urls.{index}      | List of webhook url to receive webhook notifications   |                         |
 
 
 
@@ -208,11 +208,11 @@ scw billing budget-alert-notification delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-alert-notification-id | Required | The ID of the budget alert notification to delete |
+| Name                         | Description                                       | Argument Specifications |
+|------------------------------|---------------------------------------------------|-------------------------|
+| budget-alert-notification-id | The ID of the budget alert notification to delete | Required                |
 
 
 
@@ -227,14 +227,14 @@ scw billing budget-alert-notification update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| budget-alert-notification-id | Required | The ID of the budget alert notification to update |
-| sms-phone-numbers.{index} |  | List of phone numbers to receive sms notifications |
-| email-addresses.{index} |  | List of email addresses to receive email notifications |
-| webhook-urls.{index} |  | List of webhook url to receive webhook notifications |
+| Name                         | Description                                            | Argument Specifications |
+|------------------------------|--------------------------------------------------------|-------------------------|
+| budget-alert-notification-id | The ID of the budget alert notification to update      | Required                |
+| sms-phone-numbers.{index}    | List of phone numbers to receive sms notifications     |                         |
+| email-addresses.{index}      | List of email addresses to receive email notifications |                         |
+| webhook-urls.{index}         | List of webhook url to receive webhook notifications   |                         |
 
 
 
@@ -254,22 +254,22 @@ scw billing charge list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `start_date_asc`, `start_date_desc` | Sort order of charges in the response |
-| page-token |  | Token returned by previous call to list next paginated charges, omitted for first page |
-| page-size |  | Number of charges to return per page |
-| start-date-after |  | Minimum start date of charges to filter for, defaults to the start of the billing period |
-| end-date-before |  | Maximum end date of charges to filter for, defaults to the end of the billing period |
-| invoice-ids.{index} |  | Invoice IDs to filter for, only charges from these invoices will be returned |
-| project-ids.{index} |  | Project IDs to filter for, only charges for these projects will be returned |
-| resource-ids.{index} |  | Resource IDs to filter for, only charges for these resources will be returned |
-| resource-names.{index} |  | Resource display names to filter for, only charges for these resources will be returned |
-| skus.{index} |  | SKU IDs to filter for, only charges for these SKUs will be returned |
-| clamp-to-time-range |  | Clamp charges to the requested time range |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name                   | Description                                                                              | Argument Specifications                     |
+|------------------------|------------------------------------------------------------------------------------------|---------------------------------------------|
+| order-by               | Sort order of charges in the response                                                    | One of: `start_date_asc`, `start_date_desc` |
+| page-token             | Token returned by previous call to list next paginated charges, omitted for first page   |                                             |
+| page-size              | Number of charges to return per page                                                     |                                             |
+| start-date-after       | Minimum start date of charges to filter for, defaults to the start of the billing period |                                             |
+| end-date-before        | Maximum end date of charges to filter for, defaults to the end of the billing period     |                                             |
+| invoice-ids.{index}    | Invoice IDs to filter for, only charges from these invoices will be returned             |                                             |
+| project-ids.{index}    | Project IDs to filter for, only charges for these projects will be returned              |                                             |
+| resource-ids.{index}   | Resource IDs to filter for, only charges for these resources will be returned            |                                             |
+| resource-names.{index} | Resource display names to filter for, only charges for these resources will be returned  |                                             |
+| skus.{index}           | SKU IDs to filter for, only charges for these SKUs will be returned                      |                                             |
+| clamp-to-time-range    | Clamp charges to the requested time range                                                |                                             |
+| organization-id        | Organization ID to use. If none is passed the default organization ID will be used       |                                             |
 
 
 
@@ -289,15 +289,15 @@ scw billing consumption list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `updated_at_desc`, `updated_at_asc`, `category_name_desc`, `category_name_asc` | Order consumptions list in the response by their update date |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| category-name |  | Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability) |
-| billing-period |  | Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                                                           | Argument Specifications                                                                |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| order-by        | Order consumptions list in the response by their update date                                                          | One of: `updated_at_desc`, `updated_at_asc`, `category_name_desc`, `category_name_asc` |
+| project-id      | Project ID to use. If none is passed the default project ID will be used                                              |                                                                                        |
+| category-name   | Filter by name of a Category as they are shown in the invoice (Compute, Network, Observability)                       |                                                                                        |
+| billing-period  | Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default |                                                                                        |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used                                    |                                                                                        |
 
 
 
@@ -312,13 +312,13 @@ scw billing consumption list-taxes [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `updated_at_desc`, `updated_at_asc`, `category_name_desc`, `category_name_asc` | Order consumed taxes list in the response by their update date |
-| billing-period |  | Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                                                           | Argument Specifications                                                                |
+|-----------------|-----------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------|
+| order-by        | Order consumed taxes list in the response by their update date                                                        | One of: `updated_at_desc`, `updated_at_asc`, `category_name_desc`, `category_name_asc` |
+| billing-period  | Filter by the billing period in the YYYY-MM format. If it is empty the current billing period will be used as default |                                                                                        |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used                                    |                                                                                        |
 
 
 
@@ -341,12 +341,12 @@ scw billing discount list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `creation_date_desc`, `creation_date_asc`, `start_date_desc`, `start_date_asc`, `stop_date_desc`, `stop_date_asc` | Order discounts in the response by their description |
-| organization-id |  | ID of the organization |
+| Name            | Description                                          | Argument Specifications                                                                                                   |
+|-----------------|------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------|
+| order-by        | Order discounts in the response by their description | One of: `creation_date_desc`, `creation_date_asc`, `start_date_desc`, `start_date_asc`, `stop_date_desc`, `stop_date_asc` |
+| organization-id | ID of the organization                               |                                                                                                                           |
 
 
 
@@ -366,14 +366,14 @@ scw billing invoice download <invoice-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| invoice-id | Required | Invoice ID |
-| file-path | Default: `./` | Wanted file path |
-| file-type | Default: `pdf` | Wanted file extension |
-| force-replace | Default: `false` | Force file replacement |
+| Name          | Description            | Argument Specifications |
+|---------------|------------------------|-------------------------|
+| invoice-id    | Invoice ID             | Required                |
+| file-path     | Wanted file path       | Default: `./`           |
+| file-type     | Wanted file extension  | Default: `pdf`          |
+| force-replace | Force file replacement | Default: `false`        |
 
 
 
@@ -388,17 +388,17 @@ scw billing invoice export [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
-| billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
-| billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
-| invoice-type |  | Invoice type. It can either be `periodic` or `purchase` |
-| file-path | Default: `./` | Wanted file path |
-| file-type | Default: `csv` | Wanted file extension |
-| force-replace | Default: `false` | Force file replacement |
+| Name                        | Description                                                                          | Argument Specifications |
+|-----------------------------|--------------------------------------------------------------------------------------|-------------------------|
+| organization-id             | Organization ID. If specified, only invoices from this Organization will be returned |                         |
+| billing-period-start-after  | Return only invoice with start date greater than billing_period_start                |                         |
+| billing-period-start-before | Return only invoice with start date less than billing_period_start                   |                         |
+| invoice-type                | Invoice type. It can either be `periodic` or `purchase`                              |                         |
+| file-path                   | Wanted file path                                                                     | Default: `./`           |
+| file-type                   | Wanted file extension                                                                | Default: `csv`          |
+| force-replace               | Force file replacement                                                               | Default: `false`        |
 
 
 
@@ -413,11 +413,11 @@ scw billing invoice get <invoice-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| invoice-id | Required | Invoice ID |
+| Name       | Description | Argument Specifications |
+|------------|-------------|-------------------------|
+| invoice-id | Invoice ID  | Required                |
 
 
 
@@ -432,15 +432,15 @@ scw billing invoice list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| billing-period-start-after |  | Return only invoice with start date greater than billing_period_start |
-| billing-period-start-before |  | Return only invoice with start date less than billing_period_start |
-| invoice-type | One of: `unknown_type`, `periodic`, `purchase`, `credit_note` | Invoice type. It can either be `periodic`, `purchase` or `credit_note` |
-| order-by | One of: `invoice_number_desc`, `invoice_number_asc`, `start_date_desc`, `start_date_asc`, `issued_date_desc`, `issued_date_asc`, `due_date_desc`, `due_date_asc`, `total_untaxed_desc`, `total_untaxed_asc`, `total_taxed_desc`, `total_taxed_asc`, `invoice_type_desc`, `invoice_type_asc` | How invoices are ordered in the response |
-| organization-id |  | Organization ID. If specified, only invoices from this Organization will be returned |
+| Name                        | Description                                                                          | Argument Specifications                                                                                                                                                                                                                                                                     |
+|-----------------------------|--------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| billing-period-start-after  | Return only invoice with start date greater than billing_period_start                |                                                                                                                                                                                                                                                                                             |
+| billing-period-start-before | Return only invoice with start date less than billing_period_start                   |                                                                                                                                                                                                                                                                                             |
+| invoice-type                | Invoice type. It can either be `periodic`, `purchase` or `credit_note`               | One of: `unknown_type`, `periodic`, `purchase`, `credit_note`                                                                                                                                                                                                                               |
+| order-by                    | How invoices are ordered in the response                                             | One of: `invoice_number_desc`, `invoice_number_asc`, `start_date_desc`, `start_date_asc`, `issued_date_desc`, `issued_date_asc`, `due_date_desc`, `due_date_asc`, `total_untaxed_desc`, `total_untaxed_asc`, `total_taxed_desc`, `total_taxed_asc`, `invoice_type_desc`, `invoice_type_asc` |
+| organization-id             | Organization ID. If specified, only invoices from this Organization will be returned |                                                                                                                                                                                                                                                                                             |
 
 
 

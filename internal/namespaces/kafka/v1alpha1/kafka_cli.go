@@ -103,7 +103,7 @@ func kafkaNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[kafka.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -122,7 +122,7 @@ func kafkaNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -145,7 +145,7 @@ func kafkaVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[kafka.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -164,7 +164,7 @@ func kafkaVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -187,7 +187,7 @@ func kafkaClusterList() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.ListClustersRequest{}),
+		ArgsType: reflect.TypeFor[kafka.ListClustersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -242,7 +242,7 @@ func kafkaClusterList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -265,7 +265,7 @@ func kafkaClusterGet() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.GetClusterRequest{}),
+		ArgsType: reflect.TypeFor[kafka.GetClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -282,7 +282,7 @@ func kafkaClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.GetCluster(request)
+			return api.GetCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -295,7 +295,7 @@ func kafkaClusterCreate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.CreateClusterRequest{}),
+		ArgsType: reflect.TypeFor[kafka.CreateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -354,6 +354,12 @@ func kafkaClusterCreate() *core.Command {
 				},
 			},
 			{
+				Name:       "endpoints.{index}.public-network",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network`,
 				Required:   false,
@@ -375,6 +381,13 @@ func kafkaClusterCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "multi-az",
+				Short:      `MultiAZ tell the cluster is deployed on multiple availability zones in the region.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "mono-az.zone",
 				Short:      `Zone is the zone on which the cluster nodes are deployed.`,
 				Required:   false,
@@ -389,7 +402,7 @@ func kafkaClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.CreateCluster(request)
+			return api.CreateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -402,7 +415,7 @@ func kafkaClusterUpdate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.UpdateClusterRequest{}),
+		ArgsType: reflect.TypeFor[kafka.UpdateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -440,7 +453,7 @@ func kafkaClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.UpdateCluster(request)
+			return api.UpdateCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -453,7 +466,7 @@ func kafkaClusterDelete() *core.Command {
 		Resource:  "cluster",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.DeleteClusterRequest{}),
+		ArgsType: reflect.TypeFor[kafka.DeleteClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -470,7 +483,7 @@ func kafkaClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.DeleteCluster(request)
+			return api.DeleteCluster(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -483,7 +496,7 @@ func kafkaClusterGetCa() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get-ca",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.GetClusterCertificateAuthorityRequest{}),
+		ArgsType: reflect.TypeFor[kafka.GetClusterCertificateAuthorityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -500,7 +513,7 @@ func kafkaClusterGetCa() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.GetClusterCertificateAuthority(request)
+			return api.GetClusterCertificateAuthority(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -513,7 +526,7 @@ func kafkaClusterRenewCa() *core.Command {
 		Resource:  "cluster",
 		Verb:      "renew-ca",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.RenewClusterCertificateAuthorityRequest{}),
+		ArgsType: reflect.TypeFor[kafka.RenewClusterCertificateAuthorityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -529,7 +542,7 @@ func kafkaClusterRenewCa() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			e = api.RenewClusterCertificateAuthority(request)
+			e = api.RenewClusterCertificateAuthority(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -550,7 +563,7 @@ func kafkaUsersList() *core.Command {
 		Resource:  "users",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[kafka.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -584,7 +597,7 @@ func kafkaUsersList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -607,7 +620,7 @@ func kafkaUsersUpdate() *core.Command {
 		Resource:  "users",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(kafka.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[kafka.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -638,7 +651,7 @@ func kafkaUsersUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := kafka.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }

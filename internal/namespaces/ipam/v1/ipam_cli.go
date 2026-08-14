@@ -68,7 +68,7 @@ func ipamIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.BookIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.BookIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -94,6 +94,13 @@ func ipamIPCreate() *core.Command {
 			},
 			{
 				Name:       "source.vpc-id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "source.regional",
+				Short:      `Defines whether the IP is a public regional IP.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -146,7 +153,7 @@ func ipamIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.BookIP(request)
+			return api.BookIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -159,7 +166,7 @@ func ipamIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ReleaseIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ReleaseIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -180,7 +187,7 @@ func ipamIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			e = api.ReleaseIP(request)
+			e = api.ReleaseIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -201,7 +208,7 @@ func ipamIPSetRelease() *core.Command {
 		Resource:  "ip-set",
 		Verb:      "release",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ReleaseIPSetRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ReleaseIPSetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-ids.{index}",
@@ -221,7 +228,7 @@ func ipamIPSetRelease() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			e = api.ReleaseIPSet(request)
+			e = api.ReleaseIPSet(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -242,7 +249,7 @@ func ipamIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -264,7 +271,7 @@ func ipamIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -277,7 +284,7 @@ func ipamIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -320,7 +327,7 @@ func ipamIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -333,7 +340,7 @@ func ipamIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[ipam.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -364,6 +371,13 @@ func ipamIPList() *core.Command {
 			{
 				Name:       "zonal",
 				Short:      `Zone to filter for. Only IPs that are zonal, and in this zone, will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "regional",
+				Short:      `Filter on regional IPs only.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -455,6 +469,7 @@ func ipamIPList() *core.Command {
 					"msgq_cluster",
 					"edge_vpc_endpoint",
 					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
@@ -495,6 +510,7 @@ func ipamIPList() *core.Command {
 					"msgq_cluster",
 					"edge_vpc_endpoint",
 					"dviz_cluster",
+					"nats_cluster",
 				},
 			},
 			{
@@ -551,7 +567,7 @@ func ipamIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -574,7 +590,7 @@ func ipamIPAttach() *core.Command {
 		Resource:  "ip",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.AttachIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.AttachIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -610,7 +626,7 @@ func ipamIPAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.AttachIP(request)
+			return api.AttachIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -623,7 +639,7 @@ func ipamIPDetach() *core.Command {
 		Resource:  "ip",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.DetachIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.DetachIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -659,7 +675,7 @@ func ipamIPDetach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.DetachIP(request)
+			return api.DetachIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -672,7 +688,7 @@ func ipamIPMove() *core.Command {
 		Resource:  "ip",
 		Verb:      "move",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(ipam.MoveIPRequest{}),
+		ArgsType: reflect.TypeFor[ipam.MoveIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -722,7 +738,7 @@ func ipamIPMove() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := ipam.NewAPI(client)
 
-			return api.MoveIP(request)
+			return api.MoveIP(request, scw.WithContext(ctx))
 		},
 	}
 }

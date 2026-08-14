@@ -115,7 +115,7 @@ func s2sVpnVpnGatewayTypeList() *core.Command {
 		Resource:  "vpn-gateway-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.ListVpnGatewayTypesRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.ListVpnGatewayTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -130,7 +130,7 @@ func s2sVpnVpnGatewayTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -153,7 +153,7 @@ func s2sVpnVpnGatewayList() *core.Command {
 		Resource:  "vpn-gateway",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.ListVpnGatewaysRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.ListVpnGatewaysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -243,7 +243,7 @@ func s2sVpnVpnGatewayList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -266,7 +266,7 @@ func s2sVpnVpnGatewayGet() *core.Command {
 		Resource:  "vpn-gateway",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.GetVpnGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.GetVpnGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -288,7 +288,7 @@ func s2sVpnVpnGatewayGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetVpnGateway(request)
+			return api.GetVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -301,7 +301,7 @@ func s2sVpnVpnGatewayCreate() *core.Command {
 		Resource:  "vpn-gateway",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.CreateVpnGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.CreateVpnGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -402,7 +402,7 @@ func s2sVpnVpnGatewayCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateVpnGateway(request)
+			return api.CreateVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -415,7 +415,7 @@ func s2sVpnVpnGatewayUpdate() *core.Command {
 		Resource:  "vpn-gateway",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.UpdateVpnGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.UpdateVpnGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -451,7 +451,7 @@ func s2sVpnVpnGatewayUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateVpnGateway(request)
+			return api.UpdateVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -464,7 +464,7 @@ func s2sVpnVpnGatewayDelete() *core.Command {
 		Resource:  "vpn-gateway",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.DeleteVpnGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.DeleteVpnGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -486,7 +486,7 @@ func s2sVpnVpnGatewayDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.DeleteVpnGateway(request)
+			return api.DeleteVpnGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -499,7 +499,7 @@ func s2sVpnConnectionList() *core.Command {
 		Resource:  "connection",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.ListConnectionsRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.ListConnectionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -606,7 +606,7 @@ func s2sVpnConnectionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -629,7 +629,7 @@ func s2sVpnConnectionGet() *core.Command {
 		Resource:  "connection",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.GetConnectionRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.GetConnectionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -651,7 +651,7 @@ func s2sVpnConnectionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetConnection(request)
+			return api.GetConnection(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -664,7 +664,7 @@ func s2sVpnConnectionCreate() *core.Command {
 		Resource:  "connection",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.CreateConnectionRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.CreateConnectionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -874,7 +874,7 @@ func s2sVpnConnectionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateConnection(request)
+			return api.CreateConnection(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -887,7 +887,7 @@ func s2sVpnConnectionUpdate() *core.Command {
 		Resource:  "connection",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.UpdateConnectionRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.UpdateConnectionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1027,7 +1027,7 @@ func s2sVpnConnectionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateConnection(request)
+			return api.UpdateConnection(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1040,7 +1040,7 @@ func s2sVpnConnectionDelete() *core.Command {
 		Resource:  "connection",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.DeleteConnectionRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.DeleteConnectionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1061,7 +1061,7 @@ func s2sVpnConnectionDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			e = api.DeleteConnection(request)
+			e = api.DeleteConnection(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1082,7 +1082,7 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 		Resource:  "connection",
 		Verb:      "renew-psk",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.RenewConnectionPskRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.RenewConnectionPskRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1112,7 +1112,7 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.RenewConnectionPsk(request)
+			return api.RenewConnectionPsk(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1125,7 +1125,7 @@ func s2sVpnConnectionSetRoutingPolicy() *core.Command {
 		Resource:  "connection",
 		Verb:      "set-routing-policy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.SetRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.SetRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1161,7 +1161,7 @@ func s2sVpnConnectionSetRoutingPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.SetRoutingPolicy(request)
+			return api.SetRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1174,7 +1174,7 @@ func s2sVpnConnectionDetachRoutingPolicy() *core.Command {
 		Resource:  "connection",
 		Verb:      "detach-routing-policy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.DetachRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.DetachRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1210,7 +1210,7 @@ func s2sVpnConnectionDetachRoutingPolicy() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.DetachRoutingPolicy(request)
+			return api.DetachRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1223,7 +1223,7 @@ func s2sVpnConnectionEnableRoutePropagation() *core.Command {
 		Resource:  "connection",
 		Verb:      "enable-route-propagation",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.EnableRoutePropagationRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.EnableRoutePropagationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1245,7 +1245,7 @@ func s2sVpnConnectionEnableRoutePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.EnableRoutePropagation(request)
+			return api.EnableRoutePropagation(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1258,7 +1258,7 @@ func s2sVpnConnectionDisableRoutePropagation() *core.Command {
 		Resource:  "connection",
 		Verb:      "disable-route-propagation",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.DisableRoutePropagationRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.DisableRoutePropagationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "connection-id",
@@ -1280,7 +1280,7 @@ func s2sVpnConnectionDisableRoutePropagation() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.DisableRoutePropagation(request)
+			return api.DisableRoutePropagation(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1293,7 +1293,7 @@ func s2sVpnCustomerGatewayList() *core.Command {
 		Resource:  "customer-gateway",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.ListCustomerGatewaysRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.ListCustomerGatewaysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1349,7 +1349,7 @@ func s2sVpnCustomerGatewayList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1372,7 +1372,7 @@ func s2sVpnCustomerGatewayGet() *core.Command {
 		Resource:  "customer-gateway",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.GetCustomerGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.GetCustomerGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1394,7 +1394,7 @@ func s2sVpnCustomerGatewayGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetCustomerGateway(request)
+			return api.GetCustomerGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1407,7 +1407,7 @@ func s2sVpnCustomerGatewayCreate() *core.Command {
 		Resource:  "customer-gateway",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.CreateCustomerGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.CreateCustomerGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1458,7 +1458,7 @@ func s2sVpnCustomerGatewayCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateCustomerGateway(request)
+			return api.CreateCustomerGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1471,7 +1471,7 @@ func s2sVpnCustomerGatewayUpdate() *core.Command {
 		Resource:  "customer-gateway",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.UpdateCustomerGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.UpdateCustomerGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1528,7 +1528,7 @@ func s2sVpnCustomerGatewayUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateCustomerGateway(request)
+			return api.UpdateCustomerGateway(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1541,7 +1541,7 @@ func s2sVpnCustomerGatewayDelete() *core.Command {
 		Resource:  "customer-gateway",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.DeleteCustomerGatewayRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.DeleteCustomerGatewayRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",
@@ -1562,7 +1562,7 @@ func s2sVpnCustomerGatewayDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			e = api.DeleteCustomerGateway(request)
+			e = api.DeleteCustomerGateway(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1583,7 +1583,7 @@ func s2sVpnRoutingPolicyList() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.ListRoutingPoliciesRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.ListRoutingPoliciesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1646,7 +1646,7 @@ func s2sVpnRoutingPolicyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1669,7 +1669,7 @@ func s2sVpnRoutingPolicyGet() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.GetRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.GetRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "routing-policy-id",
@@ -1691,7 +1691,7 @@ func s2sVpnRoutingPolicyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.GetRoutingPolicy(request)
+			return api.GetRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1704,7 +1704,7 @@ func s2sVpnRoutingPolicyCreate() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.CreateRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.CreateRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1755,7 +1755,7 @@ func s2sVpnRoutingPolicyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.CreateRoutingPolicy(request)
+			return api.CreateRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1768,7 +1768,7 @@ func s2sVpnRoutingPolicyUpdate() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.UpdateRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.UpdateRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "routing-policy-id",
@@ -1818,7 +1818,7 @@ func s2sVpnRoutingPolicyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
 
-			return api.UpdateRoutingPolicy(request)
+			return api.UpdateRoutingPolicy(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1831,7 +1831,7 @@ func s2sVpnRoutingPolicyDelete() *core.Command {
 		Resource:  "routing-policy",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(s2s_vpn.DeleteRoutingPolicyRequest{}),
+		ArgsType: reflect.TypeFor[s2s_vpn.DeleteRoutingPolicyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "routing-policy-id",
@@ -1852,7 +1852,7 @@ func s2sVpnRoutingPolicyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := s2s_vpn.NewAPI(client)
-			e = api.DeleteRoutingPolicy(request)
+			e = api.DeleteRoutingPolicy(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

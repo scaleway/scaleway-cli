@@ -285,7 +285,7 @@ func instanceServerTypeGet() *core.Command {
 		Resource:  "server-type",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerTypesAvailabilityRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerTypesAvailabilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -306,7 +306,7 @@ func instanceServerTypeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServerTypesAvailability(request)
+			return api.GetServerTypesAvailability(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -319,7 +319,7 @@ func instanceServerTypeList() *core.Command {
 		Resource:  "server-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServersTypesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServersTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -340,7 +340,7 @@ func instanceServerTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServersTypes(request)
+			return api.ListServersTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -363,7 +363,7 @@ func instanceVolumeTypeList() *core.Command {
 		Resource:  "volume-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListVolumesTypesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListVolumesTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -384,7 +384,7 @@ func instanceVolumeTypeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListVolumesTypes(request)
+			return api.ListVolumesTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -407,7 +407,7 @@ func instanceServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -540,7 +540,7 @@ func instanceServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -581,7 +581,7 @@ func instanceServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -609,7 +609,7 @@ func instanceServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -628,7 +628,7 @@ func instanceServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -819,7 +819,7 @@ func instanceServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -854,7 +854,7 @@ func instanceServerListActions() *core.Command {
 		Resource:  "server",
 		Verb:      "list-actions",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServerActionsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServerActionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -881,7 +881,7 @@ func instanceServerListActions() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServerActions(request)
+			return api.ListServerActions(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -894,7 +894,7 @@ func instanceUserDataList() *core.Command {
 		Resource:  "user-data",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -922,7 +922,7 @@ func instanceUserDataList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServerUserData(request)
+			return api.ListServerUserData(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -935,7 +935,7 @@ func instanceUserDataDelete() *core.Command {
 		Resource:  "user-data",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -969,7 +969,7 @@ func instanceUserDataDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteServerUserData(request)
+			e = api.DeleteServerUserData(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -990,7 +990,7 @@ func instanceUserDataSet() *core.Command {
 		Resource:  "user-data",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1042,7 +1042,7 @@ func instanceUserDataSet() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.SetServerUserData(request)
+			e = api.SetServerUserData(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1063,7 +1063,7 @@ func instanceUserDataGet() *core.Command {
 		Resource:  "user-data",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerUserDataRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerUserDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1098,7 +1098,7 @@ func instanceUserDataGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServerUserData(request)
+			return api.GetServerUserData(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1116,7 +1116,7 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 		Resource:  "server",
 		Verb:      "get-compatible-types",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetServerCompatibleTypesRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetServerCompatibleTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1144,7 +1144,7 @@ If the specified Instance offer is flagged as end of service, the best compatibl
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetServerCompatibleTypes(request)
+			return api.GetServerCompatibleTypes(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1157,7 +1157,7 @@ func instanceServerAttachVolume() *core.Command {
 		Resource:  "server",
 		Verb:      "attach-volume",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.AttachServerVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.AttachServerVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1208,7 +1208,7 @@ func instanceServerAttachVolume() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.AttachServerVolume(request)
+			return api.AttachServerVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1221,7 +1221,7 @@ func instanceServerDetachVolume() *core.Command {
 		Resource:  "server",
 		Verb:      "detach-volume",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DetachServerVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.DetachServerVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1254,7 +1254,7 @@ func instanceServerDetachVolume() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.DetachServerVolume(request)
+			return api.DetachServerVolume(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1267,7 +1267,7 @@ func instanceServerAttachFilesystem() *core.Command {
 		Resource:  "server",
 		Verb:      "attach-filesystem",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.AttachServerFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[instance.AttachServerFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1300,7 +1300,7 @@ func instanceServerAttachFilesystem() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.AttachServerFileSystem(request)
+			return api.AttachServerFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1313,7 +1313,7 @@ func instanceServerDetachFilesystem() *core.Command {
 		Resource:  "server",
 		Verb:      "detach-filesystem",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DetachServerFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[instance.DetachServerFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1346,7 +1346,7 @@ func instanceServerDetachFilesystem() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.DetachServerFileSystem(request)
+			return api.DetachServerFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1359,7 +1359,7 @@ func instanceImageList() *core.Command {
 		Resource:  "image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListImagesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1416,7 +1416,7 @@ func instanceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1451,7 +1451,7 @@ func instanceImageGet() *core.Command {
 		Resource:  "image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -1479,7 +1479,7 @@ func instanceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetImage(request)
+			return api.GetImage(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1502,7 +1502,7 @@ func instanceImageCreate() *core.Command {
 		Resource:  "image",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1617,7 +1617,7 @@ func instanceImageCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateImage(request)
+			return api.CreateImage(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1636,7 +1636,7 @@ func instanceImageUpdate() *core.Command {
 		Resource:  "image",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -1705,7 +1705,7 @@ func instanceImageUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateImage(request)
+			return api.UpdateImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1718,7 +1718,7 @@ func instanceImageDelete() *core.Command {
 		Resource:  "image",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteImageRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -1745,7 +1745,7 @@ func instanceImageDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteImage(request)
+			e = api.DeleteImage(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1776,7 +1776,7 @@ func instanceSnapshotList() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListSnapshotsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListSnapshotsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -1832,7 +1832,7 @@ func instanceSnapshotList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1865,7 +1865,7 @@ func instanceSnapshotCreate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -1944,7 +1944,7 @@ func instanceSnapshotCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateSnapshot(request)
+			return api.CreateSnapshot(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1975,7 +1975,7 @@ func instanceSnapshotGet() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2003,7 +2003,7 @@ func instanceSnapshotGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetSnapshot(request)
+			return api.GetSnapshot(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2026,7 +2026,7 @@ func instanceSnapshotUpdate() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2068,7 +2068,7 @@ func instanceSnapshotUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateSnapshot(request)
+			return api.UpdateSnapshot(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2081,7 +2081,7 @@ func instanceSnapshotDelete() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "snapshot-id",
@@ -2108,7 +2108,7 @@ func instanceSnapshotDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSnapshot(request)
+			e = api.DeleteSnapshot(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2139,7 +2139,7 @@ func instanceSnapshotExport() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ExportSnapshotRequest{}),
+		ArgsType: reflect.TypeFor[instance.ExportSnapshotRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -2181,7 +2181,7 @@ func instanceSnapshotExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ExportSnapshot(request)
+			return api.ExportSnapshot(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2200,7 +2200,7 @@ func instanceVolumeList() *core.Command {
 		Resource:  "volume",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListVolumesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListVolumesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-type",
@@ -2264,7 +2264,7 @@ func instanceVolumeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2335,7 +2335,7 @@ func instanceVolumeCreate() *core.Command {
 		Resource:  "volume",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2402,7 +2402,7 @@ func instanceVolumeCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateVolume(request)
+			return api.CreateVolume(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2425,7 +2425,7 @@ func instanceVolumeGet() *core.Command {
 		Resource:  "volume",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -2453,7 +2453,7 @@ func instanceVolumeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetVolume(request)
+			return api.GetVolume(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2472,7 +2472,7 @@ func instanceVolumeUpdate() *core.Command {
 		Resource:  "volume",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -2521,7 +2521,7 @@ func instanceVolumeUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateVolume(request)
+			return api.UpdateVolume(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2548,7 +2548,7 @@ func instanceVolumeDelete() *core.Command {
 		Resource:  "volume",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteVolumeRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteVolumeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -2575,7 +2575,7 @@ func instanceVolumeDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteVolume(request)
+			e = api.DeleteVolume(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2602,7 +2602,7 @@ func instanceSecurityGroupList() *core.Command {
 		Resource:  "security-group",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListSecurityGroupsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListSecurityGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2658,7 +2658,7 @@ func instanceSecurityGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2687,7 +2687,7 @@ func instanceSecurityGroupCreate() *core.Command {
 		Resource:  "security-group",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -2787,7 +2787,7 @@ func instanceSecurityGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateSecurityGroup(request)
+			return api.CreateSecurityGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2822,7 +2822,7 @@ func instanceSecurityGroupGet() *core.Command {
 		Resource:  "security-group",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -2850,7 +2850,7 @@ func instanceSecurityGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetSecurityGroup(request)
+			return api.GetSecurityGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2869,7 +2869,7 @@ func instanceSecurityGroupDelete() *core.Command {
 		Resource:  "security-group",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -2896,7 +2896,7 @@ func instanceSecurityGroupDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSecurityGroup(request)
+			e = api.DeleteSecurityGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2923,7 +2923,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 		Resource:  "security-group",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateSecurityGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3024,7 +3024,7 @@ func instanceSecurityGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateSecurityGroup(request)
+			return api.UpdateSecurityGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3037,7 +3037,7 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 		Resource:  "security-group",
 		Verb:      "list-default-rules",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListDefaultSecurityGroupRulesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListDefaultSecurityGroupRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -3058,7 +3058,7 @@ func instanceSecurityGroupListDefaultRules() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListDefaultSecurityGroupRules(request)
+			return api.ListDefaultSecurityGroupRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3071,7 +3071,7 @@ func instanceSecurityGroupListRules() *core.Command {
 		Resource:  "security-group",
 		Verb:      "list-rules",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListSecurityGroupRulesRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListSecurityGroupRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3099,7 +3099,7 @@ func instanceSecurityGroupListRules() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3122,7 +3122,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "create-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3220,7 +3220,7 @@ func instanceSecurityGroupCreateRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateSecurityGroupRule(request)
+			return api.CreateSecurityGroupRule(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3255,7 +3255,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 		Resource:  "security-group",
 		Verb:      "set-rules",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetSecurityGroupRulesRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetSecurityGroupRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3370,7 +3370,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.SetSecurityGroupRules(request)
+			return api.SetSecurityGroupRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3383,7 +3383,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "delete-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3415,7 +3415,7 @@ func instanceSecurityGroupDeleteRule() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteSecurityGroupRule(request)
+			e = api.DeleteSecurityGroupRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3442,7 +3442,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "get-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3475,7 +3475,7 @@ func instanceSecurityGroupGetRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetSecurityGroupRule(request)
+			return api.GetSecurityGroupRule(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3494,7 +3494,7 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 		Resource:  "security-group",
 		Verb:      "update-rule",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateSecurityGroupRuleRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateSecurityGroupRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",
@@ -3595,7 +3595,7 @@ func instanceSecurityGroupUpdateRule() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateSecurityGroupRule(request)
+			return api.UpdateSecurityGroupRule(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3608,7 +3608,7 @@ func instancePlacementGroupList() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListPlacementGroupsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListPlacementGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -3657,7 +3657,7 @@ func instancePlacementGroupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -3690,7 +3690,7 @@ func instancePlacementGroupCreate() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreatePlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreatePlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -3750,7 +3750,7 @@ func instancePlacementGroupCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreatePlacementGroup(request)
+			return api.CreatePlacementGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3789,7 +3789,7 @@ func instancePlacementGroupGet() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetPlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetPlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -3817,7 +3817,7 @@ func instancePlacementGroupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetPlacementGroup(request)
+			return api.GetPlacementGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -3836,7 +3836,7 @@ func instancePlacementGroupSet() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetPlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetPlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -3897,7 +3897,7 @@ func instancePlacementGroupSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.SetPlacementGroup(request)
+			return api.SetPlacementGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3910,7 +3910,7 @@ func instancePlacementGroupUpdate() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdatePlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdatePlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -3974,7 +3974,7 @@ func instancePlacementGroupUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdatePlacementGroup(request)
+			return api.UpdatePlacementGroup(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4001,7 +4001,7 @@ func instancePlacementGroupDelete() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeletePlacementGroupRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeletePlacementGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4028,7 +4028,7 @@ func instancePlacementGroupDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeletePlacementGroup(request)
+			e = api.DeletePlacementGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4059,7 +4059,7 @@ func instancePlacementGroupGetServers() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "get-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetPlacementGroupServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetPlacementGroupServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4087,7 +4087,7 @@ func instancePlacementGroupGetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetPlacementGroupServers(request)
+			return api.GetPlacementGroupServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4100,7 +4100,7 @@ func instancePlacementGroupSetServers() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "set-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.SetPlacementGroupServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.SetPlacementGroupServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4135,7 +4135,7 @@ func instancePlacementGroupSetServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.SetPlacementGroupServers(request)
+			return api.SetPlacementGroupServers(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4154,7 +4154,7 @@ func instancePlacementGroupUpdateServers() *core.Command {
 		Resource:  "placement-group",
 		Verb:      "update-servers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdatePlacementGroupServersRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdatePlacementGroupServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "placement-group-id",
@@ -4189,7 +4189,7 @@ func instancePlacementGroupUpdateServers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdatePlacementGroupServers(request)
+			return api.UpdatePlacementGroupServers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4202,7 +4202,7 @@ func instanceIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListIPsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project",
@@ -4258,7 +4258,7 @@ func instanceIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -4326,7 +4326,7 @@ func instanceIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreateIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectArgSpec(),
 			{
@@ -4375,7 +4375,7 @@ func instanceIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreateIP(request)
+			return api.CreateIP(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4402,7 +4402,7 @@ func instanceIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
@@ -4430,7 +4430,7 @@ func instanceIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetIP(request)
+			return api.GetIP(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4457,7 +4457,7 @@ func instanceIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdateIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdateIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
@@ -4511,7 +4511,7 @@ func instanceIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdateIP(request)
+			return api.UpdateIP(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4538,7 +4538,7 @@ func instanceIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeleteIPRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeleteIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip",
@@ -4565,7 +4565,7 @@ func instanceIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeleteIP(request)
+			e = api.DeleteIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4600,7 +4600,7 @@ func instancePrivateNicList() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ListPrivateNICsRequest{}),
+		ArgsType: reflect.TypeFor[instance.ListPrivateNICsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4635,7 +4635,7 @@ func instancePrivateNicList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -4668,7 +4668,7 @@ func instancePrivateNicCreate() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.CreatePrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.CreatePrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4724,7 +4724,7 @@ func instancePrivateNicCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.CreatePrivateNIC(request)
+			return api.CreatePrivateNIC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4737,7 +4737,7 @@ func instancePrivateNicGet() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.GetPrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.GetPrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4772,7 +4772,7 @@ func instancePrivateNicGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.GetPrivateNIC(request)
+			return api.GetPrivateNIC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4785,7 +4785,7 @@ func instancePrivateNicUpdate() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.UpdatePrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.UpdatePrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4827,7 +4827,7 @@ func instancePrivateNicUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.UpdatePrivateNIC(request)
+			return api.UpdatePrivateNIC(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -4846,7 +4846,7 @@ func instancePrivateNicDelete() *core.Command {
 		Resource:  "private-nic",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.DeletePrivateNICRequest{}),
+		ArgsType: reflect.TypeFor[instance.DeletePrivateNICRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -4880,7 +4880,7 @@ func instancePrivateNicDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.DeletePrivateNIC(request)
+			e = api.DeletePrivateNIC(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4905,7 +4905,7 @@ The endpoint also returns the validation_key, which must be provided to the [Mig
 		Resource:  "volume",
 		Verb:      "plan-migration",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.PlanBlockMigrationRequest{}),
+		ArgsType: reflect.TypeFor[instance.PlanBlockMigrationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -4940,7 +4940,7 @@ The endpoint also returns the validation_key, which must be provided to the [Mig
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.PlanBlockMigration(request)
+			return api.PlanBlockMigration(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4953,7 +4953,7 @@ func instanceVolumeApplyMigration() *core.Command {
 		Resource:  "volume",
 		Verb:      "apply-migration",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(instance.ApplyBlockMigrationRequest{}),
+		ArgsType: reflect.TypeFor[instance.ApplyBlockMigrationRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "volume-id",
@@ -4994,7 +4994,7 @@ func instanceVolumeApplyMigration() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
-			e = api.ApplyBlockMigration(request)
+			e = api.ApplyBlockMigration(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

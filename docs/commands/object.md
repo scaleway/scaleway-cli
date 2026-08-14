@@ -18,15 +18,16 @@ scw object bucket create <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| tags.{index} |  | List of tags to set on the bucket |
-| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
-| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| name              | The unique name of the bucket                                               | Required                |
+| tags.{index}      | List of tags to set on the bucket                                           |                         |
+| enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
+| acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
+| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -41,12 +42,13 @@ scw object bucket delete <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| name       | The unique name of the bucket                                               | Required                |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -61,13 +63,14 @@ scw object bucket get <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| with-size | Default: `false` | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                                                               | Argument Specifications |
+|------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| name       | The unique name of the bucket                                                                                             | Required                |
+| with-size  | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. | Default: `false`        |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                                                                     |                         |
+| region     | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`       |
 
 
 
@@ -82,11 +85,12 @@ scw object bucket list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -101,15 +105,16 @@ scw object bucket update <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| tags.{index} |  | List of new tags to set on the bucket |
-| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
-| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| name              | The unique name of the bucket                                               | Required                |
+| tags.{index}      | List of new tags to set on the bucket                                       |                         |
+| enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
+| acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
+| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -129,14 +134,14 @@ scw object config get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
-| name | Default: `scaleway` | Name of the s3 remote you want to generate |
-| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| type       | Type of S3 tool you want to generate a config for                           | Required<br />One of: `rclone`, `s3cmd`, `mc`     |
+| name       | Name of the s3 remote you want to generate                                  | Default: `scaleway`                               |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 **Examples:**
@@ -171,14 +176,14 @@ scw object config install [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
-| name | Default: `scaleway` | Name of the s3 remote you want to generate |
-| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| type       | Type of S3 tool you want to generate a config for                           | Required<br />One of: `rclone`, `s3cmd`, `mc`     |
+| name       | Name of the s3 remote you want to generate                                  | Default: `scaleway`                               |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 **Examples:**

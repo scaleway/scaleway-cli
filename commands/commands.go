@@ -10,6 +10,7 @@ import (
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	autoscaling "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autoscaling/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2"
 	billingV2beta1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
@@ -34,6 +35,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
@@ -79,6 +81,7 @@ func GetCommands() *core.Commands {
 	commands := core.NewCommandsMerge(
 		iam.GetCommands(),
 		instance.GetCommands(),
+		instanceV2.GetCommands(),
 		baremetal.GetCommands(),
 		cockpit.GetCommands(),
 		k8s.GetCommands(),
@@ -136,6 +139,7 @@ func GetCommands() *core.Commands {
 		search.GetCommands(),
 		billing.GetCommands(),
 		kafka.GetCommands(),
+		autoscaling.GetCommands(),
 	)
 
 	if beta {

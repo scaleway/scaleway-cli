@@ -48,7 +48,7 @@ To submit code:
 - Push your commit(s) to your topic branch on your fork
 - Open a pull request against `scaleway-cli` `master` branch that follows [PR guidelines](#pull-request-guidelines)
 
-The [maintainers](MAINTAINERS.md) of `scaleway-cli` use a "Let's Get This Merged" (LGTM) message in the pull request to note that the commits are ready to merge.
+The maintainers of `scaleway-cli` use a "Let's Get This Merged" (LGTM) message in the pull request to note that the commits are ready to merge.
 After one or more maintainer states LGTM, we will merge.
 If you have questions or comments on your code, feel free to correct these in your branch through new commits.
 

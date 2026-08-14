@@ -32,13 +32,13 @@ scw interlink link attach_policy <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to attach a routing policy to |
-| routing-policy-id | Required | ID of the routing policy to be attached |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id           | ID of the link to attach a routing policy to                                | Required                                                              |
+| routing-policy-id | ID of the routing policy to be attached                                     | Required                                                              |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -53,13 +53,13 @@ scw interlink link attach_vpc <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to attach VPC to |
-| vpc-id | Required | ID of the VPC to attach |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id | ID of the link to attach VPC to                                             | Required                                                              |
+| vpc-id  | ID of the VPC to attach                                                     | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -74,22 +74,22 @@ scw interlink link create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required | Name of the link |
-| tags.{index} |  | List of tags to apply to the link |
-| pop-id | Required | PoP (location) where the link will be created |
-| bandwidth-mbps | Required | Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection |
-| connection-id |  | If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link. |
-| partner-id |  | If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth. |
-| peer-asn |  | For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned. |
-| vlan |  | For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned. |
-| routing-policy-v4-id |  | If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created. |
-| routing-policy-v6-id |  | If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                 | Description                                                                                                                                                             | Argument Specifications                                               |
+|----------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id           | Project ID to use. If none is passed the default project ID will be used                                                                                                |                                                                       |
+| name                 | Name of the link                                                                                                                                                        | Required                                                              |
+| tags.{index}         | List of tags to apply to the link                                                                                                                                       |                                                                       |
+| pop-id               | PoP (location) where the link will be created                                                                                                                           | Required                                                              |
+| bandwidth-mbps       | Desired bandwidth for the link. Must be compatible with available link bandwidths and remaining bandwidth capacity of the connection                                    | Required                                                              |
+| connection-id        | If set, creates a self-hosted link using this dedicated physical connection. As the customer, specify the ID of the physical connection you already have for this link. |                                                                       |
+| partner-id           | If set, creates a hosted link on a partner's connection. Specify the ID of the chosen partner, who already has a shared connection with available bandwidth.            |                                                                       |
+| peer-asn             | For self-hosted links we need the peer AS Number to establish BGP session. If not given, a default one will be assigned.                                                |                                                                       |
+| vlan                 | For self-hosted links only, it is possible to choose the VLAN ID. If the VLAN is not available (ie already taken or out of range), an error is returned.                |                                                                       |
+| routing-policy-v4-id | If set, attaches this routing policy containing IPv4 prefixes to the Link. Hence, a BGP IPv4 session will be created.                                                   |                                                                       |
+| routing-policy-v6-id | If set, attaches this routing policy containing IPv6 prefixes to the Link. Hence, a BGP IPv6 session will be created.                                                   |                                                                       |
+| region               | Region to target. If none is passed will use default region from the config                                                                                             | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -104,12 +104,12 @@ scw interlink link delete <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id | ID of the link to delete                                                    | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -124,13 +124,13 @@ scw interlink link detach_policy <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to detach a routing policy from |
-| routing-policy-id | Required | ID of the routing policy to be detached |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id           | ID of the link to detach a routing policy from                              | Required                                                              |
+| routing-policy-id | ID of the routing policy to be detached                                     | Required                                                              |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -145,12 +145,12 @@ scw interlink link detach_vpc <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to detach the VPC from |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id | ID of the link to detach the VPC from                                       | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -165,12 +165,12 @@ scw interlink link disable_propagation <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link on which to disable route propagation |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id | ID of the link on which to disable route propagation                        | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -185,12 +185,12 @@ scw interlink link enable_propagation <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link on which to enable route propagation |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id | ID of the link on which to enable route propagation                         | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -205,12 +205,12 @@ scw interlink link get <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id | ID of the link to get                                                       | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -225,27 +225,27 @@ scw interlink link list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Order in which to return results |
-| project-id |  | Project ID to filter for |
-| name |  | Link name to filter for |
-| tags.{index} |  | Tags to filter for |
-| status | One of: `unknown_link_status`, `configuring`, `failed`, `requested`, `refused`, `expired`, `provisioning`, `active`, `limited_connectivity`, `all_down`, `deprovisioning`, `deleted`, `locked`, `ready` | Link status to filter for |
-| bgp-v4-status | One of: `unknown_bgp_status`, `up`, `down`, `disabled` | BGP IPv4 status to filter for |
-| bgp-v6-status | One of: `unknown_bgp_status`, `up`, `down`, `disabled` | BGP IPv6 status to filter for |
-| pop-id |  | Filter for links attached to this PoP (via connections) |
-| bandwidth-mbps |  | Filter for link bandwidth (in Mbps) |
-| partner-id |  | Filter for links hosted by this partner |
-| vpc-id |  | Filter for links attached to this VPC |
-| routing-policy-id |  | Filter for links using this routing policy |
-| pairing-key |  | Filter for the link with this pairing_key |
-| kind | One of: `hosted`, `self_hosted`, `l2_hosted`, `l3_hosted` | Filter for hosted or self-hosted links |
-| connection-id |  | Filter for links self-hosted on this connection |
-| organization-id |  | Organization ID to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                                                                                                                                                                 |
+|-------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by          | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`                                                                                                       |
+| project-id        | Project ID to filter for                                                    |                                                                                                                                                                                                         |
+| name              | Link name to filter for                                                     |                                                                                                                                                                                                         |
+| tags.{index}      | Tags to filter for                                                          |                                                                                                                                                                                                         |
+| status            | Link status to filter for                                                   | One of: `unknown_link_status`, `configuring`, `failed`, `requested`, `refused`, `expired`, `provisioning`, `active`, `limited_connectivity`, `all_down`, `deprovisioning`, `deleted`, `locked`, `ready` |
+| bgp-v4-status     | BGP IPv4 status to filter for                                               | One of: `unknown_bgp_status`, `up`, `down`, `disabled`                                                                                                                                                  |
+| bgp-v6-status     | BGP IPv6 status to filter for                                               | One of: `unknown_bgp_status`, `up`, `down`, `disabled`                                                                                                                                                  |
+| pop-id            | Filter for links attached to this PoP (via connections)                     |                                                                                                                                                                                                         |
+| bandwidth-mbps    | Filter for link bandwidth (in Mbps)                                         |                                                                                                                                                                                                         |
+| partner-id        | Filter for links hosted by this partner                                     |                                                                                                                                                                                                         |
+| vpc-id            | Filter for links attached to this VPC                                       |                                                                                                                                                                                                         |
+| routing-policy-id | Filter for links using this routing policy                                  |                                                                                                                                                                                                         |
+| pairing-key       | Filter for the link with this pairing_key                                   |                                                                                                                                                                                                         |
+| kind              | Filter for hosted or self-hosted links                                      | One of: `hosted`, `self_hosted`, `l2_hosted`, `l3_hosted`                                                                                                                                               |
+| connection-id     | Filter for links self-hosted on this connection                             |                                                                                                                                                                                                         |
+| organization-id   | Organization ID to filter for                                               |                                                                                                                                                                                                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all`                                                                                                                            |
 
 
 
@@ -260,15 +260,15 @@ scw interlink link update <link-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| link-id | Required | ID of the link to update |
-| name |  | Name of the link |
-| tags.{index} |  | List of tags to apply to the link |
-| peer-asn |  | For self-hosted links, AS Number to establish BGP session. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| link-id      | ID of the link to update                                                    | Required                                                              |
+| name         | Name of the link                                                            |                                                                       |
+| tags.{index} | List of tags to apply to the link                                           |                                                                       |
+| peer-asn     | For self-hosted links, AS Number to establish BGP session.                  |                                                                       |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -288,12 +288,12 @@ scw interlink partner get <partner-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| partner-id | Required | ID of partner to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| partner-id | ID of partner to get                                                        | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -308,14 +308,14 @@ scw interlink partner list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc` | Order in which to return results |
-| pop-ids.{index} |  | Filter for partners present (offering a connection) in one of these PoPs |
-| l3-connectivity |  | Filter for partners supporting L3 connectivity |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `name_asc`, `name_desc`                                              |
+| pop-ids.{index} | Filter for partners present (offering a connection) in one of these PoPs    |                                                                              |
+| l3-connectivity | Filter for partners supporting L3 connectivity                              |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -335,12 +335,12 @@ scw interlink pop get <pop-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pop-id | Required | ID of PoP to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name   | Description                                                                 | Argument Specifications                                               |
+|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pop-id | ID of PoP to get                                                            | Required                                                              |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -355,18 +355,18 @@ scw interlink pop list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `name_asc`, `name_desc` | Order in which to return results |
-| name |  | PoP name to filter for |
-| hosting-provider-name |  | Hosting provider name to filter for |
-| partner-id |  | Filter for PoPs hosting an available shared connection from this partner |
-| link-bandwidth-mbps |  | Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |
-| dedicated-available |  | Filter for PoPs with a dedicated connection available for self-hosted links. |
-| l3-connectivity-partners |  | Filter for PoPs with a shared connection available from a partner supporting L3 connectivity |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                     | Description                                                                                                                                    | Argument Specifications                                                      |
+|--------------------------|------------------------------------------------------------------------------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by                 | Order in which to return results                                                                                                               | One of: `name_asc`, `name_desc`                                              |
+| name                     | PoP name to filter for                                                                                                                         |                                                                              |
+| hosting-provider-name    | Hosting provider name to filter for                                                                                                            |                                                                              |
+| partner-id               | Filter for PoPs hosting an available shared connection from this partner                                                                       |                                                                              |
+| link-bandwidth-mbps      | Filter for PoPs with a connection allowing this bandwidth size. Note that we cannot guarantee that PoPs returned will have available capacity. |                                                                              |
+| dedicated-available      | Filter for PoPs with a dedicated connection available for self-hosted links.                                                                   |                                                                              |
+| l3-connectivity-partners | Filter for PoPs with a shared connection available from a partner supporting L3 connectivity                                                   |                                                                              |
+| region                   | Region to target. If none is passed will use default region from the config                                                                    | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -386,17 +386,17 @@ scw interlink routing-policy create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required | Name of the routing policy |
-| tags.{index} |  | List of tags to apply to the routing policy |
-| prefix-filter-in.{index} |  | IP prefixes to accept from the peer (ranges of route announcements to accept) |
-| prefix-filter-out.{index} |  | IP prefix filters to advertise to the peer (ranges of routes to advertise) |
-| is-ipv6 |  | IP prefixes version of the routing policy |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                      | Description                                                                   | Argument Specifications                                               |
+|---------------------------|-------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id                | Project ID to use. If none is passed the default project ID will be used      |                                                                       |
+| name                      | Name of the routing policy                                                    | Required                                                              |
+| tags.{index}              | List of tags to apply to the routing policy                                   |                                                                       |
+| prefix-filter-in.{index}  | IP prefixes to accept from the peer (ranges of route announcements to accept) |                                                                       |
+| prefix-filter-out.{index} | IP prefix filters to advertise to the peer (ranges of routes to advertise)    |                                                                       |
+| is-ipv6                   | IP prefixes version of the routing policy                                     |                                                                       |
+| region                    | Region to target. If none is passed will use default region from the config   | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -411,12 +411,12 @@ scw interlink routing-policy delete <routing-policy-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| routing-policy-id | Required | ID of the routing policy to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| routing-policy-id | ID of the routing policy to delete                                          | Required                                                              |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -431,12 +431,12 @@ scw interlink routing-policy get <routing-policy-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| routing-policy-id | Required | ID of the routing policy to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications                                               |
+|-------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| routing-policy-id | ID of the routing policy to get                                             | Required                                                              |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 
@@ -451,17 +451,17 @@ scw interlink routing-policy list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
-| project-id |  | Project ID to filter for |
-| name |  | Routing policy name to filter for |
-| tags.{index} |  | Tags to filter for |
-| ipv6 |  | Filter for the routing policies based on IP prefixes version |
-| organization-id |  | Organization ID to filter for |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
+| project-id      | Project ID to filter for                                                    |                                                                              |
+| name            | Routing policy name to filter for                                           |                                                                              |
+| tags.{index}    | Tags to filter for                                                          |                                                                              |
+| ipv6            | Filter for the routing policies based on IP prefixes version                |                                                                              |
+| organization-id | Organization ID to filter for                                               |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -476,16 +476,16 @@ scw interlink routing-policy update <routing-policy-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| routing-policy-id | Required | ID of the routing policy to update |
-| name |  | Name of the routing policy |
-| tags.{index} |  | List of tags to apply to the routing policy |
-| prefix-filter-in.{index} |  | IP prefixes to accept from the peer (ranges of route announcements to accept) |
-| prefix-filter-out.{index} |  | IP prefix filters for routes to advertise to the peer (ranges of routes to advertise) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                      | Description                                                                           | Argument Specifications                                               |
+|---------------------------|---------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| routing-policy-id         | ID of the routing policy to update                                                    | Required                                                              |
+| name                      | Name of the routing policy                                                            |                                                                       |
+| tags.{index}              | List of tags to apply to the routing policy                                           |                                                                       |
+| prefix-filter-in.{index}  | IP prefixes to accept from the peer (ranges of route announcements to accept)         |                                                                       |
+| prefix-filter-out.{index} | IP prefix filters for routes to advertise to the peer (ranges of routes to advertise) |                                                                       |
+| region                    | Region to target. If none is passed will use default region from the config           | Default: `fr-par`<br />One of: `fr-par`, `it-mil`, `nl-ams`, `pl-waw` |
 
 
 

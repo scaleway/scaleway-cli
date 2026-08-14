@@ -36,7 +36,7 @@ jobs:
         with:
           go-version: stable
       - name: golangci-lint
-        uses: golangci/golangci-lint-action@82606bf257cbaff209d206a39f5134f0cfbfd2ee # v9.2.1
+        uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
         with:
           # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
           version: v2.12.2
@@ -53,7 +53,7 @@ jobs:
           sudo apt-get update
           sudo apt-get install -y --no-install-recommends wget
       - name: Spell Check Repo
-        uses: crate-ci/typos@44e2070e6017f834bf069503acb35ca0ca0b75f2 # v1.47.1
+        uses: crate-ci/typos@bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # v1.48.0
         env:
           CLICOLOR: 1
 
@@ -64,4 +64,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: rumdl
-        uses: rvben/rumdl@c6fa6612be03d6dd87812a1e6eb904cbbf1d9dce # v0.2.27
+        uses: rvben/rumdl@95a982d941d00cf41a0dcef4d0788bd15a29be1b # v0.2.54

@@ -283,7 +283,7 @@ func dediboxServerList() *core.Command {
 		Resource:  "server",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -322,7 +322,7 @@ func dediboxServerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -345,7 +345,7 @@ func dediboxServerGet() *core.Command {
 		Resource:  "server",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -366,7 +366,7 @@ func dediboxServerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetServer(request)
+			return api.GetServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -379,7 +379,7 @@ func dediboxServerListOptions() *core.Command {
 		Resource:  "server",
 		Verb:      "list-options",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListSubscribableServerOptionsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListSubscribableServerOptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -400,7 +400,7 @@ func dediboxServerListOptions() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -423,7 +423,7 @@ func dediboxServerSubscribeOption() *core.Command {
 		Resource:  "server",
 		Verb:      "subscribe-option",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.SubscribeServerOptionRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.SubscribeServerOptionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -451,7 +451,7 @@ func dediboxServerSubscribeOption() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.SubscribeServerOption(request)
+			return api.SubscribeServerOption(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -459,12 +459,12 @@ func dediboxServerSubscribeOption() *core.Command {
 func dediboxServerCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a baremetal server`,
-		Long:      `Create a new baremetal server. The order return you a service ID to follow the provisionning status you could call GetService.`,
+		Long:      `Create a new baremetal server. The order return you a service ID to follow the provisioning status you could call GetService.`,
 		Namespace: "dedibox",
 		Resource:  "server",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.CreateServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.CreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -500,7 +500,7 @@ func dediboxServerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.CreateServer(request)
+			return api.CreateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -513,7 +513,7 @@ func dediboxServerSubscribeStorage() *core.Command {
 		Resource:  "server",
 		Verb:      "subscribe-storage",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.SubscribeStorageOptionsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.SubscribeStorageOptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -541,7 +541,7 @@ func dediboxServerSubscribeStorage() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.SubscribeStorageOptions(request)
+			return api.SubscribeStorageOptions(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -554,7 +554,7 @@ func dediboxServerUpdate() *core.Command {
 		Resource:  "server",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.UpdateServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.UpdateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -589,7 +589,7 @@ func dediboxServerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.UpdateServer(request)
+			return api.UpdateServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -602,7 +602,7 @@ func dediboxServerReboot() *core.Command {
 		Resource:  "server",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RebootServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RebootServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -622,7 +622,7 @@ func dediboxServerReboot() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.RebootServer(request)
+			e = api.RebootServer(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -643,7 +643,7 @@ func dediboxServerStart() *core.Command {
 		Resource:  "server",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StartServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StartServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -663,7 +663,7 @@ func dediboxServerStart() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.StartServer(request)
+			e = api.StartServer(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -684,7 +684,7 @@ func dediboxServerStop() *core.Command {
 		Resource:  "server",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StopServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StopServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -704,7 +704,7 @@ func dediboxServerStop() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.StopServer(request)
+			e = api.StopServer(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -725,7 +725,7 @@ func dediboxServerDelete() *core.Command {
 		Resource:  "server",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DeleteServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -745,7 +745,7 @@ func dediboxServerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.DeleteServer(request)
+			e = api.DeleteServer(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -766,7 +766,7 @@ func dediboxServerListEvents() *core.Command {
 		Resource:  "server",
 		Verb:      "list-events",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServerEventsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServerEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -798,7 +798,7 @@ func dediboxServerListEvents() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -821,7 +821,7 @@ func dediboxServerListDisks() *core.Command {
 		Resource:  "server",
 		Verb:      "list-disks",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServerDisksRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServerDisksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -853,7 +853,7 @@ func dediboxServerListDisks() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -876,7 +876,7 @@ func dediboxServiceGet() *core.Command {
 		Resource:  "service",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "service-id",
@@ -897,7 +897,7 @@ func dediboxServiceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetService(request)
+			return api.GetService(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -910,7 +910,7 @@ func dediboxServiceDelete() *core.Command {
 		Resource:  "service",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DeleteServiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DeleteServiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "service-id",
@@ -931,7 +931,7 @@ func dediboxServiceDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.DeleteService(request)
+			return api.DeleteService(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -944,7 +944,7 @@ func dediboxServiceList() *core.Command {
 		Resource:  "service",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListServicesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListServicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -976,7 +976,7 @@ func dediboxServiceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -999,7 +999,7 @@ func dediboxServerInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.InstallServerRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.InstallServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1138,7 +1138,7 @@ func dediboxServerInstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.InstallServer(request)
+			return api.InstallServer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1151,7 +1151,7 @@ func dediboxServerGetInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "get-install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServerInstallRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServerInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1172,7 +1172,7 @@ func dediboxServerGetInstall() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetServerInstall(request)
+			return api.GetServerInstall(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1185,7 +1185,7 @@ func dediboxServerCancelInstall() *core.Command {
 		Resource:  "server",
 		Verb:      "cancel-install",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.CancelServerInstallRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.CancelServerInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1205,7 +1205,7 @@ func dediboxServerCancelInstall() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.CancelServerInstall(request)
+			e = api.CancelServerInstall(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1226,7 +1226,7 @@ func dediboxServerGetPartitioning() *core.Command {
 		Resource:  "server",
 		Verb:      "get-partitioning",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetServerDefaultPartitioningRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetServerDefaultPartitioningRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1254,7 +1254,7 @@ func dediboxServerGetPartitioning() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetServerDefaultPartitioning(request)
+			return api.GetServerDefaultPartitioning(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1268,7 +1268,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 		Resource:  "bmc",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StartBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StartBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1295,7 +1295,7 @@ The BMC (Baseboard Management Controller) access is available one hour after the
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.StartBMCAccess(request)
+			e = api.StartBMCAccess(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1316,7 +1316,7 @@ func dediboxBmcGet() *core.Command {
 		Resource:  "bmc",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1337,7 +1337,7 @@ func dediboxBmcGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetBMCAccess(request)
+			return api.GetBMCAccess(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1350,7 +1350,7 @@ func dediboxBmcStop() *core.Command {
 		Resource:  "bmc",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StopBMCAccessRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StopBMCAccessRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1370,7 +1370,7 @@ func dediboxBmcStop() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.StopBMCAccess(request)
+			e = api.StopBMCAccess(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1391,7 +1391,7 @@ func dediboxOfferList() *core.Command {
 		Resource:  "offer",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListOffersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListOffersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1486,7 +1486,7 @@ func dediboxOfferList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1509,7 +1509,7 @@ func dediboxOfferGet() *core.Command {
 		Resource:  "offer",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetOfferRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetOfferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1537,7 +1537,7 @@ func dediboxOfferGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetOffer(request)
+			return api.GetOffer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1550,7 +1550,7 @@ func dediboxOsList() *core.Command {
 		Resource:  "os",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListOSRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1607,7 +1607,7 @@ func dediboxOsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -1630,7 +1630,7 @@ func dediboxOsGet() *core.Command {
 		Resource:  "os",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetOSRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetOSRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "os-id",
@@ -1665,7 +1665,7 @@ func dediboxOsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetOS(request)
+			return api.GetOS(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1678,7 +1678,7 @@ func dediboxReverseIPUpdate() *core.Command {
 		Resource:  "reverse-ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.UpdateReverseRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.UpdateReverseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1706,7 +1706,7 @@ func dediboxReverseIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.UpdateReverse(request)
+			return api.UpdateReverse(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1719,7 +1719,7 @@ func dediboxFipCreate() *core.Command {
 		Resource:  "fip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.CreateFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.CreateFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -1748,7 +1748,7 @@ func dediboxFipCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.CreateFailoverIPs(request)
+			return api.CreateFailoverIPs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1761,7 +1761,7 @@ func dediboxFipAttach() *core.Command {
 		Resource:  "fip",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.AttachFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.AttachFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -1788,7 +1788,7 @@ func dediboxFipAttach() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.AttachFailoverIPs(request)
+			e = api.AttachFailoverIPs(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1809,7 +1809,7 @@ func dediboxFipDetach() *core.Command {
 		Resource:  "fip",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DetachFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DetachFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
@@ -1829,7 +1829,7 @@ func dediboxFipDetach() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.DetachFailoverIPs(request)
+			e = api.DetachFailoverIPs(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1850,7 +1850,7 @@ func dediboxFipAttachMac() *core.Command {
 		Resource:  "fip",
 		Verb:      "attach-mac",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.AttachFailoverIPToMacAddressRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.AttachFailoverIPToMacAddressRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1891,7 +1891,7 @@ func dediboxFipAttachMac() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.AttachFailoverIPToMacAddress(request)
+			return api.AttachFailoverIPToMacAddress(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1904,7 +1904,7 @@ func dediboxFipDetachMac() *core.Command {
 		Resource:  "fip",
 		Verb:      "detach-mac",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DetachFailoverIPFromMacAddressRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DetachFailoverIPFromMacAddressRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1925,7 +1925,7 @@ func dediboxFipDetachMac() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.DetachFailoverIPFromMacAddress(request)
+			return api.DetachFailoverIPFromMacAddress(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1938,7 +1938,7 @@ func dediboxFipDelete() *core.Command {
 		Resource:  "fip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.DeleteFailoverIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.DeleteFailoverIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -1958,7 +1958,7 @@ func dediboxFipDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.DeleteFailoverIP(request)
+			e = api.DeleteFailoverIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1979,7 +1979,7 @@ func dediboxFipList() *core.Command {
 		Resource:  "fip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.ListFailoverIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.ListFailoverIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2025,7 +2025,7 @@ func dediboxFipList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -2048,7 +2048,7 @@ func dediboxFipGet() *core.Command {
 		Resource:  "fip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetFailoverIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetFailoverIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "ip-id",
@@ -2069,7 +2069,7 @@ func dediboxFipGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetFailoverIP(request)
+			return api.GetFailoverIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2082,7 +2082,7 @@ func dediboxFipGetQuota() *core.Command {
 		Resource:  "fip",
 		Verb:      "get-quota",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetRemainingQuotaRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetRemainingQuotaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2103,7 +2103,7 @@ func dediboxFipGetQuota() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetRemainingQuota(request)
+			return api.GetRemainingQuota(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2116,7 +2116,7 @@ func dediboxRaidGet() *core.Command {
 		Resource:  "raid",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetRaidRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetRaidRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2137,7 +2137,7 @@ func dediboxRaidGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetRaid(request)
+			return api.GetRaid(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2150,7 +2150,7 @@ func dediboxRaidUpdate() *core.Command {
 		Resource:  "raid",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.UpdateRaidRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.UpdateRaidRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2192,7 +2192,7 @@ func dediboxRaidUpdate() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.UpdateRaid(request)
+			e = api.UpdateRaid(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2213,7 +2213,7 @@ func dediboxRescueStart() *core.Command {
 		Resource:  "rescue",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StartRescueRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StartRescueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2241,7 +2241,7 @@ func dediboxRescueStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.StartRescue(request)
+			return api.StartRescue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2254,7 +2254,7 @@ func dediboxRescueGet() *core.Command {
 		Resource:  "rescue",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.GetRescueRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.GetRescueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2275,7 +2275,7 @@ func dediboxRescueGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
 
-			return api.GetRescue(request)
+			return api.GetRescue(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2288,7 +2288,7 @@ func dediboxRescueStop() *core.Command {
 		Resource:  "rescue",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.StopRescueRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.StopRescueRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -2308,7 +2308,7 @@ func dediboxRescueStop() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewAPI(client)
-			e = api.StopRescue(request)
+			e = api.StopRescue(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2329,7 +2329,7 @@ func dediboxBillingListInvoice() *core.Command {
 		Resource:  "billing",
 		Verb:      "list-invoice",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIListInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIListInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2353,7 +2353,7 @@ func dediboxBillingListInvoice() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListInvoices(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2372,7 +2372,7 @@ func dediboxBillingGetInvoice() *core.Command {
 		Resource:  "billing",
 		Verb:      "get-invoice",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIGetInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIGetInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -2387,7 +2387,7 @@ func dediboxBillingGetInvoice() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 
-			return api.GetInvoice(request)
+			return api.GetInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2400,7 +2400,7 @@ func dediboxBillingDownloadInvoice() *core.Command {
 		Resource:  "billing",
 		Verb:      "download-invoice",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIDownloadInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIDownloadInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -2415,7 +2415,7 @@ func dediboxBillingDownloadInvoice() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 
-			return api.DownloadInvoice(request)
+			return api.DownloadInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2428,7 +2428,7 @@ func dediboxBillingListRefund() *core.Command {
 		Resource:  "billing",
 		Verb:      "list-refund",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIListRefundsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIListRefundsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2452,7 +2452,7 @@ func dediboxBillingListRefund() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRefunds(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2471,7 +2471,7 @@ func dediboxBillingGetRefund() *core.Command {
 		Resource:  "billing",
 		Verb:      "get-refund",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIGetRefundRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIGetRefundRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "refund-id",
@@ -2486,7 +2486,7 @@ func dediboxBillingGetRefund() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 
-			return api.GetRefund(request)
+			return api.GetRefund(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2499,7 +2499,7 @@ func dediboxBillingDownloadRefund() *core.Command {
 		Resource:  "billing",
 		Verb:      "download-refund",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPIDownloadRefundRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPIDownloadRefundRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "refund-id",
@@ -2514,7 +2514,7 @@ func dediboxBillingDownloadRefund() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 
-			return api.DownloadRefund(request)
+			return api.DownloadRefund(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2527,7 +2527,7 @@ func dediboxBillingGetOrderCapacity() *core.Command {
 		Resource:  "billing",
 		Verb:      "get-order-capacity",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.BillingAPICanOrderRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.BillingAPICanOrderRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -2537,7 +2537,7 @@ func dediboxBillingGetOrderCapacity() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewBillingAPI(client)
 
-			return api.CanOrder(request)
+			return api.CanOrder(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2553,7 +2553,7 @@ func dediboxIPv6BlockGetQuota() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "get-quota",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIGetIPv6BlockQuotasRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIGetIPv6BlockQuotasRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2569,7 +2569,7 @@ func dediboxIPv6BlockGetQuota() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 
-			return api.GetIPv6BlockQuotas(request)
+			return api.GetIPv6BlockQuotas(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2582,7 +2582,7 @@ func dediboxIPv6BlockCreate() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPICreateIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPICreateIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2598,7 +2598,7 @@ func dediboxIPv6BlockCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 
-			return api.CreateIPv6Block(request)
+			return api.CreateIPv6Block(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2611,7 +2611,7 @@ func dediboxIPv6BlockGet() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIGetIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIGetIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2627,7 +2627,7 @@ func dediboxIPv6BlockGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 
-			return api.GetIPv6Block(request)
+			return api.GetIPv6Block(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2641,7 +2641,7 @@ If DNS is used, minimum of 2 is necessary and maximum of 5 (no duplicate).`,
 		Resource:  "ipv6-block",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIUpdateIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIUpdateIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2664,7 +2664,7 @@ If DNS is used, minimum of 2 is necessary and maximum of 5 (no duplicate).`,
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 
-			return api.UpdateIPv6Block(request)
+			return api.UpdateIPv6Block(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2677,7 +2677,7 @@ func dediboxIPv6BlockDelete() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIDeleteIPv6BlockRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIDeleteIPv6BlockRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2692,7 +2692,7 @@ func dediboxIPv6BlockDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
-			e = api.DeleteIPv6Block(request)
+			e = api.DeleteIPv6Block(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2715,7 +2715,7 @@ func dediboxIPv6BlockCreateSubnet() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "create-subnet",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPICreateIPv6BlockSubnetRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPICreateIPv6BlockSubnetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2745,7 +2745,7 @@ func dediboxIPv6BlockCreateSubnet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 
-			return api.CreateIPv6BlockSubnet(request)
+			return api.CreateIPv6BlockSubnet(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2758,7 +2758,7 @@ func dediboxIPv6BlockListSubnet() *core.Command {
 		Resource:  "ipv6-block",
 		Verb:      "list-subnet",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.IPv6BlockAPIListIPv6BlockSubnetsAvailableRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.IPv6BlockAPIListIPv6BlockSubnetsAvailableRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "block-id",
@@ -2774,7 +2774,7 @@ func dediboxIPv6BlockListSubnet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewIPv6BlockAPI(client)
 
-			return api.ListIPv6BlockSubnetsAvailable(request)
+			return api.ListIPv6BlockSubnetsAvailable(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2787,7 +2787,7 @@ func dediboxRpnInfoList() *core.Command {
 		Resource:  "rpn-info",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnAPIListRpnServerCapabilitiesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnAPIListRpnServerCapabilitiesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2813,7 +2813,7 @@ func dediboxRpnInfoList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnServerCapabilities(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2832,7 +2832,7 @@ func dediboxRpnInfoGet() *core.Command {
 		Resource:  "rpn-info",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnAPIGetRpnStatusRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnAPIGetRpnStatusRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -2862,7 +2862,7 @@ func dediboxRpnInfoGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnAPI(client)
 
-			return api.GetRpnStatus(request)
+			return api.GetRpnStatus(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2875,7 +2875,7 @@ func dediboxSanList() *core.Command {
 		Resource:  "san",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIListRpnSansRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIListRpnSansRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -2901,7 +2901,7 @@ func dediboxSanList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnSans(request, opts...)
 			if err != nil {
 				return nil, err
@@ -2920,7 +2920,7 @@ func dediboxSanGet() *core.Command {
 		Resource:  "san",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIGetRpnSanRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIGetRpnSanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -2936,7 +2936,7 @@ func dediboxSanGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 
-			return api.GetRpnSan(request)
+			return api.GetRpnSan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2949,7 +2949,7 @@ func dediboxSanDelete() *core.Command {
 		Resource:  "san",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIDeleteRpnSanRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIDeleteRpnSanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -2964,7 +2964,7 @@ func dediboxSanDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			e = api.DeleteRpnSan(request)
+			e = api.DeleteRpnSan(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -2985,7 +2985,7 @@ func dediboxSanCreate() *core.Command {
 		Resource:  "san",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPICreateRpnSanRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPICreateRpnSanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "offer-id",
@@ -3002,7 +3002,7 @@ func dediboxSanCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 
-			return api.CreateRpnSan(request)
+			return api.CreateRpnSan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3015,7 +3015,7 @@ func dediboxSanListIPs() *core.Command {
 		Resource:  "san",
 		Verb:      "list-ips",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIListIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIListIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3043,7 +3043,7 @@ func dediboxSanListIPs() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 
-			return api.ListIPs(request)
+			return api.ListIPs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3056,7 +3056,7 @@ func dediboxSanAddIP() *core.Command {
 		Resource:  "san",
 		Verb:      "add-ip",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIAddIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIAddIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3078,7 +3078,7 @@ func dediboxSanAddIP() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			e = api.AddIP(request)
+			e = api.AddIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3099,7 +3099,7 @@ func dediboxSanRemoveIP() *core.Command {
 		Resource:  "san",
 		Verb:      "remove-ip",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIRemoveIPRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIRemoveIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3121,7 +3121,7 @@ func dediboxSanRemoveIP() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
-			e = api.RemoveIP(request)
+			e = api.RemoveIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3142,7 +3142,7 @@ func dediboxSanListAvailableIPs() *core.Command {
 		Resource:  "san",
 		Verb:      "list-available-ips",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnSanAPIListAvailableIPsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnSanAPIListAvailableIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "rpn-san-id",
@@ -3170,7 +3170,7 @@ func dediboxSanListAvailableIPs() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnSanAPI(client)
 
-			return api.ListAvailableIPs(request)
+			return api.ListAvailableIPs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3183,7 +3183,7 @@ func dediboxRpnV1List() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnGroupsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnGroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3209,7 +3209,7 @@ func dediboxRpnV1List() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnGroups(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3228,7 +3228,7 @@ func dediboxRpnV1Get() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiGetRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiGetRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3244,7 +3244,7 @@ func dediboxRpnV1Get() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 
-			return api.GetRpnGroup(request)
+			return api.GetRpnGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3257,7 +3257,7 @@ func dediboxRpnV1Create() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiCreateRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiCreateRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -3288,7 +3288,7 @@ func dediboxRpnV1Create() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 
-			return api.CreateRpnGroup(request)
+			return api.CreateRpnGroup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3301,7 +3301,7 @@ func dediboxRpnV1Delete() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiDeleteRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiDeleteRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3316,7 +3316,7 @@ func dediboxRpnV1Delete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			e = api.DeleteRpnGroup(request)
+			e = api.DeleteRpnGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3337,7 +3337,7 @@ func dediboxRpnV1Update() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiUpdateRpnGroupNameRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiUpdateRpnGroupNameRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3360,7 +3360,7 @@ func dediboxRpnV1Update() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 
-			return api.UpdateRpnGroupName(request)
+			return api.UpdateRpnGroupName(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3373,7 +3373,7 @@ func dediboxRpnV1ListMembers() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3406,7 +3406,7 @@ func dediboxRpnV1ListMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnGroupMembers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3425,7 +3425,7 @@ func dediboxRpnV1Invite() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "invite",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiRpnGroupInviteRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiRpnGroupInviteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3448,7 +3448,7 @@ func dediboxRpnV1Invite() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			e = api.RpnGroupInvite(request)
+			e = api.RpnGroupInvite(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3469,7 +3469,7 @@ func dediboxRpnV1Leave() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "leave",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiLeaveRpnGroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiLeaveRpnGroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3491,7 +3491,7 @@ func dediboxRpnV1Leave() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			e = api.LeaveRpnGroup(request)
+			e = api.LeaveRpnGroup(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3512,7 +3512,7 @@ func dediboxRpnV1AddMembers() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "add-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiAddRpnGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiAddRpnGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3542,7 +3542,7 @@ func dediboxRpnV1AddMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 
-			return api.AddRpnGroupMembers(request)
+			return api.AddRpnGroupMembers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3555,7 +3555,7 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "delete-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiDeleteRpnGroupMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiDeleteRpnGroupMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3578,7 +3578,7 @@ func dediboxRpnV1DeleteMembers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
 
-			return api.DeleteRpnGroupMembers(request)
+			return api.DeleteRpnGroupMembers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3591,7 +3591,7 @@ func dediboxRpnV1ListCapableServer() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-capable-server",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnCapableServersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnCapableServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3617,7 +3617,7 @@ func dediboxRpnV1ListCapableServer() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnCapableServers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3636,7 +3636,7 @@ func dediboxRpnV1ListCapableSanServer() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-capable-san-server",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnCapableSanServersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnCapableSanServersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3662,7 +3662,7 @@ func dediboxRpnV1ListCapableSanServer() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnCapableSanServers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3681,7 +3681,7 @@ func dediboxRpnV1ListInvites() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "list-invites",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiListRpnInvitesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiListRpnInvitesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3701,7 +3701,7 @@ func dediboxRpnV1ListInvites() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnInvites(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3720,7 +3720,7 @@ func dediboxRpnV1AcceptInvite() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "accept-invite",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiAcceptRpnInviteRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiAcceptRpnInviteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "member-id",
@@ -3735,7 +3735,7 @@ func dediboxRpnV1AcceptInvite() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			e = api.AcceptRpnInvite(request)
+			e = api.AcceptRpnInvite(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3756,7 +3756,7 @@ func dediboxRpnV1RefuseInvite() *core.Command {
 		Resource:  "rpn-v1",
 		Verb:      "refuse-invite",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV1ApiRefuseRpnInviteRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV1ApiRefuseRpnInviteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "member-id",
@@ -3771,7 +3771,7 @@ func dediboxRpnV1RefuseInvite() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV1API(client)
-			e = api.RefuseRpnInvite(request)
+			e = api.RefuseRpnInvite(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -3792,7 +3792,7 @@ func dediboxRpnV2List() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2GroupsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2GroupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3818,7 +3818,7 @@ func dediboxRpnV2List() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnV2Groups(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3837,7 +3837,7 @@ func dediboxRpnV2ListMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2MembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2MembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -3875,7 +3875,7 @@ func dediboxRpnV2ListMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnV2Members(request, opts...)
 			if err != nil {
 				return nil, err
@@ -3894,7 +3894,7 @@ func dediboxRpnV2Get() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiGetRpnV2GroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiGetRpnV2GroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3910,7 +3910,7 @@ func dediboxRpnV2Get() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
 
-			return api.GetRpnV2Group(request)
+			return api.GetRpnV2Group(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3923,7 +3923,7 @@ func dediboxRpnV2Create() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiCreateRpnV2GroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiCreateRpnV2GroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -3959,7 +3959,7 @@ func dediboxRpnV2Create() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
 
-			return api.CreateRpnV2Group(request)
+			return api.CreateRpnV2Group(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3972,7 +3972,7 @@ func dediboxRpnV2Delete() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiDeleteRpnV2GroupRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiDeleteRpnV2GroupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -3987,7 +3987,7 @@ func dediboxRpnV2Delete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			e = api.DeleteRpnV2Group(request)
+			e = api.DeleteRpnV2Group(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4008,7 +4008,7 @@ func dediboxRpnV2Update() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiUpdateRpnV2GroupNameRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiUpdateRpnV2GroupNameRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4031,7 +4031,7 @@ func dediboxRpnV2Update() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
 
-			return api.UpdateRpnV2GroupName(request)
+			return api.UpdateRpnV2GroupName(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4044,7 +4044,7 @@ func dediboxRpnV2AddMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "add-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiAddRpnV2MembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiAddRpnV2MembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4066,7 +4066,7 @@ func dediboxRpnV2AddMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			e = api.AddRpnV2Members(request)
+			e = api.AddRpnV2Members(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4087,7 +4087,7 @@ func dediboxRpnV2DeleteMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "delete-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiDeleteRpnV2MembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiDeleteRpnV2MembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4109,7 +4109,7 @@ func dediboxRpnV2DeleteMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			e = api.DeleteRpnV2Members(request)
+			e = api.DeleteRpnV2Members(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4130,7 +4130,7 @@ func dediboxRpnV2ListCapableResources() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list-capable-resources",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2CapableResourcesRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2CapableResourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -4156,7 +4156,7 @@ func dediboxRpnV2ListCapableResources() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnV2CapableResources(request, opts...)
 			if err != nil {
 				return nil, err
@@ -4175,7 +4175,7 @@ func dediboxRpnV2ListLogs() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "list-logs",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiListRpnV2GroupLogsRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiListRpnV2GroupLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -4201,7 +4201,7 @@ func dediboxRpnV2ListLogs() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRpnV2GroupLogs(request, opts...)
 			if err != nil {
 				return nil, err
@@ -4220,7 +4220,7 @@ func dediboxRpnV2UpdateVlanMembers() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "update-vlan-members",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiUpdateRpnV2VlanForMembersRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiUpdateRpnV2VlanForMembersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4249,7 +4249,7 @@ func dediboxRpnV2UpdateVlanMembers() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			e = api.UpdateRpnV2VlanForMembers(request)
+			e = api.UpdateRpnV2VlanForMembers(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4270,7 +4270,7 @@ func dediboxRpnV2EnableCompatibility() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "enable-compatibility",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiEnableRpnV2GroupCompatibilityRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiEnableRpnV2GroupCompatibilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4292,7 +4292,7 @@ func dediboxRpnV2EnableCompatibility() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			e = api.EnableRpnV2GroupCompatibility(request)
+			e = api.EnableRpnV2GroupCompatibility(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -4313,7 +4313,7 @@ func dediboxRpnV2DisableCompatibility() *core.Command {
 		Resource:  "rpn-v2",
 		Verb:      "disable-compatibility",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(dedibox.RpnV2ApiDisableRpnV2GroupCompatibilityRequest{}),
+		ArgsType: reflect.TypeFor[dedibox.RpnV2ApiDisableRpnV2GroupCompatibilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "group-id",
@@ -4328,7 +4328,7 @@ func dediboxRpnV2DisableCompatibility() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := dedibox.NewRpnV2API(client)
-			e = api.DisableRpnV2GroupCompatibility(request)
+			e = api.DisableRpnV2GroupCompatibility(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

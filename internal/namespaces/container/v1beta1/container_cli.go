@@ -53,7 +53,7 @@ func containerTokenCreate() *core.Command {
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.CreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -95,7 +95,7 @@ func containerTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -108,7 +108,7 @@ func containerTokenGet() *core.Command {
 		Resource:  "token",
 		Verb:      "get",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.GetTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.GetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -129,7 +129,7 @@ func containerTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -142,7 +142,7 @@ func containerTokenList() *core.Command {
 		Resource:  "token",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.ListTokensRequest{}),
+		ArgsType: reflect.TypeFor[container.ListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -181,7 +181,7 @@ func containerTokenList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -204,7 +204,7 @@ func containerTokenDelete() *core.Command {
 		Resource:  "token",
 		Verb:      "delete",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.DeleteTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -225,7 +225,7 @@ func containerTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteToken(request)
+			return api.DeleteToken(request, scw.WithContext(ctx))
 		},
 	}
 }

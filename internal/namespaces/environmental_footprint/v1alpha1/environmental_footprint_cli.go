@@ -62,9 +62,7 @@ func environmentalFootprintReportList() *core.Command {
 		Resource:  "report",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(
-			environmental_footprint.UserAPIGetImpactReportAvailabilityRequest{},
-		),
+		ArgsType: reflect.TypeFor[environmental_footprint.UserAPIGetImpactReportAvailabilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "start-date",
@@ -88,7 +86,7 @@ func environmentalFootprintReportList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := environmental_footprint.NewUserAPI(client)
 
-			return api.GetImpactReportAvailability(request)
+			return api.GetImpactReportAvailability(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -101,7 +99,7 @@ func environmentalFootprintReportGet() *core.Command {
 		Resource:  "report",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(environmental_footprint.UserAPIDownloadImpactReportRequest{}),
+		ArgsType: reflect.TypeFor[environmental_footprint.UserAPIDownloadImpactReportRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "date",
@@ -130,7 +128,7 @@ func environmentalFootprintReportGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := environmental_footprint.NewUserAPI(client)
 
-			return api.DownloadImpactReport(request)
+			return api.DownloadImpactReport(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -143,7 +141,7 @@ func environmentalFootprintDataGet() *core.Command {
 		Resource:  "data",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(environmental_footprint.UserAPIGetImpactDataRequest{}),
+		ArgsType: reflect.TypeFor[environmental_footprint.UserAPIGetImpactDataRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "start-date",
@@ -232,7 +230,7 @@ func environmentalFootprintDataGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := environmental_footprint.NewUserAPI(client)
 
-			return api.GetImpactData(request)
+			return api.GetImpactData(request, scw.WithContext(ctx))
 		},
 	}
 }

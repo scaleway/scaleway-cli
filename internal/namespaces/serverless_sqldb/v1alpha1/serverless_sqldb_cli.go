@@ -68,7 +68,7 @@ func sdbSQLDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.CreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -107,7 +107,7 @@ func sdbSQLDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -120,7 +120,7 @@ func sdbSQLDatabaseGet() *core.Command {
 		Resource:  "database",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.GetDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.GetDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -137,7 +137,7 @@ func sdbSQLDatabaseGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.GetDatabase(request)
+			return api.GetDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -150,7 +150,7 @@ func sdbSQLDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.DeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -167,7 +167,7 @@ func sdbSQLDatabaseDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.DeleteDatabase(request)
+			return api.DeleteDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -180,7 +180,7 @@ func sdbSQLDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.ListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -220,7 +220,7 @@ func sdbSQLDatabaseList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -243,7 +243,7 @@ func sdbSQLDatabaseUpdate() *core.Command {
 		Resource:  "database",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.UpdateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.UpdateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -274,7 +274,7 @@ func sdbSQLDatabaseUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.UpdateDatabase(request)
+			return api.UpdateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -287,7 +287,7 @@ func sdbSQLDatabaseRestore() *core.Command {
 		Resource:  "database",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.RestoreDatabaseFromBackupRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.RestoreDatabaseFromBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "database-id",
@@ -311,7 +311,7 @@ func sdbSQLDatabaseRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.RestoreDatabaseFromBackup(request)
+			return api.RestoreDatabaseFromBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -324,7 +324,7 @@ func sdbSQLBackupGet() *core.Command {
 		Resource:  "backup",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.GetDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.GetDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-id",
@@ -341,7 +341,7 @@ func sdbSQLBackupGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.GetDatabaseBackup(request)
+			return api.GetDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -354,7 +354,7 @@ func sdbSQLBackupList() *core.Command {
 		Resource:  "backup",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.ListDatabaseBackupsRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.ListDatabaseBackupsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -398,7 +398,7 @@ func sdbSQLBackupList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -421,7 +421,7 @@ func sdbSQLBackupExport() *core.Command {
 		Resource:  "backup",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(serverless_sqldb.ExportDatabaseBackupRequest{}),
+		ArgsType: reflect.TypeFor[serverless_sqldb.ExportDatabaseBackupRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-id",
@@ -438,7 +438,7 @@ func sdbSQLBackupExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := serverless_sqldb.NewAPI(client)
 
-			return api.ExportDatabaseBackup(request)
+			return api.ExportDatabaseBackup(request, scw.WithContext(ctx))
 		},
 	}
 }

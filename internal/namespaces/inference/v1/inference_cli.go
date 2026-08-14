@@ -93,7 +93,7 @@ func inferenceDeploymentList() *core.Command {
 		Resource:  "deployment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListDeploymentsRequest{}),
+		ArgsType: reflect.TypeFor[inference.ListDeploymentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -146,7 +146,7 @@ func inferenceDeploymentList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -169,7 +169,7 @@ func inferenceDeploymentGet() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.GetDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.GetDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -186,7 +186,7 @@ func inferenceDeploymentGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.GetDeployment(request)
+			return api.GetDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -199,7 +199,7 @@ func inferenceDeploymentCreate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.CreateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.CreateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -253,6 +253,13 @@ func inferenceDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.public-network",
+				Short:      `Set the endpoint as public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Required:   false,
 				Deprecated: false,
@@ -281,7 +288,7 @@ func inferenceDeploymentCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.CreateDeployment(request)
+			return api.CreateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -294,7 +301,7 @@ func inferenceDeploymentUpdate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.UpdateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.UpdateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -353,7 +360,7 @@ func inferenceDeploymentUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.UpdateDeployment(request)
+			return api.UpdateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -366,7 +373,7 @@ func inferenceDeploymentDelete() *core.Command {
 		Resource:  "deployment",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[inference.DeleteDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -383,7 +390,7 @@ func inferenceDeploymentDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.DeleteDeployment(request)
+			return api.DeleteDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -397,7 +404,7 @@ The CA certificate will be returned as a PEM file.`,
 		Resource:  "deployment",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.GetDeploymentCertificateRequest{}),
+		ArgsType: reflect.TypeFor[inference.GetDeploymentCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -413,7 +420,7 @@ The CA certificate will be returned as a PEM file.`,
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.GetDeploymentCertificate(request)
+			return api.GetDeploymentCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -426,7 +433,7 @@ func inferenceEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[inference.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -434,6 +441,13 @@ func inferenceEndpointCreate() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "endpoint.public-network",
+				Short:      `Set the endpoint as public`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "endpoint.private-network.private-network-id",
@@ -457,7 +471,7 @@ func inferenceEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -470,7 +484,7 @@ func inferenceEndpointUpdate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.UpdateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[inference.UpdateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -494,7 +508,7 @@ func inferenceEndpointUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.UpdateEndpoint(request)
+			return api.UpdateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -507,7 +521,7 @@ func inferenceEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[inference.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -523,7 +537,7 @@ func inferenceEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -544,7 +558,7 @@ func inferenceModelList() *core.Command {
 		Resource:  "model",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListModelsRequest{}),
+		ArgsType: reflect.TypeFor[inference.ListModelsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -598,7 +612,7 @@ func inferenceModelList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -621,7 +635,7 @@ func inferenceModelGet() *core.Command {
 		Resource:  "model",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.GetModelRequest{}),
+		ArgsType: reflect.TypeFor[inference.GetModelRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "model-id",
@@ -638,7 +652,7 @@ func inferenceModelGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.GetModel(request)
+			return api.GetModel(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -651,7 +665,7 @@ func inferenceModelImport() *core.Command {
 		Resource:  "model",
 		Verb:      "import",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.CreateModelRequest{}),
+		ArgsType: reflect.TypeFor[inference.CreateModelRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -682,7 +696,7 @@ func inferenceModelImport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
 
-			return api.CreateModel(request)
+			return api.CreateModel(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -695,7 +709,7 @@ func inferenceModelDelete() *core.Command {
 		Resource:  "model",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.DeleteModelRequest{}),
+		ArgsType: reflect.TypeFor[inference.DeleteModelRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "model-id",
@@ -711,7 +725,7 @@ func inferenceModelDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			e = api.DeleteModel(request)
+			e = api.DeleteModel(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -732,7 +746,7 @@ func inferenceNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(inference.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[inference.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "include-disabled-types",
@@ -751,7 +765,7 @@ func inferenceNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := inference.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

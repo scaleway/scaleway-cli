@@ -221,7 +221,7 @@ func dnsZoneList() *core.Command {
 		Resource:  "zone",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZonesRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZonesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -309,7 +309,7 @@ func dnsZoneList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZones(request, opts...)
 			if err != nil {
 				return nil, err
@@ -360,7 +360,7 @@ func dnsZoneCreate() *core.Command {
 		Resource:  "zone",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.CreateDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.CreateDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -384,7 +384,7 @@ func dnsZoneCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.CreateDNSZone(request)
+			return api.CreateDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -397,7 +397,7 @@ func dnsZoneUpdate() *core.Command {
 		Resource:  "zone",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.UpdateDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.UpdateDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -421,7 +421,7 @@ func dnsZoneUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.UpdateDNSZone(request)
+			return api.UpdateDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -434,7 +434,7 @@ func dnsZoneClone() *core.Command {
 		Resource:  "zone",
 		Verb:      "clone",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.CloneDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.CloneDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -471,7 +471,7 @@ func dnsZoneClone() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.CloneDNSZone(request)
+			return api.CloneDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -484,7 +484,7 @@ func dnsZoneDelete() *core.Command {
 		Resource:  "zone",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.DeleteDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.DeleteDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -501,7 +501,7 @@ func dnsZoneDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.DeleteDNSZone(request)
+			return api.DeleteDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -515,7 +515,7 @@ You can filter records by type and name.`,
 		Resource:  "record",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -593,7 +593,7 @@ You can filter records by type and name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZoneRecords(request, opts...)
 			if err != nil {
 				return nil, err
@@ -646,7 +646,7 @@ All edits will be versioned.`,
 		Resource:  "record",
 		Verb:      "bulk-update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.UpdateDNSZoneRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.UpdateDNSZoneRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1074,6 +1074,12 @@ All edits will be versioned.`,
 				Positional: false,
 			},
 			{
+				Name:       "changes.{index}.clear",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "return-all-records",
 				Short:      `Specifies whether or not to return all the records`,
 				Required:   false,
@@ -1101,7 +1107,7 @@ All edits will be versioned.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.UpdateDNSZoneRecords(request)
+			return api.UpdateDNSZoneRecords(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1114,7 +1120,7 @@ func dnsRecordListNameservers() *core.Command {
 		Resource:  "record",
 		Verb:      "list-nameservers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneNameserversRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneNameserversRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -1137,7 +1143,7 @@ func dnsRecordListNameservers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ListDNSZoneNameservers(request)
+			return api.ListDNSZoneNameservers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1150,7 +1156,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 		Resource:  "record",
 		Verb:      "update-nameservers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.UpdateDNSZoneNameserversRequest{}),
+		ArgsType: reflect.TypeFor[domain.UpdateDNSZoneNameserversRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1178,7 +1184,7 @@ func dnsRecordUpdateNameservers() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.UpdateDNSZoneNameservers(request)
+			return api.UpdateDNSZoneNameservers(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1192,7 +1198,7 @@ All edits will be versioned.`,
 		Resource:  "record",
 		Verb:      "clear",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ClearDNSZoneRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ClearDNSZoneRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1208,7 +1214,7 @@ All edits will be versioned.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ClearDNSZoneRecords(request)
+			return api.ClearDNSZoneRecords(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1221,7 +1227,7 @@ func dnsZoneExport() *core.Command {
 		Resource:  "zone",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ExportRawDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.ExportRawDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1249,7 +1255,7 @@ func dnsZoneExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ExportRawDNSZone(request)
+			return api.ExportRawDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1262,7 +1268,7 @@ func dnsZoneImport() *core.Command {
 		Resource:  "zone",
 		Verb:      "import",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ImportRawDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.ImportRawDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1325,7 +1331,7 @@ func dnsZoneImport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.ImportRawDNSZone(request)
+			return api.ImportRawDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1339,7 +1345,7 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 		Resource:  "zone",
 		Verb:      "refresh",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RefreshDNSZoneRequest{}),
+		ArgsType: reflect.TypeFor[domain.RefreshDNSZoneRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1369,7 +1375,7 @@ You can recreate the given DNS zone and its sub DNS zone if needed.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.RefreshDNSZone(request)
+			return api.RefreshDNSZone(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1383,7 +1389,7 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneVersionsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1397,7 +1403,7 @@ The maximum version count is 100. If the count reaches this limit, the oldest ve
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZoneVersions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1424,7 +1430,7 @@ func dnsVersionShow() *core.Command {
 		Resource:  "version",
 		Verb:      "show",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListDNSZoneVersionRecordsRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListDNSZoneVersionRecordsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone-version-id",
@@ -1438,7 +1444,7 @@ func dnsVersionShow() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDNSZoneVersionRecords(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1457,7 +1463,7 @@ func dnsVersionDiff() *core.Command {
 		Resource:  "version",
 		Verb:      "diff",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.GetDNSZoneVersionDiffRequest{}),
+		ArgsType: reflect.TypeFor[domain.GetDNSZoneVersionDiffRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone-version-id",
@@ -1472,7 +1478,7 @@ func dnsVersionDiff() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.GetDNSZoneVersionDiff(request)
+			return api.GetDNSZoneVersionDiff(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1485,7 +1491,7 @@ func dnsVersionRestore() *core.Command {
 		Resource:  "version",
 		Verb:      "restore",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RestoreDNSZoneVersionRequest{}),
+		ArgsType: reflect.TypeFor[domain.RestoreDNSZoneVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone-version-id",
@@ -1500,7 +1506,7 @@ func dnsVersionRestore() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.RestoreDNSZoneVersion(request)
+			return api.RestoreDNSZoneVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1513,7 +1519,7 @@ func dnsCertificateGet() *core.Command {
 		Resource:  "certificate",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.GetSSLCertificateRequest{}),
+		ArgsType: reflect.TypeFor[domain.GetSSLCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1528,7 +1534,7 @@ func dnsCertificateGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.GetSSLCertificate(request)
+			return api.GetSSLCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1541,7 +1547,7 @@ func dnsCertificateCreate() *core.Command {
 		Resource:  "certificate",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.CreateSSLCertificateRequest{}),
+		ArgsType: reflect.TypeFor[domain.CreateSSLCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1562,7 +1568,7 @@ func dnsCertificateCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.CreateSSLCertificate(request)
+			return api.CreateSSLCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1575,7 +1581,7 @@ func dnsCertificateList() *core.Command {
 		Resource:  "certificate",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.ListSSLCertificatesRequest{}),
+		ArgsType: reflect.TypeFor[domain.ListSSLCertificatesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1595,7 +1601,7 @@ func dnsCertificateList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListSSLCertificates(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1614,7 +1620,7 @@ func dnsCertificateDelete() *core.Command {
 		Resource:  "certificate",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.DeleteSSLCertificateRequest{}),
+		ArgsType: reflect.TypeFor[domain.DeleteSSLCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1629,7 +1635,7 @@ func dnsCertificateDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.DeleteSSLCertificate(request)
+			return api.DeleteSSLCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1642,7 +1648,7 @@ func dnsTsigKeyGet() *core.Command {
 		Resource:  "tsig-key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.GetDNSZoneTsigKeyRequest{}),
+		ArgsType: reflect.TypeFor[domain.GetDNSZoneTsigKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1657,7 +1663,7 @@ func dnsTsigKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
 
-			return api.GetDNSZoneTsigKey(request)
+			return api.GetDNSZoneTsigKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1670,7 +1676,7 @@ func dnsTsigKeyDelete() *core.Command {
 		Resource:  "tsig-key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.DeleteDNSZoneTsigKeyRequest{}),
+		ArgsType: reflect.TypeFor[domain.DeleteDNSZoneTsigKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
@@ -1684,7 +1690,7 @@ func dnsTsigKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewAPI(client)
-			e = api.DeleteDNSZoneTsigKey(request)
+			e = api.DeleteDNSZoneTsigKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1706,7 +1712,7 @@ You can filter the list of tasks by domain name.`,
 		Resource:  "task",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListTasksRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListTasksRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -1794,7 +1800,7 @@ You can filter the list of tasks by domain name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTasks(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1814,7 +1820,7 @@ You can filter the list of inbound transfers by domain name.`,
 		Resource:  "task",
 		Verb:      "list-inbound-transfers",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListInboundTransfersRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListInboundTransfersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1830,7 +1836,7 @@ You can filter the list of inbound transfers by domain name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListInboundTransfers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -1849,7 +1855,7 @@ func domainTaskRetryInboundTransfer() *core.Command {
 		Resource:  "task",
 		Verb:      "retry-inbound-transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIRetryInboundTransferRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIRetryInboundTransferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -1873,7 +1879,7 @@ func domainTaskRetryInboundTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.RetryInboundTransfer(request)
+			return api.RetryInboundTransfer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1887,7 +1893,7 @@ You can provide a domain's already existing contact or a new contact.`,
 		Resource:  "order",
 		Verb:      "buy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIBuyDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIBuyDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -2701,7 +2707,7 @@ You can provide a domain's already existing contact or a new contact.`,
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.BuyDomains(request)
+			return api.BuyDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2714,7 +2720,7 @@ func domainOrderRenew() *core.Command {
 		Resource:  "order",
 		Verb:      "renew",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIRenewDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIRenewDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -2741,7 +2747,7 @@ func domainOrderRenew() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.RenewDomains(request)
+			return api.RenewDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -2754,7 +2760,7 @@ func domainOrderTransfer() *core.Command {
 		Resource:  "order",
 		Verb:      "transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPITransferInDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPITransferInDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}.domain",
@@ -3568,7 +3574,7 @@ func domainOrderTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.TransferInDomain(request)
+			return api.TransferInDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3584,7 +3590,7 @@ If the new owner has never created a contact to register domains before, an erro
 		Resource:  "order",
 		Verb:      "trade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPITradeDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPITradeDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -3869,7 +3875,7 @@ If the new owner has never created a contact to register domains before, an erro
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.TradeDomain(request)
+			return api.TradeDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3882,7 +3888,7 @@ func domainExternalDomainRegister() *core.Command {
 		Resource:  "external-domain",
 		Verb:      "register",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIRegisterExternalDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIRegisterExternalDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -3898,7 +3904,7 @@ func domainExternalDomainRegister() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.RegisterExternalDomain(request)
+			return api.RegisterExternalDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3911,7 +3917,7 @@ func domainExternalDomainDelete() *core.Command {
 		Resource:  "external-domain",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDeleteExternalDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDeleteExternalDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -3926,7 +3932,7 @@ func domainExternalDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DeleteExternalDomain(request)
+			return api.DeleteExternalDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -3940,7 +3946,7 @@ If contacts are not compatible with either the domain or the TLD, the informatio
 		Resource:  "contact",
 		Verb:      "check-compatibility",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPICheckContactsCompatibilityRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPICheckContactsCompatibilityRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -4753,7 +4759,7 @@ If contacts are not compatible with either the domain or the TLD, the informatio
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.CheckContactsCompatibility(request)
+			return api.CheckContactsCompatibility(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4767,7 +4773,7 @@ You can filter the list by domain name.`,
 		Resource:  "contact",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListContactsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListContactsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -4817,7 +4823,7 @@ You can filter the list by domain name.`,
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListContacts(request, opts...)
 			if err != nil {
 				return nil, err
@@ -4836,7 +4842,7 @@ func domainContactGet() *core.Command {
 		Resource:  "contact",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIGetContactRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIGetContactRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "contact-id",
@@ -4851,7 +4857,7 @@ func domainContactGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.GetContact(request)
+			return api.GetContact(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -4864,7 +4870,7 @@ func domainContactUpdate() *core.Command {
 		Resource:  "contact",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUpdateContactRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUpdateContactRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "contact-id",
@@ -5106,7 +5112,7 @@ func domainContactUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UpdateContact(request)
+			return api.UpdateContact(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -5119,7 +5125,7 @@ func domainDomainList() *core.Command {
 		Resource:  "domain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -5189,7 +5195,7 @@ func domainDomainList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDomains(request, opts...)
 			if err != nil {
 				return nil, err
@@ -5208,7 +5214,7 @@ func domainDomainListRenewable() *core.Command {
 		Resource:  "domain",
 		Verb:      "list-renewable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListRenewableDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListRenewableDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -5238,7 +5244,7 @@ func domainDomainListRenewable() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListRenewableDomains(request, opts...)
 			if err != nil {
 				return nil, err
@@ -5257,7 +5263,7 @@ func domainDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIGetDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIGetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -5272,7 +5278,7 @@ func domainDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -5286,7 +5292,7 @@ If you add the same contact for multiple roles (owner, administrative, technical
 		Resource:  "domain",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUpdateDomainRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUpdateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6093,7 +6099,7 @@ If you add the same contact for multiple roles (owner, administrative, technical
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UpdateDomain(request)
+			return api.UpdateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6106,7 +6112,7 @@ func domainDomainLockTransfer() *core.Command {
 		Resource:  "domain",
 		Verb:      "lock-transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPILockDomainTransferRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPILockDomainTransferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6121,7 +6127,7 @@ func domainDomainLockTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.LockDomainTransfer(request)
+			return api.LockDomainTransfer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6134,7 +6140,7 @@ func domainDomainUnlockTransfer() *core.Command {
 		Resource:  "domain",
 		Verb:      "unlock-transfer",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUnlockDomainTransferRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUnlockDomainTransferRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6149,7 +6155,7 @@ func domainDomainUnlockTransfer() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UnlockDomainTransfer(request)
+			return api.UnlockDomainTransfer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6162,7 +6168,7 @@ func domainDomainEnableAutoRenew() *core.Command {
 		Resource:  "domain",
 		Verb:      "enable-auto-renew",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIEnableDomainAutoRenewRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIEnableDomainAutoRenewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6177,7 +6183,7 @@ func domainDomainEnableAutoRenew() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.EnableDomainAutoRenew(request)
+			return api.EnableDomainAutoRenew(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6190,7 +6196,7 @@ func domainDomainDisableAutoRenew() *core.Command {
 		Resource:  "domain",
 		Verb:      "disable-auto-renew",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDisableDomainAutoRenewRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDisableDomainAutoRenewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6205,7 +6211,7 @@ func domainDomainDisableAutoRenew() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DisableDomainAutoRenew(request)
+			return api.DisableDomainAutoRenew(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6219,7 +6225,7 @@ Some TLDs may have a different procedure to retrieve the authorization code. In 
 		Resource:  "domain",
 		Verb:      "get-auth-code",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIGetDomainAuthCodeRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIGetDomainAuthCodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6234,7 +6240,7 @@ Some TLDs may have a different procedure to retrieve the authorization code. In 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.GetDomainAuthCode(request)
+			return api.GetDomainAuthCode(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6247,7 +6253,7 @@ func domainDomainEnableDnssec() *core.Command {
 		Resource:  "domain",
 		Verb:      "enable-dnssec",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIEnableDomainDNSSECRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIEnableDomainDNSSECRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6319,7 +6325,7 @@ func domainDomainEnableDnssec() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.EnableDomainDNSSEC(request)
+			return api.EnableDomainDNSSEC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6332,7 +6338,7 @@ func domainDomainDisableDnssec() *core.Command {
 		Resource:  "domain",
 		Verb:      "disable-dnssec",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDisableDomainDNSSECRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDisableDomainDNSSECRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6347,7 +6353,7 @@ func domainDomainDisableDnssec() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DisableDomainDNSSEC(request)
+			return api.DisableDomainDNSSEC(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6362,7 +6368,7 @@ If the TLD list is empty or not set, the search returns the results from the mos
 		Resource:  "domain",
 		Verb:      "search",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPISearchAvailableDomainsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPISearchAvailableDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domains.{index}",
@@ -6399,7 +6405,7 @@ If the TLD list is empty or not set, the search returns the results from the mos
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.SearchAvailableDomains(request)
+			return api.SearchAvailableDomains(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6412,7 +6418,7 @@ func domainTldList() *core.Command {
 		Resource:  "tld",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListTldsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListTldsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tlds.{index}",
@@ -6438,7 +6444,7 @@ func domainTldList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTlds(request, opts...)
 			if err != nil {
 				return nil, err
@@ -6457,7 +6463,7 @@ func domainHostCreate() *core.Command {
 		Resource:  "host",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPICreateDomainHostRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPICreateDomainHostRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6484,7 +6490,7 @@ func domainHostCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.CreateDomainHost(request)
+			return api.CreateDomainHost(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6497,7 +6503,7 @@ func domainHostList() *core.Command {
 		Resource:  "host",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIListDomainHostsRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIListDomainHostsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6511,7 +6517,7 @@ func domainHostList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDomainHosts(request, opts...)
 			if err != nil {
 				return nil, err
@@ -6530,7 +6536,7 @@ func domainHostUpdate() *core.Command {
 		Resource:  "host",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIUpdateDomainHostRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIUpdateDomainHostRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6557,7 +6563,7 @@ func domainHostUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.UpdateDomainHost(request)
+			return api.UpdateDomainHost(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -6570,7 +6576,7 @@ func domainHostDelete() *core.Command {
 		Resource:  "host",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(domain.RegistrarAPIDeleteDomainHostRequest{}),
+		ArgsType: reflect.TypeFor[domain.RegistrarAPIDeleteDomainHostRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain",
@@ -6591,7 +6597,7 @@ func domainHostDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := domain.NewRegistrarAPI(client)
 
-			return api.DeleteDomainHost(request)
+			return api.DeleteDomainHost(request, scw.WithContext(ctx))
 		},
 	}
 }

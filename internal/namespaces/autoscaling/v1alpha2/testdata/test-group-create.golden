@@ -1,0 +1,56 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID           019fd720-7953-7e6a-ae89-e345eec00186
+ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name         cli-asg-unruffled-cannon
+CreatedAt    few seconds ago
+UpdatedAt    few seconds ago
+Status       active
+CurrentSize  0
+TargetSize   0
+TemplateID   51980af8-8cd9-4a93-9346-6869e95d56a2
+
+Tags:
+[cli-test-asg]
+
+Scaling Policy:
+MinimumSize                    1
+MaximumSize                    5
+ScaleOutCooldown               3 minutes
+ScaleInCooldown                1 minutes
+ScaleInStep                    2
+ScaleOutStep                   1
+MemoryTarget.TargetAvgPercent  80
+
+Open Alerts:
+TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "019fd720-7953-7e6a-ae89-e345eec00186",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-asg-unruffled-cannon",
+  "tags": [
+    "cli-test-asg"
+  ],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "status": "active",
+  "open_alerts": [],
+  "current_size": 0,
+  "target_size": 0,
+  "last_scale_out_at": null,
+  "last_scale_in_at": null,
+  "template_id": "51980af8-8cd9-4a93-9346-6869e95d56a2",
+  "scaling_policy": {
+    "minimum_size": 1,
+    "maximum_size": 5,
+    "scale_out_cooldown": "180.000000000s",
+    "scale_in_cooldown": "60.000000000s",
+    "scale_in_step": 2,
+    "scale_out_step": 1,
+    "memory_target": {
+      "target_avg_percent": 80
+    }
+  },
+  "load_balancer_configuration": null
+}

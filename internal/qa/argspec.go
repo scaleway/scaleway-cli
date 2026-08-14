@@ -14,7 +14,7 @@ type ArgSpecInvalidError struct {
 	innerError error
 }
 
-func (err ArgSpecInvalidError) Error() string {
+func (err *ArgSpecInvalidError) Error() string {
 	return fmt.Sprintf("command has invalid argspecs '%s' '%s' '%s'",
 		err.Command.GetCommandLine("scw"),
 		err.argSpec.Name,
@@ -48,7 +48,7 @@ type ArgSpecMissingError struct {
 	argName string
 }
 
-func (err ArgSpecMissingError) Error() string {
+func (err *ArgSpecMissingError) Error() string {
 	return fmt.Sprintf("command has a missing argspec '%s' '%s'",
 		err.Command.GetCommandLine("scw"),
 		err.argName,

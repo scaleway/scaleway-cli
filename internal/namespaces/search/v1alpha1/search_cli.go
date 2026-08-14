@@ -50,7 +50,7 @@ func searchResourceSearch() *core.Command {
 		Resource:  "resource",
 		Verb:      "search",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(search.SearchResourcesRequest{}),
+		ArgsType: reflect.TypeFor[search.SearchResourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "query",
@@ -138,32 +138,6 @@ func searchResourceSearch() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{
-					"unknown_locality",
-					"global",
-					"fr_rz",
-					"fr_srr",
-					"fr_srr_1",
-					"fr_par",
-					"fr_par_1",
-					"fr_par_2",
-					"fr_par_3",
-					"fr_par_4",
-					"nl_ams",
-					"nl_ams_1",
-					"nl_ams_2",
-					"nl_ams_3",
-					"pl_waw",
-					"pl_waw_1",
-					"pl_waw_2",
-					"pl_waw_3",
-					"fr_int",
-					"fr_int_1",
-					"fr_lab",
-					"fr_lab_1",
-					"it_mil",
-					"it_mil_1",
-				},
 			},
 			{
 				Name:       "created-after",
@@ -233,7 +207,7 @@ func searchResourceSearch() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := search.NewAPI(client)
 
-			return api.SearchResources(request)
+			return api.SearchResources(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -8,7 +8,7 @@ type SimpleHost struct {
 	User    string
 }
 
-func (h SimpleHost) Config() string {
+func (h *SimpleHost) Config() string {
 	return fmt.Sprintf(`Host %s
   Hostname %s
   User %s
@@ -18,15 +18,15 @@ func (h SimpleHost) Config() string {
 		h.user())
 }
 
-func (h SimpleHost) name() string {
+func (h *SimpleHost) name() string {
 	return h.Name
 }
 
-func (h SimpleHost) address() string {
+func (h *SimpleHost) address() string {
 	return h.Address
 }
 
-func (h SimpleHost) user() string {
+func (h *SimpleHost) user() string {
 	if h.User == "" {
 		return "root"
 	}

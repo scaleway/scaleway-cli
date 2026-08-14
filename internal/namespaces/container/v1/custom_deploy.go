@@ -17,11 +17,12 @@ import (
 	pack "github.com/buildpacks/pack/pkg/client"
 	"github.com/buildpacks/pack/pkg/logging"
 	"github.com/containerd/platforms"
-	dockerregistry "github.com/docker/docker/api/types/registry"
-	"github.com/docker/docker/pkg/jsonmessage"
 	"github.com/fatih/color"
 	"github.com/moby/go-archive"
-	"github.com/moby/moby/client"
+	"github.com/moby/moby/api/types/jsonstream"
+	dockerregistry "github.com/moby/moby/api/types/registry"
+	docker "github.com/moby/moby/client"
+	"github.com/moby/moby/client/pkg/jsonmessage"
 	ocispec "github.com/opencontainers/image-spec/specs-go/v1"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/container/v1/getorcreate"
@@ -307,7 +308,7 @@ type DeployStepBuildImageResponse struct {
 	Namespace        *container.Namespace
 	RegistryEndpoint string
 	Tag              string
-	DockerClient     DockerClient
+	PackDockerClient PackDockerClient
 }
 
 func DeployStepDockerBuildImage(
@@ -318,7 +319,10 @@ func DeployStepDockerBuildImage(
 	tag := data.RegistryEndpoint + "/" + data.Args.Name + ":latest"
 
 	httpClient := core.ExtractHTTPClient(ctx)
-	dockerClient, err := NewCustomDockerClient(httpClient)
+	dockerClient, err := docker.New(
+		docker.FromEnv,
+		docker.WithHTTPClient(httpClient),
+	)
 	if err != nil {
 		return nil, fmt.Errorf("could not connect to Docker: %w", err)
 	}
@@ -327,7 +331,7 @@ func DeployStepDockerBuildImage(
 	imageBuildResponse, err := dockerClient.ImageBuild(
 		ctx,
 		data.Tar,
-		client.ImageBuildOptions{
+		docker.ImageBuildOptions{
 			Dockerfile: data.Args.Dockerfile,
 			Tags:       []string{tag},
 			NoCache:    !data.Args.Cache,
@@ -348,7 +352,7 @@ func DeployStepDockerBuildImage(
 		nil,
 	)
 	if err != nil {
-		if jerr, ok := err.(*jsonmessage.JSONError); ok {
+		if jerr, ok := err.(*jsonstream.Error); ok {
 			// If no error code is set, default to 1
 			if jerr.Code == 0 {
 				jerr.Code = 1
@@ -369,7 +373,7 @@ func DeployStepDockerBuildImage(
 		Namespace:        data.Namespace,
 		RegistryEndpoint: data.RegistryEndpoint,
 		Tag:              tag,
-		DockerClient:     dockerClient,
+		PackDockerClient: dockerClient,
 	}, nil
 }
 
@@ -385,6 +389,7 @@ func DeployStepBuildpackBuildImage(
 	if err != nil {
 		return nil, err
 	}
+	defer dockerClient.Close()
 
 	packClient, err := pack.NewClient(
 		pack.WithDockerClient(dockerClient),
@@ -408,10 +413,10 @@ func DeployStepBuildpackBuildImage(
 	}
 
 	return &DeployStepBuildImageResponse{
-		DeployStepData: data.DeployStepData,
-		Namespace:      data.Namespace,
-		Tag:            tag,
-		DockerClient:   dockerClient,
+		DeployStepData:   data.DeployStepData,
+		Namespace:        data.Namespace,
+		Tag:              tag,
+		PackDockerClient: dockerClient,
 	}, nil
 }
 
@@ -441,9 +446,13 @@ func DeployStepPushImage(
 
 	authStr := base64.URLEncoding.EncodeToString(encodedJSON)
 
-	imagePushResponse, err := data.DockerClient.ImagePush(ctx, data.Tag, client.ImagePushOptions{
-		RegistryAuth: authStr,
-	})
+	imagePushResponse, err := data.PackDockerClient.ImagePush(
+		ctx,
+		data.Tag,
+		docker.ImagePushOptions{
+			RegistryAuth: authStr,
+		},
+	)
 	if err != nil {
 		return nil, fmt.Errorf("could not push image: %w", err)
 	}
@@ -451,7 +460,7 @@ func DeployStepPushImage(
 
 	err = jsonmessage.DisplayJSONMessagesStream(imagePushResponse, t.Logs, t.Logs.Fd(), true, nil)
 	if err != nil {
-		if jerr, ok := err.(*jsonmessage.JSONError); ok {
+		if jerr, ok := err.(*jsonstream.Error); ok {
 			// If no error code is set, default to 1
 			if jerr.Code == 0 {
 				jerr.Code = 1

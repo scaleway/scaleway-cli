@@ -18,12 +18,12 @@ scw dns certificate create <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
-| alternative-dns-zones.{index} |  |  |
+| Name                          | Description | Argument Specifications |
+|-------------------------------|-------------|-------------------------|
+| dns-zone                      |             | Required                |
+| alternative-dns-zones.{index} |             |                         |
 
 
 
@@ -38,11 +38,11 @@ scw dns certificate delete <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| dns-zone |             | Required                |
 
 
 
@@ -57,11 +57,11 @@ scw dns certificate get <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| dns-zone |             | Required                |
 
 
 
@@ -76,12 +76,12 @@ scw dns certificate list <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
-| project-id |  |  |
+| Name       | Description | Argument Specifications |
+|------------|-------------|-------------------------|
+| dns-zone   |             | Required                |
+| project-id |             |                         |
 
 
 
@@ -101,30 +101,30 @@ scw dns record add <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone in which to add the record |
-| data | Required |  |
-| name |  |  |
-| priority |  |  |
-| ttl | Required<br />Default: `3600` |  |
-| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
-| comment |  |  |
-| geo-ip-config.matches.{index}.countries.{index} |  |  |
-| geo-ip-config.matches.{index}.continents.{index} |  |  |
-| geo-ip-config.matches.{index}.data |  |  |
-| geo-ip-config.default |  |  |
-| http-service-config.ips.{index} |  |  |
-| http-service-config.must-contain |  |  |
-| http-service-config.url |  |  |
-| http-service-config.user-agent |  |  |
-| http-service-config.strategy | One of: `random`, `hashed` |  |
-| weighted-config.weighted-ips.{index}.ip |  |  |
-| weighted-config.weighted-ips.{index}.weight |  |  |
-| view-config.views.{index}.subnet |  |  |
-| view-config.views.{index}.data |  |  |
+| Name                                             | Description                         | Argument Specifications                                                                                                                                  |
+|--------------------------------------------------|-------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dns-zone                                         | DNS zone in which to add the record | Required                                                                                                                                                 |
+| data                                             |                                     | Required                                                                                                                                                 |
+| name                                             |                                     |                                                                                                                                                          |
+| priority                                         |                                     |                                                                                                                                                          |
+| ttl                                              |                                     | Required<br />Default: `3600`                                                                                                                            |
+| type                                             |                                     | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |
+| comment                                          |                                     |                                                                                                                                                          |
+| geo-ip-config.matches.{index}.countries.{index}  |                                     |                                                                                                                                                          |
+| geo-ip-config.matches.{index}.continents.{index} |                                     |                                                                                                                                                          |
+| geo-ip-config.matches.{index}.data               |                                     |                                                                                                                                                          |
+| geo-ip-config.default                            |                                     |                                                                                                                                                          |
+| http-service-config.ips.{index}                  |                                     |                                                                                                                                                          |
+| http-service-config.must-contain                 |                                     |                                                                                                                                                          |
+| http-service-config.url                          |                                     |                                                                                                                                                          |
+| http-service-config.user-agent                   |                                     |                                                                                                                                                          |
+| http-service-config.strategy                     |                                     | One of: `random`, `hashed`                                                                                                                               |
+| weighted-config.weighted-ips.{index}.ip          |                                     |                                                                                                                                                          |
+| weighted-config.weighted-ips.{index}.weight      |                                     |                                                                                                                                                          |
+| view-config.views.{index}.subnet                 |                                     |                                                                                                                                                          |
+| view-config.views.{index}.data                   |                                     |                                                                                                                                                          |
 
 
 **Examples:**
@@ -162,66 +162,67 @@ scw dns record bulk-update <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone in which to update the DNS zone records |
-| changes.{index}.add.records.{index}.data |  |  |
-| changes.{index}.add.records.{index}.name |  |  |
-| changes.{index}.add.records.{index}.priority |  |  |
-| changes.{index}.add.records.{index}.ttl |  |  |
-| changes.{index}.add.records.{index}.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
-| changes.{index}.add.records.{index}.comment |  |  |
-| changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.countries.{index} |  |  |
-| changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.continents.{index} |  |  |
-| changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.data |  |  |
-| changes.{index}.add.records.{index}.geo-ip-config.default |  |  |
-| changes.{index}.add.records.{index}.http-service-config.ips.{index} |  |  |
-| changes.{index}.add.records.{index}.http-service-config.must-contain |  |  |
-| changes.{index}.add.records.{index}.http-service-config.url |  |  |
-| changes.{index}.add.records.{index}.http-service-config.user-agent |  |  |
-| changes.{index}.add.records.{index}.http-service-config.strategy | One of: `random`, `hashed`, `all` |  |
-| changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.ip |  |  |
-| changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.weight |  |  |
-| changes.{index}.add.records.{index}.view-config.views.{index}.subnet |  |  |
-| changes.{index}.add.records.{index}.view-config.views.{index}.data |  |  |
-| changes.{index}.add.records.{index}.id |  |  |
-| changes.{index}.add.records.{index}.updated-at |  |  |
-| changes.{index}.set.id |  |  |
-| changes.{index}.set.id-fields.name |  |  |
-| changes.{index}.set.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
-| changes.{index}.set.id-fields.data |  |  |
-| changes.{index}.set.id-fields.ttl |  |  |
-| changes.{index}.set.records.{index}.data |  |  |
-| changes.{index}.set.records.{index}.name |  |  |
-| changes.{index}.set.records.{index}.priority |  |  |
-| changes.{index}.set.records.{index}.ttl |  |  |
-| changes.{index}.set.records.{index}.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
-| changes.{index}.set.records.{index}.comment |  |  |
-| changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.countries.{index} |  |  |
-| changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.continents.{index} |  |  |
-| changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.data |  |  |
-| changes.{index}.set.records.{index}.geo-ip-config.default |  |  |
-| changes.{index}.set.records.{index}.http-service-config.ips.{index} |  |  |
-| changes.{index}.set.records.{index}.http-service-config.must-contain |  |  |
-| changes.{index}.set.records.{index}.http-service-config.url |  |  |
-| changes.{index}.set.records.{index}.http-service-config.user-agent |  |  |
-| changes.{index}.set.records.{index}.http-service-config.strategy | One of: `random`, `hashed`, `all` |  |
-| changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.ip |  |  |
-| changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.weight |  |  |
-| changes.{index}.set.records.{index}.view-config.views.{index}.subnet |  |  |
-| changes.{index}.set.records.{index}.view-config.views.{index}.data |  |  |
-| changes.{index}.set.records.{index}.id |  |  |
-| changes.{index}.set.records.{index}.updated-at |  |  |
-| changes.{index}.delete.id |  |  |
-| changes.{index}.delete.id-fields.name |  |  |
-| changes.{index}.delete.id-fields.type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |  |
-| changes.{index}.delete.id-fields.data |  |  |
-| changes.{index}.delete.id-fields.ttl |  |  |
-| return-all-records |  | Specifies whether or not to return all the records |
-| disallow-new-zone-creation |  | Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default |
-| serial |  | Use the provided serial (0) instead of the auto-increment serial |
+| Name                                                                                 | Description                                                                                               | Argument Specifications                                                                                                                                                         |
+|--------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dns-zone                                                                             | DNS zone in which to update the DNS zone records                                                          | Required                                                                                                                                                                        |
+| changes.{index}.add.records.{index}.data                                             |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.name                                             |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.priority                                         |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.ttl                                              |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.type                                             |                                                                                                           | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |
+| changes.{index}.add.records.{index}.comment                                          |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.countries.{index}  |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.continents.{index} |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.geo-ip-config.matches.{index}.data               |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.geo-ip-config.default                            |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.http-service-config.ips.{index}                  |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.http-service-config.must-contain                 |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.http-service-config.url                          |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.http-service-config.user-agent                   |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.http-service-config.strategy                     |                                                                                                           | One of: `random`, `hashed`, `all`                                                                                                                                               |
+| changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.ip          |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.weighted-config.weighted-ips.{index}.weight      |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.view-config.views.{index}.subnet                 |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.view-config.views.{index}.data                   |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.id                                               |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.add.records.{index}.updated-at                                       |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.id                                                               |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.id-fields.name                                                   |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.id-fields.type                                                   |                                                                                                           | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |
+| changes.{index}.set.id-fields.data                                                   |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.id-fields.ttl                                                    |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.data                                             |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.name                                             |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.priority                                         |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.ttl                                              |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.type                                             |                                                                                                           | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |
+| changes.{index}.set.records.{index}.comment                                          |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.countries.{index}  |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.continents.{index} |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.geo-ip-config.matches.{index}.data               |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.geo-ip-config.default                            |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.http-service-config.ips.{index}                  |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.http-service-config.must-contain                 |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.http-service-config.url                          |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.http-service-config.user-agent                   |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.http-service-config.strategy                     |                                                                                                           | One of: `random`, `hashed`, `all`                                                                                                                                               |
+| changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.ip          |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.weighted-config.weighted-ips.{index}.weight      |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.view-config.views.{index}.subnet                 |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.view-config.views.{index}.data                   |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.id                                               |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.set.records.{index}.updated-at                                       |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.delete.id                                                            |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.delete.id-fields.name                                                |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.delete.id-fields.type                                                |                                                                                                           | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |
+| changes.{index}.delete.id-fields.data                                                |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.delete.id-fields.ttl                                                 |                                                                                                           |                                                                                                                                                                                 |
+| changes.{index}.clear                                                                |                                                                                                           |                                                                                                                                                                                 |
+| return-all-records                                                                   | Specifies whether or not to return all the records                                                        |                                                                                                                                                                                 |
+| disallow-new-zone-creation                                                           | Disable the creation of the target zone if it does not exist. Target zone creation is disabled by default |                                                                                                                                                                                 |
+| serial                                                                               | Use the provided serial (0) instead of the auto-increment serial                                          |                                                                                                                                                                                 |
 
 
 
@@ -237,11 +238,11 @@ scw dns record clear <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone to clear |
+| Name     | Description       | Argument Specifications |
+|----------|-------------------|-------------------------|
+| dns-zone | DNS zone to clear | Required                |
 
 
 
@@ -256,15 +257,15 @@ scw dns record delete <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone in which to delete the record |
-| data |  |  |
-| name |  |  |
-| ttl |  |  |
-| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
+| Name     | Description                            | Argument Specifications                                                                                                                                  |
+|----------|----------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dns-zone | DNS zone in which to delete the record | Required                                                                                                                                                 |
+| data     |                                        |                                                                                                                                                          |
+| name     |                                        |                                                                                                                                                          |
+| ttl      |                                        |                                                                                                                                                          |
+| type     |                                        | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |
 
 
 **Examples:**
@@ -295,16 +296,16 @@ scw dns record list <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID on which to filter the returned DNS zone records |
-| order-by | One of: `name_asc`, `name_desc` | Sort order of the returned DNS zone records |
-| dns-zone | Required | DNS zone on which to filter the returned DNS zone records |
-| name |  | Name on which to filter the returned DNS zone records |
-| type | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` | Record type on which to filter the returned DNS zone records |
-| id |  | Record ID on which to filter the returned DNS zone records |
+| Name       | Description                                                  | Argument Specifications                                                                                                                                                         |
+|------------|--------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id | Project ID on which to filter the returned DNS zone records  |                                                                                                                                                                                 |
+| order-by   | Sort order of the returned DNS zone records                  | One of: `name_asc`, `name_desc`                                                                                                                                                 |
+| dns-zone   | DNS zone on which to filter the returned DNS zone records    | Required                                                                                                                                                                        |
+| name       | Name on which to filter the returned DNS zone records        |                                                                                                                                                                                 |
+| type       | Record type on which to filter the returned DNS zone records | One of: `unknown`, `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR`, `DNAME`, `SVCB`, `HTTPS` |
+| id         | Record ID on which to filter the returned DNS zone records   |                                                                                                                                                                                 |
 
 
 
@@ -319,12 +320,12 @@ scw dns record list-nameservers <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID on which to filter the returned DNS zone name servers |
-| dns-zone | Required | DNS zone on which to filter the returned DNS zone name servers |
+| Name       | Description                                                      | Argument Specifications |
+|------------|------------------------------------------------------------------|-------------------------|
+| project-id | Project ID on which to filter the returned DNS zone name servers |                         |
+| dns-zone   | DNS zone on which to filter the returned DNS zone name servers   | Required                |
 
 
 
@@ -339,30 +340,30 @@ scw dns record set <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone in which to set the record |
-| values.{index} | Required | A list of values for replacing the record data. (multiple values cannot be used for all type) |
-| name | Required |  |
-| priority |  |  |
-| ttl | Required<br />Default: `3600` |  |
-| type | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |  |
-| comment |  |  |
-| geo-ip-config.matches.{index}.countries.{index} |  |  |
-| geo-ip-config.matches.{index}.continents.{index} |  |  |
-| geo-ip-config.matches.{index}.data |  |  |
-| geo-ip-config.default |  |  |
-| http-service-config.ips.{index} |  |  |
-| http-service-config.must-contain |  |  |
-| http-service-config.url |  |  |
-| http-service-config.user-agent |  |  |
-| http-service-config.strategy | One of: `random`, `hashed` |  |
-| weighted-config.weighted-ips.{index}.ip |  |  |
-| weighted-config.weighted-ips.{index}.weight |  |  |
-| view-config.views.{index}.subnet |  |  |
-| view-config.views.{index}.data |  |  |
+| Name                                             | Description                                                                                   | Argument Specifications                                                                                                                                  |
+|--------------------------------------------------|-----------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------|
+| dns-zone                                         | DNS zone in which to set the record                                                           | Required                                                                                                                                                 |
+| values.{index}                                   | A list of values for replacing the record data. (multiple values cannot be used for all type) | Required                                                                                                                                                 |
+| name                                             |                                                                                               | Required                                                                                                                                                 |
+| priority                                         |                                                                                               |                                                                                                                                                          |
+| ttl                                              |                                                                                               | Required<br />Default: `3600`                                                                                                                            |
+| type                                             |                                                                                               | Required<br />One of: `A`, `AAAA`, `CNAME`, `TXT`, `SRV`, `TLSA`, `MX`, `NS`, `PTR`, `CAA`, `ALIAS`, `LOC`, `SSHFP`, `HINFO`, `RP`, `URI`, `DS`, `NAPTR` |
+| comment                                          |                                                                                               |                                                                                                                                                          |
+| geo-ip-config.matches.{index}.countries.{index}  |                                                                                               |                                                                                                                                                          |
+| geo-ip-config.matches.{index}.continents.{index} |                                                                                               |                                                                                                                                                          |
+| geo-ip-config.matches.{index}.data               |                                                                                               |                                                                                                                                                          |
+| geo-ip-config.default                            |                                                                                               |                                                                                                                                                          |
+| http-service-config.ips.{index}                  |                                                                                               |                                                                                                                                                          |
+| http-service-config.must-contain                 |                                                                                               |                                                                                                                                                          |
+| http-service-config.url                          |                                                                                               |                                                                                                                                                          |
+| http-service-config.user-agent                   |                                                                                               |                                                                                                                                                          |
+| http-service-config.strategy                     |                                                                                               | One of: `random`, `hashed`                                                                                                                               |
+| weighted-config.weighted-ips.{index}.ip          |                                                                                               |                                                                                                                                                          |
+| weighted-config.weighted-ips.{index}.weight      |                                                                                               |                                                                                                                                                          |
+| view-config.views.{index}.subnet                 |                                                                                               |                                                                                                                                                          |
+| view-config.views.{index}.data                   |                                                                                               |                                                                                                                                                          |
 
 
 **Examples:**
@@ -392,13 +393,13 @@ scw dns record update-nameservers <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone in which to update the DNS zone name servers |
-| ns.{index}.name |  |  |
-| ns.{index}.ip.{index} |  |  |
+| Name                  | Description                                           | Argument Specifications |
+|-----------------------|-------------------------------------------------------|-------------------------|
+| dns-zone              | DNS zone in which to update the DNS zone name servers | Required                |
+| ns.{index}.name       |                                                       |                         |
+| ns.{index}.ip.{index} |                                                       |                         |
 
 
 
@@ -418,11 +419,11 @@ scw dns tsig-key delete <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| dns-zone |             | Required                |
 
 
 
@@ -437,11 +438,11 @@ scw dns tsig-key get <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| dns-zone |             | Required                |
 
 
 
@@ -461,11 +462,11 @@ scw dns version diff <dns-zone-version-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone-version-id | Required |  |
+| Name                | Description | Argument Specifications |
+|---------------------|-------------|-------------------------|
+| dns-zone-version-id |             | Required                |
 
 
 
@@ -481,11 +482,11 @@ scw dns version list <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| dns-zone |             | Required                |
 
 
 
@@ -500,11 +501,11 @@ scw dns version restore <dns-zone-version-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone-version-id | Required |  |
+| Name                | Description | Argument Specifications |
+|---------------------|-------------|-------------------------|
+| dns-zone-version-id |             | Required                |
 
 
 
@@ -519,11 +520,11 @@ scw dns version show <dns-zone-version-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone-version-id | Required |  |
+| Name                | Description | Argument Specifications |
+|---------------------|-------------|-------------------------|
+| dns-zone-version-id |             | Required                |
 
 
 
@@ -543,14 +544,14 @@ scw dns zone clone [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone to clone |
-| dest-dns-zone | Required | Destination DNS zone in which to clone the chosen DNS zone |
-| overwrite |  | Specifies whether or not the destination DNS zone will be overwritten |
-| project-id |  | Project ID of the destination DNS zone |
+| Name          | Description                                                           | Argument Specifications |
+|---------------|-----------------------------------------------------------------------|-------------------------|
+| dns-zone      | DNS zone to clone                                                     | Required                |
+| dest-dns-zone | Destination DNS zone in which to clone the chosen DNS zone            | Required                |
+| overwrite     | Specifies whether or not the destination DNS zone will be overwritten |                         |
+| project-id    | Project ID of the destination DNS zone                                |                         |
 
 
 
@@ -565,13 +566,13 @@ scw dns zone create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain | Required | Domain in which to create the DNS zone |
-| subdomain | Required | Subdomain of the DNS zone to create |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| domain     | Domain in which to create the DNS zone                                   | Required                |
+| subdomain  | Subdomain of the DNS zone to create                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -586,12 +587,12 @@ scw dns zone delete <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone to delete |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       | Description                                                              | Argument Specifications |
+|------------|--------------------------------------------------------------------------|-------------------------|
+| dns-zone   | DNS zone to delete                                                       | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used |                         |
 
 
 
@@ -606,12 +607,12 @@ scw dns zone export <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone to export |
-| format | Default: `bind`<br />One of: `unknown_raw_format`, `bind` | DNS zone format |
+| Name     | Description        | Argument Specifications                                   |
+|----------|--------------------|-----------------------------------------------------------|
+| dns-zone | DNS zone to export | Required                                                  |
+| format   | DNS zone format    | Default: `bind`<br />One of: `unknown_raw_format`, `bind` |
 
 
 
@@ -626,19 +627,19 @@ scw dns zone import <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone to import |
-| ~~content~~ | Deprecated |  |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| ~~format~~ | Deprecated<br />One of: `unknown_raw_format`, `bind` |  |
-| bind-source.content |  |  |
-| axfr-source.name-server |  |  |
-| axfr-source.tsig-key.name |  |  |
-| axfr-source.tsig-key.key |  |  |
-| axfr-source.tsig-key.algorithm |  |  |
+| Name                           | Description                                                              | Argument Specifications                              |
+|--------------------------------|--------------------------------------------------------------------------|------------------------------------------------------|
+| dns-zone                       | DNS zone to import                                                       | Required                                             |
+| ~~content~~                    |                                                                          | Deprecated                                           |
+| project-id                     | Project ID to use. If none is passed the default project ID will be used |                                                      |
+| ~~format~~                     |                                                                          | Deprecated<br />One of: `unknown_raw_format`, `bind` |
+| bind-source.content            |                                                                          |                                                      |
+| axfr-source.name-server        |                                                                          |                                                      |
+| axfr-source.tsig-key.name      |                                                                          |                                                      |
+| axfr-source.tsig-key.key       |                                                                          |                                                      |
+| axfr-source.tsig-key.algorithm |                                                                          |                                                      |
 
 
 
@@ -653,20 +654,20 @@ scw dns zone list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID on which to filter the returned DNS zones |
-| order-by | One of: `domain_asc`, `domain_desc`, `subdomain_asc`, `subdomain_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` | Sort order of the returned DNS zones |
-| domain |  | Domain on which to filter the returned DNS zones |
-| ~~dns-zone~~ | Deprecated | DNS zone on which to filter the returned DNS zones |
-| dns-zones.{index} |  | DNS zones on which to filter the returned DNS zones |
-| created-after |  | Only list DNS zones created after this date |
-| created-before |  | Only list DNS zones created before this date |
-| updated-after |  | Only list DNS zones updated after this date |
-| updated-before |  | Only list DNS zones updated before this date |
-| organization-id |  | Organization ID on which to filter the returned DNS zones |
+| Name              | Description                                               | Argument Specifications                                                                                                                          |
+|-------------------|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id        | Project ID on which to filter the returned DNS zones      |                                                                                                                                                  |
+| order-by          | Sort order of the returned DNS zones                      | One of: `domain_asc`, `domain_desc`, `subdomain_asc`, `subdomain_desc`, `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc` |
+| domain            | Domain on which to filter the returned DNS zones          |                                                                                                                                                  |
+| ~~dns-zone~~      | DNS zone on which to filter the returned DNS zones        | Deprecated                                                                                                                                       |
+| dns-zones.{index} | DNS zones on which to filter the returned DNS zones       |                                                                                                                                                  |
+| created-after     | Only list DNS zones created after this date               |                                                                                                                                                  |
+| created-before    | Only list DNS zones created before this date              |                                                                                                                                                  |
+| updated-after     | Only list DNS zones updated after this date               |                                                                                                                                                  |
+| updated-before    | Only list DNS zones updated before this date              |                                                                                                                                                  |
+| organization-id   | Organization ID on which to filter the returned DNS zones |                                                                                                                                                  |
 
 
 
@@ -682,13 +683,13 @@ scw dns zone refresh <dns-zone ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | DNS zone to refresh |
-| recreate-dns-zone |  | Specifies whether or not to recreate the DNS zone |
-| recreate-sub-dns-zone |  | Specifies whether or not to recreate the sub DNS zone |
+| Name                  | Description                                           | Argument Specifications |
+|-----------------------|-------------------------------------------------------|-------------------------|
+| dns-zone              | DNS zone to refresh                                   | Required                |
+| recreate-dns-zone     | Specifies whether or not to recreate the DNS zone     |                         |
+| recreate-sub-dns-zone | Specifies whether or not to recreate the sub DNS zone |                         |
 
 
 
@@ -703,13 +704,13 @@ scw dns zone update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| dns-zone | Required | The full name of the DNS zone to modify. For a root zone (e.g., example.com), enter `example.com`. For a specific sub-zone (e.g., prod.example.com), enter `prod.example.com`. |
-| new-dns-zone | Required | Name of the new DNS zone to create |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name         | Description                                                                                                                                                                    | Argument Specifications |
+|--------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| dns-zone     | The full name of the DNS zone to modify. For a root zone (e.g., example.com), enter `example.com`. For a specific sub-zone (e.g., prod.example.com), enter `prod.example.com`. | Required                |
+| new-dns-zone | Name of the new DNS zone to create                                                                                                                                             | Required                |
+| project-id   | Project ID to use. If none is passed the default project ID will be used                                                                                                       |                         |
 
 
 

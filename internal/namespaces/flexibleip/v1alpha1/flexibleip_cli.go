@@ -71,7 +71,7 @@ func fipIPCreate() *core.Command {
 		Resource:  "ip",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.CreateFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.CreateFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -124,7 +124,7 @@ func fipIPCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.CreateFlexibleIP(request)
+			return api.CreateFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -137,7 +137,7 @@ func fipIPGet() *core.Command {
 		Resource:  "ip",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.GetFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.GetFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -161,7 +161,7 @@ func fipIPGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.GetFlexibleIP(request)
+			return api.GetFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -174,7 +174,7 @@ func fipIPList() *core.Command {
 		Resource:  "ip",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.ListFlexibleIPsRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.ListFlexibleIPsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -246,7 +246,7 @@ func fipIPList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Zone == scw.Zone(core.AllLocalities) {
 				opts = append(opts, scw.WithZones(api.Zones()...))
 				request.Zone = ""
@@ -304,7 +304,7 @@ func fipIPUpdate() *core.Command {
 		Resource:  "ip",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.UpdateFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.UpdateFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -349,7 +349,7 @@ func fipIPUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.UpdateFlexibleIP(request)
+			return api.UpdateFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -362,7 +362,7 @@ func fipIPDelete() *core.Command {
 		Resource:  "ip",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DeleteFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DeleteFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -385,7 +385,7 @@ func fipIPDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
-			e = api.DeleteFlexibleIP(request)
+			e = api.DeleteFlexibleIP(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -406,7 +406,7 @@ func fipIPAttach() *core.Command {
 		Resource:  "ip",
 		Verb:      "attach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.AttachFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.AttachFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
@@ -437,7 +437,7 @@ func fipIPAttach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.AttachFlexibleIP(request)
+			return api.AttachFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -450,7 +450,7 @@ func fipIPDetach() *core.Command {
 		Resource:  "ip",
 		Verb:      "detach",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DetachFlexibleIPRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DetachFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fips-ids.{index}",
@@ -474,7 +474,7 @@ func fipIPDetach() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.DetachFlexibleIP(request)
+			return api.DetachFlexibleIP(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -487,7 +487,7 @@ func fipMacCreate() *core.Command {
 		Resource:  "mac",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.GenerateMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.GenerateMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -524,7 +524,7 @@ func fipMacCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.GenerateMACAddr(request)
+			return api.GenerateMACAddr(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -537,7 +537,7 @@ func fipMacDuplicate() *core.Command {
 		Resource:  "mac",
 		Verb:      "duplicate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DuplicateMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DuplicateMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -568,7 +568,7 @@ func fipMacDuplicate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.DuplicateMACAddr(request)
+			return api.DuplicateMACAddr(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -581,7 +581,7 @@ func fipMacMove() *core.Command {
 		Resource:  "mac",
 		Verb:      "move",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.MoveMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.MoveMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -610,7 +610,7 @@ func fipMacMove() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
 
-			return api.MoveMACAddr(request)
+			return api.MoveMACAddr(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -623,7 +623,7 @@ func fipMacDelete() *core.Command {
 		Resource:  "mac",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(flexibleip.DeleteMACAddrRequest{}),
+		ArgsType: reflect.TypeFor[flexibleip.DeleteMACAddrRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fip-id",
@@ -646,7 +646,7 @@ func fipMacDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := flexibleip.NewAPI(client)
-			e = api.DeleteMACAddr(request)
+			e = api.DeleteMACAddr(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

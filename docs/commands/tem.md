@@ -18,15 +18,15 @@ scw tem blocklists create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id |  | Domain ID linked to the blocklist |
-| emails.{index} |  | Email blocked by the blocklist |
-| type | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found` | Type of blocklist |
-| reason |  | Reason to block the email |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                                     |
+|----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| domain-id      | Domain ID linked to the blocklist                                           |                                                             |
+| emails.{index} | Email blocked by the blocklist                                              |                                                             |
+| type           | Type of blocklist                                                           | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found` |
+| reason         | Reason to block the email                                                   |                                                             |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                     |
 
 
 
@@ -41,12 +41,12 @@ scw tem blocklists delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| blocklist-id | Required | ID of the blocklist to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications                 |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| blocklist-id | ID of the blocklist to delete                                               | Required                                |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -61,16 +61,16 @@ scw tem blocklists list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_desc`, `created_at_asc`, `ends_at_desc`, `ends_at_asc` | (Optional) List blocklist corresponding to specific criteria |
-| domain-id |  | (Optional) Filter by a domain ID |
-| email |  | (Optional) Filter by an email address |
-| type | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found` | (Optional) Filter by a blocklist type |
-| custom |  | (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                                     | Argument Specifications                                                    |
+|-----------|-------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------|
+| order-by  | (Optional) List blocklist corresponding to specific criteria                                    | One of: `created_at_desc`, `created_at_asc`, `ends_at_desc`, `ends_at_asc` |
+| domain-id | (Optional) Filter by a domain ID                                                                |                                                                            |
+| email     | (Optional) Filter by an email address                                                           |                                                                            |
+| type      | (Optional) Filter by a blocklist type                                                           | One of: `unknown_type`, `mailbox_full`, `mailbox_not_found`                |
+| custom    | (Optional) Filter by custom blocklist (true) or automatic Transactional Email blocklist (false) |                                                                            |
+| region    | Region to target. If none is passed will use default region from the config                     | Default: `fr-par`<br />One of: `fr-par`, `all`                             |
 
 
 
@@ -90,12 +90,12 @@ scw tem domain check <domain-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | ID of the domain to check |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                 |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| domain-id | ID of the domain to check                                                   | Required                                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -110,15 +110,15 @@ scw tem domain create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| domain-name |  | Fully qualified domain dame |
-| ~~accept-tos~~ | Deprecated | Deprecated. Accept Scaleway's Terms of Service |
-| autoconfig |  | Activate auto-configuration of the domain's DNS zone |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name           | Description                                                                 | Argument Specifications                 |
+|----------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| project-id     | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| domain-name    | Fully qualified domain dame                                                 |                                         |
+| ~~accept-tos~~ | Deprecated. Accept Scaleway's Terms of Service                              | Deprecated                              |
+| autoconfig     | Activate auto-configuration of the domain's DNS zone                        |                                         |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -133,12 +133,12 @@ scw tem domain get <domain-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | ID of the domain |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                 |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| domain-id | ID of the domain                                                            | Required                                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -153,12 +153,12 @@ scw tem domain get-last-status <domain-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | ID of the domain to get records status |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                 |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| domain-id | ID of the domain to get records status                                      | Required                                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -173,15 +173,15 @@ scw tem domain list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | (Optional) ID of the Project in which to list the domains |
-| status.{index} | One of: `unknown`, `checked`, `unchecked`, `invalid`, `locked`, `revoked`, `pending`, `autoconfiguring` | (Optional) List domains under specific statuses |
-| name |  | (Optional) Names of the domains to list |
-| organization-id |  | (Optional) ID of the Organization in which to list the domains |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                                                 |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------|
+| project-id      | (Optional) ID of the Project in which to list the domains                   |                                                                                                         |
+| status.{index}  | (Optional) List domains under specific statuses                             | One of: `unknown`, `checked`, `unchecked`, `invalid`, `locked`, `revoked`, `pending`, `autoconfiguring` |
+| name            | (Optional) Names of the domains to list                                     |                                                                                                         |
+| organization-id | (Optional) ID of the Organization in which to list the domains              |                                                                                                         |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                                          |
 
 
 
@@ -196,12 +196,12 @@ scw tem domain revoke <domain-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | ID of the domain to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                 |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| domain-id | ID of the domain to delete                                                  | Required                                |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -216,13 +216,13 @@ scw tem domain update <domain-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id | Required | ID of the domain to update |
-| autoconfig |  | (Optional) If set to true, activate auto-configuration of the domain's DNS zone |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                     | Argument Specifications                 |
+|------------|---------------------------------------------------------------------------------|-----------------------------------------|
+| domain-id  | ID of the domain to update                                                      | Required                                |
+| autoconfig | (Optional) If set to true, activate auto-configuration of the domain's DNS zone |                                         |
+| region     | Region to target. If none is passed will use default region from the config     | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -242,12 +242,12 @@ scw tem email cancel <email-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| email-id | Required | ID of the email to cancel |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications                 |
+|----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| email-id | ID of the email to cancel                                                   | Required                                |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -262,29 +262,29 @@ scw tem email create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| from.email |  | Email address |
-| from.name |  | (Optional) Name displayed |
-| to.{index}.email |  | Email address |
-| to.{index}.name |  | (Optional) Name displayed |
-| cc.{index}.email |  | Email address |
-| cc.{index}.name |  | (Optional) Name displayed |
-| bcc.{index}.email |  | Email address |
-| bcc.{index}.name |  | (Optional) Name displayed |
-| subject |  | Subject of the email |
-| text |  | Text content |
-| html |  | HTML content |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| attachments.{index}.name |  | Filename of the attachment |
-| attachments.{index}.type |  | MIME type of the attachment |
-| attachments.{index}.content |  | Content of the attachment encoded in base64 |
-| send-before |  | Maximum date to deliver the email |
-| additional-headers.{index}.key |  | Email header key |
-| additional-headers.{index}.value |  | Email header value |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                             | Description                                                                 | Argument Specifications                 |
+|----------------------------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| from.email                       | Email address                                                               |                                         |
+| from.name                        | (Optional) Name displayed                                                   |                                         |
+| to.{index}.email                 | Email address                                                               |                                         |
+| to.{index}.name                  | (Optional) Name displayed                                                   |                                         |
+| cc.{index}.email                 | Email address                                                               |                                         |
+| cc.{index}.name                  | (Optional) Name displayed                                                   |                                         |
+| bcc.{index}.email                | Email address                                                               |                                         |
+| bcc.{index}.name                 | (Optional) Name displayed                                                   |                                         |
+| subject                          | Subject of the email                                                        |                                         |
+| text                             | Text content                                                                |                                         |
+| html                             | HTML content                                                                |                                         |
+| project-id                       | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| attachments.{index}.name         | Filename of the attachment                                                  |                                         |
+| attachments.{index}.type         | MIME type of the attachment                                                 |                                         |
+| attachments.{index}.content      | Content of the attachment encoded in base64                                 |                                         |
+| send-before                      | Maximum date to deliver the email                                           |                                         |
+| additional-headers.{index}.key   | Email header key                                                            |                                         |
+| additional-headers.{index}.value | Email header value                                                          |                                         |
+| region                           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -299,12 +299,12 @@ scw tem email get <email-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| email-id | Required | ID of the email to retrieve |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications                 |
+|----------|-----------------------------------------------------------------------------|-----------------------------------------|
+| email-id | ID of the email to retrieve                                                 | Required                                |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -319,16 +319,16 @@ scw tem email get-statistics [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | (Optional) Number of emails for this Project |
-| domain-id |  | (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) |
-| since |  | (Optional) Number of emails created after this date |
-| until |  | (Optional) Number of emails created before this date |
-| mail-from |  | (Optional) Number of emails sent with this sender's email address |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                                                          | Argument Specifications                 |
+|------------|----------------------------------------------------------------------------------------------------------------------|-----------------------------------------|
+| project-id | (Optional) Number of emails for this Project                                                                         |                                         |
+| domain-id  | (Optional) Number of emails sent from this domain (must be coherent with the `project_id` and the `organization_id`) |                                         |
+| since      | (Optional) Number of emails created after this date                                                                  |                                         |
+| until      | (Optional) Number of emails created before this date                                                                 |                                         |
+| mail-from  | (Optional) Number of emails sent with this sender's email address                                                    |                                         |
+| region     | Region to target. If none is passed will use default region from the config                                          | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -343,24 +343,24 @@ scw tem email list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | (Optional) ID of the Project in which to list the emails |
-| domain-id |  | (Optional) ID of the domain for which to list the emails |
-| message-id |  | (Optional) ID of the message for which to list the emails |
-| since |  | (Optional) List emails created after this date |
-| until |  | (Optional) List emails created before this date |
-| mail-from |  | (Optional) List emails sent with this sender's email address |
-| ~~mail-to~~ | Deprecated | Deprecated. List emails sent to this recipient's email address |
-| mail-rcpt |  | (Optional) List emails sent to this recipient's email address |
-| statuses.{index} | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled` | (Optional) List emails with any of these statuses |
-| subject |  | (Optional) List emails with this subject |
-| search |  | (Optional) List emails by searching to all fields |
-| order-by | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` | (Optional) List emails corresponding to specific criteria |
-| flags.{index} | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration`, `blocklisted` | (Optional) List emails containing only specific flags |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name             | Description                                                                 | Argument Specifications                                                                                                                                                                                            |
+|------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id       | (Optional) ID of the Project in which to list the emails                    |                                                                                                                                                                                                                    |
+| domain-id        | (Optional) ID of the domain for which to list the emails                    |                                                                                                                                                                                                                    |
+| message-id       | (Optional) ID of the message for which to list the emails                   |                                                                                                                                                                                                                    |
+| since            | (Optional) List emails created after this date                              |                                                                                                                                                                                                                    |
+| until            | (Optional) List emails created before this date                             |                                                                                                                                                                                                                    |
+| mail-from        | (Optional) List emails sent with this sender's email address                |                                                                                                                                                                                                                    |
+| ~~mail-to~~      | Deprecated. List emails sent to this recipient's email address              | Deprecated                                                                                                                                                                                                         |
+| mail-rcpt        | (Optional) List emails sent to this recipient's email address               |                                                                                                                                                                                                                    |
+| statuses.{index} | (Optional) List emails with any of these statuses                           | One of: `unknown`, `new`, `sending`, `sent`, `failed`, `canceled`                                                                                                                                                  |
+| subject          | (Optional) List emails with this subject                                    |                                                                                                                                                                                                                    |
+| search           | (Optional) List emails by searching to all fields                           |                                                                                                                                                                                                                    |
+| order-by         | (Optional) List emails corresponding to specific criteria                   | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`, `status_desc`, `status_asc`, `mail_from_desc`, `mail_from_asc`, `mail_rcpt_desc`, `mail_rcpt_asc`, `subject_desc`, `subject_asc` |
+| flags.{index}    | (Optional) List emails containing only specific flags                       | One of: `unknown_flag`, `soft_bounce`, `hard_bounce`, `spam`, `mailbox_full`, `mailbox_not_found`, `greylisted`, `send_before_expiration`, `blocklisted`                                                           |
+| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                                                                                                                                                     |
 
 
 
@@ -380,11 +380,11 @@ scw tem offers list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name   | Description                                                                 | Argument Specifications                 |
+|--------|-----------------------------------------------------------------------------|-----------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -399,13 +399,13 @@ scw tem offers update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | One of: `unknown_name`, `essential`, `scale` | Name of the offer-subscription |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                      |
+|------------|-----------------------------------------------------------------------------|----------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                              |
+| name       | Name of the offer-subscription                                              | One of: `unknown_name`, `essential`, `scale` |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`      |
 
 
 
@@ -425,12 +425,12 @@ scw tem project-consumption get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -464,16 +464,16 @@ scw tem webhook create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| domain-id |  | ID of the Domain to watch for triggering events |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name |  | Name of the Webhook |
-| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` | List of event types that will trigger an event |
-| sns-arn |  | Scaleway SNS ARN topic to push the events to |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                | Description                                                                 | Argument Specifications                                                                                                                                                         |
+|---------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| domain-id           | ID of the Domain to watch for triggering events                             |                                                                                                                                                                                 |
+| project-id          | Project ID to use. If none is passed the default project ID will be used    |                                                                                                                                                                                 |
+| name                | Name of the Webhook                                                         |                                                                                                                                                                                 |
+| event-types.{index} | List of event types that will trigger an event                              | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` |
+| sns-arn             | Scaleway SNS ARN topic to push the events to                                |                                                                                                                                                                                 |
+| region              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                                                                                                                                         |
 
 
 
@@ -488,12 +488,12 @@ scw tem webhook delete <webhook-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| webhook-id | Required | ID of the Webhook to delete |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| webhook-id | ID of the Webhook to delete                                                 | Required                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -508,12 +508,12 @@ scw tem webhook get <webhook-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| webhook-id | Required | ID of the Webhook to check |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                 |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| webhook-id | ID of the Webhook to check                                                  | Required                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -528,15 +528,15 @@ scw tem webhook list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_desc`, `created_at_asc` | (Optional) List Webhooks corresponding to specific criteria |
-| project-id |  | (Optional) ID of the Project for which to list the Webhooks |
-| domain-id |  | (Optional) ID of the Domain for which to list the Webhooks |
-| organization-id |  | (Optional) ID of the Organization for which to list the Webhooks |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                        |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| order-by        | (Optional) List Webhooks corresponding to specific criteria                 | One of: `created_at_desc`, `created_at_asc`    |
+| project-id      | (Optional) ID of the Project for which to list the Webhooks                 |                                                |
+| domain-id       | (Optional) ID of the Domain for which to list the Webhooks                  |                                                |
+| organization-id | (Optional) ID of the Organization for which to list the Webhooks            |                                                |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
@@ -551,19 +551,19 @@ scw tem webhook list-events [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_desc`, `created_at_asc` | (Optional) List Webhook events corresponding to specific criteria |
-| webhook-id | Required | ID of the Webhook linked to the events |
-| email-id |  | ID of the email linked to the events |
-| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` | List of event types linked to the events |
-| statuses.{index} | One of: `unknown_status`, `sending`, `sent`, `failed` | List of event statuses |
-| project-id |  | ID of the webhook Project |
-| domain-id |  | ID of the domain to watch for triggering events |
-| organization-id |  | ID of the webhook Organization |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                | Description                                                                 | Argument Specifications                                                                                                                                                         |
+|---------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| order-by            | (Optional) List Webhook events corresponding to specific criteria           | One of: `created_at_desc`, `created_at_asc`                                                                                                                                     |
+| webhook-id          | ID of the Webhook linked to the events                                      | Required                                                                                                                                                                        |
+| email-id            | ID of the email linked to the events                                        |                                                                                                                                                                                 |
+| event-types.{index} | List of event types linked to the events                                    | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` |
+| statuses.{index}    | List of event statuses                                                      | One of: `unknown_status`, `sending`, `sent`, `failed`                                                                                                                           |
+| project-id          | ID of the webhook Project                                                   |                                                                                                                                                                                 |
+| domain-id           | ID of the domain to watch for triggering events                             |                                                                                                                                                                                 |
+| organization-id     | ID of the webhook Organization                                              |                                                                                                                                                                                 |
+| region              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`                                                                                                                                  |
 
 
 
@@ -578,15 +578,15 @@ scw tem webhook update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| webhook-id | Required | ID of the Webhook to update |
-| name |  | Name of the Webhook to update |
-| event-types.{index} | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` | List of event types to update |
-| sns-arn |  | Scaleway SNS ARN topic to update |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                | Description                                                                 | Argument Specifications                                                                                                                                                         |
+|---------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| webhook-id          | ID of the Webhook to update                                                 | Required                                                                                                                                                                        |
+| name                | Name of the Webhook to update                                               |                                                                                                                                                                                 |
+| event-types.{index} | List of event types to update                                               | One of: `unknown_type`, `email_queued`, `email_dropped`, `email_deferred`, `email_delivered`, `email_spam`, `email_mailbox_not_found`, `email_blocklisted`, `blocklist_created` |
+| sns-arn             | Scaleway SNS ARN topic to update                                            |                                                                                                                                                                                 |
+| region              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`                                                                                                                                         |
 
 
 

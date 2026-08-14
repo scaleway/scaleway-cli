@@ -32,12 +32,12 @@
 {{ bbq }}
 {{ if .Cmd.ArgSpecs }}
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name | Description | Argument Specifications |
+|------|-------------|-------------------------|
 {{ range $arg := .Cmd.ArgSpecs -}}
-| {{ arg_spec_name $arg }} | {{ arg_spec_flag $arg }} | {{ $arg.Short }} |
+| {{ arg_spec_name $arg }} | {{ $arg.Short }} | {{ arg_spec_flag $arg }}  |
 {{ end -}}
 {{- end -}}
 {{- if .Cmd.Examples }}

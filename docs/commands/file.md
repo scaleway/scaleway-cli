@@ -19,15 +19,15 @@ scw file attachment list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| filesystem-id |  | UUID of the File Storage volume |
-| resource-id |  | Filter by resource ID |
-| resource-type | One of: `unknown_resource_type`, `instance_server` | Filter by resource type |
-| zone |  | Filter by resource zone |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                            |
+|---------------|-----------------------------------------------------------------------------|----------------------------------------------------|
+| filesystem-id | UUID of the File Storage volume                                             |                                                    |
+| resource-id   | Filter by resource ID                                                       |                                                    |
+| resource-type | Filter by resource type                                                     | One of: `unknown_resource_type`, `instance_server` |
+| zone          | Filter by resource zone                                                     |                                                    |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all`     |
 
 
 
@@ -47,16 +47,16 @@ scw file filesystem create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | Name of the filesystem |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| size | Required | Filesystem size in bytes, with a granularity in GB (10^9 bytes). |
-| type |  | Type of the filesystem |
-| tags.{index} |  | List of tags assigned to the filesystem |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications                 |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| name         | Name of the filesystem                                                      | Required                                |
+| project-id   | Project ID to use. If none is passed the default project ID will be used    |                                         |
+| size         | Filesystem size in bytes, with a granularity in GB (10^9 bytes).            | Required                                |
+| type         | Type of the filesystem                                                      |                                         |
+| tags.{index} | List of tags assigned to the filesystem                                     |                                         |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -71,12 +71,12 @@ scw file filesystem delete <filesystem-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| filesystem-id | Required | UUID of the filesystem |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| filesystem-id | UUID of the filesystem                                                      | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -91,12 +91,12 @@ scw file filesystem get <filesystem-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| filesystem-id | Required | UUID of the filesystem |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                 |
+|---------------|-----------------------------------------------------------------------------|-----------------------------------------|
+| filesystem-id | UUID of the filesystem                                                      | Required                                |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
 
@@ -111,18 +111,18 @@ scw file filesystem list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Criteria to use when ordering the list |
-| project-id |  | Filter by project ID |
-| name |  | Filter the returned filesystems by their names |
-| filesystem-type |  | Type of the filesystem |
-| tags.{index} |  | Filter by tags. Only filesystems with one or more matching tags will be returned |
-| filesystem-ids.{index} |  | Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned |
-| organization-id |  | Filter by organization ID |
-| region | Default: `fr-par`<br />One of: `fr-par`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                               | Argument Specifications                                              |
+|------------------------|-------------------------------------------------------------------------------------------|----------------------------------------------------------------------|
+| order-by               | Criteria to use when ordering the list                                                    | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
+| project-id             | Filter by project ID                                                                      |                                                                      |
+| name                   | Filter the returned filesystems by their names                                            |                                                                      |
+| filesystem-type        | Type of the filesystem                                                                    |                                                                      |
+| tags.{index}           | Filter by tags. Only filesystems with one or more matching tags will be returned          |                                                                      |
+| filesystem-ids.{index} | Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned |                                                                      |
+| organization-id        | Filter by organization ID                                                                 |                                                                      |
+| region                 | Region to target. If none is passed will use default region from the config               | Default: `fr-par`<br />One of: `fr-par`, `all`                       |
 
 
 
@@ -137,15 +137,15 @@ scw file filesystem update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| filesystem-id | Required | UUID of the filesystem |
-| name |  | When defined, is the new name of the filesystem |
-| size |  | Optional field for increasing the size of the filesystem (must be larger than the current size) |
-| tags.{index} |  | List of tags assigned to the filesystem |
-| region | Default: `fr-par`<br />One of: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                                     | Argument Specifications                 |
+|---------------|-------------------------------------------------------------------------------------------------|-----------------------------------------|
+| filesystem-id | UUID of the filesystem                                                                          | Required                                |
+| name          | When defined, is the new name of the filesystem                                                 |                                         |
+| size          | Optional field for increasing the size of the filesystem (must be larger than the current size) |                                         |
+| tags.{index}  | List of tags assigned to the filesystem                                                         |                                         |
+| region        | Region to target. If none is passed will use default region from the config                     | Default: `fr-par`<br />One of: `fr-par` |
 
 
 

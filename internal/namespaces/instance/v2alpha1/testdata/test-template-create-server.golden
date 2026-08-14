@@ -1,0 +1,66 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                      366c0ab6-a341-42e6-8379-933b2e9e8161
+Name                                    cli-tmpl-crazy-wilson
+ProjectID                               fa1e3217-dc80-42ac-85c3-3f034b78b552
+Tags.0                                  cli-tpl
+ServerType                              DEV1-L
+Status                                  stopped
+Volumes.0.ID                            6d93a25f-c5d1-4b07-9d1c-e06ec780328f
+Volumes.0.VolumeType                    l_ssd
+Architecture                            x86_64
+CreatedAt                               few seconds ago
+UpdatedAt                               few seconds ago
+RescueMode                              false
+StatusDetail                            -
+PublicNetworkInterface.Status           available
+PublicNetworkInterface.MacAddress       de:00:01:28:dd:e7
+PublicNetworkInterface.SecurityGroupID  da505169-540e-4c2b-b0da-c854139224e0
+PublicNetworkInterface.IPs.0.ID         43f46915-02cd-436d-84fe-dea69efaa7da
+PublicNetworkInterface.IPs.0.Dynamic    false
+PublicNetworkInterface.IPs.0.Status     attached
+PublicNetworkInterface.IPs.0.Default    false
+PublicNetworkInterface.DNS              366c0ab6-a341-42e6-8379-933b2e9e8161.pub.instances.scw.cloud
+Zone                                    fr-par-1
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "366c0ab6-a341-42e6-8379-933b2e9e8161",
+  "name": "cli-tmpl-crazy-wilson",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "tags": [
+    "cli-tpl"
+  ],
+  "server_type": "DEV1-L",
+  "placement_group_id": null,
+  "status": "stopped",
+  "volumes": [
+    {
+      "id": "6d93a25f-c5d1-4b07-9d1c-e06ec780328f",
+      "volume_type": "l_ssd"
+    }
+  ],
+  "filesystems": [],
+  "architecture": "x86_64",
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "private_network_interfaces": [],
+  "rescue_mode": false,
+  "boot_volume_id": null,
+  "status_detail": "",
+  "windows_rdp_password": null,
+  "public_network_interface": {
+    "status": "available",
+    "mac_address": "de:00:01:28:dd:e7",
+    "security_group_id": "da505169-540e-4c2b-b0da-c854139224e0",
+    "ips": [
+      {
+        "id": "43f46915-02cd-436d-84fe-dea69efaa7da",
+        "dynamic": false,
+        "status": "attached",
+        "default": false
+      }
+    ],
+    "dns": "366c0ab6-a341-42e6-8379-933b2e9e8161.pub.instances.scw.cloud"
+  },
+  "zone": "fr-par-1"
+}

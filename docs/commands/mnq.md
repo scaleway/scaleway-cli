@@ -18,13 +18,13 @@ scw mnq nats create-account [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Default: `<generated>` | NATS account name |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| name       | NATS account name                                                           | Default: `<generated>`                            |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -41,14 +41,14 @@ scw mnq nats create-context [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-account-id |  | ID of the NATS account |
-| name |  | Name of the saved context, defaults to account name |
-| credentials-name |  | Name of the created credentials |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name             | Description                                                                 | Argument Specifications                           |
+|------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-account-id  | ID of the NATS account                                                      |                                                   |
+| name             | Name of the saved context, defaults to account name                         |                                                   |
+| credentials-name | Name of the created credentials                                             |                                                   |
+| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 **Examples:**
@@ -73,13 +73,13 @@ scw mnq nats create-credentials [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-account-id | Required | NATS account containing the credentials |
-| name | Default: `<generated>` | Name of the credentials |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-account-id | NATS account containing the credentials                                     | Required                                          |
+| name            | Name of the credentials                                                     | Default: `<generated>`                            |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -94,12 +94,12 @@ scw mnq nats delete-account <nats-account-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-account-id | Required | ID of the NATS account to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-account-id | ID of the NATS account to delete                                            | Required                                          |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -114,12 +114,12 @@ scw mnq nats delete-credentials <nats-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-credentials-id | Required | ID of the credentials to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name                | Description                                                                 | Argument Specifications                           |
+|---------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-credentials-id | ID of the credentials to delete                                             | Required                                          |
+| region              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -134,12 +134,12 @@ scw mnq nats get-account <nats-account-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-account-id | Required | ID of the NATS account to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-account-id | ID of the NATS account to get                                               | Required                                          |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -154,12 +154,12 @@ scw mnq nats get-credentials <nats-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-credentials-id | Required | ID of the credentials to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name                | Description                                                                 | Argument Specifications                           |
+|---------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-credentials-id | ID of the credentials to get                                                | Required                                          |
+| region              | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -174,13 +174,13 @@ scw mnq nats list-accounts [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Include only NATS accounts in this Project |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                                                                   |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| project-id | Include only NATS accounts in this Project                                  |                                                                                                           |
+| order-by   | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all`                                                  |
 
 
 
@@ -195,14 +195,14 @@ scw mnq nats list-credentials [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Include only NATS accounts in this Project |
-| nats-account-id |  | Include only credentials for this NATS account |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                                                   |
+|-----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| project-id      | Include only NATS accounts in this Project                                  |                                                                                                           |
+| nats-account-id | Include only credentials for this NATS account                              |                                                                                                           |
+| order-by        | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all`                                                  |
 
 
 
@@ -217,13 +217,13 @@ scw mnq nats update-account <nats-account-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| nats-account-id | Required | ID of the NATS account to update |
-| name |  | NATS account name |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| nats-account-id | ID of the NATS account to update                                            | Required                                          |
+| name            | NATS account name                                                           |                                                   |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -243,12 +243,12 @@ scw mnq sns activate [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -263,16 +263,16 @@ scw mnq sns create-credentials [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the credentials |
-| permissions.can-publish |  | Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics) |
-| permissions.can-receive |  | Defines whether the credentials bearer can receive messages from the service (configure subscriptions) |
-| permissions.can-manage |  | Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name                    | Description                                                                                                      | Argument Specifications                           |
+|-------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| project-id              | Project ID to use. If none is passed the default project ID will be used                                         |                                                   |
+| name                    | Name of the credentials                                                                                          | Default: `<generated>`                            |
+| permissions.can-publish | Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics) |                                                   |
+| permissions.can-receive | Defines whether the credentials bearer can receive messages from the service (configure subscriptions)           |                                                   |
+| permissions.can-manage  | Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions       |                                                   |
+| region                  | Region to target. If none is passed will use default region from the config                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -287,12 +287,12 @@ scw mnq sns deactivate [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -307,12 +307,12 @@ scw mnq sns delete-credentials <sns-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| sns-credentials-id | Required | ID of the credentials to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                           |
+|--------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| sns-credentials-id | ID of the credentials to delete                                             | Required                                          |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -327,12 +327,12 @@ scw mnq sns get-credentials <sns-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| sns-credentials-id | Required | ID of the Topics and Events credentials to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                           |
+|--------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| sns-credentials-id | ID of the Topics and Events credentials to get                              | Required                                          |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -347,12 +347,12 @@ scw mnq sns get-info [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -367,13 +367,13 @@ scw mnq sns list-credentials [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Include only Topics and Events credentials in this Project |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                                                                   |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| project-id | Include only Topics and Events credentials in this Project                  |                                                                                                           |
+| order-by   | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all`                                                  |
 
 
 
@@ -388,16 +388,16 @@ scw mnq sns update-credentials <sns-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| sns-credentials-id | Required | ID of the Topics and Events credentials to update |
-| name |  | Name of the credentials |
-| permissions.can-publish |  | Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics) |
-| permissions.can-receive |  | Defines whether the credentials bearer can receive messages from the service (configure subscriptions) |
-| permissions.can-manage |  | Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name                    | Description                                                                                                      | Argument Specifications                           |
+|-------------------------|------------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| sns-credentials-id      | ID of the Topics and Events credentials to update                                                                | Required                                          |
+| name                    | Name of the credentials                                                                                          |                                                   |
+| permissions.can-publish | Defines whether the credentials bearer can publish messages to the service (publish to Topics and Events topics) |                                                   |
+| permissions.can-receive | Defines whether the credentials bearer can receive messages from the service (configure subscriptions)           |                                                   |
+| permissions.can-manage  | Defines whether the credentials bearer can manage the associated Topics and Events topics or subscriptions       |                                                   |
+| region                  | Region to target. If none is passed will use default region from the config                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -417,12 +417,12 @@ scw mnq sqs activate [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -437,16 +437,16 @@ scw mnq sqs create-credentials [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the credentials |
-| permissions.can-publish |  | Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues) |
-| permissions.can-receive |  | Defines whether the credentials bearer can receive messages from Queues queues |
-| permissions.can-manage |  | Defines whether the credentials bearer can manage the associated Queues queues |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name                    | Description                                                                                                 | Argument Specifications                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| project-id              | Project ID to use. If none is passed the default project ID will be used                                    |                                                   |
+| name                    | Name of the credentials                                                                                     | Default: `<generated>`                            |
+| permissions.can-publish | Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues) |                                                   |
+| permissions.can-receive | Defines whether the credentials bearer can receive messages from Queues queues                              |                                                   |
+| permissions.can-manage  | Defines whether the credentials bearer can manage the associated Queues queues                              |                                                   |
+| region                  | Region to target. If none is passed will use default region from the config                                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -461,12 +461,12 @@ scw mnq sqs deactivate [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -481,12 +481,12 @@ scw mnq sqs delete-credentials <sqs-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| sqs-credentials-id | Required | ID of the credentials to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                           |
+|--------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| sqs-credentials-id | ID of the credentials to delete                                             | Required                                          |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -501,12 +501,12 @@ scw mnq sqs get-credentials <sqs-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| sqs-credentials-id | Required | ID of the Queues credentials to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                           |
+|--------------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| sqs-credentials-id | ID of the Queues credentials to get                                         | Required                                          |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -521,12 +521,12 @@ scw mnq sqs get-info [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -541,13 +541,13 @@ scw mnq sqs list-credentials [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Include only Queues credentials in this Project |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` | Order in which to return results |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                                                                   |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| project-id | Include only Queues credentials in this Project                             |                                                                                                           |
+| order-by   | Order in which to return results                                            | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc` |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `all`                                                  |
 
 
 
@@ -562,16 +562,16 @@ scw mnq sqs update-credentials <sqs-credentials-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| sqs-credentials-id | Required | ID of the Queues credentials to update |
-| name |  | Name of the credentials |
-| permissions.can-publish |  | Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues) |
-| permissions.can-receive |  | Defines whether the credentials bearer can receive messages from Queues queues |
-| permissions.can-manage |  | Defines whether the credentials bearer can manage the associated Queues queues |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name                    | Description                                                                                                 | Argument Specifications                           |
+|-------------------------|-------------------------------------------------------------------------------------------------------------|---------------------------------------------------|
+| sqs-credentials-id      | ID of the Queues credentials to update                                                                      | Required                                          |
+| name                    | Name of the credentials                                                                                     |                                                   |
+| permissions.can-publish | Defines whether the credentials bearer can publish messages to the service (send messages to Queues queues) |                                                   |
+| permissions.can-receive | Defines whether the credentials bearer can receive messages from Queues queues                              |                                                   |
+| permissions.can-manage  | Defines whether the credentials bearer can manage the associated Queues queues                              |                                                   |
+| region                  | Region to target. If none is passed will use default region from the config                                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
