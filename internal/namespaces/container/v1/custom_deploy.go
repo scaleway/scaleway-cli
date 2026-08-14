@@ -194,9 +194,9 @@ type DeployStepData struct {
 	Args   *containerDeployRequest
 }
 
-// parsePlatforms parses a platform string (e.g. "linux/amd64", "linux/arm64/v8")
+// ParsePlatforms parses a platform string (e.g. "linux/amd64", "linux/arm64/v8")
 // into a slice of OCI platforms suitable for the Docker ImageBuildOptions.
-func parsePlatforms(platform string) []ocispec.Platform {
+func ParsePlatforms(platform string) []ocispec.Platform {
 	if platform == "" {
 		return nil
 	}
@@ -336,7 +336,7 @@ func DeployStepDockerBuildImage(
 			Tags:       []string{tag},
 			NoCache:    !data.Args.Cache,
 			BuildArgs:  data.Args.BuildArgs,
-			Platforms:  parsePlatforms(data.Args.Platform),
+			Platforms:  ParsePlatforms(data.Args.Platform),
 		},
 	)
 	if err != nil {
