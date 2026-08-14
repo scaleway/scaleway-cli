@@ -118,6 +118,75 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 
+## Create a lifecycle configuration for an S3 bucket's objects.
+
+Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.
+
+
+### Create a lifecycle configuration for an S3 bucket's objects.
+
+Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle-configuration create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name               | Description                                                                    | Argument Specifications |
+|--------------------|--------------------------------------------------------------------------------|-------------------------|
+| bucket             | The name of the bucket to which assign the policy.                             | Required                |
+| configuration-path | The path to the local JSON file containing the bucket lifecycle configuration. | Required                |
+| project-id         | Project ID to use. If none is passed the default project ID will be used       |                         |
+| region             | Region to target. If none is passed will use default region from the config    | Default: `fr-par`       |
+
+
+
+### Delete an S3 bucket's lifecycle configuration if it exists.
+
+Delete an Object Bucket's lifecycle configuration with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle-configuration delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Get the lifecycle configuration of an S3 bucket.
+
+Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle-configuration get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ## Manage configuration files for popular S3 tools
 
 Configuration generation for S3 tools.
