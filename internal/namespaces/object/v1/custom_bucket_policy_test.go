@@ -63,7 +63,10 @@ func Test_BucketPolicyCreate(t *testing.T) {
 				assert.Equal(t, bucketName, bucket.ID)
 			},
 		),
-		AfterFunc: deleteBucket(bucketName),
+		AfterFunc: core.AfterFuncCombine(
+			deleteBucket(bucketName),
+			deleteFile(testPolicyPath),
+		),
 	}))
 }
 
@@ -82,7 +85,10 @@ func Test_BucketPolicyDelete(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteBucket(bucketName),
+		AfterFunc: core.AfterFuncCombine(
+			deleteBucket(bucketName),
+			deleteFile(testPolicyPath),
+		),
 	}))
 }
 
@@ -101,7 +107,10 @@ func Test_BucketPolicyGet(t *testing.T) {
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
 		),
-		AfterFunc: deleteBucket(bucketName),
+		AfterFunc: core.AfterFuncCombine(
+			deleteBucket(bucketName),
+			deleteFile(testPolicyPath),
+		),
 	}))
 }
 
@@ -119,6 +128,12 @@ func createPolicyFile(bucketName, policyPath string) core.BeforeFunc {
 		}
 
 		return nil
+	}
+}
+
+func deleteFile(filePath string) core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		return os.Remove(filePath)
 	}
 }
 

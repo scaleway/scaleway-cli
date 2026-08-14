@@ -15,6 +15,3 @@ docs/commands/autocomplete.md
 
 # Go workspace
 go.work*
-
-# Generated test files for Object Storage
-test-policy.json
