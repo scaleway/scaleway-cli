@@ -175,12 +175,6 @@ func bucketCorsGetCommand() *core.Command {
 				Short:            "The name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
-			{
-				Name:       "cors-configuration",
-				Positional: false,
-				Required:   true,
-				Short:      "The path to the local JSON file containing the CORS configuration.",
-			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
