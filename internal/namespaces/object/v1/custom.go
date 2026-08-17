@@ -44,6 +44,15 @@ func GetCommands() *core.Commands {
 	if cmdConfigInstall := configInstallCommand(); cmdConfigInstall != nil {
 		cmds.Add(cmdConfigInstall)
 	}
+	if cmdBucketCorsCreate := bucketCorsCreateCommand(); cmdBucketCorsCreate != nil {
+		cmds.Add(cmdBucketCorsCreate)
+	}
+	if cmdBucketCorsDelete := bucketCorsDeleteCommand(); cmdBucketCorsDelete != nil {
+		cmds.Add(cmdBucketCorsDelete)
+	}
+	if cmdBucketCorsGet := bucketCorsGetCommand(); cmdBucketCorsGet != nil {
+		cmds.Add(cmdBucketCorsGet)
+	}
 
 	return cmds
 }
