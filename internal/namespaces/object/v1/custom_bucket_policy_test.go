@@ -50,7 +50,7 @@ func Test_BucketPolicyCreate(t *testing.T) {
 			createPolicyFile(bucketName, testPolicyPath),
 		),
 		Cmd: fmt.Sprintf(
-			"scw object bucket-policy create %s policy-path=%s",
+			"scw object bucket-policy create %s policy=%s",
 			bucketName,
 			testPolicyPath,
 		),
@@ -139,7 +139,7 @@ func deleteFile(filePath string) core.AfterFunc {
 
 func createPolicy(bucketName, policyPath string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd("Policy", fmt.Sprintf(
-		"scw object bucket-policy create %s policy-path=%s",
+		"scw object bucket-policy create %s policy=%s",
 		bucketName,
 		policyPath,
 	))

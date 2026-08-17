@@ -136,12 +136,12 @@ scw object bucket-policy create <bucket ...> [arg=value ...]
 
 **Arguments:**
 
-| Name        | Description                                                                 | Argument Specifications |
-|-------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket      | The name of the bucket to which assign the policy.                          | Required                |
-| policy-path | The path to the local JSON file containing the bucket policy.               | Required                |
-| project-id  | Project ID to use. If none is passed the default project ID will be used    |                         |
-| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket to which assign the policy.                          | Required                |
+| policy     | The path to the local JSON file containing the bucket policy.               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 

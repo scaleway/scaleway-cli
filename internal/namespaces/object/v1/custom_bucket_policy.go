@@ -17,10 +17,10 @@ import (
 )
 
 type bucketPolicyCreateArgs struct {
-	Bucket     string
-	PolicyPath string
-	Region     scw.Region
-	ProjectID  string
+	Bucket    string
+	Policy    string
+	Region    scw.Region
+	ProjectID string
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -39,7 +39,7 @@ func bucketPolicyCreateCommand() *core.Command {
 				Short:      "The name of the bucket to which assign the policy.",
 			},
 			{
-				Name:       "policy-path",
+				Name:       "policy",
 				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket policy.",
@@ -52,15 +52,15 @@ func bucketPolicyCreateCommand() *core.Command {
 			if args.Bucket == "" {
 				return nil, errors.New("bucket name cannot be empty")
 			}
-			if args.PolicyPath == "" {
+			if args.Policy == "" {
 				return nil, errors.New("policy file path cannot be empty")
 			}
 
-			policyBytes, err := os.ReadFile(args.PolicyPath)
+			policyBytes, err := os.ReadFile(args.Policy)
 			if err != nil {
 				return nil, fmt.Errorf(
 					"could not open policy file \"%s\": %w",
-					args.PolicyPath,
+					args.Policy,
 					err,
 				)
 			}
