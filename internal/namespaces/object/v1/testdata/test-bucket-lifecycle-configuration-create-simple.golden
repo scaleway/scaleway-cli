@@ -1,35 +1,12 @@
-🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ Success.
-ID                cli-test-bucket-lifecycle-
-Region            fr-par
-APIEndpoint       https://s3.fr-par.scw.cloud
-BucketEndpoint    https://cli-test-bucket-lifecycle-.s3.fr-par.scw.cloud
-EnableVersioning  false
-Owner             4d333544-41be-4b0b-8907-0b9036859747
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Unknown argument 'lifecycle-configuration'
 
-Acl:
-GRANTEE                               PERMISSION
-4d333544-41be-4b0b-8907-0b9036859747  FULL_CONTROL
-🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+Hint:
+Valid arguments are: bucket, lifecycle-configuration, project-id, region
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {
-  "SuccessResult": {
-    "message": "Success",
-    "details": ""
-  },
-  "BucketInfo": {
-    "ID": "cli-test-bucket-lifecycle-",
-    "Region": "fr-par",
-    "APIEndpoint": "https://s3.fr-par.scw.cloud",
-    "BucketEndpoint": "https://cli-test-bucket-lifecycle-.s3.fr-par.scw.cloud",
-    "EnableVersioning": false,
-    "Tags": null,
-    "ACL": [
-      {
-        "Grantee": "4d333544-41be-4b0b-8907-0b9036859747",
-        "Permission": "FULL_CONTROL"
-      }
-    ],
-    "Owner": "4d333544-41be-4b0b-8907-0b9036859747"
-  }
+  "message": "unknown argument 'lifecycle-configuration'",
+  "error": {},
+  "hint": "Valid arguments are: bucket, lifecycle-configuration, project-id, region"
 }
