@@ -43,3 +43,15 @@ func configGetCommand() *core.Command {
 func configInstallCommand() *core.Command {
 	return nil
 }
+
+func bucketCorsCreateCommand() *core.Command {
+	return nil
+}
+
+func bucketCorsDeleteCommand() *core.Command {
+	return nil
+}
+
+func bucketCorsGetCommand() *core.Command {
+	return nil
+}
