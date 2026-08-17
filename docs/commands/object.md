@@ -118,9 +118,9 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 
-## Create a lifecycle configuration for an S3 bucket's objects.
+## Delete an S3 bucket's lifecycle configuration if it exists.
 
-Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.
+Delete an Object Bucket's lifecycle configuration with the S3 protocol.
 
 
 ### Create a lifecycle configuration for an S3 bucket's objects.
