@@ -17,10 +17,10 @@ import (
 )
 
 type lifecycleConfigurationCreateArgs struct {
-	Bucket            string
-	ConfigurationPath string
-	Region            scw.Region
-	ProjectID         string
+	Bucket                 string
+	LifecycleConfiguration string
+	Region                 scw.Region
+	ProjectID              string
 }
 
 func lifecycleConfigurationCreateCommand() *core.Command {
@@ -52,15 +52,15 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 			if args.Bucket == "" {
 				return nil, errors.New("bucket name cannot be empty")
 			}
-			if args.ConfigurationPath == "" {
+			if args.LifecycleConfiguration == "" {
 				return nil, errors.New("configuration file path cannot be empty")
 			}
 
-			configPath, err := os.ReadFile(args.ConfigurationPath)
+			configPath, err := os.ReadFile(args.LifecycleConfiguration)
 			if err != nil {
 				return nil, fmt.Errorf(
 					"could not open configuration file \"%s\": %w",
-					args.ConfigurationPath,
+					args.LifecycleConfiguration,
 					err,
 				)
 			}

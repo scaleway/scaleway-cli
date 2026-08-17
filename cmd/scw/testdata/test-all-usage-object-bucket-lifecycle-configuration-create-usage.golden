@@ -6,10 +6,10 @@ USAGE:
   scw object bucket-lifecycle-configuration create <bucket ...> [arg=value ...]
 
 ARGS:
-  bucket               The name of the bucket to which assign the policy.
-  configuration-path   The path to the local JSON file containing the bucket lifecycle configuration.
-  [project-id]         Project ID to use. If none is passed the default project ID will be used
-  [region=fr-par]      Region to target. If none is passed will use default region from the config
+  bucket                    The name of the bucket to which assign the policy.
+  lifecycle-configuration   The path to the local JSON file containing the bucket lifecycle configuration.
+  [project-id]              Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]           Region to target. If none is passed will use default region from the config
 
 FLAGS:
   -h, --help                help for create
