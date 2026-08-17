@@ -39,7 +39,7 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 				Short:      "The name of the bucket to which assign the policy.",
 			},
 			{
-				Name:       "configuration-path",
+				Name:       "lifecycle-configuration",
 				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket lifecycle configuration.",

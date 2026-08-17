@@ -57,7 +57,7 @@ func Test_BucketLifecycleConfigurationCreate(t *testing.T) {
 			createFile(testLifecyclePath, testLifecycleContent),
 		),
 		Cmd: fmt.Sprintf(
-			"scw object bucket-lifecycle-configuration create %s configuration-path=%s",
+			"scw object bucket-lifecycle-configuration create %s lifecycle-configuration=%s",
 			bucketName,
 			testLifecyclePath,
 		),
@@ -140,7 +140,7 @@ func deleteFile(filePath string) core.AfterFunc {
 
 func createLifecycleConfiguration(bucketName, configurationPath string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd("Lifecycle", fmt.Sprintf(
-		"scw object bucket-lifecycle-configuration create %s configuration-path=%s",
+		"scw object bucket-lifecycle-configuration create %s lifecycle-configuration=%s",
 		bucketName,
 		configurationPath,
 	))
