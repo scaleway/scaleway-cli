@@ -16,6 +16,10 @@ func objectBucket() *core.Command {
 	return nil
 }
 
+func objectBucketLifecycle() *core.Command {
+  return nil
+}
+
 func bucketCreateCommand() *core.Command {
 	return nil
 }
@@ -44,14 +48,30 @@ func configInstallCommand() *core.Command {
 	return nil
 }
 
-func lifecycleConfigurationCreateCommand() *core.Command {
+func lifecycleCreateCommand() *core.Command {
 	return nil
 }
 
-func lifecycleConfigurationDeleteCommand() *core.Command {
+func lifecycleDeleteCommand() *core.Command {
 	return nil
 }
 
-func lifecycleConfigurationGetCommand() *core.Command {
+func lifecycleGetCommand() *core.Command {
+  return nil
+}
+
+func objectBucketPolicy() *core.Command {
+	return nil
+}
+
+func bucketPolicyCreateCommand() *core.Command {
+	return nil
+}
+
+func bucketPolicyDeleteCommand() *core.Command {
+	return nil
+}
+
+func bucketPolicyGetCommand() *core.Command {
 	return nil
 }

@@ -55,6 +55,18 @@ func GetCommands() *core.Commands {
 	}
 	if cmdLifecycleConfigurationGet := lifecycleConfigurationGetCommand(); cmdLifecycleConfigurationGet != nil {
 		cmds.Add(cmdLifecycleConfigurationGet)
+  }
+	if cmdObjectBucketPolicy := objectBucketPolicy(); cmdObjectBucketPolicy != nil {
+		cmds.Add(cmdObjectBucketPolicy)
+	}
+	if cmdBucketPolicyCreate := bucketPolicyCreateCommand(); cmdBucketPolicyCreate != nil {
+		cmds.Add(cmdBucketPolicyCreate)
+	}
+	if cmdBucketPolicyDelete := bucketPolicyDeleteCommand(); cmdBucketPolicyDelete != nil {
+		cmds.Add(cmdBucketPolicyDelete)
+	}
+	if cmdBucketPolicyGet := bucketPolicyGetCommand(); cmdBucketPolicyGet != nil {
+		cmds.Add(cmdBucketPolicyGet)
 	}
 
 	return cmds

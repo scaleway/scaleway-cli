@@ -34,7 +34,16 @@ func objectBucketLifecycle() *core.Command {
 	return &core.Command{
 		Short:     `Manage S3 buckets' lifecycle configuration`,
 		Long:      `Manage S3 buckets lifecycle rules creation and deletion.`,
-		Namespace: `object`,
+		Namespace: "object",
 		Resource:  `bucket-lifecycle`,
+  }
+}
+
+func objectBucketPolicy() *core.Command {
+	return &core.Command{
+		Short:     `Manage S3 bucket policies`,
+		Long:      `Manage S3 bucket policies creation and deletion.`,
+		Namespace: "object",
+		Resource:  `bucket-policy`,
 	}
 }

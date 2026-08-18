@@ -126,11 +126,20 @@ Manage S3 buckets lifecycle rules creation and deletion.
 ### Create a lifecycle configuration for an S3 bucket's objects.
 
 Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.
+## Manage S3 bucket policies
+
+Manage S3 bucket policies creation and deletion.
+
+
+### Create a policy for an S3 bucket
+
+Create a policy and apply to an Object Bucket with the S3 protocol.
 
 **Usage:**
 
 ```shell
 scw object bucket-lifecycle create <bucket ...> [arg=value ...]
+scw object bucket-policy create <bucket ...> [arg=value ...]
 ```
 
 
@@ -148,11 +157,24 @@ scw object bucket-lifecycle create <bucket ...> [arg=value ...]
 ### Delete an S3 bucket's lifecycle configuration if it exists.
 
 Delete an Object Bucket's lifecycle configuration with the S3 protocol.
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket to which assign the policy.                          | Required                |
+| policy     | The path to the local JSON file containing the bucket policy.               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Delete an S3 bucket's policy if it exists.
+
+Delete an Object Bucket's policy with the S3 protocol.
 
 **Usage:**
 
 ```shell
 scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
+scw object bucket-policy delete <bucket ...> [arg=value ...]
 ```
 
 
@@ -169,11 +191,15 @@ scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
 ### Get the lifecycle configuration of an S3 bucket.
 
 Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.
+### Retrieve an S3 bucket's policy.
+
+Retrieve an Object Bucket's policy with the S3 protocol.
 
 **Usage:**
 
 ```shell
 scw object bucket-lifecycle get <bucket ...> [arg=value ...]
+scw object bucket-policy get <bucket ...> [arg=value ...]
 ```
 
 
