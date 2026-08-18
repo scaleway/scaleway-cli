@@ -47,14 +47,14 @@ func GetCommands() *core.Commands {
 	if cmdConfigInstall := configInstallCommand(); cmdConfigInstall != nil {
 		cmds.Add(cmdConfigInstall)
 	}
-	if cmdLifecycleConfigurationCreate := lifecycleConfigurationCreateCommand(); cmdLifecycleConfigurationCreate != nil {
-		cmds.Add(cmdLifecycleConfigurationCreate)
+	if cmdLifecycleCreate := lifecycleConfigurationCreateCommand(); cmdLifecycleCreate != nil {
+		cmds.Add(cmdLifecycleCreate)
 	}
-	if cmdLifecycleConfigurationDelete := lifecycleConfigurationDeleteCommand(); cmdLifecycleConfigurationDelete != nil {
-		cmds.Add(cmdLifecycleConfigurationDelete)
+	if cmdLifecycleDelete := lifecycleConfigurationDeleteCommand(); cmdLifecycleDelete != nil {
+		cmds.Add(cmdLifecycleDelete)
 	}
-	if cmdLifecycleConfigurationGet := lifecycleConfigurationGetCommand(); cmdLifecycleConfigurationGet != nil {
-		cmds.Add(cmdLifecycleConfigurationGet)
+	if cmdLifecycleGet := lifecycleConfigurationGetCommand(); cmdLifecycleGet != nil {
+		cmds.Add(cmdLifecycleGet)
 	}
 	if cmdObjectBucketPolicy := objectBucketPolicy(); cmdObjectBucketPolicy != nil {
 		cmds.Add(cmdObjectBucketPolicy)
