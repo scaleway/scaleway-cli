@@ -47,7 +47,7 @@ const (
 }`
 )
 
-func Test_BucketLifecycleConfigurationCreate(t *testing.T) {
+func Test_BucketLifecycleCreate(t *testing.T) {
 	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionLifecycle)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -57,7 +57,7 @@ func Test_BucketLifecycleConfigurationCreate(t *testing.T) {
 			createFile(testLifecyclePath, testLifecycleContent),
 		),
 		Cmd: fmt.Sprintf(
-			"scw object bucket-lifecycle-configuration create %s lifecycle-configuration=%s",
+			"scw object bucket-lifecycle create %s lifecycle-configuration=%s",
 			bucketName,
 			testLifecyclePath,
 		),
@@ -77,7 +77,7 @@ func Test_BucketLifecycleConfigurationCreate(t *testing.T) {
 	}))
 }
 
-func Test_BucketLifecycleConfigurationDelete(t *testing.T) {
+func Test_BucketLifecycleDelete(t *testing.T) {
 	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionLifecycle)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -87,7 +87,7 @@ func Test_BucketLifecycleConfigurationDelete(t *testing.T) {
 			createFile(testLifecyclePath, testLifecycleContent),
 			createLifecycleConfiguration(bucketName, testLifecyclePath),
 		),
-		Cmd: "scw object bucket-lifecycle-configuration delete " + bucketName,
+		Cmd: "scw object bucket-lifecycle delete " + bucketName,
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
@@ -99,7 +99,7 @@ func Test_BucketLifecycleConfigurationDelete(t *testing.T) {
 	}))
 }
 
-func Test_BucketLifecycleConfigurationGet(t *testing.T) {
+func Test_BucketLifecycleGet(t *testing.T) {
 	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionLifecycle)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
@@ -109,7 +109,7 @@ func Test_BucketLifecycleConfigurationGet(t *testing.T) {
 			createFile(testLifecyclePath, testLifecycleContent),
 			createLifecycleConfiguration(bucketName, testLifecyclePath),
 		),
-		Cmd: "scw object bucket-lifecycle-configuration get " + bucketName,
+		Cmd: "scw object bucket-lifecycle get " + bucketName,
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(0),
@@ -140,7 +140,7 @@ func deleteFile(filePath string) core.AfterFunc {
 
 func createLifecycleConfiguration(bucketName, configurationPath string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd("Lifecycle", fmt.Sprintf(
-		"scw object bucket-lifecycle-configuration create %s lifecycle-configuration=%s",
+		"scw object bucket-lifecycle create %s lifecycle-configuration=%s",
 		bucketName,
 		configurationPath,
 	))

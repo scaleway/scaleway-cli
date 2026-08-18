@@ -6,9 +6,9 @@ USAGE:
   scw object <command>
 
 AVAILABLE COMMANDS:
-  bucket                         Manage S3 buckets
-  bucket-lifecycle-configuration Create a lifecycle configuration for an S3 bucket's objects.
-  config                         Manage configuration files for popular S3 tools
+  bucket           Manage S3 buckets
+  bucket-lifecycle Manage S3 buckets' lifecycle configuration
+  config           Manage configuration files for popular S3 tools
 
 FLAGS:
   -h, --help                help for object

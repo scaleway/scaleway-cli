@@ -26,7 +26,7 @@ type lifecycleConfigurationCreateArgs struct {
 func lifecycleConfigurationCreateCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
-		Resource:  "bucket-lifecycle-configuration",
+		Resource:  "bucket-lifecycle",
 		Verb:      "create",
 		Short:     "Create a lifecycle configuration for an S3 bucket's objects.",
 		Long:      "Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.",
@@ -95,7 +95,7 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 			return &BucketResponse{
 				BucketInfo: bucket,
 				SuccessResult: &core.SuccessResult{
-					Resource: "bucket-lifecycle-configuration",
+					Resource: "bucket-lifecycle",
 					Verb:     "create",
 				},
 			}, nil
@@ -112,7 +112,7 @@ type lifecycleConfigurationDeleteArgs struct {
 func lifecycleConfigurationDeleteCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
-		Resource:  "bucket-lifecycle-configuration",
+		Resource:  "bucket-lifecycle",
 		Verb:      "delete",
 		Short:     "Delete an S3 bucket's lifecycle configuration if it exists.",
 		Long:      "Delete an Object Bucket's lifecycle configuration with the S3 protocol.",
@@ -145,7 +145,7 @@ func lifecycleConfigurationDeleteCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Resource: "bucket-lifecycle-configuration",
+				Resource: "bucket-lifecycle",
 				Verb:     "delete",
 			}, nil
 		},
@@ -161,7 +161,7 @@ type lifecycleConfigurationGetArgs struct {
 func lifecycleConfigurationGetCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
-		Resource:  "bucket-lifecycle-configuration",
+		Resource:  "bucket-lifecycle",
 		Verb:      "get",
 		Short:     "Get the lifecycle configuration of an S3 bucket.",
 		Long:      "Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.",

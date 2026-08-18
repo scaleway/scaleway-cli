@@ -118,9 +118,9 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 
-## Create a lifecycle configuration for an S3 bucket's objects.
+## Manage S3 buckets' lifecycle configuration
 
-Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.
+Manage S3 buckets lifecycle rules creation and deletion.
 
 
 ### Create a lifecycle configuration for an S3 bucket's objects.
@@ -130,7 +130,7 @@ Create a lifecycle configuration and apply to an Object Bucket's objectswith the
 **Usage:**
 
 ```shell
-scw object bucket-lifecycle-configuration create <bucket ...> [arg=value ...]
+scw object bucket-lifecycle create <bucket ...> [arg=value ...]
 ```
 
 
@@ -152,7 +152,7 @@ Delete an Object Bucket's lifecycle configuration with the S3 protocol.
 **Usage:**
 
 ```shell
-scw object bucket-lifecycle-configuration delete <bucket ...> [arg=value ...]
+scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
 ```
 
 
@@ -173,7 +173,7 @@ Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.
 **Usage:**
 
 ```shell
-scw object bucket-lifecycle-configuration get <bucket ...> [arg=value ...]
+scw object bucket-lifecycle get <bucket ...> [arg=value ...]
 ```
 
 
