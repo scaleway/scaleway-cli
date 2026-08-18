@@ -29,7 +29,7 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 		Resource:  "bucket-lifecycle",
 		Verb:      "create",
 		Short:     "Create a lifecycle configuration for an S3 bucket's objects.",
-		Long:      "Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.",
+		Long:      "Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.",
 		ArgsType:  reflect.TypeOf(lifecycleConfigurationCreateArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
