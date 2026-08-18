@@ -125,7 +125,7 @@ Manage S3 buckets lifecycle rules creation and deletion.
 
 ### Create a lifecycle configuration for an S3 bucket's objects.
 
-Create a lifecycle configuration and apply to an Object Bucket's objectswith the S3 protocol.
+Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.
 
 **Usage:**
 
