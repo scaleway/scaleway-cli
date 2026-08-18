@@ -118,6 +118,75 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 
+## Manage S3 bucket policies
+
+Manage S3 bucket policies creation and deletion.
+
+
+### Create a policy for an S3 bucket
+
+Create a policy and apply to an Object Bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket to which assign the policy.                          | Required                |
+| policy     | The path to the local JSON file containing the bucket policy.               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Delete an S3 bucket's policy if it exists.
+
+Delete an Object Bucket's policy with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Retrieve an S3 bucket's policy.
+
+Retrieve an Object Bucket's policy with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ## Manage configuration files for popular S3 tools
 
 Configuration generation for S3 tools.
