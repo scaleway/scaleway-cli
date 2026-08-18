@@ -132,12 +132,6 @@ func createFile(path, content string) core.BeforeFunc {
 	}
 }
 
-func deleteFile(filePath string) core.AfterFunc {
-	return func(ctx *core.AfterFuncCtx) error {
-		return os.Remove(filePath)
-	}
-}
-
 func createLifecycleConfiguration(bucketName, configurationPath string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd("Lifecycle", fmt.Sprintf(
 		"scw object bucket-lifecycle create %s lifecycle-configuration=%s",
