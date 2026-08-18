@@ -16,21 +16,21 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type lifecycleConfigurationCreateArgs struct {
+type lifecycleCreateArgs struct {
 	Bucket                 string
 	LifecycleConfiguration string
 	Region                 scw.Region
 	ProjectID              string
 }
 
-func lifecycleConfigurationCreateCommand() *core.Command {
+func lifecycleCreateCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
 		Resource:  "bucket-lifecycle",
 		Verb:      "create",
 		Short:     "Create a lifecycle configuration for an S3 bucket's objects.",
 		Long:      "Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(lifecycleConfigurationCreateArgs{}),
+		ArgsType:  reflect.TypeOf(lifecycleCreateArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -48,7 +48,7 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
-			args := argsI.(*lifecycleConfigurationCreateArgs)
+			args := argsI.(*lifecycleCreateArgs)
 			if args.Bucket == "" {
 				return nil, errors.New("bucket name cannot be empty")
 			}
@@ -103,20 +103,20 @@ func lifecycleConfigurationCreateCommand() *core.Command {
 	}
 }
 
-type lifecycleConfigurationDeleteArgs struct {
+type lifecycleDeleteArgs struct {
 	Bucket    string
 	Region    scw.Region
 	ProjectID string
 }
 
-func lifecycleConfigurationDeleteCommand() *core.Command {
+func lifecycleDeleteCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
 		Resource:  "bucket-lifecycle",
 		Verb:      "delete",
 		Short:     "Delete an S3 bucket's lifecycle configuration if it exists.",
 		Long:      "Delete an Object Bucket's lifecycle configuration with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(lifecycleConfigurationDeleteArgs{}),
+		ArgsType:  reflect.TypeOf(lifecycleDeleteArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",
@@ -129,7 +129,7 @@ func lifecycleConfigurationDeleteCommand() *core.Command {
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
-			args := argsI.(*lifecycleConfigurationDeleteArgs)
+			args := argsI.(*lifecycleDeleteArgs)
 			if args.Bucket == "" {
 				return nil, errors.New("bucket name cannot be empty")
 			}
@@ -152,20 +152,20 @@ func lifecycleConfigurationDeleteCommand() *core.Command {
 	}
 }
 
-type lifecycleConfigurationGetArgs struct {
+type lifecycleGetArgs struct {
 	Bucket    string
 	Region    scw.Region
 	ProjectID string
 }
 
-func lifecycleConfigurationGetCommand() *core.Command {
+func lifecycleGetCommand() *core.Command {
 	return &core.Command{
 		Namespace: "object",
 		Resource:  "bucket-lifecycle",
 		Verb:      "get",
 		Short:     "Get the lifecycle configuration of an S3 bucket.",
 		Long:      "Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(lifecycleConfigurationGetArgs{}),
+		ArgsType:  reflect.TypeOf(lifecycleGetArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",
@@ -178,7 +178,7 @@ func lifecycleConfigurationGetCommand() *core.Command {
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
-			args := argsI.(*lifecycleConfigurationGetArgs)
+			args := argsI.(*lifecycleGetArgs)
 			if args.Bucket == "" {
 				return nil, errors.New("bucket name cannot be empty")
 			}

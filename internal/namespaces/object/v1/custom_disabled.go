@@ -17,7 +17,7 @@ func objectBucket() *core.Command {
 }
 
 func objectBucketLifecycle() *core.Command {
-  return nil
+	return nil
 }
 
 func bucketCreateCommand() *core.Command {
@@ -57,7 +57,7 @@ func lifecycleDeleteCommand() *core.Command {
 }
 
 func lifecycleGetCommand() *core.Command {
-  return nil
+	return nil
 }
 
 func objectBucketPolicy() *core.Command {
