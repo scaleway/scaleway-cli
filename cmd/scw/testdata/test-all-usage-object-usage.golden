@@ -8,8 +8,8 @@ USAGE:
 AVAILABLE COMMANDS:
   bucket           Manage S3 buckets
   bucket-lifecycle Manage S3 buckets' lifecycle configuration
-  config           Manage configuration files for popular S3 tools
   bucket-policy    Manage S3 bucket policies
+  config           Manage configuration files for popular S3 tools
 
 FLAGS:
   -h, --help                help for object
