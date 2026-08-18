@@ -118,9 +118,9 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 
-## Add CORS rules to a bucket
+## Manage S3 bucket CORS
 
-Add CORS rules to an Object Storage bucket with the S3 protocol.
+Manage S3 bucket CORS rules creation and deletion.
 
 
 ### Add CORS rules to a bucket

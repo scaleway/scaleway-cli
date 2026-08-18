@@ -29,3 +29,12 @@ func objectBucket() *core.Command {
 		Resource:  `bucket`,
 	}
 }
+
+func objectBucketCors() *core.Command {
+	return &core.Command{
+		Short:     `Manage S3 bucket CORS`,
+		Long:      `Manage S3 bucket CORS rules creation and deletion.`,
+		Namespace: `object`,
+		Resource:  `bucket-cors`,
+	}
+}

@@ -23,6 +23,9 @@ func GetCommands() *core.Commands {
 	if cmdObjectBucket := objectBucket(); cmdObjectBucket != nil {
 		cmds.Add(cmdObjectBucket)
 	}
+	if cmdObjectBucketCors := objectBucketCors(); cmdObjectBucketCors != nil {
+		cmds.Add(cmdObjectBucketCors)
+	}
 	if cmdBucketCreate := bucketCreateCommand(); cmdBucketCreate != nil {
 		cmds.Add(cmdBucketCreate)
 	}
