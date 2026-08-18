@@ -17,6 +17,8 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
+// newS3Client creates a new S3 client to interact with the S3 API of the passed
+// region. If `projectID` is empty, the default one is used.
 func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
