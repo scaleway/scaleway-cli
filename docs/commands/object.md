@@ -126,20 +126,11 @@ Manage S3 bucket CORS rules creation and deletion.
 ### Add CORS rules to a bucket
 
 Add CORS rules to an Object Storage bucket with the S3 protocol.
-## Manage S3 bucket policies
-
-Manage S3 bucket policies creation and deletion.
-
-
-### Create a policy for an S3 bucket
-
-Create a policy and apply to an Object Bucket with the S3 protocol.
 
 **Usage:**
 
 ```shell
 scw object bucket-cors create <bucket ...> [arg=value ...]
-scw object bucket-policy create <bucket ...> [arg=value ...]
 ```
 
 
@@ -157,6 +148,63 @@ scw object bucket-policy create <bucket ...> [arg=value ...]
 ### Remove CORS rules from a bucket
 
 Remove CORS rules from an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket                                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Get the CORS configuration of a bucket
+
+Get the CORS configuration of an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket                                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+## Manage S3 bucket policies
+
+Manage S3 bucket policies creation and deletion.
+
+
+### Create a policy for an S3 bucket
+
+Create a policy and apply to an Object Bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
 | Name       | Description                                                                 | Argument Specifications |
 |------------|-----------------------------------------------------------------------------|-------------------------|
 | bucket     | The name of the bucket to which assign the policy.                          | Required                |
@@ -173,7 +221,6 @@ Delete an Object Bucket's policy with the S3 protocol.
 **Usage:**
 
 ```shell
-scw object bucket-cors delete <bucket ...> [arg=value ...]
 scw object bucket-policy delete <bucket ...> [arg=value ...]
 ```
 
@@ -182,16 +229,12 @@ scw object bucket-policy delete <bucket ...> [arg=value ...]
 
 | Name       | Description                                                                 | Argument Specifications |
 |------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket     | The name of the bucket                                                      | Required                |
 | bucket     | The unique name of the bucket                                               | Required                |
 | project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
-### Get the CORS configuration of a bucket
-
-Get the CORS configuration of an Object Storage bucket with the S3 protocol.
 ### Retrieve an S3 bucket's policy.
 
 Retrieve an Object Bucket's policy with the S3 protocol.
@@ -199,7 +242,6 @@ Retrieve an Object Bucket's policy with the S3 protocol.
 **Usage:**
 
 ```shell
-scw object bucket-cors get <bucket ...> [arg=value ...]
 scw object bucket-policy get <bucket ...> [arg=value ...]
 ```
 
@@ -208,7 +250,6 @@ scw object bucket-policy get <bucket ...> [arg=value ...]
 
 | Name       | Description                                                                 | Argument Specifications |
 |------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket     | The name of the bucket                                                      | Required                |
 | bucket     | The unique name of the bucket                                               | Required                |
 | project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
