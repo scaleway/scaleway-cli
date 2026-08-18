@@ -16,6 +16,10 @@ func objectBucket() *core.Command {
 	return nil
 }
 
+func objectBucketCors() *core.Command {
+	return nil
+}
+
 func bucketCreateCommand() *core.Command {
 	return nil
 }
