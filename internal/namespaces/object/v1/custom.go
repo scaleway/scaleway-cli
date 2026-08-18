@@ -55,7 +55,7 @@ func GetCommands() *core.Commands {
 	}
 	if cmdBucketCorsGet := bucketCorsGetCommand(); cmdBucketCorsGet != nil {
 		cmds.Add(cmdBucketCorsGet)
-  }
+	}
 	if cmdObjectBucketPolicy := objectBucketPolicy(); cmdObjectBucketPolicy != nil {
 		cmds.Add(cmdObjectBucketPolicy)
 	}

@@ -111,12 +111,6 @@ func createFile(path, content string) core.BeforeFunc {
 	}
 }
 
-func deleteFile(filePath string) core.AfterFunc {
-	return func(ctx *core.AfterFuncCtx) error {
-		return os.Remove(filePath)
-	}
-}
-
 func createCors(bucketName, configurationPath string) core.BeforeFunc {
 	return core.ExecStoreBeforeCmd("Cors", fmt.Sprintf(
 		"scw object bucket-cors create %s cors-configuration=%s",
