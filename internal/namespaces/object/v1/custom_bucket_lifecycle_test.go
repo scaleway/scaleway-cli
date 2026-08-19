@@ -67,6 +67,7 @@ func Test_BucketLifecycleCreate(t *testing.T) {
 		Check: core.TestCheckCombine(
 			core.TestCheckS3Golden(),
 			core.TestCheckExitCode(1),
+			core.TestCheckStderrContains("missing required field"),
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteBucket(bucketNameEmpty),
