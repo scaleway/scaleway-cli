@@ -14,13 +14,6 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type BoolString string
-
-const (
-	TrueBoolString  BoolString = "true"
-	FalseBoolString BoolString = "false"
-)
-
 type bucketConfigArgs struct {
 	Region           scw.Region
 	Name             string
@@ -28,8 +21,8 @@ type bucketConfigArgs struct {
 	EnableVersioning bool `json:"enable-versioning"`
 	ACL              string
 	ProjectID        string
-	S3Endpoint       string     `json:"s3-endpoint"`
-	S3UsePathStyle   BoolString `json:"s3-use-path-style"`
+	S3Endpoint       string `json:"s3-endpoint"`
+	S3UsePathStyle   string `json:"s3-use-path-style"`
 }
 
 func bucketCreateCommand() *core.Command {
@@ -297,8 +290,8 @@ func bucketGetCommand() *core.Command {
 type bucketListArgs struct {
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string     `json:"s3-endpoint"`
-	S3UsePathStyle BoolString `json:"s3-use-path-style"`
+	S3Endpoint     string `json:"s3-endpoint"`
+	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
 func bucketListCommand() *core.Command {
@@ -565,7 +558,7 @@ func autocompleteBucketName(
 
 	suggestions := core.AutocompleteSuggestions(nil)
 	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
-	s3UsePathStyle := getS3UsePathStyle(ctx, FalseBoolString)
+	s3UsePathStyle := getS3UsePathStyle(ctx, "false")
 	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
 
 	if completeListBucketsCache == nil {
