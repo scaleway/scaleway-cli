@@ -148,6 +148,8 @@ scw object bucket-cors create <bucket ...> [arg=value ...]
 |--------------------|-----------------------------------------------------------------------------|-------------------------|
 | bucket             | The name of the bucket                                                      | Required                |
 | cors-configuration | The path to the local JSON file containing the CORS configuration.          | Required                |
+| s3-endpoint        | Custom S3 endpoint to use instead of the default                            |                         |
+| s3-use-path-style  | Whether to use path style addressing for S3 API calls or not                |                         |
 | project-id         | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
@@ -166,11 +168,13 @@ scw object bucket-cors delete <bucket ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket     | The name of the bucket                                                      | Required                |
-| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket            | The name of the bucket                                                      | Required                |
+| s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -187,11 +191,13 @@ scw object bucket-cors get <bucket ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket     | The name of the bucket                                                      | Required                |
-| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket            | The name of the bucket                                                      | Required                |
+| s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
