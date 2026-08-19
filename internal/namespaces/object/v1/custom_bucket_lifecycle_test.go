@@ -50,6 +50,55 @@ const (
 func Test_BucketLifecycleCreate(t *testing.T) {
 	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionLifecycle)
 
+	bucketNameEmpty := bucketName + "-empty"
+	testLifecyclePathEmpty := "testdata/test-lifecycle-empty.json"
+
+	t.Run("Empty", core.Test(&core.TestConfig{
+		Commands: object.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createBucket(bucketNameEmpty),
+			createFile(testLifecyclePathEmpty, "{}"),
+		),
+		Cmd: fmt.Sprintf(
+			"scw object bucket-lifecycle create %s lifecycle-configuration=%s",
+			bucketNameEmpty,
+			testLifecyclePathEmpty,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckS3Golden(),
+			core.TestCheckExitCode(1),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteBucket(bucketNameEmpty),
+			deleteFile(testLifecyclePathEmpty),
+		),
+	}))
+
+	bucketNameEmptyRules := bucketName + "-empty-rules"
+	testLifecyclePathEmptyRules := "testdata/test-lifecycle-empty-rules.json"
+
+	t.Run("Empty rules", core.Test(&core.TestConfig{
+		Commands: object.GetCommands(),
+		BeforeFunc: core.BeforeFuncCombine(
+			createBucket(bucketNameEmptyRules),
+			createFile(testLifecyclePathEmptyRules, `{"Rules": []}`),
+		),
+		Cmd: fmt.Sprintf(
+			"scw object bucket-lifecycle create %s lifecycle-configuration=%s",
+			bucketNameEmptyRules,
+			testLifecyclePathEmptyRules,
+		),
+		Check: core.TestCheckCombine(
+			core.TestCheckS3Golden(),
+			core.TestCheckExitCode(1),
+			core.TestCheckStderrContains("Lifecycle configuration cannot be empty"),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			deleteBucket(bucketNameEmptyRules),
+			deleteFile(testLifecyclePathEmptyRules),
+		),
+	}))
+
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(

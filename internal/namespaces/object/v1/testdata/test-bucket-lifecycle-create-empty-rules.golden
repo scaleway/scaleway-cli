@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Could not create bucket lifecycle configuration: operation error S3: PutBucketLifecycleConfiguration, https response error StatusCode: 400, RequestID: txg22ca4c5fed5b4b34bb86-006a855864, HostID: txg22ca4c5fed5b4b34bb86-006a855864, api error MalformedXML: Lifecycle configuration cannot be empty
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "could not create bucket lifecycle configuration: operation error S3: PutBucketLifecycleConfiguration, https response error StatusCode: 400, RequestID: txg22ca4c5fed5b4b34bb86-006a855864, HostID: txg22ca4c5fed5b4b34bb86-006a855864, api error MalformedXML: Lifecycle configuration cannot be empty"
+}

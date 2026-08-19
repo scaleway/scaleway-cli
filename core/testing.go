@@ -839,6 +839,14 @@ func TestCheckStdout(stdout string) TestCheck {
 	}
 }
 
+// TestCheckStderrContains asserts stderr using string
+func TestCheckStderrContains(stderr string) TestCheck {
+	return func(t *testing.T, ctx *CheckFuncCtx) {
+		t.Helper()
+		assert.Contains(t, string(ctx.Stderr), stderr, "Invalid stderr")
+	}
+}
+
 func OverrideExecSimple(cmdStr string, exitCode int) OverrideExecTestFunc {
 	return func(ctx *ExecFuncCtx, cmd *exec.Cmd) (int, error) {
 		assert.Equal(ctx.T, ctx.Meta.Render(cmdStr), strings.Join(cmd.Args, " "))
