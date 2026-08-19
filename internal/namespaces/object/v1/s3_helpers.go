@@ -263,10 +263,10 @@ func getS3Endpoint(ctx context.Context, region string, customEndpoint string) st
 // - CLI arg (parameter of this function)
 // - SCW Environment variable
 // - Profile field value
-func getS3UsePathStyle(ctx context.Context, usePathStyle BoolString) bool {
+func getS3UsePathStyle(ctx context.Context, usePathStyle string) bool {
 	// CLI argument
 	if usePathStyle != "" {
-		if usePathStyle == TrueBoolString {
+		if usePathStyle == "true" {
 			return true
 		} else {
 			return false
