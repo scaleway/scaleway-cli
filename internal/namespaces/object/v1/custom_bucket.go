@@ -95,7 +95,7 @@ func bucketCreateCommand() *core.Command {
 			args := argsI.(*bucketConfigArgs)
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
 			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3UsePathStyle, s3Endpoint)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
@@ -193,7 +193,7 @@ func bucketDeleteCommand() *core.Command {
 			args := argsI.(*bucketDeleteArgs)
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			client := newS3Client(ctx, args.Region, s3Endpoint, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, args.S3UsePathStyle)
 
 			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
@@ -257,7 +257,7 @@ func bucketGetCommand() *core.Command {
 			args := argsI.(*bucketGetArgs)
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			client := newS3Client(ctx, args.Region, s3Endpoint, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, args.S3UsePathStyle)
 
 			bucket, err := getBucketInfo(
 				ctx,
@@ -330,7 +330,7 @@ func bucketListCommand() *core.Command {
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
 			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, s3Endpoint, s3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
@@ -398,7 +398,7 @@ func bucketUpdateCommand() *core.Command {
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
 			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, s3Endpoint, s3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			err := putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
 			if err != nil {
@@ -444,10 +444,10 @@ func getBucketInfo(
 	name string,
 	projectID string,
 	s3UsePathStyle bool,
-	endpoint ...string,
+	s3Endpoint string,
 ) (*bucketInfo, error) {
-	s3Endpoint := getS3Endpoint(ctx, region.String(), endpoint...)
-	client := newS3Client(ctx, region, projectID, s3UsePathStyle, s3Endpoint)
+	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
+
 	bucket := &bucketInfo{
 		ID:     name,
 		Region: region,
@@ -494,7 +494,8 @@ func getBucketInfo(
 		name,
 		region.String(),
 		s3UsePathStyle,
-		endpoint...)
+		s3Endpoint,
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -509,10 +510,10 @@ func getBucketInfo(
 // - AWS configuration
 // - Profile field value
 // - Default value, built with the provided region
-func getS3Endpoint(ctx context.Context, region string, customEndpoint ...string) string {
+func getS3Endpoint(ctx context.Context, region string, customEndpoint string) string {
 	// CLI argument
-	if len(customEndpoint) > 0 && customEndpoint[0] != "" {
-		return customEndpoint[0]
+	if customEndpoint != "" {
+		return customEndpoint
 	}
 
 	// SCW environment variable
@@ -731,9 +732,9 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	s3Endpoint := getS3Endpoint(ctx, region.String())
+	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
 	s3UsePathStyle := getS3UsePathStyle(ctx, FalseBoolString)
-	client := newS3Client(ctx, region, projectID, s3UsePathStyle, s3Endpoint)
+	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
 
 	if completeListBucketsCache == nil {
 		buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
