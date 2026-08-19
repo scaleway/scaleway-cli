@@ -104,8 +104,8 @@ type bucketGetArgs struct {
 	Name           string
 	WithSize       bool `json:"with-size"`
 	ProjectID      string
-	S3Endpoint     string     `json:"s3-endpoint"`
-	S3UsePathStyle BoolString `json:"s3-use-path-style"`
+	S3Endpoint     string `json:"s3-endpoint"`
+	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
 func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
