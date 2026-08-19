@@ -126,7 +126,7 @@ func bucketCreateCommand() *core.Command {
 				args.Name,
 				args.ProjectID,
 				s3UsePathStyle,
-				args.S3Endpoint,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -255,15 +255,16 @@ func bucketGetCommand() *core.Command {
 			args := argsI.(*bucketGetArgs)
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, args.S3UsePathStyle)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			bucket, err := getBucketInfo(
 				ctx,
 				args.Region,
 				args.Name,
 				args.ProjectID,
-				args.S3UsePathStyle,
-				args.S3Endpoint,
+				s3UsePathStyle,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
@@ -419,7 +420,7 @@ func bucketUpdateCommand() *core.Command {
 				args.Name,
 				args.ProjectID,
 				s3UsePathStyle,
-				args.S3Endpoint,
+				s3Endpoint,
 			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
