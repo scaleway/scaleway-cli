@@ -142,7 +142,7 @@ func bucketCorsDeleteCommand() *core.Command {
 
 			_, err := client.DeleteBucketCors(ctx, &params)
 			if err != nil {
-				return nil, fmt.Errorf("could not delete bucket lifecycle: %w", err)
+				return nil, fmt.Errorf("could not delete bucket CORS: %w", err)
 			}
 
 			return &core.SuccessResult{
