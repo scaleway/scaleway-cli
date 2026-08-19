@@ -4,6 +4,9 @@ package object
 
 import (
 	"context"
+	"fmt"
+	"net/url"
+	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -152,4 +155,171 @@ func normalizeOwnerID(id *string) string {
 	}
 
 	return tab[0]
+}
+
+func getBucketInfo(
+	ctx context.Context,
+	region scw.Region,
+	name string,
+	projectID string,
+	s3UsePathStyle bool,
+	s3Endpoint string,
+) (*bucketInfo, error) {
+	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
+
+	bucket := &bucketInfo{
+		ID:     name,
+		Region: region,
+	}
+
+	// get versioning
+	versioningOutput, err := client.GetBucketVersioning(ctx, &s3.GetBucketVersioningInput{
+		Bucket: &name,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("could not get bucket versioning: %w", err)
+	}
+	switch versioningOutput.Status {
+	case types.BucketVersioningStatusSuspended, "":
+		bucket.EnableVersioning = false
+	case types.BucketVersioningStatusEnabled:
+		bucket.EnableVersioning = true
+	}
+
+	// get tagging
+	tagging, err := client.GetBucketTagging(ctx, &s3.GetBucketTaggingInput{
+		Bucket: &name,
+	})
+	if err != nil && !strings.Contains(err.Error(), "NoSuchTagSet") {
+		return nil, fmt.Errorf("could not get bucket tagging: %w", err)
+	} else if tagging != nil {
+		bucket.Tags = tagging.TagSet
+	}
+
+	// get ACL
+	acl, err := client.GetBucketAcl(ctx, &s3.GetBucketAclInput{
+		Bucket: &name,
+	})
+	if err != nil {
+		return nil, fmt.Errorf("could not get bucket ACL: %w", err)
+	}
+	bucket.Owner = normalizeOwnerID(acl.Owner.ID)
+	bucket.ACL = awsACLToCustomGrants(acl)
+
+	// Get endpoints
+	bucket.APIEndpoint = getS3Endpoint(ctx, region.String(), s3Endpoint)
+	bucket.BucketEndpoint, err = getBucketEndpoint(
+		ctx,
+		name,
+		region.String(),
+		s3Endpoint,
+		s3UsePathStyle,
+	)
+	if err != nil {
+		return nil, err
+	}
+
+	return bucket, nil
+}
+
+// getS3Endpoint retrieves the S3 API URL according to various configuration
+// variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - AWS configuration
+// - Profile field value
+// - Default value, built with the provided region
+func getS3Endpoint(ctx context.Context, region string, customEndpoint string) string {
+	// CLI argument
+	if customEndpoint != "" {
+		return customEndpoint
+	}
+
+	// SCW environment variable
+	if ep := os.Getenv(scw.ScwS3EndpointEnv); ep != "" {
+		return ep
+	}
+
+	// AWS configuration, by environment variable or config file
+	ep := scw.GetS3EndpointFromAWSConf()
+	if ep != "" {
+		return ep
+	}
+
+	// Profile field value
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+	if s3EndpointOk && profileS3Endpoint != "" {
+		return profileS3Endpoint
+	}
+
+	// Default value
+	return fmt.Sprintf("https://s3.%s.scw.cloud", region)
+}
+
+// getS3UsePathStyle retrieves the S3UsePathStyle flag value from various
+// configuration variables. The priority is following this pattern:
+// - CLI arg (parameter of this function)
+// - SCW Environment variable
+// - Profile field value
+func getS3UsePathStyle(ctx context.Context, usePathStyle BoolString) bool {
+	// CLI argument
+	if usePathStyle != "" {
+		if usePathStyle == TrueBoolString {
+			return true
+		} else {
+			return false
+		}
+	}
+
+	// SCW environment variable
+	if flag := os.Getenv(scw.ScwS3UsePathStyleEnv); flag == "true" {
+		return true
+	}
+
+	// Profile field value
+	scwClient := core.ExtractClient(ctx)
+
+	return scwClient.GetS3UsePathStyle()
+}
+
+func getBucketEndpoint(
+	ctx context.Context,
+	name, region string,
+	s3Endpoint string,
+	s3UsePathStyle bool,
+) (string, error) {
+	scwClient := core.ExtractClient(ctx)
+	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
+
+	// Priority: 1) provided custom endpoint, 2) env var, 3) profile, 4) default
+	var ep string
+	if s3Endpoint != "" {
+		return s3Endpoint, nil
+	} else if envVarEp := os.Getenv("SCW_S3_ENDPOINT"); envVarEp != "" {
+		ep = envVarEp
+	} else if s3EndpointOk && profileS3Endpoint != "" {
+		ep = profileS3Endpoint
+	}
+
+	if ep != "" {
+		u, err := url.Parse(ep)
+		if err != nil {
+			return "", fmt.Errorf("could not parse custom endpoint %s: %w", ep, err)
+		}
+		if s3UsePathStyle {
+			u = u.JoinPath(u.Path, name)
+		} else {
+			u.Host = name + "." + u.Host
+		}
+
+		return u.String(), nil
+	}
+
+	if s3UsePathStyle {
+		return fmt.Sprintf("https://s3.%s.scw.cloud/%s", region, name), nil
+	}
+
+	return fmt.Sprintf("https://%s.s3.%s.scw.cloud", name, region), nil
 }
