@@ -1,20 +1,412 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Name                                      Creation Date
-cli-test-bucket-list-8501647004036398711  few seconds ago
-cli-test-bucket-list-9206072663127448888  few seconds ago
+Name                                                            Creation Date
+a-very-long-name-that-is-62-chars-long-xxxxxxxxxxxxxxxxxxxxxxx  few seconds ago
+bucket-fr-par                                                   few seconds ago
+bucket-fr-par-hehe                                              few seconds ago
+bucket-with-tags                                                few seconds ago
+cli-test-bucket-cors-416697786543389862                         few seconds ago
+cli-test-bucket-cors-7317457747540221203                        few seconds ago
+cli-test-bucket-lifecycle-1359183248184435662                   few seconds ago
+cli-test-bucket-lifecycle-2908572910990537823                   few seconds ago
+cli-test-bucket-lifecycle-2908572910990537823-empty             few seconds ago
+cli-test-bucket-lifecycle-2908572910990537823-empty-rules       few seconds ago
+cli-test-bucket-lifecycle-5065763933902082938                   few seconds ago
+cli-test-bucket-lifecycle-671042413789792971                    few seconds ago
+cli-test-bucket-lifecycle-671042413789792971-empty              few seconds ago
+cli-test-bucket-lifecycle-671042413789792971-empty-rules        few seconds ago
+cli-test-bucket-lifecycle-7325037738962383673                   few seconds ago
+cli-test-bucket-lifecycle-7364333379815650614                   few seconds ago
+cli-test-bucket-list-5265341592927564247                        few seconds ago
+cli-test-bucket-list-9087535503853639247                        few seconds ago
+cli-test-bucket-policy-1334185918834095281                      few seconds ago
+cli-test-bucket-policy-1386768261004617376                      few seconds ago
+cli-test-bucket-policy-1834217054635340146                      few seconds ago
+cli-test-bucket-policy-2158220321449871689                      few seconds ago
+cli-test-bucket-policy-3245151413758832952                      few seconds ago
+cli-test-bucket-policy-3285631622899923009                      few seconds ago
+cli-test-bucket-policy-4363944002001883181                      few seconds ago
+cli-test-bucket-policy-4404689943142534671                      few seconds ago
+cli-test-bucket-policy-4663568315696863648                      few seconds ago
+cli-test-bucket-policy-4901244117531588570                      few seconds ago
+cli-test-bucket-policy-5145078496038063196                      few seconds ago
+cli-test-bucket-policy-5630276840279384259                      few seconds ago
+cli-test-bucket-policy-6338946162049637732                      few seconds ago
+geoffreyjount                                                   few seconds ago
+geoffreyjount001                                                few seconds ago
+geoffreyjount008                                                few seconds ago
+geoffreyjount009                                                few seconds ago
+geoffreyjount01                                                 few seconds ago
+geoffreyjount010                                                few seconds ago
+geoffreyjount011                                                few seconds ago
+geoffreyjount012                                                few seconds ago
+geoffreyjount013                                                few seconds ago
+geoffreyjount014                                                few seconds ago
+geoffreyjount015                                                few seconds ago
+geoffreyjount016                                                few seconds ago
+geoffreyjount017                                                few seconds ago
+geoffreyjount018                                                few seconds ago
+geoffreyjount019                                                few seconds ago
+geoffreyjount020                                                few seconds ago
+geoffreyjount021                                                few seconds ago
+geoffreyjount022                                                few seconds ago
+gj-testbucketforsnc-002                                         few seconds ago
+gjount-bucket-test-project-id-010                               few seconds ago
+gjount-terraform-state                                          few seconds ago
+my-new-bucket-snc                                               few seconds ago
+my-new-bucket-snc-01                                            few seconds ago
+my-ssd                                                          few seconds ago
+mynewbuckettesthehe                                             few seconds ago
+test-acc-scaleway-export-block-snapshot-1608692910434823244     few seconds ago
+test-acc-scaleway-export-snapshot-6254704135545757917           few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-8501647004036398711"
+    "CreationDate": "2026-08-05T13:34:26Z",
+    "Name": "a-very-long-name-that-is-62-chars-long-xxxxxxxxxxxxxxxxxxxxxxx"
   },
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2024-04-30T16:43:46Z",
-    "Name": "cli-test-bucket-list-9206072663127448888"
+    "CreationDate": "2026-07-24T15:12:51Z",
+    "Name": "bucket-fr-par"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-07-28T09:57:14Z",
+    "Name": "bucket-fr-par-hehe"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-06-10T12:57:49Z",
+    "Name": "bucket-with-tags"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-17T10:35:13Z",
+    "Name": "cli-test-bucket-cors-416697786543389862"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-17T12:47:22Z",
+    "Name": "cli-test-bucket-cors-7317457747540221203"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-17T10:07:14Z",
+    "Name": "cli-test-bucket-lifecycle-1359183248184435662"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:54:41Z",
+    "Name": "cli-test-bucket-lifecycle-2908572910990537823"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:54:40Z",
+    "Name": "cli-test-bucket-lifecycle-2908572910990537823-empty"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:54:40Z",
+    "Name": "cli-test-bucket-lifecycle-2908572910990537823-empty-rules"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:48:42Z",
+    "Name": "cli-test-bucket-lifecycle-5065763933902082938"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:55:53Z",
+    "Name": "cli-test-bucket-lifecycle-671042413789792971"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:55:53Z",
+    "Name": "cli-test-bucket-lifecycle-671042413789792971-empty"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T06:55:53Z",
+    "Name": "cli-test-bucket-lifecycle-671042413789792971-empty-rules"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-17T09:41:25Z",
+    "Name": "cli-test-bucket-lifecycle-7325037738962383673"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-14T15:46:15Z",
+    "Name": "cli-test-bucket-lifecycle-7364333379815650614"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T14:28:31Z",
+    "Name": "cli-test-bucket-list-5265341592927564247"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T14:28:29Z",
+    "Name": "cli-test-bucket-list-9087535503853639247"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T13:50:14Z",
+    "Name": "cli-test-bucket-policy-1334185918834095281"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:11:45Z",
+    "Name": "cli-test-bucket-policy-1386768261004617376"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-17T09:47:50Z",
+    "Name": "cli-test-bucket-policy-1834217054635340146"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T13:50:19Z",
+    "Name": "cli-test-bucket-policy-2158220321449871689"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:16:00Z",
+    "Name": "cli-test-bucket-policy-3245151413758832952"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:32:01Z",
+    "Name": "cli-test-bucket-policy-3285631622899923009"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:08:54Z",
+    "Name": "cli-test-bucket-policy-4363944002001883181"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-17T09:45:49Z",
+    "Name": "cli-test-bucket-policy-4404689943142534671"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-19T13:50:24Z",
+    "Name": "cli-test-bucket-policy-4663568315696863648"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:08:17Z",
+    "Name": "cli-test-bucket-policy-4901244117531588570"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:34:19Z",
+    "Name": "cli-test-bucket-policy-5145078496038063196"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:09:46Z",
+    "Name": "cli-test-bucket-policy-5630276840279384259"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T14:47:52Z",
+    "Name": "cli-test-bucket-policy-6338946162049637732"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-02-02T16:03:17Z",
+    "Name": "geoffreyjount"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T15:54:26Z",
+    "Name": "geoffreyjount001"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T16:26:02Z",
+    "Name": "geoffreyjount008"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T16:26:24Z",
+    "Name": "geoffreyjount009"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-13T09:57:55Z",
+    "Name": "geoffreyjount01"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T08:50:57Z",
+    "Name": "geoffreyjount010"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T08:51:29Z",
+    "Name": "geoffreyjount011"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T08:55:48Z",
+    "Name": "geoffreyjount012"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T08:56:10Z",
+    "Name": "geoffreyjount013"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T08:56:37Z",
+    "Name": "geoffreyjount014"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T09:05:55Z",
+    "Name": "geoffreyjount015"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:17:11Z",
+    "Name": "geoffreyjount016"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:17:27Z",
+    "Name": "geoffreyjount017"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:17:57Z",
+    "Name": "geoffreyjount018"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:18:08Z",
+    "Name": "geoffreyjount019"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:18:32Z",
+    "Name": "geoffreyjount020"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:18:49Z",
+    "Name": "geoffreyjount021"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-06T10:19:49Z",
+    "Name": "geoffreyjount022"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T16:21:04Z",
+    "Name": "gj-testbucketforsnc-002"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-07T07:44:02Z",
+    "Name": "gjount-bucket-test-project-id-010"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-05-06T14:26:46Z",
+    "Name": "gjount-terraform-state"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T13:22:06Z",
+    "Name": "my-new-bucket-snc"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T13:22:55Z",
+    "Name": "my-new-bucket-snc-01"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-03-17T14:53:20Z",
+    "Name": "my-ssd"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-08-03T05:49:14Z",
+    "Name": "mynewbuckettesthehe"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-06-15T11:35:45Z",
+    "Name": "test-acc-scaleway-export-block-snapshot-1608692910434823244"
+  },
+  {
+    "BucketArn": null,
+    "BucketRegion": null,
+    "CreationDate": "2026-06-15T11:35:48Z",
+    "Name": "test-acc-scaleway-export-snapshot-6254704135545757917"
   }
 ]

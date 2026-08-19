@@ -9,7 +9,7 @@
       "Effect": "Allow",
       "Principal": "*",
       "Action": "*",
-      "Resource": "cli-test-bucket-policy-1283351952998768130"
+      "Resource": "cli-test-bucket-policy-4973113829674985187"
     },
     {
       "Sid": "Scaleway secure statement",
@@ -19,11 +19,11 @@
       },
       "Action": "*",
       "Resource": [
-        "cli-test-bucket-policy-1283351952998768130",
-        "cli-test-bucket-policy-1283351952998768130/*"
+        "cli-test-bucket-policy-4973113829674985187",
+        "cli-test-bucket-policy-4973113829674985187/*"
       ]
     }
   ]
 }
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-"{\n  \"Version\": \"2023-04-17\",\n  \"Id\": \"MyBucketPolicy\",\n  \"Statement\": [\n    {\n      \"Sid\": \"my-id\",\n      \"Effect\": \"Allow\",\n      \"Principal\": \"*\",\n      \"Action\": \"*\",\n      \"Resource\": \"cli-test-bucket-policy-1283351952998768130\"\n    },\n    {\n      \"Sid\": \"Scaleway secure statement\",\n      \"Effect\": \"Allow\",\n      \"Principal\": {\n        \"SCW\": \"user_id:11111111-1111-1111-1111-111111111111\"\n      },\n      \"Action\": \"*\",\n      \"Resource\": [\n        \"cli-test-bucket-policy-1283351952998768130\",\n        \"cli-test-bucket-policy-1283351952998768130/*\"\n      ]\n    }\n  ]\n}"
+"{\n  \"Version\": \"2023-04-17\",\n  \"Id\": \"MyBucketPolicy\",\n  \"Statement\": [\n    {\n      \"Sid\": \"my-id\",\n      \"Effect\": \"Allow\",\n      \"Principal\": \"*\",\n      \"Action\": \"*\",\n      \"Resource\": \"cli-test-bucket-policy-4973113829674985187\"\n    },\n    {\n      \"Sid\": \"Scaleway secure statement\",\n      \"Effect\": \"Allow\",\n      \"Principal\": {\n        \"SCW\": \"user_id:11111111-1111-1111-1111-111111111111\"\n      },\n      \"Action\": \"*\",\n      \"Resource\": [\n        \"cli-test-bucket-policy-4973113829674985187\",\n        \"cli-test-bucket-policy-4973113829674985187/*\"\n      ]\n    }\n  ]\n}"
