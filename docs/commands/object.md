@@ -138,7 +138,7 @@ scw object bucket-lifecycle create <bucket ...> [arg=value ...]
 
 | Name                    | Description                                                                    | Argument Specifications |
 |-------------------------|--------------------------------------------------------------------------------|-------------------------|
-| bucket                  | The name of the bucket to which assign the policy.                             | Required                |
+| bucket                  | The name of the bucket to which assign the lifecycle configuration.            | Required                |
 | lifecycle-configuration | The path to the local JSON file containing the bucket lifecycle configuration. | Required                |
 | project-id              | Project ID to use. If none is passed the default project ID will be used       |                         |
 | region                  | Region to target. If none is passed will use default region from the config    | Default: `fr-par`       |
