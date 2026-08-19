@@ -83,7 +83,7 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
 			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3UsePathStyle, s3Endpoint)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			params := s3.PutBucketPolicyInput{
 				Bucket: &args.Bucket,
@@ -165,7 +165,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
 			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3UsePathStyle, s3Endpoint)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 			params := s3.DeleteBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
@@ -230,7 +230,7 @@ func bucketPolicyGetCommand() *core.Command {
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
 			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3UsePathStyle, s3Endpoint)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			params := s3.GetBucketPolicyInput{
 				Bucket: &args.Bucket,

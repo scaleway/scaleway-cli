@@ -4,7 +4,6 @@ package object
 
 import (
 	"context"
-	"os"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -23,8 +22,8 @@ func newS3Client(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
+	s3Endpoint string,
 	s3UsePathStyle bool,
-	endpoint ...string,
 ) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
@@ -37,22 +36,9 @@ func newS3Client(
 	if !ok {
 		return nil
 	}
-	profileS3Endpoint, s3EndpointOk := scwClient.GetS3Endpoint()
 
 	defaultProjectID, _ := scwClient.GetDefaultProjectID()
 	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
-
-	var customEndpoint string
-	// Priority: 1) command flag, 2) env var, 3) profile, 4) default
-	if len(endpoint) > 0 && endpoint[0] != "" {
-		customEndpoint = endpoint[0]
-	} else if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
-		customEndpoint = ep
-	} else if s3EndpointOk && profileS3Endpoint != "" {
-		customEndpoint = profileS3Endpoint
-	} else {
-		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
-	}
 
 	options := []func(*middleware.Stack) error{
 		func(stack *middleware.Stack) error {
@@ -72,7 +58,7 @@ func newS3Client(
 				SecretAccessKey: secretKey,
 			}, nil
 		}),
-		BaseEndpoint: new(customEndpoint),
+		BaseEndpoint: new(s3Endpoint),
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 		UsePathStyle: s3UsePathStyle,
