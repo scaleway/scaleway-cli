@@ -48,10 +48,12 @@ const (
 )
 
 func Test_BucketLifecycleCreate(t *testing.T) {
-	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionLifecycle)
-
-	bucketNameEmpty := bucketName + "-empty"
 	testLifecyclePathEmpty := "testdata/test-lifecycle-empty.json"
+	bucketNameEmpty := randomNameWithPrefix(
+		core.TestBucketNamePrefix +
+			testBucketNameActionLifecycle +
+			"-empty",
+	)
 
 	t.Run("Empty", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
@@ -75,8 +77,12 @@ func Test_BucketLifecycleCreate(t *testing.T) {
 		),
 	}))
 
-	bucketNameEmptyRules := bucketName + "-empty-rules"
 	testLifecyclePathEmptyRules := "testdata/test-lifecycle-empty-rules.json"
+	bucketNameEmptyRules := randomNameWithPrefix(
+		core.TestBucketNamePrefix +
+			testBucketNameActionLifecycle +
+			"-empty-rules",
+	)
 
 	t.Run("Empty rules", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
@@ -99,6 +105,8 @@ func Test_BucketLifecycleCreate(t *testing.T) {
 			deleteFile(testLifecyclePathEmptyRules),
 		),
 	}))
+
+	bucketName := randomNameWithPrefix(core.TestBucketNamePrefix + testBucketNameActionLifecycle)
 
 	t.Run("Simple", core.Test(&core.TestConfig{
 		Commands: object.GetCommands(),
