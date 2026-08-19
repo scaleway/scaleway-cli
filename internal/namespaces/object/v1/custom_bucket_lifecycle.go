@@ -36,7 +36,7 @@ func lifecycleCreateCommand() *core.Command {
 				Name:       "bucket",
 				Positional: true,
 				Required:   true,
-				Short:      "The name of the bucket to which assign the policy.",
+				Short:      "The name of the bucket to which assign the lifecycle configuration.",
 			},
 			{
 				Name:       "lifecycle-configuration",
