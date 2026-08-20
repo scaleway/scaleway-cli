@@ -38,7 +38,7 @@ type sshConfigInstallRequest struct {
 }
 
 func sshConfigInstallCommand() *core.Command {
-	availableZones := ((*instance.API)(nil)).Zones()
+	availableZones := (*instance.API)(nil).Zones()
 	availableZones = append(availableZones, scw.Zone(core.AllLocalities))
 
 	return &core.Command{
