@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+//nolint:unparam
 func TestInterruptError(t *testing.T) {
 	t.Skip("Test API not available")
 
