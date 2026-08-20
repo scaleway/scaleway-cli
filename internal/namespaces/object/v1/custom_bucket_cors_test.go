@@ -2,7 +2,6 @@ package object_test
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -98,17 +97,6 @@ func Test_BucketCorsGet(t *testing.T) {
 			deleteFile(testCorsPath),
 		),
 	}))
-}
-
-func createFile(path, content string) core.BeforeFunc {
-	return func(ctx *core.BeforeFuncCtx) error {
-		err := os.WriteFile(path, []byte(content), 0o644)
-		if err != nil {
-			return fmt.Errorf("error writing file %s: %w", path, err)
-		}
-
-		return nil
-	}
 }
 
 func createCors(bucketName, configurationPath string) core.BeforeFunc {

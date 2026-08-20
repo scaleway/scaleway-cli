@@ -1,8 +1,11 @@
 package object_test
 
 import (
+	"fmt"
+	"os"
 	"testing"
 
+	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
 )
 
@@ -66,5 +69,22 @@ func Test_FormatAccessKey(t *testing.T) {
 				t.Fatalf("expected '%s', got '%s'", c.expectedFormat, resultAccessKey)
 			}
 		})
+	}
+}
+
+func createFile(path, content string) core.BeforeFunc {
+	return func(ctx *core.BeforeFuncCtx) error {
+		err := os.WriteFile(path, []byte(content), 0o644)
+		if err != nil {
+			return fmt.Errorf("error writing file %s: %w", path, err)
+		}
+
+		return nil
+	}
+}
+
+func deleteFile(filePath string) core.AfterFunc {
+	return func(ctx *core.AfterFuncCtx) error {
+		return os.Remove(filePath)
 	}
 }
