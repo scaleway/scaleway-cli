@@ -119,7 +119,7 @@ func removeOptions(args []string) []string {
 // from additional-volumes.0=hello to additional-volumes.{index}
 // also with multiple indexes pools.0.kubelet-args. to pools.{index}.kubelet-args.{key}
 func OptionToArgSpecName(option string) string {
-	optionName := strings.Split(option, "=")[0]
+	optionName, _, _ := strings.Cut(option, "=")
 
 	if strings.Contains(optionName, ".") {
 		// If option is formatted like "additional-volumes.0"
