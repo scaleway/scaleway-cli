@@ -2,7 +2,6 @@ package object_test
 
 import (
 	"fmt"
-	"os"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -47,7 +46,7 @@ func Test_BucketPolicyCreate(t *testing.T) {
 		Commands: object.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createBucket(bucketName),
-			createPolicyFile(bucketName, testPolicyPath),
+			createFile(testPolicyPath, fmt.Sprintf(testPolicyContent, bucketName)),
 		),
 		Cmd: fmt.Sprintf(
 			"scw object bucket-policy create %s policy=%s",
@@ -77,7 +76,7 @@ func Test_BucketPolicyDelete(t *testing.T) {
 		Commands: object.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createBucket(bucketName),
-			createPolicyFile(bucketName, testPolicyPath),
+			createFile(testPolicyPath, fmt.Sprintf(testPolicyContent, bucketName)),
 			createPolicy(bucketName, testPolicyPath),
 		),
 		Cmd: "scw object bucket-policy delete " + bucketName,
@@ -99,7 +98,7 @@ func Test_BucketPolicyGet(t *testing.T) {
 		Commands: object.GetCommands(),
 		BeforeFunc: core.BeforeFuncCombine(
 			createBucket(bucketName),
-			createPolicyFile(bucketName, testPolicyPath),
+			createFile(testPolicyPath, fmt.Sprintf(testPolicyContent, bucketName)),
 			createPolicy(bucketName, testPolicyPath),
 		),
 		Cmd: "scw object bucket-policy get " + bucketName,
@@ -112,29 +111,6 @@ func Test_BucketPolicyGet(t *testing.T) {
 			deleteFile(testPolicyPath),
 		),
 	}))
-}
-
-func createPolicyFile(bucketName, policyPath string) core.BeforeFunc {
-	return func(ctx *core.BeforeFuncCtx) error {
-		// Policy content
-		policy := fmt.Sprintf(testPolicyContent, bucketName)
-
-		// Create policy file
-		err := os.WriteFile(policyPath, []byte(policy), 0o644)
-		if err != nil {
-			fmt.Println("error writing file:", err)
-
-			return nil
-		}
-
-		return nil
-	}
-}
-
-func deleteFile(filePath string) core.AfterFunc {
-	return func(ctx *core.AfterFuncCtx) error {
-		return os.Remove(filePath)
-	}
 }
 
 func createPolicy(bucketName, policyPath string) core.BeforeFunc {

@@ -36,7 +36,7 @@ func objectBucketLifecycle() *core.Command {
 		Long:      `Manage S3 buckets lifecycle rules creation and deletion.`,
 		Namespace: "object",
 		Resource:  `bucket-lifecycle`,
-  }
+	}
 }
 
 func objectBucketCors() *core.Command {

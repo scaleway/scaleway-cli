@@ -25,7 +25,7 @@ func GetCommands() *core.Commands {
 	}
 	if cmdObjectBucketLifecycle := objectBucketLifecycle(); cmdObjectBucketLifecycle != nil {
 		cmds.Add(cmdObjectBucketLifecycle)
-  }
+	}
 	if cmdObjectBucketCors := objectBucketCors(); cmdObjectBucketCors != nil {
 		cmds.Add(cmdObjectBucketCors)
 	}
@@ -58,7 +58,7 @@ func GetCommands() *core.Commands {
 	}
 	if cmdLifecycleGet := lifecycleGetCommand(); cmdLifecycleGet != nil {
 		cmds.Add(cmdLifecycleGet)
-  }
+	}
 	if cmdBucketCorsCreate := bucketCorsCreateCommand(); cmdBucketCorsCreate != nil {
 		cmds.Add(cmdBucketCorsCreate)
 	}
