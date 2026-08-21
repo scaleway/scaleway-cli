@@ -63,12 +63,6 @@ func bucketCreateCommand() *core.Command {
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
 			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
-			{
 				Name:       "s3-endpoint",
 				Positional: false,
 				Required:   false,
@@ -80,6 +74,7 @@ func bucketCreateCommand() *core.Command {
 				Required:   false,
 				Short:      "Whether to use path style addressing for S3 API calls or not",
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -161,12 +156,6 @@ func bucketDeleteCommand() *core.Command {
 				AutoCompleteFunc: autocompleteBucketName,
 			},
 			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
-			{
 				Name:       "s3-endpoint",
 				Positional: false,
 				Required:   false,
@@ -178,6 +167,7 @@ func bucketDeleteCommand() *core.Command {
 				Required:   false,
 				Short:      "Whether to use path style addressing for S3 API calls or not",
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -225,12 +215,6 @@ func bucketGetCommand() *core.Command {
 				Short:      "Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.",
 			},
 			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
-			{
 				Name:       "s3-endpoint",
 				Positional: false,
 				Required:   false,
@@ -242,6 +226,7 @@ func bucketGetCommand() *core.Command {
 				Required:   false,
 				Short:      "Whether to use path style addressing for S3 API calls or not",
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
@@ -304,25 +289,19 @@ func bucketListCommand() *core.Command {
 		ArgsType:  reflect.TypeOf(bucketListArgs{}),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
-			{
 				Name:       "s3-endpoint",
 				Positional: false,
 				Required:   false,
 				Short:      "Custom S3 endpoint to use instead of the default",
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, false)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
 			if err != nil {
@@ -372,17 +351,12 @@ func bucketUpdateCommand() *core.Command {
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
 			{
-				Name:         "project-id",
-				Short:        "Scaleway project ID to use with IAM Access Key syntax",
-				Required:     false,
-				ValidateFunc: core.ValidateProjectID(),
-			},
-			{
 				Name:       "s3-endpoint",
 				Positional: false,
 				Required:   false,
 				Short:      "Custom S3 endpoint to use instead of the default",
 			},
+			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
