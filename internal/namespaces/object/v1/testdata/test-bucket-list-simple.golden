@@ -17,8 +17,8 @@ cli-test-bucket-lifecycle-671042413789792971-empty              few seconds ago
 cli-test-bucket-lifecycle-671042413789792971-empty-rules        few seconds ago
 cli-test-bucket-lifecycle-7325037738962383673                   few seconds ago
 cli-test-bucket-lifecycle-7364333379815650614                   few seconds ago
-cli-test-bucket-list-1614625753728497171                        few seconds ago
-cli-test-bucket-list-7797237890306040763                        few seconds ago
+cli-test-bucket-list-6444716453269717817                        few seconds ago
+cli-test-bucket-list-889690782258040670                         few seconds ago
 cli-test-bucket-policy-1334185918834095281                      few seconds ago
 cli-test-bucket-policy-1386768261004617376                      few seconds ago
 cli-test-bucket-policy-1834217054635340146                      few seconds ago
@@ -50,11 +50,8 @@ geoffreyjount019                                                few seconds ago
 geoffreyjount020                                                few seconds ago
 geoffreyjount021                                                few seconds ago
 geoffreyjount022                                                few seconds ago
-gj-testbucketforsnc-002                                         few seconds ago
 gjount-bucket-test-project-id-010                               few seconds ago
 gjount-terraform-state                                          few seconds ago
-my-new-bucket-snc                                               few seconds ago
-my-new-bucket-snc-01                                            few seconds ago
 my-ssd                                                          few seconds ago
 mynewbuckettesthehe                                             few seconds ago
 test-acc-scaleway-export-block-snapshot-1608692910434823244     few seconds ago
@@ -160,14 +157,14 @@ test-acc-scaleway-export-snapshot-6254704135545757917           few seconds ago
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2026-08-21T14:51:24Z",
-    "Name": "cli-test-bucket-list-1614625753728497171"
+    "CreationDate": "2026-08-21T15:15:07Z",
+    "Name": "cli-test-bucket-list-6444716453269717817"
   },
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2026-08-21T14:51:19Z",
-    "Name": "cli-test-bucket-list-7797237890306040763"
+    "CreationDate": "2026-08-21T15:15:02Z",
+    "Name": "cli-test-bucket-list-889690782258040670"
   },
   {
     "BucketArn": null,
@@ -358,12 +355,6 @@ test-acc-scaleway-export-snapshot-6254704135545757917           few seconds ago
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2026-08-03T16:21:04Z",
-    "Name": "gj-testbucketforsnc-002"
-  },
-  {
-    "BucketArn": null,
-    "BucketRegion": null,
     "CreationDate": "2026-08-07T07:44:02Z",
     "Name": "gjount-bucket-test-project-id-010"
   },
@@ -372,18 +363,6 @@ test-acc-scaleway-export-snapshot-6254704135545757917           few seconds ago
     "BucketRegion": null,
     "CreationDate": "2026-05-06T14:26:46Z",
     "Name": "gjount-terraform-state"
-  },
-  {
-    "BucketArn": null,
-    "BucketRegion": null,
-    "CreationDate": "2026-08-03T13:22:06Z",
-    "Name": "my-new-bucket-snc"
-  },
-  {
-    "BucketArn": null,
-    "BucketRegion": null,
-    "CreationDate": "2026-08-03T13:22:55Z",
-    "Name": "my-new-bucket-snc-01"
   },
   {
     "BucketArn": null,
