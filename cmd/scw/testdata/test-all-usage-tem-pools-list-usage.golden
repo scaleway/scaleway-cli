@@ -1,15 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-This section allows you to manage and get get subscribed information about your project email offer.
+Retrieve information about a sending pool, including its creation status and configuration parameters.
 
 USAGE:
-  scw tem offers <command>
+  scw tem pools list [arg=value ...]
 
-AVAILABLE COMMANDS:
-  list        List the available offers.
+ARGS:
+  [project-id]      Project ID to use. If none is passed the default project ID will be used
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | all)
 
 FLAGS:
-  -h, --help                help for offers
+  -h, --help                help for list
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
@@ -17,5 +18,3 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
-
-Use "scw tem offers [command] --help" for more information about a command.
