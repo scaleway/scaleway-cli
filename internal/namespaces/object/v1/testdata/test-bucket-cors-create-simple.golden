@@ -4,7 +4,7 @@
 ID                cli-test-bucket-cors-
 Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
-BucketEndpoint    https://s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-cors-.s3.fr-par.scw.cloud
 EnableVersioning  false
 Owner             4d333544-41be-4b0b-8907-0b9036859747
 
@@ -21,7 +21,7 @@ GRANTEE                               PERMISSION
     "ID": "cli-test-bucket-cors-",
     "Region": "fr-par",
     "APIEndpoint": "https://s3.fr-par.scw.cloud",
-    "BucketEndpoint": "https://s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://cli-test-bucket-cors-.s3.fr-par.scw.cloud",
     "EnableVersioning": false,
     "Tags": null,
     "ACL": [
