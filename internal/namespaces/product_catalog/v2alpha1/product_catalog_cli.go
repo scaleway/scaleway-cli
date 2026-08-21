@@ -84,6 +84,7 @@ func productCatalogProductList() *core.Command {
 					"open_search",
 					"instance_local_ssd_snapshot",
 					"instance_local_ssd_storage",
+					"file_storage",
 				},
 			},
 			{
