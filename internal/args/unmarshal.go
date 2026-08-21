@@ -41,7 +41,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if err != nil {
 			return err
 		}
-		*(dest.(*scw.Size)) = scw.Size(bytes)
+		*dest.(*scw.Size) = scw.Size(bytes)
 
 		return nil
 	},
@@ -55,13 +55,13 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if ip == nil {
 			return fmt.Errorf("%s is not a valid IP", value)
 		}
-		*(dest.(*net.IP)) = ip
+		*dest.(*net.IP) = ip
 
 		return nil
 	},
 
 	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest any) error {
-		*(dest.(*io.Reader)) = strings.NewReader(value)
+		*dest.(*io.Reader) = strings.NewReader(value)
 
 		return nil
 	},
@@ -70,7 +70,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		// Handle absolute time
 		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
 		if absoluteErr == nil {
-			*(dest.(*time.Time)) = absoluteTimeParsed
+			*dest.(*time.Time) = absoluteTimeParsed
 
 			return nil
 		}
@@ -91,7 +91,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		}
 		relativeTimeParsed, relativeErr := tparse.ParseWithMap(time.RFC3339, "t"+value, m)
 		if relativeErr == nil {
-			*(dest.(*time.Time)) = relativeTimeParsed
+			*dest.(*time.Time) = relativeTimeParsed
 
 			return nil
 		}
@@ -108,7 +108,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if err != nil {
 			return fmt.Errorf("failed to parse duration: %w", err)
 		}
-		*(dest.(*time.Duration)) = duration
+		*dest.(*time.Duration) = duration
 
 		return nil
 	},
@@ -117,12 +117,12 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if err != nil {
 			return fmt.Errorf("failed to parse json object: %w", err)
 		}
-		*(dest.(*scw.JSONObject)) = jsonObject
+		*dest.(*scw.JSONObject) = jsonObject
 
 		return nil
 	},
 	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest any) error {
-		*(dest.(*[]byte)) = []byte(value)
+		*dest.(*[]byte) = []byte(value)
 
 		return nil
 	},
@@ -131,7 +131,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		if err != nil {
 			return fmt.Errorf("failed to parse duration: %w", err)
 		}
-		*(dest.(*scw.Duration)) = *scw.NewDurationFromTimeDuration(duration)
+		*dest.(*scw.Duration) = *scw.NewDurationFromTimeDuration(duration)
 
 		return nil
 	},

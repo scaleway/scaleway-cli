@@ -92,7 +92,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 				Name:  "public-key",
 				Short: "Public key you want to add to your server",
 			},
-			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshAddKeyRequest)
@@ -163,7 +163,7 @@ Keep in mind that SSH keys are scoped by project.`,
 				Short:   "Username used for the SSH connection",
 				Default: core.DefaultValueSetter("root"),
 			},
-			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshFetchKeysRequest)
@@ -261,7 +261,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 				Positional: true,
 				Required:   true,
 			},
-			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshListKeysRequest)
@@ -323,7 +323,7 @@ Lookup /root/.ssh/authorized_keys on your server for more information`,
 				Short:      "Public key you want to remove",
 				OneOfGroup: "identifier",
 			},
-			core.ZoneArgSpec(((*instance.API)(nil)).Zones()...),
+			core.ZoneArgSpec((*instance.API)(nil).Zones()...),
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*sshRemoveKeyRequest)

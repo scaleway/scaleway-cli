@@ -16,6 +16,10 @@ func objectBucket() *core.Command {
 	return nil
 }
 
+func objectBucketLifecycle() *core.Command {
+  return nil
+}
+
 func objectBucketCors() *core.Command {
 	return nil
 }
@@ -45,6 +49,18 @@ func configGetCommand() *core.Command {
 }
 
 func configInstallCommand() *core.Command {
+	return nil
+}
+
+func lifecycleCreateCommand() *core.Command {
+	return nil
+}
+
+func lifecycleDeleteCommand() *core.Command {
+	return nil
+}
+
+func lifecycleGetCommand() *core.Command {
 	return nil
 }
 
