@@ -81,6 +81,7 @@ func searchResourceSearch() *core.Command {
 					"instance_private_nic",
 					"instance_snapshot",
 					"instance_placement_group",
+					"instance_template",
 					"k8s_cluster",
 					"k8s_pool",
 					"k8s_node",
