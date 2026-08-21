@@ -17,8 +17,8 @@ cli-test-bucket-lifecycle-671042413789792971-empty              few seconds ago
 cli-test-bucket-lifecycle-671042413789792971-empty-rules        few seconds ago
 cli-test-bucket-lifecycle-7325037738962383673                   few seconds ago
 cli-test-bucket-lifecycle-7364333379815650614                   few seconds ago
-cli-test-bucket-list-5265341592927564247                        few seconds ago
-cli-test-bucket-list-9087535503853639247                        few seconds ago
+cli-test-bucket-list-1614625753728497171                        few seconds ago
+cli-test-bucket-list-7797237890306040763                        few seconds ago
 cli-test-bucket-policy-1334185918834095281                      few seconds ago
 cli-test-bucket-policy-1386768261004617376                      few seconds ago
 cli-test-bucket-policy-1834217054635340146                      few seconds ago
@@ -160,14 +160,14 @@ test-acc-scaleway-export-snapshot-6254704135545757917           few seconds ago
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2026-08-19T14:28:31Z",
-    "Name": "cli-test-bucket-list-5265341592927564247"
+    "CreationDate": "2026-08-21T14:51:24Z",
+    "Name": "cli-test-bucket-list-1614625753728497171"
   },
   {
     "BucketArn": null,
     "BucketRegion": null,
-    "CreationDate": "2026-08-19T14:28:29Z",
-    "Name": "cli-test-bucket-list-9087535503853639247"
+    "CreationDate": "2026-08-21T14:51:19Z",
+    "Name": "cli-test-bucket-list-7797237890306040763"
   },
   {
     "BucketArn": null,
