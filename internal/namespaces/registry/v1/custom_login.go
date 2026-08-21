@@ -42,8 +42,7 @@ func registryLoginRun(ctx context.Context, argsI any) (i any, e error) {
 	args := argsI.(*registryLoginArgs)
 	client := core.ExtractClient(ctx)
 
-	region := args.Region.String()
-	endpoint := endpointPrefix + region + endpointSuffix
+	endpoint := getRegistryEndpoint(args.Region)
 
 	secretKey, ok := client.GetSecretKey()
 	if !ok {
