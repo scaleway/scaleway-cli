@@ -223,6 +223,8 @@ scw object bucket-lifecycle create <bucket ...> [arg=value ...]
 |-------------------------|--------------------------------------------------------------------------------|-------------------------|
 | bucket                  | The name of the bucket to which assign the lifecycle configuration.            | Required                |
 | lifecycle-configuration | The path to the local JSON file containing the bucket lifecycle configuration. | Required                |
+| s3-endpoint             | Custom S3 endpoint to use instead of the default                               |                         |
+| s3-use-path-style       | Whether to use path style addressing for S3 API calls or not                   |                         |
 | project-id              | Project ID to use. If none is passed the default project ID will be used       |                         |
 | region                  | Region to target. If none is passed will use default region from the config    | Default: `fr-par`       |
 
@@ -241,11 +243,13 @@ scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket     | The unique name of the bucket                                               | Required                |
-| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket            | The unique name of the bucket                                               | Required                |
+| s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -262,11 +266,13 @@ scw object bucket-lifecycle get <bucket ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications |
-|------------|-----------------------------------------------------------------------------|-------------------------|
-| bucket     | The unique name of the bucket                                               | Required                |
-| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket            | The unique name of the bucket                                               | Required                |
+| s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
