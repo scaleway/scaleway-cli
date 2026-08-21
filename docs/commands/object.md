@@ -26,9 +26,9 @@ scw object bucket create <name ...> [arg=value ...]
 | tags.{index}      | List of tags to set on the bucket                                           |                         |
 | enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
-| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
 | s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
@@ -49,9 +49,9 @@ scw object bucket delete <name ...> [arg=value ...]
 | Name              | Description                                                                 | Argument Specifications |
 |-------------------|-----------------------------------------------------------------------------|-------------------------|
 | name              | The unique name of the bucket                                               | Required                |
-| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
 | s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
@@ -73,9 +73,9 @@ scw object bucket get <name ...> [arg=value ...]
 |-------------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
 | name              | The unique name of the bucket                                                                                             | Required                |
 | with-size         | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. | Default: `false`        |
-| project-id        | Scaleway project ID to use with IAM Access Key syntax                                                                     |                         |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default                                                                          |                         |
 | s3-use-path-style | Whether to use path style addressing for S3 API calls or not                                                              |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used                                                  |                         |
 | region            | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`       |
 
 
@@ -95,8 +95,8 @@ scw object bucket list [arg=value ...]
 
 | Name        | Description                                                                 | Argument Specifications |
 |-------------|-----------------------------------------------------------------------------|-------------------------|
-| project-id  | Scaleway project ID to use with IAM Access Key syntax                       |                         |
 | s3-endpoint | Custom S3 endpoint to use instead of the default                            |                         |
+| project-id  | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
@@ -120,8 +120,8 @@ scw object bucket update <name ...> [arg=value ...]
 | tags.{index}      | List of new tags to set on the bucket                                       |                         |
 | enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
-| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
+| project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
