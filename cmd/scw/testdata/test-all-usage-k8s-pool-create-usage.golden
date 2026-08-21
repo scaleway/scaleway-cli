@@ -42,7 +42,6 @@ ARGS:
   [startup-taints.{index}.key]       The taint key to be applied to a node
   [startup-taints.{index}.value]     The taint value corresponding to the taint key
   [startup-taints.{index}.effect]    Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
-  [user-data.{key}]                  User data applied and reconciled with the pool
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:

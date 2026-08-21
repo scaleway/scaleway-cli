@@ -11,7 +11,6 @@ IPAddress       62.210.101.135/32
 ServerID        994945b6-036d-4f46-8be4-7b0f1c119582
 Reverse         62-210-101-135.rev.poneytelecom.eu.
 Zone            fr-par-2
-Srn             -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "c82767ea-29be-451a-971b-840730e9c4ab",

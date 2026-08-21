@@ -9,9 +9,7 @@ AVAILABLE COMMANDS:
   blocklists          Blocklist
   domain              Domain management commands
   email               Email management commands
-  offer-subscriptions Offer subscriptions management commands
   offers              Project offers management commands
-  pools               Pool management commands
   project-consumption Project consumption management commands
   project-settings    Project settings management commands
   webhook             Webhook management commands

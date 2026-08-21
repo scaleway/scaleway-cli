@@ -2006,13 +2006,6 @@ func k8sPoolCreate() *core.Command {
 					"NoExecute",
 				},
 			},
-			{
-				Name:       "user-data.{key}",
-				Short:      `User data applied and reconciled with the pool`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,

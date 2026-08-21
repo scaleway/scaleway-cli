@@ -26,8 +26,6 @@ func GetGeneratedCommands() *core.Commands {
 		temProjectSettings(),
 		temBlocklists(),
 		temOffers(),
-		temOfferSubscriptions(),
-		temPools(),
 		temProjectConsumption(),
 		temEmailCreate(),
 		temEmailGet(),
@@ -50,10 +48,8 @@ func GetGeneratedCommands() *core.Commands {
 		temBlocklistsList(),
 		temBlocklistsCreate(),
 		temBlocklistsDelete(),
-		temOfferSubscriptionsList(),
-		temOfferSubscriptionsUpdate(),
+		temOffersUpdate(),
 		temOffersList(),
-		temPoolsList(),
 		temProjectConsumptionGet(),
 	)
 }
@@ -117,24 +113,6 @@ func temOffers() *core.Command {
 		Long:      `This section allows you to manage and get get subscribed information about your project email offer.`,
 		Namespace: "tem",
 		Resource:  "offers",
-	}
-}
-
-func temOfferSubscriptions() *core.Command {
-	return &core.Command{
-		Short:     `Offer subscriptions management commands`,
-		Long:      `This section allows you to manage and get information about your project offer subscriptions.`,
-		Namespace: "tem",
-		Resource:  "offer-subscriptions",
-	}
-}
-
-func temPools() *core.Command {
-	return &core.Command{
-		Short:     `Pool management commands`,
-		Long:      `This section allows you to manage and get information about your sending pools.`,
-		Namespace: "tem",
-		Resource:  "pools",
 	}
 }
 
@@ -1365,7 +1343,7 @@ func temBlocklistsDelete() *core.Command {
 				Short:      `ID of the blocklist to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: true,
+				Positional: false,
 			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
@@ -1387,61 +1365,12 @@ func temBlocklistsDelete() *core.Command {
 	}
 }
 
-func temOfferSubscriptionsList() *core.Command {
-	return &core.Command{
-		Short:     `Get information about subscribed offers`,
-		Long:      `Retrieve information about the offers you are subscribed to using the ` + "`" + `project_id` + "`" + ` and ` + "`" + `region` + "`" + ` parameters.`,
-		Namespace: "tem",
-		Resource:  "offer-subscriptions",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[tem.ListOfferSubscriptionsRequest](),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			{
-				Name:       "offer-name",
-				Short:      `(Optional) Name of the offer associated with the Project`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"unknown_name",
-					"essential",
-					"scale",
-				},
-			},
-			core.OrganizationIDArgSpec(),
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.Region(core.AllLocalities),
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*tem.ListOfferSubscriptionsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListOfferSubscriptions(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-
-			return resp.OfferSubscriptions, nil
-		},
-	}
-}
-
-func temOfferSubscriptionsUpdate() *core.Command {
+func temOffersUpdate() *core.Command {
 	return &core.Command{
 		Short:     `Update a subscribed offer`,
 		Long:      `Update a subscribed offer.`,
 		Namespace: "tem",
-		Resource:  "offer-subscriptions",
+		Resource:  "offers",
 		Verb:      "update",
 		// Deprecated:    false,
 		ArgsType: reflect.TypeFor[tem.UpdateOfferSubscriptionRequest](),
@@ -1491,42 +1420,6 @@ func temOffersList() *core.Command {
 			api := tem.NewAPI(client)
 
 			return api.ListOffers(request, scw.WithContext(ctx))
-		},
-	}
-}
-
-func temPoolsList() *core.Command {
-	return &core.Command{
-		Short:     `Get information about a sending pool.`,
-		Long:      `Retrieve information about a sending pool, including its creation status and configuration parameters.`,
-		Namespace: "tem",
-		Resource:  "pools",
-		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[tem.ListPoolsRequest](),
-		ArgSpecs: core.ArgSpecs{
-			core.ProjectIDArgSpec(),
-			core.RegionArgSpec(
-				scw.RegionFrPar,
-				scw.Region(core.AllLocalities),
-			),
-		},
-		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*tem.ListPoolsRequest)
-
-			client := core.ExtractClient(ctx)
-			api := tem.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
-			if request.Region == scw.Region(core.AllLocalities) {
-				opts = append(opts, scw.WithRegions(api.Regions()...))
-				request.Region = ""
-			}
-			resp, err := api.ListPools(request, opts...)
-			if err != nil {
-				return nil, err
-			}
-
-			return resp.Pools, nil
 		},
 	}
 }

@@ -6,7 +6,7 @@ USAGE:
   scw config unset <key ...> [arg=value ...]
 
 ARGS:
-  key   the config config key name to unset (access-key | secret-key | api-url | s3-endpoint | s3-use-path-style | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry | user-agent)
+  key   the config config key name to unset (access-key | secret-key | api-url | s3-endpoint | s3-use-path-style | insecure | default-organization-id | default-project-id | default-region | default-zone | send-telemetry)
 
 FLAGS:
   -h, --help                help for unset
