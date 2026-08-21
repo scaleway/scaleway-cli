@@ -296,7 +296,7 @@ func getBucketEndpoint(
 	// Priority: 1) provided custom endpoint, 2) env var, 3) profile, 4) default
 	var ep string
 	if s3Endpoint != "" {
-		return s3Endpoint, nil
+		ep = s3Endpoint
 	} else if envVarEp := os.Getenv("SCW_S3_ENDPOINT"); envVarEp != "" {
 		ep = envVarEp
 	} else if s3EndpointOk && profileS3Endpoint != "" {
