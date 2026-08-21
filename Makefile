@@ -16,7 +16,7 @@ bump-sdk:
 
 docs:
 	go run ./cmd/scw-doc-gen
-	git checkout main -- ./docs/commands/autocomplete.md # Ensure that the file is not changed in case you do not have bash as default shell
+	git restore docs/commands/autocomplete.md # Ensure that the file is not changed in case you do not have bash as default shell
 	rumdl fmt .
 	rumdl check .
 
