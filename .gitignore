@@ -15,3 +15,7 @@ docs/commands/autocomplete.md
 
 # Go workspace
 go.work*
+
+# Coverage artifacts
+coverage.out
+coverage.xml
