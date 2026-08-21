@@ -21,6 +21,8 @@ type lifecycleCreateArgs struct {
 	LifecycleConfiguration string
 	Region                 scw.Region
 	ProjectID              string
+	S3Endpoint             string `json:"s3-endpoint"`
+	S3UsePathStyle         string `json:"s3-use-path-style"`
 }
 
 func lifecycleCreateCommand() *core.Command {
@@ -43,6 +45,18 @@ func lifecycleCreateCommand() *core.Command {
 				Positional: false,
 				Required:   true,
 				Short:      "The path to the local JSON file containing the bucket lifecycle configuration.",
+			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
 			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
@@ -76,7 +90,10 @@ func lifecycleCreateCommand() *core.Command {
 				)
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+
 			params := s3.PutBucketLifecycleConfigurationInput{
 				Bucket:                 &args.Bucket,
 				LifecycleConfiguration: &config,
@@ -87,7 +104,9 @@ func lifecycleCreateCommand() *core.Command {
 				return nil, fmt.Errorf("could not create bucket lifecycle configuration: %w", err)
 			}
 
-			bucket, err := getBucketInfo(ctx, args.Region, args.Bucket, args.ProjectID)
+			bucket, err := getBucketInfo(
+				ctx, args.Region, args.Bucket, args.ProjectID, s3UsePathStyle, s3Endpoint,
+			)
 			if err != nil {
 				return nil, fmt.Errorf("could not get bucket's information: %w", err)
 			}
@@ -104,9 +123,11 @@ func lifecycleCreateCommand() *core.Command {
 }
 
 type lifecycleDeleteArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string `json:"s3-endpoint"`
+	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
 func lifecycleDeleteCommand() *core.Command {
@@ -125,6 +146,18 @@ func lifecycleDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -134,7 +167,10 @@ func lifecycleDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+
 			params := s3.DeleteBucketLifecycleInput{
 				Bucket: &args.Bucket,
 			}
@@ -153,9 +189,11 @@ func lifecycleDeleteCommand() *core.Command {
 }
 
 type lifecycleGetArgs struct {
-	Bucket    string
-	Region    scw.Region
-	ProjectID string
+	Bucket         string
+	Region         scw.Region
+	ProjectID      string
+	S3Endpoint     string `json:"s3-endpoint"`
+	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
 func lifecycleGetCommand() *core.Command {
@@ -174,6 +212,18 @@ func lifecycleGetCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
+			{
+				Name:       "s3-endpoint",
+				Positional: false,
+				Required:   false,
+				Short:      "Custom S3 endpoint to use instead of the default",
+			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -183,7 +233,10 @@ func lifecycleGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			client := newS3Client(ctx, args.Region, args.ProjectID)
+			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
+
 			params := s3.GetBucketLifecycleConfigurationInput{
 				Bucket: &args.Bucket,
 			}
