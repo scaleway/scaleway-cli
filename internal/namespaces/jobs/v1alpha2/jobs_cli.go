@@ -668,6 +668,7 @@ func jobsRunList() *core.Command {
 					"secret_disabled",
 					"secret_not_found",
 					"quota_exceeded",
+					"application_not_started",
 				},
 			},
 			{
