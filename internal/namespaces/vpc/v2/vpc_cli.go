@@ -184,8 +184,8 @@ func vpcVpcList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "s3-integration-enabled",
-				Short:      `Defines whether to filter only for VPCs with S3 integration enabled`,
+				Name:       "object-storage-private-access-enabled",
+				Short:      `Defines whether to filter only for VPCs with Object Storage private access enabled`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -475,8 +475,8 @@ func vpcPrivateNetworkList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "s3-integration-enabled",
-				Short:      `Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned`,
+				Name:       "object-storage-private-access-enabled",
+				Short:      `Filter by whether Object Storage private access is enabled. When set, only matching Private Networks will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
