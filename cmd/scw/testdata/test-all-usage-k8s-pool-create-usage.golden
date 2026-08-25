@@ -24,7 +24,7 @@ ARGS:
   size=1                             Size (number of nodes) of the pool
   [min-size]                         Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [max-size]                         Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
-  [container-runtime]                Customization of the container runtime is available for each pool (unknown_runtime | docker | containerd | crio)
+  [container-runtime]                Customization of the container runtime is available for each pool (unknown_runtime | containerd)
   [autohealing]                      Defines whether the autohealing feature is enabled for the pool
   [tags.{index}]                     Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)
   [kubelet-args.{key}]               Kubelet arguments to be used by this pool. Note that this feature is experimental
@@ -43,6 +43,7 @@ ARGS:
   [startup-taints.{index}.value]     The taint value corresponding to the taint key
   [startup-taints.{index}.effect]    Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
   [user-data.{key}]                  User data applied and reconciled with the pool
+  [max-termination-grace-period]     Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
