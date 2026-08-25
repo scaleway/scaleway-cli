@@ -29,6 +29,9 @@ func GetCommands() *core.Commands {
 	if cmdObjectBucketCors := objectBucketCors(); cmdObjectBucketCors != nil {
 		cmds.Add(cmdObjectBucketCors)
 	}
+	if cmdObjectObject := objectObject(); cmdObjectObject != nil {
+		cmds.Add(cmdObjectObject)
+	}
 	if cmdBucketCreate := bucketCreateCommand(); cmdBucketCreate != nil {
 		cmds.Add(cmdBucketCreate)
 	}
@@ -43,6 +46,21 @@ func GetCommands() *core.Commands {
 	}
 	if cmdBucketUpdate := bucketUpdateCommand(); cmdBucketUpdate != nil {
 		cmds.Add(cmdBucketUpdate)
+	}
+	if cmdObjectCreate := objectCreateCommand(); cmdObjectCreate != nil {
+		cmds.Add(cmdObjectCreate)
+	}
+	if cmdObjectDelete := objectDeleteCommand(); cmdObjectDelete != nil {
+		cmds.Add(cmdObjectDelete)
+	}
+	if cmdObjectGet := objectGetCommand(); cmdObjectGet != nil {
+		cmds.Add(cmdObjectGet)
+	}
+	if cmdObjectList := objectListCommand(); cmdObjectList != nil {
+		cmds.Add(cmdObjectList)
+	}
+	if cmdObjectCopy := objectCopyCommand(); cmdObjectCopy != nil {
+		cmds.Add(cmdObjectCopy)
 	}
 	if cmdConfigGet := configGetCommand(); cmdConfigGet != nil {
 		cmds.Add(cmdConfigGet)

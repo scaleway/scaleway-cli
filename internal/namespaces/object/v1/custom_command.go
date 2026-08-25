@@ -48,6 +48,15 @@ func objectBucketCors() *core.Command {
 	}
 }
 
+func objectObject() *core.Command {
+	return &core.Command{
+		Short:     `Manage S3 objects`,
+		Long:      `Manage S3 objects creation, deletion and updates.`,
+		Namespace: "object",
+		Resource:  `object`,
+	}
+}
+
 func objectBucketPolicy() *core.Command {
 	return &core.Command{
 		Short:     `Manage S3 bucket policies`,

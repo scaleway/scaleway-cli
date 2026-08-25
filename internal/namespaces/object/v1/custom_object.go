@@ -89,7 +89,11 @@ func objectCreateCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Object '%s' successfully uploaded to bucket '%s'", args.Key, args.Bucket),
+				Message: fmt.Sprintf(
+					"Object '%s' successfully uploaded to bucket '%s'",
+					args.Key,
+					args.Bucket,
+				),
 			}, nil
 		},
 	}
@@ -140,7 +144,11 @@ func objectDeleteCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Object '%s' successfully deleted from bucket '%s'", args.Key, args.Bucket),
+				Message: fmt.Sprintf(
+					"Object '%s' successfully deleted from bucket '%s'",
+					args.Key,
+					args.Bucket,
+				),
 			}, nil
 		},
 	}
@@ -246,7 +254,11 @@ func objectCopyCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("Object successfully copied to s3://%s/%s", args.DestBucket, args.DestKey),
+				Message: fmt.Sprintf(
+					"Object successfully copied to s3://%s/%s",
+					args.DestBucket,
+					args.DestKey,
+				),
 			}, nil
 		},
 	}
@@ -298,6 +310,78 @@ func objectListCommand() *core.Command {
 			}
 
 			return resp.Contents, nil
+		},
+	}
+}
+
+type objectGetArgs struct {
+	Region    scw.Region
+	ProjectID string
+	Bucket    string
+	Key       string
+	Outfile   string
+}
+
+func objectGetCommand() *core.Command {
+	return &core.Command{
+		Namespace: "object",
+		Resource:  "object",
+		Verb:      "get",
+		Short:     "Get an object in an S3 bucket",
+		Long:      "Get an object inside an Object Storage bucket using the S3 protocol.",
+		ArgsType:  reflect.TypeOf(objectListArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "bucket",
+				Short:      "Name of the bucket",
+				Positional: true,
+				Required:   true,
+			},
+			{
+				Name:       "key",
+				Short:      "Key of the object to get",
+				Positional: true,
+				Required:   true,
+			},
+			{
+				Name:       "outfile",
+				Short:      "Path of the file to output the object to",
+				Positional: true,
+				Required:   true,
+			},
+			core.RegionArgSpec(),
+			core.ProjectIDArgSpec(),
+		},
+		Run: func(ctx context.Context, argsI any) (any, error) {
+			args := argsI.(*objectGetArgs)
+
+			s3Client := newS3Client(ctx, args.Region, args.ProjectID)
+
+			input := &s3.GetObjectInput{
+				Bucket: &args.Bucket,
+				Key:    &args.Key,
+			}
+
+			resp, err := s3Client.GetObject(ctx, input)
+			if err != nil {
+				return nil, fmt.Errorf("failed to list objects: %w", err)
+			}
+
+			// Dump to file
+			var b []byte
+			resp.Body.Read(b)
+
+			err = os.WriteFile(args.Outfile, b, 0o644)
+			if err != nil {
+				return nil, fmt.Errorf("failed to write object to file: %w", err)
+			}
+
+			return &core.SuccessResult{
+				Message: fmt.Sprintf(
+					"Object successfully saved into %s",
+					args.Outfile,
+				),
+			}, nil
 		},
 	}
 }
