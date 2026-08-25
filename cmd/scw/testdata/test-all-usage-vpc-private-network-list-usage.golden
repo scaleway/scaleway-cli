@@ -6,16 +6,16 @@ USAGE:
   scw vpc private-network list [arg=value ...]
 
 ARGS:
-  [order-by]                      Sort order of the returned Private Networks (created_at_asc | created_at_desc | name_asc | name_desc)
-  [name]                          Name to filter for. Only Private Networks with names containing this string will be returned
-  [tags.{index}]                  Tags to filter for. Only Private Networks with one or more matching tags will be returned
-  [project-id]                    Project ID to filter for. Only Private Networks belonging to this Project will be returned
-  [private-network-ids.{index}]   Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned
-  [vpc-id]                        VPC ID to filter for. Only Private Networks belonging to this VPC will be returned
-  [dhcp-enabled]                  DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned
-  [s3-integration-enabled]        Filter by whether S3 integration is enabled. When set, only matching Private Networks will be returned
-  [organization-id]               Organization ID to filter for. Only Private Networks belonging to this Organization will be returned
-  [region=fr-par]                 Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
+  [order-by]                                Sort order of the returned Private Networks (created_at_asc | created_at_desc | name_asc | name_desc)
+  [name]                                    Name to filter for. Only Private Networks with names containing this string will be returned
+  [tags.{index}]                            Tags to filter for. Only Private Networks with one or more matching tags will be returned
+  [project-id]                              Project ID to filter for. Only Private Networks belonging to this Project will be returned
+  [private-network-ids.{index}]             Private Network IDs to filter for. Only Private Networks with one of these IDs will be returned
+  [vpc-id]                                  VPC ID to filter for. Only Private Networks belonging to this VPC will be returned
+  [dhcp-enabled]                            DHCP status to filter for. When true, only Private Networks with managed DHCP enabled will be returned
+  [object-storage-private-access-enabled]   Filter by whether Object Storage private access is enabled. When set, only matching Private Networks will be returned
+  [organization-id]                         Organization ID to filter for. Only Private Networks belonging to this Organization will be returned
+  [region=fr-par]                           Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw | all)
 
 FLAGS:
   -h, --help                help for list

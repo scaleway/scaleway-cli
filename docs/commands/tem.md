@@ -37,7 +37,7 @@ You must specify the blocklist you want to delete by the `region` and `blocklist
 **Usage:**
 
 ```shell
-scw tem blocklists delete [arg=value ...]
+scw tem blocklists delete <blocklist-id ...> [arg=value ...]
 ```
 
 
@@ -364,6 +364,54 @@ scw tem email list [arg=value ...]
 
 
 
+## Offer subscriptions management commands
+
+This section allows you to manage and get information about your project offer subscriptions.
+
+
+### Get information about subscribed offers
+
+Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters.
+
+**Usage:**
+
+```shell
+scw tem offer-subscriptions list [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name            | Description                                                                        | Argument Specifications                        |
+|-----------------|------------------------------------------------------------------------------------|------------------------------------------------|
+| project-id      | Project ID to use. If none is passed the default project ID will be used           |                                                |
+| offer-name      | (Optional) Name of the offer associated with the Project                           | One of: `unknown_name`, `essential`, `scale`   |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                                                |
+| region          | Region to target. If none is passed will use default region from the config        | Default: `fr-par`<br />One of: `fr-par`, `all` |
+
+
+
+### Update a subscribed offer
+
+Update a subscribed offer.
+
+**Usage:**
+
+```shell
+scw tem offer-subscriptions update [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications                      |
+|------------|-----------------------------------------------------------------------------|----------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                              |
+| name       | Name of the offer-subscription                                              | One of: `unknown_name`, `essential`, `scale` |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`      |
+
+
+
 ## Project offers management commands
 
 This section allows you to manage and get get subscribed information about your project email offer.
@@ -388,24 +436,28 @@ scw tem offers list [arg=value ...]
 
 
 
-### Update a subscribed offer
+## Pool management commands
 
-Update a subscribed offer.
+This section allows you to manage and get information about your sending pools.
+
+
+### Get information about a sending pool.
+
+Retrieve information about a sending pool, including its creation status and configuration parameters.
 
 **Usage:**
 
 ```shell
-scw tem offers update [arg=value ...]
+scw tem pools list [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                      |
-|------------|-----------------------------------------------------------------------------|----------------------------------------------|
-| project-id | Project ID to use. If none is passed the default project ID will be used    |                                              |
-| name       | Name of the offer-subscription                                              | One of: `unknown_name`, `essential`, `scale` |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`      |
+| Name       | Description                                                                 | Argument Specifications                        |
+|------------|-----------------------------------------------------------------------------|------------------------------------------------|
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                                                |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 

@@ -118,6 +118,144 @@ scw object bucket update <name ...> [arg=value ...]
 
 
 
+## Manage S3 bucket CORS
+
+Manage S3 bucket CORS rules creation and deletion.
+
+
+### Add CORS rules to a bucket
+
+Add CORS rules to an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name               | Description                                                                 | Argument Specifications |
+|--------------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket             | The name of the bucket                                                      | Required                |
+| cors-configuration | The path to the local JSON file containing the CORS configuration.          | Required                |
+| project-id         | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Remove CORS rules from a bucket
+
+Remove CORS rules from an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket                                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Get the CORS configuration of a bucket
+
+Get the CORS configuration of an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket                                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+## Manage S3 buckets' lifecycle configuration
+
+Manage S3 buckets lifecycle rules creation and deletion.
+
+
+### Create a lifecycle configuration for an S3 bucket's objects.
+
+Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name                    | Description                                                                    | Argument Specifications |
+|-------------------------|--------------------------------------------------------------------------------|-------------------------|
+| bucket                  | The name of the bucket to which assign the lifecycle configuration.            | Required                |
+| lifecycle-configuration | The path to the local JSON file containing the bucket lifecycle configuration. | Required                |
+| project-id              | Project ID to use. If none is passed the default project ID will be used       |                         |
+| region                  | Region to target. If none is passed will use default region from the config    | Default: `fr-par`       |
+
+
+
+### Delete an S3 bucket's lifecycle configuration if it exists.
+
+Delete an Object Bucket's lifecycle configuration with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Get the lifecycle configuration of an S3 bucket.
+
+Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
 ## Manage S3 bucket policies
 
 Manage S3 bucket policies creation and deletion.
