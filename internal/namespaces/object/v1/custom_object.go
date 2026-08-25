@@ -377,10 +377,7 @@ func objectGetCommand() *core.Command {
 			}
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf(
-					"Object successfully saved into %s",
-					args.Outfile,
-				),
+				Message: "Object successfully saved into " + args.Outfile,
 			}, nil
 		},
 	}
