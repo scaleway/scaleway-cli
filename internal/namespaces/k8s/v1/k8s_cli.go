@@ -349,8 +349,6 @@ func k8sClusterCreate() *core.Command {
 					"unknown_cni",
 					"cilium",
 					"calico",
-					"weave",
-					"flannel",
 					"kilo",
 					"none",
 					"cilium_native",
@@ -413,9 +411,7 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
-					"docker",
 					"containerd",
-					"crio",
 				},
 			},
 			{
@@ -1865,9 +1861,7 @@ func k8sPoolCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
-					"docker",
 					"containerd",
-					"crio",
 				},
 			},
 			{
