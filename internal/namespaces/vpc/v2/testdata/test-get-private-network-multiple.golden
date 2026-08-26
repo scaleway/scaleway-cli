@@ -10,7 +10,7 @@ UpdatedAt                       few seconds ago
 VpcID                           3a436539-0369-429e-95b4-c38683bcac76
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
-HasS3Integration                false
+HasObjectStoragePrivateAccess   false
 Srn                             -
 
 Subnets:
@@ -77,7 +77,7 @@ eb514f20-84b0-4354-b89f-a1d202605c24  172.16.40.2/22
   "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
-  "has_s3_integration": false,
+  "has_object_storage_private_access": false,
   "instance_servers": [
     {
       "id": "b532ddb2-60b8-4936-af03-67f577bbac27",
