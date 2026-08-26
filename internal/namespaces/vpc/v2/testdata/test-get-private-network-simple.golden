@@ -1,84 +1,85 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              3f26c4fe-061a-4b86-8b3b-07ab95c768c9
-Name                            cli-pn-serene-mendeleev
-OrganizationID                  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
-ProjectID                       564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+ID                              ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac
+Name                            cli-pn-vigilant-matsumoto
+OrganizationID                  4d333544-41be-4b0b-8907-0b9036859747
+ProjectID                       4d333544-41be-4b0b-8907-0b9036859747
 Region                          fr-par
 CreatedAt                       few seconds ago
 UpdatedAt                       few seconds ago
-VpcID                           086a5171-f7ab-4667-a231-840a81203f19
+VpcID                           3a436539-0369-429e-95b4-c38683bcac76
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
-HasObjectStoragePrivateAccess   false
-Srn                             -
+HasS3Integration                false
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
-2575fda0-e06c-4149-bcd1-274c76c7dcd8  few seconds ago  few seconds ago  172.16.52.0/22            564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19          -
-5398d0ef-54a7-4037-81e0-a2835618fd37  few seconds ago  few seconds ago  fd46:78ab:30b8:83ca::/64  564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5  3f26c4fe-061a-4b86-8b3b-07ab95c768c9  086a5171-f7ab-4667-a231-840a81203f19          -
+ID                                    CREATED AT       UPDATED AT       SUBNET                   PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
+bb153b4e-c495-4c22-80a2-3d30bb27d484  few seconds ago  few seconds ago  172.16.56.0/22           4d333544-41be-4b0b-8907-0b9036859747  ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
+86d0dae9-90e0-4d42-9db6-be54d93f9bb8  few seconds ago  few seconds ago  fd6d:9b51:d4ce:893::/64  4d333544-41be-4b0b-8907-0b9036859747  ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
 
 Instance Servers:
-ID                                    NAME                       STATE     NIC ID                                MAC ADDRESS
-11d289ea-9848-4c72-b3da-eaba461d1828  cli-srv-wizardly-sinoussi  archived  bee0e62c-32ff-4efb-baec-5aca70dbfdba  02:00:00:11:07:cb
+ID                                    NAME                  STATE     NIC ID                                MAC ADDRESS
+4c975629-5768-4ebf-93f8-7d4b1a0a3c4c  cli-srv-angry-jepsen  archived  45b1141e-f6ea-459e-a483-5e868bcd378b  02:00:00:14:29:5b
 
 IPAM IPs:
 ID                                    ADDRESS
-e8eee783-12e1-4753-83b9-a961add1cc33  fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64
-8347d6f5-f42d-44da-97ad-72f16d466e7e  172.16.52.2/22
+0ff4956b-14af-4cc9-b321-17e047b2575a  fd6d:9b51:d4ce:893:770:ddb2:bc60:1f6/64
+7cbb602a-934d-476f-a556-ce5f6c2212a9  172.16.56.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-  "name": "cli-pn-serene-mendeleev",
-  "organization_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-  "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
+  "id": "ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
+  "name": "cli-pn-vigilant-matsumoto",
+  "organization_id": "4d333544-41be-4b0b-8907-0b9036859747",
+  "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "2575fda0-e06c-4149-bcd1-274c76c7dcd8",
+      "id": "bb153b4e-c495-4c22-80a2-3d30bb27d484",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.52.0/22",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
-      "region": ""
+      "subnet": "172.16.56.0/22",
+      "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
+      "private_network_id": "ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
+      "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+      "region": "fr-par"
     },
     {
-      "id": "5398d0ef-54a7-4037-81e0-a2835618fd37",
+      "id": "86d0dae9-90e0-4d42-9db6-be54d93f9bb8",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd46:78ab:30b8:83ca::/64",
-      "project_id": "564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5",
-      "private_network_id": "3f26c4fe-061a-4b86-8b3b-07ab95c768c9",
-      "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
-      "region": ""
+      "subnet": "fd6d:9b51:d4ce:893::/64",
+      "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
+      "private_network_id": "ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
+      "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+      "region": "fr-par"
     }
   ],
-  "vpc_id": "086a5171-f7ab-4667-a231-840a81203f19",
+  "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
-  "has_object_storage_private_access": false,
+  "has_s3_integration": false,
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
   "instance_servers": [
     {
-      "id": "11d289ea-9848-4c72-b3da-eaba461d1828",
-      "name": "cli-srv-wizardly-sinoussi",
+      "id": "4c975629-5768-4ebf-93f8-7d4b1a0a3c4c",
+      "name": "cli-srv-angry-jepsen",
       "state": "stopped",
-      "nic_id": "bee0e62c-32ff-4efb-baec-5aca70dbfdba",
-      "mac": "02:00:00:11:07:cb"
+      "nic_id": "45b1141e-f6ea-459e-a483-5e868bcd378b",
+      "mac": "02:00:00:14:29:5b"
     }
   ],
   "ipam_ips": [
     {
-      "id": "e8eee783-12e1-4753-83b9-a961add1cc33",
-      "address": "fd46:78ab:30b8:83ca:5ec9:85b2:db69:4e78/64"
+      "id": "0ff4956b-14af-4cc9-b321-17e047b2575a",
+      "address": "fd6d:9b51:d4ce:893:770:ddb2:bc60:1f6/64"
     },
     {
-      "id": "8347d6f5-f42d-44da-97ad-72f16d466e7e",
-      "address": "172.16.52.2/22"
+      "id": "7cbb602a-934d-476f-a556-ce5f6c2212a9",
+      "address": "172.16.56.2/22"
     }
   ]
 }
