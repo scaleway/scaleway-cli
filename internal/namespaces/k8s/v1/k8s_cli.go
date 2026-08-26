@@ -349,6 +349,8 @@ func k8sClusterCreate() *core.Command {
 					"unknown_cni",
 					"cilium",
 					"calico",
+					"weave",
+					"flannel",
 					"kilo",
 					"none",
 					"cilium_native",
@@ -411,7 +413,9 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
+					"docker",
 					"containerd",
+					"crio",
 				},
 			},
 			{
@@ -549,13 +553,6 @@ func k8sClusterCreate() *core.Command {
 					"PreferNoSchedule",
 					"NoExecute",
 				},
-			},
-			{
-				Name:       "pools.{index}.max-termination-grace-period",
-				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-disabled",
@@ -1868,7 +1865,9 @@ func k8sPoolCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
+					"docker",
 					"containerd",
+					"crio",
 				},
 			},
 			{
@@ -2010,13 +2009,6 @@ func k8sPoolCreate() *core.Command {
 			{
 				Name:       "user-data.{key}",
 				Short:      `User data applied and reconciled with the pool`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "max-termination-grace-period",
-				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2226,13 +2218,6 @@ func k8sPoolUpdate() *core.Command {
 			{
 				Name:       "security-group-id",
 				Short:      `Security group ID in which all the nodes of the pool will be moved`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
-			{
-				Name:       "max-termination-grace-period",
-				Short:      `New maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
