@@ -14,7 +14,8 @@ import (
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
+	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -303,7 +304,9 @@ func sshConfigBastionHosts(
 	args *sshConfigInstallRequest,
 	servers []sshConfigServer,
 ) ([]sshconfig.Host, error) {
-	gwAPI := vpcgw.NewAPI(core.ExtractClient(ctx))
+	client := core.ExtractClient(ctx)
+	gwAPI := vpcgw.NewAPI(client)
+	vpcAPI := vpc.NewAPI(client)
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
 	if args.Zone == scw.Zone(core.AllLocalities) {
@@ -321,16 +324,28 @@ func sshConfigBastionHosts(
 		return nil, err
 	}
 
+	pnNames := map[string]string{}
 	hosts := []sshconfig.Host(nil)
 
 	for _, gateway := range listGateways.Gateways {
-		if !gateway.BastionEnabled {
+		if !gateway.BastionEnabled || gateway.IPv4 == nil {
 			continue
 		}
 		for _, network := range gateway.GatewayNetworks {
+			pnName, err := sshConfigPrivateNetworkName(
+				ctx,
+				vpcAPI,
+				pnNames,
+				gateway.Zone,
+				network.PrivateNetworkID,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			bastionHost := sshconfig.BastionHost{
-				Name:    network.DHCP.DNSLocalName,
-				Address: gateway.IP.Address.String(),
+				Name:    pnName + ".internal",
+				Address: gateway.IPv4.Address.String(),
 				Port:    gateway.BastionPort,
 			}
 
@@ -349,4 +364,33 @@ func sshConfigBastionHosts(
 	}
 
 	return hosts, nil
+}
+
+func sshConfigPrivateNetworkName(
+	ctx context.Context,
+	vpcAPI *vpc.API,
+	cache map[string]string,
+	zone scw.Zone,
+	pnID string,
+) (string, error) {
+	if name, ok := cache[pnID]; ok {
+		return name, nil
+	}
+
+	region, err := zone.Region()
+	if err != nil {
+		return "", fmt.Errorf("failed to derive region from zone %q: %w", zone, err)
+	}
+
+	pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+		Region:           region,
+		PrivateNetworkID: pnID,
+	}, scw.WithContext(ctx))
+	if err != nil {
+		return "", fmt.Errorf("failed to get private network %s: %w", pnID, err)
+	}
+
+	cache[pnID] = pn.Name
+
+	return pn.Name, nil
 }
