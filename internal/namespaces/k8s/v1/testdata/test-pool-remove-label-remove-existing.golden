@@ -67,5 +67,6 @@ KEY  VALUE  EFFECT
   "startup_taints": [],
   "private_network_id": null,
   "error_message": null,
+  "max_termination_grace_period": null,
   "region": "fr-par"
 }
