@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac
-Name                            cli-pn-vigilant-matsumoto
+ID                              213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
+Name                            cli-pn-vigorous-hamilton
 OrganizationID                  4d333544-41be-4b0b-8907-0b9036859747
 ProjectID                       4d333544-41be-4b0b-8907-0b9036859747
 Region                          fr-par
@@ -10,26 +10,26 @@ UpdatedAt                       few seconds ago
 VpcID                           3a436539-0369-429e-95b4-c38683bcac76
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
-HasS3Integration                false
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac
+HasObjectStoragePrivateAccess   false
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                   PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
-bb153b4e-c495-4c22-80a2-3d30bb27d484  few seconds ago  few seconds ago  172.16.56.0/22           4d333544-41be-4b0b-8907-0b9036859747  ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
-86d0dae9-90e0-4d42-9db6-be54d93f9bb8  few seconds ago  few seconds ago  fd6d:9b51:d4ce:893::/64  4d333544-41be-4b0b-8907-0b9036859747  ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
+ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
+79c51d80-4411-41a1-bae3-793324998a13  few seconds ago  few seconds ago  172.16.16.0/22            4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
+bf07aee5-13fb-4779-8169-2386e4bb667e  few seconds ago  few seconds ago  fd6d:9b51:d4ce:4bce::/64  4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
 
 Instance Servers:
-ID                                    NAME                  STATE     NIC ID                                MAC ADDRESS
-4c975629-5768-4ebf-93f8-7d4b1a0a3c4c  cli-srv-angry-jepsen  archived  45b1141e-f6ea-459e-a483-5e868bcd378b  02:00:00:14:29:5b
+ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
+99d8b617-f9b7-4348-bcd9-65a6d8187943  cli-srv-cranky-davinci  archived  753bfe83-e937-42e8-8997-c809c44a4a6e  02:00:00:1a:6d:be
 
 IPAM IPs:
 ID                                    ADDRESS
-0ff4956b-14af-4cc9-b321-17e047b2575a  fd6d:9b51:d4ce:893:770:ddb2:bc60:1f6/64
-7cbb602a-934d-476f-a556-ce5f6c2212a9  172.16.56.2/22
+83db52f1-bfe0-4bcb-87bd-f8990bbb96d1  fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64
+aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
-  "name": "cli-pn-vigilant-matsumoto",
+  "id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
+  "name": "cli-pn-vigorous-hamilton",
   "organization_id": "4d333544-41be-4b0b-8907-0b9036859747",
   "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
   "region": "fr-par",
@@ -38,22 +38,22 @@ ID                                    ADDRESS
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "bb153b4e-c495-4c22-80a2-3d30bb27d484",
+      "id": "79c51d80-4411-41a1-bae3-793324998a13",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.56.0/22",
+      "subnet": "172.16.16.0/22",
       "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
-      "private_network_id": "ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
+      "private_network_id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
       "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
       "region": "fr-par"
     },
     {
-      "id": "86d0dae9-90e0-4d42-9db6-be54d93f9bb8",
+      "id": "bf07aee5-13fb-4779-8169-2386e4bb667e",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd6d:9b51:d4ce:893::/64",
+      "subnet": "fd6d:9b51:d4ce:4bce::/64",
       "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
-      "private_network_id": "ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
+      "private_network_id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
       "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
       "region": "fr-par"
     }
@@ -61,25 +61,25 @@ ID                                    ADDRESS
   "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
-  "has_s3_integration": false,
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/ebce2ba9-72b2-4a2e-92b2-1eb16a7e12ac",
+  "has_object_storage_private_access": false,
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
   "instance_servers": [
     {
-      "id": "4c975629-5768-4ebf-93f8-7d4b1a0a3c4c",
-      "name": "cli-srv-angry-jepsen",
+      "id": "99d8b617-f9b7-4348-bcd9-65a6d8187943",
+      "name": "cli-srv-cranky-davinci",
       "state": "stopped",
-      "nic_id": "45b1141e-f6ea-459e-a483-5e868bcd378b",
-      "mac": "02:00:00:14:29:5b"
+      "nic_id": "753bfe83-e937-42e8-8997-c809c44a4a6e",
+      "mac": "02:00:00:1a:6d:be"
     }
   ],
   "ipam_ips": [
     {
-      "id": "0ff4956b-14af-4cc9-b321-17e047b2575a",
-      "address": "fd6d:9b51:d4ce:893:770:ddb2:bc60:1f6/64"
+      "id": "83db52f1-bfe0-4bcb-87bd-f8990bbb96d1",
+      "address": "fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64"
     },
     {
-      "id": "7cbb602a-934d-476f-a556-ce5f6c2212a9",
-      "address": "172.16.56.2/22"
+      "id": "aafa2ba2-8333-4073-a978-bdfd510aa542",
+      "address": "172.16.16.2/22"
     }
   ]
 }
