@@ -325,29 +325,6 @@ func sshConfigBastionHosts(
 	}
 
 	pnNames := map[string]string{}
-	privateNetworkName := func(zone scw.Zone, pnID string) (string, error) {
-		if name, ok := pnNames[pnID]; ok {
-			return name, nil
-		}
-
-		region, err := zone.Region()
-		if err != nil {
-			return "", fmt.Errorf("failed to derive region from zone %q: %w", zone, err)
-		}
-
-		pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
-			Region:           region,
-			PrivateNetworkID: pnID,
-		}, scw.WithContext(ctx))
-		if err != nil {
-			return "", fmt.Errorf("failed to get private network %s: %w", pnID, err)
-		}
-
-		pnNames[pnID] = pn.Name
-
-		return pn.Name, nil
-	}
-
 	hosts := []sshconfig.Host(nil)
 
 	for _, gateway := range listGateways.Gateways {
@@ -355,7 +332,13 @@ func sshConfigBastionHosts(
 			continue
 		}
 		for _, network := range gateway.GatewayNetworks {
-			pnName, err := privateNetworkName(gateway.Zone, network.PrivateNetworkID)
+			pnName, err := sshConfigPrivateNetworkName(
+				ctx,
+				vpcAPI,
+				pnNames,
+				gateway.Zone,
+				network.PrivateNetworkID,
+			)
 			if err != nil {
 				return nil, err
 			}
@@ -381,4 +364,33 @@ func sshConfigBastionHosts(
 	}
 
 	return hosts, nil
+}
+
+func sshConfigPrivateNetworkName(
+	ctx context.Context,
+	vpcAPI *vpc.API,
+	cache map[string]string,
+	zone scw.Zone,
+	pnID string,
+) (string, error) {
+	if name, ok := cache[pnID]; ok {
+		return name, nil
+	}
+
+	region, err := zone.Region()
+	if err != nil {
+		return "", fmt.Errorf("failed to derive region from zone %q: %w", zone, err)
+	}
+
+	pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+		Region:           region,
+		PrivateNetworkID: pnID,
+	}, scw.WithContext(ctx))
+	if err != nil {
+		return "", fmt.Errorf("failed to get private network %s: %w", pnID, err)
+	}
+
+	cache[pnID] = pn.Name
+
+	return pn.Name, nil
 }
