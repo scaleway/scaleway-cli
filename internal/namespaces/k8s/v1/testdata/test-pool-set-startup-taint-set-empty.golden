@@ -74,5 +74,6 @@ foo  bar    NoSchedule
   ],
   "private_network_id": null,
   "error_message": null,
+  "max_termination_grace_period": null,
   "region": "fr-par"
 }
