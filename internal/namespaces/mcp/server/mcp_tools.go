@@ -239,13 +239,21 @@ func (ct *CommandTool) Execute(
 		resultStr = "Command executed successfully (no output)"
 	}
 
-	return &mcp.CallToolResult{
+	callResult := &mcp.CallToolResult{
 		Content: []mcp.Content{
 			&mcp.TextContent{
 				Text: resultStr,
 			},
 		},
-	}, nil
+	}
+
+	// Set StructuredContent to the raw result value so clients receive
+	// proper JSON data instead of a JSON-encoded string.
+	if result != nil {
+		callResult.StructuredContent = result
+	}
+
+	return callResult, nil
 }
 
 // CommandNameToToolName converts a command to an MCP tool name

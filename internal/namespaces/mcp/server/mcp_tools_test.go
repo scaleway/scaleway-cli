@@ -78,6 +78,42 @@ func createTestContextWithMeta(t *testing.T) context.Context {
 	})
 }
 
+// TestCommandToolExecuteStructuredContent verifies that StructuredContent
+// contains the raw Go value (not a JSON-encoded string) so MCP clients
+// receive proper JSON data they can inspect without parsing.
+func TestCommandToolExecuteStructuredContent(t *testing.T) {
+	type Server struct {
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	}
+
+	cmd := &core.Command{
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "list",
+		ArgsType:  nil,
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			return []*Server{
+				{ID: "server-1", Name: "web-1"},
+				{ID: "server-2", Name: "web-2"},
+			}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, map[string]any{})
+	require.NoError(t, err)
+
+	// StructuredContent should be the raw slice, not a JSON string.
+	servers, ok := result.StructuredContent.([]*Server)
+	require.True(t, ok, "StructuredContent should be []*Server, got %T", result.StructuredContent)
+	require.Len(t, servers, 2)
+	require.Equal(t, "server-1", servers[0].ID)
+	require.Equal(t, "web-2", servers[1].Name)
+}
+
 // TestCommandToolExecuteNilSlice verifies that a nil slice result (e.g. from a
 // list command with no results) is serialized as "[]" instead of "null".
 func TestCommandToolExecuteNilSlice(t *testing.T) {
