@@ -19,7 +19,7 @@ ARGS:
   [description]                                          Cluster description
   [tags.{index}]                                         Tags associated with the cluster
   version=latest                                         Kubernetes version of the cluster
-  cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo | none | cilium_native)
+  cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | kilo | none | cilium_native)
   [pools.{index}.name]                                   Name of the pool
   [pools.{index}.node-type]                              Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster
   [pools.{index}.placement-group-id]                     Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
@@ -27,7 +27,7 @@ ARGS:
   [pools.{index}.size]                                   Size (number of nodes) of the pool
   [pools.{index}.min-size]                               Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [pools.{index}.max-size]                               Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
-  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool (unknown_runtime | docker | containerd | crio)
+  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool (unknown_runtime | containerd)
   [pools.{index}.autohealing]                            Defines whether the autohealing feature is enabled for the pool
   [pools.{index}.tags.{index}]                           Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)
   [pools.{index}.kubelet-args.{key}]                     Kubelet arguments to be used by this pool. Note that this feature is experimental
@@ -45,6 +45,8 @@ ARGS:
   [pools.{index}.startup-taints.{index}.key]             The taint key to be applied to a node
   [pools.{index}.startup-taints.{index}.value]           The taint value corresponding to the taint key
   [pools.{index}.startup-taints.{index}.effect]          Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
+  [pools.{index}.max-termination-grace-period]           Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+  [pools.{index}.user-data.{key}]                        User data applied and reconciled with the pool
   [autoscaler-config.scale-down-disabled]                Forbid cluster autoscaler to scale down the cluster, defaults to false
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up the scale down evaluation resumes
   [autoscaler-config.estimator]                          Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
