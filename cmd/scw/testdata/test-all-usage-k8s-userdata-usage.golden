@@ -1,16 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Delete the custom domain associated with the specified ID.
+User data allow to attach user complementary content to a pool.
+A special use case of these data are cloud-init configuration.
 
 USAGE:
-  scw container domain delete <domain-id ...> [arg=value ...]
+  scw k8s userdata <command>
 
-ARGS:
-  domain-id         UUID of the domain to delete.
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
+AVAILABLE COMMANDS:
+  get         Get a pool related user data
+  list        List all user data related to a given pool.
 
 FLAGS:
-  -h, --help                help for delete
+  -h, --help                help for userdata
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
@@ -18,3 +19,5 @@ GLOBAL FLAGS:
   -D, --debug            Enable debug mode
   -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
   -p, --profile string   The config profile to use
+
+Use "scw k8s userdata [command] --help" for more information about a command.
