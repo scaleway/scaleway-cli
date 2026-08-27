@@ -1,17 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Only fields present in the request are updated; others are left untouched.
+This list only the user data key and not the content.
 
 USAGE:
-  scw container domain update <domain-id ...> [arg=value ...]
+  scw k8s userdata list [arg=value ...]
+
+EXAMPLES:
+  List all user data for a given pool
+    scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111
 
 ARGS:
-  domain-id         UUID of the domain to update.
-  [tags.{index}]    A list of arbitrary tags associated with the domain.
+  pool-id           Pool the user data are associated to
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
-  -h, --help                help for update
+  -h, --help                help for list
       --list-sub-commands   List all subcommands
 
 GLOBAL FLAGS:
