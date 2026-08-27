@@ -142,6 +142,7 @@ func containerNamespaceCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -176,6 +177,7 @@ func containerNamespaceGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -235,6 +237,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -307,6 +310,7 @@ func containerNamespaceUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -343,6 +347,7 @@ This action **cannot** be undone.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -628,6 +633,7 @@ func containerContainerCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -662,6 +668,7 @@ func containerContainerGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -727,6 +734,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1005,6 +1013,7 @@ func containerContainerUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1041,6 +1050,7 @@ This action **cannot** be undone.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1089,6 +1099,7 @@ func containerDomainCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1123,6 +1134,7 @@ func containerDomainGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1188,6 +1200,7 @@ Additional parameters can be set in the query to filter the output, such as ` + 
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1239,6 +1252,7 @@ func containerDomainUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1273,6 +1287,7 @@ func containerDomainDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1309,6 +1324,7 @@ the most recent image version available in the registry.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1470,6 +1486,7 @@ func containerTriggerCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1504,6 +1521,7 @@ func containerTriggerGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1581,6 +1599,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1753,6 +1772,7 @@ Only fields present in the request are updated; others are left untouched.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1787,6 +1807,7 @@ func containerTriggerDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
