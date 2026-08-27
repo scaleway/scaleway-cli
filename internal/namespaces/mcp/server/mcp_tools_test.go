@@ -111,6 +111,8 @@ func TestCommandToolExecuteStructuredContent(t *testing.T) {
 	require.True(t, ok, "StructuredContent should be []*Server, got %T", result.StructuredContent)
 	require.Len(t, servers, 2)
 	require.Equal(t, "server-1", servers[0].ID)
+	require.Equal(t, "server-2", servers[1].ID)
+	require.Equal(t, "web-1", servers[0].Name)
 	require.Equal(t, "web-2", servers[1].Name)
 }
 
