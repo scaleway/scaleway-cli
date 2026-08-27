@@ -7,6 +7,7 @@ k8s        cluster       list  k8s_cluster_list       List Clusters
 k8s        cluster-type  list  k8s_cluster-type_list  List cluster types
 k8s        node          list  k8s_node_list          List Nodes in a Cluster
 k8s        pool          list  k8s_pool_list          List Pools in a Cluster
+k8s        userdata      list  k8s_userdata_list      List all user data related to a given pool.
 k8s        version       list  k8s_version_list       List all available Versions
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
@@ -51,6 +52,13 @@ k8s        version       list  k8s_version_list       List all available Version
     "verb": "list",
     "tool_name": "k8s_pool_list",
     "short": "List Pools in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "userdata",
+    "verb": "list",
+    "tool_name": "k8s_userdata_list",
+    "short": "List all user data related to a given pool."
   },
   {
     "namespace": "k8s",
