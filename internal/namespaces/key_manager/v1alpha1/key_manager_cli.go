@@ -96,6 +96,8 @@ func keymanagerKeyCreate() *core.Command {
 					"rsa_oaep_2048_sha256",
 					"rsa_oaep_3072_sha256",
 					"rsa_oaep_4096_sha256",
+					"ml_kem_768",
+					"ml_kem_1024",
 				},
 			},
 			{

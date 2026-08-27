@@ -56,7 +56,7 @@ scw container container create [arg=value ...]
 | private-network-id                           | ID of the Private Network the container is connected to.                                                                                                                                           |                                                                       |
 | command.{index}                              | Container command                                                                                                                                                                                  |                                                                       |
 | args.{index}                                 | Container arguments                                                                                                                                                                                |                                                                       |
-| region                                       | Region to target. If none is passed will use default region from the config                                                                                                                        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`           |
+| region                                       | Region to target. If none is passed will use default region from the config                                                                                                                        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -75,10 +75,10 @@ scw container container delete <container-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| container-id | UUID of the container to delete.                                            | Required                                                    |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| container-id | UUID of the container to delete.                                            | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -95,10 +95,10 @@ scw container container get <container-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| container-id | UUID of the container to get                                                | Required                                                    |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| container-id | UUID of the container to get                                                | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -117,14 +117,14 @@ scw container container list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                                              |
-|-----------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|
-| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
-| project-id      |                                                                             |                                                                      |
-| namespace-id    |                                                                             |                                                                      |
-| name            |                                                                             |                                                                      |
-| organization-id |                                                                             |                                                                      |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
+| project-id      |                                                                             |                                                                              |
+| namespace-id    |                                                                             |                                                                              |
+| name            |                                                                             |                                                                              |
+| organization-id |                                                                             |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` |
 
 
 
@@ -165,10 +165,10 @@ scw container container redeploy <container-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| container-id | ID of the container to redeploy.                                            | Required                                                    |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| container-id | ID of the container to redeploy.                                            | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -185,42 +185,42 @@ scw container container update <container-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                                         | Description                                                                                                                                                                                        | Argument Specifications                                     |
-|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
-| container-id                                 | UUID of the container to update.                                                                                                                                                                   | Required                                                    |
-| environment-variables.{key}                  | Environment variables of the container.                                                                                                                                                            |                                                             |
-| secret-environment-variables.{key}           | Secret environment variables of the container.                                                                                                                                                     |                                                             |
-| min-scale                                    | Minimum number of instances to scale the container to.                                                                                                                                             |                                                             |
-| max-scale                                    | Maximum number of instances to scale the container to.                                                                                                                                             |                                                             |
-| memory-limit-bytes                           | Memory limit of the container in bytes.                                                                                                                                                            |                                                             |
-| mvcpu-limit                                  | CPU limit of the container in mvCPU.                                                                                                                                                               |                                                             |
-| timeout                                      | Processing time limit for the container.                                                                                                                                                           |                                                             |
-| privacy                                      | Privacy policy of the container.                                                                                                                                                                   | One of: `unknown_privacy`, `public`, `private`              |
-| description                                  | Container description.                                                                                                                                                                             |                                                             |
-| image                                        | Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").                                                                                                                      |                                                             |
-| protocol                                     | Protocol the container uses.                                                                                                                                                                       | One of: `unknown_protocol`, `http1`, `h2c`                  |
-| port                                         | Port the container listens on.                                                                                                                                                                     |                                                             |
-| https-connection-only                        | If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).                                                          |                                                             |
-| sandbox                                      | Execution environment of the container.                                                                                                                                                            | One of: `unknown_sandbox`, `v1`, `v2`                       |
-| local-storage-limit-bytes                    | Local storage limit of the container (in bytes).                                                                                                                                                   |                                                             |
-| scaling-option.concurrent-requests-threshold | Scale depending on the number of concurrent requests being processed per container instance. The threshold value is the number of concurrent requests above which the container will be scaled up. |                                                             |
-| scaling-option.cpu-usage-threshold           | Scale depending on the CPU usage of a container instance. The threshold value is the percentage of CPU usage above which the container will be scaled up.                                          |                                                             |
-| scaling-option.memory-usage-threshold        | Scale depending on the memory usage of a container instance. The threshold value is the percentage of memory usage above which the container will be scaled up.                                    |                                                             |
-| liveness-probe.failure-threshold             | Number of consecutive failures before considering the container as unhealthy                                                                                                                       |                                                             |
-| liveness-probe.interval                      | Time interval between checks.                                                                                                                                                                      |                                                             |
-| liveness-probe.timeout                       | Duration before the check times out.                                                                                                                                                               |                                                             |
-| liveness-probe.tcp                           | Perform TCP check on the container.                                                                                                                                                                |                                                             |
-| liveness-probe.http.path                     | HTTP path to perform the check on.                                                                                                                                                                 |                                                             |
-| startup-probe.failure-threshold              |                                                                                                                                                                                                    |                                                             |
-| startup-probe.interval                       |                                                                                                                                                                                                    |                                                             |
-| startup-probe.timeout                        |                                                                                                                                                                                                    |                                                             |
-| startup-probe.http.path                      |                                                                                                                                                                                                    |                                                             |
-| startup-probe.tcp                            |                                                                                                                                                                                                    |                                                             |
-| tags.{index}                                 | Tags of the Serverless Container.                                                                                                                                                                  |                                                             |
-| private-network-id                           | ID of the Private Network the container is connected to.                                                                                                                                           |                                                             |
-| command.{index}                              | Container command                                                                                                                                                                                  |                                                             |
-| args.{index}                                 | Container arguments                                                                                                                                                                                |                                                             |
-| region                                       | Region to target. If none is passed will use default region from the config                                                                                                                        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name                                         | Description                                                                                                                                                                                        | Argument Specifications                                               |
+|----------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| container-id                                 | UUID of the container to update.                                                                                                                                                                   | Required                                                              |
+| environment-variables.{key}                  | Environment variables of the container.                                                                                                                                                            |                                                                       |
+| secret-environment-variables.{key}           | Secret environment variables of the container.                                                                                                                                                     |                                                                       |
+| min-scale                                    | Minimum number of instances to scale the container to.                                                                                                                                             |                                                                       |
+| max-scale                                    | Maximum number of instances to scale the container to.                                                                                                                                             |                                                                       |
+| memory-limit-bytes                           | Memory limit of the container in bytes.                                                                                                                                                            |                                                                       |
+| mvcpu-limit                                  | CPU limit of the container in mvCPU.                                                                                                                                                               |                                                                       |
+| timeout                                      | Processing time limit for the container.                                                                                                                                                           |                                                                       |
+| privacy                                      | Privacy policy of the container.                                                                                                                                                                   | One of: `unknown_privacy`, `public`, `private`                        |
+| description                                  | Container description.                                                                                                                                                                             |                                                                       |
+| image                                        | Image reference (e.g. "rg.fr-par.scw.cloud/my-registry-namespace/image:tag").                                                                                                                      |                                                                       |
+| protocol                                     | Protocol the container uses.                                                                                                                                                                       | One of: `unknown_protocol`, `http1`, `h2c`                            |
+| port                                         | Port the container listens on.                                                                                                                                                                     |                                                                       |
+| https-connection-only                        | If true, it will allow only HTTPS connections to access your container to prevent it from being triggered by insecure connections (HTTP).                                                          |                                                                       |
+| sandbox                                      | Execution environment of the container.                                                                                                                                                            | One of: `unknown_sandbox`, `v1`, `v2`                                 |
+| local-storage-limit-bytes                    | Local storage limit of the container (in bytes).                                                                                                                                                   |                                                                       |
+| scaling-option.concurrent-requests-threshold | Scale depending on the number of concurrent requests being processed per container instance. The threshold value is the number of concurrent requests above which the container will be scaled up. |                                                                       |
+| scaling-option.cpu-usage-threshold           | Scale depending on the CPU usage of a container instance. The threshold value is the percentage of CPU usage above which the container will be scaled up.                                          |                                                                       |
+| scaling-option.memory-usage-threshold        | Scale depending on the memory usage of a container instance. The threshold value is the percentage of memory usage above which the container will be scaled up.                                    |                                                                       |
+| liveness-probe.failure-threshold             | Number of consecutive failures before considering the container as unhealthy                                                                                                                       |                                                                       |
+| liveness-probe.interval                      | Time interval between checks.                                                                                                                                                                      |                                                                       |
+| liveness-probe.timeout                       | Duration before the check times out.                                                                                                                                                               |                                                                       |
+| liveness-probe.tcp                           | Perform TCP check on the container.                                                                                                                                                                |                                                                       |
+| liveness-probe.http.path                     | HTTP path to perform the check on.                                                                                                                                                                 |                                                                       |
+| startup-probe.failure-threshold              |                                                                                                                                                                                                    |                                                                       |
+| startup-probe.interval                       |                                                                                                                                                                                                    |                                                                       |
+| startup-probe.timeout                        |                                                                                                                                                                                                    |                                                                       |
+| startup-probe.http.path                      |                                                                                                                                                                                                    |                                                                       |
+| startup-probe.tcp                            |                                                                                                                                                                                                    |                                                                       |
+| tags.{index}                                 | Tags of the Serverless Container.                                                                                                                                                                  |                                                                       |
+| private-network-id                           | ID of the Private Network the container is connected to.                                                                                                                                           |                                                                       |
+| command.{index}                              | Container command                                                                                                                                                                                  |                                                                       |
+| args.{index}                                 | Container arguments                                                                                                                                                                                |                                                                       |
+| region                                       | Region to target. If none is passed will use default region from the config                                                                                                                        | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -274,12 +274,12 @@ scw container domain create [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| container-id | Unique ID of the container the domain will be assigned to.                  | Required                                                    |
-| hostname     | Domain assigned to the container.                                           | Required                                                    |
-| tags.{index} | A list of arbitrary tags associated with the domain.                        |                                                             |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| container-id | Unique ID of the container the domain will be assigned to.                  | Required                                                              |
+| hostname     | Domain assigned to the container.                                           | Required                                                              |
+| tags.{index} | A list of arbitrary tags associated with the domain.                        |                                                                       |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -296,10 +296,10 @@ scw container domain delete <domain-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                                 | Argument Specifications                                     |
-|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| domain-id | UUID of the domain to delete.                                               | Required                                                    |
-| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name      | Description                                                                 | Argument Specifications                                               |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| domain-id | UUID of the domain to delete.                                               | Required                                                              |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -316,10 +316,10 @@ scw container domain get <domain-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name      | Description                                                                 | Argument Specifications                                     |
-|-----------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| domain-id | UUID of the domain to get                                                   | Required                                                    |
-| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name      | Description                                                                 | Argument Specifications                                               |
+|-----------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| domain-id | UUID of the domain to get                                                   | Required                                                              |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -345,7 +345,7 @@ scw container domain list [arg=value ...]
 | namespace-id    |                                                                             |                                                                              |
 | container-id    |                                                                             |                                                                              |
 | organization-id |                                                                             |                                                                              |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`           |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` |
 
 
 
@@ -362,11 +362,11 @@ scw container domain update <domain-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| domain-id    | UUID of the domain to update.                                               | Required                                                    |
-| tags.{index} | A list of arbitrary tags associated with the domain.                        |                                                             |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| domain-id    | UUID of the domain to update.                                               | Required                                                              |
+| tags.{index} | A list of arbitrary tags associated with the domain.                        |                                                                       |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -388,15 +388,15 @@ scw container namespace create [arg=value ...]
 
 **Arguments:**
 
-| Name                               | Description                                                                 | Argument Specifications                                     |
-|------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| project-id                         | Project ID to use. If none is passed the default project ID will be used    |                                                             |
-| name                               | Namespace name.                                                             | Required                                                    |
-| description                        | Namespace description.                                                      |                                                             |
-| environment-variables.{key}        | Namespace environment variables.                                            |                                                             |
-| secret-environment-variables.{key} | Namespace secret environment variables.                                     |                                                             |
-| tags.{index}                       | A list of arbitrary tags associated with the namespace.                     |                                                             |
-| region                             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name                               | Description                                                                 | Argument Specifications                                               |
+|------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| project-id                         | Project ID to use. If none is passed the default project ID will be used    |                                                                       |
+| name                               | Namespace name.                                                             | Required                                                              |
+| description                        | Namespace description.                                                      |                                                                       |
+| environment-variables.{key}        | Namespace environment variables.                                            |                                                                       |
+| secret-environment-variables.{key} | Namespace secret environment variables.                                     |                                                                       |
+| tags.{index}                       | A list of arbitrary tags associated with the namespace.                     |                                                                       |
+| region                             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -415,10 +415,10 @@ scw container namespace delete <namespace-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| namespace-id | UUID of the namespace to delete.                                            | Required                                                    |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| namespace-id | UUID of the namespace to delete.                                            | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -435,10 +435,10 @@ scw container namespace get <namespace-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name         | Description                                                                 | Argument Specifications                                     |
-|--------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| namespace-id | UUID of the namespace to get                                                | Required                                                    |
-| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| namespace-id | UUID of the namespace to get                                                | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -457,13 +457,13 @@ scw container namespace list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                                              |
-|-----------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|
-| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
-| project-id      |                                                                             |                                                                      |
-| name            |                                                                             |                                                                      |
-| organization-id |                                                                             |                                                                      |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
+| project-id      |                                                                             |                                                                              |
+| name            |                                                                             |                                                                              |
+| organization-id |                                                                             |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` |
 
 
 
@@ -480,14 +480,14 @@ scw container namespace update <namespace-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name                               | Description                                                                 | Argument Specifications                                     |
-|------------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| namespace-id                       | UUID of the namespace to update.                                            | Required                                                    |
-| description                        | Namespace description.                                                      |                                                             |
-| environment-variables.{key}        | Namespace environment variables.                                            |                                                             |
-| secret-environment-variables.{key} | Namespace secret environment variables.                                     |                                                             |
-| tags.{index}                       | A list of arbitrary tags associated with the namespace.                     |                                                             |
-| region                             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name                               | Description                                                                 | Argument Specifications                                               |
+|------------------------------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| namespace-id                       | UUID of the namespace to update.                                            | Required                                                              |
+| description                        | Namespace description.                                                      |                                                                       |
+| environment-variables.{key}        | Namespace environment variables.                                            |                                                                       |
+| secret-environment-variables.{key} | Namespace secret environment variables.                                     |                                                                       |
+| tags.{index}                       | A list of arbitrary tags associated with the namespace.                     |                                                                       |
+| region                             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -619,7 +619,7 @@ scw container trigger create [arg=value ...]
 | nats-config.server-urls.{index}      | The URLs of the NATS server (e.g., "nats://nats.mnq.fr-par.scaleway.com:4222").                                        |                                                                        |
 | nats-config.subject                  | NATS subject to subscribe to (e.g., "my-subject").                                                                     |                                                                        |
 | nats-config.credentials-file-content | The content of the NATS credentials file.                                                                              |                                                                        |
-| region                               | Region to target. If none is passed will use default region from the config                                            | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`            |
+| region                               | Region to target. If none is passed will use default region from the config                                            | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`  |
 
 
 
@@ -636,10 +636,10 @@ scw container trigger delete <trigger-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| trigger-id | ID of the trigger to delete.                                                | Required                                                    |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| trigger-id | ID of the trigger to delete.                                                | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -656,10 +656,10 @@ scw container trigger get <trigger-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name       | Description                                                                 | Argument Specifications                                     |
-|------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| trigger-id | ID of the trigger to get                                                    | Required                                                    |
-| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| trigger-id | ID of the trigger to get                                                    | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -678,15 +678,15 @@ scw container trigger list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                 | Argument Specifications                                              |
-|-----------------|-----------------------------------------------------------------------------|----------------------------------------------------------------------|
-| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` |
-| project-id      |                                                                             |                                                                      |
-| namespace-id    |                                                                             |                                                                      |
-| container-id    |                                                                             |                                                                      |
-| trigger-type    |                                                                             | One of: `unknown_source_type`, `cron`, `sqs`, `nats`                 |
-| organization-id |                                                                             |                                                                      |
-| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`   |
+| Name            | Description                                                                 | Argument Specifications                                                      |
+|-----------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| order-by        |                                                                             | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`         |
+| project-id      |                                                                             |                                                                              |
+| namespace-id    |                                                                             |                                                                              |
+| container-id    |                                                                             |                                                                              |
+| trigger-type    |                                                                             | One of: `unknown_source_type`, `cron`, `sqs`, `nats`                         |
+| organization-id |                                                                             |                                                                              |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` |
 
 
 
@@ -724,7 +724,7 @@ scw container trigger update <trigger-id ...> [arg=value ...]
 | nats-config.server-urls.{index}      | The URLs of the NATS server (e.g., "nats://nats.mnq.fr-par.scaleway.com:4222").                                        |                                                                        |
 | nats-config.subject                  | NATS subject to subscribe to (e.g., "my-subject").                                                                     |                                                                        |
 | nats-config.credentials-file-content | The content of the NATS credentials file.                                                                              |                                                                        |
-| region                               | Region to target. If none is passed will use default region from the config                                            | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`            |
+| region                               | Region to target. If none is passed will use default region from the config                                            | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`  |
 
 
 
