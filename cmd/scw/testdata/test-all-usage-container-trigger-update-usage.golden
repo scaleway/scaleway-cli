@@ -25,7 +25,7 @@ ARGS:
   [nats-config.server-urls.{index}]        The URLs of the NATS server (e.g., "nats://nats.mnq.fr-par.scaleway.com:4222").
   [nats-config.subject]                    NATS subject to subscribe to (e.g., "my-subject").
   [nats-config.credentials-file-content]   The content of the NATS credentials file.
-  [region=fr-par]                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                          Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for update
