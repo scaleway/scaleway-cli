@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sVersion(),
 		k8sClusterType(),
 		k8sACL(),
+		k8sUserdata(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -46,6 +47,8 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPoolUpgrade(),
 		k8sPoolUpdate(),
 		k8sPoolDelete(),
+		k8sUserdataGet(),
+		k8sUserdataList(),
 		k8sNodeList(),
 		k8sNodeGet(),
 		k8sNodeReplace(),
@@ -121,6 +124,16 @@ func k8sACL() *core.Command {
 		Long:      `Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.`,
 		Namespace: "k8s",
 		Resource:  "acl",
+	}
+}
+
+func k8sUserdata() *core.Command {
+	return &core.Command{
+		Short: `User Data management commands`,
+		Long: `User data allow to attach user complementary content to a pool.
+A special use case of these data are cloud-init configuration.`,
+		Namespace: "k8s",
+		Resource:  "userdata",
 	}
 }
 
@@ -349,8 +362,6 @@ func k8sClusterCreate() *core.Command {
 					"unknown_cni",
 					"cilium",
 					"calico",
-					"weave",
-					"flannel",
 					"kilo",
 					"none",
 					"cilium_native",
@@ -413,9 +424,7 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
-					"docker",
 					"containerd",
-					"crio",
 				},
 			},
 			{
@@ -553,6 +562,20 @@ func k8sClusterCreate() *core.Command {
 					"PreferNoSchedule",
 					"NoExecute",
 				},
+			},
+			{
+				Name:       "pools.{index}.max-termination-grace-period",
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.user-data.{key}",
+				Short:      `User data applied and reconciled with the pool`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-disabled",
@@ -1865,9 +1888,7 @@ func k8sPoolCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
-					"docker",
 					"containerd",
-					"crio",
 				},
 			},
 			{
@@ -2009,6 +2030,13 @@ func k8sPoolCreate() *core.Command {
 			{
 				Name:       "user-data.{key}",
 				Short:      `User data applied and reconciled with the pool`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-termination-grace-period",
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2222,6 +2250,13 @@ func k8sPoolUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "max-termination-grace-period",
+				Short:      `New maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2294,6 +2329,96 @@ func k8sPoolDelete() *core.Command {
 			{
 				Short: "Delete a specific pool",
 				Raw:   `scw k8s pool delete 11111111-1111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sUserdataGet() *core.Command {
+	return &core.Command{
+		Short: `Get a pool related user data`,
+		Long: `Retrieve specific user data content for a given pool.
+Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve the base64 decoded content of your user data.`,
+		Namespace: "k8s",
+		Resource:  "userdata",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[k8s.GetUserDataRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pool-id",
+				Short:      `Pool the user data are associated to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key",
+				Short:      `User data key to retrieved`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.RegionItMil,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*k8s.GetUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+
+			return api.GetUserData(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Get a pool user data by name",
+				Raw:   `scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sUserdataList() *core.Command {
+	return &core.Command{
+		Short:     `List all user data related to a given pool.`,
+		Long:      `This list only the user data key and not the content.`,
+		Namespace: "k8s",
+		Resource:  "userdata",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[k8s.ListUserDataRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pool-id",
+				Short:      `Pool the user data are associated to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.RegionItMil,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*k8s.ListUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+
+			return api.ListUserData(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short: "List all user data for a given pool",
+				Raw:   `scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
