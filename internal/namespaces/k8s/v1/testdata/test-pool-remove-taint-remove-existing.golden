@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                92f272fd-9dca-48cc-9f37-8d3ed4f38b2a
-ClusterID         9b75ba28-a9ff-4be0-9f84-04cbbbea55ea
+ID                8f36ec88-c581-43a8-9305-a21d86226511
+ClusterID         da82028f-834d-46e0-9fc2-9fff10e9896e
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 Name              default
@@ -10,7 +10,7 @@ Version           1.35.3
 NodeType          dev1_m
 Autoscaling       false
 Size              1
-MinSize           0
+MinSize           1
 MaxSize           1
 ContainerRuntime  containerd
 Autohealing       false
@@ -18,9 +18,9 @@ Zone              fr-par-1
 RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
-SecurityGroupID   592f683f-83b9-47e4-9434-ca1931bdaa4b
+SecurityGroupID   aa085195-0b80-44df-9c92-8b9c52d8411a
 Region            fr-par
-Srn               -
+Srn               srn://k8s.scw.eu/regions/fr-par/pools/8f36ec88-c581-43a8-9305-a21d86226511
 
 Upgrade Policy:
 MaxUnavailable  1
@@ -36,8 +36,8 @@ Node startup taints:
 KEY  VALUE  EFFECT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "92f272fd-9dca-48cc-9f37-8d3ed4f38b2a",
-  "cluster_id": "9b75ba28-a9ff-4be0-9f84-04cbbbea55ea",
+  "id": "8f36ec88-c581-43a8-9305-a21d86226511",
+  "cluster_id": "da82028f-834d-46e0-9fc2-9fff10e9896e",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "name": "default",
@@ -46,7 +46,7 @@ KEY  VALUE  EFFECT
   "node_type": "dev1_m",
   "autoscaling": false,
   "size": 1,
-  "min_size": 0,
+  "min_size": 1,
   "max_size": 1,
   "container_runtime": "containerd",
   "autohealing": false,
@@ -61,11 +61,13 @@ KEY  VALUE  EFFECT
   "root_volume_type": "l_ssd",
   "root_volume_size": 40000000000,
   "public_ip_disabled": false,
-  "security_group_id": "592f683f-83b9-47e4-9434-ca1931bdaa4b",
+  "security_group_id": "aa085195-0b80-44df-9c92-8b9c52d8411a",
   "labels": {},
   "taints": [],
   "startup_taints": [],
   "private_network_id": null,
   "error_message": null,
-  "region": "fr-par"
+  "max_termination_grace_period": null,
+  "region": "fr-par",
+  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/8f36ec88-c581-43a8-9305-a21d86226511"
 }
