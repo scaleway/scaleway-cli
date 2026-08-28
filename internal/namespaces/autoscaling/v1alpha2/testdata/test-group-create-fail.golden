@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+Missing required argument 'scaling-policy-spec.minimum-size'
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "message": "missing required argument 'scaling-policy-spec.minimum-size'",
+  "error": {}
+}

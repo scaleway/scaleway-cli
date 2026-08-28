@@ -53,6 +53,9 @@ func GetValuesForFieldByName(
 	}
 	switch value.Kind() {
 	case reflect.Pointer:
+		if value.IsNil() {
+			return nil, nil
+		}
 		return GetValuesForFieldByName(value.Elem(), parts)
 
 	case reflect.Slice:
