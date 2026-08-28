@@ -59,15 +59,27 @@ func Test_Group(t *testing.T) {
 		),
 	}))
 
-	t.Run("Create fail", core.Test(&core.TestConfig{
+	t.Run("Create fail: missing size", core.Test(&core.TestConfig{
 		Commands:   cmds,
 		BeforeFunc: testhelpers.CreateTemplate("Template", "server-type=PRO2-S"),
-		Cmd: "scw autoscaling group create" + // Some required arguments are not set
-			" tags.0=cli-test-asg scaling-policy-spec.scale-out-cooldown=3m scaling-policy-spec.scale-in-step=2" +
-			" scaling-policy-spec.memory-target.target-avg-percent=80 template-id={{ .Template.ID }}",
+		Cmd:        "scw autoscaling group create template-id={{ .Template.ID }}",
+		Check: core.TestCheckCombine(
+			core.TestCheckStderrContains(`- 'scaling_policy_spec' is required`),
+			core.TestCheckExitCode(1),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			testhelpers.DeleteTemplate("Template"),
+		),
+	}))
+
+	t.Run("Create fail: missing target", core.Test(&core.TestConfig{
+		Commands:   cmds,
+		BeforeFunc: testhelpers.CreateTemplate("Template", "server-type=PRO2-S"),
+		Cmd: "scw autoscaling group create template-id={{ .Template.ID }}" +
+			" scaling-policy-spec.minimum-size=1 scaling-policy-spec.maximum-size=5",
 		Check: core.TestCheckCombine(
 			core.TestCheckStderrContains(
-				`Missing required argument 'scaling-policy-spec.minimum-size'`,
+				`At least one argument from the 'scaling-policy-target' group is required`,
 			),
 			core.TestCheckExitCode(1),
 		),
