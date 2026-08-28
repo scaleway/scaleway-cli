@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Retrieve specific user data content for a given pool.
+Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
+
+USAGE:
+  scw k8s userdata get [arg=value ...]
+
+EXAMPLES:
+  Get a pool user data by name
+    scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111
+
+ARGS:
+  pool-id           Pool the user data are associated to
+  key               User data key to retrieved
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
+
+FLAGS:
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
