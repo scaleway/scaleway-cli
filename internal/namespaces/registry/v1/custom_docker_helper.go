@@ -4,7 +4,7 @@ import (
 	"bufio"
 	"bytes"
 	"context"
-	"encoding/json"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"io"
@@ -262,7 +262,7 @@ func registryDockerHelperListCommand() *core.Command {
 			for _, region := range scw.AllRegions {
 				registryEndpoints[getRegistryEndpoint(region)] = "scaleway"
 			}
-			raw, err := json.Marshal(registryEndpoints)
+			raw, err := json.Marshal(registryEndpoints, json.Deterministic(true))
 			if err != nil {
 				return nil, err
 			}

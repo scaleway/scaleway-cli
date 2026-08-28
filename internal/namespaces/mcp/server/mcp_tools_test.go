@@ -2,7 +2,8 @@ package server_test
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"reflect"
 	"strings"
 	"testing"
@@ -325,7 +326,7 @@ func TestToolMetaSerialization(t *testing.T) {
 	mcpTool := tool.ToMCPTool()
 
 	// Marshal to JSON to see what the client actually receives
-	jsonBytes, err := json.MarshalIndent(mcpTool, "", "  ")
+	jsonBytes, err := json.Marshal(mcpTool, jsontext.WithIndent("  "))
 	if err != nil {
 		t.Fatalf("Failed to marshal tool: %v", err)
 	}

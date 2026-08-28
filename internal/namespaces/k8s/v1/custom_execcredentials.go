@@ -2,7 +2,8 @@ package k8s
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -41,7 +42,7 @@ func k8sExecCredentialRun(ctx context.Context, _ any) (i any, e error) {
 			Token: secretKey,
 		},
 	}
-	response, err := json.MarshalIndent(execCreds, "", "    ")
+	response, err := json.Marshal(execCreds, jsontext.WithIndent("    "))
 	if err != nil {
 		return nil, err
 	}

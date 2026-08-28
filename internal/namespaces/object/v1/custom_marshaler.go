@@ -1,11 +1,12 @@
 package object
 
 import (
-	"bytes"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
+	"github.com/aws/smithy-go/middleware"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/scw"
@@ -131,8 +132,14 @@ func bucketMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 
 // CleanAndIndentJSON takes any struct or data, marshals it,
 // strips all top-level and nested "null" fields, and returns formatted JSON.
+var awsMetadataMarshalers = json.WithMarshalers(
+	json.MarshalFunc(func(middleware.Metadata) ([]byte, error) {
+		return []byte("{}"), nil
+	}),
+)
+
 func CleanAndIndentJSON(v any, prefix, indent string) ([]byte, error) {
-	rawBytes, err := json.Marshal(v)
+	rawBytes, err := json.Marshal(v, awsMetadataMarshalers, json.Deterministic(true))
 	if err != nil {
 		return nil, err
 	}
@@ -144,17 +151,17 @@ func CleanAndIndentJSON(v any, prefix, indent string) ([]byte, error) {
 
 	cleanedData := removeNulls(genericData)
 
-	cleanBytes, err := json.Marshal(cleanedData)
+	cleanBytes, err := json.Marshal(cleanedData, json.Deterministic(true))
 	if err != nil {
 		return nil, err
 	}
 
-	var prettyBuf bytes.Buffer
-	if err := json.Indent(&prettyBuf, cleanBytes, prefix, indent); err != nil {
+	prettyBuf := jsontext.Value(cleanBytes)
+	if err := prettyBuf.Indent(jsontext.WithIndentPrefix(prefix), jsontext.WithIndent(indent)); err != nil {
 		return nil, err
 	}
 
-	return prettyBuf.Bytes(), nil
+	return []byte(prettyBuf), nil
 }
 
 // removeNulls recursively purges nil entries from maps and slices
