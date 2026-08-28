@@ -1,14 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           019fd720-7953-7e6a-ae89-e345eec00186
+ID           01a0489d-6acd-7eed-856a-b2a3d988e6c2
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name         cli-asg-unruffled-cannon
+Name         cli-asg-nifty-taussig
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
 Status       active
 CurrentSize  0
 TargetSize   0
-TemplateID   51980af8-8cd9-4a93-9346-6869e95d56a2
+TemplateID   458f3cec-a287-4b37-bed8-51d371f6563d
 
 Tags:
 [cli-test-asg]
@@ -26,9 +26,9 @@ Open Alerts:
 TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "019fd720-7953-7e6a-ae89-e345eec00186",
+  "id": "01a0489d-6acd-7eed-856a-b2a3d988e6c2",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-asg-unruffled-cannon",
+  "name": "cli-asg-nifty-taussig",
   "tags": [
     "cli-test-asg"
   ],
@@ -40,7 +40,7 @@ TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
   "target_size": 0,
   "last_scale_out_at": null,
   "last_scale_in_at": null,
-  "template_id": "51980af8-8cd9-4a93-9346-6869e95d56a2",
+  "template_id": "458f3cec-a287-4b37-bed8-51d371f6563d",
   "scaling_policy": {
     "minimum_size": 1,
     "maximum_size": 5,
