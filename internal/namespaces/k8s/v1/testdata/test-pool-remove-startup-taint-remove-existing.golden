@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                4c612bcc-e7e7-4197-a3d6-fa75f0bf6924
-ClusterID         da92ffc0-a764-420f-a03a-dc23adf23d27
+ID                3d907b66-6a2d-4512-8fdf-bc48da359717
+ClusterID         b070109e-4cc1-45b4-b64d-acd9c3aa5693
 CreatedAt         few seconds ago
 UpdatedAt         few seconds ago
 Name              default
@@ -10,7 +10,7 @@ Version           1.35.3
 NodeType          dev1_m
 Autoscaling       false
 Size              1
-MinSize           0
+MinSize           1
 MaxSize           1
 ContainerRuntime  containerd
 Autohealing       false
@@ -18,9 +18,9 @@ Zone              fr-par-1
 RootVolumeType    l_ssd
 RootVolumeSize    40 GB
 PublicIPDisabled  false
-SecurityGroupID   592f683f-83b9-47e4-9434-ca1931bdaa4b
+SecurityGroupID   aa085195-0b80-44df-9c92-8b9c52d8411a
 Region            fr-par
-Srn               -
+Srn               srn://k8s.scw.eu/regions/fr-par/pools/3d907b66-6a2d-4512-8fdf-bc48da359717
 
 Upgrade Policy:
 MaxUnavailable  1
@@ -31,13 +31,14 @@ Node labels:
 
 Node taints:
 KEY  VALUE  EFFECT
+foo  bar    NoSchedule
 
 Node startup taints:
 KEY  VALUE  EFFECT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "4c612bcc-e7e7-4197-a3d6-fa75f0bf6924",
-  "cluster_id": "da92ffc0-a764-420f-a03a-dc23adf23d27",
+  "id": "3d907b66-6a2d-4512-8fdf-bc48da359717",
+  "cluster_id": "b070109e-4cc1-45b4-b64d-acd9c3aa5693",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "name": "default",
@@ -46,7 +47,7 @@ KEY  VALUE  EFFECT
   "node_type": "dev1_m",
   "autoscaling": false,
   "size": 1,
-  "min_size": 0,
+  "min_size": 1,
   "max_size": 1,
   "container_runtime": "containerd",
   "autohealing": false,
@@ -61,12 +62,19 @@ KEY  VALUE  EFFECT
   "root_volume_type": "l_ssd",
   "root_volume_size": 40000000000,
   "public_ip_disabled": false,
-  "security_group_id": "592f683f-83b9-47e4-9434-ca1931bdaa4b",
+  "security_group_id": "aa085195-0b80-44df-9c92-8b9c52d8411a",
   "labels": {},
-  "taints": [],
+  "taints": [
+    {
+      "key": "foo",
+      "value": "bar",
+      "effect": "NoSchedule"
+    }
+  ],
   "startup_taints": [],
   "private_network_id": null,
   "error_message": null,
   "max_termination_grace_period": null,
-  "region": "fr-par"
+  "region": "fr-par",
+  "srn": "srn://k8s.scw.eu/regions/fr-par/pools/3d907b66-6a2d-4512-8fdf-bc48da359717"
 }
