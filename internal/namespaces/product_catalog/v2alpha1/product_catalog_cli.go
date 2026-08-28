@@ -85,7 +85,6 @@ func productCatalogProductList() *core.Command {
 					"instance_local_ssd_snapshot",
 					"instance_local_ssd_storage",
 					"file_storage",
-					"serverless_sql_database",
 				},
 			},
 			{
