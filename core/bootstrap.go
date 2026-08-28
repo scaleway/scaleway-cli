@@ -76,6 +76,12 @@ type BootstrapConfig struct {
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
 func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, result any, err error) {
+	tracingShutdown := TracingInit()
+	defer tracingShutdown()
+
+	ctx, endBootstrapSpan := TracingStartSpan(ctx, "bootstrap")
+	defer endBootstrapSpan()
+
 	// Handles Flags
 	var debug bool
 	var profileFlag string
@@ -146,7 +152,9 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	httpClient := config.HTTPClient
 	if httpClient == nil {
 		httpClient = &http.Client{
-			Transport: &retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
+			Transport: TracingTransport(
+				&retryableHTTPTransport{transport: &SocketPassthroughTransport{}},
+			),
 		}
 	}
 
@@ -209,7 +217,9 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	ctx = InjectMeta(ctx, meta)
 
 	// Load CLI config
+	_, endConfigLoad := TracingStartSpan(ctx, "load-config")
 	cliCfg, err := cliConfig.LoadConfig(ExtractCliConfigPath(ctx))
+	endConfigLoad()
 	if err != nil {
 		printErr := printer.Print(err, nil)
 		if printErr != nil {
@@ -278,7 +288,9 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	rootCmd.PersistentFlags().BoolVarP(&debug, "debug", "D", false, "Enable debug mode")
 	rootCmd.SetArgs(args)
 	rootCmd.SetHelpCommand(&cobra.Command{Hidden: true})
+	_, endExecute := TracingStartSpan(ctx, "execute")
 	err = rootCmd.Execute()
+	endExecute()
 	if err != nil {
 		if _, ok := err.(*interactive.InterruptError); ok {
 			return 130, nil, err
