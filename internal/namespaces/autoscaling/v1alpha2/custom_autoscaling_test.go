@@ -62,9 +62,11 @@ func Test_Group(t *testing.T) {
 	t.Run("Create fail: missing size", core.Test(&core.TestConfig{
 		Commands:   cmds,
 		BeforeFunc: testhelpers.CreateTemplate("Template", "server-type=PRO2-S"),
-		Cmd:        "scw autoscaling group create template-id={{ .Template.ID }}",
+		Cmd:        "scw autoscaling group create template-id={{ .Template.ID }} scaling-policy-spec.fixed-size.size=1",
 		Check: core.TestCheckCombine(
-			core.TestCheckStderrContains(`- 'scaling_policy_spec' is required`),
+			core.TestCheckStderrContains(
+				`Missing required argument 'scaling-policy-spec.minimum-size'`,
+			),
 			core.TestCheckExitCode(1),
 		),
 		AfterFunc: core.AfterFuncCombine(
