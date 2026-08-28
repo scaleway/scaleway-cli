@@ -78,6 +78,120 @@ func createTestContextWithMeta(t *testing.T) context.Context {
 	})
 }
 
+// TestCommandToolExecuteStructuredContent verifies that StructuredContent
+// contains the raw Go value (not a JSON-encoded string) so MCP clients
+// receive proper JSON data they can inspect without parsing.
+func TestCommandToolExecuteStructuredContent(t *testing.T) {
+	type Server struct {
+		ID   string `json:"id"`
+		Name string `json:"name"`
+	}
+
+	cmd := &core.Command{
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "list",
+		ArgsType:  nil,
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			return []*Server{
+				{ID: "server-1", Name: "web-1"},
+				{ID: "server-2", Name: "web-2"},
+			}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, map[string]any{})
+	require.NoError(t, err)
+
+	// StructuredContent should be the raw slice, not a JSON string.
+	servers, ok := result.StructuredContent.([]*Server)
+	require.True(t, ok, "StructuredContent should be []*Server, got %T", result.StructuredContent)
+	require.Len(t, servers, 2)
+	require.Equal(t, "server-1", servers[0].ID)
+	require.Equal(t, "server-2", servers[1].ID)
+	require.Equal(t, "web-1", servers[0].Name)
+	require.Equal(t, "web-2", servers[1].Name)
+}
+
+// TestCommandToolExecuteNilSlice verifies that a nil slice result (e.g. from a
+// list command with no results) is serialized as "[]" instead of "null".
+func TestCommandToolExecuteNilSlice(t *testing.T) {
+	type Server struct {
+		ID string
+	}
+
+	cmd := &core.Command{
+		Namespace: "instance",
+		Resource:  "server",
+		Verb:      "list",
+		ArgsType:  nil,
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			var servers []*Server
+
+			return servers, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, map[string]any{})
+	require.NoError(t, err)
+
+	require.Len(t, result.Content, 1)
+	tc, ok := result.Content[0].(*mcp.TextContent)
+	require.True(t, ok)
+
+	require.Equal(t, "[]", tc.Text)
+}
+
+// TestCommandToolExecuteAppliesDefaultValues verifies that default values
+// from ArgSpecs (e.g. zone) are applied when args are not provided by the caller.
+// This mirrors the normal CLI execution path which calls ApplyDefaultValues.
+func TestCommandToolExecuteAppliesDefaultValues(t *testing.T) {
+	type testArgs struct {
+		Zone string `json:"zone"`
+	}
+
+	executedArgs := &testArgs{}
+	cmd := &core.Command{
+		Namespace: "instance",
+		Resource:  "server-type",
+		Verb:      "list",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "zone",
+				Short:      "Zone",
+				Required:   false,
+				Positional: false,
+				Default: func(ctx context.Context) (string, string) {
+					client := core.ExtractClient(ctx)
+					zone, _ := client.GetDefaultZone()
+
+					return zone.String(), zone.String()
+				},
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			executedArgs = args.(*testArgs)
+
+			return []string{}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+
+	ctx := createTestContextWithMeta(t)
+	_, err := tool.Execute(ctx, map[string]any{})
+	require.NoError(t, err)
+
+	require.Equal(t, "fr-par-1", executedArgs.Zone)
+}
+
 func TestCommandToolExecute(t *testing.T) {
 	type testArgs struct {
 		Name  string `json:"name"`
