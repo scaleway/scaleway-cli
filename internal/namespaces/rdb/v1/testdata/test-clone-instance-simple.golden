@@ -62,8 +62,7 @@ work_mem                         4
     "id": "cabf3e8b-60d6-4e0a-ad86-9649f58056fb",
     "ip": "51.159.114.202",
     "port": 23659,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -108,8 +107,7 @@ work_mem                         4
       "id": "cabf3e8b-60d6-4e0a-ad86-9649f58056fb",
       "ip": "51.159.114.202",
       "port": 23659,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {

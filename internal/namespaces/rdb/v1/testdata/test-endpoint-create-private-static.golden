@@ -11,8 +11,7 @@ e609c33d-72a5-4d32-89a2-3706fba74fec  172.16.0.3     5432  -     -
       "id": "af6a39da-94fe-462f-81d3-ba36dae53b8c",
       "ip": "195.154.71.12",
       "port": 7212,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     },
     {
       "id": "e609c33d-72a5-4d32-89a2-3706fba74fec",

@@ -65,8 +65,7 @@ Password:
     "id": "4e6e7f82-a155-43c6-a364-925b6413e7c3",
     "ip": "195.154.71.12",
     "port": 6467,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -111,8 +110,7 @@ Password:
       "id": "4e6e7f82-a155-43c6-a364-925b6413e7c3",
       "ip": "195.154.71.12",
       "port": 6467,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {

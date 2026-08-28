@@ -163,7 +163,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       }
     ],
@@ -366,7 +365,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -415,7 +413,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -567,7 +564,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -633,7 +629,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       }
     ],
@@ -763,7 +758,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       }
     ],
@@ -972,7 +966,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -1097,7 +1090,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -1112,7 +1104,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -1333,7 +1324,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -1450,7 +1440,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -1712,7 +1701,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -1744,7 +1732,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -1989,7 +1976,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -2004,7 +1990,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -2157,7 +2142,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -2206,7 +2190,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -2476,7 +2459,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -2542,7 +2524,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -2792,7 +2773,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -2807,7 +2787,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -2943,7 +2922,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -2992,7 +2970,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -3356,7 +3333,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -3371,7 +3347,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -3581,7 +3556,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -3630,7 +3604,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -3897,7 +3870,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -3980,7 +3952,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -4185,7 +4156,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -4353,7 +4323,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       }
     ],
@@ -4496,7 +4465,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -4664,7 +4632,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -4834,7 +4801,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -4951,7 +4917,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -5094,7 +5059,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -5143,7 +5107,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -5517,7 +5480,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -5583,7 +5545,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -5845,7 +5806,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -5860,7 +5820,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -6064,7 +6023,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -6198,7 +6156,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -6402,7 +6359,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -6536,7 +6492,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -6837,7 +6792,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -6920,7 +6874,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -7174,7 +7127,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -7240,7 +7192,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -7459,7 +7410,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -7709,7 +7659,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -7775,7 +7724,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -8025,7 +7973,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -8074,7 +8021,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -8549,7 +8495,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -8816,7 +8761,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -8933,7 +8877,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -9209,7 +9152,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -9629,7 +9571,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -9712,7 +9653,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       }
     ],
@@ -9929,7 +9869,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
@@ -10097,7 +10036,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       }
     ],
@@ -10271,7 +10209,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -10546,7 +10483,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": true,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "remote_access": {},
         "type": "option_type_unknown"
       },
       {
@@ -10731,7 +10667,6 @@ c0069aba-31a5-401d-9bdb-58bcdd7859e6  EM-L620E-NVME       empty      4      1   
         },
         "manageable": false,
         "os_id": "00000000-0000-0000-0000-000000000000",
-        "certification": {},
         "type": "option_type_unknown"
       },
       {
