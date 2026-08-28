@@ -30,7 +30,6 @@ ID   IP CIDR  DESCRIPTION
   "endpoints": [
     {
       "port": 6379,
-      "public_network": {},
       "ips": [
         "78.232.49.55"
       ],

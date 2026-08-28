@@ -23,8 +23,7 @@ ID                                    IP             PORT   NAME  HOSTNAME
       "id": "9f32c59c-cc84-4d57-9d23-0c1a639af825",
       "ip": "195.154.69.50",
       "port": 28739,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "Success": {

@@ -31,7 +31,6 @@ afe74bcb-384e-4db0-9292-838ea75d3d59  https://85d5ddd1-c199-4373-8258-28d81e6a8a
     {
       "id": "afe74bcb-384e-4db0-9292-838ea75d3d59",
       "url": "https://85d5ddd1-c199-4373-8258-28d81e6a8ab0.ifr.fr-par.scaleway.com",
-      "public_network": {},
       "disable_auth": false
     }
   ],

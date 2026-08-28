@@ -2,7 +2,8 @@ package server
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"fmt"
 	"net/url"
 	"reflect"
@@ -189,7 +190,7 @@ func (cr *CommandResource) Execute(
 	// Format the result
 	var resultStr string
 	if result != nil {
-		if data, err := json.MarshalIndent(result, "", "  "); err == nil {
+		if data, err := json.Marshal(result, jsontext.WithIndent("  ")); err == nil {
 			resultStr = string(data)
 		} else {
 			resultStr = fmt.Sprintf("%v", result)

@@ -23,8 +23,7 @@ c71b4866-d96c-453e-919a-687f7cd1b350  cli-test  db-dev-s   ready   PostgreSQL-15
       "id": "56e0207e-7ed1-486a-a5ac-f3d23ce91bda",
       "ip": "195.154.71.12",
       "port": 21189,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     },
     "tags": [],
     "settings": [
@@ -69,8 +68,7 @@ c71b4866-d96c-453e-919a-687f7cd1b350  cli-test  db-dev-s   ready   PostgreSQL-15
         "id": "56e0207e-7ed1-486a-a5ac-f3d23ce91bda",
         "ip": "195.154.71.12",
         "port": 21189,
-        "name": null,
-        "load_balancer": {}
+        "name": null
       }
     ],
     "logs_policy": {

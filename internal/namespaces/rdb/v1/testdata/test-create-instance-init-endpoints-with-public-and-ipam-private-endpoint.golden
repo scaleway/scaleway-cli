@@ -72,8 +72,7 @@ Password:
     "id": "02229f84-eb4c-4ba6-a94a-f8f07131ae21",
     "ip": "195.154.70.203",
     "port": 4837,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -130,8 +129,7 @@ Password:
       "id": "02229f84-eb4c-4ba6-a94a-f8f07131ae21",
       "ip": "195.154.70.203",
       "port": 4837,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {

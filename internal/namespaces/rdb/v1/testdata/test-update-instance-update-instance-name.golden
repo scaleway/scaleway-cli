@@ -62,8 +62,7 @@ work_mem                         4
     "id": "c1419b65-cb75-4dee-8160-8ca0a7212318",
     "ip": "195.154.69.220",
     "port": 10635,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -108,8 +107,7 @@ work_mem                         4
       "id": "c1419b65-cb75-4dee-8160-8ca0a7212318",
       "ip": "195.154.69.220",
       "port": 10635,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {

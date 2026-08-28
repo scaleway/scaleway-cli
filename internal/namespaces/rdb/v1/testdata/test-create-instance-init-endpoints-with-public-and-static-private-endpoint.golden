@@ -72,8 +72,7 @@ Password:
     "id": "efc7ca3b-9f17-41cc-9cdf-bebb5415748d",
     "ip": "51.159.8.181",
     "port": 14800,
-    "name": null,
-    "load_balancer": {}
+    "name": null
   },
   "tags": [],
   "settings": [
@@ -130,8 +129,7 @@ Password:
       "id": "efc7ca3b-9f17-41cc-9cdf-bebb5415748d",
       "ip": "51.159.8.181",
       "port": 14800,
-      "name": null,
-      "load_balancer": {}
+      "name": null
     }
   ],
   "logs_policy": {
