@@ -551,6 +551,13 @@ func k8sClusterCreate() *core.Command {
 				},
 			},
 			{
+				Name:       "pools.{index}.max-termination-grace-period",
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "autoscaler-config.scale-down-disabled",
 				Short:      `Forbid cluster autoscaler to scale down the cluster, defaults to false`,
 				Required:   false,
@@ -2007,6 +2014,13 @@ func k8sPoolCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "max-termination-grace-period",
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2212,6 +2226,13 @@ func k8sPoolUpdate() *core.Command {
 			{
 				Name:       "security-group-id",
 				Short:      `Security group ID in which all the nodes of the pool will be moved`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-termination-grace-period",
+				Short:      `New maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

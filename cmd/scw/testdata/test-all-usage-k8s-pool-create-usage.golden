@@ -43,6 +43,7 @@ ARGS:
   [startup-taints.{index}.value]     The taint value corresponding to the taint key
   [startup-taints.{index}.effect]    Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
   [user-data.{key}]                  User data applied and reconciled with the pool
+  [max-termination-grace-period]     Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
   [region=fr-par]                    Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
