@@ -186,6 +186,11 @@ func auditTrailEventList() *core.Command {
 					"serverless_containers_container",
 					"serverless_containers_domain",
 					"serverless_containers_trigger",
+					"serverless_functions_namespace",
+					"serverless_functions_function",
+					"serverless_functions_domain",
+					"serverless_functions_cron",
+					"serverless_functions_trigger",
 				},
 			},
 			{
