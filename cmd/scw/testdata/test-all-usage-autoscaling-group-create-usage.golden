@@ -12,19 +12,20 @@ EXAMPLES:
     scw autoscaling group create scaling-policy-spec.fixed-size.size=3 scaling-policy-spec.maximum-size=5 scaling-policy-spec.minimum-size=1 name=my-autoscaling-group template-id=11111111-1111-1111-1111-111111111111 project-id=11111111-1111-1111-1111-111111111111
 
 ARGS:
-  [project-id]                                                             Project ID to use. If none is passed the default project ID will be used
-  [name=<generated>]                                                       Name of the autoscaling group
-  [tags.{index}]                                                           Tags associated with the group
-  [template-id]                                                            Template ID for instances in this group
-  scaling-policy-spec.minimum-size                                         Minimum number of instances in the group
-  scaling-policy-spec.maximum-size                                         Maximum number of instances in the group
-  [scaling-policy-spec.scale-out-cooldown]                                 Cooldown period after a scale out event
-  [scaling-policy-spec.scale-in-cooldown]                                  Cooldown period after a scale in event
-  [scaling-policy-spec.scale-in-step]                                      Number of instances to remove in a single scale in event
-  [scaling-policy-spec.scale-out-step]                                     Number of instances to add in a single scale out event
-  [scaling-policy-spec.fixed-size.size]                                    
-  [scaling-policy-spec.cpu-target.target-avg-percent]                      
-  [scaling-policy-spec.memory-target.target-avg-percent]                   
+  [project-id]                               Project ID to use. If none is passed the default project ID will be used
+  [name=<generated>]                         Name of the autoscaling group
+  [tags.{index}]                             Tags associated with the group
+  [template-id]                              Template ID for instances in this group
+  scaling-policy-spec.minimum-size           Minimum number of instances in the group
+  scaling-policy-spec.maximum-size           Maximum number of instances in the group
+  [scaling-policy-spec.scale-out-cooldown]   Cooldown period after a scale out event
+  [scaling-policy-spec.scale-in-cooldown]    Cooldown period after a scale in event
+  [scaling-policy-spec.scale-in-step]        Number of instances to remove in a single scale in event
+  [scaling-policy-spec.scale-out-step]       Number of instances to add in a single scale out event
+  scaling-policy-target (one of):
+    scaling-policy-spec.fixed-size.size                                    
+    scaling-policy-spec.cpu-target.target-avg-percent                      
+    scaling-policy-spec.memory-target.target-avg-percent                   
   [load-balancer-configuration-spec.load-balancer-id]                      ID of the load balancer (set to empty to disable)
   [load-balancer-configuration-spec.backends.{index}.backend-id]           ID of the load balancer backend
   [load-balancer-configuration-spec.backends.{index}.address-family]       IP address family (IPv4 or IPv6) (unknown_address_family | ipv4 | ipv6)
