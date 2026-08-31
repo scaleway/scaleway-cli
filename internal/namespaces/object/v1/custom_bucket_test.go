@@ -160,7 +160,7 @@ func Test_BucketCreate(t *testing.T) {
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
 				assert.Equal(t,
-					fmt.Sprintf("https://s3.fr-par.scw.cloud/%s", bucketName6),
+					"https://s3.fr-par.scw.cloud/"+bucketName6,
 					bucket.BucketEndpoint,
 				)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
@@ -250,7 +250,7 @@ func Test_BucketGet(t *testing.T) {
 				assert.Equal(t, []types.Tag(nil), bucket.Tags)
 				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
 				assert.Equal(t,
-					fmt.Sprintf("https://s3.fr-par.scw.cloud/%s", bucketName3),
+					"https://s3.fr-par.scw.cloud/"+bucketName3,
 					bucket.BucketEndpoint,
 				)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
@@ -367,7 +367,7 @@ func Test_BucketUpdate(t *testing.T) {
 				}, bucket.Tags)
 				assert.Equal(t, "https://s3.fr-par.scw.cloud", bucket.APIEndpoint)
 				assert.Equal(t,
-					fmt.Sprintf("https://s3.fr-par.scw.cloud/%s", bucketName3),
+					"https://s3.fr-par.scw.cloud/"+bucketName3,
 					bucket.BucketEndpoint,
 				)
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
