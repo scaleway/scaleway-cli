@@ -112,7 +112,7 @@ func rdbBackup() *core.Command {
 func rdbEngine() *core.Command {
 	return &core.Command{
 		Short:     `Database engines commands`,
-		Long:      `A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.`,
+		Long:      `A database engine is the software component that stores and retrieves your data from a database.`,
 		Namespace: "rdb",
 		Resource:  "engine",
 	}
