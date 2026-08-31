@@ -356,6 +356,12 @@ func bucketUpdateCommand() *core.Command {
 				Required:   false,
 				Short:      "Custom S3 endpoint to use instead of the default",
 			},
+			{
+				Name:       "s3-use-path-style",
+				Positional: false,
+				Required:   false,
+				Short:      "Whether to use path style addressing for S3 API calls or not",
+			},
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -532,7 +538,7 @@ func autocompleteBucketName(
 
 	suggestions := core.AutocompleteSuggestions(nil)
 	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
-	s3UsePathStyle := getS3UsePathStyle(ctx, "false")
+	s3UsePathStyle := getS3UsePathStyle(ctx, "")
 	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
 
 	if completeListBucketsCache == nil {
