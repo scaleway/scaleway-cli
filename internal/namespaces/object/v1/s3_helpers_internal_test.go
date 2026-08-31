@@ -36,7 +36,6 @@ func clearS3Env(t *testing.T) {
 		scw.ScwS3EndpointEnv,
 		scw.ScwS3UsePathStyleEnv,
 		scw.AwsEndpointURLS3,
-		"SCW_S3_ENDPOINT",
 	} {
 		t.Setenv(key, "")
 	}
@@ -243,17 +242,10 @@ func Test_getBucketEndpoint(t *testing.T) {
 		t.Run(c.name, func(t *testing.T) {
 			clearS3Env(t)
 			if c.scwEnv != "" {
-				t.Setenv("SCW_S3_ENDPOINT", c.scwEnv)
+				t.Setenv(scw.ScwS3EndpointEnv, c.scwEnv)
 			}
 
-			opts := []scw.ClientOption{}
-			if c.profileEp != "" {
-				opts = append(opts, scw.WithS3Endpoint(c.profileEp))
-			}
-			client := newTestClient(t, opts...)
-			ctx := ctxWithClient(client)
-
-			got, err := getBucketEndpoint(ctx, name, region, c.custom, c.usePathStyle)
+			got, err := getBucketEndpoint(name, region, c.custom, c.usePathStyle)
 			if err != nil {
 				t.Fatalf("getBucketEndpoint returned an unexpected error: %v", err)
 			}
@@ -266,11 +258,9 @@ func Test_getBucketEndpoint(t *testing.T) {
 
 func Test_getBucketEndpoint_invalidURL(t *testing.T) {
 	clearS3Env(t)
-	t.Setenv("SCW_S3_ENDPOINT", "://not-a-valid-url")
-	client := newTestClient(t)
-	ctx := ctxWithClient(client)
+	t.Setenv(scw.ScwS3EndpointEnv, "://not-a-valid-url")
 
-	_, err := getBucketEndpoint(ctx, "my-bucket", "fr-par", "", false)
+	_, err := getBucketEndpoint("my-bucket", "fr-par", "", false)
 	if err == nil {
 		t.Fatal("expected an error for an invalid endpoint URL, got nil")
 	}
