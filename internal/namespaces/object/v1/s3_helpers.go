@@ -300,7 +300,9 @@ func getBucketEndpoint(
 	var ep string
 	if s3Endpoint != "" {
 		ep = s3Endpoint
-	} else if envVarEp := os.Getenv("SCW_S3_ENDPOINT"); envVarEp != "" {
+	} else if envVarEp := os.Getenv(scw.ScwS3EndpointEnv); envVarEp != "" {
+		ep = envVarEp
+	} else if envVarEp := scw.GetS3EndpointFromAWSConf(); envVarEp != "" {
 		ep = envVarEp
 	} else if s3EndpointOk && profileS3Endpoint != "" {
 		ep = profileS3Endpoint
