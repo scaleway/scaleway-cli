@@ -2,25 +2,25 @@
 version: 1
 interactions:
 - request:
-    body: ""
+    body: '{"versions":[{"version":"8.0.26","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"7.0.37","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.34","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.30","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.28","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.21","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.12","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]}],"total_count":7}'
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.37.0.20260811153053-2d13f29b7d2d (go1.26.5; darwin;
+      - scaleway-sdk-go/v1.0.0-beta.36.0.20260728072515-06ce6827839d (go1.26.5; darwin;
         arm64) cli-e2e-test
     url: https://api.scaleway.com/mongodb/v1alpha1/regions/fr-par/versions
     method: GET
   response:
-    body: '{"versions":[{"version":"8.0.29","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"8.0.26","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"7.0.40","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.37","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.34","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.30","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.28","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.21","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.12","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]}],"total_count":9}'
+    body: '{"versions":[{"version":"8.0.26","end_of_life_at":"2029-10-31T00:00:00Z","available_settings":[]},{"version":"7.0.37","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.34","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.30","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.28","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.21","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]},{"version":"7.0.12","end_of_life_at":"2027-08-31T00:00:00Z","available_settings":[]}],"total_count":7}'
     headers:
       Content-Length:
-      - "795"
+      - "625"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Wed, 19 Aug 2026 09:36:25 GMT
+      - Wed, 29 Jul 2026 11:03:09 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -30,7 +30,7 @@ interactions:
       X-Frame-Options:
       - DENY
       X-Request-Id:
-      - 83f33a39-38ad-4317-adf7-4bcd4740246c
+      - e93db55a-29cc-405c-991e-badfb394b524
     status: 200 OK
     code: 200
     duration: ""
