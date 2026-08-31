@@ -136,7 +136,7 @@ type bucketDeleteArgs struct {
 	Name           string
 	ProjectID      string
 	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle bool   `json:"s3-use-path-style"`
+	S3UsePathStyle string `json:"s3-use-path-style"`
 }
 
 func bucketDeleteCommand() *core.Command {
@@ -174,7 +174,8 @@ func bucketDeleteCommand() *core.Command {
 			args := argsI.(*bucketDeleteArgs)
 
 			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, args.S3UsePathStyle)
+			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
