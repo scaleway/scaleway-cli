@@ -121,6 +121,7 @@ scw object bucket update <name ...> [arg=value ...]
 | enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
 | acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
 | s3-endpoint       | Custom S3 endpoint to use instead of the default                            |                         |
+| s3-use-path-style | Whether to use path style addressing for S3 API calls or not                |                         |
 | project-id        | Project ID to use. If none is passed the default project ID will be used    |                         |
 | region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
