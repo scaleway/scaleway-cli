@@ -120,6 +120,7 @@ func extractS3BucketAndPath(hostParts []string, path string) (bucket, remainingP
 	if idx := strings.Index(trimmed, "/"); idx >= 0 {
 		return trimmed[:idx], trimmed[idx:]
 	}
+
 	return trimmed, ""
 }
 
