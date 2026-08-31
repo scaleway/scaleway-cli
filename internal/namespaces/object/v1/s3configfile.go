@@ -92,7 +92,6 @@ func newS3Config(
 	region scw.Region,
 	name string,
 	projectID string,
-	s3Endpoint string,
 ) (s3config, error) {
 	client := core.ExtractClient(ctx)
 	accessKey, accessExists := client.GetAccessKey()
@@ -114,7 +113,7 @@ func newS3Config(
 		accessKey += "@" + projectID
 	}
 
-	s3Endpoint = getS3Endpoint(ctx, region.String(), s3Endpoint)
+	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
 	s3Endpoint = strings.TrimPrefix(s3Endpoint, "https://") // Manually handled in the templates
 
 	config := s3config{
