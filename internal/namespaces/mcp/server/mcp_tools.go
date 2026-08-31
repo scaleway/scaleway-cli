@@ -8,6 +8,7 @@ import (
 	"maps"
 	"os"
 	"reflect"
+	"sort"
 	"strconv"
 	"strings"
 
@@ -113,41 +114,11 @@ func (ct *CommandTool) Execute(
 	if ct.Command.ArgsType != nil {
 		cmdArgs = reflect.New(ct.Command.ArgsType).Interface()
 
-		// Convert map[string]any to []string format expected by args.UnmarshalStruct
-		// Format: ["arg1=value1", "arg2=value2"]
+		// Convert map[string]any to []string format expected by args.UnmarshalStruct.
+		// Format: ["arg1=value1", "arg2=value2"].
 		rawArgs := make([]string, 0, len(inputArgs))
 		for argName, argValue := range inputArgs {
-			// Convert from kebab-case back to original arg spec name
-			originalName := argName
-			for _, spec := range ct.Command.ArgSpecs {
-				if strcase.ToKebab(spec.Name) == argName {
-					originalName = spec.Name
-
-					break
-				}
-			}
-
-			// Convert value to string
-			var valueStr string
-			switch v := argValue.(type) {
-			case string:
-				valueStr = v
-			case bool:
-				valueStr = strconv.FormatBool(v)
-			case float64:
-				valueStr = fmt.Sprintf("%v", v)
-			case int:
-				valueStr = strconv.Itoa(v)
-			default:
-				// For complex types, marshal to JSON
-				if b, marshalErr := json.Marshal(v); marshalErr == nil {
-					valueStr = string(b)
-				} else {
-					valueStr = fmt.Sprintf("%v", v)
-				}
-			}
-
-			rawArgs = append(rawArgs, originalName+"="+valueStr)
+			rawArgs = append(rawArgs, inputArgToRawArgs(ct.Command.ArgSpecs, argName, argValue)...)
 		}
 
 		// Apply default values for missing args (e.g. zone, region).
@@ -254,6 +225,120 @@ func (ct *CommandTool) Execute(
 	}
 
 	return callResult, nil
+}
+
+func inputArgToRawArgs(argSpecs core.ArgSpecs, argName string, argValue any) []string {
+	if originalName, ok := exactArgSpecName(argSpecs, argName); ok {
+		return []string{rawArg(originalName, argValue)}
+	}
+
+	for _, spec := range argSpecs {
+		if rawArgs, ok := dynamicArgToRawArgs(spec.Name, argName, argValue); ok {
+			return rawArgs
+		}
+	}
+
+	return []string{rawArg(argName, argValue)}
+}
+
+func exactArgSpecName(argSpecs core.ArgSpecs, argName string) (string, bool) {
+	for _, spec := range argSpecs {
+		if strcase.ToKebab(spec.Name) == argName {
+			return spec.Name, true
+		}
+	}
+
+	return "", false
+}
+
+func dynamicArgToRawArgs(specName string, argName string, argValue any) ([]string, bool) {
+	switch {
+	case strings.Count(specName, dynamicArrayPlaceholder) == 1 &&
+		strings.HasSuffix(specName, dynamicArrayPlaceholder):
+		prefix := strings.TrimSuffix(specName, dynamicArrayPlaceholder)
+		if strcase.ToKebab(prefix) != argName {
+			return nil, false
+		}
+
+		return arrayArgToRawArgs(prefix, argValue), true
+
+	case strings.Count(specName, dynamicMapPlaceholder) == 1 &&
+		strings.HasSuffix(specName, dynamicMapPlaceholder):
+		prefix := strings.TrimSuffix(specName, dynamicMapPlaceholder)
+		if strcase.ToKebab(prefix) != argName {
+			return nil, false
+		}
+
+		return mapArgToRawArgs(prefix, argValue), true
+	}
+
+	return nil, false
+}
+
+func arrayArgToRawArgs(prefix string, argValue any) []string {
+	value := reflect.ValueOf(argValue)
+	if !value.IsValid() || value.Kind() != reflect.Slice && value.Kind() != reflect.Array {
+		return []string{rawArg(prefix, argValue)}
+	}
+
+	rawArgs := make([]string, 0, value.Len())
+	for i := range value.Len() {
+		rawArgName := prefix + dynamicArgSeparator + strconv.Itoa(i)
+		rawArgs = append(rawArgs, rawArg(rawArgName, value.Index(i).Interface()))
+	}
+
+	return rawArgs
+}
+
+func mapArgToRawArgs(prefix string, argValue any) []string {
+	value := reflect.ValueOf(argValue)
+	if !value.IsValid() ||
+		value.Kind() != reflect.Map ||
+		value.Type().Key().Kind() != reflect.String {
+		return []string{rawArg(prefix, argValue)}
+	}
+
+	keys := make([]string, 0, value.Len())
+	iter := value.MapRange()
+	for iter.Next() {
+		keys = append(keys, iter.Key().String())
+	}
+	sort.Strings(keys)
+
+	rawArgs := make([]string, 0, len(keys))
+	for _, key := range keys {
+		rawArgName := prefix + dynamicArgSeparator + key
+		rawArgs = append(
+			rawArgs,
+			rawArg(rawArgName, value.MapIndex(reflect.ValueOf(key)).Interface()),
+		)
+	}
+
+	return rawArgs
+}
+
+func rawArg(argName string, argValue any) string {
+	return argName + "=" + argValueToString(argValue)
+}
+
+func argValueToString(argValue any) string {
+	switch v := argValue.(type) {
+	case string:
+		return v
+	case bool:
+		return strconv.FormatBool(v)
+	case float64:
+		return fmt.Sprintf("%v", v)
+	case int:
+		return strconv.Itoa(v)
+	default:
+		// For complex types, marshal to JSON.
+		if b, marshalErr := json.Marshal(v); marshalErr == nil {
+			return string(b)
+		}
+
+		return fmt.Sprintf("%v", v)
+	}
 }
 
 // CommandNameToToolName converts a command to an MCP tool name

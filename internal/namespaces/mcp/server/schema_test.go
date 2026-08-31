@@ -1,10 +1,25 @@
 package server_test
 
 import (
+	"encoding/json"
 	"testing"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp/server"
+)
+
+const (
+	arrayArgName          = "tags.{index}"
+	arrayPropertyName     = "tags"
+	mapArgName            = "environment-variables.{key}"
+	mapPropertyName       = "environment-variables"
+	schemaTypeArray       = "array"
+	schemaTypeObject      = "object"
+	schemaTypeString      = "string"
+	schemaPropertiesKey   = "properties"
+	schemaTypeKey         = "type"
+	schemaItemsKey        = "items"
+	schemaAdditionalProps = "additionalProperties"
 )
 
 func TestCommandToFlatArgsSchema(t *testing.T) {
@@ -61,5 +76,84 @@ func TestArgSpecToJSONSchema(t *testing.T) {
 
 	if len(schema.Enum) != 2 {
 		t.Errorf("Expected 2 enum values, got %d", len(schema.Enum))
+	}
+
+	defaultSchema := server.ArgSpecToJSONSchema(&core.ArgSpec{
+		Name:  "default-arg",
+		Short: "Default argument",
+	})
+	if defaultSchema.Type != "string" {
+		t.Errorf("Expected default type 'string', got '%s'", defaultSchema.Type)
+	}
+}
+
+func TestCommandToFlatArgsSchemaDynamicArgs(t *testing.T) {
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "create",
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  arrayArgName,
+				Short: "Tags",
+			},
+			{
+				Name:  mapArgName,
+				Short: "Environment variables",
+			},
+		},
+	}
+
+	schema := server.CommandToFlatArgsSchema(cmd)
+	rawSchema, err := json.Marshal(schema)
+	if err != nil {
+		t.Fatalf("Failed to marshal schema: %v", err)
+	}
+
+	var decoded map[string]any
+	if err := json.Unmarshal(rawSchema, &decoded); err != nil {
+		t.Fatalf("Failed to unmarshal schema: %v", err)
+	}
+
+	properties := decoded[schemaPropertiesKey].(map[string]any)
+	if _, ok := properties[arrayArgName]; ok {
+		t.Fatalf("Schema should not expose literal placeholder property %q", arrayArgName)
+	}
+	if _, ok := properties[mapArgName]; ok {
+		t.Fatalf("Schema should not expose literal placeholder property %q", mapArgName)
+	}
+
+	tags := properties[arrayPropertyName].(map[string]any)
+	if tags[schemaTypeKey] != schemaTypeArray {
+		t.Fatalf(
+			"Expected %q to be an array schema, got %v",
+			arrayPropertyName,
+			tags[schemaTypeKey],
+		)
+	}
+	tagItems := tags[schemaItemsKey].(map[string]any)
+	if tagItems[schemaTypeKey] != schemaTypeString {
+		t.Fatalf(
+			"Expected %q items to be strings, got %v",
+			arrayPropertyName,
+			tagItems[schemaTypeKey],
+		)
+	}
+
+	environmentVariables := properties[mapPropertyName].(map[string]any)
+	if environmentVariables[schemaTypeKey] != schemaTypeObject {
+		t.Fatalf(
+			"Expected %q to be an object schema, got %v",
+			mapPropertyName,
+			environmentVariables[schemaTypeKey],
+		)
+	}
+	additionalProperties := environmentVariables[schemaAdditionalProps].(map[string]any)
+	if additionalProperties[schemaTypeKey] != schemaTypeString {
+		t.Fatalf(
+			"Expected %q values to be strings, got %v",
+			mapPropertyName,
+			additionalProperties[schemaTypeKey],
+		)
 	}
 }
