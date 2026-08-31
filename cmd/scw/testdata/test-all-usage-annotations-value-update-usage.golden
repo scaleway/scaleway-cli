@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Update name or description. Global update.
+Update name or description.
 
 USAGE:
   scw annotations value update [arg=value ...]
