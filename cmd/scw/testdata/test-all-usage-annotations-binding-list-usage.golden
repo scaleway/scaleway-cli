@@ -1,12 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.
+List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
 
 USAGE:
   scw annotations binding list [arg=value ...]
 
 ARGS:
-  [srn]               Scaleway Resource Number for which to list all bindings.
+  [srn]               Scaleway Resource Name for which to list all bindings.
   [value-id]          Value ID for which to list all bindings.
   [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
 
