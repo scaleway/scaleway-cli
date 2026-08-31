@@ -274,10 +274,9 @@ func bucketGetCommand() *core.Command {
 }
 
 type bucketListArgs struct {
-	Region         scw.Region
-	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	Region     scw.Region
+	ProjectID  string
+	S3Endpoint string `json:"s3-endpoint"`
 }
 
 func bucketListCommand() *core.Command {
