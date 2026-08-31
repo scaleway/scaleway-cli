@@ -7,6 +7,7 @@ import (
 	"fmt"
 	"net/url"
 	"os"
+	"strconv"
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
@@ -274,8 +275,10 @@ func getS3UsePathStyle(ctx context.Context, usePathStyle string) bool {
 	}
 
 	// SCW environment variable
-	if flag := os.Getenv(scw.ScwS3UsePathStyleEnv); flag == "true" {
-		return true
+	if flag := os.Getenv(scw.ScwS3UsePathStyleEnv); flag != "" {
+		if parsed, err := strconv.ParseBool(flag); err == nil {
+			return parsed
+		}
 	}
 
 	// Profile field value
@@ -309,7 +312,7 @@ func getBucketEndpoint(
 			return "", fmt.Errorf("could not parse custom endpoint %s: %w", ep, err)
 		}
 		if s3UsePathStyle {
-			u = u.JoinPath(u.Path, name)
+			u = u.JoinPath(name)
 		} else {
 			u.Host = name + "." + u.Host
 		}
