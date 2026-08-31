@@ -33,8 +33,19 @@ func groupMarshalerFunc(i any, opt *human.MarshalOpt) (string, error) {
 }
 
 func GroupCreateBuilder(c *core.Command) *core.Command {
+	// Both minimum-size and maximum-size are required
 	c.ArgSpecs.GetByName("scaling-policy-spec.minimum-size").Required = true
 	c.ArgSpecs.GetByName("scaling-policy-spec.maximum-size").Required = true
+
+	// One of fixed-size, cpu-target or memory-target must be set
+	c.ArgSpecs.GetByName("scaling-policy-spec.fixed-size.size").OneOfGroup = "scaling-policy-target"
+	c.ArgSpecs.GetByName("scaling-policy-spec.cpu-target.target-avg-percent").OneOfGroup = "scaling-policy-target"
+	c.ArgSpecs.GetByName("scaling-policy-spec.memory-target.target-avg-percent").OneOfGroup = "scaling-policy-target"
+	c.ArgSpecs.GetByName("scaling-policy-spec.fixed-size.size").Required = true
+	c.ArgSpecs.GetByName("scaling-policy-spec.cpu-target.target-avg-percent").Required = true
+	c.ArgSpecs.GetByName("scaling-policy-spec.memory-target.target-avg-percent").Required = true
+
+	// Name is required by the API, so the CLI generates one if none is provided
 	c.ArgSpecs.GetByName("name").Default = core.RandomValueGenerator("asg")
 
 	return c

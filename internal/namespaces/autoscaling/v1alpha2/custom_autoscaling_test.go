@@ -24,7 +24,7 @@ func Test_Group(t *testing.T) {
 	cmds := autoscaling.GetCommands()
 	cmds.Merge(instanceCLIV2.GetCommands())
 
-	t.Run("Create", core.Test(&core.TestConfig{
+	t.Run("Create OK", core.Test(&core.TestConfig{
 		Commands:   cmds,
 		BeforeFunc: testhelpers.CreateTemplate("Template", "server-type=PRO2-S"),
 		Cmd: "scw autoscaling group create scaling-policy-spec.minimum-size=1 scaling-policy-spec.maximum-size=5" +
@@ -55,6 +55,37 @@ func Test_Group(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteGroup(),
+			testhelpers.DeleteTemplate("Template"),
+		),
+	}))
+
+	t.Run("Create fail: missing size", core.Test(&core.TestConfig{
+		Commands:   cmds,
+		BeforeFunc: testhelpers.CreateTemplate("Template", "server-type=PRO2-S"),
+		Cmd:        "scw autoscaling group create template-id={{ .Template.ID }} scaling-policy-spec.fixed-size.size=1",
+		Check: core.TestCheckCombine(
+			core.TestCheckStderrContains(
+				`Missing required argument 'scaling-policy-spec.minimum-size'`,
+			),
+			core.TestCheckExitCode(1),
+		),
+		AfterFunc: core.AfterFuncCombine(
+			testhelpers.DeleteTemplate("Template"),
+		),
+	}))
+
+	t.Run("Create fail: missing target", core.Test(&core.TestConfig{
+		Commands:   cmds,
+		BeforeFunc: testhelpers.CreateTemplate("Template", "server-type=PRO2-S"),
+		Cmd: "scw autoscaling group create template-id={{ .Template.ID }}" +
+			" scaling-policy-spec.minimum-size=1 scaling-policy-spec.maximum-size=5",
+		Check: core.TestCheckCombine(
+			core.TestCheckStderrContains(
+				`At least one argument from the 'scaling-policy-target' group is required`,
+			),
+			core.TestCheckExitCode(1),
+		),
+		AfterFunc: core.AfterFuncCombine(
 			testhelpers.DeleteTemplate("Template"),
 		),
 	}))

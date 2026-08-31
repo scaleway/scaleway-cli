@@ -1584,13 +1584,20 @@ func dediboxOsList() *core.Command {
 			{
 				Name:       "server-id",
 				Short:      `Filter OS by compatible server ID`,
-				Required:   true,
+				Required:   false,
 				Deprecated: false,
-				Positional: true,
+				Positional: false,
 			},
 			{
 				Name:       "project-id",
 				Short:      `Project ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "offer-id",
+				Short:      `Filter OS by compatible offer ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
