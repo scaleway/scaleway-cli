@@ -18,6 +18,7 @@ func newTestClient(t *testing.T, opts ...scw.ClientOption) *scw.Client {
 	if err != nil {
 		t.Fatalf("could not create scw client: %v", err)
 	}
+
 	return client
 }
 
