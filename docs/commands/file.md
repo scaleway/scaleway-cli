@@ -153,13 +153,23 @@ scw file filesystem update [arg=value ...]
 
 Filesystem-type management.
 
-Filesystem-type management.
+
+### List filesystems types
+
+List filesystems types.
 
 **Usage:**
 
 ```shell
-scw file filesystem-type
+scw file filesystem-type list [arg=value ...]
 ```
+
+
+**Arguments:**
+
+| Name   | Description                                                                 | Argument Specifications                        |
+|--------|-----------------------------------------------------------------------------|------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `all` |
 
 
 
