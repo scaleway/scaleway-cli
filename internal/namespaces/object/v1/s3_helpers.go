@@ -273,10 +273,8 @@ func getS3Endpoint(ctx context.Context, region string, customEndpoint string) st
 func getS3UsePathStyle(ctx context.Context, usePathStyle string) bool {
 	// CLI argument
 	if usePathStyle != "" {
-		if usePathStyle == "true" {
-			return true
-		} else {
-			return false
+		if parsed, err := strconv.ParseBool(usePathStyle); err == nil {
+			return parsed
 		}
 	}
 

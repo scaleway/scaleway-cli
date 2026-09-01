@@ -153,6 +153,20 @@ func Test_getS3UsePathStyle(t *testing.T) {
 			expected:     true,
 		},
 		{
+			name:         "CLI arg '1' parses as true like env var does",
+			cliArg:       "1",
+			scwEnv:       "false",
+			profileValue: false,
+			expected:     true,
+		},
+		{
+			name:         "CLI arg 'T' parses as true like env var does",
+			cliArg:       "T",
+			scwEnv:       "false",
+			profileValue: false,
+			expected:     true,
+		},
+		{
 			name:         "default false when nothing is set",
 			cliArg:       "",
 			profileValue: false,
