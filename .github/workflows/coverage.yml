@@ -22,7 +22,7 @@ jobs:
       - name: Run coverage
         run: go tool gotestsum --format github-actions --junitfile junit.xml -- -coverprofile=coverage.out -covermode=count ./...
       - name: Upload coverage to Codecov
-        uses: codecov/codecov-action@e79a6962e0d4c0c17b229090214935d2e33f8354 # v6.0.1
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
       - name: Upload test results to Codecov
         if: ${{ !cancelled() }}
         uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1.2.1
