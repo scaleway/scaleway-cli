@@ -293,6 +293,8 @@ func getS3UsePathStyle(ctx context.Context, usePathStyle string) bool {
 	return scwClient.GetS3UsePathStyle()
 }
 
+// getBucketEndpoint builds the bucket endpoint with s3Endpoint if not empty,
+// otherwise defaults to the default value with current region.
 func getBucketEndpoint(
 	name, region string,
 	s3Endpoint string,

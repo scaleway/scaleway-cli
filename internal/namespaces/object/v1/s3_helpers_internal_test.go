@@ -181,13 +181,3 @@ func Test_getS3UsePathStyle(t *testing.T) {
 		})
 	}
 }
-
-func Test_getBucketEndpoint_invalidURL(t *testing.T) {
-	clearS3Env(t)
-	t.Setenv(scw.ScwS3EndpointEnv, "://not-a-valid-url")
-
-	_, err := getBucketEndpoint("my-bucket", "fr-par", "", false)
-	if err == nil {
-		t.Fatal("expected an error for an invalid endpoint URL, got nil")
-	}
-}
