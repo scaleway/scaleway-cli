@@ -9,7 +9,7 @@ AVAILABLE COMMANDS:
   create      Create an annotation key.
   delete      Delete a key definition. Fails if the key has any associated values.
   get         Retrieve a specific key.
-  list        List of keys.
+  list        List all keys, sorted alphabetically by name.
   update      Update name or description. All associated resources will immediately display the new name.
 
 FLAGS:

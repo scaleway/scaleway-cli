@@ -546,7 +546,7 @@ scw rdb endpoint migrate [arg=value ...]
 
 ## Database engines commands
 
-A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
+A database engine is the software component that stores and retrieves your data from a database.
 
 
 ### List available database engines

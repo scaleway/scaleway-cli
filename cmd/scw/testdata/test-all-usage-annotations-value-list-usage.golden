@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-List all values for a key, sorted alphabetically by name.
+List all values, sorted alphabetically by name.
 
 USAGE:
   scw annotations value list [arg=value ...]

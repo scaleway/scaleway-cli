@@ -8,9 +8,9 @@ USAGE:
 AVAILABLE COMMANDS:
   create                    Attach a value to a resource. Fails if the resource already has a value for this key.
   delete                    Detach an annotation from a resource.
-  delete-all-matching-srn   Delete ALL bindings associated with a Scaleway Resource Number.
+  delete-all-matching-srn   Delete ALL bindings associated with a Scaleway Resource Name.
   delete-all-matching-value Delete ALL bindings associated with a value.
-  list                      List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.
+  list                      List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
 
 FLAGS:
   -h, --help                help for binding
