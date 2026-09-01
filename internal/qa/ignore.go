@@ -1,6 +1,7 @@
 package qa
 
 import (
+	"context"
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/commands"
@@ -53,15 +54,16 @@ func areCommandsEquals(c1 *core.Command, c2 *core.Command) bool {
 
 var ignoredErrors = []ignoredError{
 	{
-		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: commands.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
+		Type: reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
+		Command: commands.GetCommands(context.Background()).
+			MustFind("k8s", "kubeconfig", "uninstall"),
 	},
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: commands.GetCommands().MustFind("registry", "logout"),
+		Command: commands.GetCommands(context.Background()).MustFind("registry", "logout"),
 	},
 	{
 		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
-		Command: commands.GetCommands().MustFind("registry", "login"),
+		Command: commands.GetCommands(context.Background()).MustFind("registry", "login"),
 	},
 }
