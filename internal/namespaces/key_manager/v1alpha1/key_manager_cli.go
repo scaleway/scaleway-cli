@@ -96,8 +96,6 @@ func keymanagerKeyCreate() *core.Command {
 					"rsa_oaep_2048_sha256",
 					"rsa_oaep_3072_sha256",
 					"rsa_oaep_4096_sha256",
-					"ml_kem_768",
-					"ml_kem_1024",
 				},
 			},
 			{
@@ -119,6 +117,18 @@ func keymanagerKeyCreate() *core.Command {
 					"ml_dsa_44",
 					"ml_dsa_65",
 					"ml_dsa_87",
+					"ec_secp256k1_sha256",
+				},
+			},
+			{
+				Name:       "usage.key-encapsulation",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_key_encapsulation",
+					"ml_kem_768",
+					"ml_kem_1024",
 				},
 			},
 			{
