@@ -126,7 +126,7 @@ func imageCreateBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customCreateImageRequest{})
+	c.ArgsType = reflect.TypeFor[customCreateImageRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -179,7 +179,7 @@ func imageListBuilder(c *core.Command) *core.Command {
 	renameProjectIDArgSpec(c.ArgSpecs)
 	c.ArgSpecs.DeleteByName("public")
 
-	c.ArgsType = reflect.TypeOf(customListImageRequest{})
+	c.ArgsType = reflect.TypeFor[customListImageRequest]()
 
 	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		// Get images
@@ -282,7 +282,7 @@ func imageDeleteBuilder(c *core.Command) *core.Command {
 		WithSnapshots bool
 	}
 
-	c.ArgsType = reflect.TypeOf(customDeleteImageRequest{})
+	c.ArgsType = reflect.TypeFor[customDeleteImageRequest]()
 	c.ArgSpecs.AddBefore("zone", &core.ArgSpec{
 		Name:  "with-snapshots",
 		Short: "Delete the snapshots attached to this image",
@@ -382,7 +382,7 @@ func imageWaitCommand() *core.Command {
 		Resource:  "image",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(instance.WaitForImageRequest{}),
+		ArgsType:  reflect.TypeFor[instance.WaitForImageRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 

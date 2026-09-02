@@ -20,7 +20,7 @@ func dnsRecordAddCommand() *core.Command {
 		Namespace: "dns",
 		Verb:      "add",
 		Resource:  "record",
-		ArgsType:  reflect.TypeOf(dnsRecordAddRequest{}),
+		ArgsType:  reflect.TypeFor[dnsRecordAddRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",

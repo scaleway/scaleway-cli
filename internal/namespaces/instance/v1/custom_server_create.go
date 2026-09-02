@@ -55,7 +55,7 @@ func serverCreateCommand() *core.Command {
 		Namespace: "instance",
 		Verb:      "create",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instanceCreateServerRequest{}),
+		ArgsType:  reflect.TypeFor[instanceCreateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "image",
