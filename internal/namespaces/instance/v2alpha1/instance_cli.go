@@ -731,14 +731,14 @@ func instanceServerDelete() *core.Command {
 			},
 			{
 				Name:       "delete-all-volumes",
-				Short:      `Whether to delete all volumes attached to the server`,
+				Short:      `Whether to delete all volumes attached to the server. Deletion of SBS volumes is not supported yet.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "delete-volume-ids.{index}",
-				Short:      `List of volume IDs to delete`,
+				Short:      `List of volume IDs to delete. Deletion of SBS volumes is not supported yet.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
