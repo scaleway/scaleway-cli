@@ -95,6 +95,7 @@ scw sdb-sql database create [arg=value ...]
 | cpu-min        | The minimum number of CPU units for your Serverless SQL Database.           | Required                                |
 | cpu-max        | The maximum number of CPU units for your Serverless SQL Database.           | Required                                |
 | from-backup-id | The ID of the backup to create the database from.                           |                                         |
+| version        | The major version of the postgreSQL requested.                              |                                         |
 | region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
 
 
@@ -202,6 +203,20 @@ scw sdb-sql database update <database-id ...> [arg=value ...]
 | cpu-min     | The minimum number of CPU units for your Serverless SQL Database.           |                                         |
 | cpu-max     | The maximum number of CPU units for your Serverless SQL Database.           |                                         |
 | region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par` |
+
+
+
+## 
+
+
+
+
+
+**Usage:**
+
+```shell
+scw sdb-sql version
+```
 
 
 
