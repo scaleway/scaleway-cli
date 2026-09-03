@@ -64,4 +64,4 @@ jobs:
       - name: Checkout
         uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
       - name: rumdl
-        uses: rvben/rumdl@95a982d941d00cf41a0dcef4d0788bd15a29be1b # v0.2.54
+        uses: rvben/rumdl@96c8520425eaf1b6d362e4a98754adf6ee604acb # v0.2.62
