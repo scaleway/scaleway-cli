@@ -1,0 +1,39 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID          6af00c69-7c6c-4161-9a77-7376ba2edd85
+ProjectID   fa1e3217-dc80-42ac-85c3-3f034b78b552
+Name        cli-pg-mystifying-chatelet
+PolicyType  max_availability
+CreatedAt   few seconds ago
+UpdatedAt   few seconds ago
+Zone        fr-par-1
+
+Servers:
+ID                                    NAME                   PROJECT ID                            TAGS  SERVER TYPE  PLACEMENT GROUP ID                    STATUS   ARCHITECTURE  CREATED AT       UPDATED AT       RESCUE MODE
+76db0e1b-906d-4a93-a32f-9c6a6abf89ab  cli-srv-adoring-kirch  fa1e3217-dc80-42ac-85c3-3f034b78b552  []    DEV1-S       6af00c69-7c6c-4161-9a77-7376ba2edd85  stopped  x86_64        few seconds ago  few seconds ago  false
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "6af00c69-7c6c-4161-9a77-7376ba2edd85",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "name": "cli-pg-mystifying-chatelet",
+  "policy_type": "max_availability",
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z",
+  "zone": "fr-par-1",
+  "servers": [
+    {
+      "id": "76db0e1b-906d-4a93-a32f-9c6a6abf89ab",
+      "name": "cli-srv-adoring-kirch",
+      "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+      "tags": [],
+      "server_type": "DEV1-S",
+      "placement_group_id": "6af00c69-7c6c-4161-9a77-7376ba2edd85",
+      "status": "stopped",
+      "architecture": "x86_64",
+      "created_at": "1970-01-01T00:00:00.0Z",
+      "updated_at": "1970-01-01T00:00:00.0Z",
+      "rescue_mode": false
+    }
+  ]
+}

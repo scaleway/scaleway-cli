@@ -8,7 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   image           Image management commands
   ip              IP management commands
-  placement-group Placement group management commands
+  placement-group Set placement group
   private-nic     Private NIC management commands
   security-group  Security group management commands
   server          Instance management commands

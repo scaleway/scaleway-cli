@@ -6,9 +6,9 @@ interactions:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 133
+        content_length: 134
         host: api.scaleway.com
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-affectionate-knuth","policy_type":"max_availability","tags":null}'
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-mystifying-chatelet","policy_type":"max_availability","tags":null}'
         headers:
             Content-Type:
                 - application/json
@@ -20,17 +20,17 @@ interactions:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 286
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-affectionate-knuth", "id":"5da636b5-e7c5-42fb-87f1-f6191f6384b7", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T11:43:24.643952Z", "updated_at":"2026-09-04T11:43:24.643952Z", "zone":"fr-par-1"}'
+        content_length: 287
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-mystifying-chatelet", "id":"6af00c69-7c6c-4161-9a77-7376ba2edd85", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T15:27:27.914245Z", "updated_at":"2026-09-03T15:27:27.914245Z", "zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "286"
+                - "287"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:24 GMT
+                - Thu, 03 Sep 2026 15:27:27 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -38,52 +38,11 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 51c64ef3-330c-4932-97fc-44760b56d79b
+                - f162be63-1ce3-4180-9ca7-11a8cc7ee957
         status: 200 OK
         code: 200
-        duration: 211.165063ms
+        duration: 515.311541ms
     - id: 1
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 126
-        host: api.scaleway.com
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-keen-cannon","policy_type":"max_availability","tags":null}'
-        headers:
-            Content-Type:
-                - application/json
-            User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups
-        method: POST
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        content_length: 279
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-keen-cannon", "id":"65d807e6-cfe0-4cd0-be8d-ae505f4b6ee9", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T11:43:24.802952Z", "updated_at":"2026-09-04T11:43:24.802952Z", "zone":"fr-par-1"}'
-        headers:
-            Content-Length:
-                - "279"
-            Content-Type:
-                - application/json
-            Date:
-                - Fri, 04 Sep 2026 11:43:24 GMT
-            Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
-            X-Ratelimit-Limit:
-                - 50, 50;w=1
-            X-Ratelimit-Remaining:
-                - "49"
-            X-Ratelimit-Reset:
-                - "1"
-            X-Request-Id:
-                - 2e19ce39-5940-47b5-ba4f-22262740b222
-        status: 200 OK
-        code: 200
-        duration: 142.881762ms
-    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -110,11 +69,11 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:24 GMT
+                - Thu, 03 Sep 2026 15:27:28 GMT
             Link:
                 - </products/servers?page=2&per_page=50&>; rel="next",</products/servers?page=3&per_page=50&>; rel="last"
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -122,13 +81,13 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 0272d9cf-0236-4d04-89a8-63c7474c5a3a
+                - 7bd1d8cc-c011-4b8b-a36c-c6220b9f2cf0
             X-Total-Count:
                 - "139"
         status: 200 OK
         code: 200
-        duration: 87.326156ms
-    - id: 3
+        duration: 21.56566ms
+    - id: 2
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -155,25 +114,25 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:24 GMT
+                - Thu, 03 Sep 2026 15:27:28 GMT
             Link:
                 - </products/servers?page=1&per_page=50&>; rel="first",</products/servers?page=1&per_page=50&>; rel="previous",</products/servers?page=3&per_page=50&>; rel="next",</products/servers?page=3&per_page=50&>; rel="last"
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "49"
+                - "48"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 3d829dd2-a60a-42fe-b596-642a5a15be91
+                - cb3c4bd7-342c-4b7a-b90d-06e74e983a19
             X-Total-Count:
                 - "139"
         status: 200 OK
         code: 200
-        duration: 55.873468ms
-    - id: 4
+        duration: 29.041628ms
+    - id: 3
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -200,11 +159,11 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:25 GMT
+                - Thu, 03 Sep 2026 15:27:28 GMT
             Link:
                 - </products/servers?page=1&per_page=50&>; rel="first",</products/servers?page=2&per_page=50&>; rel="previous",</products/servers?page=3&per_page=50&>; rel="last"
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -212,13 +171,13 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - feb27d56-33eb-47af-90a3-f5bb64399036
+                - 9c847f70-fb63-41ab-b426-0b64ed266013
             X-Total-Count:
                 - "139"
         status: 200 OK
         code: 200
-        duration: 81.861071ms
-    - id: 5
+        duration: 25.620816ms
+    - id: 4
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -251,21 +210,21 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:25 GMT
+                - Thu, 03 Sep 2026 15:27:28 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "48"
+                - "46"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 03701895-461f-42fa-99b5-846af89de38c
+                - 24627cbf-9e7d-41a4-87cc-b7bef47bb0c6
         status: 200 OK
         code: 200
-        duration: 56.063704ms
-    - id: 6
+        duration: 53.924838ms
+    - id: 5
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -289,28 +248,28 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:25 GMT
+                - Thu, 03 Sep 2026 15:27:28 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "48"
+                - "44"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 14129cca-2974-4370-bbd7-bf72707a2ab5
+                - dc9ab61f-f44d-444c-a5c9-790fbfe19cb4
         status: 200 OK
         code: 200
-        duration: 46.686824ms
-    - id: 7
+        duration: 41.340564ms
+    - id: 6
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 282
+        content_length: 280
         host: api.scaleway.com
-        body: '{"name":"cli-srv-funny-engelbart","dynamic_ip_required":false,"commercial_type":"DEV1-S","image":"247c75d1-688e-49ac-bc45-507852013087","enable_ipv6":false,"boot_type":"local","project":"fa1e3217-dc80-42ac-85c3-3f034b78b552","placement_group":"5da636b5-e7c5-42fb-87f1-f6191f6384b7"}'
+        body: '{"name":"cli-srv-adoring-kirch","dynamic_ip_required":false,"commercial_type":"DEV1-S","image":"247c75d1-688e-49ac-bc45-507852013087","enable_ipv6":false,"boot_type":"local","project":"fa1e3217-dc80-42ac-85c3-3f034b78b552","placement_group":"6af00c69-7c6c-4161-9a77-7376ba2edd85"}'
         headers:
             Content-Type:
                 - application/json
@@ -322,31 +281,31 @@ interactions:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2124
-        body: '{"server": {"id": "3a5e1f5b-aeb4-420f-bb00-78615b665a85", "name": "cli-srv-funny-engelbart", "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-funny-engelbart", "image": {"id": "247c75d1-688e-49ac-bc45-507852013087", "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot", "id": "50656d10-f886-49c7-9e2c-376b76731087", "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2026-08-27T13:06:04.638689+00:00", "modification_date": "2026-08-27T13:06:04.638689+00:00", "default_bootscript": null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "ddc9ab8e-c486-4939-87e2-44400da0b53c", "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:12:2e", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-09-04T11:43:25.255046+00:00", "modification_date": "2026-09-04T11:43:25.255046+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": {"id": "5da636b5-e7c5-42fb-87f1-f6191f6384b7", "name": "cli-pg-affectionate-knuth", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "policy_mode": "optional", "policy_type": "max_availability", "policy_respected": false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "3a5e1f5b-aeb4-420f-bb00-78615b665a85.pub.instances.scw.cloud"}}'
+        content_length: 2121
+        body: '{"server": {"id": "76db0e1b-906d-4a93-a32f-9c6a6abf89ab", "name": "cli-srv-adoring-kirch", "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-adoring-kirch", "image": {"id": "247c75d1-688e-49ac-bc45-507852013087", "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot", "id": "50656d10-f886-49c7-9e2c-376b76731087", "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2026-08-27T13:06:04.638689+00:00", "modification_date": "2026-08-27T13:06:04.638689+00:00", "default_bootscript": null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "cc951c49-9a27-49b7-b3ae-a77d93fc5abd", "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:2c:0a:8e", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-09-03T15:27:28.515744+00:00", "modification_date": "2026-09-03T15:27:28.515744+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": {"id": "6af00c69-7c6c-4161-9a77-7376ba2edd85", "name": "cli-pg-mystifying-chatelet", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "policy_mode": "optional", "policy_type": "max_availability", "policy_respected": false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "76db0e1b-906d-4a93-a32f-9c6a6abf89ab.pub.instances.scw.cloud"}}'
         headers:
             Content-Length:
-                - "2124"
+                - "2121"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:25 GMT
+                - Thu, 03 Sep 2026 15:27:29 GMT
             Location:
-                - https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/3a5e1f5b-aeb4-420f-bb00-78615b665a85
+                - https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/76db0e1b-906d-4a93-a32f-9c6a6abf89ab
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "48"
+                - "49"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - db97d75c-a6e0-4be3-b4ea-ccbdf29fb761
+                - de56125c-c211-4e68-934b-5ed83735b5ab
         status: 201 Created
         code: 201
-        duration: 574.68422ms
-    - id: 8
+        duration: 668.837322ms
+    - id: 7
       request:
         proto: HTTP/1.1
         proto_major: 1
@@ -356,64 +315,106 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/3a5e1f5b-aeb4-420f-bb00-78615b665a85
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/6af00c69-7c6c-4161-9a77-7376ba2edd85
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2124
-        body: '{"server": {"id": "3a5e1f5b-aeb4-420f-bb00-78615b665a85", "name": "cli-srv-funny-engelbart", "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-funny-engelbart", "image": {"id": "247c75d1-688e-49ac-bc45-507852013087", "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot", "id": "50656d10-f886-49c7-9e2c-376b76731087", "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2026-08-27T13:06:04.638689+00:00", "modification_date": "2026-08-27T13:06:04.638689+00:00", "default_bootscript": null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "ddc9ab8e-c486-4939-87e2-44400da0b53c", "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:12:2e", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-09-04T11:43:25.255046+00:00", "modification_date": "2026-09-04T11:43:25.255046+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": {"id": "5da636b5-e7c5-42fb-87f1-f6191f6384b7", "name": "cli-pg-affectionate-knuth", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "policy_mode": "optional", "policy_type": "max_availability", "policy_respected": false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "3a5e1f5b-aeb4-420f-bb00-78615b665a85.pub.instances.scw.cloud"}}'
+        content_length: 287
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-mystifying-chatelet", "id":"6af00c69-7c6c-4161-9a77-7376ba2edd85", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T15:27:27.914245Z", "updated_at":"2026-09-03T15:27:27.914245Z", "zone":"fr-par-1"}'
         headers:
             Content-Length:
-                - "2124"
+                - "287"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:25 GMT
+                - Thu, 03 Sep 2026 15:27:29 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "47"
+                - "48"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - e96aadb7-58ec-44bc-9166-32806304d396
+                - dced0542-0c06-442e-9685-e1258b252cf3
         status: 200 OK
         code: 200
-        duration: 110.007001ms
+        duration: 69.622514ms
+    - id: 8
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order_by:
+                - created_at_desc
+            page:
+                - "1"
+            placement_group_ids:
+                - 6af00c69-7c6c-4161-9a77-7376ba2edd85
+            project_id:
+                - fa1e3217-dc80-42ac-85c3-3f034b78b552
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/servers?order_by=created_at_desc&page=1&placement_group_ids=6af00c69-7c6c-4161-9a77-7376ba2edd85&project_id=fa1e3217-dc80-42ac-85c3-3f034b78b552
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 411
+        body: '{"servers":[{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "id":"76db0e1b-906d-4a93-a32f-9c6a6abf89ab", "name":"cli-srv-adoring-kirch", "tags":[], "server_type":"DEV1-S", "placement_group_id":"6af00c69-7c6c-4161-9a77-7376ba2edd85", "status":"stopped", "architecture":"x86_64", "created_at":"2026-09-03T15:27:28.515744Z", "updated_at":"2026-09-03T15:27:28.515744Z", "rescue_mode":false}], "total_count":1}'
+        headers:
+            Content-Length:
+                - "411"
+            Content-Type:
+                - application/json
+            Date:
+                - Thu, 03 Sep 2026 15:27:29 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-2;edge01)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "43"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 1df62de9-7d4a-4e8e-baf4-0099f0207a77
+        status: 200 OK
+        code: 200
+        duration: 94.547021ms
     - id: 9
       request:
         proto: HTTP/1.1
         proto_major: 1
         proto_minor: 1
-        content_length: 58
+        content_length: 0
         host: api.scaleway.com
-        body: '{"placement_group":"65d807e6-cfe0-4cd0-be8d-ae505f4b6ee9"}'
         headers:
-            Content-Type:
-                - application/json
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/3a5e1f5b-aeb4-420f-bb00-78615b665a85
-        method: PATCH
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/6af00c69-7c6c-4161-9a77-7376ba2edd85
+        method: DELETE
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2203
-        body: '{"server": {"id": "3a5e1f5b-aeb4-420f-bb00-78615b665a85", "name": "cli-srv-funny-engelbart", "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-funny-engelbart", "image": {"id": "247c75d1-688e-49ac-bc45-507852013087", "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot", "id": "50656d10-f886-49c7-9e2c-376b76731087", "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2026-08-27T13:06:04.638689+00:00", "modification_date": "2026-08-27T13:06:04.638689+00:00", "default_bootscript": null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "ddc9ab8e-c486-4939-87e2-44400da0b53c", "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:12:2e", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-09-04T11:43:25.255046+00:00", "modification_date": "2026-09-04T11:43:25.922843+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": {"id": "65d807e6-cfe0-4cd0-be8d-ae505f4b6ee9", "name": "cli-pg-keen-cannon", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "policy_mode": "optional", "policy_type": "max_availability", "policy_respected": false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "3a5e1f5b-aeb4-420f-bb00-78615b665a85.pub.instances.scw.cloud", "admin_password_encryption_ssh_key_id": null, "admin_password_encrypted_value": null}}'
+        content_length: 0
+        body: ""
         headers:
-            Content-Length:
-                - "2203"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
+                - Thu, 03 Sep 2026 15:27:29 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -421,10 +422,10 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 5470788f-409b-48a1-821a-4163cb54a5cb
-        status: 200 OK
-        code: 200
-        duration: 270.59307ms
+                - 6eb03529-40c1-4023-9a30-9945ddfd88ee
+        status: 204 No Content
+        code: 204
+        duration: 130.355774ms
     - id: 10
       request:
         proto: HTTP/1.1
@@ -435,23 +436,23 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/3a5e1f5b-aeb4-420f-bb00-78615b665a85
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/76db0e1b-906d-4a93-a32f-9c6a6abf89ab
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
-        content_length: 2117
-        body: '{"server": {"id": "3a5e1f5b-aeb4-420f-bb00-78615b665a85", "name": "cli-srv-funny-engelbart", "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-funny-engelbart", "image": {"id": "247c75d1-688e-49ac-bc45-507852013087", "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot", "id": "50656d10-f886-49c7-9e2c-376b76731087", "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2026-08-27T13:06:04.638689+00:00", "modification_date": "2026-08-27T13:06:04.638689+00:00", "default_bootscript": null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "ddc9ab8e-c486-4939-87e2-44400da0b53c", "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:cf:12:2e", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-09-04T11:43:25.255046+00:00", "modification_date": "2026-09-04T11:43:25.922843+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": {"id": "65d807e6-cfe0-4cd0-be8d-ae505f4b6ee9", "name": "cli-pg-keen-cannon", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "policy_mode": "optional", "policy_type": "max_availability", "policy_respected": false, "tags": [], "zone": "fr-par-1"}, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "3a5e1f5b-aeb4-420f-bb00-78615b665a85.pub.instances.scw.cloud"}}'
+        content_length: 1813
+        body: '{"server": {"id": "76db0e1b-906d-4a93-a32f-9c6a6abf89ab", "name": "cli-srv-adoring-kirch", "arch": "x86_64", "commercial_type": "DEV1-S", "boot_type": "local", "organization": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "project": "fa1e3217-dc80-42ac-85c3-3f034b78b552", "hostname": "cli-srv-adoring-kirch", "image": {"id": "247c75d1-688e-49ac-bc45-507852013087", "name": "Ubuntu 22.04 Jammy Jellyfish", "organization": "51b656e3-4865-41e8-adbc-0c45bdd780db", "project": "51b656e3-4865-41e8-adbc-0c45bdd780db", "root_volume": {"volume_type": "sbs_snapshot", "id": "50656d10-f886-49c7-9e2c-376b76731087", "size": 0, "name": ""}, "extra_volumes": {}, "public": true, "arch": "x86_64", "creation_date": "2026-08-27T13:06:04.638689+00:00", "modification_date": "2026-08-27T13:06:04.638689+00:00", "default_bootscript": null, "from_server": "", "state": "available", "tags": [], "zone": "fr-par-1"}, "volumes": {"0": {"boot": false, "volume_type": "sbs_volume", "id": "cc951c49-9a27-49b7-b3ae-a77d93fc5abd", "state": "available", "zone": "fr-par-1"}}, "tags": [], "state": "stopped", "protected": false, "state_detail": "", "public_ip": null, "public_ips": [], "mac_address": "de:00:00:2c:0a:8e", "routed_ip_enabled": true, "ipv6": null, "extra_networks": [], "dynamic_ip_required": false, "enable_ipv6": false, "private_ip": null, "creation_date": "2026-09-03T15:27:28.515744+00:00", "modification_date": "2026-09-03T15:27:29.310081+00:00", "bootscript": null, "security_group": {"id": "da505169-540e-4c2b-b0da-c854139224e0", "name": "Default security group"}, "location": null, "maintenances": [], "allowed_actions": ["poweron", "backup"], "placement_group": null, "private_nics": [], "zone": "fr-par-1", "filesystems": [], "end_of_service": false, "dns": "76db0e1b-906d-4a93-a32f-9c6a6abf89ab.pub.instances.scw.cloud"}}'
         headers:
             Content-Length:
-                - "2117"
+                - "1813"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
+                - Thu, 03 Sep 2026 15:27:29 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -459,10 +460,10 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 4365bfbc-700c-42d2-8528-a7e6c4bf8149
+                - b2cc6e49-f64d-44ca-80db-cba714d25b2d
         status: 200 OK
         code: 200
-        duration: 125.562231ms
+        duration: 535.239834ms
     - id: 11
       request:
         proto: HTTP/1.1
@@ -473,7 +474,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/3a5e1f5b-aeb4-420f-bb00-78615b665a85
+        url: https://api.scaleway.com/instance/v1/zones/fr-par-1/servers/76db0e1b-906d-4a93-a32f-9c6a6abf89ab
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -485,20 +486,20 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
+                - Thu, 03 Sep 2026 15:27:30 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "49"
+                - "48"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 1ce4b9ef-d16a-419f-94c1-549bc8efefba
+                - 230e31e3-1f5e-43af-aa6b-312083cad340
         status: 204 No Content
         code: 204
-        duration: 253.744507ms
+        duration: 615.746915ms
     - id: 12
       request:
         proto: HTTP/1.1
@@ -509,23 +510,23 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/ddc9ab8e-c486-4939-87e2-44400da0b53c
+        url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/cc951c49-9a27-49b7-b3ae-a77d93fc5abd
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         content_length: 498
-        body: '{"id":"ddc9ab8e-c486-4939-87e2-44400da0b53c", "name":"Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0", "type":"sbs_5k", "size":10000000000, "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2026-09-04T11:43:25.378784Z", "updated_at":"2026-09-04T11:43:26.396087Z", "references":[], "parent_snapshot_id":"50656d10-f886-49c7-9e2c-376b76731087", "status":"available", "tags":[], "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":"2026-09-04T11:43:26.396087Z", "zone":"fr-par-1"}'
+        body: '{"id":"cc951c49-9a27-49b7-b3ae-a77d93fc5abd", "name":"Ubuntu 22.04 Jammy Jellyfish_sbs_volume_0", "type":"sbs_5k", "size":10000000000, "project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "created_at":"2026-09-03T15:27:28.754483Z", "updated_at":"2026-09-03T15:27:30.433189Z", "references":[], "parent_snapshot_id":"50656d10-f886-49c7-9e2c-376b76731087", "status":"available", "tags":[], "specs":{"perf_iops":5000, "class":"sbs"}, "last_detached_at":"2026-09-03T15:27:30.433189Z", "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "498"
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
+                - Thu, 03 Sep 2026 15:27:30 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -533,10 +534,10 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - e284ea65-6553-4065-b2ec-b5de5ab59cfc
+                - 4de7aab2-fcce-4157-a469-1d7547c801d8
         status: 200 OK
         code: 200
-        duration: 56.013706ms
+        duration: 48.640231ms
     - id: 13
       request:
         proto: HTTP/1.1
@@ -547,7 +548,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/ddc9ab8e-c486-4939-87e2-44400da0b53c
+        url: https://api.scaleway.com/block/v1alpha1/zones/fr-par-1/volumes/cc951c49-9a27-49b7-b3ae-a77d93fc5abd
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -559,45 +560,9 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
+                - Thu, 03 Sep 2026 15:27:30 GMT
             Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
-            X-Ratelimit-Limit:
-                - 50, 50;w=1
-            X-Ratelimit-Remaining:
-                - "49"
-            X-Ratelimit-Reset:
-                - "1"
-            X-Request-Id:
-                - 3ded30d8-3c94-4cb4-b0b8-928c790b5553
-        status: 204 No Content
-        code: 204
-        duration: 75.995492ms
-    - id: 14
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        host: api.scaleway.com
-        headers:
-            User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/5da636b5-e7c5-42fb-87f1-f6191f6384b7
-        method: DELETE
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        content_length: 0
-        body: ""
-        headers:
-            Content-Type:
-                - application/json
-            Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
-            Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
+                - Scaleway API Gateway (fr-par-2;edge01)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
@@ -605,43 +570,7 @@ interactions:
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 8c0a8627-ad2e-4c2f-a789-5bf9228dc2de
+                - d959a1b7-b3eb-4d0f-8e4d-8663053d9659
         status: 204 No Content
         code: 204
-        duration: 202.542018ms
-    - id: 15
-      request:
-        proto: HTTP/1.1
-        proto_major: 1
-        proto_minor: 1
-        content_length: 0
-        host: api.scaleway.com
-        headers:
-            User-Agent:
-                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/65d807e6-cfe0-4cd0-be8d-ae505f4b6ee9
-        method: DELETE
-      response:
-        proto: HTTP/2.0
-        proto_major: 2
-        proto_minor: 0
-        content_length: 0
-        body: ""
-        headers:
-            Content-Type:
-                - application/json
-            Date:
-                - Fri, 04 Sep 2026 11:43:26 GMT
-            Server:
-                - Scaleway API Gateway (fr-par-3;edge02)
-            X-Ratelimit-Limit:
-                - 50, 50;w=1
-            X-Ratelimit-Remaining:
-                - "49"
-            X-Ratelimit-Reset:
-                - "1"
-            X-Request-Id:
-                - 59face5a-f395-44d6-9572-d153f70c6af7
-        status: 204 No Content
-        code: 204
-        duration: 111.186418ms
+        duration: 83.550013ms

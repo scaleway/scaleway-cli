@@ -497,7 +497,7 @@ scw instance ip update 51.15.253.183 reverse=example.com
 Placement groups allow the user to express a preference regarding
 the physical position of a group of Instances. The feature lets the user
 choose to either group Instances on the same physical hardware for
-best network throughput and low latency or to spread Instances across
+best network throughput and low latency, or spread Instances across
 physically distanced hardware to reduce the risk of physical failure.
 
 The operating mode is selected by a `policy_type`. Two policy
@@ -507,16 +507,10 @@ types are available:
 
 The `policy_type` is set to `max_availability` by default.
 
-For each policy types, one of the two `policy_mode` may be selected:
-  - `optional` will start your Instances even if the constraint is not respected
-  - `enforced` guarantees that if the Instance starts, the constraint is respected
-
-The `policy_mode` is set by default to `optional`.
-
 
 ### Create a placement group
 
-Create a new placement group in a specified Availability Zone.
+Create a new placement group.
 
 **Usage:**
 
@@ -527,56 +521,19 @@ scw instance placement-group create [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                        | Argument Specifications                                                                                                                                 |
-|-----------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| name            | Name of the placement group                                                        | Default: `<generated>`                                                                                                                                  |
-| project-id      | Project ID to use. If none is passed the default project ID will be used           |                                                                                                                                                         |
-| tags.{index}    | Tags of the placement group                                                        |                                                                                                                                                         |
-| policy-mode     | Operating mode of the placement group                                              | One of: `optional`, `enforced`                                                                                                                          |
-| policy-type     | Policy type of the placement group                                                 | One of: `max_availability`, `low_latency`                                                                                                               |
-| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                                                                                                                                                         |
-| zone            | Zone to target. If none is passed will use default zone from the config            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-**Examples:**
-
-
-Create a placement group with default name
-```shell
-scw instance placement-group create
-```
-
-Create a placement group with the specified name
-```shell
-scw instance placement-group create name=foobar
-```
-
-Create an enforced placement group
-```shell
-scw instance placement-group create policy-mode=enforced
-```
-
-Create an optional placement group
-```shell
-scw instance placement-group create policy-mode=optional
-```
-
-Create an optional low latency placement group
-```shell
-scw instance placement-group create policy-mode=optional policy-type=low_latency
-```
-
-Create an enforced low latency placement group
-```shell
-scw instance placement-group create policy-mode=enforced policy-type=low_latency
-```
+| Name         | Description                                                              | Argument Specifications                                                                                                                                 |
+|--------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id   | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| name         | Name of the placement group                                              | Default: `<generated>`                                                                                                                                  |
+| policy-type  | Policy type of the placement group                                       | Default: `max_availability`<br />One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                       |
+| tags.{index} | Tags of the placement group                                              |                                                                                                                                                         |
+| zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 
+### Delete a placement group
 
-### Delete the specified placement group
-
-Delete the specified placement group.
+Delete a specified placement group.
 
 **Usage:**
 
@@ -593,25 +550,10 @@ scw instance placement-group delete <placement-group-id ...> [arg=value ...]
 | zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
-**Examples:**
-
-
-Delete a placement group in the default zone with the specified ID
-```shell
-scw instance placement-group delete 11111111-1111-1111-1111-111111111111
-```
-
-Delete a placement group in fr-par-1 zone with the specified ID
-```shell
-scw instance placement-group delete 11111111-1111-1111-1111-111111111111 zone=fr-par-1
-```
-
-
-
 
 ### Get a placement group
 
-Get the specified placement group.
+Get a specified placement group.
 
 **Usage:**
 
@@ -625,17 +567,8 @@ scw instance placement-group get <placement-group-id ...> [arg=value ...]
 | Name               | Description                                                             | Argument Specifications                                                                                                                                 |
 |--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | placement-group-id | UUID of the placement group you want to get                             | Required                                                                                                                                                |
+| list-servers       | Whether to list the servers in the Placement Group or not.              | Default: `true`                                                                                                                                         |
 | zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-**Examples:**
-
-
-Get a placement group with the specified ID
-```shell
-scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
-```
-
 
 
 
@@ -661,7 +594,7 @@ scw instance placement-group get-servers <placement-group-id ...> [arg=value ...
 
 ### List placement groups
 
-List all placement groups in a specified Availability Zone.
+List all placement groups.
 
 **Usage:**
 
@@ -672,28 +605,16 @@ scw instance placement-group list [arg=value ...]
 
 **Arguments:**
 
-| Name            | Description                                                                                                | Argument Specifications                                                                                                                                        |
-|-----------------|------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| project-id      | List only placement groups of this Project ID                                                              |                                                                                                                                                                |
-| tags            | List placement groups with these exact tags (to filter with several tags, use commas to separate them)     |                                                                                                                                                                |
-| name            | Filter placement groups by name (for eg. "cluster1" will return "cluster100" and "cluster1" but not "foo") |                                                                                                                                                                |
-| organization-id | List only placement groups of this Organization ID                                                         |                                                                                                                                                                |
-| zone            | Zone to target. If none is passed will use default zone from the config                                    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `all` |
-
-
-**Examples:**
-
-
-List all placement groups in the default zone
-```shell
-scw instance placement-group list
-```
-
-List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
-```shell
-scw instance placement-group list name=cluster1
-```
-
+| Name                        | Description                                                              | Argument Specifications                                                                                                                                 |
+|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token                  | The initial pagination token to start from                               |                                                                                                                                                         |
+| page-size                   | The maximum number of placement groups to return                         |                                                                                                                                                         |
+| order-by                    | The field by which to order the result list                              | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
+| project-id                  | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| placement-group-ids.{index} | List only placement groups with these IDs                                |                                                                                                                                                         |
+| name                        | Filter placement groups by name                                          |                                                                                                                                                         |
+| tags.{index}                | List placement groups with these exact tags                              |                                                                                                                                                         |
+| zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 
@@ -756,7 +677,7 @@ scw instance placement-group set-servers placement-group-id=ced0fd4d-bcf0-4479-8
 
 ### Update a placement group
 
-Update one or more parameter of the specified placement group.
+Update the properties of a specified placement group.
 
 **Usage:**
 
@@ -771,30 +692,9 @@ scw instance placement-group update <placement-group-id ...> [arg=value ...]
 |--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | placement-group-id | UUID of the placement group                                             | Required                                                                                                                                                |
 | name               | Name of the placement group                                             |                                                                                                                                                         |
+| policy-type        | Policy type of the placement group                                      | One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                                                        |
 | tags.{index}       | Tags of the placement group                                             |                                                                                                                                                         |
-| policy-mode        | Operating mode of the placement group                                   | One of: `optional`, `enforced`                                                                                                                          |
-| policy-type        | Policy type of the placement group                                      | One of: `max_availability`, `low_latency`                                                                                                               |
 | zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-**Examples:**
-
-
-Update the name of a placement group
-```shell
-scw instance placement-group update 95053f33-cd3c-4cdc-b2b0-57d2dda97b13 name=foobar
-```
-
-Update the policy mode of a placement group (all Instances in your placement group MUST be shut down)
-```shell
-scw instance placement-group update 1f883434-8c2d-40f0-b686-d0754b3a7bc0 policy-mode=enforced
-```
-
-Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)
-```shell
-scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
-```
-
 
 
 
