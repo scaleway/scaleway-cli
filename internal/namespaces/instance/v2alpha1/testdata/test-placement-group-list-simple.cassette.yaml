@@ -1,0 +1,200 @@
+---
+version: 2
+interactions:
+    - id: 0
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 128
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-clever-sammet","policy_type":"max_availability","tags":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 281
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-clever-sammet", "id":"a93a932a-c1d3-447b-b0a9-5076b1862eda", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T13:46:56.894806Z", "updated_at":"2026-09-04T13:46:56.894806Z", "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "281"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 04 Sep 2026 13:46:56 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 5e00efe8-70f6-4aa3-a913-8c742ed58778
+        status: 200 OK
+        code: 200
+        duration: 148.266611ms
+    - id: 1
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 130
+        host: api.scaleway.com
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-objective-lichterman","policy_type":"low_latency","tags":null}'
+        headers:
+            Content-Type:
+                - application/json
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups
+        method: POST
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 283
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-objective-lichterman", "id":"64e03e6f-f55c-4d7a-87b6-2c3effa7fae9", "policy_type":"low_latency", "tags":[], "created_at":"2026-09-04T13:46:57.008139Z", "updated_at":"2026-09-04T13:46:57.008139Z", "zone":"fr-par-1"}'
+        headers:
+            Content-Length:
+                - "283"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 04 Sep 2026 13:46:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 85ec6706-7a84-4c1d-9172-576f31924391
+        status: 200 OK
+        code: 200
+        duration: 104.254667ms
+    - id: 2
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        form:
+            order_by:
+                - created_at_desc
+            project_id:
+                - fa1e3217-dc80-42ac-85c3-3f034b78b552
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups?order_by=created_at_desc&project_id=fa1e3217-dc80-42ac-85c3-3f034b78b552
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 8305
+        body: '{"placement_groups":[{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-objective-lichterman", "id":"64e03e6f-f55c-4d7a-87b6-2c3effa7fae9", "policy_type":"low_latency", "tags":[], "created_at":"2026-09-04T13:46:57.008139Z", "updated_at":"2026-09-04T13:46:57.008139Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-clever-sammet", "id":"a93a932a-c1d3-447b-b0a9-5076b1862eda", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T13:46:56.894806Z", "updated_at":"2026-09-04T13:46:56.894806Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-dreamy-tharp", "id":"cffbff8b-9c1b-45d2-9949-143d440e0c71", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T11:42:52.800749Z", "updated_at":"2026-09-04T11:42:52.800749Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-cranky-meninsky", "id":"61597ff9-2070-463b-965d-af6a40178ecf", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T11:42:52.629650Z", "updated_at":"2026-09-04T11:42:52.629650Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-zen-noyce", "id":"6592e36b-257f-43b1-b3af-a5dcf25ee281", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:45.180973Z", "updated_at":"2026-09-04T09:51:45.180973Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-ecstatic-mcnulty", "id":"dd3093ae-7195-430f-8681-fffbeca497fd", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:45.047005Z", "updated_at":"2026-09-04T09:51:45.047005Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-charming-lamport", "id":"5e3e4d74-89ea-4700-8819-fe5b3e6197bf", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:01.980903Z", "updated_at":"2026-09-04T09:51:01.980903Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-thirsty-wing", "id":"8a3fa0a3-7e33-434f-8bb6-e3ec027b9ce2", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:01.821658Z", "updated_at":"2026-09-04T09:51:01.821658Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-laughing-shamir", "id":"babe80eb-93c6-4afb-8e35-5d3b3f3d237c", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:01.815215Z", "updated_at":"2026-09-04T09:51:01.815215Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-zen-tesla", "id":"ef5e76df-ba6c-404f-bbc8-fb19f6152205", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:01.814505Z", "updated_at":"2026-09-04T09:51:01.814505Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-reverent-bartik", "id":"d04305be-3e24-4fc9-ab11-060d7b800eda", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:51:01.811718Z", "updated_at":"2026-09-04T09:51:01.811718Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-recursing-nightingale", "id":"b960a5e2-38ff-4e3a-9b4d-b5689ed429c7", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:49:27.369591Z", "updated_at":"2026-09-04T09:49:27.369591Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-hungry-murdock", "id":"949089a3-f6d0-4993-b58e-f21b3dccffe2", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:49:27.283901Z", "updated_at":"2026-09-04T09:49:27.283901Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-interesting-payne", "id":"bb55c7a2-c4fd-4caa-99ed-c3797b756bdf", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:49:27.276211Z", "updated_at":"2026-09-04T09:49:27.276211Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-elegant-hodgkin", "id":"06f94d05-eb5d-4769-99fe-a0fd55b8d357", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:49:27.265193Z", "updated_at":"2026-09-04T09:49:27.265193Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-cool-dirac", "id":"4ba9b475-5f7f-4bef-9cd9-6db094e611be", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:49:27.244474Z", "updated_at":"2026-09-04T09:49:27.244474Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-priceless-hypatia", "id":"c200ef95-d919-4d28-baea-4d31b0a11486", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:48:11.475135Z", "updated_at":"2026-09-04T09:48:11.475135Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-dazzling-leakey", "id":"e2a7f255-8547-4fa8-888e-f2b95bac51af", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:48:11.467010Z", "updated_at":"2026-09-04T09:48:11.467010Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-clever-grothendieck", "id":"380c4c67-7a48-4b53-9d51-43219905abb7", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:48:11.460274Z", "updated_at":"2026-09-04T09:48:11.460274Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-goofy-liskov", "id":"74a6e03b-a56b-475a-890b-11470cb2e18f", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T09:48:11.454558Z", "updated_at":"2026-09-04T09:48:11.454558Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-test-pg-update", "id":"1c75a1ab-8de6-45b6-ad98-355e3a60e92c", "policy_type":"low_latency", "tags":["test-update"], "created_at":"2026-09-03T15:12:22.863177Z", "updated_at":"2026-09-03T15:12:22.946868Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-test-pg-update", "id":"e849dba6-c2e6-40b8-b69e-32ab4d56d6a4", "policy_type":"low_latency", "tags":["test-update"], "created_at":"2026-09-03T15:11:57.499936Z", "updated_at":"2026-09-03T15:11:58.583799Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-test-pg-update", "id":"7fbe6f09-0c9a-4cb8-bd17-9d21bd22a622", "policy_type":"low_latency", "tags":["test-update"], "created_at":"2026-09-03T15:10:28.260245Z", "updated_at":"2026-09-03T15:10:28.342121Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-clever-swanson", "id":"46a18e4d-993a-4099-bfe0-f5262a4c7dd4", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T12:26:30.795398Z", "updated_at":"2026-09-03T12:26:30.795398Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-strange-ritchie", "id":"0d7f23f3-094c-4d95-9f79-c2c8956fad48", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T12:22:46.544480Z", "updated_at":"2026-09-03T12:22:46.544480Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-interesting-hypatia", "id":"6ca122ff-0253-4af1-8929-6c520165e132", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T12:22:26.541964Z", "updated_at":"2026-09-03T12:22:26.541964Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-pensive-johnson", "id":"817d6b9b-f4c4-453a-97f7-f886f6d2a334", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T11:56:49.124565Z", "updated_at":"2026-09-03T11:56:49.124565Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-pedantic-yalow", "id":"7ca1daf7-5024-45d4-af1c-5d9f787f84d2", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T11:23:41.944273Z", "updated_at":"2026-09-03T11:23:41.944273Z", "zone":"fr-par-1"}, {"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-eloquent-minsky", "id":"b1e5f438-f398-4533-929e-7b7248b2f5c0", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T10:06:04.931815Z", "updated_at":"2026-09-03T10:06:04.931815Z", "zone":"fr-par-1"}], "total_count":29}'
+        headers:
+            Content-Length:
+                - "8305"
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 04 Sep 2026 13:46:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "49"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - e8b33e55-b0ba-408b-8e01-ad06b35f76f2
+        status: 200 OK
+        code: 200
+        duration: 104.424537ms
+    - id: 3
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/a93a932a-c1d3-447b-b0a9-5076b1862eda
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 04 Sep 2026 13:46:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "48"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 302782ea-4ca6-4a90-a842-115a3ad13ad6
+        status: 204 No Content
+        code: 204
+        duration: 97.527055ms
+    - id: 4
+      request:
+        proto: HTTP/1.1
+        proto_major: 1
+        proto_minor: 1
+        content_length: 0
+        host: api.scaleway.com
+        headers:
+            User-Agent:
+                - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/64e03e6f-f55c-4d7a-87b6-2c3effa7fae9
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Type:
+                - application/json
+            Date:
+                - Fri, 04 Sep 2026 13:46:57 GMT
+            Server:
+                - Scaleway API Gateway (fr-par-3;edge02)
+            X-Ratelimit-Limit:
+                - 50, 50;w=1
+            X-Ratelimit-Remaining:
+                - "47"
+            X-Ratelimit-Reset:
+                - "1"
+            X-Request-Id:
+                - 94740cc3-43e8-4237-8241-d12e76abcf12
+        status: 204 No Content
+        code: 204
+        duration: 103.332391ms

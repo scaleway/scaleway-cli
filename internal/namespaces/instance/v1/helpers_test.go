@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	block "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/require"
 )
@@ -179,9 +180,17 @@ func deleteIP(metaKey string) core.AfterFunc {
 // register it in the context Meta at metaKey.
 func createPlacementGroup(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
-		res := ctx.ExecuteCmd([]string{"scw", "instance", "placement-group", "create"})
-		createPlacementGroupResponse := res.(*instanceSDK.CreatePlacementGroupResponse)
-		ctx.Meta[metaKey] = createPlacementGroupResponse.PlacementGroup
+		res := ctx.ExecuteCmd(
+			[]string{
+				"scw",
+				"instance",
+				"placement-group",
+				"create",
+				"policy-type=max_availability",
+			},
+		)
+		createPlacementGroupResponse := res.(*instanceSDKV2.PlacementGroup)
+		ctx.Meta[metaKey] = createPlacementGroupResponse
 
 		return nil
 	}
