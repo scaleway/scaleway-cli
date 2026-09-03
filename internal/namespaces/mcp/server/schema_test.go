@@ -157,3 +157,93 @@ func TestCommandToFlatArgsSchemaDynamicArgs(t *testing.T) {
 		)
 	}
 }
+
+func TestCommandToFlatArgsSchemaNestedDynamicArgs(t *testing.T) {
+	// Arg specs with nested placeholders (e.g., "pools.{index}.kubelet-args.{key}")
+	// should NOT be treated as simple maps or arrays. They must fall through to the
+	// default string case so that the literal placeholder name is exposed as the
+	// property name, matching pre-existing behavior.
+	// See https://github.com/scaleway/scaleway-cli for the original bug report.
+	nestedMapArgName := "pools.{index}.kubelet-args.{key}"
+	nestedArrayArgName := "pools.{index}.tags.{index}"
+
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "create",
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  nestedMapArgName,
+				Short: "Kubelet args",
+			},
+			{
+				Name:  nestedArrayArgName,
+				Short: "Tags",
+			},
+		},
+	}
+
+	schema := server.CommandToFlatArgsSchema(cmd)
+	rawSchema, err := json.Marshal(schema)
+	if err != nil {
+		t.Fatalf("Failed to marshal schema: %v", err)
+	}
+
+	var decoded map[string]any
+	if err := json.Unmarshal(rawSchema, &decoded); err != nil {
+		t.Fatalf("Failed to unmarshal schema: %v", err)
+	}
+
+	properties := decoded[schemaPropertiesKey].(map[string]any)
+
+	// The literal placeholder name should be the property key (kebab-cased),
+	// and it should be a plain string, NOT an object/array schema.
+	nestedMapPropName := "pools.{index}.kubelet-args.{key}"
+	nestedArrayPropName := "pools.{index}.tags.{index}"
+
+	mapProp, ok := properties[nestedMapPropName].(map[string]any)
+	if !ok {
+		t.Fatalf(
+			"Expected nested map arg %q to be exposed as a string property, got %v",
+			nestedMapArgName,
+			properties[nestedMapPropName],
+		)
+	}
+	if mapProp[schemaTypeKey] != schemaTypeString {
+		t.Fatalf(
+			"Expected nested map arg %q to be a string, got %v",
+			nestedMapArgName,
+			mapProp[schemaTypeKey],
+		)
+	}
+	if _, hasAdditionalProps := mapProp[schemaAdditionalProps]; hasAdditionalProps {
+		t.Fatalf(
+			"Expected nested map arg %q to NOT have additionalProperties, got %v",
+			nestedMapArgName,
+			mapProp,
+		)
+	}
+
+	arrayProp, ok := properties[nestedArrayPropName].(map[string]any)
+	if !ok {
+		t.Fatalf(
+			"Expected nested array arg %q to be exposed as a string property, got %v",
+			nestedArrayArgName,
+			properties[nestedArrayPropName],
+		)
+	}
+	if arrayProp[schemaTypeKey] != schemaTypeString {
+		t.Fatalf(
+			"Expected nested array arg %q to be a string, got %v",
+			nestedArrayArgName,
+			arrayProp[schemaTypeKey],
+		)
+	}
+	if _, hasItems := arrayProp[schemaItemsKey]; hasItems {
+		t.Fatalf(
+			"Expected nested array arg %q to NOT have items, got %v",
+			nestedArrayArgName,
+			arrayProp,
+		)
+	}
+}

@@ -254,6 +254,7 @@ func exactArgSpecName(argSpecs core.ArgSpecs, argName string) (string, bool) {
 func dynamicArgToRawArgs(specName string, argName string, argValue any) ([]string, bool) {
 	switch {
 	case strings.Count(specName, dynamicArrayPlaceholder) == 1 &&
+		strings.Count(specName, dynamicMapPlaceholder) == 0 &&
 		strings.HasSuffix(specName, dynamicArrayPlaceholder):
 		prefix := strings.TrimSuffix(specName, dynamicArrayPlaceholder)
 		if strcase.ToKebab(prefix) != argName {
@@ -263,6 +264,7 @@ func dynamicArgToRawArgs(specName string, argName string, argValue any) ([]strin
 		return arrayArgToRawArgs(prefix, argValue), true
 
 	case strings.Count(specName, dynamicMapPlaceholder) == 1 &&
+		strings.Count(specName, dynamicArrayPlaceholder) == 0 &&
 		strings.HasSuffix(specName, dynamicMapPlaceholder):
 		prefix := strings.TrimSuffix(specName, dynamicMapPlaceholder)
 		if strcase.ToKebab(prefix) != argName {

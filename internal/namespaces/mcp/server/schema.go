@@ -73,6 +73,7 @@ func CommandToFlatArgsSchema(cmd *core.Command) *JSONSchema {
 
 func argSpecToPropertySchema(argSpec *core.ArgSpec) (string, *JSONSchema) {
 	if strings.Count(argSpec.Name, dynamicArrayPlaceholder) == 1 &&
+		strings.Count(argSpec.Name, dynamicMapPlaceholder) == 0 &&
 		strings.HasSuffix(argSpec.Name, dynamicArrayPlaceholder) {
 		propName := strings.TrimSuffix(argSpec.Name, dynamicArrayPlaceholder)
 
@@ -86,6 +87,7 @@ func argSpecToPropertySchema(argSpec *core.ArgSpec) (string, *JSONSchema) {
 	}
 
 	if strings.Count(argSpec.Name, dynamicMapPlaceholder) == 1 &&
+		strings.Count(argSpec.Name, dynamicArrayPlaceholder) == 0 &&
 		strings.HasSuffix(argSpec.Name, dynamicMapPlaceholder) {
 		propName := strings.TrimSuffix(argSpec.Name, dynamicMapPlaceholder)
 
