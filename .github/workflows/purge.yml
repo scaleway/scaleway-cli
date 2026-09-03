@@ -6,6 +6,10 @@ permissions:
 on:
   workflow_dispatch:
 
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
 jobs:
   sweepers:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
