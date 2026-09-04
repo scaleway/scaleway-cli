@@ -35,11 +35,13 @@ func cobraRun(cmd *Command) func(*cobra.Command, []string) error {
 
 		// If command requires authentication and the client was not directly provided in the bootstrap config, we create a new client and overwrite the existing one
 		if !cmd.AllowAnonymousClient && !meta.isClientFromBootstrapConfig {
+			_, endCreateClient := TracingStartSpan(ctx, "create-client")
 			client, err := meta.Platform.CreateClient(
 				meta.httpClient,
 				ExtractConfigPath(ctx),
 				ExtractProfileName(ctx),
 			)
+			endCreateClient()
 			if err != nil {
 				return createClientError(err)
 			}
@@ -156,6 +158,9 @@ func run(
 ) (any, error) {
 	var err error
 
+	ctx, endSpan := TracingStartSpan(ctx, cmd.getPath())
+	defer endSpan()
+
 	// create a new Args interface{}
 	// unmarshalled arguments will be store in this interface
 	cmdArgs := reflect.New(cmd.ArgsType).Interface()
@@ -165,7 +170,9 @@ func run(
 	// Unmarshal args.
 	// After that we are done working with rawArgs
 	// and will be working with cmdArgs.
+	_, endUnmarshal := TracingStartSpan(ctx, "unmarshal")
 	err = args.UnmarshalStruct(rawArgs, cmdArgs)
+	endUnmarshal()
 	if err != nil {
 		if unmarshalError, ok := err.(*args.UnmarshalArgError); ok {
 			return nil, handleUnmarshalErrors(cmd, unmarshalError)
@@ -175,14 +182,18 @@ func run(
 	}
 
 	// Load args file imports.
+	_, endLoadArgsFile := TracingStartSpan(ctx, "load-args-file")
 	err = loadArgsFileContent(cmd, cmdArgs)
+	endLoadArgsFile()
 	if err != nil {
 		return nil, err
 	}
 
 	// PreValidate hook.
 	if cmd.PreValidateFunc != nil {
+		_, endPreValidate := TracingStartSpan(ctx, "pre-validate")
 		err = cmd.PreValidateFunc(ctx, cmdArgs)
+		endPreValidate()
 		if err != nil {
 			return nil, err
 		}
@@ -193,7 +204,9 @@ func run(
 	if cmd.ValidateFunc != nil {
 		validateFunc = cmd.ValidateFunc
 	}
+	_, endValidate := TracingStartSpan(ctx, "validate")
 	err = validateFunc(ctx, cmd, cmdArgs, rawArgs)
+	endValidate()
 	if err != nil {
 		return nil, err
 	}
@@ -210,6 +223,7 @@ func run(
 		cmd.Interceptor,
 	)
 
+	_, endExecute := TracingStartSpan(ctx, "execute")
 	data, err := interceptor(
 		ctx,
 		cmdArgs,
@@ -217,12 +231,15 @@ func run(
 			return cmd.Run(ctx, argsI)
 		},
 	)
+	endExecute()
 	if err != nil {
 		return nil, err
 	}
 	waitFlag, err := cobraCmd.PersistentFlags().GetBool("wait")
 	if err == nil && cmd.WaitFunc != nil && waitFlag {
+		_, endWait := TracingStartSpan(ctx, "wait")
 		data, err = cmd.WaitFunc(ctx, cmdArgs, data)
+		endWait()
 		if err != nil {
 			return nil, err
 		}
