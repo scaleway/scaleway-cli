@@ -1,7 +1,8 @@
 package core
 
 import (
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"io"
@@ -276,9 +277,10 @@ func (p *Printer) printJSON(data any) error {
 	if isError {
 		writer = p.stderr
 	}
-	encoder := json.NewEncoder(writer)
+	var opts []json.Options
+	opts = append(opts, json.Deterministic(true), json.FormatNilSliceAsNull(true))
 	if p.jsonPretty {
-		encoder.SetIndent("", "  ")
+		opts = append(opts, jsontext.WithIndent("  "))
 	}
 
 	// We handle special case to make sure that a nil slice is marshal as `[]`
@@ -288,7 +290,11 @@ func (p *Printer) printJSON(data any) error {
 		return err
 	}
 
-	return encoder.Encode(data)
+	if err := json.MarshalWrite(writer, data, opts...); err != nil {
+		return err
+	}
+	_, err = writer.Write([]byte("\n"))
+	return err
 }
 
 func (p *Printer) printYAML(data any) error {
