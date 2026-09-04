@@ -26,7 +26,7 @@ type billingDownloadRequest struct {
 }
 
 func invoiceDownloadBuilder(command *core.Command) *core.Command {
-	command.ArgsType = reflect.TypeOf(billingDownloadRequest{})
+	command.ArgsType = reflect.TypeFor[billingDownloadRequest]()
 	command.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "invoice-id",

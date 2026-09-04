@@ -32,7 +32,7 @@ func bucketCorsCreateCommand() *core.Command {
 		Verb:      "create",
 		Short:     "Add CORS rules to a bucket",
 		Long:      "Add CORS rules to an Object Storage bucket with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketCorsCreateArgs{}),
+		ArgsType:  reflect.TypeFor[bucketCorsCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",
@@ -148,7 +148,7 @@ func bucketCorsDeleteCommand() *core.Command {
 		Verb:      "delete",
 		Short:     "Remove CORS rules from a bucket",
 		Long:      "Remove CORS rules from an Object Storage bucket with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketCorsDeleteArgs{}),
+		ArgsType:  reflect.TypeFor[bucketCorsDeleteArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",
@@ -224,7 +224,7 @@ func bucketCorsGetCommand() *core.Command {
 		Verb:      "get",
 		Short:     "Get the CORS configuration of a bucket",
 		Long:      "Get the CORS configuration of an Object Storage bucket with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketCorsGetArgs{}),
+		ArgsType:  reflect.TypeFor[bucketCorsGetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",

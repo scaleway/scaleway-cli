@@ -32,7 +32,7 @@ func bucketCreateCommand() *core.Command {
 		Verb:      "create",
 		Short:     "Create an S3 bucket",
 		Long:      "Create an Object Storage Bucket with the S3 protocol. The namespace is shared between all S3 users, so its name must be unique.",
-		ArgsType:  reflect.TypeOf(bucketConfigArgs{}),
+		ArgsType:  reflect.TypeFor[bucketConfigArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "name",
@@ -157,7 +157,7 @@ func bucketDeleteCommand() *core.Command {
 		Verb:      "delete",
 		Short:     "Delete an S3 bucket",
 		Long:      "Delete an S3 bucket with all its content.",
-		ArgsType:  reflect.TypeOf(bucketDeleteArgs{}),
+		ArgsType:  reflect.TypeFor[bucketDeleteArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "name",
@@ -220,7 +220,7 @@ func bucketGetCommand() *core.Command {
 		Verb:      "get",
 		Short:     "Get information about an S3 bucket",
 		Long:      "Get the properties of an S3 bucket like tags, endpoint, access control, versioning, size, etc.",
-		ArgsType:  reflect.TypeOf(bucketGetArgs{}),
+		ArgsType:  reflect.TypeFor[bucketGetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "name",
@@ -317,7 +317,7 @@ func bucketListCommand() *core.Command {
 		Verb:      "list",
 		Short:     "List S3 buckets",
 		Long:      "List all existing S3 buckets in the specified region",
-		ArgsType:  reflect.TypeOf(bucketListArgs{}),
+		ArgsType:  reflect.TypeFor[bucketListArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "s3-endpoint",
@@ -359,7 +359,7 @@ func bucketUpdateCommand() *core.Command {
 		Verb:      "update",
 		Short:     "Update an S3 bucket",
 		Long:      "Update an S3 bucket's properties like tags, access control and versioning.",
-		ArgsType:  reflect.TypeOf(bucketConfigArgs{}),
+		ArgsType:  reflect.TypeFor[bucketConfigArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "name",

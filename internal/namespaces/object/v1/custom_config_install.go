@@ -28,7 +28,7 @@ func configInstallCommand() *core.Command {
 		Verb:      "install",
 		Short:     "Install a S3 tool configuration file to its default location",
 		Long:      "Install a S3 tool configuration file to its default location.",
-		ArgsType:  reflect.TypeOf(installArgs{}),
+		ArgsType:  reflect.TypeFor[installArgs](),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "type",

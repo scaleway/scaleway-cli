@@ -61,7 +61,7 @@ func testArgSpecMissingError(commands *core.Commands) []error {
 
 	// Check all commands
 	for _, command := range commands.GetAll() {
-		if command.ArgsType == nil || command.ArgsType == reflect.TypeOf(args.RawArgs{}) {
+		if command.ArgsType == nil || command.ArgsType == reflect.TypeFor[args.RawArgs]() {
 			continue
 		}
 
