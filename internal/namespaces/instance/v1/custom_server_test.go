@@ -7,9 +7,11 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	block "github.com/scaleway/scaleway-cli/v2/internal/namespaces/block/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 	blockSDK "github.com/scaleway/scaleway-sdk-go/api/block/v1alpha1"
 	instanceSDK "github.com/scaleway/scaleway-sdk-go/api/instance/v1"
+	instanceSDKV2 "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
@@ -208,11 +210,14 @@ func Test_ServerUpdateCustom(t *testing.T) {
 		),
 	}))
 
+	cmds := instance.GetCommands()
+	cmds.Merge(instanceV2.GetCommands())
+
 	// Placement group cases.
 	t.Run(
 		"Update server placement-group-id from server with placement-group-id",
 		core.Test(&core.TestConfig{
-			Commands: instance.GetCommands(),
+			Commands: cmds,
 			BeforeFunc: core.BeforeFuncCombine(
 				createPlacementGroup("PlacementGroup1"),
 				createPlacementGroup("PlacementGroup2"),
@@ -229,7 +234,7 @@ func Test_ServerUpdateCustom(t *testing.T) {
 				func(t *testing.T, ctx *core.CheckFuncCtx) {
 					t.Helper()
 					assert.Equal(t,
-						ctx.Meta["PlacementGroup2"].(*instanceSDK.PlacementGroup).ID,
+						ctx.Meta["PlacementGroup2"].(*instanceSDKV2.PlacementGroup).ID,
 						ctx.Result.(*instance.ServerWithWarningsResponse).Server.PlacementGroup.ID)
 				},
 			),
