@@ -16,7 +16,7 @@ import (
 
 func placementGroupGetBuilder(c *core.Command) *core.Command {
 	type customPlacementGroupGetRequest struct {
-		*instance.GetPlacementGroupRequest
+		instance.GetPlacementGroupRequest
 		ListServers bool
 	}
 
@@ -35,7 +35,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := instance.NewAPI(client)
 		placementGroupResponse, err := api.GetPlacementGroup(
-			req.GetPlacementGroupRequest,
+			&req.GetPlacementGroupRequest,
 			scw.WithContext(ctx),
 		)
 		if err != nil {
