@@ -101,7 +101,10 @@ func Test_getS3Endpoint(t *testing.T) {
 			client := newTestClient(t, opts...)
 			ctx := ctxWithClient(client)
 
-			got := getS3Endpoint(ctx, region, c.customEndpoint)
+			got, _, err := getS3Endpoints(ctx, region, c.customEndpoint, "", false)
+			if err != nil {
+				t.Errorf("getS3Endpoint: expected no errors, got %s", err)
+			}
 			if got != c.expected {
 				t.Errorf("getS3Endpoint: expected %q, got %q", c.expected, got)
 			}
@@ -188,7 +191,10 @@ func Test_getS3UsePathStyle(t *testing.T) {
 			client := newTestClient(t, opts...)
 			ctx := ctxWithClient(client)
 
-			got := getS3UsePathStyle(ctx, c.cliArg)
+			got, err := getS3UsePathStyle(ctx, c.cliArg)
+			if err != nil {
+				t.Errorf("getS3UsePathStyle: expected no errors, got %s", err)
+			}
 			if got != c.expected {
 				t.Errorf("getS3UsePathStyle: expected %v, got %v", c.expected, got)
 			}

@@ -96,8 +96,18 @@ func bucketCorsCreateCommand() *core.Command {
 				CORSConfiguration: &config,
 			}
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			_, err = client.PutBucketCors(ctx, &params)
@@ -172,11 +182,21 @@ func bucketCorsDeleteCommand() *core.Command {
 				Bucket: &args.Bucket,
 			}
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
-			_, err := client.DeleteBucketCors(ctx, &params)
+			_, err = client.DeleteBucketCors(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket CORS: %w", err)
 			}
@@ -238,8 +258,18 @@ func bucketCorsGetCommand() *core.Command {
 				Bucket: &args.Bucket,
 			}
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			conf, err := client.GetBucketCors(ctx, &params)
