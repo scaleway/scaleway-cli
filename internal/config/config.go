@@ -25,6 +25,13 @@ const (
 # Output sets the output format for all commands you run
 {{ if .Output }}output: {{ .Output }}{{ else }}# output: human{{ end }}
 
+# Whether autocomplete was proposed during init
+{{- if .HasInstallAutocomplete }}
+install_autocomplete: {{ .InstallAutocomplete }}
+{{- else }}
+# install_autocomplete: true
+{{- end }}
+
 # Alias creates custom aliases for your Scaleway CLI commands
 {{- if .Alias }}
 alias:
@@ -47,8 +54,9 @@ alias:
 )
 
 type Config struct {
-	Alias  *alias.Config `json:"alias"  yaml:"alias"`
-	Output string        `json:"output" yaml:"output"`
+	Alias               *alias.Config `json:"alias"  yaml:"alias"`
+	Output              string        `json:"output" yaml:"output"`
+	InstallAutocomplete *bool         `json:"install_autocomplete,omitempty" yaml:"install_autocomplete,omitempty"`
 
 	path string
 }
@@ -107,6 +115,11 @@ func (c *Config) Save() error {
 	}
 
 	return os.WriteFile(c.path, []byte(file), defaultConfigPermission)
+}
+
+// HasInstallAutocomplete returns true if the install_autocomplete preference has been set
+func (c *Config) HasInstallAutocomplete() bool {
+	return c.InstallAutocomplete != nil
 }
 
 // HumanConfig will generate a config file with documented arguments
