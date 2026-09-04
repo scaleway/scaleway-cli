@@ -79,15 +79,26 @@ func bucketCreateCommand() *core.Command {
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			if ok, possibleValues := verifyACLInput(args.ACL); !ok {
 				return nil, fmt.Errorf("ACL field must be one of %v", possibleValues)
 			}
 
-			_, err := client.CreateBucket(ctx, &s3.CreateBucketInput{
+			_, err = client.CreateBucket(ctx, &s3.CreateBucketInput{
 				Bucket: &args.Name,
 				ACL:    types.BucketCannedACL(args.ACL),
 				CreateBucketConfiguration: &types.CreateBucketConfiguration{
@@ -173,11 +184,21 @@ func bucketDeleteCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketDeleteArgs)
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", false,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
-			_, err := client.DeleteBucket(ctx, &s3.DeleteBucketInput{
+			_, err = client.DeleteBucket(ctx, &s3.DeleteBucketInput{
 				Bucket: &args.Name,
 			})
 			if err != nil {
@@ -233,8 +254,18 @@ func bucketGetCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketGetArgs)
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", false,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			bucket, err := getBucketInfo(
@@ -300,7 +331,15 @@ func bucketListCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketListArgs)
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
+			// s3UsePathStyle is not relevant to this call, we arbitrarily set
+			// it to false
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", false,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, false)
 
 			buckets, err := client.ListBuckets(ctx, &s3.ListBucketsInput{})
@@ -368,11 +407,21 @@ func bucketUpdateCommand() *core.Command {
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*bucketConfigArgs)
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
-			err := putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
+			err = putBucketVersioning(ctx, client, args.Name, args.EnableVersioning)
 			if err != nil {
 				return nil, fmt.Errorf("could not update bucket versioning: %w", err)
 			}
@@ -537,8 +586,16 @@ func autocompleteBucketName(
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	s3Endpoint := getS3Endpoint(ctx, region.String(), "")
-	s3UsePathStyle := getS3UsePathStyle(ctx, "")
+	s3UsePathStyle, err := getS3UsePathStyle(ctx, "")
+	if err != nil {
+		return nil
+	}
+
+	s3Endpoint, _, err := getS3Endpoints(ctx, region.String(), "", "", s3UsePathStyle)
+	if err != nil {
+		return nil
+	}
+
 	client := newS3Client(ctx, region, projectID, s3Endpoint, s3UsePathStyle)
 
 	if completeListBucketsCache == nil {
