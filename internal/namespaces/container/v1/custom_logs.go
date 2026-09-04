@@ -32,7 +32,7 @@ func containerLogs() *core.Command {
 		Resource:  "container",
 		Verb:      "logs",
 		Groups:    []string{"utility"},
-		ArgsType:  reflect.TypeOf(containerLogsRequest{}),
+		ArgsType:  reflect.TypeFor[containerLogsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",

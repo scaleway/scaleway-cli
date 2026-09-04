@@ -61,7 +61,7 @@ Otherwise, opens the editor with full rules including backend_stage_id for each 
 		Namespace: "edge-services",
 		Resource:  "route-rules",
 		Verb:      "edit",
-		ArgsType:  reflect.TypeOf(edgeServicesRouteRulesEditArgs{}),
+		ArgsType:  reflect.TypeFor[edgeServicesRouteRulesEditArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "route-stage-id",

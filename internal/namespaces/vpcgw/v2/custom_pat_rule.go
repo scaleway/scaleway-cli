@@ -31,7 +31,7 @@ func vpcgwPATRulesEditCommand() *core.Command {
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 		Verb:      "edit",
-		ArgsType:  reflect.TypeOf(vpcgwPATRulesEditArgs{}),
+		ArgsType:  reflect.TypeFor[vpcgwPATRulesEditArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "gateway-id",

@@ -30,7 +30,7 @@ func bucketPolicyCreateCommand() *core.Command {
 		Verb:      "create",
 		Short:     "Create a policy for an S3 bucket",
 		Long:      "Create a policy and apply to an Object Bucket with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketPolicyCreateArgs{}),
+		ArgsType:  reflect.TypeFor[bucketPolicyCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -107,7 +107,7 @@ func bucketPolicyDeleteCommand() *core.Command {
 		Verb:      "delete",
 		Short:     "Delete an S3 bucket's policy if it exists.",
 		Long:      "Delete an Object Bucket's policy with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketPolicyDeleteArgs{}),
+		ArgsType:  reflect.TypeFor[bucketPolicyDeleteArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",
@@ -156,7 +156,7 @@ func bucketPolicyGetCommand() *core.Command {
 		Verb:      "get",
 		Short:     "Retrieve an S3 bucket's policy.",
 		Long:      "Retrieve an Object Bucket's policy with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(bucketPolicyGetArgs{}),
+		ArgsType:  reflect.TypeFor[bucketPolicyGetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",

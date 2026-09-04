@@ -205,7 +205,7 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customCreateSecurityGroupRequest{})
+	c.ArgsType = reflect.TypeFor[customCreateSecurityGroupRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -267,7 +267,7 @@ func securityGroupListBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customListSecurityGroupsRequest{})
+	c.ArgsType = reflect.TypeFor[customListSecurityGroupsRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -353,7 +353,7 @@ func securityGroupClearCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "clear",
-		ArgsType:  reflect.TypeOf(instanceResetSecurityGroupArgs{}),
+		ArgsType:  reflect.TypeFor[instanceResetSecurityGroupArgs](),
 		Examples: []*core.Example{
 			{
 				Short:    "Remove all rules of the given security group",
@@ -432,7 +432,7 @@ func securityGroupEditCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "security-group",
 		Verb:      "edit",
-		ArgsType:  reflect.TypeOf(instanceSecurityGroupEditArgs{}),
+		ArgsType:  reflect.TypeFor[instanceSecurityGroupEditArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "security-group-id",

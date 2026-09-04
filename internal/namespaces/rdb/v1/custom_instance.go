@@ -311,7 +311,7 @@ func instanceCreateBuilder(c *core.Command) *core.Command {
 	c.ArgSpecs.GetByName("node-type").AutoCompleteFunc = autoCompleteNodeType
 	c.ArgSpecs.GetByName("engine").AutoCompleteFunc = autoCompleteDatabaseEngines
 
-	c.ArgsType = reflect.TypeOf(rdbCreateInstanceRequestCustom{})
+	c.ArgsType = reflect.TypeFor[rdbCreateInstanceRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := rdbSDK.NewAPI(core.ExtractClient(ctx))
@@ -530,7 +530,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 		Namespace: "rdb",
 		Resource:  "instance",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(rdbUpdateInstanceRequestCustom{}),
+		ArgsType:  reflect.TypeFor[rdbUpdateInstanceRequestCustom](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "backup-schedule-frequency",
@@ -726,7 +726,7 @@ func instanceWaitCommand() *core.Command {
 		Resource:  "instance",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
+		ArgsType:  reflect.TypeFor[serverWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
@@ -907,7 +907,7 @@ func instanceConnectCommand() *core.Command {
 		Verb:      "connect",
 		Short:     "Connect to an instance using locally installed CLI",
 		Long:      "Connect to an instance using locally installed CLI such as psql or mysql.",
-		ArgsType:  reflect.TypeOf(instanceConnectArgs{}),
+		ArgsType:  reflect.TypeFor[instanceConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -1016,7 +1016,7 @@ func instanceEditSettingsCommand() *core.Command {
 		Short:     "Edit Database Instance settings in your default editor",
 		Long: `This command opens the current settings of your RDB instance in your $EDITOR.
 You can modify the values and save the file to apply the new configuration.`,
-		ArgsType: reflect.TypeOf(editSettingsArgs{}),
+		ArgsType: reflect.TypeFor[editSettingsArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",
