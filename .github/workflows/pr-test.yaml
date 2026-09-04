@@ -1,0 +1,117 @@
+name: pr-test
+
+permissions:
+  contents: read
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.ref }}
+  cancel-in-progress: true
+
+on:
+  pull_request:
+  merge_group:
+
+jobs:
+  test:
+    runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
+    steps:
+      - name: Set git to use LF to avoid problem with goldens on windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      # Checkout should always be before setup-go to ensure caching is working
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 1
+      - name: Install Go
+        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+        with:
+          go-version: stable
+          cache: false
+      - name: Verify go.mod is tidy
+        run: |
+          go mod tidy
+          git diff --exit-code
+      - name: Build binaries
+        run: ./scripts/build.sh
+      - name: Print binaries size
+        run: ls -lh ./bin
+      - name: Check binary size
+        run: ./scripts/check-size.sh ./bin/*linux-x86_64
+      - name: Run tests
+        run: go tool gotestsum --format github-actions ./...
+      - name: Execute main binary # Test the runtime for potential panics.
+        run: go run cmd/scw/main.go -h
+      - name: Run coverage
+        run: go tool gotestsum --format github-actions --junitfile junit.xml -- -coverprofile=coverage.out -covermode=count ./...
+      - name: Upload coverage to Codecov
+        uses: codecov/codecov-action@fb8b3582c8e4def4969c97caa2f19720cb33a72f # v7.0.0
+      - name: Upload test results to Codecov
+        if: ${{ !cancelled() }}
+        uses: codecov/test-results-action@0fa95f0e1eeaafde2c782583b36b28ad0d8c77d3 # v1.2.1
+        with:
+          token: ${{ secrets.CODECOV_TOKEN }}
+      - name: Build and Run Dev Container
+        uses: devcontainers/ci@513af61f4de4f75d37e4438f184ba4358f0fc1ca # v0.3.1900000450
+        with:
+          runCmd: go run ./cmd/scw --help
+      - name: Generate code
+        run: go run ./cmd/scw-doc-gen
+        env:
+          # We need this to enable autocomplete documentation generation default
+          SHELL: /bin/bash
+      - name: Install rumdl
+        run: curl -LsSf https://github.com/rvben/rumdl/releases/download/v0.2.54/rumdl-v0.2.54-x86_64-unknown-linux-gnu.tar.gz | tar xzf - -C /usr/local/bin
+      - name: Run formatter
+        run: rumdl fmt .
+      - name: Exit 1 if not empty
+        run: git diff --exit-code
+      - uses: gaurav-nelson/github-action-markdown-link-check@3c3b66f1f7d0900e37b71eca45b63ea9eedfce31 # 1.0.17
+        with:
+          use-quiet-mode: 'yes'
+          use-verbose-mode: 'yes'
+          config-file: '.markdownlinkcheck.json'
+          folder-path: 'docs'
+          file-extension: '.md'
+      - name: Build docker image
+        run: docker build -t scaleway/cli .
+      - name: Verify image binary
+        run: docker run -i scaleway/cli version
+      - name: Check workflow files
+        uses: docker://rhysd/actionlint:latest
+        with:
+          args: -color -ignore SC2086
+      - name: dockerfile-lint
+        run: docker build --check .
+      - name: golangci-lint
+        uses: golangci/golangci-lint-action@ba0d7d2ec06a0ea1cb5fa41b2e4a3ab91d21278a # v9.3.0
+        with:
+          # Required: the version of golangci-lint is required and must be specified without patch version: we always use the latest patch version.
+          version: v2.13
+          args: --timeout 10m
+      - name: Install wget
+        run: |
+          sudo apt-get update
+          sudo apt-get install -y --no-install-recommends wget
+      - name: Spell Check Repo
+        uses: crate-ci/typos@bee27e3a4fd1ea2111cf90ab89cd076c870fce14 # v1.48.0
+        env:
+          CLICOLOR: 1
+      - name: rumdl
+        uses: rvben/rumdl@96c8520425eaf1b6d362e4a98754adf6ee604acb # v0.2.62
+      - name: Install pnpm
+        uses: pnpm/action-setup@0977fd99725f1db4007ccb2928dbb4e90d06cc86 # v6.0.10
+        with:
+          package_json_file: "wasm/package.json"
+      - name: Build
+        run: ./scripts/build-wasm.sh
+      - name: Run npm package tests
+        run: ./scripts/run-tests-wasm.sh
+      - name: Run custom tester
+        run: ./scripts/run-tests-wasm.sh
+        env:
+          TESTER: true
+      - name: Run prettier
+        working-directory: wasm
+        run: pnpm lint
