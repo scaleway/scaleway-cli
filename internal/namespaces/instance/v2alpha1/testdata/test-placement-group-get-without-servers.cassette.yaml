@@ -8,7 +8,7 @@ interactions:
         proto_minor: 1
         content_length: 130
         host: api.scaleway.com
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-gallant-murdock","policy_type":"max_availability","tags":null}'
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552","name":"cli-pg-eloquent-banzai","policy_type":"max_availability","tags":null}'
         headers:
             Content-Type:
                 - application/json
@@ -21,27 +21,27 @@ interactions:
         proto_major: 2
         proto_minor: 0
         content_length: 283
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-gallant-murdock", "id":"667dce98-f614-4d90-af09-805d684d7993", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T15:27:27.927163Z", "updated_at":"2026-09-03T15:27:27.927163Z", "zone":"fr-par-1"}'
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-eloquent-banzai", "id":"139eda29-c24d-4e6a-ab7a-24f3a60b55a9", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T13:46:49.372742Z", "updated_at":"2026-09-04T13:46:49.372742Z", "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "283"
             Content-Type:
                 - application/json
             Date:
-                - Thu, 03 Sep 2026 15:27:27 GMT
+                - Fri, 04 Sep 2026 13:46:49 GMT
             Server:
-                - Scaleway API Gateway (fr-par-2;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "48"
+                - "49"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 60521c1a-73c8-460d-8a42-9eecd7a647de
+                - c02b22bc-ed30-4aa1-9ce5-4ea901d974d8
         status: 200 OK
         code: 200
-        duration: 515.191856ms
+        duration: 154.081997ms
     - id: 1
       request:
         proto: HTTP/1.1
@@ -52,34 +52,34 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/667dce98-f614-4d90-af09-805d684d7993
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/139eda29-c24d-4e6a-ab7a-24f3a60b55a9
         method: GET
       response:
         proto: HTTP/2.0
         proto_major: 2
         proto_minor: 0
         content_length: 283
-        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-gallant-murdock", "id":"667dce98-f614-4d90-af09-805d684d7993", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-03T15:27:27.927163Z", "updated_at":"2026-09-03T15:27:27.927163Z", "zone":"fr-par-1"}'
+        body: '{"project_id":"fa1e3217-dc80-42ac-85c3-3f034b78b552", "name":"cli-pg-eloquent-banzai", "id":"139eda29-c24d-4e6a-ab7a-24f3a60b55a9", "policy_type":"max_availability", "tags":[], "created_at":"2026-09-04T13:46:49.372742Z", "updated_at":"2026-09-04T13:46:49.372742Z", "zone":"fr-par-1"}'
         headers:
             Content-Length:
                 - "283"
             Content-Type:
                 - application/json
             Date:
-                - Thu, 03 Sep 2026 15:27:28 GMT
+                - Fri, 04 Sep 2026 13:46:49 GMT
             Server:
-                - Scaleway API Gateway (fr-par-2;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "47"
+                - "48"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 6cbef366-ffff-4a3e-a783-64a6fef3c238
+                - 510a83e7-9cf5-420e-a2ba-1eac0bb62f4f
         status: 200 OK
         code: 200
-        duration: 90.544484ms
+        duration: 63.213123ms
     - id: 2
       request:
         proto: HTTP/1.1
@@ -93,13 +93,13 @@ interactions:
             page:
                 - "1"
             placement_group_ids:
-                - 667dce98-f614-4d90-af09-805d684d7993
+                - 139eda29-c24d-4e6a-ab7a-24f3a60b55a9
             project_id:
                 - fa1e3217-dc80-42ac-85c3-3f034b78b552
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/servers?order_by=created_at_desc&page=1&placement_group_ids=667dce98-f614-4d90-af09-805d684d7993&project_id=fa1e3217-dc80-42ac-85c3-3f034b78b552
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/servers?order_by=created_at_desc&page=1&placement_group_ids=139eda29-c24d-4e6a-ab7a-24f3a60b55a9&project_id=fa1e3217-dc80-42ac-85c3-3f034b78b552
         method: GET
       response:
         proto: HTTP/2.0
@@ -113,20 +113,20 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Thu, 03 Sep 2026 15:27:28 GMT
+                - Fri, 04 Sep 2026 13:46:49 GMT
             Server:
-                - Scaleway API Gateway (fr-par-2;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "45"
+                - "49"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - 8942815f-ad40-4ee9-8200-11dfa48c602e
+                - f2977a8c-9be7-46a0-b4d0-dacdf796326b
         status: 200 OK
         code: 200
-        duration: 86.970173ms
+        duration: 123.839608ms
     - id: 3
       request:
         proto: HTTP/1.1
@@ -137,7 +137,7 @@ interactions:
         headers:
             User-Agent:
                 - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; linux; amd64) cli-e2e-test
-        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/667dce98-f614-4d90-af09-805d684d7993
+        url: https://api.scaleway.com/instance/v2alpha1/zones/fr-par-1/placement-groups/139eda29-c24d-4e6a-ab7a-24f3a60b55a9
         method: DELETE
       response:
         proto: HTTP/2.0
@@ -149,17 +149,17 @@ interactions:
             Content-Type:
                 - application/json
             Date:
-                - Thu, 03 Sep 2026 15:27:28 GMT
+                - Fri, 04 Sep 2026 13:46:49 GMT
             Server:
-                - Scaleway API Gateway (fr-par-2;edge01)
+                - Scaleway API Gateway (fr-par-3;edge02)
             X-Ratelimit-Limit:
                 - 50, 50;w=1
             X-Ratelimit-Remaining:
-                - "48"
+                - "47"
             X-Ratelimit-Reset:
                 - "1"
             X-Request-Id:
-                - de396583-b69a-43c2-840a-c148afe69949
+                - c92eaffc-0d76-480a-8a25-ccc984c4277d
         status: 204 No Content
         code: 204
-        duration: 135.100395ms
+        duration: 117.691788ms

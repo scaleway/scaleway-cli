@@ -10,14 +10,14 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
-func Test_GetPlacementGroup(t *testing.T) {
+func Test_PlacementGroup_Get(t *testing.T) {
 	cmds := instance.GetCommands()
 
 	t.Run("Without servers", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
 				"PlacementGroup",
-				"scw instance placement-group create policy-type=max_availability",
+				"scw instance placement-group create",
 			),
 		),
 		Commands: cmds,
@@ -39,7 +39,7 @@ func Test_GetPlacementGroup(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
 				"PlacementGroup",
-				"scw instance placement-group create policy-type=max_availability"),
+				"scw instance placement-group create"),
 			core.ExecStoreBeforeCmd(
 				"ServerA",
 				"scw instance server create type=DEV1-S image=ubuntu_jammy ip=none stopped=true placement-group-id={{ .PlacementGroup.ID }}",
@@ -60,7 +60,7 @@ func Test_GetPlacementGroup(t *testing.T) {
 	}))
 }
 
-func Test_ListPlacementGroup(t *testing.T) {
+func Test_PlacementGroup_List(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
@@ -85,7 +85,7 @@ func Test_ListPlacementGroup(t *testing.T) {
 	}))
 }
 
-func Test_UpdatePlacementGroup(t *testing.T) {
+func Test_PlacementGroup_Update(t *testing.T) {
 	t.Run("simple", core.Test(&core.TestConfig{
 		BeforeFunc: core.BeforeFuncCombine(
 			core.ExecStoreBeforeCmd(
