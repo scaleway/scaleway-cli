@@ -21,8 +21,8 @@ type bucketCorsCreateArgs struct {
 	CorsConfiguration string
 	Region            scw.Region
 	ProjectID         string
-	S3Endpoint        string `json:"s3-endpoint"`
-	S3UsePathStyle    string `json:"s3-use-path-style"`
+	S3Endpoint        string
+	S3UsePathStyle    string
 }
 
 func bucketCorsCreateCommand() *core.Command {
@@ -137,8 +137,8 @@ type bucketCorsDeleteArgs struct {
 	Bucket         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3UsePathStyle string
+	S3Endpoint     string
 }
 
 func bucketCorsDeleteCommand() *core.Command {
@@ -213,8 +213,8 @@ type bucketCorsGetArgs struct {
 	Bucket         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketCorsGetCommand() *core.Command {

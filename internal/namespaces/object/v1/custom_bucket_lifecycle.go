@@ -21,8 +21,8 @@ type lifecycleCreateArgs struct {
 	LifecycleConfiguration string
 	Region                 scw.Region
 	ProjectID              string
-	S3Endpoint             string `json:"s3-endpoint"`
-	S3UsePathStyle         string `json:"s3-use-path-style"`
+	S3Endpoint             string
+	S3UsePathStyle         string
 }
 
 func lifecycleCreateCommand() *core.Command {
@@ -136,8 +136,8 @@ type lifecycleDeleteArgs struct {
 	Bucket         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func lifecycleDeleteCommand() *core.Command {
@@ -212,8 +212,8 @@ type lifecycleGetArgs struct {
 	Bucket         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func lifecycleGetCommand() *core.Command {
