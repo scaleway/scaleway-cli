@@ -29,7 +29,7 @@ func McpServerServe() *core.Command {
 		Long:                 "Runs the MCP server, exposing all CLI commands as MCP tools for AI assistants. Supports stdio (default) and streamable HTTP transports.",
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(serveArgs{}),
+		ArgsType:             reflect.TypeFor[serveArgs](),
 		Examples: []*core.Example{
 			{
 				Short: "Start the MCP server with stdio transport (default)",
@@ -187,7 +187,7 @@ func McpServerListResources() *core.Command {
 		Long:                 "Lists all CLI commands that would be exposed as MCP resources by the server. Resources are read-only endpoints for list commands that can be accessed via URI. Use filters to see which resources are available for specific namespaces or resources.",
 		AllowAnonymousClient: true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(listResourcesArgs{}),
+		ArgsType:             reflect.TypeFor[listResourcesArgs](),
 		Examples: []*core.Example{
 			{
 				Short: "List all available MCP resources",

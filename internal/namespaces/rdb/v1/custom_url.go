@@ -27,7 +27,7 @@ func databaseGetURLCommand() *core.Command {
 		Verb:      "get-url",
 		Short:     "Gets the URL to connect to the Database",
 		Long:      "Provides the URL to connect to a Database on an Instance as the given user",
-		ArgsType:  reflect.TypeOf(rdbGetURLArgs{}),
+		ArgsType:  reflect.TypeFor[rdbGetURLArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

@@ -5,7 +5,7 @@ lint:
 	./scripts/lint.sh
 
 test:
-	./scripts/test.sh
+	./scripts/run-tests.sh
 
 fmt:
 	golangci-lint run --fix ./...

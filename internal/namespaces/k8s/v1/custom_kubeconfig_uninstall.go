@@ -23,7 +23,7 @@ If the current context points to this cluster, it will be set to an empty contex
 		Namespace: "k8s",
 		Verb:      "uninstall",
 		Resource:  "kubeconfig",
-		ArgsType:  reflect.TypeOf(k8sKubeconfigUninstallRequest{}),
+		ArgsType:  reflect.TypeFor[k8sKubeconfigUninstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",

@@ -208,7 +208,7 @@ var iamApiKeyCustomBuilder = struct {
 			Positional: false,
 		},
 	},
-	argType: reflect.TypeOf(iamGetAPIKeyArgs{}),
+	argType: reflect.TypeFor[iamGetAPIKeyArgs](),
 	run: func(ctx context.Context, args any) (i any, e error) {
 		arguments := args.(*iamGetAPIKeyArgs)
 
