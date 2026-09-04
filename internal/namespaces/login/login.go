@@ -43,7 +43,7 @@ Once you connected to Scaleway, the profile should be configured.
 `,
 		Namespace:            "login",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(loginArgs{}),
+		ArgsType:             reflect.TypeFor[loginArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "port",

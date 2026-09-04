@@ -83,7 +83,7 @@ Default path for configuration file is based on the following priority order:
 - $USERPROFILE/.config/scw/config.yaml`,
 		Namespace:            "init",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(Args{}),
+		ArgsType:             reflect.TypeFor[Args](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:         "secret-key",

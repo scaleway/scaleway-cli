@@ -144,7 +144,7 @@ type customTagDeleteArgs struct {
 }
 
 func tagDeleteBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(customTagDeleteArgs{})
+	c.ArgsType = reflect.TypeFor[customTagDeleteArgs]()
 	c.ArgSpecs.AddBefore("force", &core.ArgSpec{
 		Name:       "timeout",
 		Short:      "Maximum time to handle the request",

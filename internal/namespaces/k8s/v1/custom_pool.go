@@ -144,7 +144,7 @@ func k8sPoolWaitCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(k8s.WaitForPoolRequest{}),
+		ArgsType:  reflect.TypeFor[k8s.WaitForPoolRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 
@@ -190,7 +190,7 @@ Keep in mind that your external node needs to have wget in order to download the
 		Namespace: "k8s",
 		Resource:  "pool",
 		Verb:      "add-external-node",
-		ArgsType:  reflect.TypeOf(k8sPoolAddExternalNodeRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolAddExternalNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "node-ip",

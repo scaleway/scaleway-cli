@@ -59,7 +59,7 @@ func containerDeployCommand() *core.Command {
 		Namespace: "container",
 		Resource:  "deploy",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(containerDeployRequest{}),
+		ArgsType:  reflect.TypeFor[containerDeployRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "name",

@@ -370,7 +370,7 @@ func Test_ValidateDeprecated(t *testing.T) {
 	t.Run("Deprecated", core.Test(&core.TestConfig{
 		Commands: core.NewCommands(&core.Command{
 			Namespace:            "plop",
-			ArgsType:             reflect.TypeOf(args.RawArgs{}),
+			ArgsType:             reflect.TypeFor[args.RawArgs](),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, _ any) (i any, e error) {
 				return &core.SuccessResult{}, nil
@@ -738,7 +738,7 @@ func Test_ValidateOneOf(t *testing.T) {
 	t.Run("Simple one-of validation check", core.Test(&core.TestConfig{
 		Commands: core.NewCommands(&core.Command{
 			Namespace:            "oneof",
-			ArgsType:             reflect.TypeOf(args.RawArgs{}),
+			ArgsType:             reflect.TypeFor[args.RawArgs](),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, _ any) (i any, e error) {
 				return &core.SuccessResult{}, nil
@@ -763,7 +763,7 @@ func Test_ValidateOneOf(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace:            "oneof",
-				ArgsType:             reflect.TypeOf(args.RawArgs{}),
+				ArgsType:             reflect.TypeFor[args.RawArgs](),
 				AllowAnonymousClient: true,
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil
@@ -792,7 +792,7 @@ func Test_ValidateOneOf(t *testing.T) {
 		core.Test(&core.TestConfig{
 			Commands: core.NewCommands(&core.Command{
 				Namespace:            "oneof",
-				ArgsType:             reflect.TypeOf(args.RawArgs{}),
+				ArgsType:             reflect.TypeFor[args.RawArgs](),
 				AllowAnonymousClient: true,
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{}, nil

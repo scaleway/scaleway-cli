@@ -176,7 +176,7 @@ func TestCommandToolExecuteAppliesDefaultValues(t *testing.T) {
 		Namespace: "instance",
 		Resource:  "server-type",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgsType:  reflect.TypeFor[testArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "zone",
@@ -218,7 +218,7 @@ func TestCommandToolExecute(t *testing.T) {
 		Namespace: "test",
 		Resource:  "resource",
 		Verb:      "get",
-		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgsType:  reflect.TypeFor[testArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -276,7 +276,7 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 		Namespace: "test",
 		Resource:  "resource",
 		Verb:      "list",
-		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgsType:  reflect.TypeFor[testArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
