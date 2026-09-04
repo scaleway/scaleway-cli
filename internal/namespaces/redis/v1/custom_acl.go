@@ -18,7 +18,7 @@ func redisACLUpdateCommand() *core.Command {
 		Namespace: "redis",
 		Resource:  "acl",
 		Verb:      "update",
-		ArgsType:  reflect.TypeOf(redisUpdateACLRuleRequest{}),
+		ArgsType:  reflect.TypeFor[redisUpdateACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",

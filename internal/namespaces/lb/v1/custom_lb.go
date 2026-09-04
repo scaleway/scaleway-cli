@@ -71,7 +71,7 @@ func lbWaitCommand() *core.Command {
 		Resource:  "lb",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(lb.ZonedAPIWaitForLBRequest{}),
+		ArgsType:  reflect.TypeFor[lb.ZonedAPIWaitForLBRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := lb.NewZonedAPI(core.ExtractClient(ctx))
 			args := argsI.(*lb.ZonedAPIWaitForLBRequest)
@@ -153,7 +153,7 @@ func lbUpdateBuilder(c *core.Command) *core.Command {
 		IPID               string `json:"ip_id"`
 	}
 
-	c.ArgsType = reflect.TypeOf(lbUpdateRequestCustom{})
+	c.ArgsType = reflect.TypeFor[lbUpdateRequestCustom]()
 
 	c.ArgSpecs.AddBefore("tags.{index}", &core.ArgSpec{
 		Name:       "assign-flexible-ipv6",

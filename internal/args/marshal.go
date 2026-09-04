@@ -24,14 +24,14 @@ type Marshaler interface {
 type MarshalFunc func(src any) (string, error)
 
 var marshalFuncs = map[reflect.Type]MarshalFunc{
-	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(src any) (s string, e error) {
+	reflect.TypeFor[scw.Size](): func(src any) (s string, e error) {
 		v := src.(*scw.Size)
 		value := humanize.Bytes(uint64(*v))
 		value = strings.ReplaceAll(value, " ", "")
 
 		return value, nil
 	},
-	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src any) (string, error) {
+	reflect.TypeFor[time.Time](): func(src any) (string, error) {
 		v := src.(*time.Time)
 
 		return v.Format(time.RFC3339), nil
