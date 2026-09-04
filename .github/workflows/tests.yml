@@ -8,7 +8,40 @@ on:
   merge_group:
 
 jobs:
+  prepare:
+    strategy:
+      matrix:
+        platform:
+          - ubuntu-latest
+          - macos-latest
+          - windows-latest
+    runs-on: ${{ matrix.platform }}
+    steps:
+      # Checkout should always be before setup-go to ensure caching is working
+      - name: Checkout
+        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
+        with:
+          fetch-depth: 1
+      - name: Install Go
+        uses: actions/setup-go@924ae3a1cded613372ab5595356fb5720e22ba16 # v6.5.0
+        with:
+          go-version: stable
+          cache: false
+      - name: Get GOMODCACHE path
+        id: gomodcache
+        shell: bash
+        run: echo "path=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+      - name: Download modules
+        run: go mod download
+      - name: Save module cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.gomodcache.outputs.path }}
+          key: ${{ runner.os }}-gomod-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-gomod-
   namespaces:
+    needs: prepare
     strategy:
       matrix:
         platform:
@@ -68,11 +101,24 @@ jobs:
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: stable
+          cache: false
+      - name: Get GOMODCACHE path
+        id: gomodcache
+        shell: bash
+        run: echo "path=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+      - name: Restore module cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.gomodcache.outputs.path }}
+          key: ${{ runner.os }}-gomod-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-gomod-
       - name: Run tests
         run: go tool gotestsum --format github-actions -- -v ./internal/namespaces/${{ matrix.products }}/...
       - name: Execute main binary # Test the runtime for potential panics.
         run: go run cmd/scw/main.go -h
   others:
+    needs: prepare
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
       - name: Checkout
@@ -83,5 +129,17 @@ jobs:
         uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
         with:
           go-version: stable
+          cache: false
+      - name: Get GOMODCACHE path
+        id: gomodcache
+        shell: bash
+        run: echo "path=$(go env GOMODCACHE)" >> "$GITHUB_OUTPUT"
+      - name: Restore module cache
+        uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        with:
+          path: ${{ steps.gomodcache.outputs.path }}
+          key: ${{ runner.os }}-gomod-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            ${{ runner.os }}-gomod-
       - name: Run tests outside of products namespaces
         run: go list ./... | grep -v 'internal/namespaces' | xargs go tool gotestsum --format github-actions -- -v
