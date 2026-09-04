@@ -21,7 +21,7 @@ func redisVersionSettingsCommand() *core.Command {
 		Namespace: "redis",
 		Resource:  "version",
 		Verb:      "list-settings",
-		ArgsType:  reflect.TypeOf(versionSettingsArgs{}),
+		ArgsType:  reflect.TypeFor[versionSettingsArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "version",

@@ -17,7 +17,7 @@ import (
 
 var fakeCommand = &core.Command{
 	Namespace:            "plop",
-	ArgsType:             reflect.TypeOf(args.RawArgs{}),
+	ArgsType:             reflect.TypeFor[args.RawArgs](),
 	AllowAnonymousClient: true,
 	Run: func(_ context.Context, _ any) (i any, e error) {
 		return &core.SuccessResult{}, nil

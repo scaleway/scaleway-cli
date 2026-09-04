@@ -37,7 +37,7 @@ func testGetCommands() *core.Commands {
 				},
 			},
 			AllowAnonymousClient: true,
-			ArgsType:             reflect.TypeOf(testType{}),
+			ArgsType:             reflect.TypeFor[testType](),
 			Run: func(_ context.Context, _ any) (i any, e error) {
 				return "", nil
 			},
@@ -55,7 +55,7 @@ func testGetCommands() *core.Commands {
 				},
 			},
 			AllowAnonymousClient: true,
-			ArgsType:             reflect.TypeOf(testType{}),
+			ArgsType:             reflect.TypeFor[testType](),
 			Run: func(_ context.Context, argsI any) (i any, e error) {
 				return argsI, nil
 			},
@@ -74,7 +74,7 @@ func testGetCommands() *core.Commands {
 			},
 			AcceptMultiplePositionalArgs: true,
 			AllowAnonymousClient:         true,
-			ArgsType:                     reflect.TypeOf(testAcceptMultiPositionalArgsType{}),
+			ArgsType:                     reflect.TypeFor[testAcceptMultiPositionalArgsType](),
 			Run: func(_ context.Context, argsI any) (i any, e error) {
 				return argsI, nil
 			},
@@ -82,7 +82,7 @@ func testGetCommands() *core.Commands {
 		&core.Command{
 			Namespace:            "test",
 			Resource:             "raw-args",
-			ArgsType:             reflect.TypeOf(args.RawArgs{}),
+			ArgsType:             reflect.TypeFor[args.RawArgs](),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, argsI any) (i any, e error) {
 				rawArgs := *argsI.(*args.RawArgs)
@@ -93,7 +93,7 @@ func testGetCommands() *core.Commands {
 		&core.Command{
 			Namespace:            "test",
 			Resource:             "date",
-			ArgsType:             reflect.TypeOf(testDate{}),
+			ArgsType:             reflect.TypeFor[testDate](),
 			AllowAnonymousClient: true,
 			Run: func(_ context.Context, argsI any) (i any, e error) {
 				a := argsI.(*testDate)

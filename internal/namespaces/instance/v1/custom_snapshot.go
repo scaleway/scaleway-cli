@@ -31,7 +31,7 @@ func snapshotCreateBuilder(c *core.Command) *core.Command {
 		Short: "Whether a snapshot is unified or not.",
 	})
 
-	c.ArgsType = reflect.TypeOf(customCreateSnapshotRequest{})
+	c.ArgsType = reflect.TypeFor[customCreateSnapshotRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -91,7 +91,7 @@ func snapshotListBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customListSnapshotsRequest{})
+	c.ArgsType = reflect.TypeFor[customListSnapshotsRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -120,7 +120,7 @@ func snapshotWaitCommand() *core.Command {
 		Resource:  "snapshot",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(instance.WaitForSnapshotRequest{}),
+		ArgsType:  reflect.TypeFor[instance.WaitForSnapshotRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := instance.NewAPI(core.ExtractClient(ctx))
 

@@ -29,7 +29,7 @@ func serverCreateBuilder(c *core.Command) *core.Command {
 		Install *baremetal.CreateServerRequestInstall
 	}
 
-	c.ArgsType = reflect.TypeOf(baremetalCreateServerRequestCustom{})
+	c.ArgsType = reflect.TypeFor[baremetalCreateServerRequestCustom]()
 
 	c.ArgSpecs.DeleteByName("offer-id")
 

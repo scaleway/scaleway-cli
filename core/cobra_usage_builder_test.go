@@ -41,7 +41,7 @@ func Test_buildUsageArgs(t *testing.T) {
   [additional-volumes.{index}.name]   Additional volume name`
 
 	got := core.BuildUsageArgs(t.Context(), &core.Command{
-		ArgsType: reflect.TypeOf(instanceListServerArgs{}),
+		ArgsType: reflect.TypeFor[instanceListServerArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "name",

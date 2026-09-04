@@ -38,7 +38,7 @@ func instanceServerGetRdpPassword() *core.Command {
 		Namespace: "instance",
 		Verb:      "get-rdp-password",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instanceServerGetRdpPasswordRequest{}),
+		ArgsType:  reflect.TypeFor[instanceServerGetRdpPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
