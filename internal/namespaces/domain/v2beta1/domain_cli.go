@@ -2700,6 +2700,13 @@ You can provide a domain's already existing contact or a new contact.`,
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "auto-renew",
+				Short:      `Enable the ` + "`" + `auto renew` + "`" + ` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*domain.RegistrarAPIBuyDomainsRequest)
