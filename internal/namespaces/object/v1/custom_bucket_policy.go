@@ -81,8 +81,18 @@ func bucketPolicyCreateCommand() *core.Command {
 
 			policy := string(policyBytes)
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			params := s3.PutBucketPolicyInput{
@@ -163,14 +173,24 @@ func bucketPolicyDeleteCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 			params := s3.DeleteBucketPolicyInput{
 				Bucket: &args.Bucket,
 			}
 
-			_, err := client.DeleteBucketPolicy(ctx, &params)
+			_, err = client.DeleteBucketPolicy(ctx, &params)
 			if err != nil {
 				return nil, fmt.Errorf("could not delete bucket policy: %w", err)
 			}
@@ -228,8 +248,18 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, errors.New("bucket name cannot be empty")
 			}
 
-			s3Endpoint := getS3Endpoint(ctx, args.Region.String(), args.S3Endpoint)
-			s3UsePathStyle := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			s3UsePathStyle, err := getS3UsePathStyle(ctx, args.S3UsePathStyle)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 use path style flag: %w", err)
+			}
+
+			s3Endpoint, _, err := getS3Endpoints(
+				ctx, args.Region.String(), args.S3Endpoint, "", s3UsePathStyle,
+			)
+			if err != nil {
+				return nil, fmt.Errorf("could not get S3 endpoints: %w", err)
+			}
+
 			client := newS3Client(ctx, args.Region, args.ProjectID, s3Endpoint, s3UsePathStyle)
 
 			params := s3.GetBucketPolicyInput{
