@@ -21,8 +21,8 @@ type bucketConfigArgs struct {
 	EnableVersioning bool `json:"enable-versioning"`
 	ACL              string
 	ProjectID        string
-	S3Endpoint       string `json:"s3-endpoint"`
-	S3UsePathStyle   string `json:"s3-use-path-style"`
+	S3Endpoint       string
+	S3UsePathStyle   string
 }
 
 func bucketCreateCommand() *core.Command {
@@ -146,8 +146,8 @@ type bucketDeleteArgs struct {
 	Region         scw.Region
 	Name           string
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketDeleteCommand() *core.Command {
@@ -307,7 +307,7 @@ func bucketGetCommand() *core.Command {
 type bucketListArgs struct {
 	Region     scw.Region
 	ProjectID  string
-	S3Endpoint string `json:"s3-endpoint"`
+	S3Endpoint string
 }
 
 func bucketListCommand() *core.Command {
