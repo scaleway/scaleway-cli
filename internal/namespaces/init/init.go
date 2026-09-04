@@ -209,9 +209,14 @@ Default path for configuration file is based on the following priority order:
 
 			// Ask for send usage permission
 			if args.SendTelemetry == nil {
-				args.SendTelemetry, err = promptTelemetry(ctx)
-				if err != nil {
-					return nil, err
+				// Reuse existing config value if telemetry preference is already set
+				if existingProfile := getActiveProfile(config, profileName); existingProfile != nil && existingProfile.SendTelemetry != nil {
+					args.SendTelemetry = existingProfile.SendTelemetry
+				} else {
+					args.SendTelemetry, err = promptTelemetry(ctx)
+					if err != nil {
+						return nil, err
+					}
 				}
 			}
 
@@ -230,6 +235,7 @@ Default path for configuration file is based on the following priority order:
 				DefaultRegion:         new(args.Region.String()),
 				DefaultOrganizationID: &args.OrganizationID,
 				DefaultProjectID:      &args.ProjectID, // An API key is always bound to a project.
+				SendTelemetry:         args.SendTelemetry,
 			}
 
 			// Save the profile as default or as a named profile
@@ -297,6 +303,14 @@ func printScalewayBanner() {
 	} else {
 		interactive.Printf("Welcome to the Scaleway Cli\n\n")
 	}
+}
+
+// getActiveProfile returns the active profile from the config
+func getActiveProfile(config *scw.Config, profileName string) *scw.Profile {
+	if profileName == scw.DefaultProfileName {
+		return &config.Profile
+	}
+	return config.Profiles[profileName]
 }
 
 // loadConfigOrEmpty checks if a config exists
