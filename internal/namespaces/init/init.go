@@ -15,6 +15,7 @@ import (
 	iamcommands "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -222,9 +223,23 @@ Default path for configuration file is based on the following priority order:
 
 			// Ask whether we should install autocomplete
 			if args.InstallAutocomplete == nil {
-				args.InstallAutocomplete, err = promptAutocomplete(ctx)
-				if err != nil {
-					return nil, err
+				// Reuse existing CLI config value if autocomplete preference is already set
+				cliCfg := core.ExtractCliConfig(ctx)
+				if cliCfg != nil && cliCfg.InstallAutocomplete != nil {
+					args.InstallAutocomplete = cliCfg.InstallAutocomplete
+				} else {
+					args.InstallAutocomplete, err = promptAutocomplete(ctx)
+					if err != nil {
+						return nil, err
+					}
+					// Persist the answer in CLI config so we don't ask again
+					if cliCfg != nil {
+						cliCfg.InstallAutocomplete = args.InstallAutocomplete
+						saveErr := cliCfg.Save()
+						if saveErr != nil {
+							logger.Warningf("Failed to save autocomplete preference: %s\n", saveErr.Error())
+						}
+					}
 				}
 			}
 
