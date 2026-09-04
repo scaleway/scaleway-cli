@@ -21,8 +21,8 @@ type bucketPolicyCreateArgs struct {
 	Policy         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketPolicyCreateCommand() *core.Command {
@@ -132,8 +132,8 @@ type bucketPolicyDeleteArgs struct {
 	Bucket         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketPolicyDeleteCommand() *core.Command {
@@ -207,8 +207,8 @@ type bucketPolicyGetArgs struct {
 	Bucket         string
 	Region         scw.Region
 	ProjectID      string
-	S3Endpoint     string `json:"s3-endpoint"`
-	S3UsePathStyle string `json:"s3-use-path-style"`
+	S3Endpoint     string
+	S3UsePathStyle string
 }
 
 func bucketPolicyGetCommand() *core.Command {
