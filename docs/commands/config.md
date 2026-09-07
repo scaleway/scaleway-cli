@@ -22,6 +22,7 @@ The following environment variables are supported:
 | SCW_DEFAULT_ZONE            | The default availability zone                                                                       |
 | SCW_API_URL                 | URL of the API                                                                                      |
 | SCW_S3_ENDPOINT             | URL of the S3 API                                                                                   |
+| SCW_S3_USE_PATH_STYLE       | Whether to use path-style addressing for S3 API                                                     |
 | SCW_INSECURE                | Set this to true to enable the insecure mode                                                        |
 | SCW_PROFILE                 | Set the config profile to use                                                                       |
 

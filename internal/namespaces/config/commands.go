@@ -57,6 +57,7 @@ func configRoot() *core.Command {
 		{"|", scw.ScwDefaultZoneEnv, "|", "The default availability zone", "|"},
 		{"|", scw.ScwAPIURLEnv, "|", "URL of the API", "|"},
 		{"|", scw.ScwS3EndpointEnv, "|", "URL of the S3 API", "|"},
+		{"|", scw.ScwS3UsePathStyleEnv, "|", "Whether to use path-style addressing for S3 API", "|"},
 		{"|", scw.ScwInsecureEnv, "|", "Set this to true to enable the insecure mode", "|"},
 		{"|", scw.ScwActiveProfileEnv, "|", "Set the config profile to use", "|"},
 	} {
@@ -449,6 +450,7 @@ func configListProfilesCommand() *core.Command {
 				DefaultOrganizationID *string
 				APIURL                *string
 				S3Endpoint            *string
+				S3UsePathStyle        *bool
 			}
 			if err != nil {
 				return nil, err
@@ -465,6 +467,7 @@ func configListProfilesCommand() *core.Command {
 					DefaultProjectID:      value.DefaultProjectID,
 					APIURL:                value.APIURL,
 					S3Endpoint:            value.S3Endpoint,
+					S3UsePathStyle:        value.S3UsePathStyle,
 				})
 			}
 
