@@ -24,8 +24,8 @@ require (
 	github.com/mattn/go-isatty v0.0.24
 	github.com/moby/buildkit v0.32.2
 	github.com/moby/go-archive v0.3.3
-	github.com/moby/moby/api v1.55.0
-	github.com/moby/moby/client v0.5.1
+	github.com/moby/moby/api v1.56.0
+	github.com/moby/moby/client v0.6.0
 	github.com/modelcontextprotocol/go-sdk v1.7.0
 	github.com/opencontainers/go-digest v1.0.0
 	github.com/opencontainers/image-spec v1.1.1
