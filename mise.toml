@@ -1,0 +1,124 @@
+[tools]
+actionlint = "latest"
+devcontainer-cli = "latest"
+docker-cli = "latest"
+go = "latest"
+"go:github.com/go-delve/delve/cmd/dlv" = "latest"
+"go:gotest.tools/gotestsum" = "latest"
+golangci-lint = "latest"
+goreleaser = "latest"
+node = "latest"
+"npm:markdown-link-check" = "latest"
+"npm:vite" = "latest"
+"npm:vitest" = "latest"
+pnpm = "latest"
+prettier = "latest"
+rumdl = "latest"
+typos = "latest"
+
+[env]
+SHELL="/bin/bash" # hardcoded here so the doc generation script uses it as default.
+
+[tasks.'build:cli']
+description = "build the cli"
+run = '''
+go build ./cmd/scw
+'''
+
+[tasks.'build:docker']
+description = "build the docker image"
+run = '''
+docker build -t scaleway/cli .
+'''
+
+[tasks.'build:wasm']
+description = "build the wasm wrapper"
+run = '''
+GOOS=js GOARCH=wasm go build ./cmd/scw-wasm
+'''
+
+[tasks.'build:doc']
+description = "build the documentation"
+run = '''
+go run ./cmd/scw-doc-gen
+rumdl fmt -s ./docs
+'''
+
+[tasks.'lint:cli']
+description = "lint the cli"
+usage = '''
+arg "[packages]" {
+  help "target packages to test"
+  default "./..."
+}
+'''
+run = '''
+golangci-lint run ${usage_packages}
+'''
+
+[tasks.'lint:docker']
+description = "lint the docker image"
+run = '''
+docker build --check .
+'''
+
+[tasks.'lint:wasm']
+description = "lint the wasm wrapper"
+dir = "wasm"
+run = '''
+prettier --check .
+'''
+
+[tasks.'lint:doc']
+description = "lint the documentation"
+run = '''
+rumdl check ./docs
+typos ./docs
+'''
+
+[tasks.'lint:actions']
+description = "lint the workflows"
+run = '''
+actionlint
+'''
+
+[tasks.'test:cli']
+description = "test the cli"
+usage = '''
+arg "[packages]" {
+  help "target packages to test"
+  default "./..."
+}
+'''
+run = '''
+go test ${usage_packages}
+'''
+
+[tasks.'test:docker']
+description = "test the docker image"
+run = '''
+docker run -i scaleway/cli version
+'''
+
+[tasks.'test:wasm']
+description = "test the wasm wrapper"
+dir = "wasm"
+run = '''
+vitest ./src
+'''
+
+[tasks.'test:doc']
+description = "test the documentation"
+run = '''
+markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
+'''
+
+[tasks.ci]
+description = ""
+depends = ["test:*", "build:*", "lint:*"]
+
+[tasks.release]
+description = "release a new cli version"
+run = '''
+false
+'''
