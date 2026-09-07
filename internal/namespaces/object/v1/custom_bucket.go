@@ -573,25 +573,33 @@ func autocompleteBucketName(
 ) core.AutocompleteSuggestions {
 	var region scw.Region
 	var projectID string
+	var s3Endpoint string
+	var s3UsePathStyleStr string
 	switch t := request.(type) {
 	case bucketConfigArgs:
 		region = t.Region
 		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
 	case bucketDeleteArgs:
 		region = t.Region
 		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
 	case bucketGetArgs:
 		region = t.Region
 		projectID = t.ProjectID
+		s3Endpoint = t.S3Endpoint
+		s3UsePathStyleStr = t.S3UsePathStyle
 	}
 
 	suggestions := core.AutocompleteSuggestions(nil)
-	s3UsePathStyle, err := getS3UsePathStyle(ctx, "")
+	s3UsePathStyle, err := getS3UsePathStyle(ctx, s3UsePathStyleStr)
 	if err != nil {
 		return nil
 	}
 
-	s3Endpoint, _, err := getS3Endpoints(ctx, region.String(), "", "", s3UsePathStyle)
+	s3Endpoint, _, err = getS3Endpoints(ctx, region.String(), s3Endpoint, "", s3UsePathStyle)
 	if err != nil {
 		return nil
 	}
