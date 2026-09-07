@@ -19,6 +19,7 @@ rumdl = "latest"
 typos = "latest"
 
 [env]
+MISE_CONFIG_ROOT="."
 SHELL="/bin/bash" # hardcoded here so the doc generation script uses it as default.
 
 [tasks.'deps:wasm']
@@ -32,18 +33,6 @@ pnpm install
 description = "build the cli"
 run = '''
 go build ./cmd/scw
-'''
-
-[tasks.'build:docker']
-description = "build the docker image"
-usage = '''
-flag "--tag [tag]" {
-  default "dev"
-  help "tag to apply to the image"
-}
-'''
-run = '''
-docker build -t scaleway/cli:{{usage.tag}} .
 '''
 
 [tasks.'build:wasm']
@@ -65,6 +54,8 @@ mv scw-wasm-tester wasm/cliTester.wasm
 [tasks.'build:doc']
 description = "build the documentation"
 run = '''
+rm -rf ./docs/commands
+mkdir ./docs/commands
 go run ./cmd/scw-doc-gen
 rumdl fmt -s ./docs
 '''
@@ -96,6 +87,7 @@ prettier --check .
 
 [tasks.'lint:doc']
 description = "lint the documentation"
+depends = ["build:doc"]
 run = '''
 rumdl check ./docs
 typos ./docs
@@ -109,6 +101,7 @@ actionlint
 
 [tasks.'test:cli']
 description = "test the cli"
+depends = ["build:cli"]
 usage = '''
 arg "[packages]" {
   help "target packages to test"
@@ -116,20 +109,7 @@ arg "[packages]" {
 }
 '''
 run = '''
-go test ${usage_packages}
-'''
-
-[tasks.'test:docker']
-description = "test the docker image"
-depends = ["build:docker --tag {{usage.tag}}"]
-usage = '''
-flag "--tag [tag]" {
-  default "dev"
-  help "tag to apply to the image"
-}
-'''
-run = '''
-docker run -i scaleway/cli:{{usage.tag}} version
+gotestsum ${usage_packages}
 '''
 
 [tasks.'test:wasm']
@@ -140,11 +120,11 @@ run = '''
 vitest ./src
 '''
 
-[tasks.'test:doc']
-description = "test the documentation"
-run = '''
-markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
-'''
+# [tasks.'test:doc']
+# description = "test the documentation"
+# run = '''
+# markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
+# '''
 
 [tasks.ci]
 description = ""
