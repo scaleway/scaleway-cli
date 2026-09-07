@@ -270,6 +270,22 @@ func GetCommands() *core.Commands {
 	human.RegisterMarshalerFunc([]*instance.SecurityGroupRule{}, marshalSecurityGroupRules)
 
 	//
+	// Placement Group
+	//
+	human.RegisterMarshalerFunc(
+		instance.CreatePlacementGroupResponse{},
+		marshallNestedField("PlacementGroup"),
+	)
+
+	cmds.MustFind("instance", "placement-group", "set").Override(placementGroupSetBuilder)
+	cmds.MustFind("instance", "placement-group", "set-servers").
+		Override(placementGroupSetServersBuilder)
+	cmds.MustFind("instance", "placement-group", "get-servers").
+		Override(placementGroupGetServersBuilder)
+	cmds.MustFind("instance", "placement-group", "update-servers").
+		Override(placementGroupUpdateServersBuilder)
+
+	//
 	// User Data
 	//
 	cmds.MustFind("instance", "user-data", "delete").Override(userDataDeleteBuilder)
