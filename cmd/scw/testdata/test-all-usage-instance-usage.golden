@@ -6,19 +6,20 @@ USAGE:
   scw instance <command>
 
 AVAILABLE COMMANDS:
-  image           Image management commands
-  ip              IP management commands
-  placement-group Placement group management commands
-  private-nic     Private NIC management commands
-  security-group  Security group management commands
-  server          Instance management commands
-  server-type     Instance type management commands
-  snapshot        Snapshot management commands
-  ssh             SSH Utilities
-  template        Template management commands
-  user-data       User data management commands
-  volume          Volume management commands
-  volume-type     Volume type management commands
+  image                     Image management commands
+  ip                        IP management commands
+  placement-group           Placement group management commands
+  private-network-interface Private network interface management commands
+  security-group            Security group management commands
+  server                    Instance management commands
+  server-type               Instance type management commands
+  snapshot                  Snapshot management commands
+  ssh                       SSH Utilities
+  template                  Template management commands
+  user-data                 User data management commands
+  volume                    Volume management commands
+  volume-type               Volume type management commands
+  private-nic               Private NIC management commands (Deprecated)
 
 FLAGS:
   -h, --help                help for instance

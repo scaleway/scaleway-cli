@@ -44,7 +44,6 @@ func GetCommands() *core.Commands {
 		instanceSnapshot(),
 		instanceUserData(),
 		instanceVolume(),
-		instancePrivateNic(),
 		instanceServerTypeGet(),
 		instanceServerTypeList(),
 		instanceVolumeTypeList(),
@@ -77,6 +76,8 @@ func GetCommands() *core.Commands {
 		instanceVolumeGet(),
 		instanceVolumeUpdate(),
 		instanceVolumeDelete(),
+		instanceVolumePlanMigration(),
+		instanceVolumeApplyMigration(),
 		instanceSecurityGroupList(),
 		instanceSecurityGroupCreate(),
 		instanceSecurityGroupGet(),
@@ -94,18 +95,27 @@ func GetCommands() *core.Commands {
 		instanceIPGet(),
 		instanceIPUpdate(),
 		instanceIPDelete(),
-		instancePrivateNicList(),
-		instancePrivateNicCreate(),
-		instancePrivateNicGet(),
-		instancePrivateNicUpdate(),
-		instancePrivateNicDelete(),
-		instanceVolumePlanMigration(),
-		instanceVolumeApplyMigration(),
+		instancePlacementGroupCreate(),
+		instancePlacementGroupGet(),
+		instancePlacementGroupList(),
+		instancePlacementGroupUpdate(),
+		instancePlacementGroupSet(),
+		instancePlacementGroupDelete(),
+		instancePlacementGroupGetServers(),
+		instancePlacementGroupSetServers(),
+		instancePlacementGroupUpdateServers(),
 		// PlacementGroup commands exclusive to v1
 		instancePlacementGroupSet(),
 		instancePlacementGroupGetServers(),
 		instancePlacementGroupSetServers(),
 		instancePlacementGroupUpdateServers(),
+		// PrivateNIC commands exclusive to v1
+		instancePrivateNic(),
+		instancePrivateNicList(),
+		instancePrivateNicCreate(),
+		instancePrivateNicGet(),
+		instancePrivateNicUpdate(),
+		instancePrivateNicDelete(),
 	)
 
 	//
@@ -297,7 +307,12 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(privateNICStateMarshalSpecs),
 	)
 
+	cmds.MustFind("instance", "private-nic").Override(privateNicBuilder)
+	cmds.MustFind("instance", "private-nic", "create").Override(privateNicCreateBuilder)
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
+	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
+	cmds.MustFind("instance", "private-nic", "update").Override(privateNicUpdateBuilder)
+	cmds.MustFind("instance", "private-nic", "delete").Override(privateNicDeleteBuilder)
 
 	// SSH Utilities
 
