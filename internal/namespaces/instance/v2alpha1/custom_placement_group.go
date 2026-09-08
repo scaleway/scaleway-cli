@@ -44,7 +44,7 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 
 		response := &struct {
 			*instance.PlacementGroup
-			Servers []*instance.ServerSummary `json:"servers"`
+			Servers []*instance.ServerSummary `json:"servers,omitempty"`
 		}{
 			placementGroupResponse,
 			nil,
