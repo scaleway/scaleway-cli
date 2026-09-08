@@ -187,14 +187,3 @@ func createIP() core.BeforeFunc {
 		"scw lb ip create is-ipv6=true",
 	)
 }
-
-func createIPAMIP() core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(
-		"IPAMIP",
-		"scw ipam ip create source.private-network-id={{ .PN.ID }}",
-	)
-}
-
-func deleteIPAMIP() core.AfterFunc {
-	return core.ExecAfterCmd("scw ipam ip delete {{ .IPAMIP.ID }}")
-}
