@@ -219,7 +219,16 @@ func securityGroupCreateBuilder(c *core.Command) *core.Command {
 			request.Organization = args.OrganizationID
 			request.Project = args.ProjectID
 
-			return runner(ctx, request)
+			res, err := runner(ctx, request)
+			if err != nil {
+				return nil, err
+			}
+
+			// The API returns the created resource wrapped in a
+			// CreateSecurityGroupResponse. Unwrap it so `create` returns the
+			// security group directly, matching the output shape of `get` and
+			// `list` (see #6153).
+			return res.(*instance.CreateSecurityGroupResponse).SecurityGroup, nil
 		},
 	)
 

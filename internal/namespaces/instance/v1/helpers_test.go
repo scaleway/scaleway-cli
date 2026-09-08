@@ -202,8 +202,8 @@ func deletePlacementGroup(metaKey string) core.AfterFunc {
 func createSecurityGroup(metaKey string) core.BeforeFunc {
 	return func(ctx *core.BeforeFuncCtx) error {
 		res := ctx.ExecuteCmd([]string{"scw", "instance", "security-group", "create"})
-		createSecurityGroupResponse := res.(*instanceSDK.CreateSecurityGroupResponse)
-		ctx.Meta[metaKey] = createSecurityGroupResponse.SecurityGroup
+		securityGroup := res.(*instanceSDK.SecurityGroup)
+		ctx.Meta[metaKey] = securityGroup
 
 		return nil
 	}

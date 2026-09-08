@@ -161,10 +161,6 @@ func GetCommands() *core.Commands {
 	// Security Group
 	//
 	human.RegisterMarshalerFunc(
-		instance.CreateSecurityGroupResponse{},
-		marshallNestedField("SecurityGroup"),
-	)
-	human.RegisterMarshalerFunc(
 		instance.SecurityGroupPolicy(""),
 		human.EnumMarshalFunc(securityGroupPolicyMarshalSpecs),
 	)
