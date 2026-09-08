@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+A Private Network Interface is the network interface that connects an Instance to a
+Private Network. An Instance can have multiple private network interfaces at the same
+time, but each private network interface must belong to a different Private Network.
+
+USAGE:
+  scw instance private-network-interface <command>
+
+AVAILABLE COMMANDS:
+  create      Create a private network interface
+  delete      Delete a private network interface
+  get         Get a private network interface
+  list        List private network interfaces
+  update      Update a private network interface
+
+FLAGS:
+  -h, --help                help for private-network-interface
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+      --web              open console page for the current resource
+
+Use "scw instance private-network-interface [command] --help" for more information about a command.
