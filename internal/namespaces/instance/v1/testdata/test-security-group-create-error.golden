@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 1 🎲🎲🎲
+🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+{"error":"scaleway-sdk-go: insufficient permissions: "}
+🟥🟥🟥 JSON STDERR 🟥🟥🟥
+{
+  "error": "scaleway-sdk-go: insufficient permissions: "
+}
