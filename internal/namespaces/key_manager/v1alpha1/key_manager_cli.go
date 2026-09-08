@@ -122,6 +122,7 @@ func keymanagerKeyCreate() *core.Command {
 			},
 			{
 				Name:       "usage.key-encapsulation",
+				Short:      `Wrap and unwrap key using a key encapsulation algorithm.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
