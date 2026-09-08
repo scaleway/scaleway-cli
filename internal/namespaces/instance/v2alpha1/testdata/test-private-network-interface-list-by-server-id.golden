@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        TAGS  STATUS     IP IDS                                                                       PROJECT ID                            CREATED AT       UPDATED AT
+74b314b8-760f-4662-bf22-82e143f858b6  a38772a8-9ae6-4689-b8b8-b69bc296e081  35452411-d29b-4e0b-95aa-3c71e213745d  02:00:00:17:a4:a6  []    available  [9c3ae058-3f67-4f4d-a3af-47d80fa713ad 802cbfb7-d04a-4540-a674-2f8bd184e067]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "74b314b8-760f-4662-bf22-82e143f858b6",
+    "private_network_id": "35452411-d29b-4e0b-95aa-3c71e213745d",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "a38772a8-9ae6-4689-b8b8-b69bc296e081",
+    "mac_address": "02:00:00:17:a4:a6",
+    "status": "available",
+    "ip_ids": [
+      "9c3ae058-3f67-4f4d-a3af-47d80fa713ad",
+      "802cbfb7-d04a-4540-a674-2f8bd184e067"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  }
+]

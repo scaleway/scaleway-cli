@@ -1,0 +1,133 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                                    SERVER ID                             PRIVATE NETWORK ID                    MAC ADDRESS        TAGS  STATUS     IP IDS                                                                       PROJECT ID                            CREATED AT       UPDATED AT
+965153a7-3d22-4f58-93f8-dd3f51bea5bc  cc51c6ff-5908-46bf-a587-1b9f52f9409e  c0dae733-93f0-4974-8c91-b3b0eb5b1b85  02:00:00:15:66:2a  []    available  [309b2c1d-2617-4a64-821e-4deee4bd9493 2b13a6c2-8f0e-44c0-b197-8cd95858d29f]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+8d7944a5-8524-42b7-990b-da442a498b78  4cb0c5ab-54e9-4f92-be5e-eadcfe5a927f  de8072e2-16db-4643-bbdb-e91298baede8  02:00:00:17:22:a3  []    available  [495597e0-a655-4bd0-9f10-699a2f3653fc d76640bb-66f0-4739-8185-587b6605e630]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+79340e34-9144-480b-b5d3-31e0eb55e03d  bfa2f93e-67b6-4bd4-912b-d36e7ecbbe9d  3b3b069f-a023-4cfe-a87f-b1b2cc0d6617  02:00:00:1f:f7:d0  []    available  [653f3806-cc42-4ead-b3c4-18faaa2fc8a6 532696c1-86c9-4465-afb8-08f819eb9e4d]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+450950b1-de54-4f59-9e41-cf73402e3b74  d4eb78c3-3dcf-47b1-9e56-285eab976454  8dd8c2a6-bc3b-428a-a050-d681c619c029  02:00:00:12:f4:aa  []    available  [e9ec5d19-a8e9-443d-9f50-0eed94b1844b acf00755-3482-4ffd-9b34-2553b56fd348]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+98adbe48-a5d1-4d74-91a6-7a47f6b6d87e  0f5ebdb5-2fdf-4aa9-ad90-25b67f845cb1  de8072e2-16db-4643-bbdb-e91298baede8  02:00:00:1c:80:1e  []    available  [6ff509fa-7382-4b7d-b17a-84e8cae0893a ab276d38-2ede-4317-abb2-1d416a4b9ee3]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+0970758b-5775-4b27-9a1a-eb25edaa222a  d864249b-6b1a-483d-8e78-83bacaabd926  3b3b069f-a023-4cfe-a87f-b1b2cc0d6617  02:00:00:10:03:33  []    available  [94c80b1b-140f-4732-90b3-9e35a53cd9bd 94ebdf31-2fff-41f5-9711-c6809cc1cd5b]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+bf28ba89-e60a-4f72-a8f4-5dc1aa16c1d0  0b680b42-c8fa-439b-af9b-32aa76ac8e7a  8dd8c2a6-bc3b-428a-a050-d681c619c029  02:00:00:1f:f5:2e  []    available  [661ad092-e1ac-499d-8a7f-60dd487731ce 8eead45d-38d4-438b-840c-887eee2ea138]  fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+3adb32e4-47ac-42ce-b9d6-c790eb0cdc61  5ba9a491-7ea7-4e4c-9ccc-e4d7cd294883  60b4117a-ea4d-4cbb-b21d-8d089ae9f11a  02:00:00:15:07:3f  []    available  [317510f7-477f-4141-a803-7f2bf0b599fd]                                       fa1e3217-dc80-42ac-85c3-3f034b78b552  few seconds ago  few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+[
+  {
+    "id": "965153a7-3d22-4f58-93f8-dd3f51bea5bc",
+    "private_network_id": "c0dae733-93f0-4974-8c91-b3b0eb5b1b85",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "cc51c6ff-5908-46bf-a587-1b9f52f9409e",
+    "mac_address": "02:00:00:15:66:2a",
+    "status": "available",
+    "ip_ids": [
+      "309b2c1d-2617-4a64-821e-4deee4bd9493",
+      "2b13a6c2-8f0e-44c0-b197-8cd95858d29f"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "8d7944a5-8524-42b7-990b-da442a498b78",
+    "private_network_id": "de8072e2-16db-4643-bbdb-e91298baede8",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "4cb0c5ab-54e9-4f92-be5e-eadcfe5a927f",
+    "mac_address": "02:00:00:17:22:a3",
+    "status": "available",
+    "ip_ids": [
+      "495597e0-a655-4bd0-9f10-699a2f3653fc",
+      "d76640bb-66f0-4739-8185-587b6605e630"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "79340e34-9144-480b-b5d3-31e0eb55e03d",
+    "private_network_id": "3b3b069f-a023-4cfe-a87f-b1b2cc0d6617",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "bfa2f93e-67b6-4bd4-912b-d36e7ecbbe9d",
+    "mac_address": "02:00:00:1f:f7:d0",
+    "status": "available",
+    "ip_ids": [
+      "653f3806-cc42-4ead-b3c4-18faaa2fc8a6",
+      "532696c1-86c9-4465-afb8-08f819eb9e4d"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "450950b1-de54-4f59-9e41-cf73402e3b74",
+    "private_network_id": "8dd8c2a6-bc3b-428a-a050-d681c619c029",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "d4eb78c3-3dcf-47b1-9e56-285eab976454",
+    "mac_address": "02:00:00:12:f4:aa",
+    "status": "available",
+    "ip_ids": [
+      "e9ec5d19-a8e9-443d-9f50-0eed94b1844b",
+      "acf00755-3482-4ffd-9b34-2553b56fd348"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "98adbe48-a5d1-4d74-91a6-7a47f6b6d87e",
+    "private_network_id": "de8072e2-16db-4643-bbdb-e91298baede8",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "0f5ebdb5-2fdf-4aa9-ad90-25b67f845cb1",
+    "mac_address": "02:00:00:1c:80:1e",
+    "status": "available",
+    "ip_ids": [
+      "6ff509fa-7382-4b7d-b17a-84e8cae0893a",
+      "ab276d38-2ede-4317-abb2-1d416a4b9ee3"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "0970758b-5775-4b27-9a1a-eb25edaa222a",
+    "private_network_id": "3b3b069f-a023-4cfe-a87f-b1b2cc0d6617",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "d864249b-6b1a-483d-8e78-83bacaabd926",
+    "mac_address": "02:00:00:10:03:33",
+    "status": "available",
+    "ip_ids": [
+      "94c80b1b-140f-4732-90b3-9e35a53cd9bd",
+      "94ebdf31-2fff-41f5-9711-c6809cc1cd5b"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "bf28ba89-e60a-4f72-a8f4-5dc1aa16c1d0",
+    "private_network_id": "8dd8c2a6-bc3b-428a-a050-d681c619c029",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "0b680b42-c8fa-439b-af9b-32aa76ac8e7a",
+    "mac_address": "02:00:00:1f:f5:2e",
+    "status": "available",
+    "ip_ids": [
+      "661ad092-e1ac-499d-8a7f-60dd487731ce",
+      "8eead45d-38d4-438b-840c-887eee2ea138"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  },
+  {
+    "id": "3adb32e4-47ac-42ce-b9d6-c790eb0cdc61",
+    "private_network_id": "60b4117a-ea4d-4cbb-b21d-8d089ae9f11a",
+    "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+    "server_id": "5ba9a491-7ea7-4e4c-9ccc-e4d7cd294883",
+    "mac_address": "02:00:00:15:07:3f",
+    "status": "available",
+    "ip_ids": [
+      "317510f7-477f-4141-a803-7f2bf0b599fd"
+    ],
+    "tags": [],
+    "created_at": "1970-01-01T00:00:00.0Z",
+    "updated_at": "1970-01-01T00:00:00.0Z"
+  }
+]

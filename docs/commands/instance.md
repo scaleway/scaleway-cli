@@ -819,151 +819,123 @@ scw instance placement-group update-servers [arg=value ...]
 
 
 
-## Private NIC management commands
+## Private network interface management commands
 
-A Private NIC is the network interface that connects an Instance to a
-Private Network. An Instance can have multiple private NICs at the same
-time, but each NIC must belong to a different Private Network.
+A Private Network Interface is the network interface that connects an Instance to a
+Private Network. An Instance can have multiple private network interfaces at the same
+time, but each private network interface must belong to a different Private Network.
 
 
-### Create a private NIC connecting an Instance to a Private Network
+### Create a private network interface
 
-Create a private NIC connecting an Instance to a Private Network.
-Some private NICs, such as those in deleting, detaching, or in error state are
-not listed in v1.
-Therefore, you may encounter quota limits errors when creating a new private NIC, even if your visible
-count is below the threshold.
-We strongly recommend migrating to v2alpha1 to see all private NICs.
+Create a private network interface linked to a Private Network. It can be attached to an Instance.
 
 **Usage:**
 
 ```shell
-scw instance private-nic create [arg=value ...]
+scw instance private-network-interface create [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name                | Description                                                                       | Argument Specifications                                                                                                                                 |
-|---------------------|-----------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id           | UUID of the Instance the private NIC will be attached to                          | Required                                                                                                                                                |
-| private-network-id  | UUID of the private network where the private NIC will be attached                | Required                                                                                                                                                |
-| tags.{index}        | Private NIC tags                                                                  |                                                                                                                                                         |
-| ~~ip-ids.{index}~~  | Ip_ids defined from IPAM                                                          | Deprecated                                                                                                                                              |
-| ipam-ip-ids.{index} | UUID of IPAM ips, to be attached to the instance in the requested private network |                                                                                                                                                         |
-| zone                | Zone to target. If none is passed will use default zone from the config           | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name               | Description                                                              | Argument Specifications                                                                                                                                 |
+|--------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| private-network-id | ID of the Private Network to attach to                                   | Required                                                                                                                                                |
+| project-id         | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| server-id          | ID of the Instance to attach the interface to                            |                                                                                                                                                         |
+| ip-ids.{index}     | List of IP IDs to attach to the interface                                |                                                                                                                                                         |
+| tags.{index}       | Tags to assign to the private network interface                          |                                                                                                                                                         |
+| zone               | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 
-### Delete a private NIC
+### Delete a private network interface
 
-Delete a private NIC.
+Delete a specified private network interface.
 
 **Usage:**
 
 ```shell
-scw instance private-nic delete [arg=value ...]
+scw instance private-network-interface delete <private-network-interface-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name           | Description                                                             | Argument Specifications                                                                                                                                 |
-|----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id      | Instance to which the private NIC is attached                           | Required                                                                                                                                                |
-| private-nic-id | Private NIC unique ID                                                   | Required                                                                                                                                                |
-| zone           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                         | Description                                                             | Argument Specifications                                                                                                                                 |
+|------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| private-network-interface-id | ID of the private network interface to delete                           | Required                                                                                                                                                |
+| zone                         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 
-### Get a private NIC
+### Get a private network interface
 
-Get private NIC properties.
+Get details of a specified private network interface. You can get private network interfaces either by ID or by MAC address. When using the latter, it is recommended to also provide the server-id and/or the private-network-id to narrow search results, depending on the volume of PNIs in the scope.
 
 **Usage:**
 
 ```shell
-scw instance private-nic get [arg=value ...]
+scw instance private-network-interface get <private-network-interface-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name           | Description                                                             | Argument Specifications                                                                                                                                 |
-|----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id      | Instance to which the private NIC is attached                           | Required                                                                                                                                                |
-| private-nic-id | The private NIC unique ID or MAC address                                | Required                                                                                                                                                |
-| zone           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+| Name                         | Description                                                                             | Argument Specifications                                                                                                                                 |
+|------------------------------|-----------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| private-network-interface-id | The Private Network Interface ID or MAC address                                         | Required                                                                                                                                                |
+| server-id                    | The ID of the server to filter list results when getting a PNI by MAC address.          |                                                                                                                                                         |
+| private-network-id           | The ID of the private network to filter list results when getting a PNI by MAC address. |                                                                                                                                                         |
+| zone                         | Zone to target. If none is passed will use default zone from the config                 | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 
-### List all private NICs
+### List private network interfaces
 
-List all private NICs of a specified Instance.
-Some private NICs, such as those in deleting, detaching, or in error state are
-not listed. We strongly recommend migrating to v2alpha1 to retrieve all private NICs.
+List all private network interfaces.
 
 **Usage:**
 
 ```shell
-scw instance private-nic list [arg=value ...]
+scw instance private-network-interface list [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name      | Description                                                             | Argument Specifications                                                                                                                                        |
-|-----------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id | Instance to which the private NIC is attached                           | Required                                                                                                                                                       |
-| tags      | Private NIC tags                                                        |                                                                                                                                                                |
-| zone      | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1`, `all` |
-
-
-**Examples:**
-
-
-List all private NICs on a specified server
-```shell
-scw instance private-nic list
-```
-
-List private NICs of the Instance ID 'my_server_id'
-```shell
-scw instance private-nic list server-id=my_server_id
-```
+| Name                        | Description                                                              | Argument Specifications                                                                                                                                 |
+|-----------------------------|--------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| page-token                  | Token for pagination                                                     |                                                                                                                                                         |
+| page-size                   | Number of items to return per page                                       |                                                                                                                                                         |
+| order-by                    | Field to order results by                                                | One of: `created_at_desc`, `created_at_asc`, `updated_at_desc`, `updated_at_asc`                                                                        |
+| project-id                  | Project ID to use. If none is passed the default project ID will be used |                                                                                                                                                         |
+| server-ids.{index}          | Filter by server IDs                                                     |                                                                                                                                                         |
+| private-network-ids.{index} | Filter by Private Network IDs                                            |                                                                                                                                                         |
+| tags.{index}                | Filter by tags                                                           |                                                                                                                                                         |
+| zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 
+### Update a private network interface
 
-### Update a private NIC
-
-Update one or more parameter(s) of a specified private NIC.
+Update the properties of a specified private network interface.
 
 **Usage:**
 
 ```shell
-scw instance private-nic update [arg=value ...]
+scw instance private-network-interface update <private-network-interface-id ...> [arg=value ...]
 ```
 
 
 **Arguments:**
 
-| Name           | Description                                                             | Argument Specifications                                                                                                                                 |
-|----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
-| server-id      | UUID of the Instance the private NIC will be attached to                | Required                                                                                                                                                |
-| private-nic-id | Private NIC unique ID                                                   | Required                                                                                                                                                |
-| tags.{index}   | Tags used to select private NIC/s                                       |                                                                                                                                                         |
-| zone           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
-
-
-**Examples:**
-
-
-Update tags of a private NIC
-```shell
-scw instance private-nic update server-id=11111111-1111-1111-1111-111111111111 private-nic-id=11111111-1111-1111-1111-111111111111 tags.0=foo tags.1=bar
-```
-
+| Name                         | Description                                                             | Argument Specifications                                                                                                                                 |
+|------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
+| private-network-interface-id | ID of the private network interface to update                           | Required                                                                                                                                                |
+| tags.{index}                 | New tags to assign to the private network interface                     |                                                                                                                                                         |
+| zone                         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
 

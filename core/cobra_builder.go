@@ -211,8 +211,10 @@ func (b *cobraBuilder) hydrateCobra(
 	}
 
 	if cmd.Deprecated {
-		cobraCmd.IsAvailableCommand()
-		cobraCmd.Deprecated = "Deprecated:"
+		cobraCmd.Deprecated = cmd.DeprecationMessage
+		if cobraCmd.Deprecated == "" {
+			cobraCmd.Deprecated = " "
+		}
 	}
 
 	if commandHasWeb(cmd) {
