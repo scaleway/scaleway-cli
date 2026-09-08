@@ -45,7 +45,7 @@ func Test_PrivateNetworkInterface_Create(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			testhelpers.CreatePN(),
 			createServerV1("Server"),
-			testhelpers.CreateIPAMIPFromPrivateNetwork(),
+			ipam.CreateIPAMIPFromPrivateNetwork(),
 		),
 		Cmd: "scw instance private-network-interface create private-network-id={{ .PN.ID }} server-id={{ .Server.ID }}" +
 			" ip-ids.0={{ .IPAMIP.ID }} tags.0=cli tags.1=test",
@@ -71,6 +71,7 @@ func Test_PrivateNetworkInterface_Create(t *testing.T) {
 		),
 		AfterFunc: core.AfterFuncCombine(
 			deleteServerV1("Server"),
+			ipam.DeleteIPAMIP(),
 			testhelpers.DeletePN(),
 		),
 	}))

@@ -285,12 +285,12 @@ func GetCommands() *core.Commands {
 		human.EnumMarshalFunc(privateNICStateMarshalSpecs),
 	)
 
-	cmds.MustFind("instance", "private-nic").Override(privateNicBuilder)
-	cmds.MustFind("instance", "private-nic", "create").Override(privateNicCreateBuilder)
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "create"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "list"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "update"))
+	deprecatePrivateNicCommand(cmds.MustFind("instance", "private-nic", "delete"))
 	cmds.MustFind("instance", "private-nic", "get").Override(privateNicGetBuilder)
-	cmds.MustFind("instance", "private-nic", "list").Override(privateNicListBuilder)
-	cmds.MustFind("instance", "private-nic", "update").Override(privateNicUpdateBuilder)
-	cmds.MustFind("instance", "private-nic", "delete").Override(privateNicDeleteBuilder)
 
 	// SSH Utilities
 

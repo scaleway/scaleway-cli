@@ -5,6 +5,7 @@ import (
 	"fmt"
 	"net"
 	"reflect"
+	"strings"
 
 	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -100,10 +101,21 @@ func privateNetworkInterfaceGetBuilder(c *core.Command) *core.Command {
 				return nil, err
 			}
 
+			found := false
 			for _, pni := range pnis.PrivateNetworkInterfaces {
-				if pni.MacAddress == args.PrivateNetworkInterfaceID {
+				if strings.EqualFold(pni.MacAddress, args.PrivateNetworkInterfaceID) {
 					request.PrivateNetworkInterfaceID = pni.ID
+					found = true
+
+					break
 				}
+			}
+
+			if !found {
+				return nil, fmt.Errorf(
+					"could not find any PNI with mac address %q",
+					args.PrivateNetworkInterfaceID,
+				)
 			}
 		}
 

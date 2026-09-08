@@ -52,26 +52,6 @@ func isMacAddress(address string) bool {
 	return err == nil
 }
 
-func privateNicBuilder(c *core.Command) *core.Command {
-	return deprecatePrivateNicCommand(c)
-}
-
-func privateNicCreateBuilder(c *core.Command) *core.Command {
-	return deprecatePrivateNicCommand(c)
-}
-
-func privateNicListBuilder(c *core.Command) *core.Command {
-	return deprecatePrivateNicCommand(c)
-}
-
-func privateNicUpdateBuilder(c *core.Command) *core.Command {
-	return deprecatePrivateNicCommand(c)
-}
-
-func privateNicDeleteBuilder(c *core.Command) *core.Command {
-	return deprecatePrivateNicCommand(c)
-}
-
 func deprecatePrivateNicCommand(c *core.Command) *core.Command {
 	c.Hidden = true
 	c.Deprecated = true
