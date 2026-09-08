@@ -1,5 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Command "list" is deprecated, private-nic is a term only used in v1, please use private-network-interface instead.
 List all private NICs of a specified Instance.
 Some private NICs, such as those in deleting, detaching, or in error state are
 not listed. We strongly recommend migrating to v2alpha1 to retrieve all private NICs.
