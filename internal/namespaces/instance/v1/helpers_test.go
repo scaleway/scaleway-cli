@@ -229,13 +229,6 @@ func deleteBlockSnapshot(metaKey string) core.AfterFunc {
 	return core.ExecAfterCmd("scw block snapshot delete {{ ." + metaKey + ".ID }}")
 }
 
-func createNIC() core.BeforeFunc {
-	return core.ExecStoreBeforeCmd(
-		"NIC",
-		"scw instance private-nic create server-id={{ .Server.ID }} private-network-id={{ .PN.ID }}",
-	)
-}
-
 // testServerSBSVolumeSize checks the size of a volume in an instance server.
 // The server must be returned by the given instanceFetcher function
 func testServerFetcherSBSVolumeSize(
