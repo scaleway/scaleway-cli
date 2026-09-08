@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+ID                88c017e2-ac41-45a6-810d-718fc8b5e746
+PrivateNetworkID  6f108c1c-08ce-4556-ac71-3678a6ec14fe
+ProjectID         fa1e3217-dc80-42ac-85c3-3f034b78b552
+ServerID          0f223b66-e543-4b56-b85b-6e36a17321bd
+MacAddress        02:00:00:18:bb:82
+Status            available
+IPIDs.0           6d34259a-5a94-4589-b627-7c4d17b92947
+IPIDs.1           f882dc5e-7f46-4f07-af7c-5269b670d050
+CreatedAt         few seconds ago
+UpdatedAt         few seconds ago
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "id": "88c017e2-ac41-45a6-810d-718fc8b5e746",
+  "private_network_id": "6f108c1c-08ce-4556-ac71-3678a6ec14fe",
+  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
+  "server_id": "0f223b66-e543-4b56-b85b-6e36a17321bd",
+  "mac_address": "02:00:00:18:bb:82",
+  "status": "available",
+  "ip_ids": [
+    "6d34259a-5a94-4589-b627-7c4d17b92947",
+    "f882dc5e-7f46-4f07-af7c-5269b670d050"
+  ],
+  "tags": [],
+  "created_at": "1970-01-01T00:00:00.0Z",
+  "updated_at": "1970-01-01T00:00:00.0Z"
+}
