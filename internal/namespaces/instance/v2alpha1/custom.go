@@ -15,7 +15,13 @@ import (
 // - Merge handwritten commands
 func GetCommands() *core.Commands {
 	cmds := core.NewCommands(
+		instancePrivateNetworkInterface(),
 		instanceTemplate(),
+		instancePrivateNetworkInterfaceList(),
+		instancePrivateNetworkInterfaceCreate(),
+		instancePrivateNetworkInterfaceGet(),
+		instancePrivateNetworkInterfaceUpdate(),
+		instancePrivateNetworkInterfaceDelete(),
 		instanceTemplateList(),
 		instanceTemplateCreate(),
 		instanceTemplateGet(),
@@ -30,6 +36,25 @@ func GetCommands() *core.Commands {
 		instanceTemplateCheck(),
 		instanceTemplateCreateServer(),
 	)
+
+	//
+	// Private Network Interfaces
+	//
+	human.RegisterMarshalerFunc(
+		instanceSDK.PrivateNetworkInterfaceStatus(""),
+		human.EnumMarshalFunc(privateNetworkInterfaceStateMarshalSpecs),
+	)
+
+	cmds.MustFind("instance", "private-network-interface", "create").
+		Override(privateNetworkInterfaceCreateBuilder)
+	cmds.MustFind("instance", "private-network-interface", "get").
+		Override(privateNetworkInterfaceGetBuilder)
+	cmds.MustFind("instance", "private-network-interface", "list").
+		Override(privateNetworkInterfaceListBuilder)
+	cmds.MustFind("instance", "private-network-interface", "update").
+		Override(privateNetworkInterfaceUpdateBuilder)
+	cmds.MustFind("instance", "private-network-interface", "delete").
+		Override(privateNetworkInterfaceDeleteBuilder)
 
 	//
 	// Templates
@@ -53,6 +78,10 @@ func GetCommands() *core.Commands {
 
 	cmds.MustFind("instance", "template", "set-cloud-init").Override(TemplateSetCloudInitBuilder)
 	cmds.MustFind("instance", "template", "get-cloud-init").Override(TemplateGetCloudInitBuilder)
+
+	// Web URLs (--web)
+
+	addWebUrls(cmds)
 
 	return cmds
 }
