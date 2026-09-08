@@ -8,6 +8,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
+	"github.com/scaleway/scaleway-cli/v2/internal/testhelpers"
 )
 
 func Test_ListLBPrivateNetwork(t *testing.T) {
@@ -20,7 +21,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 		BeforeFunc: core.BeforeFuncCombine(
 			createLB(),
 			createPN(),
-			createIPAMIP(),
+			testhelpers.CreateIPAMIPFromPrivateNetwork(),
 			attachPN(),
 		),
 		Cmd:   "scw lb private-network list {{ .LB.ID }}",
@@ -35,7 +36,7 @@ func Test_ListLBPrivateNetwork(t *testing.T) {
 					return nil
 				},
 			),
-			deleteIPAMIP(),
+			testhelpers.DeleteIPAMIP(),
 			deletePN(),
 			deleteLBFlexibleIP(),
 		),
