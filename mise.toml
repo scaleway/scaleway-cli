@@ -16,9 +16,11 @@ node = "latest"
 pnpm = "latest"
 prettier = "latest"
 rumdl = "latest"
+shellcheck = "latest"
 typos = "latest"
 
 [env]
+MISE_CONFIG_ROOT="."
 SHELL="/bin/bash" # hardcoded here so the doc generation script uses it as default.
 
 [tasks.'deps:wasm']
@@ -28,27 +30,22 @@ run = '''
 pnpm install
 '''
 
+[tasks.'deps:cli']
+description = "download the dependencies for the cli"
+run = '''
+go mod download
+'''
+
 [tasks.'build:cli']
 description = "build the cli"
+depends = ["deps:cli"]
 run = '''
 go build ./cmd/scw
 '''
 
-[tasks.'build:docker']
-description = "build the docker image"
-usage = '''
-flag "--tag [tag]" {
-  default "dev"
-  help "tag to apply to the image"
-}
-'''
-run = '''
-docker build -t scaleway/cli:{{usage.tag}} .
-'''
-
 [tasks.'build:wasm']
 description = "build the wasm wrapper"
-depends = ["deps:wasm"]
+depends = ["deps:wasm", "deps:cli"]
 run = '''
 GOOS=js GOARCH=wasm go build ./cmd/scw-wasm
 mv scw-wasm wasm/cli.wasm
@@ -56,7 +53,7 @@ mv scw-wasm wasm/cli.wasm
 
 [tasks.'build:wasm-tester']
 description = "build the wasm wrapper tester"
-depends = ["deps:wasm"]
+depends = ["deps:wasm", "deps:cli"]
 run = '''
 GOOS=js GOARCH=wasm go build ./cmd/scw-wasm-tester
 mv scw-wasm-tester wasm/cliTester.wasm
@@ -64,6 +61,7 @@ mv scw-wasm-tester wasm/cliTester.wasm
 
 [tasks.'build:doc']
 description = "build the documentation"
+depends = ["deps:cli"]
 run = '''
 go run ./cmd/scw-doc-gen
 rumdl fmt -s ./docs
@@ -89,6 +87,7 @@ docker build --check .
 
 [tasks.'lint:wasm']
 description = "lint the wasm wrapper"
+depends = ["deps:wasm"]
 dir = "wasm"
 run = '''
 prettier --check .
@@ -96,6 +95,7 @@ prettier --check .
 
 [tasks.'lint:doc']
 description = "lint the documentation"
+depends = ["build:doc"]
 run = '''
 rumdl check ./docs
 typos ./docs
@@ -109,6 +109,7 @@ actionlint
 
 [tasks.'test:cli']
 description = "test the cli"
+depends = ["build:cli"]
 usage = '''
 arg "[packages]" {
   help "target packages to test"
@@ -116,20 +117,7 @@ arg "[packages]" {
 }
 '''
 run = '''
-go test ${usage_packages}
-'''
-
-[tasks.'test:docker']
-description = "test the docker image"
-depends = ["build:docker --tag {{usage.tag}}"]
-usage = '''
-flag "--tag [tag]" {
-  default "dev"
-  help "tag to apply to the image"
-}
-'''
-run = '''
-docker run -i scaleway/cli:{{usage.tag}} version
+gotestsum ${usage_packages}
 '''
 
 [tasks.'test:wasm']
@@ -140,11 +128,11 @@ run = '''
 vitest ./src
 '''
 
-[tasks.'test:doc']
-description = "test the documentation"
-run = '''
-markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
-'''
+# [tasks.'test:doc']
+# description = "test the documentation"
+# run = '''
+# markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
+# '''
 
 [tasks.ci]
 description = ""

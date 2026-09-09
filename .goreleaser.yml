@@ -113,7 +113,7 @@ winget:
     copyright: Copyright (c) Scaleway SAS
     publisher_url: https://www.scaleway.com/en/
     publisher_support_url: https://www.scaleway.com/en/docs/
-    license_url: https://github.com/scaleway/scaleway-cli/blob/master/LICENSE
+    license_url: https://github.com/scaleway/scaleway-cli/blob/main/LICENSE
     release_notes_url: https://github.com/scaleway/scaleway-cli/releases/tag/{{ .Tag }}
     release_notes: "{{ .Changelog }}"
     repository:
