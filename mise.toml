@@ -38,9 +38,15 @@ go mod download
 
 [tasks.'build:cli']
 description = "build the cli"
+usage = '''
+flag "--ldflags <ldflags>" {
+  help "linker flags"
+  default "-s -w"
+}
+'''
 depends = ["deps:cli"]
 run = '''
-go build ./cmd/scw
+go build -ldflags "{{usage.ldflags}}" ./cmd/scw
 '''
 
 [tasks.'build:wasm']
@@ -120,6 +126,30 @@ run = '''
 gotestsum ${usage_packages}
 '''
 
+[tasks.'test:cli:size']
+description = "test the cli size"
+depends = ["build:cli"]
+usage = '''
+flag "--binary <binary>" {
+  default "./scw"
+}
+flag "--limit <limit>" {
+  default "60000000"
+}
+'''
+vars = {
+  max_size = "100"
+}
+run = '''
+size=$(wc -c < "{{usage.binary}}")
+echo "binary size: $size bytes"
+if [ "$size" -gt "{{usage.limit}}" ]
+then
+  echo "error: {{usage.binary}} exceeds {{usage.limit}} bytes"
+  exit 1
+fi
+'''
+
 [tasks.'test:wasm']
 description = "test the wasm wrapper"
 depends = ["build:wasm", "build:wasm-tester"]
@@ -136,7 +166,7 @@ vitest ./src
 
 [tasks.ci]
 description = ""
-depends = ["test:*", "build:*", "lint:*"]
+depends = ["test:**", "build:**", "lint:**"]
 
 [tasks.release]
 description = "release a new cli version"
