@@ -30,15 +30,22 @@ run = '''
 pnpm install
 '''
 
+[tasks.'deps:cli']
+description = "download the dependencies for the cli"
+run = '''
+go mod download
+'''
+
 [tasks.'build:cli']
 description = "build the cli"
+depends = ["deps:cli"]
 run = '''
 go build ./cmd/scw
 '''
 
 [tasks.'build:wasm']
 description = "build the wasm wrapper"
-depends = ["deps:wasm"]
+depends = ["deps:wasm", "deps:cli"]
 run = '''
 GOOS=js GOARCH=wasm go build ./cmd/scw-wasm
 mv scw-wasm wasm/cli.wasm
@@ -46,7 +53,7 @@ mv scw-wasm wasm/cli.wasm
 
 [tasks.'build:wasm-tester']
 description = "build the wasm wrapper tester"
-depends = ["deps:wasm"]
+depends = ["deps:wasm", "deps:cli"]
 run = '''
 GOOS=js GOARCH=wasm go build ./cmd/scw-wasm-tester
 mv scw-wasm-tester wasm/cliTester.wasm
@@ -54,9 +61,8 @@ mv scw-wasm-tester wasm/cliTester.wasm
 
 [tasks.'build:doc']
 description = "build the documentation"
+depends = ["deps:cli"]
 run = '''
-rm -rf ./docs/commands
-mkdir ./docs/commands
 go run ./cmd/scw-doc-gen
 rumdl fmt -s ./docs
 '''
@@ -81,6 +87,7 @@ docker build --check .
 
 [tasks.'lint:wasm']
 description = "lint the wasm wrapper"
+depends = ["deps:wasm"]
 dir = "wasm"
 run = '''
 prettier --check .
