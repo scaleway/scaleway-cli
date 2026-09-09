@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-List of keys.
+List all keys, sorted alphabetically by name.
 
 USAGE:
   scw annotations key list [arg=value ...]

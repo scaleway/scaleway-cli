@@ -28,7 +28,7 @@ func serverSSHCommand() *core.Command {
 		Namespace: "instance",
 		Verb:      "ssh",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instanceSSHServerRequest{}),
+		ArgsType:  reflect.TypeFor[instanceSSHServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",

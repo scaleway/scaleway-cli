@@ -82,7 +82,7 @@ func sshAddKeyCommand() *core.Command {
 Key is expected in openssh format "(format) (key) (comment)".
 The comment will be used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information`,
-		ArgsType: reflect.TypeOf(sshAddKeyRequest{}),
+		ArgsType: reflect.TypeFor[sshAddKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "server-id",
@@ -151,7 +151,7 @@ func sshFetchKeysCommand() *core.Command {
 The command 'ssh <server-ip> -t -l <username> scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
 Keep in mind that you need to be able to connect to your server with another key than the one you want to add.
 Keep in mind that SSH keys are scoped by project.`,
-		ArgsType: reflect.TypeOf(sshFetchKeysRequest{}),
+		ArgsType: reflect.TypeFor[sshFetchKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "project-id",
@@ -253,7 +253,7 @@ func sshListKeysCommand() *core.Command {
 		Long: `List only keys added manually to a server using tags.
 The key comment is used as key name or generated
 Lookup /root/.ssh/authorized_keys on your server for more information`,
-		ArgsType: reflect.TypeOf(sshListKeysRequest{}),
+		ArgsType: reflect.TypeFor[sshListKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -306,7 +306,7 @@ func sshRemoveKeyCommand() *core.Command {
 		Long: `Key will be remove from server's tags and removed from root user on next restart.
 Keys are identified by their comment as in openssh format.
 Lookup /root/.ssh/authorized_keys on your server for more information`,
-		ArgsType: reflect.TypeOf(sshRemoveKeyRequest{}),
+		ArgsType: reflect.TypeFor[sshRemoveKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "server-id",

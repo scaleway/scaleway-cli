@@ -193,47 +193,47 @@ func TestGetArgType(t *testing.T) {
 	}
 
 	t.Run("Simple", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Basic{}),
+		ArgType:      reflect.TypeFor[*Basic](),
 		Name:         "string",
 		ExpectedKind: reflect.String,
 	}))
 	t.Run("Simple int", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Basic{}),
+		ArgType:      reflect.TypeFor[*Basic](),
 		Name:         "int-64",
 		ExpectedKind: reflect.Int64,
 	}))
 	t.Run("Ptr", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Basic{}),
+		ArgType:      reflect.TypeFor[*Basic](),
 		Name:         "string-ptr",
 		ExpectedKind: reflect.String,
 	}))
 	t.Run("simple slice", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Slice{}),
+		ArgType:      reflect.TypeFor[*Slice](),
 		Name:         "strings.{index}",
 		ExpectedKind: reflect.String,
 	}))
 	t.Run("simple slice ptr", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Slice{}),
+		ArgType:      reflect.TypeFor[*Slice](),
 		Name:         "slice-ptr.{index}",
 		ExpectedKind: reflect.String,
 	}))
 	t.Run("nested simple", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Nested{}),
+		ArgType:      reflect.TypeFor[*Nested](),
 		Name:         "basic.string",
 		ExpectedKind: reflect.String,
 	}))
 	t.Run("nested empty", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Nested{}),
+		ArgType:      reflect.TypeFor[*Nested](),
 		Name:         "empty",
 		ExpectedKind: reflect.Struct,
 	}))
 	t.Run("merge simple", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Merge{}),
+		ArgType:      reflect.TypeFor[*Merge](),
 		Name:         "merge1",
 		ExpectedKind: reflect.String,
 	}))
 	t.Run("merge simple all", run(&TestCase{
-		ArgType:      reflect.TypeOf(&Merge{}),
+		ArgType:      reflect.TypeFor[*Merge](),
 		Name:         "all",
 		ExpectedKind: reflect.String,
 	}))

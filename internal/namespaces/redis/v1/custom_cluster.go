@@ -51,7 +51,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("false"),
 	})
 
-	c.ArgsType = reflect.TypeOf(redisCreateClusterRequestCustom{})
+	c.ArgsType = reflect.TypeFor[redisCreateClusterRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
@@ -150,7 +150,7 @@ func clusterWaitCommand() *core.Command {
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "wait",
-		ArgsType:  reflect.TypeOf(redis.WaitForClusterRequest{}),
+		ArgsType:  reflect.TypeFor[redis.WaitForClusterRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := redis.NewAPI(core.ExtractClient(ctx))
 
@@ -386,7 +386,7 @@ func clusterConnectCommand() *core.Command {
 		Verb:      "connect",
 		Short:     "Connect to a Redis cluster using locally installed redis-cli",
 		Long:      "Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.",
-		ArgsType:  reflect.TypeOf(clusterConnectArgs{}),
+		ArgsType:  reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",

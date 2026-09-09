@@ -64,7 +64,7 @@ func certificateCreateBuilder(c *core.Command) *core.Command {
 		LetsencryptAlternativeName []string
 	}
 
-	c.ArgsType = reflect.TypeOf(lbCreateCertificateRequestCustom{})
+	c.ArgsType = reflect.TypeFor[lbCreateCertificateRequestCustom]()
 
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
 		args := argsI.(*lbCreateCertificateRequestCustom)

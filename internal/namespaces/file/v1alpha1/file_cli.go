@@ -23,6 +23,7 @@ func GetGeneratedCommands() *core.Commands {
 		fileFilesystem(),
 		fileAttachment(),
 		fileFilesystemType(),
+		fileFilesystemTypeList(),
 		fileFilesystemGet(),
 		fileFilesystemList(),
 		fileAttachmentList(),
@@ -64,6 +65,41 @@ func fileFilesystemType() *core.Command {
 		Long:      `Filesystem-type management.`,
 		Namespace: "file",
 		Resource:  "filesystem-type",
+	}
+}
+
+func fileFilesystemTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List filesystems types`,
+		Long:      `List filesystems types.`,
+		Namespace: "file",
+		Resource:  "filesystem-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[file.ListFileSystemTypesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*file.ListFileSystemTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := file.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFileSystemTypes(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.FilesystemTypes, nil
+		},
 	}
 }
 

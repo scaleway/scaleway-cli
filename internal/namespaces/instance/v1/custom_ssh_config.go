@@ -49,7 +49,7 @@ func sshConfigInstallCommand() *core.Command {
 		Short: `Install a ssh config with all your servers as host
 It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 		Long:     "Path of the config will be $HOME/.ssh/scaleway.config",
-		ArgsType: reflect.TypeOf(sshConfigInstallRequest{}),
+		ArgsType: reflect.TypeFor[sshConfigInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(availableZones...),

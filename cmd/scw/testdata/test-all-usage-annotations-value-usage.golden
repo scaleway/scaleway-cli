@@ -10,8 +10,8 @@ AVAILABLE COMMANDS:
   delete                  Delete a value definition. Fails if the value is currently bound to any resource.
   delete-all-matching-key Delete ALL values associated with a key. Fails if any of these values are currently bound to any resource.
   get                     Retrieve a specific value.
-  list                    List all values for a key, sorted alphabetically by name.
-  update                  Update name or description. Global update.
+  list                    List all values, sorted alphabetically by name.
+  update                  Update name or description.
 
 FLAGS:
   -h, --help                help for value

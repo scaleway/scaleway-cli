@@ -21,7 +21,7 @@ func serverStartCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "start",
-		ArgsType:  reflect.TypeOf(instanceUniqueActionRequest{}),
+		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
 		Run:       getRunServerAction(instance.ServerActionPoweron),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
@@ -44,7 +44,7 @@ func serverStopCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "stop",
-		ArgsType:  reflect.TypeOf(instanceUniqueActionRequest{}),
+		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
 		Run:       getRunServerAction(instance.ServerActionPoweroff),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
@@ -67,7 +67,7 @@ func serverStandbyCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "standby",
-		ArgsType:  reflect.TypeOf(instanceUniqueActionRequest{}),
+		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
 		Run:       getRunServerAction(instance.ServerActionStopInPlace),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
@@ -90,7 +90,7 @@ func serverRebootCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "reboot",
-		ArgsType:  reflect.TypeOf(instanceUniqueActionRequest{}),
+		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
 		Run:       getRunServerAction(instance.ServerActionReboot),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
@@ -117,7 +117,7 @@ https://www.scaleway.com/en/docs/compute/instances/api-cli/using-ip-mobility/
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "enable-routed-ip",
-		ArgsType:  reflect.TypeOf(instanceUniqueActionRequest{}),
+		ArgsType:  reflect.TypeFor[instanceUniqueActionRequest](),
 		Run:       getRunServerAction("enable_routed_ip"),
 		WaitFunc:  waitForServerFunc(),
 		ArgSpecs:  serverActionArgSpecs,
@@ -151,7 +151,7 @@ Once your image is ready you will be able to create a new server based on this i
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "backup",
-		ArgsType:  reflect.TypeOf(instanceBackupRequest{}),
+		ArgsType:  reflect.TypeFor[instanceBackupRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*instanceBackupRequest)
 
@@ -263,7 +263,7 @@ func serverTerminateCommand() *core.Command {
 		Namespace: "instance",
 		Verb:      "terminate",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(customTerminateServerRequest{}),
+		ArgsType:  reflect.TypeFor[customTerminateServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -590,7 +590,7 @@ func serverActionCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "action",
-		ArgsType:  reflect.TypeOf(instanceActionRequest{}),
+		ArgsType:  reflect.TypeFor[instanceActionRequest](),
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*instanceActionRequest)
 

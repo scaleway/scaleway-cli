@@ -30,7 +30,7 @@ func lifecycleCreateCommand() *core.Command {
 		Verb:      "create",
 		Short:     "Create a lifecycle configuration for an S3 bucket's objects.",
 		Long:      "Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(lifecycleCreateArgs{}),
+		ArgsType:  reflect.TypeFor[lifecycleCreateArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "bucket",
@@ -116,7 +116,7 @@ func lifecycleDeleteCommand() *core.Command {
 		Verb:      "delete",
 		Short:     "Delete an S3 bucket's lifecycle configuration if it exists.",
 		Long:      "Delete an Object Bucket's lifecycle configuration with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(lifecycleDeleteArgs{}),
+		ArgsType:  reflect.TypeFor[lifecycleDeleteArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",
@@ -165,7 +165,7 @@ func lifecycleGetCommand() *core.Command {
 		Verb:      "get",
 		Short:     "Get the lifecycle configuration of an S3 bucket.",
 		Long:      "Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.",
-		ArgsType:  reflect.TypeOf(lifecycleGetArgs{}),
+		ArgsType:  reflect.TypeFor[lifecycleGetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "bucket",

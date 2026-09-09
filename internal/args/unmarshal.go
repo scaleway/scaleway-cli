@@ -30,7 +30,7 @@ type UnmarshalFunc func(value string, dest any) error
 var TestForceNow *time.Time
 
 var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
-	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[scw.Size](): func(value string, dest any) error {
 		// Only support G, GB for now (case insensitive).
 		value = strings.ToLower(value)
 		if !strings.HasSuffix(value, "g") && !strings.HasSuffix(value, "gb") {
@@ -46,11 +46,11 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		return nil
 	},
 
-	reflect.TypeOf((*scw.IPNet)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[scw.IPNet](): func(value string, dest any) error {
 		return dest.(*scw.IPNet).UnmarshalJSON([]byte(`"` + value + `"`))
 	},
 
-	reflect.TypeOf((*net.IP)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[net.IP](): func(value string, dest any) error {
 		ip := net.ParseIP(value)
 		if ip == nil {
 			return fmt.Errorf("%s is not a valid IP", value)
@@ -60,13 +60,13 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		return nil
 	},
 
-	reflect.TypeOf((*io.Reader)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[io.Reader](): func(value string, dest any) error {
 		*dest.(*io.Reader) = strings.NewReader(value)
 
 		return nil
 	},
 
-	reflect.TypeOf((*time.Time)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[time.Time](): func(value string, dest any) error {
 		// Handle absolute time
 		absoluteTimeParsed, absoluteErr := time.Parse(time.RFC3339, value)
 		if absoluteErr == nil {
@@ -103,7 +103,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 		}
 	},
 
-	reflect.TypeOf((*time.Duration)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[time.Duration](): func(value string, dest any) error {
 		duration, err := time.ParseDuration(value)
 		if err != nil {
 			return fmt.Errorf("failed to parse duration: %w", err)
@@ -112,7 +112,7 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 		return nil
 	},
-	reflect.TypeOf((*scw.JSONObject)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[scw.JSONObject](): func(value string, dest any) error {
 		jsonObject, err := scw.DecodeJSONObject(value, scw.NoEscape)
 		if err != nil {
 			return fmt.Errorf("failed to parse json object: %w", err)
@@ -121,12 +121,12 @@ var unmarshalFuncs = map[reflect.Type]UnmarshalFunc{
 
 		return nil
 	},
-	reflect.TypeOf((*[]byte)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[[]byte](): func(value string, dest any) error {
 		*dest.(*[]byte) = []byte(value)
 
 		return nil
 	},
-	reflect.TypeOf((*scw.Duration)(nil)).Elem(): func(value string, dest any) error {
+	reflect.TypeFor[scw.Duration](): func(value string, dest any) error {
 		duration, err := time.ParseDuration(value)
 		if err != nil {
 			return fmt.Errorf("failed to parse duration: %w", err)

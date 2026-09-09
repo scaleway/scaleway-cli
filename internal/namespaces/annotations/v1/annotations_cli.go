@@ -127,8 +127,8 @@ func annotationsKeyCreate() *core.Command {
 
 func annotationsKeyList() *core.Command {
 	return &core.Command{
-		Short:     `List of keys.`,
-		Long:      `List of keys.`,
+		Short:     `List all keys, sorted alphabetically by name.`,
+		Long:      `List all keys, sorted alphabetically by name.`,
 		Namespace: "annotations",
 		Resource:  "key",
 		Verb:      "list",
@@ -306,8 +306,8 @@ func annotationsValueCreate() *core.Command {
 
 func annotationsValueList() *core.Command {
 	return &core.Command{
-		Short:     `List all values for a key, sorted alphabetically by name.`,
-		Long:      `List all values for a key, sorted alphabetically by name.`,
+		Short:     `List all values, sorted alphabetically by name.`,
+		Long:      `List all values, sorted alphabetically by name.`,
 		Namespace: "annotations",
 		Resource:  "value",
 		Verb:      "list",
@@ -370,8 +370,8 @@ func annotationsValueGet() *core.Command {
 
 func annotationsValueUpdate() *core.Command {
 	return &core.Command{
-		Short:     `Update name or description. Global update.`,
-		Long:      `Update name or description. Global update.`,
+		Short:     `Update name or description.`,
+		Long:      `Update name or description.`,
 		Namespace: "annotations",
 		Resource:  "value",
 		Verb:      "update",
@@ -511,7 +511,7 @@ func annotationsBindingCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
-				Short:      `Scaleway Resource Number to associate.`,
+				Short:      `Scaleway Resource Name to associate.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -537,8 +537,8 @@ func annotationsBindingCreate() *core.Command {
 
 func annotationsBindingList() *core.Command {
 	return &core.Command{
-		Short:     `List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.`,
-		Long:      `List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.`,
+		Short:     `List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.`,
+		Long:      `List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.`,
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "list",
@@ -547,7 +547,7 @@ func annotationsBindingList() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
-				Short:      `Scaleway Resource Number for which to list all bindings.`,
+				Short:      `Scaleway Resource Name for which to list all bindings.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -644,8 +644,8 @@ func annotationsBindingDeleteAllMatchingValue() *core.Command {
 
 func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 	return &core.Command{
-		Short:     `Delete ALL bindings associated with a Scaleway Resource Number.`,
-		Long:      `Delete ALL bindings associated with a Scaleway Resource Number.`,
+		Short:     `Delete ALL bindings associated with a Scaleway Resource Name.`,
+		Long:      `Delete ALL bindings associated with a Scaleway Resource Name.`,
 		Namespace: "annotations",
 		Resource:  "binding",
 		Verb:      "delete-all-matching-srn",
@@ -654,7 +654,7 @@ func annotationsBindingDeleteAllMatchingSrn() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "srn",
-				Short:      `Scaleway Resource Number for which all bindings should be deleted.`,
+				Short:      `Scaleway Resource Name for which all bindings should be deleted.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

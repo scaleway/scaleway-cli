@@ -20,10 +20,10 @@ scw annotations binding create [arg=value ...]
 
 **Arguments:**
 
-| Name     | Description                            | Argument Specifications |
-|----------|----------------------------------------|-------------------------|
-| srn      | Scaleway Resource Number to associate. |                         |
-| value-id | ID of the value to associate.          |                         |
+| Name     | Description                          | Argument Specifications |
+|----------|--------------------------------------|-------------------------|
+| srn      | Scaleway Resource Name to associate. |                         |
+| value-id | ID of the value to associate.        |                         |
 
 
 
@@ -46,9 +46,9 @@ scw annotations binding delete [arg=value ...]
 
 
 
-### Delete ALL bindings associated with a Scaleway Resource Number.
+### Delete ALL bindings associated with a Scaleway Resource Name.
 
-Delete ALL bindings associated with a Scaleway Resource Number.
+Delete ALL bindings associated with a Scaleway Resource Name.
 
 **Usage:**
 
@@ -61,7 +61,7 @@ scw annotations binding delete-all-matching-srn [arg=value ...]
 
 | Name            | Description                                                                        | Argument Specifications |
 |-----------------|------------------------------------------------------------------------------------|-------------------------|
-| srn             | Scaleway Resource Number for which all bindings should be deleted.                 |                         |
+| srn             | Scaleway Resource Name for which all bindings should be deleted.                   |                         |
 | organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
@@ -85,9 +85,9 @@ scw annotations binding delete-all-matching-value [arg=value ...]
 
 
 
-### List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.
+### List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
 
-List all bindings, or filter by Scaleway Resource Number or value ID. Response order by ID.
+List all bindings, or filter by Scaleway Resource Name or value ID. Response order by ID.
 
 **Usage:**
 
@@ -100,7 +100,7 @@ scw annotations binding list [arg=value ...]
 
 | Name            | Description                                                                        | Argument Specifications |
 |-----------------|------------------------------------------------------------------------------------|-------------------------|
-| srn             | Scaleway Resource Number for which to list all bindings.                           |                         |
+| srn             | Scaleway Resource Name for which to list all bindings.                             |                         |
 | value-id        | Value ID for which to list all bindings.                                           |                         |
 | organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
@@ -170,9 +170,9 @@ scw annotations key get [arg=value ...]
 
 
 
-### List of keys.
+### List all keys, sorted alphabetically by name.
 
-List of keys.
+List all keys, sorted alphabetically by name.
 
 **Usage:**
 
@@ -317,9 +317,9 @@ scw annotations value get [arg=value ...]
 
 
 
-### List all values for a key, sorted alphabetically by name.
+### List all values, sorted alphabetically by name.
 
-List all values for a key, sorted alphabetically by name.
+List all values, sorted alphabetically by name.
 
 **Usage:**
 
@@ -337,9 +337,9 @@ scw annotations value list [arg=value ...]
 
 
 
-### Update name or description. Global update.
+### Update name or description.
 
-Update name or description. Global update.
+Update name or description.
 
 **Usage:**
 

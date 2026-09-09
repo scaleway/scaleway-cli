@@ -24,7 +24,7 @@ type billingExportRequest struct {
 }
 
 func invoiceExportBuilder(command *core.Command) *core.Command {
-	command.ArgsType = reflect.TypeOf(billingExportRequest{})
+	command.ArgsType = reflect.TypeFor[billingExportRequest]()
 	command.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "organization-id",
