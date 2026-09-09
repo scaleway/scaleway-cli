@@ -53,7 +53,7 @@ You just have to download the binary compatible with your platform to a director
 #### Linux
 
 ```bash
-curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/main/scripts/get.sh | sh
 ```
 
 #### Windows
