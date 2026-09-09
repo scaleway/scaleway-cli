@@ -63,8 +63,6 @@ mv scw-wasm-tester wasm/cliTester.wasm
 description = "build the documentation"
 depends = ["deps:cli"]
 run = '''
-rm -rf ./docs/commands
-mkdir ./docs/commands
 go run ./cmd/scw-doc-gen
 rumdl fmt -s ./docs
 '''
