@@ -112,6 +112,7 @@ ARGS:
   [technical-contact.extension-it.pin]                                         Domain name registrant's Taxcode (mandatory / only optional when the trustee is used)
   [technical-contact.questions.{index}.question]                               
   [technical-contact.questions.{index}.answer]                                 
+  [auto-renew]                                                                 Enable the `auto renew` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.
 
 DEPRECATED ARGS:
   [owner-contact.extension-it.european-citizenship]            This option is useless anymore
