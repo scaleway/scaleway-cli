@@ -16,6 +16,7 @@ node = "latest"
 pnpm = "latest"
 prettier = "latest"
 rumdl = "latest"
+shellcheck = "latest"
 typos = "latest"
 
 [env]

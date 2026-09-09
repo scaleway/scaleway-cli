@@ -85,7 +85,7 @@ jobs:
               }
             ]
           }' \
-          ${SLACK_WEBHOOK_NIGHTLY};
+          "${SLACK_WEBHOOK_NIGHTLY}";
         env:
           SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
           FAILED_PRODUCT: ${{ matrix.products }}
@@ -124,6 +124,6 @@ jobs:
               }
             ]
           }' \
-          ${SLACK_WEBHOOK_NIGHTLY};
+          "${SLACK_WEBHOOK_NIGHTLY}";
         env:
           SLACK_WEBHOOK_NIGHTLY: ${{ secrets.SLACK_WEBHOOK_NIGHTLY }}
