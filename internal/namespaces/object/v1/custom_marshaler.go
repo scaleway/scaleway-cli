@@ -157,7 +157,10 @@ func CleanAndIndentJSON(v any, prefix, indent string) ([]byte, error) {
 	}
 
 	prettyBuf := jsontext.Value(cleanBytes)
-	if err := prettyBuf.Indent(jsontext.WithIndentPrefix(prefix), jsontext.WithIndent(indent)); err != nil {
+	if err := prettyBuf.Indent(
+		jsontext.WithIndentPrefix(prefix),
+		jsontext.WithIndent(indent),
+	); err != nil {
 		return nil, err
 	}
 

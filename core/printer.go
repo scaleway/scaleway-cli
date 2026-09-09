@@ -294,6 +294,7 @@ func (p *Printer) printJSON(data any) error {
 		return err
 	}
 	_, err = writer.Write([]byte("\n"))
+
 	return err
 }
 

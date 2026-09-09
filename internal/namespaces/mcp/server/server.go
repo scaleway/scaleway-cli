@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"encoding/json/v2"
 	"fmt"
 	"log"
 	"os"
