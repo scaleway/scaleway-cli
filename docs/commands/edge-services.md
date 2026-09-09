@@ -264,7 +264,7 @@ scw edge-services dns-stage create [arg=value ...]
 
 | Name             | Description                                                                                                | Argument Specifications |
 |------------------|------------------------------------------------------------------------------------------------------------|-------------------------|
-| fqdns.{index}    | Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)                     |                         |
+| fqdns.{index}    | Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage                   |                         |
 | tls-stage-id     | TLS stage ID the DNS stage will be linked to                                                               |                         |
 | cache-stage-id   | Cache stage ID the DNS stage will be linked to                                                             |                         |
 | backend-stage-id | Backend stage ID the DNS stage will be linked to                                                           |                         |
@@ -348,7 +348,7 @@ scw edge-services dns-stage update <dns-stage-id ...> [arg=value ...]
 | Name             | Description                                                                                                | Argument Specifications |
 |------------------|------------------------------------------------------------------------------------------------------------|-------------------------|
 | dns-stage-id     | ID of the DNS stage to update                                                                              | Required                |
-| fqdns.{index}    | Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)                     |                         |
+| fqdns.{index}    | Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage                    |                         |
 | tls-stage-id     | TLS stage ID the DNS stage will be linked to                                                               |                         |
 | cache-stage-id   | Cache stage ID the DNS stage will be linked to                                                             |                         |
 | backend-stage-id | Backend stage ID the DNS stage will be linked to                                                           |                         |
