@@ -41,12 +41,16 @@ description = "build the cli"
 usage = '''
 flag "--ldflags <ldflags>" {
   help "linker flags"
-  default "-s -w"
+  default "-s -w -extldflags \"-static\""
+}
+flag "--tags <tags>" {
+  help "build tags"
+  default "timetzdata"
 }
 '''
 depends = ["deps:cli"]
 run = '''
-go build -ldflags "{{usage.ldflags}}" ./cmd/scw
+go build -ldflags "{{usage.ldflags}}" -tags "{{usage.tags}}" ./cmd/scw
 '''
 
 [tasks.'build:wasm']
@@ -123,7 +127,7 @@ arg "[packages]" {
 }
 '''
 run = '''
-gotestsum ${usage_packages}
+gotestsum {{usage.packages}}
 '''
 
 [tasks.'test:cli:size']
@@ -170,6 +174,16 @@ depends = ["test:**", "build:**", "lint:**"]
 
 [tasks.release]
 description = "release a new cli version"
+usage = '''
+flag "--snapshot <snapshot>" {
+  help "only generate the snapshot and do not publish it"
+  default "true"
+}
+flag "--clean <clean>" {
+  help "cleanup the artifact directory before running"
+  default "true"
+}
+'''
 run = '''
-false
+goreleaser release --snapshot={{usage.snapshot}} --clean={{usage.clean}}
 '''
