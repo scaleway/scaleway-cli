@@ -71,3 +71,41 @@ ID   IP CIDR  DESCRIPTION
   "user_name": "admin",
   "upgradable_versions": []
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+acl_rules: []
+cluster_settings: []
+cluster_size: 1
+created_at: "1970-01-01T00:00:00.0Z"
+endpoints:
+- id: 0b9e8061-e10c-4fb8-815d-1dfd94bf2745
+  ips:
+  - 10.16.4.1
+  port: 6379
+  private_network:
+    id: 72e054f3-77b4-4e65-b89d-7c955fe92d58
+    provisioning_mode: static
+    service_ips:
+    - 10.16.4.1/22
+    zone: fr-par-1
+- id: c0be2bbb-d4d6-4043-9aaa-f8a96e1685dc
+  ips:
+  - 172.16.228.2
+  port: 6379
+  private_network:
+    id: eacb55ae-6fce-4205-bce7-7dd55f710b11
+    provisioning_mode: ipam
+    service_ips:
+    - 172.16.228.2/22
+    zone: fr-par-1
+id: 79e54364-9013-427d-9e56-8085da929b70
+name: 1-ipam-1-static-priv-endpoints
+node_type: RED1-micro
+project_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+status: ready
+tags: []
+tls_enabled: false
+updated_at: "1970-01-01T00:00:00.0Z"
+upgradable_versions: []
+user_name: admin
+version: 8.4.0
+zone: fr-par-1

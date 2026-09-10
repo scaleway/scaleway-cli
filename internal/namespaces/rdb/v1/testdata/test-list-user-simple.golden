@@ -16,3 +16,12 @@ foobar  true      []         []          [rdb]  []      []
     "none": []
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- all:
+  - rdb
+  custom: []
+  is_admin: true
+  name: foobar
+  none: []
+  readonly: []
+  readwrite: []

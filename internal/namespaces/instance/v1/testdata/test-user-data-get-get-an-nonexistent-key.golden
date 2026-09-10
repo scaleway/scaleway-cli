@@ -5,3 +5,5 @@
 {
   "error": "'happy' key does not exist"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: '''happy'' key does not exist'

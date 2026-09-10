@@ -49,3 +49,26 @@ ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOP
     }
   ]
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- condition: ""
+  id: 67cce713-1763-446e-8b05-4f520b925131
+  permission_set_names:
+  - IPAMReadOnly
+  permission_sets_scope_type: projects
+  project_ids:
+  - 54826627-c2b8-4bc1-baa8-ac2a78b02daf
+created_at: "1970-01-01T00:00:00.0Z"
+deletable: false
+description: ""
+editable: true
+id: a0ec7d54-6dc8-46f5-b808-84e1b728fe0a
+managed: false
+name: test-cli-get-policy
+nb_permission_sets: 1
+nb_rules: 1
+nb_scopes: 1
+no_principal: true
+organization_id: 951df375-e094-4d26-97c1-ba548eeb9c42
+tags: []
+updated_at: "1970-01-01T00:00:00.0Z"

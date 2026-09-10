@@ -7,3 +7,8 @@ Private ip are assigned when the server boots, start yours with: scw instance se
   "message": "server f10b0e69-ec83-4147-974c-a989534b7f8f (cli-srv-cranky-sammet) does not have a private ip",
   "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start f10b0e69-ec83-4147-974c-a989534b7f8f"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+hint: 'Private ip are assigned when the server boots, start yours with: scw instance
+  server start f10b0e69-ec83-4147-974c-a989534b7f8f'
+message: server f10b0e69-ec83-4147-974c-a989534b7f8f (cli-srv-cranky-sammet) does
+  not have a private ip

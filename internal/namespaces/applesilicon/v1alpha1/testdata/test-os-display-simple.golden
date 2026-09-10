@@ -33,3 +33,20 @@ CompatibleServerTypes:
   "tags": null,
   "supported_server_types": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+compatible_server_types:
+- M1-M
+- M2-M
+- M2-L
+description: ""
+family: Sonoma
+id: e08d1e5d-b4b9-402a-9f9a-97732d17e374
+image_url: https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sonoma.png
+is_beta: false
+label: macOS Sonoma 14.4
+name: macos-sonoma-14.4
+release_notes_url: ""
+supported_server_types: null
+tags: null
+version: "14.4"
+xcode_version: "15"

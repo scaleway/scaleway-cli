@@ -38,3 +38,20 @@ AuthenticatedUsers                    READ
     "Owner": "105bdce1-64c0-48ab-899d-868455867ecf"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+BucketInfo:
+  ACL:
+  - Grantee: AuthenticatedUsers
+    Permission: READ
+  - Grantee: 105bdce1-64c0-48ab-899d-868455867ecf
+    Permission: FULL_CONTROL
+  APIEndpoint: https://s3.fr-par.scw.cloud
+  BucketEndpoint: https://cli-test-bucket-create-.s3.fr-par.scw.cloud
+  EnableVersioning: false
+  ID: cli-test-bucket-create-
+  Owner: 105bdce1-64c0-48ab-899d-868455867ecf
+  Region: fr-par
+  Tags: null
+SuccessResult:
+  details: ""
+  message: Success

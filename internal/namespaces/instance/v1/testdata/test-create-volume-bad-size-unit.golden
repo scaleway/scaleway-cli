@@ -6,3 +6,7 @@ Invalid value for 'size' argument: size must be defined using the G or GB unit
   "message": "invalid value for 'size' argument: size must be defined using the G or GB unit",
   "error": {}
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: {}
+message: 'invalid value for ''size'' argument: size must be defined using the G or
+  GB unit'

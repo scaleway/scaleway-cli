@@ -78,3 +78,40 @@ KEY  VALUE  EFFECT
   "region": "fr-par",
   "srn": "srn://k8s.scw.eu/regions/fr-par/pools/3d907b66-6a2d-4512-8fdf-bc48da359717"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+autohealing: false
+autoscaling: false
+cluster_id: b070109e-4cc1-45b4-b64d-acd9c3aa5693
+container_runtime: containerd
+created_at: "1970-01-01T00:00:00.0Z"
+error_message: null
+id: 3d907b66-6a2d-4512-8fdf-bc48da359717
+kubelet_args: {}
+labels: {}
+max_size: 1
+max_termination_grace_period: null
+min_size: 1
+name: default
+node_type: dev1_m
+placement_group_id: null
+private_network_id: null
+public_ip_disabled: false
+region: fr-par
+root_volume_size: 40000000000
+root_volume_type: l_ssd
+security_group_id: aa085195-0b80-44df-9c92-8b9c52d8411a
+size: 1
+srn: srn://k8s.scw.eu/regions/fr-par/pools/3d907b66-6a2d-4512-8fdf-bc48da359717
+startup_taints: []
+status: scaling
+tags: []
+taints:
+- effect: NoSchedule
+  key: foo
+  value: bar
+updated_at: "1970-01-01T00:00:00.0Z"
+upgrade_policy:
+  max_surge: 0
+  max_unavailable: 1
+version: 1.35.3
+zone: fr-par-1

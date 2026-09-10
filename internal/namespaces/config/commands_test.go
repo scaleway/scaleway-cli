@@ -278,6 +278,10 @@ func Test_ConfigInfoCommand(t *testing.T) {
 			Pattern:     regexp.MustCompile(`(?m)^(\s*"ConfigPath":\s*").*(",)`),
 			Replacement: "$1/tmp/scw/.config/scw/config.yaml$2",
 		},
+		{
+			Pattern:     regexp.MustCompile(`(?m)^(ConfigPath:\s*).*`),
+			Replacement: "$1/tmp/scw/.config/scw/config.yaml",
+		},
 	}
 
 	t.Run("Simple", core.Test(&core.TestConfig{

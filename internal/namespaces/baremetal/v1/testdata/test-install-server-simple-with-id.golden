@@ -224,3 +224,102 @@ PartitioningSchema.Filesystems.2.Mountpoint                   /
   "protected": false,
   "user_data": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+boot_type: normal
+created_at: "1970-01-01T00:00:00.0Z"
+description: ""
+domain: cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud
+id: cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc
+install:
+  hostname: test-install-server
+  os_id: 03b7f4ba-a6a1-4305-984e-b54fafbf1681
+  partitioning_schema:
+    disks:
+    - device: /dev/nvme0n1
+      partitions:
+      - label: uefi
+        number: 1
+        size: 536870912
+        use_all_available_space: false
+      - label: swap
+        number: 2
+        size: 4294967296
+        use_all_available_space: false
+      - label: boot
+        number: 3
+        size: 536870912
+        use_all_available_space: false
+      - label: root
+        number: 4
+        size: 1915003863040
+        use_all_available_space: false
+    - device: /dev/nvme1n1
+      partitions:
+      - label: swap
+        number: 1
+        size: 4294967296
+        use_all_available_space: false
+      - label: boot
+        number: 2
+        size: 536870912
+        use_all_available_space: false
+      - label: root
+        number: 3
+        size: 1915003863040
+        use_all_available_space: false
+    filesystems:
+    - device: /dev/nvme0n1p1
+      format: fat32
+      mountpoint: /boot/efi
+    - device: /dev/md0
+      format: ext4
+      mountpoint: /boot
+    - device: /dev/md1
+      format: ext4
+      mountpoint: /
+    raids:
+    - devices:
+      - /dev/nvme0n1p3
+      - /dev/nvme1n1p2
+      level: raid_level_1
+      name: /dev/md0
+    - devices:
+      - /dev/nvme0n1p4
+      - /dev/nvme1n1p3
+      level: raid_level_1
+      name: /dev/md1
+    zfs:
+      pools: []
+  service_url: ""
+  service_user: ""
+  ssh_key_ids:
+  - e115bb5d-59c8-45af-a596-71200e31c5f9
+  status: completed
+  user: ubuntu
+ips:
+- address: 195.154.100.192
+  id: 2f4d7278-1dfe-462f-aabe-aa8ff4a09f9e
+  reverse: cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud
+  reverse_status: active
+  reverse_status_message: ""
+  version: IPv4
+- address: 2001:bc8:1201:a22:b683:51ff:fe0f:6bbc
+  id: 6cf367bd-0b2a-47cd-8957-3e9dee2d1d7f
+  reverse: cfaaaa69-7d5b-4c30-a569-b3b6fb3b29dc.fr-par-2.baremetal.scw.cloud
+  reverse_status: active
+  reverse_status_message: ""
+  version: IPv6
+name: cli-bm-inspiring-jennings
+offer_id: ddb09834-8680-4339-b5e3-19ca5205fa1f
+offer_name: EM-I215E-NVME
+options: []
+organization_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+ping_status: ping_status_unknown
+project_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+protected: false
+rescue_server: null
+status: ready
+tags: []
+updated_at: "1970-01-01T00:00:00.0Z"
+user_data: null
+zone: fr-par-2

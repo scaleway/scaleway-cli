@@ -20,6 +20,7 @@ import (
 	"text/template"
 	"time"
 
+	"github.com/ghodss/yaml"
 	"github.com/hashicorp/go-version"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	args "github.com/scaleway/scaleway-cli/v2/internal/args"
@@ -887,10 +888,25 @@ func validateJSONGolden(t *testing.T, jsonStdout, jsonStderr *bytes.Buffer) {
 	}
 }
 
+func validateYAMLGolden(t *testing.T, yamlStdout, yamlStderr *bytes.Buffer) {
+	t.Helper()
+	var yamlInterface any
+	if yamlStdout.Len() > 0 {
+		err := yaml.Unmarshal(yamlStdout.Bytes(), &yamlInterface)
+		require.NoError(t, err, "yaml stdout is invalid (%s)", getTestFilePath(t, ".cassette"))
+	}
+	if yamlStderr.Len() > 0 {
+		err := yaml.Unmarshal(yamlStderr.Bytes(), &yamlInterface)
+		require.NoError(t, err, "yaml stderr is invalid (%s)", getTestFilePath(t, ".cassette"))
+	}
+}
+
 func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 	t.Helper()
 	jsonStderr := &bytes.Buffer{}
 	jsonStdout := &bytes.Buffer{}
+	yamlStderr := &bytes.Buffer{}
+	yamlStdout := &bytes.Buffer{}
 
 	jsonPrinter, err := NewPrinter(&PrinterConfig{
 		OutputFlag: "json=pretty",
@@ -898,18 +914,29 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 		Stderr:     jsonStderr,
 	})
 	require.NoError(t, err)
+	yamlPrinter, err := NewPrinter(&PrinterConfig{
+		OutputFlag: string(PrinterTypeYAML),
+		Stdout:     yamlStdout,
+		Stderr:     yamlStderr,
+	})
+	require.NoError(t, err)
 
 	if ctx.Err != nil {
 		err = jsonPrinter.Print(ctx.Err, nil)
+		require.NoError(t, err)
+		err = yamlPrinter.Print(ctx.Err, nil)
 		require.NoError(t, err)
 	}
 	if ctx.Result != nil {
 		err = jsonPrinter.Print(ctx.Result, nil)
 		require.NoError(t, err)
+		err = yamlPrinter.Print(ctx.Result, nil)
+		require.NoError(t, err)
 	}
 
 	if _, isRawResult := ctx.Result.(RawResult); !isRawResult {
 		validateJSONGolden(t, jsonStdout, jsonStderr)
+		validateYAMLGolden(t, yamlStdout, yamlStderr)
 	}
 
 	buffer := bytes.Buffer{}
@@ -946,6 +973,20 @@ func marshalGolden(t *testing.T, ctx *CheckFuncCtx) string {
 			"\U0001F7E5\U0001F7E5\U0001F7E5 JSON STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n",
 		)
 		buffer.Write(jsonStderr.Bytes())
+	}
+
+	if yamlStdout.Len() > 0 {
+		buffer.WriteString(
+			"\U0001F7E9\U0001F7E9\U0001F7E9 YAML STDOUT \U0001F7E9\U0001F7E9\U0001F7E9\n",
+		)
+		buffer.Write(yamlStdout.Bytes())
+	}
+
+	if yamlStderr.Len() > 0 {
+		buffer.WriteString(
+			"\U0001F7E5\U0001F7E5\U0001F7E5 YAML STDERR \U0001F7E5\U0001F7E5\U0001F7E5\n",
+		)
+		buffer.Write(yamlStderr.Bytes())
 	}
 
 	str := buffer.String()

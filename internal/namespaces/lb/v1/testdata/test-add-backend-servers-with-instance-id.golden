@@ -7,3 +7,8 @@ Private ip are assigned when the server boots, start yours with: scw instance se
   "message": "server f29af42f-780f-4641-9b05-9105318b8101 (cli-srv-nifty-mcclintock) does not have a private ip",
   "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start f29af42f-780f-4641-9b05-9105318b8101"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+hint: 'Private ip are assigned when the server boots, start yours with: scw instance
+  server start f29af42f-780f-4641-9b05-9105318b8101'
+message: server f29af42f-780f-4641-9b05-9105318b8101 (cli-srv-nifty-mcclintock) does
+  not have a private ip

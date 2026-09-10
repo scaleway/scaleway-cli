@@ -28,3 +28,18 @@ ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOP
     ]
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- condition: ""
+  id: 732a2e80-760c-49f6-9137-70a3c58051c9
+  permission_set_names:
+  - IPAMReadOnly
+  permission_sets_scope_type: projects
+  project_ids:
+  - 9c3120c4-adb4-4ea4-bd9b-79834955d02f
+- condition: ""
+  id: 415dcb71-d6d8-4ef5-9f56-a091ac6b88c2
+  permission_set_names:
+  - VPCReadOnly
+  permission_sets_scope_type: projects
+  project_ids:
+  - 9c3120c4-adb4-4ea4-bd9b-79834955d02f

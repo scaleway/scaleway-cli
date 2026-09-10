@@ -31,3 +31,18 @@ SameRegion            false
   "region": "fr-par",
   "same_region": false
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+database_name: rdb
+download_url: https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/63d450e6-4009-4553-a04b-4396ef2d8d5d/6ff8e642-746b-499c-ba18-6491caeb64a2.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20250107%2Fnl-ams%2Fs3%2Faws4_request&X-Amz-Date=20250107T135108Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=197c6051bdff4df29a1be2a295a5280a3eca929d81455084322fe0755979aeb0
+download_url_expires_at: "1970-01-01T00:00:00.0Z"
+expires_at: "2032-01-02T22:04:05Z"
+id: 6ff8e642-746b-499c-ba18-6491caeb64a2
+instance_id: 63d450e6-4009-4553-a04b-4396ef2d8d5d
+instance_name: cli-test
+name: foobar
+region: fr-par
+same_region: false
+size: 2104
+status: ready
+updated_at: "1970-01-01T00:00:00.0Z"

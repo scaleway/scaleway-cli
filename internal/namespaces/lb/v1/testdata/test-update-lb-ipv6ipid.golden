@@ -81,3 +81,49 @@ ID                                    STATUS   IP ADDRESS  CREATED AT       UPDA
   "region": "fr-par",
   "zone": "fr-par-1"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+backend_count: 0
+created_at: "1970-01-01T00:00:00.0Z"
+description: ip-id
+frontend_count: 0
+id: c77bc49f-ec88-4f30-b491-2e8f183f3feb
+instances:
+- created_at: "1970-01-01T00:00:00.0Z"
+  id: 461bcd1c-15a5-4627-b017-c9bb611287a2
+  ip_address: ""
+  region: fr-par
+  status: pending
+  updated_at: "1970-01-01T00:00:00.0Z"
+  zone: fr-par-1
+ip:
+- id: 6996152a-3714-4597-bbb1-6344a16e86e4
+  ip_address: 51.159.206.195
+  lb_id: c77bc49f-ec88-4f30-b491-2e8f183f3feb
+  organization_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+  project_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+  region: fr-par
+  reverse: 51-159-206-195.lb.fr-par.scw.cloud
+  tags: []
+  zone: fr-par-1
+- id: 5a14c2a1-c949-4336-bc7f-bbde7aa35abd
+  ip_address: '2001:bc8:710:1bc::'
+  lb_id: c77bc49f-ec88-4f30-b491-2e8f183f3feb
+  organization_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+  project_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+  region: fr-par
+  reverse: 0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.0.c.b.1.0.0.1.7.0.8.c.b.0.1.0.0.2.lb.fr-par.scw.cloud
+  tags: []
+  zone: fr-par-1
+name: cli-test-update
+organization_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+private_network_count: 0
+project_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+region: fr-par
+route_count: 0
+ssl_compatibility_level: ssl_compatibility_level_intermediate
+status: ready
+subscriber: null
+tags: []
+type: lb-s
+updated_at: "1970-01-01T00:00:00.0Z"
+zone: fr-par-1

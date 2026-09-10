@@ -10,3 +10,7 @@ Access_key should look like: SCWXXXXXXXXXXXXXXXXX.
   "error": {},
   "hint": "access_key should look like: SCWXXXXXXXXXXXXXXXXX."
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: {}
+hint: 'access_key should look like: SCWXXXXXXXXXXXXXXXXX.'
+message: invalid access_key 'invalidAccessKey'

@@ -44,3 +44,29 @@ account    project   update  account_project_update  Update Project
     "short": "Update Project"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- namespace: account
+  resource: project
+  short: Create a new Project for an Organization
+  tool_name: account_project_create
+  verb: create
+- namespace: account
+  resource: project
+  short: Delete an existing Project
+  tool_name: account_project_delete
+  verb: delete
+- namespace: account
+  resource: project
+  short: Get an existing Project
+  tool_name: account_project_get
+  verb: get
+- namespace: account
+  resource: project
+  short: List all Projects of an Organization
+  tool_name: account_project_list
+  verb: list
+- namespace: account
+  resource: project
+  short: Update Project
+  tool_name: account_project_update
+  verb: update

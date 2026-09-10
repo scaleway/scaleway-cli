@@ -6,3 +6,6 @@ No profile named test
   "message": "no profile named test",
   "error": {}
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: {}
+message: no profile named test

@@ -27,3 +27,14 @@ Secret: eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtl
   },
   "secret": "eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+network:
+  created_at: "1970-01-01T00:00:00.0Z"
+  endpoint: sigfox.iot.fr-par.scw.cloud
+  hub_id: e50c1da4-3ade-4c67-9321-ce39d4bbe1ca
+  id: 0fc1c42f-050e-421e-86fc-54dcf154cf84
+  name: cli-network-jolly-thompson
+  region: ""
+  topic_prefix: foo
+  type: sigfox
+secret: eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9

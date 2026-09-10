@@ -8,3 +8,9 @@ cannot use a template output with an empty template
   "details": "https://golang.org/pkg/text/template",
   "hint": "Try using golang template string: scw instance server list -o template=\"{{ .ID }} ☜(˚▽˚)☞ {{ .Name }}\""
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+details: https://golang.org/pkg/text/template
+error: {}
+hint: 'Try using golang template string: scw instance server list -o template="{{
+  .ID }} ☜(˚▽˚)☞ {{ .Name }}"'
+message: cannot use a template output with an empty template

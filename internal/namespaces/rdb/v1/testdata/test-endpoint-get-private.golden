@@ -20,3 +20,13 @@ PrivateNetwork.ProvisioningMode  static
     "provisioning_mode": "static"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+id: a30d1ee5-fb2f-4bf0-a3ba-d0c670ff33e1
+ip: 172.16.0.3
+name: null
+port: 5432
+private_network:
+  private_network_id: 9736319b-e28e-4d02-9908-d34807882792
+  provisioning_mode: static
+  service_ip: 172.16.0.3/22
+  zone: fr-par-1

@@ -92,3 +92,69 @@ slowlog-max-len          128            INT      Maximum length of the slow log 
     "deprecated": false
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- default_value: "300"
+  deprecated: false
+  description: The specified value (in seconds) is the period used to send ACKs.
+  max_value: 65536
+  min_value: null
+  name: tcp-keepalive
+  regex: null
+  type: INT
+- default_value: "10000"
+  deprecated: false
+  description: Set the max number of connected clients at the same time.
+  max_value: 65536
+  min_value: 100
+  name: maxclients
+  regex: null
+  type: INT
+- default_value: noeviction
+  deprecated: false
+  description: 'How Redis will select what to remove when maxmemory is reached: https://redis.io/topics/lru-cache.'
+  max_value: null
+  min_value: null
+  name: maxmemory-policy
+  regex: volatile-lru|allkeys-lru|volatile-lfu|allkeys-lfu|volatile-random|allkeys-random|volatile-ttl|noeviction
+  type: STRING
+- default_value: "16"
+  deprecated: false
+  description: Set number of Redis databases
+  max_value: 128
+  min_value: 1
+  name: databases
+  regex: null
+  type: INT
+- default_value: '""'
+  deprecated: false
+  description: Configure the keyspace event notification feature
+  max_value: null
+  min_value: null
+  name: notify-keyspace-events
+  regex: ^(?:([KEg$lshzxetdnm])(?!.*\1))+$
+  type: STRING
+- default_value: "false"
+  deprecated: false
+  description: Disable Redis rdb persistence file on disk
+  max_value: null
+  min_value: null
+  name: disable-save
+  regex: null
+  type: BOOLEAN
+- default_value: "10000"
+  deprecated: false
+  description: Log queries that exceed this duration in microseconds (set to -1 to
+    disable)
+  max_value: 100000000
+  min_value: -1
+  name: slowlog-log-slower-than
+  regex: null
+  type: INT
+- default_value: "128"
+  deprecated: false
+  description: Maximum length of the slow log
+  max_value: 10000
+  min_value: 1
+  name: slowlog-max-len
+  regex: null
+  type: INT

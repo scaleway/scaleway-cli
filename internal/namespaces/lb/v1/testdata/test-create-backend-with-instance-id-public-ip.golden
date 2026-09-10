@@ -135,3 +135,74 @@ e0bdad0c-1940-4514-b82c-80c726e2eb83  pending  -           few seconds ago  few 
   "timeout_connect": 5000,
   "timeout_tunnel": 900000
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+failover_host: null
+forward_port: 80
+forward_port_algorithm: roundrobin
+forward_protocol: tcp
+health_check:
+  check_delay: 3000
+  check_max_retries: 5
+  check_send_proxy: false
+  check_timeout: 1000
+  port: 8888
+  tcp_config: {}
+  transient_check_delay: 0.500000000s
+host: null
+id: 03803c67-3cf3-43e4-bfb0-093d6c9006f5
+ignore_ssl_server_verify: null
+lb:
+  backend_count: 1
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: cli-test
+  frontend_count: 0
+  id: d27c439d-0088-4222-bd0f-803c46081ac0
+  instances:
+  - created_at: "1970-01-01T00:00:00.0Z"
+    id: e0bdad0c-1940-4514-b82c-80c726e2eb83
+    ip_address: ""
+    region: fr-par
+    status: pending
+    updated_at: "1970-01-01T00:00:00.0Z"
+    zone: fr-par-1
+  ip:
+  - id: 4a9175e8-c839-4590-b743-a081433f3e22
+    ip_address: 195.154.69.24
+    lb_id: d27c439d-0088-4222-bd0f-803c46081ac0
+    organization_id: 105bdce1-64c0-48ab-899d-868455867ecf
+    project_id: 105bdce1-64c0-48ab-899d-868455867ecf
+    region: fr-par
+    reverse: 195-154-69-24.lb.fr-par.scw.cloud
+    tags: []
+    zone: fr-par-1
+  name: cli-test
+  organization_id: 105bdce1-64c0-48ab-899d-868455867ecf
+  private_network_count: 0
+  project_id: 105bdce1-64c0-48ab-899d-868455867ecf
+  region: fr-par
+  route_count: 0
+  ssl_compatibility_level: ssl_compatibility_level_intermediate
+  status: ready
+  subscriber: null
+  tags: []
+  type: lb-s
+  updated_at: "1970-01-01T00:00:00.0Z"
+  zone: fr-par-1
+max_connections: null
+max_retries: null
+name: cli-test
+on_marked_down_action: on_marked_down_action_none
+pool:
+- 51.158.107.2
+proxy_protocol: proxy_protocol_unknown
+redispatch_attempt_count: null
+send_proxy_v2: false
+ssl_bridging: false
+sticky_sessions: none
+sticky_sessions_cookie_name: ""
+timeout_connect: 5000
+timeout_queue: null
+timeout_server: 300000
+timeout_tunnel: 900000
+updated_at: "1970-01-01T00:00:00.0Z"

@@ -292,9 +292,10 @@ func (p *Printer) printJSON(data any) error {
 }
 
 func (p *Printer) printYAML(data any) error {
+	_, implementMarshaler := data.(json.Marshaler)
 	err, isError := data.(error)
 
-	if isError {
+	if isError && !implementMarshaler {
 		data = map[string]string{
 			"error": err.Error(),
 		}

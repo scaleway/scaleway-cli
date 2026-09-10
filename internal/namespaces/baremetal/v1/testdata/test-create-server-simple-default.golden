@@ -64,3 +64,37 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "protected": false,
   "user_data": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+boot_type: normal
+created_at: "1970-01-01T00:00:00.0Z"
+description: ""
+domain: ""
+id: d362d0be-744e-4550-a4ce-45ef438bc1ba
+install: null
+ips:
+- address: 2001:bc8:1201:a17:b683:51ff:fe0f:60e4
+  id: df5477be-5c6c-4182-86cd-97604b3ddc0c
+  reverse: ""
+  reverse_status: unknown
+  reverse_status_message: ""
+  version: IPv6
+- address: 195.154.100.41
+  id: e04103af-07c1-457b-98af-39814fea648d
+  reverse: ""
+  reverse_status: unknown
+  reverse_status_message: ""
+  version: IPv4
+name: cli-bm-jovial-fermi
+offer_id: ddb09834-8680-4339-b5e3-19ca5205fa1f
+offer_name: EM-I215E-NVME
+options: []
+organization_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+ping_status: ping_status_unknown
+project_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+protected: false
+rescue_server: null
+status: ready
+tags: []
+updated_at: "1970-01-01T00:00:00.0Z"
+user_data: null
+zone: fr-par-2

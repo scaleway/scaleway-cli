@@ -604,3 +604,313 @@ few seconds ago  clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
     "message": " 4. The Docker daemon streamed that output to the Docker client, which sent it"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://docs.docker.com/get-started/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'For more examples and ideas, visit:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://hub.docker.com/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'Share images, automate workflows, and more with a free Docker ID:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' $ docker run -it ubuntu bash'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To try something more ambitious, you can run an Ubuntu container with:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    to your terminal.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 4. The Docker daemon streamed that output to the Docker client, which
+    sent it'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    executable that produces the output you are currently reading.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 3. The Docker daemon created a new container from that image which runs
+    the'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    (amd64)'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 1. The Docker client contacted the Docker daemon.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To generate this message, Docker took the following steps:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: This message shows that your installation appears to be working correctly.
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: Hello from Docker!
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://docs.docker.com/get-started/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'For more examples and ideas, visit:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://hub.docker.com/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'Share images, automate workflows, and more with a free Docker ID:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' $ docker run -it ubuntu bash'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To try something more ambitious, you can run an Ubuntu container with:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    to your terminal.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 4. The Docker daemon streamed that output to the Docker client, which
+    sent it'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    executable that produces the output you are currently reading.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 3. The Docker daemon created a new container from that image which runs
+    the'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    (amd64)'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 1. The Docker client contacted the Docker daemon.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To generate this message, Docker took the following steps:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: This message shows that your installation appears to be working correctly.
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: Hello from Docker!
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://docs.docker.com/get-started/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'For more examples and ideas, visit:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://hub.docker.com/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'Share images, automate workflows, and more with a free Docker ID:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' $ docker run -it ubuntu bash'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To try something more ambitious, you can run an Ubuntu container with:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    to your terminal.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 4. The Docker daemon streamed that output to the Docker client, which
+    sent it'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    executable that produces the output you are currently reading.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 3. The Docker daemon created a new container from that image which runs
+    the'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    (amd64)'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 1. The Docker client contacted the Docker daemon.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To generate this message, Docker took the following steps:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: This message shows that your installation appears to be working correctly.
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: Hello from Docker!
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://docs.docker.com/get-started/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'For more examples and ideas, visit:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://hub.docker.com/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'Share images, automate workflows, and more with a free Docker ID:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' $ docker run -it ubuntu bash'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To try something more ambitious, you can run an Ubuntu container with:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    to your terminal.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 4. The Docker daemon streamed that output to the Docker client, which
+    sent it'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    executable that produces the output you are currently reading.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 3. The Docker daemon created a new container from that image which runs
+    the'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    (amd64)'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 2. The Docker daemon pulled the "hello-world" image from the Docker Hub.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 1. The Docker client contacted the Docker daemon.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To generate this message, Docker took the following steps:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: This message shows that your installation appears to be working correctly.
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: Hello from Docker!
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://docs.docker.com/get-started/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'For more examples and ideas, visit:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' https://hub.docker.com/'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'Share images, automate workflows, and more with a free Docker ID:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' $ docker run -it ubuntu bash'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: 'To try something more ambitious, you can run an Ubuntu container with:'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ""
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: '    to your terminal.'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"
+- message: ' 4. The Docker daemon streamed that output to the Docker client, which
+    sent it'
+  resource_instance: clinstenderhellman47a76c388c39fe53c520cbd525505d8dbe-deplozdtzp
+  timestamp: "1970-01-01T00:00:00.0Z"

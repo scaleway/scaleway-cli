@@ -5,3 +5,6 @@ scaleway-sdk-go: cannot read config file /tmp/test_config_destroy/.config/scw/co
 {
   "error": "scaleway-sdk-go: cannot read config file /tmp/test_config_destroy/.config/scw/config.yaml: no such file or directory"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'scaleway-sdk-go: cannot read config file /tmp/test_config_destroy/.config/scw/config.yaml:
+  no such file or directory'

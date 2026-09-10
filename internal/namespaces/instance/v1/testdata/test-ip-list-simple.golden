@@ -37,3 +37,30 @@ ID                                    ADDRESS        PREFIX  TYPE         REVERS
     "zone": "fr-par-1"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- address: 51.158.97.101
+  id: 9ff6f7a8-d4b1-44c9-a51e-636185d6e60d
+  ipam_id: 4421046d-395f-44c0-aebc-6453fafd27f7
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  prefix: ""
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  reverse: null
+  server:
+    id: 6ab3aeee-069c-493c-895c-f7328500e45b
+    name: cli-srv-priceless-black
+  state: attached
+  tags: []
+  type: routed_ipv4
+  zone: fr-par-1
+- address: 51.15.229.243
+  id: 9918ae90-cd48-408f-97af-bcf3bc77afbc
+  ipam_id: 4eed59c6-696e-4e92-a394-48323abd12f0
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  prefix: ""
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  reverse: null
+  server: null
+  state: detached
+  tags: []
+  type: routed_ipv4
+  zone: fr-par-1

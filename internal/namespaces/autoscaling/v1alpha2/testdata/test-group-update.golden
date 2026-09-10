@@ -56,3 +56,30 @@ TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
   },
   "load_balancer_configuration": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+current_size: 0
+id: 019fd720-7a09-7381-a969-32e9a7ef383b
+last_scale_in_at: null
+last_scale_out_at: null
+load_balancer_configuration: null
+name: cli-asg-adoring-heisenberg
+open_alerts: []
+project_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+scaling_policy:
+  cpu_target:
+    target_avg_percent: 70
+  maximum_size: 25
+  minimum_size: 0
+  scale_in_cooldown: 60.000000000s
+  scale_in_step: 1
+  scale_out_cooldown: 60.000000000s
+  scale_out_step: 5
+status: active
+tags:
+- tags
+- were
+- updated
+target_size: 0
+template_id: 5ab3e2a8-9624-4711-bfe2-a5706945f171
+updated_at: "1970-01-01T00:00:00.0Z"

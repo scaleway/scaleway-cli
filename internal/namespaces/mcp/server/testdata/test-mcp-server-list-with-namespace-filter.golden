@@ -332,3 +332,209 @@ k8s        version       list                     k8s_version_list              
     "short": "List all available Versions"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- namespace: k8s
+  resource: acl
+  short: Add new ACLs
+  tool_name: k8s_acl_add
+  verb: add
+- namespace: k8s
+  resource: acl
+  short: Delete an existing ACL
+  tool_name: k8s_acl_delete
+  verb: delete
+- namespace: k8s
+  resource: acl
+  short: List ACLs
+  tool_name: k8s_acl_list
+  verb: list
+- namespace: k8s
+  resource: acl
+  short: Set new ACLs
+  tool_name: k8s_acl_set
+  verb: set
+- namespace: k8s
+  resource: cluster
+  short: Create a new Cluster
+  tool_name: k8s_cluster_create
+  verb: create
+- namespace: k8s
+  resource: cluster
+  short: Delete a Cluster
+  tool_name: k8s_cluster_delete
+  verb: delete
+- namespace: k8s
+  resource: cluster
+  short: Get a Cluster
+  tool_name: k8s_cluster_get
+  verb: get
+- namespace: k8s
+  resource: cluster
+  short: List Clusters
+  tool_name: k8s_cluster_list
+  verb: list
+- namespace: k8s
+  resource: cluster
+  short: List available cluster types for a cluster
+  tool_name: k8s_cluster_list-available-types
+  verb: list-available-types
+- namespace: k8s
+  resource: cluster
+  short: List available versions for a Cluster
+  tool_name: k8s_cluster_list-available-versions
+  verb: list-available-versions
+- namespace: k8s
+  resource: cluster
+  short: Reset the admin token of a Cluster
+  tool_name: k8s_cluster_reset-admin-token
+  verb: reset-admin-token
+- namespace: k8s
+  resource: cluster
+  short: Change the Cluster type
+  tool_name: k8s_cluster_set-type
+  verb: set-type
+- namespace: k8s
+  resource: cluster
+  short: Update a Cluster
+  tool_name: k8s_cluster_update
+  verb: update
+- namespace: k8s
+  resource: cluster
+  short: Upgrade a Cluster
+  tool_name: k8s_cluster_upgrade
+  verb: upgrade
+- namespace: k8s
+  resource: cluster
+  short: Wait for a cluster to reach a stable state
+  tool_name: k8s_cluster_wait
+  verb: wait
+- namespace: k8s
+  resource: cluster-type
+  short: List cluster types
+  tool_name: k8s_cluster-type_list
+  verb: list
+- namespace: k8s
+  resource: kubeconfig
+  short: Retrieve a kubeconfig
+  tool_name: k8s_kubeconfig_get
+  verb: get
+- namespace: k8s
+  resource: node
+  short: Delete a Node in a Cluster
+  tool_name: k8s_node_delete
+  verb: delete
+- namespace: k8s
+  resource: node
+  short: Get a Node in a Cluster
+  tool_name: k8s_node_get
+  verb: get
+- namespace: k8s
+  resource: node
+  short: List Nodes in a Cluster
+  tool_name: k8s_node_list
+  verb: list
+- namespace: k8s
+  resource: node
+  short: Reboot a Node in a Cluster
+  tool_name: k8s_node_reboot
+  verb: reboot
+- namespace: k8s
+  resource: node
+  short: Replace a Node in a Cluster
+  tool_name: k8s_node_replace
+  verb: replace
+- namespace: k8s
+  resource: node
+  short: Wait for a node to reach a stable state
+  tool_name: k8s_node_wait
+  verb: wait
+- namespace: k8s
+  resource: pool
+  short: Add an external node to a Kosmos Pool
+  tool_name: k8s_pool_add-external-node
+  verb: add-external-node
+- namespace: k8s
+  resource: pool
+  short: Create a new Pool in a Cluster
+  tool_name: k8s_pool_create
+  verb: create
+- namespace: k8s
+  resource: pool
+  short: Delete a Pool in a Cluster
+  tool_name: k8s_pool_delete
+  verb: delete
+- namespace: k8s
+  resource: pool
+  short: Get a Pool in a Cluster
+  tool_name: k8s_pool_get
+  verb: get
+- namespace: k8s
+  resource: pool
+  short: List Pools in a Cluster
+  tool_name: k8s_pool_list
+  verb: list
+- namespace: k8s
+  resource: pool
+  short: Remove a label from a Pool
+  tool_name: k8s_pool_remove-label
+  verb: remove-label
+- namespace: k8s
+  resource: pool
+  short: Remove a startup taint from a Pool
+  tool_name: k8s_pool_remove-startup-taint
+  verb: remove-startup-taint
+- namespace: k8s
+  resource: pool
+  short: Remove a taint from a Pool
+  tool_name: k8s_pool_remove-taint
+  verb: remove-taint
+- namespace: k8s
+  resource: pool
+  short: Apply a label to a Pool
+  tool_name: k8s_pool_set-label
+  verb: set-label
+- namespace: k8s
+  resource: pool
+  short: Apply a startup taint to a Pool
+  tool_name: k8s_pool_set-startup-taint
+  verb: set-startup-taint
+- namespace: k8s
+  resource: pool
+  short: Apply a taint to a Pool
+  tool_name: k8s_pool_set-taint
+  verb: set-taint
+- namespace: k8s
+  resource: pool
+  short: Update a Pool in a Cluster
+  tool_name: k8s_pool_update
+  verb: update
+- namespace: k8s
+  resource: pool
+  short: Upgrade a Pool in a Cluster
+  tool_name: k8s_pool_upgrade
+  verb: upgrade
+- namespace: k8s
+  resource: pool
+  short: Wait for a pool to reach a stable state
+  tool_name: k8s_pool_wait
+  verb: wait
+- namespace: k8s
+  resource: userdata
+  short: Get a pool related user data
+  tool_name: k8s_userdata_get
+  verb: get
+- namespace: k8s
+  resource: userdata
+  short: List all user data related to a given pool.
+  tool_name: k8s_userdata_list
+  verb: list
+- namespace: k8s
+  resource: version
+  short: Get a Version
+  tool_name: k8s_version_get
+  verb: get
+- namespace: k8s
+  resource: version
+  short: List all available Versions
+  tool_name: k8s_version_list
+  verb: list

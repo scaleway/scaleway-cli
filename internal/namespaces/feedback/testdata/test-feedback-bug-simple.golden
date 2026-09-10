@@ -7,3 +7,6 @@
   "message": "Successfully opened the page",
   "details": "https://github.com/scaleway/scaleway-cli/issues/new?body=%0A%23%23+Description%3A%0A%0A%23%23+How+to+reproduce%3A%0A%0A%23%23%23+Command+attempted%0A%0A%23%23%23+Expected+Behavior%0A%0A%23%23%23+Actual+Behavior%0A%0A%23%23+More+info%0A%0A%23%23+Version%0A%0AVersion++++++++++0.0.0%26%2343%3Btest%0ABuildDate++++++++unknown%0AGoVersion++++++++runtime.Version%28%29%0AGitBranch++++++++unknown%0AGitCommit++++++++unknown%0AGoArch+++++++++++runtime.GOARCH%0AGoOS+++++++++++++runtime.GOOS%0AUserAgentPrefix++scaleway-cli%0A\u0026issueTemplate=bug_report.md\u0026labels=bug"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: https://github.com/scaleway/scaleway-cli/issues/new?body=%0A%23%23+Description%3A%0A%0A%23%23+How+to+reproduce%3A%0A%0A%23%23%23+Command+attempted%0A%0A%23%23%23+Expected+Behavior%0A%0A%23%23%23+Actual+Behavior%0A%0A%23%23+More+info%0A%0A%23%23+Version%0A%0AVersion++++++++++0.0.0%26%2343%3Btest%0ABuildDate++++++++unknown%0AGoVersion++++++++runtime.Version%28%29%0AGitBranch++++++++unknown%0AGitCommit++++++++unknown%0AGoArch+++++++++++runtime.GOARCH%0AGoOS+++++++++++++runtime.GOOS%0AUserAgentPrefix++scaleway-cli%0A&issueTemplate=bug_report.md&labels=bug
+message: Successfully opened the page

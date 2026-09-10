@@ -5,3 +5,6 @@ scaleway-sdk-go: couldn't find a local image for the given zone (fr-par-1) and c
 {
   "error": "scaleway-sdk-go: couldn't find a local image for the given zone (fr-par-1) and commercial type (MACBOOK1-S)"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'scaleway-sdk-go: couldn''t find a local image for the given zone (fr-par-1)
+  and commercial type (MACBOOK1-S)'

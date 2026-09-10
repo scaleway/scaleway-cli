@@ -54,3 +54,28 @@ TYPE  OPENED AT  CLOSED AT  GROUP ID  FAILING QUOTAS
   },
   "load_balancer_configuration": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+current_size: 0
+id: 01a0489d-6acd-7eed-856a-b2a3d988e6c2
+last_scale_in_at: null
+last_scale_out_at: null
+load_balancer_configuration: null
+name: cli-asg-nifty-taussig
+open_alerts: []
+project_id: fa1e3217-dc80-42ac-85c3-3f034b78b552
+scaling_policy:
+  maximum_size: 5
+  memory_target:
+    target_avg_percent: 80
+  minimum_size: 1
+  scale_in_cooldown: 60.000000000s
+  scale_in_step: 2
+  scale_out_cooldown: 180.000000000s
+  scale_out_step: 1
+status: active
+tags:
+- cli-test-asg
+target_size: 0
+template_id: 458f3cec-a287-4b37-bed8-51d371f6563d
+updated_at: "1970-01-01T00:00:00.0Z"

@@ -7,3 +7,7 @@ Could not create bucket lifecycle configuration: operation error S3: PutBucketLi
 {
   "error": "could not create bucket lifecycle configuration: operation error S3: PutBucketLifecycleConfiguration, 1 validation error(s) found.\n- missing required field, PutBucketLifecycleConfigurationInput.LifecycleConfiguration.Rules.\n"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: |
+  could not create bucket lifecycle configuration: operation error S3: PutBucketLifecycleConfiguration, 1 validation error(s) found.
+  - missing required field, PutBucketLifecycleConfigurationInput.LifecycleConfiguration.Rules.

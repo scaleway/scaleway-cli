@@ -19,3 +19,5 @@ GLOBAL FLAGS:
 Use "scw instance [command] --help" for more information about a command.
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {}
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+{}

@@ -25,3 +25,16 @@ k8s        cluster   scw://k8s/cluster  List available cluster types for a clust
     "short": "List available cluster types for a cluster"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- namespace: k8s
+  resource: cluster
+  short: List Clusters
+  uri: scw://k8s/cluster
+- namespace: k8s
+  resource: cluster
+  short: List available versions for a Cluster
+  uri: scw://k8s/cluster
+- namespace: k8s
+  resource: cluster
+  short: List available cluster types for a cluster
+  uri: scw://k8s/cluster

@@ -46,3 +46,26 @@ ID                                    URL                                       
   "updated_at": null,
   "region": "fr-par"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+endpoints:
+- disable_auth: false
+  id: 79319256-5e07-4b5a-8c08-b81f1c585b26
+  public_network: {}
+  url: https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com
+error_message: null
+id: 956f2366-8cf5-439a-9dbc-5a0ee3036465
+max_size: 1
+min_size: 1
+model_id: 739d51ae-4f1e-4193-a4bf-f7380c090d46
+model_name: qwen/qwen3-235b-a22b-instruct-2507:awq
+name: cli-inference-cranky-antonelli
+node_type_name: H100-2
+project_id: d3520a52-2c75-4ba0-bda8-82dd087f07f2
+quantization:
+  bits: 4
+region: fr-par
+size: 0
+status: creating
+tags: []
+updated_at: null

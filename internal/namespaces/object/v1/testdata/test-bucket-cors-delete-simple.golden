@@ -6,3 +6,6 @@
   "message": "bucket-cors has been successfully deleted.",
   "details": ""
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: ""
+message: bucket-cors has been successfully deleted.

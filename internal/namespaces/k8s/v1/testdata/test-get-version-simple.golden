@@ -87,3 +87,46 @@ Available Admission Plugins:
   "additional_components": {},
   "srn": "srn://k8s.scw.eu/regions/fr-par/versions/1.35.3"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+additional_components: {}
+available_admission_plugins:
+- AlwaysPullImages
+- PodNodeSelector
+- PodTolerationRestriction
+available_cnis:
+- cilium
+- cilium_native
+- calico
+- kilo
+- none
+available_container_runtimes:
+- containerd
+available_feature_gates:
+- HPAScaleToZero
+- CPUManagerPolicyAlphaOptions
+- ImageVolume
+- MutatingAdmissionPolicy
+available_kubelet_args:
+  containerLogMaxFiles: uint16
+  containerLogMaxSize: quantity
+  cpuCFSQuota: bool
+  cpuCFSQuotaPeriod: duration
+  cpuManagerPolicy: enum:none|static
+  cpuManagerPolicyOptions: map[string]string
+  enableDebuggingHandlers: bool
+  evictionHard: map[string]string
+  evictionMinimumReclaim: map[string]string
+  imageGCHighThresholdPercent: uint32
+  imageGCLowThresholdPercent: uint32
+  maxParallelImagePulls: int32
+  maxPods: uint16
+  registryBurst: int32
+  registryPullQPS: int32
+  serializeImagePulls: bool
+deprecated_at: "2027-01-19T00:00:00Z"
+end_of_life_at: "2027-03-19T00:00:00Z"
+label: Kubernetes 1.35.3
+name: 1.35.3
+region: fr-par
+released_at: "2026-01-19T00:00:00Z"
+srn: srn://k8s.scw.eu/regions/fr-par/versions/1.35.3

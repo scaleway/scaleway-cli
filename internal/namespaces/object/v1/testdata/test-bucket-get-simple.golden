@@ -29,3 +29,17 @@ GRANTEE                               PERMISSION
   "NbObjects": null,
   "NbParts": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+ACL:
+- Grantee: 105bdce1-64c0-48ab-899d-868455867ecf
+  Permission: FULL_CONTROL
+APIEndpoint: https://s3.fr-par.scw.cloud
+BucketEndpoint: https://cli-test-bucket-get-.s3.fr-par.scw.cloud
+EnableVersioning: false
+ID: cli-test-bucket-get-
+NbObjects: null
+NbParts: null
+Owner: 105bdce1-64c0-48ab-899d-868455867ecf
+Region: fr-par
+Size: null
+Tags: null

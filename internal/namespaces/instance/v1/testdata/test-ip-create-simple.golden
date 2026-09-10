@@ -26,3 +26,17 @@ Zone          fr-par-1
     "zone": "fr-par-1"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+ip:
+  address: 51.15.229.243
+  id: 9918ae90-cd48-408f-97af-bcf3bc77afbc
+  ipam_id: 83e0e95e-4d3b-4d19-897f-e3228fde5b8e
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  prefix: ""
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  reverse: null
+  server: null
+  state: detached
+  tags: []
+  type: routed_ipv4
+  zone: fr-par-1

@@ -5,3 +5,5 @@ Initialization canceled
 {
   "error": "initialization canceled"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: initialization canceled

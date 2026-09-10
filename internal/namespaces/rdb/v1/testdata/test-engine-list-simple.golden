@@ -52,3 +52,28 @@ PostgreSQL-9.6  PostgreSQL   few seconds ago
     "end_of_life": "2021-11-11T00:00:00Z"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- end_of_life: "2026-04-01T00:00:00Z"
+  engine_type: MySQL
+  name: MySQL-8
+- end_of_life: "2027-11-11T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-15
+- end_of_life: "2026-11-12T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-14
+- end_of_life: "2025-11-13T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-13
+- end_of_life: "2024-11-14T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-12
+- end_of_life: "2023-11-09T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-11
+- end_of_life: "2022-11-10T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-10
+- end_of_life: "2021-11-11T00:00:00Z"
+  engine_type: PostgreSQL
+  name: PostgreSQL-9.6

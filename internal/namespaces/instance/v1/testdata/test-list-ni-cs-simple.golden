@@ -19,3 +19,15 @@ ID                                    SERVER ID                             PRIV
     ]
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- creation_date: "1970-01-01T00:00:00.0Z"
+  id: 83648eff-98ec-4b45-816a-0f946aea79e6
+  ipam_ip_ids:
+  - 92e34eaa-947c-4db1-848d-a5ccc49f2172
+  - dd5d3e12-97bc-47fb-bca4-6673e55a5852
+  mac_address: 02:00:00:1e:ee:da
+  private_network_id: 53f375df-7aa4-42fe-82a0-3aef8d919b18
+  server_id: 0dfa708e-e42d-4648-8fa8-48ef47c2721e
+  state: available
+  tags: []
+  zone: fr-par-1

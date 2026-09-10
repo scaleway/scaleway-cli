@@ -33,3 +33,18 @@ GRANTEE                               PERMISSION
     "Owner": "4d333544-41be-4b0b-8907-0b9036859747"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+BucketInfo:
+  ACL:
+  - Grantee: 4d333544-41be-4b0b-8907-0b9036859747
+    Permission: FULL_CONTROL
+  APIEndpoint: https://s3.fr-par.scw.cloud
+  BucketEndpoint: https://cli-test-bucket-cors-.s3.fr-par.scw.cloud
+  EnableVersioning: false
+  ID: cli-test-bucket-cors-
+  Owner: 4d333544-41be-4b0b-8907-0b9036859747
+  Region: fr-par
+  Tags: null
+SuccessResult:
+  details: ""
+  message: Success

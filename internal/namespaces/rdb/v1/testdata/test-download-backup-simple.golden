@@ -6,3 +6,6 @@ Backup downloaded to simple_dump successfully (2.1 kB written)
   "size": 2104,
   "file_name": "simple_dump"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+file_name: simple_dump
+size: 2104

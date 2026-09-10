@@ -8,3 +8,6 @@ successfully deleted volume  (- sbs_volume)
   "message": "Success",
   "details": ""
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: ""
+message: Success

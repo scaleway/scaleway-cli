@@ -29,3 +29,18 @@ SameRegion    false
   "region": "fr-par",
   "same_region": false
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+database_name: rdb
+download_url: null
+download_url_expires_at: null
+expires_at: "2032-01-02T22:04:05Z"
+id: 787ecd88-1fe3-4c70-8d46-d31a4d5f5ade
+instance_id: 694f5cf8-e1da-4362-a38a-33eb3beb80f3
+instance_name: cli-test
+name: foobar
+region: fr-par
+same_region: false
+size: 2104
+status: ready
+updated_at: "1970-01-01T00:00:00.0Z"

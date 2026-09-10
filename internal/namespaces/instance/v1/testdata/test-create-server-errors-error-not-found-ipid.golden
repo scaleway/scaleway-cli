@@ -5,3 +5,6 @@ Cannot create the server: scaleway-sdk-go: resource instance_ip with ID 23165951
 {
   "error": "cannot create the server: scaleway-sdk-go: resource instance_ip with ID 23165951-13fd-4a3b-84ed-22c2e96658f2 is not found"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'cannot create the server: scaleway-sdk-go: resource instance_ip with ID 23165951-13fd-4a3b-84ed-22c2e96658f2
+  is not found'

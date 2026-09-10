@@ -14,3 +14,5 @@ GLOBAL FLAGS:
   -p, --profile string   The config profile to use
 🟥🟥🟥 JSON STDERR 🟥🟥🟥
 {}
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+{}

@@ -8,3 +8,8 @@
   "message": "Nats context successfully created",
   "details": "credential-placeholder nats credentials was created\nSelect context using `nats context select context-placeholder`"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: |-
+  credential-placeholder nats credentials was created
+  Select context using `nats context select context-placeholder`
+message: Nats context successfully created

@@ -9,3 +9,8 @@ Cannot find resource 'MarketplaceImage' with ID 'macos'
     "resource_id": "macos"
   }
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error:
+  resource: MarketplaceImage
+  resource_id: macos
+message: cannot find resource 'MarketplaceImage' with ID 'macos'

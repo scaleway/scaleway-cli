@@ -68,3 +68,40 @@ Region                                     fr-par
   "private_endpoint": null,
   "region": "fr-par"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+args: []
+command: []
+created_at: "1970-01-01T00:00:00.0Z"
+description: ""
+environment_variables: {}
+error_message: ""
+https_connections_only: false
+id: 86e4aaa2-0fa9-4ea6-8e64-2571bde9133e
+image: rg.fr-par.scw.cloud/cli-test-ctn-update-rg-img-nervous-benz/nginx:1.29.2-alpine
+liveness_probe:
+  failure_threshold: 30
+  interval: 10.000000000s
+  tcp: {}
+  timeout: 1.000000000s
+local_storage_limit_bytes: 1000000000
+max_scale: 5
+memory_limit_bytes: 2048000000
+min_scale: 0
+mvcpu_limit: 1000
+name: cli-test-blissful-jennings
+namespace_id: bd210c2f-1af8-4091-b228-033566363282
+port: 80
+privacy: public
+private_network_id: null
+protocol: http1
+public_endpoint: https://clinsaffectionatetorbd210c2f-cli-test-blissful-jennings.functions.fnc.fr-par.scw.cloud
+region: fr-par
+sandbox: v2
+scaling_option:
+  concurrent_requests_threshold: 50
+secret_environment_variables: {}
+startup_probe: null
+status: ready
+tags: []
+timeout: 300.000000000s
+updated_at: "2026-08-07T16:23:00Z"

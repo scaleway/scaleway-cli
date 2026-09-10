@@ -7,3 +7,6 @@ Content  I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHR
   "key": "cloud-init",
   "content": "I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw=="
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+content: I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw==
+key: cloud-init

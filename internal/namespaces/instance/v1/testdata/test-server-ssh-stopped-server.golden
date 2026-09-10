@@ -10,3 +10,8 @@ Start the instance with: scw instance server start 2760bb36-5313-4218-87ac-04e22
   "error": {},
   "hint": "Start the instance with: scw instance server start 2760bb36-5313-4218-87ac-04e2263b1da7 --wait"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: {}
+hint: 'Start the instance with: scw instance server start 2760bb36-5313-4218-87ac-04e2263b1da7
+  --wait'
+message: server is not running

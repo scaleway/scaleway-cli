@@ -5,3 +5,6 @@ Cannot create the server: first volume size must be at least 10 GB for this imag
 {
   "error": "cannot create the server: first volume size must be at least 10 GB for this image"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'cannot create the server: first volume size must be at least 10 GB for this
+  image'

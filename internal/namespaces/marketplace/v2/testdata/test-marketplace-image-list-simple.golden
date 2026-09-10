@@ -382,3 +382,301 @@ a6c68db3-5613-4b08-acaa-2c92d8baf26c  ubuntu_jammy_gpu_os_12    Ubuntu Jammy GPU
     "label": "wordpress"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution,
+    governed and driven by the community, focused on long-term stability and a robust
+    production-grade platform
+  id: 0d3a22da-c634-45d6-a7dd-aff402f88b0c
+  label: almalinux_8
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png
+  name: AlmaLinux 8
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: AlmaLinux OS is an Open Source and forever-free enterprise Linux distribution,
+    governed and driven by the community, focused on long-term stability and a robust
+    production-grade platform
+  id: 486ead23-9656-41d1-aa74-a5a780b2ae1b
+  label: almalinux_9
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/almalinux.png
+  name: AlmaLinux 9
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: The CentOS Project is a community-driven free software effort focused
+    on delivering a robust open source ecosystem.
+  id: cfb3fa01-6406-4be8-9e9d-29daee2582fa
+  label: centos_stream_9
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/centos.png
+  name: Centos Stream 9
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Debian is a free operating system, developed by thousands of volunteers
+    from all over the world who collaborate via the Internet.
+  id: 213b02cb-3d8d-4967-ba8d-e5767a57574e
+  label: debian_bullseye
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png
+  name: Debian 11 (Bullseye)
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Debian is a free operating system, developed by thousands of volunteers
+    from all over the world who collaborate via the Internet.
+  id: fd6931c1-5326-4f8d-8fdf-57867b2830e3
+  label: debian_bookworm
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png
+  name: Debian 12 (Bookworm)
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Debian is a free operating system, developed by thousands of volunteers
+    from all over the world who collaborate via the Internet.
+  id: 193cdddd-0b0b-43b5-84a6-f0d88ebe7611
+  label: debian_trixie
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/debian.png
+  name: Debian 13 (Trixie)
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - instantapp
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Docker is an open platform for developers and sysadmins to build, ship,
+    and run distributed applications.
+  id: c1b530d8-0ca0-45c4-80db-ba06608287b2
+  label: docker
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/docker.png
+  name: Docker
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Fedora is a powerful, flexible operating system that includes the best
+    and latest datacenter technologies. It puts you in control of all your infrastructure
+    and services
+  id: abb11fe5-7376-4eb1-bc9f-a274e6d09a04
+  label: fedora_40
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png
+  name: Fedora 40
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Fedora is a powerful, flexible operating system that includes the best
+    and latest datacenter technologies. It puts you in control of all your infrastructure
+    and services
+  id: d2e96d2d-19dd-495d-a49d-ecf91f4c3011
+  label: fedora_41
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png
+  name: Fedora 41
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Fedora is a powerful, flexible operating system that includes the best
+    and latest datacenter technologies. It puts you in control of all your infrastructure
+    and services
+  id: 241d9bc8-4276-4106-8204-51d331342874
+  label: fedora_42
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png
+  name: Fedora 42
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Fedora is a powerful, flexible operating system that includes the best
+    and latest datacenter technologies. It puts you in control of all your infrastructure
+    and services
+  id: 8c054c16-094d-485d-85e5-143aa27c9bd9
+  label: fedora_43
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/fedora.png
+  name: Fedora 43
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - instantapp
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: GitLab is a web-based Git repository manager with wiki and issue tracking
+    features.
+  id: 233074b9-e2ba-4e78-818e-dd4930ce6bee
+  label: gitlab
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/gitlab.png
+  name: GitLab
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - kapsule
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Image used for spawning Kapsule nodes
+  id: 8af90812-6964-4a78-9125-b317311cfd5c
+  label: kapsule
+  logo: https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png
+  name: Kapsule
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - kapsule
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Image used for spawning Kapsule nodes
+  id: 518d0243-6577-47c7-9d57-a4c707e016a6
+  label: kapsule_jammy
+  logo: https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png
+  name: Kapsule Jammy
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - kapsule
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Image used for spawning Kapsule nodes
+  id: bd48a209-b19e-4e5f-ba61-88378b2f5778
+  label: kapsule_noble
+  logo: https://marketplace-logos.s3.nl-ams.scw.cloud/ubuntu.png
+  name: Kapsule Noble
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - instantapp
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Nextcloud is an open source, self-hosted file share and communication
+    platform.
+  id: 7d4a7cb1-1fd5-4a64-920b-c79f47367254
+  label: nextcloud
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/nextcloud.png
+  name: NextCloud
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - instantapp
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Surf the web in a secure and anonymous way with OpenVPN InstantApp.
+  id: b6f4edc8-21e6-4aa2-8f52-1030cf6d4dd8
+  label: openvpn
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/openvpn.png
+  name: OpenVPN
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Rocky Linux is a community-driven effort to bring you enterprise-grade,
+    production-ready Linux.
+  id: 1576bf6b-f640-47f2-9117-968419d0546e
+  label: rockylinux_8
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png
+  name: Rocky Linux 8
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Rocky Linux is a community-driven effort to bring you enterprise-grade,
+    production-ready Linux.
+  id: 589c35a9-20ce-4ed9-92d7-16dc061be52b
+  label: rockylinux_9
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/rockylinux.png
+  name: Rocky Linux 9
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server
+    helps you make the most of your infrastructure.
+  id: 3f1b9623-71ba-4fe3-b994-27fcdaa850ba
+  label: ubuntu_focal
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png
+  name: Ubuntu 20.04 Focal Fossa
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server
+    helps you make the most of your infrastructure.
+  id: 1123148c-7660-4cb2-9fd3-7b5b4896f72f
+  label: ubuntu_jammy
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png
+  name: Ubuntu 22.04 Jammy Jellyfish
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Ubuntu is the ideal distribution for scale-out computing, Ubuntu Server
+    helps you make the most of your infrastructure.
+  id: 607b12c2-685d-45f7-905f-57bc23863834
+  label: ubuntu_noble
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png
+  name: Ubuntu 24.04 Noble Numbat
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - Machine Learning
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Ubuntu 22.04 Jammy Jellyfish for Nvidia GPU and Machine Learning (GPU
+    passthrough)
+  id: a6c68db3-5613-4b08-acaa-2c92d8baf26c
+  label: ubuntu_jammy_gpu_os_12
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png
+  name: Ubuntu Jammy GPU OS 12
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - Machine Learning
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Ubuntu 22.04 Noble Numbat for Nvidia GPU and Machine Learning (GPU
+    passthrough)
+  id: 61916874-cf88-417d-83e8-c7933b848c6a
+  label: ubuntu_noble_gpu_os_12
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/ubuntu.png
+  name: Ubuntu Noble GPU OS 12
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Microsoft Windows Server 2022 Base, english edition
+  id: 1b38cd96-9e7c-428e-8d2f-484058b284cd
+  label: windows_server_2022
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/microsoft_windows_server.png
+  name: Windows Server 2022
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - distribution
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: Microsoft Windows Server 2022 Core, english edition
+  id: 3f09bf1e-12be-473d-b95e-ed90f490a0f1
+  label: windows_server_2022_core
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/microsoft_windows_server.png
+  name: Windows Server 2022 Core
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null
+- categories:
+  - instantapp
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: WordPress is the most popular web software you can use to create a
+    beautiful website or blog.
+  id: 215a50f9-0ba8-4e9c-a4e7-10caf50e3586
+  label: wordpress
+  logo: https://scw-marketplace-logos.s3.fr-par.scw.cloud/wordpress.png
+  name: WordPress
+  updated_at: "1970-01-01T00:00:00.0Z"
+  valid_until: null

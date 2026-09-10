@@ -7,3 +7,8 @@ Private ip are assigned when the server boots, start yours with: scw instance se
   "message": "server e4491566-5235-42e0-b6b7-dc9ef4233f0f (cli-srv-elated-murdock) does not have a private ip",
   "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start e4491566-5235-42e0-b6b7-dc9ef4233f0f"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+hint: 'Private ip are assigned when the server boots, start yours with: scw instance
+  server start e4491566-5235-42e0-b6b7-dc9ef4233f0f'
+message: server e4491566-5235-42e0-b6b7-dc9ef4233f0f (cli-srv-elated-murdock) does
+  not have a private ip

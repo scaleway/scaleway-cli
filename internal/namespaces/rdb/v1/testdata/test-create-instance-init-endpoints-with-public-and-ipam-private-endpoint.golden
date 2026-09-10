@@ -145,3 +145,70 @@ Password:
   },
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+backup_same_region: false
+backup_schedule:
+  disabled: false
+  frequency: 24
+  next_run_at: "1970-01-01T00:00:00.0Z"
+  retention: 7
+created_at: "1970-01-01T00:00:00.0Z"
+encryption:
+  enabled: false
+endpoint:
+  id: 02229f84-eb4c-4ba6-a94a-f8f07131ae21
+  ip: 195.154.70.203
+  load_balancer: {}
+  name: null
+  port: 4837
+endpoints:
+- id: ffce9c00-0a4f-44a7-a2ce-d41661290a14
+  ip: 172.16.28.2
+  name: null
+  port: 5432
+  private_network:
+    private_network_id: c3f95c45-66c1-4b17-aa69-ef8668792e00
+    provisioning_mode: ipam
+    service_ip: 172.16.28.2/22
+    zone: fr-par-1
+- id: 02229f84-eb4c-4ba6-a94a-f8f07131ae21
+  ip: 195.154.70.203
+  load_balancer: {}
+  name: null
+  port: 4837
+engine: PostgreSQL-15
+high_availability_mode: unknown_high_availability_mode
+id: 7dcc0495-dd11-43d5-9b24-cde1900503e3
+init_settings: []
+is_ha_cluster: false
+logs_policy:
+  max_age_retention: 30
+  total_disk_retention: null
+maintenances: []
+name: cli-test
+node_type: db-dev-s
+organization_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+password: '{4xdl*#QOoP+&3XRkGA)]'
+project_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+read_replicas: []
+region: fr-par
+settings:
+- name: effective_cache_size
+  value: "1300"
+- name: maintenance_work_mem
+  value: "150"
+- name: max_connections
+  value: "100"
+- name: max_parallel_workers
+  value: "0"
+- name: max_parallel_workers_per_gather
+  value: "0"
+- name: work_mem
+  value: "4"
+status: ready
+tags: []
+upgradable_version: []
+volume:
+  class: lssd
+  size: 5000000000
+  type: lssd

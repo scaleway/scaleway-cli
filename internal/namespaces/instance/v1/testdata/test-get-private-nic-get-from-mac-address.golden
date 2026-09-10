@@ -27,3 +27,16 @@ PrivateNic.Srn               -
     ]
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+private_nic:
+  creation_date: "1970-01-01T00:00:00.0Z"
+  id: a2f0dc3e-5cd1-47b6-8421-0b1786d508a9
+  ipam_ip_ids:
+  - 7066756f-43c8-4ca0-8092-0589ecf0c0e7
+  - 627fe002-997d-41fe-93ac-1e61a065f6fb
+  mac_address: 02:00:00:1b:f4:62
+  private_network_id: 8aa280f3-38a8-4af4-a6b3-270106ecc346
+  server_id: f58e3047-609e-44c2-94c4-e108ed5327f3
+  state: available
+  tags: []
+  zone: fr-par-1

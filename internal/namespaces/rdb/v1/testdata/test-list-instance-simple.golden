@@ -84,3 +84,60 @@ c71b4866-d96c-453e-919a-687f7cd1b350  cli-test  db-dev-s   ready   PostgreSQL-15
     }
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- backup_same_region: false
+  backup_schedule:
+    disabled: false
+    frequency: 24
+    next_run_at: "1970-01-01T00:00:00.0Z"
+    retention: 7
+  created_at: "1970-01-01T00:00:00.0Z"
+  encryption:
+    enabled: false
+  endpoint:
+    id: 56e0207e-7ed1-486a-a5ac-f3d23ce91bda
+    ip: 195.154.71.12
+    load_balancer: {}
+    name: null
+    port: 21189
+  endpoints:
+  - id: 56e0207e-7ed1-486a-a5ac-f3d23ce91bda
+    ip: 195.154.71.12
+    load_balancer: {}
+    name: null
+    port: 21189
+  engine: PostgreSQL-15
+  high_availability_mode: unknown_high_availability_mode
+  id: c71b4866-d96c-453e-919a-687f7cd1b350
+  init_settings: []
+  is_ha_cluster: false
+  logs_policy:
+    max_age_retention: 30
+    total_disk_retention: null
+  maintenances: []
+  name: cli-test
+  node_type: db-dev-s
+  organization_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+  project_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+  read_replicas: []
+  region: fr-par
+  settings:
+  - name: effective_cache_size
+    value: "1300"
+  - name: maintenance_work_mem
+    value: "150"
+  - name: max_connections
+    value: "100"
+  - name: max_parallel_workers
+    value: "0"
+  - name: max_parallel_workers_per_gather
+    value: "0"
+  - name: work_mem
+    value: "4"
+  status: ready
+  tags: []
+  upgradable_version: []
+  volume:
+    class: lssd
+    size: 5000000000
+    type: lssd
