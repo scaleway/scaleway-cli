@@ -22,6 +22,7 @@ func GetGeneratedCommands() *core.Commands {
 		sdbSQLRoot(),
 		sdbSQLDatabase(),
 		sdbSQLBackup(),
+		sdbSQLVersion(),
 		sdbSQLDatabaseCreate(),
 		sdbSQLDatabaseGet(),
 		sdbSQLDatabaseDelete(),
@@ -60,6 +61,15 @@ func sdbSQLBackup() *core.Command {
 	}
 }
 
+func sdbSQLVersion() *core.Command {
+	return &core.Command{
+		Short:     ``,
+		Long:      ``,
+		Namespace: "sdb-sql",
+		Resource:  "version",
+	}
+}
+
 func sdbSQLDatabaseCreate() *core.Command {
 	return &core.Command{
 		Short:     `Create a new Serverless SQL Database`,
@@ -95,6 +105,13 @@ func sdbSQLDatabaseCreate() *core.Command {
 			{
 				Name:       "from-backup-id",
 				Short:      `The ID of the backup to create the database from.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "version",
+				Short:      `The major version of the postgreSQL requested.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

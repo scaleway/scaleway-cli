@@ -43,10 +43,10 @@ Before contributing to the code, make sure you have read about the [continuous c
 To submit code:
 
 - Create a fork of the project
-- Create a topic branch from where you want to base your work (usually master)
+- Create a topic branch from where you want to base your work (usually main)
 - Add tests to cover contributed code
 - Push your commit(s) to your topic branch on your fork
-- Open a pull request against `scaleway-cli` `master` branch that follows [PR guidelines](#pull-request-guidelines)
+- Open a pull request against `scaleway-cli` `main` branch that follows [PR guidelines](#pull-request-guidelines)
 
 The maintainers of `scaleway-cli` use a "Let's Get This Merged" (LGTM) message in the pull request to note that the commits are ready to merge.
 After one or more maintainer states LGTM, we will merge.
@@ -67,7 +67,7 @@ The goal of the following guidelines is to have Pull Requests (PRs) that are fai
 - **Please, keep us updated.**
   We will try our best to merge your PR, but please notice that PRs may be closed after 30 days of inactivity.
 
-Your pull request should be rebased against the `master` branch.
+Your pull request should be rebased against the `main` branch.
 
 Keep in mind only the **pull request title** will be used as commit message as we stash all commits on merge.
 
@@ -101,7 +101,7 @@ other-key        other_value
 
 ### Commands validation
 
-Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs/CONTINUOUS_CODE_DEPLOYMENT.md](https://github.com/scaleway/scaleway-sdk-go/blob/master/docs/CONTINUOUS_CODE_DEPLOYMENT.md)
+Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs/CONTINUOUS_CODE_DEPLOYMENT.md](https://github.com/scaleway/scaleway-sdk-go/blob/main/docs/CONTINUOUS_CODE_DEPLOYMENT.md)
 This is true for: 
 - command namespaces, resource, verb
 

@@ -11,6 +11,7 @@ ARGS:
   cpu-min            The minimum number of CPU units for your Serverless SQL Database.
   cpu-max            The maximum number of CPU units for your Serverless SQL Database.
   [from-backup-id]   The ID of the backup to create the database from.
+  [version]          The major version of the postgreSQL requested.
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

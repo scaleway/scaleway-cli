@@ -9,6 +9,7 @@ PrivateNic.CreationDate      few seconds ago
 PrivateNic.Zone              fr-par-1
 PrivateNic.IpamIPIDs.0       7066756f-43c8-4ca0-8092-0589ecf0c0e7
 PrivateNic.IpamIPIDs.1       627fe002-997d-41fe-93ac-1e61a065f6fb
+PrivateNic.Srn               -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "private_nic": {
