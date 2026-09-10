@@ -11,6 +11,7 @@ builds:
     env:
       - CGO_ENABLED=0
     main: ./cmd/scw/main.go
+    binary: scw
     goos:
       - freebsd
       - linux
@@ -23,8 +24,13 @@ builds:
     ignore:
       - goos: darwin
         goarch: 386
+    flags:
+      - -tags=timetzdata
+      - -trimpath
     ldflags:
-      - -s -w
+      - -s
+      - -w
+      - -extldflags "-static"
       - -X main.Version={{ .Version }}
       - -X main.BuildDate={{ .Date }}
       - -X main.GitBranch={{ .Branch }}
@@ -54,15 +60,6 @@ dockers_v2:
       - "{{ .Major }}"
       - "{{ .Major }}.{{ .Minor }}"
       - "{{ .Version }}"
-    extra_files:
-      - go.mod
-      - go.sum
-      - scripts
-      - cmd
-      - core
-      - commands
-      - internal
-      - .git
     platforms:
       - linux/amd64
       - linux/arm64
@@ -116,6 +113,7 @@ winget:
     license_url: https://github.com/scaleway/scaleway-cli/blob/main/LICENSE
     release_notes_url: https://github.com/scaleway/scaleway-cli/releases/tag/{{ .Tag }}
     release_notes: "{{ .Changelog }}"
+    skip_upload: auto
     repository:
       owner: scaleway
       name: winget-pkgs
