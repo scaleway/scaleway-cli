@@ -74,7 +74,7 @@ We welcome contributions!
 If you want to contribute new tests you should have the following:
 
 1. Setup your dev environment:
-    - Install go for your platform
+    - Install [mise](https://mise.jdx.dev/) and run `mise install` to fetch the required tools (Go, golangci-lint, gotestsum, etc.)
     - Install your credentials, preferably in a configuration file (run `scw init`)
         - Keep in mind that if you record interaction, the resource you will instantiate will be delivered and billed.
         - Clean up the resource you don't use once the recording is over.
