@@ -75,6 +75,36 @@ func testAutocompleteGetCommands() *core.Commands {
 			Short:      "this command is deprecated",
 			Long:       "This command is deprecated and should not show up in autocomplete.",
 		},
+		&core.Command{
+			Namespace: "test",
+			Resource:  "tree",
+			Verb:      "create",
+			ArgsType: reflect.TypeOf(struct {
+				Srn string
+			}{}),
+			ArgSpecs: core.ArgSpecs{
+				{
+					Name: "srn",
+				},
+			},
+			Run: func(_ context.Context, _ any) (any, error) {
+				return nil, nil
+			},
+		},
+		&core.Command{
+			Namespace: "test",
+			Resource:  "tree",
+			Verb:      "list",
+			ArgsType:  reflect.TypeOf(struct{}{}),
+			Run: func(_ context.Context, _ any) (any, error) {
+				return []struct {
+					Srn string
+				}{
+					{Srn: "srn:tree:oak"},
+					{Srn: "srn:tree:pine"},
+				}, nil
+			},
+		},
 	)
 }
 
@@ -135,7 +165,7 @@ func TestAutocomplete(t *testing.T) {
 		"scw te flower create name=plop",
 		run(&testCase{WordToCompleteIndex: 1, Suggestions: core.AutocompleteSuggestions{"test"}}),
 	)
-	t.Run("scw test ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower"}}))
+	t.Run("scw test ", run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower", "tree"}}))
 	t.Run("scw test fl", run(&testCase{Suggestions: core.AutocompleteSuggestions{"flower"}}))
 	t.Run(
 		"scw test flower ",
@@ -185,6 +215,20 @@ func TestAutocomplete(t *testing.T) {
 		),
 	)
 	t.Run("scw test flower create name=plop n", run(&testCase{Suggestions: nil}))
+
+	// An "srn" argument references a foreign resource, so it must stay
+	// completable on "create" verbs (from the resource's own list verb) unlike
+	// the resource's own identity fields such as "name".
+	t.Run(
+		"scw test tree create srn=",
+		run(&testCase{
+			Suggestions: core.AutocompleteSuggestions{"srn=srn:tree:oak", "srn=srn:tree:pine"},
+		}),
+	)
+	t.Run(
+		"scw test tree create srn=srn:tree:o",
+		run(&testCase{Suggestions: core.AutocompleteSuggestions{"srn=srn:tree:oak"}}),
+	)
 	t.Run(
 		"scw test flower create n name=plop",
 		run(&testCase{WordToCompleteIndex: 4, Suggestions: nil}),
