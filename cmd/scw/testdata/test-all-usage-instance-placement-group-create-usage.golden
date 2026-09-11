@@ -5,6 +5,19 @@ Create a new placement group.
 USAGE:
   scw instance placement-group create [arg=value ...]
 
+EXAMPLES:
+  Create a max availability placement group with default name
+    scw instance placement-group create
+
+  Create a max availability placement group with the specified name
+    scw instance placement-group create name=foobar
+
+  Create a low latency placement group
+    scw instance placement-group create policy-type=low_latency
+
+  Create a max availability placement group with tags
+    scw instance placement-group create tags.0=foo tags.1=bar
+
 ARGS:
   [project-id]                     Project ID to use. If none is passed the default project ID will be used
   [name=<generated>]               Name of the placement group

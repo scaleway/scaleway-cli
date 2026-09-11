@@ -5,6 +5,16 @@ Update the properties of a specified placement group.
 USAGE:
   scw instance placement-group update <placement-group-id ...> [arg=value ...]
 
+EXAMPLES:
+  Update the name of a placement group
+    scw instance placement-group update 95053f33-cd3c-4cdc-b2b0-57d2dda97b13 name=foobar
+
+  Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)
+    scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
+
+  Update the tags of a placement group
+    scw instance placement-group update 1f883434-8c2d-40f0-b686-d0754b3a7bc0 tags.0=update-tag
+
 ARGS:
   placement-group-id   UUID of the placement group
   [name]               Name of the placement group
