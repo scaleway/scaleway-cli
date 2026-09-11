@@ -99,7 +99,7 @@ func dnsRoot() *core.Command {
 
 func domainRoot() *core.Command {
 	return &core.Command{
-		Short:     `Domains and DNS - Registrar API`,
+		Short:     `Domain names - Registrar API`,
 		Long:      `Manage your domains and contacts.`,
 		Namespace: "domain",
 	}
