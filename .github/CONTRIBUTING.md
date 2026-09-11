@@ -79,6 +79,30 @@ Thank you for reading through all of this, if you have any question feel free to
 
 ## Developer documentation
 
+### Development setup
+
+This repository uses [mise](https://mise.jdx.dev/) to manage tools and tasks.
+Install mise, then run `mise install` to fetch the required tools (Go, golangci-lint, gotestsum, etc.).
+
+For orientation, list all available tasks and inspect their flags:
+
+```bash
+mise tasks ls                     # list all tasks
+mise run <task> --help            # show usage, flags, and defaults for a task
+```
+
+Common tasks:
+
+```bash
+mise run build:cli                # build the CLI
+mise run lint:cli                 # lint all packages
+mise run test:cli                 # run tests
+mise run ci                       # run everything (build + lint + test), as done in CI
+```
+
+See [AGENTS.md](../AGENTS.md) for a complete overview of build, test, and lint commands,
+and [docs/developer.md](../docs/developer.md) for the testing guide.
+
 ### When to use dash vs underscore
 
 We SHOULD use dash `"-"` for:

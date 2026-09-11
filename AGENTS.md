@@ -4,23 +4,58 @@ This file provides guidance to AI Agents when working with code in this reposito
 
 ## Build, Test, and Lint Commands
 
+This repository uses [mise](https://mise.jdx.dev/) to manage tools and tasks. The task definitions live in `mise.toml`. Make sure tools are installed with `mise install`.
+
+For orientation, list all available tasks and inspect their flags:
+
 ```bash
-# Build all binaries
-make build           # or ./scripts/build.sh
+mise tasks ls                     # list all tasks
+mise run <task> --help            # show usage, flags, and defaults for a task
+```
+
+### Common tasks
+
+```bash
+# Build the CLI
+mise run build:cli                 # default build (static, stripped)
+mise run build:cli --race         # build with race detection
+mise run build:cli -o /tmp/scw    # custom output path
+
+# Generate documentation
+mise run gen:doc                   # generate docs + format with rumdl
 
 # Run linters
-make lint            # or ./scripts/lint.sh
-make fmt             # auto-fix lint issues (runs golangci-lint --fix)
+mise run lint:cli                  # lint all packages
+mise run lint:cli --fix            # auto-fix issues
+mise run lint:cli --new            # only show new issues (PRs)
+mise run lint:cli ./core          # lint a specific package
 
 # Run tests
-make test            # or ./scripts/run-tests.sh
-./scripts/run-tests.sh -run <regex>  # run specific tests
-./scripts/run-tests.sh -g            # update golden files
-./scripts/run-tests.sh -c            # record new cassettes (requires valid API credentials)
-./scripts/run-tests.sh -D            # enable debug mode
+mise run test:cli                                     # run all tests
+mise run test:cli ./internal/namespaces/instance/v1    # target a package
+mise run test:cli --run Test_CreateServer ./...        # run a specific test
+mise run test:cli --cassettes -- ./internal/namespaces/instance/v1  # record cassettes
+mise run test:cli --goldens --run Test_Foo ./...      # update golden files
+mise run test:cli --race ./core                       # with race detection
+mise run test:cli --format github-actions ./...       # CI-friendly output
 
-# Update SDK dependency
-make bump-sdk        # updates scaleway-sdk-go to latest main
+# Check binary size
+mise run check:binary-size          # verify scw binary is under 60MB
+mise run check:binary-size --limit 50000000  # custom limit
+
+# Release
+mise run release                    # snapshot release (default, no publish)
+mise run release --no-snapshot      # real release (used by CI)
+```
+
+### Aggregator tasks
+
+```bash
+mise run build                     # run all build:* and gen:* tasks
+mise run lint                      # run all lint:* tasks
+mise run test                      # run all test:* and check:* tasks
+mise run ci                        # run everything (build + lint + test), as done in CI
+mise run                           # default: fast local loop (build:cli, lint:cli, test:cli)
 ```
 
 ## Architecture Overview
@@ -90,13 +125,13 @@ Tests use a VCR-style recording system:
 
 ```bash
 # Record new cassette (creates real resources - billed)
-./scripts/run-tests.sh -c
+mise run test:cli --cassettes --run <test> ./internal/namespaces/<namespace>/v1
 
 # Update golden output files
-./scripts/run-tests.sh -g
+mise run test:cli --goldens --run <test> ./internal/namespaces/<namespace>/v1
 
 # Target specific test
-go test ./internal/namespaces/instance/v1 -run Test_CreateServer
+mise run test:cli --run Test_CreateServer ./internal/namespaces/instance/v1
 ```
 
 See [docs/developer.md](docs/developer.md) for complete testing guide.
@@ -109,6 +144,6 @@ See [docs/developer.md](docs/developer.md) for complete testing guide.
 
 ### Dependencies
 
-- Go 1.26.0+
+- Go 1.27+
 - Main external dependency: `scaleway-sdk-go` (Scaleway API SDK)
 - Linting: `golangci-lint` (config in `.golangci.yml`)
