@@ -44,8 +44,6 @@ func GetCommands() *core.Commands {
 	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
 	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
 	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
-	cmds.MustFind("instance", "placement-group", "update").Override(placementGroupUpdateBuilder)
-	cmds.MustFind("instance", "placement-group", "delete").Override(placementGroupDeleteBuilder)
 
 	//
 	// Templates
