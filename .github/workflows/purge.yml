@@ -14,13 +14,16 @@ jobs:
   sweepers:
     runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     steps:
-      # Checkout should always be before setup-go to ensure caching is working
-      - name: Checkout
-        uses: actions/checkout@df4cb1c069e1874edd31b4311f1884172cec0e10 # v6.0.3
-      - name: Install Go
-        uses: actions/setup-go@b7ad1dad31e06c5925ef5d2fc7ad053ef454303e # v7.0.0
+      - name: Set git to use LF to avoid problem with goldens on windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - uses: actions/checkout@v6
         with:
-          go-version: stable
+          fetch-depth: 1
+      - uses: jdx/mise-action@v3
+        with:
+          version: 2026.9.3
       - name: Run Sweepers
         run: go run -v ./cmd/scw-sweeper
         env:
