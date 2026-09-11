@@ -54,8 +54,8 @@ alias:
 )
 
 type Config struct {
-	Alias               *alias.Config `json:"alias"  yaml:"alias"`
-	Output              string        `json:"output" yaml:"output"`
+	Alias               *alias.Config `json:"alias"                          yaml:"alias"`
+	Output              string        `json:"output"                         yaml:"output"`
 	InstallAutocomplete *bool         `json:"install_autocomplete,omitempty" yaml:"install_autocomplete,omitempty"`
 
 	path string

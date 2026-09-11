@@ -209,38 +209,15 @@ Default path for configuration file is based on the following priority order:
 			}
 
 			// Ask for send usage permission
-			if args.SendTelemetry == nil {
-				// Reuse existing config value if telemetry preference is already set
-				if existingProfile := getActiveProfile(config, profileName); existingProfile != nil && existingProfile.SendTelemetry != nil {
-					args.SendTelemetry = existingProfile.SendTelemetry
-				} else {
-					args.SendTelemetry, err = promptTelemetry(ctx)
-					if err != nil {
-						return nil, err
-					}
-				}
+			err = promptTelemetryPreference(ctx, args, config, profileName)
+			if err != nil {
+				return nil, err
 			}
 
 			// Ask whether we should install autocomplete
-			if args.InstallAutocomplete == nil {
-				// Reuse existing CLI config value if autocomplete preference is already set
-				cliCfg := core.ExtractCliConfig(ctx)
-				if cliCfg != nil && cliCfg.InstallAutocomplete != nil {
-					args.InstallAutocomplete = cliCfg.InstallAutocomplete
-				} else {
-					args.InstallAutocomplete, err = promptAutocomplete(ctx)
-					if err != nil {
-						return nil, err
-					}
-					// Persist the answer in CLI config so we don't ask again
-					if cliCfg != nil {
-						cliCfg.InstallAutocomplete = args.InstallAutocomplete
-						saveErr := cliCfg.Save()
-						if saveErr != nil {
-							logger.Warningf("Failed to save autocomplete preference: %s\n", saveErr.Error())
-						}
-					}
-				}
+			err = promptAutocompletePreference(ctx, args)
+			if err != nil {
+				return nil, err
 			}
 
 			profile := &scw.Profile{
@@ -280,27 +257,7 @@ Default path for configuration file is based on the following priority order:
 			if err != nil {
 				return nil, err
 			}
-			successDetails := []string(nil)
-
-			// Install autocomplete
-			if args.InstallAutocomplete != nil && *args.InstallAutocomplete {
-				_, _ = interactive.Println()
-				_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{
-					Basename: "scw",
-				})
-				if err != nil {
-					successDetails = append(successDetails, "Except for autocomplete: "+err.Error())
-				}
-			}
-
-			// Init SSH Key
-			if args.WithSSHKey != nil && *args.WithSSHKey {
-				_, _ = interactive.Println()
-				_, err := iamcommands.InitWithSSHKeyRun(ctx, nil)
-				if err != nil {
-					successDetails = append(successDetails, "Except for SSH key: "+err.Error())
-				}
-			}
+			successDetails := runPostInitSteps(ctx, args)
 
 			_, _ = interactive.Println()
 
@@ -310,6 +267,85 @@ Default path for configuration file is based on the following priority order:
 			}, nil
 		},
 	}
+}
+
+// promptTelemetryPreference asks for telemetry consent, reusing existing config if available.
+func promptTelemetryPreference(
+	ctx context.Context,
+	args *Args,
+	config *scw.Config,
+	profileName string,
+) error {
+	if args.SendTelemetry != nil {
+		return nil
+	}
+
+	existingProfile := getActiveProfile(config, profileName)
+	if existingProfile != nil && existingProfile.SendTelemetry != nil {
+		args.SendTelemetry = existingProfile.SendTelemetry
+
+		return nil
+	}
+
+	var err error
+	args.SendTelemetry, err = promptTelemetry(ctx)
+
+	return err
+}
+
+// promptAutocompletePreference asks for autocomplete consent, reusing existing CLI config if available.
+func promptAutocompletePreference(ctx context.Context, args *Args) error {
+	if args.InstallAutocomplete != nil {
+		return nil
+	}
+
+	cliCfg := core.ExtractCliConfig(ctx)
+	if cliCfg != nil && cliCfg.InstallAutocomplete != nil {
+		args.InstallAutocomplete = cliCfg.InstallAutocomplete
+
+		return nil
+	}
+
+	var err error
+	args.InstallAutocomplete, err = promptAutocomplete(ctx)
+	if err != nil {
+		return err
+	}
+
+	if cliCfg != nil {
+		cliCfg.InstallAutocomplete = args.InstallAutocomplete
+		saveErr := cliCfg.Save()
+		if saveErr != nil {
+			logger.Warningf("Failed to save autocomplete preference: %s\n", saveErr.Error())
+		}
+	}
+
+	return nil
+}
+
+// runPostInitSteps runs autocomplete installation and SSH key initialization.
+func runPostInitSteps(ctx context.Context, args *Args) []string {
+	successDetails := []string(nil)
+
+	if args.InstallAutocomplete != nil && *args.InstallAutocomplete {
+		_, _ = interactive.Println()
+		_, err := autocomplete.InstallCommandRun(ctx, &autocomplete.InstallArgs{
+			Basename: "scw",
+		})
+		if err != nil {
+			successDetails = append(successDetails, "Except for autocomplete: "+err.Error())
+		}
+	}
+
+	if args.WithSSHKey != nil && *args.WithSSHKey {
+		_, _ = interactive.Println()
+		_, err := iamcommands.InitWithSSHKeyRun(ctx, nil)
+		if err != nil {
+			successDetails = append(successDetails, "Except for SSH key: "+err.Error())
+		}
+	}
+
+	return successDetails
 }
 
 func printScalewayBanner() {
@@ -325,6 +361,7 @@ func getActiveProfile(config *scw.Config, profileName string) *scw.Profile {
 	if profileName == scw.DefaultProfileName {
 		return &config.Profile
 	}
+
 	return config.Profiles[profileName]
 }
 
