@@ -1,12 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ Success.
-ID                cli-test-bucket-create-
+ID                cli-test-bucket-update-
 Region            fr-par
 APIEndpoint       https://s3.fr-par.scw.cloud
-BucketEndpoint    https://cli-test-bucket-create-.s3.fr-par.scw.cloud
+BucketEndpoint    https://s3.fr-par.scw.cloud/cli-test-bucket-update-
 EnableVersioning  false
 Owner             4d333544-41be-4b0b-8907-0b9036859747
+
+Tags:
+KEY   VALUE
+key1  value1
 
 Acl:
 GRANTEE                               PERMISSION
@@ -18,12 +22,17 @@ GRANTEE                               PERMISSION
     "details": ""
   },
   "BucketInfo": {
-    "ID": "cli-test-bucket-create-",
+    "ID": "cli-test-bucket-update-",
     "Region": "fr-par",
     "APIEndpoint": "https://s3.fr-par.scw.cloud",
-    "BucketEndpoint": "https://cli-test-bucket-create-.s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://s3.fr-par.scw.cloud/cli-test-bucket-update-",
     "EnableVersioning": false,
-    "Tags": null,
+    "Tags": [
+      {
+        "Key": "key1",
+        "Value": "value1"
+      }
+    ],
     "ACL": [
       {
         "Grantee": "4d333544-41be-4b0b-8907-0b9036859747",

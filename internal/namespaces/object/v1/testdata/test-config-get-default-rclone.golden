@@ -7,7 +7,7 @@
 type = s3
 provider = Scaleway
 env_auth = false
-endpoint = s3.fr-par.scw.cloud
+endpoint = https://s3.fr-par.scw.cloud
 access_key_id = SCWXXXXXXXXXXXXXXXXX@11111111-1111-1111-1111-111111111111
 secret_access_key = 11111111-1111-1111-1111-111111111111
 region = fr-par
@@ -24,7 +24,7 @@ storage_class =
 type = s3
 provider = Scaleway
 env_auth = false
-endpoint = s3.fr-par.scw.cloud
+endpoint = https://s3.fr-par.scw.cloud
 access_key_id = SCWXXXXXXXXXXXXXXXXX@11111111-1111-1111-1111-111111111111
 secret_access_key = 11111111-1111-1111-1111-111111111111
 region = fr-par
