@@ -828,6 +828,13 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 				Deprecated: false,
 				Positional: true,
 			},
+			{
+				Name:       "key-rotation-index",
+				Short:      `(Optional) Rotation index of which to delete the key material`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
