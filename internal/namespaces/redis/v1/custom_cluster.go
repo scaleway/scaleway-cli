@@ -51,7 +51,7 @@ func clusterCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("false"),
 	})
 
-	c.ArgsType = reflect.TypeOf(redisCreateClusterRequestCustom{})
+	c.ArgsType = reflect.TypeFor[redisCreateClusterRequestCustom]()
 
 	c.WaitFunc = func(ctx context.Context, _, respI any) (any, error) {
 		api := redis.NewAPI(core.ExtractClient(ctx))
@@ -127,8 +127,9 @@ func clusterDeleteBuilder(c *core.Command) *core.Command {
 		if err != nil {
 			// if we get a 404 here, it means the resource was successfully deleted
 			notFoundError := &scw.ResourceNotFoundError{}
-			responseError := &scw.ResponseError{}
-			if errors.As(err, &responseError) && responseError.StatusCode == http.StatusNotFound ||
+			if responseError, ok := errors.AsType[*scw.ResponseError](
+				err,
+			); ok && responseError.StatusCode == http.StatusNotFound ||
 				errors.As(err, &notFoundError) {
 				return cluster, nil
 			}
@@ -149,7 +150,7 @@ func clusterWaitCommand() *core.Command {
 		Namespace: "redis",
 		Resource:  "cluster",
 		Verb:      "wait",
-		ArgsType:  reflect.TypeOf(redis.WaitForClusterRequest{}),
+		ArgsType:  reflect.TypeFor[redis.WaitForClusterRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := redis.NewAPI(core.ExtractClient(ctx))
 
@@ -385,7 +386,7 @@ func clusterConnectCommand() *core.Command {
 		Verb:      "connect",
 		Short:     "Connect to a Redis cluster using locally installed redis-cli",
 		Long:      "Connect to a Redis cluster using locally installed redis-cli. The command will check if redis-cli is installed, download the certificate if TLS is enabled, and prompt for the password.",
-		ArgsType:  reflect.TypeOf(clusterConnectArgs{}),
+		ArgsType:  reflect.TypeFor[clusterConnectArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:     "private-network",
@@ -483,10 +484,12 @@ func clusterConnectCommand() *core.Command {
 				}()
 			}
 
-			password, err := interactive.PromptPasswordWithConfig(&interactive.PromptPasswordConfig{
-				Ctx:    ctx,
-				Prompt: "Password",
-			})
+			password, err := interactive.PromptPasswordWithConfig(
+				ctx,
+				&interactive.PromptPasswordConfig{
+					Prompt: "Password",
+				},
+			)
 			if err != nil {
 				return nil, fmt.Errorf("failed to get password: %w", err)
 			}

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete an existing TSIG key specified by its DNS zone. Deleting a TSIG key is permanent and cannot be undone.
 
 USAGE:

@@ -64,7 +64,7 @@ func interceptACL() core.CommandInterceptor {
 		client := core.ExtractClient(ctx)
 		api := lb.NewZonedAPI(client)
 
-		if _, ok := argsI.(*lb.ZonedAPIDeleteCertificateRequest); ok {
+		if _, ok := argsI.(*lb.ZonedAPIDeleteACLRequest); ok {
 			getACL, err = api.GetACL(&lb.ZonedAPIGetACLRequest{
 				Zone:  argsI.(*lb.ZonedAPIDeleteACLRequest).Zone,
 				ACLID: argsI.(*lb.ZonedAPIDeleteACLRequest).ACLID,
@@ -80,7 +80,9 @@ func interceptACL() core.CommandInterceptor {
 		}
 
 		if _, ok := res.(*core.SuccessResult); ok {
-			if len(getACL.Frontend.LB.Tags) != 0 && getACL.Frontend.LB.Tags[0] == kapsuleTag {
+			if getACL != nil && getACL.Frontend != nil && getACL.Frontend.LB != nil &&
+				len(getACL.Frontend.LB.Tags) != 0 &&
+				getACL.Frontend.LB.Tags[0] == kapsuleTag {
 				return warningKapsuleTaggedMessageView(), nil
 			}
 		}

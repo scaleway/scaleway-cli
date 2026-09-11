@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Keys registered via the Scaleway Console will be propagated to the selected servers.
 The command 'ssh <server-ip> -t -l <username> scw-fetch-ssh-keys --upgrade' will be run on the servers matching the zone and project filters.
 Keep in mind that you need to be able to connect to your server with another key than the one you want to add.

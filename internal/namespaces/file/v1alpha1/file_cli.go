@@ -22,6 +22,8 @@ func GetGeneratedCommands() *core.Commands {
 		fileRoot(),
 		fileFilesystem(),
 		fileAttachment(),
+		fileFilesystemType(),
+		fileFilesystemTypeList(),
 		fileFilesystemGet(),
 		fileFilesystemList(),
 		fileAttachmentList(),
@@ -57,6 +59,50 @@ func fileAttachment() *core.Command {
 	}
 }
 
+func fileFilesystemType() *core.Command {
+	return &core.Command{
+		Short:     `Filesystem-type management`,
+		Long:      `Filesystem-type management.`,
+		Namespace: "file",
+		Resource:  "filesystem-type",
+	}
+}
+
+func fileFilesystemTypeList() *core.Command {
+	return &core.Command{
+		Short:     `List filesystems types`,
+		Long:      `List filesystems types.`,
+		Namespace: "file",
+		Resource:  "filesystem-type",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[file.ListFileSystemTypesRequest](),
+		ArgSpecs: core.ArgSpecs{
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.Region(core.AllLocalities),
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*file.ListFileSystemTypesRequest)
+
+			client := core.ExtractClient(ctx)
+			api := file.NewAPI(client)
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
+			if request.Region == scw.Region(core.AllLocalities) {
+				opts = append(opts, scw.WithRegions(api.Regions()...))
+				request.Region = ""
+			}
+			resp, err := api.ListFileSystemTypes(request, opts...)
+			if err != nil {
+				return nil, err
+			}
+
+			return resp.FilesystemTypes, nil
+		},
+	}
+}
+
 func fileFilesystemGet() *core.Command {
 	return &core.Command{
 		Short:     `Get filesystem details`,
@@ -65,7 +111,7 @@ func fileFilesystemGet() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.GetFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.GetFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -82,7 +128,7 @@ func fileFilesystemGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
 
-			return api.GetFileSystem(request)
+			return api.GetFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -95,7 +141,7 @@ func fileFilesystemList() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.ListFileSystemsRequest{}),
+		ArgsType: reflect.TypeFor[file.ListFileSystemsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -125,8 +171,22 @@ func fileFilesystemList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "filesystem-type",
+				Short:      `Type of the filesystem`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "tags.{index}",
 				Short:      `Filter by tags. Only filesystems with one or more matching tags will be returned`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "filesystem-ids.{index}",
+				Short:      `Filter by filesystem IDs. Only filesystems with one or more matching IDs will be returned`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -148,7 +208,7 @@ func fileFilesystemList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -172,7 +232,7 @@ By default, the attachments listed are ordered by creation date in ascending ord
 		Resource:  "attachment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.ListAttachmentsRequest{}),
+		ArgsType: reflect.TypeFor[file.ListAttachmentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -216,7 +276,7 @@ By default, the attachments listed are ordered by creation date in ascending ord
 
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -239,7 +299,7 @@ func fileFilesystemCreate() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.CreateFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.CreateFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -251,8 +311,15 @@ func fileFilesystemCreate() *core.Command {
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "size",
-				Short:      `Filesystem size in bytes, with a granularity of 100 GB (10^11 bytes).`,
+				Short:      `Filesystem size in bytes, with a granularity in GB (10^9 bytes).`,
 				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "type",
+				Short:      `Type of the filesystem`,
+				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -271,7 +338,7 @@ func fileFilesystemCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
 
-			return api.CreateFileSystem(request)
+			return api.CreateFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -284,7 +351,7 @@ func fileFilesystemDelete() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.DeleteFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.DeleteFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -300,7 +367,7 @@ func fileFilesystemDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
-			e = api.DeleteFileSystem(request)
+			e = api.DeleteFileSystem(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -321,7 +388,7 @@ func fileFilesystemUpdate() *core.Command {
 		Resource:  "filesystem",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(file.UpdateFileSystemRequest{}),
+		ArgsType: reflect.TypeFor[file.UpdateFileSystemRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "filesystem-id",
@@ -359,7 +426,7 @@ func fileFilesystemUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := file.NewAPI(client)
 
-			return api.UpdateFileSystem(request)
+			return api.UpdateFileSystem(request, scw.WithContext(ctx))
 		},
 	}
 }

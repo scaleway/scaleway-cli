@@ -20,16 +20,10 @@ func TestPromptStringWithConfig(t *testing.T) {
 		ctx := t.Context()
 		ctx = interactive.InjectMockResponseToContext(ctx, []string{"mock1", "mock2"})
 
-		s, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-			Ctx:          ctx,
-			DefaultValue: "default1",
-		})
+		s, err := interactive.PromptString(ctx, "prompt1", "default1", "", nil)
 		require.NoError(t, err)
 		assert.Equal(t, "mock1", s)
-		s, err = interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-			Ctx:          ctx,
-			DefaultValue: "default2",
-		})
+		s, err = interactive.PromptString(ctx, "prompt2", "default2", "", nil)
 		assert.Equal(t, "mock2", s)
 		require.NoError(t, err)
 	})

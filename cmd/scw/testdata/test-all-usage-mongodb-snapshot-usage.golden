@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A snapshot is a consistent, instantaneous copy of the Block Storage volume of your Database Instance at a certain point in time.
 
 USAGE:

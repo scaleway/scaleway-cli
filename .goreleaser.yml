@@ -1,3 +1,4 @@
+# yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 version: 2
 before:
   hooks:
@@ -10,6 +11,7 @@ builds:
     env:
       - CGO_ENABLED=0
     main: ./cmd/scw/main.go
+    binary: scaleway-cli
     goos:
       - freebsd
       - linux
@@ -22,8 +24,13 @@ builds:
     ignore:
       - goos: darwin
         goarch: 386
+    flags:
+      - -tags=timetzdata
+      - -trimpath
     ldflags:
-      - -s -w
+      - -s
+      - -w
+      - -extldflags "-static"
       - -X main.Version={{ .Version }}
       - -X main.BuildDate={{ .Date }}
       - -X main.GitBranch={{ .Branch }}
@@ -52,21 +59,34 @@ dockers_v2:
       - "{{ .Tag }}"
       - "{{ .Major }}"
       - "{{ .Major }}.{{ .Minor }}"
-    extra_files:
-      - go.mod
-      - go.sum
-      - scripts
-      - cmd
-      - core
-      - commands
-      - internal
-      - .git
+      - "{{ .Version }}"
     platforms:
       - linux/amd64
       - linux/arm64
     sbom: true
     build_args:
       VERSION: "{{ .Version }}"
+    labels:
+      io.modelcontextprotocol.server.name: "io.github.scaleway/scaleway-mcp"
+
+mcp:
+  name: "io.github.scaleway/scaleway-mcp"
+  title: "Scaleway MCP server"
+  description: "Scaleway MCP server for interacting with the Scaleway APIs"
+  homepage: "https://cli.scaleway.com/"
+  auth:
+    type: github-oidc
+    token: "{{ .Env.GITHUB_TOKEN }}"
+  repository:
+    url: "https://github.com/scaleway/scaleway-cli"
+    source: github
+    id: "32575663"
+    subfolder: internal/namespaces/mcp
+  packages:
+    - registry_type: oci
+      identifier: "scaleway/cli:{{ .Version }}"
+      transport:
+        type: stdio
 
 release:
   github:
@@ -79,3 +99,37 @@ release:
   prerelease: auto
   draft: true
   name_template: "{{ .Tag }}"
+
+winget:
+  - name: cli
+    publisher: Scaleway SAS
+    short_description: Command Line Interface for Scaleway
+    package_identifier: "Scaleway.cli"
+    license: Apache-2.0
+    author: Scaleway
+    copyright: Copyright (c) Scaleway SAS
+    publisher_url: https://www.scaleway.com/en/
+    publisher_support_url: https://www.scaleway.com/en/docs/
+    license_url: https://github.com/scaleway/scaleway-cli/blob/main/LICENSE
+    release_notes_url: https://github.com/scaleway/scaleway-cli/releases/tag/{{ .Tag }}
+    release_notes: "{{ .Changelog }}"
+    skip_upload: auto
+    repository:
+      owner: scaleway
+      name: winget-pkgs
+      branch: "{{ .ProjectName }}-{{ .Version }}"
+      token: "{{ .Env.WINGET_TOKEN }}"
+      pull_request:
+        enabled: true
+        draft: false
+        base:
+          owner: microsoft
+          name: winget-pkgs
+          branch: master
+    tags:
+      - golang
+      - cli
+      - go
+      - scaleway
+      - scaleway-cli
+      - scw

@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Success.
+ID                cli-test-bucket-cors-
+Region            fr-par
+APIEndpoint       https://s3.fr-par.scw.cloud
+BucketEndpoint    https://cli-test-bucket-cors-.s3.fr-par.scw.cloud
+EnableVersioning  false
+Owner             4d333544-41be-4b0b-8907-0b9036859747
+
+Acl:
+GRANTEE                               PERMISSION
+4d333544-41be-4b0b-8907-0b9036859747  FULL_CONTROL
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "SuccessResult": {
+    "message": "Success",
+    "details": ""
+  },
+  "BucketInfo": {
+    "ID": "cli-test-bucket-cors-",
+    "Region": "fr-par",
+    "APIEndpoint": "https://s3.fr-par.scw.cloud",
+    "BucketEndpoint": "https://cli-test-bucket-cors-.s3.fr-par.scw.cloud",
+    "EnableVersioning": false,
+    "Tags": null,
+    "ACL": [
+      {
+        "Grantee": "4d333544-41be-4b0b-8907-0b9036859747",
+        "Permission": "FULL_CONTROL"
+      }
+    ],
+    "Owner": "4d333544-41be-4b0b-8907-0b9036859747"
+  }
+}

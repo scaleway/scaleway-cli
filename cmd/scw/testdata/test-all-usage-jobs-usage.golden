@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Serverless Jobs.
 
 USAGE:
@@ -9,6 +9,7 @@ AVAILABLE COMMANDS:
   definition  
   run         
   secret      
+  trigger     
 
 FLAGS:
   -h, --help                help for jobs

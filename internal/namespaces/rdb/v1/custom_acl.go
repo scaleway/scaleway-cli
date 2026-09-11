@@ -52,7 +52,7 @@ func rdbACLCustomResultMarshalerFunc(i any, opt *human.MarshalOpt) (string, erro
 }
 
 func aclAddBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLAddCustomArgs{})
+	c.ArgsType = reflect.TypeFor[rdbACLAddCustomArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "acl-rule-ips",
@@ -158,7 +158,7 @@ func aclAddBuilder(c *core.Command) *core.Command {
 }
 
 func aclDeleteBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLCustomArgs{})
+	c.ArgsType = reflect.TypeFor[rdbACLCustomArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "acl-rule-ips",
@@ -293,7 +293,7 @@ type rdbACLSetCustomArgs struct {
 }
 
 func aclSetBuilder(c *core.Command) *core.Command {
-	c.ArgsType = reflect.TypeOf(rdbACLSetCustomArgs{})
+	c.ArgsType = reflect.TypeFor[rdbACLSetCustomArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:       "acl-rule-ips",
@@ -389,7 +389,7 @@ func aclEditCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "acl",
 		Verb:      "edit",
-		ArgsType:  reflect.TypeOf(rdbACLEditArgs{}),
+		ArgsType:  reflect.TypeFor[rdbACLEditArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

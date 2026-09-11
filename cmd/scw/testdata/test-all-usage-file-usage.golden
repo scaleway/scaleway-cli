@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your File Storage resources.
 
 USAGE:
   scw file <command>
 
 AVAILABLE COMMANDS:
-  attachment  Attachment management
-  filesystem  Filesystem management
+  attachment      Attachment management
+  filesystem      Filesystem management
+  filesystem-type Filesystem-type management
 
 FLAGS:
   -h, --help                help for file

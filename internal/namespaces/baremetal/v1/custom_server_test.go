@@ -40,7 +40,7 @@ func Test_StartServerErrors(t *testing.T) {
 				_, err := api.WaitForServer(&baremetalSDK.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
-					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
+					Timeout:       new(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 
@@ -81,7 +81,7 @@ func Test_StopServerErrors(t *testing.T) {
 				_, err := api.WaitForServer(&baremetalSDK.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
-					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
+					Timeout:       new(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 
@@ -122,7 +122,7 @@ func Test_RebootServerErrors(t *testing.T) {
 				_, err := api.WaitForServer(&baremetalSDK.WaitForServerRequest{
 					ServerID:      server.ID,
 					Zone:          server.Zone,
-					Timeout:       scw.TimeDurationPtr(baremetal.ServerActionTimeout),
+					Timeout:       new(baremetal.ServerActionTimeout),
 					RetryInterval: core.DefaultRetryInterval,
 				})
 

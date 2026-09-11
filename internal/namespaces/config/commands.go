@@ -88,7 +88,7 @@ func configRoot() *core.Command {
 			The following environment variables are supported:
 
 			` + envVarTable.String() + `
-			Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
+			Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/main/scw#scaleway-config
 		`),
 		Namespace: "config",
 		SeeAlsos: []*core.SeeAlso{
@@ -128,7 +128,7 @@ func configGetCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "get",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configGetArgs{}),
+		ArgsType:             reflect.TypeFor[configGetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key",
@@ -141,7 +141,7 @@ func configGetCommand() *core.Command {
 		Examples: []*core.Example{
 			{
 				Short: "Get the default organization ID",
-				Raw:   "scw config get default_organization_id",
+				Raw:   "scw config get default-organization-id",
 			},
 			{
 				Short: "Get the default region of the profile 'prod'",
@@ -191,7 +191,7 @@ The only allowed attributes are access_key, secret_key, default_organization_id,
 		Namespace:            "config",
 		Resource:             "set",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(scw.Profile{}),
+		ArgsType:             reflect.TypeFor[scw.Profile](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "access-key",
@@ -347,7 +347,7 @@ func configUnsetCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "unset",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configUnsetArgs{}),
+		ArgsType:             reflect.TypeFor[configUnsetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key",
@@ -397,7 +397,7 @@ func configDumpCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "dump",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configDumpArgs{}),
+		ArgsType:             reflect.TypeFor[configDumpArgs](),
 		SeeAlsos: []*core.SeeAlso{
 			{
 				Short:   "Config management help",
@@ -487,7 +487,7 @@ func configDeleteProfileCommand() *core.Command {
 		Resource:             "profile",
 		Verb:                 "delete",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configDeleteProfileArgs{}),
+		ArgsType:             reflect.TypeFor[configDeleteProfileArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -532,7 +532,7 @@ func configActivateProfileCommand() *core.Command {
 		Resource:             "profile",
 		Verb:                 "activate",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configActiveProfileArgs{}),
+		ArgsType:             reflect.TypeFor[configActiveProfileArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:             "profile-name",
@@ -580,7 +580,7 @@ func configResetCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "reset",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configResetArgs{}),
+		ArgsType:             reflect.TypeFor[configResetArgs](),
 		Run: func(_ context.Context, _ any) (i any, e error) {
 			_, err := scw.LoadConfig()
 			if err != nil {
@@ -609,7 +609,7 @@ func configDestroyCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "destroy",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configDestroyArgs{}),
+		ArgsType:             reflect.TypeFor[configDestroyArgs](),
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			err := os.Remove(configPath)
@@ -634,7 +634,7 @@ func configInfoCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "info",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configInfoArgs{}),
+		ArgsType:             reflect.TypeFor[configInfoArgs](),
 		ArgSpecs:             core.ArgSpecs{},
 		Examples: []*core.Example{
 			{
@@ -720,7 +720,7 @@ func configImportCommand() *core.Command {
 		Namespace:            "config",
 		Resource:             "import",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configImportArgs{}),
+		ArgsType:             reflect.TypeFor[configImportArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "file",
@@ -747,11 +747,8 @@ func configImportCommand() *core.Command {
 			importedConfig, err := scw.LoadConfigFromPath(args.File)
 			if err != nil {
 				return nil, err
-			}
-			importedProfile := importedConfig.Profile
-
-			// Merge the imported configurations into the existing configuration
-			currentConfig.Profile = *scw.MergeProfiles(currentProfile, &importedProfile)
+			} // Merge the imported configurations into the existing configuration
+			currentConfig.Profile = *scw.MergeProfiles(currentProfile, new(importedConfig.Profile))
 
 			for profileName, profile := range importedConfig.Profiles {
 				existingProfile, exists := currentConfig.Profiles[profileName]
@@ -795,7 +792,7 @@ The command goes through each profile present in the config file and validates i
 		Namespace:            "config",
 		Resource:             "validate",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeOf(configValidateArgs{}),
+		ArgsType:             reflect.TypeFor[configValidateArgs](),
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
 			config, err := scw.LoadConfigFromPath(configPath)
@@ -831,7 +828,7 @@ func configEditCommand() *core.Command {
 		Resource:             "edit",
 		Short:                "Edit the configuration file",
 		Long:                 "Edit the configuration file with the default editor",
-		ArgsType:             reflect.TypeOf(configEditArgs{}),
+		ArgsType:             reflect.TypeFor[configEditArgs](),
 		AllowAnonymousClient: true,
 		Run: func(ctx context.Context, _ any) (i any, e error) {
 			configPath := core.ExtractConfigPath(ctx)
@@ -885,7 +882,7 @@ func getProfileField(profile *scw.Profile, key string) (reflect.Value, error) {
 }
 
 func getProfileKeys() []string {
-	t := reflect.TypeOf(scw.Profile{})
+	t := reflect.TypeFor[scw.Profile]()
 	keys := []string{}
 	for field := range t.Fields() {
 		switch field.Name {

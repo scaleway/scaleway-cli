@@ -61,7 +61,7 @@ func auditTrailEventList() *core.Command {
 		Resource:  "event",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListEventsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -110,6 +110,7 @@ func auditTrailEventList() *core.Command {
 					"instance_snapshot",
 					"instance_image",
 					"instance_template",
+					"instance_private_network_interface",
 					"apple_silicon_server",
 					"baremetal_server",
 					"baremetal_setting",
@@ -129,8 +130,11 @@ func auditTrailEventList() *core.Command {
 					"vpc_subnet",
 					"vpc_route",
 					"vpc_acl",
+					"vpc_connector",
+					"vpc_ingress_rule",
 					"edge_services_plan",
 					"edge_services_pipeline",
+					"edge_services_vpc_endpoint",
 					"edge_services_dns_stage",
 					"edge_services_tls_stage",
 					"edge_services_cache_stage",
@@ -155,6 +159,38 @@ func auditTrailEventList() *core.Command {
 					"rdb_instance_logs",
 					"rdb_instance_read_replica",
 					"rdb_instance_snapshot",
+					"mongodb_instance",
+					"mongodb_instance_snapshot",
+					"mongodb_instance_endpoint",
+					"mongodb_instance_maintenance",
+					"apple_silicon_runner",
+					"audit_trail_alert_rule",
+					"audit_trail_custom_alert_rule",
+					"dtwh_deployment",
+					"dtwh_deployment_endpoint",
+					"dtwh_deployment_database",
+					"dtwh_deployment_user",
+					"ssdb_database",
+					"ssdb_database_backup",
+					"observability_datasource",
+					"observability_token",
+					"observability_exporter",
+					"ili_partner",
+					"ili_connection",
+					"ili_link",
+					"ili_routing_policy",
+					"autoscaling_group",
+					"gapi_dedicated_deployment",
+					"gapi_dedicated_model",
+					"serverless_containers_namespace",
+					"serverless_containers_container",
+					"serverless_containers_domain",
+					"serverless_containers_trigger",
+					"serverless_functions_namespace",
+					"serverless_functions_function",
+					"serverless_functions_domain",
+					"serverless_functions_cron",
+					"serverless_functions_trigger",
 				},
 			},
 			{
@@ -254,7 +290,7 @@ func auditTrailEventList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListEvents(request)
+			return api.ListEvents(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -267,7 +303,7 @@ func auditTrailProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(
@@ -281,7 +317,7 @@ func auditTrailProductList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListProducts(request)
+			return api.ListProducts(request, scw.WithContext(ctx))
 		},
 	}
 }

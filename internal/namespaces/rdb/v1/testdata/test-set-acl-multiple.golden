@@ -1,36 +1,36 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ ACL rules successfully set.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-1.2.3.4/32      26377  tcp       inbound    allow   first
-11.11.11.11/32  26377  tcp       inbound    allow   third
-192.168.1.0/31  26377  tcp       inbound    allow   second
+IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
+1.2.3.4/32      tcp       inbound    allow   first        26377
+11.11.11.11/32  tcp       inbound    allow   third        26377
+192.168.1.0/31  tcp       inbound    allow   second       26377
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "1.2.3.4/32",
-      "port": 26377,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "first"
+      "description": "first",
+      "port": 26377
     },
     {
       "ip": "11.11.11.11/32",
-      "port": 26377,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "third"
+      "description": "third",
+      "port": 26377
     },
     {
       "ip": "192.168.1.0/31",
-      "port": 26377,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "second"
+      "description": "second",
+      "port": 26377
     }
   ],
   "Success": {

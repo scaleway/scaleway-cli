@@ -1,0 +1,17 @@
+{
+  "name": "mise",
+  "image": "mcr.microsoft.com/devcontainers/base:ubuntu",
+  "features": {
+    "ghcr.io/devcontainers-extra/features/mise:1": {}
+  },
+  "customizations": {
+    "vscode": {
+      "extensions": [
+        "hverlin.mise-vscode"
+      ]
+    }
+  },
+  "mounts": [],
+  "containerEnv": {},
+  "remoteEnv": {}
+}

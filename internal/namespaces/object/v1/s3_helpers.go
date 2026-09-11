@@ -8,15 +8,21 @@ import (
 	"strings"
 
 	"github.com/aws/aws-sdk-go-v2/aws"
+	awsmiddleware "github.com/aws/aws-sdk-go-v2/aws/middleware"
 	"github.com/aws/aws-sdk-go-v2/service/s3"
 	"github.com/aws/aws-sdk-go-v2/service/s3/types"
+	"github.com/aws/smithy-go/middleware"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
+// newS3Client creates a new S3 client to interact with the S3 API of the passed
+// region. If `projectID` is empty, the default one is used.
+func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
+	buildInfo := core.ExtractBuildInfo(ctx)
 	accessKey, ok := scwClient.GetAccessKey()
 	if !ok {
 		return nil
@@ -26,6 +32,9 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		return nil
 	}
 
+	defaultProjectID, _ := scwClient.GetDefaultProjectID()
+	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
+
 	var customEndpoint string
 	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
 		customEndpoint = ep
@@ -33,8 +42,17 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		customEndpoint = "https://s3." + region.String() + ".scw.cloud"
 	}
 
+	options := []func(*middleware.Stack) error{
+		func(stack *middleware.Stack) error {
+			return awsmiddleware.AddUserAgentKeyValue(
+				"scaleway-cli",
+				buildInfo.Version.String(),
+			)(stack)
+		},
+	}
+
 	return s3.New(s3.Options{
-		APIOptions:    nil,
+		APIOptions:    options,
 		ClientLogMode: 0,
 		Credentials: aws.CredentialsProviderFunc(func(_ context.Context) (aws.Credentials, error) {
 			return aws.Credentials{
@@ -46,6 +64,30 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 	})
+}
+
+// FormatAccessKey formats the access key to the <KEY>@<PROJECT_ID> format,
+// overriding the already present project ID with the "project-id" argument
+// if present.
+func FormatAccessKey(accessKey, argProjectID, defaultProjectID string) (formattedAccessKey string) {
+	// The project ID from the CLI arguments takes precedence
+	projectID := argProjectID
+
+	if projectID == "" {
+		projectID = defaultProjectID
+	}
+
+	if projectID != "" {
+		if validation.IsAccessKeyWithProjectID(accessKey) {
+			keySplit := strings.Split(accessKey, "@")
+			formattedAccessKey = keySplit[0] + "@" + projectID
+		} else {
+			// Is a standard access key
+			formattedAccessKey = accessKey + "@" + projectID
+		}
+	}
+
+	return
 }
 
 // Caching BucketCannedACL values for shell completion

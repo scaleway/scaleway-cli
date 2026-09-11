@@ -188,7 +188,7 @@ func validateDeprecated(
 
 		for i := range fieldValues {
 			if rawArgs.ExistsArgByName(strings.Replace(arg.Name, "{index}", strconv.Itoa(i), 1)) {
-				helpCmd := cmd.GetCommandLine(extractMeta(ctx).BinaryName) + " --help"
+				helpCmd := cmd.GetCommandLine(ExtractMeta(ctx).BinaryName) + " --help"
 				ExtractLogger(
 					ctx,
 				).Warningf("The argument '%s' is deprecated, more info with: %s\n", arg.Name, helpCmd)

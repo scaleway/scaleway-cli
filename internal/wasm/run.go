@@ -4,6 +4,7 @@ package wasm
 
 import (
 	"bytes"
+	"context"
 	"io"
 	"net/http"
 
@@ -41,7 +42,7 @@ func runCommand(
 	stdout io.Writer,
 	stderr io.Writer,
 ) int {
-	exitCode, _, _ := core.Bootstrap(&core.BootstrapConfig{
+	exitCode, _, _ := core.Bootstrap(context.Background(), &core.BootstrapConfig{
 		Args:      args,
 		Commands:  getCommands(),
 		BuildInfo: buildInfo,

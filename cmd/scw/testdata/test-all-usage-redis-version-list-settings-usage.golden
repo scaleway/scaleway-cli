@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List available settings from a Redis™ version.
 
 USAGE:
   scw redis version list-settings [arg=value ...]
 
 EXAMPLES:
-  List settings for Redis™ 7.2.11
-    scw redis version list-settings version=7.2.11
+  List settings for Redis™ 8.4.0
+    scw redis version list-settings version=8.4.0
 
 ARGS:
   version           Redis™ engine version

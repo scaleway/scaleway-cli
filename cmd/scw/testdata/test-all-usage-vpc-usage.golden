@@ -1,15 +1,17 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Virtual Private Clouds (VPCs) and Private Networks.
 
 USAGE:
   scw vpc <command>
 
 AVAILABLE COMMANDS:
+  ingress-rule    Ingress rule management command
   private-network Private network management command
   route           Route management command
   rule            Rule management command
   vpc             VPC management command
+  vpc-connector   VPC connector management command
 
 FLAGS:
   -h, --help                help for vpc

@@ -1,8 +1,6 @@
 package vpcgw
 
 import (
-	"strings"
-
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/core/human"
 	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
@@ -11,8 +9,8 @@ import (
 func GetCommands() *core.Commands {
 	cmds := GetGeneratedCommands()
 	for _, cmd := range cmds.GetAll() {
-		if cmd.Verb != "" && !strings.HasSuffix(cmd.Verb, "-v2") {
-			cmd.Verb = strings.TrimSpace(cmd.Verb) + "-v2"
+		if cmd.Verb != "" {
+			cmd.Aliases = append(cmd.Aliases, cmd.Verb+"-v2")
 		}
 	}
 

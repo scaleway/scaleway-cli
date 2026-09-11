@@ -81,6 +81,7 @@ func GetCommands() *core.Commands {
 		instance.ServerTypesAvailability(""),
 		human.EnumMarshalFunc(serverTypesAvailabilityMarshalSpecs),
 	)
+	human.RegisterMarshalerFunc([]*customServerType{}, serverTypesListMarshalerFunc)
 
 	cmds.MustFind("instance", "server-type", "list").Override(serverTypeListBuilder)
 

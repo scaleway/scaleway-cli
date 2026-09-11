@@ -1,0 +1,22 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Retrieve information about the offers you are subscribed to using the `project_id` and `region` parameters.
+
+USAGE:
+  scw tem offer-subscriptions list [arg=value ...]
+
+ARGS:
+  [project-id]        Project ID to use. If none is passed the default project ID will be used
+  [offer-name]        (Optional) Name of the offer associated with the Project (unknown_name | essential | scale)
+  [organization-id]   Organization ID to use. If none is passed the default organization ID will be used
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | all)
+
+FLAGS:
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

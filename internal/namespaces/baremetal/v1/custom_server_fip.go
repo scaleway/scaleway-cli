@@ -28,7 +28,7 @@ func serverAddFlexibleIP() *core.Command {
 		Resource:  "server",
 		Verb:      "add-flexible-ip",
 		Groups:    []string{"utility"},
-		ArgsType:  reflect.TypeOf(serverAddFlexibleIPRequest{}),
+		ArgsType:  reflect.TypeFor[serverAddFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -106,7 +106,7 @@ func serverAddFlexibleIP() *core.Command {
 			return apiFip.WaitForFlexibleIP(&fip.WaitForFlexibleIPRequest{
 				FipID:         flexibleIP.ID,
 				Zone:          flexibleIP.Zone,
-				Timeout:       scw.TimeDurationPtr(flexibleip.FlexibleIPTimeout),
+				Timeout:       new(flexibleip.FlexibleIPTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
 		},

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A VPN gateway is an IPsec peer managed by Scaleway. It can support multiple connections to customer gateways.
 
 USAGE:

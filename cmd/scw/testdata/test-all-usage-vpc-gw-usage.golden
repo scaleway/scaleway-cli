@@ -1,13 +1,11 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 This API allows you to manage your Public Gateways.
 
 USAGE:
   scw vpc-gw <command>
 
 AVAILABLE COMMANDS:
-  dhcp            DHCP configuration management
-  dhcp-entry      DHCP entries management
   gateway         Public Gateway management
   gateway-network Gateway Networks management
   gateway-type    Gateway types information

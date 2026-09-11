@@ -14,11 +14,12 @@ import (
 )
 
 const (
-	baseCommand = "scw redis cluster create --wait name=%s version=7.2.11 node-type=RED1-micro user-name=admin password=P@sSw0Rd "
-	serviceIPsA = "172.16.4.1/22"
-	serviceIPsB = "10.16.4.1/22"
-	metaNamePNA = "PrivateNetworkA"
-	metaNamePNB = "PrivateNetworkB"
+	redisTestVersion = "8.4.0"
+	baseCommand      = "scw redis cluster create --wait name=%s version=" + redisTestVersion + " node-type=RED1-micro user-name=admin password=P@sSw0Rd "
+	serviceIPsA      = "172.16.4.1/22"
+	serviceIPsB      = "10.16.4.1/22"
+	metaNamePNA      = "PrivateNetworkA"
+	metaNamePNB      = "PrivateNetworkB"
 )
 
 func Test_Endpoints(t *testing.T) {
@@ -92,7 +93,7 @@ func Test_Endpoints(t *testing.T) {
 			),
 		),
 		Cmd: fmt.Sprintf(
-			"scw redis cluster create --wait name=%s version=7.2.11 node-type=RED1-micro user-name=admin password=P@sSw0Rd --wait "+
+			"scw redis cluster create --wait name=%s version="+redisTestVersion+" node-type=RED1-micro user-name=admin password=P@sSw0Rd --wait "+
 				"endpoints.0.private-network.id={{ .%s.ID }} endpoints.0.private-network.service-ips.0=%s "+
 				"endpoints.1.private-network.id={{ .%s.ID }} endpoints.1.private-network.service-ips.0=%s",
 			"2-static-priv-endpoints",

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 User data is a key/value store you can use to provide your instance with introspective data.
 
 As an example of use, Scaleway images contain the `scw-generate-ssh-keys` script, which generates the SSH server’s host keys, then stores their fingerprints as user data under the `ssh-host-fingerprints` key.

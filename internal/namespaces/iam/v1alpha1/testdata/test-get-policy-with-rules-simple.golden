@@ -14,10 +14,11 @@ NbRules           1
 NbScopes          1
 NbPermissionSets  1
 NoPrincipal       true
+Srn               -
 
 Rules:
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-67cce713-1763-446e-8b05-4f520b925131  [IPAMReadOnly]        projects                    -          [54826627-c2b8-4bc1-baa8-ac2a78b02daf]  -                -
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
+67cce713-1763-446e-8b05-4f520b925131  [IPAMReadOnly]        projects                    -          [54826627-c2b8-4bc1-baa8-ac2a78b02daf]  -                -                     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "a0ec7d54-6dc8-46f5-b808-84e1b728fe0a",

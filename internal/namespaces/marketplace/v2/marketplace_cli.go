@@ -87,7 +87,7 @@ func marketplaceImageList() *core.Command {
 		Resource:  "image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListImagesRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -131,7 +131,7 @@ func marketplaceImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListImages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -185,7 +185,7 @@ func marketplaceImageGet() *core.Command {
 		Resource:  "image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetImageRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -201,7 +201,7 @@ func marketplaceImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetImage(request)
+			return api.GetImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -214,7 +214,7 @@ func marketplaceVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "image-id",
@@ -238,7 +238,7 @@ func marketplaceVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListVersions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -257,7 +257,7 @@ func marketplaceVersionGet() *core.Command {
 		Resource:  "version",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetVersionRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version-id",
@@ -272,7 +272,7 @@ func marketplaceVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetVersion(request)
+			return api.GetVersion(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -285,7 +285,7 @@ func marketplaceLocalImageList() *core.Command {
 		Resource:  "local-image",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListLocalImagesRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListLocalImagesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -353,7 +353,7 @@ func marketplaceLocalImageList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListLocalImages(request, opts...)
 			if err != nil {
 				return nil, err
@@ -392,7 +392,7 @@ func marketplaceLocalImageGet() *core.Command {
 		Resource:  "local-image",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetLocalImageRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetLocalImageRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "local-image-id",
@@ -407,7 +407,7 @@ func marketplaceLocalImageGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetLocalImage(request)
+			return api.GetLocalImage(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -420,14 +420,14 @@ func marketplaceCategoryList() *core.Command {
 		Resource:  "category",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.ListCategoriesRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.ListCategoriesRequest](),
 		ArgSpecs: core.ArgSpecs{},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*marketplace.ListCategoriesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListCategories(request, opts...)
 			if err != nil {
 				return nil, err
@@ -446,7 +446,7 @@ func marketplaceCategoryGet() *core.Command {
 		Resource:  "category",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(marketplace.GetCategoryRequest{}),
+		ArgsType: reflect.TypeFor[marketplace.GetCategoryRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "category-id",
@@ -461,7 +461,7 @@ func marketplaceCategoryGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := marketplace.NewAPI(client)
 
-			return api.GetCategory(request)
+			return api.GetCategory(request, scw.WithContext(ctx))
 		},
 	}
 }

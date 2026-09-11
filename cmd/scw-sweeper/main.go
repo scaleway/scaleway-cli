@@ -29,7 +29,7 @@ import (
 	secretSweeper "github.com/scaleway/scaleway-sdk-go/api/secret/v1beta1/sweepers"
 	sdbSweeper "github.com/scaleway/scaleway-sdk-go/api/serverless_sqldb/v1alpha1/sweepers"
 	vpcSweeper "github.com/scaleway/scaleway-sdk-go/api/vpc/v2/sweepers"
-	vpcgwSweeper "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1/sweepers"
+	vpcgwSweeper "github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2/sweepers"
 	webhostingSweeper "github.com/scaleway/scaleway-sdk-go/api/webhosting/v1/sweepers"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -208,7 +208,7 @@ func mainNoExit() int {
 		errors = append(errors, fmt.Sprintf("vpc: %s", err))
 	}
 
-	err = vpcgwSweeper.SweepAllLocalities(client, true)
+	err = vpcgwSweeper.SweepAllLocalities(client)
 	if err != nil {
 		log.Printf("Error sweeping vpcgw: %s", err)
 		errors = append(errors, fmt.Sprintf("vpcgw: %s", err))

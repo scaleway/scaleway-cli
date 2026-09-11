@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID
-23cb4240-ce6d-4c57-ae14-05789a40a8c9  [VPCReadOnly]         projects                    -          [dc155a89-dcd8-4351-b09c-3503c9900955]  -                -
+ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOPE TYPE  CONDITION  PROJECT IDS                             ORGANIZATION ID  ACCOUNT ROOT USER ID  SRN
+23cb4240-ce6d-4c57-ae14-05789a40a8c9  [VPCReadOnly]         projects                    -          [dc155a89-dcd8-4351-b09c-3503c9900955]  -                -                     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {

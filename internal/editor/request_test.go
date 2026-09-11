@@ -18,6 +18,6 @@ func Test_createGetResourceRequest(t *testing.T) {
 	}{"uuid", ""}
 	expectedRequest := &GetRequest{"uuid"}
 
-	actualRequest := editor.CreateGetRequest(updateRequest, reflect.TypeOf(GetRequest{}))
+	actualRequest := editor.CreateGetRequest(updateRequest, reflect.TypeFor[GetRequest]())
 	assert.Equal(t, expectedRequest, actualRequest)
 }

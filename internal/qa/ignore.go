@@ -53,15 +53,15 @@ func areCommandsEquals(c1 *core.Command, c2 *core.Command) bool {
 
 var ignoredErrors = []ignoredError{
 	{
-		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
+		Type:    reflect.TypeFor[*DifferentLocalizationForNamespaceError](),
 		Command: commands.GetCommands().MustFind("k8s", "kubeconfig", "uninstall"),
 	},
 	{
-		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
+		Type:    reflect.TypeFor[*DifferentLocalizationForNamespaceError](),
 		Command: commands.GetCommands().MustFind("registry", "logout"),
 	},
 	{
-		Type:    reflect.TypeOf(&DifferentLocalizationForNamespaceError{}),
+		Type:    reflect.TypeFor[*DifferentLocalizationForNamespaceError](),
 		Command: commands.GetCommands().MustFind("registry", "login"),
 	},
 }

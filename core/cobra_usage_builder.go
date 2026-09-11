@@ -153,14 +153,25 @@ func buildExamples(binaryName string, cmd *Command) string {
 // usageFuncBuilder returns the usage function that will be used by cobra to print usage,
 // the builder also takes a function that will fill annotations used by the usage template,
 // this is done like this to avoid build annotations for each command if not required
-func usageFuncBuilder(cmd *cobra.Command, annotationBuilder func()) func(*cobra.Command) error {
+func usageFuncBuilder(
+	cobraCmd *cobra.Command,
+	annotationBuilder func(context.Context),
+) func(*cobra.Command) error {
 	return func(command *cobra.Command) error {
-		annotationBuilder()
-		// after building annotation we remove this function as we prefer to use default UsageFunc
-		cmd.SetUsageFunc(nil)
+		executeWithCtx(command.Context(), cobraCmd, annotationBuilder)
 
-		return cmd.UsageFunc()(command)
+		return cobraCmd.UsageFunc()(command)
 	}
+}
+
+func executeWithCtx(
+	ctx context.Context,
+	cobraCmd *cobra.Command,
+	annotationBuilder func(context.Context),
+) {
+	annotationBuilder(ctx)
+	// after building annotation we remove this function as we prefer to use default UsageFunc
+	cobraCmd.SetUsageFunc(nil)
 }
 
 func orderCobraCommands(cobraCommands []*cobra.Command) []*cobra.Command {

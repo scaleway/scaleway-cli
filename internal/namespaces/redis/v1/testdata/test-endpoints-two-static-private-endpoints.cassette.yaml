@@ -112,7 +112,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -131,7 +131,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -164,7 +164,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -181,7 +181,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -214,7 +214,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -231,7 +231,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -264,7 +264,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -281,7 +281,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -314,7 +314,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -331,7 +331,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"provisioning",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -364,7 +364,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -382,7 +382,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -416,7 +416,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -434,7 +434,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -468,7 +468,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -486,7 +486,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -520,7 +520,7 @@ interactions:
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -538,7 +538,7 @@ interactions:
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
       "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"initializing",
-      "version":"7.2.11", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
+      "version":"8.4.0", "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
       "private_network":{"id":"5016c024-9aa4-42de-bc16-0981f419889b", "service_ips":["172.16.4.1/22"],
@@ -571,7 +571,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -589,7 +589,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"ready", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -623,7 +623,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -641,7 +641,7 @@ interactions:
     method: DELETE
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -675,7 +675,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -693,7 +693,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -727,7 +727,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -745,7 +745,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -779,7 +779,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -797,7 +797,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -831,7 +831,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -849,7 +849,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -883,7 +883,7 @@ interactions:
     duration: ""
 - request:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,
@@ -901,7 +901,7 @@ interactions:
     method: GET
   response:
     body: '{"id":"0dc62cf1-e394-405f-98ed-73902b5f883f", "name":"2-static-priv-endpoints",
-      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"7.2.11",
+      "project_id":"46fd79d8-1a35-4548-bfb8-03df51a0ebae", "status":"deleting", "version":"8.4.0",
       "endpoints":[{"port":6379, "private_network":{"id":"24f8bcc8-ad84-4f38-a018-8ff6c087eba3",
       "service_ips":["10.16.4.1/22"], "provisioning_mode":"static", "zone":"fr-par-1"},
       "ips":["10.16.4.1"], "id":"87cbd5d0-7ea8-4148-94ef-5c8cf3a1b37a"}, {"port":6379,

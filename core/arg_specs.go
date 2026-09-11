@@ -17,9 +17,9 @@ type ArgSpecs []*ArgSpec
 
 // GetPositionalArg if exist returns the positional argument from the arg specs.
 // Panics when more than one positional arg is found.
-func (s ArgSpecs) GetPositionalArg() *ArgSpec {
+func (s *ArgSpecs) GetPositionalArg() *ArgSpec {
 	var positionalArg *ArgSpec
-	for _, argSpec := range s {
+	for _, argSpec := range *s {
 		if argSpec.Positional {
 			if positionalArg != nil {
 				panic(
@@ -38,9 +38,9 @@ func (s ArgSpecs) GetPositionalArg() *ArgSpec {
 }
 
 // GetDeprecated gets all fields filtered by the deprecation state.
-func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
+func (s *ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
 	result := ArgSpecs{}
-	for _, argSpec := range s {
+	for _, argSpec := range *s {
 		if argSpec.Deprecated == deprecated {
 			result = append(result, argSpec)
 		}
@@ -49,8 +49,8 @@ func (s ArgSpecs) GetDeprecated(deprecated bool) ArgSpecs {
 	return result
 }
 
-func (s ArgSpecs) GetByName(name string) *ArgSpec {
-	for _, spec := range s {
+func (s *ArgSpecs) GetByName(name string) *ArgSpec {
+	for _, spec := range *s {
 		if spec.Name == name {
 			return spec
 		}

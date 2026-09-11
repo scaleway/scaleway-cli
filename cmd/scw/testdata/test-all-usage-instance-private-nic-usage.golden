@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A Private NIC is the network interface that connects an Instance to a
 Private Network. An Instance can have multiple private NICs at the same
 time, but each NIC must belong to a different Private Network.

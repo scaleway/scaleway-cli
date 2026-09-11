@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Retrieve a list of a DNS zone's versions.<br/>
 The maximum version count is 100. If the count reaches this limit, the oldest version will be deleted after each new modification.
 

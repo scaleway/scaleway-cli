@@ -5,11 +5,19 @@ lint:
 	./scripts/lint.sh
 
 test:
-	./scripts/test.sh
+	./scripts/run-tests.sh
 
 fmt:
 	golangci-lint run --fix ./...
 
 bump-sdk:
-	GOPROXY=direct go get -u github.com/scaleway/scaleway-sdk-go@master
+	GOPROXY=direct go get -u github.com/scaleway/scaleway-sdk-go@main
 	go mod tidy
+
+docs:
+	go run ./cmd/scw-doc-gen
+	git restore docs/commands/autocomplete.md # Ensure that the file is not changed in case you do not have bash as default shell
+	rumdl fmt .
+	rumdl check .
+
+.PHONY: docs

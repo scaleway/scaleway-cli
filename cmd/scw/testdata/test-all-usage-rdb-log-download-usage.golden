@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Prepare, wait for, and download logs from a Database Instance. This command automatically prepares the logs, waits for them to be ready, and downloads them to a file.
 
 USAGE:

@@ -132,8 +132,6 @@ func (l *Logger) AddEntry(name string) *LoggerEntry {
 			r.Close()
 			w.Close()
 
-			completed := time.Now()
-
 			var errStr string
 			if err != nil {
 				errStr = err.Error()
@@ -145,7 +143,7 @@ func (l *Logger) AddEntry(name string) *LoggerEntry {
 						Digest:    id,
 						Name:      name,
 						Started:   &started,
-						Completed: &completed,
+						Completed: new(time.Now()),
 						Error:     errStr,
 					},
 				},

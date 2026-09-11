@@ -1,45 +1,45 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ 3 ACL rules successfully added.
-IP              PORT   PROTOCOL  DIRECTION  ACTION  DESCRIPTION
-0.0.0.0/0       18112  tcp       inbound    allow   Allow All
-1.2.3.4/32      18112  tcp       inbound    allow   some-unique-description
-10.10.10.10/32  18112  tcp       inbound    allow   some-unique-description
-192.168.1.0/30  18112  tcp       inbound    allow   some-unique-description
+IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION              PORT
+0.0.0.0/0       tcp       inbound    allow   Allow All                18112
+1.2.3.4/32      tcp       inbound    allow   some-unique-description  18112
+10.10.10.10/32  tcp       inbound    allow   some-unique-description  18112
+192.168.1.0/30  tcp       inbound    allow   some-unique-description  18112
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
     {
       "ip": "0.0.0.0/0",
-      "port": 18112,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "Allow All"
+      "description": "Allow All",
+      "port": 18112
     },
     {
       "ip": "1.2.3.4/32",
-      "port": 18112,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "some-unique-description"
+      "description": "some-unique-description",
+      "port": 18112
     },
     {
       "ip": "10.10.10.10/32",
-      "port": 18112,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "some-unique-description"
+      "description": "some-unique-description",
+      "port": 18112
     },
     {
       "ip": "192.168.1.0/30",
-      "port": 18112,
       "protocol": "tcp",
       "direction": "inbound",
       "action": "allow",
-      "description": "some-unique-description"
+      "description": "some-unique-description",
+      "port": 18112
     }
   ],
   "Success": {

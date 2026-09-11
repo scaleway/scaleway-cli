@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Edit all route rules of a route stage.
 
 If backend-stage-id is provided, the editor will only show rule_http_match fields and the specified backend will be applied to all rules automatically.

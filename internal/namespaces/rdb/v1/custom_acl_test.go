@@ -278,8 +278,8 @@ func verifyACL(t *testing.T, ctx *core.CheckFuncCtx, expectedRules []string) {
 	switch res := ctx.Result.(type) {
 	case *rdb.CustomACLResult:
 		verifyACLCustomResponse(t, res, expectedRules)
-	case core.MultiResults:
-		verifyACLCustomResponse(t, res[len(res)-1].(*rdb.CustomACLResult), expectedRules)
+	case *core.MultiResults:
+		verifyACLCustomResponse(t, (*res)[len(*res)-1].(*rdb.CustomACLResult), expectedRules)
 	default:
 		t.Errorf("action is undefined for this type")
 	}

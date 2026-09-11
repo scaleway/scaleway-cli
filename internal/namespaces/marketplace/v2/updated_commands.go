@@ -22,7 +22,7 @@ func updateMarketplaceGetImage(c *core.Command) {
 		Label string
 	}
 
-	c.ArgsType = reflect.TypeOf(getImagesArgs{})
+	c.ArgsType = reflect.TypeFor[getImagesArgs]()
 	c.ArgSpecs = core.ArgSpecs{
 		{
 			Name:     "label",
@@ -33,7 +33,7 @@ func updateMarketplaceGetImage(c *core.Command) {
 	c.Run = func(ctx context.Context, argsI any) (i any, e error) {
 		args := argsI.(*getImagesArgs)
 		req := &marketplace.ListImagesRequest{}
-		req.PageSize = scw.Uint32Ptr(100)
+		req.PageSize = new(uint32(100))
 		client := core.ExtractClient(ctx)
 		api := marketplace.NewAPI(client)
 		resp, err := api.ListImages(req, scw.WithAllPages())

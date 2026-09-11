@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new Kubernetes cluster in a Scaleway region.
 
 USAGE:
@@ -19,7 +19,7 @@ ARGS:
   [description]                                          Cluster description
   [tags.{index}]                                         Tags associated with the cluster
   version=latest                                         Kubernetes version of the cluster
-  cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | weave | flannel | kilo | none | cilium_native)
+  cni=cilium                                             Container Network Interface (CNI) plugin running in the cluster (unknown_cni | cilium | calico | kilo | none | cilium_native)
   [pools.{index}.name]                                   Name of the pool
   [pools.{index}.node-type]                              Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster
   [pools.{index}.placement-group-id]                     Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.
@@ -27,12 +27,12 @@ ARGS:
   [pools.{index}.size]                                   Size (number of nodes) of the pool
   [pools.{index}.min-size]                               Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
   [pools.{index}.max-size]                               Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool
-  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool (unknown_runtime | docker | containerd | crio)
+  [pools.{index}.container-runtime]                      Customization of the container runtime is available for each pool (unknown_runtime | containerd)
   [pools.{index}.autohealing]                            Defines whether the autohealing feature is enabled for the pool
   [pools.{index}.tags.{index}]                           Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)
   [pools.{index}.kubelet-args.{key}]                     Kubelet arguments to be used by this pool. Note that this feature is experimental
-  [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be not ready at the same time
-  [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade
+  [pools.{index}.upgrade-policy.max-unavailable]         The maximum number of nodes that can be `upgrading` at the same time
+  [pools.{index}.upgrade-policy.max-surge]               The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades
   [pools.{index}.zone]                                   Zone in which the pool's nodes will be spawned
   [pools.{index}.root-volume-type]                       Defines the system volume disk type. Several types of volume (`volume_type`) are provided: (default_volume_type | l_ssd | b_ssd | sbs_5k | sbs_15k)
   [pools.{index}.root-volume-size]                       System volume disk size
@@ -45,6 +45,8 @@ ARGS:
   [pools.{index}.startup-taints.{index}.key]             The taint key to be applied to a node
   [pools.{index}.startup-taints.{index}.value]           The taint value corresponding to the taint key
   [pools.{index}.startup-taints.{index}.effect]          Effect defines the effects of Taint (NoSchedule | PreferNoSchedule | NoExecute)
+  [pools.{index}.max-termination-grace-period]           Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.
+  [pools.{index}.user-data.{key}]                        User data applied and reconciled with the pool
   [autoscaler-config.scale-down-disabled]                Forbid cluster autoscaler to scale down the cluster, defaults to false
   [autoscaler-config.scale-down-delay-after-add]         How long after scale up the scale down evaluation resumes
   [autoscaler-config.estimator]                          Type of resource estimator to be used in scale up (unknown_estimator | binpacking)
@@ -55,6 +57,8 @@ ARGS:
   [autoscaler-config.scale-down-unneeded-time]           How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes
   [autoscaler-config.scale-down-utilization-threshold]   Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down
   [autoscaler-config.max-graceful-termination-sec]       Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes)
+  [autoscaler-config.skip-nodes-with-local-storage]      Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true
+  [autoscaler-config.log-level]                          Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details
   [auto-upgrade.enable]                                  Defines whether auto upgrade is enabled for the cluster
   [auto-upgrade.maintenance-window.start-hour]           Start time of the two-hour maintenance window
   [auto-upgrade.maintenance-window.day]                  Day of the week for the maintenance window (any | monday | tuesday | wednesday | thursday | friday | saturday | sunday)
@@ -73,7 +77,7 @@ ARGS:
   [service-cidr]                                         Subnet used for the Service CIDR (cannot be changed later)
   [service-dns-ip]                                       IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10
   [organization-id]                                      Organization ID to use. If none is passed the default organization ID will be used
-  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]                                        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil)
 
 FLAGS:
   -h, --help                help for create

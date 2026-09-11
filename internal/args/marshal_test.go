@@ -137,9 +137,11 @@ func TestMarshal(t *testing.T) {
 			Basic: Basic{
 				String: "test",
 			},
+			Empty: &Empty{},
 		},
 		expected: []string{
 			"basic.string=test",
+			"empty={}",
 		},
 	}))
 
@@ -212,13 +214,12 @@ func TestMarshal(t *testing.T) {
 		},
 	}))
 
-	h := height(14)
 	t.Run("data-is-height-set", run(TestCase{
 		expected: []string{
 			"height=14cm",
 		},
 		data: &CustomArgs{
-			Height: &h,
+			Height: new(height(14)),
 		},
 	}))
 

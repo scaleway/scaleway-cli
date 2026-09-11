@@ -53,7 +53,7 @@ You just have to download the binary compatible with your platform to a director
 #### Linux
 
 ```bash
-curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/master/scripts/get.sh | sh
+curl -s https://raw.githubusercontent.com/scaleway/scaleway-cli/main/scripts/get.sh | sh
 ```
 
 #### Windows
@@ -86,7 +86,7 @@ NB: you'll need to have an **API-key** (access-key + access-secret), so be sure 
 
 ## Basic commands
 
-```
+```shell
 # Create an instance server
 scw instance server create type=DEV1-S image=ubuntu_noble zone=fr-par-1 tags.0="scw-cli"
 
@@ -134,7 +134,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 | `mongodb`      | Managed db Mongodb API                  | [CLI](./docs/commands/mongodb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-mongodb/)   |
 | `object`       | Object-storage utils                    | [CLI](./docs/commands/object.md) / [API](https://www.scaleway.com/en/docs/object-storage-feature/)                |
 | `rdb`          | Database RDB API                        | [CLI](./docs/commands/rdb.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-postgre-mysql/) |
-| `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-redis// )     |
+| `redis`        | Redis API                               | [CLI](./docs/commands/redis.md) / [API](https://www.scaleway.com/en/developers/api/managed-database-redis/)       |
 | `registry`     | Container registry API                  | [CLI](./docs/commands/registry.md) / [API](https://www.scaleway.com/en/developers/api/registry/)                  |
 | `secret`       | Secret manager API                      | [CLI](./docs/commands/secret.md) / [API](https://www.scaleway.com/en/developers/api/secret-manager/)              |
 | `shell`        | Start Shell mode                        | [CLI](./docs/commands/shell.md)                                                                                   |
@@ -152,8 +152,6 @@ Note that this development version could include bugs, use [tagged releases](htt
 ```bash
 go install github.com/scaleway/scaleway-cli/v2/cmd/scw@latest
 ```
-
-Dependencies: We only use go [Modules](https://github.com/golang/go/wiki/Modules) with vendoring.
 
 ### Build with Docker
 

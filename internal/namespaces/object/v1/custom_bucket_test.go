@@ -168,7 +168,7 @@ func Test_BucketGet(t *testing.T) {
 				checkACL(t, "private", bucket.ACL, bucket.Owner)
 				assert.Equal(t, int64(0), *bucket.NbObjects)
 				assert.Equal(t, int64(0), *bucket.NbParts)
-				assert.Equal(t, scw.SizePtr(0), bucket.Size)
+				assert.Equal(t, new(scw.Size(0)), bucket.Size)
 			},
 		),
 		AfterFunc: deleteBucket(bucketName2),

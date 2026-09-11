@@ -87,9 +87,9 @@ func waitForServerFunc(action int) core.WaitFunc {
 			if err != nil {
 				// if we get a 404 here, it means the resource was successfully deleted
 				notFoundError := &scw.ResourceNotFoundError{}
-				responseError := &scw.ResponseError{}
-				if errors.As(err, &responseError) &&
-					responseError.StatusCode == http.StatusNotFound ||
+				if responseError, ok := errors.AsType[*scw.ResponseError](
+					err,
+				); ok && responseError.StatusCode == http.StatusNotFound ||
 					errors.As(err, &notFoundError) {
 					return fmt.Sprintf(
 						"Server %s successfully deleted.",
@@ -115,7 +115,7 @@ func serverWaitCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(customServerWaitArgs{}),
+		ArgsType:  reflect.TypeFor[customServerWaitArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*customServerWaitArgs)
 

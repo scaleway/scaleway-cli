@@ -151,7 +151,7 @@ func (sb *ServerBuilder) AddImage(image string) (*ServerBuilder, error) {
 
 	getImageResponse, err := sb.apiInstance.GetImage(&instance.GetImageRequest{
 		Zone:    sb.createReq.Zone,
-		ImageID: *(sb.createReq.Image),
+		ImageID: *sb.createReq.Image,
 	})
 	if err != nil {
 		logger.Warningf("cannot get image %s: %s", *sb.createReq.Image, err)
@@ -285,8 +285,7 @@ func (sb *ServerBuilder) ValidateVolumes() error {
 }
 
 func (sb *ServerBuilder) AddBootType(bootType string) *ServerBuilder {
-	instanceBootType := instance.BootType(bootType)
-	sb.createReq.BootType = &instanceBootType
+	sb.createReq.BootType = new(instance.BootType(bootType))
 
 	return sb
 }

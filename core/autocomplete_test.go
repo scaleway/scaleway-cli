@@ -378,10 +378,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					core.PrinterTypeHuman.String(),
-					core.PrinterTypeJSON.String(),
-					core.PrinterTypeTemplate.String(),
-					core.PrinterTypeYAML.String(),
+					string(core.PrinterTypeHuman),
+					string(core.PrinterTypeJSON),
+					string(core.PrinterTypeTemplate),
+					string(core.PrinterTypeYAML),
 				},
 			},
 		),
@@ -509,10 +509,10 @@ func TestAutocomplete(t *testing.T) {
 		run(
 			&testCase{
 				Suggestions: core.AutocompleteSuggestions{
-					core.PrinterTypeHuman.String(),
-					core.PrinterTypeJSON.String(),
-					core.PrinterTypeTemplate.String(),
-					core.PrinterTypeYAML.String(),
+					string(core.PrinterTypeHuman),
+					string(core.PrinterTypeJSON),
+					string(core.PrinterTypeTemplate),
+					string(core.PrinterTypeYAML),
 				},
 			},
 		),

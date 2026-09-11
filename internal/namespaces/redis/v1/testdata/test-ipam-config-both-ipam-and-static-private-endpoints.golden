@@ -4,7 +4,7 @@ ID           79e54364-9013-427d-9e56-8085da929b70
 Name         1-ipam-1-static-priv-endpoints
 ProjectID    fa1e3217-dc80-42ac-85c3-3f034b78b552
 Status       ready
-Version      7.0.5
+Version      8.4.0
 NodeType     RED1-micro
 CreatedAt    few seconds ago
 UpdatedAt    few seconds ago
@@ -26,7 +26,7 @@ ID   IP CIDR  DESCRIPTION
   "name": "1-ipam-1-static-priv-endpoints",
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "status": "ready",
-  "version": "7.0.5",
+  "version": "8.4.0",
   "endpoints": [
     {
       "port": 6379,

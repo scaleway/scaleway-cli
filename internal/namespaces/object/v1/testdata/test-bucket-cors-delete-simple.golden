@@ -1,0 +1,8 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+✅ Bucket-cors has been successfully deleted.
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "message": "bucket-cors has been successfully deleted.",
+  "details": ""
+}

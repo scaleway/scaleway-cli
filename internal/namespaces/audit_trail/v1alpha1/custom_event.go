@@ -16,7 +16,7 @@ func eventListBuilder(c *core.Command) *core.Command {
 			},
 			{
 				Label:     "Name",
-				FieldName: "Resource.Name",
+				FieldName: "Resources.<index>.Name",
 			},
 			{
 				Label:     "StatusCode",
@@ -64,19 +64,11 @@ func eventListBuilder(c *core.Command) *core.Command {
 			},
 			{
 				Label:     "Type",
-				FieldName: "Resource.Type",
+				FieldName: "Resources.<index>.Type",
 			},
 			{
 				Label:     "ResourceID",
-				FieldName: "Resource.ID",
-			},
-			{
-				Label:     "Resource Created At",
-				FieldName: "Resource.CreatedAt",
-			},
-			{
-				Label:     "Resource Updated At",
-				FieldName: "Resource.UpdatedAt",
+				FieldName: "Resources.<index>.ID",
 			},
 		},
 	}

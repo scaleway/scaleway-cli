@@ -16,11 +16,10 @@ func databaseCreateBuilder(c *core.Command) *core.Command {
 		}
 
 		api := rdb.NewAPI(core.ExtractClient(ctx))
-		name := req.Name
 		list, err := api.ListDatabases(&rdb.ListDatabasesRequest{
 			Region:     req.Region,
 			InstanceID: req.InstanceID,
-			Name:       &name,
+			Name:       new(req.Name),
 		}, scw.WithAllPages())
 
 		if err == nil && list.TotalCount > 0 {

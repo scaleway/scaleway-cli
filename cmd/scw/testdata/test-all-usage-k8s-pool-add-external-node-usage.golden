@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Add an external node to a Kosmos Pool. 
 This will connect via SSH to the node, download the multicloud configuration script and run it with sudo privileges.
 Keep in mind that your external node needs to have wget in order to download the script.
