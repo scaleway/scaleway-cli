@@ -416,16 +416,14 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 
 func beforeFuncCreateFullConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
-		Profile: scw.Profile{
-			AccessKey:             new("SCWXXXXXXXXXXXXXXXXX"),
-			SecretKey:             new("11111111-1111-1111-1111-111111111111"),
-			APIURL:                new("https://mock-api-url.com"),
-			Insecure:              new(true),
-			DefaultOrganizationID: new("11111111-1111-1111-1111-111111111111"),
-			DefaultRegion:         new("fr-par"),
-			DefaultZone:           new("fr-par-1"),
-			SendTelemetry:         new(true),
-		},
+		AccessKey:             new("SCWXXXXXXXXXXXXXXXXX"),
+		SecretKey:             new("11111111-1111-1111-1111-111111111111"),
+		APIURL:                new("https://mock-api-url.com"),
+		Insecure:              new(true),
+		DefaultOrganizationID: new("11111111-1111-1111-1111-111111111111"),
+		DefaultRegion:         new("fr-par"),
+		DefaultZone:           new("fr-par-1"),
+		SendTelemetry:         new(true),
 		Profiles: map[string]*scw.Profile{
 			"p1": {
 				AccessKey:             new("SCWP1XXXXXXXXXXXXXXX"),
@@ -453,16 +451,14 @@ func beforeFuncCreateFullConfig() core.BeforeFunc {
 
 func beforeFuncCreateInvalidConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
-		Profile: scw.Profile{
-			AccessKey:             new("invalidAccessKey"),
-			SecretKey:             new("11111111-1111-1111-1111-111111111111"),
-			APIURL:                new("https://mock-api-url.com"),
-			Insecure:              new(true),
-			DefaultOrganizationID: new("11111111-1111-1111-1111-111111111111"),
-			DefaultRegion:         new("fr-par"),
-			DefaultZone:           new("fr-par-1"),
-			SendTelemetry:         new(true),
-		},
+		AccessKey:             new("invalidAccessKey"),
+		SecretKey:             new("11111111-1111-1111-1111-111111111111"),
+		APIURL:                new("https://mock-api-url.com"),
+		Insecure:              new(true),
+		DefaultOrganizationID: new("11111111-1111-1111-1111-111111111111"),
+		DefaultRegion:         new("fr-par"),
+		DefaultZone:           new("fr-par-1"),
+		SendTelemetry:         new(true),
 		Profiles: map[string]*scw.Profile{
 			"p1": {
 				AccessKey:             new("SCWP1XXXXXXXXXXXXXXX"),

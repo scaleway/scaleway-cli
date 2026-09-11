@@ -4,23 +4,21 @@ This file provides guidance to AI Agents when working with code in this reposito
 
 ## Build, Test, and Lint Commands
 
+This repository uses [mise](https://mise.jdx.dev/) to manage tools and tasks. The task definitions live in `mise.toml`. Make sure tools are installed with `mise install`.
+
 ```bash
-# Build all binaries
-make build           # or ./scripts/build.sh
+# Build the CLI
+mise run build:cli
 
 # Run linters
-make lint            # or ./scripts/lint.sh
-make fmt             # auto-fix lint issues (runs golangci-lint --fix)
+mise run lint:cli                       # lint all packages
 
 # Run tests
-make test            # or ./scripts/run-tests.sh
-./scripts/run-tests.sh -run <regex>  # run specific tests
-./scripts/run-tests.sh -g            # update golden files
-./scripts/run-tests.sh -c            # record new cassettes (requires valid API credentials)
-./scripts/run-tests.sh -D            # enable debug mode
+mise run test:cli
+mise run test:cli <packages>            # run specific tests
 
-# Update SDK dependency
-make bump-sdk        # updates scaleway-sdk-go to latest main
+# Run everything (build + lint + test) as done in CI
+mise run ci
 ```
 
 ## Architecture Overview
@@ -90,13 +88,13 @@ Tests use a VCR-style recording system:
 
 ```bash
 # Record new cassette (creates real resources - billed)
-./scripts/run-tests.sh -c
+mise run test:cli -- -run <test> -cassettes
 
 # Update golden output files
-./scripts/run-tests.sh -g
+mise run test:cli -- -run <test> -goldens
 
 # Target specific test
-go test ./internal/namespaces/instance/v1 -run Test_CreateServer
+mise run test:cli -- ./internal/namespaces/instance/v1 -run Test_CreateServer
 ```
 
 See [docs/developer.md](docs/developer.md) for complete testing guide.
@@ -109,6 +107,6 @@ See [docs/developer.md](docs/developer.md) for complete testing guide.
 
 ### Dependencies
 
-- Go 1.26.0+
+- Go 1.27+
 - Main external dependency: `scaleway-sdk-go` (Scaleway API SDK)
 - Linting: `golangci-lint` (config in `.golangci.yml`)
