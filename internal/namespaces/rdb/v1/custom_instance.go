@@ -627,6 +627,7 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 				return nil, err
 			}
 
+			settingsChanged := false
 			if customRequest.Settings != nil {
 				settings := getResp.Settings
 				changes := customRequest.Settings
@@ -654,21 +655,44 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 				if err != nil {
 					return nil, err
 				}
+
+				settingsChanged = true
 			}
 
-			updateInstanceResponse, err := api.UpdateInstance(updateInstanceRequest)
-			if err != nil {
-				return nil, err
+			// Skip empty UpdateInstance calls: after SetInstanceSettings the instance is often
+			// "configuring", and a no-op PATCH can fail intermittently.
+			if !instanceUpdateRequestHasChanges(updateInstanceRequest) {
+				return api.GetInstance(&rdbSDK.GetInstanceRequest{
+					Region:     customRequest.Region,
+					InstanceID: customRequest.InstanceID,
+				})
 			}
 
-			return updateInstanceResponse, nil
+			if settingsChanged {
+				_, err = api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
+					InstanceID:    customRequest.InstanceID,
+					Region:        customRequest.Region,
+					Timeout:       new(instanceActionTimeout),
+					RetryInterval: core.DefaultRetryInterval,
+				})
+				if err != nil {
+					return nil, err
+				}
+			}
+
+			return api.UpdateInstance(updateInstanceRequest)
 		},
 		WaitFunc: func(ctx context.Context, _, respI any) (any, error) {
+			instance, ok := respI.(*rdbSDK.Instance)
+			if !ok || instance == nil {
+				return nil, errors.New("unexpected nil instance while waiting for update")
+			}
+
 			api := rdbSDK.NewAPI(core.ExtractClient(ctx))
 
 			return api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-				InstanceID:    respI.(*rdbSDK.Instance).ID,
-				Region:        respI.(*rdbSDK.Instance).Region,
+				InstanceID:    instance.ID,
+				Region:        instance.Region,
 				Timeout:       new(instanceActionTimeout),
 				RetryInterval: core.DefaultRetryInterval,
 			})
@@ -688,6 +712,21 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 			},
 		},
 	}
+}
+
+func instanceUpdateRequestHasChanges(req *rdbSDK.UpdateInstanceRequest) bool {
+	if req == nil {
+		return false
+	}
+
+	return req.BackupScheduleFrequency != nil ||
+		req.BackupScheduleRetention != nil ||
+		req.IsBackupScheduleDisabled != nil ||
+		req.Name != nil ||
+		req.Tags != nil ||
+		req.LogsPolicy != nil ||
+		req.BackupSameRegion != nil ||
+		req.BackupScheduleStartHour != nil
 }
 
 func instanceDeleteBuilder(c *core.Command) *core.Command {
