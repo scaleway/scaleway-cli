@@ -33,7 +33,80 @@ func renameProjectIDArgSpec(argSpecs core.ArgSpecs) {
 // - Apply handwritten overrides (of Command.Run and Command.View)
 // - Merge handwritten commands
 func GetCommands() *core.Commands {
-	cmds := GetGeneratedCommands()
+	cmds := core.NewCommands(
+		instanceRoot(),
+		instanceImage(),
+		instanceIP(),
+		instanceSecurityGroup(),
+		instanceServer(),
+		instanceServerType(),
+		instanceVolumeType(),
+		instanceSnapshot(),
+		instanceUserData(),
+		instanceVolume(),
+		instancePrivateNic(),
+		instanceServerTypeGet(),
+		instanceServerTypeList(),
+		instanceVolumeTypeList(),
+		instanceServerList(),
+		instanceServerGet(),
+		instanceServerUpdate(),
+		instanceServerListActions(),
+		instanceUserDataList(),
+		instanceUserDataDelete(),
+		instanceUserDataSet(),
+		instanceUserDataGet(),
+		instanceServerGetCompatibleTypes(),
+		instanceServerAttachVolume(),
+		instanceServerDetachVolume(),
+		instanceServerAttachFilesystem(),
+		instanceServerDetachFilesystem(),
+		instanceImageList(),
+		instanceImageGet(),
+		instanceImageCreate(),
+		instanceImageUpdate(),
+		instanceImageDelete(),
+		instanceSnapshotList(),
+		instanceSnapshotCreate(),
+		instanceSnapshotGet(),
+		instanceSnapshotUpdate(),
+		instanceSnapshotDelete(),
+		instanceSnapshotExport(),
+		instanceVolumeList(),
+		instanceVolumeCreate(),
+		instanceVolumeGet(),
+		instanceVolumeUpdate(),
+		instanceVolumeDelete(),
+		instanceSecurityGroupList(),
+		instanceSecurityGroupCreate(),
+		instanceSecurityGroupGet(),
+		instanceSecurityGroupDelete(),
+		instanceSecurityGroupUpdate(),
+		instanceSecurityGroupListDefaultRules(),
+		instanceSecurityGroupListRules(),
+		instanceSecurityGroupCreateRule(),
+		instanceSecurityGroupSetRules(),
+		instanceSecurityGroupDeleteRule(),
+		instanceSecurityGroupGetRule(),
+		instanceSecurityGroupUpdateRule(),
+		instanceIPList(),
+		instanceIPCreate(),
+		instanceIPGet(),
+		instanceIPUpdate(),
+		instanceIPDelete(),
+		instancePrivateNicList(),
+		instancePrivateNicCreate(),
+		instancePrivateNicGet(),
+		instancePrivateNicUpdate(),
+		instancePrivateNicDelete(),
+		instanceVolumePlanMigration(),
+		instanceVolumeApplyMigration(),
+		// PlacementGroup commands exclusive to v1
+		instancePlacementGroupSet(),
+		instancePlacementGroupGetServers(),
+		instancePlacementGroupSetServers(),
+		instancePlacementGroupUpdateServers(),
+	)
 
 	//
 	// Server
@@ -199,14 +272,14 @@ func GetCommands() *core.Commands {
 	//
 	// Placement Group
 	//
-	human.RegisterMarshalerFunc(
-		instance.CreatePlacementGroupResponse{},
-		marshallNestedField("PlacementGroup"),
-	)
 
-	cmds.MustFind("instance", "placement-group", "create").Override(placementGroupCreateBuilder)
-	cmds.MustFind("instance", "placement-group", "get").Override(placementGroupGetBuilder)
-	cmds.MustFind("instance", "placement-group", "list").Override(placementGroupListBuilder)
+	cmds.MustFind("instance", "placement-group", "set").Override(placementGroupSetBuilder)
+	cmds.MustFind("instance", "placement-group", "set-servers").
+		Override(placementGroupSetServersBuilder)
+	cmds.MustFind("instance", "placement-group", "get-servers").
+		Override(placementGroupGetServersBuilder)
+	cmds.MustFind("instance", "placement-group", "update-servers").
+		Override(placementGroupUpdateServersBuilder)
 
 	//
 	// User Data
