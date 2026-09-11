@@ -627,7 +627,6 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 				return nil, err
 			}
 
-			settingsChanged := false
 			if customRequest.Settings != nil {
 				settings := getResp.Settings
 				changes := customRequest.Settings
@@ -655,8 +654,6 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 				if err != nil {
 					return nil, err
 				}
-
-				settingsChanged = true
 			}
 
 			// Skip empty UpdateInstance calls: after SetInstanceSettings the instance is often
@@ -666,18 +663,6 @@ func instanceUpdateBuilder(_ *core.Command) *core.Command {
 					Region:     customRequest.Region,
 					InstanceID: customRequest.InstanceID,
 				})
-			}
-
-			if settingsChanged {
-				_, err = api.WaitForInstance(&rdbSDK.WaitForInstanceRequest{
-					InstanceID:    customRequest.InstanceID,
-					Region:        customRequest.Region,
-					Timeout:       new(instanceActionTimeout),
-					RetryInterval: core.DefaultRetryInterval,
-				})
-				if err != nil {
-					return nil, err
-				}
 			}
 
 			return api.UpdateInstance(updateInstanceRequest)
