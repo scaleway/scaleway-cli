@@ -20,7 +20,6 @@ func placementGroupGetBuilder(c *core.Command) *core.Command {
 		ListServers bool
 	}
 
-	c.ArgSpecs.GetByName("placement-group-id").Positional = true
 	c.ArgSpecs.AddBefore("zone", &core.ArgSpec{
 		Name:    "list-servers",
 		Short:   "Whether to list the servers in the Placement Group or not.",
@@ -137,18 +136,6 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 			},
 		},
 	}
-
-	return c
-}
-
-func placementGroupUpdateBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("placement-group-id").Positional = true
-
-	return c
-}
-
-func placementGroupDeleteBuilder(c *core.Command) *core.Command {
-	c.ArgSpecs.GetByName("placement-group-id").Positional = true
 
 	return c
 }
