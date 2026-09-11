@@ -47,6 +47,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
 	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/messageq/v1alpha1"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -140,6 +141,7 @@ func GetCommands() *core.Commands {
 		billing.GetCommands(),
 		kafka.GetCommands(),
 		autoscaling.GetCommands(),
+		messageq.GetCommands(),
 	)
 
 	if beta {

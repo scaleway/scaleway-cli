@@ -1,0 +1,26 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Manage your MessageQ deployment.
+
+USAGE:
+  scw messageq deployment <command>
+
+AVAILABLE COMMANDS:
+  create      Create a new MessageQ deployment
+  delete      Delete a MessageQ deployment
+  get         Retrieve a specific MessageQ deployment
+  list        Retrieve a list of MessageQ deployments
+  update      Update a MessageQ deployment
+  upgrade     Upgrade a MessageQ deployment
+
+FLAGS:
+  -h, --help                help for deployment
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw messageq deployment [command] --help" for more information about a command.
