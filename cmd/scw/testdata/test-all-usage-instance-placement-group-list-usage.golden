@@ -5,6 +5,13 @@ List all placement groups.
 USAGE:
   scw instance placement-group list [arg=value ...]
 
+EXAMPLES:
+  List all placement groups in the default zone
+    scw instance placement-group list
+
+  List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+    scw instance placement-group list name=cluster1
+
 ARGS:
   [page-token]                    The initial pagination token to start from
   [page-size]                     The maximum number of placement groups to return

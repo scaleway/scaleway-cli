@@ -530,6 +530,31 @@ scw instance placement-group create [arg=value ...]
 | zone         | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
 
 
+**Examples:**
+
+
+Create a max availability placement group with default name
+```shell
+scw instance placement-group create
+```
+
+Create a max availability placement group with the specified name
+```shell
+scw instance placement-group create name=foobar
+```
+
+Create a low latency placement group
+```shell
+scw instance placement-group create policy-type=low_latency
+```
+
+Create a max availability placement group with tags
+```shell
+scw instance placement-group create tags.0=foo tags.1=bar
+```
+
+
+
 
 ### Delete a placement group
 
@@ -548,6 +573,21 @@ scw instance placement-group delete <placement-group-id ...> [arg=value ...]
 |--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------|
 | placement-group-id | UUID of the placement group you want to delete                          | Required                                                                                                                                                |
 | zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+
+
+**Examples:**
+
+
+Delete a placement group in the default zone with the specified ID
+```shell
+scw instance placement-group delete 11111111-1111-1111-1111-111111111111
+```
+
+Delete a placement group in nl-ams-1 zone with the specified ID
+```shell
+scw instance placement-group delete 11111111-1111-1111-1111-111111111111 zone=nl-ams-1
+```
+
 
 
 
@@ -569,6 +609,16 @@ scw instance placement-group get <placement-group-id ...> [arg=value ...]
 | placement-group-id | UUID of the placement group you want to get                             | Required                                                                                                                                                |
 | list-servers       | Whether to list the servers in the Placement Group or not.              | Default: `true`                                                                                                                                         |
 | zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+
+
+**Examples:**
+
+
+Get a placement group with the specified ID
+```shell
+scw instance placement-group get 6c15f411-3b6f-402d-8eba-ae24ef9254e9
+```
+
 
 
 
@@ -615,6 +665,21 @@ scw instance placement-group list [arg=value ...]
 | name                        | Filter placement groups by name                                          |                                                                                                                                                         |
 | tags.{index}                | List placement groups with these exact tags                              |                                                                                                                                                         |
 | zone                        | Zone to target. If none is passed will use default zone from the config  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+
+
+**Examples:**
+
+
+List all placement groups in the default zone
+```shell
+scw instance placement-group list
+```
+
+List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')
+```shell
+scw instance placement-group list name=cluster1
+```
+
 
 
 
@@ -695,6 +760,26 @@ scw instance placement-group update <placement-group-id ...> [arg=value ...]
 | policy-type        | Policy type of the placement group                                      | One of: `unknown_policy_type`, `low_latency`, `max_availability`                                                                                        |
 | tags.{index}       | Tags of the placement group                                             |                                                                                                                                                         |
 | zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `fr-par-3`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `it-mil-1` |
+
+
+**Examples:**
+
+
+Update the name of a placement group
+```shell
+scw instance placement-group update 95053f33-cd3c-4cdc-b2b0-57d2dda97b13 name=foobar
+```
+
+Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)
+```shell
+scw instance placement-group update 0954ec26-9917-47b6-8c5c-7bc81d7bb9d2 policy-type=low_latency
+```
+
+Update the tags of a placement group
+```shell
+scw instance placement-group update 1f883434-8c2d-40f0-b686-d0754b3a7bc0 tags.0=update-tag
+```
+
 
 
 
