@@ -1,5 +1,6 @@
 # yaml-language-server: $schema=https://goreleaser.com/static/schema.json
 version: 2
+force_token: github
 before:
   hooks:
     - go mod download
