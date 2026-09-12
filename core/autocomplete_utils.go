@@ -85,6 +85,11 @@ var autocompleteResourceToNamespace = map[string]string{
 	"private-network": "vpc",
 }
 
+// srnArgName is the conventional name of arguments holding a Scaleway Resource
+// Name. Such an argument always references a pre-existing, foreign resource
+// rather than an attribute of the resource the command operates on.
+const srnArgName = "srn"
+
 // AutocompleteGetArg tries to complete an argument by using the list verb if it exists for the same resource
 // It will search for the same field in the response of the list
 // Field name will be stripped of the resource name (ex: cluster-id -> id)
@@ -114,7 +119,9 @@ func AutocompleteGetArg(
 	// skip if creating a resource and the arg to complete is from the same resource
 	// does not complete name in "scw instance server create name=<tab>"
 	// but still complete for different resources ex: "scw container container create namespace-id=<tab>"
-	if cmd.Verb == "create" && argResource == cmd.Resource {
+	// an "srn" argument is an exception: it references a foreign resource by its
+	// Scaleway Resource Name, so it stays completable on "create" verbs.
+	if cmd.Verb == "create" && argResource == cmd.Resource && argName != srnArgName {
 		return nil
 	}
 
