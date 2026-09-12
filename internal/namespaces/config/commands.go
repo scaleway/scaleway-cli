@@ -39,6 +39,12 @@ func GetCommands() *core.Commands {
 		configImportCommand(),
 		configValidateCommand(),
 		configEditCommand(),
+		configThemeRoot(),
+		configThemeListCommand(),
+		configThemeSetCommand(),
+		configThemeGetCommand(),
+		configThemePreviewCommand(),
+		configThemeImportCommand(),
 	)
 }
 
@@ -409,6 +415,17 @@ func configDumpCommand() *core.Command {
 			config, err := scw.LoadConfigFromPath(configPath)
 			if err != nil {
 				return nil, err
+			}
+
+			cliCfg := core.ExtractCliConfig(ctx)
+			if cliCfg != nil && cliCfg.Theme != "" {
+				return struct {
+					*scw.Config
+					Theme string `json:"theme" yaml:"theme"`
+				}{
+					Config: config,
+					Theme:  cliCfg.Theme,
+				}, nil
 			}
 
 			return config, nil

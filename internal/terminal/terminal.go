@@ -10,7 +10,10 @@ import (
 )
 
 func Style(msg string, styles ...color.Attribute) string {
-	return color.New(styles...).Sprint(msg)
+	if color.NoColor {
+		return msg
+	}
+	return styleWithTheme(msg, styles...)
 }
 
 func GetWidth() int {

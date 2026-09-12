@@ -8,10 +8,12 @@ import (
 	"os"
 	"strings"
 
+	"github.com/fatih/color"
 	"github.com/scaleway/scaleway-cli/v2/internal/account"
 	cliConfig "github.com/scaleway/scaleway-cli/v2/internal/config"
 	"github.com/scaleway/scaleway-cli/v2/internal/interactive"
 	"github.com/scaleway/scaleway-cli/v2/internal/platform"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 	"github.com/spf13/cobra"
@@ -219,6 +221,15 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 		return 1, nil, err
 	}
 	meta.CliConfig = cliCfg
+
+	// Explicit NO_COLOR support (https://no-color.org/)
+	if os.Getenv("NO_COLOR") != "" {
+		color.NoColor = true
+	}
+
+	// Initialize bubbletint theme registry from persisted CLI config.
+	terminal.InitTheme(cliCfg.Theme)
+
 	if cliCfg.Output != cliConfig.DefaultOutput {
 		outputFlag = cliCfg.Output
 		printer, err = NewPrinter(&PrinterConfig{
