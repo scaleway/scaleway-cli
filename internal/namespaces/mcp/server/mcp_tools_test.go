@@ -15,6 +15,21 @@ import (
 	"github.com/stretchr/testify/require"
 )
 
+const (
+	dynamicArrayInputName = "tags"
+	dynamicMapInputName   = "environment-variables"
+	dynamicArrayArgName   = "tags.{index}"
+	dynamicMapArgName     = "environment-variables.{key}"
+	firstTagValue         = "frontend"
+	secondTagValue        = "production"
+	environmentKey        = "SCW_REGION"
+	environmentValue      = "fr-par"
+	enabledInputName      = "enabled"
+	countInputName        = "count"
+	mismatchInputName     = "unknown"
+	parseArgumentError    = "Error parsing arguments"
+)
+
 func TestCommandNameToToolName(t *testing.T) {
 	tests := []struct {
 		name     string
@@ -305,6 +320,218 @@ func TestCommandToolExecuteWithKebabCase(t *testing.T) {
 	}
 
 	_ = result
+}
+
+func TestCommandToolExecuteWithDynamicArrayAndMapArgs(t *testing.T) {
+	type testArgs struct {
+		Tags                 []string          `json:"tags"`
+		EnvironmentVariables map[string]string `json:"environment_variables"`
+	}
+
+	executedArgs := &testArgs{}
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "create",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  dynamicArrayArgName,
+				Short: "Tags",
+			},
+			{
+				Name:  dynamicMapArgName,
+				Short: "Environment variables",
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			executedArgs = args.(*testArgs)
+
+			return map[string]string{"status": "ok"}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+	inputArgs := map[string]any{
+		dynamicArrayInputName: []any{firstTagValue, secondTagValue},
+		dynamicMapInputName: map[string]any{
+			environmentKey: environmentValue,
+		},
+	}
+
+	ctx := createTestContextWithMeta(t)
+	_, err := tool.Execute(ctx, inputArgs)
+	require.NoError(t, err)
+
+	require.Equal(t, []string{firstTagValue, secondTagValue}, executedArgs.Tags)
+	require.Equal(
+		t,
+		map[string]string{environmentKey: environmentValue},
+		executedArgs.EnvironmentVariables,
+	)
+}
+
+func TestCommandToolExecuteWithDynamicNilArgsDoesNotPanic(t *testing.T) {
+	type testArgs struct {
+		Tags []string `json:"tags"`
+	}
+
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "create",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  dynamicArrayArgName,
+				Short: "Tags",
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			return map[string]string{"status": "ok"}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+	ctx := createTestContextWithMeta(t)
+
+	var result *mcp.CallToolResult
+	var err error
+	require.NotPanics(t, func() {
+		result, err = tool.Execute(ctx, map[string]any{dynamicArrayInputName: nil})
+	})
+
+	require.Error(t, err)
+	require.True(t, result.IsError)
+	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
+}
+
+func TestCommandToolExecuteWithBoolAndIntArgs(t *testing.T) {
+	type testArgs struct {
+		Enabled bool `json:"enabled"`
+		Count   int  `json:"count"`
+	}
+
+	executedArgs := &testArgs{}
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  enabledInputName,
+				Short: "Enabled",
+			},
+			{
+				Name:  countInputName,
+				Short: "Count",
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			executedArgs = args.(*testArgs)
+
+			return map[string]string{"status": "ok"}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+	ctx := createTestContextWithMeta(t)
+	_, err := tool.Execute(ctx, map[string]any{
+		enabledInputName: true,
+		countInputName:   2,
+	})
+	require.NoError(t, err)
+
+	require.True(t, executedArgs.Enabled)
+	require.Equal(t, 2, executedArgs.Count)
+}
+
+func TestCommandToolExecuteWithUnknownArgUsesFallbackString(t *testing.T) {
+	type testArgs struct{}
+
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			return map[string]string{"status": "ok"}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, map[string]any{mismatchInputName: make(chan int)})
+	require.Error(t, err)
+	require.True(t, result.IsError)
+	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
+}
+
+func TestCommandToolExecuteWithDynamicMapMismatchFallsBack(t *testing.T) {
+	type testArgs struct{}
+
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "update",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  dynamicMapArgName,
+				Short: "Environment variables",
+			},
+			{
+				Name:  "plain",
+				Short: "Plain",
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			return map[string]string{"status": "ok"}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+	ctx := createTestContextWithMeta(t)
+	result, err := tool.Execute(ctx, map[string]any{mismatchInputName: "value"})
+	require.Error(t, err)
+	require.True(t, result.IsError)
+	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
+}
+
+func TestCommandToolExecuteWithDynamicNilMapArgsDoesNotPanic(t *testing.T) {
+	type testArgs struct {
+		EnvironmentVariables map[string]string `json:"environment_variables"`
+	}
+
+	cmd := &core.Command{
+		Namespace: "test",
+		Resource:  "resource",
+		Verb:      "create",
+		ArgsType:  reflect.TypeOf(testArgs{}),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:  dynamicMapArgName,
+				Short: "Environment variables",
+			},
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			return map[string]string{"status": "ok"}, nil
+		},
+	}
+
+	tool := server.NewCommandTool(cmd)
+	ctx := createTestContextWithMeta(t)
+
+	var result *mcp.CallToolResult
+	var err error
+	require.NotPanics(t, func() {
+		result, err = tool.Execute(ctx, map[string]any{dynamicMapInputName: nil})
+	})
+
+	require.Error(t, err)
+	require.True(t, result.IsError)
+	require.Contains(t, result.Content[0].(*mcp.TextContent).Text, parseArgumentError)
 }
 
 // TestToolMetaSerialization verifies that the Meta field is properly
