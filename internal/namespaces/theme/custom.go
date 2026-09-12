@@ -1,4 +1,4 @@
-package config
+package theme
 
 import (
 	"context"
@@ -9,12 +9,12 @@ import (
 	"strings"
 
 	"github.com/fatih/color"
+	tint "github.com/lrstanley/bubbletint/v2"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
-	tint "github.com/lrstanley/bubbletint/v2"
 )
 
-// ThemeInfo is the output struct for 'scw config theme list'.
+// ThemeInfo is the output struct for 'scw theme list'.
 type ThemeInfo struct {
 	ID     string `json:"id"`
 	Name   string `json:"name"`
@@ -36,28 +36,26 @@ func themeTypeLabel(dark bool) string {
 	return "light"
 }
 
-func configThemeRoot() *core.Command {
+func themeRoot() *core.Command {
 	return &core.Command{
 		Groups:    []string{"config"},
 		Short:     `Color theme management`,
-		Namespace: "config",
-		Resource:  "theme",
+		Namespace: "theme",
 	}
 }
 
-func configThemeListCommand() *core.Command {
-	type configThemeListArgs struct {
+func themeListCommand() *core.Command {
+	type themeListArgs struct {
 		All bool
 	}
 
 	return &core.Command{
 		Groups:               []string{"config"},
 		Short:                `List available color themes`,
-		Namespace:            "config",
-		Resource:             "theme",
-		Verb:                 "list",
+		Namespace:            "theme",
+		Resource:             "list",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeFor[configThemeListArgs](),
+		ArgsType:             reflect.TypeFor[themeListArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "all",
@@ -65,7 +63,7 @@ func configThemeListCommand() *core.Command {
 			},
 		},
 		Run: func(_ context.Context, argsI any) (any, error) {
-			args := argsI.(*configThemeListArgs)
+			args := argsI.(*themeListArgs)
 
 			var tints []*tint.Tint
 			if args.All {
@@ -102,19 +100,18 @@ func configThemeListCommand() *core.Command {
 	}
 }
 
-func configThemeSetCommand() *core.Command {
-	type configThemeSetArgs struct {
+func themeSetCommand() *core.Command {
+	type themeSetArgs struct {
 		ThemeID string
 	}
 
 	return &core.Command{
 		Groups:               []string{"config"},
 		Short:                `Set the active color theme`,
-		Namespace:            "config",
-		Resource:             "theme",
-		Verb:                  "set",
+		Namespace:            "theme",
+		Resource:             "set",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeFor[configThemeSetArgs](),
+		ArgsType:             reflect.TypeFor[themeSetArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "theme-id",
@@ -131,19 +128,19 @@ func configThemeSetCommand() *core.Command {
 				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					themeID := value.(string)
 					if _, ok := tint.GetTint(themeID); !ok {
-						return fmt.Errorf("theme %q not found. Run 'scw config theme list' to see available themes.", themeID)
+						return fmt.Errorf("theme %q not found. Run 'scw theme list' to see available themes.", themeID)
 					}
 					return nil
 				},
 			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {
-			args := argsI.(*configThemeSetArgs)
+			args := argsI.(*themeSetArgs)
 			themeID := args.ThemeID
 
 			t, ok := tint.GetTint(themeID)
 			if !ok {
-				return nil, fmt.Errorf("theme %q not found. Run 'scw config theme list' to see available themes.", themeID)
+				return nil, fmt.Errorf("theme %q not found. Run 'scw theme list' to see available themes.", themeID)
 			}
 
 			cliCfg := core.ExtractCliConfig(ctx)
@@ -165,17 +162,16 @@ func configThemeSetCommand() *core.Command {
 	}
 }
 
-func configThemeGetCommand() *core.Command {
-	type configThemeGetArgs struct{}
+func themeGetCommand() *core.Command {
+	type themeGetArgs struct{}
 
 	return &core.Command{
 		Groups:               []string{"config"},
 		Short:                `Show the currently active color theme`,
-		Namespace:            "config",
-		Resource:             "theme",
-		Verb:                  "get",
+		Namespace:            "theme",
+		Resource:             "get",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeFor[configThemeGetArgs](),
+		ArgsType:             reflect.TypeFor[themeGetArgs](),
 		Run: func(ctx context.Context, _ any) (any, error) {
 			cliCfg := core.ExtractCliConfig(ctx)
 			if cliCfg == nil || cliCfg.Theme == "" {
@@ -203,19 +199,18 @@ func configThemeGetCommand() *core.Command {
 	}
 }
 
-func configThemePreviewCommand() *core.Command {
-	type configThemePreviewArgs struct {
+func themePreviewCommand() *core.Command {
+	type themePreviewArgs struct {
 		ThemeID string
 	}
 
 	return &core.Command{
 		Groups:               []string{"config"},
 		Short:                `Preview a color theme`,
-		Namespace:            "config",
-		Resource:             "theme",
-		Verb:                  "preview",
+		Namespace:            "theme",
+		Resource:             "preview",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeFor[configThemePreviewArgs](),
+		ArgsType:             reflect.TypeFor[themePreviewArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "theme-id",
@@ -232,19 +227,19 @@ func configThemePreviewCommand() *core.Command {
 				ValidateFunc: func(_ *core.ArgSpec, value any) error {
 					themeID := value.(string)
 					if _, ok := tint.GetTint(themeID); !ok {
-						return fmt.Errorf("theme %q not found. Run 'scw config theme list' to see available themes.", themeID)
+						return fmt.Errorf("theme %q not found. Run 'scw theme list' to see available themes.", themeID)
 					}
 					return nil
 				},
 			},
 		},
 		Run: func(_ context.Context, argsI any) (any, error) {
-			args := argsI.(*configThemePreviewArgs)
+			args := argsI.(*themePreviewArgs)
 			themeID := args.ThemeID
 
 			t, ok := tint.GetTint(themeID)
 			if !ok {
-				return nil, fmt.Errorf("theme %q not found. Run 'scw config theme list' to see available themes.", themeID)
+				return nil, fmt.Errorf("theme %q not found. Run 'scw theme list' to see available themes.", themeID)
 			}
 
 			var wasActive bool
@@ -284,30 +279,29 @@ func configThemePreviewCommand() *core.Command {
 	}
 }
 
-func configThemeImportCommand() *core.Command {
-	type configThemeImportArgs struct {
+func themeImportCommand() *core.Command {
+	type themeImportArgs struct {
 		File string
 	}
 
 	return &core.Command{
 		Groups:               []string{"config"},
 		Short:                `Import a custom color theme from a JSON file`,
-		Namespace:            "config",
-		Resource:             "theme",
-		Verb:                  "import",
+		Namespace:            "theme",
+		Resource:             "import",
 		AllowAnonymousClient: true,
-		ArgsType:             reflect.TypeFor[configThemeImportArgs](),
+		ArgsType:             reflect.TypeFor[themeImportArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
-				Name:       "file",
-				Short:      "Path to the JSON theme file",
-				Required:   true,
-				Positional: true,
+				Name:        "file",
+				Short:       "Path to the JSON theme file",
+				Required:    true,
+				Positional:  true,
 				CanLoadFile: true,
 			},
 		},
 		Run: func(_ context.Context, argsI any) (any, error) {
-			args := argsI.(*configThemeImportArgs)
+			args := argsI.(*themeImportArgs)
 
 			data, err := os.ReadFile(args.File)
 			if err != nil {
@@ -333,8 +327,19 @@ func configThemeImportCommand() *core.Command {
 			tint.Register(&customTint)
 
 			return &core.SuccessResult{
-				Message: fmt.Sprintf("custom theme %q (%s) imported successfully. Run 'scw config theme set %s' to activate it.", customTint.DisplayName, customTint.ID, customTint.ID),
+				Message: fmt.Sprintf("custom theme %q (%s) imported successfully. Run 'scw theme set %s' to activate it.", customTint.DisplayName, customTint.ID, customTint.ID),
 			}, nil
 		},
 	}
+}
+
+func GetCommands() *core.Commands {
+	return core.NewCommands(
+		themeRoot(),
+		themeListCommand(),
+		themeSetCommand(),
+		themeGetCommand(),
+		themePreviewCommand(),
+		themeImportCommand(),
+	)
 }

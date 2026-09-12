@@ -2,6 +2,7 @@ package core
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"sort"
 	"strings"
@@ -230,73 +231,5 @@ func (b *cobraBuilder) hydrateCobra(
 	cobraCmd.PersistentFlags().Bool("list-sub-commands", false, "List all subcommands")
 }
 
-const usageTemplate = `{{ bold "USAGE:" }}
-  {{.Annotations.CommandUsage}}
-{{- if gt (len .Aliases) 0}}
-
-{{ bold "ALIASES:" }}
-{{.Annotations.Aliases}}
-{{- end}}
-{{- if .Annotations.Examples}}
-
-{{ bold "EXAMPLES:" }}
-{{.Annotations.Examples}}
-{{- end }}
-{{- if .Annotations.UsageArgs}}
-
-{{ bold "ARGS:" }}
-{{.Annotations.UsageArgs}}
-{{- end}}
-{{- if .Annotations.UsageDeprecatedArgs}}
-
-{{ bold "DEPRECATED ARGS:" }}
-{{.Annotations.UsageDeprecatedArgs}}
-{{- end}}
-{{- if .HasAvailableSubCommands}}
-
-{{- range $_, $group := orderGroups (getCommandsGroups .Commands) }}
-
-{{ bold (printf "%s COMMANDS:" $group.Title) }}
-  {{- range $_, $command := orderCommands $.Commands }}
-  {{- if or $command.IsAvailableCommand $command.Deprecated }}
-  {{- if or ($command.ContainsGroup $group.ID) (and (eq $group.ID "utility") (eq $command.Name "help")) }}
-  {{ rpad $command.Name .NamePadding }}
-  {{- if $command.Deprecated }} {{ if $command.Short }}{{ $command.Short }} (Deprecated){{ end }}
-  {{- else }} {{ if $command.Short }}{{ $command.Short }}{{ end }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end}}
-
-{{- if .HasAvailableLocalFlags }}
-
-{{ bold "FLAGS:" }}
-{{ .LocalFlags.FlagUsages | trimTrailingWhitespaces }}
-{{- end}}
-{{- if .HasAvailableInheritedFlags }}
-
-{{ bold "GLOBAL FLAGS:" }}
-{{ .InheritedFlags.FlagUsages | trimTrailingWhitespaces}}
-{{- end}}
-{{- if .Annotations.SeeAlsos}}
-
-{{ bold "SEE ALSO:" }}
-{{.Annotations.SeeAlsos}}
-{{- end}}
-{{- if .HasHelpSubCommands}}
-
-Additional help topics:
-{{- range .Commands}}
-{{- if .IsAdditionalHelpTopicCommand}}
-  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}
-{{- end}}
-{{- end}}
-
-{{- end}}
-{{- if .HasAvailableSubCommands}}
-
-Use "{{.CommandPath}} [command] --help" for more information about a command.
-{{- end}}
-`
+//go:embed  templates/usage.tmpl
+var usageTemplate string

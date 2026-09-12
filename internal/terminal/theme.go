@@ -38,7 +38,7 @@ var scalewayTint = &tint.Tint{
 	BrightWhite:  tint.FromHex("#f1eefc"),
 }
 
-// CuratedThemeIDs is the list of popular themes shown by default in 'scw config theme list'.
+// CuratedThemeIDs is the list of popular themes shown by default in 'scw theme list'.
 var CuratedThemeIDs = []string{
 	"scaleway",
 	"dracula_plus",
@@ -81,7 +81,7 @@ func InitTheme(themeID string) {
 
 	if ok := tint.SetTintID(themeID); !ok {
 		warnOnce.Do(func() {
-			fmt.Fprintf(os.Stderr, "warning: theme %q not found, falling back to default. Run 'scw config theme list' to see available themes.\n", themeID)
+			fmt.Fprintf(os.Stderr, "warning: theme %q not found, falling back to default. Run 'scw theme list' to see available themes.\n", themeID)
 		})
 		return
 	}
@@ -96,7 +96,7 @@ func IsThemeActive() bool {
 	return themeActive && !color.NoColor
 }
 
-// SetThemeActive sets the themeActive flag, used by 'scw config theme set' to
+// SetThemeActive sets the themeActive flag, used by 'scw theme set' to
 // activate theming at runtime after InitTheme has been called.
 func SetThemeActive(active bool) {
 	themeActive = active

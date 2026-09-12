@@ -32,7 +32,7 @@ install_autocomplete: {{ .InstallAutocomplete }}
 # install_autocomplete: true
 {{- end }}
 
-# Color theme for CLI output (run 'scw config theme list' to see available themes)
+# Color theme for CLI output (run 'scw theme list' to see available themes)
 {{ if .Theme }}theme: {{ .Theme }}{{ else }}# theme: scaleway{{ end }}
 
 # Alias creates custom aliases for your Scaleway CLI commands

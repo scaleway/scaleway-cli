@@ -39,12 +39,6 @@ func GetCommands() *core.Commands {
 		configImportCommand(),
 		configValidateCommand(),
 		configEditCommand(),
-		configThemeRoot(),
-		configThemeListCommand(),
-		configThemeSetCommand(),
-		configThemeGetCommand(),
-		configThemePreviewCommand(),
-		configThemeImportCommand(),
 	)
 }
 
