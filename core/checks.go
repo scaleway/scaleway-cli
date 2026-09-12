@@ -1,18 +1,25 @@
 package core
 
 import (
+	"bytes"
 	"context"
 	"fmt"
 	"os"
 	"path/filepath"
+	"reflect"
 	"time"
 
 	iam "github.com/scaleway/scaleway-sdk-go/api/iam/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
 var (
 	apiKeyExpireTime        = 24 * time.Hour
 	lastChecksFileLocalName = "last-cli-checks"
+)
+
+const (
+	defaultCredentialSource = "environment variable"
 )
 
 type AfterCommandCheckFunc func(ctx context.Context)
@@ -104,4 +111,44 @@ func checkAPIKey(ctx context.Context) {
 		expiresIn := apiKey.ExpiresAt.Sub(now).Truncate(time.Second).String()
 		ExtractLogger(ctx).Warningf("Current api key expires in %s\n", expiresIn)
 	}
+}
+
+// checkIfMultipleVariableSources return an informative message during the CLI initialization
+// if there are multiple sources of configuration that could confuse the user
+func checkIfMultipleVariableSources(ctx context.Context) {
+	config, err := scw.LoadConfigFromPath(ExtractConfigPath(ctx))
+	if err != nil {
+		return
+	}
+
+	activeProfile, err := config.GetActiveProfile()
+	if err != nil {
+		return
+	}
+
+	profileEnv := scw.LoadEnvProfile()
+
+	vFile := reflect.ValueOf(activeProfile).Elem()
+	vEnv := reflect.ValueOf(profileEnv).Elem()
+	t := vFile.Type()
+
+	var buffer bytes.Buffer
+	buffer.WriteString("Checking multiple variable sources: \n")
+
+	for i := range t.NumField() {
+		valFile := vFile.Field(i)
+		valEnv := vEnv.Field(i)
+
+		if !valFile.IsNil() && !valEnv.IsNil() {
+			if valFile.Elem().String() != valEnv.Elem().String() {
+				buffer.WriteString(fmt.Sprintf(
+					"- Variable '%s' is defined in both config.yaml and environment with different values. Using: %s.\n",
+					t.Field(i).Name,
+					defaultCredentialSource,
+				))
+			}
+		}
+	}
+
+	ExtractLogger(ctx).Warning(buffer.String())
 }
