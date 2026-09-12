@@ -1,0 +1,7 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+scw block volume create - Create a volume
+scw config validate - Validate the config
+scw help output - Get help about how the CLI output works
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"scw block volume create - Create a volume\nscw config validate - Validate the config\nscw help output - Get help about how the CLI output works"

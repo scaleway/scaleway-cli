@@ -22,6 +22,7 @@ import (
 	datalab "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datalab/v1beta1"
 	datawarehouse "github.com/scaleway/scaleway-cli/v2/internal/namespaces/datawarehouse/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/dedibox/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/docs"
 	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
 	edgeservices "github.com/scaleway/scaleway-cli/v2/internal/namespaces/edge_services/v1beta1"
 	environmental_footprint "github.com/scaleway/scaleway-cli/v2/internal/namespaces/environmental_footprint/v1alpha1"
@@ -63,6 +64,7 @@ import (
 	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/tutorial"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
@@ -96,6 +98,8 @@ func GetCommands() *core.Commands {
 		versionNamespace.GetCommands(),
 		registry.GetCommands(),
 		feedback.GetCommands(),
+		docs.GetCommands(),
+		tutorial.GetCommands(),
 		info.GetCommands(),
 		rdb.GetCommands(),
 		lb.GetCommands(),
