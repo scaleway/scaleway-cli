@@ -411,6 +411,17 @@ func configDumpCommand() *core.Command {
 				return nil, err
 			}
 
+			cliCfg := core.ExtractCliConfig(ctx)
+			if cliCfg != nil && cliCfg.Theme != "" {
+				return struct {
+					*scw.Config
+					Theme string `json:"theme" yaml:"theme"`
+				}{
+					Config: config,
+					Theme:  cliCfg.Theme,
+				}, nil
+			}
+
 			return config, nil
 		},
 	}
