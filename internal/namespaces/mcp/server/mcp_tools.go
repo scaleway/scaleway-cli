@@ -2,7 +2,8 @@ package server
 
 import (
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
+	"encoding/json/v2"
 	"errors"
 	"fmt"
 	"maps"
@@ -230,7 +231,7 @@ func (ct *CommandTool) Execute(
 			result = reflect.MakeSlice(v.Type(), 0, 0).Interface()
 		}
 
-		if data, err := json.MarshalIndent(result, "", "  "); err == nil {
+		if data, err := json.Marshal(result, jsontext.WithIndent("  ")); err == nil {
 			resultStr = string(data)
 		} else {
 			resultStr = fmt.Sprintf("%v", result)

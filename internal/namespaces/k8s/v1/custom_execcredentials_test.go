@@ -1,7 +1,7 @@
 package k8s_test
 
 import (
-	"encoding/json"
+	"encoding/json/v2"
 	"os"
 	"path"
 	"testing"
@@ -136,17 +136,15 @@ func beforeFuncCreateConfigFile(c *scw.Config) core.BeforeFunc {
 
 func beforeFuncCreateFullConfig() core.BeforeFunc {
 	return beforeFuncCreateConfigFile(&scw.Config{
-		Profile: scw.Profile{
-			AccessKey:             new("SCWXXXXXXXXXXXXXXXXX"),
-			SecretKey:             new(p1Secret),
-			APIURL:                new("https://mock-api-url.com"),
-			Insecure:              new(true),
-			DefaultOrganizationID: new("deadbeef-dead-dead-dead-deaddeafbeef"),
-			DefaultProjectID:      new("deadbeef-dead-dead-dead-deaddeafbeef"),
-			DefaultRegion:         new("fr-par"),
-			DefaultZone:           new("fr-par-1"),
-			SendTelemetry:         new(true),
-		},
+		AccessKey:             new("SCWXXXXXXXXXXXXXXXXX"),
+		SecretKey:             new(p1Secret),
+		APIURL:                new("https://mock-api-url.com"),
+		Insecure:              new(true),
+		DefaultOrganizationID: new("deadbeef-dead-dead-dead-deaddeafbeef"),
+		DefaultProjectID:      new("deadbeef-dead-dead-dead-deaddeafbeef"),
+		DefaultRegion:         new("fr-par"),
+		DefaultZone:           new("fr-par-1"),
+		SendTelemetry:         new(true),
 		Profiles: map[string]*scw.Profile{
 			"p2": {
 				AccessKey:             new("SCWP2XXXXXXXXXXXXXXX"),

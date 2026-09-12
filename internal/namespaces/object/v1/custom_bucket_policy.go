@@ -3,9 +3,8 @@
 package object
 
 import (
-	"bytes"
 	"context"
-	"encoding/json"
+	"encoding/json/jsontext"
 	"errors"
 	"fmt"
 	"os"
@@ -184,8 +183,8 @@ func bucketPolicyGetCommand() *core.Command {
 				return nil, fmt.Errorf("could not get bucket policy: %w", err)
 			}
 
-			var prettyJSON bytes.Buffer
-			err = json.Indent(&prettyJSON, []byte(*policyResponse.Policy), "", "  ")
+			prettyJSON := jsontext.Value([]byte(*policyResponse.Policy))
+			err = prettyJSON.Indent(jsontext.WithIndent("  "))
 			if err != nil {
 				return nil, fmt.Errorf("error indenting JSON: %w", err)
 			}
