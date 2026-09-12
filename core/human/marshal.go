@@ -44,7 +44,7 @@ func Marshal(data any, opt *MarshalOpt) (string, error) {
 		subOpt.Title = ""
 		body, err := Marshal(data, &subOpt)
 
-		return terminal.Style(opt.Title+":", color.Bold, color.FgCyan) + "\n" + body, err
+		return terminal.Style(opt.Title+":", color.Bold, color.FgHiMagenta) + "\n" + body, err
 	}
 
 	rValue := reflect.ValueOf(data)

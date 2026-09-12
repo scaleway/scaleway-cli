@@ -9,8 +9,38 @@ import (
 	tint "github.com/lrstanley/bubbletint/v2"
 )
 
+// scalewayTint is the default Scaleway brand theme, using the official
+// Scaleway purple/violet palette on a dark blue-gray background.
+// Brand colors sourced from scaleway.com SVG assets and console CSS.
+var scalewayTint = &tint.Tint{
+	DisplayName: "Scaleway",
+	ID:          "scaleway",
+	Dark:        true,
+	Fg:          tint.FromHex("#b8bac0"),
+	Bg:          tint.FromHex("#1e2335"),
+	SelectionBg: tint.FromHex("#252a3b"),
+	Cursor:      tint.FromHex("#a365f6"),
+	Black:       tint.FromHex("#303445"),
+	Red:         tint.FromHex("#ff5555"),
+	Green:       tint.FromHex("#50fa7b"),
+	Yellow:      tint.FromHex("#f1fa8c"),
+	Blue:        tint.FromHex("#a365f6"),
+	Purple:      tint.FromHex("#4f0599"),
+	Cyan:        tint.FromHex("#a060f6"),
+	White:       tint.FromHex("#b8bac0"),
+	BrightBlack:  tint.FromHex("#484b5a"),
+	BrightRed:    tint.FromHex("#ff7777"),
+	BrightGreen:  tint.FromHex("#73ffb0"),
+	BrightYellow: tint.FromHex("#fff09e"),
+	BrightBlue:   tint.FromHex("#c490f8"),
+	BrightPurple: tint.FromHex("#521094"),
+	BrightCyan:   tint.FromHex("#b884f8"),
+	BrightWhite:  tint.FromHex("#f1eefc"),
+}
+
 // CuratedThemeIDs is the list of popular themes shown by default in 'scw config theme list'.
 var CuratedThemeIDs = []string{
+	"scaleway",
 	"dracula_plus",
 	"catppuccin_mocha",
 	"catppuccin_frappe",
@@ -43,6 +73,7 @@ var warnOnce sync.Once
 // If themeID is not found, falls back to legacy mode and emits a one-time warning to stderr.
 func InitTheme(themeID string) {
 	tint.NewDefaultRegistry()
+	tint.Register(scalewayTint)
 
 	if themeID == "" {
 		return

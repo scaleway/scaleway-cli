@@ -228,7 +228,12 @@ func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, resu
 	}
 
 	// Initialize bubbletint theme registry from persisted CLI config.
-	terminal.InitTheme(cliCfg.Theme)
+	// When no theme is configured, default to the Scaleway brand theme.
+	themeID := cliCfg.Theme
+	if themeID == "" {
+		themeID = "scaleway"
+	}
+	terminal.InitTheme(themeID)
 
 	if cliCfg.Output != cliConfig.DefaultOutput {
 		outputFlag = cliCfg.Output

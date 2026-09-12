@@ -18,7 +18,7 @@ func init() {
 	cobra.AddTemplateFunc("orderGroups", orderCobraGroups)
 	cobra.AddTemplateFunc("getCommandsGroups", getCobraCommandsGroups)
 	cobra.AddTemplateFunc("bold", func(s string) string {
-		return terminal.Style(s, color.Bold, color.FgCyan)
+		return terminal.Style(s, color.Bold, color.FgMagenta)
 	})
 }
 

@@ -179,6 +179,11 @@ func configThemeGetCommand() *core.Command {
 		Run: func(ctx context.Context, _ any) (any, error) {
 			cliCfg := core.ExtractCliConfig(ctx)
 			if cliCfg == nil || cliCfg.Theme == "" {
+				if t, ok := tint.GetTint("scaleway"); ok {
+					return &core.SuccessResult{
+						Message: fmt.Sprintf("Active theme: %s (%s)", t.DisplayName, t.ID),
+					}, nil
+				}
 				return &core.SuccessResult{
 					Message: "Active theme: default (no theme selected)",
 				}, nil
