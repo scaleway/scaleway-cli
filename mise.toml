@@ -2,26 +2,22 @@
 lockfile = true
 
 [tools]
-actionlint = "latest"
-devcontainer-cli = "latest"
-go = "latest"
-"go:github.com/go-delve/delve/cmd/dlv" = "latest"
-"go:gotest.tools/gotestsum" = "latest"
-golangci-lint = "latest"
-goreleaser = "latest"
-node = "latest"
-"npm:markdown-link-check" = "latest"
-"npm:vite" = "latest"
-"npm:vitest" = "latest"
-pnpm = "latest"
-prettier = "latest"
-rumdl = "latest"
-shellcheck = "latest"
-typos = "latest"
-
-[env]
-MISE_CONFIG_ROOT="."
-SHELL="/bin/bash" # hardcoded here so the doc generation script uses it as default.
+actionlint = "1.7"
+devcontainer-cli = "0.89"
+go = "1.27"
+"go:github.com/go-delve/delve/cmd/dlv" = "1.27"
+"go:gotest.tools/gotestsum" = "1.13"
+golangci-lint = "2.13"
+goreleaser = "2.18"
+node = "26.8"
+"npm:markdown-link-check" = "3.15"
+"npm:vite" = "8.2"
+"npm:vitest" = "5.0"
+pnpm = "11.25"
+prettier = "3.9"
+rumdl = "0.2"
+shellcheck = "0.11"
+typos = "1.50"
 
 [tasks.'deps:wasm']
 description = "download the dependencies for the wasm wrapper"
@@ -72,6 +68,9 @@ mv scw-wasm-tester wasm/cliTester.wasm
 [tasks.'build:doc']
 description = "build the documentation"
 depends = ["deps:cli"]
+env = {
+  SHELL="/bin/bash" # hardcoded here so the script uses it as default.
+}
 run = '''
 go run ./cmd/scw-doc-gen
 rumdl fmt -s ./docs
