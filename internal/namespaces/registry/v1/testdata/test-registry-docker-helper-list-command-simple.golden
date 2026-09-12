@@ -1,4 +1,4 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-{"rg.fr-par.scw.cloud":"scaleway","rg.it-mil.scw.cloud":"scaleway","rg.nl-ams.scw.cloud":"scaleway","rg.pl-waw.scw.cloud":"scaleway"}🟩🟩🟩 JSON STDOUT 🟩🟩🟩
-{"rg.fr-par.scw.cloud":"scaleway","rg.it-mil.scw.cloud":"scaleway","rg.nl-ams.scw.cloud":"scaleway","rg.pl-waw.scw.cloud":"scaleway"}
+{"rg.fr-par.scw.cloud":"scaleway","rg.it-mil.scw.eu":"scaleway","rg.nl-ams.scw.cloud":"scaleway","rg.pl-waw.scw.cloud":"scaleway"}🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{"rg.fr-par.scw.cloud":"scaleway","rg.it-mil.scw.eu":"scaleway","rg.nl-ams.scw.cloud":"scaleway","rg.pl-waw.scw.cloud":"scaleway"}
