@@ -116,7 +116,6 @@ func autocompleteScripts(ctx context.Context, basename string) map[string]autoco
 			// 		alias scw='go run "$HOME"/scaleway-cli/cmd/scw/main.go'
 			// you might want to run 'compdef _scw go' during development.
 			CompleteFunc: fmt.Sprintf(`
-			autoload -U compinit && compinit
 			_%[1]s () {
 				output=($(%[1]s autocomplete complete zsh -- ${CURRENT} ${words}))
 				opts=('-S' ' ')
