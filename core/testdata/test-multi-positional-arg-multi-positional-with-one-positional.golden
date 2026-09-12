@@ -9,3 +9,7 @@ Tag        tag1
   ],
   "Tag": "tag1"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+NameIDs:
+- pos1
+Tag: tag1

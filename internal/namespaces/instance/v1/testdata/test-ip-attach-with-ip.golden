@@ -31,3 +31,19 @@ IP.Zone          fr-par-1
     "zone": "fr-par-1"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+ip:
+  address: 51.15.129.35
+  id: fe3afc1e-a1ea-48d8-8df4-663952b362a7
+  ipam_id: 9146ff9c-3314-49ed-a2d5-5a60bcb95e10
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  prefix: ""
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  reverse: null
+  server:
+    id: f1df3a43-41d2-4f29-a97b-651104e751f4
+    name: cli-srv-upbeat-edison
+  state: attached
+  tags: []
+  type: routed_ipv4
+  zone: fr-par-1

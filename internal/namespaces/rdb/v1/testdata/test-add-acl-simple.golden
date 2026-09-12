@@ -29,3 +29,20 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION       PORT
     "details": ""
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- action: allow
+  description: Allow All
+  direction: inbound
+  ip: 0.0.0.0/0
+  port: 27078
+  protocol: tcp
+- action: allow
+  description: Allow 1.2.3.4/32
+  direction: inbound
+  ip: 1.2.3.4/32
+  port: 27078
+  protocol: tcp
+Success:
+  details: ""
+  message: ACL rule 1.2.3.4/32 successfully added

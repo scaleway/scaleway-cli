@@ -9,3 +9,8 @@ Cannot find resource 'instance_placement_group' with ID '11111111-1111-1111-1111
     "resource_id": "11111111-1111-1111-1111-111111111111"
   }
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error:
+  resource: instance_placement_group
+  resource_id: 11111111-1111-1111-1111-111111111111
+message: cannot find resource 'instance_placement_group' with ID '11111111-1111-1111-1111-111111111111'

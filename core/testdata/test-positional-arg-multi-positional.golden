@@ -15,3 +15,8 @@ Tag     tag01
     "Tag": "tag01"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- NameID: test1
+  Tag: tag01
+- NameID: test2
+  Tag: tag01

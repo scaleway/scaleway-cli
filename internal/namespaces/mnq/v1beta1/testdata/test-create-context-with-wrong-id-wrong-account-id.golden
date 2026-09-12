@@ -5,3 +5,6 @@ Failed to get nats account: scaleway-sdk-go: invalid argument(s): nats_account_i
 {
   "error": "failed to get nats account: scaleway-sdk-go: invalid argument(s): nats_account_id does not respect constraint, value length must be 56 runes"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'failed to get nats account: scaleway-sdk-go: invalid argument(s): nats_account_id
+  does not respect constraint, value length must be 56 runes'

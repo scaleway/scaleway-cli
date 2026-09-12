@@ -83,3 +83,45 @@ aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
     }
   ]
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+default_route_propagation_enabled: false
+dhcp_enabled: true
+has_object_storage_private_access: false
+id: 213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
+instance_servers:
+- id: 99d8b617-f9b7-4348-bcd9-65a6d8187943
+  mac: 02:00:00:1a:6d:be
+  name: cli-srv-cranky-davinci
+  nic_id: 753bfe83-e937-42e8-8997-c809c44a4a6e
+  state: stopped
+ipam_ips:
+- address: fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64
+  id: 83db52f1-bfe0-4bcb-87bd-f8990bbb96d1
+- address: 172.16.16.2/22
+  id: aafa2ba2-8333-4073-a978-bdfd510aa542
+name: cli-pn-vigorous-hamilton
+organization_id: 4d333544-41be-4b0b-8907-0b9036859747
+project_id: 4d333544-41be-4b0b-8907-0b9036859747
+region: fr-par
+srn: srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
+subnets:
+- created_at: "1970-01-01T00:00:00.0Z"
+  id: 79c51d80-4411-41a1-bae3-793324998a13
+  private_network_id: 213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
+  project_id: 4d333544-41be-4b0b-8907-0b9036859747
+  region: fr-par
+  subnet: 172.16.16.0/22
+  updated_at: "1970-01-01T00:00:00.0Z"
+  vpc_id: 3a436539-0369-429e-95b4-c38683bcac76
+- created_at: "1970-01-01T00:00:00.0Z"
+  id: bf07aee5-13fb-4779-8169-2386e4bb667e
+  private_network_id: 213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
+  project_id: 4d333544-41be-4b0b-8907-0b9036859747
+  region: fr-par
+  subnet: fd6d:9b51:d4ce:4bce::/64
+  updated_at: "1970-01-01T00:00:00.0Z"
+  vpc_id: 3a436539-0369-429e-95b4-c38683bcac76
+tags: []
+updated_at: "1970-01-01T00:00:00.0Z"
+vpc_id: 3a436539-0369-429e-95b4-c38683bcac76

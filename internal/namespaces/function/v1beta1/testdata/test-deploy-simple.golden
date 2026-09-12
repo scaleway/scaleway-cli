@@ -51,3 +51,31 @@ ReadyAt         few seconds ago
   "tags": [],
   "private_network_id": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+build_message: null
+cpu_limit: 140
+created_at: "1970-01-01T00:00:00.0Z"
+description: ""
+domain_name: clitestfunctiondeploj3ospr1i-cli-test-function-deploy.functions.fnc.fr-par.scw.cloud
+environment_variables: {}
+error_message: null
+handler: Handle
+http_option: enabled
+id: 1eb1bff4-3ba6-4bef-a8de-6a6508c28a74
+max_scale: 5
+memory_limit: 256
+min_scale: 0
+name: cli-test-function-deploy
+namespace_id: 8b9efc3d-f37b-4fad-af1a-71f11ca8243a
+privacy: public
+private_network_id: null
+ready_at: "1970-01-01T00:00:00.0Z"
+region: fr-par
+runtime: go126
+runtime_message: ""
+sandbox: v2
+secret_environment_variables: []
+status: ready
+tags: []
+timeout: 300.000000000s
+updated_at: "1970-01-01T00:00:00.0Z"

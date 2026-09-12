@@ -31,3 +31,20 @@ Specs.Class     sbs
   },
   "last_detached_at": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+id: 105004b5-6b18-4f2a-957c-653d42391e00
+last_detached_at: null
+name: cli-vol-practical-shirley
+parent_snapshot_id: null
+project_id: ee7bd9e1-9cbd-4724-b2f4-19e50f3cf38b
+references: []
+size: 20000000000
+specs:
+  class: sbs
+  perf_iops: 5000
+status: available
+tags: []
+type: sbs_5k
+updated_at: "1970-01-01T00:00:00.0Z"
+zone: fr-par-1

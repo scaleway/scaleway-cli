@@ -3,3 +3,5 @@
 mysql://foobar@163.172.166.66:7222
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 "mysql://foobar@163.172.166.66:7222"
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+mysql://foobar@163.172.166.66:7222

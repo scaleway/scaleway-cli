@@ -5,3 +5,5 @@ Failed to create root volume builder: invalid volume format '20GB'
 {
   "error": "failed to create root volume builder: invalid volume format '20GB'"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'failed to create root volume builder: invalid volume format ''20GB'''

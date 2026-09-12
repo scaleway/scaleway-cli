@@ -10,3 +10,8 @@ IP   PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
     "details": ""
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules: null
+Success:
+  details: ""
+  message: ACL rule 0.0.0.0/0 successfully deleted

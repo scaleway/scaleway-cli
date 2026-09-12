@@ -203,3 +203,107 @@ ID   STATUS  IP ADDRESS  CREATED AT  UPDATED AT  REGION  ZONE
   "enable_access_logs": false,
   "timeout_client": 300000
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+backend:
+  created_at: "1970-01-01T00:00:00.0Z"
+  failover_host: null
+  forward_port: 80
+  forward_port_algorithm: roundrobin
+  forward_protocol: tcp
+  health_check:
+    check_delay: 3000
+    check_max_retries: 5
+    check_send_proxy: false
+    check_timeout: 1000
+    port: 8888
+    tcp_config: {}
+    transient_check_delay: 0.500000000s
+  host: null
+  id: ffa5f29d-ea91-406b-a38f-5f0f54002367
+  ignore_ssl_server_verify: null
+  lb:
+    backend_count: 1
+    created_at: "1970-01-01T00:00:00.0Z"
+    description: cli-test
+    frontend_count: 1
+    id: 7deaefe5-7389-46a4-abf6-94002a62ffef
+    instances: []
+    ip:
+    - id: 79c52f7f-925b-47ac-be4b-d7815ce243fd
+      ip_address: 51.159.114.65
+      lb_id: 7deaefe5-7389-46a4-abf6-94002a62ffef
+      organization_id: 105bdce1-64c0-48ab-899d-868455867ecf
+      project_id: 105bdce1-64c0-48ab-899d-868455867ecf
+      region: fr-par
+      reverse: 51-159-114-65.lb.fr-par.scw.cloud
+      tags: []
+      zone: fr-par-1
+    name: cli-test
+    organization_id: 105bdce1-64c0-48ab-899d-868455867ecf
+    private_network_count: 0
+    project_id: 105bdce1-64c0-48ab-899d-868455867ecf
+    region: fr-par
+    route_count: 0
+    ssl_compatibility_level: ssl_compatibility_level_intermediate
+    status: ready
+    subscriber: null
+    tags: []
+    type: lb-s
+    updated_at: "1970-01-01T00:00:00.0Z"
+    zone: fr-par-1
+  max_connections: null
+  max_retries: null
+  name: cli-test
+  on_marked_down_action: on_marked_down_action_none
+  pool: []
+  proxy_protocol: proxy_protocol_unknown
+  redispatch_attempt_count: null
+  send_proxy_v2: false
+  ssl_bridging: false
+  sticky_sessions: none
+  sticky_sessions_cookie_name: ""
+  timeout_connect: 5000
+  timeout_queue: null
+  timeout_server: 300000
+  timeout_tunnel: 900000
+  updated_at: "1970-01-01T00:00:00.0Z"
+certificate_ids: []
+connection_rate_limit: null
+created_at: "1970-01-01T00:00:00.0Z"
+enable_access_logs: false
+enable_http3: false
+id: 65efd103-17fb-4452-9ba3-5cf18db5a147
+inbound_port: 8888
+lb:
+  backend_count: 1
+  created_at: "1970-01-01T00:00:00.0Z"
+  description: cli-test
+  frontend_count: 1
+  id: 7deaefe5-7389-46a4-abf6-94002a62ffef
+  instances: []
+  ip:
+  - id: 79c52f7f-925b-47ac-be4b-d7815ce243fd
+    ip_address: 51.159.114.65
+    lb_id: 7deaefe5-7389-46a4-abf6-94002a62ffef
+    organization_id: 105bdce1-64c0-48ab-899d-868455867ecf
+    project_id: 105bdce1-64c0-48ab-899d-868455867ecf
+    region: fr-par
+    reverse: 51-159-114-65.lb.fr-par.scw.cloud
+    tags: []
+    zone: fr-par-1
+  name: cli-test
+  organization_id: 105bdce1-64c0-48ab-899d-868455867ecf
+  private_network_count: 0
+  project_id: 105bdce1-64c0-48ab-899d-868455867ecf
+  region: fr-par
+  route_count: 0
+  ssl_compatibility_level: ssl_compatibility_level_intermediate
+  status: ready
+  subscriber: null
+  tags: []
+  type: lb-s
+  updated_at: "1970-01-01T00:00:00.0Z"
+  zone: fr-par-1
+name: cli-test
+timeout_client: 300000
+updated_at: "1970-01-01T00:00:00.0Z"

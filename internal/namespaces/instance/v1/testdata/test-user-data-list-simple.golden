@@ -14,3 +14,8 @@ foo  bar
     "value": "bar"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- key: bar
+  value: foo
+- key: foo
+  value: bar

@@ -9,3 +9,6 @@ myalias  iam
     "Command": "iam"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- Alias: myalias
+  Command: iam

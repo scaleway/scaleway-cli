@@ -616,3 +616,480 @@ POP2-HN-10        € 0.7264       Block              4    0    8.0 GiB  x64   1
     "max_file_systems": 1
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- arch: x64
+  availability: available
+  bandwidth: 400000000
+  cpu: 2
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 73500000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-2C-8G
+  ram: 8589934592
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 800000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 147000000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-4C-16G
+  ram: 17179869184
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 1600000000
+  cpu: 8
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 290000000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 2
+  name: POP2-8C-32G
+  ram: 34359738368
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 3200000000
+  cpu: 16
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 590000000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 4
+  name: POP2-16C-64G
+  ram: 68719476736
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 6400000000
+  cpu: 32
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 180000000
+    units: 1
+  local_volume_max_size: 0
+  max_file_systems: 8
+  name: POP2-32C-128G
+  ram: 137438953472
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 9600000000
+  cpu: 48
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 770000000
+    units: 1
+  local_volume_max_size: 0
+  max_file_systems: 12
+  name: POP2-48C-192G
+  ram: 206158430208
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 12800000000
+  cpu: 64
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 350000000
+    units: 2
+  local_volume_max_size: 0
+  max_file_systems: 16
+  name: POP2-64C-256G
+  ram: 274877906944
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 350000000
+  cpu: 2
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 56100000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PRO2-XXS
+  ram: 8589934592
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 700000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 112200000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PRO2-XS
+  ram: 17179869184
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 1500000000
+  cpu: 8
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 223380000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PRO2-S
+  ram: 34359738368
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 3000000000
+  cpu: 16
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 446760000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PRO2-M
+  ram: 68719476736
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 6000000000
+  cpu: 32
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 894540000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PRO2-L
+  ram: 137438953472
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 500000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 92820000
+    units: 0
+  local_volume_max_size: 150000000000
+  max_file_systems: 0
+  name: GP1-XS
+  ram: 17179869184
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 800000000
+  cpu: 8
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 190740000
+    units: 0
+  local_volume_max_size: 300000000000
+  max_file_systems: 0
+  name: GP1-S
+  ram: 34359738368
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 1500000000
+  cpu: 16
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 383520000
+    units: 0
+  local_volume_max_size: 600000000000
+  max_file_systems: 0
+  name: GP1-M
+  ram: 68719476736
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 5000000000
+  cpu: 32
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 774180000
+    units: 0
+  local_volume_max_size: 600000000000
+  max_file_systems: 0
+  name: GP1-L
+  ram: 137438953472
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 10000000000
+  cpu: 48
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 673820000
+    units: 1
+  local_volume_max_size: 600000000000
+  max_file_systems: 0
+  name: GP1-XL
+  ram: 274877906944
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 100000000
+  cpu: 1
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 14280000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PLAY2-PICO
+  ram: 2147483648
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 200000000
+  cpu: 2
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 27540000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PLAY2-NANO
+  ram: 4294967296
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 400000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 55080000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 0
+  name: PLAY2-MICRO
+  ram: 8589934592
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 200000000
+  cpu: 2
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 8976000
+    units: 0
+  local_volume_max_size: 20000000000
+  max_file_systems: 0
+  name: DEV1-S
+  ram: 2147483648
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 300000000
+  cpu: 3
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 20196000
+    units: 0
+  local_volume_max_size: 40000000000
+  max_file_systems: 0
+  name: DEV1-M
+  ram: 4294967296
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 400000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 42840000
+    units: 0
+  local_volume_max_size: 80000000000
+  max_file_systems: 0
+  name: DEV1-L
+  ram: 8589934592
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 500000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 65075999
+    units: 0
+  local_volume_max_size: 120000000000
+  max_file_systems: 0
+  name: DEV1-XL
+  ram: 12884901888
+  supported_storage: Local, Block
+- arch: x64
+  availability: available
+  bandwidth: 400000000
+  cpu: 2
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 53200000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-HC-2C-4G
+  ram: 4294967296
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 800000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 106400000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-HC-4C-8G
+  ram: 8589934592
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 1600000000
+  cpu: 8
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 212800000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 2
+  name: POP2-HC-8C-16G
+  ram: 17179869184
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 3200000000
+  cpu: 16
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 425600000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 4
+  name: POP2-HC-16C-32G
+  ram: 34359738368
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 6400000000
+  cpu: 32
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 851200000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 8
+  name: POP2-HC-32C-64G
+  ram: 68719476736
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 9600000000
+  cpu: 48
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 270000000
+    units: 1
+  local_volume_max_size: 0
+  max_file_systems: 12
+  name: POP2-HC-48C-96G
+  ram: 103079215104
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 12800000000
+  cpu: 64
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 702400000
+    units: 1
+  local_volume_max_size: 0
+  max_file_systems: 16
+  name: POP2-HC-64C-128G
+  ram: 137438953472
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 3000000000
+  cpu: 2
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 255400000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-HN-3
+  ram: 4294967296
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 5000000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 452400000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-HN-5
+  ram: 8589934592
+  supported_storage: Block
+- arch: x64
+  availability: available
+  bandwidth: 10000000000
+  cpu: 4
+  gpu: 0
+  hourly_price:
+    currency_code: EUR
+    nanos: 726400000
+    units: 0
+  local_volume_max_size: 0
+  max_file_systems: 1
+  name: POP2-HN-10
+  ram: 8589934592
+  supported_storage: Block

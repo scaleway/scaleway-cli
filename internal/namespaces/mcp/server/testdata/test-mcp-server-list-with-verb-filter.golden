@@ -68,3 +68,44 @@ k8s        version       list  k8s_version_list       List all available Version
     "short": "List all available Versions"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- namespace: account
+  resource: project
+  short: List all Projects of an Organization
+  tool_name: account_project_list
+  verb: list
+- namespace: k8s
+  resource: acl
+  short: List ACLs
+  tool_name: k8s_acl_list
+  verb: list
+- namespace: k8s
+  resource: cluster
+  short: List Clusters
+  tool_name: k8s_cluster_list
+  verb: list
+- namespace: k8s
+  resource: cluster-type
+  short: List cluster types
+  tool_name: k8s_cluster-type_list
+  verb: list
+- namespace: k8s
+  resource: node
+  short: List Nodes in a Cluster
+  tool_name: k8s_node_list
+  verb: list
+- namespace: k8s
+  resource: pool
+  short: List Pools in a Cluster
+  tool_name: k8s_pool_list
+  verb: list
+- namespace: k8s
+  resource: userdata
+  short: List all user data related to a given pool.
+  tool_name: k8s_userdata_list
+  verb: list
+- namespace: k8s
+  resource: version
+  short: List all available Versions
+  tool_name: k8s_version_list
+  verb: list

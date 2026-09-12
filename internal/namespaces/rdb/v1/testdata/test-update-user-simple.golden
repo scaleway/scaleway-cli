@@ -9,3 +9,7 @@ Password  Newp1ssw0rd!
   "is_admin": true,
   "password": "Newp1ssw0rd!"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+is_admin: true
+name: cli-test
+password: Newp1ssw0rd!

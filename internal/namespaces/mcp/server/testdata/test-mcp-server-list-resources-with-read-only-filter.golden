@@ -74,3 +74,44 @@ k8s        version       scw://k8s/version       List all available Versions
     "short": "List all available Versions"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- namespace: account
+  resource: project
+  short: List all Projects of an Organization
+  uri: scw://account/project
+- namespace: k8s
+  resource: acl
+  short: List ACLs
+  uri: scw://k8s/acl
+- namespace: k8s
+  resource: cluster
+  short: List Clusters
+  uri: scw://k8s/cluster
+- namespace: k8s
+  resource: cluster
+  short: List available versions for a Cluster
+  uri: scw://k8s/cluster
+- namespace: k8s
+  resource: cluster
+  short: List available cluster types for a cluster
+  uri: scw://k8s/cluster
+- namespace: k8s
+  resource: cluster-type
+  short: List cluster types
+  uri: scw://k8s/cluster-type
+- namespace: k8s
+  resource: node
+  short: List Nodes in a Cluster
+  uri: scw://k8s/node
+- namespace: k8s
+  resource: pool
+  short: List Pools in a Cluster
+  uri: scw://k8s/pool
+- namespace: k8s
+  resource: userdata
+  short: List all user data related to a given pool.
+  uri: scw://k8s/userdata
+- namespace: k8s
+  resource: version
+  short: List all available Versions
+  uri: scw://k8s/version

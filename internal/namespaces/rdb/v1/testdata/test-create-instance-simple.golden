@@ -126,3 +126,61 @@ Password:
   },
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+backup_same_region: false
+backup_schedule:
+  disabled: false
+  frequency: 24
+  next_run_at: "1970-01-01T00:00:00.0Z"
+  retention: 7
+created_at: "1970-01-01T00:00:00.0Z"
+encryption:
+  enabled: false
+endpoint:
+  id: 4e6e7f82-a155-43c6-a364-925b6413e7c3
+  ip: 195.154.71.12
+  load_balancer: {}
+  name: null
+  port: 6467
+endpoints:
+- id: 4e6e7f82-a155-43c6-a364-925b6413e7c3
+  ip: 195.154.71.12
+  load_balancer: {}
+  name: null
+  port: 6467
+engine: PostgreSQL-15
+high_availability_mode: unknown_high_availability_mode
+id: 19fe63d7-3a09-4c5b-87ba-0db8206ea38d
+init_settings: []
+is_ha_cluster: false
+logs_policy:
+  max_age_retention: 30
+  total_disk_retention: null
+maintenances: []
+name: cli-test
+node_type: db-dev-s
+organization_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+password: '{4xdl*#QOoP+&3XRkGA)]'
+project_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+read_replicas: []
+region: fr-par
+settings:
+- name: effective_cache_size
+  value: "1300"
+- name: maintenance_work_mem
+  value: "150"
+- name: max_connections
+  value: "100"
+- name: max_parallel_workers
+  value: "0"
+- name: max_parallel_workers_per_gather
+  value: "0"
+- name: work_mem
+  value: "4"
+status: ready
+tags: []
+upgradable_version: []
+volume:
+  class: lssd
+  size: 5000000000
+  type: lssd

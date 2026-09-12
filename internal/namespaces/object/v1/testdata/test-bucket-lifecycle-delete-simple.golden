@@ -6,3 +6,6 @@
   "message": "bucket-lifecycle has been successfully deleted.",
   "details": ""
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: ""
+message: bucket-lifecycle has been successfully deleted.

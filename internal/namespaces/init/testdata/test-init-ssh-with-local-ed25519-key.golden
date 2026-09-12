@@ -7,3 +7,7 @@
   "message": "Initialization completed with success",
   "details": "Except for SSH key: scaleway-sdk-go: invalid argument(s): project_id is wrongly formatted, value must be a valid UUID"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: 'Except for SSH key: scaleway-sdk-go: invalid argument(s): project_id is
+  wrongly formatted, value must be a valid UUID'
+message: Initialization completed with success

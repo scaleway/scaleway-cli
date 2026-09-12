@@ -34,3 +34,19 @@ Srn               -
   "entity_type": "owner (owner has all permissions over the organization)",
   "policies": null
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+APIKey:
+  access_key: SCW3508ENX0JCKRW0DKZ
+  created_at: "1970-01-01T00:00:00.0Z"
+  creation_ip: 51.159.46.153
+  default_project_id: 5ebc0159-7cb7-406c-9521-9347d1987fb2
+  deletable: true
+  description: ""
+  editable: true
+  expires_at: null
+  managed: false
+  secret_key: null
+  updated_at: "1970-01-01T00:00:00.0Z"
+  user_id: 791cc87f-3379-402f-bba0-f76ddf294f70
+entity_type: owner (owner has all permissions over the organization)
+policies: null

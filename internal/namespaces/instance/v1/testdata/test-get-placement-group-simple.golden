@@ -43,3 +43,17 @@ ID                                    NAME                   POLICY RESPECTED
     }
   ]
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+id: 6aaf9801-7fe1-448f-b9a4-cad5e788e7df
+name: cli-pg-bold-kirch
+organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+policy_mode: optional
+policy_respected: true
+policy_type: max_availability
+project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+servers:
+- id: 531601c0-a828-4f0d-8304-c2a4d8d92f1b
+  name: cli-srv-stoic-germain
+  policy_respected: true
+tags: []
+zone: fr-par-1

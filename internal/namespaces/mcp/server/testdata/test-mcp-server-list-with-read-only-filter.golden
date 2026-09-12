@@ -164,3 +164,104 @@ k8s        version       list                     k8s_version_list              
     "short": "List all available Versions"
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- namespace: account
+  resource: project
+  short: Get an existing Project
+  tool_name: account_project_get
+  verb: get
+- namespace: account
+  resource: project
+  short: List all Projects of an Organization
+  tool_name: account_project_list
+  verb: list
+- namespace: k8s
+  resource: acl
+  short: List ACLs
+  tool_name: k8s_acl_list
+  verb: list
+- namespace: k8s
+  resource: cluster
+  short: Get a Cluster
+  tool_name: k8s_cluster_get
+  verb: get
+- namespace: k8s
+  resource: cluster
+  short: List Clusters
+  tool_name: k8s_cluster_list
+  verb: list
+- namespace: k8s
+  resource: cluster
+  short: List available cluster types for a cluster
+  tool_name: k8s_cluster_list-available-types
+  verb: list-available-types
+- namespace: k8s
+  resource: cluster
+  short: List available versions for a Cluster
+  tool_name: k8s_cluster_list-available-versions
+  verb: list-available-versions
+- namespace: k8s
+  resource: cluster
+  short: Wait for a cluster to reach a stable state
+  tool_name: k8s_cluster_wait
+  verb: wait
+- namespace: k8s
+  resource: cluster-type
+  short: List cluster types
+  tool_name: k8s_cluster-type_list
+  verb: list
+- namespace: k8s
+  resource: kubeconfig
+  short: Retrieve a kubeconfig
+  tool_name: k8s_kubeconfig_get
+  verb: get
+- namespace: k8s
+  resource: node
+  short: Get a Node in a Cluster
+  tool_name: k8s_node_get
+  verb: get
+- namespace: k8s
+  resource: node
+  short: List Nodes in a Cluster
+  tool_name: k8s_node_list
+  verb: list
+- namespace: k8s
+  resource: node
+  short: Wait for a node to reach a stable state
+  tool_name: k8s_node_wait
+  verb: wait
+- namespace: k8s
+  resource: pool
+  short: Get a Pool in a Cluster
+  tool_name: k8s_pool_get
+  verb: get
+- namespace: k8s
+  resource: pool
+  short: List Pools in a Cluster
+  tool_name: k8s_pool_list
+  verb: list
+- namespace: k8s
+  resource: pool
+  short: Wait for a pool to reach a stable state
+  tool_name: k8s_pool_wait
+  verb: wait
+- namespace: k8s
+  resource: userdata
+  short: Get a pool related user data
+  tool_name: k8s_userdata_get
+  verb: get
+- namespace: k8s
+  resource: userdata
+  short: List all user data related to a given pool.
+  tool_name: k8s_userdata_list
+  verb: list
+- namespace: k8s
+  resource: version
+  short: Get a Version
+  tool_name: k8s_version_get
+  verb: get
+- namespace: k8s
+  resource: version
+  short: List all available Versions
+  tool_name: k8s_version_list
+  verb: list

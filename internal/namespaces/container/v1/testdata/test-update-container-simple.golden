@@ -70,3 +70,41 @@ Region                                     fr-par
   "private_endpoint": null,
   "region": "fr-par"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+args: []
+command: []
+created_at: "1970-01-01T00:00:00.0Z"
+description: ""
+environment_variables: {}
+error_message: null
+https_connections_only: false
+id: 3e4360d0-9683-4402-a904-e52145d04809
+image: nginx:latest
+liveness_probe:
+  failure_threshold: 30
+  interval: 10.000000000s
+  tcp: {}
+  timeout: 1.000000000s
+local_storage_limit_bytes: 1000000000
+max_scale: 5
+memory_limit_bytes: 2048000000
+min_scale: 0
+mvcpu_limit: 1500
+name: cli-test-zen-lamarr
+namespace_id: bca677ed-caf9-4569-b230-087ab5343ea5
+port: 8080
+privacy: public
+private_network_id: null
+protocol: http1
+public_endpoint: https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud
+region: fr-par
+sandbox: v2
+scaling_option:
+  concurrent_requests_threshold: 50
+secret_environment_variables: {}
+startup_probe: null
+status: updating
+tags:
+- new_tag
+timeout: 300.000000000s
+updated_at: "1970-01-01T00:00:00.0Z"

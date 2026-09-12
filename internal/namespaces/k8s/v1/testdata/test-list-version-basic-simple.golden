@@ -261,3 +261,169 @@ serializeImagePulls          bool
     "additional_components": {}
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- additional_components: {}
+  available_admission_plugins:
+  - AlwaysPullImages
+  - PodNodeSelector
+  - PodTolerationRestriction
+  available_cnis:
+  - cilium
+  - cilium_native
+  - calico
+  - kilo
+  - none
+  available_container_runtimes:
+  - containerd
+  available_feature_gates:
+  - HPAScaleToZero
+  - CPUManagerPolicyAlphaOptions
+  - ImageVolume
+  - MutatingAdmissionPolicy
+  available_kubelet_args:
+    containerLogMaxFiles: uint16
+    containerLogMaxSize: quantity
+    cpuCFSQuota: bool
+    cpuCFSQuotaPeriod: duration
+    cpuManagerPolicy: enum:none|static
+    cpuManagerPolicyOptions: map[string]string
+    enableDebuggingHandlers: bool
+    evictionHard: map[string]string
+    evictionMinimumReclaim: map[string]string
+    imageGCHighThresholdPercent: uint32
+    imageGCLowThresholdPercent: uint32
+    maxParallelImagePulls: int32
+    maxPods: uint16
+    registryBurst: int32
+    registryPullQPS: int32
+    serializeImagePulls: bool
+  deprecated_at: "2027-07-07T00:00:00Z"
+  end_of_life_at: "2027-09-07T00:00:00Z"
+  label: Kubernetes 1.36.4
+  name: 1.36.4
+  region: fr-par
+  released_at: "2026-07-07T00:00:00Z"
+- additional_components: {}
+  available_admission_plugins:
+  - AlwaysPullImages
+  - PodNodeSelector
+  - PodTolerationRestriction
+  available_cnis:
+  - cilium
+  - cilium_native
+  - calico
+  - kilo
+  - none
+  available_container_runtimes:
+  - containerd
+  available_feature_gates:
+  - HPAScaleToZero
+  - CPUManagerPolicyAlphaOptions
+  - ImageVolume
+  - MutatingAdmissionPolicy
+  available_kubelet_args:
+    containerLogMaxFiles: uint16
+    containerLogMaxSize: quantity
+    cpuCFSQuota: bool
+    cpuCFSQuotaPeriod: duration
+    cpuManagerPolicy: enum:none|static
+    cpuManagerPolicyOptions: map[string]string
+    enableDebuggingHandlers: bool
+    evictionHard: map[string]string
+    evictionMinimumReclaim: map[string]string
+    imageGCHighThresholdPercent: uint32
+    imageGCLowThresholdPercent: uint32
+    maxParallelImagePulls: int32
+    maxPods: uint16
+    registryBurst: int32
+    registryPullQPS: int32
+    serializeImagePulls: bool
+  deprecated_at: "2027-01-19T00:00:00Z"
+  end_of_life_at: "2027-03-19T00:00:00Z"
+  label: Kubernetes 1.35.8
+  name: 1.35.8
+  region: fr-par
+  released_at: "2026-01-19T00:00:00Z"
+- additional_components: {}
+  available_admission_plugins:
+  - AlwaysPullImages
+  - PodNodeSelector
+  - PodTolerationRestriction
+  available_cnis:
+  - cilium
+  - cilium_native
+  - calico
+  - kilo
+  - none
+  available_container_runtimes:
+  - containerd
+  available_feature_gates:
+  - HPAScaleToZero
+  - CPUManagerPolicyAlphaOptions
+  - ImageVolume
+  - MutatingAdmissionPolicy
+  available_kubelet_args:
+    containerLogMaxFiles: uint16
+    containerLogMaxSize: quantity
+    cpuCFSQuota: bool
+    cpuCFSQuotaPeriod: duration
+    cpuManagerPolicy: enum:none|static
+    cpuManagerPolicyOptions: map[string]string
+    enableDebuggingHandlers: bool
+    evictionHard: map[string]string
+    evictionMinimumReclaim: map[string]string
+    imageGCHighThresholdPercent: uint32
+    imageGCLowThresholdPercent: uint32
+    maxParallelImagePulls: int32
+    maxPods: uint16
+    registryBurst: int32
+    registryPullQPS: int32
+    serializeImagePulls: bool
+  deprecated_at: "2026-09-29T00:00:00Z"
+  end_of_life_at: "2026-11-29T00:00:00Z"
+  label: Kubernetes 1.34.11
+  name: 1.34.11
+  region: fr-par
+  released_at: "2025-09-29T00:00:00Z"
+- additional_components: {}
+  available_admission_plugins:
+  - AlwaysPullImages
+  - PodNodeSelector
+  - PodTolerationRestriction
+  available_cnis:
+  - cilium
+  - calico
+  - kilo
+  - none
+  available_container_runtimes:
+  - containerd
+  available_feature_gates:
+  - HPAScaleToZero
+  - DRAAdminAccess
+  - DynamicResourceAllocation
+  - PodLevelResources
+  - CPUManagerPolicyAlphaOptions
+  - ImageVolume
+  available_kubelet_args:
+    containerLogMaxFiles: uint16
+    containerLogMaxSize: quantity
+    cpuCFSQuota: bool
+    cpuCFSQuotaPeriod: duration
+    cpuManagerPolicy: enum:none|static
+    cpuManagerPolicyOptions: map[string]string
+    enableDebuggingHandlers: bool
+    evictionHard: map[string]string
+    evictionMinimumReclaim: map[string]string
+    imageGCHighThresholdPercent: uint32
+    imageGCLowThresholdPercent: uint32
+    maxParallelImagePulls: int32
+    maxPods: uint16
+    registryBurst: int32
+    registryPullQPS: int32
+    serializeImagePulls: bool
+  deprecated_at: "2026-09-04T00:00:00Z"
+  end_of_life_at: "2026-11-04T00:00:00Z"
+  label: Kubernetes 1.33.13
+  name: 1.33.13
+  region: fr-par
+  released_at: "2025-09-04T00:00:00Z"

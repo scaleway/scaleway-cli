@@ -38,3 +38,26 @@ IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
     "details": ""
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- action: allow
+  description: first
+  direction: inbound
+  ip: 1.2.3.4/32
+  port: 26377
+  protocol: tcp
+- action: allow
+  description: third
+  direction: inbound
+  ip: 11.11.11.11/32
+  port: 26377
+  protocol: tcp
+- action: allow
+  description: second
+  direction: inbound
+  ip: 192.168.1.0/31
+  port: 26377
+  protocol: tcp
+Success:
+  details: ""
+  message: ACL rules successfully set

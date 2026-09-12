@@ -5,3 +5,7 @@ Failed to list nats account: failed to create NATS context: Multiple NATS accoun
 {
   "error": "failed to list nats account: failed to create NATS context: Multiple NATS accounts found. Please provide an account ID explicitly as the command is not running in interactive mode"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'failed to list nats account: failed to create NATS context: Multiple NATS
+  accounts found. Please provide an account ID explicitly as the command is not running
+  in interactive mode'

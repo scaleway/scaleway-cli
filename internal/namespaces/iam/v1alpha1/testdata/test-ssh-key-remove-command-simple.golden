@@ -6,3 +6,6 @@
   "message": "ssh-key has been successfully deleted.",
   "details": ""
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: ""
+message: ssh-key has been successfully deleted.

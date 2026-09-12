@@ -29,3 +29,25 @@ ID                                    NAME                  STATE      ZONE     
     "server_name": ""
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- arch: x86_64
+  creation_date: "1970-01-01T00:00:00.0Z"
+  default_bootscript: null
+  extra_volumes: {}
+  from_server: ""
+  id: 03628bcc-ed1e-4041-a575-9db00b60c917
+  modification_date: "1970-01-01T00:00:00.0Z"
+  name: cli-img-zealous-wing
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  public: false
+  root_volume:
+    id: 126ed1c3-63d0-4bfd-a6d9-9e50632ff148
+    name: cli-snp-quirky-kalam
+    size: 20000000000
+    volume_type: l_ssd
+  server_id: ""
+  server_name: ""
+  state: available
+  tags: []
+  zone: fr-par-1

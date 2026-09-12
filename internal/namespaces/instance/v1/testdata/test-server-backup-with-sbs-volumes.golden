@@ -69,3 +69,52 @@ Image.Zone              fr-par-1
     "zone": "fr-par-1"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+image:
+  arch: x86_64
+  creation_date: "1970-01-01T00:00:00.0Z"
+  default_bootscript: null
+  extra_volumes:
+    "1":
+      creation_date: null
+      export_uri: null
+      id: ca888d38-0425-4686-a0df-d033f8341859
+      modification_date: null
+      name: ""
+      organization: ""
+      project: ""
+      server: null
+      size: 0
+      state: available
+      tags: null
+      volume_type: sbs_snapshot
+      zone: ""
+    "2":
+      creation_date: null
+      export_uri: null
+      id: 137ff099-af16-4bc8-a22d-e6ecd34c171f
+      modification_date: null
+      name: ""
+      organization: ""
+      project: ""
+      server: null
+      size: 0
+      state: available
+      tags: null
+      volume_type: sbs_snapshot
+      zone: ""
+  from_server: a16db826-951a-42c4-9405-e7bf3623e7e2
+  id: 54f1a7f6-5e56-40f6-a67d-501c2d72f652
+  modification_date: "1970-01-01T00:00:00.0Z"
+  name: backup
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  public: false
+  root_volume:
+    id: 2db87531-6a1c-4b7b-a924-4c7957b27f03
+    name: ""
+    size: 0
+    volume_type: sbs_snapshot
+  state: available
+  tags: []
+  zone: fr-par-1

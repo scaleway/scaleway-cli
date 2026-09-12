@@ -424,3 +424,355 @@ wait_timeout                          21600                                     
     "float_max": null
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- default_value: "1"
+  description: Controls the AUTO_INCREMENT interval between successive column values
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 65535
+  int_min: 1
+  name: auto_increment_increment
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "1"
+  description: Determines the starting point for the AUTO_INCREMENT column value
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 65535
+  int_min: 1
+  name: auto_increment_offset
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: utf8mb4
+  description: Specify a specific server side character-set encoding
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: null
+  int_min: null
+  name: character_set_server
+  property_type: STRING
+  string_constraint: ^(armscii8|ascii|big5|binary|cp1250|cp1251|cp1256|cp1257|cp850|cp852|cp866|cp932|dec8|eucjpms|euckr|gb18030|gb2312|gbk|geostd8|greek|hebrew|hp8|keybcs2|koi8r|koi8u|latin1|latin2|latin5|latin7|macce|macroman|sjis|swe7|tis620|ucs2|ujis|utf16|utf16le|utf32|utf8|utf8mb4)$
+  unit: null
+- default_value: "10"
+  description: The number of seconds that the mysqld server waits for a connect packet
+    before responding with Bad handshake
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 300
+  int_min: 10
+  name: connect_timeout
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: mysql_native_password
+  description: The default authentication plugin at the user creation
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: null
+  int_min: null
+  name: default_authentication_plugin
+  property_type: STRING
+  string_constraint: ^(mysql_native_password|caching_sha2_password)$
+  unit: null
+- default_value: UTC
+  description: This option sets the global time_zone system variable.
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: null
+  int_min: null
+  name: default_time_zone
+  property_type: STRING
+  string_constraint: ^((Africa\/(Abidjan|Accra|Addis_Ababa|Algiers|Asmara|Bamako|Bangui|Banjul|Bissau|Blantyre|Brazzaville|Bujumbura|Cairo|Casablanca|Ceuta|Conakry|Dakar|Dar_es_Salaam|Djibouti|Douala|El_Aaiun|Freetown|Gaborone|Harare|Johannesburg|Juba|Kampala|Khartoum|Kigali|Kinshasa|Lagos|Libreville|Lome|Luanda|Lubumbashi|Lusaka|Malabo|Maputo|Maseru|Mbabane|Mogadishu|Monrovia|Nairobi|Ndjamena|Niamey|Nouakchott|Ouagadougou|Porto-Novo|Sao_Tome|Tripoli|Tunis|Windhoek))|(America\/)(Adak|Anchorage|Anguilla|Antigua|Araguaina|Argentina\/Buenos_Aires|Argentina\/Catamarca|Argentina\/Cordoba|Argentina\/Jujuy|Argentina\/La_Rioja|Argentina\/Mendoza|Argentina\/Rio_Gallegos|Argentina\/Salta|Argentina\/San_Juan|Argentina\/San_Luis|Argentina\/Tucuman|Argentina\/Ushuaia|Aruba|Asuncion|Atikokan|Bahia|Bahia_Banderas|Barbados|Belem|Belize|Blanc-Sablon|Boa_Vista|Bogota|Boise|Cambridge_Bay|Campo_Grande|Cancun|Caracas|Cayenne|Cayman|Chicago|Chihuahua|Costa_Rica|Creston|Cuiaba|Curacao|Danmarkshavn|Dawson|Dawson_Creek|Denver|Detroit|Dominica|Edmonton|Eirunepe|El_Salvador|Fort_Nelson|Fortaleza|Glace_Bay|Goose_Bay|Grand_Turk|Grenada|Guadeloupe|Guatemala|Guayaquil|Guyana|Halifax|Havana|Hermosillo|Indiana\/Indianapolis|Indiana\/Knox|Indiana\/Marengo|Indiana\/Petersburg|Indiana\/Tell_City|Indiana\/Vevay|Indiana\/Vincennes|Indiana\/Winamac|Inuvik|Iqaluit|Jamaica|Juneau|Kentucky\/Louisville|Kentucky\/Monticello|Kralendijk|La_Paz|Lima|Los_Angeles|Lower_Princes|Maceio|Managua|Manaus|Marigot|Martinique|Matamoros|Mazatlan|Menominee|Merida|Metlakatla|Mexico_City|Miquelon|Moncton|Monterrey|Montevideo|Montserrat|Nassau|New_York|Nipigon|Nome|Noronha|North_Dakota\/Beulah|North_Dakota\/Center|North_Dakota\/New_Salem|Nuuk|Ojinaga|Panama|Pangnirtung|Paramaribo|Phoenix|Port-au-Prince|Port_of_Spain|Porto_Velho|Puerto_Rico|Punta_Arenas|Rainy_River|Rankin_Inlet|Recife|Regina|Resolute|Rio_Branco|Santarem|Santiago|Santo_Domingo|Sao_Paulo|Scoresbysund|Sitka|St_Barthelemy|St_Johns|St_Kitts|St_Lucia|St_Thomas|St_Vincent|Swift_Current|Tegucigalpa|Thule|Thunder_Bay|Tijuana|Toronto|Tortola|Vancouver|Whitehorse|Winnipeg|Yakutat|Yellowknife)|(Antarctica\/)(Casey|Davis|DumontDUrville|Macquarie|Mawson|McMurdo|Palmer|Rothera|Syowa|Troll|Vostok)|(Arctic\/Longyearbyen)|(Asia\/)(Aden|Almaty|Amman|Anadyr|Aqtau|Aqtobe|Ashgabat|Atyrau|Baghdad|Bahrain|Baku|Bangkok|Barnaul|Beirut|Bishkek|Brunei|Chita|Choibalsan|Colombo|Damascus|Dhaka|Dili|Dubai|Dushanbe|Famagusta|Gaza|Hebron|Ho_Chi_Minh|Hong_Kong|Hovd|Irkutsk|Jakarta|Jayapura|Jerusalem|Kabul|Kamchatka|Karachi|Kathmandu|Khandyga|Kolkata|Krasnoyarsk|Kuala_Lumpur|Kuching|Kuwait|Macau|Magadan|Makassar|Manila|Muscat|Nicosia|Novokuznetsk|Novosibirsk|Omsk|Oral|Phnom_Penh|Pontianak|Pyongyang|Qatar|Qostanay|Qyzylorda|Riyadh|Sakhalin|Samarkand|Seoul|Shanghai|Singapore|Srednekolymsk|Taipei|Tashkent|Tbilisi|Tehran|Thimphu|Tokyo|Tomsk|Ulaanbaatar|Urumqi|Ust-Nera|Vientiane|Vladivostok|Yakutsk|Yangon|Yekaterinburg|Yerevan)|(Atlantic\/)(Azores|Bermuda|Canary|Cape_Verde|Faroe|Madeira|Reykjavik|South_Georgia|St_Helena|Stanley)|(Australia\/)(Adelaide|Brisbane|Broken_Hill|Currie|Darwin|Eucla|Hobart|Lindeman|Lord_Howe|Melbourne|Perth|Sydney)|(Canada\/)(Atlantic|Central|Eastern|Mountain|Newfoundland|Pacific)|(Europe\/)(Amsterdam|Andorra|Astrakhan|Athens|Belgrade|Berlin|Bratislava|Brussels|Bucharest|Budapest|Busingen|Chisinau|Copenhagen|Dublin|Gibraltar|Guernsey|Helsinki|Isle_of_Man|Istanbul|Jersey|Kaliningrad|Kiev|Kirov|Lisbon|Ljubljana|London|Luxembourg|Madrid|Malta|Mariehamn|Minsk|Monaco|Moscow|Oslo|Paris|Podgorica|Prague|Riga|Rome|Samara|San_Marino|Sarajevo|Saratov|Simferopol|Skopje|Sofia|Stockholm|Tallinn|Tirane|Ulyanovsk|Uzhgorod|Vaduz|Vatican|Vienna|Vilnius|Volgograd|Warsaw|Zagreb|Zaporozhye|Zurich)|(GMT)|(UTC)|(Indian\/)(Antananarivo|Chagos|Christmas|Cocos|Comoro|Kerguelen|Mahe|Maldives|Mauritius|Mayotte|Reunion)|(Pacific\/)(Apia|Auckland|Bougainville|Chatham|Chuuk|Easter|Efate|Enderbury|Fakaofo|Fiji|Funafuti|Galapagos|Gambier|Guadalcanal|Guam|Honolulu|Kiritimati|Kosrae|Kwajalein|Majuro|Marquesas|Midway|Nauru|Niue|Norfolk|Noumea|Pago_Pago|Palau|Pitcairn|Pohnpei|Port_Moresby|Rarotonga|Saipan|Tahiti|Tarawa|Tongatapu|Wake|Wallis)|(US\/)(Alaska|Arizona|Central|Eastern|Hawaii|Mountain|Pacific))$
+  unit: null
+- default_value: "1024"
+  description: The maximum permitted result length in bytes for the GROUP_CONCAT()
+    function
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 65536
+  int_min: 1024
+  name: group_concat_max_len
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: fsync
+  description: Defines the method used to flush data to InnoDB data files and log
+    files, which can affect I/O throughput
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: null
+  int_min: null
+  name: innodb_flush_method
+  property_type: STRING
+  string_constraint: ^(fsync|O_DIRECT)$
+  unit: null
+- default_value: "84"
+  description: The maximum character length of words that are stored in an InnoDB
+    FULLTEXT index.
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: 84
+  int_min: 10
+  name: innodb_ft_max_token_size
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "3"
+  description: The minimum character length of words that are stored in an InnoDB
+    FULLTEXT index.
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: 16
+  int_min: 0
+  name: innodb_ft_min_token_size
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "50"
+  description: The length of time in seconds an InnoDB transaction waits for a row
+    lock before giving up
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 600
+  int_min: 1
+  name: innodb_lock_wait_timeout
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "200"
+  description: The number of index pages to sample when estimating cardinality and
+    other statistics for an indexed column
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 1000
+  int_min: 20
+  name: innodb_stats_persistent_sample_pages
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "21600"
+  description: The number of seconds the server waits for activity on an interactive
+    connection before closing it
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 21600
+  int_min: 60
+  name: interactive_timeout
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "OFF"
+  description: This variable controls server-side LOCAL capability for LOAD DATA statements
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: null
+  int_min: null
+  name: local_infile
+  property_type: BOOLEAN
+  string_constraint: null
+  unit: null
+- default_value: "31536000"
+  description: This variable specifies the timeout in seconds for attempts to acquire
+    metadata locks
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 31536000
+  int_min: 60
+  name: lock_wait_timeout
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "OFF"
+  description: This variable controls whether stored function creators can be trusted
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: null
+  int_min: null
+  name: log_bin_trust_function_creators
+  property_type: BOOLEAN
+  string_constraint: null
+  unit: null
+- default_value: "10"
+  description: If the slow query log is enabled, the query is logged to the slow query
+    log file if it takes longer than this threshold
+  float_max: 3600
+  float_min: 0
+  hot_configurable: true
+  int_max: null
+  int_min: null
+  name: long_query_time
+  property_type: FLOAT
+  string_constraint: null
+  unit: null
+- default_value: "64"
+  description: The maximum size (MB) of one packet or any generated/intermediate string,
+    or any parameter sent by the mysql_stmt_send_long_data() C API function
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 1024
+  int_min: 4
+  name: max_allowed_packet
+  property_type: INT
+  string_constraint: null
+  unit: M
+- default_value: "100"
+  description: The maximum permitted number of simultaneous client connections
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 5000
+  int_min: 50
+  name: max_connections
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "16382"
+  description: Limit the total number of prepared statements in the server
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: 1048576
+  int_min: 16382
+  name: max_prepared_stmt_count
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "0"
+  description: Queries that examine fewer than this number of rows are not logged
+    to the slow query log.
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 2147483647
+  int_min: 0
+  name: min_examined_row_limit
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "OFF"
+  description: Whether the slow query log is enabled
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: null
+  int_min: null
+  name: slow_query_log
+  property_type: BOOLEAN
+  string_constraint: null
+  unit: null
+- default_value: "262144"
+  description: Connection sort buffer memory size. Large buffer slows down most queries
+    that perform sorts.
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 10485760
+  int_min: 32768
+  name: sort_buffer_size
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: ONLY_FULL_GROUP_BY,STRICT_TRANS_TABLES,NO_ZERO_IN_DATE,NO_ZERO_DATE,ERROR_FOR_DIVISION_BY_ZERO,NO_ENGINE_SUBSTITUTION
+  description: Modes affect the SQL syntax MySQL supports and the data validation
+    checks it performs
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: null
+  int_min: null
+  name: sql_mode
+  property_type: STRING
+  string_constraint: ^((ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION)(,(ONLY_FULL_GROUP_BY|STRICT_TRANS_TABLES|NO_ZERO_IN_DATE|NO_ZERO_DATE|ERROR_FOR_DIVISION_BY_ZERO|NO_ENGINE_SUBSTITUTION))*)?$
+  unit: null
+- default_value: "2000"
+  description: The number of table definitions that can be stored in the definition
+    cache
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 20000
+  int_min: 1000
+  name: table_definition_cache
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "10000"
+  description: The number of open tables for all threads
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 20000
+  int_min: 1000
+  name: table_open_cache
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "16"
+  description: The number of open tables cache instances. Improve scalability by reducing
+    contention among sessions but increase memory usage in case of many triggers or
+    procedures
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: 16
+  int_min: 1
+  name: table_open_cache_instances
+  property_type: INT
+  string_constraint: null
+  unit: null
+- default_value: "280"
+  description: Defines the stack size for each thread and impact the complexity of
+    the SQL statements that the server can handle.
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: 10240
+  int_min: 128
+  name: thread_stack
+  property_type: INT
+  string_constraint: null
+  unit: K
+- default_value: REPEATABLE-READ
+  description: Define the transaction isolation level which fine-tunes the balance
+    between performance and reliability, consistency, and reproducibility of your
+    database
+  float_max: null
+  float_min: null
+  hot_configurable: true
+  int_max: null
+  int_min: null
+  name: transaction_isolation
+  property_type: STRING
+  string_constraint: ^(REPEATABLE-READ|READ-COMMITTED|READ-UNCOMMITTED|SERIALIZABLE)$
+  unit: null
+- default_value: "21600"
+  description: The number of seconds the server waits for activity on a noninteractive
+    connection before closing it
+  float_max: null
+  float_min: null
+  hot_configurable: false
+  int_max: 21600
+  int_min: 60
+  name: wait_timeout
+  property_type: INT
+  string_constraint: null
+  unit: null

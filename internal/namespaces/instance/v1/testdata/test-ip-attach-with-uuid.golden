@@ -31,3 +31,19 @@ IP.Zone          fr-par-1
     "zone": "fr-par-1"
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+ip:
+  address: 51.15.129.35
+  id: fe3afc1e-a1ea-48d8-8df4-663952b362a7
+  ipam_id: cff46b41-76f4-477e-8bcd-44eb2cf14308
+  organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  prefix: ""
+  project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+  reverse: null
+  server:
+    id: d7b609b5-586c-4023-b948-9e35ea4ef9da
+    name: cli-srv-dreamy-bartik
+  state: attached
+  tags: []
+  type: routed_ipv4
+  zone: fr-par-1

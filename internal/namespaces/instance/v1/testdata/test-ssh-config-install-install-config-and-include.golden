@@ -6,3 +6,6 @@
   "message": "Config file was generated to /tmp/scw/.ssh/scaleway.config",
   "details": ""
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: ""
+message: Config file was generated to /tmp/scw/.ssh/scaleway.config

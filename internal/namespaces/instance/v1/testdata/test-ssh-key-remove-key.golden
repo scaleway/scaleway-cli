@@ -8,3 +8,9 @@ key2  ssh-ed25519  AAAAC3NzaC1lZDI1.
   "message": "Removed keys\nNAME  TYPE         KEY\nkey2  ssh-ed25519  AAAAC3NzaC1lZDI1",
   "details": ""
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+details: ""
+message: |-
+  Removed keys
+  NAME  TYPE         KEY
+  key2  ssh-ed25519  AAAAC3NzaC1lZDI1

@@ -69,3 +69,40 @@ ID                                    STATUS  IP ADDRESS  CREATED AT       UPDAT
   "region": "fr-par",
   "zone": "fr-par-1"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+backend_count: 0
+created_at: "1970-01-01T00:00:00.0Z"
+description: cli-test
+frontend_count: 0
+id: 8f40b2d2-8c4c-4628-892d-1cd2899039a4
+instances:
+- created_at: "1970-01-01T00:00:00.0Z"
+  id: 98aece65-9338-4c92-b1f4-dcc640a50af9
+  ip_address: ""
+  region: fr-par
+  status: ready
+  updated_at: "1970-01-01T00:00:00.0Z"
+  zone: fr-par-1
+ip:
+- id: 573dbdad-7bc3-4f0c-85df-b68b06e52b14
+  ip_address: 51.159.24.8
+  lb_id: 8f40b2d2-8c4c-4628-892d-1cd2899039a4
+  organization_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+  project_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+  region: fr-par
+  reverse: 51-159-24-8.lb.fr-par.scw.cloud
+  tags: []
+  zone: fr-par-1
+name: cli-test
+organization_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+private_network_count: 0
+project_id: 564aa517-68b0-4fd7-8c8c-d21c4bcdcbd5
+region: fr-par
+route_count: 0
+ssl_compatibility_level: ssl_compatibility_level_intermediate
+status: ready
+subscriber: null
+tags: []
+type: lb-s
+updated_at: "1970-01-01T00:00:00.0Z"
+zone: fr-par-1

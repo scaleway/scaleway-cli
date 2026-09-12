@@ -5,3 +5,6 @@ Cannot create the server: failed to build volume template: volume 11fcf928-2241-
 {
   "error": "cannot create the server: failed to build volume template: volume 11fcf928-2241-4bf0-b3eb-df9a2c095e0e is already attached to ebde9827-d17f-46d7-b7b4-5143a99b7494 server"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'cannot create the server: failed to build volume template: volume 11fcf928-2241-4bf0-b3eb-df9a2c095e0e
+  is already attached to ebde9827-d17f-46d7-b7b4-5143a99b7494 server'

@@ -20,3 +20,14 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
     "details": ""
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- action: allow
+  description: something
+  direction: inbound
+  ip: 1.2.3.4/32
+  port: 8174
+  protocol: tcp
+Success:
+  details: ""
+  message: ACL rules successfully set

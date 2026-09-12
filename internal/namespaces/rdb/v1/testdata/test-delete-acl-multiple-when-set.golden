@@ -20,3 +20,14 @@ IP         PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
     "details": ""
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- action: allow
+  description: Allow All
+  direction: inbound
+  ip: 0.0.0.0/0
+  port: 27884
+  protocol: tcp
+Success:
+  details: ""
+  message: 3 ACL rules successfully deleted

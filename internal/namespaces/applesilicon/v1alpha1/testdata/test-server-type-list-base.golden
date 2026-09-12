@@ -181,3 +181,148 @@ M2-M  Apple M2 (8 cores)   16 GB   256 GB  high stock  1 days                  0
     "m3_water_usage": 0.0000012453893
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- cpu:
+    core_count: 10
+    frequency: 4400000000
+    name: Apple M4
+    sockets: 0
+    threads_per_core: 0
+  default_os:
+    compatible_server_types:
+    - M1-M
+    - M2-M
+    - M2-L
+    - M4-L
+    - M4-XL
+    - M4-M
+    - M4-S
+    description: ""
+    family: Sequoia
+    id: 87135053-e968-4a38-8735-86901accc6f5
+    image_url: https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png
+    is_beta: false
+    label: macOS Sequoia 15.3.1
+    name: macos-sequoia-15.3.1
+    release_notes_url: ""
+    supported_server_types: null
+    tags: null
+    version: 15.3.1
+    xcode_version: "16"
+  disk:
+    capacity: 256000000000
+    type: SSD
+  gpu:
+    count: 10
+  kg_co2_equivalent: 0.014205732
+  m3_water_usage: 1.3491717e-06
+  memory:
+    capacity: 16000000000
+    type: LPDDR5X
+  minimum_lease_duration: 86400.000000000s
+  name: M4-S
+  network:
+    default_public_bandwidth: 0
+    public_bandwidth_bps: 1000000000
+    supported_bandwidth:
+    - 1000000000
+  npu: null
+  stock: high_stock
+- cpu:
+    core_count: 10
+    frequency: 4400000000
+    name: Apple M4
+    sockets: 0
+    threads_per_core: 0
+  default_os:
+    compatible_server_types:
+    - M1-M
+    - M2-M
+    - M2-L
+    - M4-L
+    - M4-XL
+    - M4-M
+    - M4-S
+    description: ""
+    family: Sequoia
+    id: 87135053-e968-4a38-8735-86901accc6f5
+    image_url: https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png
+    is_beta: false
+    label: macOS Sequoia 15.3.1
+    name: macos-sequoia-15.3.1
+    release_notes_url: ""
+    supported_server_types: null
+    tags: null
+    version: 15.3.1
+    xcode_version: "16"
+  disk:
+    capacity: 1024000000000
+    type: SSD
+  gpu:
+    count: 10
+  kg_co2_equivalent: 0.015271181
+  m3_water_usage: 1.3491717e-06
+  memory:
+    capacity: 32000000000
+    type: LPDDR5X
+  minimum_lease_duration: 86400.000000000s
+  name: M4-M
+  network:
+    default_public_bandwidth: 0
+    public_bandwidth_bps: 10000000000
+    supported_bandwidth:
+    - 1000000000
+    - 2000000000
+    - 3000000000
+    - 4000000000
+    - 5000000000
+    - 6000000000
+    - 7000000000
+    - 8000000000
+    - 9000000000
+    - 10000000000
+  npu: null
+  stock: high_stock
+- cpu:
+    core_count: 8
+    frequency: 3500000000
+    name: Apple M2
+    sockets: 0
+    threads_per_core: 0
+  default_os:
+    compatible_server_types:
+    - M1-M
+    - M2-M
+    - M2-L
+    - M4-S
+    description: ""
+    family: Sequoia
+    id: 367b9c18-d57f-4c9a-bcea-9e1fda66fc70
+    image_url: https://scw-apple-silicon.s3.fr-par.scw.cloud/scw-console/os/macos-sequoia.png
+    is_beta: false
+    label: macOS Sequoia 15.2
+    name: macos-sequoia-15.2
+    release_notes_url: ""
+    supported_server_types: null
+    tags: null
+    version: "15.2"
+    xcode_version: "16"
+  disk:
+    capacity: 256000000000
+    type: SSD
+  gpu:
+    count: 10
+  kg_co2_equivalent: 0.013547652
+  m3_water_usage: 1.2453893e-06
+  memory:
+    capacity: 16000000000
+    type: LPDDR5
+  minimum_lease_duration: 86400.000000000s
+  name: M2-M
+  network:
+    default_public_bandwidth: 0
+    public_bandwidth_bps: 1000000000
+    supported_bandwidth:
+    - 1000000000
+  npu: null
+  stock: high_stock

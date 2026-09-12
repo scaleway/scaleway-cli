@@ -16,3 +16,11 @@ INSTANCE ID                           BACKEND ID                            IP  
     }
   ]
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+backend_servers_stats:
+- backend_id: a0c57fef-73e3-4f9f-a8ec-21181e99d25a
+  instance_id: 76fd4d9a-3003-4c49-a288-2da3429fac75
+  ip: 51.15.254.23
+  last_health_check_status: unknown
+  server_state: stopped
+  server_state_changed_at: "2025-01-30T15:47:21Z"

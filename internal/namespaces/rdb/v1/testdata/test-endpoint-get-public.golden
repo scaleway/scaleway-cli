@@ -11,3 +11,9 @@ Port  17183
   "name": null,
   "load_balancer": {}
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+id: 563846c5-a0f3-4710-85b0-9a6f3d6a4e18
+ip: 195.154.71.12
+load_balancer: {}
+name: null
+port: 17183

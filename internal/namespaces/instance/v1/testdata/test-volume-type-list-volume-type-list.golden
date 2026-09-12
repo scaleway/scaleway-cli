@@ -28,3 +28,18 @@ scratch  Scratch Storage  false     1.0 GB  60 TB
     }
   }
 ]
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+- capabilities:
+    snapshot: true
+  constraints:
+    max: 800000000000
+    min: 1000000000
+  display_name: Local SSD
+  type: l_ssd
+- capabilities:
+    snapshot: false
+  constraints:
+    max: 60000000000000
+    min: 1000000000
+  display_name: Scratch Storage
+  type: scratch

@@ -5,3 +5,5 @@ Cannot create the server: you cannot use an existing volume as a root volume
 {
   "error": "cannot create the server: you cannot use an existing volume as a root volume"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'cannot create the server: you cannot use an existing volume as a root volume'

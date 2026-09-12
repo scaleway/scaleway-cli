@@ -138,3 +138,67 @@ de7bad47-e380-4dc1-bf88-98cbf3d14e62  fd6d:9b51:d4ce:b53c:cb0:601c:aedb:8139/64
     }
   ]
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+default_route_propagation_enabled: false
+dhcp_enabled: true
+has_object_storage_private_access: false
+id: 1cd5dd6b-a9a1-489e-807d-b124589988e2
+instance_servers:
+- id: d3fcf57e-87ea-4735-9e83-0e4f7da14a80
+  mac: 02:00:00:1e:cc:7a
+  name: cli-srv-sweet-rubin
+  nic_id: 5e834a19-ef61-4d0b-ab62-67eedc487e59
+  state: stopped
+ipam_ips:
+- address: 172.16.72.5/22
+  id: a4c8064b-731b-4751-a703-85ebadcb9329
+- address: fd6d:9b51:d4ce:b53c:b160:b572:1ebc:9f19/64
+  id: 08ebda60-560e-4dbd-8912-90925f502a32
+- address: 172.16.72.4/22
+  id: 6c65eddb-9033-4a7f-83c6-d345c12aadae
+- address: 172.16.72.3/22
+  id: a138cb88-58e5-4da6-9ee5-0c04aa7464c7
+- address: fd6d:9b51:d4ce:b53c:cb0:601c:aedb:8139/64
+  id: de7bad47-e380-4dc1-bf88-98cbf3d14e62
+- address: 172.16.72.2/22
+  id: 6448556f-2a1b-42f0-8975-55946ac5c6ee
+lbs:
+- id: ad4263c1-a616-49d7-8efd-f6a74d9b5cd1
+  name: cli-test
+  state: ready
+mongodb_instances:
+- endpoint_id: 2ccd27dd-d9e0-4937-883a-7d75fefdfa11
+  id: 4c4f9c7c-427e-4287-91d0-e34a3966d48d
+  name: mongo-cli-test
+  state: ready
+name: cli-pn-unruffled-proskuriakova
+organization_id: 4d333544-41be-4b0b-8907-0b9036859747
+project_id: 4d333544-41be-4b0b-8907-0b9036859747
+rdb_instances:
+- endpoint_id: d11f9a27-7e03-43a7-9a5e-f0f0413f2a61
+  id: 57e94a08-ff76-4ff2-8d9d-134522552d43
+  name: cli-test
+  state: ready
+region: fr-par
+srn: srn://vpc.scw.eu/regions/fr-par/private-networks/1cd5dd6b-a9a1-489e-807d-b124589988e2
+subnets:
+- created_at: "1970-01-01T00:00:00.0Z"
+  id: 35de71c6-e707-4dcd-b0c4-58b8733cfc45
+  private_network_id: 1cd5dd6b-a9a1-489e-807d-b124589988e2
+  project_id: 4d333544-41be-4b0b-8907-0b9036859747
+  region: fr-par
+  subnet: 172.16.72.0/22
+  updated_at: "1970-01-01T00:00:00.0Z"
+  vpc_id: 3a436539-0369-429e-95b4-c38683bcac76
+- created_at: "1970-01-01T00:00:00.0Z"
+  id: c66f9fb8-0f16-4475-b907-4b7c4189a64e
+  private_network_id: 1cd5dd6b-a9a1-489e-807d-b124589988e2
+  project_id: 4d333544-41be-4b0b-8907-0b9036859747
+  region: fr-par
+  subnet: fd6d:9b51:d4ce:b53c::/64
+  updated_at: "1970-01-01T00:00:00.0Z"
+  vpc_id: 3a436539-0369-429e-95b4-c38683bcac76
+tags: []
+updated_at: "1970-01-01T00:00:00.0Z"
+vpc_id: 3a436539-0369-429e-95b4-c38683bcac76

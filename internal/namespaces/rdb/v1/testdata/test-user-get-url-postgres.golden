@@ -3,3 +3,5 @@
 postgresql://foobar@163.172.166.66:21441
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 "postgresql://foobar@163.172.166.66:21441"
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+postgresql://foobar@163.172.166.66:21441

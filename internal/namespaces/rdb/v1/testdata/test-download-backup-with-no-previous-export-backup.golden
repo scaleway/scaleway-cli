@@ -6,3 +6,6 @@ Backup downloaded to no_previous_export_dump successfully (2.1 kB written)
   "size": 2104,
   "file_name": "no_previous_export_dump"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+file_name: no_previous_export_dump
+size: 2104

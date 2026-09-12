@@ -8,3 +8,7 @@ Server is not delivered
     "message": "Server is not delivered"
   }
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error:
+  message: Server is not delivered
+message: Server is not delivered

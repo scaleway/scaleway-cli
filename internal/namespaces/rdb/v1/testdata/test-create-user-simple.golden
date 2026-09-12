@@ -9,3 +9,7 @@ Password  {4xdl*#QOoP+&3XRkGA)]
   "is_admin": false,
   "password": "{4xdl*#QOoP+\u00263XRkGA)]"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+is_admin: false
+name: cli-test
+password: '{4xdl*#QOoP+&3XRkGA)]'

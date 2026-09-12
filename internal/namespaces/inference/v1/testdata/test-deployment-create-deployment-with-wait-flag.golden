@@ -48,3 +48,26 @@ afe74bcb-384e-4db0-9292-838ea75d3d59  https://85d5ddd1-c199-4373-8258-28d81e6a8a
   "updated_at": "1970-01-01T00:00:00.0Z",
   "region": "fr-par"
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+created_at: "1970-01-01T00:00:00.0Z"
+endpoints:
+- disable_auth: false
+  id: afe74bcb-384e-4db0-9292-838ea75d3d59
+  public_network: {}
+  url: https://85d5ddd1-c199-4373-8258-28d81e6a8ab0.ifr.fr-par.scaleway.com
+error_message: ""
+id: 85d5ddd1-c199-4373-8258-28d81e6a8ab0
+max_size: 1
+min_size: 1
+model_id: 739d51ae-4f1e-4193-a4bf-f7380c090d46
+model_name: qwen/qwen3-235b-a22b-instruct-2507:awq
+name: cli-inference-festive-mendel
+node_type_name: H100-2
+project_id: d3520a52-2c75-4ba0-bda8-82dd087f07f2
+quantization:
+  bits: 4
+region: fr-par
+size: 1
+status: ready
+tags: []
+updated_at: "1970-01-01T00:00:00.0Z"

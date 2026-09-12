@@ -5,3 +5,5 @@ scaleway-sdk-go: given profile test does not exist
 {
   "error": "scaleway-sdk-go: given profile test does not exist"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: 'scaleway-sdk-go: given profile test does not exist'

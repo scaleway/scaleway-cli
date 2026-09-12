@@ -5,3 +5,6 @@ Invalid IP "yo", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'non
 {
   "error": "invalid IP \"yo\", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic', 'none', an IP address ID or a reserved flexible IP address"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+error: invalid IP "yo", should be either 'new', 'ipv4', 'ipv6', 'both', 'dynamic',
+  'none', an IP address ID or a reserved flexible IP address

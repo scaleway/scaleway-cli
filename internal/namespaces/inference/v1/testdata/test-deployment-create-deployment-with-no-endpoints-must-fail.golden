@@ -22,3 +22,12 @@ Deployments must have at least one endpoint
   "details": "- 'endpoints' is required",
   "hint": "Deployments must have at least one endpoint"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+details: '- ''endpoints'' is required'
+error:
+  details:
+  - argument_name: endpoints
+    help_message: Deployments must have at least one endpoint
+    reason: required
+hint: Deployments must have at least one endpoint
+message: invalid arguments 'endpoints'

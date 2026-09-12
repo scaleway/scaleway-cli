@@ -122,3 +122,82 @@ ID   NAME
     }
   ]
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- action: drop
+  dest_port_from: 25
+  dest_port_to: null
+  direction: outbound
+  editable: false
+  id: 11111111-2222-4333-8444-000000000001
+  ip_range: 0.0.0.0/0
+  position: 1
+  protocol: TCP
+  zone: fr-par-1
+- action: drop
+  dest_port_from: 465
+  dest_port_to: null
+  direction: outbound
+  editable: false
+  id: 11111111-2222-4333-8444-000000000002
+  ip_range: 0.0.0.0/0
+  position: 2
+  protocol: TCP
+  zone: fr-par-1
+- action: drop
+  dest_port_from: 587
+  dest_port_to: null
+  direction: outbound
+  editable: false
+  id: 11111111-2222-4333-8444-000000000003
+  ip_range: 0.0.0.0/0
+  position: 3
+  protocol: TCP
+  zone: fr-par-1
+- action: drop
+  dest_port_from: 25
+  dest_port_to: null
+  direction: outbound
+  editable: false
+  id: 11111111-2222-4333-8444-000000000004
+  ip_range: ::/0
+  position: 4
+  protocol: TCP
+  zone: fr-par-1
+- action: drop
+  dest_port_from: 465
+  dest_port_to: null
+  direction: outbound
+  editable: false
+  id: 11111111-2222-4333-8444-000000000005
+  ip_range: ::/0
+  position: 5
+  protocol: TCP
+  zone: fr-par-1
+- action: drop
+  dest_port_from: 587
+  dest_port_to: null
+  direction: outbound
+  editable: false
+  id: 11111111-2222-4333-8444-000000000006
+  ip_range: ::/0
+  position: 6
+  protocol: TCP
+  zone: fr-par-1
+creation_date: "1970-01-01T00:00:00.0Z"
+description: ""
+enable_default_security: true
+id: 6bbed5ce-6b01-4841-9adb-c18fc2b80774
+inbound_default_policy: accept
+modification_date: "1970-01-01T00:00:00.0Z"
+name: cli-sg-charming-rubin
+organization: fa1e3217-dc80-42ac-85c3-3f034b78b552
+organization_default: false
+outbound_default_policy: accept
+project: fa1e3217-dc80-42ac-85c3-3f034b78b552
+project_default: false
+servers: []
+state: available
+stateful: true
+tags: []
+zone: fr-par-1

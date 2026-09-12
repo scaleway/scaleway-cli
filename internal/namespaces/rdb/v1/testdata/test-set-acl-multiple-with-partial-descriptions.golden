@@ -47,3 +47,32 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
     "details": ""
   }
 }
+🟩🟩🟩 YAML STDOUT 🟩🟩🟩
+Rules:
+- action: allow
+  description: Allow All
+  direction: inbound
+  ip: 0.0.0.0/0
+  port: 24134
+  protocol: tcp
+- action: allow
+  description: first
+  direction: inbound
+  ip: 1.1.1.1/32
+  port: 24134
+  protocol: tcp
+- action: allow
+  description: second
+  direction: inbound
+  ip: 2.2.2.2/32
+  port: 24134
+  protocol: tcp
+- action: allow
+  description: third
+  direction: inbound
+  ip: 3.3.3.3/32
+  port: 24134
+  protocol: tcp
+Success:
+  details: ""
+  message: 3 ACL rules successfully added

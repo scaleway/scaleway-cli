@@ -7,3 +7,8 @@ Private ip are assigned when the server boots, start yours with: scw instance se
   "message": "server ae9bfa9f-321f-414b-8fa9-e89c854e410d (cli-srv-flamboyant-cartwright) does not have a private ip",
   "hint": "Private ip are assigned when the server boots, start yours with: scw instance server start ae9bfa9f-321f-414b-8fa9-e89c854e410d"
 }
+🟥🟥🟥 YAML STDERR 🟥🟥🟥
+hint: 'Private ip are assigned when the server boots, start yours with: scw instance
+  server start ae9bfa9f-321f-414b-8fa9-e89c854e410d'
+message: server ae9bfa9f-321f-414b-8fa9-e89c854e410d (cli-srv-flamboyant-cartwright)
+  does not have a private ip
