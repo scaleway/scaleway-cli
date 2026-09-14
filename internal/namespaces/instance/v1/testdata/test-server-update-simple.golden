@@ -41,6 +41,7 @@ StateDetail             -
 Arch                    x86_64
 Zone                    fr-par-1
 EndOfService            false
+Srn                     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "e945cfe9-5b5e-41e9-9bbc-8bdb8cd1bdf4",

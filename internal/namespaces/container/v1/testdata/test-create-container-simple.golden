@@ -64,5 +64,6 @@ Region                                     fr-par
   "command": [],
   "args": [],
   "public_endpoint": "https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud",
+  "private_endpoint": null,
   "region": "fr-par"
 }

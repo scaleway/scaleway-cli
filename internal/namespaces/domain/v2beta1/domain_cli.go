@@ -99,7 +99,7 @@ func dnsRoot() *core.Command {
 
 func domainRoot() *core.Command {
 	return &core.Command{
-		Short:     `Domains and DNS - Registrar API`,
+		Short:     `Domain names - Registrar API`,
 		Long:      `Manage your domains and contacts.`,
 		Namespace: "domain",
 	}
@@ -2696,6 +2696,13 @@ You can provide a domain's already existing contact or a new contact.`,
 			},
 			{
 				Name:       "technical-contact.questions.{index}.answer",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "auto-renew",
+				Short:      `Enable the ` + "`" + `auto renew` + "`" + ` feature for all the requested domains. This means the domain will be automatically renewed before its expiry date.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

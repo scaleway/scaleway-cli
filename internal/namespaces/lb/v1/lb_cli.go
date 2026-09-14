@@ -1275,6 +1275,13 @@ func lbBackendCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "host",
+				Short:      `Host value to use when connecting to backend servers`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
 				scw.ZoneFrPar2,
@@ -1511,6 +1518,13 @@ func lbBackendUpdate() *core.Command {
 			{
 				Name:       "timeout-queue",
 				Short:      `Maximum time for a request to be left pending in queue when ` + "`" + `max_connections` + "`" + ` is reached`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "host",
+				Short:      `Host value to use when connecting to backend servers`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

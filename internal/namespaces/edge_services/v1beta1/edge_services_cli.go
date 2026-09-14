@@ -542,7 +542,7 @@ func edgeServicesDNSStageCreate() *core.Command {
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "fqdns.{index}",
-				Short:      `Fully Qualified Domain Name (in the format subdomain.example.com) to attach to the stage`,
+				Short:      `Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -642,7 +642,7 @@ func edgeServicesDNSStageUpdate() *core.Command {
 			},
 			{
 				Name:       "fqdns.{index}",
-				Short:      `Fully Qualified Domain Name (in the format subdomain.example.com) attached to the stage`,
+				Short:      `Custom Fully Qualified Domain Name to be configured (only 1 FQDN can be setup for now)`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

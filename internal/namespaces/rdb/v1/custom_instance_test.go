@@ -10,6 +10,7 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	rdbSDK "github.com/scaleway/scaleway-sdk-go/api/rdb/v1"
 	"github.com/stretchr/testify/assert"
+	"github.com/stretchr/testify/require"
 )
 
 const (
@@ -218,12 +219,14 @@ func Test_UpdateInstance(t *testing.T) {
 		),
 		Cmd: "scw rdb instance update {{ .Instance.ID }} name=foo --wait",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "foo", ctx.Result.(*rdbSDK.Instance).Name)
+				require.NoError(t, ctx.Err)
+				instance := requireInstanceResult(t, ctx)
+				assert.Equal(t, "foo", instance.Name)
 			},
 			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteInstance(),
 	}))
@@ -236,12 +239,14 @@ func Test_UpdateInstance(t *testing.T) {
 		),
 		Cmd: "scw rdb instance update {{ .Instance.ID }} tags.0=a --wait",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "a", ctx.Result.(*rdbSDK.Instance).Tags[0])
+				require.NoError(t, ctx.Err)
+				instance := requireInstanceResult(t, ctx)
+				assert.Equal(t, "a", instance.Tags[0])
 			},
 			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteInstance(),
 	}))
@@ -254,13 +259,15 @@ func Test_UpdateInstance(t *testing.T) {
 		),
 		Cmd: "scw rdb instance update {{ .Instance.ID }} settings.0.name=timezone settings.0.value=UTC --wait",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "timezone", ctx.Result.(*rdbSDK.Instance).Settings[5].Name)
-				assert.Equal(t, "UTC", ctx.Result.(*rdbSDK.Instance).Settings[5].Value)
+				require.NoError(t, ctx.Err)
+				instance := requireInstanceResult(t, ctx)
+				setting := requireSetting(t, instance, "timezone")
+				assert.Equal(t, "UTC", setting.Value)
 			},
 			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteInstance(),
 	}))
@@ -273,13 +280,15 @@ func Test_UpdateInstance(t *testing.T) {
 		),
 		Cmd: "scw rdb instance update {{ .Instance.ID }} settings.0.name=work_mem settings.0.value=8 --wait",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(t, "work_mem", ctx.Result.(*rdbSDK.Instance).Settings[5].Name)
-				assert.Equal(t, "8", ctx.Result.(*rdbSDK.Instance).Settings[5].Value)
+				require.NoError(t, ctx.Err)
+				instance := requireInstanceResult(t, ctx)
+				setting := requireSetting(t, instance, "work_mem")
+				assert.Equal(t, "8", setting.Value)
 			},
 			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteInstance(),
 	}))
@@ -302,31 +311,43 @@ func Test_UpdateInstance(t *testing.T) {
 			" settings.3.name=maintenance_work_mem settings.3.value=200" +
 			" name=foo2 --wait",
 		Check: core.TestCheckCombine(
+			core.TestCheckExitCode(0),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Equal(
-					t,
-					"effective_cache_size",
-					ctx.Result.(*rdbSDK.Instance).Settings[0].Name,
-				)
-				assert.Equal(t, "1200", ctx.Result.(*rdbSDK.Instance).Settings[0].Value)
-				assert.Equal(
-					t,
-					"maintenance_work_mem",
-					ctx.Result.(*rdbSDK.Instance).Settings[1].Name,
-				)
-				assert.Equal(t, "200", ctx.Result.(*rdbSDK.Instance).Settings[1].Value)
-				assert.Equal(t, "max_connections", ctx.Result.(*rdbSDK.Instance).Settings[2].Name)
-				assert.Equal(t, "150", ctx.Result.(*rdbSDK.Instance).Settings[2].Value)
-				assert.Equal(t, "work_mem", ctx.Result.(*rdbSDK.Instance).Settings[5].Name)
-				assert.Equal(t, "16", ctx.Result.(*rdbSDK.Instance).Settings[5].Value)
-				assert.Equal(t, "foo2", ctx.Result.(*rdbSDK.Instance).Name)
+				require.NoError(t, ctx.Err)
+				instance := requireInstanceResult(t, ctx)
+				assert.Equal(t, "1200", requireSetting(t, instance, "effective_cache_size").Value)
+				assert.Equal(t, "200", requireSetting(t, instance, "maintenance_work_mem").Value)
+				assert.Equal(t, "150", requireSetting(t, instance, "max_connections").Value)
+				assert.Equal(t, "16", requireSetting(t, instance, "work_mem").Value)
+				assert.Equal(t, "foo2", instance.Name)
 			},
 			core.TestCheckGolden(),
-			core.TestCheckExitCode(0),
 		),
 		AfterFunc: deleteInstance(),
 	}))
+}
+
+func requireInstanceResult(t *testing.T, ctx *core.CheckFuncCtx) *rdbSDK.Instance {
+	t.Helper()
+	require.NotNil(t, ctx.Result, "command returned nil result\nstderr: %s", string(ctx.Stderr))
+	instance, ok := ctx.Result.(*rdbSDK.Instance)
+	require.True(t, ok, "unexpected result type %T", ctx.Result)
+	require.NotNil(t, instance)
+
+	return instance
+}
+
+func requireSetting(t *testing.T, instance *rdbSDK.Instance, name string) *rdbSDK.InstanceSetting {
+	t.Helper()
+	for _, setting := range instance.Settings {
+		if setting.Name == name {
+			return setting
+		}
+	}
+	require.FailNowf(t, "setting not found", "setting %q not found in %#v", name, instance.Settings)
+
+	return nil
 }
 
 func Test_Connect(t *testing.T) {

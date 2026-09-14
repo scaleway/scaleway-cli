@@ -8,6 +8,7 @@ USAGE:
 AVAILABLE COMMANDS:
   backup      
   database    
+  version     
 
 FLAGS:
   -h, --help                help for sdb-sql

@@ -1922,6 +1922,16 @@ func instancePlacementGroupList() *core.Command {
 
 			return api.ListPlacementGroups(request, scw.WithContext(ctx))
 		},
+		Examples: []*core.Example{
+			{
+				Short:    "List all placement groups in the default zone",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "List placement groups that match a specified name ('cluster1' will return 'cluster100' and 'cluster1' but not 'foo')",
+				ArgsJSON: `{"name":"cluster1"}`,
+			},
+		},
 	}
 }
 
@@ -1983,6 +1993,24 @@ func instancePlacementGroupCreate() *core.Command {
 
 			return api.CreatePlacementGroup(request, scw.WithContext(ctx))
 		},
+		Examples: []*core.Example{
+			{
+				Short:    "Create a max availability placement group with default name",
+				ArgsJSON: `null`,
+			},
+			{
+				Short:    "Create a max availability placement group with the specified name",
+				ArgsJSON: `{"name":"foobar"}`,
+			},
+			{
+				Short:    "Create a low latency placement group",
+				ArgsJSON: `{"policy_type":"low_latency"}`,
+			},
+			{
+				Short:    "Create a max availability placement group with tags",
+				ArgsJSON: `{"tags":["foo","bar"]}`,
+			},
+		},
 	}
 }
 
@@ -2001,7 +2029,7 @@ func instancePlacementGroupGet() *core.Command {
 				Short:      `UUID of the placement group you want to get`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -2024,6 +2052,12 @@ func instancePlacementGroupGet() *core.Command {
 
 			return api.GetPlacementGroup(request, scw.WithContext(ctx))
 		},
+		Examples: []*core.Example{
+			{
+				Short:    "Get a placement group with the specified ID",
+				ArgsJSON: `{"placement_group_id":"6c15f411-3b6f-402d-8eba-ae24ef9254e9"}`,
+			},
+		},
 	}
 }
 
@@ -2042,7 +2076,7 @@ func instancePlacementGroupUpdate() *core.Command {
 				Short:      `UUID of the placement group`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			{
 				Name:       "name",
@@ -2091,6 +2125,20 @@ func instancePlacementGroupUpdate() *core.Command {
 
 			return api.UpdatePlacementGroup(request, scw.WithContext(ctx))
 		},
+		Examples: []*core.Example{
+			{
+				Short:    "Update the name of a placement group",
+				ArgsJSON: `{"name":"foobar","placement_group_id":"95053f33-cd3c-4cdc-b2b0-57d2dda97b13"}`,
+			},
+			{
+				Short:    "Update the policy type of a placement group (all Instances in your placement group MUST be shutdown)",
+				ArgsJSON: `{"placement_group_id":"0954ec26-9917-47b6-8c5c-7bc81d7bb9d2","policy_type":"low_latency"}`,
+			},
+			{
+				Short:    "Update the tags of a placement group",
+				ArgsJSON: `{"placement_group_id":"1f883434-8c2d-40f0-b686-d0754b3a7bc0","tags":["update-tag"]}`,
+			},
+		},
 	}
 }
 
@@ -2109,7 +2157,7 @@ func instancePlacementGroupDelete() *core.Command {
 				Short:      `UUID of the placement group you want to delete`,
 				Required:   true,
 				Deprecated: false,
-				Positional: false,
+				Positional: true,
 			},
 			core.ZoneArgSpec(
 				scw.ZoneFrPar1,
@@ -2138,6 +2186,16 @@ func instancePlacementGroupDelete() *core.Command {
 				Resource: "placement-group",
 				Verb:     "delete",
 			}, nil
+		},
+		Examples: []*core.Example{
+			{
+				Short:    "Delete a placement group in the default zone with the specified ID",
+				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111"}`,
+			},
+			{
+				Short:    "Delete a placement group in nl-ams-1 zone with the specified ID",
+				ArgsJSON: `{"placement_group_id":"11111111-1111-1111-1111-111111111111","zone":"nl-ams-1"}`,
+			},
 		},
 	}
 }

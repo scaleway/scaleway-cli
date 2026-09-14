@@ -20,7 +20,7 @@ make test            # or ./scripts/run-tests.sh
 ./scripts/run-tests.sh -D            # enable debug mode
 
 # Update SDK dependency
-make bump-sdk        # updates scaleway-sdk-go to latest master
+make bump-sdk        # updates scaleway-sdk-go to latest main
 ```
 
 ## Architecture Overview

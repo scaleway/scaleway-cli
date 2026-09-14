@@ -248,6 +248,36 @@ func appleSiliconServerCreate() *core.Command {
 				},
 			},
 			{
+				Name:       "runner-configuration.download-runner",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.action",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_action",
+					"remove",
+					"update",
+					"add",
+				},
+			},
+			{
+				Name:       "runner-configuration.id",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "runner-configuration.labels.{index}",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "applied-runner-configurations.runner-configuration-ids.{index}",
 				Required:   false,
 				Deprecated: false,

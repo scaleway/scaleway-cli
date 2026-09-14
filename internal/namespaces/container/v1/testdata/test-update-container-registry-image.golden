@@ -65,5 +65,6 @@ Region                                     fr-par
   "command": [],
   "args": [],
   "public_endpoint": "https://clinsaffectionatetorbd210c2f-cli-test-blissful-jennings.functions.fnc.fr-par.scw.cloud",
+  "private_endpoint": null,
   "region": "fr-par"
 }

@@ -22,6 +22,7 @@ PublicNetworkInterface.IPs.0.Status     attached
 PublicNetworkInterface.IPs.0.Default    false
 PublicNetworkInterface.DNS              366c0ab6-a341-42e6-8379-933b2e9e8161.pub.instances.scw.cloud
 Zone                                    fr-par-1
+Srn                                     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "366c0ab6-a341-42e6-8379-933b2e9e8161",

@@ -67,5 +67,6 @@ Region                                     fr-par
   "command": [],
   "args": [],
   "public_endpoint": "https://clinswonderfulchattebca677ed-cli-test-zen-lamarr.functions.fnc.fr-par.scw.cloud",
+  "private_endpoint": null,
   "region": "fr-par"
 }

@@ -24,7 +24,7 @@ The following environment variables are supported:
 | SCW_INSECURE                | Set this to true to enable the insecure mode                                                        |
 | SCW_PROFILE                 | Set the config profile to use                                                                       |
 
-Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/master/scw#scaleway-config
+Read more about the config management engine at https://github.com/scaleway/scaleway-sdk-go/tree/main/scw#scaleway-config
 
 ## Destroy the config file
 

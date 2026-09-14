@@ -11,7 +11,7 @@ fmt:
 	golangci-lint run --fix ./...
 
 bump-sdk:
-	GOPROXY=direct go get -u github.com/scaleway/scaleway-sdk-go@master
+	GOPROXY=direct go get -u github.com/scaleway/scaleway-sdk-go@main
 	go mod tidy
 
 docs:
