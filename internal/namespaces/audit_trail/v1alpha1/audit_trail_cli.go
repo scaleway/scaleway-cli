@@ -191,6 +191,8 @@ func auditTrailEventList() *core.Command {
 					"serverless_functions_domain",
 					"serverless_functions_cron",
 					"serverless_functions_trigger",
+					"wofl_workflow_definition",
+					"wofl_workflow_run",
 				},
 			},
 			{
