@@ -81,7 +81,7 @@ func vpcGwGatewayNetwork() *core.Command {
 func vpcGwPatRule() *core.Command {
 	return &core.Command{
 		Short:     `PAT rules management`,
-		Long:      `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway.  They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet  to reach the correct device in the Private Network.`,
+		Long:      `PAT (Port Address Translation) rules, aka static NAT rules, belong to a specified Public Gateway. They define the forwarding of a public port to a specific device on a Private Network, enabling enables ingress traffic from the public Internet to reach the correct device in the Private Network.`,
 		Namespace: "vpc-gw",
 		Resource:  "pat-rule",
 	}
@@ -99,7 +99,7 @@ func vpcGwIP() *core.Command {
 func vpcGwGatewayType() *core.Command {
 	return &core.Command{
 		Short:     `Gateway types information`,
-		Long:      `Public Gateways come in various shapes, sizes and prices, which are  described by gateway types. They represent the different commercial  offer types for Public Gateways available at Scaleway.`,
+		Long:      `Public Gateways come in various shapes, sizes and prices, which are described by gateway types. They represent the different commercial offer types for Public Gateways available at Scaleway.`,
 		Namespace: "vpc-gw",
 		Resource:  "gateway-type",
 	}

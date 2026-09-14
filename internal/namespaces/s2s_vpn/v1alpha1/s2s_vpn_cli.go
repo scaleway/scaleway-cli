@@ -73,8 +73,8 @@ func s2sVpnVpnGateway() *core.Command {
 
 func s2sVpnVpnGatewayType() *core.Command {
 	return &core.Command{
-		Short:     `VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.`,
-		Long:      `VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.`,
+		Short:     `VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.`,
+		Long:      `VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.`,
 		Namespace: "s2s-vpn",
 		Resource:  "vpn-gateway-type",
 	}

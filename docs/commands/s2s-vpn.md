@@ -617,9 +617,9 @@ scw s2s-vpn vpn-gateway update <gateway-id ...> [arg=value ...]
 
 
 
-## VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
+## VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.
 
-VPN gateways come in various shapes, sizes and prices, which are  described by VPN gateway types. They represent the different commercial  offer types for VPN gateways available at Scaleway.
+VPN gateways come in various shapes, sizes and prices, which are described by VPN gateway types. They represent the different commercial offer types for VPN gateways available at Scaleway.
 
 
 ### List VPN gateway types
