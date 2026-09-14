@@ -25,5 +25,6 @@ Srn             -
   "mac_address": null,
   "server_id": null,
   "reverse": "62-210-142-180.rev.poneytelecom.eu.",
-  "zone": "fr-par-1"
+  "zone": "fr-par-1",
+  "srn": ""
 }
