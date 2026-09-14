@@ -56,10 +56,8 @@ func Test_getValuesForFieldByName(t *testing.T) {
 	}
 
 	expectedServiceIP := &scw.IPNet{
-		IPNet: net.IPNet{
-			IP:   net.ParseIP("192.0.2.1"),
-			Mask: net.CIDRMask(24, 32),
-		},
+		IP:   net.ParseIP("192.0.2.1"),
+		Mask: net.CIDRMask(24, 32),
 	}
 
 	tests := []struct {
@@ -152,10 +150,8 @@ func Test_getValuesForFieldByName(t *testing.T) {
 							PrivateNetwork: &PrivateNetwork{
 								EndpointSpecPrivateNetwork: &EndpointSpecPrivateNetwork{
 									ServiceIP: &scw.IPNet{
-										IPNet: net.IPNet{
-											IP:   net.ParseIP("192.0.2.1"),
-											Mask: net.CIDRMask(24, 32),
-										},
+										IP:   net.ParseIP("192.0.2.1"),
+										Mask: net.CIDRMask(24, 32),
 									},
 								},
 							},
