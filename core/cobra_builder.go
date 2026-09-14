@@ -2,10 +2,13 @@ package core
 
 import (
 	"context"
+	_ "embed"
 	"fmt"
 	"sort"
 	"strings"
 
+	"github.com/fatih/color"
+	"github.com/scaleway/scaleway-cli/v2/internal/terminal"
 	"github.com/spf13/cobra"
 )
 
@@ -15,6 +18,9 @@ func init() {
 	cobra.AddTemplateFunc("orderCommands", orderCobraCommands)
 	cobra.AddTemplateFunc("orderGroups", orderCobraGroups)
 	cobra.AddTemplateFunc("getCommandsGroups", getCobraCommandsGroups)
+	cobra.AddTemplateFunc("bold", func(s string) string {
+		return terminal.Style(s, color.Bold, color.FgMagenta)
+	})
 }
 
 // cobraBuilder will transform a []*Command to a valid Cobra root command.
@@ -114,7 +120,7 @@ func printAllSubCommands(cmd *cobra.Command, level int) {
 	if cmd.Short != "" {
 		desc = " - " + cmd.Short
 	}
-	fmt.Printf("%s%s%s\n", indent, cmd.Name(), desc)
+	fmt.Printf("%s%s%s\n", indent, terminal.Style(cmd.Name(), color.FgGreen), desc)
 
 	// Collect and sort subcommands alphabetically
 	var subCommands []*cobra.Command
@@ -142,7 +148,9 @@ func (b *cobraBuilder) hydrateCobra(
 	groups map[string]*cobra.Group,
 ) {
 	cobraCmd.Short = cmd.Short
-	cobraCmd.Long = cmd.Long
+	if cmd.Long != "" {
+		cobraCmd.Long = terminal.Style(cmd.Long, color.FgWhite)
+	}
 	cobraCmd.Hidden = cmd.Hidden
 	cobraCmd.Aliases = cmd.Aliases
 
@@ -223,73 +231,5 @@ func (b *cobraBuilder) hydrateCobra(
 	cobraCmd.PersistentFlags().Bool("list-sub-commands", false, "List all subcommands")
 }
 
-const usageTemplate = `USAGE:
-  {{.Annotations.CommandUsage}}
-{{- if gt (len .Aliases) 0}}
-
-ALIASES:
-{{.Annotations.Aliases}}
-{{- end}}
-{{- if .Annotations.Examples}}
-
-EXAMPLES:
-{{.Annotations.Examples}}
-{{- end }}
-{{- if .Annotations.UsageArgs}}
-
-ARGS:
-{{.Annotations.UsageArgs}}
-{{- end}}
-{{- if .Annotations.UsageDeprecatedArgs}}
-
-DEPRECATED ARGS:
-{{.Annotations.UsageDeprecatedArgs}}
-{{- end}}
-{{- if .HasAvailableSubCommands}}
-
-{{- range $_, $group := orderGroups (getCommandsGroups .Commands) }}
-
-{{ $group.Title }} COMMANDS:
-  {{- range $_, $command := orderCommands $.Commands }}
-  {{- if or $command.IsAvailableCommand $command.Deprecated }}
-  {{- if or ($command.ContainsGroup $group.ID) (and (eq $group.ID "utility") (eq $command.Name "help")) }}
-  {{ rpad $command.Name .NamePadding }}
-  {{- if $command.Deprecated }} {{ if $command.Short }}{{ $command.Short }} (Deprecated){{ end }}
-  {{- else }} {{ if $command.Short }}{{ $command.Short }}{{ end }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-{{- end }}
-
-{{- if .HasAvailableLocalFlags }}
-
-FLAGS:
-{{ .LocalFlags.FlagUsages | trimTrailingWhitespaces }}
-{{- end}}
-{{- if .HasAvailableInheritedFlags }}
-
-GLOBAL FLAGS:
-{{ .InheritedFlags.FlagUsages | trimTrailingWhitespaces}}
-{{- end}}
-{{- if .Annotations.SeeAlsos}}
-
-SEE ALSO:
-{{.Annotations.SeeAlsos}}
-{{- end}}
-{{- if .HasHelpSubCommands}}
-
-Additional help topics:
-{{- range .Commands}}
-{{- if .IsAdditionalHelpTopicCommand}}
-  {{rpad .CommandPath .CommandPathPadding}} {{.Short}}
-{{- end}}
-{{- end}}
-
-{{- end}}
-{{- if .HasAvailableSubCommands}}
-
-Use "{{.CommandPath}} [command] --help" for more information about a command.
-{{- end}}
-`
+//go:embed  templates/usage.tmpl
+var usageTemplate string

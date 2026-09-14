@@ -141,11 +141,11 @@ func (sg *customSecurityGroupResponse) MarshalHuman() (out string, err error) {
 		return "", err
 	}
 
-	// b returns the given string in bold.
+	// b returns the given string in bold via terminal.Style (theme-aware).
 	// For inboundRulesView and outboundRulesView, this function must be called for every
 	// concatenated part of the string because of the color package escaping at the end of
 	// a color resulting in a non-bold format after the default{In|Out}boundPolicy.
-	b := color.New(color.Bold).SprintFunc()
+	b := func(s string) string { return terminal.Style(s, color.Bold) }
 
 	inboundRulesContent, err := human.Marshal(inboundRules, nil)
 	if err != nil {
