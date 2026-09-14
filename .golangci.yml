@@ -1,7 +1,7 @@
 #
 # Golang CI pipeline configuration
 #
-# To execute linters in local the ./scripts/lint.sh script can be used.
+# To execute linters locally the `mise run lint:cli` task can be used.
 version: "2"
 
 formatters:

@@ -116,10 +116,8 @@ func TestInit(t *testing.T) {
 		dummySecretKey := "22222222-2222-2222-2222-222222222222"
 		dummyAccessKey := "SCW22222222222222222"
 		dummyConfig := &scw.Config{
-			Profile: scw.Profile{
-				AccessKey: &dummyAccessKey,
-				SecretKey: &dummySecretKey,
-			},
+			AccessKey: &dummyAccessKey,
+			SecretKey: &dummySecretKey,
 			Profiles: map[string]*scw.Profile{
 				"test": {
 					AccessKey:   &dummyAccessKey,
