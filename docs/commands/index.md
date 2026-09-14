@@ -5,8 +5,7 @@
 <p align="center"><img width="50%" src="cli-artwork.png" /></p>
 
 <p align="center">
-  <a href="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2"><img src="https://circleci.com/gh/scaleway/scaleway-cli/tree/v2.svg?style=shield" alt="CircleCI" /></a>
-  <a href="https://goreportcard.com/report/github.com/scaleway/scaleway-cli"><img src="https://goreportcard.com/badge/scaleway/scaleway-cli" alt="GoReportCard" /></a> <!-- GoReportCard do not support branches. -->
+  <a href="https://github.com/scaleway/scaleway-cli/actions/workflows/ci.yaml"><img src="https://github.com/scaleway/scaleway-cli/actions/workflows/ci.yaml/badge.svg?branch=main" alt="CI" /></a>
 </p>
 
 Scaleway CLI is a tool to help you pilot your Scaleway infrastructure directly from your terminal.
@@ -107,7 +106,7 @@ To enable beta features, you can set `SCW_ENABLE_BETA=1` in your environment.
 
 ### Build Locally
 
-If you have a >= Go 1.13 environment, you can install the `HEAD` version to test the latest features or to [contribute](https://github.com/scaleway/scaleway-cli/blob/main/.github/CONTRIBUTING.md).
+If you have a >= Go 1.27 environment, you can install the `HEAD` version to test the latest features or to [contribute](https://github.com/scaleway/scaleway-cli/blob/main/.github/CONTRIBUTING.md).
 Note that this development version could include bugs, use [tagged releases](https://github.com/scaleway/scaleway-cli/releases/latest) if you need stability.
 
 ```bash
