@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -317,6 +317,13 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "dedicated-pool-ids.{index}",
+				Short:      `Filter servers associated with these Dedicated Pools`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "private-network-ids.{index}",
 				Short:      `Private Network IDs to filter servers`,
 				Required:   false,
@@ -403,6 +410,13 @@ func instanceServerCreate() *core.Command {
 			{
 				Name:       "placement-group-id",
 				Short:      `ID of the placement group the server belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dedicated-pool-id",
+				Short:      `ID of the Dedicated Pool this server belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -621,6 +635,13 @@ func instanceServerUpdate() *core.Command {
 			{
 				Name:       "placement-group-id",
 				Short:      `New placement group ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dedicated-pool-id",
+				Short:      `New Dedicated Pool ID`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
