@@ -69,6 +69,7 @@ serializeImagePulls          bool
 [
   {
     "name": "1.36.4",
+    "srn": "",
     "label": "Kubernetes 1.36.4",
     "region": "fr-par",
     "available_cnis": [
@@ -117,6 +118,7 @@ serializeImagePulls          bool
   },
   {
     "name": "1.35.8",
+    "srn": "",
     "label": "Kubernetes 1.35.8",
     "region": "fr-par",
     "available_cnis": [
@@ -165,6 +167,7 @@ serializeImagePulls          bool
   },
   {
     "name": "1.34.11",
+    "srn": "",
     "label": "Kubernetes 1.34.11",
     "region": "fr-par",
     "available_cnis": [
@@ -213,6 +216,7 @@ serializeImagePulls          bool
   },
   {
     "name": "1.33.13",
+    "srn": "",
     "label": "Kubernetes 1.33.13",
     "region": "fr-par",
     "available_cnis": [
