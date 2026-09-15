@@ -14,7 +14,8 @@ ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOP
     "condition": "",
     "project_ids": [
       "9c3120c4-adb4-4ea4-bd9b-79834955d02f"
-    ]
+    ],
+    "srn": ""
   },
   {
     "id": "415dcb71-d6d8-4ef5-9f56-a091ac6b88c2",
@@ -25,6 +26,7 @@ ID                                    PERMISSION SET NAMES  PERMISSION SETS SCOP
     "condition": "",
     "project_ids": [
       "9c3120c4-adb4-4ea4-bd9b-79834955d02f"
-    ]
+    ],
+    "srn": ""
   }
 ]

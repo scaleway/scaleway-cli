@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                03495d0c-fd17-41c8-abd7-a9504098cd3a
+Srn               -
 Type              kapsule
 Name              cli-test-get-cluster
 Status            creating
@@ -22,7 +23,6 @@ IamNodesGroupID   -
 PodCidr           100.64.0.0/15
 ServiceCidr       10.32.0.0/20
 ServiceDNSIP      10.32.0.10
-Srn               -
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -56,6 +56,7 @@ ID                                    NAME     STATUS   VERSION  NODE TYPE  MIN 
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "03495d0c-fd17-41c8-abd7-a9504098cd3a",
+  "srn": "",
   "type": "kapsule",
   "name": "cli-test-get-cluster",
   "status": "creating",
