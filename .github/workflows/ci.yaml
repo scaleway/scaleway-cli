@@ -30,5 +30,35 @@ jobs:
       - uses: jdx/mise-action@v3
         with:
           version: 2026.9.3
+          cache: true
+      - id: cache-vars
+        name: Set cache variables
+        run: |
+          {
+            echo "goversion=$(go env GOVERSION)";
+            echo "gomodcache=$(go env GOMODCACHE)";
+            echo "gocache=$(go env GOCACHE)"
+            echo "pnpmversion=$(pnpm --versoin)"
+            echo "pnpmcache=$(pnpm cache path)"
+          } >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@v6
+        name: Cache go modules and build
+        with:
+          key: go-${{ runner.os }}-${{ steps.cache-vars.outputs.goversion }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            go-${{ runner.os }}-${{ steps.cache-vars.outputs.goversion }}
+            go-${{ runner.os }}
+          path: |
+            ${{ steps.cache-vars.outputs.gomodcache }}
+            ${{ steps.cache-vars.outputs.gocache }}
+      - uses: actions/cache@v6
+        name: Cache pnpm dependencies
+        with:
+          key: pnpm-${{ runner.os }}-${{ steps.cache-vars.outputs.pnpmversion }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-${{ steps.cache-vars.outputs.pnpmversion }}
+            pnpm-${{ runner.os }}
+          path: |
+            ${{ steps.cache-vars.outputs.pnpmcache }}
       - run: mise run ci
 
