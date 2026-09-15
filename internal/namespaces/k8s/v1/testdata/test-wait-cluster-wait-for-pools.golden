@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                3d2bb456-93c0-44e8-9327-e72ccce12380
+Srn               -
 Type              kapsule
 Name              cli-test-wait-cluster
 Status            ready
@@ -22,7 +23,6 @@ IamNodesGroupID   e0ff7b69-23a1-4a55-864e-5dff491d21a3
 PodCidr           100.64.0.0/15
 ServiceCidr       10.32.0.0/20
 ServiceDNSIP      10.32.0.10
-Srn               -
 
 Autoscaler configuration:
 ScaleDownDisabled              false
@@ -52,6 +52,7 @@ GroupsPrefix    -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "3d2bb456-93c0-44e8-9327-e72ccce12380",
+  "srn": "",
   "type": "kapsule",
   "name": "cli-test-wait-cluster",
   "status": "ready",
