@@ -31,4 +31,3 @@ jobs:
         with:
           version: 2026.9.3
       - run: mise run ci
-

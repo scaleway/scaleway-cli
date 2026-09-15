@@ -73,6 +73,12 @@ args+=(./cmd/scw)
 go "${args[@]}"
 '''
 
+[tasks.'build:cli-cross']
+description = "build the cli for all systems"
+run = '''
+goreleaser build --snapshot
+'''
+
 [tasks.'build:wasm']
 description = "build the wasm wrapper"
 depends = ["deps:wasm", "deps:cli"]
