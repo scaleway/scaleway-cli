@@ -7,15 +7,8 @@ version: "2"
 formatters:
   enable:
     - gci # Gci controls golang package import order and makes it always deterministic. [fast: true, auto-fix: false]
-    - gofmt # Gofmt checks whether code was gofmt-ed. By default this tool runs with -s option to check for code simplification [fast: true, auto-fix: true]
     - gofumpt # Gofumpt checks whether code was gofumpt-ed. [fast: true, auto-fix: true]
-    - goimports # In addition to fixing imports, goimports also formats your code in the same style as gofmt. [fast: true, auto-fix: true]
     - golines
-  settings:
-    gofmt:
-      rewrite-rules:
-        - pattern: interface{}
-          replacement: any
 
 linters:
   default: none
