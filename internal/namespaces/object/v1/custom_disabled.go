@@ -17,7 +17,7 @@ func objectBucket() *core.Command {
 }
 
 func objectBucketLifecycle() *core.Command {
-  return nil
+	return nil
 }
 
 func objectBucketCors() *core.Command {
@@ -73,7 +73,7 @@ func bucketCorsDeleteCommand() *core.Command {
 }
 
 func bucketCorsGetCommand() *core.Command {
-  return nil
+	return nil
 }
 
 func objectBucketPolicy() *core.Command {

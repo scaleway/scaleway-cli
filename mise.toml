@@ -26,15 +26,15 @@ rumdl = "0.2"
 shellcheck = "0.11"
 typos = "1.50"
 
-[tasks.'deps:wasm']
+[tasks.'deps:pnpm']
 description = "download the dependencies for the wasm wrapper"
 dir = "wasm"
 run = '''
 pnpm install
 '''
 
-[tasks.'deps:cli']
-description = "download the dependencies for the cli"
+[tasks.'deps:go']
+description = "download the dependencies for the golang code"
 run = '''
 go mod download
 '''
@@ -61,7 +61,7 @@ flag "--verbose" {
   help "print the commands as they are run"
 }
 '''
-depends = ["deps:cli"]
+depends = ["deps:go"]
 run = '''
 args=(build -ldflags "${usage_ldflags?}" -tags "${usage_tags?}" -o "${usage_output?}")
 if [ "${usage_race:-false}" = "true" ]; then
@@ -76,23 +76,22 @@ go "${args[@]}"
 
 [tasks.'build:wasm']
 description = "build the wasm wrapper"
-depends = ["deps:wasm", "deps:cli"]
+depends = ["deps:pnpm", "deps:go"]
 run = '''
-GOOS=js GOARCH=wasm go build ./cmd/scw-wasm
-mv scw-wasm wasm/cli.wasm
+GOOS=js GOARCH=wasm go build -o wasm/cli.wasm ./cmd/scw-wasm 
 '''
 
 [tasks.'build:wasm-tester']
 description = "build the wasm wrapper tester"
-depends = ["deps:wasm", "deps:cli"]
+depends = ["deps:pnpm", "deps:go"]
 run = '''
-GOOS=js GOARCH=wasm go build ./cmd/scw-wasm-tester
-mv scw-wasm-tester wasm/cliTester.wasm
+GOOS=js GOARCH=wasm go build  -o wasm/cliTester.wasm ./cmd/scw-wasm-tester
 '''
 
 [tasks.'gen:doc']
 description = "generate the documentation"
-depends = ["deps:cli"]
+depends = ["deps:go"]
+depends_post = ["fmt:doc"]
 env = { SHELL="/bin/bash" }
 usage = '''
 flag "--outdir <path>" {
@@ -102,7 +101,18 @@ flag "--outdir <path>" {
 '''
 run = '''
 go run ./cmd/scw-doc-gen -outdir "${usage_outdir?}"
+'''
+
+[tasks.'fmt:doc']
+description = "format the documentation"
+run = '''
 rumdl fmt -s ./docs
+'''
+
+[tasks.'fmt:go']
+description = "format the golang code"
+run = '''
+golangci-lint fmt
 '''
 
 [tasks.'lint:cli']
@@ -163,7 +173,7 @@ hadolint ${usage_dockerfile?}
 
 [tasks.'lint:wasm']
 description = "lint the wasm wrapper"
-depends = ["deps:wasm"]
+depends = ["deps:pnpm"]
 dir = "wasm"
 usage = '''
 flag "--write" {
