@@ -289,6 +289,11 @@ url = "https://nodejs.org/dist/v26.8.2/node-v26.8.2-darwin-x64.tar.gz"
 checksum = "sha256:cf02f5d0c06c794b84f277177d5cf3743d0924ca49f6641cd435dd7cb6ee9085"
 url = "https://nodejs.org/dist/v26.8.2/node-v26.8.2-win-x64.zip"
 
+[[tools."npm:actions-up"]]
+version = "1.20.0"
+backend = "npm:actions-up"
+specifiers = ["1.20"]
+
 [[tools."npm:markdown-link-check"]]
 version = "3.15.0"
 backend = "npm:markdown-link-check"
