@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	edge_services "github.com/scaleway/scaleway-sdk-go/api/edge_services/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/edge_services/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -2394,6 +2394,7 @@ func edgeServicesPlanList() *core.Command {
 		// Deprecated:    false,
 		ArgSpecs: core.ArgSpecs{},
 		Run: func(ctx context.Context, args any) (i any, e error) {
+
 			client := core.ExtractClient(ctx)
 			api := edge_services.NewAPI(client)
 
