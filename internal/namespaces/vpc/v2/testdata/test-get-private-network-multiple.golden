@@ -1,6 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                              1cd5dd6b-a9a1-489e-807d-b124589988e2
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/1cd5dd6b-a9a1-489e-807d-b124589988e2
 Name                            cli-pn-unruffled-proskuriakova
 OrganizationID                  4d333544-41be-4b0b-8907-0b9036859747
 ProjectID                       4d333544-41be-4b0b-8907-0b9036859747
@@ -11,12 +12,11 @@ VpcID                           3a436539-0369-429e-95b4-c38683bcac76
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 HasObjectStoragePrivateAccess   false
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/1cd5dd6b-a9a1-489e-807d-b124589988e2
 
 Subnets:
-ID                                    CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION  SRN
-35de71c6-e707-4dcd-b0c4-58b8733cfc45  few seconds ago  few seconds ago  172.16.72.0/22            4d333544-41be-4b0b-8907-0b9036859747  1cd5dd6b-a9a1-489e-807d-b124589988e2  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
-c66f9fb8-0f16-4475-b907-4b7c4189a64e  few seconds ago  few seconds ago  fd6d:9b51:d4ce:b53c::/64  4d333544-41be-4b0b-8907-0b9036859747  1cd5dd6b-a9a1-489e-807d-b124589988e2  3a436539-0369-429e-95b4-c38683bcac76  fr-par  -
+ID                                    SRN  CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
+35de71c6-e707-4dcd-b0c4-58b8733cfc45  -    few seconds ago  few seconds ago  172.16.72.0/22            4d333544-41be-4b0b-8907-0b9036859747  1cd5dd6b-a9a1-489e-807d-b124589988e2  3a436539-0369-429e-95b4-c38683bcac76  fr-par
+c66f9fb8-0f16-4475-b907-4b7c4189a64e  -    few seconds ago  few seconds ago  fd6d:9b51:d4ce:b53c::/64  4d333544-41be-4b0b-8907-0b9036859747  1cd5dd6b-a9a1-489e-807d-b124589988e2  3a436539-0369-429e-95b4-c38683bcac76  fr-par
 
 Instance Servers:
 ID                                    NAME                 STATE     NIC ID                                MAC ADDRESS
@@ -45,6 +45,7 @@ de7bad47-e380-4dc1-bf88-98cbf3d14e62  fd6d:9b51:d4ce:b53c:cb0:601c:aedb:8139/64
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "1cd5dd6b-a9a1-489e-807d-b124589988e2",
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/1cd5dd6b-a9a1-489e-807d-b124589988e2",
   "name": "cli-pn-unruffled-proskuriakova",
   "organization_id": "4d333544-41be-4b0b-8907-0b9036859747",
   "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
@@ -55,6 +56,7 @@ de7bad47-e380-4dc1-bf88-98cbf3d14e62  fd6d:9b51:d4ce:b53c:cb0:601c:aedb:8139/64
   "subnets": [
     {
       "id": "35de71c6-e707-4dcd-b0c4-58b8733cfc45",
+      "srn": "",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
       "subnet": "172.16.72.0/22",
@@ -65,6 +67,7 @@ de7bad47-e380-4dc1-bf88-98cbf3d14e62  fd6d:9b51:d4ce:b53c:cb0:601c:aedb:8139/64
     },
     {
       "id": "c66f9fb8-0f16-4475-b907-4b7c4189a64e",
+      "srn": "",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
       "subnet": "fd6d:9b51:d4ce:b53c::/64",
@@ -78,7 +81,6 @@ de7bad47-e380-4dc1-bf88-98cbf3d14e62  fd6d:9b51:d4ce:b53c:cb0:601c:aedb:8139/64
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "has_object_storage_private_access": false,
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/1cd5dd6b-a9a1-489e-807d-b124589988e2",
   "instance_servers": [
     {
       "id": "d3fcf57e-87ea-4735-9e83-0e4f7da14a80",
