@@ -7,11 +7,13 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
 )
 
+const securityGroupCreateCommand = "scw instance security-group create name=cli-sg-charming-rubin -o json"
+
 func Test_SecurityGroupCreate(t *testing.T) {
 	// Keep the existing JSON response shape covered as an output contract.
 	t.Run("Create", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance security-group create name=cli-sg-charming-rubin -o json",
+		Cmd:      securityGroupCreateCommand,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(0),
@@ -24,7 +26,7 @@ func Test_SecurityGroupCreate(t *testing.T) {
 	// The API error must be surfaced when the create call fails.
 	t.Run("Error", core.Test(&core.TestConfig{
 		Commands: instance.GetCommands(),
-		Cmd:      "scw instance security-group create name=cli-sg-charming-rubin -o json",
+		Cmd:      securityGroupCreateCommand,
 		Check: core.TestCheckCombine(
 			core.TestCheckGolden(),
 			core.TestCheckExitCode(1),
