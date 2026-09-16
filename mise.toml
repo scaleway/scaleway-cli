@@ -212,7 +212,7 @@ actionlint -shellcheck "$shellcheck_path"
 
 [tasks.'test:cli']
 description = "test the cli"
-depends = ["build:cli"]
+depends = ["deps:go"]
 usage = '''
 arg "[packages]" {
   help "target packages to test"
@@ -246,6 +246,9 @@ flag "--timeout <duration>" {
 flag "--max-fails <n>" {
   help "stop after n failures"
 }
+flag "--jsonfile <file>" {
+  help "write all test2json input to a file"
+}
 '''
 run = '''
 export CLI_UPDATE_CASSETTES="${usage_cassettes:-false}"
@@ -258,6 +261,9 @@ if [ -n "${usage_rerun_fails:-}" ]; then
 fi
 if [ -n "${usage_max_fails:-}" ]; then
   gotestsum_args+=(--max-fails "${usage_max_fails?}")
+fi
+if [ -n "${usage_jsonfile:-}" ]; then
+  gotestsum_args+=(--jsonfile "${usage_jsonfile?}")
 fi
 
 test_args=()

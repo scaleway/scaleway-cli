@@ -106,13 +106,6 @@ func partnerOrganizationCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
-			{
-				Name:       "siren-number",
-				Short:      `A SIREN number for the customer`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*partner.CreateOrganizationRequest)
