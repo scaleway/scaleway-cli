@@ -12,6 +12,7 @@ concurrency:
 
 permissions:
   contents: read
+  code-quality: write
 
 jobs:
   ci:
@@ -62,4 +63,14 @@ jobs:
           path: |
             ${{ steps.cache-vars.outputs.pnpmcache }}
       - run: mise run ci
-
+      - name: Generate coverage report
+        run: |
+          mise run test:cli --coverprofile cover.out
+          gocover-cobertura < cover.out > cover.xml
+      - name: Upload coverage report
+        if: github.event_name != 'pull_request' || github.event.pull_request.head.repo.full_name == github.repository
+        uses: actions/upload-code-coverage@d8e329117199404bba6fc81efe8093dc7c015e34 # v1.4.2
+        with:
+          file: cover.xml
+          language: Go
+          label: cli
