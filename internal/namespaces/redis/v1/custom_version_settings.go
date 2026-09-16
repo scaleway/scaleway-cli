@@ -39,8 +39,8 @@ func redisVersionSettingsCommand() *core.Command {
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List settings for Redis™ 8.4.0",
-				ArgsJSON: `{"version": "8.4.0"}`,
+				Short:    "List settings for Redis™ 8.6.6",
+				ArgsJSON: `{"version": "8.6.6"}`,
 			},
 		},
 		Run: func(ctx context.Context, argsI any) (any, error) {

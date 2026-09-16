@@ -12,7 +12,7 @@ import (
 func TestRedisVersionSettingsCommand(t *testing.T) {
 	t.Run("List settings for Redis version", core.Test(&core.TestConfig{
 		Commands: redis.GetCommands(),
-		Cmd:      "scw redis version list-settings version=8.4.0",
+		Cmd:      "scw redis version list-settings version=8.6.6",
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
 			core.TestCheckGolden(),
