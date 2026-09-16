@@ -321,7 +321,8 @@ scw dns record delete my-domain.tld data=1.2.3.4 name=vpn type=A
 
 Import DNS records into a zone that uses Scaleway default name servers.
 
-The DNS zone is the only positional argument; pass the path to the file as file=PATH.
+The DNS zone is the only positional argument. Pass BIND or JSON content with content=...;
+use content=@/path/to/file to load from a file (same @ prefix as other scw file args).
 
 Two formats are supported:
  - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
@@ -332,6 +333,7 @@ Two formats are supported:
 SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
 
 Use "replace=true" to delete all existing records in the zone before importing (equivalent to "scw dns record clear" followed by adds).
+Large imports are split into batches of 200 records; if a later batch fails after replace=true, the zone may be left partially empty or partially imported.
 
 For a full zone file replacement at once, prefer "scw dns zone import".
 
@@ -347,9 +349,9 @@ scw dns record import <dns-zone ...> [arg=value ...]
 | Name |   | Description |
 |------|---|-------------|
 | dns-zone | Required | DNS zone to import records into |
-| file | Required | Path to the zone file (bind) or JSON file |
+| content | Required | BIND or JSON content |
 | format | Default: `bind`<br />One of: `bind`, `json` | File format: "bind" or "json" |
-| dry-run | Default: `false` | Parse the file and print a summary without calling the API |
+| dry-run | Default: `false` | Parse the content and print a summary without calling the API |
 | replace | Default: `false` | Clear all records in the zone before importing |
 
 
@@ -358,12 +360,12 @@ scw dns record import <dns-zone ...> [arg=value ...]
 
 Import BIND records from a file
 ```
-scw dns record import my-domain.tld file=./zone.txt
+scw dns record import my-domain.tld content=@./zone.txt
 ```
 
 Import JSON and replace existing records
 ```
-scw dns record import my-domain.tld file=./records.json format=json replace=true
+scw dns record import my-domain.tld content=@./records.json format=json replace=true
 ```
 
 

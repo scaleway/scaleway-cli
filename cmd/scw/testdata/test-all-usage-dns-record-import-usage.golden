@@ -2,7 +2,8 @@
 🟥🟥🟥 STDERR️️ 🟥🟥🟥️
 Import DNS records into a zone that uses Scaleway default name servers.
 
-The DNS zone is the only positional argument; pass the path to the file as file=PATH.
+The DNS zone is the only positional argument. Pass BIND or JSON content with content=...;
+use content=@/path/to/file to load from a file (same @ prefix as other scw file args).
 
 Two formats are supported:
  - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
@@ -13,6 +14,7 @@ Two formats are supported:
 SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
 
 Use "replace=true" to delete all existing records in the zone before importing (equivalent to "scw dns record clear" followed by adds).
+Large imports are split into batches of 200 records; if a later batch fails after replace=true, the zone may be left partially empty or partially imported.
 
 For a full zone file replacement at once, prefer "scw dns zone import".
 
@@ -21,16 +23,16 @@ USAGE:
 
 EXAMPLES:
   Import BIND records from a file
-    scw dns record import my-domain.tld file=./zone.txt
+    scw dns record import my-domain.tld content=@./zone.txt
 
   Import JSON and replace existing records
-    scw dns record import my-domain.tld file=./records.json format=json replace=true
+    scw dns record import my-domain.tld content=@./records.json format=json replace=true
 
 ARGS:
   dns-zone          DNS zone to import records into
-  file              Path to the zone file (bind) or JSON file
+  content           BIND or JSON content (Support file loading with @/path/to/file)
   [format=bind]     File format: "bind" or "json" (bind | json)
-  [dry-run=false]   Parse the file and print a summary without calling the API
+  [dry-run=false]   Parse the content and print a summary without calling the API
   [replace=false]   Clear all records in the zone before importing
 
 FLAGS:

@@ -4,8 +4,6 @@ import (
 	"context"
 	"errors"
 	"fmt"
-	"os"
-	"path/filepath"
 	"reflect"
 	"strings"
 
@@ -13,11 +11,12 @@ import (
 	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
+// dnsImportBatchSize limits records per UpdateDNSZoneRecords call.
 const dnsImportBatchSize = 200
 
 type dnsRecordImportArgs struct {
 	DNSZone string
-	File    string
+	Content string
 	Format  string
 	DryRun  bool
 	Replace bool
@@ -55,7 +54,8 @@ func dnsRecordImportCommand() *core.Command {
 		Long: strings.TrimSpace(`
 Import DNS records into a zone that uses Scaleway default name servers.
 
-The DNS zone is the only positional argument; pass the path to the file as file=PATH.
+The DNS zone is the only positional argument. Pass BIND or JSON content with content=...;
+use content=@/path/to/file to load from a file (same @ prefix as other scw file args).
 
 Two formats are supported:
  - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
@@ -66,6 +66,7 @@ Two formats are supported:
 SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
 
 Use "replace=true" to delete all existing records in the zone before importing (equivalent to "scw dns record clear" followed by adds).
+Large imports are split into batches of 200 records; if a later batch fails after replace=true, the zone may be left partially empty or partially imported.
 
 For a full zone file replacement at once, prefer "scw dns zone import".
 `),
@@ -81,10 +82,10 @@ For a full zone file replacement at once, prefer "scw dns zone import".
 				Positional: true,
 			},
 			{
-				Name:       "file",
-				Short:      "Path to the zone file (bind) or JSON file",
-				Required:   true,
-				Positional: false,
+				Name:        "content",
+				Short:       "BIND or JSON content",
+				Required:    true,
+				CanLoadFile: true,
 			},
 			{
 				Name:       "format",
@@ -95,7 +96,7 @@ For a full zone file replacement at once, prefer "scw dns zone import".
 			},
 			{
 				Name:     "dry-run",
-				Short:    "Parse the file and print a summary without calling the API",
+				Short:    "Parse the content and print a summary without calling the API",
 				Required: false,
 				Default:  core.DefaultValueSetter("false"),
 			},
@@ -110,11 +111,11 @@ For a full zone file replacement at once, prefer "scw dns zone import".
 		Examples: []*core.Example{
 			{
 				Short: "Import BIND records from a file",
-				Raw:   "scw dns record import my-domain.tld file=./zone.txt",
+				Raw:   "scw dns record import my-domain.tld content=@./zone.txt",
 			},
 			{
 				Short: "Import JSON and replace existing records",
-				Raw:   "scw dns record import my-domain.tld file=./records.json format=json replace=true",
+				Raw:   "scw dns record import my-domain.tld content=@./records.json format=json replace=true",
 			},
 		},
 		SeeAlsos: []*core.SeeAlso{
@@ -131,17 +132,9 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 	if zone == "" {
 		return nil, errors.New("dns-zone is required")
 	}
-	path := strings.TrimSpace(args.File)
-	if path == "" {
-		return nil, errors.New("file is required")
-	}
-	abs, err := filepath.Abs(path)
-	if err != nil {
-		return nil, fmt.Errorf("resolve file path: %w", err)
-	}
-	raw, err := os.ReadFile(abs)
-	if err != nil {
-		return nil, fmt.Errorf("read file: %w", err)
+	content := strings.TrimSpace(args.Content)
+	if content == "" {
+		return nil, errors.New("content is required")
 	}
 
 	format := strings.ToLower(strings.TrimSpace(args.Format))
@@ -149,12 +142,15 @@ func dnsRecordImportRun(ctx context.Context, argsI any) (any, error) {
 		format = "bind"
 	}
 
-	var records []*domain.Record
+	var (
+		records []*domain.Record
+		err     error
+	)
 	switch format {
 	case "bind":
-		records, err = parseImportBind(string(raw), zone)
+		records, err = parseImportBind(content, zone)
 	case "json":
-		records, err = parseImportJSON(string(raw))
+		records, err = parseImportJSON(content)
 	default:
 		return nil, fmt.Errorf("unsupported format %q (use bind or json)", format)
 	}

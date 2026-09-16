@@ -284,14 +284,14 @@ func targetToData(target string) string {
 func relativeOwnerName(ownerFQN, zone string) (string, error) {
 	owner := strings.TrimSuffix(ownerFQN, ".")
 	z := strings.TrimSuffix(dns.Fqdn(zone), ".")
-	if owner == z {
+	// DNS names are case-insensitive.
+	if strings.EqualFold(owner, z) {
 		return "", nil
 	}
 	suf := "." + z
-	rel, ok := strings.CutSuffix(owner, suf)
-	if !ok {
+	if len(owner) <= len(suf) || !strings.EqualFold(owner[len(owner)-len(suf):], suf) {
 		return "", fmt.Errorf("owner %q is not under DNS zone %q", ownerFQN, zone)
 	}
 
-	return rel, nil
+	return owner[:len(owner)-len(suf)], nil
 }
