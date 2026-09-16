@@ -43,12 +43,12 @@ Before contributing to the code, make sure you have read about the [continuous c
 To submit code:
 
 - Create a fork of the project
-- Create a topic branch from where you want to base your work (usually master)
+- Create a topic branch from where you want to base your work (usually main)
 - Add tests to cover contributed code
 - Push your commit(s) to your topic branch on your fork
-- Open a pull request against `scaleway-cli` `master` branch that follows [PR guidelines](#pull-request-guidelines)
+- Open a pull request against `scaleway-cli` `main` branch that follows [PR guidelines](#pull-request-guidelines)
 
-The [maintainers](MAINTAINERS.md) of `scaleway-cli` use a "Let's Get This Merged" (LGTM) message in the pull request to note that the commits are ready to merge.
+The maintainers of `scaleway-cli` use a "Let's Get This Merged" (LGTM) message in the pull request to note that the commits are ready to merge.
 After one or more maintainer states LGTM, we will merge.
 If you have questions or comments on your code, feel free to correct these in your branch through new commits.
 
@@ -67,7 +67,7 @@ The goal of the following guidelines is to have Pull Requests (PRs) that are fai
 - **Please, keep us updated.**
   We will try our best to merge your PR, but please notice that PRs may be closed after 30 days of inactivity.
 
-Your pull request should be rebased against the `master` branch.
+Your pull request should be rebased against the `main` branch.
 
 Keep in mind only the **pull request title** will be used as commit message as we stash all commits on merge.
 
@@ -78,6 +78,30 @@ See [CODE_OF_CONDUCT.md](CODE_OF_CONDUCT.md).
 Thank you for reading through all of this, if you have any question feel free to [reach us](README.md#reach-us)!
 
 ## Developer documentation
+
+### Development setup
+
+This repository uses [mise](https://mise.jdx.dev/) to manage tools and tasks.
+Install mise, then run `mise install` to fetch the required tools (Go, golangci-lint, gotestsum, etc.).
+
+For orientation, list all available tasks and inspect their flags:
+
+```bash
+mise tasks ls                     # list all tasks
+mise run <task> --help            # show usage, flags, and defaults for a task
+```
+
+Common tasks:
+
+```bash
+mise run build:cli                # build the CLI
+mise run lint:cli                 # lint all packages
+mise run test:cli                 # run tests
+mise run ci                       # run everything (build + lint + test), as done in CI
+```
+
+See [AGENTS.md](../AGENTS.md) for a complete overview of build, test, and lint commands,
+and [docs/developer.md](../docs/developer.md) for the testing guide.
 
 ### When to use dash vs underscore
 
@@ -101,7 +125,7 @@ other-key        other_value
 
 ### Commands validation
 
-Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs/CONTINUOUS_CODE_DEPLOYMENT.md](https://github.com/scaleway/scaleway-sdk-go/blob/master/docs/CONTINUOUS_CODE_DEPLOYMENT.md)
+Some validation is done internally on Scaleway's side: see [scaleway-sdk-go/docs/CONTINUOUS_CODE_DEPLOYMENT.md](https://github.com/scaleway/scaleway-sdk-go/blob/main/docs/CONTINUOUS_CODE_DEPLOYMENT.md)
 This is true for: 
 - command namespaces, resource, verb
 

@@ -52,9 +52,7 @@ func productCatalogProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(
-			product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{},
-		),
+		ArgsType: reflect.TypeFor[product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "product-types.{index}",
@@ -79,6 +77,15 @@ func productCatalogProductList() *core.Command {
 					"kubernetes",
 					"managed_relational_database",
 					"managed_mongodb",
+					"serverless_functions",
+					"serverless_containers",
+					"serverless_jobs",
+					"apache_kafka",
+					"open_search",
+					"instance_local_ssd_snapshot",
+					"instance_local_ssd_storage",
+					"file_storage",
+					"serverless_sql_database",
 				},
 			},
 			{
@@ -129,13 +136,20 @@ func productCatalogProductList() *core.Command {
 					"retired",
 				},
 			},
+			{
+				Name:       "api-ids.{index}",
+				Short:      `Filter products by API IDs. Each ID is matched against product-specific identifiers: ` + "`" + `dedibox.offer_id` + "`" + ` (converted to string), ` + "`" + `elastic_metal.offer_id` + "`" + `, ` + "`" + `apple_silicon.server_type` + "`" + `, ` + "`" + `instance.offer_id` + "`" + `, and ` + "`" + `load_balancer.node.offer_id` + "`" + `. Products that do not support API ID filtering are excluded from the results. If empty, no filtering is applied.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest)
 
 			client := core.ExtractClient(ctx)
 			api := product_catalog.NewPublicCatalogAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPublicCatalogProducts(request, opts...)
 			if err != nil {
 				return nil, err

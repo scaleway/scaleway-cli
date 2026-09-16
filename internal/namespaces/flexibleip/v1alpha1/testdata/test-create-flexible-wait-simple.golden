@@ -10,6 +10,7 @@ Status          ready
 IPAddress       62.210.142.180/32
 Reverse         62-210-142-180.rev.poneytelecom.eu.
 Zone            fr-par-1
+Srn             -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "id": "edf18ea9-358a-4075-83f4-d8eb8e078779",

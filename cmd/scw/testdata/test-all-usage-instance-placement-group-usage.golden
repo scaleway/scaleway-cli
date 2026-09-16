@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Placement groups allow the user to express a preference regarding
 the physical position of a group of Instances. The feature lets the user
 choose to either group Instances on the same physical hardware for

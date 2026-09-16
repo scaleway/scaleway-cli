@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Backups represent dedicated snapshots of services of your hosting.
 You can list and restore individual items such as files, databases,
 or mailboxes.

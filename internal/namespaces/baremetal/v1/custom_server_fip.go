@@ -28,7 +28,7 @@ func serverAddFlexibleIP() *core.Command {
 		Resource:  "server",
 		Verb:      "add-flexible-ip",
 		Groups:    []string{"utility"},
-		ArgsType:  reflect.TypeOf(serverAddFlexibleIPRequest{}),
+		ArgsType:  reflect.TypeFor[serverAddFlexibleIPRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",

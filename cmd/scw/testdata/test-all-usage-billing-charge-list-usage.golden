@@ -1,0 +1,30 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+List charges for organizations or projects. You must specify at least `organization_ids` or `project_ids`.
+
+USAGE:
+  scw billing charge list [arg=value ...]
+
+ARGS:
+  [order-by]                 Sort order of charges in the response (start_date_asc | start_date_desc)
+  [page-token]               Token returned by previous call to list next paginated charges, omitted for first page
+  [page-size]                Number of charges to return per page
+  [start-date-after]         Minimum start date of charges to filter for, defaults to the start of the billing period
+  [end-date-before]          Maximum end date of charges to filter for, defaults to the end of the billing period
+  [invoice-ids.{index}]      Invoice IDs to filter for, only charges from these invoices will be returned
+  [project-ids.{index}]      Project IDs to filter for, only charges for these projects will be returned
+  [resource-ids.{index}]     Resource IDs to filter for, only charges for these resources will be returned
+  [resource-names.{index}]   Resource display names to filter for, only charges for these resources will be returned
+  [skus.{index}]             SKU IDs to filter for, only charges for these SKUs will be returned
+  [clamp-to-time-range]      Clamp charges to the requested time range
+  [organization-id]          Organization ID to use. If none is passed the default organization ID will be used
+
+FLAGS:
+  -h, --help                help for list
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

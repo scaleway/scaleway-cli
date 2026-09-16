@@ -69,7 +69,7 @@ func backupWaitCommand() *core.Command {
 		Resource:  "backup",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(backupWaitRequest{}),
+		ArgsType:  reflect.TypeFor[backupWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := rdb.NewAPI(core.ExtractClient(ctx))
 
@@ -159,7 +159,7 @@ func backupListBuilder(c *core.Command) *core.Command {
 		CreatedBefore  *time.Time
 	}
 
-	c.ArgsType = reflect.TypeOf(backupListArgs{})
+	c.ArgsType = reflect.TypeFor[backupListArgs]()
 
 	// Insert created-after / created-before date filters before region, keeping
 	// existing arguments (name, order-by, instance-id, project-id, organization-id)
@@ -395,7 +395,7 @@ func backupDownloadCommand() *core.Command {
 		Namespace: "rdb",
 		Resource:  "backup",
 		Verb:      "download",
-		ArgsType:  reflect.TypeOf(backupDownloadArgs{}),
+		ArgsType:  reflect.TypeFor[backupDownloadArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*backupDownloadArgs)
 			api := rdb.NewAPI(core.ExtractClient(ctx))

@@ -14,9 +14,12 @@ import (
 	"github.com/aws/smithy-go/middleware"
 	"github.com/scaleway/scaleway-cli/v2/core"
 	"github.com/scaleway/scaleway-sdk-go/scw"
+	"github.com/scaleway/scaleway-sdk-go/validation"
 )
 
-func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
+// newS3Client creates a new S3 client to interact with the S3 API of the passed
+// region. If `projectID` is empty, the default one is used.
+func newS3Client(ctx context.Context, region scw.Region, projectID string) *s3.Client {
 	httpClient := core.ExtractHTTPClient(ctx)
 	scwClient := core.ExtractClient(ctx)
 	buildInfo := core.ExtractBuildInfo(ctx)
@@ -28,6 +31,9 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 	if !ok {
 		return nil
 	}
+
+	defaultProjectID, _ := scwClient.GetDefaultProjectID()
+	accessKey = FormatAccessKey(accessKey, projectID, defaultProjectID)
 
 	var customEndpoint string
 	if ep := os.Getenv("SCW_S3_ENDPOINT"); ep != "" {
@@ -58,6 +64,30 @@ func newS3Client(ctx context.Context, region scw.Region) *s3.Client {
 		Region:       region.String(),
 		HTTPClient:   httpClient,
 	})
+}
+
+// FormatAccessKey formats the access key to the <KEY>@<PROJECT_ID> format,
+// overriding the already present project ID with the "project-id" argument
+// if present.
+func FormatAccessKey(accessKey, argProjectID, defaultProjectID string) (formattedAccessKey string) {
+	// The project ID from the CLI arguments takes precedence
+	projectID := argProjectID
+
+	if projectID == "" {
+		projectID = defaultProjectID
+	}
+
+	if projectID != "" {
+		if validation.IsAccessKeyWithProjectID(accessKey) {
+			keySplit := strings.Split(accessKey, "@")
+			formattedAccessKey = keySplit[0] + "@" + projectID
+		} else {
+			// Is a standard access key
+			formattedAccessKey = accessKey + "@" + projectID
+		}
+	}
+
+	return
 }
 
 // Caching BucketCannedACL values for shell completion

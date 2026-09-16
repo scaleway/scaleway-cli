@@ -18,7 +18,7 @@ func defaultOverrideExec(cmd *exec.Cmd) (exitCode int, err error) {
 }
 
 func ExecCmd(ctx context.Context, cmd *exec.Cmd) (exitCode int, err error) {
-	meta := extractMeta(ctx)
+	meta := ExtractMeta(ctx)
 
 	// We do not support override of stdin
 	if cmd.Stdin == nil {

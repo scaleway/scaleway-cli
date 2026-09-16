@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Update a budget.
+
+USAGE:
+  scw billing budget update [arg=value ...]
+
+ARGS:
+  budget-id             The ID of the budget to update
+  [consumption-limit]   Cost limit for the budget
+  [enabled]             Whether the budget will be enabled or not
+
+FLAGS:
+  -h, --help                help for update
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

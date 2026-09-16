@@ -33,6 +33,7 @@ type CustomImage struct {
 
 func imageGetBuilder(c *core.Command) *core.Command {
 	c.Interceptor = func(ctx context.Context, argsI any, runner core.CommandRunner) (any, error) {
+		request := argsI.(*registry.GetImageRequest)
 		getImageResp, err := runner(ctx, argsI)
 		if err != nil {
 			return nil, err
@@ -43,8 +44,9 @@ func imageGetBuilder(c *core.Command) *core.Command {
 		api := registry.NewAPI(client)
 
 		namespace, err := api.GetNamespace(&registry.GetNamespaceRequest{
+			Region:      request.Region,
 			NamespaceID: image.NamespaceID,
-		})
+		}, scw.WithContext(ctx))
 		if err != nil {
 			return getImageResp, err
 		}
@@ -104,7 +106,10 @@ func imageListBuilder(c *core.Command) *core.Command {
 		client := core.ExtractClient(ctx)
 		api := registry.NewAPI(client)
 
-		namespaces, err := api.ListNamespaces(&registry.ListNamespacesRequest{}, scw.WithAllPages())
+		request := argsI.(*registry.ListImagesRequest)
+		namespaces, err := api.ListNamespaces(&registry.ListNamespacesRequest{
+			Region: request.Region,
+		}, scw.WithContext(ctx), scw.WithAllPages())
 		if err != nil {
 			return listImageResp, err
 		}

@@ -24,7 +24,7 @@ func k8sKubeconfigGetCommand() *core.Command {
 		Namespace: "k8s",
 		Verb:      "get",
 		Resource:  "kubeconfig",
-		ArgsType:  reflect.TypeOf(k8sKubeconfigGetRequest{}),
+		ArgsType:  reflect.TypeFor[k8sKubeconfigGetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",

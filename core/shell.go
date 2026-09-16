@@ -21,12 +21,14 @@ import (
 )
 
 type Completer struct {
-	ctx context.Context
+	commands *Commands
+	meta     *Meta
 }
 
 func NewShellCompleter(ctx context.Context) *Completer {
 	return &Completer{
-		ctx: ctx,
+		commands: ExtractCommands(ctx),
+		meta:     ExtractMeta(ctx),
 	}
 }
 
@@ -117,7 +119,7 @@ func removeOptions(args []string) []string {
 // from additional-volumes.0=hello to additional-volumes.{index}
 // also with multiple indexes pools.0.kubelet-args. to pools.{index}.kubelet-args.{key}
 func OptionToArgSpecName(option string) string {
-	optionName := strings.Split(option, "=")[0]
+	optionName, _, _ := strings.Cut(option, "=")
 
 	if strings.Contains(optionName, ".") {
 		// If option is formatted like "additional-volumes.0"
@@ -232,12 +234,12 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 		return nil
 	}
 
-	meta := extractMeta(c.ctx)
-
-	argsBeforeCursor := meta.CliConfig.Alias.ResolveAliases(
+	argsBeforeCursor := c.meta.CliConfig.Alias.ResolveAliases(
 		strings.Split(d.TextBeforeCursor(), " "),
 	)
-	argsAfterCursor := meta.CliConfig.Alias.ResolveAliases(strings.Split(d.TextAfterCursor(), " "))
+	argsAfterCursor := c.meta.CliConfig.Alias.ResolveAliases(
+		strings.Split(d.TextAfterCursor(), " "),
+	)
 	currentArg := lastArg(argsBeforeCursor) + firstArg(argsAfterCursor)
 
 	// leftArgs contains all arguments before the one with the cursor
@@ -247,7 +249,7 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 
 	leftWords := append([]string{"scw"}, leftArgs...)
 
-	acr := AutoComplete(c.ctx, leftWords, currentArg, rightWords)
+	acr := c.shellAutoComplete(leftWords, currentArg, rightWords)
 
 	suggestions := []prompt.Suggest(nil)
 	rawSuggestions := []string(acr.Suggestions)
@@ -255,17 +257,33 @@ func (c *Completer) Complete(d prompt.Document) []prompt.Suggest {
 	// if first suggestion is an option, all suggestions should be options
 	// we sort them
 	if len(rawSuggestions) > 0 && ArgIsOption(rawSuggestions[0]) {
-		rawSuggestions = sortOptions(meta, leftArgs, rawSuggestions[0], rawSuggestions)
+		rawSuggestions = sortOptions(c.meta, leftArgs, rawSuggestions[0], rawSuggestions)
 	}
 
 	for _, suggest := range rawSuggestions {
 		suggestions = append(suggestions, prompt.Suggest{
 			Text:        suggest,
-			Description: getSuggestDescription(meta, leftArgs, suggest),
+			Description: getSuggestDescription(c.meta, leftArgs, suggest),
 		})
 	}
 
 	return prompt.FilterHasPrefix(suggestions, currentArg, true)
+}
+
+// shellAutoComplete is a wrapper for AutoComplete that uses stored meta instead of context
+func (c *Completer) shellAutoComplete(
+	leftWords []string,
+	wordToComplete string,
+	rightWords []string,
+) *AutocompleteResponse {
+	// Inject the full Meta (carries Client, CliConfig, Commands, ...) so that default
+	// value resolvers such as RegionArgSpec/ZoneArgSpec can access the SDK client.
+	// Using a stripped-down Meta here previously caused a nil pointer dereference in
+	// (*scw.Client).GetDefaultRegion during autocomplete.
+	ctx := context.Background()
+	ctx = InjectMeta(ctx, c.meta)
+
+	return AutoComplete(ctx, leftWords, wordToComplete, rightWords)
 }
 
 // shellExecutor returns the function that will execute command entered in shell

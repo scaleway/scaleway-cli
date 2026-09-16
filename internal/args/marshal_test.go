@@ -137,9 +137,11 @@ func TestMarshal(t *testing.T) {
 			Basic: Basic{
 				String: "test",
 			},
+			Empty: &Empty{},
 		},
 		expected: []string{
 			"basic.string=test",
+			"empty={}",
 		},
 	}))
 

@@ -41,7 +41,7 @@ func serverDeleteCommand() *core.Command {
 		Namespace: "instance",
 		Verb:      "delete",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(customDeleteServerRequest{}),
+		ArgsType:  reflect.TypeFor[customDeleteServerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",

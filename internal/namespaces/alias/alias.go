@@ -87,7 +87,7 @@ func aliasCreateCommand() *core.Command {
 				Short:      "Command to create an alias for",
 			},
 		},
-		ArgsType: reflect.TypeOf(CreateRequest{}),
+		ArgsType: reflect.TypeFor[CreateRequest](),
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*CreateRequest)
 			cfg := core.ExtractCliConfig(ctx)
@@ -180,7 +180,7 @@ func aliasListCommand() *core.Command {
 				Short: "filter alias",
 			},
 		},
-		ArgsType: reflect.TypeOf(ListRequest{}),
+		ArgsType: reflect.TypeFor[ListRequest](),
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*ListRequest)
 			aliasCfg := core.ExtractAliases(ctx)
@@ -232,7 +232,7 @@ func aliasDeleteCommand() *core.Command {
 				Short:      "alias name",
 			},
 		},
-		ArgsType: reflect.TypeOf(DeleteRequest{}),
+		ArgsType: reflect.TypeFor[DeleteRequest](),
 		Run: func(ctx context.Context, argsI any) (any, error) {
 			args := argsI.(*DeleteRequest)
 			cfg := core.ExtractCliConfig(ctx)

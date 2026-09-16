@@ -116,7 +116,7 @@ func datawarehousePresetList() *core.Command {
 		Resource:  "preset",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListPresetsRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListPresetsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -128,7 +128,7 @@ func datawarehousePresetList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -151,7 +151,7 @@ func datawarehouseVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version",
@@ -169,7 +169,7 @@ func datawarehouseVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -192,7 +192,7 @@ func datawarehouseDeploymentList() *core.Command {
 		Resource:  "deployment",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListDeploymentsRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListDeploymentsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "tags.{index}",
@@ -245,7 +245,7 @@ func datawarehouseDeploymentList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -268,7 +268,7 @@ func datawarehouseDeploymentGet() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.GetDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.GetDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -285,7 +285,7 @@ func datawarehouseDeploymentGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.GetDeployment(request)
+			return api.GetDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -298,7 +298,7 @@ func datawarehouseDeploymentCreate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -358,6 +358,12 @@ func datawarehouseDeploymentCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "endpoints.{index}.public",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "endpoints.{index}.private-network.private-network-id",
 				Short:      `UUID of the Private Network`,
 				Required:   false,
@@ -371,6 +377,13 @@ func datawarehouseDeploymentCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "move-factor",
+				Short:      `For the ` + "`" + `tiered` + "`" + ` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -379,7 +392,7 @@ func datawarehouseDeploymentCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateDeployment(request)
+			return api.CreateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -392,7 +405,7 @@ func datawarehouseDeploymentUpdate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.UpdateDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.UpdateDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -436,6 +449,13 @@ func datawarehouseDeploymentUpdate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "move-factor",
+				Short:      `For the ` + "`" + `tiered` + "`" + ` storage policy, controls when data is moved from the hot volume (Block Storage) to the cold volume (Object Storage). Data is moved once free space on the hot volume drops below this fraction of its capacity. Value between 0 and 1 (default 0.1, i.e. data is moved when the hot volume is 90% full).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(scw.RegionFrPar),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -444,7 +464,7 @@ func datawarehouseDeploymentUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.UpdateDeployment(request)
+			return api.UpdateDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -457,7 +477,7 @@ func datawarehouseDeploymentDelete() *core.Command {
 		Resource:  "deployment",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteDeploymentRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteDeploymentRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -474,7 +494,7 @@ func datawarehouseDeploymentDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.DeleteDeployment(request)
+			return api.DeleteDeployment(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -487,7 +507,7 @@ func datawarehouseDeploymentGetCertificate() *core.Command {
 		Resource:  "deployment",
 		Verb:      "get-certificate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.GetDeploymentCertificateRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.GetDeploymentCertificateRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -504,7 +524,7 @@ func datawarehouseDeploymentGetCertificate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.GetDeploymentCertificate(request)
+			return api.GetDeploymentCertificate(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -517,7 +537,7 @@ func datawarehouseUserList() *core.Command {
 		Resource:  "user",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListUsersRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -554,7 +574,7 @@ func datawarehouseUserList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -577,7 +597,7 @@ func datawarehouseUserCreate() *core.Command {
 		Resource:  "user",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateUserRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -615,7 +635,7 @@ func datawarehouseUserCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateUser(request)
+			return api.CreateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -628,7 +648,7 @@ func datawarehouseUserUpdate() *core.Command {
 		Resource:  "user",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.UpdateUserRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.UpdateUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -666,7 +686,7 @@ func datawarehouseUserUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.UpdateUser(request)
+			return api.UpdateUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -679,7 +699,7 @@ func datawarehouseUserDelete() *core.Command {
 		Resource:  "user",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteUserRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -702,7 +722,7 @@ func datawarehouseUserDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			e = api.DeleteUser(request)
+			e = api.DeleteUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -723,7 +743,7 @@ func datawarehouseEndpointDelete() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteEndpointRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "endpoint-id",
@@ -739,7 +759,7 @@ func datawarehouseEndpointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			e = api.DeleteEndpoint(request)
+			e = api.DeleteEndpoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -760,11 +780,17 @@ func datawarehouseEndpointCreate() *core.Command {
 		Resource:  "endpoint",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateEndpointRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateEndpointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
 				Short:      `UUID of the deployment`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "endpoint.public",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -784,7 +810,7 @@ func datawarehouseEndpointCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateEndpoint(request)
+			return api.CreateEndpoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -797,7 +823,7 @@ func datawarehouseDatabaseList() *core.Command {
 		Resource:  "database",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.ListDatabasesRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.ListDatabasesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -836,7 +862,7 @@ func datawarehouseDatabaseList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -859,7 +885,7 @@ func datawarehouseDatabaseCreate() *core.Command {
 		Resource:  "database",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.CreateDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.CreateDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -883,7 +909,7 @@ func datawarehouseDatabaseCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
 
-			return api.CreateDatabase(request)
+			return api.CreateDatabase(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -896,7 +922,7 @@ func datawarehouseDatabaseDelete() *core.Command {
 		Resource:  "database",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datawarehouse.DeleteDatabaseRequest{}),
+		ArgsType: reflect.TypeFor[datawarehouse.DeleteDatabaseRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "deployment-id",
@@ -919,7 +945,7 @@ func datawarehouseDatabaseDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datawarehouse.NewAPI(client)
-			e = api.DeleteDatabase(request)
+			e = api.DeleteDatabase(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 All Instance types available in a specified zone.
 Each type contains all the features of the Instance (CPU, RAM, Storage) as well as their associated pricing.
 

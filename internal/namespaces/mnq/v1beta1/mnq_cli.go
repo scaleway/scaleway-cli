@@ -94,7 +94,7 @@ func mnqNatsCreateAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "create-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPICreateNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPICreateNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -116,7 +116,7 @@ func mnqNatsCreateAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.CreateNatsAccount(request)
+			return api.CreateNatsAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -129,7 +129,7 @@ func mnqNatsDeleteAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "delete-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIDeleteNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIDeleteNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -148,7 +148,7 @@ func mnqNatsDeleteAccount() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			e = api.DeleteNatsAccount(request)
+			e = api.DeleteNatsAccount(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -169,7 +169,7 @@ func mnqNatsUpdateAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "update-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIUpdateNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIUpdateNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -196,7 +196,7 @@ func mnqNatsUpdateAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.UpdateNatsAccount(request)
+			return api.UpdateNatsAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -209,7 +209,7 @@ func mnqNatsGetAccount() *core.Command {
 		Resource:  "nats",
 		Verb:      "get-account",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIGetNatsAccountRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIGetNatsAccountRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -229,7 +229,7 @@ func mnqNatsGetAccount() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.GetNatsAccount(request)
+			return api.GetNatsAccount(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -242,7 +242,7 @@ func mnqNatsListAccounts() *core.Command {
 		Resource:  "nats",
 		Verb:      "list-accounts",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsAccountsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIListNatsAccountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -277,7 +277,7 @@ func mnqNatsListAccounts() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -300,7 +300,7 @@ func mnqNatsCreateCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "create-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPICreateNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPICreateNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-account-id",
@@ -328,7 +328,7 @@ func mnqNatsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.CreateNatsCredentials(request)
+			return api.CreateNatsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -341,7 +341,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "delete-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIDeleteNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIDeleteNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-credentials-id",
@@ -360,7 +360,7 @@ func mnqNatsDeleteCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			e = api.DeleteNatsCredentials(request)
+			e = api.DeleteNatsCredentials(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -381,7 +381,7 @@ func mnqNatsGetCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "get-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIGetNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIGetNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "nats-credentials-id",
@@ -401,7 +401,7 @@ func mnqNatsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
 
-			return api.GetNatsCredentials(request)
+			return api.GetNatsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -414,7 +414,7 @@ func mnqNatsListCredentials() *core.Command {
 		Resource:  "nats",
 		Verb:      "list-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.NatsAPIListNatsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.NatsAPIListNatsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -456,7 +456,7 @@ func mnqNatsListCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewNatsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -479,7 +479,7 @@ func mnqSnsActivate() *core.Command {
 		Resource:  "sns",
 		Verb:      "activate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIActivateSnsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIActivateSnsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -493,7 +493,7 @@ func mnqSnsActivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.ActivateSns(request)
+			return api.ActivateSns(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -506,7 +506,7 @@ func mnqSnsGetInfo() *core.Command {
 		Resource:  "sns",
 		Verb:      "get-info",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsInfoRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIGetSnsInfoRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -520,7 +520,7 @@ func mnqSnsGetInfo() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.GetSnsInfo(request)
+			return api.GetSnsInfo(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -533,7 +533,7 @@ func mnqSnsDeactivate() *core.Command {
 		Resource:  "sns",
 		Verb:      "deactivate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIDeactivateSnsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIDeactivateSnsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -547,7 +547,7 @@ func mnqSnsDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.DeactivateSns(request)
+			return api.DeactivateSns(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -560,7 +560,7 @@ func mnqSnsCreateCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "create-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPICreateSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPICreateSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -603,7 +603,7 @@ func mnqSnsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.CreateSnsCredentials(request)
+			return api.CreateSnsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -616,7 +616,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "delete-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIDeleteSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIDeleteSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
@@ -635,7 +635,7 @@ func mnqSnsDeleteCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			e = api.DeleteSnsCredentials(request)
+			e = api.DeleteSnsCredentials(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -656,7 +656,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "update-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIUpdateSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIUpdateSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
@@ -704,7 +704,7 @@ func mnqSnsUpdateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.UpdateSnsCredentials(request)
+			return api.UpdateSnsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -717,7 +717,7 @@ func mnqSnsGetCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "get-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIGetSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIGetSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sns-credentials-id",
@@ -737,7 +737,7 @@ func mnqSnsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
 
-			return api.GetSnsCredentials(request)
+			return api.GetSnsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -750,7 +750,7 @@ func mnqSnsListCredentials() *core.Command {
 		Resource:  "sns",
 		Verb:      "list-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SnsAPIListSnsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SnsAPIListSnsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -785,7 +785,7 @@ func mnqSnsListCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSnsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -808,7 +808,7 @@ func mnqSqsActivate() *core.Command {
 		Resource:  "sqs",
 		Verb:      "activate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIActivateSqsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIActivateSqsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -822,7 +822,7 @@ func mnqSqsActivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.ActivateSqs(request)
+			return api.ActivateSqs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -835,7 +835,7 @@ func mnqSqsGetInfo() *core.Command {
 		Resource:  "sqs",
 		Verb:      "get-info",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsInfoRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIGetSqsInfoRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -849,7 +849,7 @@ func mnqSqsGetInfo() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.GetSqsInfo(request)
+			return api.GetSqsInfo(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -862,7 +862,7 @@ func mnqSqsDeactivate() *core.Command {
 		Resource:  "sqs",
 		Verb:      "deactivate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIDeactivateSqsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIDeactivateSqsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -876,7 +876,7 @@ func mnqSqsDeactivate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.DeactivateSqs(request)
+			return api.DeactivateSqs(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -889,7 +889,7 @@ func mnqSqsCreateCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "create-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPICreateSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPICreateSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -932,7 +932,7 @@ func mnqSqsCreateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.CreateSqsCredentials(request)
+			return api.CreateSqsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -945,7 +945,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "delete-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIDeleteSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIDeleteSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
@@ -964,7 +964,7 @@ func mnqSqsDeleteCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			e = api.DeleteSqsCredentials(request)
+			e = api.DeleteSqsCredentials(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -985,7 +985,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "update-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIUpdateSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIUpdateSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
@@ -1033,7 +1033,7 @@ func mnqSqsUpdateCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.UpdateSqsCredentials(request)
+			return api.UpdateSqsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1046,7 +1046,7 @@ func mnqSqsGetCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "get-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIGetSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIGetSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "sqs-credentials-id",
@@ -1066,7 +1066,7 @@ func mnqSqsGetCredentials() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
 
-			return api.GetSqsCredentials(request)
+			return api.GetSqsCredentials(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1079,7 +1079,7 @@ func mnqSqsListCredentials() *core.Command {
 		Resource:  "sqs",
 		Verb:      "list-credentials",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(mnq.SqsAPIListSqsCredentialsRequest{}),
+		ArgsType: reflect.TypeFor[mnq.SqsAPIListSqsCredentialsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -1114,7 +1114,7 @@ func mnqSqsListCredentials() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := mnq.NewSqsAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

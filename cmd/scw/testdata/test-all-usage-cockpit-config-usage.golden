@@ -1,0 +1,21 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Config management commands.
+
+USAGE:
+  scw cockpit config <command>
+
+AVAILABLE COMMANDS:
+  get         Generate a data source configuration snippet
+
+FLAGS:
+  -h, --help                help for config
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use
+
+Use "scw cockpit config [command] --help" for more information about a command.

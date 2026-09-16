@@ -75,7 +75,7 @@ Hint: you can use other test commands by setting the SCW_SECRET_KEY env variable
 		Resource:  "user",
 		Verb:      "register",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.RegisterRequest{}),
+		ArgsType: reflect.TypeFor[test.RegisterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "username",
@@ -103,7 +103,7 @@ func testHumanList() *core.Command {
 		Resource:  "human",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.ListHumansRequest{}),
+		ArgsType: reflect.TypeFor[test.ListHumansRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -156,7 +156,7 @@ func testHumanGet() *core.Command {
 		Resource:  "human",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.GetHumanRequest{}),
+		ArgsType: reflect.TypeFor[test.GetHumanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
@@ -185,7 +185,7 @@ func testHumanCreate() *core.Command {
 		Resource:  "human",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.CreateHumanRequest{}),
+		ArgsType: reflect.TypeFor[test.CreateHumanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "height",
@@ -280,7 +280,7 @@ func testHumanUpdate() *core.Command {
 		Resource:  "human",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.UpdateHumanRequest{}),
+		ArgsType: reflect.TypeFor[test.UpdateHumanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
@@ -374,7 +374,7 @@ func testHumanDelete() *core.Command {
 		Resource:  "human",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.DeleteHumanRequest{}),
+		ArgsType: reflect.TypeFor[test.DeleteHumanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
@@ -403,7 +403,7 @@ func testHumanRun() *core.Command {
 		Resource:  "human",
 		Verb:      "run",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(test.RunHumanRequest{}),
+		ArgsType: reflect.TypeFor[test.RunHumanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",
@@ -439,7 +439,7 @@ func testHumanSmoke() *core.Command {
 		Resource:  "human",
 		Verb:      "smoke",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(test.SmokeHumanRequest{}),
+		ArgsType: reflect.TypeFor[test.SmokeHumanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "human-id",

@@ -37,8 +37,8 @@ func GetGeneratedCommands() *core.Commands {
 
 func datalabRoot() *core.Command {
 	return &core.Command{
-		Short:     `Data Lab API for Apache Spark™`,
-		Long:      `Data Lab API.`,
+		Short:     `Clusters for Apache Spark™ API`,
+		Long:      `Clusters for Apache Spark™ API.`,
 		Namespace: "datalab",
 	}
 }
@@ -46,7 +46,7 @@ func datalabRoot() *core.Command {
 func datalabDatalab() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `Manage your Data Labs.`,
+		Long:      `Manage your clusters.`,
 		Namespace: "datalab",
 		Resource:  "datalab",
 	}
@@ -73,7 +73,7 @@ func datalabNotebookVersion() *core.Command {
 func datalabClusterVersion() *core.Command {
 	return &core.Command{
 		Short:     ``,
-		Long:      `Lists the Spark versions available for Data Lab creation.`,
+		Long:      `Lists the Apache Spark™ versions available for cluster creation.`,
 		Namespace: "datalab",
 		Resource:  "cluster-version",
 	}
@@ -87,26 +87,26 @@ func datalabDatalabCreate() *core.Command {
 		Resource:  "datalab",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.CreateDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.CreateDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
 				Name:       "name",
-				Short:      `The name of the Data Lab.`,
+				Short:      `The name of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The description of the Data Lab.`,
+				Short:      `The description of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags of the Data Lab.`,
+				Short:      `The tags of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -131,14 +131,14 @@ func datalabDatalabCreate() *core.Command {
 			},
 			{
 				Name:       "has-notebook",
-				Short:      `Select this option to include a notebook as part of the Data Lab.`,
+				Short:      `Select this option to include a notebook as part of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "spark-version",
-				Short:      `The version of Spark running inside the Data Lab, available options can be viewed at ListClusterVersions.`,
+				Short:      `The version of Apache Spark™ running inside the cluster, available options can be viewed at ListClusterVersions.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -161,12 +161,15 @@ func datalabDatalabCreate() *core.Command {
 			},
 			{
 				Name:       "private-network-id",
-				Short:      `The unique identifier of the private network the Data Lab will be attached to.`,
+				Short:      `The unique identifier of the private network the cluster will be attached to.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*datalab.CreateDatalabRequest)
@@ -174,7 +177,7 @@ func datalabDatalabCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.CreateDatalab(request)
+			return api.CreateDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -187,16 +190,19 @@ func datalabDatalabGet() *core.Command {
 		Resource:  "datalab",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.GetDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.GetDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "datalab-id",
-				Short:      `The unique identifier of the Data Lab`,
+				Short:      `The unique identifier of the cluster`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*datalab.GetDatalabRequest)
@@ -204,7 +210,7 @@ func datalabDatalabGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.GetDatalab(request)
+			return api.GetDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -217,25 +223,25 @@ func datalabDatalabList() *core.Command {
 		Resource:  "datalab",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListDatalabsRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListDatalabsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
-				Short:      `The unique identifier of the project whose Data Labs you want to list.`,
+				Short:      `The unique identifier of the project whose clusters you want to list.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `The name of the Data Lab you want to list.`,
+				Short:      `The name of the cluster you want to list.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The tags associated with the Data Lab you want to list.`,
+				Short:      `The tags associated with the cluster you want to list.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -257,13 +263,14 @@ func datalabDatalabList() *core.Command {
 			},
 			{
 				Name:       "organization-id",
-				Short:      `The unique identifier of the organization whose Data Labs you want to list.`,
+				Short:      `The unique identifier of the organization whose clusters you want to list.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -272,7 +279,7 @@ func datalabDatalabList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -295,44 +302,47 @@ func datalabDatalabUpdate() *core.Command {
 		Resource:  "datalab",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.UpdateDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.UpdateDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "datalab-id",
-				Short:      `The unique identifier of the Data Lab.`,
+				Short:      `The unique identifier of the cluster.`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "name",
-				Short:      `The updated name of the Data Lab.`,
+				Short:      `The updated name of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "description",
-				Short:      `The updated description of the Data Lab.`,
+				Short:      `The updated description of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "tags.{index}",
-				Short:      `The updated tags of the Data Lab.`,
+				Short:      `The updated tags of the cluster.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "node-count",
-				Short:      `The updated node count of the Data Lab. Scale up or down the number of worker nodes.`,
+				Short:      `The updated node count of the cluster. Scale up or down the number of worker nodes.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*datalab.UpdateDatalabRequest)
@@ -340,7 +350,7 @@ func datalabDatalabUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.UpdateDatalab(request)
+			return api.UpdateDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -353,16 +363,19 @@ func datalabDatalabDelete() *core.Command {
 		Resource:  "datalab",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.DeleteDatalabRequest{}),
+		ArgsType: reflect.TypeFor[datalab.DeleteDatalabRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "datalab-id",
-				Short:      `The unique identifier of the Data Lab.`,
+				Short:      `The unique identifier of the cluster.`,
 				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
-			core.RegionArgSpec(scw.RegionFrPar),
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionItMil,
+			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
 			request := args.(*datalab.DeleteDatalabRequest)
@@ -370,7 +383,7 @@ func datalabDatalabDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
 
-			return api.DeleteDatalab(request)
+			return api.DeleteDatalab(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -383,7 +396,7 @@ func datalabNodeTypeList() *core.Command {
 		Resource:  "node-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListNodeTypesRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListNodeTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -430,6 +443,7 @@ func datalabNodeTypeList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -438,7 +452,7 @@ func datalabNodeTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -461,7 +475,7 @@ func datalabNotebookVersionList() *core.Command {
 		Resource:  "notebook-version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListNotebookVersionsRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListNotebookVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -476,6 +490,7 @@ func datalabNotebookVersionList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -484,7 +499,7 @@ func datalabNotebookVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -507,7 +522,7 @@ func datalabClusterVersionList() *core.Command {
 		Resource:  "cluster-version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(datalab.ListClusterVersionsRequest{}),
+		ArgsType: reflect.TypeFor[datalab.ListClusterVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -522,6 +537,7 @@ func datalabClusterVersionList() *core.Command {
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -530,7 +546,7 @@ func datalabClusterVersionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := datalab.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

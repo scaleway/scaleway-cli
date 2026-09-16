@@ -109,7 +109,7 @@ func userCreateBuilder(c *core.Command) *core.Command {
 		Positional: false,
 		Default:    core.DefaultValueSetter("true"),
 	})
-	c.ArgsType = reflect.TypeOf(rdbCreateUserRequestCustom{})
+	c.ArgsType = reflect.TypeFor[rdbCreateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		api := rdb.NewAPI(core.ExtractClient(ctx))
@@ -174,7 +174,7 @@ func userUpdateBuilder(c *core.Command) *core.Command {
 		Positional: false,
 		Default:    core.DefaultValueSetter("true"),
 	})
-	c.ArgsType = reflect.TypeOf(rdbUpdateUserRequestCustom{})
+	c.ArgsType = reflect.TypeFor[rdbUpdateUserRequestCustom]()
 
 	c.Run = func(ctx context.Context, argsI any) (any, error) {
 		client := core.ExtractClient(ctx)
@@ -238,7 +238,7 @@ func userGetURLCommand() *core.Command {
 		Verb:      "get-url",
 		Short:     "Gets the URL to connect to the Database",
 		Long:      "Provides the URL to connect to a Database on an Instance as the given user",
-		ArgsType:  reflect.TypeOf(rdbGetURLArgs{}),
+		ArgsType:  reflect.TypeFor[rdbGetURLArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

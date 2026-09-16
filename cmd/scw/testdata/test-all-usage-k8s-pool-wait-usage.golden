@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Wait for a pool to reach a stable state. This is similar to using --wait flag on other action commands, but without requiring a new action on the node.
 
 USAGE:

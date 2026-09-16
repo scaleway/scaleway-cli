@@ -1,0 +1,35 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+{
+    "Rules": [
+        {
+            "Expiration": {
+                "Days": 365
+            },
+            "Filter": {
+                "Prefix": "logs/"
+            },
+            "ID": "ArchiveAndPurgeLogs",
+            "Status": "Enabled",
+            "Transitions": [
+                {
+                    "Days": 30,
+                    "StorageClass": "ONEZONE_IA"
+                },
+                {
+                    "Days": 90,
+                    "StorageClass": "GLACIER"
+                }
+            ]
+        },
+        {
+            "AbortIncompleteMultipartUpload": {
+                "DaysAfterInitiation": 7
+            },
+            "ID": "CleanupIncompleteMultipartUploads",
+            "Status": "Enabled"
+        }
+    ]
+}
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"{\n    \"Rules\": [\n        {\n            \"Expiration\": {\n                \"Days\": 365\n            },\n            \"Filter\": {\n                \"Prefix\": \"logs/\"\n            },\n            \"ID\": \"ArchiveAndPurgeLogs\",\n            \"Status\": \"Enabled\",\n            \"Transitions\": [\n                {\n                    \"Days\": 30,\n                    \"StorageClass\": \"ONEZONE_IA\"\n                },\n                {\n                    \"Days\": 90,\n                    \"StorageClass\": \"GLACIER\"\n                }\n            ]\n        },\n        {\n            \"AbortIncompleteMultipartUpload\": {\n                \"DaysAfterInitiation\": 7\n            },\n            \"ID\": \"CleanupIncompleteMultipartUploads\",\n            \"Status\": \"Enabled\"\n        }\n    ]\n}"

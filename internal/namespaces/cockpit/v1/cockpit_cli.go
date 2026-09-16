@@ -178,7 +178,7 @@ The output returned displays the URL to access your Cockpit's Grafana.`,
 		Resource:  "grafana",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetGrafanaRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetGrafanaRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -188,7 +188,7 @@ The output returned displays the URL to access your Cockpit's Grafana.`,
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.GetGrafana(request)
+			return api.GetGrafana(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -201,7 +201,7 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 		Resource:  "grafana",
 		Verb:      "sync-data-sources",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPISyncGrafanaDataSourcesRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPISyncGrafanaDataSourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -210,7 +210,7 @@ func cockpitGrafanaSyncDataSources() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			e = api.SyncGrafanaDataSources(request)
+			e = api.SyncGrafanaDataSources(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -233,7 +233,7 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 		Resource:  "grafana-user",
 		Verb:      "create",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPICreateGrafanaUserRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPICreateGrafanaUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -262,7 +262,7 @@ Each Grafana user is associated with a role: viewer or editor. A viewer can only
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.CreateGrafanaUser(request)
+			return api.CreateGrafanaUser(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -276,7 +276,7 @@ List all Grafana users created in your Cockpit's Grafana. By default, the Grafan
 		Resource:  "grafana-user",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaUsersRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListGrafanaUsersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -296,7 +296,7 @@ List all Grafana users created in your Cockpit's Grafana. By default, the Grafan
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListGrafanaUsers(request, opts...)
 			if err != nil {
 				return nil, err
@@ -316,7 +316,7 @@ Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Pr
 		Resource:  "grafana-user",
 		Verb:      "delete",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIDeleteGrafanaUserRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIDeleteGrafanaUserRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -332,7 +332,7 @@ Delete a Grafana user from your Cockpit's Grafana, specified by the ID of the Pr
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			e = api.DeleteGrafanaUser(request)
+			e = api.DeleteGrafanaUser(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -355,7 +355,7 @@ A new password regenerates and only displays once. Make sure that you save it.`,
 		Resource:  "grafana-user",
 		Verb:      "reset-password",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIResetGrafanaUserPasswordRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIResetGrafanaUserPasswordRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -372,7 +372,7 @@ A new password regenerates and only displays once. Make sure that you save it.`,
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.ResetGrafanaUserPassword(request)
+			return api.ResetGrafanaUserPassword(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -385,7 +385,7 @@ func cockpitProductDashboardsList() *core.Command {
 		Resource:  "product-dashboards",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListGrafanaProductDashboardsRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListGrafanaProductDashboardsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -401,7 +401,7 @@ func cockpitProductDashboardsList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListGrafanaProductDashboards(request, opts...)
 			if err != nil {
 				return nil, err
@@ -420,7 +420,7 @@ func cockpitProductDashboardsGet() *core.Command {
 		Resource:  "product-dashboards",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetGrafanaProductDashboardRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetGrafanaProductDashboardRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -437,7 +437,7 @@ func cockpitProductDashboardsGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.GetGrafanaProductDashboard(request)
+			return api.GetGrafanaProductDashboard(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -451,7 +451,7 @@ Deprecated due to retention now being managed at the data source level.`,
 		Resource:  "plan",
 		Verb:      "list",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIListPlansRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIListPlansRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -469,7 +469,7 @@ Deprecated due to retention now being managed at the data source level.`,
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPlans(request, opts...)
 			if err != nil {
 				return nil, err
@@ -489,7 +489,7 @@ Deprecated due to retention now being managed at the data source level.`,
 		Resource:  "plan",
 		Verb:      "select",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPISelectPlanRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPISelectPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -512,7 +512,7 @@ Deprecated due to retention now being managed at the data source level.`,
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.SelectPlan(request)
+			return api.SelectPlan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -526,7 +526,7 @@ Deprecated due to retention now being managed at the data source level.`,
 		Resource:  "plan",
 		Verb:      "get",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(cockpit.GlobalAPIGetCurrentPlanRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.GlobalAPIGetCurrentPlanRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 		},
@@ -536,7 +536,7 @@ Deprecated due to retention now being managed at the data source level.`,
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewGlobalAPI(client)
 
-			return api.GetCurrentPlan(request)
+			return api.GetCurrentPlan(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -550,7 +550,7 @@ The name of the data source will then be used as reference to name the associate
 		Resource:  "data-source",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -592,7 +592,7 @@ The name of the data source will then be used as reference to name the associate
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.CreateDataSource(request)
+			return api.CreateDataSource(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -605,7 +605,7 @@ func cockpitDataSourceGet() *core.Command {
 		Resource:  "data-source",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
@@ -626,7 +626,7 @@ func cockpitDataSourceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetDataSource(request)
+			return api.GetDataSource(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -639,7 +639,7 @@ func cockpitDataSourceDelete() *core.Command {
 		Resource:  "data-source",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
@@ -659,7 +659,7 @@ func cockpitDataSourceDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.DeleteDataSource(request)
+			e = api.DeleteDataSource(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -680,7 +680,7 @@ func cockpitDataSourceList() *core.Command {
 		Resource:  "data-source",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListDataSourcesRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListDataSourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -736,7 +736,7 @@ func cockpitDataSourceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -759,7 +759,7 @@ func cockpitDataSourceUpdate() *core.Command {
 		Resource:  "data-source",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIUpdateDataSourceRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIUpdateDataSourceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",
@@ -794,7 +794,7 @@ func cockpitDataSourceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.UpdateDataSource(request)
+			return api.UpdateDataSource(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -807,7 +807,7 @@ func cockpitUsageOverviewGet() *core.Command {
 		Resource:  "usage-overview",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetUsageOverviewRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetUsageOverviewRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -828,7 +828,7 @@ func cockpitUsageOverviewGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetUsageOverview(request)
+			return api.GetUsageOverview(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -842,7 +842,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -883,7 +883,7 @@ Upon creation, your token's secret key display only once. Make sure that you sav
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -897,7 +897,7 @@ You can filter tokens by Project ID and token scopes.`,
 		Resource:  "token",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListTokensRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -944,7 +944,7 @@ You can filter tokens by Project ID and token scopes.`,
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -967,7 +967,7 @@ func cockpitTokenGet() *core.Command {
 		Resource:  "token",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -988,7 +988,7 @@ func cockpitTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1001,7 +1001,7 @@ func cockpitTokenDelete() *core.Command {
 		Resource:  "token",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteTokenRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -1021,7 +1021,7 @@ func cockpitTokenDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.DeleteToken(request)
+			e = api.DeleteToken(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1043,7 +1043,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 		Resource:  "alert-manager",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIGetAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIGetAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1058,7 +1058,7 @@ The output returned displays a URL to access the Alert manager, and whether the 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.GetAlertManager(request)
+			return api.GetAlertManager(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1071,7 +1071,7 @@ func cockpitAlertManagerEnable() *core.Command {
 		Resource:  "alert-manager",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIEnableAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIEnableAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1086,7 +1086,7 @@ func cockpitAlertManagerEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.EnableAlertManager(request)
+			return api.EnableAlertManager(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1099,7 +1099,7 @@ func cockpitAlertManagerDisable() *core.Command {
 		Resource:  "alert-manager",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDisableAlertManagerRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDisableAlertManagerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1114,7 +1114,7 @@ func cockpitAlertManagerDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.DisableAlertManager(request)
+			return api.DisableAlertManager(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1129,7 +1129,7 @@ If you need to receive alerts for other receivers, you can create additional con
 		Resource:  "contact-point",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPICreateContactPointRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPICreateContactPointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1157,7 +1157,7 @@ If you need to receive alerts for other receivers, you can create additional con
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
 
-			return api.CreateContactPoint(request)
+			return api.CreateContactPoint(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1170,7 +1170,7 @@ func cockpitContactPointList() *core.Command {
 		Resource:  "contact-point",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIListContactPointsRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIListContactPointsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1185,7 +1185,7 @@ func cockpitContactPointList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1208,7 +1208,7 @@ func cockpitContactPointDelete() *core.Command {
 		Resource:  "contact-point",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPIDeleteContactPointRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPIDeleteContactPointRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -1228,7 +1228,7 @@ func cockpitContactPointDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.DeleteContactPoint(request)
+			e = api.DeleteContactPoint(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1249,7 +1249,7 @@ func cockpitTestAlertTrigger() *core.Command {
 		Resource:  "test-alert",
 		Verb:      "trigger",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(cockpit.RegionalAPITriggerTestAlertRequest{}),
+		ArgsType: reflect.TypeFor[cockpit.RegionalAPITriggerTestAlertRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(
@@ -1263,7 +1263,7 @@ func cockpitTestAlertTrigger() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := cockpit.NewRegionalAPI(client)
-			e = api.TriggerTestAlert(request)
+			e = api.TriggerTestAlert(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

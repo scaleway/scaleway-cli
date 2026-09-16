@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new backend for a given Load Balancer, specifying its full configuration including protocol, port and forwarding algorithm.
 
 USAGE:
@@ -17,8 +17,11 @@ ARGS:
   [health-check.check-delay=3s]               Time to wait between two consecutive health checks
   [health-check.check-timeout=1s]             Maximum time a backend server has to reply to the health check
   [health-check.check-max-retries]            Number of consecutive unsuccessful health checks after which the server will be considered dead
+  [health-check.tcp-config]                   Object to configure a basic TCP health check
   [health-check.mysql-config.user]            MySQL user to use for the health check
   [health-check.pgsql-config.user]            PostgreSQL user to use for the health check
+  [health-check.ldap-config]                  Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message
+  [health-check.redis-config]                 Object to configure a Redis health check. The response is analyzed to find the +PONG response message
   [health-check.http-config.uri]              HTTP path used for the health check
   [health-check.http-config.method]           HTTP method used for the health check
   [health-check.http-config.code]             HTTP response code expected for a successful health check
@@ -48,6 +51,7 @@ ARGS:
   [max-retries]                               Number of retries when a backend server connection failed
   [max-connections]                           Maximum number of connections allowed per backend server
   [timeout-queue]                             Maximum time for a request to be left pending in queue when `max_connections` is reached
+  [host]                                      Host value to use when connecting to backend servers
   [zone=fr-par-1]                             Zone to target. If none is passed will use default zone from the config (fr-par-1 | fr-par-2 | nl-ams-1 | nl-ams-2 | nl-ams-3 | pl-waw-1 | pl-waw-2 | pl-waw-3)
 
 DEPRECATED ARGS:

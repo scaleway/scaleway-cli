@@ -1,0 +1,9 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Key      cloud-init
+Content  I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw==
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "key": "cloud-init",
+  "content": "I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw=="
+}

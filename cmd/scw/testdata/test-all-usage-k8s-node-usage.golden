@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A node (short for worker node) is an abstraction for a Scaleway Instance
 A node is always part of a pool. Each of them has the Kubernetes software automatically installed and configured by Scaleway.
 

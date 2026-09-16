@@ -24,7 +24,7 @@ func k8sPoolSetLabelCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "set-label",
 		Groups:    []string{"label"},
-		ArgsType:  reflect.TypeOf(k8sPoolSetLabelRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolSetLabelRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*k8sPoolSetLabelRequest)
 
@@ -95,7 +95,7 @@ func k8sPoolRemoveLabelCommand() *core.Command {
 		Resource:  "pool",
 		Verb:      "remove-label",
 		Groups:    []string{"label"},
-		ArgsType:  reflect.TypeOf(k8sPoolRemoveLabelRequest{}),
+		ArgsType:  reflect.TypeFor[k8sPoolRemoveLabelRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			request := argsI.(*k8sPoolRemoveLabelRequest)
 

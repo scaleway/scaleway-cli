@@ -59,7 +59,7 @@ func k8sNodeWaitCommand() *core.Command {
 		Resource:  "node",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(k8s.WaitForNodeRequest{}),
+		ArgsType:  reflect.TypeFor[k8s.WaitForNodeRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			api := k8s.NewAPI(core.ExtractClient(ctx))
 

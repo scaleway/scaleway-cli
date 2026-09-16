@@ -102,8 +102,13 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 				ProductTypes: []product_catalog.ListPublicCatalogProductsRequestProductType{
 					instanceProductType,
 				},
-				Zone:   &request.Zone,
-				Status: nil,
+				Zone: &request.Zone,
+				Status: []product_catalog.ListPublicCatalogProductsRequestStatus{
+					product_catalog.ListPublicCatalogProductsRequestStatusPublicBeta,
+					product_catalog.ListPublicCatalogProductsRequestStatusPreview,
+					product_catalog.ListPublicCatalogProductsRequestStatusGeneralAvailability,
+					product_catalog.ListPublicCatalogProductsRequestStatusEndOfNewFeatures,
+				},
 			},
 			scw.WithAllPages(),
 			scw.WithContext(ctx),
@@ -112,7 +117,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 			return nil, err
 		}
 
-		// Get server types from Instance API (still needed for the number of file systems)
+		// Get server types from Instance API (still needed for the number of file systems and local storage details)
 		computeServerTypes, err := instanceAPI.ListServersTypes(request, scw.WithAllPages())
 		if err != nil {
 			return nil, err
@@ -132,31 +137,26 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 		serverTypes := []*customServerType(nil)
 
 		for _, pcuServerType := range listServersTypesResponse.Products {
-			switch pcuServerType.Status {
-			case product_catalog.PublicCatalogProductStatusUnknownStatus:
-				continue
-			case product_catalog.PublicCatalogProductStatusPublicBeta:
-			case product_catalog.PublicCatalogProductStatusPreview:
-			case product_catalog.PublicCatalogProductStatusGeneralAvailability:
-			case product_catalog.PublicCatalogProductStatusEndOfNewFeatures:
-			case product_catalog.PublicCatalogProductStatusEndOfGrowth:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfDeployment:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfSupport:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfSale:
-				continue
-			case product_catalog.PublicCatalogProductStatusEndOfLife:
-				continue
-			case product_catalog.PublicCatalogProductStatusRetired:
-				continue
-			}
-
 			name := pcuServerType.Properties.Instance.OfferID
 			serverType := &customServerType{
-				Name:        name,
-				HourlyPrice: pcuServerType.Price.RetailPrice,
+				Name: name,
+			}
+
+			if pcuServerType.Price != nil && pcuServerType.Price.RetailPrice != nil {
+				serverType.HourlyPrice = pcuServerType.Price.RetailPrice
+
+				// Some instances types (GPU) are priced per minute, so we convert to an hourly price.
+				// We don't need to handle other duration for now.
+				if pcuServerType.UnitOfMeasure != nil &&
+					pcuServerType.UnitOfMeasure.Unit == product_catalog.PublicCatalogProductUnitOfMeasureCountableUnitMinute &&
+					pcuServerType.UnitOfMeasure.Size == 1 {
+					nanos := moneyToNanos(serverType.HourlyPrice)
+					nanos *= 60
+					serverType.HourlyPrice = newMoneyFromNanos(
+						nanos,
+						serverType.HourlyPrice.CurrencyCode,
+					)
+				}
 			}
 
 			if availability, exists := availabilitiesResponse.Servers[name]; exists {
@@ -165,6 +165,7 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 
 			if computeServerType, ok := computeServerTypes.Servers[name]; ok {
 				serverType.MaxFileSystems = new(computeServerType.Capabilities.MaxFileSystems)
+				serverType.LocalVolumeMaxSize = computeServerType.VolumesConstraint.MaxSize
 			}
 
 			if pcuServerType.Properties.Hardware != nil {
@@ -204,6 +205,20 @@ func serverTypeListBuilder(c *core.Command) *core.Command {
 	}
 
 	return c
+}
+
+// TODO: moneyToNanos() and newMoneyFromNanos() should be moved to the Go SDK.
+
+func moneyToNanos(m *scw.Money) int64 {
+	return m.Units*1e9 + int64(m.Nanos)
+}
+
+func newMoneyFromNanos(value int64, currencyCode string) *scw.Money {
+	return &scw.Money{
+		CurrencyCode: currencyCode,
+		Units:        value / 1e9,
+		Nanos:        int32(value % 1e9),
+	}
 }
 
 func getCompatibleTypesBuilder(c *core.Command) *core.Command {

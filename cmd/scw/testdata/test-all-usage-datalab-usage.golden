@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
-Data Lab API.
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Clusters for Apache Spark™ API.
 
 USAGE:
   scw datalab <command>

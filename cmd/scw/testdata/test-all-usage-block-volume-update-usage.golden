@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Update the technical details of a volume, such as its name, tags, or its new size and `volume_type` (within the same Block Storage class).
 You can only resize a volume to a larger size. It is currently not possible to change your Block Storage Class.
 

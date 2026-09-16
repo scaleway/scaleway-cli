@@ -543,9 +543,9 @@
             sp >>>= 0
             const dst = loadSlice(sp + 8)
             const src = loadValue(sp + 32)
-            if (
-              !(src instanceof Uint8Array || src instanceof Uint8ClampedArray)
-            ) {
+            if (!(
+              src instanceof Uint8Array || src instanceof Uint8ClampedArray
+            )) {
               this.mem.setUint8(sp + 48, 0)
               return
             }
@@ -560,9 +560,9 @@
             sp >>>= 0
             const dst = loadValue(sp + 8)
             const src = loadSlice(sp + 16)
-            if (
-              !(dst instanceof Uint8Array || dst instanceof Uint8ClampedArray)
-            ) {
+            if (!(
+              dst instanceof Uint8Array || dst instanceof Uint8ClampedArray
+            )) {
               this.mem.setUint8(sp + 48, 0)
               return
             }

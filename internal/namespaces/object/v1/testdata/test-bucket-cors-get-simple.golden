@@ -1,0 +1,28 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+{
+    "CORSRules": [
+        {
+            "AllowedHeaders": [
+                "*"
+            ],
+            "AllowedMethods": [
+                "GET",
+                "HEAD",
+                "POST",
+                "PUT",
+                "DELETE"
+            ],
+            "AllowedOrigins": [
+                "http://MY_DOMAIN_NAME",
+                "http://www.MY_DOMAIN_NAME"
+            ],
+            "ExposeHeaders": [
+                "Etag"
+            ],
+            "MaxAgeSeconds": 3000
+        }
+    ]
+}
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+"{\n    \"CORSRules\": [\n        {\n            \"AllowedHeaders\": [\n                \"*\"\n            ],\n            \"AllowedMethods\": [\n                \"GET\",\n                \"HEAD\",\n                \"POST\",\n                \"PUT\",\n                \"DELETE\"\n            ],\n            \"AllowedOrigins\": [\n                \"http://MY_DOMAIN_NAME\",\n                \"http://www.MY_DOMAIN_NAME\"\n            ],\n            \"ExposeHeaders\": [\n                \"Etag\"\n            ],\n            \"MaxAgeSeconds\": 3000\n        }\n    ]\n}"

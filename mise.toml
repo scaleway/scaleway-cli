@@ -1,0 +1,430 @@
+#:schema https://mise.jdx.dev/schema/mise.json
+
+[settings]
+lockfile = true
+
+[task_config]
+shell = "bash -c"
+
+[tools]
+actionlint = "1.7"
+devcontainer-cli = "0.89"
+go = "1.27"
+"go:github.com/go-delve/delve/cmd/dlv" = "1.27"
+"go:gotest.tools/gotestsum" = "1.13"
+golangci-lint = "2.13"
+goreleaser = "2.18"
+hadolint = "2.15"
+node = "26.8"
+"npm:actions-up" = "1.20"
+"npm:markdown-link-check" = "3.15"
+"npm:vite" = "8.2"
+"npm:vitest" = "5.0"
+pnpm = "11.25"
+prettier = "3.9"
+rumdl = "0.2"
+shellcheck = "0.11"
+typos = "1.50"
+
+[tasks.'deps:pnpm']
+description = "download the dependencies for the wasm wrapper"
+dir = "wasm"
+run = '''
+pnpm install
+'''
+
+[tasks.'deps:go']
+description = "download the dependencies for the golang code"
+run = '''
+go mod download
+'''
+
+[tasks.'build:cli']
+description = "build the cli"
+usage = '''
+flag "--ldflags <ldflags>" {
+  help "linker flags"
+  default "-s -w"
+}
+flag "--tags <tags>" {
+  help "build tags"
+  default "timetzdata"
+}
+flag "-o --output <path>" {
+  help "output binary path"
+  default "./scw"
+}
+flag "--race" {
+  help "enable data race detection"
+}
+flag "--verbose" {
+  help "print the commands as they are run"
+}
+'''
+depends = ["deps:go"]
+run = '''
+args=(build -ldflags "${usage_ldflags?}" -tags "${usage_tags?}" -o "${usage_output?}")
+if [ "${usage_race:-false}" = "true" ]; then
+  args+=(-race)
+fi
+if [ "${usage_verbose:-false}" = "true" ]; then
+  args+=(-v)
+fi
+args+=(./cmd/scw)
+go "${args[@]}"
+'''
+
+[tasks.'build:wasm']
+description = "build the wasm wrapper"
+depends = ["deps:pnpm", "deps:go"]
+run = '''
+GOOS=js GOARCH=wasm go build -o wasm/cli.wasm ./cmd/scw-wasm 
+'''
+
+[tasks.'build:wasm-tester']
+description = "build the wasm wrapper tester"
+depends = ["deps:pnpm", "deps:go"]
+run = '''
+GOOS=js GOARCH=wasm go build  -o wasm/cliTester.wasm ./cmd/scw-wasm-tester
+'''
+
+[tasks.'gen:doc']
+description = "generate the documentation"
+depends = ["deps:go"]
+depends_post = ["fmt:doc"]
+env = { SHELL="/bin/bash" }
+usage = '''
+flag "--outdir <path>" {
+  help "directory where markdown will be created"
+  default "./docs/commands"
+}
+'''
+run = '''
+go run ./cmd/scw-doc-gen -outdir "${usage_outdir?}"
+'''
+
+[tasks.'fmt:doc']
+description = "format the documentation"
+run = '''
+rumdl fmt -s ./docs
+'''
+
+[tasks.'fmt:go']
+description = "format the golang code"
+run = '''
+golangci-lint fmt
+'''
+
+[tasks.'lint:cli']
+description = "lint the cli"
+usage = '''
+arg "[packages]" {
+  help "target packages to lint"
+  default "./..."
+}
+flag "--fix" {
+  help "apply the fixes detected by the linters if supported"
+}
+flag "--fast-only" {
+  help "run only fast linters"
+}
+flag "--new" {
+  help "show only new issues (since HEAD~ or unstaged changes)"
+}
+flag "-j --concurrency <n>" {
+  help "number of CPUs to use"
+}
+flag "--timeout <duration>" {
+  help "total linter timeout"
+}
+'''
+run = '''
+args=(run)
+if [ "${usage_fix:-false}" = "true" ]; then
+  args+=(--fix)
+fi
+if [ "${usage_fast_only:-false}" = "true" ]; then
+  args+=(--fast-only)
+fi
+if [ "${usage_new:-false}" = "true" ]; then
+  args+=(--new)
+fi
+if [ -n "${usage_concurrency:-}" ]; then
+  args+=(--concurrency "${usage_concurrency?}")
+fi
+if [ -n "${usage_timeout:-}" ]; then
+  args+=(--timeout "${usage_timeout?}")
+fi
+args+=("${usage_packages?}")
+golangci-lint "${args[@]}"
+'''
+
+[tasks.'lint:docker']
+description = "lint the dockerfile"
+usage = '''
+arg "[dockerfile]" {
+  help "target dockerfile to lint"
+  default "Dockerfile"
+}
+'''
+run = '''
+hadolint ${usage_dockerfile?}
+'''
+
+[tasks.'lint:wasm']
+description = "lint the wasm wrapper"
+depends = ["deps:pnpm"]
+dir = "wasm"
+usage = '''
+flag "--write" {
+  help "write fixes instead of just checking"
+}
+'''
+run = '''
+args=(.)
+if [ "${usage_write:-false}" = "true" ]; then
+  args+=(--write)
+else
+  args+=(--check)
+fi
+prettier "${args[@]}"
+'''
+
+[tasks.'lint:doc']
+description = "lint the documentation"
+depends = ["gen:doc"]
+run = '''
+rumdl check ./docs
+typos ./docs
+'''
+
+[tasks.'lint:actions']
+description = "lint the workflows"
+run = '''
+# ensure that shellcheck is installed, which is guaranteed with mise but ensures
+# actionlint won't silently do nothing in case the command is run outside of it.
+shellcheck_path="$(command -v shellcheck)" || {
+  echo "error: shellcheck not found in PATH; actionlint needs it to check scripts"
+  exit 1
+}
+actionlint -shellcheck "$shellcheck_path"
+'''
+
+[tasks.'test:cli']
+description = "test the cli"
+depends = ["build:cli"]
+usage = '''
+arg "[packages]" {
+  help "target packages to test"
+  default "./..."
+}
+flag "--run <regex>" {
+  help "run only tests matching the given regex"
+}
+flag "--cassettes" {
+  help "record cassettes (requires a valid scaleway token)"
+}
+flag "--goldens" {
+  help "update golden files"
+}
+flag "--debug" {
+  help "enable cli debug mode"
+}
+flag "--race" {
+  help "enable data race detection"
+}
+flag "--format <fmt>" {
+  help "gotestsum output format"
+  default "pkgname"
+}
+flag "--rerun-fails <n>" {
+  help "rerun failed tests up to n times"
+}
+flag "--timeout <duration>" {
+  help "test timeout (e.g. 30s, 5m, 1h)"
+}
+flag "--max-fails <n>" {
+  help "stop after n failures"
+}
+'''
+run = '''
+export CLI_UPDATE_CASSETTES="${usage_cassettes:-false}"
+export CLI_UPDATE_GOLDENS="${usage_goldens:-false}"
+export SCW_DEBUG="${usage_debug:-false}"
+
+gotestsum_args=(--format "${usage_format?}")
+if [ -n "${usage_rerun_fails:-}" ]; then
+  gotestsum_args+=(--rerun-fails "${usage_rerun_fails?}")
+fi
+if [ -n "${usage_max_fails:-}" ]; then
+  gotestsum_args+=(--max-fails "${usage_max_fails?}")
+fi
+
+test_args=()
+if [ -n "${usage_run:-}" ]; then
+  test_args+=(-run "${usage_run?}")
+fi
+if [ "${usage_race:-false}" = "true" ]; then
+  test_args+=(-race)
+fi
+if [ -n "${usage_timeout:-}" ]; then
+  test_args+=(-timeout "${usage_timeout?}")
+fi
+test_args+=("${usage_packages?}")
+
+gotestsum "${gotestsum_args[@]}" -- "${test_args[@]}"
+'''
+
+[tasks.'test:wasm']
+description = "test the wasm wrapper"
+depends = ["build:wasm", "build:wasm-tester"]
+dir = "wasm"
+usage = '''
+arg "[filters]" {
+  help "test name filters"
+  var #true
+}
+flag "--watch" {
+  help "run in watch mode"
+}
+flag "--ui" {
+  help "enable the vitest ui"
+}
+flag "--update" {
+  help "update snapshots"
+}
+flag "--coverage" {
+  help "enable coverage report"
+}
+flag "--reporter <name>" {
+  help "specify reporter (default, verbose, dot, json, junit, github-actions)"
+}
+'''
+run = '''
+args=(./src "${usage_filters[@]}")
+if [ "${usage_watch:-false}" = "true" ]; then
+  args+=(--watch)
+fi
+if [ "${usage_ui:-false}" = "true" ]; then
+  args+=(--ui)
+fi
+if [ "${usage_update:-false}" = "true" ]; then
+  args+=(--update)
+fi
+if [ "${usage_coverage:-false}" = "true" ]; then
+  args+=(--coverage)
+fi
+if [ -n "${usage_reporter:-}" ]; then
+  args+=(--reporter "${usage_reporter?}")
+fi
+vitest "${args[@]}"
+'''
+
+# [tasks.'test:doc']
+# description = "test the documentation"
+# run = '''
+# markdown-link-check -c ./.markdownlinkcheck.json -q ./docs
+# '''
+
+[tasks.'check:binary-size']
+description = "check the size of the cli binary"
+depends = ["build:cli"]
+usage = '''
+flag "--binary <binary>" {
+  help "path to the binary to check"
+  default "./scw"
+}
+flag "--limit <limit>" {
+  help "maximum allowed size in bytes"
+  default "60000000"
+}
+'''
+run = '''
+size=$(wc -c < "${usage_binary?}")
+echo "binary size: $size bytes"
+if [ "$size" -gt "${usage_limit?}" ]
+then
+  echo "error: ${usage_binary?} exceeds ${usage_limit?} bytes"
+  exit 1
+fi
+'''
+
+[tasks.release]
+description = "create a new release of the repository"
+usage = '''
+flag "--snapshot" negate="--no-snapshot" {
+  help "generate an unversioned snapshot, skipping validations and publishing"
+  default #true
+}
+flag "--clean" negate="--no-clean" {
+  help "remove the dist directory before running"
+  default #true
+}
+flag "--draft" {
+  help "set the release to draft"
+}
+flag "--fail-fast" {
+  help "abort the release publishing on the first error"
+}
+flag "--verbose" {
+  help "enable verbose mode"
+}
+flag "--skip <items>" {
+  help "skip the given steps (e.g. docker,publish)"
+}
+flag "--parallelism <n>" {
+  help "number of tasks to run concurrently"
+}
+flag "--timeout <duration>" {
+  help "timeout for the entire release process"
+}
+'''
+run = '''
+args=(release)
+if [ "${usage_snapshot:-false}" = "true" ]; then
+  args+=(--snapshot)
+fi
+if [ "${usage_clean:-false}" = "true" ]; then
+  args+=(--clean)
+fi
+if [ "${usage_draft:-false}" = "true" ]; then
+  args+=(--draft)
+fi
+if [ "${usage_fail_fast:-false}" = "true" ]; then
+  args+=(--fail-fast)
+fi
+if [ "${usage_verbose:-false}" = "true" ]; then
+  args+=(--verbose)
+fi
+if [ -n "${usage_skip:-}" ]; then
+  args+=(--skip "${usage_skip?}")
+fi
+if [ -n "${usage_parallelism:-}" ]; then
+  args+=(--parallelism "${usage_parallelism?}")
+fi
+if [ -n "${usage_timeout:-}" ]; then
+  args+=(--timeout "${usage_timeout?}")
+fi
+goreleaser "${args[@]}"
+'''
+
+[tasks.build]
+description = "aggregate the build/gen tasks"
+depends = ["gen:*", "build:*"]
+
+[tasks.lint]
+description = "aggregate the lint tasks"
+depends = ["lint:*"]
+
+[tasks.test]
+description = "aggregate the test/check tasks"
+depends = ["test:*", "check:*"]
+
+[tasks.default]
+description = "default task, fast local loop for the cli"
+depends = ["*:cli"]
+
+[tasks.ci]
+description = "meta-task for the ci"
+depends = ["build:*", "gen:*", "lint:*", "test:*", "check:*"]
+

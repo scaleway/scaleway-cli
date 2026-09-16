@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Snapshots contain the data of a specified volume at a particular point in time.
 The data can include the Instance's operating system,
 configuration information and/or files stored on the volume.
