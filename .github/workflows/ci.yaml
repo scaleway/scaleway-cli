@@ -1,0 +1,64 @@
+name: ci
+
+on:
+  merge_group:
+  pull_request:
+  push:
+    tags: ["*"]
+    branches: ["main"]
+  workflow_dispatch:
+
+concurrency:
+  group: ${{ github.workflow }}-${{ github.event.pull_request.number || github.ref }}
+  cancel-in-progress: ${{ github.ref != 'refs/heads/main' }}
+
+env:
+  MISE_EXPERIMENTAL: true
+
+jobs:
+  ci:
+    runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
+    timeout-minutes: 10
+    steps:
+      - name: Set git to use LF to avoid problem with goldens on windows
+        run: |
+          git config --global core.autocrlf false
+          git config --global core.eol lf
+      - uses: actions/checkout@3d3c42e5aac5ba805825da76410c181273ba90b1 # v7.0.1
+        with:
+          fetch-depth: 1
+      - uses: jdx/mise-action@c2a87611a18de5b3828c5652fe268e992400cb5c # v4.3.0
+        with:
+          version: 2026.9.3
+          cache: true
+      - id: cache-vars
+        name: Set cache variables
+        run: |
+          {
+            echo "goversion=$(go env GOVERSION)";
+            echo "gomodcache=$(go env GOMODCACHE)";
+            echo "gocache=$(go env GOCACHE)"
+            echo "pnpmversion=$(pnpm --version)"
+            echo "pnpmcache=$(pnpm cache path)"
+          } >> "$GITHUB_OUTPUT"
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        name: Cache go modules and build
+        with:
+          key: go-${{ runner.os }}-${{ steps.cache-vars.outputs.goversion }}-${{ hashFiles('**/go.sum') }}
+          restore-keys: |
+            go-${{ runner.os }}-${{ steps.cache-vars.outputs.goversion }}
+            go-${{ runner.os }}
+          path: |
+            ${{ steps.cache-vars.outputs.gomodcache }}
+            ${{ steps.cache-vars.outputs.gocache }}
+      - uses: actions/cache@55cc8345863c7cc4c66a329aec7e433d2d1c52a9 # v6.1.0
+        name: Cache pnpm dependencies
+        with:
+          key: pnpm-${{ runner.os }}-${{ steps.cache-vars.outputs.pnpmversion }}-${{ hashFiles('**/pnpm-lock.yaml') }}
+          restore-keys: |
+            pnpm-${{ runner.os }}-${{ steps.cache-vars.outputs.pnpmversion }}
+            pnpm-${{ runner.os }}
+          path: |
+            ${{ steps.cache-vars.outputs.pnpmcache }}
+      - run: mise run ci
+

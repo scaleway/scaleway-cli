@@ -50,7 +50,7 @@ func vpcACLEditCommand() *core.Command {
 		Namespace: "vpc",
 		Resource:  "rule",
 		Verb:      "edit",
-		ArgsType:  reflect.TypeOf(vpcACLEditArgs{}),
+		ArgsType:  reflect.TypeFor[vpcACLEditArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "vpc-id",

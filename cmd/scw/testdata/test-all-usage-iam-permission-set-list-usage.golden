@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List permission sets available for given Organization. You must define the `organization_id` in the query path of your request.
 
 USAGE:

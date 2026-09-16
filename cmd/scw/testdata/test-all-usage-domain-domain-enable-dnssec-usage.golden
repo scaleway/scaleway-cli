@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 If your domain uses another registrar and has the default Scaleway NS, you have to **update the DS record at your registrar**.
 
 USAGE:

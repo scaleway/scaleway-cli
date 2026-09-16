@@ -20,7 +20,7 @@ func TestCheckAPIKey(t *testing.T) {
 		&core.Command{
 			Namespace: "test",
 			ArgSpecs:  core.ArgSpecs{},
-			ArgsType:  reflect.TypeOf(testType{}),
+			ArgsType:  reflect.TypeFor[testType](),
 			Run: func(ctx context.Context, _ any) (i any, e error) {
 				// Test command reload the client so the profile used is the edited one
 				return "", core.ReloadClient(ctx)
@@ -59,12 +59,10 @@ func TestCheckAPIKey(t *testing.T) {
 
 			ctx.Meta[metadataKey] = apiKey
 			cfg := &scw.Config{
-				Profile: scw.Profile{
-					AccessKey:             &apiKey.AccessKey,
-					SecretKey:             apiKey.SecretKey,
-					DefaultProjectID:      &apiKey.DefaultProjectID,
-					DefaultOrganizationID: &apiKey.DefaultProjectID,
-				},
+				AccessKey:             &apiKey.AccessKey,
+				SecretKey:             apiKey.SecretKey,
+				DefaultProjectID:      &apiKey.DefaultProjectID,
+				DefaultOrganizationID: &apiKey.DefaultProjectID,
 			}
 			configPath := filepath.Join(ctx.OverrideEnv["HOME"], ".config", "scw", "config.yaml")
 

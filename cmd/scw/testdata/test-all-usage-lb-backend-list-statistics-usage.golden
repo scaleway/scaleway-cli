@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List information about your backend servers, including their state and the result of their last health check.
 
 USAGE:

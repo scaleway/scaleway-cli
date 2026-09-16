@@ -161,7 +161,7 @@ func autocompleteInstallCommand() *core.Command {
 				},
 			},
 		},
-		ArgsType: reflect.TypeOf(InstallArgs{}),
+		ArgsType: reflect.TypeFor[InstallArgs](),
 		Run:      InstallCommandRun,
 	}
 }
@@ -182,12 +182,14 @@ func InstallCommandRun(ctx context.Context, argsI any) (i any, e error) {
 			defaultShellName = filepath.Base(core.ExtractEnv(ctx, "SHELL"))
 		}
 
-		promptedShell, err := interactive.PromptStringWithConfig(&interactive.PromptStringConfig{
-			Ctx:             ctx,
-			Prompt:          "What type of shell are you using",
-			DefaultValue:    defaultShellName,
-			DefaultValueDoc: defaultShellName,
-		})
+		promptedShell, err := interactive.PromptStringWithConfig(
+			ctx,
+			&interactive.PromptStringConfig{
+				Prompt:          "What type of shell are you using",
+				DefaultValue:    defaultShellName,
+				DefaultValueDoc: defaultShellName,
+			},
+		)
 		if err != nil {
 			return nil, err
 		}
@@ -246,11 +248,13 @@ func InstallCommandRun(ctx context.Context, argsI any) (i any, e error) {
 
 	// Early exit if user disagrees
 	_, _ = interactive.Println()
-	continueInstallation, err := interactive.PromptBoolWithConfig(&interactive.PromptBoolConfig{
-		Ctx:          ctx,
-		Prompt:       "Do you want to proceed with these changes?",
-		DefaultValue: true,
-	})
+	continueInstallation, err := interactive.PromptBoolWithConfig(
+		ctx,
+		&interactive.PromptBoolConfig{
+			Prompt:       "Do you want to proceed with these changes?",
+			DefaultValue: true,
+		},
+	)
 	if err != nil {
 		return nil, err
 	}
@@ -285,7 +289,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 3 {
@@ -332,7 +336,7 @@ func autocompleteCompleteFishCommand() *core.Command {
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 4 {
@@ -370,7 +374,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 2 {
@@ -434,7 +438,7 @@ func autocompleteScriptCommand() *core.Command {
 				},
 			},
 		},
-		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
+		ArgsType: reflect.TypeFor[autocompleteShowArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
 			basename := argsI.(*autocompleteShowArgs).Basename

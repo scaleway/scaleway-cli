@@ -1,0 +1,9 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Key      file-key
+Content  I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw==
+🟩🟩🟩 JSON STDOUT 🟩🟩🟩
+{
+  "key": "file-key",
+  "content": "I2Nsb3VkLWNvbmZpZwpwYWNrYWdlX3VwZGF0ZTogdHJ1ZQpwYWNrYWdlX3VwZ3JhZGU6IHRydWUKcGFja2FnZXM6CiAgLSBzc2hmcwogIC0gc2hlbGxjaGVjaw=="
+}

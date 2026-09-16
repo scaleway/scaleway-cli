@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Prepare your Database Instance logs. You can define the `start_date` and `end_date` parameters for your query. The download URL is returned in the response. Logs are recorded from 00h00 to 23h59 and then aggregated in a `.log` file once a day. Therefore, even if you specify a timeframe from which you want to get the logs, you will receive logs from the full 24 hours.
 
 USAGE:

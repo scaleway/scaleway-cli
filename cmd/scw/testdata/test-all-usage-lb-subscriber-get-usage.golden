@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Retrieve information about an existing subscriber, specified by its subscriber ID. Its full details, including name and email/webhook configuration, are returned in the response object.
 
 USAGE:

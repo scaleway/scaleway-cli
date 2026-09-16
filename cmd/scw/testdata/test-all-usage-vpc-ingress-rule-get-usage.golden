@@ -1,0 +1,20 @@
+🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
+Retrieve details of an existing ingress rule, specified by its ingress rule ID.
+
+USAGE:
+  scw vpc ingress-rule get <rule-id ...> [arg=value ...]
+
+ARGS:
+  rule-id           ID of the ingress rule to return
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
+
+FLAGS:
+  -h, --help                help for get
+      --list-sub-commands   List all subcommands
+
+GLOBAL FLAGS:
+  -c, --config string    The path to the config file
+  -D, --debug            Enable debug mode
+  -o, --output string    Output format: json or human, see 'scw help output' for more info (default "human")
+  -p, --profile string   The config profile to use

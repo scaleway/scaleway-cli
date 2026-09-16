@@ -37,8 +37,8 @@ NAME                   CORE COUNT  THREAD COUNT  FREQUENCY  BENCHMARK
 Intel Xeon E5 1410 v2  4           8             2800       5715
 
 Memories:
-CAPACITY  TYPE  FREQUENCY  IS ECC
-96 GB     DDR3  1600       true
+CAPACITY  TYPE  FREQUENCY  IS ECC  ECC TYPE
+96 GB     DDR3  1600       true    unknown_ecc_type
 
 Options:
 ID                                    NAME                     ENABLED  SUBSCRIPTION PERIOD  PRICE     MANAGEABLE  OS ID
@@ -102,7 +102,8 @@ PrivateBandwidth(Mbit/s):
       "capacity": 96000000000,
       "type": "DDR3",
       "frequency": 1600,
-      "is_ecc": true
+      "is_ecc": true,
+      "ecc_type": "unknown_ecc_type"
     }
   ],
   "quota_name": "EM_L105X_SATA",

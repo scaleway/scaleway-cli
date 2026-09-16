@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 You must provide the following parameters: `organization_id`, `project_id`, `name`, `cpu_min`, `cpu_max`. You can also provide `from_backup_id` to create a database from a backup.
 
 USAGE:
@@ -11,6 +11,7 @@ ARGS:
   cpu-min            The minimum number of CPU units for your Serverless SQL Database.
   cpu-max            The maximum number of CPU units for your Serverless SQL Database.
   [from-backup-id]   The ID of the backup to create the database from.
+  [version]          The major version of the postgreSQL requested.
   [region=fr-par]    Region to target. If none is passed will use default region from the config (fr-par)
 
 FLAGS:

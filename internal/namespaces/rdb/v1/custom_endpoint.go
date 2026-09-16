@@ -52,7 +52,7 @@ func endpointCreateBuilder(c *core.Command) *core.Command {
 		PrivateNetwork *rdbEndpointSpecPrivateNetworkCustom `json:"private-network"`
 	}
 
-	c.ArgsType = reflect.TypeOf(rdbCreateEndpointRequestCustom{})
+	c.ArgsType = reflect.TypeFor[rdbCreateEndpointRequestCustom]()
 
 	c.ArgSpecs = core.ArgSpecs{
 		{
@@ -160,7 +160,7 @@ func endpointDeleteBuilder(c *core.Command) *core.Command {
 		InstanceID string `json:"instance-id"`
 	}
 
-	c.ArgsType = reflect.TypeOf(rdbDeleteEndpointRequestCustom{})
+	c.ArgsType = reflect.TypeFor[rdbDeleteEndpointRequestCustom]()
 
 	c.ArgSpecs.GetByName("endpoint-id").Positional = true
 	c.ArgSpecs.AddBefore("endpoint-id", &core.ArgSpec{
@@ -227,7 +227,7 @@ func endpointListCommand() *core.Command {
 		Verb:      "list",
 		Short:     "Lists a Database Instance's endpoints",
 		Long:      "Lists all public and private endpoints of a Database Instance",
-		ArgsType:  reflect.TypeOf(rdbEndpointListCustomArgs{}),
+		ArgsType:  reflect.TypeFor[rdbEndpointListCustomArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "instance-id",

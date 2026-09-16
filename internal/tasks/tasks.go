@@ -11,13 +11,12 @@ import (
 )
 
 type (
-	TaskFunc[T any, U any] func(t *Task, args T) (nextArgs U, err error)
+	TaskFunc[T any, U any] func(ctx context.Context, t *Task, args T) (nextArgs U, err error)
 	CleanupFunc            func(ctx context.Context) error
 )
 
 type Task struct {
 	Name string
-	Ctx  context.Context
 	Logs *os.File
 
 	taskFunction   TaskFunc[any, any]
@@ -70,12 +69,12 @@ func Add[TaskArg any, TaskReturn any](
 		Name:       name,
 		argType:    argType,
 		returnType: returnType,
-		taskFunction: func(t *Task, i any) (passedData any, err error) {
+		taskFunction: func(ctx context.Context, t *Task, i any) (passedData any, err error) {
 			if i == nil {
 				var zero TaskArg
-				passedData, err = taskFunc(t, zero)
+				passedData, err = taskFunc(ctx, t, zero)
 			} else {
-				passedData, err = taskFunc(t, i.(TaskArg))
+				passedData, err = taskFunc(ctx, t, i.(TaskArg))
 			}
 
 			return passedData, err
@@ -135,7 +134,7 @@ func (ts *Tasks) Execute(ctx context.Context, data any) (any, error) {
 	cancelableCtx, cleanCtx := setupContext(ctx)
 	defer cleanCtx()
 
-	logger, err := NewTasksLogger(context.Background(), ts.LoggerMode)
+	logger, err := NewTasksLogger(ctx, ts.LoggerMode)
 	if err != nil {
 		return nil, err
 	}
@@ -153,11 +152,10 @@ func (ts *Tasks) Execute(ctx context.Context, data any) (any, error) {
 		task.Logs = loggerEntry.Logs
 		loggerEntry.Start()
 
-		// Add context and reset cleanup functions, allows to execute multiple times
-		task.Ctx = cancelableCtx
+		// Reset cleanup functions, allows to execute multiple times
 		task.cleanFunctions = []CleanupFunc(nil)
 
-		data, err = task.taskFunction(task, data)
+		data, err = task.taskFunction(cancelableCtx, task, data)
 		if err != nil {
 			loggerEntry.Complete(err)
 			ts.Cleanup(ctx, logger, i)

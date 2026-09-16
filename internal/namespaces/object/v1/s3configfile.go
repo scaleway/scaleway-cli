@@ -16,15 +16,15 @@ import (
 
 type s3tool string
 
-func (c s3tool) String() string {
-	return string(c)
+func (c *s3tool) String() string {
+	return string(*c)
 }
 
 type supportedTool []s3tool
 
-func (s supportedTool) ToStringArray() []string {
-	res := make([]string, 0, len(s))
-	for _, x := range s {
+func (s *supportedTool) ToStringArray() []string {
+	res := make([]string, 0, len(*s))
+	for _, x := range *s {
 		res = append(res, x.String())
 	}
 
@@ -36,8 +36,8 @@ type s3config struct {
 	SecretKey string
 	Region    scw.Region
 	Name      string
-	ctx       context.Context
 	ProjectID string
+	HomeDir   string
 }
 
 const (
@@ -113,15 +113,15 @@ func newS3Config(
 		SecretKey: secretKey,
 		Region:    region,
 		Name:      name,
-		ctx:       ctx,
 		ProjectID: projectID,
+		HomeDir:   core.ExtractUserHomeDir(ctx),
 	}
 
 	return config, nil
 }
 
-func (c s3config) getPath(tool s3tool) (string, error) {
-	homeDir := core.ExtractUserHomeDir(c.ctx)
+func (c *s3config) getPath(tool s3tool) (string, error) {
+	homeDir := c.HomeDir
 
 	switch tool {
 	case s3cmd:
@@ -135,7 +135,7 @@ func (c s3config) getPath(tool s3tool) (string, error) {
 	}
 }
 
-func (c s3config) renderTemplate(configFileTemplate string) (core.RawResult, error) {
+func (c *s3config) renderTemplate(configFileTemplate string) (core.RawResult, error) {
 	tmpl, err := template.New("configuration").Parse(configFileTemplate)
 	if err != nil {
 		return nil, err
@@ -150,7 +150,7 @@ func (c s3config) renderTemplate(configFileTemplate string) (core.RawResult, err
 	return buf.Bytes(), nil
 }
 
-func (c s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
+func (c *s3config) getConfigFile(tool s3tool) (core.RawResult, error) {
 	switch tool {
 	case s3cmd:
 		return c.renderTemplate(s3cmdTemplate)

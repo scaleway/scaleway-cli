@@ -3,6 +3,7 @@ package core
 import (
 	"context"
 	"reflect"
+	"regexp"
 	"strings"
 
 	"github.com/scaleway/scaleway-cli/v2/core/human"
@@ -92,6 +93,9 @@ type Command struct {
 	Groups []string
 	//
 	Deprecated bool
+
+	// ExcludeFromMCP will exclude the command from the MCP server (scw mcp server)
+	ExcludeFromMCP bool
 }
 
 // CommandPreValidateFunc allows to manipulate args before validation.
@@ -182,6 +186,71 @@ func (c *Command) Copy() *Command {
 
 func (c *Command) DebugString() string {
 	return c.getPath()
+}
+
+// IsReadOnly returns true if the command is a read-only operation
+// (get, list, get-*, list-*, or wait verbs)
+func (c *Command) IsReadOnly() bool {
+	if c.Verb == "" {
+		return false
+	}
+
+	readOnlyPattern := regexp.MustCompile(`^(get|list)$|^get-|^list-|^wait`)
+
+	if readOnlyPattern.MatchString(c.Verb) {
+		return true
+	}
+
+	return false
+}
+
+// IsList returns true if the command is a list operation
+func (c *Command) IsList() bool {
+	if c.Verb == "" {
+		return false
+	}
+
+	listPattern := regexp.MustCompile(`^(list)$|^(list-*)`)
+
+	if listPattern.MatchString(c.Verb) {
+		return true
+	}
+
+	return false
+}
+
+func (c *Command) IsDestructive() bool {
+	if c.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return false
+	}
+
+	// Non-destructive (read-only) verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	nonDestructivePattern := regexp.MustCompile(`^(get|list)$|^get-|^wait`)
+
+	if nonDestructivePattern.MatchString(c.Verb) {
+		return false
+	}
+
+	// Default: assume destructive for unknown verbs that modify state
+	return true
+}
+
+func (c *Command) IsIdempotent() bool {
+	if c.Verb == "" {
+		// For commands without a verb (namespace/resource containers), default to false
+		return false
+	}
+
+	// Idempotent verbs: get, list, and get-* (get-credentials, get-account, etc.)
+	idempotentPattern := regexp.MustCompile(`^(get|list)$|^get-|^wait`)
+
+	if idempotentPattern.MatchString(c.Verb) {
+		return true
+	}
+
+	// All other verbs are not idempotent
+	return false
 }
 
 // get a signature to sort commands

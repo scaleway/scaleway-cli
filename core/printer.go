@@ -17,8 +17,8 @@ import (
 // Type defines an formatter format.
 type PrinterType string
 
-func (p PrinterType) String() string {
-	return string(p)
+func (p *PrinterType) String() string {
+	return string(*p)
 }
 
 const (
@@ -79,18 +79,18 @@ func NewPrinter(config *PrinterConfig) (*Printer, error) {
 
 	// We call the correct setup method depending on the printer type
 	switch printerName {
-	case PrinterTypeHuman.String():
+	case string(PrinterTypeHuman):
 		setupHumanPrinter(printer, printerOpt)
-	case PrinterTypeWide.String():
+	case string(PrinterTypeWide):
 		setupWidePrinter(printer, printerOpt)
-	case PrinterTypeJSON.String():
+	case string(PrinterTypeJSON):
 		err := setupJSONPrinter(printer, printerOpt)
 		if err != nil {
 			return nil, err
 		}
-	case PrinterTypeYAML.String():
+	case string(PrinterTypeYAML):
 		printer.printerType = PrinterTypeYAML
-	case PrinterTypeTemplate.String():
+	case string(PrinterTypeTemplate):
 		err := setupTemplatePrinter(printer, printerOpt)
 		if err != nil {
 			return nil, err

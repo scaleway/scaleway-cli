@@ -38,7 +38,7 @@ func CustomTestAnonymousFields() *core.Command {
 		Long:      `Test Anonymous Fields.`,
 		Namespace: "test",
 		Resource:  "anonymous-fields",
-		ArgsType:  reflect.TypeOf(testAnonymousFieldsCustom{}),
+		ArgsType:  reflect.TypeFor[testAnonymousFieldsCustom](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:  "field-b",

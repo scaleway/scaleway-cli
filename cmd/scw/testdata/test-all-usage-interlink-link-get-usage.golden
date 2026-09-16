@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Get a link (InterLink session / logical InterLink resource) for the given link ID. The response object includes information about the link's various configuration details.
 
 USAGE:
@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   link-id           ID of the link to get
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | it-mil | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for get

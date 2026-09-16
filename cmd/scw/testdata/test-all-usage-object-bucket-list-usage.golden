@@ -1,11 +1,12 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List all existing S3 buckets in the specified region
 
 USAGE:
   scw object bucket list [arg=value ...]
 
 ARGS:
+  [project-id]      Scaleway project ID to use with IAM Access Key syntax
   [region=fr-par]   Region to target. If none is passed will use default region from the config
 
 FLAGS:

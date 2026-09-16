@@ -29,7 +29,7 @@ func serverSSHCommand() *core.Command {
 		Verb:      "ssh",
 		Resource:  "server",
 		Groups:    []string{"utility"},
-		ArgsType:  reflect.TypeOf(serverSSHConnectRequest{}),
+		ArgsType:  reflect.TypeFor[serverSSHConnectRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -53,7 +53,8 @@ func serverSSHCommand() *core.Command {
 			},
 			core.ZoneArgSpec(),
 		},
-		Run: serverSSHRun,
+		Run:            serverSSHRun,
+		ExcludeFromMCP: true,
 	}
 }
 

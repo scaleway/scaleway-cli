@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Check whether contacts are compatible with a domain or a TLD.
 If contacts are not compatible with either the domain or the TLD, the information that needs to be corrected is returned.
 

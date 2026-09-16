@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new route stage. You must specify the `waf_stage_id` or `backend_stage_id` fields to customize the route.
 
 USAGE:

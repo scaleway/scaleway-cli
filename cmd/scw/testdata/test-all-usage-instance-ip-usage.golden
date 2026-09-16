@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A flexible IP address is an IP address which you hold independently of any Instance.
 You can attach it to any of your Instances and do live migration of the IP address between your Instances.
 

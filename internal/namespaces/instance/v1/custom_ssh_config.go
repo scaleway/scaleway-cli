@@ -14,7 +14,8 @@ import (
 	applesilicon "github.com/scaleway/scaleway-sdk-go/api/applesilicon/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/api/baremetal/v1"
 	"github.com/scaleway/scaleway-sdk-go/api/instance/v1"
-	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v1"
+	"github.com/scaleway/scaleway-sdk-go/api/vpc/v2"
+	"github.com/scaleway/scaleway-sdk-go/api/vpcgw/v2"
 	"github.com/scaleway/scaleway-sdk-go/logger"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
@@ -28,7 +29,7 @@ type sshConfigServer struct {
 	PrivateNetworksID []string
 }
 
-func (s sshConfigServer) InPrivateNetwork(id string) bool {
+func (s *sshConfigServer) InPrivateNetwork(id string) bool {
 	return slices.Contains(s.PrivateNetworksID, id)
 }
 
@@ -38,7 +39,7 @@ type sshConfigInstallRequest struct {
 }
 
 func sshConfigInstallCommand() *core.Command {
-	availableZones := ((*instance.API)(nil)).Zones()
+	availableZones := (*instance.API)(nil).Zones()
 	availableZones = append(availableZones, scw.Zone(core.AllLocalities))
 
 	return &core.Command{
@@ -48,7 +49,7 @@ func sshConfigInstallCommand() *core.Command {
 		Short: `Install a ssh config with all your servers as host
 It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 		Long:     "Path of the config will be $HOME/.ssh/scaleway.config",
-		ArgsType: reflect.TypeOf(sshConfigInstallRequest{}),
+		ArgsType: reflect.TypeFor[sshConfigInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			core.ZoneArgSpec(availableZones...),
@@ -83,7 +84,7 @@ It generate hosts for instance servers, baremetal, apple-silicon and bastions`,
 				if server.Address == "" {
 					continue
 				}
-				hosts = append(hosts, sshconfig.SimpleHost{
+				hosts = append(hosts, &sshconfig.SimpleHost{
 					Name:    server.Name,
 					Address: server.Address,
 				})
@@ -131,9 +132,8 @@ Do you want the include statement to be added at the beginning of your file ?`,
 				}, nil
 			}
 
-			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(
+			shouldIncludeConfig, err := interactive.PromptBoolWithConfig(ctx,
 				&interactive.PromptBoolConfig{
-					Ctx:          ctx,
 					Prompt:       includePrompt,
 					DefaultValue: true,
 				},
@@ -304,7 +304,9 @@ func sshConfigBastionHosts(
 	args *sshConfigInstallRequest,
 	servers []sshConfigServer,
 ) ([]sshconfig.Host, error) {
-	gwAPI := vpcgw.NewAPI(core.ExtractClient(ctx))
+	client := core.ExtractClient(ctx)
+	gwAPI := vpcgw.NewAPI(client)
+	vpcAPI := vpc.NewAPI(client)
 
 	reqOpts := []scw.RequestOption{scw.WithAllPages()}
 	if args.Zone == scw.Zone(core.AllLocalities) {
@@ -322,16 +324,28 @@ func sshConfigBastionHosts(
 		return nil, err
 	}
 
+	pnNames := map[string]string{}
 	hosts := []sshconfig.Host(nil)
 
 	for _, gateway := range listGateways.Gateways {
-		if !gateway.BastionEnabled {
+		if !gateway.BastionEnabled || gateway.IPv4 == nil {
 			continue
 		}
 		for _, network := range gateway.GatewayNetworks {
+			pnName, err := sshConfigPrivateNetworkName(
+				ctx,
+				vpcAPI,
+				pnNames,
+				gateway.Zone,
+				network.PrivateNetworkID,
+			)
+			if err != nil {
+				return nil, err
+			}
+
 			bastionHost := sshconfig.BastionHost{
-				Name:    network.DHCP.DNSLocalName,
-				Address: gateway.IP.Address.String(),
+				Name:    pnName + ".internal",
+				Address: gateway.IPv4.Address.String(),
 				Port:    gateway.BastionPort,
 			}
 
@@ -345,9 +359,38 @@ func sshConfigBastionHosts(
 				}
 			}
 
-			hosts = append(hosts, bastionHost)
+			hosts = append(hosts, &bastionHost)
 		}
 	}
 
 	return hosts, nil
+}
+
+func sshConfigPrivateNetworkName(
+	ctx context.Context,
+	vpcAPI *vpc.API,
+	cache map[string]string,
+	zone scw.Zone,
+	pnID string,
+) (string, error) {
+	if name, ok := cache[pnID]; ok {
+		return name, nil
+	}
+
+	region, err := zone.Region()
+	if err != nil {
+		return "", fmt.Errorf("failed to derive region from zone %q: %w", zone, err)
+	}
+
+	pn, err := vpcAPI.GetPrivateNetwork(&vpc.GetPrivateNetworkRequest{
+		Region:           region,
+		PrivateNetworkID: pnID,
+	}, scw.WithContext(ctx))
+	if err != nil {
+		return "", fmt.Errorf("failed to get private network %s: %w", pnID, err)
+	}
+
+	cache[pnID] = pn.Name
+
+	return pn.Name, nil
 }

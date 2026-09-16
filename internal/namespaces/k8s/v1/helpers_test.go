@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	kapsuleVersion    = "1.32.3"
+	kapsuleVersion    = "1.35.3"
 	clusterMetaKey    = "Cluster"
 	kubeconfigMetaKey = "Kubeconfig"
 	poolMetaKey       = "DefaultPool"

@@ -180,7 +180,7 @@ func serverListBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customListServersRequest{})
+	c.ArgsType = reflect.TypeFor[customListServersRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -211,7 +211,7 @@ func serverUpdateBuilder(c *core.Command) *core.Command {
 		CloudInit        string
 	}
 
-	c.ArgsType = reflect.TypeOf(instanceUpdateServerRequestCustom{})
+	c.ArgsType = reflect.TypeFor[instanceUpdateServerRequestCustom]()
 
 	// Add completion functions
 	c.ArgSpecs.GetByName("admin-password-encryption-ssh-key-id").AutoCompleteFunc = completeSSHKeyID
@@ -638,7 +638,7 @@ func serverAttachIPCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "attach-ip",
-		ArgsType:  reflect.TypeOf(customIPAttachRequest{}),
+		ArgsType:  reflect.TypeFor[customIPAttachRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -718,7 +718,7 @@ func serverDetachIPCommand() *core.Command {
 		Namespace: "instance",
 		Resource:  "server",
 		Verb:      "detach-ip",
-		ArgsType:  reflect.TypeOf(customIPDetachRequest{}),
+		ArgsType:  reflect.TypeFor[customIPDetachRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",
@@ -785,7 +785,7 @@ func serverWaitCommand() *core.Command {
 		Resource:  "server",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(serverWaitRequest{}),
+		ArgsType:  reflect.TypeFor[serverWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*serverWaitRequest)
 

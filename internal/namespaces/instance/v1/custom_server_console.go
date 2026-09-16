@@ -29,7 +29,7 @@ func serverConsoleCommand() *core.Command {
 		Namespace: "instance",
 		Verb:      "console",
 		Resource:  "server",
-		ArgsType:  reflect.TypeOf(instanceConsoleServerArgs{}),
+		ArgsType:  reflect.TypeFor[instanceConsoleServerArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "server-id",

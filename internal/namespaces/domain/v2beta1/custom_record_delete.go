@@ -23,7 +23,7 @@ func dnsRecordDeleteCommand() *core.Command {
 		Namespace: "dns",
 		Verb:      "delete",
 		Resource:  "record",
-		ArgsType:  reflect.TypeOf(dnsRecordDeleteRequest{}),
+		ArgsType:  reflect.TypeFor[dnsRecordDeleteRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",

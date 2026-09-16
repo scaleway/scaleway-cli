@@ -29,7 +29,7 @@ func isInterfaceNil(data any) bool {
 
 	value := reflect.ValueOf(data)
 	switch value.Kind() {
-	case reflect.Ptr, reflect.Slice, reflect.Map:
+	case reflect.Pointer, reflect.Slice, reflect.Map:
 		return value.IsNil()
 	default:
 		return false

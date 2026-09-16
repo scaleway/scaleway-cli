@@ -24,7 +24,7 @@ func Test_Alias(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Contains(t, string(ctx.Stderr), "instance server list")
+				assert.Contains(t, string(ctx.Stdout), "instance server list")
 			},
 		),
 		TmpHomeDir: true,
@@ -43,7 +43,7 @@ func Test_Alias(t *testing.T) {
 			core.TestCheckGolden(),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
-				assert.Contains(t, string(ctx.Stderr), "instance server list")
+				assert.Contains(t, string(ctx.Stdout), "instance server list")
 			},
 		),
 		TmpHomeDir: true,

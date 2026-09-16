@@ -71,7 +71,7 @@ func deploymentCreateBuilder(c *core.Command) *core.Command {
 		Default:  core.DefaultValueSetter("true"),
 	})
 
-	c.ArgsType = reflect.TypeOf(llmInferenceCreateDeploymentRequestCustom{})
+	c.ArgsType = reflect.TypeFor[llmInferenceCreateDeploymentRequestCustom]()
 
 	c.WaitFunc = waitForDeploymentFunc(deploymentActionCreate)
 

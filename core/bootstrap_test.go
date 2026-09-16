@@ -11,6 +11,7 @@ import (
 	"github.com/stretchr/testify/assert"
 )
 
+//nolint:unparam
 func TestInterruptError(t *testing.T) {
 	t.Skip("Test API not available")
 
@@ -20,7 +21,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "interrupt",
 				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return nil, &interactive.InterruptError{}
 				},
@@ -37,7 +38,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "code",
 				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return nil, &core.CliError{Code: 99}
 				},
@@ -54,7 +55,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "empty",
 				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return nil, &core.CliError{Code: 99, Empty: true}
 				},
@@ -74,7 +75,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "empty",
 				Verb:      "error",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return nil, &core.CliError{Code: 99, Empty: true}
 				},
@@ -94,7 +95,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "empty",
 				Verb:      "success",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{
 						Empty:    true,
@@ -117,7 +118,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "empty",
 				Verb:      "success",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return &core.SuccessResult{
 						Empty:    true,
@@ -140,7 +141,7 @@ func TestInterruptError(t *testing.T) {
 				Namespace: "test",
 				Resource:  "empty",
 				Verb:      "success",
-				ArgsType:  reflect.TypeOf(args.RawArgs{}),
+				ArgsType:  reflect.TypeFor[args.RawArgs](),
 				Run: func(_ context.Context, _ any) (i any, e error) {
 					return []int(nil), nil
 				},

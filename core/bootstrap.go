@@ -58,9 +58,6 @@ type BootstrapConfig struct {
 	// This function is intended to be use for tests purposes.
 	OverrideExec OverrideExecFunc
 
-	// BaseContest is the base context that will be used across all function call from top to bottom.
-	Ctx context.Context
-
 	// Optional we use it if defined
 	Logger *Logger
 
@@ -78,7 +75,7 @@ type BootstrapConfig struct {
 // Bootstrap is the main entry point. It is directly called from main.
 // BootstrapConfig.Args is usually os.Args
 // BootstrapConfig.Commands is a list of command available in CLI.
-func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
+func Bootstrap(ctx context.Context, config *BootstrapConfig) (exitCode int, result any, err error) {
 	// Handles Flags
 	var debug bool
 	var profileFlag string
@@ -202,10 +199,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 		meta.OverrideExec = defaultOverrideExec
 	}
 
-	ctx := config.Ctx
+	// Keep Bootstrap resilient to callers passing a nil context.
+	// Context injection helpers commonly rely on context.WithValue, which panics on nil parents.
 	if ctx == nil {
-		ctx = context.Background()
+		ctx = context.Background() //nolint: contextcheck
 	}
+
 	ctx = account.InjectHTTPClient(ctx, httpClient)
 	ctx = InjectMeta(ctx, meta)
 
@@ -248,10 +247,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 	builder := cobraBuilder{
 		commands: config.Commands,
 		meta:     meta,
-		ctx:      ctx,
 	}
 
 	rootCmd := builder.build()
+
+	// Set the context with Meta on the root command and all subcommands
+	setContextOnCommandAndChildren(rootCmd, ctx)
 
 	// ShellMode
 	if len(config.Args) >= 2 && config.Args[1] == "shell" {
@@ -306,4 +307,12 @@ func Bootstrap(config *BootstrapConfig) (exitCode int, result any, err error) {
 
 func (config *BootstrapConfig) DebugString() string {
 	return strings.Join(config.Args, " ")
+}
+
+// setContextOnCommandAndChildren sets the context on a command and all its subcommands
+func setContextOnCommandAndChildren(cmd *cobra.Command, ctx context.Context) {
+	cmd.SetContext(ctx)
+	for _, subCmd := range cmd.Commands() {
+		setContextOnCommandAndChildren(subCmd, ctx)
+	}
 }

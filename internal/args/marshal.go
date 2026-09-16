@@ -24,14 +24,14 @@ type Marshaler interface {
 type MarshalFunc func(src any) (string, error)
 
 var marshalFuncs = map[reflect.Type]MarshalFunc{
-	reflect.TypeOf((*scw.Size)(nil)).Elem(): func(src any) (s string, e error) {
+	reflect.TypeFor[scw.Size](): func(src any) (s string, e error) {
 		v := src.(*scw.Size)
 		value := humanize.Bytes(uint64(*v))
 		value = strings.ReplaceAll(value, " ", "")
 
 		return value, nil
 	},
-	reflect.TypeOf((*time.Time)(nil)).Elem(): func(src any) (string, error) {
+	reflect.TypeFor[time.Time](): func(src any) (string, error) {
 		v := src.(*time.Time)
 
 		return v.Format(time.RFC3339), nil
@@ -50,7 +50,7 @@ func MarshalStruct(data any) (args []string, err error) {
 
 	// Second make sure data is a pointer to a struct or a map.
 	src := reflect.ValueOf(data)
-	if !(src.Kind() == reflect.Ptr && (src.Elem().Kind() == reflect.Struct || src.Elem().Kind() == reflect.Map)) {
+	if !(src.Kind() == reflect.Pointer && (src.Elem().Kind() == reflect.Struct || src.Elem().Kind() == reflect.Map)) {
 		return nil, &DataMustBeAPointerError{}
 	}
 
@@ -121,7 +121,7 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 	}
 
 	switch src.Kind() {
-	case reflect.Ptr:
+	case reflect.Pointer:
 		// If src is nil we do not marshal it
 		if src.IsNil() {
 			return nil, nil
@@ -133,6 +133,9 @@ func marshal(src reflect.Value, keys []string) (args []string, err error) {
 		// we return slice=none
 		if src.Elem().Kind() == reflect.Slice && src.Elem().Len() == 0 {
 			return append(args, marshalKeyValue(keys, emptySliceValue)), nil
+		}
+		if src.Elem().Kind() == reflect.Struct && src.Elem().NumField() == 0 {
+			return append(args, marshalKeyValue(keys, emptyStructValue)), nil
 		}
 
 		// If type is a pointer we Marshal pointer.Elem()
@@ -288,7 +291,7 @@ func isInterfaceNil(data any) bool {
 
 	value := reflect.ValueOf(data)
 	switch value.Kind() {
-	case reflect.Ptr, reflect.Slice, reflect.Map:
+	case reflect.Pointer, reflect.Slice, reflect.Map:
 		return value.IsNil()
 	default:
 		return false

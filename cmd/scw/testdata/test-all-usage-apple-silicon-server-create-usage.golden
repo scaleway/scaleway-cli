@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Create a new server in the targeted zone, specifying its configuration including name and type.
 
 USAGE:
@@ -17,6 +17,10 @@ ARGS:
   [runner-configuration.url]                                         
   [runner-configuration.token]                                       
   [runner-configuration.provider]                                     (unknown_provider | github | gitlab)
+  [runner-configuration.download-runner]                             
+  [runner-configuration.action]                                       (unknown_action | remove | update | add)
+  [runner-configuration.id]                                          
+  [runner-configuration.labels.{index}]                              
   [applied-runner-configurations.runner-configuration-ids.{index}]   
   [enable-kext]                                                      Enable kernel extensions
   [zone=fr-par-1]                                                    Zone to target. If none is passed will use default zone from the config (fr-par-3)

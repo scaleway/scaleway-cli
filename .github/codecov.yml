@@ -1,5 +1,5 @@
 codecov:
-  branch: master
+  branch: main
 
 component_management:
   individual_components:
@@ -11,6 +11,10 @@ component_management:
       name: alias
       paths:
         - internal/namespaces/alias/**
+    - component_id: annotations
+      name: annotations
+      paths:
+        - internal/namespaces/annotations/**
     - component_id: applesilicon
       name: applesilicon
       paths:
@@ -23,6 +27,10 @@ component_management:
       name: autocomplete
       paths:
         - internal/namespaces/autocomplete/**
+    - component_id: autoscaling
+      name: autoscaling
+      paths:
+        - internal/namespaces/autoscaling/**
     - component_id: baremetal
       name: baremetal
       paths:
@@ -47,6 +55,14 @@ component_management:
       name: container
       paths:
         - internal/namespaces/container/**
+    - component_id: datalab
+      name: datalab
+      paths:
+        - internal/namespaces/datalab/**
+    - component_id: datawarehouse
+      name: datawarehouse
+      paths:
+        - internal/namespaces/datawarehouse/**
     - component_id: dedibox
       name: dedibox
       paths:
@@ -59,6 +75,10 @@ component_management:
       name: edge_services
       paths:
         - internal/namespaces/edge_services/**
+    - component_id: environmental_footprint
+      name: environmental_footprint
+      paths:
+        - internal/namespaces/environmental_footprint/**
     - component_id: feedback
       name: feedback
       paths:
@@ -119,6 +139,10 @@ component_management:
       name: k8s
       paths:
         - internal/namespaces/k8s/**
+    - component_id: kafka
+      name: kafka
+      paths:
+        - internal/namespaces/kafka/**
     - component_id: key_manager
       name: key_manager
       paths:
@@ -135,6 +159,10 @@ component_management:
       name: marketplace
       paths:
         - internal/namespaces/marketplace/**
+    - component_id: mcp
+      name: mcp
+      paths:
+        - internal/namespaces/mcp/**
     - component_id: mnq
       name: mnq
       paths:
@@ -147,6 +175,14 @@ component_management:
       name: object
       paths:
         - internal/namespaces/object/**
+    - component_id: partner
+      name: partner
+      paths:
+        - internal/namespaces/partner/**
+    - component_id: product_catalog
+      name: product_catalog
+      paths:
+        - internal/namespaces/product_catalog/**
     - component_id: rdb
       name: rdb
       paths:
@@ -159,6 +195,18 @@ component_management:
       name: registry
       paths:
         - internal/namespaces/registry/**
+    - component_id: s2s_vpn
+      name: s2s_vpn
+      paths:
+        - internal/namespaces/s2s_vpn/**
+    - component_id: search
+      name: search
+      paths:
+        - internal/namespaces/search/**
+    - component_id: searchdb
+      name: searchdb
+      paths:
+        - internal/namespaces/searchdb/**
     - component_id: secret
       name: secret
       paths:

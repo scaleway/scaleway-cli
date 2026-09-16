@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 A security group is a set of firewall rules on a set of Instances.
 Security groups enable you to create rules that either drop or allow incoming traffic from certain ports of your Instances.
 

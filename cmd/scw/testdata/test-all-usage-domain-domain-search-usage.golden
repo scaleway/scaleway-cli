@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Search a domain or a maximum of 10 domains that are available.
 
 If the TLD list is empty or not set, the search returns the results from the most popular TLDs.

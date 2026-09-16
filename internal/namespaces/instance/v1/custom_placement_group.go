@@ -62,7 +62,7 @@ func placementGroupCreateBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customCreatePlacementGroupRequest{})
+	c.ArgsType = reflect.TypeFor[customCreatePlacementGroupRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -93,7 +93,7 @@ func placementGroupListBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customListPlacementGroupsRequest{})
+	c.ArgsType = reflect.TypeFor[customListPlacementGroupsRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {

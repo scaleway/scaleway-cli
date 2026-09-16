@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 The bucket must contain a QCOW2 image.
 The bucket can be imported into any Availability Zone as long as it is in the same region as the bucket.
 

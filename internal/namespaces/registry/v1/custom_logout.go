@@ -21,7 +21,7 @@ func registryLogoutCommand() *core.Command {
 You will need to have the chosen binary installed on your system and in your PATH.`,
 		Namespace: "registry",
 		Resource:  "logout",
-		ArgsType:  reflect.TypeOf(registryLogoutArgs{}),
+		ArgsType:  reflect.TypeFor[registryLogoutArgs](),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "program",
@@ -31,7 +31,8 @@ You will need to have the chosen binary installed on your system and in your PAT
 			},
 			core.RegionArgSpec(),
 		},
-		Run: registryLogoutRun,
+		Run:            registryLogoutRun,
+		ExcludeFromMCP: true,
 	}
 }
 

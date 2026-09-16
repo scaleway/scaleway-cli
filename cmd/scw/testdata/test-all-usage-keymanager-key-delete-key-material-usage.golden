@@ -1,13 +1,14 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Delete previously imported key material. This renders the associated cryptographic key unusable for any operation. The key's origin must be `external`.
 
 USAGE:
   scw keymanager key delete-key-material <key-id ...> [arg=value ...]
 
 ARGS:
-  key-id            ID of the key of which to delete the key material
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+  key-id                 ID of the key of which to delete the key material
+  [key-rotation-index]   (Optional) Rotation index of which to delete the key material
+  [region=fr-par]        Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for delete-key-material
