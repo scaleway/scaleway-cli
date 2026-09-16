@@ -76,6 +76,15 @@ func FormatAccessKey(accessKey, argProjectID, defaultProjectID string) (formatte
 	// The project ID from the CLI arguments takes precedence
 	projectID := argProjectID
 
+	// Then the project ID in the access key, if in IAM format
+	// ACCESS_KEY@PROJECT_ID
+	if projectID == "" && validation.IsAccessKeyWithProjectID(accessKey) {
+		keySplit := strings.Split(accessKey, "@")
+		projectID = keySplit[1]
+		formattedAccessKey = keySplit[0] + "@" + projectID
+	}
+
+	// Otherwise, keep the default project ID
 	if projectID == "" {
 		projectID = defaultProjectID
 	}
