@@ -2,6 +2,7 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ProjectID        fa1e3217-dc80-42ac-85c3-3f034b78b552
 ID               55f1f486-a7ad-4b97-8e10-098f221600d8
+Srn              -
 Name             cli-tmpl-flamboyant-kepler
 ServerType       BASIC2-A2C-4G
 PublicIPV4Count  2
@@ -9,7 +10,6 @@ PublicIPV6Count  4
 CreatedAt        few seconds ago
 UpdatedAt        few seconds ago
 Zone             fr-par-1
-Srn              -
 
 Tags:
 [tmpl-tag]
@@ -20,6 +20,7 @@ Server Tags:
 {
   "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
   "id": "55f1f486-a7ad-4b97-8e10-098f221600d8",
+  "srn": "",
   "name": "cli-tmpl-flamboyant-kepler",
   "tags": [
     "tmpl-tag"
