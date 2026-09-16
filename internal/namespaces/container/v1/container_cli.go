@@ -629,6 +629,13 @@ func containerContainerCreate() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "enable-default-public-endpoint",
+				Short:      `Whether default public endpoint is enabled or not.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -1005,6 +1012,13 @@ func containerContainerUpdate() *core.Command {
 			{
 				Name:       "args.{index}",
 				Short:      `Container arguments`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "enable-default-public-endpoint",
+				Short:      `Whether default public endpoint is enabled or not.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
