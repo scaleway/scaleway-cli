@@ -60,22 +60,22 @@ func (f *FetchInstances) Fetch(
 	return results, nil
 }
 
-type FetchSnapshot struct{}
+type FetchSnapshots struct{}
 
-func (f *FetchSnapshot) Namespace() string {
+func (f *FetchSnapshots) Namespace() string {
 	return mongodbSnapshot().Namespace
 }
 
-func (f *FetchSnapshot) Resource() string {
+func (f *FetchSnapshots) Resource() string {
 	return mongodbSnapshot().Resource
 }
 
-func (f *FetchSnapshot) LocalityType() fetch.LocalityType {
+func (f *FetchSnapshots) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all MongoDB snapshots in a given region.
-func (f *FetchSnapshot) Fetch(
+func (f *FetchSnapshots) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

@@ -9,22 +9,22 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type FetchKey struct{}
+type FetchKeys struct{}
 
-func (f *FetchKey) Namespace() string {
+func (f *FetchKeys) Namespace() string {
 	return keymanagerKey().Namespace
 }
 
-func (f *FetchKey) Resource() string {
+func (f *FetchKeys) Resource() string {
 	return keymanagerKey().Resource
 }
 
-func (f *FetchKey) LocalityType() fetch.LocalityType {
+func (f *FetchKeys) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all key manager keys in a given region.
-func (f *FetchKey) Fetch(
+func (f *FetchKeys) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

@@ -9,22 +9,22 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type FetchDeployment struct{}
+type FetchDeployments struct{}
 
-func (f *FetchDeployment) Namespace() string {
+func (f *FetchDeployments) Namespace() string {
 	return inferenceDeployment().Namespace
 }
 
-func (f *FetchDeployment) Resource() string {
+func (f *FetchDeployments) Resource() string {
 	return inferenceDeployment().Resource
 }
 
-func (f *FetchDeployment) LocalityType() fetch.LocalityType {
+func (f *FetchDeployments) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all inference deployments in a given region.
-func (f *FetchDeployment) Fetch(
+func (f *FetchDeployments) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

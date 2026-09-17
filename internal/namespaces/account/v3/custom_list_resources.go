@@ -4,6 +4,7 @@ import (
 	"context"
 	"reflect"
 	"sort"
+	"strings"
 	"sync"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
@@ -73,16 +74,16 @@ func registerFetchers() {
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &flexibleip.FetchFlexibleIPs{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &secret.FetchSecrets{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &vpc.FetchVPCs{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &file.FetchFileSystem{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &file.FetchFileSystems{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &webhosting.FetchHostings{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &vpcgw.FetchGateways{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &vpcgw.FetchIPs{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchInstances{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchSnapshot{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &key_manager.FetchKey{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &inference.FetchDeployment{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchToken{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchDataSource{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchSnapshots{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &key_manager.FetchKeys{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &inference.FetchDeployments{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchTokens{} })
+		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchDataSources{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &registry.FetchNamespaces{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &searchdb.FetchDeployments{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &s2s_vpn.FetchVpnGateways{} })
@@ -121,7 +122,7 @@ func listResources() *core.Command {
 			},
 			{
 				Name:       "products.{index}",
-				Short:      `Filter by products (comma-separated: instances,instance-ips,instance-volumes,instance-snapshots,instance-security-groups,ipam,block-volumes,block-snapshots,buckets,rdb,redis,lb,k8s,containers,functions,flexibleip,secrets,vpc,file,webhosting,registry,searchdb,s2s-vpn-vpn-gateway). If empty, all products are queried`,
+				Short:      "Filter by products (comma-separated, e.g. " + strings.Join(fetch.AllProductKeys(), ",") + "). If empty, all products are queried",
 				EnumValues: fetch.AllProductKeys(),
 			},
 		},

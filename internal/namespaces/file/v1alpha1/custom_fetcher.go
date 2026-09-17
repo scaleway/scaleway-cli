@@ -9,22 +9,22 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type FetchFileSystem struct{}
+type FetchFileSystems struct{}
 
-func (f *FetchFileSystem) Namespace() string {
+func (f *FetchFileSystems) Namespace() string {
 	return fileFilesystem().Namespace
 }
 
-func (f *FetchFileSystem) Resource() string {
+func (f *FetchFileSystems) Resource() string {
 	return fileFilesystem().Resource
 }
 
-func (f *FetchFileSystem) LocalityType() fetch.LocalityType {
+func (f *FetchFileSystems) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all file systems in a given region.
-func (f *FetchFileSystem) Fetch(
+func (f *FetchFileSystems) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

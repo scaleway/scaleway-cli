@@ -9,21 +9,21 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
-type FetchToken struct{}
+type FetchTokens struct{}
 
-func (f *FetchToken) Namespace() string {
+func (f *FetchTokens) Namespace() string {
 	return cockpitToken().Namespace
 }
 
-func (f *FetchToken) Resource() string {
+func (f *FetchTokens) Resource() string {
 	return cockpitToken().Resource
 }
 
-func (f *FetchToken) LocalityType() fetch.LocalityType {
+func (f *FetchTokens) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-func (f *FetchToken) Fetch(
+func (f *FetchTokens) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
@@ -57,21 +57,21 @@ func (f *FetchToken) Fetch(
 	return results, nil
 }
 
-type FetchDataSource struct{}
+type FetchDataSources struct{}
 
-func (f *FetchDataSource) Namespace() string {
+func (f *FetchDataSources) Namespace() string {
 	return cockpitDataSource().Namespace
 }
 
-func (f *FetchDataSource) Resource() string {
+func (f *FetchDataSources) Resource() string {
 	return cockpitDataSource().Resource
 }
 
-func (f *FetchDataSource) LocalityType() fetch.LocalityType {
+func (f *FetchDataSources) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-func (f *FetchDataSource) Fetch(
+func (f *FetchDataSources) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

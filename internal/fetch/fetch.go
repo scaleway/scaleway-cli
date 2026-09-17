@@ -4,6 +4,7 @@ import (
 	"context"
 	"errors"
 	"net/http"
+	"sort"
 	"strings"
 	"sync"
 
@@ -207,6 +208,7 @@ func AllProductKeys() []string {
 	for k := range factories {
 		keys = append(keys, k)
 	}
+	sort.Strings(keys)
 	return keys
 }
 
