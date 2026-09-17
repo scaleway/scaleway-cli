@@ -2701,7 +2701,7 @@ func instanceSecurityGroupAddRules() *core.Command {
 			},
 			{
 				Name:       "security-group-rules.{index}.position",
-				Short:      `Position of the rule in the list`,
+				Short:      `Position of this rule in the rule list, starting at 1`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2830,7 +2830,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 			},
 			{
 				Name:       "security-group-rules.{index}.position",
-				Short:      `Position of the rule in the list`,
+				Short:      `Position of this rule in the rule list, starting at 1`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
