@@ -7,7 +7,6 @@ lockfile = true
 shell = "bash -c"
 
 [tools]
-actionlint = "1.7"
 devcontainer-cli = "0.89"
 go = "1.27"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
@@ -23,8 +22,8 @@ node = "26.8"
 pnpm = "11.25"
 prettier = "3.9"
 rumdl = "0.2"
-shellcheck = "0.11"
 typos = "1.50"
+zizmor = "1.30"
 
 [tasks.'deps:pnpm']
 description = "download the dependencies for the wasm wrapper"
@@ -201,13 +200,7 @@ typos ./docs
 [tasks.'lint:actions']
 description = "lint the workflows"
 run = '''
-# ensure that shellcheck is installed, which is guaranteed with mise but ensures
-# actionlint won't silently do nothing in case the command is run outside of it.
-shellcheck_path="$(command -v shellcheck)" || {
-  echo "error: shellcheck not found in PATH; actionlint needs it to check scripts"
-  exit 1
-}
-actionlint -shellcheck "$shellcheck_path"
+zizmor .
 '''
 
 [tasks.'test:cli']
