@@ -1,5 +1,5 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
-🟥🟥🟥 STDERR️️ 🟥🟥🟥️
+🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Import DNS records into a zone that uses Scaleway default name servers.
 
 The DNS zone is the only positional argument. Pass BIND or JSON content with content=...;

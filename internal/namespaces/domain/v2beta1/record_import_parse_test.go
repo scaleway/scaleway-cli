@@ -1,13 +1,13 @@
-package domain
+package domain_test
 
 import (
 	"strings"
 	"testing"
 
+	domain "github.com/scaleway/scaleway-cli/v2/internal/namespaces/domain/v2beta1"
+	domainsdk "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 	"github.com/stretchr/testify/assert"
 	"github.com/stretchr/testify/require"
-
-	domain "github.com/scaleway/scaleway-sdk-go/api/domain/v2beta1"
 )
 
 func TestParseImportBind(t *testing.T) {
@@ -24,11 +24,11 @@ txt     IN TXT "hello"
 sub     IN NS  ns.sub.example.com.
 `) + "\n"
 
-	records, err := parseImportBind(content, zone)
+	records, err := domain.ParseImportBind(content, zone)
 	require.NoError(t, err)
 	require.Len(t, records, 4)
 
-	byNameType := map[string]*domain.Record{}
+	byNameType := map[string]*domainsdk.Record{}
 	for _, r := range records {
 		byNameType[r.Name+"/"+string(r.Type)] = r
 	}
@@ -45,7 +45,7 @@ func TestParseImportBindCaseInsensitiveZone(t *testing.T) {
 	t.Parallel()
 
 	content := "WWW IN A 1.2.3.4\n"
-	records, err := parseImportBind(content, "Example.COM")
+	records, err := domain.ParseImportBind(content, "Example.COM")
 	require.NoError(t, err)
 	require.Len(t, records, 1)
 	assert.Equal(t, "WWW", records[0].Name)
@@ -55,7 +55,7 @@ func TestParseImportBindCaseInsensitiveZone(t *testing.T) {
 func TestParseImportBindRejectsInclude(t *testing.T) {
 	t.Parallel()
 
-	_, err := parseImportBind("$INCLUDE other.zone\n", "example.com")
+	_, err := domain.ParseImportBind("$INCLUDE other.zone\n", "example.com")
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "$INCLUDE")
 }
@@ -71,27 +71,29 @@ func TestParseImportJSON(t *testing.T) {
   ]
 }`
 
-	records, err := parseImportJSON(content)
+	records, err := domain.ParseImportJSON(content)
 	require.NoError(t, err)
 	require.Len(t, records, 3)
 
 	assert.Equal(t, "www", records[0].Name)
-	assert.Equal(t, domain.RecordTypeA, records[0].Type)
+	assert.Equal(t, domainsdk.RecordTypeA, records[0].Type)
 	assert.Equal(t, uint32(300), records[0].TTL)
 
-	assert.Equal(t, "", records[1].Name)
-	assert.Equal(t, domain.RecordTypeMX, records[1].Type)
+	assert.Empty(t, records[1].Name)
+	assert.Equal(t, domainsdk.RecordTypeMX, records[1].Type)
 	assert.Equal(t, uint32(10), records[1].Priority)
 
-	assert.Equal(t, "", records[2].Name)
-	assert.Equal(t, domain.RecordTypeTXT, records[2].Type)
-	assert.Equal(t, dnsImportDefaultTTL, records[2].TTL)
+	assert.Empty(t, records[2].Name)
+	assert.Equal(t, domainsdk.RecordTypeTXT, records[2].Type)
+	assert.Equal(t, domain.DNSImportDefaultTTL, records[2].TTL)
 }
 
 func TestParseImportJSONRequiresMXPriority(t *testing.T) {
 	t.Parallel()
 
-	_, err := parseImportJSON(`{"records":[{"name":"@","type":"MX","data":"mx.example.com"}]}`)
+	_, err := domain.ParseImportJSON(
+		`{"records":[{"name":"@","type":"MX","data":"mx.example.com"}]}`,
+	)
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "priority")
 }
@@ -99,7 +101,9 @@ func TestParseImportJSONRequiresMXPriority(t *testing.T) {
 func TestParseImportJSONRejectsFQDNName(t *testing.T) {
 	t.Parallel()
 
-	_, err := parseImportJSON(`{"records":[{"name":"www.example.com.","type":"A","data":"1.2.3.4"}]}`)
+	_, err := domain.ParseImportJSON(
+		`{"records":[{"name":"www.example.com.","type":"A","data":"1.2.3.4"}]}`,
+	)
 	require.Error(t, err)
 	assert.Contains(t, err.Error(), "FQDN")
 }
@@ -107,18 +111,18 @@ func TestParseImportJSONRejectsFQDNName(t *testing.T) {
 func TestRelativeOwnerName(t *testing.T) {
 	t.Parallel()
 
-	rel, err := relativeOwnerName("www.example.com.", "example.com")
+	rel, err := domain.RelativeOwnerName("www.example.com.", "example.com")
 	require.NoError(t, err)
 	assert.Equal(t, "www", rel)
 
-	rel, err = relativeOwnerName("WWW.Example.COM.", "example.com")
+	rel, err = domain.RelativeOwnerName("WWW.Example.COM.", "example.com")
 	require.NoError(t, err)
 	assert.Equal(t, "WWW", rel)
 
-	rel, err = relativeOwnerName("example.com.", "example.com")
+	rel, err = domain.RelativeOwnerName("example.com.", "example.com")
 	require.NoError(t, err)
-	assert.Equal(t, "", rel)
+	assert.Empty(t, rel)
 
-	_, err = relativeOwnerName("www.other.com.", "example.com")
+	_, err = domain.RelativeOwnerName("www.other.com.", "example.com")
 	require.Error(t, err)
 }

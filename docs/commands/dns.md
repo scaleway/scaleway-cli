@@ -313,13 +313,13 @@ scw dns record import <dns-zone ...> [arg=value ...]
 
 **Arguments:**
 
-| Name | Description | Argument Specifications |
-|------|-------------|-------------------------|
-| dns-zone | DNS zone to import records into | Required  |
-| content | BIND or JSON content | Required  |
-| format | File format: "bind" or "json" | Default: `bind`<br />One of: `bind`, `json`  |
-| dry-run | Parse the content and print a summary without calling the API | Default: `false`  |
-| replace | Clear all records in the zone before importing | Default: `false`  |
+| Name     | Description                                                   | Argument Specifications                     |
+|----------|---------------------------------------------------------------|---------------------------------------------|
+| dns-zone | DNS zone to import records into                               | Required                                    |
+| content  | BIND or JSON content                                          | Required                                    |
+| format   | File format: "bind" or "json"                                 | Default: `bind`<br />One of: `bind`, `json` |
+| dry-run  | Parse the content and print a summary without calling the API | Default: `false`                            |
+| replace  | Clear all records in the zone before importing                | Default: `false`                            |
 
 
 **Examples:**
@@ -334,6 +334,7 @@ Import JSON and replace existing records
 ```shell
 scw dns record import my-domain.tld content=@./records.json format=json replace=true
 ```
+
 
 
 
