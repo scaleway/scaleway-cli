@@ -191,7 +191,6 @@ prettier "${args[@]}"
 
 [tasks.'lint:doc']
 description = "lint the documentation"
-depends = ["gen:doc"]
 run = '''
 rumdl check ./docs
 typos ./docs
