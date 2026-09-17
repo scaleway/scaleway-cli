@@ -2,15 +2,6 @@
 # Documentation for `scw partner`
 Scaleway Partner API ( for partner only ).
 
-- [Organization management commands](#organization-management-commands)
-  - [Create a new organization](#create-a-new-organization)
-  - [Get an organization](#get-an-organization)
-  - [List Organizations](#list-organizations)
-  - [Lock an organization](#lock-an-organization)
-  - [Unlock an organization](#unlock-an-organization)
-  - [Update an organization](#update-an-organization)
-
-
 ## Organization management commands
 
 Organization management commands.
@@ -27,18 +18,17 @@ scw partner organization create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| partner-id | Required | Your personal `partner_id`. This is the same as your Organization ID. |
-| email | Required | The email of the new organization owner |
-| organization-name | Required | The name of the organization you want to create. Usually the company name |
-| owner-firstname | Required | The first name of the new organization owner |
-| owner-lastname | Required | The last name of the new organization owner |
-| phone-number |  | The phone number of the new organization owner |
-| customer-id | Required | A custom ID for the customer in your own infrastructure |
-| siren-number |  | A SIREN number for the customer |
+| Name              | Description                                                               | Argument Specifications |
+|-------------------|---------------------------------------------------------------------------|-------------------------|
+| partner-id        | Your personal `partner_id`. This is the same as your Organization ID.     | Required                |
+| email             | The email of the new organization owner                                   | Required                |
+| organization-name | The name of the organization you want to create. Usually the company name | Required                |
+| owner-firstname   | The first name of the new organization owner                              | Required                |
+| owner-lastname    | The last name of the new organization owner                               | Required                |
+| phone-number      | The phone number of the new organization owner                            |                         |
+| customer-id       | A custom ID for the customer in your own infrastructure                   | Required                |
 
 
 
@@ -53,11 +43,11 @@ scw partner organization get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -72,15 +62,15 @@ scw partner organization list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| status | One of: `unknown_status`, `opened`, `locked`, `closed` | Only list organizations with this status |
-| email |  | Only list organizations created with this email |
-| customer-id |  | Only list organizations attached to this Customer ID |
-| locked-by | One of: `unknown_locked_by`, `partner`, `scaleway` | Only list organizations locked by a certain entity |
+| Name        | Description                                          | Argument Specifications                                |
+|-------------|------------------------------------------------------|--------------------------------------------------------|
+| order-by    |                                                      | One of: `created_at_asc`, `created_at_desc`            |
+| status      | Only list organizations with this status             | One of: `unknown_status`, `opened`, `locked`, `closed` |
+| email       | Only list organizations created with this email      |                                                        |
+| customer-id | Only list organizations attached to this Customer ID |                                                        |
+| locked-by   | Only list organizations locked by a certain entity   | One of: `unknown_locked_by`, `partner`, `scaleway`     |
 
 
 
@@ -95,11 +85,11 @@ scw partner organization lock [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -114,11 +104,11 @@ scw partner organization unlock [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 
@@ -133,18 +123,18 @@ scw partner organization update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| email |  | The new email |
-| name |  | The new name |
-| owner-firstname |  | The first name of the new owner |
-| owner-lastname |  | The last name of the new owner |
-| phone-number |  | The phone number of the new owner |
-| customer-id |  | Customer ID associated with this organization |
-| comment |  | A comment about the organization |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
+| Name            | Description                                                                        | Argument Specifications |
+|-----------------|------------------------------------------------------------------------------------|-------------------------|
+| email           | The new email                                                                      |                         |
+| name            | The new name                                                                       |                         |
+| owner-firstname | The first name of the new owner                                                    |                         |
+| owner-lastname  | The last name of the new owner                                                     |                         |
+| phone-number    | The phone number of the new owner                                                  |                         |
+| customer-id     | Customer ID associated with this organization                                      |                         |
+| comment         | A comment about the organization                                                   |                         |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                         |
 
 
 

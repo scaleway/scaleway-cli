@@ -9,7 +9,7 @@ ARGS:
   name=<generated>                Name of the job definition
   cpu-limit                       CPU limit of the job (in mvCPU)
   memory-limit                    Memory limit of the job (in MiB)
-  [local-storage-capacity]        Local storage capacity of the job (in MiB)
+  local-storage-capacity          Local storage capacity of the job (in MiB)
   image-uri                       Image to use for the job
   [startup-command.{index}]       Job startup command. Overrides the default defined in the job image.
   [args.{index}]                  Job arguments. Overrides the default arguments defined in the job image.

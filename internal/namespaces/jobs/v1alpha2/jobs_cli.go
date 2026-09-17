@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	jobs "github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha2"
+	"github.com/scaleway/scaleway-sdk-go/api/jobs/v1alpha2"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -98,7 +98,7 @@ func jobsDefinitionCreate() *core.Command {
 		Resource:  "definition",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.CreateJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.CreateJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "name",
@@ -125,7 +125,7 @@ func jobsDefinitionCreate() *core.Command {
 			{
 				Name:       "local-storage-capacity",
 				Short:      `Local storage capacity of the job (in MiB)`,
-				Required:   false,
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -210,7 +210,7 @@ func jobsDefinitionCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.CreateJobDefinition(request)
+			return api.CreateJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -223,7 +223,7 @@ func jobsDefinitionGet() *core.Command {
 		Resource:  "definition",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -244,7 +244,7 @@ func jobsDefinitionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetJobDefinition(request)
+			return api.GetJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -257,7 +257,7 @@ func jobsDefinitionList() *core.Command {
 		Resource:  "definition",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListJobDefinitionsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListJobDefinitionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -293,7 +293,7 @@ func jobsDefinitionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -316,7 +316,7 @@ func jobsDefinitionUpdate() *core.Command {
 		Resource:  "definition",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.UpdateJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.UpdateJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -432,7 +432,7 @@ func jobsDefinitionUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.UpdateJobDefinition(request)
+			return api.UpdateJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -445,7 +445,7 @@ func jobsDefinitionDelete() *core.Command {
 		Resource:  "definition",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.DeleteJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.DeleteJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -465,7 +465,7 @@ func jobsDefinitionDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			e = api.DeleteJobDefinition(request)
+			e = api.DeleteJobDefinition(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -486,7 +486,7 @@ func jobsDefinitionStart() *core.Command {
 		Resource:  "definition",
 		Verb:      "start",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.StartJobDefinitionRequest{}),
+		ArgsType: reflect.TypeFor[jobs.StartJobDefinitionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -542,7 +542,7 @@ func jobsDefinitionStart() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.StartJobDefinition(request)
+			return api.StartJobDefinition(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -555,7 +555,7 @@ func jobsRunGet() *core.Command {
 		Resource:  "run",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetJobRunRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetJobRunRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",
@@ -576,7 +576,7 @@ func jobsRunGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetJobRun(request)
+			return api.GetJobRun(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -589,7 +589,7 @@ func jobsRunList() *core.Command {
 		Resource:  "run",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListJobRunsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListJobRunsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -668,6 +668,7 @@ func jobsRunList() *core.Command {
 					"secret_disabled",
 					"secret_not_found",
 					"quota_exceeded",
+					"application_not_started",
 				},
 			},
 			{
@@ -688,7 +689,7 @@ func jobsRunList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -711,7 +712,7 @@ func jobsRunStop() *core.Command {
 		Resource:  "run",
 		Verb:      "stop",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.StopJobRunRequest{}),
+		ArgsType: reflect.TypeFor[jobs.StopJobRunRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-run-id",
@@ -732,7 +733,7 @@ func jobsRunStop() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.StopJobRun(request)
+			return api.StopJobRun(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -745,7 +746,7 @@ func jobsSecretCreate() *core.Command {
 		Resource:  "secret",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.CreateSecretsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.CreateSecretsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -790,7 +791,7 @@ func jobsSecretCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.CreateSecrets(request)
+			return api.CreateSecrets(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -803,7 +804,7 @@ func jobsSecretGet() *core.Command {
 		Resource:  "secret",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetSecretRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -824,7 +825,7 @@ func jobsSecretGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetSecret(request)
+			return api.GetSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -837,7 +838,7 @@ func jobsSecretList() *core.Command {
 		Resource:  "secret",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListSecretsRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListSecretsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -858,7 +859,7 @@ func jobsSecretList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.ListSecrets(request)
+			return api.ListSecrets(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -871,7 +872,7 @@ func jobsSecretUpdate() *core.Command {
 		Resource:  "secret",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.UpdateSecretRequest{}),
+		ArgsType: reflect.TypeFor[jobs.UpdateSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -913,7 +914,7 @@ func jobsSecretUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.UpdateSecret(request)
+			return api.UpdateSecret(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -926,7 +927,7 @@ func jobsSecretDelete() *core.Command {
 		Resource:  "secret",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.DeleteSecretRequest{}),
+		ArgsType: reflect.TypeFor[jobs.DeleteSecretRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "secret-id",
@@ -946,7 +947,7 @@ func jobsSecretDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			e = api.DeleteSecret(request)
+			e = api.DeleteSecret(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -967,7 +968,7 @@ func jobsTriggerCreate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.CreateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.CreateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -1023,7 +1024,7 @@ func jobsTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.CreateTrigger(request)
+			return api.CreateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1036,7 +1037,7 @@ func jobsTriggerGet() *core.Command {
 		Resource:  "trigger",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.GetTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.GetTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1057,7 +1058,7 @@ func jobsTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.GetTrigger(request)
+			return api.GetTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1070,7 +1071,7 @@ func jobsTriggerList() *core.Command {
 		Resource:  "trigger",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.ListTriggersRequest{}),
+		ArgsType: reflect.TypeFor[jobs.ListTriggersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "job-definition-id",
@@ -1102,7 +1103,7 @@ func jobsTriggerList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1125,7 +1126,7 @@ func jobsTriggerUpdate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.UpdateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.UpdateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1181,7 +1182,7 @@ func jobsTriggerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
 
-			return api.UpdateTrigger(request)
+			return api.UpdateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1194,7 +1195,7 @@ func jobsTriggerDelete() *core.Command {
 		Resource:  "trigger",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(jobs.DeleteTriggerRequest{}),
+		ArgsType: reflect.TypeFor[jobs.DeleteTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1214,7 +1215,7 @@ func jobsTriggerDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := jobs.NewAPI(client)
-			e = api.DeleteTrigger(request)
+			e = api.DeleteTrigger(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

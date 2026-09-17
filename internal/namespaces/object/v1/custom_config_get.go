@@ -24,7 +24,7 @@ func configGetCommand() *core.Command {
 		Verb:      "get",
 		Short:     "Generate a S3 tool configuration file",
 		Long:      "Generate a S3 tool configuration file.",
-		ArgsType:  reflect.TypeOf(getArgs{}),
+		ArgsType:  reflect.TypeFor[getArgs](),
 		ArgSpecs: []*core.ArgSpec{
 			{
 				Name:       "type",

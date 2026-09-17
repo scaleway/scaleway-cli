@@ -19,6 +19,8 @@ ARGS:
   [endpoints.{index}.private-network.enable-ipam=false]     Will configure your Private Network endpoint with Scaleway IPAM service if true
   [endpoints.{index}.private-network.id]                    UUID of the Private Network to connect to the Database Instance
   [endpoints.{index}.private-network.service-ips.{index}]   Endpoint IPv4 address with a CIDR notation. You must provide at least one IPv4 per node.
+  [endpoints.{index}.private-network.ipam-config]           Automated configuration of your Private Network endpoint with Scaleway IPAM service.
+  [endpoints.{index}.public-network]                        Public network specification details
   [tls-enabled]                                             Defines whether or not TLS is enabled
   [cluster-settings.{index}.value]                          Value of the setting
   [cluster-settings.{index}.name]                           Name of the setting

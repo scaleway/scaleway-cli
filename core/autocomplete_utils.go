@@ -17,10 +17,10 @@ var autoCompleteCache *cache.Cache
 // getGlobalFlags returns the list of flags that should be added to all commands
 func getGlobalFlags(ctx context.Context) []FlagSpec {
 	printerTypes := []string{
-		PrinterTypeHuman.String(),
-		PrinterTypeJSON.String(),
-		PrinterTypeYAML.String(),
-		PrinterTypeTemplate.String(),
+		string(PrinterTypeHuman),
+		string(PrinterTypeJSON),
+		string(PrinterTypeYAML),
+		string(PrinterTypeTemplate),
 	}
 	profiles := []string(nil)
 	cfg := extractConfig(ctx)

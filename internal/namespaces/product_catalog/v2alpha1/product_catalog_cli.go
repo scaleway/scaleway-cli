@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	product_catalog "github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/product_catalog/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -52,9 +52,7 @@ func productCatalogProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(
-			product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest{},
-		),
+		ArgsType: reflect.TypeFor[product_catalog.PublicCatalogAPIListPublicCatalogProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "product-types.{index}",
@@ -84,6 +82,10 @@ func productCatalogProductList() *core.Command {
 					"serverless_jobs",
 					"apache_kafka",
 					"open_search",
+					"instance_local_ssd_snapshot",
+					"instance_local_ssd_storage",
+					"file_storage",
+					"serverless_sql_database",
 				},
 			},
 			{
@@ -147,7 +149,7 @@ func productCatalogProductList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := product_catalog.NewPublicCatalogAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListPublicCatalogProducts(request, opts...)
 			if err != nil {
 				return nil, err

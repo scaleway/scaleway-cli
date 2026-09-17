@@ -30,9 +30,9 @@ func getRegistryEndpoint(region scw.Region) string {
 
 var availablePrograms = programs{docker, podman}
 
-func (p programs) StringArray() []string {
-	res := make([]string, 0, len(p))
-	for _, prog := range p {
+func (p *programs) StringArray() []string {
+	res := make([]string, 0, len(*p))
+	for _, prog := range *p {
 		res = append(res, string(prog))
 	}
 

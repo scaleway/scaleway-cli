@@ -100,7 +100,7 @@ func containerNamespaceCreate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -142,6 +142,7 @@ func containerNamespaceCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -150,7 +151,7 @@ func containerNamespaceCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateNamespace(request)
+			return api.CreateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -163,7 +164,7 @@ func containerNamespaceGet() *core.Command {
 		Resource:  "namespace",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.GetNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -176,6 +177,7 @@ func containerNamespaceGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -184,7 +186,7 @@ func containerNamespaceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetNamespace(request)
+			return api.GetNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -199,7 +201,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 		Resource:  "namespace",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListNamespacesRequest{}),
+		ArgsType: reflect.TypeFor[container.ListNamespacesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -235,6 +237,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -243,7 +246,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -266,7 +269,7 @@ func containerNamespaceUpdate() *core.Command {
 		Resource:  "namespace",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -307,6 +310,7 @@ func containerNamespaceUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -315,7 +319,7 @@ func containerNamespaceUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateNamespace(request)
+			return api.UpdateNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -330,7 +334,7 @@ This action **cannot** be undone.`,
 		Resource:  "namespace",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteNamespaceRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteNamespaceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -343,6 +347,7 @@ This action **cannot** be undone.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -351,7 +356,7 @@ This action **cannot** be undone.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteNamespace(request)
+			return api.DeleteNamespace(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -364,7 +369,7 @@ func containerContainerCreate() *core.Command {
 		Resource:  "container",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "namespace-id",
@@ -548,6 +553,13 @@ func containerContainerCreate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "liveness-probe.tcp",
+				Short:      `Perform TCP check on the container.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "liveness-probe.http.path",
 				Short:      `HTTP path to perform the check on.`,
 				Required:   false,
@@ -571,6 +583,13 @@ func containerContainerCreate() *core.Command {
 			{
 				Name:       "startup-probe.timeout",
 				Short:      `Duration before the check times out.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "startup-probe.tcp",
+				Short:      `Perform TCP check on the container.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -614,6 +633,7 @@ func containerContainerCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -622,7 +642,7 @@ func containerContainerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateContainer(request)
+			return api.CreateContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -635,7 +655,7 @@ func containerContainerGet() *core.Command {
 		Resource:  "container",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.GetContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -648,6 +668,7 @@ func containerContainerGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -656,7 +677,7 @@ func containerContainerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetContainer(request)
+			return api.GetContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -671,7 +692,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 		Resource:  "container",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListContainersRequest{}),
+		ArgsType: reflect.TypeFor[container.ListContainersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -713,6 +734,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -721,7 +743,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -744,7 +766,7 @@ func containerContainerUpdate() *core.Command {
 		Resource:  "container",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -916,6 +938,13 @@ func containerContainerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "liveness-probe.tcp",
+				Short:      `Perform TCP check on the container.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "liveness-probe.http.path",
 				Short:      `HTTP path to perform the check on.`,
 				Required:   false,
@@ -942,6 +971,12 @@ func containerContainerUpdate() *core.Command {
 			},
 			{
 				Name:       "startup-probe.http.path",
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "startup-probe.tcp",
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -978,6 +1013,7 @@ func containerContainerUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -986,7 +1022,7 @@ func containerContainerUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateContainer(request)
+			return api.UpdateContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1001,7 +1037,7 @@ This action **cannot** be undone.`,
 		Resource:  "container",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1014,6 +1050,7 @@ This action **cannot** be undone.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1022,7 +1059,7 @@ This action **cannot** be undone.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteContainer(request)
+			return api.DeleteContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1035,7 +1072,7 @@ func containerDomainCreate() *core.Command {
 		Resource:  "domain",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1062,6 +1099,7 @@ func containerDomainCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1070,7 +1108,7 @@ func containerDomainCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateDomain(request)
+			return api.CreateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1083,7 +1121,7 @@ func containerDomainGet() *core.Command {
 		Resource:  "domain",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.GetDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1096,6 +1134,7 @@ func containerDomainGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1104,7 +1143,7 @@ func containerDomainGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetDomain(request)
+			return api.GetDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1119,7 +1158,7 @@ Additional parameters can be set in the query to filter the output, such as ` + 
 		Resource:  "domain",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListDomainsRequest{}),
+		ArgsType: reflect.TypeFor[container.ListDomainsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1161,6 +1200,7 @@ Additional parameters can be set in the query to filter the output, such as ` + 
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1169,7 +1209,7 @@ Additional parameters can be set in the query to filter the output, such as ` + 
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1192,7 +1232,7 @@ func containerDomainUpdate() *core.Command {
 		Resource:  "domain",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1212,6 +1252,7 @@ func containerDomainUpdate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1220,7 +1261,7 @@ func containerDomainUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateDomain(request)
+			return api.UpdateDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1233,7 +1274,7 @@ func containerDomainDelete() *core.Command {
 		Resource:  "domain",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteDomainRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteDomainRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "domain-id",
@@ -1246,6 +1287,7 @@ func containerDomainDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1254,7 +1296,7 @@ func containerDomainDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteDomain(request)
+			return api.DeleteDomain(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1269,7 +1311,7 @@ the most recent image version available in the registry.`,
 		Resource:  "container",
 		Verb:      "redeploy",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.RedeployContainerRequest{}),
+		ArgsType: reflect.TypeFor[container.RedeployContainerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1282,6 +1324,7 @@ the most recent image version available in the registry.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1290,7 +1333,7 @@ the most recent image version available in the registry.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.RedeployContainer(request)
+			return api.RedeployContainer(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1303,7 +1346,7 @@ func containerTriggerCreate() *core.Command {
 		Resource:  "trigger",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.CreateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -1443,6 +1486,7 @@ func containerTriggerCreate() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1451,7 +1495,7 @@ func containerTriggerCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateTrigger(request)
+			return api.CreateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1464,7 +1508,7 @@ func containerTriggerGet() *core.Command {
 		Resource:  "trigger",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.GetTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1477,6 +1521,7 @@ func containerTriggerGet() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1485,7 +1530,7 @@ func containerTriggerGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetTrigger(request)
+			return api.GetTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1500,7 +1545,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 		Resource:  "trigger",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListTriggersRequest{}),
+		ArgsType: reflect.TypeFor[container.ListTriggersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -1554,6 +1599,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 				scw.Region(core.AllLocalities),
 			),
 		},
@@ -1562,7 +1608,7 @@ Additional parameters can be set in the query to filter, such as ` + "`" + `orga
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1586,7 +1632,7 @@ Only fields present in the request are updated; others are left untouched.`,
 		Resource:  "trigger",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.UpdateTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.UpdateTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1726,6 +1772,7 @@ Only fields present in the request are updated; others are left untouched.`,
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1734,7 +1781,7 @@ Only fields present in the request are updated; others are left untouched.`,
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.UpdateTrigger(request)
+			return api.UpdateTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1747,7 +1794,7 @@ func containerTriggerDelete() *core.Command {
 		Resource:  "trigger",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteTriggerRequest{}),
+		ArgsType: reflect.TypeFor[container.DeleteTriggerRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "trigger-id",
@@ -1760,6 +1807,7 @@ func containerTriggerDelete() *core.Command {
 				scw.RegionFrPar,
 				scw.RegionNlAms,
 				scw.RegionPlWaw,
+				scw.RegionItMil,
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -1768,7 +1816,7 @@ func containerTriggerDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteTrigger(request)
+			return api.DeleteTrigger(request, scw.WithContext(ctx))
 		},
 	}
 }

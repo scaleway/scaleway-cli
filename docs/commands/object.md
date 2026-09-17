@@ -2,17 +2,6 @@
 # Documentation for `scw object`
 Object-storage utils
 
-- [Manage S3 buckets](#manage-s3-buckets)
-  - [Create an S3 bucket](#create-an-s3-bucket)
-  - [Delete an S3 bucket](#delete-an-s3-bucket)
-  - [Get information about an S3 bucket](#get-information-about-an-s3-bucket)
-  - [List S3 buckets](#list-s3-buckets)
-  - [Update an S3 bucket](#update-an-s3-bucket)
-- [Manage configuration files for popular S3 tools](#manage-configuration-files-for-popular-s3-tools)
-  - [Generate a S3 tool configuration file](#generate-a-s3-tool-configuration-file)
-  - [Install a S3 tool configuration file to its default location](#install-a-s3-tool-configuration-file-to-its-default-location)
-
-
 ## Manage S3 buckets
 
 Manage S3 buckets creation, deletion and updates to properties like tags, ACL and versioning.
@@ -29,15 +18,16 @@ scw object bucket create <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| tags.{index} |  | List of tags to set on the bucket |
-| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
-| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| name              | The unique name of the bucket                                               | Required                |
+| tags.{index}      | List of tags to set on the bucket                                           |                         |
+| enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
+| acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
+| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -52,12 +42,13 @@ scw object bucket delete <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| name       | The unique name of the bucket                                               | Required                |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -72,13 +63,14 @@ scw object bucket get <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| with-size | Default: `false` | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                                                               | Argument Specifications |
+|------------|---------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| name       | The unique name of the bucket                                                                                             | Required                |
+| with-size  | Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets. | Default: `false`        |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                                                                     |                         |
+| region     | Region to target. If none is passed will use default region from the config                                               | Default: `fr-par`       |
 
 
 
@@ -93,11 +85,12 @@ scw object bucket list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -112,15 +105,223 @@ scw object bucket update <name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The unique name of the bucket |
-| tags.{index} |  | List of new tags to set on the bucket |
-| enable-versioning | Default: `false` | Whether or not objects in the bucket should have multiple versions |
-| acl | Default: `private` | The permissions given to users (grantees) to read or write objects |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                 | Argument Specifications |
+|-------------------|-----------------------------------------------------------------------------|-------------------------|
+| name              | The unique name of the bucket                                               | Required                |
+| tags.{index}      | List of new tags to set on the bucket                                       |                         |
+| enable-versioning | Whether or not objects in the bucket should have multiple versions          | Default: `false`        |
+| acl               | The permissions given to users (grantees) to read or write objects          | Default: `private`      |
+| project-id        | Scaleway project ID to use with IAM Access Key syntax                       |                         |
+| region            | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+## Manage S3 bucket CORS
+
+Manage S3 bucket CORS rules creation and deletion.
+
+
+### Add CORS rules to a bucket
+
+Add CORS rules to an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name               | Description                                                                 | Argument Specifications |
+|--------------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket             | The name of the bucket                                                      | Required                |
+| cors-configuration | The path to the local JSON file containing the CORS configuration.          | Required                |
+| project-id         | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Remove CORS rules from a bucket
+
+Remove CORS rules from an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket                                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Get the CORS configuration of a bucket
+
+Get the CORS configuration of an Object Storage bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-cors get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket                                                      | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+## Manage S3 buckets' lifecycle configuration
+
+Manage S3 buckets lifecycle rules creation and deletion.
+
+
+### Create a lifecycle configuration for an S3 bucket's objects.
+
+Create a lifecycle configuration and apply to an Object Bucket's objects with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name                    | Description                                                                    | Argument Specifications |
+|-------------------------|--------------------------------------------------------------------------------|-------------------------|
+| bucket                  | The name of the bucket to which assign the lifecycle configuration.            | Required                |
+| lifecycle-configuration | The path to the local JSON file containing the bucket lifecycle configuration. | Required                |
+| project-id              | Project ID to use. If none is passed the default project ID will be used       |                         |
+| region                  | Region to target. If none is passed will use default region from the config    | Default: `fr-par`       |
+
+
+
+### Delete an S3 bucket's lifecycle configuration if it exists.
+
+Delete an Object Bucket's lifecycle configuration with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Get the lifecycle configuration of an S3 bucket.
+
+Retrieve an Object Bucket's list of lifecycle rules with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-lifecycle get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+## Manage S3 bucket policies
+
+Manage S3 bucket policies creation and deletion.
+
+
+### Create a policy for an S3 bucket
+
+Create a policy and apply to an Object Bucket with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy create <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The name of the bucket to which assign the policy.                          | Required                |
+| policy     | The path to the local JSON file containing the bucket policy.               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Delete an S3 bucket's policy if it exists.
+
+Delete an Object Bucket's policy with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy delete <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+
+
+
+### Retrieve an S3 bucket's policy.
+
+Retrieve an Object Bucket's policy with the S3 protocol.
+
+**Usage:**
+
+```shell
+scw object bucket-policy get <bucket ...> [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name       | Description                                                                 | Argument Specifications |
+|------------|-----------------------------------------------------------------------------|-------------------------|
+| bucket     | The unique name of the bucket                                               | Required                |
+| project-id | Project ID to use. If none is passed the default project ID will be used    |                         |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -140,14 +341,14 @@ scw object config get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
-| name | Default: `scaleway` | Name of the s3 remote you want to generate |
-| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| type       | Type of S3 tool you want to generate a config for                           | Required<br />One of: `rclone`, `s3cmd`, `mc`     |
+| name       | Name of the s3 remote you want to generate                                  | Default: `scaleway`                               |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 **Examples:**
@@ -182,14 +383,14 @@ scw object config install [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| type | Required<br />One of: `rclone`, `s3cmd`, `mc` | Type of S3 tool you want to generate a config for |
-| name | Default: `scaleway` | Name of the s3 remote you want to generate |
-| project-id |  | Scaleway project ID to use with IAM Access Key syntax |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                           |
+|------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| type       | Type of S3 tool you want to generate a config for                           | Required<br />One of: `rclone`, `s3cmd`, `mc`     |
+| name       | Name of the s3 remote you want to generate                                  | Default: `scaleway`                               |
+| project-id | Scaleway project ID to use with IAM Access Key syntax                       |                                                   |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 **Examples:**

@@ -6,8 +6,8 @@ USAGE:
   scw redis version list-settings [arg=value ...]
 
 EXAMPLES:
-  List settings for Redis™ 8.4.0
-    scw redis version list-settings version=8.4.0
+  List settings for Redis™ 8.6.6
+    scw redis version list-settings version=8.6.6
 
 ARGS:
   version           Redis™ engine version

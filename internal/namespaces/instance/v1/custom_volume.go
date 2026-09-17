@@ -53,7 +53,7 @@ func volumeCreateBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customCreateVolumeRequest{})
+	c.ArgsType = reflect.TypeFor[customCreateVolumeRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -84,7 +84,7 @@ func volumeListBuilder(c *core.Command) *core.Command {
 	renameOrganizationIDArgSpec(c.ArgSpecs)
 	renameProjectIDArgSpec(c.ArgSpecs)
 
-	c.ArgsType = reflect.TypeOf(customListVolumesRequest{})
+	c.ArgsType = reflect.TypeFor[customListVolumesRequest]()
 
 	c.AddInterceptors(
 		func(ctx context.Context, argsI any, runner core.CommandRunner) (i any, err error) {
@@ -119,7 +119,7 @@ func volumeWaitCommand() *core.Command {
 		Resource:  "volume",
 		Verb:      "wait",
 		Groups:    []string{"workflow"},
-		ArgsType:  reflect.TypeOf(volumeWaitRequest{}),
+		ArgsType:  reflect.TypeFor[volumeWaitRequest](),
 		Run: func(ctx context.Context, argsI any) (i any, err error) {
 			args := argsI.(*volumeWaitRequest)
 

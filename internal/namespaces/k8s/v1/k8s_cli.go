@@ -26,6 +26,7 @@ func GetGeneratedCommands() *core.Commands {
 		k8sVersion(),
 		k8sClusterType(),
 		k8sACL(),
+		k8sUserdata(),
 		k8sClusterList(),
 		k8sClusterCreate(),
 		k8sClusterGet(),
@@ -46,6 +47,8 @@ func GetGeneratedCommands() *core.Commands {
 		k8sPoolUpgrade(),
 		k8sPoolUpdate(),
 		k8sPoolDelete(),
+		k8sUserdataGet(),
+		k8sUserdataList(),
 		k8sNodeList(),
 		k8sNodeGet(),
 		k8sNodeReplace(),
@@ -124,6 +127,16 @@ func k8sACL() *core.Command {
 	}
 }
 
+func k8sUserdata() *core.Command {
+	return &core.Command{
+		Short: `User Data management commands`,
+		Long: `User data allow to attach user complementary content to a pool.
+A special use case of these data are cloud-init configuration.`,
+		Namespace: "k8s",
+		Resource:  "userdata",
+	}
+}
+
 func k8sClusterList() *core.Command {
 	return &core.Command{
 		Short:     `List Clusters`,
@@ -132,7 +145,7 @@ func k8sClusterList() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClustersRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClustersRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -225,7 +238,7 @@ func k8sClusterList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -300,7 +313,7 @@ func k8sClusterCreate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.CreateClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.CreateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -349,8 +362,6 @@ func k8sClusterCreate() *core.Command {
 					"unknown_cni",
 					"cilium",
 					"calico",
-					"weave",
-					"flannel",
 					"kilo",
 					"none",
 					"cilium_native",
@@ -413,9 +424,7 @@ func k8sClusterCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
-					"docker",
 					"containerd",
-					"crio",
 				},
 			},
 			{
@@ -441,14 +450,14 @@ func k8sClusterCreate() *core.Command {
 			},
 			{
 				Name:       "pools.{index}.upgrade-policy.max-unavailable",
-				Short:      `The maximum number of nodes that can be not ready at the same time`,
+				Short:      `The maximum number of nodes that can be ` + "`" + `upgrading` + "`" + ` at the same time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "pools.{index}.upgrade-policy.max-surge",
-				Short:      `The maximum number of nodes to be created during the upgrade`,
+				Short:      `The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach ` + "`" + `size` + "`" + `+` + "`" + `max_surge` + "`" + ` before downscaling to ` + "`" + `size` + "`" + ` after node upgrades`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -553,6 +562,20 @@ func k8sClusterCreate() *core.Command {
 					"PreferNoSchedule",
 					"NoExecute",
 				},
+			},
+			{
+				Name:       "pools.{index}.max-termination-grace-period",
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "pools.{index}.user-data.{key}",
+				Short:      `User data applied and reconciled with the pool`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			{
 				Name:       "autoscaler-config.scale-down-disabled",
@@ -793,7 +816,7 @@ func k8sClusterCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.CreateCluster(request)
+			return api.CreateCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -816,7 +839,7 @@ func k8sClusterGet() *core.Command {
 		Resource:  "cluster",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -838,7 +861,7 @@ func k8sClusterGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetCluster(request)
+			return api.GetCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -857,7 +880,7 @@ func k8sClusterUpdate() *core.Command {
 		Resource:  "cluster",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpdateClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpdateClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1097,7 +1120,7 @@ func k8sClusterUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpdateCluster(request)
+			return api.UpdateCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1120,7 +1143,7 @@ func k8sClusterDelete() *core.Command {
 		Resource:  "cluster",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeleteClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeleteClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1149,7 +1172,7 @@ func k8sClusterDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.DeleteCluster(request)
+			return api.DeleteCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1172,7 +1195,7 @@ func k8sClusterUpgrade() *core.Command {
 		Resource:  "cluster",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpgradeClusterRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpgradeClusterRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1208,7 +1231,7 @@ func k8sClusterUpgrade() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpgradeCluster(request)
+			return api.UpgradeCluster(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1231,7 +1254,7 @@ func k8sClusterSetType() *core.Command {
 		Resource:  "cluster",
 		Verb:      "set-type",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.SetClusterTypeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.SetClusterTypeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1260,7 +1283,7 @@ func k8sClusterSetType() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.SetClusterType(request)
+			return api.SetClusterType(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1279,7 +1302,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list-available-versions",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableVersionsRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterAvailableVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1301,7 +1324,7 @@ func k8sClusterListAvailableVersions() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ListClusterAvailableVersions(request)
+			return api.ListClusterAvailableVersions(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1328,7 +1351,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 		Resource:  "cluster",
 		Verb:      "list-available-types",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterAvailableTypesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterAvailableTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1350,7 +1373,7 @@ func k8sClusterListAvailableTypes() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ListClusterAvailableTypes(request)
+			return api.ListClusterAvailableTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -1401,7 +1424,7 @@ func k8sClusterResetAdminToken() *core.Command {
 		Resource:  "cluster",
 		Verb:      "reset-admin-token",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ResetClusterAdminTokenRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ResetClusterAdminTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1422,7 +1445,7 @@ func k8sClusterResetAdminToken() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			e = api.ResetClusterAdminToken(request)
+			e = api.ResetClusterAdminToken(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1449,7 +1472,7 @@ func k8sACLList() *core.Command {
 		Resource:  "acl",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1471,7 +1494,7 @@ func k8sACLList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1494,7 +1517,7 @@ func k8sACLAdd() *core.Command {
 		Resource:  "acl",
 		Verb:      "add",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.AddClusterACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.AddClusterACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1537,7 +1560,7 @@ func k8sACLAdd() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.AddClusterACLRules(request)
+			return api.AddClusterACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1550,7 +1573,7 @@ func k8sACLSet() *core.Command {
 		Resource:  "acl",
 		Verb:      "set",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.SetClusterACLRulesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.SetClusterACLRulesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1593,7 +1616,7 @@ func k8sACLSet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.SetClusterACLRules(request)
+			return api.SetClusterACLRules(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -1606,7 +1629,7 @@ func k8sACLDelete() *core.Command {
 		Resource:  "acl",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeleteACLRuleRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeleteACLRuleRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "acl-id",
@@ -1627,7 +1650,7 @@ func k8sACLDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			e = api.DeleteACLRule(request)
+			e = api.DeleteACLRule(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -1648,7 +1671,7 @@ func k8sPoolList() *core.Command {
 		Resource:  "pool",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListPoolsRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListPoolsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1713,7 +1736,7 @@ func k8sPoolList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -1798,7 +1821,7 @@ func k8sPoolCreate() *core.Command {
 		Resource:  "pool",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.CreatePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.CreatePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -1865,9 +1888,7 @@ func k8sPoolCreate() *core.Command {
 				Positional: false,
 				EnumValues: []string{
 					"unknown_runtime",
-					"docker",
 					"containerd",
-					"crio",
 				},
 			},
 			{
@@ -1893,12 +1914,14 @@ func k8sPoolCreate() *core.Command {
 			},
 			{
 				Name:       "upgrade-policy.max-unavailable",
+				Short:      `The maximum number of nodes that can be ` + "`" + `upgrading` + "`" + ` at the same time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "upgrade-policy.max-surge",
+				Short:      `The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach ` + "`" + `size` + "`" + `+` + "`" + `max_surge` + "`" + ` before downscaling to ` + "`" + `size` + "`" + ` after node upgrades`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2004,6 +2027,20 @@ func k8sPoolCreate() *core.Command {
 					"NoExecute",
 				},
 			},
+			{
+				Name:       "user-data.{key}",
+				Short:      `User data applied and reconciled with the pool`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-termination-grace-period",
+				Short:      `Maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node. It overrides pods ` + "`" + `PodDisruptionBudget` + "`" + ` and ` + "`" + `terminationGracePeriodSeconds` + "`" + `. Defaults to 15 minutes, up to 1 hour.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -2017,7 +2054,7 @@ func k8sPoolCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.CreatePool(request)
+			return api.CreatePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2044,7 +2081,7 @@ func k8sPoolGet() *core.Command {
 		Resource:  "pool",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetPoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetPoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2066,7 +2103,7 @@ func k8sPoolGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetPool(request)
+			return api.GetPool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2086,7 +2123,7 @@ This will drain and replace the nodes in that pool.`,
 		Resource:  "pool",
 		Verb:      "upgrade",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpgradePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpgradePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2115,7 +2152,7 @@ This will drain and replace the nodes in that pool.`,
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpgradePool(request)
+			return api.UpgradePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2134,7 +2171,7 @@ func k8sPoolUpdate() *core.Command {
 		Resource:  "pool",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.UpdatePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.UpdatePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2194,12 +2231,14 @@ func k8sPoolUpdate() *core.Command {
 			},
 			{
 				Name:       "upgrade-policy.max-unavailable",
+				Short:      `New maximum number of nodes that can be ` + "`" + `upgrading` + "`" + ` at the same time`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "upgrade-policy.max-surge",
+				Short:      `New maximum number of nodes to be created during the upgrade`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2207,6 +2246,13 @@ func k8sPoolUpdate() *core.Command {
 			{
 				Name:       "security-group-id",
 				Short:      `Security group ID in which all the nodes of the pool will be moved`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "max-termination-grace-period",
+				Short:      `New maximum amount of time before the API forces the drain and deletion of a ` + "`" + `deleting` + "`" + ` node.`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2224,7 +2270,7 @@ func k8sPoolUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.UpdatePool(request)
+			return api.UpdatePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2255,7 +2301,7 @@ func k8sPoolDelete() *core.Command {
 		Resource:  "pool",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeletePoolRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeletePoolRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "pool-id",
@@ -2277,12 +2323,102 @@ func k8sPoolDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.DeletePool(request)
+			return api.DeletePool(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
 				Short: "Delete a specific pool",
 				Raw:   `scw k8s pool delete 11111111-1111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sUserdataGet() *core.Command {
+	return &core.Command{
+		Short: `Get a pool related user data`,
+		Long: `Retrieve specific user data content for a given pool.
+Tip: add ` + "`" + `?dl=1` + "`" + ` at the end of the URL to directly retrieve the base64 decoded content of your user data.`,
+		Namespace: "k8s",
+		Resource:  "userdata",
+		Verb:      "get",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[k8s.GetUserDataRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pool-id",
+				Short:      `Pool the user data are associated to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "key",
+				Short:      `User data key to retrieved`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.RegionItMil,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*k8s.GetUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+
+			return api.GetUserData(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short: "Get a pool user data by name",
+				Raw:   `scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111`,
+			},
+		},
+	}
+}
+
+func k8sUserdataList() *core.Command {
+	return &core.Command{
+		Short:     `List all user data related to a given pool.`,
+		Long:      `This list only the user data key and not the content.`,
+		Namespace: "k8s",
+		Resource:  "userdata",
+		Verb:      "list",
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[k8s.ListUserDataRequest](),
+		ArgSpecs: core.ArgSpecs{
+			{
+				Name:       "pool-id",
+				Short:      `Pool the user data are associated to`,
+				Required:   true,
+				Deprecated: false,
+				Positional: false,
+			},
+			core.RegionArgSpec(
+				scw.RegionFrPar,
+				scw.RegionNlAms,
+				scw.RegionPlWaw,
+				scw.RegionItMil,
+			),
+		},
+		Run: func(ctx context.Context, args any) (i any, e error) {
+			request := args.(*k8s.ListUserDataRequest)
+
+			client := core.ExtractClient(ctx)
+			api := k8s.NewAPI(client)
+
+			return api.ListUserData(request, scw.WithContext(ctx))
+		},
+		Examples: []*core.Example{
+			{
+				Short: "List all user data for a given pool",
+				Raw:   `scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111`,
 			},
 		},
 	}
@@ -2296,7 +2432,7 @@ func k8sNodeList() *core.Command {
 		Resource:  "node",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListNodesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListNodesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",
@@ -2372,7 +2508,7 @@ func k8sNodeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -2435,7 +2571,7 @@ func k8sNodeGet() *core.Command {
 		Resource:  "node",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2457,7 +2593,7 @@ func k8sNodeGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetNode(request)
+			return api.GetNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2475,8 +2611,8 @@ func k8sNodeReplace() *core.Command {
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "replace",
-		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(k8s.ReplaceNodeRequest{}),
+		// Deprecated:    false,
+		ArgsType: reflect.TypeFor[k8s.ReplaceNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2498,7 +2634,7 @@ func k8sNodeReplace() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ReplaceNode(request)
+			return api.ReplaceNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2517,7 +2653,7 @@ func k8sNodeReboot() *core.Command {
 		Resource:  "node",
 		Verb:      "reboot",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.RebootNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.RebootNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2539,7 +2675,7 @@ func k8sNodeReboot() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.RebootNode(request)
+			return api.RebootNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2553,12 +2689,12 @@ func k8sNodeReboot() *core.Command {
 func k8sNodeDelete() *core.Command {
 	return &core.Command{
 		Short:     `Delete a Node in a Cluster`,
-		Long:      `Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.`,
+		Long:      `Delete a specific Node. Pool size is reduced by 1. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.`,
 		Namespace: "k8s",
 		Resource:  "node",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.DeleteNodeRequest{}),
+		ArgsType: reflect.TypeFor[k8s.DeleteNodeRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "node-id",
@@ -2587,7 +2723,7 @@ func k8sNodeDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.DeleteNode(request)
+			return api.DeleteNode(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2610,7 +2746,7 @@ func k8sVersionList() *core.Command {
 		Resource:  "version",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListVersionsRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListVersionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -2625,7 +2761,7 @@ func k8sVersionList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.ListVersions(request)
+			return api.ListVersions(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2664,7 +2800,7 @@ func k8sVersionGet() *core.Command {
 		Resource:  "version",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.GetVersionRequest{}),
+		ArgsType: reflect.TypeFor[k8s.GetVersionRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "version-name",
@@ -2686,7 +2822,7 @@ func k8sVersionGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
 
-			return api.GetVersion(request)
+			return api.GetVersion(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
@@ -2705,7 +2841,7 @@ func k8sClusterTypeList() *core.Command {
 		Resource:  "cluster-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(k8s.ListClusterTypesRequest{}),
+		ArgsType: reflect.TypeFor[k8s.ListClusterTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -2720,7 +2856,7 @@ func k8sClusterTypeList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := k8s.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""

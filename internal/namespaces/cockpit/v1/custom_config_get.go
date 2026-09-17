@@ -60,7 +60,7 @@ Supported tools:
 
 Use generate-token=true to create a new Cockpit token and inject it directly in the snippet.
 The token is created with the minimum required write scope for the data source type.`,
-		ArgsType: reflect.TypeOf(cockpitConfigGetRequest{}),
+		ArgsType: reflect.TypeFor[cockpitConfigGetRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "data-source-id",

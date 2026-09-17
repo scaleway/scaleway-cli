@@ -3,7 +3,7 @@
 You must specify the blocklist you want to delete by the `region` and `blocklist_id`.
 
 USAGE:
-  scw tem blocklists delete [arg=value ...]
+  scw tem blocklists delete <blocklist-id ...> [arg=value ...]
 
 ARGS:
   blocklist-id      ID of the blocklist to delete

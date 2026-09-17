@@ -9,6 +9,7 @@ k8s        cluster       scw://k8s/cluster       List available cluster types fo
 k8s        cluster-type  scw://k8s/cluster-type  List cluster types
 k8s        node          scw://k8s/node          List Nodes in a Cluster
 k8s        pool          scw://k8s/pool          List Pools in a Cluster
+k8s        userdata      scw://k8s/userdata      List all user data related to a given pool.
 k8s        version       scw://k8s/version       List all available Versions
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
@@ -59,6 +60,12 @@ k8s        version       scw://k8s/version       List all available Versions
     "resource": "pool",
     "uri": "scw://k8s/pool",
     "short": "List Pools in a Cluster"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "userdata",
+    "uri": "scw://k8s/userdata",
+    "short": "List all user data related to a given pool."
   },
   {
     "namespace": "k8s",

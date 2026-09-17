@@ -2,7 +2,6 @@ package server
 
 import (
 	"context"
-	"encoding/json"
 	"fmt"
 	"log"
 	"os"
@@ -73,18 +72,10 @@ func NewMCPServer(
 
 				return result, output, err
 			}
-			// Extract text content for structured output
-			if len(result.Content) > 0 {
-				if tc, ok := result.Content[0].(*mcp.TextContent); ok {
-					output["result"] = tc.Text
-				} else {
-					// Handle non-TextContent types by marshaling to JSON
-					if data, marshalErr := json.Marshal(result.Content[0]); marshalErr == nil {
-						output["result"] = string(data)
-					} else {
-						output["result"] = fmt.Sprintf("%T", result.Content[0])
-					}
-				}
+			// Use StructuredContent (raw Go value) so clients receive proper JSON
+			// instead of a JSON-encoded string.
+			if result.StructuredContent != nil {
+				output["result"] = result.StructuredContent
 			} else {
 				output["result"] = "Command executed successfully (no output)"
 			}

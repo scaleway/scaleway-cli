@@ -14,6 +14,8 @@ import (
 // Some errors ar not tested on purpose:
 // - InvalidField: this error is deprecated
 // - PermissionsDenied: this error cannot be triggered using the SDK
+//
+//nolint:unparam
 func TestSdkStandardErrors(t *testing.T) {
 	t.Skip("Test API not available")
 

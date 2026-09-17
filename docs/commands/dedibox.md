@@ -131,9 +131,9 @@ scw dedibox billing download-invoice [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| invoice-id | Required |  |
+| Name       |          | Description |
+|------------|----------|-------------|
+| invoice-id | Required |             |
 
 
 
@@ -150,9 +150,9 @@ scw dedibox billing download-refund [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| refund-id | Required |  |
+| Name      |          | Description |
+|-----------|----------|-------------|
+| refund-id | Required |             |
 
 
 
@@ -169,9 +169,9 @@ scw dedibox billing get-invoice [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| invoice-id | Required |  |
+| Name       |          | Description |
+|------------|----------|-------------|
+| invoice-id | Required |             |
 
 
 
@@ -188,9 +188,9 @@ scw dedibox billing get-order-capacity [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       |     | Description                                                              |
+|------------|-----|--------------------------------------------------------------------------|
+| project-id |     | Project ID to use. If none is passed the default project ID will be used |
 
 
 
@@ -207,9 +207,9 @@ scw dedibox billing get-refund [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| refund-id | Required |  |
+| Name      |          | Description |
+|-----------|----------|-------------|
+| refund-id | Required |             |
 
 
 
@@ -226,10 +226,10 @@ scw dedibox billing list-invoice [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| project-id | Default: `<retrieved from config>` |  |
+| Name       |                                             | Description |
+|------------|---------------------------------------------|-------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` |             |
+| project-id | Default: `<retrieved from config>`          |             |
 
 
 
@@ -246,10 +246,10 @@ scw dedibox billing list-refund [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` |  |
-| project-id | Default: `<retrieved from config>` |  |
+| Name       |                                             | Description |
+|------------|---------------------------------------------|-------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` |             |
+| project-id | Default: `<retrieved from config>`          |             |
 
 
 
@@ -271,10 +271,10 @@ scw dedibox bmc get <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to get BMC access |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server to get BMC access                                      |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -292,11 +292,11 @@ scw dedibox bmc start <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to start the BMC access |
-| ip |  | The IP authorized to connect to the given server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server to start the BMC access                                |
+| ip        |                                                                     | The IP authorized to connect to the given server                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -313,10 +313,10 @@ scw dedibox bmc stop <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to stop BMC access |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server to stop BMC access                                     |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -338,11 +338,11 @@ scw dedibox fip attach [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id |  | ID of the server |
-| fips-ids.{index} | Required | List of ID of failovers IP to attach |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name             |                                                                     | Description                                                             |
+|------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id        |                                                                     | ID of the server                                                        |
+| fips-ids.{index} | Required                                                            | List of ID of failovers IP to attach                                    |
+| zone             | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -359,12 +359,12 @@ scw dedibox fip attach-mac [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the failover IP |
-| type | One of: `mac_type_unknown`, `vmware`, `kvm`, `xen` | A mac type |
-| mac |  | A valid mac address (existing or not) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name  |                                                                     | Description                                                             |
+|-------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ip-id | Required                                                            | ID of the failover IP                                                   |
+| type  | One of: `mac_type_unknown`, `vmware`, `kvm`, `xen`                  | A mac type                                                              |
+| mac   |                                                                     | A valid mac address (existing or not)                                   |
+| zone  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -381,12 +381,12 @@ scw dedibox fip create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id |  | Failover IP offer ID |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| quantity |  | Quantity |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                     | Description                                                              |
+|------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
+| offer-id   |                                                                     | Failover IP offer ID                                                     |
+| project-id |                                                                     | Project ID to use. If none is passed the default project ID will be used |
+| quantity   |                                                                     | Quantity                                                                 |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config  |
 
 
 
@@ -403,10 +403,10 @@ scw dedibox fip delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the failover IP to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name  |                                                                     | Description                                                             |
+|-------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ip-id | Required                                                            | ID of the failover IP to delete                                         |
+| zone  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -423,10 +423,10 @@ scw dedibox fip detach [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| fips-ids.{index} | Required | List of IDs of failovers IP to detach |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name             |                                                                     | Description                                                             |
+|------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| fips-ids.{index} | Required                                                            | List of IDs of failovers IP to detach                                   |
+| zone             | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -443,10 +443,10 @@ scw dedibox fip detach-mac [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the failover IP |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name  |                                                                     | Description                                                             |
+|-------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ip-id | Required                                                            | ID of the failover IP                                                   |
+| zone  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -463,10 +463,10 @@ scw dedibox fip get <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the failover IP |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name  |                                                                     | Description                                                             |
+|-------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ip-id | Required                                                            | ID of the failover IP                                                   |
+| zone  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -483,10 +483,10 @@ scw dedibox fip get-quota [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id | Default: `<retrieved from config>` | Project ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                     | Description                                                             |
+|------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| project-id | Default: `<retrieved from config>`                                  | Project ID                                                              |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -503,13 +503,13 @@ scw dedibox fip list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `ip_asc`, `ip_desc` | Order of the failovers IP |
-| project-id | Required<br />Default: `<retrieved from config>` | Filter failovers IP by project ID |
-| search |  | Filter failovers IP which matching with this field |
-| only-available |  | True: return all failovers IP not attached on server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name           |                                                                            | Description                                                             |
+|----------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by       | One of: `ip_asc`, `ip_desc`                                                | Order of the failovers IP                                               |
+| project-id     | Required<br />Default: `<retrieved from config>`                           | Filter failovers IP by project ID                                       |
+| search         |                                                                            | Filter failovers IP which matching with this field                      |
+| only-available |                                                                            | True: return all failovers IP not attached on server                    |
+| zone           | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -531,8 +531,8 @@ scw dedibox ipv6-block create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name       |                                    | Description       |
+|------------|------------------------------------|-------------------|
 | project-id | Default: `<retrieved from config>` | ID of the project |
 
 
@@ -552,11 +552,11 @@ scw dedibox ipv6-block create-subnet [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| block-id | Required | ID of the IPv6 block |
-| address |  | Address of the IPv6 |
-| cidr |  | Classless InterDomain Routing notation of the IPv6 |
+| Name     |          | Description                                        |
+|----------|----------|----------------------------------------------------|
+| block-id | Required | ID of the IPv6 block                               |
+| address  |          | Address of the IPv6                                |
+| cidr     |          | Classless InterDomain Routing notation of the IPv6 |
 
 
 
@@ -573,8 +573,8 @@ scw dedibox ipv6-block delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description                    |
+|----------|----------|--------------------------------|
 | block-id | Required | ID of the IPv6 block to delete |
 
 
@@ -592,8 +592,8 @@ scw dedibox ipv6-block get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name       |                                    | Description       |
+|------------|------------------------------------|-------------------|
 | project-id | Default: `<retrieved from config>` | ID of the project |
 
 
@@ -614,8 +614,8 @@ scw dedibox ipv6-block get-quota [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name       |                                    | Description       |
+|------------|------------------------------------|-------------------|
 | project-id | Default: `<retrieved from config>` | ID of the project |
 
 
@@ -633,8 +633,8 @@ scw dedibox ipv6-block list-subnet [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description          |
+|----------|----------|----------------------|
 | block-id | Required | ID of the IPv6 block |
 
 
@@ -653,10 +653,10 @@ scw dedibox ipv6-block update [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| block-id | Required | ID of the IPv6 block |
-| nameservers.{index} |  | DNS to link to the IPv6 |
+| Name                |          | Description             |
+|---------------------|----------|-------------------------|
+| block-id            | Required | ID of the IPv6 block    |
+| nameservers.{index} |          | DNS to link to the IPv6 |
 
 
 
@@ -678,11 +678,11 @@ scw dedibox offer get <offer-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id | Required | ID of offer |
-| project-id | Default: `<retrieved from config>` | Project ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                     | Description                                                             |
+|------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| offer-id   | Required                                                            | ID of offer                                                             |
+| project-id | Default: `<retrieved from config>`                                  | Project ID                                                              |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -699,18 +699,18 @@ scw dedibox offer list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `price_asc`, `price_desc` | Order of the offers |
-| commercial-range |  | Filter on commercial range |
-| catalog | One of: `all`, `default`, `beta`, `reseller`, `premium`, `volume`, `admin`, `inactive` | Filter on catalog |
-| project-id | Default: `<retrieved from config>` | Project ID |
-| is-failover-ip |  | Get the current failover IP offer |
-| is-failover-block |  | Get the current failover IP block offer |
-| sold-in |  | Filter offers depending on their datacenter |
-| available-only |  | Set this filter to true to only return available offers |
-| is-rpn-san |  | Get the RPN SAN offers |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name              |                                                                                                 | Description                                                             |
+|-------------------|-------------------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by          | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `price_asc`, `price_desc` | Order of the offers                                                     |
+| commercial-range  |                                                                                                 | Filter on commercial range                                              |
+| catalog           | One of: `all`, `default`, `beta`, `reseller`, `premium`, `volume`, `admin`, `inactive`          | Filter on catalog                                                       |
+| project-id        | Default: `<retrieved from config>`                                                              | Project ID                                                              |
+| is-failover-ip    |                                                                                                 | Get the current failover IP offer                                       |
+| is-failover-block |                                                                                                 | Get the current failover IP block offer                                 |
+| sold-in           |                                                                                                 | Filter offers depending on their datacenter                             |
+| available-only    |                                                                                                 | Set this filter to true to only return available offers                 |
+| is-rpn-san        |                                                                                                 | Get the RPN SAN offers                                                  |
+| zone              | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all`                      | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -732,12 +732,12 @@ scw dedibox os get <os-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| os-id | Required | ID of the OS |
-| server-id |  | ID of the server |
-| project-id |  | Project ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                     | Description                                                             |
+|------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| os-id      | Required                                                            | ID of the OS                                                            |
+| server-id  |                                                                     | ID of the server                                                        |
+| project-id |                                                                     | Project ID                                                              |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -754,13 +754,13 @@ scw dedibox os list <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `released_at_asc`, `released_at_desc` | Order of the OS |
-| type | One of: `unknown_type`, `server`, `virtu`, `panel`, `desktop`, `custom`, `rescue` | Type of the OS |
-| server-id | Required | Filter OS by compatible server ID |
-| project-id | Default: `<retrieved from config>` | Project ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                                    | Description                                                             |
+|------------|------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc`, `released_at_asc`, `released_at_desc` | Order of the OS                                                         |
+| type       | One of: `unknown_type`, `server`, `virtu`, `panel`, `desktop`, `custom`, `rescue`  | Type of the OS                                                          |
+| server-id  | Required                                                                           | Filter OS by compatible server ID                                       |
+| project-id | Default: `<retrieved from config>`                                                 | Project ID                                                              |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all`         | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -782,10 +782,10 @@ scw dedibox raid get <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server                                                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -802,12 +802,12 @@ scw dedibox raid update <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| raid-arrays.{index}.raid-level | One of: `no_raid`, `raid0`, `raid1`, `raid5`, `raid6`, `raid10` | The RAID level |
-| raid-arrays.{index}.disk-ids.{index} | Required | The list of Disk ID of the updatable RAID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name                                 |                                                                     | Description                                                             |
+|--------------------------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id                            | Required                                                            | ID of the server                                                        |
+| raid-arrays.{index}.raid-level       | One of: `no_raid`, `raid0`, `raid1`, `raid5`, `raid6`, `raid10`     | The RAID level                                                          |
+| raid-arrays.{index}.disk-ids.{index} | Required                                                            | The list of Disk ID of the updatable RAID                               |
+| zone                                 | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -829,10 +829,10 @@ scw dedibox rescue get <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to get rescue |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server to get rescue                                          |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -849,11 +849,11 @@ scw dedibox rescue start <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to start rescue |
-| os-id |  | OS ID to use to start rescue |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server to start rescue                                        |
+| os-id     |                                                                     | OS ID to use to start rescue                                            |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -870,10 +870,10 @@ scw dedibox rescue stop <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server to stop rescue |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server to stop rescue                                         |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -895,11 +895,11 @@ scw dedibox reverse-ip update <ip-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | ID of the IP |
-| reverse |  | Reverse to apply on the IP |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name    |                                                                     | Description                                                             |
+|---------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| ip-id   | Required                                                            | ID of the IP                                                            |
+| reverse |                                                                     | Reverse to apply on the IP                                              |
+| zone    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -921,11 +921,11 @@ scw dedibox rpn-info get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id | Default: `<retrieved from config>` | A project ID |
-| rpnv1-group-id |  | An RPN v1 group ID |
-| rpnv2-group-id |  | An RPN v2 group ID |
+| Name           |                                    | Description        |
+|----------------|------------------------------------|--------------------|
+| project-id     | Default: `<retrieved from config>` | A project ID       |
+| rpnv1-group-id |                                    | An RPN v1 group ID |
+| rpnv2-group-id |                                    | An RPN v2 group ID |
 
 
 
@@ -942,10 +942,10 @@ scw dedibox rpn-info list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the servers |
-| project-id | Default: `<retrieved from config>` | Filter servers by project ID |
+| Name       |                                             | Description                  |
+|------------|---------------------------------------------|------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the servers         |
+| project-id | Default: `<retrieved from config>`          | Filter servers by project ID |
 
 
 
@@ -967,8 +967,8 @@ scw dedibox rpn-v1 accept-invite [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name      |          | Description   |
+|-----------|----------|---------------|
 | member-id | Required | The member ID |
 
 
@@ -986,11 +986,11 @@ scw dedibox rpn-v1 add-members <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | The rpn v1 group ID |
-| server-ids.{index} |  | A collection of rpn v1 capable server IDs |
-| san-server-ids.{index} |  | A collection of rpn v1 capable RPN SAN server IDs |
+| Name                   |          | Description                                       |
+|------------------------|----------|---------------------------------------------------|
+| group-id               | Required | The rpn v1 group ID                               |
+| server-ids.{index}     |          | A collection of rpn v1 capable server IDs         |
+| san-server-ids.{index} |          | A collection of rpn v1 capable RPN SAN server IDs |
 
 
 
@@ -1007,12 +1007,12 @@ scw dedibox rpn-v1 create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | Rpn v1 group name |
-| server-ids.{index} |  | A collection of rpn v1 capable servers |
-| san-server-ids.{index} |  | A collection of rpn v1 capable rpn sans servers |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name                   |          | Description                                                              |
+|------------------------|----------|--------------------------------------------------------------------------|
+| name                   | Required | Rpn v1 group name                                                        |
+| server-ids.{index}     |          | A collection of rpn v1 capable servers                                   |
+| san-server-ids.{index} |          | A collection of rpn v1 capable rpn sans servers                          |
+| project-id             |          | Project ID to use. If none is passed the default project ID will be used |
 
 
 
@@ -1029,8 +1029,8 @@ scw dedibox rpn-v1 delete <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description     |
+|----------|----------|-----------------|
 | group-id | Required | Rpn v1 group ID |
 
 
@@ -1048,9 +1048,9 @@ scw dedibox rpn-v1 delete-members <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | The rpn v1 group ID |
+| Name               |          | Description                              |
+|--------------------|----------|------------------------------------------|
+| group-id           | Required | The rpn v1 group ID                      |
 | member-ids.{index} | Required | A collection of rpn v1 group members IDs |
 
 
@@ -1068,8 +1068,8 @@ scw dedibox rpn-v1 get <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description     |
+|----------|----------|-----------------|
 | group-id | Required | Rpn v1 group ID |
 
 
@@ -1087,11 +1087,11 @@ scw dedibox rpn-v1 invite [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | The RPN V1 group ID |
-| server-ids.{index} | Required | A collection of external server IDs |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name               |          | Description                                                              |
+|--------------------|----------|--------------------------------------------------------------------------|
+| group-id           | Required | The RPN V1 group ID                                                      |
+| server-ids.{index} | Required | A collection of external server IDs                                      |
+| project-id         |          | Project ID to use. If none is passed the default project ID will be used |
 
 
 
@@ -1108,9 +1108,9 @@ scw dedibox rpn-v1 leave [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | The RPN V1 group ID |
+| Name               |          | Description                              |
+|--------------------|----------|------------------------------------------|
+| group-id           | Required | The RPN V1 group ID                      |
 | member-ids.{index} | Required | A collection of rpn v1 group members IDs |
 
 
@@ -1128,10 +1128,10 @@ scw dedibox rpn-v1 list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v1 groups |
-| project-id | Default: `<retrieved from config>` | Filter rpn v1 groups by project ID |
+| Name       |                                             | Description                        |
+|------------|---------------------------------------------|------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v1 groups         |
+| project-id | Default: `<retrieved from config>`          | Filter rpn v1 groups by project ID |
 
 
 
@@ -1148,10 +1148,10 @@ scw dedibox rpn-v1 list-capable-san-server [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn capable resources |
-| project-id | Default: `<retrieved from config>` | Filter rpn capable resources by project ID |
+| Name       |                                             | Description                                |
+|------------|---------------------------------------------|--------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn capable resources         |
+| project-id | Default: `<retrieved from config>`          | Filter rpn capable resources by project ID |
 
 
 
@@ -1168,10 +1168,10 @@ scw dedibox rpn-v1 list-capable-server [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn capable resources |
-| project-id | Default: `<retrieved from config>` | Filter rpn capable resources by project ID |
+| Name       |                                             | Description                                |
+|------------|---------------------------------------------|--------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn capable resources         |
+| project-id | Default: `<retrieved from config>`          | Filter rpn capable resources by project ID |
 
 
 
@@ -1188,10 +1188,10 @@ scw dedibox rpn-v1 list-invites [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn capable resources |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       |                                             | Description                                                              |
+|------------|---------------------------------------------|--------------------------------------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn capable resources                                       |
+| project-id |                                             | Project ID to use. If none is passed the default project ID will be used |
 
 
 
@@ -1208,11 +1208,11 @@ scw dedibox rpn-v1 list-members [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v1 group members |
-| group-id | Required | Filter rpn v1 group members by group ID |
-| project-id | Default: `<retrieved from config>` | A project ID |
+| Name       |                                             | Description                             |
+|------------|---------------------------------------------|-----------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v1 group members       |
+| group-id   | Required                                    | Filter rpn v1 group members by group ID |
+| project-id | Default: `<retrieved from config>`          | A project ID                            |
 
 
 
@@ -1229,8 +1229,8 @@ scw dedibox rpn-v1 refuse-invite [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name      |          | Description   |
+|-----------|----------|---------------|
 | member-id | Required | The member ID |
 
 
@@ -1248,10 +1248,10 @@ scw dedibox rpn-v1 update <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | Rpn v1 group ID |
-| name | Required | New rpn v1 group name |
+| Name     |          | Description           |
+|----------|----------|-----------------------|
+| group-id | Required | Rpn v1 group ID       |
+| name     | Required | New rpn v1 group name |
 
 
 
@@ -1273,9 +1273,9 @@ scw dedibox rpn-v2 add-members <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | RPN V2 group ID |
+| Name            |          | Description                |
+|-----------------|----------|----------------------------|
+| group-id        | Required | RPN V2 group ID            |
 | servers.{index} | Required | A collection of server IDs |
 
 
@@ -1293,12 +1293,12 @@ scw dedibox rpn-v2 create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| type | One of: `unknown_type`, `standard`, `qinq` | RPN V2 group type (qing / standard) |
-| name |  | RPN V2 group name |
-| servers.{index} | Required | A collection of server IDs |
+| Name            |                                            | Description                                                              |
+|-----------------|--------------------------------------------|--------------------------------------------------------------------------|
+| project-id      |                                            | Project ID to use. If none is passed the default project ID will be used |
+| type            | One of: `unknown_type`, `standard`, `qinq` | RPN V2 group type (qing / standard)                                      |
+| name            |                                            | RPN V2 group name                                                        |
+| servers.{index} | Required                                   | A collection of server IDs                                               |
 
 
 
@@ -1315,8 +1315,8 @@ scw dedibox rpn-v2 delete <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description     |
+|----------|----------|-----------------|
 | group-id | Required | RPN V2 group ID |
 
 
@@ -1334,9 +1334,9 @@ scw dedibox rpn-v2 delete-members <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | RPN V2 group ID |
+| Name               |          | Description                |
+|--------------------|----------|----------------------------|
+| group-id           | Required | RPN V2 group ID            |
 | member-ids.{index} | Required | A collection of member IDs |
 
 
@@ -1354,8 +1354,8 @@ scw dedibox rpn-v2 disable-compatibility <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description     |
+|----------|----------|-----------------|
 | group-id | Required | RPN V2 group ID |
 
 
@@ -1373,10 +1373,10 @@ scw dedibox rpn-v2 enable-compatibility [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | RPN V2 group ID |
-| rpnv1-group-id |  | RPN V1 group ID |
+| Name           |          | Description     |
+|----------------|----------|-----------------|
+| group-id       | Required | RPN V2 group ID |
+| rpnv1-group-id |          | RPN V1 group ID |
 
 
 
@@ -1393,8 +1393,8 @@ scw dedibox rpn-v2 get <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |          | Description     |
+|----------|----------|-----------------|
 | group-id | Required | RPN V2 group ID |
 
 
@@ -1412,10 +1412,10 @@ scw dedibox rpn-v2 list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v2 groups |
-| project-id | Default: `<retrieved from config>` | Filter rpn v2 groups by project ID |
+| Name       |                                             | Description                        |
+|------------|---------------------------------------------|------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v2 groups         |
+| project-id | Default: `<retrieved from config>`          | Filter rpn v2 groups by project ID |
 
 
 
@@ -1432,10 +1432,10 @@ scw dedibox rpn-v2 list-capable-resources [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v2 capable resources |
-| project-id | Default: `<retrieved from config>` | Filter rpn v2 capable resources by project ID |
+| Name       |                                             | Description                                   |
+|------------|---------------------------------------------|-----------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v2 capable resources         |
+| project-id | Default: `<retrieved from config>`          | Filter rpn v2 capable resources by project ID |
 
 
 
@@ -1452,10 +1452,10 @@ scw dedibox rpn-v2 list-logs [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
+| Name     |                                             | Description                    |
+|----------|---------------------------------------------|--------------------------------|
 | order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v2 group logs |
-| group-id | Required | RPN V2 group ID |
+| group-id | Required                                    | RPN V2 group ID                |
 
 
 
@@ -1472,11 +1472,11 @@ scw dedibox rpn-v2 list-members [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the rpn v2 group members |
-| group-id | Required | RPN V2 group ID |
-| type | One of: `unknown_type`, `rpnv1_group`, `server` | Filter members by type |
+| Name     |                                                 | Description                       |
+|----------|-------------------------------------------------|-----------------------------------|
+| order-by | One of: `created_at_asc`, `created_at_desc`     | Order of the rpn v2 group members |
+| group-id | Required                                        | RPN V2 group ID                   |
+| type     | One of: `unknown_type`, `rpnv1_group`, `server` | Filter members by type            |
 
 
 
@@ -1493,10 +1493,10 @@ scw dedibox rpn-v2 update <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | RPN V2 group ID |
-| name |  | RPN V2 group name |
+| Name     |          | Description       |
+|----------|----------|-------------------|
+| group-id | Required | RPN V2 group ID   |
+| name     |          | RPN V2 group name |
 
 
 
@@ -1513,11 +1513,11 @@ scw dedibox rpn-v2 update-vlan-members <group-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| group-id | Required | RPN V2 group ID |
+| Name               |          | Description       |
+|--------------------|----------|-------------------|
+| group-id           | Required | RPN V2 group ID   |
 | member-ids.{index} | Required | RPN V2 member IDs |
-| vlan |  | A vlan |
+| vlan               |          | A vlan            |
 
 
 
@@ -1539,9 +1539,9 @@ scw dedibox san add-ip [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| rpn-san-id | Required | RPN SAN ID |
+| Name           |          | Description       |
+|----------------|----------|-------------------|
+| rpn-san-id     | Required | RPN SAN ID        |
 | ip-ids.{index} | Required | An array of IP ID |
 
 
@@ -1559,10 +1559,10 @@ scw dedibox san create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id | Required | Offer ID |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
+| Name       |          | Description                                                              |
+|------------|----------|--------------------------------------------------------------------------|
+| offer-id   | Required | Offer ID                                                                 |
+| project-id |          | Project ID to use. If none is passed the default project ID will be used |
 
 
 
@@ -1579,9 +1579,9 @@ scw dedibox san delete [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| rpn-san-id | Required | RPN SAN ID |
+| Name       |          | Description |
+|------------|----------|-------------|
+| rpn-san-id | Required | RPN SAN ID  |
 
 
 
@@ -1598,9 +1598,9 @@ scw dedibox san get [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| rpn-san-id | Required | RPN SAN ID |
+| Name       |          | Description |
+|------------|----------|-------------|
+| rpn-san-id | Required | RPN SAN ID  |
 
 
 
@@ -1617,10 +1617,10 @@ scw dedibox san list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the RPN SANs |
-| project-id | Default: `<retrieved from config>` | Filter RPN SANs by project ID |
+| Name       |                                             | Description                   |
+|------------|---------------------------------------------|-------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc` | Order of the RPN SANs         |
+| project-id | Default: `<retrieved from config>`          | Filter RPN SANs by project ID |
 
 
 
@@ -1637,10 +1637,10 @@ scw dedibox san list-available-ips [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| rpn-san-id | Required | RPN SAN ID |
-| type | One of: `unknown`, `server_ip`, `rpnv2_subnet` | Filter by IP type (server | rpnv2_subnet) |
+| Name       |                                                | Description               |
+|------------|------------------------------------------------|---------------------------|
+| rpn-san-id | Required                                       | RPN SAN ID                |
+| type       | One of: `unknown`, `server_ip`, `rpnv2_subnet` | Filter by IP type (server | rpnv2_subnet) |
 
 
 
@@ -1657,10 +1657,10 @@ scw dedibox san list-ips [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| rpn-san-id | Required | RPN SAN ID |
-| type | One of: `unknown`, `server_ip`, `rpnv2_subnet` | Filter by IP type (server | rpnv2_subnet) |
+| Name       |                                                | Description               |
+|------------|------------------------------------------------|---------------------------|
+| rpn-san-id | Required                                       | RPN SAN ID                |
+| type       | One of: `unknown`, `server_ip`, `rpnv2_subnet` | Filter by IP type (server | rpnv2_subnet) |
 
 
 
@@ -1677,9 +1677,9 @@ scw dedibox san remove-ip [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| rpn-san-id | Required | RPN SAN ID |
+| Name           |          | Description       |
+|----------------|----------|-------------------|
+| rpn-san-id     | Required | RPN SAN ID        |
 | ip-ids.{index} | Required | An array of IP ID |
 
 
@@ -1702,16 +1702,16 @@ scw dedibox server cancel-install <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID of the server to cancel install |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID of the server to cancel install                               |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
 ### Create a baremetal server
 
-Create a new baremetal server. The order return you a service ID to follow the provisionning status you could call GetService.
+Create a new baremetal server. The order return you a service ID to follow the provisioning status you could call GetService.
 
 **Usage:**
 
@@ -1722,13 +1722,13 @@ scw dedibox server create [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| offer-id |  | Offer ID of the new server |
-| server-option-ids.{index} | Required | Server option IDs of the new server |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| datacenter-name |  | Datacenter name of the new server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name                      |                                                                     | Description                                                              |
+|---------------------------|---------------------------------------------------------------------|--------------------------------------------------------------------------|
+| offer-id                  |                                                                     | Offer ID of the new server                                               |
+| server-option-ids.{index} | Required                                                            | Server option IDs of the new server                                      |
+| project-id                |                                                                     | Project ID to use. If none is passed the default project ID will be used |
+| datacenter-name           |                                                                     | Datacenter name of the new server                                        |
+| zone                      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config  |
 
 
 
@@ -1745,10 +1745,10 @@ scw dedibox server delete <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID to delete                                                     |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1765,10 +1765,10 @@ scw dedibox server get <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server                                                        |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1785,10 +1785,10 @@ scw dedibox server get-install <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID of the server to install |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID of the server to install                                      |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1805,11 +1805,11 @@ scw dedibox server get-partitioning <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | ID of the server |
-| os-id | Required | OS ID of the default partitioning |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | ID of the server                                                        |
+| os-id     | Required                                                            | OS ID of the default partitioning                                       |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1826,24 +1826,24 @@ scw dedibox server install <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to install |
-| os-id |  | OS ID to install on the server |
-| hostname |  | Hostname of the server |
-| user-login |  | User to install on the server |
-| user-password |  | User password to install on the server |
-| panel-password |  | Panel password to install on the server |
-| root-password |  | Root password to install on the server |
-| partitions.{index}.file-system | One of: `unknown`, `efi`, `swap`, `ext4`, `ext3`, `ext2`, `xfs`, `ntfs`, `fat32`, `ufs` | File system of the installation partition |
-| partitions.{index}.mount-point |  | Mount point of the installation partition |
-| partitions.{index}.raid-level | One of: `no_raid`, `raid0`, `raid1`, `raid5`, `raid6`, `raid10` | RAID level of the installation partition |
-| partitions.{index}.capacity |  | Capacity of the installation partition |
-| partitions.{index}.connectors.{index} |  | Connectors of the installation partition |
-| ssh-key-ids.{index} |  | SSH key IDs authorized on the server |
-| license-offer-id |  | Offer ID of license to install on server |
-| ip-id |  | IP to link at the license to install on server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name                                  |                                                                                         | Description                                                             |
+|---------------------------------------|-----------------------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id                             | Required                                                                                | Server ID to install                                                    |
+| os-id                                 |                                                                                         | OS ID to install on the server                                          |
+| hostname                              |                                                                                         | Hostname of the server                                                  |
+| user-login                            |                                                                                         | User to install on the server                                           |
+| user-password                         |                                                                                         | User password to install on the server                                  |
+| panel-password                        |                                                                                         | Panel password to install on the server                                 |
+| root-password                         |                                                                                         | Root password to install on the server                                  |
+| partitions.{index}.file-system        | One of: `unknown`, `efi`, `swap`, `ext4`, `ext3`, `ext2`, `xfs`, `ntfs`, `fat32`, `ufs` | File system of the installation partition                               |
+| partitions.{index}.mount-point        |                                                                                         | Mount point of the installation partition                               |
+| partitions.{index}.raid-level         | One of: `no_raid`, `raid0`, `raid1`, `raid5`, `raid6`, `raid10`                         | RAID level of the installation partition                                |
+| partitions.{index}.capacity           |                                                                                         | Capacity of the installation partition                                  |
+| partitions.{index}.connectors.{index} |                                                                                         | Connectors of the installation partition                                |
+| ssh-key-ids.{index}                   |                                                                                         | SSH key IDs authorized on the server                                    |
+| license-offer-id                      |                                                                                         | Offer ID of license to install on server                                |
+| ip-id                                 |                                                                                         | IP to link at the license to install on server                          |
+| zone                                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`                     | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1860,12 +1860,12 @@ scw dedibox server list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the servers |
-| project-id | Required<br />Default: `<retrieved from config>` | Filter servers by project ID |
-| search |  | Filter servers by hostname |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                            | Description                                                             |
+|------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc`                                | Order of the servers                                                    |
+| project-id | Required<br />Default: `<retrieved from config>`                           | Filter servers by project ID                                            |
+| search     |                                                                            | Filter servers by hostname                                              |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1882,11 +1882,11 @@ scw dedibox server list-disks <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the server disks |
-| server-id | Required | Server ID of the server disks |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                            | Description                                                             |
+|-----------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by  | One of: `created_at_asc`, `created_at_desc`                                | Order of the server disks                                               |
+| server-id | Required                                                                   | Server ID of the server disks                                           |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1903,11 +1903,11 @@ scw dedibox server list-events <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the server events |
-| server-id | Required | Server ID of the server events |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                            | Description                                                             |
+|-----------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by  | One of: `created_at_asc`, `created_at_desc`                                | Order of the server events                                              |
+| server-id | Required                                                                   | Server ID of the server events                                          |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1924,10 +1924,10 @@ scw dedibox server list-options <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID of the subscribable server options |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                            | Description                                                             |
+|-----------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                                   | Server ID of the subscribable server options                            |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1944,10 +1944,10 @@ scw dedibox server reboot <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to reboot |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID to reboot                                                     |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1964,10 +1964,10 @@ scw dedibox server start <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to start |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID to start                                                      |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -1984,10 +1984,10 @@ scw dedibox server stop <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to stop |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID to stop                                                       |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2004,11 +2004,11 @@ scw dedibox server subscribe-option <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to subscribe server option |
-| option-id |  | Option ID to subscribe |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name      |                                                                     | Description                                                             |
+|-----------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id | Required                                                            | Server ID to subscribe server option                                    |
+| option-id |                                                                     | Option ID to subscribe                                                  |
+| zone      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2025,11 +2025,11 @@ scw dedibox server subscribe-storage <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID of the storage options to subscribe |
-| options-ids.{index} | Required | Option IDs of the storage options to subscribe |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name                |                                                                     | Description                                                             |
+|---------------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id           | Required                                                            | Server ID of the storage options to subscribe                           |
+| options-ids.{index} | Required                                                            | Option IDs of the storage options to subscribe                          |
+| zone                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2046,12 +2046,12 @@ scw dedibox server update <server-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| server-id | Required | Server ID to update |
-| hostname |  | Hostname of the server to update |
-| enable-ipv6 |  | Flag to enable or not the IPv6 of server |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name        |                                                                     | Description                                                             |
+|-------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| server-id   | Required                                                            | Server ID to update                                                     |
+| hostname    |                                                                     | Hostname of the server to update                                        |
+| enable-ipv6 |                                                                     | Flag to enable or not the IPv6 of server                                |
+| zone        | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2073,10 +2073,10 @@ scw dedibox service delete <service-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| service-id | Required | ID of the service |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                     | Description                                                             |
+|------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| service-id | Required                                                            | ID of the service                                                       |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2093,10 +2093,10 @@ scw dedibox service get <service-id ...> [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| service-id | Required | ID of the service |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                     | Description                                                             |
+|------------|---------------------------------------------------------------------|-------------------------------------------------------------------------|
+| service-id | Required                                                            | ID of the service                                                       |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
 
 
 
@@ -2113,11 +2113,11 @@ scw dedibox service list [arg=value ...]
 
 **Args:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Order of the services |
-| project-id | Default: `<retrieved from config>` | Project ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name       |                                                                            | Description                                                             |
+|------------|----------------------------------------------------------------------------|-------------------------------------------------------------------------|
+| order-by   | One of: `created_at_asc`, `created_at_desc`                                | Order of the services                                                   |
+| project-id | Default: `<retrieved from config>`                                         | Project ID                                                              |
+| zone       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `all` | Zone to target. If none is passed will use default zone from the config |
 
 
 

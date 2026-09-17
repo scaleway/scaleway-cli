@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	container "github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/container/v1beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -53,7 +53,7 @@ func containerTokenCreate() *core.Command {
 		Resource:  "token",
 		Verb:      "create",
 		// Deprecated:    true,
-		ArgsType: reflect.TypeOf(container.CreateTokenRequest{}),
+		ArgsType: reflect.TypeFor[container.CreateTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "container-id",
@@ -95,7 +95,7 @@ func containerTokenCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.CreateToken(request)
+			return api.CreateToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -107,8 +107,8 @@ func containerTokenGet() *core.Command {
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "get",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.GetTokenRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[container.GetTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -129,7 +129,7 @@ func containerTokenGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.GetToken(request)
+			return api.GetToken(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -141,8 +141,8 @@ func containerTokenList() *core.Command {
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "list",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.ListTokensRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[container.ListTokensRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -181,7 +181,7 @@ func containerTokenList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -203,8 +203,8 @@ func containerTokenDelete() *core.Command {
 		Namespace: "container",
 		Resource:  "token",
 		Verb:      "delete",
-		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(container.DeleteTokenRequest{}),
+		// Deprecated:    true,
+		ArgsType: reflect.TypeFor[container.DeleteTokenRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "token-id",
@@ -225,7 +225,7 @@ func containerTokenDelete() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := container.NewAPI(client)
 
-			return api.DeleteToken(request)
+			return api.DeleteToken(request, scw.WithContext(ctx))
 		},
 	}
 }

@@ -2,88 +2,6 @@
 # Documentation for `scw rdb`
 This API allows you to manage your Managed Databases for PostgreSQL and MySQL.
 
-- [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
-  - [Add an ACL rule to a Database Instance](#add-an-acl-rule-to-a-database-instance)
-  - [Delete ACL rules of a Database Instance](#delete-acl-rules-of-a-database-instance)
-  - [Edit a database instance's ACL](#edit-a-database-instance's-acl)
-  - [List ACL rules of a Database Instance](#list-acl-rules-of-a-database-instance)
-  - [Set ACL rules for a Database Instance](#set-acl-rules-for-a-database-instance)
-- [Backup management commands](#backup-management-commands)
-  - [Create a database backup](#create-a-database-backup)
-  - [Delete a database backup](#delete-a-database-backup)
-  - [Download a backup locally](#download-a-backup-locally)
-  - [Export a database backup](#export-a-database-backup)
-  - [Get a database backup](#get-a-database-backup)
-  - [List database backups](#list-database-backups)
-  - [Restore a database backup](#restore-a-database-backup)
-  - [Update a database backup](#update-a-database-backup)
-  - [Wait for a backup to reach a stable state](#wait-for-a-backup-to-reach-a-stable-state)
-- [Database management commands](#database-management-commands)
-  - [Create a database in a Database Instance](#create-a-database-in-a-database-instance)
-  - [Delete a database in a Database Instance](#delete-a-database-in-a-database-instance)
-  - [Gets the URL to connect to the Database](#gets-the-url-to-connect-to-the-database)
-  - [List databases in a Database Instance](#list-databases-in-a-database-instance)
-- [Endpoint management](#endpoint-management)
-  - [Create a new Database Instance endpoint](#create-a-new-database-instance-endpoint)
-  - [Delete a Database Instance endpoint](#delete-a-database-instance-endpoint)
-  - [Get a Database Instance endpoint](#get-a-database-instance-endpoint)
-  - [Lists a Database Instance's endpoints](#lists-a-database-instance's-endpoints)
-  - [Migrate an existing instance endpoint to another instance](#migrate-an-existing-instance-endpoint-to-another-instance)
-- [Database engines commands](#database-engines-commands)
-  - [List available database engines](#list-available-database-engines)
-  - [List available settings from an engine.](#list-available-settings-from-an-engine.)
-- [Instance management commands](#instance-management-commands)
-  - [Clone a Database Instance](#clone-a-database-instance)
-  - [Connect to an instance using locally installed CLI](#connect-to-an-instance-using-locally-installed-cli)
-  - [Create a Database Instance](#create-a-database-instance)
-  - [Delete a Database Instance](#delete-a-database-instance)
-  - [Get a Database Instance](#get-a-database-instance)
-  - [Get the TLS certificate of a Database Instance](#get-the-tls-certificate-of-a-database-instance)
-  - [[deprecated] Get Database Instance metrics](#[deprecated]-get-database-instance-metrics)
-  - [List Database Instances](#list-database-instances)
-  - [Renew the TLS certificate of a Database Instance](#renew-the-tls-certificate-of-a-database-instance)
-  - [Restart Database Instance](#restart-database-instance)
-  - [Update an instance](#update-an-instance)
-  - [Upgrade a Database Instance](#upgrade-a-database-instance)
-  - [Wait for an instance to reach a stable state](#wait-for-an-instance-to-reach-a-stable-state)
-- [Instance logs management commands](#instance-logs-management-commands)
-  - [Download logs from a database instance](#download-logs-from-a-database-instance)
-  - [Get given logs of a Database Instance](#get-given-logs-of-a-database-instance)
-  - [List available logs of a Database Instance](#list-available-logs-of-a-database-instance)
-  - [List remote Database Instance logs details](#list-remote-database-instance-logs-details)
-  - [Prepare logs of a Database Instance](#prepare-logs-of-a-database-instance)
-  - [Purge remote Database Instance logs](#purge-remote-database-instance-logs)
-- [Node types management commands](#node-types-management-commands)
-  - [List available node types](#list-available-node-types)
-- [User privileges management commands](#user-privileges-management-commands)
-  - [List user privileges for a database](#list-user-privileges-for-a-database)
-  - [Set user privileges for a database](#set-user-privileges-for-a-database)
-- [Read replica management](#read-replica-management)
-  - [Create a Read Replica](#create-a-read-replica)
-  - [Create an endpoint for a Read Replica](#create-an-endpoint-for-a-read-replica)
-  - [Delete a Read Replica](#delete-a-read-replica)
-  - [Get a Read Replica](#get-a-read-replica)
-  - [Resync a Read Replica](#resync-a-read-replica)
-- [Setting management](#setting-management)
-  - [Add Database Instance advanced settings](#add-database-instance-advanced-settings)
-  - [Delete Database Instance advanced settings](#delete-database-instance-advanced-settings)
-  - [Edit Database Instance settings in your default editor](#edit-database-instance-settings-in-your-default-editor)
-  - [Set Database Instance advanced settings](#set-database-instance-advanced-settings)
-- [Block snapshot management](#block-snapshot-management)
-  - [Create a Database Instance snapshot](#create-a-database-instance-snapshot)
-  - [Delete a Database Instance snapshot](#delete-a-database-instance-snapshot)
-  - [Get a Database Instance snapshot](#get-a-database-instance-snapshot)
-  - [List snapshots](#list-snapshots)
-  - [Create a new Database Instance from a snapshot](#create-a-new-database-instance-from-a-snapshot)
-  - [Update a Database Instance snapshot](#update-a-database-instance-snapshot)
-- [User management commands](#user-management-commands)
-  - [Create a user for a Database Instance](#create-a-user-for-a-database-instance)
-  - [Delete a user on a Database Instance](#delete-a-user-on-a-database-instance)
-  - [Gets the URL to connect to the Database](#gets-the-url-to-connect-to-the-database)
-  - [List users of a Database Instance](#list-users-of-a-database-instance)
-  - [Update a user on a Database Instance](#update-a-user-on-a-database-instance)
-
-
 ## Access Control List (ACL) management commands
 
 Network Access Control Lists allow you to control incoming network traffic by setting up ACL rules.
@@ -100,15 +18,15 @@ scw rdb acl add <acl-rule-ips ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-rule-ips |  | IP addresses defined in the ACL rules of the Database Instance |
-| instance-id | Required | ID of the Database Instance |
-| description |  | Description of the ACL rule. If multiple IPs are provided, this description will be applied to all rules unless specific descriptions are provided. |
-| descriptions |  | Descriptions of the ACL rules |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                                                                                         | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------|
+| acl-rule-ips | IP addresses defined in the ACL rules of the Database Instance                                                                                      |                         |
+| instance-id  | ID of the Database Instance                                                                                                                         | Required                |
+| description  | Description of the ACL rule. If multiple IPs are provided, this description will be applied to all rules unless specific descriptions are provided. |                         |
+| descriptions | Descriptions of the ACL rules                                                                                                                       |                         |
+| region       | Region to target. If none is passed will use default region from the config                                                                         | Default: `fr-par`       |
 
 
 
@@ -123,13 +41,13 @@ scw rdb acl delete <acl-rule-ips ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-rule-ips |  | IP addresses defined in the ACL rules of the Database Instance |
-| instance-id | Required | ID of the Database Instance |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------|-------------------------|
+| acl-rule-ips | IP addresses defined in the ACL rules of the Database Instance              |                         |
+| instance-id  | ID of the Database Instance                                                 | Required                |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -145,13 +63,13 @@ scw rdb acl edit <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the Database Instance |
-| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                     |
+|-------------|-----------------------------------------------------------------------------|---------------------------------------------|
+| instance-id | ID of the Database Instance                                                 | Required                                    |
+| mode        | marshaling used when editing data                                           | Default: `yaml`<br />One of: `yaml`, `json` |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`                           |
 
 
 
@@ -166,12 +84,12 @@ scw rdb acl list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                            |
+|-------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| instance-id | UUID of the Database Instance                                               | Required                                                           |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -186,14 +104,14 @@ scw rdb acl set <acl-rule-ips ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-rule-ips |  | IP addresses defined in the ACL rules of the Database Instance |
-| instance-id | Required | ID of the Database Instance |
-| descriptions |  | Descriptions of the ACL rules |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications |
+|--------------|-----------------------------------------------------------------------------|-------------------------|
+| acl-rule-ips | IP addresses defined in the ACL rules of the Database Instance              |                         |
+| instance-id  | ID of the Database Instance                                                 | Required                |
+| descriptions | Descriptions of the ACL rules                                               |                         |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -213,15 +131,15 @@ scw rdb backup create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| database-name | Required | Name of the database you want to back up |
-| name | Default: `<generated>` | Name of the backup |
-| expires-at |  | Expiration date (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                                     |
+|---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id   | UUID of the Database Instance                                               | Required                                                    |
+| database-name | Name of the database you want to back up                                    | Required                                                    |
+| name          | Name of the backup                                                          | Default: `<generated>`                                      |
+| expires-at    | Expiration date (must follow the ISO 8601 format)                           |                                                             |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -236,12 +154,12 @@ scw rdb backup delete <database-backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| database-backup-id | Required | UUID of the database backup to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                                     |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| database-backup-id | UUID of the database backup to delete                                       | Required                                                    |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -256,13 +174,13 @@ scw rdb backup download <backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backup-id | Required | ID of the backup you want to download. |
-| output |  | Filename to write to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name      | Description                                                                 | Argument Specifications                           |
+|-----------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| backup-id | ID of the backup you want to download.                                      | Required                                          |
+| output    | Filename to write to                                                        |                                                   |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 **Examples:**
@@ -287,12 +205,12 @@ scw rdb backup export <database-backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| database-backup-id | Required | UUID of the database backup you want to export |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                                     |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| database-backup-id | UUID of the database backup you want to export                              | Required                                                    |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -307,12 +225,12 @@ scw rdb backup get <database-backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| database-backup-id | Required | UUID of the database backup |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                                     |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| database-backup-id | UUID of the database backup                                                 | Required                                                    |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -327,18 +245,18 @@ scw rdb backup list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the database backups |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` | Criteria to use when ordering database backups listing |
-| instance-id |  | UUID of the Database Instance |
-| project-id |  | Project ID of the Project the database backups belong to |
-| organization-id |  | Organization ID of the Organization the database backups belong to |
-| created-before |  | Only list backups created before this date. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
-| created-after |  | Only list backups created after this date. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                                                                | Argument Specifications                                                                           |
+|-----------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------|
+| name            | Name of the database backups                                                                                               |                                                                                                   |
+| order-by        | Criteria to use when ordering database backups listing                                                                     | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc` |
+| instance-id     | UUID of the Database Instance                                                                                              |                                                                                                   |
+| project-id      | Project ID of the Project the database backups belong to                                                                   |                                                                                                   |
+| organization-id | Organization ID of the Organization the database backups belong to                                                         |                                                                                                   |
+| created-before  | Only list backups created before this date. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |                                                                                                   |
+| created-after   | Only list backups created after this date. Supports absolute RFC3339 timestamps and relative times (see `scw help date`).  |                                                                                                   |
+| region          | Region to target. If none is passed will use default region from the config                                                | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                |
 
 
 
@@ -353,14 +271,14 @@ scw rdb backup restore <database-backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| database-name |  | Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup) |
-| database-backup-id | Required | Backup of a logical database |
-| instance-id | Required | Defines the Database Instance where the backup has to be restored |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                                                                                 | Argument Specifications                                     |
+|--------------------|---------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| database-name      | Defines the destination database to restore into a specified database (the default destination is set to the origin database of the backup) |                                                             |
+| database-backup-id | Backup of a logical database                                                                                                                | Required                                                    |
+| instance-id        | Defines the Database Instance where the backup has to be restored                                                                           | Required                                                    |
+| region             | Region to target. If none is passed will use default region from the config                                                                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -375,14 +293,14 @@ scw rdb backup update <database-backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| database-backup-id | Required | UUID of the database backup to update |
-| name |  | Name of the Database Backup |
-| expires-at |  | Expiration date (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                 | Argument Specifications                                     |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| database-backup-id | UUID of the database backup to update                                       | Required                                                    |
+| name               | Name of the Database Backup                                                 |                                                             |
+| expires-at         | Expiration date (must follow the ISO 8601 format)                           |                                                             |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -397,13 +315,13 @@ scw rdb backup wait <backup-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backup-id | Required | ID of the backup you want to wait for. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-| timeout | Default: `20m0s` | Timeout of the wait |
+| Name      | Description                                                                 | Argument Specifications                           |
+|-----------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| backup-id | ID of the backup you want to wait for.                                      | Required                                          |
+| region    | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
+| timeout   | Timeout of the wait                                                         | Default: `20m0s`                                  |
 
 
 **Examples:**
@@ -433,13 +351,13 @@ scw rdb database create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance where to create the database |
-| name |  | Name of the database |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance where to create the database                  | Required                                                    |
+| name        | Name of the database                                                        |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -454,13 +372,13 @@ scw rdb database delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance where to delete the database |
-| name | Required | Name of the database to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance where to delete the database                  | Required                                                    |
+| name        | Name of the database to delete                                              | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -475,13 +393,13 @@ scw rdb database get-url <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the Database Instance |
-| user |  | User of the Database |
-| db |  | Name of the Database to connect to |
+| Name        | Description                        | Argument Specifications |
+|-------------|------------------------------------|-------------------------|
+| instance-id | ID of the Database Instance        | Required                |
+| user        | User of the Database               |                         |
+| db          | Name of the Database to connect to |                         |
 
 
 
@@ -496,17 +414,17 @@ scw rdb database list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the database |
-| managed |  | Defines whether or not the database is managed |
-| owner |  | User that owns this database |
-| order-by | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc` | Criteria to use when ordering database listing |
-| instance-id | Required | UUID of the Database Instance to list the databases of |
-| skip-size-retrieval |  | Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0 |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                | Description                                                                                                       | Argument Specifications                                            |
+|---------------------|-------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------|
+| name                | Name of the database                                                                                              |                                                                    |
+| managed             | Defines whether or not the database is managed                                                                    |                                                                    |
+| owner               | User that owns this database                                                                                      |                                                                    |
+| order-by            | Criteria to use when ordering database listing                                                                    | One of: `name_asc`, `name_desc`, `size_asc`, `size_desc`           |
+| instance-id         | UUID of the Database Instance to list the databases of                                                            | Required                                                           |
+| skip-size-retrieval | Whether to skip the retrieval of each database size. If true, the size of each returned database will be set to 0 |                                                                    |
+| region              | Region to target. If none is passed will use default region from the config                                       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -532,16 +450,16 @@ scw rdb endpoint create <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to which you want to add an endpoint |
-| private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
-| private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
-| private-network.enable-ipam | Default: `true` | Will configure your Private Network endpoint with Scaleway IPAM service if true |
-| load-balancer | Default: `true` | Will configure a public Load-Balancer endpoint |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                               | Description                                                                                                                             | Argument Specifications                                     |
+|------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id                        | UUID of the Database Instance to which you want to add an endpoint                                                                      | Required                                                    |
+| private-network.private-network-id | UUID of the Private Network to be connected to the Database Instance                                                                    |                                                             |
+| private-network.service-ip         | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |                                                             |
+| private-network.enable-ipam        | Will configure your Private Network endpoint with Scaleway IPAM service if true                                                         | Default: `true`                                             |
+| load-balancer                      | Will configure a public Load-Balancer endpoint                                                                                          | Default: `true`                                             |
+| region                             | Region to target. If none is passed will use default region from the config                                                             | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -556,13 +474,13 @@ scw rdb endpoint delete <endpoint-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance from which you want to delete an endpoint |
-| endpoint-id | Required | UUID of the endpoint you want to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance from which you want to delete an endpoint     | Required                                                    |
+| endpoint-id | UUID of the endpoint you want to delete                                     | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -577,12 +495,12 @@ scw rdb endpoint get <endpoint-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the endpoint you want to get |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| endpoint-id | UUID of the endpoint you want to get                                        | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -597,11 +515,11 @@ scw rdb endpoint list <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the Database Instance |
+| Name        | Description                 | Argument Specifications |
+|-------------|-----------------------------|-------------------------|
+| instance-id | ID of the Database Instance | Required                |
 
 
 
@@ -616,19 +534,19 @@ scw rdb endpoint migrate [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| endpoint-id | Required | UUID of the endpoint you want to migrate |
-| instance-id | Required | UUID of the instance you want to attach the endpoint to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| endpoint-id | UUID of the endpoint you want to migrate                                    | Required                                                    |
+| instance-id | UUID of the instance you want to attach the endpoint to                     | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
 ## Database engines commands
 
-A database engine is the software component that stores and retrieves your data from a database. Currently PostgreSQL 11, 12, 13 and 14 are available. MySQL is available in version 8.
+A database engine is the software component that stores and retrieves your data from a database.
 
 
 ### List available database engines
@@ -642,13 +560,13 @@ scw rdb engine list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the database engine |
-| version |  | Version of the database engine |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                            |
+|---------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| name    | Name of the database engine                                                 |                                                                    |
+| version | Version of the database engine                                              |                                                                    |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -663,13 +581,13 @@ scw rdb engine settings [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | The name of your engine where you want list the available settings. |
-| version | Required | The version of the engine. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                     |
+|---------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| name    | The name of your engine where you want list the available settings.         | Required                                                    |
+| version | The version of the engine.                                                  | Required                                                    |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -703,14 +621,14 @@ scw rdb instance clone <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to clone |
-| name |  | Name of the Database Instance clone |
-| node-type |  | Node type of the clone |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want to clone                             | Required                                                    |
+| name        | Name of the Database Instance clone                                         |                                                             |
+| node-type   | Node type of the clone                                                      |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -725,16 +643,16 @@ scw rdb instance connect <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| private-network | Default: `false` | Connect by the private network endpoint attached. |
-| instance-id | Required | UUID of the instance |
-| username | Required | Name of the user to connect with to the database |
-| database | Default: `rdb` | Name of the database |
-| cli-db |  | Command line tool to use, default to psql/mysql |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                           |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| private-network | Connect by the private network endpoint attached.                           | Default: `false`                                  |
+| instance-id     | UUID of the instance                                                        | Required                                          |
+| username        | Name of the user to connect with to the database                            | Required                                          |
+| database        | Name of the database                                                        | Default: `rdb`                                    |
+| cli-db          | Command line tool to use, default to psql/mysql                             |                                                   |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
 
 
 
@@ -749,32 +667,35 @@ scw rdb instance create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Default: `<generated>` | Name of the Database Instance |
-| engine | Required | Database engine of the Database Instance (PostgreSQL, MySQL, ...) |
-| user-name | Required | Username created when the Database Instance is created |
-| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
-| password |  | Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |
-| node-type | Required<br />Default: `DB-DEV-S` | Type of node to use for the Database Instance |
-| is-ha-cluster |  | Defines whether or not High-Availability is enabled |
-| disable-backup |  | Defines whether or not backups are disabled |
-| tags.{index} |  | Tags to apply to the Database Instance |
-| init-settings.{index}.name |  |  |
-| init-settings.{index}.value |  |  |
-| volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Type of volume where data is stored (lssd, bssd, ...) |
-| volume-size |  | Volume size when volume_type is not lssd |
-| init-endpoints.{index}.load-balancer | Default: `false` | Will configure a load-balancer endpoint along with your private network endpoint if true |
-| init-endpoints.{index}.private-network.enable-ipam |  | Will configure your Private Network endpoint with Scaleway IPAM service if true |
-| init-endpoints.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Database Instance |
-| init-endpoints.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
-| backup-same-region |  | Defines whether to or not to store logical backups in the same region as the Database Instance |
-| encryption.enabled |  |  |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                                      | Description                                                                                                                                                                                                                                                                    | Argument Specifications                                                              |
+|-----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| project-id                                                | Project ID to use. If none is passed the default project ID will be used                                                                                                                                                                                                       |                                                                                      |
+| name                                                      | Name of the Database Instance                                                                                                                                                                                                                                                  | Default: `<generated>`                                                               |
+| engine                                                    | Database engine of the Database Instance (PostgreSQL, MySQL, ...)                                                                                                                                                                                                              | Required                                                                             |
+| user-name                                                 | Username created when the Database Instance is created                                                                                                                                                                                                                         | Required                                                                             |
+| generate-password                                         | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                                                                                                                      | Default: `true`                                                                      |
+| password                                                  | Password of the user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character                                                                                                                        |                                                                                      |
+| node-type                                                 | Type of node to use for the Database Instance                                                                                                                                                                                                                                  | Required<br />Default: `DB-DEV-S`                                                    |
+| ~~is-ha-cluster~~                                         | Defines whether or not High-Availability is enabled                                                                                                                                                                                                                            | Deprecated                                                                           |
+| high-availability-mode                                    | Defines the High-Availability mode of the instance                                                                                                                                                                                                                             | One of: `unknown_high_availability_mode`, `disabled`, `single_zone`, `multiple_zone` |
+| disable-backup                                            | Defines whether or not backups are disabled                                                                                                                                                                                                                                    |                                                                                      |
+| tags.{index}                                              | Tags to apply to the Database Instance                                                                                                                                                                                                                                         |                                                                                      |
+| init-settings.{index}.name                                |                                                                                                                                                                                                                                                                                |                                                                                      |
+| init-settings.{index}.value                               |                                                                                                                                                                                                                                                                                |                                                                                      |
+| volume-type                                               | Type of volume where data is stored (lssd, bssd, ...)                                                                                                                                                                                                                          | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k`                                          |
+| volume-size                                               | Volume size when volume_type is not lssd                                                                                                                                                                                                                                       |                                                                                      |
+| init-endpoints.{index}.load-balancer                      | Load balancer endpoint specifications. Public endpoint for Database Instance which is systematically present. One per RDB instance                                                                                                                                             |                                                                                      |
+| init-endpoints.{index}.load-balancer                      | Will configure a load-balancer endpoint along with your private network endpoint if true                                                                                                                                                                                       | Default: `false`                                                                     |
+| init-endpoints.{index}.private-network.enable-ipam        | Will configure your Private Network endpoint with Scaleway IPAM service if true                                                                                                                                                                                                |                                                                                      |
+| init-endpoints.{index}.private-network.private-network-id | UUID of the Private Network to be connected to the Database Instance                                                                                                                                                                                                           |                                                                                      |
+| init-endpoints.{index}.private-network.service-ip         | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.                                                                                                                                        |                                                                                      |
+| init-endpoints.{index}.private-network.ipam-config        | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different Private Networks). Cannot be updated (has to be deleted and recreated) |                                                                                      |
+| backup-same-region                                        | Defines whether to or not to store logical backups in the same region as the Database Instance                                                                                                                                                                                 |                                                                                      |
+| encryption.enabled                                        |                                                                                                                                                                                                                                                                                |                                                                                      |
+| organization-id                                           | Organization ID to use. If none is passed the default organization ID will be used                                                                                                                                                                                             |                                                                                      |
+| region                                                    | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                          |
 
 
 
@@ -789,12 +710,12 @@ scw rdb instance delete <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance to delete                                     | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -809,12 +730,12 @@ scw rdb instance get <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance                                               | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -829,12 +750,12 @@ scw rdb instance get-certificate <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance                                               | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -849,15 +770,15 @@ scw rdb instance get-metrics <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| start-date |  | Start date to gather metrics from |
-| end-date |  | End date to gather metrics from |
-| metric-name |  | Name of the metric to gather |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance                                               | Required                                                    |
+| start-date  | Start date to gather metrics from                                           |                                                             |
+| end-date    | End date to gather metrics from                                             |                                                             |
+| metric-name | Name of the metric to gather                                                |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -872,17 +793,17 @@ scw rdb instance list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| tags.{index} |  | List Database Instances that have a given tag |
-| name |  | Lists Database Instances that match a name pattern |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc`, `status_desc` | Criteria to use when ordering Database Instance listings |
-| project-id |  | Project ID to list the Database Instance of |
-| has-maintenances |  | Filter to only list instances with a scheduled maintenance |
-| organization-id |  | Please use project_id instead |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name             | Description                                                                 | Argument Specifications                                                                                     |
+|------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------------------------------------------------------|
+| tags.{index}     | List Database Instances that have a given tag                               |                                                                                                             |
+| name             | Lists Database Instances that match a name pattern                          |                                                                                                             |
+| order-by         | Criteria to use when ordering Database Instance listings                    | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `region`, `status_asc`, `status_desc` |
+| project-id       | Project ID to list the Database Instance of                                 |                                                                                                             |
+| has-maintenances | Filter to only list instances with a scheduled maintenance                  |                                                                                                             |
+| organization-id  | Please use project_id instead                                               |                                                                                                             |
+| region           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                          |
 
 
 
@@ -897,12 +818,12 @@ scw rdb instance renew-certificate <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want logs of |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -917,12 +838,12 @@ scw rdb instance restart <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to restart |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want to restart                           | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -937,22 +858,22 @@ scw rdb instance update <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backup-schedule-frequency |  | In hours |
-| backup-schedule-retention |  | In days |
-| is-backup-schedule-disabled |  | Whether or not the backup schedule is disabled |
-| name |  | Name of the instance |
-| instance-id | Required | UUID of the instance to update |
-| tags.{index} |  | Tags of a given instance |
-| logs-policy.max-age-retention |  | Max age (in day) of remote logs to keep on the database instance |
-| logs-policy.total-disk-retention |  | Max disk size of remote logs to keep on the database instance |
-| backup-same-region |  | Store logical backups in the same region as the database instance |
-| settings.{index}.name |  | Setting name of a given instance |
-| settings.{index}.value |  | Setting value of a given instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                             | Description                                                                 | Argument Specifications                                     |
+|----------------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| backup-schedule-frequency        | In hours                                                                    |                                                             |
+| backup-schedule-retention        | In days                                                                     |                                                             |
+| is-backup-schedule-disabled      | Whether or not the backup schedule is disabled                              |                                                             |
+| name                             | Name of the instance                                                        |                                                             |
+| instance-id                      | UUID of the instance to update                                              | Required                                                    |
+| tags.{index}                     | Tags of a given instance                                                    |                                                             |
+| logs-policy.max-age-retention    | Max age (in day) of remote logs to keep on the database instance            |                                                             |
+| logs-policy.total-disk-retention | Max disk size of remote logs to keep on the database instance               |                                                             |
+| backup-same-region               | Store logical backups in the same region as the database instance           |                                                             |
+| settings.{index}.name            | Setting name of a given instance                                            |                                                             |
+| settings.{index}.value           | Setting value of a given instance                                           |                                                             |
+| region                           | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -987,20 +908,21 @@ scw rdb instance upgrade <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to upgrade |
-| node-type |  | Node type of the Database Instance you want to upgrade to |
-| enable-ha |  | Defines whether or not high availability should be enabled on the Database Instance |
-| volume-size |  | Increase your block storage volume size |
-| volume-type | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k` | Change your Database Instance storage type |
-| upgradable-version-id |  | Update your database engine to a newer version |
-| major-upgrade-workflow.upgradable-version-id |  | Update your database engine to a newer version |
-| major-upgrade-workflow.with-endpoints |  | Include endpoint during the migration |
-| enable-encryption |  | Defines whether or not encryption should be enabled on the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                         | Description                                                                         | Argument Specifications                                                              |
+|----------------------------------------------|-------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| instance-id                                  | UUID of the Database Instance you want to upgrade                                   | Required                                                                             |
+| node-type                                    | Node type of the Database Instance you want to upgrade to                           |                                                                                      |
+| ~~enable-ha~~                                | Defines whether or not high availability should be enabled on the Database Instance | Deprecated                                                                           |
+| high-availability-mode                       | Defines the High-Availability mode of the instance                                  | One of: `unknown_high_availability_mode`, `disabled`, `single_zone`, `multiple_zone` |
+| volume-size                                  | Increase your block storage volume size                                             |                                                                                      |
+| volume-type                                  | Change your Database Instance storage type                                          | One of: `lssd`, `bssd`, `sbs_5k`, `sbs_15k`                                          |
+| upgradable-version-id                        | Update your database engine to a newer version                                      |                                                                                      |
+| major-upgrade-workflow.upgradable-version-id | Update your database engine to a newer version                                      |                                                                                      |
+| major-upgrade-workflow.with-endpoints        | Include endpoint during the migration                                               |                                                                                      |
+| enable-encryption                            | Defines whether or not encryption should be enabled on the Database Instance        |                                                                                      |
+| region                                       | Region to target. If none is passed will use default region from the config         | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                          |
 
 
 
@@ -1015,13 +937,13 @@ scw rdb instance wait <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the instance you want to wait for. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` | Region to target. If none is passed will use default region from the config |
-| timeout | Default: `20m0s` | Timeout of the wait |
+| Name        | Description                                                                 | Argument Specifications                           |
+|-------------|-----------------------------------------------------------------------------|---------------------------------------------------|
+| instance-id | ID of the instance you want to wait for.                                    | Required                                          |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams` |
+| timeout     | Timeout of the wait                                                         | Default: `20m0s`                                  |
 
 
 **Examples:**
@@ -1051,15 +973,15 @@ scw rdb log download <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want logs of |
-| from |  | Start datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
-| to |  | End datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |
-| output |  | Filename to write to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                                                | Argument Specifications                                     |
+|-------------|------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                                                             | Required                                                    |
+| from        | Start datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`). |                                                             |
+| to          | End datetime of your log. Supports absolute RFC3339 timestamps and relative times (see `scw help date`).   |                                                             |
+| output      | Filename to write to                                                                                       |                                                             |
+| region      | Region to target. If none is passed will use default region from the config                                | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -1094,12 +1016,12 @@ scw rdb log get [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-log-id | Required | UUID of the instance_log you want |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                     |
+|-----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-log-id | UUID of the instance_log you want                                           | Required                                                    |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1114,13 +1036,13 @@ scw rdb log list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want logs of |
-| order-by | One of: `created_at_asc`, `created_at_desc` | Criteria to use when ordering Database Instance logs listing |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
+| order-by    | Criteria to use when ordering Database Instance logs listing                | One of: `created_at_asc`, `created_at_desc`                 |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1135,12 +1057,12 @@ scw rdb log list-details [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want logs of |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1155,14 +1077,14 @@ scw rdb log prepare [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want logs of |
-| start-date |  | Start datetime of your log. (RFC 3339 format) |
-| end-date |  | End datetime of your log. (RFC 3339 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
+| start-date  | Start datetime of your log. (RFC 3339 format)                               |                                                             |
+| end-date    | End datetime of your log. (RFC 3339 format)                                 |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1177,13 +1099,13 @@ scw rdb log purge [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want logs of |
-| log-name |  | Given log name to purge |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance you want logs of                              | Required                                                    |
+| log-name    | Given log name to purge                                                     |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1206,12 +1128,12 @@ scw rdb node-type list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| include-disabled-types |  | Defines whether or not to include disabled types |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                 | Argument Specifications                                            |
+|------------------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| include-disabled-types | Defines whether or not to include disabled types                            |                                                                    |
+| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -1238,15 +1160,15 @@ scw rdb privilege list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `user_name_asc`, `user_name_desc`, `database_name_asc`, `database_name_desc` | Criteria to use when ordering privileges listing |
-| database-name |  | Name of the database |
-| instance-id | Required | UUID of the Database Instance |
-| user-name |  | Name of the user |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                                                              |
+|---------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| order-by      | Criteria to use when ordering privileges listing                            | One of: `user_name_asc`, `user_name_desc`, `database_name_asc`, `database_name_desc` |
+| database-name | Name of the database                                                        |                                                                                      |
+| instance-id   | UUID of the Database Instance                                               | Required                                                                             |
+| user-name     | Name of the user                                                            |                                                                                      |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                   |
 
 
 
@@ -1261,15 +1183,15 @@ scw rdb privilege set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| database-name |  | Name of the database |
-| user-name |  | Name of the user |
-| permission | One of: `readonly`, `readwrite`, `all`, `custom`, `none` | Permission to set (Read, Read/Write, All, Custom) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                 | Argument Specifications                                     |
+|---------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id   | UUID of the Database Instance                                               | Required                                                    |
+| database-name | Name of the database                                                        |                                                             |
+| user-name     | Name of the user                                                            |                                                             |
+| permission    | Permission to set (Read, Read/Write, All, Custom)                           | One of: `readonly`, `readwrite`, `all`, `custom`, `none`    |
+| region        | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1301,15 +1223,17 @@ scw rdb read-replica create <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to create a Read Replica from |
-| endpoint-spec.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Read Replica |
-| endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
-| same-zone |  | Defines whether to create the replica in the same availability zone as the main instance nodes or not. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                                     | Description                                                                                                                                                                                                                                                                    | Argument Specifications                                     |
+|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id                                              | UUID of the Database Instance you want to create a Read Replica from                                                                                                                                                                                                           | Required                                                    |
+| endpoint-spec.{index}.direct-access                      | Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica                                                                                                                                                                        |                                                             |
+| endpoint-spec.{index}.private-network.private-network-id | UUID of the Private Network to be connected to the Read Replica                                                                                                                                                                                                                |                                                             |
+| endpoint-spec.{index}.private-network.service-ip         | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.                                                                                                                                        |                                                             |
+| endpoint-spec.{index}.private-network.ipam-config        | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated) |                                                             |
+| same-zone                                                | Defines whether to create the replica in the same availability zone as the main instance nodes or not.                                                                                                                                                                         |                                                             |
+| region                                                   | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1324,14 +1248,16 @@ scw rdb read-replica create-endpoint <read-replica-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| read-replica-id | Required | UUID of the Read Replica |
-| endpoint-spec.{index}.private-network.private-network-id |  | UUID of the Private Network to be connected to the Read Replica |
-| endpoint-spec.{index}.private-network.service-ip |  | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations. |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                                                     | Description                                                                                                                                                                                                                                                                    | Argument Specifications                                     |
+|----------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| read-replica-id                                          | UUID of the Read Replica                                                                                                                                                                                                                                                       | Required                                                    |
+| endpoint-spec.{index}.direct-access                      | Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica                                                                                                                                                                        |                                                             |
+| endpoint-spec.{index}.private-network.private-network-id | UUID of the Private Network to be connected to the Read Replica                                                                                                                                                                                                                |                                                             |
+| endpoint-spec.{index}.private-network.service-ip         | Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.                                                                                                                                        |                                                             |
+| endpoint-spec.{index}.private-network.ipam-config        | Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated) |                                                             |
+| region                                                   | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                    | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1346,12 +1272,12 @@ scw rdb read-replica delete <read-replica-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| read-replica-id | Required | UUID of the Read Replica |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                     |
+|-----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| read-replica-id | UUID of the Read Replica                                                    | Required                                                    |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1366,12 +1292,12 @@ scw rdb read-replica get <read-replica-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| read-replica-id | Required | UUID of the Read Replica |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                     |
+|-----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| read-replica-id | UUID of the Read Replica                                                    | Required                                                    |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1387,12 +1313,12 @@ scw rdb read-replica reset <read-replica-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| read-replica-id | Required | UUID of the Read Replica |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                     |
+|-----------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| read-replica-id | UUID of the Read Replica                                                    | Required                                                    |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1416,14 +1342,14 @@ scw rdb setting add [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance you want to add settings to |
-| settings.{index}.name |  |  |
-| settings.{index}.value |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                 | Argument Specifications                                     |
+|------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id            | UUID of the Database Instance you want to add settings to                   | Required                                                    |
+| settings.{index}.name  |                                                                             |                                                             |
+| settings.{index}.value |                                                                             |                                                             |
+| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1438,13 +1364,13 @@ scw rdb setting delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to delete settings from |
-| setting-names.{index} | Required | Settings names to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                  | Description                                                                 | Argument Specifications                                     |
+|-----------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id           | UUID of the Database Instance to delete settings from                       | Required                                                    |
+| setting-names.{index} | Settings names to delete                                                    | Required                                                    |
+| region                | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1460,13 +1386,13 @@ scw rdb setting edit <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the instance |
-| mode | Default: `yaml`<br />One of: `yaml`, `json` | marshaling used when editing data |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | ID of the instance                                                          | Required                                                    |
+| mode        | marshaling used when editing data                                           | Default: `yaml`<br />One of: `yaml`, `json`                 |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 **Examples:**
@@ -1496,14 +1422,14 @@ scw rdb setting set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance where the settings must be set |
-| settings.{index}.name |  |  |
-| settings.{index}.value |  |  |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                 | Argument Specifications                                     |
+|------------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id            | UUID of the Database Instance where the settings must be set                | Required                                                    |
+| settings.{index}.name  |                                                                             |                                                             |
+| settings.{index}.value |                                                                             |                                                             |
+| region                 | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1523,14 +1449,14 @@ scw rdb snapshot create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance |
-| name | Required<br />Default: `<generated>` | Name of the snapshot |
-| expires-at |  | Expiration date (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance                                               | Required                                                    |
+| name        | Name of the snapshot                                                        | Required<br />Default: `<generated>`                        |
+| expires-at  | Expiration date (must follow the ISO 8601 format)                           |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1545,12 +1471,12 @@ scw rdb snapshot delete <snapshot-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| snapshot-id | UUID of the snapshot to delete                                              | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1565,12 +1491,12 @@ scw rdb snapshot get <snapshot-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| snapshot-id | UUID of the snapshot                                                        | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1585,16 +1511,16 @@ scw rdb snapshot list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the snapshot |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` | Criteria to use when ordering snapshot listing |
-| instance-id |  | UUID of the Database Instance |
-| project-id |  | Project ID the snapshots belongs to |
-| organization-id |  | Organization ID the snapshots belongs to |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                                                   |
+|-----------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------|
+| name            | Name of the snapshot                                                        |                                                                                                           |
+| order-by        | Criteria to use when ordering snapshot listing                              | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`, `expires_at_asc`, `expires_at_desc` |
+| instance-id     | UUID of the Database Instance                                               |                                                                                                           |
+| project-id      | Project ID the snapshots belongs to                                         |                                                                                                           |
+| organization-id | Organization ID the snapshots belongs to                                    |                                                                                                           |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all`                                        |
 
 
 
@@ -1609,15 +1535,16 @@ scw rdb snapshot restore <snapshot-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | Block snapshot of the Database Instance |
-| instance-name |  | Name of the Database Instance created with the snapshot |
-| is-ha-cluster |  | Defines whether or not High-Availability is enabled on the new Database Instance |
-| node-type |  | The node type used to restore the snapshot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name                   | Description                                                                      | Argument Specifications                                                              |
+|------------------------|----------------------------------------------------------------------------------|--------------------------------------------------------------------------------------|
+| snapshot-id            | Block snapshot of the Database Instance                                          | Required                                                                             |
+| instance-name          | Name of the Database Instance created with the snapshot                          |                                                                                      |
+| ~~is-ha-cluster~~      | Defines whether or not High-Availability is enabled on the new Database Instance | Deprecated                                                                           |
+| high-availability-mode | Defines the High-Availability mode of the instance                               | One of: `unknown_high_availability_mode`, `disabled`, `single_zone`, `multiple_zone` |
+| node-type              | The node type used to restore the snapshot                                       |                                                                                      |
+| region                 | Region to target. If none is passed will use default region from the config      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`                          |
 
 
 
@@ -1632,14 +1559,14 @@ scw rdb snapshot update <snapshot-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| snapshot-id | Required | UUID of the snapshot to update |
-| name |  | Name of the snapshot |
-| expires-at |  | Expiration date (must follow the ISO 8601 format) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| snapshot-id | UUID of the snapshot to update                                              | Required                                                    |
+| name        | Name of the snapshot                                                        |                                                             |
+| expires-at  | Expiration date (must follow the ISO 8601 format)                           |                                                             |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1659,16 +1586,16 @@ scw rdb user create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance in which you want to create a user |
-| name |  | Name of the user you want to create |
-| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
-| password |  | Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |
-| is-admin |  | Defines whether the user will have administrative privileges |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                                                                                                                | Argument Specifications                                     |
+|-------------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id       | UUID of the Database Instance in which you want to create a user                                                                                                           | Required                                                    |
+| name              | Name of the user you want to create                                                                                                                                        |                                                             |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                                  | Default: `true`                                             |
+| password          | Password of the user you want to create. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |                                                             |
+| is-admin          | Defines whether the user will have administrative privileges                                                                                                               |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                                                                                | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1683,13 +1610,13 @@ scw rdb user delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance to delete the user from |
-| name | Required | Name of the user |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                     |
+|-------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id | UUID of the Database Instance to delete the user from                       | Required                                                    |
+| name        | Name of the user                                                            | Required                                                    |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 
@@ -1704,13 +1631,13 @@ scw rdb user get-url <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the Database Instance |
-| user |  | User of the Database |
-| db |  | Name of the Database to connect to |
+| Name        | Description                        | Argument Specifications |
+|-------------|------------------------------------|-------------------------|
+| instance-id | ID of the Database Instance        | Required                |
+| user        | User of the Database               |                         |
+| db          | Name of the Database to connect to |                         |
 
 
 
@@ -1725,14 +1652,14 @@ scw rdb user list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Name of the user |
-| order-by | One of: `name_asc`, `name_desc`, `is_admin_asc`, `is_admin_desc` | Criteria to use when requesting user listing |
-| instance-id | Required | UUID of the Database Instance |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                            |
+|-------------|-----------------------------------------------------------------------------|--------------------------------------------------------------------|
+| name        | Name of the user                                                            |                                                                    |
+| order-by    | Criteria to use when requesting user listing                                | One of: `name_asc`, `name_desc`, `is_admin_asc`, `is_admin_desc`   |
+| instance-id | UUID of the Database Instance                                               | Required                                                           |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `all` |
 
 
 
@@ -1747,16 +1674,16 @@ scw rdb user update [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | UUID of the Database Instance the user belongs to |
-| name | Required | Name of the database user |
-| generate-password | Default: `true` | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols |
-| password |  | Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |
-| is-admin |  | Defines whether or not this user got administrative privileges |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name              | Description                                                                                                                                                      | Argument Specifications                                     |
+|-------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------|-------------------------------------------------------------|
+| instance-id       | UUID of the Database Instance the user belongs to                                                                                                                | Required                                                    |
+| name              | Name of the database user                                                                                                                                        | Required                                                    |
+| generate-password | Will generate a 21 character-length password that contains a mix of upper/lower case letters, numbers and special symbols                                        | Default: `true`                                             |
+| password          | Password of the database user. Password must be between 8 and 128 characters, contain at least one digit, one uppercase, one lowercase and one special character |                                                             |
+| is-admin          | Defines whether or not this user got administrative privileges                                                                                                   |                                                             |
+| region            | Region to target. If none is passed will use default region from the config                                                                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 

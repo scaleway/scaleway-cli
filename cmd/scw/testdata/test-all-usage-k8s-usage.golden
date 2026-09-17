@@ -12,6 +12,7 @@ AVAILABLE COMMANDS:
   kubeconfig      Manage your Kubernetes Kapsule cluster's kubeconfig files
   node            Kapsule node management commands
   pool            Kapsule pool management commands
+  userdata        User Data management commands
   version         Available Kubernetes versions commands
 
 FLAGS:

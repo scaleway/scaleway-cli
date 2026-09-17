@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	audit_trail "github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/audit_trail/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -61,7 +61,7 @@ func auditTrailEventList() *core.Command {
 		Resource:  "event",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListEventsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListEventsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -165,6 +165,7 @@ func auditTrailEventList() *core.Command {
 					"mongodb_instance_maintenance",
 					"apple_silicon_runner",
 					"audit_trail_alert_rule",
+					"audit_trail_custom_alert_rule",
 					"dtwh_deployment",
 					"dtwh_deployment_endpoint",
 					"dtwh_deployment_database",
@@ -181,6 +182,17 @@ func auditTrailEventList() *core.Command {
 					"autoscaling_group",
 					"gapi_dedicated_deployment",
 					"gapi_dedicated_model",
+					"serverless_containers_namespace",
+					"serverless_containers_container",
+					"serverless_containers_domain",
+					"serverless_containers_trigger",
+					"serverless_functions_namespace",
+					"serverless_functions_function",
+					"serverless_functions_domain",
+					"serverless_functions_cron",
+					"serverless_functions_trigger",
+					"wofl_workflow_definition",
+					"wofl_workflow_run",
 				},
 			},
 			{
@@ -280,7 +292,7 @@ func auditTrailEventList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListEvents(request)
+			return api.ListEvents(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -293,7 +305,7 @@ func auditTrailProductList() *core.Command {
 		Resource:  "product",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(audit_trail.ListProductsRequest{}),
+		ArgsType: reflect.TypeFor[audit_trail.ListProductsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.OrganizationIDArgSpec(),
 			core.RegionArgSpec(
@@ -307,7 +319,7 @@ func auditTrailProductList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := audit_trail.NewAPI(client)
 
-			return api.ListProducts(request)
+			return api.ListProducts(request, scw.WithContext(ctx))
 		},
 	}
 }

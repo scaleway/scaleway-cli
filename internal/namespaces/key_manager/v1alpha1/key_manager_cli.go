@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	key_manager "github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/key_manager/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -64,7 +64,7 @@ func keymanagerKeyCreate() *core.Command {
 		Resource:  "key",
 		Verb:      "create",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.CreateKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.CreateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			core.ProjectIDArgSpec(),
 			{
@@ -117,6 +117,19 @@ func keymanagerKeyCreate() *core.Command {
 					"ml_dsa_44",
 					"ml_dsa_65",
 					"ml_dsa_87",
+					"ec_secp256k1_sha256",
+				},
+			},
+			{
+				Name:       "usage.key-encapsulation",
+				Short:      `Wrap and unwrap key using a key encapsulation algorithm.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"unknown_key_encapsulation",
+					"ml_kem_768",
+					"ml_kem_1024",
 				},
 			},
 			{
@@ -166,18 +179,6 @@ func keymanagerKeyCreate() *core.Command {
 					"external",
 				},
 			},
-			{
-				Name:       "protection-level",
-				Short:      `Key Protection level`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"unknown_protection_level",
-					"software",
-					"hsm",
-				},
-			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionNlAms,
@@ -190,7 +191,7 @@ func keymanagerKeyCreate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.CreateKey(request)
+			return api.CreateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -203,7 +204,7 @@ func keymanagerKeyGet() *core.Command {
 		Resource:  "key",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.GetKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.GetKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -224,7 +225,7 @@ func keymanagerKeyGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.GetKey(request)
+			return api.GetKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -237,7 +238,7 @@ func keymanagerKeyUpdate() *core.Command {
 		Resource:  "key",
 		Verb:      "update",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.UpdateKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.UpdateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -293,7 +294,7 @@ func keymanagerKeyUpdate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.UpdateKey(request)
+			return api.UpdateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -306,7 +307,7 @@ func keymanagerKeyDelete() *core.Command {
 		Resource:  "key",
 		Verb:      "delete",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DeleteKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DeleteKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -326,7 +327,7 @@ func keymanagerKeyDelete() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
-			e = api.DeleteKey(request)
+			e = api.DeleteKey(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}
@@ -347,7 +348,7 @@ func keymanagerKeyRotate() *core.Command {
 		Resource:  "key",
 		Verb:      "rotate",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.RotateKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.RotateKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -368,7 +369,7 @@ func keymanagerKeyRotate() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.RotateKey(request)
+			return api.RotateKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -381,7 +382,7 @@ func keymanagerKeyProtect() *core.Command {
 		Resource:  "key",
 		Verb:      "protect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.ProtectKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.ProtectKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -402,7 +403,7 @@ func keymanagerKeyProtect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.ProtectKey(request)
+			return api.ProtectKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -415,7 +416,7 @@ func keymanagerKeyUnprotect() *core.Command {
 		Resource:  "key",
 		Verb:      "unprotect",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.UnprotectKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.UnprotectKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -436,7 +437,7 @@ func keymanagerKeyUnprotect() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.UnprotectKey(request)
+			return api.UnprotectKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -449,7 +450,7 @@ func keymanagerKeyEnable() *core.Command {
 		Resource:  "key",
 		Verb:      "enable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.EnableKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.EnableKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -470,7 +471,7 @@ func keymanagerKeyEnable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.EnableKey(request)
+			return api.EnableKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -483,7 +484,7 @@ func keymanagerKeyDisable() *core.Command {
 		Resource:  "key",
 		Verb:      "disable",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DisableKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DisableKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -504,20 +505,23 @@ func keymanagerKeyDisable() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.DisableKey(request)
+			return api.DisableKey(request, scw.WithContext(ctx))
 		},
 	}
 }
 
 func keymanagerKeyList() *core.Command {
 	return &core.Command{
-		Short:     `List keys`,
-		Long:      `Retrieve a list of keys across all Projects in an Organization or within a specific Project. You must specify the ` + "`" + `region` + "`" + `, and either the ` + "`" + `organization_id` + "`" + ` or the ` + "`" + `project_id` + "`" + `.`,
+		Short: `List keys`,
+		Long: `Retrieve a list of keys across all Projects in an Organization or within a specific Project. 
+If the user has permissions for all current and future projects: Either organization_id or project_id is required.
+If the user has permissions for all current projects or only specific projects: The project_id is required.
+The ` + "`" + `region` + "`" + ` parameter in path is needed in both case.`,
 		Namespace: "keymanager",
 		Resource:  "key",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.ListKeysRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.ListKeysRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "project-id",
@@ -575,18 +579,6 @@ func keymanagerKeyList() *core.Command {
 				Positional: false,
 			},
 			{
-				Name:       "protection-level",
-				Short:      `(Optional) Filter keys by protection level.`,
-				Required:   false,
-				Deprecated: false,
-				Positional: false,
-				EnumValues: []string{
-					"unknown_protection_level",
-					"software",
-					"hsm",
-				},
-			},
-			{
 				Name:       "organization-id",
 				Short:      `(Optional) Filter by Organization ID`,
 				Required:   false,
@@ -605,7 +597,7 @@ func keymanagerKeyList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			if request.Region == scw.Region(core.AllLocalities) {
 				opts = append(opts, scw.WithRegions(api.Regions()...))
 				request.Region = ""
@@ -630,7 +622,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 		Resource:  "key",
 		Verb:      "generate-data-key",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.GenerateDataKeyRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.GenerateDataKeyRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -670,7 +662,7 @@ The data encryption key is returned in plaintext and ciphertext but it should on
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.GenerateDataKey(request)
+			return api.GenerateDataKey(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -683,7 +675,7 @@ func keymanagerKeyEncrypt() *core.Command {
 		Resource:  "key",
 		Verb:      "encrypt",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.EncryptRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.EncryptRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -718,7 +710,7 @@ func keymanagerKeyEncrypt() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.Encrypt(request)
+			return api.Encrypt(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -731,7 +723,7 @@ func keymanagerKeyDecrypt() *core.Command {
 		Resource:  "key",
 		Verb:      "decrypt",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DecryptRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DecryptRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -766,7 +758,7 @@ func keymanagerKeyDecrypt() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.Decrypt(request)
+			return api.Decrypt(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -779,7 +771,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 		Resource:  "key",
 		Verb:      "import-key-material",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.ImportKeyMaterialRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.ImportKeyMaterialRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -790,7 +782,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 			},
 			{
 				Name:       "key-material",
-				Short:      `The key material The key material is a random sequence of bytes used to derive a cryptographic key.`,
+				Short:      `The key material`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -814,7 +806,7 @@ func keymanagerKeyImportKeyMaterial() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
 
-			return api.ImportKeyMaterial(request)
+			return api.ImportKeyMaterial(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -827,7 +819,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 		Resource:  "key",
 		Verb:      "delete-key-material",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(key_manager.DeleteKeyMaterialRequest{}),
+		ArgsType: reflect.TypeFor[key_manager.DeleteKeyMaterialRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "key-id",
@@ -835,6 +827,13 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 				Required:   true,
 				Deprecated: false,
 				Positional: true,
+			},
+			{
+				Name:       "key-rotation-index",
+				Short:      `(Optional) Rotation index of which to delete the key material`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
 			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
@@ -847,7 +846,7 @@ func keymanagerKeyDeleteKeyMaterial() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := key_manager.NewAPI(client)
-			e = api.DeleteKeyMaterial(request)
+			e = api.DeleteKeyMaterial(request, scw.WithContext(ctx))
 			if e != nil {
 				return nil, e
 			}

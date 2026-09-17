@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	billing "github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
+	"github.com/scaleway/scaleway-sdk-go/api/billing/v2beta1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -87,7 +87,7 @@ func billingConsumptionList() *core.Command {
 		Resource:  "consumption",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListConsumptionsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListConsumptionsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -124,7 +124,7 @@ func billingConsumptionList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListConsumptions(request, opts...)
 			if err != nil {
 				return nil, err
@@ -143,7 +143,7 @@ func billingConsumptionListTaxes() *core.Command {
 		Resource:  "consumption",
 		Verb:      "list-taxes",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListTaxesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListTaxesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -172,7 +172,7 @@ func billingConsumptionListTaxes() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListTaxes(request, opts...)
 			if err != nil {
 				return nil, err
@@ -191,7 +191,7 @@ func billingInvoiceList() *core.Command {
 		Resource:  "invoice",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "billing-period-start-after",
@@ -209,7 +209,7 @@ func billingInvoiceList() *core.Command {
 			},
 			{
 				Name:       "invoice-type",
-				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
+				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + `, ` + "`" + `purchase` + "`" + ` or ` + "`" + `credit_note` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -217,6 +217,7 @@ func billingInvoiceList() *core.Command {
 					"unknown_type",
 					"periodic",
 					"purchase",
+					"credit_note",
 				},
 			},
 			{
@@ -255,7 +256,7 @@ func billingInvoiceList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListInvoices(request, opts...)
 			if err != nil {
 				return nil, err
@@ -274,7 +275,7 @@ func billingInvoiceExport() *core.Command {
 		Resource:  "invoice",
 		Verb:      "export",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ExportInvoicesRequest{}),
+		ArgsType: reflect.TypeFor[billing.ExportInvoicesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "billing-period-start-after",
@@ -292,7 +293,7 @@ func billingInvoiceExport() *core.Command {
 			},
 			{
 				Name:       "invoice-type",
-				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + ` or ` + "`" + `purchase` + "`" + ``,
+				Short:      `Invoice type. It can either be ` + "`" + `periodic` + "`" + `, ` + "`" + `purchase` + "`" + ` or ` + "`" + `credit_note` + "`" + ``,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -300,6 +301,7 @@ func billingInvoiceExport() *core.Command {
 					"unknown_type",
 					"periodic",
 					"purchase",
+					"credit_note",
 				},
 			},
 			{
@@ -365,7 +367,7 @@ func billingInvoiceExport() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.ExportInvoices(request)
+			return api.ExportInvoices(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -378,7 +380,7 @@ func billingInvoiceGet() *core.Command {
 		Resource:  "invoice",
 		Verb:      "get",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.GetInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[billing.GetInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -394,7 +396,7 @@ func billingInvoiceGet() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.GetInvoice(request)
+			return api.GetInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -407,7 +409,7 @@ func billingInvoiceDownload() *core.Command {
 		Resource:  "invoice",
 		Verb:      "download",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.DownloadInvoiceRequest{}),
+		ArgsType: reflect.TypeFor[billing.DownloadInvoiceRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "invoice-id",
@@ -433,7 +435,7 @@ func billingInvoiceDownload() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
 
-			return api.DownloadInvoice(request)
+			return api.DownloadInvoice(request, scw.WithContext(ctx))
 		},
 	}
 }
@@ -449,7 +451,7 @@ func billingDiscountList() *core.Command {
 		Resource:  "discount",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.ListDiscountsRequest{}),
+		ArgsType: reflect.TypeFor[billing.ListDiscountsRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -479,7 +481,7 @@ func billingDiscountList() *core.Command {
 
 			client := core.ExtractClient(ctx)
 			api := billing.NewAPI(client)
-			opts := []scw.RequestOption{scw.WithAllPages()}
+			opts := []scw.RequestOption{scw.WithAllPages(), scw.WithContext(ctx)}
 			resp, err := api.ListDiscounts(request, opts...)
 			if err != nil {
 				return nil, err
@@ -498,7 +500,7 @@ func billingChargeList() *core.Command {
 		Resource:  "charge",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(billing.FinOpsAPIListChargesRequest{}),
+		ArgsType: reflect.TypeFor[billing.FinOpsAPIListChargesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "order-by",
@@ -589,7 +591,7 @@ func billingChargeList() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := billing.NewFinOpsAPI(client)
 
-			return api.ListCharges(request)
+			return api.ListCharges(request, scw.WithContext(ctx))
 		},
 	}
 }

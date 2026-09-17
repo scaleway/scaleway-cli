@@ -15,11 +15,6 @@ aliases in your commands are evaluated and you get completion
     "scw <TAB>" will complete "isl"
 
 
-- [Create a new alias for a command](#create-a-new-alias-for-a-command)
-- [Delete an alias](#delete-an-alias)
-- [List aliases and their commands](#list-aliases-and-their-commands)
-
-
 ## Create a new alias for a command
 
 This command help you create aliases and save it to your config
@@ -33,12 +28,12 @@ scw alias create <alias ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| alias | Required | Alias name |
-| command |  | Command to create an alias for |
+| Name    | Description                    | Argument Specifications |
+|---------|--------------------------------|-------------------------|
+| alias   | Alias name                     | Required                |
+| command | Command to create an alias for |                         |
 
 
 **Examples:**
@@ -70,11 +65,11 @@ scw alias delete <alias ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| alias |  | alias name |
+| Name  | Description | Argument Specifications |
+|-------|-------------|-------------------------|
+| alias | alias name  |                         |
 
 
 
@@ -91,13 +86,13 @@ scw alias list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | Default: `command_asc`<br />One of: `command_asc`, `command_desc`, `alias_asc`, `alias_desc` |  |
-| command |  | filter command |
-| alias |  | filter alias |
+| Name     | Description    | Argument Specifications                                                                      |
+|----------|----------------|----------------------------------------------------------------------------------------------|
+| order-by |                | Default: `command_asc`<br />One of: `command_asc`, `command_desc`, `alias_asc`, `alias_desc` |
+| command  | filter command |                                                                                              |
+| alias    | filter alias   |                                                                                              |
 
 
 

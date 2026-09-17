@@ -7,6 +7,7 @@ USAGE:
 
 ARGS:
   [deployment-id]                                 UUID of the deployment
+  [endpoint.public]                               
   [endpoint.private-network.private-network-id]   UUID of the Private Network
   [region=fr-par]                                 Region to target. If none is passed will use default region from the config (fr-par)
 

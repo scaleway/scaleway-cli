@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-Create a new backend stage. You must specify either a `scaleway_s3` (for a Scaleway Object Storage bucket) or `scaleway_lb` (for a Scaleway Load Balancer) field to configure the origin.
+Create a new backend stage. You must specify a type of backend (`scaleway_s3`, `scaleway_lb`, etc.) to configure the origin.
 
 USAGE:
   scw edge-services backend-stage create [arg=value ...]

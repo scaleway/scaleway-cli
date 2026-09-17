@@ -2,12 +2,6 @@
 # Documentation for `scw mcp`
 Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.
 
-- [MCP server management commands](#mcp-server-management-commands)
-  - [List available MCP resources](#list-available-mcp-resources)
-  - [List available MCP tools](#list-available-mcp-tools)
-  - [Start the MCP server](#start-the-mcp-server)
-
-
 ## MCP server management commands
 
 Commands for managing the MCP server that exposes Scaleway CLI commands as AI tools.
@@ -24,13 +18,13 @@ scw mcp server list-resources [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespaces |  | Filter by namespaces (e.g., instance, iam, object) |
-| resources |  | Filter by resources (e.g., server, volume, bucket) |
-| read-only | Default: `false` | Only list read-only resources |
+| Name       | Description                                        | Argument Specifications |
+|------------|----------------------------------------------------|-------------------------|
+| namespaces | Filter by namespaces (e.g., instance, iam, object) |                         |
+| resources  | Filter by resources (e.g., server, volume, bucket) |                         |
+| read-only  | Only list read-only resources                      | Default: `false`        |
 
 
 **Examples:**
@@ -70,14 +64,14 @@ scw mcp server list-tools [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| namespaces |  | Filter by namespaces (e.g., instance, iam, object) |
-| resources |  | Filter by resources (e.g., server, volume, bucket) |
-| verbs |  | Filter by verbs (e.g., get, list, create) |
-| read-only | Default: `false` | Only list read-only tools (get, list operations) |
+| Name       | Description                                        | Argument Specifications |
+|------------|----------------------------------------------------|-------------------------|
+| namespaces | Filter by namespaces (e.g., instance, iam, object) |                         |
+| resources  | Filter by resources (e.g., server, volume, bucket) |                         |
+| verbs      | Filter by verbs (e.g., get, list, create)          |                         |
+| read-only  | Only list read-only tools (get, list operations)   | Default: `false`        |
 
 
 **Examples:**
@@ -122,16 +116,16 @@ scw mcp server serve [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| transport | Default: `stdio` | Transport mode: stdio (default) or streamable-http |
-| address | Default: `:8080` | Address to bind for streamable-http transports (e.g., :8080) |
-| read-only | Default: `false` | Only register read-only commands (get, list operations) |
-| namespaces |  | Only serve commands from specified namespaces (comma-separated) |
-| resources |  | Only serve commands from specified resources (comma-separated) |
-| verbs |  | Only serve commands with specified verbs (comma-separated) |
+| Name       | Description                                                     | Argument Specifications |
+|------------|-----------------------------------------------------------------|-------------------------|
+| transport  | Transport mode: stdio (default) or streamable-http              | Default: `stdio`        |
+| address    | Address to bind for streamable-http transports (e.g., :8080)    | Default: `:8080`        |
+| read-only  | Only register read-only commands (get, list operations)         | Default: `false`        |
+| namespaces | Only serve commands from specified namespaces (comma-separated) |                         |
+| resources  | Only serve commands from specified resources (comma-separated)  |                         |
+| verbs      | Only serve commands with specified verbs (comma-separated)      |                         |
 
 
 **Examples:**

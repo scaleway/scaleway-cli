@@ -2,5 +2,3 @@
 # Documentation for `scw info`
 Get info about current settings
 
-
-

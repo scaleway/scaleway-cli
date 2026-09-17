@@ -1,6 +1,6 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-This API allows you to manage your Clusters for Apache Kafka®. This product is currently in Public Beta.
+This API allows you to manage your Clusters for Apache Kafka®.
 
 USAGE:
   scw kafka <command>

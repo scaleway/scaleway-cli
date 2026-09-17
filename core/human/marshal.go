@@ -68,15 +68,15 @@ func Marshal(data any, opt *MarshalOpt) (string, error) {
 		return marshalerFunc(rValue.Interface(), opt)
 
 	// Handle special well known interface
-	case rType.Implements(reflect.TypeOf((*Marshaler)(nil)).Elem()):
+	case rType.Implements(reflect.TypeFor[Marshaler]()):
 		return rValue.Interface().(Marshaler).MarshalHuman()
 
 	// Handle errors
-	case rType.Implements(reflect.TypeOf((*error)(nil)).Elem()):
+	case rType.Implements(reflect.TypeFor[error]()):
 		return terminal.Style(Capitalize(rValue.Interface().(error).Error()), color.FgRed), nil
 
 	// Handle stringers
-	case rType.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()):
+	case rType.Implements(reflect.TypeFor[fmt.Stringer]()):
 		return rValue.Interface().(fmt.Stringer).String(), nil
 
 	// If data is a pointer dereference an call Marshal again
@@ -143,7 +143,7 @@ func marshalStruct(value reflect.Value, opt *MarshalOpt) (string, error) {
 			return [][]string{{strings.Join(keys, "."), str}}, err
 
 		// If data is a stringers
-		case rType.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()):
+		case rType.Implements(reflect.TypeFor[fmt.Stringer]()):
 			return [][]string{
 				{strings.Join(keys, "."), value.Interface().(fmt.Stringer).String()},
 			}, nil

@@ -161,7 +161,7 @@ func autocompleteInstallCommand() *core.Command {
 				},
 			},
 		},
-		ArgsType: reflect.TypeOf(InstallArgs{}),
+		ArgsType: reflect.TypeFor[InstallArgs](),
 		Run:      InstallCommandRun,
 	}
 }
@@ -289,7 +289,7 @@ func autocompleteCompleteBashCommand() *core.Command {
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 3 {
@@ -336,7 +336,7 @@ func autocompleteCompleteFishCommand() *core.Command {
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 4 {
@@ -374,7 +374,7 @@ func autocompleteCompleteZshCommand() *core.Command {
 		AllowAnonymousClient: false,
 		Hidden:               true,
 		DisableTelemetry:     true,
-		ArgsType:             reflect.TypeOf(args.RawArgs{}),
+		ArgsType:             reflect.TypeFor[args.RawArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			rawArgs := *argsI.(*args.RawArgs)
 			if len(rawArgs) < 2 {
@@ -438,7 +438,7 @@ func autocompleteScriptCommand() *core.Command {
 				},
 			},
 		},
-		ArgsType: reflect.TypeOf(autocompleteShowArgs{}),
+		ArgsType: reflect.TypeFor[autocompleteShowArgs](),
 		Run: func(ctx context.Context, argsI any) (i any, e error) {
 			shell := filepath.Base(argsI.(*autocompleteShowArgs).Shell)
 			basename := argsI.(*autocompleteShowArgs).Basename

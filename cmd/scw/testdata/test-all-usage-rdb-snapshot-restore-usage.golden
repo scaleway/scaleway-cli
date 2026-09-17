@@ -6,11 +6,14 @@ USAGE:
   scw rdb snapshot restore <snapshot-id ...> [arg=value ...]
 
 ARGS:
-  snapshot-id       Block snapshot of the Database Instance
-  [instance-name]   Name of the Database Instance created with the snapshot
+  snapshot-id                Block snapshot of the Database Instance
+  [instance-name]            Name of the Database Instance created with the snapshot
+  [high-availability-mode]   Defines the High-Availability mode of the instance (unknown_high_availability_mode | disabled | single_zone | multiple_zone)
+  [node-type]                The node type used to restore the snapshot
+  [region=fr-par]            Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
+
+DEPRECATED ARGS:
   [is-ha-cluster]   Defines whether or not High-Availability is enabled on the new Database Instance
-  [node-type]       The node type used to restore the snapshot
-  [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 
 FLAGS:
   -h, --help                help for restore

@@ -38,6 +38,8 @@ k8s        pool          set-taint                k8s_pool_set-taint            
 k8s        pool          update                   k8s_pool_update                      Update a Pool in a Cluster
 k8s        pool          upgrade                  k8s_pool_upgrade                     Upgrade a Pool in a Cluster
 k8s        pool          wait                     k8s_pool_wait                        Wait for a pool to reach a stable state
+k8s        userdata      get                      k8s_userdata_get                     Get a pool related user data
+k8s        userdata      list                     k8s_userdata_list                    List all user data related to a given pool.
 k8s        version       get                      k8s_version_get                      Get a Version
 k8s        version       list                     k8s_version_list                     List all available Versions
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
@@ -300,6 +302,20 @@ k8s        version       list                     k8s_version_list              
     "verb": "wait",
     "tool_name": "k8s_pool_wait",
     "short": "Wait for a pool to reach a stable state"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "userdata",
+    "verb": "get",
+    "tool_name": "k8s_userdata_get",
+    "short": "Get a pool related user data"
+  },
+  {
+    "namespace": "k8s",
+    "resource": "userdata",
+    "verb": "list",
+    "tool_name": "k8s_userdata_list",
+    "short": "List all user data related to a given pool."
   },
   {
     "namespace": "k8s",

@@ -2,10 +2,6 @@
 # Documentation for `scw autocomplete`
 Autocomplete related commands
 
-- [Install autocomplete script](#install-autocomplete-script)
-- [Show autocomplete script for current shell](#show-autocomplete-script-for-current-shell)
-
-
 ## Install autocomplete script
 
 Install autocomplete script for a given shell and OS.
@@ -19,12 +15,12 @@ scw autocomplete install [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell |  |  |
-| basename | Default: `` |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| shell    |             |                         |
+| basename |             | Default: ``             |
 
 
 
@@ -41,12 +37,12 @@ scw autocomplete script [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| shell | Default: `/bin/bash` |  |
-| basename | Default: `` |  |
+| Name     | Description | Argument Specifications |
+|----------|-------------|-------------------------|
+| shell    |             | Default: `/bin/bash`    |
+| basename |             | Default: ``             |
 
 
 

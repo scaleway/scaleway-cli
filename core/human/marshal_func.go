@@ -22,12 +22,12 @@ type MarshalerFunc func(any, *MarshalOpt) (string, error)
 var marshalerFuncs sync.Map
 
 func init() {
-	marshalerFuncs.Store(reflect.TypeOf(int(0)), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(int32(0)), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(int64(0)), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(uint32(0)), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(uint64(0)), defaultMarshalerFunc)
-	marshalerFuncs.Store(reflect.TypeOf(string("")), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeFor[int](), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeFor[int32](), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeFor[int64](), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeFor[uint32](), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeFor[uint64](), defaultMarshalerFunc)
+	marshalerFuncs.Store(reflect.TypeFor[string](), defaultMarshalerFunc)
 	marshalerFuncs.Store(
 		reflect.TypeOf(bool(false)),
 		func(i any, _ *MarshalOpt) (string, error) {
@@ -40,13 +40,13 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(time.Time{}),
+		reflect.TypeFor[time.Time](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			return humanize.Time(i.(time.Time)), nil
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(&time.Time{}),
+		reflect.TypeFor[*time.Time](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			t := i.(*time.Time)
 			if t == nil {
@@ -57,7 +57,7 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(scw.Size(0)),
+		reflect.TypeFor[scw.Size](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			size := uint64(i.(scw.Size))
 
@@ -69,7 +69,7 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(new(scw.Size(0))),
+		reflect.TypeFor[*scw.Size](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			size := uint64(*i.(*scw.Size))
 
@@ -81,7 +81,7 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf([]scw.Size{}),
+		reflect.TypeFor[[]scw.Size](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			sizes := i.([]scw.Size)
 			strs := []string(nil)
@@ -97,19 +97,19 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(net.IP{}),
+		reflect.TypeFor[net.IP](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			return fmt.Sprintf("%v", i.(net.IP)), nil
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf([]net.IP{}),
+		reflect.TypeFor[[]net.IP](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			return fmt.Sprintf("%v", i), nil
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(scw.IPNet{}),
+		reflect.TypeFor[scw.IPNet](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(scw.IPNet)
 			str := v.String()
@@ -121,7 +121,7 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(version.Version{}),
+		reflect.TypeFor[version.Version](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(version.Version)
 
@@ -129,7 +129,7 @@ func init() {
 		},
 	)
 	marshalerFuncs.Store(
-		reflect.TypeOf(scw.Duration{}),
+		reflect.TypeFor[scw.Duration](),
 		func(i any, _ *MarshalOpt) (string, error) {
 			v := i.(scw.Duration)
 			const (
@@ -232,9 +232,9 @@ func isMarshalable(t reflect.Type) bool {
 
 	return (t.Kind() != reflect.Struct && t.Kind() != reflect.Map && t.Kind() != reflect.Pointer) ||
 		hasMarshalerFunc ||
-		t.Implements(reflect.TypeOf((*Marshaler)(nil)).Elem()) ||
-		t.Implements(reflect.TypeOf((*error)(nil)).Elem()) ||
-		t.Implements(reflect.TypeOf((*fmt.Stringer)(nil)).Elem()) ||
+		t.Implements(reflect.TypeFor[Marshaler]()) ||
+		t.Implements(reflect.TypeFor[error]()) ||
+		t.Implements(reflect.TypeFor[fmt.Stringer]()) ||
 		(t.Kind() == reflect.Pointer && isMarshalable(t.Elem()))
 }
 

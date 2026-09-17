@@ -14,7 +14,7 @@ ARGS:
   [container-id]      
   [trigger-type]       (unknown_source_type | cron | sqs | nats)
   [organization-id]   
-  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | all)
+  [region=fr-par]     Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw | it-mil | all)
 
 FLAGS:
   -h, --help                help for list

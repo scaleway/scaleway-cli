@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	search "github.com/scaleway/scaleway-sdk-go/api/search/v1alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/search/v1alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -50,7 +50,7 @@ func searchResourceSearch() *core.Command {
 		Resource:  "resource",
 		Verb:      "search",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeOf(search.SearchResourcesRequest{}),
+		ArgsType: reflect.TypeFor[search.SearchResourcesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "query",
@@ -81,6 +81,7 @@ func searchResourceSearch() *core.Command {
 					"instance_private_nic",
 					"instance_snapshot",
 					"instance_placement_group",
+					"instance_template",
 					"k8s_cluster",
 					"k8s_pool",
 					"k8s_node",
@@ -123,11 +124,6 @@ func searchResourceSearch() *core.Command {
 					"svpn_connection",
 					"svpn_routing_policy",
 					"kafk_cluster",
-					"iam_api_key",
-					"iam_application",
-					"iam_user",
-					"iam_group",
-					"iam_policy",
 					"sedb_cluster",
 					"autoscaling_group",
 				},
@@ -138,32 +134,6 @@ func searchResourceSearch() *core.Command {
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
-				EnumValues: []string{
-					"unknown_locality",
-					"global",
-					"fr_rz",
-					"fr_srr",
-					"fr_srr_1",
-					"fr_par",
-					"fr_par_1",
-					"fr_par_2",
-					"fr_par_3",
-					"fr_par_4",
-					"nl_ams",
-					"nl_ams_1",
-					"nl_ams_2",
-					"nl_ams_3",
-					"pl_waw",
-					"pl_waw_1",
-					"pl_waw_2",
-					"pl_waw_3",
-					"fr_int",
-					"fr_int_1",
-					"fr_lab",
-					"fr_lab_1",
-					"it_mil",
-					"it_mil_1",
-				},
 			},
 			{
 				Name:       "created-after",
@@ -193,6 +163,38 @@ func searchResourceSearch() *core.Command {
 				Deprecated: false,
 				Positional: false,
 			},
+			{
+				Name:       "page-token",
+				Short:      `Opaque token used to retrieve the next page of results (cursor-based pagination).`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "page-size",
+				Short:      `Number of resources to retrieve per page`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "order-by",
+				Short:      `Sort order in the response`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+				EnumValues: []string{
+					"relevance",
+					"created_at_asc",
+					"created_at_desc",
+					"modified_at_asc",
+					"modified_at_desc",
+					"name_asc",
+					"name_desc",
+					"type_asc",
+					"type_desc",
+				},
+			},
 			core.OrganizationIDArgSpec(),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
@@ -201,7 +203,7 @@ func searchResourceSearch() *core.Command {
 			client := core.ExtractClient(ctx)
 			api := search.NewAPI(client)
 
-			return api.SearchResources(request)
+			return api.SearchResources(request, scw.WithContext(ctx))
 		},
 	}
 }

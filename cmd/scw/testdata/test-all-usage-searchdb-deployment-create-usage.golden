@@ -15,6 +15,7 @@ ARGS:
   [password]                                               Password for the deployment user
   [volume.type]                                            Define the type of the Volume (unknown_type | sbs_5k | sbs_15k)
   [volume.size-bytes]                                      Define the size of the Volume
+  [endpoints.{index}.public]                               
   [endpoints.{index}.private-network.private-network-id]   
   [version]                                                The Opensearch version to use
   [region=fr-par]                                          Region to target. If none is passed will use default region from the config (fr-par)

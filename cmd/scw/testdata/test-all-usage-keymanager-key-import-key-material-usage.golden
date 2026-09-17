@@ -7,7 +7,7 @@ USAGE:
 
 ARGS:
   key-id            ID of the key in which to import key material
-  [key-material]    The key material The key material is a random sequence of bytes used to derive a cryptographic key.
+  [key-material]    The key material
   [salt]            (Optional) Salt value to pass the key derivation function
   [region=fr-par]   Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

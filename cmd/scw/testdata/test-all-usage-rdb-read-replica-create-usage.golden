@@ -7,8 +7,10 @@ USAGE:
 
 ARGS:
   instance-id                                                  UUID of the Database Instance you want to create a Read Replica from
+  [endpoint-spec.{index}.direct-access]                        Direct access endpoint specifications. Public endpoint reserved for Read Replicas. One per Read Replica
   [endpoint-spec.{index}.private-network.private-network-id]   UUID of the Private Network to be connected to the Read Replica
   [endpoint-spec.{index}.private-network.service-ip]           Endpoint IPv4 address with a CIDR notation. Refer to the official Scaleway documentation to learn more about IP and subnet limitations.
+  [endpoint-spec.{index}.private-network.ipam-config]          Automated configuration of your Private Network endpoint with Scaleway IPAM service. One at the most per Database Instance or Read Replica (a Database Instance and its Read Replica can have different private networks). Cannot be updated (has to be deleted and recreated)
   [same-zone]                                                  Defines whether to create the replica in the same availability zone as the main instance nodes or not.
   [region=fr-par]                                              Region to target. If none is passed will use default region from the config (fr-par | nl-ams | pl-waw)
 

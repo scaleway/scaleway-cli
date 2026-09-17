@@ -6,9 +6,11 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/core"
 	accountv3 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/account/v3"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/alias"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/annotations/v1"
 	applesilicon "github.com/scaleway/scaleway-cli/v2/internal/namespaces/applesilicon/v1alpha1"
 	audit_trail "github.com/scaleway/scaleway-cli/v2/internal/namespaces/audit_trail/v1alpha1"
 	autocompleteNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autocomplete"
+	autoscaling "github.com/scaleway/scaleway-cli/v2/internal/namespaces/autoscaling/v1alpha2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/baremetal/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2"
 	billingV2beta1 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/billing/v2beta1"
@@ -29,10 +31,11 @@ import (
 	function "github.com/scaleway/scaleway-cli/v2/internal/namespaces/function/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/help"
 	iam "github.com/scaleway/scaleway-cli/v2/internal/namespaces/iam/v1alpha1"
-	inference "github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/inference/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/info"
 	initNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/init"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v1"
+	instanceV2 "github.com/scaleway/scaleway-cli/v2/internal/namespaces/instance/v2alpha1"
 	interlink "github.com/scaleway/scaleway-cli/v2/internal/namespaces/interlink/v1beta1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/iot/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/ipam/v1"
@@ -43,7 +46,8 @@ import (
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/lb/v1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/login"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/marketplace/v2"
-	mcp "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/mcp"
+	messageq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/messageq/v1alpha1"
 	mnq "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mnq/v1beta1"
 	mongodb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/mongodb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/object/v1"
@@ -78,6 +82,7 @@ func GetCommands() *core.Commands {
 	commands := core.NewCommandsMerge(
 		iam.GetCommands(),
 		instance.GetCommands(),
+		instanceV2.GetCommands(),
 		baremetal.GetCommands(),
 		cockpit.GetCommands(),
 		k8s.GetCommands(),
@@ -85,6 +90,7 @@ func GetCommands() *core.Commands {
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
 		accountv3.GetCommands(),
+		annotations.GetCommands(),
 		autocompleteNamespace.GetCommands(),
 		object.GetCommands(),
 		versionNamespace.GetCommands(),
@@ -134,6 +140,8 @@ func GetCommands() *core.Commands {
 		search.GetCommands(),
 		billing.GetCommands(),
 		kafka.GetCommands(),
+		autoscaling.GetCommands(),
+		messageq.GetCommands(),
 	)
 
 	if beta {

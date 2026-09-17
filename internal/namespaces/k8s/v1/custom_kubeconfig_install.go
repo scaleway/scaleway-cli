@@ -32,7 +32,7 @@ It will merge the new kubeconfig in the file pointed by the KUBECONFIG variable.
 		Namespace: "k8s",
 		Verb:      "install",
 		Resource:  "kubeconfig",
-		ArgsType:  reflect.TypeOf(k8sKubeconfigInstallRequest{}),
+		ArgsType:  reflect.TypeFor[k8sKubeconfigInstallRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "cluster-id",

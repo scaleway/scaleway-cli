@@ -2,56 +2,6 @@
 # Documentation for `scw k8s`
 This API allows you to manage Kubernetes Kapsule and Kosmos clusters.
 
-- [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
-  - [Add new ACLs](#add-new-acls)
-  - [Delete an existing ACL](#delete-an-existing-acl)
-  - [List ACLs](#list-acls)
-  - [Set new ACLs](#set-new-acls)
-- [Kapsule cluster management commands](#kapsule-cluster-management-commands)
-  - [Create a new Cluster](#create-a-new-cluster)
-  - [Delete a Cluster](#delete-a-cluster)
-  - [Get a Cluster](#get-a-cluster)
-  - [List Clusters](#list-clusters)
-  - [List available cluster types for a cluster](#list-available-cluster-types-for-a-cluster)
-  - [List available versions for a Cluster](#list-available-versions-for-a-cluster)
-  - [Reset the admin token of a Cluster](#reset-the-admin-token-of-a-cluster)
-  - [Change the Cluster type](#change-the-cluster-type)
-  - [Update a Cluster](#update-a-cluster)
-  - [Upgrade a Cluster](#upgrade-a-cluster)
-  - [Wait for a cluster to reach a stable state](#wait-for-a-cluster-to-reach-a-stable-state)
-- [Cluster type management commands](#cluster-type-management-commands)
-  - [List cluster types](#list-cluster-types)
-- [Manage your Kubernetes Kapsule cluster's kubeconfig files](#manage-your-kubernetes-kapsule-cluster's-kubeconfig-files)
-  - [Retrieve a kubeconfig](#retrieve-a-kubeconfig)
-  - [Install a kubeconfig](#install-a-kubeconfig)
-  - [Uninstall a kubeconfig](#uninstall-a-kubeconfig)
-- [Kapsule node management commands](#kapsule-node-management-commands)
-  - [Delete a Node in a Cluster](#delete-a-node-in-a-cluster)
-  - [Get a Node in a Cluster](#get-a-node-in-a-cluster)
-  - [List Nodes in a Cluster](#list-nodes-in-a-cluster)
-  - [Reboot a Node in a Cluster](#reboot-a-node-in-a-cluster)
-  - [Replace a Node in a Cluster](#replace-a-node-in-a-cluster)
-  - [Wait for a node to reach a stable state](#wait-for-a-node-to-reach-a-stable-state)
-- [Kapsule pool management commands](#kapsule-pool-management-commands)
-  - [Add an external node to a Kosmos Pool](#add-an-external-node-to-a-kosmos-pool)
-  - [Create a new Pool in a Cluster](#create-a-new-pool-in-a-cluster)
-  - [Delete a Pool in a Cluster](#delete-a-pool-in-a-cluster)
-  - [Get a Pool in a Cluster](#get-a-pool-in-a-cluster)
-  - [List Pools in a Cluster](#list-pools-in-a-cluster)
-  - [Remove a label from a Pool](#remove-a-label-from-a-pool)
-  - [Remove a startup taint from a Pool](#remove-a-startup-taint-from-a-pool)
-  - [Remove a taint from a Pool](#remove-a-taint-from-a-pool)
-  - [Apply a label to a Pool](#apply-a-label-to-a-pool)
-  - [Apply a startup taint to a Pool](#apply-a-startup-taint-to-a-pool)
-  - [Apply a taint to a Pool](#apply-a-taint-to-a-pool)
-  - [Update a Pool in a Cluster](#update-a-pool-in-a-cluster)
-  - [Upgrade a Pool in a Cluster](#upgrade-a-pool-in-a-cluster)
-  - [Wait for a pool to reach a stable state](#wait-for-a-pool-to-reach-a-stable-state)
-- [Available Kubernetes versions commands](#available-kubernetes-versions-commands)
-  - [Get a Version](#get-a-version)
-  - [List all available Versions](#list-all-available-versions)
-
-
 ## Access Control List (ACL) management commands
 
 Network Access Control Lists (ACLs) allow you to manage inbound network traffic by setting up ACL rules.
@@ -68,15 +18,15 @@ scw k8s acl add [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster whose ACLs will be added |
-| acls.{index}.ip |  | IP subnet to allow |
-| acls.{index}.scaleway-ranges |  | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |
-| acls.{index}.description |  | Description of the ACL |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                         | Description                                                                                                                                                                                 | Argument Specifications                                               |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id                   | ID of the cluster whose ACLs will be added                                                                                                                                                  | Required                                                              |
+| acls.{index}.ip              | IP subnet to allow                                                                                                                                                                          |                                                                       |
+| acls.{index}.scaleway-ranges | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |                                                                       |
+| acls.{index}.description     | Description of the ACL                                                                                                                                                                      |                                                                       |
+| region                       | Region to target. If none is passed will use default region from the config                                                                                                                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -91,12 +41,12 @@ scw k8s acl delete [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-id | Required | ID of the ACL rule to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name   | Description                                                                 | Argument Specifications                                               |
+|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| acl-id | ID of the ACL rule to delete                                                | Required                                                              |
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -111,12 +61,12 @@ scw k8s acl list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster whose ACLs will be listed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                                      |
+|------------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| cluster-id | ID of the cluster whose ACLs will be listed                                 | Required                                                                     |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` |
 
 
 
@@ -131,15 +81,15 @@ scw k8s acl set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster whose ACLs will be set |
-| acls.{index}.ip |  | IP subnet to allow |
-| acls.{index}.scaleway-ranges |  | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |
-| acls.{index}.description |  | Description of the ACL |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                         | Description                                                                                                                                                                                 | Argument Specifications                                               |
+|------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id                   | ID of the cluster whose ACLs will be set                                                                                                                                                    | Required                                                              |
+| acls.{index}.ip              | IP subnet to allow                                                                                                                                                                          |                                                                       |
+| acls.{index}.scaleway-ranges | Allow access to cluster from all Scaleway ranges as defined in https://www.scaleway.com/en/docs/console/account/reference-content/scaleway-network-information/#ip-ranges-used-by-scaleway. |                                                                       |
+| acls.{index}.description     | Description of the ACL                                                                                                                                                                      |                                                                       |
+| region                       | Region to target. If none is passed will use default region from the config                                                                                                                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 
@@ -160,73 +110,75 @@ scw k8s cluster create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| type |  | Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types |
-| name | Required<br />Default: `<generated>` | Cluster name |
-| description |  | Cluster description |
-| tags.{index} |  | Tags associated with the cluster |
-| version | Required<br />Default: `latest` | Kubernetes version of the cluster |
-| cni | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `weave`, `flannel`, `kilo`, `none`, `cilium_native` | Container Network Interface (CNI) plugin running in the cluster |
-| pools.{index}.name |  | Name of the pool |
-| pools.{index}.node-type |  | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
-| pools.{index}.placement-group-id |  | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances. |
-| pools.{index}.autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
-| pools.{index}.size |  | Size (number of nodes) of the pool |
-| pools.{index}.min-size |  | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
-| pools.{index}.max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
-| pools.{index}.container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool |
-| pools.{index}.autohealing |  | Defines whether the autohealing feature is enabled for the pool |
-| pools.{index}.tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags) |
-| pools.{index}.kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
-| pools.{index}.upgrade-policy.max-unavailable |  | The maximum number of nodes that can be not ready at the same time |
-| pools.{index}.upgrade-policy.max-surge |  | The maximum number of nodes to be created during the upgrade |
-| pools.{index}.zone |  | Zone in which the pool's nodes will be spawned |
-| pools.{index}.root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
-| pools.{index}.root-volume-size |  | System volume disk size |
-| pools.{index}.public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
-| pools.{index}.security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
-| pools.{index}.labels.{key} |  | Kubernetes labels applied and reconciled on the nodes |
-| pools.{index}.taints.{index}.key |  | The taint key to be applied to a node |
-| pools.{index}.taints.{index}.value |  | The taint value corresponding to the taint key |
-| pools.{index}.taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
-| pools.{index}.startup-taints.{index}.key |  | The taint key to be applied to a node |
-| pools.{index}.startup-taints.{index}.value |  | The taint value corresponding to the taint key |
-| pools.{index}.startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
-| autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
-| autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
-| autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details |
-| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false |
-| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them, defaults to false |
-| autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable |
-| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
-| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
-| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
-| autoscaler-config.skip-nodes-with-local-storage |  | Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true |
-| autoscaler-config.log-level |  | Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details |
-| auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
-| auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
-| auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
-| feature-gates.{index} |  | List of feature gates to enable |
-| admission-plugins.{index} |  | List of admission plugins to enable |
-| open-id-connect-config.issuer-url |  | URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com" |
-| open-id-connect-config.client-id |  | A client ID that all tokens must be issued for |
-| open-id-connect-config.username-claim |  | JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision |
-| open-id-connect-config.username-prefix |  | Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing |
-| open-id-connect-config.groups-claim.{index} |  | JWT claim to use as the user's group |
-| open-id-connect-config.groups-prefix |  | Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra` |
-| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value |
-| apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
-| private-network-id |  | Private network ID for internal cluster communication (cannot be changed later). For Kapsule clusters, if none is provided, a private network will be created |
-| pod-cidr |  | Subnet used for the Pod CIDR (cannot be changed later) |
-| service-cidr |  | Subnet used for the Service CIDR (cannot be changed later) |
-| service-dns-ip |  | IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10 |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                                               | Description                                                                                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                                         |
+|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------|
+| project-id                                         | Project ID to use. If none is passed the default project ID will be used                                                                                                                                                                                                                                                                                                                              |                                                                                                                 |
+| type                                               | Type of the cluster. See [list available cluster types](#list-available-cluster-types-for-a-cluster) for a list of valid types                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| name                                               | Cluster name                                                                                                                                                                                                                                                                                                                                                                                          | Required<br />Default: `<generated>`                                                                            |
+| description                                        | Cluster description                                                                                                                                                                                                                                                                                                                                                                                   |                                                                                                                 |
+| tags.{index}                                       | Tags associated with the cluster                                                                                                                                                                                                                                                                                                                                                                      |                                                                                                                 |
+| version                                            | Kubernetes version of the cluster                                                                                                                                                                                                                                                                                                                                                                     | Required<br />Default: `latest`                                                                                 |
+| cni                                                | Container Network Interface (CNI) plugin running in the cluster                                                                                                                                                                                                                                                                                                                                       | Required<br />Default: `cilium`<br />One of: `unknown_cni`, `cilium`, `calico`, `kilo`, `none`, `cilium_native` |
+| pools.{index}.name                                 | Name of the pool                                                                                                                                                                                                                                                                                                                                                                                      |                                                                                                                 |
+| pools.{index}.node-type                            | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster                                                                                                                                          |                                                                                                                 |
+| pools.{index}.placement-group-id                   | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.                                                                                                                                                                                                                                                                                  |                                                                                                                 |
+| pools.{index}.autoscaling                          | Defines whether the autoscaling feature is enabled for the pool                                                                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| pools.{index}.size                                 | Size (number of nodes) of the pool                                                                                                                                                                                                                                                                                                                                                                    |                                                                                                                 |
+| pools.{index}.min-size                             | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| pools.{index}.max-size                             | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| pools.{index}.container-runtime                    | Customization of the container runtime is available for each pool                                                                                                                                                                                                                                                                                                                                     | One of: `unknown_runtime`, `containerd`                                                                         |
+| pools.{index}.autohealing                          | Defines whether the autohealing feature is enabled for the pool                                                                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| pools.{index}.tags.{index}                         | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)                                                                                                                                                                                                                                                                                 |                                                                                                                 |
+| pools.{index}.kubelet-args.{key}                   | Kubelet arguments to be used by this pool. Note that this feature is experimental                                                                                                                                                                                                                                                                                                                     |                                                                                                                 |
+| pools.{index}.upgrade-policy.max-unavailable       | The maximum number of nodes that can be `upgrading` at the same time                                                                                                                                                                                                                                                                                                                                  |                                                                                                                 |
+| pools.{index}.upgrade-policy.max-surge             | The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades                                                                                                                                                                                                                                |                                                                                                                 |
+| pools.{index}.zone                                 | Zone in which the pool's nodes will be spawned                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| pools.{index}.root-volume-type                     | Defines the system volume disk type. Several types of volume (`volume_type`) are provided:                                                                                                                                                                                                                                                                                                            | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k`                                            |
+| pools.{index}.root-volume-size                     | System volume disk size                                                                                                                                                                                                                                                                                                                                                                               |                                                                                                                 |
+| pools.{index}.public-ip-disabled                   | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway                                                                                                                                                                                                                                           |                                                                                                                 |
+| pools.{index}.security-group-id                    | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone                                                                                                                                                                                                                                                      |                                                                                                                 |
+| pools.{index}.labels.{key}                         | Kubernetes labels applied and reconciled on the nodes                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                 |
+| pools.{index}.taints.{index}.key                   | The taint key to be applied to a node                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                 |
+| pools.{index}.taints.{index}.value                 | The taint value corresponding to the taint key                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| pools.{index}.taints.{index}.effect                | Effect defines the effects of Taint                                                                                                                                                                                                                                                                                                                                                                   | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                                                           |
+| pools.{index}.startup-taints.{index}.key           | The taint key to be applied to a node                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                 |
+| pools.{index}.startup-taints.{index}.value         | The taint value corresponding to the taint key                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| pools.{index}.startup-taints.{index}.effect        | Effect defines the effects of Taint                                                                                                                                                                                                                                                                                                                                                                   | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                                                           |
+| pools.{index}.max-termination-grace-period         | Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                                                                                                                                                                          |                                                                                                                 |
+| pools.{index}.user-data.{key}                      | User data applied and reconciled with the pool                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| autoscaler-config.scale-down-disabled              | Forbid cluster autoscaler to scale down the cluster, defaults to false                                                                                                                                                                                                                                                                                                                                |                                                                                                                 |
+| autoscaler-config.scale-down-delay-after-add       | How long after scale up the scale down evaluation resumes                                                                                                                                                                                                                                                                                                                                             |                                                                                                                 |
+| autoscaler-config.estimator                        | Type of resource estimator to be used in scale up                                                                                                                                                                                                                                                                                                                                                     | One of: `unknown_estimator`, `binpacking`                                                                       |
+| autoscaler-config.expander                         | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details                                                                                                                                                                                                                              | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price`                           |
+| autoscaler-config.ignore-daemonsets-utilization    | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false                                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| autoscaler-config.balance-similar-node-groups      | Detect similar node groups and balance the number of nodes between them, defaults to false                                                                                                                                                                                                                                                                                                            |                                                                                                                 |
+| autoscaler-config.expendable-pods-priority-cutoff  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable                                                                                                                                                                                   |                                                                                                                 |
+| autoscaler-config.scale-down-unneeded-time         | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes                                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| autoscaler-config.scale-down-utilization-threshold | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down                                                                                                                                                                                                                                                  |                                                                                                                 |
+| autoscaler-config.max-graceful-termination-sec     | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes)                                                                                                                                                                                                                                                             |                                                                                                                 |
+| autoscaler-config.skip-nodes-with-local-storage    | Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true                                                                                                                                                                                                                                                                                  |                                                                                                                 |
+| autoscaler-config.log-level                        | Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details                                                                                                                                            |                                                                                                                 |
+| auto-upgrade.enable                                | Defines whether auto upgrade is enabled for the cluster                                                                                                                                                                                                                                                                                                                                               |                                                                                                                 |
+| auto-upgrade.maintenance-window.start-hour         | Start time of the two-hour maintenance window                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                 |
+| auto-upgrade.maintenance-window.day                | Day of the week for the maintenance window                                                                                                                                                                                                                                                                                                                                                            | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday`                     |
+| feature-gates.{index}                              | List of feature gates to enable                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                 |
+| admission-plugins.{index}                          | List of admission plugins to enable                                                                                                                                                                                                                                                                                                                                                                   |                                                                                                                 |
+| open-id-connect-config.issuer-url                  | URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com"                                                                                                                       |                                                                                                                 |
+| open-id-connect-config.client-id                   | A client ID that all tokens must be issued for                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| open-id-connect-config.username-claim              | JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision                                                                                          |                                                                                                                 |
+| open-id-connect-config.username-prefix             | Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing |                                                                                                                 |
+| open-id-connect-config.groups-claim.{index}        | JWT claim to use as the user's group                                                                                                                                                                                                                                                                                                                                                                  |                                                                                                                 |
+| open-id-connect-config.groups-prefix               | Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`                                                                                                                                                                                                                |                                                                                                                 |
+| open-id-connect-config.required-claim.{index}      | Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value                                                                                                                                                                                                                                             |                                                                                                                 |
+| apiserver-cert-sans.{index}                        | Additional Subject Alternative Names for the Kubernetes API server certificate                                                                                                                                                                                                                                                                                                                        |                                                                                                                 |
+| private-network-id                                 | Private network ID for internal cluster communication (cannot be changed later). For Kapsule clusters, if none is provided, a private network will be created                                                                                                                                                                                                                                         |                                                                                                                 |
+| pod-cidr                                           | Subnet used for the Pod CIDR (cannot be changed later)                                                                                                                                                                                                                                                                                                                                                |                                                                                                                 |
+| service-cidr                                       | Subnet used for the Service CIDR (cannot be changed later)                                                                                                                                                                                                                                                                                                                                            |                                                                                                                 |
+| service-dns-ip                                     | IP used for the DNS Service (cannot be changes later). If unset, default to Service CIDR's network + 10                                                                                                                                                                                                                                                                                               |                                                                                                                 |
+| organization-id                                    | Organization ID to use. If none is passed the default organization ID will be used                                                                                                                                                                                                                                                                                                                    |                                                                                                                 |
+| region                                             | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                                                                                                                                           | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`                                           |
 
 
 **Examples:**
@@ -256,13 +208,13 @@ scw k8s cluster delete <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster to delete |
-| with-additional-resources |  | Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                      | Description                                                                                                                                                         | Argument Specifications                                               |
+|---------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id                | ID of the cluster to delete                                                                                                                                         | Required                                                              |
+| with-additional-resources | Defines whether all volumes (including retain volume type), empty Private Networks and Load Balancers with a name starting with the cluster ID will also be deleted |                                                                       |
+| region                    | Region to target. If none is passed will use default region from the config                                                                                         | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -292,12 +244,12 @@ scw k8s cluster get <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the requested cluster |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id | ID of the requested cluster                                                 | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -322,19 +274,19 @@ scw k8s cluster list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID on which to filter the returned clusters |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of returned clusters |
-| name |  | Name to filter on, only clusters containing this substring in their name will be returned |
-| status | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required` | Status to filter on, only clusters with this status will be returned |
-| type |  | Type to filter on, only clusters with this type will be returned |
-| private-network-id |  | Private Network ID to filter on, only clusters within this Private Network will be returned |
-| version |  | Version to filter on, only cluster matching this prefix version will be returned |
-| organization-id |  | Organization ID on which to filter the returned clusters |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
+| Name               | Description                                                                                 | Argument Specifications                                                                                                                                               |
+|--------------------|---------------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id         | Project ID on which to filter the returned clusters                                         |                                                                                                                                                                       |
+| order-by           | Sort order of returned clusters                                                             | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` |
+| name               | Name to filter on, only clusters containing this substring in their name will be returned   |                                                                                                                                                                       |
+| status             | Status to filter on, only clusters with this status will be returned                        | One of: `unknown`, `creating`, `ready`, `deleting`, `deleted`, `updating`, `locked`, `pool_required`                                                                  |
+| type               | Type to filter on, only clusters with this type will be returned                            |                                                                                                                                                                       |
+| private-network-id | Private Network ID to filter on, only clusters within this Private Network will be returned |                                                                                                                                                                       |
+| version            | Version to filter on, only cluster matching this prefix version will be returned            |                                                                                                                                                                       |
+| organization-id    | Organization ID on which to filter the returned clusters                                    |                                                                                                                                                                       |
+| region             | Region to target. If none is passed will use default region from the config                 | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all`                                                                                          |
 
 
 **Examples:**
@@ -369,12 +321,12 @@ scw k8s cluster list-available-types <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID for which the available Kubernetes types will be listed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id | Cluster ID for which the available Kubernetes types will be listed          | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -399,12 +351,12 @@ scw k8s cluster list-available-versions <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID for which the available Kubernetes versions will be listed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id | Cluster ID for which the available Kubernetes versions will be listed       | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -429,12 +381,12 @@ scw k8s cluster reset-admin-token <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID on which the admin token will be renewed |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                 | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id | Cluster ID on which the admin token will be renewed                         | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -459,13 +411,13 @@ scw k8s cluster set-type <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster to migrate from one type to another |
-| type | Required | Type of the cluster. Note that some migrations are not possible (please refer to product documentation) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                                             | Argument Specifications                                               |
+|------------|---------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id | ID of the cluster to migrate from one type to another                                                   | Required                                                              |
+| type       | Type of the cluster. Note that some migrations are not possible (please refer to product documentation) | Required                                                              |
+| region     | Region to target. If none is passed will use default region from the config                             | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -490,40 +442,40 @@ scw k8s cluster update <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster to update |
-| name |  | New external name for the cluster |
-| description |  | New description for the cluster |
-| tags.{index} |  | New tags associated with the cluster |
-| autoscaler-config.scale-down-disabled |  | Forbid cluster autoscaler to scale down the cluster, defaults to false |
-| autoscaler-config.scale-down-delay-after-add |  | How long after scale up the scale down evaluation resumes |
-| autoscaler-config.estimator | One of: `unknown_estimator`, `binpacking` | Type of resource estimator to be used in scale up |
-| autoscaler-config.expander | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price` | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details |
-| autoscaler-config.ignore-daemonsets-utilization |  | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false |
-| autoscaler-config.balance-similar-node-groups |  | Detect similar node groups and balance the number of nodes between them, defaults to false |
-| autoscaler-config.expendable-pods-priority-cutoff |  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable |
-| autoscaler-config.scale-down-unneeded-time |  | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes |
-| autoscaler-config.scale-down-utilization-threshold |  | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down |
-| autoscaler-config.max-graceful-termination-sec |  | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes) |
-| autoscaler-config.skip-nodes-with-local-storage |  | Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true |
-| autoscaler-config.log-level |  | Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details |
-| auto-upgrade.enable |  | Defines whether auto upgrade is enabled for the cluster |
-| auto-upgrade.maintenance-window.start-hour |  | Start time of the two-hour maintenance window |
-| auto-upgrade.maintenance-window.day | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` | Day of the week for the maintenance window |
-| feature-gates.{index} |  | List of feature gates to enable |
-| admission-plugins.{index} |  | List of admission plugins to enable |
-| open-id-connect-config.issuer-url |  | URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com" |
-| open-id-connect-config.client-id |  | A client ID that all tokens must be issued for |
-| open-id-connect-config.username-claim |  | JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision |
-| open-id-connect-config.username-prefix |  | Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing |
-| open-id-connect-config.groups-claim.{index} |  | JWT claim to use as the user's group |
-| open-id-connect-config.groups-prefix |  | Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra` |
-| open-id-connect-config.required-claim.{index} |  | Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value |
-| apiserver-cert-sans.{index} |  | Additional Subject Alternative Names for the Kubernetes API server certificate |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                                               | Description                                                                                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                     |
+|----------------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------|
+| cluster-id                                         | ID of the cluster to update                                                                                                                                                                                                                                                                                                                                                                           | Required                                                                                    |
+| name                                               | New external name for the cluster                                                                                                                                                                                                                                                                                                                                                                     |                                                                                             |
+| description                                        | New description for the cluster                                                                                                                                                                                                                                                                                                                                                                       |                                                                                             |
+| tags.{index}                                       | New tags associated with the cluster                                                                                                                                                                                                                                                                                                                                                                  |                                                                                             |
+| autoscaler-config.scale-down-disabled              | Forbid cluster autoscaler to scale down the cluster, defaults to false                                                                                                                                                                                                                                                                                                                                |                                                                                             |
+| autoscaler-config.scale-down-delay-after-add       | How long after scale up the scale down evaluation resumes                                                                                                                                                                                                                                                                                                                                             |                                                                                             |
+| autoscaler-config.estimator                        | Type of resource estimator to be used in scale up                                                                                                                                                                                                                                                                                                                                                     | One of: `unknown_estimator`, `binpacking`                                                   |
+| autoscaler-config.expander                         | Kubernetes autoscaler strategy to fit pods into nodes, see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#what-are-expanders for details                                                                                                                                                                                                                              | One of: `unknown_expander`, `random`, `most_pods`, `least_waste`, `priority`, `price`       |
+| autoscaler-config.ignore-daemonsets-utilization    | Ignore DaemonSet pods when calculating resource utilization for scaling down, defaults to false                                                                                                                                                                                                                                                                                                       |                                                                                             |
+| autoscaler-config.balance-similar-node-groups      | Detect similar node groups and balance the number of nodes between them, defaults to false                                                                                                                                                                                                                                                                                                            |                                                                                             |
+| autoscaler-config.expendable-pods-priority-cutoff  | Pods with priority below cutoff will be expendable. They can be killed without any consideration during scale down and they won't cause scale up. Pods with null priority (PodPriority disabled) are non expendable                                                                                                                                                                                   |                                                                                             |
+| autoscaler-config.scale-down-unneeded-time         | How long a node should be unneeded before it is eligible for scale down, defaults to 10 minutes                                                                                                                                                                                                                                                                                                       |                                                                                             |
+| autoscaler-config.scale-down-utilization-threshold | Node utilization level, defined as a sum of requested resources divided by allocatable capacity, below which a node can be considered for scale down                                                                                                                                                                                                                                                  |                                                                                             |
+| autoscaler-config.max-graceful-termination-sec     | Maximum number of seconds the cluster autoscaler waits for pod termination when trying to scale down a node, defaults to 600 (10 minutes)                                                                                                                                                                                                                                                             |                                                                                             |
+| autoscaler-config.skip-nodes-with-local-storage    | Cluster autoscaler will never delete nodes with pods with local storage, e.g. EmptyDir or HostPath, defaults to true                                                                                                                                                                                                                                                                                  |                                                                                             |
+| autoscaler-config.log-level                        | Cluster autoscaler logging level expressed from 0 to 4 (4 being the more verbose), defaults to 2. see https://github.com/kubernetes/autoscaler/blob/master/cluster-autoscaler/FAQ.md#how-can-i-increase-the-information-that-the-ca-is-logging for details                                                                                                                                            |                                                                                             |
+| auto-upgrade.enable                                | Defines whether auto upgrade is enabled for the cluster                                                                                                                                                                                                                                                                                                                                               |                                                                                             |
+| auto-upgrade.maintenance-window.start-hour         | Start time of the two-hour maintenance window                                                                                                                                                                                                                                                                                                                                                         |                                                                                             |
+| auto-upgrade.maintenance-window.day                | Day of the week for the maintenance window                                                                                                                                                                                                                                                                                                                                                            | One of: `any`, `monday`, `tuesday`, `wednesday`, `thursday`, `friday`, `saturday`, `sunday` |
+| feature-gates.{index}                              | List of feature gates to enable                                                                                                                                                                                                                                                                                                                                                                       |                                                                                             |
+| admission-plugins.{index}                          | List of admission plugins to enable                                                                                                                                                                                                                                                                                                                                                                   |                                                                                             |
+| open-id-connect-config.issuer-url                  | URL of the provider which allows the API server to discover public signing keys. Only URLs using the `https://` scheme are accepted. This is typically the provider's discovery URL without a path, for example "https://accounts.google.com" or "https://login.salesforce.com"                                                                                                                       |                                                                                             |
+| open-id-connect-config.client-id                   | A client ID that all tokens must be issued for                                                                                                                                                                                                                                                                                                                                                        |                                                                                             |
+| open-id-connect-config.username-claim              | JWT claim to use as the user name. The default is `sub`, which is expected to be the end user's unique identifier. Admins can choose other claims, such as `email` or `name`, depending on their provider. However, claims other than `email` will be prefixed with the issuer URL to prevent name collision                                                                                          |                                                                                             |
+| open-id-connect-config.username-prefix             | Prefix prepended to username claims to prevent name collision (such as `system:` users). For example, the value `oidc:` will create usernames like `oidc:jane.doe`. If this flag is not provided and `username_claim` is a value other than `email`, the prefix defaults to `( Issuer URL )#` where `( Issuer URL )` is the value of `issuer_url`. The value `-` can be used to disable all prefixing |                                                                                             |
+| open-id-connect-config.groups-claim.{index}        | JWT claim to use as the user's group                                                                                                                                                                                                                                                                                                                                                                  |                                                                                             |
+| open-id-connect-config.groups-prefix               | Prefix prepended to group claims to prevent name collision (such as `system:` groups). For example, the value `oidc:` will create group names like `oidc:engineering` and `oidc:infra`                                                                                                                                                                                                                |                                                                                             |
+| open-id-connect-config.required-claim.{index}      | Multiple key=value pairs describing a required claim in the ID token. If set, the claims are verified to be present in the ID token with a matching value                                                                                                                                                                                                                                             |                                                                                             |
+| apiserver-cert-sans.{index}                        | Additional Subject Alternative Names for the Kubernetes API server certificate                                                                                                                                                                                                                                                                                                                        |                                                                                             |
+| region                                             | Region to target. If none is passed will use default region from the config                                                                                                                                                                                                                                                                                                                           | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`                       |
 
 
 **Examples:**
@@ -553,14 +505,14 @@ scw k8s cluster upgrade <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster to upgrade |
-| version | Required | New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one |
-| upgrade-pools |  | Defines whether pools will also be upgraded once the control plane is upgraded |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name          | Description                                                                                                                                                                      | Argument Specifications                                               |
+|---------------|----------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id    | ID of the cluster to upgrade                                                                                                                                                     | Required                                                              |
+| version       | New Kubernetes version of the cluster. Note that the version should either be a higher patch version of the same minor version or the direct minor version after the current one | Required                                                              |
+| upgrade-pools | Defines whether pools will also be upgraded once the control plane is upgraded                                                                                                   |                                                                       |
+| region        | Region to target. If none is passed will use default region from the config                                                                                                      | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -590,14 +542,14 @@ scw k8s cluster wait <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster. |
-| wait-for-pools |  | Wait for pools to be ready. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
-| timeout | Default: `10m0s` | Timeout of the wait |
+| Name           | Description                                                                 | Argument Specifications |
+|----------------|-----------------------------------------------------------------------------|-------------------------|
+| cluster-id     | ID of the cluster.                                                          | Required                |
+| wait-for-pools | Wait for pools to be ready.                                                 |                         |
+| region         | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| timeout        | Timeout of the wait                                                         | Default: `10m0s`        |
 
 
 **Examples:**
@@ -628,11 +580,11 @@ scw k8s cluster-type list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
+| Name   | Description                                                                 | Argument Specifications                                                      |
+|--------|-----------------------------------------------------------------------------|------------------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` |
 
 
 
@@ -652,13 +604,13 @@ scw k8s kubeconfig get <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
-| auth-method | Default: `cli`<br />One of: `cli`, `copy-cli-token`, `legacy` | Which method to use to authenticate using kubelet |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name        | Description                                                                 | Argument Specifications                                       |
+|-------------|-----------------------------------------------------------------------------|---------------------------------------------------------------|
+| cluster-id  | Cluster ID from which to retrieve the kubeconfig                            | Required                                                      |
+| auth-method | Which method to use to authenticate using kubelet                           | Default: `cli`<br />One of: `cli`, `copy-cli-token`, `legacy` |
+| region      | Region to target. If none is passed will use default region from the config | Default: `fr-par`                                             |
 
 
 **Examples:**
@@ -694,14 +646,14 @@ scw k8s kubeconfig install <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID from which to retrieve the kubeconfig |
-| auth-method | Default: `cli`<br />One of: `cli`, `copy-cli-token`, `legacy` | Which method to use to authenticate using kubelet |
-| keep-current-context |  | Whether or not to keep the current kubeconfig context unmodified |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name                 | Description                                                                 | Argument Specifications                                       |
+|----------------------|-----------------------------------------------------------------------------|---------------------------------------------------------------|
+| cluster-id           | Cluster ID from which to retrieve the kubeconfig                            | Required                                                      |
+| auth-method          | Which method to use to authenticate using kubelet                           | Default: `cli`<br />One of: `cli`, `copy-cli-token`, `legacy` |
+| keep-current-context | Whether or not to keep the current kubeconfig context unmodified            |                                                               |
+| region               | Region to target. If none is passed will use default region from the config | Default: `fr-par`                                             |
 
 
 **Examples:**
@@ -737,11 +689,11 @@ scw k8s kubeconfig uninstall <cluster-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID from which to uninstall the kubeconfig |
+| Name       | Description                                       | Argument Specifications |
+|------------|---------------------------------------------------|-------------------------|
+| cluster-id | Cluster ID from which to uninstall the kubeconfig | Required                |
 
 
 **Examples:**
@@ -763,7 +715,7 @@ A node is always part of a pool. Each of them has the Kubernetes software automa
 
 ### Delete a Node in a Cluster
 
-Delete a specific Node. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
+Delete a specific Node. Pool size is reduced by 1. The node will first be drained and pods will be rescheduled onto another node. Note that when there is not enough space to reschedule all the pods (such as in a one-node cluster, or with specific constraints), disruption of your applications may occur.
 
 **Usage:**
 
@@ -772,13 +724,13 @@ scw k8s node delete <node-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| node-id | Required | ID of the node to replace |
-| skip-drain |  | Skip draining node from its workload (Note: this parameter is currently inactive) |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                       | Argument Specifications                                               |
+|------------|-----------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| node-id    | ID of the node to replace                                                         | Required                                                              |
+| skip-drain | Skip draining node from its workload (Note: this parameter is currently inactive) |                                                                       |
+| region     | Region to target. If none is passed will use default region from the config       | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -808,12 +760,12 @@ scw k8s node get <node-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| node-id | Required | ID of the requested node |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| node-id | ID of the requested node                                                    | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -838,16 +790,16 @@ scw k8s node list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID from which the nodes will be listed from |
-| pool-id |  | Pool ID on which to filter the returned nodes |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of the returned nodes |
-| name |  | Name to filter on, only nodes containing this substring in their name will be returned |
-| status | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering` | Status to filter on, only nodes with this status will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                            | Argument Specifications                                                                                                                                               |
+|------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| cluster-id | Cluster ID from which the nodes will be listed from                                    | Required                                                                                                                                                              |
+| pool-id    | Pool ID on which to filter the returned nodes                                          |                                                                                                                                                                       |
+| order-by   | Sort order of the returned nodes                                                       | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` |
+| name       | Name to filter on, only nodes containing this substring in their name will be returned |                                                                                                                                                                       |
+| status     | Status to filter on, only nodes with this status will be returned                      | One of: `unknown`, `creating`, `not_ready`, `ready`, `deleting`, `deleted`, `locked`, `rebooting`, `creation_error`, `upgrading`, `starting`, `registering`           |
+| region     | Region to target. If none is passed will use default region from the config            | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all`                                                                                          |
 
 
 **Examples:**
@@ -882,12 +834,12 @@ scw k8s node reboot <node-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| node-id | Required | ID of the node to reboot |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| node-id | ID of the node to reboot                                                    | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -912,12 +864,12 @@ scw k8s node replace <node-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| node-id | Required | ID of the node to replace |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| node-id | ID of the node to replace                                                   | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -942,13 +894,13 @@ scw k8s node wait <node-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| node-id | Required | ID of the node. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
-| timeout | Default: `10m0s` | Timeout of the wait |
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| node-id | ID of the node.                                                             | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| timeout | Timeout of the wait                                                         | Default: `10m0s`        |
 
 
 **Examples:**
@@ -981,14 +933,14 @@ scw k8s pool add-external-node [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| node-ip | Required | IP address of the external node |
-| pool-id | Required | ID of the Pool the node should be added to |
-| username | Default: `root` | Username used for the SSH connection |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name     | Description                                                                 | Argument Specifications |
+|----------|-----------------------------------------------------------------------------|-------------------------|
+| node-ip  | IP address of the external node                                             | Required                |
+| pool-id  | ID of the Pool the node should be added to                                  | Required                |
+| username | Username used for the SSH connection                                        | Default: `root`         |
+| region   | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 
@@ -1003,37 +955,39 @@ scw k8s pool create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | Cluster ID to which the pool will be attached |
-| name | Required<br />Default: `<generated>` | Pool name |
-| node-type | Required<br />Default: `DEV1-M` | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster |
-| placement-group-id |  | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances. |
-| autoscaling |  | Defines whether the autoscaling feature is enabled for the pool |
-| size | Required<br />Default: `1` | Size (number of nodes) of the pool |
-| min-size |  | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
-| max-size |  | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool |
-| container-runtime | One of: `unknown_runtime`, `docker`, `containerd`, `crio` | Customization of the container runtime is available for each pool |
-| autohealing |  | Defines whether the autohealing feature is enabled for the pool |
-| tags.{index} |  | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags) |
-| kubelet-args.{key} |  | Kubelet arguments to be used by this pool. Note that this feature is experimental |
-| upgrade-policy.max-unavailable |  |  |
-| upgrade-policy.max-surge |  |  |
-| zone |  | Zone in which the pool's nodes will be spawned |
-| root-volume-type | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k` | Defines the system volume disk type. Several types of volume (`volume_type`) are provided: |
-| root-volume-size |  | System volume disk size |
-| public-ip-disabled |  | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway |
-| security-group-id |  | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone |
-| labels.{key} |  | Kubernetes labels applied and reconciled on the nodes |
-| taints.{index}.key |  | The taint key to be applied to a node |
-| taints.{index}.value |  | The taint value corresponding to the taint key |
-| taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
-| startup-taints.{index}.key |  | The taint key to be applied to a node |
-| startup-taints.{index}.value |  | The taint value corresponding to the taint key |
-| startup-taints.{index}.effect | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect defines the effects of Taint |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                           | Description                                                                                                                                                                                                                                                  | Argument Specifications                                               |
+|--------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| cluster-id                     | Cluster ID to which the pool will be attached                                                                                                                                                                                                                | Required                                                              |
+| name                           | Pool name                                                                                                                                                                                                                                                    | Required<br />Default: `<generated>`                                  |
+| node-type                      | Node type is the type of Scaleway Instance wanted for the pool. Nodes with insufficient memory are not eligible (DEV1-S, PLAY2-PICO, STARDUST). 'external' is a special node type used to provision instances from other cloud providers in a Kosmos Cluster | Required<br />Default: `DEV1-M`                                       |
+| placement-group-id             | Placement group ID in which all the nodes of the pool will be created, placement groups are limited to 20 instances.                                                                                                                                         |                                                                       |
+| autoscaling                    | Defines whether the autoscaling feature is enabled for the pool                                                                                                                                                                                              |                                                                       |
+| size                           | Size (number of nodes) of the pool                                                                                                                                                                                                                           | Required<br />Default: `1`                                            |
+| min-size                       | Defines the minimum size of the pool. Note that this field is only used when autoscaling is enabled on the pool                                                                                                                                              |                                                                       |
+| max-size                       | Defines the maximum size of the pool. Note that this field is only used when autoscaling is enabled on the pool                                                                                                                                              |                                                                       |
+| container-runtime              | Customization of the container runtime is available for each pool                                                                                                                                                                                            | One of: `unknown_runtime`, `containerd`                               |
+| autohealing                    | Defines whether the autohealing feature is enabled for the pool                                                                                                                                                                                              |                                                                       |
+| tags.{index}                   | Tags associated with the pool, see [managing tags](https://www.scaleway.com/en/docs/kubernetes/api-cli/managing-tags)                                                                                                                                        |                                                                       |
+| kubelet-args.{key}             | Kubelet arguments to be used by this pool. Note that this feature is experimental                                                                                                                                                                            |                                                                       |
+| upgrade-policy.max-unavailable | The maximum number of nodes that can be `upgrading` at the same time                                                                                                                                                                                         |                                                                       |
+| upgrade-policy.max-surge       | The maximum number of nodes to be created during the upgrade, e.g. the pool will scale up to reach `size`+`max_surge` before downscaling to `size` after node upgrades                                                                                       |                                                                       |
+| zone                           | Zone in which the pool's nodes will be spawned                                                                                                                                                                                                               |                                                                       |
+| root-volume-type               | Defines the system volume disk type. Several types of volume (`volume_type`) are provided:                                                                                                                                                                   | One of: `default_volume_type`, `l_ssd`, `b_ssd`, `sbs_5k`, `sbs_15k`  |
+| root-volume-size               | System volume disk size                                                                                                                                                                                                                                      |                                                                       |
+| public-ip-disabled             | Defines if the public IP should be removed from Nodes. To use this feature, your Cluster must have an attached Private Network set up with a Public Gateway                                                                                                  |                                                                       |
+| security-group-id              | Security group ID in which all the nodes of the pool will be created. If unset, the pool will use default Kapsule security group in current zone                                                                                                             |                                                                       |
+| labels.{key}                   | Kubernetes labels applied and reconciled on the nodes                                                                                                                                                                                                        |                                                                       |
+| taints.{index}.key             | The taint key to be applied to a node                                                                                                                                                                                                                        |                                                                       |
+| taints.{index}.value           | The taint value corresponding to the taint key                                                                                                                                                                                                               |                                                                       |
+| taints.{index}.effect          | Effect defines the effects of Taint                                                                                                                                                                                                                          | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                 |
+| startup-taints.{index}.key     | The taint key to be applied to a node                                                                                                                                                                                                                        |                                                                       |
+| startup-taints.{index}.value   | The taint value corresponding to the taint key                                                                                                                                                                                                               |                                                                       |
+| startup-taints.{index}.effect  | Effect defines the effects of Taint                                                                                                                                                                                                                          | One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute`                 |
+| user-data.{key}                | User data applied and reconciled with the pool                                                                                                                                                                                                               |                                                                       |
+| max-termination-grace-period   | Maximum amount of time before the API forces the drain and deletion of a `deleting` node. It overrides pods `PodDisruptionBudget` and `terminationGracePeriodSeconds`. Defaults to 15 minutes, up to 1 hour.                                                 |                                                                       |
+| region                         | Region to target. If none is passed will use default region from the config                                                                                                                                                                                  | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1068,12 +1022,12 @@ scw k8s pool delete <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool to delete |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | ID of the pool to delete                                                    | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1098,12 +1052,12 @@ scw k8s pool get <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the requested pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | ID of the requested pool                                                    | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1128,15 +1082,15 @@ scw k8s pool list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| cluster-id | Required | ID of the cluster whose pools will be listed |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` | Sort order of returned pools |
-| name |  | Name to filter on, only pools containing this substring in their name will be returned |
-| status | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading` | Status to filter on, only pools with this status will be returned |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all` | Region to target. If none is passed will use default region from the config |
+| Name       | Description                                                                            | Argument Specifications                                                                                                                                               |
+|------------|----------------------------------------------------------------------------------------|-----------------------------------------------------------------------------------------------------------------------------------------------------------------------|
+| cluster-id | ID of the cluster whose pools will be listed                                           | Required                                                                                                                                                              |
+| order-by   | Sort order of returned pools                                                           | One of: `created_at_asc`, `created_at_desc`, `updated_at_asc`, `updated_at_desc`, `name_asc`, `name_desc`, `status_asc`, `status_desc`, `version_asc`, `version_desc` |
+| name       | Name to filter on, only pools containing this substring in their name will be returned |                                                                                                                                                                       |
+| status     | Status to filter on, only pools with this status will be returned                      | One of: `unknown`, `ready`, `deleting`, `deleted`, `scaling`, `warning`, `locked`, `upgrading`                                                                        |
+| region     | Region to target. If none is passed will use default region from the config            | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil`, `all`                                                                                          |
 
 
 **Examples:**
@@ -1176,13 +1130,13 @@ scw k8s pool remove-label <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| key | Required | Key of the label. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| pool-id | ID of the pool.                                                             | Required                |
+| key     | Key of the label.                                                           | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 **Examples:**
@@ -1207,13 +1161,13 @@ scw k8s pool remove-startup-taint <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| key | Required | Key of the taint. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| pool-id | ID of the pool.                                                             | Required                |
+| key     | Key of the taint.                                                           | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 **Examples:**
@@ -1238,13 +1192,13 @@ scw k8s pool remove-taint <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| key | Required | Key of the taint. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| pool-id | ID of the pool.                                                             | Required                |
+| key     | Key of the taint.                                                           | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 **Examples:**
@@ -1269,14 +1223,14 @@ scw k8s pool set-label <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| key | Required | Key of the label. |
-| value | Required | Value of the label. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| pool-id | ID of the pool.                                                             | Required                |
+| key     | Key of the label.                                                           | Required                |
+| value   | Value of the label.                                                         | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
 
 
 **Examples:**
@@ -1306,15 +1260,15 @@ scw k8s pool set-startup-taint <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| key | Required | Key of the taint. |
-| value | Required | Value of the taint. |
-| effect | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect of the taint. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                             |
+|---------|-----------------------------------------------------------------------------|---------------------------------------------------------------------|
+| pool-id | ID of the pool.                                                             | Required                                                            |
+| key     | Key of the taint.                                                           | Required                                                            |
+| value   | Value of the taint.                                                         | Required                                                            |
+| effect  | Effect of the taint.                                                        | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`                                                   |
 
 
 **Examples:**
@@ -1344,15 +1298,15 @@ scw k8s pool set-taint <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| key | Required | Key of the taint. |
-| value | Required | Value of the taint. |
-| effect | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` | Effect of the taint. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                             |
+|---------|-----------------------------------------------------------------------------|---------------------------------------------------------------------|
+| pool-id | ID of the pool.                                                             | Required                                                            |
+| key     | Key of the taint.                                                           | Required                                                            |
+| value   | Value of the taint.                                                         | Required                                                            |
+| effect  | Effect of the taint.                                                        | Required<br />One of: `NoSchedule`, `PreferNoSchedule`, `NoExecute` |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`                                                   |
 
 
 **Examples:**
@@ -1382,22 +1336,23 @@ scw k8s pool update <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool to update |
-| autoscaling |  | New value for the pool autoscaling enablement |
-| size |  | New desired pool size |
-| min-size |  | New minimum size for the pool |
-| max-size |  | New maximum size for the pool |
-| autohealing |  | New value for the pool autohealing enablement |
-| tags.{index} |  | New tags associated with the pool |
-| kubelet-args.{key} |  | New Kubelet arguments to be used by this pool. Note that this feature is experimental |
-| upgrade-policy.max-unavailable |  |  |
-| upgrade-policy.max-surge |  |  |
-| security-group-id |  | Security group ID in which all the nodes of the pool will be moved |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name                           | Description                                                                                   | Argument Specifications                                               |
+|--------------------------------|-----------------------------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id                        | ID of the pool to update                                                                      | Required                                                              |
+| autoscaling                    | New value for the pool autoscaling enablement                                                 |                                                                       |
+| size                           | New desired pool size                                                                         |                                                                       |
+| min-size                       | New minimum size for the pool                                                                 |                                                                       |
+| max-size                       | New maximum size for the pool                                                                 |                                                                       |
+| autohealing                    | New value for the pool autohealing enablement                                                 |                                                                       |
+| tags.{index}                   | New tags associated with the pool                                                             |                                                                       |
+| kubelet-args.{key}             | New Kubelet arguments to be used by this pool. Note that this feature is experimental         |                                                                       |
+| upgrade-policy.max-unavailable | New maximum number of nodes that can be `upgrading` at the same time                          |                                                                       |
+| upgrade-policy.max-surge       | New maximum number of nodes to be created during the upgrade                                  |                                                                       |
+| security-group-id              | Security group ID in which all the nodes of the pool will be moved                            |                                                                       |
+| max-termination-grace-period   | New maximum amount of time before the API forces the drain and deletion of a `deleting` node. |                                                                       |
+| region                         | Region to target. If none is passed will use default region from the config                   | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1438,13 +1393,13 @@ scw k8s pool upgrade <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool to upgrade |
-| version | Required | New Kubernetes version for the pool |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | ID of the pool to upgrade                                                   | Required                                                              |
+| version | New Kubernetes version for the pool                                         | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1469,13 +1424,13 @@ scw k8s pool wait <pool-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| pool-id | Required | ID of the pool. |
-| region | Default: `fr-par` | Region to target. If none is passed will use default region from the config |
-| timeout | Default: `10m0s` | Timeout of the wait |
+| Name    | Description                                                                 | Argument Specifications |
+|---------|-----------------------------------------------------------------------------|-------------------------|
+| pool-id | ID of the pool.                                                             | Required                |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`       |
+| timeout | Timeout of the wait                                                         | Default: `10m0s`        |
 
 
 **Examples:**
@@ -1484,6 +1439,74 @@ scw k8s pool wait <pool-id ...> [arg=value ...]
 Wait for a pool to reach a stable state
 ```shell
 scw k8s pool wait 11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+## User Data management commands
+
+User data allow to attach user complementary content to a pool.
+A special use case of these data are cloud-init configuration.
+
+
+### Get a pool related user data
+
+Retrieve specific user data content for a given pool.
+Tip: add `?dl=1` at the end of the URL to directly retrieve the base64 decoded content of your user data.
+
+**Usage:**
+
+```shell
+scw k8s userdata get [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | Pool the user data are associated to                                        | Required                                                              |
+| key     | User data key to retrieved                                                  | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+**Examples:**
+
+
+Get a pool user data by name
+```shell
+scw k8s user-data get cloud-init pool-id=11111111-1111-1111-1111-111111111111
+```
+
+
+
+
+### List all user data related to a given pool.
+
+This list only the user data key and not the content.
+
+**Usage:**
+
+```shell
+scw k8s userdata list [arg=value ...]
+```
+
+
+**Arguments:**
+
+| Name    | Description                                                                 | Argument Specifications                                               |
+|---------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| pool-id | Pool the user data are associated to                                        | Required                                                              |
+| region  | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
+
+
+**Examples:**
+
+
+List all user data for a given pool
+```shell
+scw k8s user-data list pool-id=11111111-1111-1111-1111-111111111111
 ```
 
 
@@ -1506,12 +1529,12 @@ scw k8s version get <version-name ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| version-name | Required | Requested version name |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name         | Description                                                                 | Argument Specifications                                               |
+|--------------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| version-name | Requested version name                                                      | Required                                                              |
+| region       | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**
@@ -1536,11 +1559,11 @@ scw k8s version list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` | Region to target. If none is passed will use default region from the config |
+| Name   | Description                                                                 | Argument Specifications                                               |
+|--------|-----------------------------------------------------------------------------|-----------------------------------------------------------------------|
+| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`, `it-mil` |
 
 
 **Examples:**

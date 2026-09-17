@@ -2,73 +2,6 @@
 # Documentation for `scw lb`
 This API allows you to manage your Scaleway Load Balancer services.
 
-- [Access Control List (ACL) management commands](#access-control-list-(acl)-management-commands)
-  - [Create an ACL for a given frontend](#create-an-acl-for-a-given-frontend)
-  - [Delete an ACL](#delete-an-acl)
-  - [Get an ACL](#get-an-acl)
-  - [List ACLs for a given frontend](#list-acls-for-a-given-frontend)
-  - [Define all ACLs for a given frontend](#define-all-acls-for-a-given-frontend)
-  - [Update an ACL](#update-an-acl)
-- [Backend management commands](#backend-management-commands)
-  - [Add a set of backend servers to a given backend](#add-a-set-of-backend-servers-to-a-given-backend)
-  - [Create a backend for a given Load Balancer](#create-a-backend-for-a-given-load-balancer)
-  - [Delete a backend of a given Load Balancer](#delete-a-backend-of-a-given-load-balancer)
-  - [Get a backend of a given Load Balancer](#get-a-backend-of-a-given-load-balancer)
-  - [List the backends of a given Load Balancer](#list-the-backends-of-a-given-load-balancer)
-  - [List backend server statistics](#list-backend-server-statistics)
-  - [Remove a set of servers for a given backend](#remove-a-set-of-servers-for-a-given-backend)
-  - [Define all backend servers for a given backend](#define-all-backend-servers-for-a-given-backend)
-  - [Update a backend of a given Load Balancer](#update-a-backend-of-a-given-load-balancer)
-  - [Update a health check for a given backend](#update-a-health-check-for-a-given-backend)
-- [TLS certificate management commands](#tls-certificate-management-commands)
-  - [Create an SSL/TLS certificate](#create-an-ssltls-certificate)
-  - [Delete an SSL/TLS certificate](#delete-an-ssltls-certificate)
-  - [Get an SSL/TLS certificate](#get-an-ssltls-certificate)
-  - [List all SSL/TLS certificates on a given Load Balancer](#list-all-ssltls-certificates-on-a-given-load-balancer)
-  - [Update an SSL/TLS certificate](#update-an-ssltls-certificate)
-- [Frontend management commands](#frontend-management-commands)
-  - [Create a frontend in a given Load Balancer](#create-a-frontend-in-a-given-load-balancer)
-  - [Delete a frontend](#delete-a-frontend)
-  - [Get a frontend](#get-a-frontend)
-  - [List frontends of a given Load Balancer](#list-frontends-of-a-given-load-balancer)
-  - [Update a frontend](#update-a-frontend)
-- [IP management commands](#ip-management-commands)
-  - [Create an IP address](#create-an-ip-address)
-  - [Delete an IP address](#delete-an-ip-address)
-  - [Get an IP address](#get-an-ip-address)
-  - [List IP addresses](#list-ip-addresses)
-  - [Update an IP address](#update-an-ip-address)
-- [Load balancer management commands](#load-balancer-management-commands)
-  - [Create a Load Balancer](#create-a-load-balancer)
-  - [Delete a Load Balancer](#delete-a-load-balancer)
-  - [Get a Load Balancer](#get-a-load-balancer)
-  - [Get usage statistics of a given Load Balancer](#get-usage-statistics-of-a-given-load-balancer)
-  - [List Load Balancers](#list-load-balancers)
-  - [Migrate a Load Balancer](#migrate-a-load-balancer)
-  - [Update a Load Balancer](#update-a-load-balancer)
-  - [Wait for a load balancer to reach a stable state](#wait-for-a-load-balancer-to-reach-a-stable-state)
-- [Load balancer types management commands](#load-balancer-types-management-commands)
-  - [List all Load Balancer offer types](#list-all-load-balancer-offer-types)
-- [Private networks management commands](#private-networks-management-commands)
-  - [Attach a Load Balancer to a Private Network](#attach-a-load-balancer-to-a-private-network)
-  - [Detach Load Balancer from Private Network](#detach-load-balancer-from-private-network)
-  - [List Private Networks attached to a Load Balancer](#list-private-networks-attached-to-a-load-balancer)
-- [Route rules management commands](#route-rules-management-commands)
-  - [Create a route](#create-a-route)
-  - [Delete a route](#delete-a-route)
-  - [Get a route](#get-a-route)
-  - [List all routes](#list-all-routes)
-  - [Update a route](#update-a-route)
-- [Subscriber management commands](#subscriber-management-commands)
-  - [Create a subscriber](#create-a-subscriber)
-  - [Delete a subscriber](#delete-a-subscriber)
-  - [Get a subscriber](#get-a-subscriber)
-  - [List all subscribers](#list-all-subscribers)
-  - [Subscribe a subscriber to alerts for a given Load Balancer](#subscribe-a-subscriber-to-alerts-for-a-given-load-balancer)
-  - [Unsubscribe a subscriber from alerts for a given Load Balancer](#unsubscribe-a-subscriber-from-alerts-for-a-given-load-balancer)
-  - [Update a subscriber](#update-a-subscriber)
-
-
 ## Access Control List (ACL) management commands
 
 Access Control List (ACL) management commands.
@@ -85,25 +18,25 @@ scw lb acl create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| frontend-id | Required | Frontend ID to attach the ACL to |
-| name | Required<br />Default: `<generated>` | ACL name |
-| action.type | One of: `allow`, `deny`, `redirect` | Action to take when incoming traffic matches an ACL filter |
-| action.redirect.type | One of: `location`, `scheme` | Redirect type |
-| action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |
-| action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
-| match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
-| match.ips-edge-services |  | Defines whether Edge Services IPs should be matched |
-| match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
-| match.http-filter-value.{index} |  | List of values to filter for |
-| match.http-filter-option |  | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter` |
-| match.invert |  | Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match |
-| index | Required | Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed) |
-| description |  | ACL description |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                                                         |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| frontend-id                     | Frontend ID to attach the ACL to                                                                                                                                                                                                                                                                                                                                                                                                                      | Required                                                                                                                        |
+| name                            | ACL name                                                                                                                                                                                                                                                                                                                                                                                                                                              | Required<br />Default: `<generated>`                                                                                            |
+| action.type                     | Action to take when incoming traffic matches an ACL filter                                                                                                                                                                                                                                                                                                                                                                                            | One of: `allow`, `deny`, `redirect`                                                                                             |
+| action.redirect.type            | Redirect type                                                                                                                                                                                                                                                                                                                                                                                                                                         | One of: `location`, `scheme`                                                                                                    |
+| action.redirect.target          | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |                                                                                                                                 |
+| action.redirect.code            | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                 |
+| match.ip-subnet.{index}         | List of IPs or CIDR v4/v6 addresses to filter for from the client side                                                                                                                                                                                                                                                                                                                                                                                |                                                                                                                                 |
+| match.ips-edge-services         | Defines whether Edge Services IPs should be matched. If set to `true`, restricts all connections except for Edge Services                                                                                                                                                                                                                                                                                                                             |                                                                                                                                 |
+| match.http-filter               | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends                                                                                                                                                                                                         | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match`                                          |
+| match.http-filter-value.{index} | List of values to filter for                                                                                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                 |
+| match.http-filter-option        | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`                                                                                                                                                                                                                                                                                                                                                             |                                                                                                                                 |
+| match.invert                    | Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match                                                                                                                                                                                                                                                                                                                     |                                                                                                                                 |
+| index                           | Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)                                                                                                                                                                                                                                                                                                                                                               | Required                                                                                                                        |
+| description                     | ACL description                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                 |
+| zone                            | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                                                                                                                               | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -118,12 +51,12 @@ scw lb acl delete <acl-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-id | Required | ACL ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name   | Description                                                             | Argument Specifications                                                                                                         |
+|--------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| acl-id | ACL ID                                                                  | Required                                                                                                                        |
+| zone   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -138,12 +71,12 @@ scw lb acl get <acl-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-id | Required | ACL ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name   | Description                                                             | Argument Specifications                                                                                                         |
+|--------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| acl-id | ACL ID                                                                  | Required                                                                                                                        |
+| zone   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -158,14 +91,14 @@ scw lb acl list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| frontend-id | Required | Frontend ID (ACLs attached to this frontend will be returned in the response) |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of ACLs in the response |
-| name |  | ACL name to filter for |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                                   | Argument Specifications                                                                                                                |
+|-------------|-------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| frontend-id | Frontend ID (ACLs attached to this frontend will be returned in the response) | Required                                                                                                                               |
+| order-by    | Sort order of ACLs in the response                                            | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                   |
+| name        | ACL name to filter for                                                        |                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -180,25 +113,25 @@ scw lb acl set [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acls.{index}.name | Required | ACL name |
-| acls.{index}.action.type | One of: `allow`, `deny`, `redirect` | Action to take when incoming traffic matches an ACL filter |
-| acls.{index}.action.redirect.type | One of: `location`, `scheme` | Redirect type |
-| acls.{index}.action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |
-| acls.{index}.action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
-| acls.{index}.match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
-| acls.{index}.match.ips-edge-services |  | Defines whether Edge Services IPs should be matched |
-| acls.{index}.match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
-| acls.{index}.match.http-filter-value.{index} |  | List of values to filter for |
-| acls.{index}.match.http-filter-option |  | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter` |
-| acls.{index}.match.invert |  | Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match |
-| acls.{index}.index | Required | Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed) |
-| acls.{index}.description |  | ACL description |
-| frontend-id | Required | Frontend ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                         | Description                                                                                                                                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                                                         |
+|----------------------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| acls.{index}.name                            | ACL name                                                                                                                                                                                                                                                                                                                                                                                                                                              | Required                                                                                                                        |
+| acls.{index}.action.type                     | Action to take when incoming traffic matches an ACL filter                                                                                                                                                                                                                                                                                                                                                                                            | One of: `allow`, `deny`, `redirect`                                                                                             |
+| acls.{index}.action.redirect.type            | Redirect type                                                                                                                                                                                                                                                                                                                                                                                                                                         | One of: `location`, `scheme`                                                                                                    |
+| acls.{index}.action.redirect.target          | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |                                                                                                                                 |
+| acls.{index}.action.redirect.code            | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                 |
+| acls.{index}.match.ip-subnet.{index}         | List of IPs or CIDR v4/v6 addresses to filter for from the client side                                                                                                                                                                                                                                                                                                                                                                                |                                                                                                                                 |
+| acls.{index}.match.ips-edge-services         | Defines whether Edge Services IPs should be matched. If set to `true`, restricts all connections except for Edge Services                                                                                                                                                                                                                                                                                                                             |                                                                                                                                 |
+| acls.{index}.match.http-filter               | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends                                                                                                                                                                                                         | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match`                                          |
+| acls.{index}.match.http-filter-value.{index} | List of values to filter for                                                                                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                 |
+| acls.{index}.match.http-filter-option        | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`                                                                                                                                                                                                                                                                                                                                                             |                                                                                                                                 |
+| acls.{index}.match.invert                    | Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match                                                                                                                                                                                                                                                                                                                     |                                                                                                                                 |
+| acls.{index}.index                           | Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)                                                                                                                                                                                                                                                                                                                                                               | Required                                                                                                                        |
+| acls.{index}.description                     | ACL description                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                 |
+| frontend-id                                  | Frontend ID                                                                                                                                                                                                                                                                                                                                                                                                                                           | Required                                                                                                                        |
+| zone                                         | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                                                                                                                               | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -213,25 +146,25 @@ scw lb acl update <acl-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| acl-id | Required | ACL ID |
-| name | Required | ACL name |
-| action.type | One of: `allow`, `deny`, `redirect` | Action to take when incoming traffic matches an ACL filter |
-| action.redirect.type | One of: `location`, `scheme` | Redirect type |
-| action.redirect.target |  | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |
-| action.redirect.code |  | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302 |
-| match.ip-subnet.{index} |  | List of IPs or CIDR v4/v6 addresses to filter for from the client side |
-| match.ips-edge-services |  | Defines whether Edge Services IPs should be matched |
-| match.http-filter | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match` | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends |
-| match.http-filter-value.{index} |  | List of values to filter for |
-| match.http-filter-option |  | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter` |
-| match.invert |  | Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match |
-| index | Required | Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed) |
-| description |  | ACL description |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                            | Description                                                                                                                                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                                                         |
+|---------------------------------|-------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| acl-id                          | ACL ID                                                                                                                                                                                                                                                                                                                                                                                                                                                | Required                                                                                                                        |
+| name                            | ACL name                                                                                                                                                                                                                                                                                                                                                                                                                                              | Required                                                                                                                        |
+| action.type                     | Action to take when incoming traffic matches an ACL filter                                                                                                                                                                                                                                                                                                                                                                                            | One of: `allow`, `deny`, `redirect`                                                                                             |
+| action.redirect.type            | Redirect type                                                                                                                                                                                                                                                                                                                                                                                                                                         | One of: `location`, `scheme`                                                                                                    |
+| action.redirect.target          | Redirect target. For a location redirect, you can use a URL e.g. `https://scaleway.com`. Using a scheme name (e.g. `https`, `http`, `ftp`, `git`) will replace the request's original scheme. This can be useful to implement HTTP to HTTPS redirects. Valid placeholders that can be used in a `location` redirect to preserve parts of the original request in the redirection URL are \{\{host\}\}, \{\{query\}\}, \{\{path\}\} and \{\{scheme\}\} |                                                                                                                                 |
+| action.redirect.code            | HTTP redirect code to use. Valid values are 301, 302, 303, 307 and 308. Default value is 302                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                 |
+| match.ip-subnet.{index}         | List of IPs or CIDR v4/v6 addresses to filter for from the client side                                                                                                                                                                                                                                                                                                                                                                                |                                                                                                                                 |
+| match.ips-edge-services         | Defines whether Edge Services IPs should be matched. If set to `true`, restricts all connections except for Edge Services                                                                                                                                                                                                                                                                                                                             |                                                                                                                                 |
+| match.http-filter               | Type of HTTP filter to match. Extracts the request's URL path, which starts at the first slash and ends before the question mark (without the host part). Defines where to filter for the http_filter_value. Only supported for HTTP backends                                                                                                                                                                                                         | One of: `acl_http_filter_none`, `path_begin`, `path_end`, `regex`, `http_header_match`                                          |
+| match.http-filter-value.{index} | List of values to filter for                                                                                                                                                                                                                                                                                                                                                                                                                          |                                                                                                                                 |
+| match.http-filter-option        | Name of the HTTP header to filter on if `http_header_match` was selected in `http_filter`                                                                                                                                                                                                                                                                                                                                                             |                                                                                                                                 |
+| match.invert                    | Defines whether to invert the match condition. If set to `true`, the ACL carries out its action when the condition DOES NOT match                                                                                                                                                                                                                                                                                                                     |                                                                                                                                 |
+| index                           | Priority of this ACL (ACLs are applied in ascending order, 0 is the first ACL executed)                                                                                                                                                                                                                                                                                                                                                               | Required                                                                                                                        |
+| description                     | ACL description                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                 |
+| zone                            | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                                                                                                                               | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -251,18 +184,18 @@ scw lb backend add-servers <backend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-id | Required | Backend ID |
-| instance-server-id.{index} |  | UIID of the instance server. |
-| instance-server-tag.{index} |  | Tag of the instance server. |
-| use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
-| baremetal-server-id.{index} |  | UIID of the baremetal server. |
-| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
-| server-ip.{index} | Required | List of IP addresses to add to backend servers |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                          | Description                                                             | Argument Specifications                                                                                                         |
+|-------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| backend-id                    | Backend ID                                                              | Required                                                                                                                        |
+| instance-server-id.{index}    | UIID of the instance server.                                            |                                                                                                                                 |
+| instance-server-tag.{index}   | Tag of the instance server.                                             |                                                                                                                                 |
+| use-instance-server-public-ip | Use public IP address of the instance instead of the private one        |                                                                                                                                 |
+| baremetal-server-id.{index}   | UIID of the baremetal server.                                           |                                                                                                                                 |
+| baremetal-server-tag.{index}  | Tag of the baremetal server.                                            |                                                                                                                                 |
+| server-ip.{index}             | List of IP addresses to add to backend servers                          | Required                                                                                                                        |
+| zone                          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -277,54 +210,58 @@ scw lb backend create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name for the backend |
-| forward-protocol | Required<br />One of: `tcp`, `http` | Protocol to be used by the backend when forwarding traffic to backend servers |
-| forward-port | Required | Port to be used by the backend when forwarding traffic to backend servers |
-| forward-port-algorithm | Required<br />Default: `roundrobin`<br />One of: `roundrobin`, `leastconn`, `first` | Load balancing algorithm to be used when determining which backend server to forward new traffic to |
-| sticky-sessions | Required<br />Default: `none`<br />One of: `none`, `cookie`, `table` | Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server |
-| sticky-sessions-cookie-name |  | Cookie name for cookie-based sticky sessions |
-| lb-id | Required | Load Balancer ID |
-| health-check.port |  | Port to use for the backend server health check |
-| health-check.check-delay | Default: `3s` | Time to wait between two consecutive health checks |
-| health-check.check-timeout | Default: `1s` | Maximum time a backend server has to reply to the health check |
-| health-check.check-max-retries |  | Number of consecutive unsuccessful health checks after which the server will be considered dead |
-| health-check.mysql-config.user |  | MySQL user to use for the health check |
-| health-check.pgsql-config.user |  | PostgreSQL user to use for the health check |
-| health-check.http-config.uri |  | HTTP path used for the health check |
-| health-check.http-config.method |  | HTTP method used for the health check |
-| health-check.http-config.code |  | HTTP response code expected for a successful health check |
-| health-check.http-config.host-header |  | HTTP host header used for the health check |
-| health-check.https-config.uri |  | HTTP path used for the health check |
-| health-check.https-config.method |  | HTTP method used for the health check |
-| health-check.https-config.code |  | HTTP response code expected for a successful health check |
-| health-check.https-config.host-header |  | HTTP host header used for the health check |
-| health-check.https-config.sni |  | SNI used for SSL health checks |
-| health-check.check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
-| health-check.transient-check-delay | Default: `0.5s` | Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN) |
-| instance-server-id.{index} |  | UIID of the instance server. |
-| instance-server-tag.{index} |  | Tag of the instance server. |
-| use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
-| baremetal-server-id.{index} |  | UIID of the baremetal server. |
-| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
-| server-ip.{index} | Required | List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to |
-| ~~send-proxy-v2~~ | Deprecated | Deprecated in favor of proxy_protocol field |
-| timeout-server | Default: `5m` | Maximum allowed time for a backend server to process a request |
-| timeout-connect | Default: `5s` | Maximum allowed time for establishing a connection to a backend server |
-| timeout-tunnel | Default: `15m` | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
-| on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
-| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
-| failover-host |  | Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
-| ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
-| ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
-| redispatch-attempt-count |  | Whether to use another backend server on each attempt |
-| max-retries |  | Number of retries when a backend server connection failed |
-| max-connections |  | Maximum number of connections allowed per backend server |
-| timeout-queue |  | Maximum time for a request to be left pending in queue when `max_connections` is reached |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                  | Description                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                                                                                |
+|---------------------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| name                                  | Name for the backend                                                                                                                                                                                                                                                                                                                  | Required<br />Default: `<generated>`                                                                                                                   |
+| forward-protocol                      | Protocol to be used by the backend when forwarding traffic to backend servers                                                                                                                                                                                                                                                         | Required<br />One of: `tcp`, `http`                                                                                                                    |
+| forward-port                          | Port to be used by the backend when forwarding traffic to backend servers                                                                                                                                                                                                                                                             | Required                                                                                                                                               |
+| forward-port-algorithm                | Load balancing algorithm to be used when determining which backend server to forward new traffic to                                                                                                                                                                                                                                   | Required<br />Default: `roundrobin`<br />One of: `roundrobin`, `leastconn`, `first`                                                                    |
+| sticky-sessions                       | Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie TO stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server | Required<br />Default: `none`<br />One of: `none`, `cookie`, `table`                                                                                   |
+| sticky-sessions-cookie-name           | Cookie name for cookie-based sticky sessions                                                                                                                                                                                                                                                                                          |                                                                                                                                                        |
+| lb-id                                 | Load Balancer ID                                                                                                                                                                                                                                                                                                                      | Required                                                                                                                                               |
+| health-check.port                     | Port to use for the backend server health check                                                                                                                                                                                                                                                                                       |                                                                                                                                                        |
+| health-check.check-delay              | Time to wait between two consecutive health checks                                                                                                                                                                                                                                                                                    | Default: `3s`                                                                                                                                          |
+| health-check.check-timeout            | Maximum time a backend server has to reply to the health check                                                                                                                                                                                                                                                                        | Default: `1s`                                                                                                                                          |
+| health-check.check-max-retries        | Number of consecutive unsuccessful health checks after which the server will be considered dead                                                                                                                                                                                                                                       |                                                                                                                                                        |
+| health-check.tcp-config               | Object to configure a basic TCP health check                                                                                                                                                                                                                                                                                          |                                                                                                                                                        |
+| health-check.mysql-config.user        | MySQL user to use for the health check                                                                                                                                                                                                                                                                                                |                                                                                                                                                        |
+| health-check.pgsql-config.user        | PostgreSQL user to use for the health check                                                                                                                                                                                                                                                                                           |                                                                                                                                                        |
+| health-check.ldap-config              | Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message                                                                                                                                                                                                                                |                                                                                                                                                        |
+| health-check.redis-config             | Object to configure a Redis health check. The response is analyzed to find the +PONG response message                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| health-check.http-config.uri          | HTTP path used for the health check                                                                                                                                                                                                                                                                                                   |                                                                                                                                                        |
+| health-check.http-config.method       | HTTP method used for the health check                                                                                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| health-check.http-config.code         | HTTP response code expected for a successful health check                                                                                                                                                                                                                                                                             |                                                                                                                                                        |
+| health-check.http-config.host-header  | HTTP host header used for the health check                                                                                                                                                                                                                                                                                            |                                                                                                                                                        |
+| health-check.https-config.uri         | HTTP path used for the health check                                                                                                                                                                                                                                                                                                   |                                                                                                                                                        |
+| health-check.https-config.method      | HTTP method used for the health check                                                                                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| health-check.https-config.code        | HTTP response code expected for a successful health check                                                                                                                                                                                                                                                                             |                                                                                                                                                        |
+| health-check.https-config.host-header | HTTP host header used for the health check                                                                                                                                                                                                                                                                                            |                                                                                                                                                        |
+| health-check.https-config.sni         | SNI used for SSL health checks                                                                                                                                                                                                                                                                                                        |                                                                                                                                                        |
+| health-check.check-send-proxy         | Defines whether proxy protocol should be activated for the health check                                                                                                                                                                                                                                                               |                                                                                                                                                        |
+| health-check.transient-check-delay    | Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN)                                                                                                                                                                                                                   | Default: `0.5s`                                                                                                                                        |
+| instance-server-id.{index}            | UIID of the instance server.                                                                                                                                                                                                                                                                                                          |                                                                                                                                                        |
+| instance-server-tag.{index}           | Tag of the instance server.                                                                                                                                                                                                                                                                                                           |                                                                                                                                                        |
+| use-instance-server-public-ip         | Use public IP address of the instance instead of the private one                                                                                                                                                                                                                                                                      |                                                                                                                                                        |
+| baremetal-server-id.{index}           | UIID of the baremetal server.                                                                                                                                                                                                                                                                                                         |                                                                                                                                                        |
+| baremetal-server-tag.{index}          | Tag of the baremetal server.                                                                                                                                                                                                                                                                                                          |                                                                                                                                                        |
+| server-ip.{index}                     | List of backend server IP addresses (IPv4 or IPv6) the backend should forward traffic to                                                                                                                                                                                                                                              | Required                                                                                                                                               |
+| ~~send-proxy-v2~~                     | Deprecated in favor of proxy_protocol field                                                                                                                                                                                                                                                                                           | Deprecated                                                                                                                                             |
+| timeout-server                        | Maximum allowed time for a backend server to process a request                                                                                                                                                                                                                                                                        | Default: `5m`                                                                                                                                          |
+| timeout-connect                       | Maximum allowed time for establishing a connection to a backend server                                                                                                                                                                                                                                                                | Default: `5s`                                                                                                                                          |
+| timeout-tunnel                        | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)                                                                                                                                                                                                               | Default: `15m`                                                                                                                                         |
+| on-marked-down-action                 | Action to take when a backend server is marked as down                                                                                                                                                                                                                                                                                | One of: `on_marked_down_action_none`, `shutdown_sessions`                                                                                              |
+| proxy-protocol                        | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software                                                                                                                       | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` |
+| failover-host                         | Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud                                                                                                                                                                                    |                                                                                                                                                        |
+| ssl-bridging                          | Defines whether to enable SSL bridging between the Load Balancer and backend servers                                                                                                                                                                                                                                                  |                                                                                                                                                        |
+| ignore-ssl-server-verify              | Defines whether the server certificate verification should be ignored                                                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| redispatch-attempt-count              | Whether to use another backend server on each attempt                                                                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| max-retries                           | Number of retries when a backend server connection failed                                                                                                                                                                                                                                                                             |                                                                                                                                                        |
+| max-connections                       | Maximum number of connections allowed per backend server                                                                                                                                                                                                                                                                              |                                                                                                                                                        |
+| timeout-queue                         | Maximum time for a request to be left pending in queue when `max_connections` is reached                                                                                                                                                                                                                                              |                                                                                                                                                        |
+| host                                  | Host value to use when connecting to backend servers                                                                                                                                                                                                                                                                                  |                                                                                                                                                        |
+| zone                                  | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                               | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`                        |
 
 
 
@@ -339,12 +276,12 @@ scw lb backend delete <backend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-id | Required | ID of the backend to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| backend-id | ID of the backend to delete                                             | Required                                                                                                                        |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -359,12 +296,12 @@ scw lb backend get <backend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-id | Required | Backend ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| backend-id | Backend ID                                                              | Required                                                                                                                        |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -379,14 +316,14 @@ scw lb backend list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| name |  | Name of the backend to filter for |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of backends in the response |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                                                                                                |
+|----------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| lb-id    | Load Balancer ID                                                        | Required                                                                                                                               |
+| name     | Name of the backend to filter for                                       |                                                                                                                                        |
+| order-by | Sort order of backends in the response                                  | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                   |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -401,13 +338,13 @@ scw lb backend list-statistics <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| backend-id |  | ID of the backend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                                                |
+|------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| lb-id      | Load Balancer ID                                                        | Required                                                                                                                               |
+| backend-id | ID of the backend                                                       |                                                                                                                                        |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -422,18 +359,18 @@ scw lb backend remove-servers <backend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-id | Required | Backend ID |
-| instance-server-id.{index} |  | UIID of the instance server. |
-| instance-server-tag.{index} |  | Tag of the instance server. |
-| use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
-| baremetal-server-id.{index} |  | UIID of the baremetal server. |
-| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
-| server-ip.{index} | Required | List of IP addresses to remove from backend servers |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                          | Description                                                             | Argument Specifications                                                                                                         |
+|-------------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| backend-id                    | Backend ID                                                              | Required                                                                                                                        |
+| instance-server-id.{index}    | UIID of the instance server.                                            |                                                                                                                                 |
+| instance-server-tag.{index}   | Tag of the instance server.                                             |                                                                                                                                 |
+| use-instance-server-public-ip | Use public IP address of the instance instead of the private one        |                                                                                                                                 |
+| baremetal-server-id.{index}   | UIID of the baremetal server.                                           |                                                                                                                                 |
+| baremetal-server-tag.{index}  | Tag of the baremetal server.                                            |                                                                                                                                 |
+| server-ip.{index}             | List of IP addresses to remove from backend servers                     | Required                                                                                                                        |
+| zone                          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -448,18 +385,18 @@ scw lb backend set-servers <backend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-id | Required | Backend ID |
-| instance-server-id.{index} |  | UIID of the instance server. |
-| instance-server-tag.{index} |  | Tag of the instance server. |
-| use-instance-server-public-ip |  | Use public IP address of the instance instead of the private one |
-| baremetal-server-id.{index} |  | UIID of the baremetal server. |
-| baremetal-server-tag.{index} |  | Tag of the baremetal server. |
-| server-ip.{index} | Required | List of IP addresses for backend servers. Any other existing backend servers will be removed |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                          | Description                                                                                  | Argument Specifications                                                                                                         |
+|-------------------------------|----------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| backend-id                    | Backend ID                                                                                   | Required                                                                                                                        |
+| instance-server-id.{index}    | UIID of the instance server.                                                                 |                                                                                                                                 |
+| instance-server-tag.{index}   | Tag of the instance server.                                                                  |                                                                                                                                 |
+| use-instance-server-public-ip | Use public IP address of the instance instead of the private one                             |                                                                                                                                 |
+| baremetal-server-id.{index}   | UIID of the baremetal server.                                                                |                                                                                                                                 |
+| baremetal-server-tag.{index}  | Tag of the baremetal server.                                                                 |                                                                                                                                 |
+| server-ip.{index}             | List of IP addresses for backend servers. Any other existing backend servers will be removed | Required                                                                                                                        |
+| zone                          | Zone to target. If none is passed will use default zone from the config                      | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -474,31 +411,32 @@ scw lb backend update <backend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| backend-id | Required | Backend ID |
-| name | Required | Backend name |
-| forward-protocol | Required<br />One of: `tcp`, `http` | Protocol to be used by the backend when forwarding traffic to backend servers |
-| forward-port | Required | Port to be used by the backend when forwarding traffic to backend servers |
-| forward-port-algorithm | Required<br />One of: `roundrobin`, `leastconn`, `first` | Load balancing algorithm to be used when determining which backend server to forward new traffic to |
-| sticky-sessions | Required<br />One of: `none`, `cookie`, `table` | Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server |
-| sticky-sessions-cookie-name |  | Cookie name for cookie-based sticky sessions |
-| ~~send-proxy-v2~~ | Deprecated | Deprecated in favor of proxy_protocol field |
-| timeout-server | Default: `5m` | Maximum allowed time for a backend server to process a request |
-| timeout-connect | Default: `5s` | Maximum allowed time for establishing a connection to a backend server |
-| timeout-tunnel | Default: `15m` | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout) |
-| on-marked-down-action | One of: `on_marked_down_action_none`, `shutdown_sessions` | Action to take when a backend server is marked as down |
-| proxy-protocol | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software |
-| failover-host |  | Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud |
-| ssl-bridging |  | Defines whether to enable SSL bridging between the Load Balancer and backend servers |
-| ignore-ssl-server-verify |  | Defines whether the server certificate verification should be ignored |
-| redispatch-attempt-count |  | Whether to use another backend server on each attempt |
-| max-retries |  | Number of retries when a backend server connection failed |
-| max-connections |  | Maximum number of connections allowed per backend server |
-| timeout-queue |  | Maximum time for a request to be left pending in queue when `max_connections` is reached |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                        | Description                                                                                                                                                                                                                                                                                                                           | Argument Specifications                                                                                                                                |
+|-----------------------------|---------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|
+| backend-id                  | Backend ID                                                                                                                                                                                                                                                                                                                            | Required                                                                                                                                               |
+| name                        | Backend name                                                                                                                                                                                                                                                                                                                          | Required                                                                                                                                               |
+| forward-protocol            | Protocol to be used by the backend when forwarding traffic to backend servers                                                                                                                                                                                                                                                         | Required<br />One of: `tcp`, `http`                                                                                                                    |
+| forward-port                | Port to be used by the backend when forwarding traffic to backend servers                                                                                                                                                                                                                                                             | Required                                                                                                                                               |
+| forward-port-algorithm      | Load balancing algorithm to be used when determining which backend server to forward new traffic to                                                                                                                                                                                                                                   | Required<br />One of: `roundrobin`, `leastconn`, `first`                                                                                               |
+| sticky-sessions             | Defines whether to activate sticky sessions (binding a particular session to a particular backend server) and the method to use if so. None disables sticky sessions. Cookie-based uses an HTTP cookie to stick a session to a backend server. Table-based uses the source (client) IP address to stick a session to a backend server | Required<br />One of: `none`, `cookie`, `table`                                                                                                        |
+| sticky-sessions-cookie-name | Cookie name for cookie-based sticky sessions                                                                                                                                                                                                                                                                                          |                                                                                                                                                        |
+| ~~send-proxy-v2~~           | Deprecated in favor of proxy_protocol field                                                                                                                                                                                                                                                                                           | Deprecated                                                                                                                                             |
+| timeout-server              | Maximum allowed time for a backend server to process a request                                                                                                                                                                                                                                                                        | Default: `5m`                                                                                                                                          |
+| timeout-connect             | Maximum allowed time for establishing a connection to a backend server                                                                                                                                                                                                                                                                | Default: `5s`                                                                                                                                          |
+| timeout-tunnel              | Maximum allowed tunnel inactivity time after Websocket is established (takes precedence over client and server timeout)                                                                                                                                                                                                               | Default: `15m`                                                                                                                                         |
+| on-marked-down-action       | Action to take when a backend server is marked as down                                                                                                                                                                                                                                                                                | One of: `on_marked_down_action_none`, `shutdown_sessions`                                                                                              |
+| proxy-protocol              | Protocol to use between the Load Balancer and backend servers. Allows the backend servers to be informed of the client's real IP address. The PROXY protocol must be supported by the backend servers' software                                                                                                                       | One of: `proxy_protocol_unknown`, `proxy_protocol_none`, `proxy_protocol_v1`, `proxy_protocol_v2`, `proxy_protocol_v2_ssl`, `proxy_protocol_v2_ssl_cn` |
+| failover-host               | Scaleway Object Storage bucket website to be served as failover if all backend servers are down, e.g. failover-website.s3-website.fr-par.scw.cloud                                                                                                                                                                                    |                                                                                                                                                        |
+| ssl-bridging                | Defines whether to enable SSL bridging between the Load Balancer and backend servers                                                                                                                                                                                                                                                  |                                                                                                                                                        |
+| ignore-ssl-server-verify    | Defines whether the server certificate verification should be ignored                                                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| redispatch-attempt-count    | Whether to use another backend server on each attempt                                                                                                                                                                                                                                                                                 |                                                                                                                                                        |
+| max-retries                 | Number of retries when a backend server connection failed                                                                                                                                                                                                                                                                             |                                                                                                                                                        |
+| max-connections             | Maximum number of connections allowed per backend server                                                                                                                                                                                                                                                                              |                                                                                                                                                        |
+| timeout-queue               | Maximum time for a request to be left pending in queue when `max_connections` is reached                                                                                                                                                                                                                                              |                                                                                                                                                        |
+| host                        | Host value to use when connecting to backend servers                                                                                                                                                                                                                                                                                  |                                                                                                                                                        |
+| zone                        | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                               | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`                        |
 
 
 
@@ -513,29 +451,32 @@ scw lb backend update-healthcheck [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| port | Required | Port to use for the backend server health check |
-| check-delay | Required | Time to wait between two consecutive health checks |
-| check-timeout | Required | Maximum time a backend server has to reply to the health check |
-| check-max-retries | Required | Number of consecutive unsuccessful health checks after which the server will be considered dead |
-| backend-id | Required | Backend ID |
-| check-send-proxy |  | Defines whether proxy protocol should be activated for the health check |
-| mysql-config.user |  | MySQL user to use for the health check |
-| pgsql-config.user |  | PostgreSQL user to use for the health check |
-| http-config.uri |  | HTTP path used for the health check |
-| http-config.method |  | HTTP method used for the health check |
-| http-config.code |  | HTTP response code expected for a successful health check |
-| http-config.host-header |  | HTTP host header used for the health check |
-| https-config.uri |  | HTTP path used for the health check |
-| https-config.method |  | HTTP method used for the health check |
-| https-config.code |  | HTTP response code expected for a successful health check |
-| https-config.host-header |  | HTTP host header used for the health check |
-| https-config.sni |  | SNI used for SSL health checks |
-| transient-check-delay | Default: `0.5s` | Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                     | Description                                                                                                         | Argument Specifications                                                                                                         |
+|--------------------------|---------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| port                     | Port to use for the backend server health check                                                                     | Required                                                                                                                        |
+| check-delay              | Time to wait between two consecutive health checks                                                                  | Required                                                                                                                        |
+| check-timeout            | Maximum time a backend server has to reply to the health check                                                      | Required                                                                                                                        |
+| check-max-retries        | Number of consecutive unsuccessful health checks after which the server will be considered dead                     | Required                                                                                                                        |
+| backend-id               | Backend ID                                                                                                          | Required                                                                                                                        |
+| check-send-proxy         | Defines whether proxy protocol should be activated for the health check                                             |                                                                                                                                 |
+| tcp-config               | Object to configure a basic TCP health check                                                                        |                                                                                                                                 |
+| mysql-config.user        | MySQL user to use for the health check                                                                              |                                                                                                                                 |
+| pgsql-config.user        | PostgreSQL user to use for the health check                                                                         |                                                                                                                                 |
+| ldap-config              | Object to configure an LDAP health check. The response is analyzed to find the LDAPv3 response message              |                                                                                                                                 |
+| redis-config             | Object to configure a Redis health check. The response is analyzed to find the +PONG response message               |                                                                                                                                 |
+| http-config.uri          | HTTP path used for the health check                                                                                 |                                                                                                                                 |
+| http-config.method       | HTTP method used for the health check                                                                               |                                                                                                                                 |
+| http-config.code         | HTTP response code expected for a successful health check                                                           |                                                                                                                                 |
+| http-config.host-header  | HTTP host header used for the health check                                                                          |                                                                                                                                 |
+| https-config.uri         | HTTP path used for the health check                                                                                 |                                                                                                                                 |
+| https-config.method      | HTTP method used for the health check                                                                               |                                                                                                                                 |
+| https-config.code        | HTTP response code expected for a successful health check                                                           |                                                                                                                                 |
+| https-config.host-header | HTTP host header used for the health check                                                                          |                                                                                                                                 |
+| https-config.sni         | SNI used for SSL health checks                                                                                      |                                                                                                                                 |
+| transient-check-delay    | Time to wait between two consecutive health checks when a backend server is in a transient state (going UP or DOWN) | Default: `0.5s`                                                                                                                 |
+| zone                     | Zone to target. If none is passed will use default zone from the config                                             | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -555,16 +496,16 @@ scw lb certificate create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| name | Required<br />Default: `<generated>` | Name for the certificate |
-| letsencrypt-common-name |  | Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address) |
-| letsencrypt-alternative-name.{index} |  | Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address) |
-| custom-certificate-chain |  | Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                                 | Description                                                                                                                                            | Argument Specifications                                                                                                         |
+|--------------------------------------|--------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id                                | Load Balancer ID                                                                                                                                       | Required                                                                                                                        |
+| name                                 | Name for the certificate                                                                                                                               | Required<br />Default: `<generated>`                                                                                            |
+| letsencrypt-common-name              | Main domain name of certificate (this domain must exist and resolve to your Load Balancer IP address)                                                  |                                                                                                                                 |
+| letsencrypt-alternative-name.{index} | Alternative domain names (all domain names must exist and resolve to your Load Balancer IP address)                                                    |                                                                                                                                 |
+| custom-certificate-chain             | Full PEM-formatted certificate, consisting of the entire certificate chain including public key, private key, and (optionally) Certificate Authorities |                                                                                                                                 |
+| zone                                 | Zone to target. If none is passed will use default zone from the config                                                                                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -579,12 +520,12 @@ scw lb certificate delete <certificate-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| certificate-id | Required | Certificate ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name           | Description                                                             | Argument Specifications                                                                                                         |
+|----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| certificate-id | Certificate ID                                                          | Required                                                                                                                        |
+| zone           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -599,12 +540,12 @@ scw lb certificate get <certificate-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| certificate-id | Required | Certificate ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name           | Description                                                             | Argument Specifications                                                                                                         |
+|----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| certificate-id | Certificate ID                                                          | Required                                                                                                                        |
+| zone           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -619,14 +560,14 @@ scw lb certificate list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of certificates in the response |
-| name |  | Certificate name to filter for, only certificates of this name will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                                     | Argument Specifications                                                                                                                |
+|----------|---------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| lb-id    | Load Balancer ID                                                                | Required                                                                                                                               |
+| order-by | Sort order of certificates in the response                                      | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                   |
+| name     | Certificate name to filter for, only certificates of this name will be returned |                                                                                                                                        |
+| zone     | Zone to target. If none is passed will use default zone from the config         | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -641,13 +582,13 @@ scw lb certificate update <certificate-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| certificate-id | Required | Certificate ID |
-| name | Required | Certificate name |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name           | Description                                                             | Argument Specifications                                                                                                         |
+|----------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| certificate-id | Certificate ID                                                          | Required                                                                                                                        |
+| name           | Certificate name                                                        | Required                                                                                                                        |
+| zone           | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -667,21 +608,21 @@ scw lb frontend create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required<br />Default: `<generated>` | Name for the frontend |
-| inbound-port | Required | Port the frontend should listen on |
-| lb-id | Required | Load Balancer ID (ID of the Load Balancer to attach the frontend to) |
-| backend-id | Required | Backend ID (ID of the backend the frontend should pass traffic to) |
-| timeout-client | Default: `5m` | Maximum allowed inactivity time on the client side |
-| ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
-| certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
-| enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
-| connection-rate-limit |  | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |
-| enable-access-logs |  | Defines whether to enable access logs on the frontend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                    | Description                                                                                                                | Argument Specifications                                                                                                         |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| name                    | Name for the frontend                                                                                                      | Required<br />Default: `<generated>`                                                                                            |
+| inbound-port            | Port the frontend should listen on                                                                                         | Required                                                                                                                        |
+| lb-id                   | Load Balancer ID (ID of the Load Balancer to attach the frontend to)                                                       | Required                                                                                                                        |
+| backend-id              | Backend ID (ID of the backend the frontend should pass traffic to)                                                         | Required                                                                                                                        |
+| timeout-client          | Maximum allowed inactivity time on the client side                                                                         | Default: `5m`                                                                                                                   |
+| ~~certificate-id~~      | Certificate ID, deprecated in favor of certificate_ids array                                                               | Deprecated                                                                                                                      |
+| certificate-ids.{index} | List of SSL/TLS certificate IDs to bind to the frontend                                                                    |                                                                                                                                 |
+| enable-http3            | Defines whether to enable HTTP/3 protocol on the frontend                                                                  |                                                                                                                                 |
+| connection-rate-limit   | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |                                                                                                                                 |
+| enable-access-logs      | Defines whether to enable access logs on the frontend                                                                      |                                                                                                                                 |
+| zone                    | Zone to target. If none is passed will use default zone from the config                                                    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -696,12 +637,12 @@ scw lb frontend delete <frontend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| frontend-id | Required | ID of the frontend to delete |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                             | Argument Specifications                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| frontend-id | ID of the frontend to delete                                            | Required                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -716,12 +657,12 @@ scw lb frontend get <frontend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| frontend-id | Required | Frontend ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                             | Argument Specifications                                                                                                         |
+|-------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| frontend-id | Frontend ID                                                             | Required                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -736,14 +677,14 @@ scw lb frontend list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| name |  | Name of the frontend to filter for |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of frontends in the response |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                                                                                                |
+|----------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| lb-id    | Load Balancer ID                                                        | Required                                                                                                                               |
+| name     | Name of the frontend to filter for                                      |                                                                                                                                        |
+| order-by | Sort order of frontends in the response                                 | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                   |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -758,21 +699,21 @@ scw lb frontend update <frontend-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| frontend-id | Required | Frontend ID |
-| name | Required | Frontend name |
-| inbound-port | Required | Port the frontend should listen on |
-| backend-id | Required | Backend ID (ID of the backend the frontend should pass traffic to) |
-| timeout-client | Default: `5m` | Maximum allowed inactivity time on the client side |
-| ~~certificate-id~~ | Deprecated | Certificate ID, deprecated in favor of certificate_ids array |
-| certificate-ids.{index} |  | List of SSL/TLS certificate IDs to bind to the frontend |
-| enable-http3 |  | Defines whether to enable HTTP/3 protocol on the frontend |
-| connection-rate-limit |  | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |
-| enable-access-logs |  | Defines whether to enable access logs on the frontend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                    | Description                                                                                                                | Argument Specifications                                                                                                         |
+|-------------------------|----------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| frontend-id             | Frontend ID                                                                                                                | Required                                                                                                                        |
+| name                    | Frontend name                                                                                                              | Required                                                                                                                        |
+| inbound-port            | Port the frontend should listen on                                                                                         | Required                                                                                                                        |
+| backend-id              | Backend ID (ID of the backend the frontend should pass traffic to)                                                         | Required                                                                                                                        |
+| timeout-client          | Maximum allowed inactivity time on the client side                                                                         | Default: `5m`                                                                                                                   |
+| ~~certificate-id~~      | Certificate ID, deprecated in favor of certificate_ids array                                                               | Deprecated                                                                                                                      |
+| certificate-ids.{index} | List of SSL/TLS certificate IDs to bind to the frontend                                                                    |                                                                                                                                 |
+| enable-http3            | Defines whether to enable HTTP/3 protocol on the frontend                                                                  |                                                                                                                                 |
+| connection-rate-limit   | Rate limit for new connections established on this frontend. Use 0 value to disable, else value is connections per second. |                                                                                                                                 |
+| enable-access-logs      | Defines whether to enable access logs on the frontend                                                                      |                                                                                                                                 |
+| zone                    | Zone to target. If none is passed will use default zone from the config                                                    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -792,16 +733,16 @@ scw lb ip create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| reverse |  | Reverse DNS (domain name) for the IP address |
-| is-ipv6 |  | If true, creates a Flexible IP with an ipv6 address |
-| tags.{index} |  | List of tags for the IP |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name            | Description                                                                        | Argument Specifications                                                                                                         |
+|-----------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| project-id      | Project ID to use. If none is passed the default project ID will be used           |                                                                                                                                 |
+| reverse         | Reverse DNS (domain name) for the IP address                                       |                                                                                                                                 |
+| is-ipv6         | If true, creates a Flexible IP with an ipv6 address                                |                                                                                                                                 |
+| tags.{index}    | List of tags for the IP                                                            |                                                                                                                                 |
+| organization-id | Organization ID to use. If none is passed the default organization ID will be used |                                                                                                                                 |
+| zone            | Zone to target. If none is passed will use default zone from the config            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -816,12 +757,12 @@ scw lb ip delete <ip-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP address ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name  | Description                                                             | Argument Specifications                                                                                                         |
+|-------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| ip-id | IP address ID                                                           | Required                                                                                                                        |
+| zone  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -836,12 +777,12 @@ scw lb ip get <ip-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP address ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name  | Description                                                             | Argument Specifications                                                                                                         |
+|-------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| ip-id | IP address ID                                                           | Required                                                                                                                        |
+| zone  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -856,16 +797,16 @@ scw lb ip list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-address |  | IP address to filter for |
-| project-id |  | Project ID to filter for, only Load Balancer IP addresses from this Project will be returned |
-| ip-type | One of: `all`, `ipv4`, `ipv6` | IP type to filter for |
-| tags.{index} |  | Tag to filter for, only IPs with one or more matching tags will be returned |
-| organization-id |  | Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name            | Description                                                                                            | Argument Specifications                                                                                                                |
+|-----------------|--------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| ip-address      | IP address to filter for                                                                               |                                                                                                                                        |
+| project-id      | Project ID to filter for, only Load Balancer IP addresses from this Project will be returned           |                                                                                                                                        |
+| ip-type         | IP type to filter for                                                                                  | One of: `all`, `ipv4`, `ipv6`                                                                                                          |
+| tags.{index}    | Tag to filter for, only IPs with one or more matching tags will be returned                            |                                                                                                                                        |
+| organization-id | Organization ID to filter for, only Load Balancer IP addresses from this Organization will be returned |                                                                                                                                        |
+| zone            | Zone to target. If none is passed will use default zone from the config                                | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -880,15 +821,15 @@ scw lb ip update <ip-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| ip-id | Required | IP address ID |
-| reverse |  | Reverse DNS (domain name) for the IP address |
-| lb-id |  | ID of the server on which to attach the flexible IP |
-| tags.{index} |  | List of tags for the IP |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name         | Description                                                             | Argument Specifications                                                                                                         |
+|--------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| ip-id        | IP address ID                                                           | Required                                                                                                                        |
+| reverse      | Reverse DNS (domain name) for the IP address                            |                                                                                                                                 |
+| lb-id        | ID of the server on which to attach the flexible IP                     |                                                                                                                                 |
+| tags.{index} | List of tags for the IP                                                 |                                                                                                                                 |
+| zone         | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -908,22 +849,22 @@ scw lb lb create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| name | Required<br />Default: `<generated>` | Name for the Load Balancer |
-| description |  | Description for the Load Balancer |
-| ~~ip-id~~ | Deprecated | ID of an existing flexible IP address to attach to the Load Balancer |
-| assign-flexible-ip | Default: `true` | Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign). |
-| assign-flexible-ipv6 | Default: `false` | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign). |
-| ip-ids.{index} |  | List of IP IDs to attach to the Load Balancer |
-| tags.{index} |  | List of tags for the Load Balancer |
-| type | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types |
-| ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0) |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Argument Specifications                                                                                                                            |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| project-id              | Project ID to use. If none is passed the default project ID will be used                                                                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                                                    |
+| name                    | Name for the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                                                               | Required<br />Default: `<generated>`                                                                                                               |
+| description             | Description for the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                                                        |                                                                                                                                                    |
+| ~~ip-id~~               | ID of an existing flexible IP address to attach to the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                     | Deprecated                                                                                                                                         |
+| assign-flexible-ip      | Defines whether to automatically assign a flexible public IP to the Load Balancer. Default value is `true` (assign).                                                                                                                                                                                                                                                                                                                                                                     | Default: `true`                                                                                                                                    |
+| assign-flexible-ipv6    | Defines whether to automatically assign a flexible public IPv6 to the Load Balancer. Default value is `false` (do not assign).                                                                                                                                                                                                                                                                                                                                                           | Default: `false`                                                                                                                                   |
+| ip-ids.{index}          | List of IP IDs to attach to the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                                            |                                                                                                                                                    |
+| tags.{index}            | List of tags for the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                                    |
+| type                    | Load Balancer commercial offer type. Use the Load Balancer types endpoint to retrieve a list of available offer types                                                                                                                                                                                                                                                                                                                                                                    | Default: `LB-S`<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L`                                                                                          |
+| ssl-compatibility-level | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0) | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` |
+| organization-id         | Organization ID to use. If none is passed the default organization ID will be used                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                                    |
+| zone                    | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                                                                                                                                                                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`                    |
 
 
 
@@ -938,13 +879,13 @@ scw lb lb delete <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | ID of the Load Balancer to delete |
-| release-ip |  | Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                                                                                                                                        | Argument Specifications                                                                                                         |
+|------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id      | ID of the Load Balancer to delete                                                                                                                                                  | Required                                                                                                                        |
+| release-ip | Defines whether the Load Balancer's flexible IP should be deleted. Set to true to release the flexible IP, or false to keep it available in your account for future Load Balancers |                                                                                                                                 |
+| zone       | Zone to target. If none is passed will use default zone from the config                                                                                                            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -959,12 +900,12 @@ scw lb lb get <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name  | Description                                                             | Argument Specifications                                                                                                         |
+|-------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id | Load Balancer ID                                                        | Required                                                                                                                        |
+| zone  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -979,13 +920,13 @@ scw lb lb get-stats <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| backend-id |  | ID of the backend |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name       | Description                                                             | Argument Specifications                                                                                                         |
+|------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id      | Load Balancer ID                                                        | Required                                                                                                                        |
+| backend-id | ID of the backend                                                       |                                                                                                                                 |
+| zone       | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1000,16 +941,17 @@ scw lb lb list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name |  | Load Balancer name to filter for |
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of Load Balancers in the response |
-| project-id |  | Project ID to filter for, only Load Balancers from this Project will be returned |
-| tags.{index} |  | Filter by tag, only Load Balancers with one or more matching tags will be returned |
-| organization-id |  | Organization ID to filter for, only Load Balancers from this Organization will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name            | Description                                                                                | Argument Specifications                                                                                                                |
+|-----------------|--------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| name            | Load Balancer name to filter for                                                           |                                                                                                                                        |
+| order-by        | Sort order of Load Balancers in the response                                               | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                   |
+| project-id      | Project ID to filter for, only Load Balancers from this Project will be returned           |                                                                                                                                        |
+| tags.{index}    | Filter by tag, only Load Balancers with one or more matching tags will be returned         |                                                                                                                                        |
+| lb-ids.{index}  | Filter by lb_ids, only Load Balancers with these IDs will be returned                      |                                                                                                                                        |
+| organization-id | Organization ID to filter for, only Load Balancers from this Organization will be returned |                                                                                                                                        |
+| zone            | Zone to target. If none is passed will use default zone from the config                    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -1024,13 +966,13 @@ scw lb lb migrate <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| type | Required<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L` | Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name  | Description                                                                                                                   | Argument Specifications                                                                                                         |
+|-------|-------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id | Load Balancer ID                                                                                                              | Required                                                                                                                        |
+| type  | Load Balancer type to migrate to (use the List all Load Balancer offer types endpoint to get a list of available offer types) | Required<br />One of: `LB-S`, `LB-GP-M`, `LB-GP-L`                                                                              |
+| zone  | Zone to target. If none is passed will use default zone from the config                                                       | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1045,18 +987,18 @@ scw lb lb update <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| name | Required | Load Balancer name |
-| description | Required | Load Balancer description |
-| assign-flexible-ipv6 |  | Automatically assign a flexible public IPv6 to the Load Balancer |
-| ip-id |  | The IP ID to attach to the Load Balancer |
-| tags.{index} |  | List of tags for the Load Balancer |
-| ssl-compatibility-level | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0) |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                    | Description                                                                                                                                                                                                                                                                                                                                                                                                                                                                              | Argument Specifications                                                                                                                            |
+|-------------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------------------|
+| lb-id                   | Load Balancer ID                                                                                                                                                                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                                           |
+| name                    | Load Balancer name                                                                                                                                                                                                                                                                                                                                                                                                                                                                       | Required                                                                                                                                           |
+| description             | Load Balancer description                                                                                                                                                                                                                                                                                                                                                                                                                                                                | Required                                                                                                                                           |
+| assign-flexible-ipv6    | Automatically assign a flexible public IPv6 to the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                         |                                                                                                                                                    |
+| ip-id                   | The IP ID to attach to the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                                                 |                                                                                                                                                    |
+| tags.{index}            | List of tags for the Load Balancer                                                                                                                                                                                                                                                                                                                                                                                                                                                       |                                                                                                                                                    |
+| ssl-compatibility-level | Determines the minimal SSL version which needs to be supported on the client side, in an SSL/TLS offloading context. Intermediate is suitable for general-purpose servers with a variety of clients, recommended for almost all systems (>= TLS1.2). Modern is suitable for services with clients that support TLS 1.3 and do not need backward compatibility (= TLS1.3). Old is compatible with a small number of very old clients and should be used only as a last resort (>= TLS1.0) | One of: `ssl_compatibility_level_unknown`, `ssl_compatibility_level_intermediate`, `ssl_compatibility_level_modern`, `ssl_compatibility_level_old` |
+| zone                    | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                                                                                                                                                                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`                    |
 
 
 
@@ -1071,13 +1013,13 @@ scw lb lb wait <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | ID of the load balancer you want to wait for. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `pl-waw-1`, `nl-ams-1` | Zone to target. If none is passed will use default zone from the config |
-| timeout | Default: `10m0s` | Timeout of the wait |
+| Name    | Description                                                             | Argument Specifications                                                         |
+|---------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------|
+| lb-id   | ID of the load balancer you want to wait for.                           | Required                                                                        |
+| zone    | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `pl-waw-1`, `nl-ams-1` |
+| timeout | Timeout of the wait                                                     | Default: `10m0s`                                                                |
 
 
 **Examples:**
@@ -1107,11 +1049,11 @@ scw lb lb-types list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name | Description                                                             | Argument Specifications                                                                                                                |
+|------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| zone | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -1131,14 +1073,14 @@ scw lb private-network attach <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| private-network-id | Required | Private Network ID |
-| ipam-ids.{index} |  | IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network. |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name               | Description                                                                                                                                                                                                                                                                                                                              | Argument Specifications                                                                                                         |
+|--------------------|------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id              | Load Balancer ID                                                                                                                                                                                                                                                                                                                         | Required                                                                                                                        |
+| private-network-id | Private Network ID                                                                                                                                                                                                                                                                                                                       | Required                                                                                                                        |
+| ipam-ids.{index}   | IPAM ID of a pre-reserved IP address to assign to the Load Balancer on this Private Network. In the future, it will be possible to specify multiple IPs in this field (IPv4 and IPv6), for now only one ID of an IPv4 address is expected. When null, a new private IP address is created for the Load Balancer on this Private Network. |                                                                                                                                 |
+| zone               | Zone to target. If none is passed will use default zone from the config                                                                                                                                                                                                                                                                  | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1153,13 +1095,13 @@ scw lb private-network detach <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load balancer ID |
-| private-network-id | Required | Set your instance private network id |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name               | Description                                                             | Argument Specifications                                                                                                         |
+|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id              | Load balancer ID                                                        | Required                                                                                                                        |
+| private-network-id | Set your instance private network id                                    | Required                                                                                                                        |
+| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1174,13 +1116,13 @@ scw lb private-network list <lb-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of Private Network objects in the response |
-| lb-id | Required | Load Balancer ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                                                                                                |
+|----------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| order-by | Sort order of Private Network objects in the response                   | One of: `created_at_asc`, `created_at_desc`                                                                                            |
+| lb-id    | Load Balancer ID                                                        | Required                                                                                                                               |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -1200,17 +1142,17 @@ scw lb route create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| frontend-id |  | ID of the source frontend to create the route on |
-| backend-id |  | ID of the target backend for the route |
-| match.sni |  | Server Name Indication (SNI) value to match |
-| match.host-header |  | HTTP host header to match |
-| match.match-subdomains |  | If true, all subdomains will match |
-| match.path-begin |  | Path begin value to match |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                   | Description                                                             | Argument Specifications                                                                                                         |
+|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| frontend-id            | ID of the source frontend to create the route on                        |                                                                                                                                 |
+| backend-id             | ID of the target backend for the route                                  |                                                                                                                                 |
+| match.sni              | Server Name Indication (SNI) value to match                             |                                                                                                                                 |
+| match.host-header      | HTTP host header to match                                               |                                                                                                                                 |
+| match.match-subdomains | If true, all subdomains will match                                      |                                                                                                                                 |
+| match.path-begin       | Path begin value to match                                               |                                                                                                                                 |
+| zone                   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1225,12 +1167,12 @@ scw lb route delete <route-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-id | Required | Route ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                                                                                         |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| route-id | Route ID                                                                | Required                                                                                                                        |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1245,12 +1187,12 @@ scw lb route get <route-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-id | Required | Route ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name     | Description                                                             | Argument Specifications                                                                                                         |
+|----------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| route-id | Route ID                                                                | Required                                                                                                                        |
+| zone     | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1265,13 +1207,13 @@ scw lb route list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc` | Sort order of routes in the response |
-| frontend-id |  | Frontend ID to filter for, only Routes from this Frontend will be returned |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name        | Description                                                                | Argument Specifications                                                                                                                |
+|-------------|----------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| order-by    | Sort order of routes in the response                                       | One of: `created_at_asc`, `created_at_desc`                                                                                            |
+| frontend-id | Frontend ID to filter for, only Routes from this Frontend will be returned |                                                                                                                                        |
+| zone        | Zone to target. If none is passed will use default zone from the config    | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -1286,17 +1228,17 @@ scw lb route update <route-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| route-id | Required | Route ID |
-| backend-id |  | ID of the target backend for the route |
-| match.sni |  | Server Name Indication (SNI) value to match |
-| match.host-header |  | HTTP host header to match |
-| match.match-subdomains |  | If true, all subdomains will match |
-| match.path-begin |  | Path begin value to match |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name                   | Description                                                             | Argument Specifications                                                                                                         |
+|------------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| route-id               | Route ID                                                                | Required                                                                                                                        |
+| backend-id             | ID of the target backend for the route                                  |                                                                                                                                 |
+| match.sni              | Server Name Indication (SNI) value to match                             |                                                                                                                                 |
+| match.host-header      | HTTP host header to match                                               |                                                                                                                                 |
+| match.match-subdomains | If true, all subdomains will match                                      |                                                                                                                                 |
+| match.path-begin       | Path begin value to match                                               |                                                                                                                                 |
+| zone                   | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1316,16 +1258,16 @@ scw lb subscriber create [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| name | Required | Subscriber name |
-| email-config.email |  | Email address to send alerts to |
-| webhook-config.uri |  | URI to receive POST requests |
-| project-id |  | Project ID to use. If none is passed the default project ID will be used |
-| organization-id |  | Organization ID to use. If none is passed the default organization ID will be used |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name               | Description                                                                        | Argument Specifications                                                                                                         |
+|--------------------|------------------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| name               | Subscriber name                                                                    | Required                                                                                                                        |
+| email-config.email | Email address to send alerts to                                                    |                                                                                                                                 |
+| webhook-config.uri | URI to receive POST requests                                                       |                                                                                                                                 |
+| project-id         | Project ID to use. If none is passed the default project ID will be used           |                                                                                                                                 |
+| organization-id    | Organization ID to use. If none is passed the default organization ID will be used |                                                                                                                                 |
+| zone               | Zone to target. If none is passed will use default zone from the config            | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1340,12 +1282,12 @@ scw lb subscriber delete <subscriber-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| subscriber-id | Required | Subscriber ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name          | Description                                                             | Argument Specifications                                                                                                         |
+|---------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| subscriber-id | Subscriber ID                                                           | Required                                                                                                                        |
+| zone          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1360,12 +1302,12 @@ scw lb subscriber get <subscriber-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| subscriber-id | Required | Subscriber ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name          | Description                                                             | Argument Specifications                                                                                                         |
+|---------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| subscriber-id | Subscriber ID                                                           | Required                                                                                                                        |
+| zone          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1380,15 +1322,15 @@ scw lb subscriber list [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| order-by | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc` | Sort order of subscribers in the response |
-| name | Required | Subscriber name to search for |
-| project-id |  | Filter subscribers by Project ID |
-| organization-id |  | Filter subscribers by Organization ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` | Zone to target. If none is passed will use default zone from the config |
+| Name            | Description                                                             | Argument Specifications                                                                                                                |
+|-----------------|-------------------------------------------------------------------------|----------------------------------------------------------------------------------------------------------------------------------------|
+| order-by        | Sort order of subscribers in the response                               | One of: `created_at_asc`, `created_at_desc`, `name_asc`, `name_desc`                                                                   |
+| name            | Subscriber name to search for                                           | Required                                                                                                                               |
+| project-id      | Filter subscribers by Project ID                                        |                                                                                                                                        |
+| organization-id | Filter subscribers by Organization ID                                   |                                                                                                                                        |
+| zone            | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3`, `all` |
 
 
 
@@ -1403,13 +1345,13 @@ scw lb subscriber subscribe [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| subscriber-id | Required | Subscriber ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name          | Description                                                             | Argument Specifications                                                                                                         |
+|---------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id         | Load Balancer ID                                                        | Required                                                                                                                        |
+| subscriber-id | Subscriber ID                                                           | Required                                                                                                                        |
+| zone          | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1424,12 +1366,12 @@ scw lb subscriber unsubscribe [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| lb-id | Required | Load Balancer ID |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name  | Description                                                             | Argument Specifications                                                                                                         |
+|-------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| lb-id | Load Balancer ID                                                        | Required                                                                                                                        |
+| zone  | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 
@@ -1444,15 +1386,15 @@ scw lb subscriber update <subscriber-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| subscriber-id | Required | Subscriber ID |
-| name | Required | Subscriber name |
-| email-config.email |  | Email address to send alerts to |
-| webhook-config.uri |  | URI to receive POST requests |
-| zone | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` | Zone to target. If none is passed will use default zone from the config |
+| Name               | Description                                                             | Argument Specifications                                                                                                         |
+|--------------------|-------------------------------------------------------------------------|---------------------------------------------------------------------------------------------------------------------------------|
+| subscriber-id      | Subscriber ID                                                           | Required                                                                                                                        |
+| name               | Subscriber name                                                         | Required                                                                                                                        |
+| email-config.email | Email address to send alerts to                                         |                                                                                                                                 |
+| webhook-config.uri | URI to receive POST requests                                            |                                                                                                                                 |
+| zone               | Zone to target. If none is passed will use default zone from the config | Default: `fr-par-1`<br />One of: `fr-par-1`, `fr-par-2`, `nl-ams-1`, `nl-ams-2`, `nl-ams-3`, `pl-waw-1`, `pl-waw-2`, `pl-waw-3` |
 
 
 

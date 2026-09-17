@@ -1,6 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 List all private NICs of a specified Instance.
+Some private NICs, such as those in deleting, detaching, or in error state are
+not listed. We strongly recommend migrating to v2alpha1 to retrieve all private NICs.
 
 USAGE:
   scw instance private-nic list [arg=value ...]
