@@ -13,20 +13,20 @@ import (
 
 type FetchBuckets struct{}
 
-func (f FetchBuckets) Namespace() string {
+func (f *FetchBuckets) Namespace() string {
 	return objectBucket().Namespace
 }
 
-func (f FetchBuckets) Resource() string {
+func (f *FetchBuckets) Resource() string {
 	return objectBucket().Resource
 }
 
-func (f FetchBuckets) LocalityType() fetch.LocalityType {
+func (f *FetchBuckets) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all object storage buckets in a given region.
-func (f FetchBuckets) Fetch(
+func (f *FetchBuckets) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

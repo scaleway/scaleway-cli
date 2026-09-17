@@ -11,21 +11,20 @@ import (
 
 type FetchInstances struct{}
 
-func (f FetchInstances) Namespace() string {
+func (f *FetchInstances) Namespace() string {
 	return mongodbInstance().Namespace
 }
 
-func (f FetchInstances) Resource() string {
+func (f *FetchInstances) Resource() string {
 	return mongodbInstance().Resource
 }
 
-func (f FetchInstances) LocalityType() fetch.LocalityType {
+func (f *FetchInstances) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all MongoDB instances in a given region.
-func (f FetchInstances) Fetch(
+func (f *FetchInstances) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
@@ -63,21 +62,20 @@ func (f FetchInstances) Fetch(
 
 type FetchSnapshot struct{}
 
-func (f FetchSnapshot) Namespace() string {
+func (f *FetchSnapshot) Namespace() string {
 	return mongodbSnapshot().Namespace
 }
 
-func (f FetchSnapshot) Resource() string {
+func (f *FetchSnapshot) Resource() string {
 	return mongodbSnapshot().Resource
 }
 
-func (f FetchSnapshot) LocalityType() fetch.LocalityType {
+func (f *FetchSnapshot) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all MongoDB snapshots in a given region.
-func (f FetchSnapshot) Fetch(
+func (f *FetchSnapshot) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

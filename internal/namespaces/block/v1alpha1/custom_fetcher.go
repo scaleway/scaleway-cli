@@ -11,20 +11,20 @@ import (
 
 type FetchSnapshots struct{}
 
-func (s *FetchSnapshots) Resource() string {
+func (f *FetchSnapshots) Resource() string {
 	return blockSnapshot().Resource
 }
 
-func (s *FetchSnapshots) Namespace() string {
+func (f *FetchSnapshots) Namespace() string {
 	return blockSnapshot().Namespace
 }
 
-func (s *FetchSnapshots) LocalityType() fetch.LocalityType {
+func (f *FetchSnapshots) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
 // Fetch fetches all block storage snapshots in a given zone.
-func (s *FetchSnapshots) Fetch(
+func (f *FetchSnapshots) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

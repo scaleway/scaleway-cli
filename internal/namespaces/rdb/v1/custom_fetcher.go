@@ -11,21 +11,20 @@ import (
 
 type FetchInstances struct{}
 
-func (f FetchInstances) Namespace() string {
+func (f *FetchInstances) Namespace() string {
 	return rdbInstance().Namespace
 }
 
-func (f FetchInstances) Resource() string {
+func (f *FetchInstances) Resource() string {
 	return rdbInstance().Resource
 }
 
-func (f FetchInstances) LocalityType() fetch.LocalityType {
+func (f *FetchInstances) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all RDB instances in a given region.
-func (f FetchInstances) Fetch(
+func (f *FetchInstances) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

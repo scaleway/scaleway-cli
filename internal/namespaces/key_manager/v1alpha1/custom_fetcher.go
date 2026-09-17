@@ -11,21 +11,20 @@ import (
 
 type FetchKey struct{}
 
-func (f FetchKey) Namespace() string {
+func (f *FetchKey) Namespace() string {
 	return keymanagerKey().Namespace
 }
 
-func (f FetchKey) Resource() string {
+func (f *FetchKey) Resource() string {
 	return keymanagerKey().Resource
 }
 
-func (f FetchKey) LocalityType() fetch.LocalityType {
+func (f *FetchKey) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all key manager keys in a given region.
-func (f FetchKey) Fetch(
+func (f *FetchKey) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

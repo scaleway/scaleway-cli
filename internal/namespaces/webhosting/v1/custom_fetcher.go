@@ -11,21 +11,20 @@ import (
 
 type FetchHostings struct{}
 
-func (f FetchHostings) Namespace() string {
+func (f *FetchHostings) Namespace() string {
 	return webhostingHosting().Namespace
 }
 
-func (f FetchHostings) Resource() string {
+func (f *FetchHostings) Resource() string {
 	return webhostingHosting().Resource
 }
 
-func (f FetchHostings) LocalityType() fetch.LocalityType {
+func (f *FetchHostings) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all Web Hosting plans in a given region.
-func (f FetchHostings) Fetch(
+func (f *FetchHostings) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

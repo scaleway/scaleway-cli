@@ -11,21 +11,20 @@ import (
 
 type FetchDeployments struct{}
 
-func (f FetchDeployments) Namespace() string {
+func (f *FetchDeployments) Namespace() string {
 	return searchdbDeployment().Namespace
 }
 
-func (f FetchDeployments) Resource() string {
+func (f *FetchDeployments) Resource() string {
 	return searchdbDeployment().Resource
 }
 
-func (f FetchDeployments) LocalityType() fetch.LocalityType {
+func (f *FetchDeployments) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all SearchDB deployments in a given region.
-func (f FetchDeployments) Fetch(
+func (f *FetchDeployments) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

@@ -11,20 +11,20 @@ import (
 
 type FetchGateways struct{}
 
-func (f FetchGateways) Namespace() string {
+func (f *FetchGateways) Namespace() string {
 	return vpcGwGateway().Namespace
 }
 
-func (f FetchGateways) Resource() string {
+func (f *FetchGateways) Resource() string {
 	return vpcGwGateway().Resource
 }
 
-func (f FetchGateways) LocalityType() fetch.LocalityType {
+func (f *FetchGateways) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
 // Fetch fetches all VPC gateways in a given zone.
-func (f FetchGateways) Fetch(
+func (f *FetchGateways) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
@@ -62,20 +62,20 @@ func (f FetchGateways) Fetch(
 
 type FetchIPs struct{}
 
-func (f FetchIPs) Namespace() string {
+func (f *FetchIPs) Namespace() string {
 	return "vpc-gw"
 }
 
-func (f FetchIPs) Resource() string {
+func (f *FetchIPs) Resource() string {
 	return "ip"
 }
 
-func (f FetchIPs) LocalityType() fetch.LocalityType {
+func (f *FetchIPs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
 // Fetch fetches all VPC gateway IPs in a given zone.
-func (f FetchIPs) Fetch(
+func (f *FetchIPs) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

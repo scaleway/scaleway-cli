@@ -11,21 +11,20 @@ import (
 
 type FetchFileSystem struct{}
 
-func (f FetchFileSystem) Namespace() string {
+func (f *FetchFileSystem) Namespace() string {
 	return fileFilesystem().Namespace
 }
 
-func (f FetchFileSystem) Resource() string {
+func (f *FetchFileSystem) Resource() string {
 	return fileFilesystem().Resource
 }
 
-func (f FetchFileSystem) LocalityType() fetch.LocalityType {
+func (f *FetchFileSystem) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all file systems in a given region.
-func (f FetchFileSystem) Fetch(
+func (f *FetchFileSystem) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

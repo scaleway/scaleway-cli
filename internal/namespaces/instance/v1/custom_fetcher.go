@@ -11,21 +11,20 @@ import (
 
 type FetchServers struct{}
 
-func (f FetchServers) Namespace() string {
+func (f *FetchServers) Namespace() string {
 	return instanceServer().Namespace
 }
 
-func (f FetchServers) Resource() string {
+func (f *FetchServers) Resource() string {
 	return instanceServer().Resource
 }
 
-func (f FetchServers) LocalityType() fetch.LocalityType {
+func (f *FetchServers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all instances in a given zone.
-func (f FetchServers) Fetch(
+func (f *FetchServers) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
@@ -63,21 +62,20 @@ func (f FetchServers) Fetch(
 
 type FetchIPs struct{}
 
-func (f FetchIPs) Namespace() string {
+func (f *FetchIPs) Namespace() string {
 	return instanceIP().Namespace
 }
 
-func (f FetchIPs) Resource() string {
+func (f *FetchIPs) Resource() string {
 	return instanceIP().Resource
 }
 
-func (f FetchIPs) LocalityType() fetch.LocalityType {
+func (f *FetchIPs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all instance IPs in a given zone.
-func (f FetchIPs) Fetch(
+func (f *FetchIPs) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
@@ -115,21 +113,20 @@ func (f FetchIPs) Fetch(
 
 type FetchVolumes struct{}
 
-func (f FetchVolumes) Namespace() string {
+func (f *FetchVolumes) Namespace() string {
 	return instanceVolume().Namespace
 }
 
-func (f FetchVolumes) Resource() string {
+func (f *FetchVolumes) Resource() string {
 	return instanceVolume().Resource
 }
 
-func (f FetchVolumes) LocalityType() fetch.LocalityType {
+func (f *FetchVolumes) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all instance volumes in a given zone.
-func (f FetchVolumes) Fetch(
+func (f *FetchVolumes) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
@@ -167,21 +164,20 @@ func (f FetchVolumes) Fetch(
 
 type FetchSnapshots struct{}
 
-func (f FetchSnapshots) Namespace() string {
+func (f *FetchSnapshots) Namespace() string {
 	return instanceSnapshot().Namespace
 }
 
-func (f FetchSnapshots) Resource() string {
+func (f *FetchSnapshots) Resource() string {
 	return instanceSnapshot().Resource
 }
 
-func (f FetchSnapshots) LocalityType() fetch.LocalityType {
+func (f *FetchSnapshots) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all instance snapshots in a given zone.
-func (f FetchSnapshots) Fetch(
+func (f *FetchSnapshots) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,
@@ -219,21 +215,20 @@ func (f FetchSnapshots) Fetch(
 
 type FetchSecurityGroups struct{}
 
-func (f FetchSecurityGroups) Namespace() string {
+func (f *FetchSecurityGroups) Namespace() string {
 	return instanceSecurityGroup().Namespace
 }
 
-func (f FetchSecurityGroups) Resource() string {
+func (f *FetchSecurityGroups) Resource() string {
 	return instanceSecurityGroup().Resource
 }
 
-func (f FetchSecurityGroups) LocalityType() fetch.LocalityType {
+func (f *FetchSecurityGroups) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all instance security groups in a given zone.
-func (f FetchSecurityGroups) Fetch(
+func (f *FetchSecurityGroups) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

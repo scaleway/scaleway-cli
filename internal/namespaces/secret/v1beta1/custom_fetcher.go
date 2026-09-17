@@ -11,20 +11,20 @@ import (
 
 type FetchSecrets struct{}
 
-func (f FetchSecrets) Namespace() string {
+func (f *FetchSecrets) Namespace() string {
 	return secretSecret().Namespace
 }
 
-func (f FetchSecrets) Resource() string {
+func (f *FetchSecrets) Resource() string {
 	return secretSecret().Resource
 }
 
-func (f FetchSecrets) LocalityType() fetch.LocalityType {
+func (f *FetchSecrets) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all secrets in a given region.
-func (f FetchSecrets) Fetch(
+func (f *FetchSecrets) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

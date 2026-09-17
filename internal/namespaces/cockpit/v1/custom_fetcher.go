@@ -11,19 +11,19 @@ import (
 
 type FetchToken struct{}
 
-func (f FetchToken) Namespace() string {
+func (f *FetchToken) Namespace() string {
 	return cockpitToken().Namespace
 }
 
-func (f FetchToken) Resource() string {
+func (f *FetchToken) Resource() string {
 	return cockpitToken().Resource
 }
 
-func (f FetchToken) LocalityType() fetch.LocalityType {
+func (f *FetchToken) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-func (f FetchToken) Fetch(
+func (f *FetchToken) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
@@ -59,19 +59,19 @@ func (f FetchToken) Fetch(
 
 type FetchDataSource struct{}
 
-func (f FetchDataSource) Namespace() string {
+func (f *FetchDataSource) Namespace() string {
 	return cockpitDataSource().Namespace
 }
 
-func (f FetchDataSource) Resource() string {
+func (f *FetchDataSource) Resource() string {
 	return cockpitDataSource().Resource
 }
 
-func (f FetchDataSource) LocalityType() fetch.LocalityType {
+func (f *FetchDataSource) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-func (f FetchDataSource) Fetch(
+func (f *FetchDataSource) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

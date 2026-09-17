@@ -11,20 +11,20 @@ import (
 
 type FetchVpnGateways struct{}
 
-func (f FetchVpnGateways) Namespace() string {
+func (f *FetchVpnGateways) Namespace() string {
 	return s2sVpnVpnGateway().Namespace
 }
 
-func (f FetchVpnGateways) Resource() string {
+func (f *FetchVpnGateways) Resource() string {
 	return s2sVpnVpnGateway().Resource
 }
 
-func (f FetchVpnGateways) LocalityType() fetch.LocalityType {
+func (f *FetchVpnGateways) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all VPN gateways in a given region.
-func (f FetchVpnGateways) Fetch(
+func (f *FetchVpnGateways) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

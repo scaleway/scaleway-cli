@@ -11,21 +11,20 @@ import (
 
 type FetchServers struct{}
 
-func (s *FetchServers) Resource() string {
+func (f *FetchServers) Resource() string {
 	return appleSiliconServer().Resource
 }
 
-func (s *FetchServers) Namespace() string {
+func (f *FetchServers) Namespace() string {
 	return appleSiliconServer().Namespace
 }
 
-func (s *FetchServers) LocalityType() fetch.LocalityType {
+func (f *FetchServers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all Apple Silicon servers in a given zone.
-func (s *FetchServers) Fetch(
+func (f *FetchServers) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

@@ -11,21 +11,20 @@ import (
 
 type FetchFlexibleIPs struct{}
 
-func (f FetchFlexibleIPs) Namespace() string {
+func (f *FetchFlexibleIPs) Namespace() string {
 	return fipIP().Namespace
 }
 
-func (f FetchFlexibleIPs) Resource() string {
+func (f *FetchFlexibleIPs) Resource() string {
 	return fipIP().Resource
 }
 
-func (f FetchFlexibleIPs) LocalityType() fetch.LocalityType {
+func (f *FetchFlexibleIPs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all flexible IPs in a given zone.
-func (f FetchFlexibleIPs) Fetch(
+func (f *FetchFlexibleIPs) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

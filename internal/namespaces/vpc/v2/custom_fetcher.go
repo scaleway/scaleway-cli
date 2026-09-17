@@ -11,20 +11,20 @@ import (
 
 type FetchVPCs struct{}
 
-func (f FetchVPCs) Namespace() string {
+func (f *FetchVPCs) Namespace() string {
 	return vpcVpc().Namespace
 }
 
-func (f FetchVPCs) Resource() string {
+func (f *FetchVPCs) Resource() string {
 	return vpcVpc().Resource
 }
 
-func (f FetchVPCs) LocalityType() fetch.LocalityType {
+func (f *FetchVPCs) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all VPCs in a given region.
-func (f FetchVPCs) Fetch(
+func (f *FetchVPCs) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

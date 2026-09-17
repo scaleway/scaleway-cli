@@ -11,21 +11,20 @@ import (
 
 type FetchClusters struct{}
 
-func (f FetchClusters) Namespace() string {
+func (f *FetchClusters) Namespace() string {
 	return redisCluster().Namespace
 }
 
-func (f FetchClusters) Resource() string {
+func (f *FetchClusters) Resource() string {
 	return redisCluster().Resource
 }
 
-func (f FetchClusters) LocalityType() fetch.LocalityType {
+func (f *FetchClusters) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeZone
 }
 
-
 // Fetch fetches all Redis clusters in a given zone.
-func (f FetchClusters) Fetch(
+func (f *FetchClusters) Fetch(
 	ctx context.Context,
 	zone scw.Zone,
 	projectID string,

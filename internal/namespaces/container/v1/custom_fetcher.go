@@ -11,21 +11,20 @@ import (
 
 type FetchNamespaces struct{}
 
-func (f FetchNamespaces) Namespace() string {
+func (f *FetchNamespaces) Namespace() string {
 	return containerNamespace().Namespace
 }
 
-func (f FetchNamespaces) Resource() string {
+func (f *FetchNamespaces) Resource() string {
 	return containerNamespace().Resource
 }
 
-func (f FetchNamespaces) LocalityType() fetch.LocalityType {
+func (f *FetchNamespaces) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
-
 // Fetch fetches all container namespaces in a given region.
-func (f FetchNamespaces) Fetch(
+func (f *FetchNamespaces) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,

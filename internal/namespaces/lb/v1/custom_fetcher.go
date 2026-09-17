@@ -11,20 +11,20 @@ import (
 
 type FetchLoadBalancers struct{}
 
-func (f FetchLoadBalancers) Namespace() string {
+func (f *FetchLoadBalancers) Namespace() string {
 	return lbLB().Namespace
 }
 
-func (f FetchLoadBalancers) Resource() string {
+func (f *FetchLoadBalancers) Resource() string {
 	return lbLB().Resource
 }
 
-func (f FetchLoadBalancers) LocalityType() fetch.LocalityType {
+func (f *FetchLoadBalancers) LocalityType() fetch.LocalityType {
 	return fetch.LocalityTypeRegion
 }
 
 // Fetch fetches all load balancers in a given region.
-func (f FetchLoadBalancers) Fetch(
+func (f *FetchLoadBalancers) Fetch(
 	ctx context.Context,
 	region scw.Region,
 	projectID string,
