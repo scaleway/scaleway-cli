@@ -15,7 +15,7 @@ permissions:
 
 jobs:
   ci:
-    runs-on: ${{ vars.RUNS_ON || 'ubuntu-latest' }}
+    runs-on: "${{ vars.RUNS_ON || 'ubuntu-latest' }}"
     timeout-minutes: 10
     steps:
       - name: Set git to use LF to avoid problem with goldens on windows

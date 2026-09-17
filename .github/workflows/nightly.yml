@@ -8,6 +8,10 @@ on:
     # Will run at 00:00 every day
     - cron: "0 0 * * *"
 
+concurrency:
+  group: ${{ github.workflow }}
+  cancel-in-progress: false
+
 jobs:
   nightly:
     strategy:
