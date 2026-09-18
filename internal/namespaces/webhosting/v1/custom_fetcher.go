@@ -52,8 +52,6 @@ func (f *FetchHostings) Fetch(
 	for _, hosting := range resp.Hostings {
 		result := fetch.ResourceResult{
 			Locality: region.String(),
-			Product:  "webhosting",
-			Resource: "hosting",
 			ID:       hosting.ID,
 		}
 		if hosting.Domain != nil {

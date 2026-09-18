@@ -2,6 +2,7 @@ package account
 
 import (
 	"context"
+	"fmt"
 	"reflect"
 	"sort"
 	"strings"
@@ -198,6 +199,10 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 	var allResults []fetch.ResourceResult
 	var resultsMu sync.Mutex
 
+	// Error aggregation
+	var fetchErrors []string
+	var errorsMu sync.Mutex
+
 	// WaitGroup for parallel execution
 	var wg sync.WaitGroup
 
@@ -238,9 +243,10 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 				// Call Fetch method on the fetcher interface with project filter
 				resources, err := fetcher.FetchAny(ctx, zone, *request.ProjectID)
 				if err != nil {
-					// Log error in debug mode for troubleshooting
-					core.ExtractLogger(ctx).
-						Debugf("error fetching %s in %s: %v", product, zone, err)
+					errorsMu.Lock()
+					fetchErrors = append(fetchErrors,
+						fmt.Sprintf("error fetching %s in %s: %v", product, zone, err))
+					errorsMu.Unlock()
 
 					return
 				}
@@ -266,6 +272,11 @@ func runListResources(ctx context.Context, argsI any) (any, error) {
 	}
 
 	wg.Wait()
+
+	// Surface aggregated errors as warnings (non-fatal)
+	for _, e := range fetchErrors {
+		core.ExtractLogger(ctx).Warningf("%s\n", e)
+	}
 
 	// Sort results for consistent output
 	SortResults(allResults)

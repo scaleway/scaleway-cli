@@ -63,11 +63,11 @@ func (f *FetchGateways) Fetch(
 type FetchIPs struct{}
 
 func (f *FetchIPs) Namespace() string {
-	return "vpc-gw"
+	return vpcGwIP().Namespace
 }
 
 func (f *FetchIPs) Resource() string {
-	return "ip"
+	return vpcGwIP().Resource
 }
 
 func (f *FetchIPs) LocalityType() fetch.LocalityType {
