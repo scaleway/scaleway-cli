@@ -24,6 +24,7 @@ LivenessProbe.FailureThreshold             30
 LivenessProbe.Interval                     10 seconds
 LivenessProbe.Timeout                      1 seconds
 PublicEndpoint                             https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud
+DefaultPublicEndpointEnabled               false
 Region                                     fr-par
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
@@ -65,5 +66,6 @@ Region                                     fr-par
   "args": [],
   "public_endpoint": "https://clinsquizzicalmooreaa7e929d-cli-test-eager-curran.functions.fnc.fr-par.scw.cloud",
   "private_endpoint": null,
+  "default_public_endpoint_enabled": false,
   "region": "fr-par"
 }
