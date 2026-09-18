@@ -63,6 +63,7 @@ import (
 	serverless_sqldb "github.com/scaleway/scaleway-cli/v2/internal/namespaces/serverless_sqldb/v1alpha1"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/shell"
 	tem "github.com/scaleway/scaleway-cli/v2/internal/namespaces/tem/v1alpha1"
+	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/theme"
 	versionNamespace "github.com/scaleway/scaleway-cli/v2/internal/namespaces/version"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpc/v2"
 	"github.com/scaleway/scaleway-cli/v2/internal/namespaces/vpcgw/v2"
@@ -89,6 +90,7 @@ func GetCommands() *core.Commands {
 		marketplace.GetCommands(),
 		initNamespace.GetCommands(),
 		configNamespace.GetCommands(),
+		theme.GetCommands(),
 		accountv3.GetCommands(),
 		annotations.GetCommands(),
 		autocompleteNamespace.GetCommands(),
