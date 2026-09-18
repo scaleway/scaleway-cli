@@ -6,21 +6,24 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.7; darwin; arm64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/iam/v1alpha1/api-keys/SCWPAXSFMY8TSNBBBDJV
     method: GET
   response:
-    body: '{"access_key":"SCWPAXSFMY8TSNBBBDJV","secret_key":null,"description":"2026-05-06,
-      test \"backend s3\"","created_at":"2026-05-06T14:00:26.793493Z","updated_at":"2026-05-06T14:00:26.793493Z","expires_at":null,"default_project_id":"4d333544-41be-4b0b-8907-0b9036859747","editable":true,"deletable":true,"managed":false,"creation_ip":"51.159.73.145","user_id":"91a93231-b51f-40ba-ab24-e6eecf7318de"}'
+    body: '{"access_key":"SCWPAXSFMY8TSNBBBDJV", "secret_key":null, "description":"2026-05-06,
+      test \"backend s3\"", "created_at":"2026-05-06T14:00:26.793493Z", "updated_at":"2026-05-06T14:00:26.793493Z",
+      "expires_at":null, "default_project_id":"4d333544-41be-4b0b-8907-0b9036859747",
+      "editable":true, "deletable":true, "managed":false, "creation_ip":"51.159.73.145",
+      "user_id":"91a93231-b51f-40ba-ab24-e6eecf7318de"}'
     headers:
       Content-Length:
-      - "395"
+      - "406"
       Content-Security-Policy:
       - default-src 'none'; frame-ancestors 'none'
       Content-Type:
       - application/json
       Date:
-      - Tue, 01 Sep 2026 07:07:31 GMT
+      - Wed, 19 Aug 2026 12:58:06 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -29,14 +32,8 @@ interactions:
       - nosniff
       X-Frame-Options:
       - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "48"
-      X-Ratelimit-Reset:
-      - "1"
       X-Request-Id:
-      - 73b5a875-c180-4edc-9885-aa957067d470
+      - 2f0517d9-784b-425d-8368-cf55b95feadd
     status: 200 OK
     code: 200
     duration: ""
@@ -45,7 +42,7 @@ interactions:
     form: {}
     headers:
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.7; darwin; arm64) cli-e2e-test
+      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.26.5; darwin; arm64) cli-e2e-test
     url: https://api.scaleway.com/metadata
     method: GET
   response:
@@ -58,7 +55,7 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Tue, 01 Sep 2026 07:07:31 GMT
+      - Wed, 19 Aug 2026 12:58:06 GMT
       Server:
       - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
@@ -67,14 +64,8 @@ interactions:
       - nosniff
       X-Frame-Options:
       - DENY
-      X-Ratelimit-Limit:
-      - 50, 50;w=1
-      X-Ratelimit-Remaining:
-      - "48"
-      X-Ratelimit-Reset:
-      - "1"
       X-Request-Id:
-      - 1a88669b-8564-44e4-a5ff-54bde520ea6f
+      - 8b4220f3-f1ab-4638-97ce-90f3a7b78cc3
     status: 200 OK
     code: 200
     duration: ""
