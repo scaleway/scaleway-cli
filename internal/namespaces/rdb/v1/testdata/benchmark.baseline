@@ -1,0 +1,10 @@
+goos: darwin
+goarch: amd64
+pkg: github.com/scaleway/scaleway-cli/v2/internal/namespaces/rdb/v1
+cpu: VirtualApple @ 2.50GHz
+BenchmarkInstanceGet-11    	     100	 239648044 ns/op	  350232 B/op	    4121 allocs/op
+BenchmarkBackupGet-11      	     100	  85116384 ns/op	  271182 B/op	    2839 allocs/op
+BenchmarkBackupList-11     	     100	 118312364 ns/op	  284095 B/op	    2996 allocs/op
+BenchmarkDatabaseList-11   	     100	 136427978 ns/op	  283705 B/op	    3046 allocs/op
+PASS
+
