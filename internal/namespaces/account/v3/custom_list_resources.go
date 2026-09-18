@@ -55,12 +55,16 @@ var registerOnce sync.Once
 func registerFetchers() {
 	registerOnce.Do(func() {
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &baremetal.FetchServers{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &applesilicon.FetchServers{} })
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Zone] { return &applesilicon.FetchServers{} },
+		)
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchServers{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchIPs{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchVolumes{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchSnapshots{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &instance.FetchSecurityGroups{} })
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Zone] { return &instance.FetchSecurityGroups{} },
+		)
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &ipam.FetchIPs{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &block.FetchVolumes{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &block.FetchSnapshots{} })
@@ -69,24 +73,42 @@ func registerFetchers() {
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &redis.FetchClusters{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &lb.FetchLoadBalancers{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &k8s.FetchClusters{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &container.FetchNamespaces{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &function.FetchNamespaces{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &flexibleip.FetchFlexibleIPs{} })
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &container.FetchNamespaces{} },
+		)
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &function.FetchNamespaces{} },
+		)
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Zone] { return &flexibleip.FetchFlexibleIPs{} },
+		)
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &secret.FetchSecrets{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &vpc.FetchVPCs{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &file.FetchFileSystems{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &webhosting.FetchHostings{} })
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &webhosting.FetchHostings{} },
+		)
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &vpcgw.FetchGateways{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Zone] { return &vpcgw.FetchIPs{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchInstances{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &mongodb.FetchSnapshots{} })
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &key_manager.FetchKeys{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &inference.FetchDeployments{} })
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &inference.FetchDeployments{} },
+		)
 		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchTokens{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &cockpit.FetchDataSources{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &registry.FetchNamespaces{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &searchdb.FetchDeployments{} })
-		fetch.RegisterFetcher(func() fetch.Fetcher[scw.Region] { return &s2s_vpn.FetchVpnGateways{} })
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &cockpit.FetchDataSources{} },
+		)
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &registry.FetchNamespaces{} },
+		)
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &searchdb.FetchDeployments{} },
+		)
+		fetch.RegisterFetcher(
+			func() fetch.Fetcher[scw.Region] { return &s2s_vpn.FetchVpnGateways{} },
+		)
 	})
 }
 
@@ -121,8 +143,11 @@ func listResources() *core.Command {
 				Short: `Filter by zones (comma-separated, e.g. fr-par-1,nl-ams-1). If empty, all zones are queried`,
 			},
 			{
-				Name:       "products.{index}",
-				Short:      "Filter by products (comma-separated, e.g. " + strings.Join(fetch.AllProductKeys(), ",") + "). If empty, all products are queried",
+				Name: "products.{index}",
+				Short: "Filter by products (comma-separated, e.g. " + strings.Join(
+					fetch.AllProductKeys(),
+					",",
+				) + "). If empty, all products are queried",
 				EnumValues: fetch.AllProductKeys(),
 			},
 		},

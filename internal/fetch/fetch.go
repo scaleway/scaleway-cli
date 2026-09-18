@@ -197,6 +197,7 @@ func GetFetcher(product string) (FetcherAny, bool) {
 	if !ok {
 		return nil, false
 	}
+
 	return factory(), true
 }
 
@@ -209,6 +210,7 @@ func AllProductKeys() []string {
 		keys = append(keys, k)
 	}
 	sort.Strings(keys)
+
 	return keys
 }
 
@@ -216,5 +218,6 @@ func AllProductKeys() []string {
 // and returns the deduced product key.
 func productKeyOf(factory func() FetcherAny) string {
 	f := factory()
+
 	return f.Namespace() + "-" + f.Resource()
 }

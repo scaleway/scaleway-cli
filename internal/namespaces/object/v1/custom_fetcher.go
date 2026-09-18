@@ -17,6 +17,7 @@ func (f *FetchBuckets) Namespace() string {
 	if cmd := objectBucket(); cmd != nil {
 		return cmd.Namespace
 	}
+
 	return "object"
 }
 
@@ -24,6 +25,7 @@ func (f *FetchBuckets) Resource() string {
 	if cmd := objectBucket(); cmd != nil {
 		return cmd.Resource
 	}
+
 	return "bucket"
 }
 
