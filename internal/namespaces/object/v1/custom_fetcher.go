@@ -14,11 +14,17 @@ import (
 type FetchBuckets struct{}
 
 func (f *FetchBuckets) Namespace() string {
-	return objectBucket().Namespace
+	if cmd := objectBucket(); cmd != nil {
+		return cmd.Namespace
+	}
+	return "object"
 }
 
 func (f *FetchBuckets) Resource() string {
-	return objectBucket().Resource
+	if cmd := objectBucket(); cmd != nil {
+		return cmd.Resource
+	}
+	return "bucket"
 }
 
 func (f *FetchBuckets) LocalityType() fetch.LocalityType {
