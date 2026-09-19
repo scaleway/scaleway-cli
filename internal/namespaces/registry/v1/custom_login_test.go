@@ -55,4 +55,22 @@ func Test_Login(t *testing.T) {
 			return 0, nil
 		},
 	}))
+	t.Run("docker it-mil", core.Test(&core.TestConfig{
+		Commands: registry.GetCommands(),
+		Cmd:      "scw registry login program=docker region=it-mil",
+		Check:    core.TestCheckExitCode(0),
+		OverrideExec: func(ctx *core.ExecFuncCtx, cmd *exec.Cmd) (exitCode int, err error) {
+			assert.Equal(
+				t,
+				"docker login -u scaleway --password-stdin rg.it-mil.scw.eu",
+				strings.Join(cmd.Args, " "),
+			)
+			stdin, err := io.ReadAll(cmd.Stdin)
+			secret, _ := ctx.Client.GetSecretKey()
+			require.NoError(t, err)
+			assert.Equal(t, secret, string(stdin))
+
+			return 0, nil
+		},
+	}))
 }
