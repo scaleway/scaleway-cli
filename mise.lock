@@ -46,6 +46,14 @@ url = "https://dl.google.com/go/go1.27.1.darwin-amd64.tar.gz"
 checksum = "sha256:a3911b5e0e1b1053f25ed0675f4c1c6aad1e2bfcf253df2b9be4caabd2edd95d"
 url = "https://dl.google.com/go/go1.27.1.windows-amd64.zip"
 
+[[tools."go:github.com/boumenot/gocover-cobertura"]]
+version = "1.5.0"
+backend = "go:github.com/boumenot/gocover-cobertura"
+specifiers = [
+    "1.5",
+    "latest",
+]
+
 [[tools."go:github.com/go-delve/delve/cmd/dlv"]]
 version = "1.27.2"
 backend = "go:github.com/go-delve/delve/cmd/dlv"
