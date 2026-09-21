@@ -9,6 +9,7 @@ shell = "bash -c"
 [tools]
 devcontainer-cli = "0.89"
 go = "1.27"
+"go:github.com/boumenot/gocover-cobertura" = "1.5"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
 "go:gotest.tools/gotestsum" = "1.13"
 golangci-lint = "2.13"
@@ -241,6 +242,9 @@ flag "--max-fails <n>" {
 flag "--jsonfile <file>" {
   help "write all test2json input to a file"
 }
+flag "--coverprofile <file>" {
+  help "write a coverage profile to the file"
+}
 '''
 run = '''
 export CLI_UPDATE_CASSETTES="${usage_cassettes:-false}"
@@ -267,6 +271,9 @@ if [ "${usage_race:-false}" = "true" ]; then
 fi
 if [ -n "${usage_timeout:-}" ]; then
   test_args+=(-timeout "${usage_timeout?}")
+fi
+if [ -n "${usage_coverprofile:-}" ]; then
+  test_args+=(-coverprofile "${usage_coverprofile?}")
 fi
 test_args+=("${usage_packages?}")
 
