@@ -294,8 +294,8 @@ use content=@/path/to/file to load from a file (same @ prefix as other scw file 
 Two formats are supported:
  - bind: standard zone file (BIND), same family of syntax as "scw dns zone import".
    Supported types: A, AAAA, CNAME, TXT, MX, NS, PTR, SRV, CAA. For other types (e.g. TLSA, SSHFP, DS), use format=json.
- - json: UTF-8 JSON object with a "records" array; each element has name, type, ttl, data, and optional priority (for MX).
-   Accepts all types supported by the Scaleway DNS API.
+ - json: UTF-8 JSON object with a "records" array; each element has name, type, ttl, data, and optional priority (required for MX; used for SRV).
+   Accepts all types supported by the Scaleway DNS API. For SRV, data is "weight port target" and priority is the separate field.
 
 SOA records and apex NS records in a BIND file are skipped. $INCLUDE and $GENERATE are rejected.
 

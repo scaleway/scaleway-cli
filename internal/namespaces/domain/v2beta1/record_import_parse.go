@@ -195,9 +195,6 @@ func dnsRRToRecords(rr dns.RR, dnsZone string) ([]*domain.Record, error) {
 		if err != nil {
 			return nil, err
 		}
-		if rec == nil {
-			return nil, nil
-		}
 
 		return []*domain.Record{rec}, nil
 	}
@@ -246,9 +243,13 @@ func dnsRRToRecord(rr dns.RR, dnsZone string) (*domain.Record, error) {
 			Name: name, TTL: ttl, Type: domain.RecordTypePTR,
 		}, nil
 	case *dns.SRV:
+		// Scaleway stores SRV priority in Record.Priority; data is "weight port target".
 		return &domain.Record{
-			Data: fmt.Sprintf("%d %d %d %s", v.Priority, v.Weight, v.Port, targetToData(v.Target)),
-			Name: name, TTL: ttl, Type: domain.RecordTypeSRV,
+			Data:     fmt.Sprintf("%d %d %s", v.Weight, v.Port, targetToData(v.Target)),
+			Name:     name,
+			TTL:      ttl,
+			Type:     domain.RecordTypeSRV,
+			Priority: uint32(v.Priority),
 		}, nil
 	case *dns.CAA:
 		return &domain.Record{

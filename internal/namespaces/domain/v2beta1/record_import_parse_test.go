@@ -22,11 +22,12 @@ www     IN A   1.2.3.4
 mail    IN MX  10 mx.example.com.
 txt     IN TXT "hello"
 sub     IN NS  ns.sub.example.com.
+_sip._tcp IN SRV 10 20 443 sip.example.com.
 `) + "\n"
 
 	records, err := domain.ParseImportBind(content, zone)
 	require.NoError(t, err)
-	require.Len(t, records, 4)
+	require.Len(t, records, 5)
 
 	byNameType := map[string]*domainsdk.Record{}
 	for _, r := range records {
@@ -39,6 +40,8 @@ sub     IN NS  ns.sub.example.com.
 	assert.Equal(t, uint32(10), byNameType["mail/MX"].Priority)
 	assert.Equal(t, "hello", byNameType["txt/TXT"].Data)
 	assert.Equal(t, "ns.sub.example.com", byNameType["sub/NS"].Data)
+	assert.Equal(t, "20 443 sip.example.com", byNameType["_sip._tcp/SRV"].Data)
+	assert.Equal(t, uint32(10), byNameType["_sip._tcp/SRV"].Priority)
 }
 
 func TestParseImportBindCaseInsensitiveZone(t *testing.T) {
