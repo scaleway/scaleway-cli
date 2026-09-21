@@ -1014,6 +1014,20 @@ func s2sVpnConnectionUpdate() *core.Command {
 					"curve25519",
 				},
 			},
+			{
+				Name:       "secret-id",
+				Short:      `Secret ID in the client's project containing the PSK`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "secret-revision",
+				Short:      `Secret version in the client's project containing the PSK.`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
 			core.RegionArgSpec(
 				scw.RegionFrPar,
 				scw.RegionItMil,
@@ -1093,7 +1107,7 @@ func s2sVpnConnectionRenewPsk() *core.Command {
 			},
 			{
 				Name:       "generate-revision",
-				Short:      `Generate a new revision or update to the latest existing one`,
+				Short:      `Generate a new version or update to the latest existing one`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
