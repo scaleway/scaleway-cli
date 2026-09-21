@@ -73,7 +73,7 @@ For a full zone file replacement at once, prefer "scw dns zone import".
 		Namespace: "dns",
 		Resource:  "record",
 		Verb:      "import",
-		ArgsType:  reflect.TypeOf(dnsRecordImportArgs{}),
+		ArgsType:  reflect.TypeFor[dnsRecordImportArgs](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "dns-zone",
