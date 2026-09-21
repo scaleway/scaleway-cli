@@ -84,6 +84,7 @@ func fetchClusterKubeconfigMetadata(
 				Region:    cluster.Region,
 				ClusterID: cluster.ID,
 				Redacted:  new(redacted),
+				Endpoint:  k8s.GetClusterKubeConfigRequestEndpointPublic,
 			})
 		if err != nil {
 			return err

@@ -7,9 +7,9 @@ lockfile = true
 shell = "bash -c"
 
 [tools]
-actionlint = "1.7"
 devcontainer-cli = "0.89"
 go = "1.27"
+"go:github.com/boumenot/gocover-cobertura" = "1.5"
 "go:github.com/go-delve/delve/cmd/dlv" = "1.27"
 "go:gotest.tools/gotestsum" = "1.13"
 golangci-lint = "2.13"
@@ -23,8 +23,8 @@ node = "26.8"
 pnpm = "11.25"
 prettier = "3.9"
 rumdl = "0.2"
-shellcheck = "0.11"
 typos = "1.50"
+zizmor = "1.30"
 
 [tasks.'deps:pnpm']
 description = "download the dependencies for the wasm wrapper"
@@ -192,7 +192,6 @@ prettier "${args[@]}"
 
 [tasks.'lint:doc']
 description = "lint the documentation"
-depends = ["gen:doc"]
 run = '''
 rumdl check ./docs
 typos ./docs
@@ -201,13 +200,7 @@ typos ./docs
 [tasks.'lint:actions']
 description = "lint the workflows"
 run = '''
-# ensure that shellcheck is installed, which is guaranteed with mise but ensures
-# actionlint won't silently do nothing in case the command is run outside of it.
-shellcheck_path="$(command -v shellcheck)" || {
-  echo "error: shellcheck not found in PATH; actionlint needs it to check scripts"
-  exit 1
-}
-actionlint -shellcheck "$shellcheck_path"
+zizmor .
 '''
 
 [tasks.'test:cli']
@@ -249,6 +242,9 @@ flag "--max-fails <n>" {
 flag "--jsonfile <file>" {
   help "write all test2json input to a file"
 }
+flag "--coverprofile <file>" {
+  help "write a coverage profile to the file"
+}
 '''
 run = '''
 export CLI_UPDATE_CASSETTES="${usage_cassettes:-false}"
@@ -275,6 +271,9 @@ if [ "${usage_race:-false}" = "true" ]; then
 fi
 if [ -n "${usage_timeout:-}" ]; then
   test_args+=(-timeout "${usage_timeout?}")
+fi
+if [ -n "${usage_coverprofile:-}" ]; then
+  test_args+=(-coverprofile "${usage_coverprofile?}")
 fi
 test_args+=("${usage_packages?}")
 
