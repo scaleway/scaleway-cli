@@ -1,34 +1,34 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                 956f2366-8cf5-439a-9dbc-5a0ee3036465
-Name               cli-inference-cranky-antonelli
-ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ID                 94c1274f-d2bc-4161-8847-aa05da8c07ce
+Name               cli-inference-clever-kare
+ProjectID          de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Status             creating
-NodeTypeName       H100-2
+NodeTypeName       L40S
 Size               0
 MinSize            1
 MaxSize            1
-ModelID            739d51ae-4f1e-4193-a4bf-f7380c090d46
-Quantization.Bits  4
-ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
+ModelID            623a4d27-40c1-4764-a6e2-6ea84d18fd2b
+Quantization.Bits  8
+ModelName          qwen/qwen3-coder-30b-a3b-instruct:fp8
 CreatedAt          few seconds ago
 Region             fr-par
 
 Endpoints:
 ID                                    URL                                                                   DISABLE AUTH
-79319256-5e07-4b5a-8c08-b81f1c585b26  https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com  false
+47e019b6-1c57-445a-9330-e837fccf5396  https://94c1274f-d2bc-4161-8847-aa05da8c07ce.ifr.fr-par.scaleway.com  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "956f2366-8cf5-439a-9dbc-5a0ee3036465",
-  "name": "cli-inference-cranky-antonelli",
-  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "id": "94c1274f-d2bc-4161-8847-aa05da8c07ce",
+  "name": "cli-inference-clever-kare",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "status": "creating",
   "tags": [],
-  "node_type_name": "H100-2",
+  "node_type_name": "L40S",
   "endpoints": [
     {
-      "id": "79319256-5e07-4b5a-8c08-b81f1c585b26",
-      "url": "https://956f2366-8cf5-439a-9dbc-5a0ee3036465.ifr.fr-par.scaleway.com",
+      "id": "47e019b6-1c57-445a-9330-e837fccf5396",
+      "url": "https://94c1274f-d2bc-4161-8847-aa05da8c07ce.ifr.fr-par.scaleway.com",
       "public_network": {},
       "disable_auth": false
     }
@@ -37,11 +37,11 @@ ID                                    URL                                       
   "min_size": 1,
   "max_size": 1,
   "error_message": null,
-  "model_id": "739d51ae-4f1e-4193-a4bf-f7380c090d46",
+  "model_id": "623a4d27-40c1-4764-a6e2-6ea84d18fd2b",
   "quantization": {
-    "bits": 4
+    "bits": 8
   },
-  "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
+  "model_name": "qwen/qwen3-coder-30b-a3b-instruct:fp8",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": null,
   "region": "fr-par"

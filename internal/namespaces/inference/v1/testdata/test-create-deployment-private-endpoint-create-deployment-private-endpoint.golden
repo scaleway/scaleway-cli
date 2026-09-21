@@ -1,43 +1,43 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                 896af1ed-836c-40e2-94e7-f563b7802466
-Name               cli-inference-optimistic-mendel
-ProjectID          d3520a52-2c75-4ba0-bda8-82dd087f07f2
+ID                 07b2a528-7fc9-4fed-9e43-652e29256602
+Name               cli-inference-vigilant-nobel
+ProjectID          de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Status             creating
 NodeTypeName       H100-SXM-2
 Size               0
 MinSize            1
 MaxSize            1
-ModelID            739d51ae-4f1e-4193-a4bf-f7380c090d46
-Quantization.Bits  4
-ModelName          qwen/qwen3-235b-a22b-instruct-2507:awq
+ModelID            623a4d27-40c1-4764-a6e2-6ea84d18fd2b
+Quantization.Bits  8
+ModelName          qwen/qwen3-coder-30b-a3b-instruct:fp8
 CreatedAt          few seconds ago
 Region             fr-par
 
 Endpoints:
 ID                                    URL                                                                                         DISABLE AUTH
-d0fb99b1-0018-4025-aa46-62dce0f3bc78  https://896af1ed-836c-40e2-94e7-f563b7802466.ifr.fr-par.scaleway.com                        false
-e1eef3b8-3ee9-4b4c-9a11-d56e1df8bb39  https://896af1ed-836c-40e2-94e7-f563b7802466.b0caf5f9-fadc-4afe-bdff-42d252b9f698.internal  false
+9524e14e-f21a-472e-9828-81a77a8a4c41  https://07b2a528-7fc9-4fed-9e43-652e29256602.ifr.fr-par.scaleway.com                        false
+d4a2448e-8a6a-45b8-a59f-3d6cff5472f7  https://07b2a528-7fc9-4fed-9e43-652e29256602.6b07286c-cdad-4a54-9484-668b102d923c.internal  false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "896af1ed-836c-40e2-94e7-f563b7802466",
-  "name": "cli-inference-optimistic-mendel",
-  "project_id": "d3520a52-2c75-4ba0-bda8-82dd087f07f2",
+  "id": "07b2a528-7fc9-4fed-9e43-652e29256602",
+  "name": "cli-inference-vigilant-nobel",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "status": "creating",
   "tags": [],
   "node_type_name": "H100-SXM-2",
   "endpoints": [
     {
-      "id": "d0fb99b1-0018-4025-aa46-62dce0f3bc78",
-      "url": "https://896af1ed-836c-40e2-94e7-f563b7802466.ifr.fr-par.scaleway.com",
+      "id": "9524e14e-f21a-472e-9828-81a77a8a4c41",
+      "url": "https://07b2a528-7fc9-4fed-9e43-652e29256602.ifr.fr-par.scaleway.com",
       "public_network": {},
       "disable_auth": false
     },
     {
-      "id": "e1eef3b8-3ee9-4b4c-9a11-d56e1df8bb39",
-      "url": "https://896af1ed-836c-40e2-94e7-f563b7802466.b0caf5f9-fadc-4afe-bdff-42d252b9f698.internal",
+      "id": "d4a2448e-8a6a-45b8-a59f-3d6cff5472f7",
+      "url": "https://07b2a528-7fc9-4fed-9e43-652e29256602.6b07286c-cdad-4a54-9484-668b102d923c.internal",
       "private_network": {
-        "private_network_id": "b0caf5f9-fadc-4afe-bdff-42d252b9f698"
+        "private_network_id": "6b07286c-cdad-4a54-9484-668b102d923c"
       },
       "disable_auth": false
     }
@@ -46,11 +46,11 @@ e1eef3b8-3ee9-4b4c-9a11-d56e1df8bb39  https://896af1ed-836c-40e2-94e7-f563b78024
   "min_size": 1,
   "max_size": 1,
   "error_message": null,
-  "model_id": "739d51ae-4f1e-4193-a4bf-f7380c090d46",
+  "model_id": "623a4d27-40c1-4764-a6e2-6ea84d18fd2b",
   "quantization": {
-    "bits": 4
+    "bits": 8
   },
-  "model_name": "qwen/qwen3-235b-a22b-instruct-2507:awq",
+  "model_name": "qwen/qwen3-coder-30b-a3b-instruct:fp8",
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": null,
   "region": "fr-par"

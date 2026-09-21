@@ -1,20 +1,20 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                               a30d1ee5-fb2f-4bf0-a3ba-d0c670ff33e1
+ID                               7a9d0c76-39f4-4c22-8a20-e96967bdbb88
 IP                               172.16.0.3
 Port                             5432
-PrivateNetwork.PrivateNetworkID  9736319b-e28e-4d02-9908-d34807882792
+PrivateNetwork.PrivateNetworkID  65307008-ebd4-453f-a637-2541b8c8b061
 PrivateNetwork.ServiceIP         172.16.0.3/22
 PrivateNetwork.Zone              fr-par-1
 PrivateNetwork.ProvisioningMode  static
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "a30d1ee5-fb2f-4bf0-a3ba-d0c670ff33e1",
+  "id": "7a9d0c76-39f4-4c22-8a20-e96967bdbb88",
   "ip": "172.16.0.3",
   "port": 5432,
   "name": null,
   "private_network": {
-    "private_network_id": "9736319b-e28e-4d02-9908-d34807882792",
+    "private_network_id": "65307008-ebd4-453f-a637-2541b8c8b061",
     "service_ip": "172.16.0.3/22",
     "zone": "fr-par-1",
     "provisioning_mode": "static"

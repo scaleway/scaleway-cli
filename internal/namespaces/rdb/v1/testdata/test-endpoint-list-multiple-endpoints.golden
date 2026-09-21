@@ -1,26 +1,26 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    IP             PORT   NAME  HOSTNAME
-ab06a941-0824-4b06-8f9c-1645a1de755f  172.16.0.3     5432   -     -
-23857e88-0019-4b3f-98d5-8cd64090109f  195.154.71.12  21923  -     -
+72e41501-dead-47be-862c-6eacf8ea94a2  172.16.0.3     5432   -     -
+9484cf9a-8abc-4a25-951c-36a1e41483d4  51.158.57.120  22204  -     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
-    "id": "ab06a941-0824-4b06-8f9c-1645a1de755f",
+    "id": "72e41501-dead-47be-862c-6eacf8ea94a2",
     "ip": "172.16.0.3",
     "port": 5432,
     "name": null,
     "private_network": {
-      "private_network_id": "46f12434-2e71-424a-a801-441f9149b198",
+      "private_network_id": "11e8d8a2-01c0-4f22-a5b9-c58f0d576b8a",
       "service_ip": "172.16.0.3/22",
       "zone": "fr-par-1",
       "provisioning_mode": "static"
     }
   },
   {
-    "id": "23857e88-0019-4b3f-98d5-8cd64090109f",
-    "ip": "195.154.71.12",
-    "port": 21923,
+    "id": "9484cf9a-8abc-4a25-951c-36a1e41483d4",
+    "ip": "51.158.57.120",
+    "port": 22204,
     "name": null,
     "load_balancer": {}
   }

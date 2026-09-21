@@ -2,6 +2,7 @@ package rdb_test
 
 import (
 	"fmt"
+	"regexp"
 	"strings"
 	"testing"
 
@@ -72,9 +73,20 @@ func Test_CreateInstance(t *testing.T) {
 			engine,
 			user,
 		),
-		// do not check the golden as the password generated locally and on CI will necessarily be different
 		Check: core.TestCheckCombine(
 			core.TestCheckExitCode(0),
+			core.TestCheckGoldenAndReplacePatterns(
+				core.GoldenReplacement{
+					// human output: "Password: \n<password>"
+					Pattern:     regexp.MustCompile(`(Password: \n)\S+`),
+					Replacement: `$1__REDACTED__`,
+				},
+				core.GoldenReplacement{
+					// JSON output: "password": "<password>"
+					Pattern:     regexp.MustCompile(`"password": "[^"]*"`),
+					Replacement: `"password": "__REDACTED__"`,
+				},
+			),
 			func(t *testing.T, ctx *core.CheckFuncCtx) {
 				t.Helper()
 				instance := ctx.Result.(rdb.CreateInstanceResult).Instance

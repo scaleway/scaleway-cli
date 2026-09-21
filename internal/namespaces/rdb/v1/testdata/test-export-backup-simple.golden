@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                    6ff8e642-746b-499c-ba18-6491caeb64a2
-InstanceID            63d450e6-4009-4553-a04b-4396ef2d8d5d
+ID                    a805c015-b90d-45f3-8dc4-a51af4162567
+InstanceID            7397fe18-7bd0-423d-a5e4-18d702e0913d
 DatabaseName          rdb
 Name                  foobar
 Status                ready
@@ -10,14 +10,14 @@ ExpiresAt             few seconds ago
 CreatedAt             few seconds ago
 UpdatedAt             few seconds ago
 InstanceName          cli-test
-DownloadURL           https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/63d450e6-4009-4553-a04b-4396ef2d8d5d/6ff8e642-746b-499c-ba18-6491caeb64a2.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20250107%2Fnl-ams%2Fs3%2Faws4_request&X-Amz-Date=20250107T135108Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=197c6051bdff4df29a1be2a295a5280a3eca929d81455084322fe0755979aeb0
+DownloadURL           https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/7397fe18-7bd0-423d-a5e4-18d702e0913d/a805c015-b90d-45f3-8dc4-a51af4162567.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256&X-Amz-Credential=SCWXXXXXXXXXXXXXXXXX%2F20260923%2Fnl-ams%2Fs3%2Faws4_request&X-Amz-Date=20260923T120946Z&X-Amz-Expires=86400&X-Amz-SignedHeaders=host&X-Amz-Signature=e891341e27bf765bb8fa8ecc99e79b2d1c1740283f461d811959aa0c764bc47d
 DownloadURLExpiresAt  few seconds ago
 Region                fr-par
 SameRegion            false
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "6ff8e642-746b-499c-ba18-6491caeb64a2",
-  "instance_id": "63d450e6-4009-4553-a04b-4396ef2d8d5d",
+  "id": "a805c015-b90d-45f3-8dc4-a51af4162567",
+  "instance_id": "7397fe18-7bd0-423d-a5e4-18d702e0913d",
   "database_name": "rdb",
   "name": "foobar",
   "status": "ready",
@@ -26,7 +26,7 @@ SameRegion            false
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "instance_name": "cli-test",
-  "download_url": "https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/63d450e6-4009-4553-a04b-4396ef2d8d5d/6ff8e642-746b-499c-ba18-6491caeb64a2.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=SCW2HJV1WMKPE0CKDAW5%2F20250107%2Fnl-ams%2Fs3%2Faws4_request\u0026X-Amz-Date=20250107T135108Z\u0026X-Amz-Expires=86400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=197c6051bdff4df29a1be2a295a5280a3eca929d81455084322fe0755979aeb0",
+  "download_url": "https://s3.nl-ams.scw.cloud/65940610-0e5e-4a98-9306-568aa4eb3673/7397fe18-7bd0-423d-a5e4-18d702e0913d/a805c015-b90d-45f3-8dc4-a51af4162567.custom?X-Amz-Algorithm=AWS4-HMAC-SHA256\u0026X-Amz-Credential=SCWXXXXXXXXXXXXXXXXX%2F20260923%2Fnl-ams%2Fs3%2Faws4_request\u0026X-Amz-Date=20260923T120946Z\u0026X-Amz-Expires=86400\u0026X-Amz-SignedHeaders=host\u0026X-Amz-Signature=e891341e27bf765bb8fa8ecc99e79b2d1c1740283f461d811959aa0c764bc47d",
   "download_url_expires_at": "1970-01-01T00:00:00.0Z",
   "region": "fr-par",
   "same_region": false

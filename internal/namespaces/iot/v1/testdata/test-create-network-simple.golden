@@ -1,29 +1,29 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 Network:
-ID           0fc1c42f-050e-421e-86fc-54dcf154cf84
-Name         cli-network-jolly-thompson
+ID           9b5c9dfc-37f0-4b15-a01c-a1aeace2e615
+Name         cli-network-frosty-proskuriakova
 Type         sigfox
 Endpoint     sigfox.iot.fr-par.scw.cloud
-HubID        e50c1da4-3ade-4c67-9321-ce39d4bbe1ca
+HubID        1fc23b5c-f87b-4174-a329-399eb652bd39
 CreatedAt    few seconds ago
 TopicPrefix  foo
-Region
+Region       fr-par
 
 WARNING: The secret below is displayed only once, we do not keep it. Make sure to store it securely
 
-Secret: eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9
+Secret: eyJOZXRJRCI6IjliNWM5ZGZjLTM3ZjAtNGIxNS1hMDFjLWExYWVhY2UyZTYxNSIsIk5ldEtleSI6ImZlZjUwOWQ5LWUwMjMtNGIzNC1iZGU2LTczYTJkZjAzZDM5ZCJ9
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "network": {
-    "id": "0fc1c42f-050e-421e-86fc-54dcf154cf84",
-    "name": "cli-network-jolly-thompson",
+    "id": "9b5c9dfc-37f0-4b15-a01c-a1aeace2e615",
+    "name": "cli-network-frosty-proskuriakova",
     "type": "sigfox",
     "endpoint": "sigfox.iot.fr-par.scw.cloud",
-    "hub_id": "e50c1da4-3ade-4c67-9321-ce39d4bbe1ca",
+    "hub_id": "1fc23b5c-f87b-4174-a329-399eb652bd39",
     "created_at": "1970-01-01T00:00:00.0Z",
     "topic_prefix": "foo",
-    "region": ""
+    "region": "fr-par"
   },
-  "secret": "eyJOZXRJRCI6IjBmYzFjNDJmLTA1MGUtNDIxZS04NmZjLTU0ZGNmMTU0Y2Y4NCIsIk5ldEtleSI6Ijg0ZWY0MzA4LTBmNjMtNGMyNy04YmJiLTA4YzkzOGU2ZmZkMiJ9"
+  "secret": "eyJOZXRJRCI6IjliNWM5ZGZjLTM3ZjAtNGIxNS1hMDFjLWExYWVhY2UyZTYxNSIsIk5ldEtleSI6ImZlZjUwOWQ5LWUwMjMtNGIzNC1iZGU2LTczYTJkZjAzZDM5ZCJ9"
 }

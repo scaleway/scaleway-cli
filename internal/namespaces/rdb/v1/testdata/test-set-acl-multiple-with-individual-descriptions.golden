@@ -2,10 +2,10 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ 3 ACL rules successfully added.
 IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
-0.0.0.0/0   tcp       inbound    allow   Allow All    4568
-1.1.1.1/32  tcp       inbound    allow   first        4568
-2.2.2.2/32  tcp       inbound    allow   second       4568
-3.3.3.3/32  tcp       inbound    allow   third        4568
+0.0.0.0/0   tcp       inbound    allow   Allow All    3327
+1.1.1.1/32  tcp       inbound    allow   first        3327
+2.2.2.2/32  tcp       inbound    allow   second       3327
+3.3.3.3/32  tcp       inbound    allow   third        3327
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
@@ -15,7 +15,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow All",
-      "port": 4568
+      "port": 3327
     },
     {
       "ip": "1.1.1.1/32",
@@ -23,7 +23,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "first",
-      "port": 4568
+      "port": 3327
     },
     {
       "ip": "2.2.2.2/32",
@@ -31,7 +31,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "second",
-      "port": 4568
+      "port": 3327
     },
     {
       "ip": "3.3.3.3/32",
@@ -39,7 +39,7 @@ IP          PROTOCOL  DIRECTION  ACTION  DESCRIPTION  PORT
       "direction": "inbound",
       "action": "allow",
       "description": "third",
-      "port": 4568
+      "port": 3327
     }
   ],
   "Success": {

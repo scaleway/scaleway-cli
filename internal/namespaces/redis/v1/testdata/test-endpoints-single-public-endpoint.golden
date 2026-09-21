@@ -1,8 +1,8 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID           9bd9070c-1571-4631-a8d8-33e87d104beb
+ID           8f264d86-e2d4-4311-82c0-a3d2cfb818d8
 Name         1-pub-endpoint
-ProjectID    46fd79d8-1a35-4548-bfb8-03df51a0ebae
+ProjectID    de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Status       ready
 Version      8.6.6
 NodeType     RED1-micro
@@ -15,15 +15,15 @@ UserName     admin
 
 Endpoints:
 ID                                    Port  IPs
-72c32043-69f4-41e7-a6fd-d3b5e239e017  6379  [51.158.111.88]
+fe3795ef-6415-40a8-bb37-a5fc44b7e520  6379  [163.172.9.88]
 
 ACLRules:
 ID   IP CIDR  DESCRIPTION
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "9bd9070c-1571-4631-a8d8-33e87d104beb",
+  "id": "8f264d86-e2d4-4311-82c0-a3d2cfb818d8",
   "name": "1-pub-endpoint",
-  "project_id": "46fd79d8-1a35-4548-bfb8-03df51a0ebae",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "status": "ready",
   "version": "8.6.6",
   "endpoints": [
@@ -31,9 +31,9 @@ ID   IP CIDR  DESCRIPTION
       "port": 6379,
       "public_network": {},
       "ips": [
-        "51.158.111.88"
+        "163.172.9.88"
       ],
-      "id": "72c32043-69f4-41e7-a6fd-d3b5e239e017"
+      "id": "fe3795ef-6415-40a8-bb37-a5fc44b7e520"
     }
   ],
   "tags": [],

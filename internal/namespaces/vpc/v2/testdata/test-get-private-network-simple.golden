@@ -1,87 +1,87 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID                              213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
-Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd
-Name                            cli-pn-vigorous-hamilton
-OrganizationID                  4d333544-41be-4b0b-8907-0b9036859747
-ProjectID                       4d333544-41be-4b0b-8907-0b9036859747
+ID                              78fd67d2-e922-4ace-846f-1fd895692097
+Srn                             srn://vpc.scw.eu/regions/fr-par/private-networks/78fd67d2-e922-4ace-846f-1fd895692097
+Name                            cli-pn-admiring-jackson
+OrganizationID                  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID                       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
 Region                          fr-par
 CreatedAt                       few seconds ago
 UpdatedAt                       few seconds ago
-VpcID                           3a436539-0369-429e-95b4-c38683bcac76
+VpcID                           363ba968-29a8-4ac2-8f99-a0352a3b9964
 DHCPEnabled                     true
 DefaultRoutePropagationEnabled  false
 HasObjectStoragePrivateAccess   false
 
 Subnets:
 ID                                    SRN  CREATED AT       UPDATED AT       SUBNET                    PROJECT ID                            PRIVATE NETWORK ID                    VPC ID                                REGION
-79c51d80-4411-41a1-bae3-793324998a13  -    few seconds ago  few seconds ago  172.16.16.0/22            4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par
-bf07aee5-13fb-4779-8169-2386e4bb667e  -    few seconds ago  few seconds ago  fd6d:9b51:d4ce:4bce::/64  4d333544-41be-4b0b-8907-0b9036859747  213a94c0-c3e3-450f-9f71-2a1c9bbe27dd  3a436539-0369-429e-95b4-c38683bcac76  fr-par
+553fce05-2353-413e-b688-3571c0f2711d  -    few seconds ago  few seconds ago  172.16.0.0/22             de2b260d-2c2e-4be9-baa0-99d8ed17f1da  78fd67d2-e922-4ace-846f-1fd895692097  363ba968-29a8-4ac2-8f99-a0352a3b9964  fr-par
+0723213f-11cc-4fd5-9016-68a3114342d6  -    few seconds ago  few seconds ago  fdb9:eb31:3ccc:5fa8::/64  de2b260d-2c2e-4be9-baa0-99d8ed17f1da  78fd67d2-e922-4ace-846f-1fd895692097  363ba968-29a8-4ac2-8f99-a0352a3b9964  fr-par
 
 Instance Servers:
-ID                                    NAME                    STATE     NIC ID                                MAC ADDRESS
-99d8b617-f9b7-4348-bcd9-65a6d8187943  cli-srv-cranky-davinci  archived  753bfe83-e937-42e8-8997-c809c44a4a6e  02:00:00:1a:6d:be
+ID                                    NAME                        STATE     NIC ID                                MAC ADDRESS
+1fd286a8-8d2b-4166-bc9d-77f8a91ef940  cli-srv-dreamy-brahmagupta  archived  23aa6bd8-ab74-4bcd-8390-7484926e52ee  02:00:00:11:39:e0
 
 IPAM IPs:
 ID                                    ADDRESS
-83db52f1-bfe0-4bcb-87bd-f8990bbb96d1  fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64
-aafa2ba2-8333-4073-a978-bdfd510aa542  172.16.16.2/22
+0059870b-990f-4130-80af-bf622d2fbdd1  fdb9:eb31:3ccc:5fa8:5078:1ca6:3fe9:23c1/64
+d2e35bee-fb1d-43ef-b11c-0be091cd5139  172.16.0.2/22
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-  "name": "cli-pn-vigorous-hamilton",
-  "organization_id": "4d333544-41be-4b0b-8907-0b9036859747",
-  "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
+  "id": "78fd67d2-e922-4ace-846f-1fd895692097",
+  "srn": "srn://vpc.scw.eu/regions/fr-par/private-networks/78fd67d2-e922-4ace-846f-1fd895692097",
+  "name": "cli-pn-admiring-jackson",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
   "region": "fr-par",
   "tags": [],
   "created_at": "1970-01-01T00:00:00.0Z",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "subnets": [
     {
-      "id": "79c51d80-4411-41a1-bae3-793324998a13",
+      "id": "553fce05-2353-413e-b688-3571c0f2711d",
       "srn": "",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "172.16.16.0/22",
-      "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
-      "private_network_id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-      "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+      "subnet": "172.16.0.0/22",
+      "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+      "private_network_id": "78fd67d2-e922-4ace-846f-1fd895692097",
+      "vpc_id": "363ba968-29a8-4ac2-8f99-a0352a3b9964",
       "region": "fr-par"
     },
     {
-      "id": "bf07aee5-13fb-4779-8169-2386e4bb667e",
+      "id": "0723213f-11cc-4fd5-9016-68a3114342d6",
       "srn": "",
       "created_at": "1970-01-01T00:00:00.0Z",
       "updated_at": "1970-01-01T00:00:00.0Z",
-      "subnet": "fd6d:9b51:d4ce:4bce::/64",
-      "project_id": "4d333544-41be-4b0b-8907-0b9036859747",
-      "private_network_id": "213a94c0-c3e3-450f-9f71-2a1c9bbe27dd",
-      "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+      "subnet": "fdb9:eb31:3ccc:5fa8::/64",
+      "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+      "private_network_id": "78fd67d2-e922-4ace-846f-1fd895692097",
+      "vpc_id": "363ba968-29a8-4ac2-8f99-a0352a3b9964",
       "region": "fr-par"
     }
   ],
-  "vpc_id": "3a436539-0369-429e-95b4-c38683bcac76",
+  "vpc_id": "363ba968-29a8-4ac2-8f99-a0352a3b9964",
   "dhcp_enabled": true,
   "default_route_propagation_enabled": false,
   "has_object_storage_private_access": false,
   "instance_servers": [
     {
-      "id": "99d8b617-f9b7-4348-bcd9-65a6d8187943",
-      "name": "cli-srv-cranky-davinci",
+      "id": "1fd286a8-8d2b-4166-bc9d-77f8a91ef940",
+      "name": "cli-srv-dreamy-brahmagupta",
       "state": "stopped",
-      "nic_id": "753bfe83-e937-42e8-8997-c809c44a4a6e",
-      "mac": "02:00:00:1a:6d:be"
+      "nic_id": "23aa6bd8-ab74-4bcd-8390-7484926e52ee",
+      "mac": "02:00:00:11:39:e0"
     }
   ],
   "ipam_ips": [
     {
-      "id": "83db52f1-bfe0-4bcb-87bd-f8990bbb96d1",
-      "address": "fd6d:9b51:d4ce:4bce:f925:dbff:1d36:75f8/64"
+      "id": "0059870b-990f-4130-80af-bf622d2fbdd1",
+      "address": "fdb9:eb31:3ccc:5fa8:5078:1ca6:3fe9:23c1/64"
     },
     {
-      "id": "aafa2ba2-8333-4073-a978-bdfd510aa542",
-      "address": "172.16.16.2/22"
+      "id": "d2e35bee-fb1d-43ef-b11c-0be091cd5139",
+      "address": "172.16.0.2/22"
     }
   ]
 }

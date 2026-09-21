@@ -1,249 +1,277 @@
 ---
-version: 1
+version: 2
 interactions:
-- request:
-    body: ""
-    form: {}
-    headers:
-      Accept-Encoding:
-      - identity
-      Amz-Sdk-Invocation-Id:
-      - 29a08441-199f-40b0-a6df-c497be908026
-      Amz-Sdk-Request:
-      - attempt=1; max=3
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWSV64P0TT9Y0XKBM6D/20240430/fr-par/s3/aws4_request,
-        SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-type;host;x-amz-acl;x-amz-bucket-object-lock-enabled;x-amz-content-sha256;x-amz-date,
-        Signature=b77502e7d219cea041d8a7e13b80871f464b748a0099046b9567fd0e38f9c5ea
-      Content-Type:
-      - application/xml
-      User-Agent:
-      - aws-sdk-go-v2/1.26.1 os/linux lang/go#1.22.2 md/GOOS#linux md/GOARCH#amd64
-        api/s3#1.53.1
-      X-Amz-Acl:
-      - authenticated-read
-      X-Amz-Bucket-Object-Lock-Enabled:
-      - "false"
-      X-Amz-Content-Sha256:
-      - 2cb57fad7b7168921a4c94426cfcb9ee2953f126430595df844e22d50f029060
-      X-Amz-Date:
-      - 20240430T155709Z
-    url: https://cli-test-bucket-create-5011354736537309412.s3.fr-par.scw.cloud/
-    method: PUT
-  response:
-    body: ""
-    headers:
-      Content-Length:
-      - "0"
-      Date:
-      - Tue, 30 Apr 2024 15:57:09 GMT
-      Location:
-      - /cli-test-bucket-create-5011354736537309412
-      X-Amz-Id-2:
-      - txgc66502d8031a4ef09d59-00663114d5
-      X-Amz-Request-Id:
-      - txgc66502d8031a4ef09d59-00663114d5
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      Accept-Encoding:
-      - identity
-      Amz-Sdk-Invocation-Id:
-      - cb5c7e21-4bfd-480a-9dca-b96c88255fd4
-      Amz-Sdk-Request:
-      - attempt=1; max=3
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWSV64P0TT9Y0XKBM6D/20240430/fr-par/s3/aws4_request,
-        SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;content-length;content-md5;content-type;host;x-amz-content-sha256;x-amz-date,
-        Signature=83ae85f043b023018275b52f948af9d5e904a79e70443a5edefd0010e4293a08
-      Content-Md5:
-      - orZUUp7E9srl53Od8p1glA==
-      Content-Type:
-      - application/xml
-      User-Agent:
-      - aws-sdk-go-v2/1.26.1 os/linux lang/go#1.22.2 md/GOOS#linux md/GOARCH#amd64
-        api/s3#1.53.1
-      X-Amz-Content-Sha256:
-      - d7f1d7ed35d188f6a89d394cc2055f5910c14a3abccf41e808e7f7327d21e129
-      X-Amz-Date:
-      - 20240430T155709Z
-    url: https://cli-test-bucket-create-5011354736537309412.s3.fr-par.scw.cloud/?versioning=
-    method: PUT
-  response:
-    body: ""
-    headers:
-      Content-Length:
-      - "0"
-      Date:
-      - Tue, 30 Apr 2024 15:57:09 GMT
-      X-Amz-Id-2:
-      - txgcd341a08129c453281ca-00663114d5
-      X-Amz-Request-Id:
-      - txgcd341a08129c453281ca-00663114d5
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: |-
-      <?xml version="1.0" encoding="UTF-8"?>
-      <VersioningConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Status>Suspended</Status></VersioningConfiguration>
-    form: {}
-    headers:
-      Accept-Encoding:
-      - identity
-      Amz-Sdk-Invocation-Id:
-      - 6a80b1e9-251a-439c-ac96-1ec0adc82a95
-      Amz-Sdk-Request:
-      - attempt=1; max=3
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWSV64P0TT9Y0XKBM6D/20240430/fr-par/s3/aws4_request,
-        SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=16b069c97a7499081ba74eb44afff058d6581fabb838d6db5262072742400a19
-      User-Agent:
-      - aws-sdk-go-v2/1.26.1 os/linux lang/go#1.22.2 md/GOOS#linux md/GOARCH#amd64
-        api/s3#1.53.1
-      X-Amz-Content-Sha256:
-      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      X-Amz-Date:
-      - 20240430T155709Z
-    url: https://cli-test-bucket-create-5011354736537309412.s3.fr-par.scw.cloud/?versioning=
-    method: GET
-  response:
-    body: |-
-      <?xml version="1.0" encoding="UTF-8"?>
-      <VersioningConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Status>Suspended</Status></VersioningConfiguration>
-    headers:
-      Content-Length:
-      - "164"
-      Content-Type:
-      - text/xml; charset=utf-8
-      Date:
-      - Tue, 30 Apr 2024 15:57:09 GMT
-      X-Amz-Id-2:
-      - txg803048a8fbe245a68136-00663114d5
-      X-Amz-Request-Id:
-      - txg803048a8fbe245a68136-00663114d5
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txg058d12f7fef64c4cbca4-00663114d5</RequestId><HostId>txg058d12f7fef64c4cbca4-00663114d5</HostId><Resource>/cli-test-bucket-create-5011354736537309412</Resource><BucketName>cli-test-bucket-create-5011354736537309412</BucketName></Error>
-    form: {}
-    headers:
-      Accept-Encoding:
-      - identity
-      Amz-Sdk-Invocation-Id:
-      - e198c2fa-3087-452e-96c6-9310f175e009
-      Amz-Sdk-Request:
-      - attempt=1; max=3
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWSV64P0TT9Y0XKBM6D/20240430/fr-par/s3/aws4_request,
-        SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=b817777d73274bdb7c4e8a78fa21e44537ab074e5147a32ebbd49cddc7212848
-      User-Agent:
-      - aws-sdk-go-v2/1.26.1 os/linux lang/go#1.22.2 md/GOOS#linux md/GOARCH#amd64
-        api/s3#1.53.1
-      X-Amz-Content-Sha256:
-      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      X-Amz-Date:
-      - 20240430T155709Z
-    url: https://cli-test-bucket-create-5011354736537309412.s3.fr-par.scw.cloud/?tagging=
-    method: GET
-  response:
-    body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txg058d12f7fef64c4cbca4-00663114d5</RequestId><HostId>txg058d12f7fef64c4cbca4-00663114d5</HostId><Resource>/cli-test-bucket-create-5011354736537309412</Resource><BucketName>cli-test-bucket-create-5011354736537309412</BucketName></Error>
-    headers:
-      Content-Length:
-      - "323"
-      Content-Type:
-      - application/xml
-      Date:
-      - Tue, 30 Apr 2024 15:57:09 GMT
-      X-Amz-Id-2:
-      - txg058d12f7fef64c4cbca4-00663114d5
-      X-Amz-Request-Id:
-      - txg058d12f7fef64c4cbca4-00663114d5
-    status: 404 Not Found
-    code: 404
-    duration: ""
-- request:
-    body: |-
-      <?xml version="1.0" encoding="UTF-8"?>
-      <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><DisplayName>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</DisplayName><ID>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</ID></Owner><AccessControlList><Grant><Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"><URI>http://acs.amazonaws.com/groups/global/AuthenticatedUsers</URI></Grantee><Permission>READ</Permission></Grant><Grant><Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"><ID>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</ID><DisplayName>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</DisplayName></Grantee><Permission>FULL_CONTROL</Permission></Grant></AccessControlList></AccessControlPolicy>
-    form: {}
-    headers:
-      Accept-Encoding:
-      - identity
-      Amz-Sdk-Invocation-Id:
-      - a5dbd847-8abf-4c98-be9b-03107c9b3897
-      Amz-Sdk-Request:
-      - attempt=1; max=3
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWSV64P0TT9Y0XKBM6D/20240430/fr-par/s3/aws4_request,
-        SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=96db292ca85c00c1a8d7acfdee8f2c0f69ddc8869d06a901e451c16c03754387
-      User-Agent:
-      - aws-sdk-go-v2/1.26.1 os/linux lang/go#1.22.2 md/GOOS#linux md/GOARCH#amd64
-        api/s3#1.53.1
-      X-Amz-Content-Sha256:
-      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      X-Amz-Date:
-      - 20240430T155709Z
-    url: https://cli-test-bucket-create-5011354736537309412.s3.fr-par.scw.cloud/?acl=
-    method: GET
-  response:
-    body: |-
-      <?xml version="1.0" encoding="UTF-8"?>
-      <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><DisplayName>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</DisplayName><ID>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</ID></Owner><AccessControlList><Grant><Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"><URI>http://acs.amazonaws.com/groups/global/AuthenticatedUsers</URI></Grantee><Permission>READ</Permission></Grant><Grant><Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"><ID>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</ID><DisplayName>105bdce1-64c0-48ab-899d-868455867ecf:105bdce1-64c0-48ab-899d-868455867ecf</DisplayName></Grantee><Permission>FULL_CONTROL</Permission></Grant></AccessControlList></AccessControlPolicy>
-    headers:
-      Content-Length:
-      - "900"
-      Content-Type:
-      - text/xml; charset=utf-8
-      Date:
-      - Tue, 30 Apr 2024 15:57:09 GMT
-      X-Amz-Id-2:
-      - txgc14a5685e1db4ae5a786-00663114d5
-      X-Amz-Request-Id:
-      - txgc14a5685e1db4ae5a786-00663114d5
-    status: 200 OK
-    code: 200
-    duration: ""
-- request:
-    body: ""
-    form: {}
-    headers:
-      Accept-Encoding:
-      - identity
-      Amz-Sdk-Invocation-Id:
-      - 8c008452-f9e1-4601-a067-c22d87816533
-      Amz-Sdk-Request:
-      - attempt=1; max=3
-      Authorization:
-      - AWS4-HMAC-SHA256 Credential=SCWSV64P0TT9Y0XKBM6D/20240430/fr-par/s3/aws4_request,
-        SignedHeaders=accept-encoding;amz-sdk-invocation-id;amz-sdk-request;host;x-amz-content-sha256;x-amz-date,
-        Signature=95f2a025d4a15fbcf6052407ad11e805f31b2e490cd789e22b6f934efc7c249f
-      User-Agent:
-      - aws-sdk-go-v2/1.26.1 os/linux lang/go#1.22.2 md/GOOS#linux md/GOARCH#amd64
-        api/s3#1.53.1
-      X-Amz-Content-Sha256:
-      - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
-      X-Amz-Date:
-      - 20240430T155709Z
-    url: https://cli-test-bucket-create-5011354736537309412.s3.fr-par.scw.cloud/
-    method: DELETE
-  response:
-    body: ""
-    headers:
-      Date:
-      - Tue, 30 Apr 2024 15:57:09 GMT
-      X-Amz-Id-2:
-      - txgac78626ad18b467d9f69-00663114d5
-      X-Amz-Request-Id:
-      - txgac78626ad18b467d9f69-00663114d5
-    status: 204 No Content
-    code: 204
-    duration: ""
+    - id: 0
+      request:
+        proto: ""
+        proto_major: 0
+        proto_minor: 0
+        content_length: 150
+        host: ""
+        body: <CreateBucketConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><LocationConstraint>fr-par</LocationConstraint></CreateBucketConfiguration>
+        headers:
+            Accept-Encoding:
+                - identity
+            Amz-Sdk-Invocation-Id:
+                - 9105251d-83a0-4009-b551-ba3800f782be
+            Amz-Sdk-Request:
+                - attempt=1; max=3
+            Content-Type:
+                - application/xml
+            User-Agent:
+                - aws-sdk-go-v2/1.47.0 ua/2.1 os/linux lang/go#1.27.1 md/GOOS#linux md/GOARCH#amd64 api/s3#1.113.1 scaleway-cli/0.0.0+test m/E
+            X-Amz-Acl:
+                - authenticated-read
+            X-Amz-Bucket-Object-Lock-Enabled:
+                - "false"
+            X-Amz-Content-Sha256:
+                - 2cb57fad7b7168921a4c94426cfcb9ee2953f126430595df844e22d50f029060
+            X-Amz-Date:
+                - 20260925T080356Z
+        url: https://cli-test-bucket-create-2793086958323842042.s3.fr-par.scw.cloud/
+        method: PUT
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Length:
+                - "0"
+            Date:
+                - Fri, 25 Sep 2026 08:03:56 GMT
+            Location:
+                - /cli-test-bucket-create-2793086958323842042
+            X-Amz-Id-2:
+                - txgfeb8152bceff4ee6af1d-006ab62aec
+            X-Amz-Request-Id:
+                - txgfeb8152bceff4ee6af1d-006ab62aec
+        status: 200 OK
+        code: 200
+        duration: 5.132466873s
+    - id: 1
+      request:
+        proto: ""
+        proto_major: 0
+        proto_minor: 0
+        content_length: 125
+        host: ""
+        body: <VersioningConfiguration xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Status>Suspended</Status></VersioningConfiguration>
+        form:
+            versioning:
+                - ""
+        headers:
+            Accept-Encoding:
+                - identity
+            Amz-Sdk-Invocation-Id:
+                - 4516fe55-d35a-4175-a530-91da6c2c363d
+            Amz-Sdk-Request:
+                - attempt=1; max=3
+            Content-Type:
+                - application/xml
+            User-Agent:
+                - aws-sdk-go-v2/1.47.0 ua/2.1 os/linux lang/go#1.27.1 md/GOOS#linux md/GOARCH#amd64 api/s3#1.113.1 scaleway-cli/0.0.0+test m/E
+            X-Amz-Checksum-Crc32:
+                - gZ/csg==
+            X-Amz-Content-Sha256:
+                - d7f1d7ed35d188f6a89d394cc2055f5910c14a3abccf41e808e7f7327d21e129
+            X-Amz-Date:
+                - 20260925T080358Z
+        url: https://cli-test-bucket-create-2793086958323842042.s3.fr-par.scw.cloud/?versioning=
+        method: PUT
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Content-Length:
+                - "0"
+            Date:
+                - Fri, 25 Sep 2026 08:04:01 GMT
+            X-Amz-Id-2:
+                - txg0881de2d1448472898de-006ab62af1
+            X-Amz-Request-Id:
+                - txg0881de2d1448472898de-006ab62af1
+        status: 200 OK
+        code: 200
+        duration: 701.685514ms
+    - id: 2
+      request:
+        proto: ""
+        proto_major: 0
+        proto_minor: 0
+        content_length: 0
+        host: ""
+        form:
+            versioning:
+                - ""
+        headers:
+            Accept-Encoding:
+                - identity
+            Amz-Sdk-Invocation-Id:
+                - d80b7f3e-2aa1-4144-b4c0-af869c86c50d
+            Amz-Sdk-Request:
+                - attempt=1; max=3
+            User-Agent:
+                - aws-sdk-go-v2/1.47.0 ua/2.1 os/linux lang/go#1.27.1 md/GOOS#linux md/GOARCH#amd64 api/s3#1.113.1 scaleway-cli/0.0.0+test m/E
+            X-Amz-Content-Sha256:
+                - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            X-Amz-Date:
+                - 20260925T080402Z
+        url: https://cli-test-bucket-create-2793086958323842042.s3.fr-par.scw.cloud/?versioning=
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 116
+        body: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <VersioningConfiguration><Status>Suspended</Status></VersioningConfiguration>
+        headers:
+            Content-Length:
+                - "116"
+            Content-Type:
+                - text/xml; charset=utf-8
+            Date:
+                - Fri, 25 Sep 2026 08:04:02 GMT
+            X-Amz-Id-2:
+                - txg25328d69fb47402ea1bf-006ab62af2
+            X-Amz-Request-Id:
+                - txg25328d69fb47402ea1bf-006ab62af2
+        status: 200 OK
+        code: 200
+        duration: 323.227557ms
+    - id: 3
+      request:
+        proto: ""
+        proto_major: 0
+        proto_minor: 0
+        content_length: 0
+        host: ""
+        form:
+            tagging:
+                - ""
+        headers:
+            Accept-Encoding:
+                - identity
+            Amz-Sdk-Invocation-Id:
+                - 412e1b8c-6f5b-4e64-b655-bdf6316c39fa
+            Amz-Sdk-Request:
+                - attempt=1; max=3
+            User-Agent:
+                - aws-sdk-go-v2/1.47.0 ua/2.1 os/linux lang/go#1.27.1 md/GOOS#linux md/GOARCH#amd64 api/s3#1.113.1 scaleway-cli/0.0.0+test m/E
+            X-Amz-Content-Sha256:
+                - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            X-Amz-Date:
+                - 20260925T080402Z
+        url: https://cli-test-bucket-create-2793086958323842042.s3.fr-par.scw.cloud/?tagging=
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 323
+        body: <Error><Code>NoSuchTagSet</Code><Message>The TagSet does not exist</Message><RequestId>txgee811683e88e4603af7f-006ab62af2</RequestId><HostId>txgee811683e88e4603af7f-006ab62af2</HostId><Resource>/cli-test-bucket-create-2793086958323842042</Resource><BucketName>cli-test-bucket-create-2793086958323842042</BucketName></Error>
+        headers:
+            Content-Length:
+                - "323"
+            Content-Type:
+                - application/xml
+            Date:
+                - Fri, 25 Sep 2026 08:04:02 GMT
+            X-Amz-Id-2:
+                - txgee811683e88e4603af7f-006ab62af2
+            X-Amz-Request-Id:
+                - txgee811683e88e4603af7f-006ab62af2
+        status: 404 Not Found
+        code: 404
+        duration: 271.852064ms
+    - id: 4
+      request:
+        proto: ""
+        proto_major: 0
+        proto_minor: 0
+        content_length: 0
+        host: ""
+        form:
+            acl:
+                - ""
+        headers:
+            Accept-Encoding:
+                - identity
+            Amz-Sdk-Invocation-Id:
+                - a6721b0b-7f6f-43c4-86d4-0bc4cf9aec61
+            Amz-Sdk-Request:
+                - attempt=1; max=3
+            User-Agent:
+                - aws-sdk-go-v2/1.47.0 ua/2.1 os/linux lang/go#1.27.1 md/GOOS#linux md/GOARCH#amd64 api/s3#1.113.1 scaleway-cli/0.0.0+test m/E
+            X-Amz-Content-Sha256:
+                - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            X-Amz-Date:
+                - 20260925T080402Z
+        url: https://cli-test-bucket-create-2793086958323842042.s3.fr-par.scw.cloud/?acl=
+        method: GET
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 900
+        body: |-
+            <?xml version="1.0" encoding="UTF-8"?>
+            <AccessControlPolicy xmlns="http://s3.amazonaws.com/doc/2006-03-01/"><Owner><DisplayName>de2b260d-2c2e-4be9-baa0-99d8ed17f1da:de2b260d-2c2e-4be9-baa0-99d8ed17f1da</DisplayName><ID>de2b260d-2c2e-4be9-baa0-99d8ed17f1da:de2b260d-2c2e-4be9-baa0-99d8ed17f1da</ID></Owner><AccessControlList><Grant><Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="CanonicalUser"><ID>de2b260d-2c2e-4be9-baa0-99d8ed17f1da:de2b260d-2c2e-4be9-baa0-99d8ed17f1da</ID><DisplayName>de2b260d-2c2e-4be9-baa0-99d8ed17f1da:de2b260d-2c2e-4be9-baa0-99d8ed17f1da</DisplayName></Grantee><Permission>FULL_CONTROL</Permission></Grant><Grant><Grantee xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:type="Group"><URI>http://acs.amazonaws.com/groups/global/AuthenticatedUsers</URI></Grantee><Permission>READ</Permission></Grant></AccessControlList></AccessControlPolicy>
+        headers:
+            Content-Length:
+                - "900"
+            Content-Type:
+                - text/xml; charset=utf-8
+            Date:
+                - Fri, 25 Sep 2026 08:04:02 GMT
+            X-Amz-Id-2:
+                - txg178e08cb052047b5929f-006ab62af2
+            X-Amz-Request-Id:
+                - txg178e08cb052047b5929f-006ab62af2
+        status: 200 OK
+        code: 200
+        duration: 193.179774ms
+    - id: 5
+      request:
+        proto: ""
+        proto_major: 0
+        proto_minor: 0
+        content_length: 0
+        host: ""
+        headers:
+            Accept-Encoding:
+                - identity
+            Amz-Sdk-Invocation-Id:
+                - 436a7eac-496e-4341-8ab5-00daeeb035a1
+            Amz-Sdk-Request:
+                - attempt=1; max=3
+            User-Agent:
+                - aws-sdk-go-v2/1.47.0 ua/2.1 os/linux lang/go#1.27.1 md/GOOS#linux md/GOARCH#amd64 api/s3#1.113.1 scaleway-cli/0.0.0+test m/E
+            X-Amz-Content-Sha256:
+                - e3b0c44298fc1c149afbf4c8996fb92427ae41e4649b934ca495991b7852b855
+            X-Amz-Date:
+                - 20260925T080403Z
+        url: https://cli-test-bucket-create-2793086958323842042.s3.fr-par.scw.cloud/
+        method: DELETE
+      response:
+        proto: HTTP/2.0
+        proto_major: 2
+        proto_minor: 0
+        content_length: 0
+        body: ""
+        headers:
+            Date:
+                - Fri, 25 Sep 2026 08:04:03 GMT
+            X-Amz-Id-2:
+                - txg77e178fc3a7f44739313-006ab62af3
+            X-Amz-Request-Id:
+                - txg77e178fc3a7f44739313-006ab62af3
+        status: 204 No Content
+        code: 204
+        duration: 598.25531ms

@@ -1,34 +1,34 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-✅ Endpoint b15296de-3c6a-4f83-afcc-11b624ec5ffd successfully added.
-ID                                    IP              PORT   NAME  HOSTNAME
-424247b7-0231-43c5-89e5-9f8f1abc9447  51.159.114.202  23524  -     -
-b15296de-3c6a-4f83-afcc-11b624ec5ffd  172.16.0.2      5432   -     -
+✅ Endpoint 2d54d1a3-828d-45ad-a843-1b2b17981e41 successfully added.
+ID                                    IP              PORT  NAME  HOSTNAME
+55b24bba-0c8e-48ab-b151-529d5730928e  212.47.227.195  7780  -     -
+2d54d1a3-828d-45ad-a843-1b2b17981e41  172.16.16.2     5432  -     -
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Endpoints": [
     {
-      "id": "424247b7-0231-43c5-89e5-9f8f1abc9447",
-      "ip": "51.159.114.202",
-      "port": 23524,
+      "id": "55b24bba-0c8e-48ab-b151-529d5730928e",
+      "ip": "212.47.227.195",
+      "port": 7780,
       "name": null,
       "load_balancer": {}
     },
     {
-      "id": "b15296de-3c6a-4f83-afcc-11b624ec5ffd",
-      "ip": "172.16.0.2",
+      "id": "2d54d1a3-828d-45ad-a843-1b2b17981e41",
+      "ip": "172.16.16.2",
       "port": 5432,
       "name": null,
       "private_network": {
-        "private_network_id": "ca76b144-f58c-4312-9345-e6e5619177f5",
-        "service_ip": "172.16.0.2/22",
+        "private_network_id": "c0b5eba2-5d1b-495c-bb2e-8f48f4a3fdf3",
+        "service_ip": "172.16.16.2/22",
         "zone": "fr-par-1",
         "provisioning_mode": "ipam"
       }
     }
   ],
   "Success": {
-    "message": "Endpoint b15296de-3c6a-4f83-afcc-11b624ec5ffd successfully added",
+    "message": "Endpoint 2d54d1a3-828d-45ad-a843-1b2b17981e41 successfully added",
     "details": ""
   }
 }

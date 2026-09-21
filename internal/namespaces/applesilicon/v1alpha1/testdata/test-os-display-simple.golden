@@ -30,6 +30,6 @@ CompatibleServerTypes:
   ],
   "release_notes_url": "",
   "description": "",
-  "tags": null,
-  "supported_server_types": null
+  "tags": [],
+  "supported_server_types": []
 }

@@ -2,15 +2,15 @@
 version: 1
 interactions:
 - request:
-    body: '{"details":[{"argument_name":"endpoints","help_message":"Deployments must
-      have at least one endpoint","reason":"required"}],"message":"invalid argument(s)","type":"invalid_arguments"}'
+    body: '{"name":"cli-inference-affectionate-merkle","project_id":"de2b260d-2c2e-4be9-baa0-99d8ed17f1da","model_id":"623a4d27-40c1-4764-a6e2-6ea84d18fd2b","node_type_name":"L40S","tags":null,"endpoints":null}'
     form: {}
     headers:
       Content-Type:
       - application/json
       User-Agent:
-      - scaleway-sdk-go/v1.0.0-beta.7+dev (go1.25.3; darwin; arm64) cli-e2e-test
-    url: https://api.scaleway.com/inference/v1/regions/fr-par/deployments
+      - scaleway-sdk-go/v1.0.0-beta.37.0.20260917153350-2de72c5cf6d2 (go1.27.1; linux;
+        amd64) cli-e2e-test
+    url: http://localhost:8080/inference/v1/regions/fr-par/deployments
     method: POST
   response:
     body: '{"details":[{"argument_name":"endpoints","help_message":"Deployments must
@@ -23,17 +23,23 @@ interactions:
       Content-Type:
       - application/json
       Date:
-      - Fri, 21 Nov 2025 09:08:18 GMT
+      - Fri, 25 Sep 2026 09:20:06 GMT
       Server:
-      - Scaleway API Gateway (fr-par-2;edge01)
+      - Scaleway API Gateway (fr-par-3;edge02)
       Strict-Transport-Security:
       - max-age=63072000
       X-Content-Type-Options:
       - nosniff
       X-Frame-Options:
       - DENY
+      X-Ratelimit-Limit:
+      - 50, 50;w=1
+      X-Ratelimit-Remaining:
+      - "48"
+      X-Ratelimit-Reset:
+      - "1"
       X-Request-Id:
-      - 82b7e8cf-68cc-4f10-9168-87fc8f021e86
+      - 577e45d5-2344-406d-a2a9-b536c5366395
     status: 400 Bad Request
     code: 400
     duration: ""

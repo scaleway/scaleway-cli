@@ -1,7 +1,7 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ID                                    NAME      NODE TYPE  STATUS  ENGINE         REGION  TAGS  IS HA CLUSTER  BACKUP SCHEDULE  CREATED AT
-c71b4866-d96c-453e-919a-687f7cd1b350  cli-test  db-dev-s   ready   PostgreSQL-15  fr-par  []    false          Enabled          few seconds ago
+92f5831b-b6f4-418b-a877-4f2f2a5d21e6  cli-test  db-dev-s   ready   PostgreSQL-17  fr-par  []    false          Enabled          few seconds ago
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 [
   {
@@ -12,17 +12,17 @@ c71b4866-d96c-453e-919a-687f7cd1b350  cli-test  db-dev-s   ready   PostgreSQL-15
       "class": "lssd"
     },
     "region": "fr-par",
-    "id": "c71b4866-d96c-453e-919a-687f7cd1b350",
+    "id": "92f5831b-b6f4-418b-a877-4f2f2a5d21e6",
     "name": "cli-test",
-    "organization_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
-    "project_id": "5ebc0159-7cb7-406c-9521-9347d1987fb2",
+    "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+    "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
     "status": "ready",
-    "engine": "PostgreSQL-15",
+    "engine": "PostgreSQL-17",
     "upgradable_version": [],
     "endpoint": {
-      "id": "56e0207e-7ed1-486a-a5ac-f3d23ce91bda",
-      "ip": "195.154.71.12",
-      "port": 21189,
+      "id": "9384a630-c966-4e8e-ab19-f1472bbdfd76",
+      "ip": "51.158.114.105",
+      "port": 18550,
       "name": null,
       "load_balancer": {}
     },
@@ -60,15 +60,15 @@ c71b4866-d96c-453e-919a-687f7cd1b350  cli-test  db-dev-s   ready   PostgreSQL-15
       "next_run_at": "1970-01-01T00:00:00.0Z"
     },
     "is_ha_cluster": false,
-    "high_availability_mode": "unknown_high_availability_mode",
+    "high_availability_mode": "disabled",
     "read_replicas": [],
     "node_type": "db-dev-s",
     "init_settings": [],
     "endpoints": [
       {
-        "id": "56e0207e-7ed1-486a-a5ac-f3d23ce91bda",
-        "ip": "195.154.71.12",
-        "port": 21189,
+        "id": "9384a630-c966-4e8e-ab19-f1472bbdfd76",
+        "ip": "51.158.114.105",
+        "port": 18550,
         "name": null,
         "load_balancer": {}
       }

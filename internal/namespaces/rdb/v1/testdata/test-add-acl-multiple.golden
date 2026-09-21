@@ -2,10 +2,10 @@
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
 ✅ 3 ACL rules successfully added.
 IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION           PORT
-0.0.0.0/0       tcp       inbound    allow   Allow All             29920
-1.2.3.4/32      tcp       inbound    allow   Allow 1.2.3.4/32      29920
-10.10.10.10/32  tcp       inbound    allow   Allow 10.10.10.10/32  29920
-192.168.1.0/30  tcp       inbound    allow   Allow 192.168.1.0/30  29920
+0.0.0.0/0       tcp       inbound    allow   Allow All             7748
+1.2.3.4/32      tcp       inbound    allow   Allow 1.2.3.4/32      7748
+10.10.10.10/32  tcp       inbound    allow   Allow 10.10.10.10/32  7748
+192.168.1.0/30  tcp       inbound    allow   Allow 192.168.1.0/30  7748
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
   "Rules": [
@@ -15,7 +15,7 @@ IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION           PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow All",
-      "port": 29920
+      "port": 7748
     },
     {
       "ip": "1.2.3.4/32",
@@ -23,7 +23,7 @@ IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION           PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow 1.2.3.4/32",
-      "port": 29920
+      "port": 7748
     },
     {
       "ip": "10.10.10.10/32",
@@ -31,7 +31,7 @@ IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION           PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow 10.10.10.10/32",
-      "port": 29920
+      "port": 7748
     },
     {
       "ip": "192.168.1.0/30",
@@ -39,7 +39,7 @@ IP              PROTOCOL  DIRECTION  ACTION  DESCRIPTION           PORT
       "direction": "inbound",
       "action": "allow",
       "description": "Allow 192.168.1.0/30",
-      "port": 29920
+      "port": 7748
     }
   ],
   "Success": {

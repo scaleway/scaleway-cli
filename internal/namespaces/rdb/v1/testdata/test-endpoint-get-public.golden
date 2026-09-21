@@ -1,13 +1,13 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID    563846c5-a0f3-4710-85b0-9a6f3d6a4e18
-IP    195.154.71.12
-Port  17183
+ID    d63220f8-a31d-4502-af8e-1de6bd080d5b
+IP    51.158.57.120
+Port  26586
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "563846c5-a0f3-4710-85b0-9a6f3d6a4e18",
-  "ip": "195.154.71.12",
-  "port": 17183,
+  "id": "d63220f8-a31d-4502-af8e-1de6bd080d5b",
+  "ip": "51.158.57.120",
+  "port": 26586,
   "name": null,
   "load_balancer": {}
 }

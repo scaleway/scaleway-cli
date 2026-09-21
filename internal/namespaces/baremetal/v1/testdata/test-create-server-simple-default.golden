@@ -1,16 +1,16 @@
 🎲🎲🎲 EXIT CODE: 0 🎲🎲🎲
 🟩🟩🟩 STDOUT️ 🟩🟩🟩️
-ID              d362d0be-744e-4550-a4ce-45ef438bc1ba
-OrganizationID  fa1e3217-dc80-42ac-85c3-3f034b78b552
-ProjectID       fa1e3217-dc80-42ac-85c3-3f034b78b552
-Name            cli-bm-jovial-fermi
+ID              fea20948-5820-4d6c-9994-08128bf39d3d
+OrganizationID  de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+ProjectID       de2b260d-2c2e-4be9-baa0-99d8ed17f1da
+Name            cli-bm-zealous-lehmann
 Description     -
 UpdatedAt       few seconds ago
 CreatedAt       few seconds ago
 Status          ready
 OfferID         ddb09834-8680-4339-b5e3-19ca5205fa1f
 OfferName       EM-I215E-NVME
-Domain          -
+Domain          fea20948-5820-4d6c-9994-08128bf39d3d.fr-par-2.baremetal.scw.cloud
 BootType        normal
 Zone            fr-par-2
 PingStatus      unknown
@@ -18,17 +18,17 @@ Protected       false
 
 IPs:
 ID                                    ADDRESS                                REVERSE  VERSION  REVERSE STATUS  REVERSE STATUS MESSAGE
-df5477be-5c6c-4182-86cd-97604b3ddc0c  2001:bc8:1201:a17:b683:51ff:fe0f:60e4  -        IPv6     unknown         -
-e04103af-07c1-457b-98af-39814fea648d  195.154.100.41                         -        IPv4     unknown         -
+dded56db-bc41-4686-8f45-43869008cbc1  2001:bc8:1201:749:b683:51ff:fe0f:63a4  -        IPv6     unknown         -
+f3e36a1c-fbc1-4170-b369-39b9c09eaa66  51.159.203.111                         -        IPv4     unknown         -
 
 Options:
 ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
 🟩🟩🟩 JSON STDOUT 🟩🟩🟩
 {
-  "id": "d362d0be-744e-4550-a4ce-45ef438bc1ba",
-  "organization_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "project_id": "fa1e3217-dc80-42ac-85c3-3f034b78b552",
-  "name": "cli-bm-jovial-fermi",
+  "id": "fea20948-5820-4d6c-9994-08128bf39d3d",
+  "organization_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "project_id": "de2b260d-2c2e-4be9-baa0-99d8ed17f1da",
+  "name": "cli-bm-zealous-lehmann",
   "description": "",
   "updated_at": "1970-01-01T00:00:00.0Z",
   "created_at": "1970-01-01T00:00:00.0Z",
@@ -38,23 +38,23 @@ ID   NAME  STATUS  MANAGEABLE  EXPIRES AT
   "tags": [],
   "ips": [
     {
-      "id": "df5477be-5c6c-4182-86cd-97604b3ddc0c",
-      "address": "2001:bc8:1201:a17:b683:51ff:fe0f:60e4",
+      "id": "dded56db-bc41-4686-8f45-43869008cbc1",
+      "address": "2001:bc8:1201:749:b683:51ff:fe0f:63a4",
       "reverse": "",
       "version": "IPv6",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     },
     {
-      "id": "e04103af-07c1-457b-98af-39814fea648d",
-      "address": "195.154.100.41",
+      "id": "f3e36a1c-fbc1-4170-b369-39b9c09eaa66",
+      "address": "51.159.203.111",
       "reverse": "",
       "version": "IPv4",
       "reverse_status": "unknown",
       "reverse_status_message": ""
     }
   ],
-  "domain": "",
+  "domain": "fea20948-5820-4d6c-9994-08128bf39d3d.fr-par-2.baremetal.scw.cloud",
   "boot_type": "normal",
   "zone": "fr-par-2",
   "install": null,
