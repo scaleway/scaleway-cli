@@ -14,6 +14,24 @@ import (
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
+func S3EndpointArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:       "s3-endpoint",
+		Positional: false,
+		Required:   false,
+		Short:      "Custom S3 endpoint to use instead of the default. Note that it will override any passed region for the Object Bucket endpoint",
+	}
+}
+
+func S3UsePathStyleArgSpec() *core.ArgSpec {
+	return &core.ArgSpec{
+		Name:       "s3-use-path-style",
+		Positional: false,
+		Required:   false,
+		Short:      "Whether to use path style addressing for S3 API calls or not",
+	}
+}
+
 type bucketConfigArgs struct {
 	Region           scw.Region
 	Name             string
@@ -62,18 +80,8 @@ func bucketCreateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
-			{
-				Name:       "s3-endpoint",
-				Positional: false,
-				Required:   false,
-				Short:      "Custom S3 endpoint to use instead of the default",
-			},
-			{
-				Name:       "s3-use-path-style",
-				Positional: false,
-				Required:   false,
-				Short:      "Whether to use path style addressing for S3 API calls or not",
-			},
+			S3EndpointArgSpec(),
+			S3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -166,18 +174,8 @@ func bucketDeleteCommand() *core.Command {
 				Short:            "The unique name of the bucket",
 				AutoCompleteFunc: autocompleteBucketName,
 			},
-			{
-				Name:       "s3-endpoint",
-				Positional: false,
-				Required:   false,
-				Short:      "Custom S3 endpoint to use instead of the default",
-			},
-			{
-				Name:       "s3-use-path-style",
-				Positional: false,
-				Required:   false,
-				Short:      "Whether to use path style addressing for S3 API calls or not",
-			},
+			S3EndpointArgSpec(),
+			S3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -236,18 +234,8 @@ func bucketGetCommand() *core.Command {
 				Default:    core.DefaultValueSetter("false"),
 				Short:      "Whether to return the total size of the bucket and the number of objects. This operation can take long for large buckets.",
 			},
-			{
-				Name:       "s3-endpoint",
-				Positional: false,
-				Required:   false,
-				Short:      "Custom S3 endpoint to use instead of the default",
-			},
-			{
-				Name:       "s3-use-path-style",
-				Positional: false,
-				Required:   false,
-				Short:      "Whether to use path style addressing for S3 API calls or not",
-			},
+			S3EndpointArgSpec(),
+			S3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
@@ -389,18 +377,8 @@ func bucketUpdateCommand() *core.Command {
 				Short:            "The permissions given to users (grantees) to read or write objects",
 				AutoCompleteFunc: autocompleteBucketACL,
 			},
-			{
-				Name:       "s3-endpoint",
-				Positional: false,
-				Required:   false,
-				Short:      "Custom S3 endpoint to use instead of the default",
-			},
-			{
-				Name:       "s3-use-path-style",
-				Positional: false,
-				Required:   false,
-				Short:      "Whether to use path style addressing for S3 API calls or not",
-			},
+			S3EndpointArgSpec(),
+			S3UsePathStyleArgSpec(),
 			core.ProjectIDArgSpec(),
 			core.RegionArgSpec(),
 		},
