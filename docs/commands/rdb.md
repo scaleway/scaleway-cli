@@ -359,48 +359,48 @@ where suggested in the snippet.
 
 **Usage:**
 
-```
+```shell
 scw rdb config get <instance-id ...> [arg=value ...]
 ```
 
 
-**Args:**
+**Arguments:**
 
-| Name |   | Description |
-|------|---|-------------|
-| instance-id | Required | ID of the Database Instance |
-| type | Required<br />One of: `php`, `node`, `typescript`, `python`, `go`, `rust` | Configuration template type |
-| user |  | Database user to connect as |
-| db |  | Database name to connect to (defaults to rdb) |
-| private-network |  | Use the Private Network endpoint instead of the public one |
-| region | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` | Region to target. If none is passed will use default region from the config |
+| Name            | Description                                                                 | Argument Specifications                                                   |
+|-----------------|-----------------------------------------------------------------------------|---------------------------------------------------------------------------|
+| instance-id     | ID of the Database Instance                                                 | Required                                                                  |
+| type            | Configuration template type                                                 | Required<br />One of: `php`, `node`, `typescript`, `python`, `go`, `rust` |
+| user            | Database user to connect as                                                 |                                                                           |
+| db              | Database name to connect to (defaults to rdb)                               |                                                                           |
+| private-network | Use the Private Network endpoint instead of the public one                  |                                                                           |
+| region          | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw`               |
 
 
 **Examples:**
 
 
 Generate a PHP connection snippet
-```
+```shell
 scw rdb config get 11111111-1111-1111-1111-111111111111 type=php
 ```
 
 Generate a Node.js connection snippet for a custom user and database
-```
+```shell
 scw rdb config get 11111111-1111-1111-1111-111111111111 type=node user=myuser db=mydb
 ```
 
 Generate a Python connection snippet using the Private Network endpoint
-```
+```shell
 scw rdb config get 11111111-1111-1111-1111-111111111111 type=python private-network=true
 ```
 
 Generate a Go connection snippet
-```
+```shell
 scw rdb config get 11111111-1111-1111-1111-111111111111 type=go
 ```
 
 Generate a Rust connection snippet
-```
+```shell
 scw rdb config get 11111111-1111-1111-1111-111111111111 type=rust
 ```
 

@@ -107,7 +107,7 @@ func resolveRDBConnectionInfo(
 		InstanceID: params.InstanceID,
 	}, scw.WithContext(ctx))
 	if err != nil {
-		return nil, fmt.Errorf("failed to get instance %q", params.InstanceID)
+		return nil, fmt.Errorf("failed to get instance %q: %w", params.InstanceID, err)
 	}
 
 	engineFamily, err := detectEngineFamily(instance)
@@ -121,7 +121,7 @@ func resolveRDBConnectionInfo(
 		Name:       &params.User,
 	}, scw.WithContext(ctx), scw.WithAllPages())
 	if err != nil {
-		return nil, fmt.Errorf("failed to list users for instance %q", params.InstanceID)
+		return nil, fmt.Errorf("failed to list users for instance %q: %w", params.InstanceID, err)
 	}
 	if users.TotalCount != 1 {
 		return nil, fmt.Errorf(
