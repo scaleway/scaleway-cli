@@ -90,6 +90,7 @@ func k8sKubeconfigInstallRun(ctx context.Context, argsI any) (i any, e error) {
 			Redacted: new(
 				request.AuthMethod != authMethodLegacy,
 			), // put true after legacy deprecation
+			Endpoint: k8s.GetClusterKubeConfigRequestEndpointPublic,
 		})
 	if err != nil {
 		return nil, err

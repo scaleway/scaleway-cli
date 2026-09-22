@@ -8,7 +8,7 @@ import (
 	"reflect"
 
 	"github.com/scaleway/scaleway-cli/v2/core"
-	instance "github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
+	"github.com/scaleway/scaleway-sdk-go/api/instance/v2alpha1"
 	"github.com/scaleway/scaleway-sdk-go/scw"
 )
 
@@ -317,6 +317,13 @@ func instanceServerList() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "dedicated-pool-ids.{index}",
+				Short:      `Filter servers associated with these Dedicated Pools`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "private-network-ids.{index}",
 				Short:      `Private Network IDs to filter servers`,
 				Required:   false,
@@ -403,6 +410,13 @@ func instanceServerCreate() *core.Command {
 			{
 				Name:       "placement-group-id",
 				Short:      `ID of the placement group the server belongs to`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "dedicated-pool-id",
+				Short:      `ID of the Dedicated Pool this server belongs to`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -626,6 +640,13 @@ func instanceServerUpdate() *core.Command {
 				Positional: false,
 			},
 			{
+				Name:       "dedicated-pool-id",
+				Short:      `New Dedicated Pool ID`,
+				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
 				Name:       "rescue-mode",
 				Short:      `New rescue mode setting`,
 				Required:   false,
@@ -790,25 +811,29 @@ func instanceServerDelete() *core.Command {
 
 func instanceServerTypeList() *core.Command {
 	return &core.Command{
-		Short:     `List Instance types`,
-		Long:      `List available Instance types and their technical details.`,
+		Short:     `List compatible Instance types`,
+		Long:      `List the Instance types that a given instance could be converted to.`,
 		Namespace: "instance",
 		Resource:  "server-type",
 		Verb:      "list",
 		// Deprecated:    false,
-		ArgsType: reflect.TypeFor[instance.ListServerTypesRequest](),
+		ArgsType: reflect.TypeFor[instance.ListServerCompatibleTypesRequest](),
 		ArgSpecs: core.ArgSpecs{
 			{
 				Name:       "page-token",
-				Short:      `Token for pagination`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
 			},
 			{
 				Name:       "page-size",
-				Short:      `Number of server types to return per page`,
 				Required:   false,
+				Deprecated: false,
+				Positional: false,
+			},
+			{
+				Name:       "server-id",
+				Required:   true,
 				Deprecated: false,
 				Positional: false,
 			},
@@ -826,21 +851,17 @@ func instanceServerTypeList() *core.Command {
 			),
 		},
 		Run: func(ctx context.Context, args any) (i any, e error) {
-			request := args.(*instance.ListServerTypesRequest)
+			request := args.(*instance.ListServerCompatibleTypesRequest)
 
 			client := core.ExtractClient(ctx)
 			api := instance.NewAPI(client)
 
-			return api.ListServerTypes(request, scw.WithContext(ctx))
+			return api.ListServerCompatibleTypes(request, scw.WithContext(ctx))
 		},
 		Examples: []*core.Example{
 			{
-				Short:    "List all server-types in the default zone",
-				ArgsJSON: `null`,
-			},
-			{
-				Short:    "List all server-types in fr-par-1 zone",
-				ArgsJSON: `{"zone":"fr-par-1"}`,
+				Short:    "List the 10 first compatible server types for a given instance",
+				ArgsJSON: `{"page_size":10,"server_id":"11111111-1111-1111-1111-111111111111"}`,
 			},
 		},
 	}
@@ -2680,7 +2701,7 @@ func instanceSecurityGroupAddRules() *core.Command {
 			},
 			{
 				Name:       "security-group-rules.{index}.position",
-				Short:      `Position of the rule in the list`,
+				Short:      `Position of this rule in the rule list, starting at 1`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,
@@ -2809,7 +2830,7 @@ func instanceSecurityGroupSetRules() *core.Command {
 			},
 			{
 				Name:       "security-group-rules.{index}.position",
-				Short:      `Position of the rule in the list`,
+				Short:      `Position of this rule in the rule list, starting at 1`,
 				Required:   false,
 				Deprecated: false,
 				Positional: false,

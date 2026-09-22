@@ -71,9 +71,10 @@ func redisACLUpdateCommand() *core.Command {
 			}
 
 			waitReq := &redis.WaitForClusterRequest{
-				ClusterID: args.ClusterID,
-				Zone:      scw.Zone(args.Zone),
-				Timeout:   new(redisActionTimeout),
+				ClusterID:     args.ClusterID,
+				Zone:          scw.Zone(args.Zone),
+				Timeout:       new(redisActionTimeout),
+				RetryInterval: core.DefaultRetryInterval,
 			}
 			_, err = api.WaitForCluster(waitReq)
 			if err != nil {

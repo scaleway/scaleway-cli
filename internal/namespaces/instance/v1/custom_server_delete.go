@@ -241,6 +241,7 @@ func serverDeleteVolume(
 			Zone:                 volume.Zone,
 			VolumeID:             volume.ID,
 			VolumeTerminalStatus: new(block.VolumeStatusAvailable),
+			RetryInterval:        core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return errorDeletingResource(err)
@@ -252,8 +253,9 @@ func serverDeleteVolume(
 		})
 	} else {
 		_, err = instanceAPI.WaitForVolume(&instance.WaitForVolumeRequest{
-			VolumeID: volume.ID,
-			Zone:     volume.Zone,
+			VolumeID:      volume.ID,
+			Zone:          volume.Zone,
+			RetryInterval: core.DefaultRetryInterval,
 		})
 		if err != nil {
 			return errorDeletingResource(err)

@@ -93,10 +93,11 @@ scw keymanager key delete-key-material <key-id ...> [arg=value ...]
 
 **Arguments:**
 
-| Name   | Description                                                                 | Argument Specifications                                     |
-|--------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
-| key-id | ID of the key of which to delete the key material                           | Required                                                    |
-| region | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
+| Name               | Description                                                                 | Argument Specifications                                     |
+|--------------------|-----------------------------------------------------------------------------|-------------------------------------------------------------|
+| key-id             | ID of the key of which to delete the key material                           | Required                                                    |
+| key-rotation-index | (Optional) Rotation index of which to delete the key material               |                                                             |
+| region             | Region to target. If none is passed will use default region from the config | Default: `fr-par`<br />One of: `fr-par`, `nl-ams`, `pl-waw` |
 
 
 

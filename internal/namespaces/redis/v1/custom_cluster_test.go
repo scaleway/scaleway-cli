@@ -14,7 +14,7 @@ import (
 )
 
 const (
-	redisTestVersion = "8.4.0"
+	redisTestVersion = "8.6.6"
 	baseCommand      = "scw redis cluster create --wait name=%s version=" + redisTestVersion + " node-type=RED1-micro user-name=admin password=P@sSw0Rd "
 	serviceIPsA      = "172.16.4.1/22"
 	serviceIPsB      = "10.16.4.1/22"

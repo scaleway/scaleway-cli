@@ -13,6 +13,7 @@ AVAILABLE COMMANDS:
   domain                  Domain names - Registrar API
   environmental-footprint Access and download impact reports and impact data for your Scaleway projects. Our API provides key metrics such as estimated carbon emissions and water usage to help monitor your environmental footprint.
   kafka                   This API allows you to manage your Clusters for Apache Kafka®.
+  messageq                MessageQ API
   product-catalog         Product Catalog API
 
 BAREMETAL COMMANDS:
@@ -97,6 +98,7 @@ UTILITY COMMANDS:
   version                 Display cli version
 
 FLAGS:
+  -B, --beta                Enable beta mode
   -c, --config string       The path to the config file
   -D, --debug               Enable debug mode
   -h, --help                help for scw

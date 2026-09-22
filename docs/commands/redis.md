@@ -664,9 +664,9 @@ scw redis version list-settings [arg=value ...]
 **Examples:**
 
 
-List settings for Redis™ 8.4.0
+List settings for Redis™ 8.6.6
 ```shell
-scw redis version list-settings version=8.4.0
+scw redis version list-settings version=8.6.6
 ```
 
 
