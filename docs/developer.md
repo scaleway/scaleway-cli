@@ -78,9 +78,18 @@ Always run the test on the whole package (here the "baremetal" package stored in
 
 `commands/bench_test.go` measures how long the CLI takes to get ready, before any API call:
 building the command catalog, bootstrapping cobra, and registering the commands as MCP tools.
-These benchmarks run offline, so they need no credentials and no cassette.
 
-`mise run bench`
+A namespace can also benchmark one of its commands with `core.Benchmark`, which replays a
+cassette already recorded by the test suite instead of calling the API. It therefore measures
+what the CLI costs, argument parsing, SDK marshaling and output rendering, and leaves out the
+API latency. See `internal/namespaces/rdb/v1/custom_benchmark_test.go`.
+
+Benchmarks run offline, so they need no credentials and create no resource.
+
+```sh
+mise run bench                                  # the CLI engine
+mise run bench ./internal/namespaces/rdb/v1     # the RDB commands
+```
 
 To look for a regression, produce one file per revision and compare them with
 [benchstat](https://pkg.go.dev/golang.org/x/perf/cmd/benchstat):
