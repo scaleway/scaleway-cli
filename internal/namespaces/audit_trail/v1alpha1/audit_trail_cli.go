@@ -193,6 +193,7 @@ func auditTrailEventList() *core.Command {
 					"serverless_functions_trigger",
 					"wofl_workflow_definition",
 					"wofl_workflow_run",
+					"wofl_workflow_version",
 				},
 			},
 			{
